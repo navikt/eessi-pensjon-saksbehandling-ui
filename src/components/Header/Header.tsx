@@ -1,10 +1,12 @@
+import { ActionCreatorsPropType } from 'declarations/types.pt'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
-import { ActionCreators, T } from 'types.d'
+import { T } from 'declarations/types'
 import './Header.css'
 
 export interface HeaderProps {
@@ -17,10 +19,12 @@ export interface HeaderProps {
   isLoggingOut?: boolean;
   snow?: boolean;
   t: T;
-  username: string;
+  username?: string;
 }
 
-const Header = ({ actions, className, children, gettingUserInfo, header, history, isLoggingOut, snow, t, username }: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({
+  actions, className, children, gettingUserInfo, header, history, isLoggingOut, snow, t, username
+}: HeaderProps): JSX.Element => {
   const onLogoClick = () => {
     actions.clearData()
     history.push({
@@ -120,10 +124,10 @@ const Header = ({ actions, className, children, gettingUserInfo, header, history
 }
 
 Header.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   className: PT.string,
   gettingUserInfo: PT.bool,
-  header: PT.oneOfType([PT.node, PT.string]),
+  header: PT.element,
   history: PT.object,
   isLoggingOut: PT.bool,
   t: PT.func.isRequired,

@@ -1,8 +1,9 @@
 import classNames from 'classnames'
+import { RinaUrlPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
-import { RinaUrl, T } from 'types.d'
+import { RinaUrl, T } from 'declarations/types'
 import './BUCFooter.css'
 
 export interface BUCFooterProps {
@@ -11,7 +12,9 @@ export interface BUCFooterProps {
   t: T
 }
 
-const BUCFooter = ({ className, rinaUrl, t }: BUCFooterProps) => (
+const BUCFooter: React.FC<BUCFooterProps> = ({
+  className, rinaUrl, t
+}: BUCFooterProps): JSX.Element => (
   <div className={classNames('a-buc-c-footer', className)}>
     <Ui.Nav.Lenke
       id='a-buc-c-buclist__gotorina-link'
@@ -29,7 +32,7 @@ const BUCFooter = ({ className, rinaUrl, t }: BUCFooterProps) => (
 
 BUCFooter.propTypes = {
   className: PT.string,
-  rinaUrl: PT.string.isRequired,
-  t: PT.func.isRequired
+  rinaUrl: RinaUrlPropType,
+  t: TPropType.isRequired
 }
 export default BUCFooter

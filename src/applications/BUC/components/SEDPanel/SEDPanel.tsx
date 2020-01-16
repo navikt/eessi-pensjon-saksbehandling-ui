@@ -1,21 +1,22 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
-import { Buc, InstitutionNames, Sed } from 'applications/BUC/declarations/buc.d'
+import { AttachedFiles, Buc, InstitutionNames, Sed, Seds } from 'declarations/buc'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import React from 'react'
-import { ActionCreators, AllowedLocaleString, T } from 'types.d'
+import { AllowedLocaleString, T } from 'declarations/types'
 import SEDBody from '../SEDBody/SEDBody'
 import './SEDPanel.css'
 
 export interface SEDPanelProps {
   actions: ActionCreators;
   aktoerId: string;
-  attachments: Array<any>;
+  attachments: AttachedFiles;
   attachmentsError: boolean;
   buc: Buc;
   className ?: string;
-  followUpSeds: Array<Sed>;
+  followUpSeds: Seds;
   institutionNames: InstitutionNames;
   locale: AllowedLocaleString;
   onSEDNew: (buc: Buc, sed: Sed) => void;
@@ -24,12 +25,13 @@ export interface SEDPanelProps {
   t: T;
 }
 
-const SEDPanel = ({
+const allowedStatus: Array<string> = ['new', 'active']
+
+const SEDPanel: React.FC<SEDPanelProps> = ({
   actions, aktoerId, attachments, attachmentsError, buc, className, followUpSeds, institutionNames, locale, onSEDNew,
   sed, style, t
-}: SEDPanelProps) => {
+}: SEDPanelProps): JSX.Element => {
   const sedHasOption: Function = (sed: Sed): boolean => {
-    const allowedStatus = ['new', 'active']
     return _.includes(allowedStatus, sed.status)
   }
 

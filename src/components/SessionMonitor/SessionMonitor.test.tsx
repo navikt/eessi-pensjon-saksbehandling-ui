@@ -66,6 +66,7 @@ describe('components/SessionMonitor', () => {
 
   it('SessionMonitor will trigger a openModal when session expired', async (done) => {
     // expires in 1 seconds - will check every 0.5s - warnings start at 0.9s - reload happens under 10s
+    (window.location.reload as jest.Mock).mockReset()
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:23:59')
     wrapper = mount(
@@ -77,8 +78,6 @@ describe('components/SessionMonitor', () => {
         sessionExpiredReload={10000}
         {...initialMockProps}
       />)
-
-    expect(window.location.reload).not.toHaveBeenCalled()
     await new Promise(resolve => {
       setTimeout(() => {
         expect(window.location.reload).toHaveBeenCalled();

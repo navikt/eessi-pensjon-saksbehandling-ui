@@ -1,8 +1,22 @@
+import { Period } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { AllowedLocaleString, T, Validation } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType, ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodNotWork = ({ localErrors, locale, period, setCountry, t }) => (
+export interface PeriodNotWorkProps {
+  localErrors: Validation;
+  locale: AllowedLocaleString;
+  period: Period;
+  setCountry: (e: React.ChangeEvent) => void;
+  t: T
+}
+
+const PeriodNotWork: React.FC<PeriodNotWorkProps> = ({
+  localErrors, locale, period, setCountry, t
+}: PeriodNotWorkProps): JSX.Element => (
   <Ui.Nav.Row>
     <div className='col-sm-8 mb-2'>
       <Ui.CountrySelect
@@ -25,11 +39,11 @@ const PeriodNotWork = ({ localErrors, locale, period, setCountry, t }) => (
 )
 
 PeriodNotWork.propTypes = {
-  localErrors: PT.object,
-  locale: PT.string.isRequired,
-  period: PT.object,
-  setCountry: PT.func,
-  t: PT.func.isRequired
+  localErrors: ValidationPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
+  period: PeriodPropType.isRequired,
+  setCountry: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default PeriodNotWork

@@ -1,4 +1,4 @@
-import { Period, PeriodDate } from 'applications/BUC/declarations/period.d'
+import { Period, PeriodDate } from 'declarations/period'
 import _ from 'lodash'
 import moment from 'moment'
 import P4000Payload from '../P4000Payload'

@@ -1,3 +1,4 @@
+import { JoarkFiles } from 'declarations/joark'
 
 export interface Date {
   year: number;
@@ -23,6 +24,8 @@ export interface BUCAttachment {
   lastUpdate: number | Date;
   medical: boolean;
 }
+
+export type BUCAttachments = Array<BUCAttachment>
 
 export interface Address {
   country: string;
@@ -59,11 +62,13 @@ export interface Sed {
   status: string;
   creationDate: number;
   lastUpdate: number;
-  displayName?: string;
+  displayName?: string | null;
   participants: Array<Participant>;
   attachments: Array<BUCAttachment>;
   version?: string;
 }
+
+export type Seds = Array<Sed>;
 
 export interface Institution {
   country: string;
@@ -71,12 +76,14 @@ export interface Institution {
   name?: string | undefined;
 }
 
+export type Institutions = Array<Institution>
+
 export interface ErrorBuc {
   type: string | null;
   caseId: string | null;
   creator: null;
   sakType: null;
-  status: any;
+  status: null;
   startDate: null;
   lastUpdate: null;
   institusjon: null;
@@ -93,14 +100,14 @@ export interface ValidBuc {
   status: string;
   startDate: number;
   lastUpdate: number;
-  institusjon: Array<Institution>;
-  seds: Array<Sed>;
+  institusjon: Institutions;
+  seds: Seds;
   error?: null | undefined;
 }
 
 export type Buc = ValidBuc | ErrorBuc
 
-export type Bucs = {[caseId: string]: Buc | ErrorBuc}
+export type Bucs = {[caseId: string]: Buc}
 
 export interface BucInfo {
   tags: Array<string>;
@@ -117,7 +124,7 @@ export interface NewSedPayload {
   sakId: string;
   buc: string;
   sed: string;
-  institutions: Array<Institution>;
+  institutions: Institutions;
   aktoerId: string;
   euxCaseId: string;
   periodeInfo?: Array<Period>;
@@ -147,3 +154,5 @@ export interface Tag {
 }
 
 export type Tags = Array<Tag>
+
+export type AttachedFiles = { [namespace: string]: JoarkFiles | BUCAttachments }

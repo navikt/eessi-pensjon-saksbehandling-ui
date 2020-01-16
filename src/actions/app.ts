@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import samplePerson from 'resources/tests/samplePerson'
-import { Action, ActionWithPayload } from 'types.d'
+import { Action, ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 const sprintf = require('sprintf-js').sprintf
 
 export interface ParamPayload {
@@ -10,24 +10,20 @@ export interface ParamPayload {
   value?: any
 }
 
-export const setStatusParam = (key: string, value: any): ActionWithPayload<ParamPayload> => {
-  return {
-    type: types.APP_PARAM_SET,
-    payload: {
-      key: key,
-      value: value
-    }
+export const setStatusParam = (key: string, value: any): ActionWithPayload<ParamPayload> => ({
+  type: types.APP_PARAM_SET,
+  payload: {
+    key: key,
+    value: value
   }
-}
+})
 
-export const unsetStatusParam = (key: string): ActionWithPayload<ParamPayload> => {
-  return {
-    type: types.APP_PARAM_UNSET,
-    payload: {
-      key: key
-    }
+export const unsetStatusParam = (key: string): ActionWithPayload<ParamPayload> => ({
+  type: types.APP_PARAM_UNSET,
+  payload: {
+    key: key
   }
-}
+})
 
 export const login = (): Action => {
   const redirect = window.location.origin // http://hostname
@@ -89,8 +85,6 @@ export const getSakType = (sakId: string, aktoerId: string): Function => {
   })
 }
 
-export const clearData = (): Action => {
-  return {
-    type: types.APP_CLEAR_DATA
-  }
-}
+export const clearData = (): Action => ({
+  type: types.APP_CLEAR_DATA
+})

@@ -1,8 +1,14 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'types.d'
+import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 
-export const initialAlertState: State = {}
+export const initialAlertState: State = {
+  clientErrorStatus: undefined,
+  clientErrorMessage: undefined,
+  serverErrorMessage: undefined,
+  uuid: undefined,
+  error: undefined
+}
 
 const alertReducer = (state: State = initialAlertState, action: Action) => {
   let clientErrorMessage: string | undefined, serverErrorMessage: string, clientErrorStatus: string
@@ -29,8 +35,8 @@ const alertReducer = (state: State = initialAlertState, action: Action) => {
     return {
       ...state,
       serverErrorMessage: serverErrorMessage,
-      error: action.payload ? action.payload.error : null,
-      uuid: action.payload ? action.payload.uuid : null
+      error: action.payload ? action.payload.error : undefined,
+      uuid: action.payload ? action.payload.uuid : undefined
     }
   }
 
@@ -152,8 +158,8 @@ const alertReducer = (state: State = initialAlertState, action: Action) => {
       ...state,
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
       clientErrorMessage: clientErrorMessage,
-      error: action.payload ? action.payload.error : null,
-      uuid: action.payload ? action.payload.uuid : null
+      error: action.payload ? action.payload.error : undefined,
+      uuid: action.payload ? action.payload.uuid : undefined
     }
   }
 

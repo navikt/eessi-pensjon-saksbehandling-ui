@@ -1,11 +1,14 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { Buc, BucsInfo, Tags } from 'applications/BUC/declarations/buc.d'
+import { Buc, BucsInfo, Tags } from 'declarations/buc'
 import classNames from 'classnames'
+import { BucPropType, BucsInfoPropType } from 'declarations/buc.pt'
+import { ActionCreatorsPropType, AllowedLocaleStringPropType, LoadingPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, Option, T, Validation } from 'types.d'
+import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
 
 export interface BUCStartProps {
   actions: ActionCreators;
@@ -15,11 +18,10 @@ export interface BUCStartProps {
   bucsInfo?: BucsInfo;
   bucList?: Array<string>;
   loading: Loading;
-  locale?: AllowedLocaleString;
-  mode: string;
-  onTagsChanged?: Function;
+  locale: AllowedLocaleString;
+  onTagsChanged?: (t: Array<string>) => void;
   sakId?: string;
-  setMode: Function;
+  setMode: (mode: string) => void;
   subjectAreaList?: Array<string>;
   tagList?: Array<string>;
   t: T;
@@ -30,10 +32,10 @@ const placeholders: {[k: string]: string} = {
   buc: 'buc:form-chooseBuc'
 }
 
-const BUCStart = ({
-  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, locale, mode,
+const BUCStart: React.FC<BUCStartProps> = ({
+  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, locale,
   onTagsChanged, sakId, setMode, subjectAreaList, tagList, t
-}: BUCStartProps) => {
+}: BUCStartProps): JSX.Element | null => {
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Array<string>>([])
@@ -145,40 +147,36 @@ const BUCStart = ({
     }
   }
 
-  const renderOptions: Function = (options: Array<Option>, type: string): JSX.Element[] | null => {
+  const renderOptions: Function = (options: Array<Option | string>, type: string): JSX.Element[] => {
     if (!options || Object.keys(options).length === 0) {
       options = [{
         value: placeholders[type],
         label: t(placeholders[type])
       }]
     }
-    if (!options[0].value || (options[0].value && options[0].value !== placeholders[type])) {
+    if (!_.has(options[0], 'value') || (options[0] as Option).value !== placeholders[type]) {
       options.unshift({
         value: placeholders[type],
         label: t(placeholders[type])
       })
     }
 
-    return options ? options.map((el: Option) => {
-      let label, value
+    return options ? options.map((el: Option | string) => {
+      let label: string, value: string
       if (typeof el === 'string') {
         value = el
         label = el
       } else {
-        value = el.value || el.navn
-        label = el.label || el.navn
+        value = (el.value || el.navn)!
+        label = (el.label || el.navn)!
       }
       return <option value={value} key={value}>{getOptionLabel(label)}</option>
-    }) : null
+    }) : []
   }
 
-  const getOptionLabel: Function = (value: any): any => {
-    if (typeof value !== 'string') {
-      return value
-    }
-
-    let label = value
-    const description = getBucTypeLabel({
+  const getOptionLabel: Function = (value: string): string => {
+    let label: string = value
+    const description: string = getBucTypeLabel({
       t: t,
       locale: locale,
       type: value
@@ -210,16 +208,6 @@ const BUCStart = ({
 
   return (
     <div className='a-buc-c-bucstart'>
-      {mode === 'page' ? (
-        <>
-          <Ui.Nav.Systemtittel className='a-buc-c-bucstart__page-title mb-4'>
-            {t('buc:app-startCaseDescription')}
-          </Ui.Nav.Systemtittel>
-          <div className='mb-5'>
-            <Ui.EESSIPensjonVeilederPanel closeButton>{t('help-startCase2')}</Ui.EESSIPensjonVeilederPanel>
-          </div>
-        </>
-      ) : null}
       <Ui.Nav.Row className='mb-3'>
         <div className='col-md-6 pr-3'>
           <Ui.Nav.Select
@@ -230,7 +218,7 @@ const BUCStart = ({
             aria-describedby='help-subjectArea'
             bredde='fullbredde'
             placeholder={placeholders.subjectArea}
-            feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
+            feil={validation.subjectAreaFail ? validation.subjectAreaFail : false}
             label={t('buc:form-subjectArea')}
             value={_subjectArea}
             onChange={onSubjectAreaChange}
@@ -245,7 +233,7 @@ const BUCStart = ({
             aria-describedby='help-buc'
             bredde='fullbredde'
             placeholder={placeholders.buc}
-            feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
+            feil={validation.bucFail ? validation.bucFail : false}
             label={t('buc:form-buc')}
             value={_buc || placeholders.buc}
             onChange={onBucChange}
@@ -304,20 +292,19 @@ const BUCStart = ({
 }
 
 BUCStart.propTypes = {
+  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string,
-  actions: PT.object,
-  buc: PT.object,
-  bucsInfo: PT.object,
-  bucList: PT.array,
+  buc: BucPropType,
+  bucsInfo: BucsInfoPropType,
+  bucList: PT.arrayOf(PT.string.isRequired),
   bucParam: PT.string,
-  loading: PT.object,
-  locale: PT.string,
-  mode: PT.string,
+  loading: LoadingPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
   onTagsChanged: PT.func,
   sakId: PT.string,
-  subjectAreaList: PT.array,
-  tagList: PT.array,
-  t: PT.func.isRequired
+  subjectAreaList: PT.arrayOf(PT.string.isRequired),
+  tagList: PT.arrayOf(PT.string.isRequired),
+  t: TPropType.isRequired
 }
 
 export default BUCStart

@@ -2,7 +2,7 @@ import React from 'react'
 import { JoarkBrowser, JoarkBrowserProps } from './JoarkBrowser'
 import { mount, ReactWrapper } from 'enzyme'
 import sampleJoark from 'resources/tests/sampleJoarkRaw'
-import { JoarkDoc, JoarkFile, JoarkPoster } from 'applications/BUC/declarations/joark'
+import { JoarkDoc, JoarkFile, JoarkPoster } from 'declarations/joark'
 
 describe('components/JoarkBrowser/JoarkBrowser', () => {
   let wrapper: ReactWrapper

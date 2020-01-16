@@ -1,8 +1,21 @@
+import { Period } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { T, Validation } from 'declarations/types'
+import { TPropType, ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodDailySick = ({ localErrors, period, setPayingInstitution, t }) => (
+export interface PeriodDailySickProps {
+  localErrors: Validation;
+  period: Period;
+  setPayingInstitution: (e: React.ChangeEvent) => void;
+  t: T;
+}
+
+const PeriodDailySick: React.FC<PeriodDailySickProps> = ({
+  localErrors, period, setPayingInstitution, t
+}: PeriodDailySickProps): JSX.Element => (
   <Ui.Nav.Row>
     <div className='col-sm-12'>
       <Ui.Nav.Input
@@ -18,17 +31,17 @@ const PeriodDailySick = ({ localErrors, period, setPayingInstitution, t }) => (
         value={period.payingInstitution || ''}
         placeholder={t('ui:writeIn')}
         onChange={setPayingInstitution}
-        feil={localErrors.payingInstitution ? { feilmelding: t(localErrors.payingInstitution) } : null}
+        feil={localErrors.payingInstitution ? t(localErrors.payingInstitution) : null}
       />
     </div>
   </Ui.Nav.Row>
 )
 
 PeriodDailySick.propTypes = {
-  localErrors: PT.object,
-  period: PT.object,
-  setPayingInstitution: PT.func,
-  t: PT.func.isRequired
+  localErrors: ValidationPropType.isRequired,
+  period: PeriodPropType.isRequired,
+  setPayingInstitution: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default PeriodDailySick

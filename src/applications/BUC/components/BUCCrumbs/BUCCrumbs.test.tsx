@@ -1,3 +1,4 @@
+import { Bucs } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
@@ -13,7 +14,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
       resetSed: jest.fn(),
       resetBuc: jest.fn()
     },
-    bucs: mockBucs,
+    bucs: mockBucs as Bucs,
     currentBuc: '195440',
     mode: '',
     showLastLink: true,

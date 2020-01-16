@@ -1,13 +1,14 @@
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import React from 'react'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 import './SEDPanelHeader.css'
 
 export interface SEDPanelHeaderProps {
   t: T
 }
 
-const SEDPanelHeader = ({ t }: SEDPanelHeaderProps) => (
+const SEDPanelHeader: React.FC<SEDPanelHeaderProps> = ({ t }: SEDPanelHeaderProps): JSX.Element => (
   <div className='a-buc-c-sedpanelheader mt-2 mb-2'>
     <div className='a-buc-c-sedpanelheader_head col-4'>
       <Ui.Nav.Element>{t('buc:form-sed')}</Ui.Nav.Element>
@@ -23,5 +24,9 @@ const SEDPanelHeader = ({ t }: SEDPanelHeaderProps) => (
     </div>
   </div>
 )
+
+SEDPanelHeader.propTypes = {
+  t: TPropType.isRequired
+}
 
 export default SEDPanelHeader

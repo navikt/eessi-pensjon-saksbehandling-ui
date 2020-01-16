@@ -2,13 +2,13 @@ import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 import './SEDSearch.css'
 
 export interface SEDSearchProps {
   className ?: string;
-  onSearch: Function;
-  onStatusSearch: Function;
+  onSearch: (e: string) => void;
+  onStatusSearch: (sl: StatusList) => void;
   t: T;
   value: string | undefined;
 }
@@ -80,7 +80,8 @@ SEDSearch.propTypes = {
   className: PT.string,
   onSearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
-  t: PT.func.isRequired
+  t: PT.func.isRequired,
+  value: PT.string.isRequired
 }
 
 export default SEDSearch

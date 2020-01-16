@@ -1,13 +1,12 @@
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
-import { Period } from 'applications/BUC/declarations/period.d'
+import { Period } from 'declarations/period'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 import P4000Payload from '../P4000Payload'
-
 
 export interface PeriodViewProps {
   first?: boolean;
@@ -29,7 +28,7 @@ const PeriodView: React.FC<PeriodViewProps> = ({
           <div className='a-buc-c-sedp4000-period__existingPeriod-icon mr-3 ml-3'>
             <div className={classNames('topHalf', { line: !first })} />
             <div className={classNames('bottomHalf', { line: !last })} />
-            <Ui. Icons className='iconsvg' kind={'nav-' + period.type} size={32} />
+            <Ui.Icons className='iconsvg' kind={'nav-' + period.type} size={32} />
           </div>
           <div className='a-buc-c-sedp4000-period__existingPeriod-description'>
             <div className='a-buc-c-sedp4000-period__existingPeriod-type'>

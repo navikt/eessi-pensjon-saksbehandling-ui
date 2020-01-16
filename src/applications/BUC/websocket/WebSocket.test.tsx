@@ -4,12 +4,22 @@ import { Server, WebSocket } from 'mock-socket'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 import BucWebSocket, { BucWebSocketProps } from './WebSocket'
-
+jest.mock('eessi-pensjon-ui', () => {
+  const Ui = jest.requireActual('eessi-pensjon-ui').default
+  return {
+    ...Ui,
+    Nav: {
+      ...Ui.Nav,
+      Popover: ({ children }: any) => (<div className='mock-popover'>{children}</div>)
+    }
+  }
+})
 jest.mock('constants/urls', () => {
   return {
     WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
   }
 })
+
 describe('applications/BUC/websocket/WebSocket', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BucWebSocketProps = {
@@ -34,18 +44,11 @@ describe('applications/BUC/websocket/WebSocket', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-websocket')).toBeTruthy()
-    expect(wrapper.exists('Hjelpetekst')).toBeTruthy()
-  })
-
-  it('Starts by trying to connect', () => {
-    wrapper.find('Hjelpetekst button').simulate('click')
-    const logs = wrapper.find('Hjelpetekst span.log').hostNodes().render().html()
-    expect(_(logs).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
+    expect(wrapper.exists('.mock-popover')).toBeTruthy()
   })
 
   it('Connects in a while', async (done) => {
@@ -53,11 +56,13 @@ describe('applications/BUC/websocket/WebSocket', () => {
       await new Promise(() => {
         setTimeout(() => {
           wrapper.update()
-          const logs = wrapper.find('Hjelpetekst span.log')
-          expect(logs.length).toBe(3)
-          expect(_(logs.at(0).render().html()).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
-          expect(_(logs.at(1).render().html()).endsWith('Connected')).toBeTruthy()
-          expect(_(logs.at(2).render().html()).endsWith('Request subscribing to aktoerId 123 and avdodfnr 456')).toBeTruthy()
+          const logs = wrapper.find('.mock-popover span.log')
+          expect(logs.length).toBe(5)
+          expect(_(logs.at(0).render().html()).endsWith('Got fnr 123 avdodfnr 456, starting websocket connection')).toBeTruthy()
+          expect(_(logs.at(1).render().html()).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
+          expect(_(logs.at(2).render().html()).endsWith('Connected')).toBeTruthy()
+          expect(_(logs.at(3).render().html()).endsWith('Request subscribing to fnr 123 and avdodfnr 456')).toBeTruthy()
+          expect(_(logs.at(4).render().html()).endsWith('Subscription status is true')).toBeTruthy()
           done()
         }, 200)
       })
@@ -70,9 +75,9 @@ describe('applications/BUC/websocket/WebSocket', () => {
         mockSocket.send(JSON.stringify({ bucUpdated: { caseId: '123' } }))
         setTimeout(() => {
           wrapper.update()
-          const logs = wrapper.find('Hjelpetekst span.log')
-          expect(logs.length).toBe(4)
-          expect(_(logs.at(3).render().html()).endsWith('Updating buc 123')).toBeTruthy()
+          const logs = wrapper.find('.mock-popover span.log')
+          expect(logs.length).toBe(6)
+          expect(_(logs.at(5).render().html()).endsWith('Updating buc 123')).toBeTruthy()
           expect(initialMockProps.actions.fetchSingleBuc).toHaveBeenCalledWith('123')
           done()
         }, 300)

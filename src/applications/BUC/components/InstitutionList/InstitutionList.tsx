@@ -1,31 +1,33 @@
-import { Institution, InstitutionListMap, InstitutionNames } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
+import { InstitutionListMap, InstitutionNames, Institutions } from 'declarations/buc'
+import { InstitutionNamesPropType, InstitutionsPropType } from 'declarations/buc.pt'
+import { AllowedLocaleString, T } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, T } from 'types.d'
 import './InstitutionList.css'
 
 export interface InstitutionListProps {
   className?: string;
   flag?: boolean;
   flagType?: string;
-  institutions: Array<Institution>;
+  institutions: Institutions;
   institutionNames: InstitutionNames;
   locale: AllowedLocaleString;
   t: T;
   type?: string;
 }
 
-const InstitutionList = (
-  { className, flag = true, flagType = 'circle', institutions = [], institutionNames, locale, t, type = 'joined' }: InstitutionListProps
-) => {
+const InstitutionList: React.FC<InstitutionListProps> = ({
+  className, flag = true, flagType = 'circle', institutions = [], institutionNames, locale, t, type = 'joined'
+}: InstitutionListProps): JSX.Element => {
   const institutionList: InstitutionListMap<string> = {}
   if (institutions) {
     institutions.forEach(item => {
-      let institution = item.institution
-      const country = item.country
+      let institution: string = item.institution
+      const country: string = item.country
       if (institution && institution.startsWith(country + ':')) {
         institution = institution.substring(institution.indexOf(':') + 1, institution.length)
       }
@@ -37,7 +39,7 @@ const InstitutionList = (
     })
   }
 
-  const getLabel = (landkode: string, institutionId: string) => {
+  const getLabel = (landkode: string, institutionId: string): string => {
     return institutionNames &&
     Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
       ? institutionNames[landkode + ':' + institutionId]
@@ -86,10 +88,10 @@ InstitutionList.propTypes = {
   className: PT.string,
   flag: PT.bool,
   flagType: PT.string,
-  institutions: PT.array,
-  institutionNames: PT.object,
-  locale: PT.string.isRequired,
-  t: PT.func,
+  institutions: InstitutionsPropType.isRequired,
+  institutionNames: InstitutionNamesPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
+  t: TPropType.isRequired,
   type: PT.string
 }
 

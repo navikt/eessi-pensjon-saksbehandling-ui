@@ -1,10 +1,11 @@
 import classNames from 'classnames'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 import './PersonTitle.css'
 
 export interface PersonTitleProps {
@@ -13,7 +14,7 @@ export interface PersonTitleProps {
   t: T
 }
 
-const PersonTitle = ({ gettingPersonInfo, person, t }: PersonTitleProps) => {
+const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person, t }: PersonTitleProps): JSX.Element => {
   let birthDate: Date | Moment | undefined
   let deathDate: Date | Moment | undefined
 
@@ -54,10 +55,9 @@ const PersonTitle = ({ gettingPersonInfo, person, t }: PersonTitleProps) => {
 }
 
 PersonTitle.propTypes = {
-  aktoerId: PT.string,
-  gettingPersonInfo: PT.bool,
+  gettingPersonInfo: PT.bool.isRequired,
   person: PT.object,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default PersonTitle

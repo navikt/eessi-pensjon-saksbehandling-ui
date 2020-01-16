@@ -1,4 +1,4 @@
-import { Period } from 'applications/BUC/declarations/period'
+import { Period } from 'declarations/period'
 import * as tests from './singleTests'
 
 export const periodStep: Function = (period: Period) => {

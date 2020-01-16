@@ -1,9 +1,12 @@
-import { Bucs } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
+import { Bucs } from 'declarations/buc'
+import { BucsPropType } from 'declarations/buc.pt'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types.d'
+import { T } from 'declarations/types.d'
+import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
-import { ActionCreators, T } from 'types.d'
 import './BUCCrumbs.css'
 
 export interface BUCCrumbsProps {
@@ -22,9 +25,9 @@ interface BUCCrumbLink {
   func: Function
 }
 
-const BUCCrumbs = ({
+const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   actions, bucs, currentBuc, className, mode, setMode, showLastLink = false, t
-}: BUCCrumbsProps) => {
+}: BUCCrumbsProps): JSX.Element => {
   const goToHome: Function = useCallback(() => {
     actions.resetSed()
     actions.resetBuc()
@@ -94,12 +97,14 @@ const BUCCrumbs = ({
 }
 
 BUCCrumbs.propTypes = {
-  actions: PT.object.isRequired,
-  bucs: PT.object,
+  actions: ActionCreatorsPropType.isRequired,
+  bucs: BucsPropType.isRequired,
+  className: PT.string,
   currentBuc: PT.string,
   mode: PT.string.isRequired,
+  setMode: PT.func.isRequired,
   showLastLink: PT.bool,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default BUCCrumbs

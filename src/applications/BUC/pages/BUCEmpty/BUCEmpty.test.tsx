@@ -60,7 +60,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     wrapper.find('#a-buc-p-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
     wrapper.find('#a-buc-p-bucempty__aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(wrapper.find('#a-buc-p-bucempty__aktoerid-input-id .skjemaelement__feilmelding').render().html()).toEqual('buc:validation-noAktoerId')
+    expect(wrapper.find('#a-buc-p-bucempty__aktoerid-input-id .skjemaelement__feilmelding').render().text()).toEqual('buc:validation-noAktoerId')
 
     wrapper.find('#a-buc-p-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('#a-buc-p-bucempty__aktoerid-button-id').hostNodes().simulate('click')
@@ -70,7 +70,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     wrapper.find('#a-buc-p-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
     wrapper.find('#a-buc-p-bucempty__sakid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(wrapper.find('#a-buc-p-bucempty__sakid-input-id .skjemaelement__feilmelding').render().html()).toEqual('buc:validation-noSakId')
+    expect(wrapper.find('#a-buc-p-bucempty__sakid-input-id .skjemaelement__feilmelding').render().text()).toEqual('buc:validation-noSakId')
 
     wrapper.find('#a-buc-p-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('#a-buc-p-bucempty__sakid-button-id').hostNodes().simulate('click')

@@ -1,22 +1,31 @@
+import { Period } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { AllowedLocaleString, T, Validation } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType, ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodWork = ({
-  locale,
-  localErrors,
-  period,
-  setCountry,
-  setInsuranceId,
-  setWorkActivity,
-  setWorkCity,
-  setWorkName,
-  setWorkRegion,
-  setWorkStreet,
-  setWorkType,
-  setWorkZipCode,
-  t
-}) => (
+export interface PeriodWorkProps {
+  locale: AllowedLocaleString;
+  localErrors: Validation;
+  period: Period;
+  setCountry: (e: React.ChangeEvent) => void;
+  setInsuranceId: (e: React.ChangeEvent) => void;
+  setWorkActivity: (e: React.ChangeEvent) => void;
+  setWorkCity: (e: React.ChangeEvent) => void;
+  setWorkName: (e: React.ChangeEvent) => void;
+  setWorkRegion: (e: React.ChangeEvent) => void;
+  setWorkStreet: (e: React.ChangeEvent) => void;
+  setWorkType: (e: React.ChangeEvent) => void;
+  setWorkZipCode: (e: React.ChangeEvent) => void;
+  t: T
+}
+
+const PeriodWork: React.FC<PeriodWorkProps> = ({
+  locale, localErrors, period, setCountry, setInsuranceId, setWorkActivity, setWorkCity,
+  setWorkName, setWorkRegion, setWorkStreet, setWorkType, setWorkZipCode, t
+}: PeriodWorkProps): JSX.Element => (
   <>
     <Ui.Nav.Row>
       <div className='col-sm-12'>
@@ -58,7 +67,7 @@ const PeriodWork = ({
           placeholder={t('ui:writeIn')}
           value={period.workActivity || ''}
           onChange={setWorkActivity}
-          feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
+          feil={localErrors.workActivity ? t(localErrors.workActivity) : null}
         />
       </div>
       <div className='col-sm-12'>
@@ -76,7 +85,7 @@ const PeriodWork = ({
           placeholder={t('ui:writeIn')}
           value={period.insuranceId || ''}
           onChange={setInsuranceId}
-          feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
+          feil={localErrors.insuranceId ? t(localErrors.insuranceId) : null}
         />
       </div>
       <div className='col-sm-12'>
@@ -92,7 +101,7 @@ const PeriodWork = ({
           placeholder={t('ui:writeIn')}
           value={period.workName || ''}
           onChange={setWorkName}
-          feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
+          feil={localErrors.workName ? t(localErrors.workName) : null}
         />
       </div>
     </Ui.Nav.Row>
@@ -117,7 +126,7 @@ const PeriodWork = ({
           value={period.workStreet || ''}
           placeholder={t('ui:writeIn')}
           onChange={setWorkStreet}
-          feil={localErrors.workStreet ? { feilmelding: t(localErrors.workStreet) } : null}
+          feil={localErrors.workStreet ? t(localErrors.workStreet) : null}
         />
       </div>
       <div className='col-sm-12'>
@@ -135,7 +144,7 @@ const PeriodWork = ({
           value={period.workCity || ''}
           placeholder={t('ui:writeIn')}
           onChange={setWorkCity}
-          feil={localErrors.workCity ? { feilmelding: t(localErrors.workCity) } : null}
+          feil={localErrors.workCity ? t(localErrors.workCity) : null}
         />
       </div>
       <div className='col-sm-6'>
@@ -153,7 +162,7 @@ const PeriodWork = ({
           value={period.workZipCode || ''}
           placeholder={t('ui:writeIn')}
           onChange={setWorkZipCode}
-          feil={localErrors.workZipCode ? { feilmelding: t(localErrors.workZipCode) } : null}
+          feil={localErrors.workZipCode ? t(localErrors.workZipCode) : null}
         />
       </div>
       <div className='col-sm-6'>
@@ -171,7 +180,7 @@ const PeriodWork = ({
           value={period.workRegion || ''}
           placeholder={t('ui:writeIn')}
           onChange={setWorkRegion}
-          feil={localErrors.workRegion ? { feilmelding: t(localErrors.workRegion) } : null}
+          feil={localErrors.workRegion ? t(localErrors.workRegion) : null}
         />
       </div>
       <div className='col-sm-8 mb-2'>
@@ -196,19 +205,19 @@ const PeriodWork = ({
 )
 
 PeriodWork.propTypes = {
-  locale: PT.string.isRequired,
-  localErrors: PT.object,
-  period: PT.object,
-  setCountry: PT.func,
-  setInsuranceId: PT.func,
-  setWorkActivity: PT.func,
-  setWorkCity: PT.func,
-  setWorkName: PT.func,
-  setWorkRegion: PT.func,
-  setWorkStreet: PT.func,
-  setWorkType: PT.func,
-  setWorkZipCode: PT.func,
-  t: PT.func.isRequired
+  locale: AllowedLocaleStringPropType.isRequired,
+  localErrors: ValidationPropType.isRequired,
+  period: PeriodPropType.isRequired,
+  setCountry: PT.func.isRequired,
+  setInsuranceId: PT.func.isRequired,
+  setWorkActivity: PT.func.isRequired,
+  setWorkCity: PT.func.isRequired,
+  setWorkName: PT.func.isRequired,
+  setWorkRegion: PT.func.isRequired,
+  setWorkStreet: PT.func.isRequired,
+  setWorkType: PT.func.isRequired,
+  setWorkZipCode: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default PeriodWork

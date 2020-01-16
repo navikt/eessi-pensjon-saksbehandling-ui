@@ -1,8 +1,17 @@
+import { Period } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { T } from 'declarations/types'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodComment = ({ period, setComment, t }) => (
+export interface PeriodCommentProps {
+  period: Period;
+  setComment: (e: React.ChangeEvent) => void;
+  t: T;
+}
+
+const PeriodComment: React.FC<PeriodCommentProps> = ({ period, setComment, t }: PeriodCommentProps): JSX.Element => (
   <Ui.Nav.Row>
     <div className='col-sm-12'>
       <Ui.Nav.Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-comment-info')}</Ui.Nav.Undertittel>
@@ -30,8 +39,8 @@ const PeriodComment = ({ period, setComment, t }) => (
 )
 
 PeriodComment.propTypes = {
-  period: PT.object,
-  setComment: PT.func,
+  period: PeriodPropType.isRequired,
+  setComment: PT.func.isRequired,
   t: PT.func.isRequired
 }
 

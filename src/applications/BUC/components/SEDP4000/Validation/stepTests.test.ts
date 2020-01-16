@@ -1,4 +1,4 @@
-import { Period } from 'applications/BUC/declarations/period'
+import { Period } from 'declarations/period'
 import _ from 'lodash'
 import * as stepTests from './stepTests'
 

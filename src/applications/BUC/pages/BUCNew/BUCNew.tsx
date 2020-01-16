@@ -1,23 +1,23 @@
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCStart, { BUCStartProps } from 'applications/BUC/components/BUCStart/BUCStart'
+import { T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import PT from 'prop-types'
 import React from 'react'
-import { RinaUrl } from 'types.d'
 import './BUCNew.css'
 
 export interface BUCNewProps extends BUCStartProps {
-  rinaUrl?: RinaUrl
+  t: T
 }
 
-const BUCNew = (props: BUCNewProps) => {
+const BUCNew: React.FC<BUCNewProps> = (props: BUCNewProps): JSX.Element => {
   const { t } = props
   return (
     <>
       <Ui.Nav.Panel className='a-buc-p-bucnew s-border'>
         <Ui.Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Ui.Nav.Systemtittel>
         <hr />
-        <BUCStart mode='widget' {...props} />
+        <BUCStart {...props} />
       </Ui.Nav.Panel>
       <BUCFooter className='w-100 mt-2 mb-2' {...props} />
     </>
@@ -25,6 +25,6 @@ const BUCNew = (props: BUCNewProps) => {
 }
 
 BUCNew.propTypes = {
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 export default BUCNew

@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'types.d'
+import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import i18n from '../i18n'
 
 export const initialUiState: State = {

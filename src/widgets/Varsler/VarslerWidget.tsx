@@ -1,9 +1,10 @@
+import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import VarslerPanel from 'widgets/Varsler/VarslerPanel'
 
-const VarslerWidget = (props: any) => {
+const VarslerWidget: WidgetFC<WidgetProps> = (props: WidgetProps): JSX.Element => {
   const { onResize } = props
   const [mounted, setMounted] = useState<boolean>(false)
 

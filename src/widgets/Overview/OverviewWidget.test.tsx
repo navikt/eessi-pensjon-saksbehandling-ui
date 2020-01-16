@@ -1,17 +1,20 @@
+import { WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import OverviewWidget from './OverviewWidget'
 
-jest.mock('widgets/Overview/Overview', () => {
-  return () => { return <div className='mock-w-overview' /> }
-})
+jest.mock('widgets/Overview/Overview', () => () => (<div className='mock-w-overview' />))
 
 describe('widgets/OverviewWidget', () => {
   let wrapper: ReactWrapper
-  const initialMockProps: any = {
+  const initialMockProps: WidgetProps = {
     onResize: jest.fn(),
     onUpdate: jest.fn(),
     widget: {
+      i: 'i',
+      type: 'overview',
+      visible: true,
+      title: 'Overview',
       options: {
         collapsed: false
       }

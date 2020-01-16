@@ -28,6 +28,8 @@ export interface JoarkFile {
   variant: JoarkFileVariant
 }
 
+export type JoarkFiles = Array<JoarkFile>
+
 interface Content {
   base64: string;
 }

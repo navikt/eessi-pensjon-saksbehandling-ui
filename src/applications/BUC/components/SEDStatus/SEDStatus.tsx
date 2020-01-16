@@ -1,8 +1,10 @@
 import classNames from 'classnames'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { Labels } from 'eessi-pensjon-ui/dist/declarations/types'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 import './SEDStatus.css'
 
 export interface SEDStatusProps {
@@ -11,7 +13,7 @@ export interface SEDStatusProps {
   t: T
 }
 
-const statusList: {[k: string]: string} = {
+const statusList: Labels = {
   new: 'fokus',
   sent: 'suksess',
   received: 'info',
@@ -20,8 +22,10 @@ const statusList: {[k: string]: string} = {
   unknown: 'info'
 }
 
-const SEDStatus = ({ className, status, t }: SEDStatusProps) => {
-  const tagType: string = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList.unknown
+const SEDStatus: React.FC<SEDStatusProps> = ({
+  className, status, t
+}: SEDStatusProps): JSX.Element => {
+  const tagType: string = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status]! : statusList.unknown!
   return (
     <Ui.Nav.EtikettBase className={classNames('a-buc-c-sedstatus', 'a-buc-c-sedstatus__' + status, className)} type={tagType}>
       {t('buc:status-' + status)}
@@ -32,7 +36,7 @@ const SEDStatus = ({ className, status, t }: SEDStatusProps) => {
 SEDStatus.propTypes = {
   className: PT.string,
   status: PT.string.isRequired,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default SEDStatus

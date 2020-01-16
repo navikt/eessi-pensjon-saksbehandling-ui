@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import targetP4000info from 'resources/tests/targetP4000info'
-import { T } from 'types.d'
-import { Period, PeriodDate } from '../../declarations/period'
+import { T } from 'declarations/types'
+import { Period, PeriodDate } from 'declarations/period'
 import P4000Payload from './P4000Payload'
 
 describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', () => {
@@ -74,11 +74,19 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
     expect(P4000Payload.pinfoDateToDate(null)).toEqual(null)
   })
 
-  it('pinfoDateToDate valid date', () => {
+  it('pinfoDateToDate incomplete date', () => {
     // @ts-ignore
     const date: PeriodDate = { month: '11', year: '2020' }
     const generatedDate: Date | null = P4000Payload.pinfoDateToDate(date)
-    expect(generatedDate!.getDay()).toEqual(1)
+    expect(generatedDate!.getDate()).toEqual(1)
+    expect(generatedDate!.getMonth()).toEqual(10)
+    expect(generatedDate!.getFullYear()).toEqual(2020)
+  })
+
+  it('pinfoDateToDate valid date', () => {
+    const date: PeriodDate = { day: '15', month: '11', year: '2020' }
+    const generatedDate: Date | null = P4000Payload.pinfoDateToDate(date)
+    expect(generatedDate!.getDate()).toEqual(15)
     expect(generatedDate!.getMonth()).toEqual(10)
     expect(generatedDate!.getFullYear()).toEqual(2020)
   })

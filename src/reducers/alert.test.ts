@@ -17,9 +17,12 @@ describe('reducers/alert', () => {
     expect(
       alertReducer(initialAlertState, {
         type: types.SERVER_INTERNAL_ERROR,
-        payload: 'mockPayload'
+        payload: {
+          error: 'mockPayload'
+        }
       })
     ).toEqual({
+      ...initialAlertState,
       serverErrorMessage: 'ui:serverInternalError',
       error: 'mockPayload'
     })
@@ -29,9 +32,12 @@ describe('reducers/alert', () => {
     expect(
       alertReducer(initialAlertState, {
         type: types.SERVER_UNAUTHORIZED_ERROR,
-        payload: 'mockPayload'
+        payload: {
+          error: 'mockPayload'
+        }
       })
     ).toEqual({
+      ...initialAlertState,
       serverErrorMessage: 'ui:serverAuthenticationError',
       error: 'mockPayload'
     })
@@ -41,9 +47,12 @@ describe('reducers/alert', () => {
     expect(
       alertReducer(initialAlertState, {
         type: 'SOMETHING/ERROR',
-        payload: 'mockPayload'
+        payload: {
+          error: 'mockPayload'
+        }
       })
     ).toEqual({
+      ...initialAlertState,
       serverErrorMessage: 'ui:serverInternalError',
       error: 'mockPayload'
     })
@@ -55,6 +64,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_BUCS_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noBucs'
     })
@@ -66,6 +76,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_BUCSINFO_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noBucsListInfo'
     })
@@ -77,6 +88,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_BUCSINFO_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noBucsInfo'
     })
@@ -88,6 +100,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noSubjectAreaList'
     })
@@ -99,6 +112,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_BUC_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noBucList'
     })
@@ -110,6 +124,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_TAG_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noTagList'
     })
@@ -121,6 +136,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_INSTITUTION_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noInstitutionList'
     })
@@ -132,6 +148,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_SED_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noSedList'
     })
@@ -143,6 +160,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_COUNTRY_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-noCountryList'
     })
@@ -154,6 +172,7 @@ describe('reducers/alert', () => {
         type: types.BUC_CREATE_BUC_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-createBucFailure'
     })
@@ -165,6 +184,7 @@ describe('reducers/alert', () => {
         type: types.BUC_CREATE_SED_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-createSedFailure'
     })
@@ -176,6 +196,7 @@ describe('reducers/alert', () => {
         type: types.BUC_SEND_ATTACHMENT_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-createAttachmentFailure'
     })
@@ -187,6 +208,7 @@ describe('reducers/alert', () => {
         type: types.BUC_SAVE_BUCSINFO_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-saveBucsInfoFailure'
     })
@@ -198,6 +220,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_P4000_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-getP4000ListFailure'
     })
@@ -209,6 +232,7 @@ describe('reducers/alert', () => {
         type: types.BUC_GET_P4000_INFO_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-getP4000InfoFailure'
     })
@@ -220,6 +244,7 @@ describe('reducers/alert', () => {
         type: types.JOARK_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-joarkListFailure'
     })
@@ -231,6 +256,7 @@ describe('reducers/alert', () => {
         type: types.JOARK_PREVIEW_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-joarkPreviewFailure'
     })
@@ -242,6 +268,7 @@ describe('reducers/alert', () => {
         type: types.JOARK_GET_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-joarkGetFailure'
     })
@@ -253,6 +280,7 @@ describe('reducers/alert', () => {
         type: types.STORAGE_LIST_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'ui:listFailure'
     })
@@ -264,6 +292,7 @@ describe('reducers/alert', () => {
         type: types.STORAGE_GET_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'ui:loadFailure'
     })
@@ -275,6 +304,7 @@ describe('reducers/alert', () => {
         type: types.PINFO_SEND_FAILURE
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'pinfo:alert-sendFailure'
     })
@@ -286,6 +316,7 @@ describe('reducers/alert', () => {
         type: 'SOMETHING/FAILURE'
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'ui:error'
     })
@@ -300,6 +331,7 @@ describe('reducers/alert', () => {
         }
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'OK',
       clientErrorMessage: 'buc:alert-createdBuc|mockType'
     })
@@ -314,6 +346,7 @@ describe('reducers/alert', () => {
         }
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'OK',
       clientErrorMessage: 'buc:alert-createdSed|mockType'
     })
@@ -326,6 +359,7 @@ describe('reducers/alert', () => {
         context: { notification: true }
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'OK',
       clientErrorMessage: 'ui:loadSuccess'
     })
@@ -338,6 +372,7 @@ describe('reducers/alert', () => {
         context: { notification: true }
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'OK',
       clientErrorMessage: 'ui:saveSuccess'
     })
@@ -349,6 +384,7 @@ describe('reducers/alert', () => {
         type: types.PINFO_SEND_SUCCESS
       })
     ).toEqual({
+      ...initialAlertState,
       clientErrorStatus: 'OK',
       clientErrorMessage: 'pinfo:alert-sendSuccess'
     })

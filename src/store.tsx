@@ -1,6 +1,6 @@
+import { ActionCreator, ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import React, { Context, createContext, useContext } from 'react'
 import useThunkReducer from 'react-hook-thunk-reducer'
-import { ActionCreator, ActionCreators, Dispatch, State } from './types'
 
 const Store: Context<State> = createContext({} as State)
 const useStore = () => useContext(Store)

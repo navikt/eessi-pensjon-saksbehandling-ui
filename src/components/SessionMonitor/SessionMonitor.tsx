@@ -1,6 +1,8 @@
+import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, T } from 'types.d'
+import { T } from 'declarations/types'
 
 export interface SessionMonitorProps {
   actions: ActionCreators;
@@ -12,7 +14,7 @@ export interface SessionMonitorProps {
   t: T
 }
 
-const SessionMonitor = ({
+const SessionMonitor: React.FC<SessionMonitorProps> = ({
   actions,
   /* check every minute */
   checkInterval = 1000 * 60,
@@ -24,7 +26,7 @@ const SessionMonitor = ({
   sessionExpiredReload = 1000,
   now,
   t
-}: SessionMonitorProps) => {
+}: SessionMonitorProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
@@ -63,9 +65,12 @@ const SessionMonitor = ({
 }
 
 SessionMonitor.propTypes = {
-  actions: PT.object.isRequired,
-  expirationTime: PT.object,
-  now: PT.object,
-  t: PT.func.isRequired
+  actions: ActionCreatorsPropType.isRequired,
+  checkInterval: PT.number,
+  expirationTime: PT.instanceOf(Date).isRequired,
+  millisecondsForWarning: PT.number,
+  sessionExpiredReload: PT.number,
+  now: PT.instanceOf(Date),
+  t: TPropType.isRequired
 }
 export default SessionMonitor

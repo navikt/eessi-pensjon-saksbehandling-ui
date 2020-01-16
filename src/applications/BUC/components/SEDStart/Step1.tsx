@@ -2,17 +2,30 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import { Buc, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from 'applications/BUC/declarations/buc.d'
-import { Country } from 'applications/BUC/declarations/period'
+import { AttachedFiles, Buc, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from 'declarations/buc'
+import {
+  AttachedFilesPropType,
+  BucPropType,
+  InstitutionListMapPropType,
+  InstitutionNamesPropType
+} from 'declarations/buc.pt'
+import { Country } from 'declarations/period'
+import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
+import {
+  ActionCreatorsPropType,
+  AllowedLocaleStringPropType,
+  LoadingPropType,
+  ValidationPropType
+} from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators, Labels } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, Option, T, Validation } from 'types.d'
 
 export interface Step1Props {
   actions: ActionCreators;
-  _attachments: {[namespace: string]: Array<any>};
+  _attachments: AttachedFiles;
   buc: Buc;
   _countries: Array<string>;
   countryList: Array<string>;
@@ -24,32 +37,32 @@ export interface Step1Props {
   loading: Loading;
   locale: AllowedLocaleString;
   _sed: string | undefined;
-  sedCanHaveAttachments: Function;
-  setAttachments: Function;
-  setCountries: Function;
-  setInstitutions: Function;
+  sedCanHaveAttachments: () => boolean;
+  setAttachments: (f: AttachedFiles) => void;
+  setCountries: (c: Array<string>) => void;
+  setInstitutions: (i: Array<string>) => void;
   sedList?: Array<string>;
-  sedNeedsVedtakId: Function;
-  setSed: Function;
-  setValidation: Function;
-  setVedtakId: Function;
+  sedNeedsVedtakId: () => boolean;
+  setSed: (s: string) => void;
+  setValidation: (v: Validation) => void;
+  setVedtakId: (v: number) => void;
   t: T;
   validation: Validation;
   vedtakId: number | undefined;
 }
 
-const placeholders: {[k: string]: string} = {
+const placeholders: Labels = {
   sed: 'buc:form-chooseSed',
   institution: 'buc:form-chooseInstitution',
   country: 'buc:form-chooseCountry',
   vedtakId: 'buc:form-enterVedtakId'
 }
 
-const Step1 = ({
+const Step1: React.FC<Step1Props> = ({
   actions, _attachments, buc, _countries, countryList = [], currentSed, _institutions, institutionList, institutionNames,
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
-}: Step1Props) => {
+}: Step1Props): JSX.Element => {
   const countryData = Ui.CountryData.getCountryInstance(locale)
   const [mounted, setMounted] = useState<boolean>(false)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(false)
@@ -118,7 +131,7 @@ const Step1 = ({
 
   const fetchCountries = useCallback(
     (countries: Array<Country>) => {
-      const newCountries = countries ? countries.map(item => {
+      const newCountries: Array<string> = countries ? countries.map(item => {
         return item.value
       }) : []
 
@@ -131,7 +144,7 @@ const Step1 = ({
       })
       removedCountries.forEach(country => {
         const newInstitutions = _institutions.filter(item => {
-          var [_country] = item.split(':')
+          const [_country] = item.split(':')
           return country !== _country
         })
         setInstitutions(newInstitutions)
@@ -203,18 +216,18 @@ const Step1 = ({
   }
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let vedtakId
+    let vedtakId: number
     try {
       vedtakId = parseInt(e.target.value, 10)
+      validateVedtakId(vedtakId)
+      setVedtakId(vedtakId)
     } catch (e) {}
-    validateVedtakId(vedtakId)
-    setVedtakId(vedtakId)
   }
 
   const renderOptions = (options: Array<Option | string> | undefined, type: string): Array<JSX.Element> => {
     const _options: Array<Option | string> = _.concat([{
-      value: placeholders[type],
-      label: t(placeholders[type])
+      value: placeholders[type]!,
+      label: t(placeholders[type]!)
     }], options || [])
 
     return _options.map((el: Option | string) => {
@@ -249,7 +262,7 @@ const Step1 = ({
     )
   }
 
-  const setFiles = (files: Array<any>) => {
+  const setFiles = (files: AttachedFiles) => {
     setSeeAttachmentPanel(false)
     setAttachments(files)
   }
@@ -278,7 +291,7 @@ const Step1 = ({
           disabled={loading.gettingSedList}
           aria-describedby='help-sed'
           bredde='fullbredde'
-          feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
+          feil={validation.sedFail ? validation.sedFail : null}
           label={t('buc:form-sed')}
           value={_sed || placeholders.sed}
           onChange={onSedChange}
@@ -296,8 +309,8 @@ const Step1 = ({
               bredde='fullbredde'
               value={vedtakId || ''}
               onChange={onVedtakIdChange}
-              placeholder={t(placeholders.vedtakId)}
-              feil={validation.vedtakFail ? { feilmelding: t(validation.vedtakFail) } : null}
+              placeholder={t(placeholders.vedtakId!)}
+              feil={validation.vedtakFail ? t(validation.vedtakFail) : null}
             />
           </div>
         ) : null}
@@ -311,7 +324,7 @@ const Step1 = ({
                   className='a-buc-c-sedstart__country-select'
                   id='a-buc-c-sedstart__country-select-id'
                   disabled={loading.gettingCountryList}
-                  placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t(placeholders.country)}
+                  placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t(placeholders.country!)}
                   aria-describedby='help-country'
                   values={countryValueList}
                   hideSelectedOptions={false}
@@ -326,7 +339,7 @@ const Step1 = ({
                   className='a-buc-c-sedstart__institution-select'
                   id='a-buc-c-sedstart__institution-select-id'
                   disabled={loading.institutionList}
-                  placeholder={loading.institutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution)}
+                  placeholder={loading.institutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution!)}
                   aria-describedby='help-institution'
                   values={institutionValueList}
                   onSelect={onInstitutionsChange}
@@ -376,20 +389,31 @@ const Step1 = ({
 }
 
 Step1.propTypes = {
-  actions: PT.object.isRequired,
-  _attachments: PT.object,
-  buc: PT.object.isRequired,
-  countryList: PT.array,
-  institutionList: PT.object,
-  institutionNames: PT.object,
+  actions: ActionCreatorsPropType.isRequired,
+  _attachments: AttachedFilesPropType.isRequired,
+  buc: BucPropType.isRequired,
+  _countries: PT.arrayOf(PT.string.isRequired).isRequired,
+  countryList: PT.arrayOf(PT.string.isRequired).isRequired,
+  currentSed: PT.string,
+  _institutions: PT.arrayOf(PT.string.isRequired).isRequired,
+  institutionList: InstitutionListMapPropType.isRequired,
+  institutionNames: InstitutionNamesPropType.isRequired,
   layout: PT.string,
-  loading: PT.object.isRequired,
-  locale: PT.string.isRequired,
-  sed: PT.object,
+  loading: LoadingPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
   _sed: PT.string,
-  sedList: PT.array,
+  sedCanHaveAttachments: PT.func.isRequired,
+  setAttachments: PT.func.isRequired,
+  setCountries: PT.func.isRequired,
+  setInstitutions: PT.func.isRequired,
+  sedList: PT.arrayOf(PT.string.isRequired).isRequired,
+  sedNeedsVedtakId: PT.func.isRequired,
   setSed: PT.func.isRequired,
-  t: PT.func.isRequired
+  setValidation: PT.func.isRequired,
+  setVedtakId: PT.func.isRequired,
+  t: PT.func.isRequired,
+  validation: ValidationPropType.isRequired,
+  vedtakId: PT.number.isRequired
 }
 
 export default Step1

@@ -3,23 +3,26 @@ import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 import _ from 'lodash'
 import { mount, ReactWrapper } from 'enzyme'
 import { PeriodProps } from './Period'
-import { Period as IPeriod } from 'applications/BUC/declarations/period'
+import { Period as IPeriod } from 'declarations/period'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui')
+  const Ui = jest.requireActual('eessi-pensjon-ui').default
   return {
     ...Ui,
     Nav: {
       ...Ui.Nav,
-      Hjelpetekst: ({ children }: any) => (<div className='mock-hjelpetekst'>{children}</div>)
+      Hjelpetekst: ({children}: any) => (<div className='mock-hjelpetekst'>{children}</div>)
     }
   }
 })
+
 let sampleWorkPeriod: IPeriod | undefined = _.find(sampleP4000info.stayAbroad as Array<IPeriod>, (it: IPeriod) => it.type === 'work')
 sampleWorkPeriod!.attachments = [{
   name: 'mock.pdf',
-  type: 'application/pdf',
-  content: 'mokContent',
+  mimetype: 'application/pdf',
+  content: {
+    text: 'mokContent'
+  },
   size: 123
 }]
 
@@ -64,7 +67,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
 
     const periodDescription = period.find('.a-buc-c-sedp4000-period__existingPeriod-description').hostNodes()
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type UndertekstBold').render().text()).toEqual('buc:p4000-label-category-work')
-    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Flag img').props().alt).toEqual('MX')
+    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Flag img').props().alt).toEqual('mockMM')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Normaltekst').render().text()).toEqual('mockMM')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-dates').render().text()).toEqual('buc:p4000-label-period: 01.01.1993 - 01.01.1994 (?)')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-workActivity').render().text()).toEqual('buc:p4000-label-work-activity2: work period 1 workActivity')

@@ -1,8 +1,20 @@
-import React from 'react'
-import PT from 'prop-types'
+import { T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import PT from 'prop-types'
+import React from 'react'
 
-const PeriodButtons = ({ cancelPeriodRequest, mode, saveEditPeriod, saveNewPeriod, t }) => (
+export interface PeriodButtonsProps {
+  cancelPeriodRequest: () => void;
+  mode: string;
+  saveEditPeriod: () => void;
+  saveNewPeriod: () => void;
+  t: T
+}
+
+const PeriodButtons: React.FC<PeriodButtonsProps> = ({
+  cancelPeriodRequest, mode, saveEditPeriod, saveNewPeriod, t
+}: PeriodButtonsProps): JSX.Element => (
   <Ui.Nav.Row>
     <div className='mt-4 mb-4 col-sm-12'>
       {mode === 'edit' ? (
@@ -35,11 +47,11 @@ const PeriodButtons = ({ cancelPeriodRequest, mode, saveEditPeriod, saveNewPerio
 )
 
 PeriodButtons.propTypes = {
-  cancelPeriodRequest: PT.func,
+  cancelPeriodRequest: PT.func.isRequired,
   mode: PT.string.isRequired,
-  saveEditPeriod: PT.func,
-  saveNewPeriod: PT.func,
-  t: PT.func.isRequired
+  saveEditPeriod: PT.func.isRequired,
+  saveNewPeriod: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default PeriodButtons

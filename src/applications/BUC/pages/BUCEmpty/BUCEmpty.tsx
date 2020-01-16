@@ -1,12 +1,14 @@
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
+import { ActionCreatorsPropType, RinaUrlPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import CupPNG from 'resources/images/artwork/kop.png'
 import MousePNG from 'resources/images/artwork/NAVmusematte.png'
 import MapPNG from 'resources/images/artwork/saksstatus.png'
-import { ActionCreators, RinaUrl, T } from 'types.d'
+import { RinaUrl, T } from 'declarations/types'
 import './BUCEmpty.css'
 
 export interface BUCEmptyProps {
@@ -18,9 +20,11 @@ export interface BUCEmptyProps {
   t: T;
 }
 
-const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }: BUCEmptyProps) => {
-  const [_sakId, setSakId] = useState(sakId)
-  const [_aktoerId, setAktoerId] = useState(aktoerId)
+const BUCEmpty: React.FC<BUCEmptyProps> = ({
+  actions, aktoerId, onBUCNew, rinaUrl, sakId, t
+}: BUCEmptyProps): JSX.Element => {
+  const [_sakId, setSakId] = useState<string | undefined>(sakId)
+  const [_aktoerId, setAktoerId] = useState<string | undefined>(aktoerId)
   const [validation, setValidation] = useState<string | undefined>(undefined)
 
   const onAktoerIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -76,7 +80,7 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }: BUCEmptyPr
               value={_aktoerId || ''}
               bredde='fullbredde'
               onChange={onAktoerIdChange}
-              feil={validation ? { feilmelding: validation } : null}
+              feil={validation ? validation : false}
             />
             <Ui.Nav.Hovedknapp
               id='a-buc-p-bucempty__aktoerid-button-id'
@@ -96,7 +100,7 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }: BUCEmptyPr
               value={_sakId || ''}
               bredde='fullbredde'
               onChange={onSakIdChange}
-              feil={validation ? { feilmelding: validation } : null}
+              feil={validation ? validation : false}
             />
             <Ui.Nav.Hovedknapp
               id='a-buc-p-bucempty__sakid-button-id'
@@ -114,12 +118,12 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }: BUCEmptyPr
 }
 
 BUCEmpty.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string,
   onBUCNew: PT.func.isRequired,
-  rinaUrl: PT.string,
+  rinaUrl: RinaUrlPropType,
   sakId: PT.string,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default BUCEmpty

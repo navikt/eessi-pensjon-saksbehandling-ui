@@ -1,4 +1,4 @@
-import { Buc, BucInfo, BucsInfo } from 'applications/BUC/declarations/buc.d'
+import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
 import React from 'react'

@@ -5,13 +5,15 @@ import classNames from 'classnames'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
+import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
 import SnowStorm from 'react-snowstorm'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, Dispatch, State, T } from 'types.d'
+import { T } from 'declarations/types'
 import './TopContainer.css'
 
 export interface TopContainerProps {
@@ -131,9 +133,9 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           error={error}
           onClose={onClear}
         />
-        {modal ? (
+        {modal !== undefined ? (
           <Ui.Modal
-            appElement={document.getElementById('main')}
+            appElement={(document.getElementById('main') || document.body)}
             modal={modal}
             onModalClose={handleModalClose}
           />
@@ -158,13 +160,13 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 }
 
 TopContainer.propTypes = {
-  actions: PT.oneOf<ActionCreators>([]).isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   children: PT.any,
   fluid: PT.bool,
   header: PT.any,
   history: PT.object.isRequired,
   highContrast: PT.bool,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopContainer)

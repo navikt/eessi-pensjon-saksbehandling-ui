@@ -1,13 +1,30 @@
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
-import { JoarkFile, JoarkFileWithContent } from 'applications/BUC/declarations/joark'
+import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
+import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
+import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, Dispatch, State, T } from 'types.d'
+import { T } from 'declarations/types'
 import './JoarkBrowser.css'
+
+const mapStateToProps = /* istanbul ignore next */ (state: State) => ({
+  aktoerId: state.app.params.aktoerId,
+  file: state.joark.file,
+  list: state.joark.list,
+  loadingJoarkList: state.loading.loadingJoarkList,
+  loadingJoarkFile: state.loading.loadingJoarkFile,
+  loadingJoarkPreviewFile: state.loading.loadingJoarkPreviewFile,
+  previewFile: state.joark.previewFile
+})
+
+const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => ({
+  actions: bindActionCreators({ ...uiActions, ...joarkActions }, dispatch)
+})
 
 export interface JoarkBrowserProps {
   actions: ActionCreators;
@@ -19,32 +36,16 @@ export interface JoarkBrowserProps {
   loadingJoarkFile: boolean;
   loadingJoarkPreviewFile: boolean;
   mode: string;
-  onFilesChange: Function;
-  onPreviewFile: Function;
+  onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void;
+  onPreviewFile: (f: JoarkFileWithContent) => void;
   previewFile: JoarkFileWithContent | undefined;
   t: T
 }
 
-const mapStateToProps = /* istanbul ignore next */ (state: State) => {
-  return {
-    aktoerId: state.app.params.aktoerId,
-    file: state.joark.file,
-    list: state.joark.list,
-    loadingJoarkList: state.loading.loadingJoarkList,
-    loadingJoarkFile: state.loading.loadingJoarkFile,
-    loadingJoarkPreviewFile: state.loading.loadingJoarkPreviewFile,
-    previewFile: state.joark.previewFile
-  }
-}
-
-const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
-  return { actions: bindActionCreators({ ...uiActions, ...joarkActions }, dispatch) }
-}
-
-export const JoarkBrowser = ({
+export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   actions, aktoerId, file, files, list, loadingJoarkList, loadingJoarkFile,
   loadingJoarkPreviewFile, mode = 'view', onFilesChange, onPreviewFile, previewFile, t
-}: JoarkBrowserProps) => {
+}: JoarkBrowserProps): JSX.Element => {
   const [_file, setFile] = useState<JoarkFileWithContent | undefined>(file)
   const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(previewFile)
   const [clickedPreviewFile, setClickedPreviewFile] = useState<any>(undefined)
@@ -115,7 +116,7 @@ export const JoarkBrowser = ({
   }, [actions, handleModalClose, onPreviewFile, previewFile, _previewFile, t])
 
   if (!mounted) {
-    return null
+    return <div />
   }
 
   const onPreviewItem = (clickedItem: any): void => {
@@ -129,7 +130,7 @@ export const JoarkBrowser = ({
   }
 
   const onDeleteItem = (files: Array<JoarkFile>, item: JoarkFile): void => {
-    const newFiles = _.reject(files, (file) => equalFiles(file, item))
+    const newFiles: Array<JoarkFile> = _.filter(files, (file: JoarkFile) => !equalFiles(file, item))
     onFilesChange(newFiles)
   }
 
@@ -254,18 +255,18 @@ export const JoarkBrowser = ({
 }
 
 JoarkBrowser.propTypes = {
-  actions: PT.object.isRequired,
-  aktoerId: PT.string,
-  file: PT.object,
-  files: PT.array,
-  list: PT.array,
-  loadingJoarkList: PT.bool,
-  loadingJoarkFile: PT.bool,
-  loadingJoarkPreviewFile: PT.bool,
+  actions: ActionCreatorsPropType.isRequired,
+  aktoerId: PT.string.isRequired,
+  file: JoarkFileWithContentPropType.isRequired,
+  files: PT.arrayOf(PT.oneOfType([JoarkFilePropType, JoarkFileWithContentPropType]).isRequired).isRequired,
+  list: PT.arrayOf(JoarkFilePropType.isRequired).isRequired,
+  loadingJoarkList: PT.bool.isRequired,
+  loadingJoarkFile: PT.bool.isRequired,
+  loadingJoarkPreviewFile: PT.bool.isRequired,
   onFilesChange: PT.func.isRequired,
-  onPreviewFile: PT.func,
-  previewFile: PT.object,
-  t: PT.func.isRequired
+  onPreviewFile: PT.func.isRequired,
+  previewFile: JoarkFileWithContentPropType,
+  t: TPropType.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)

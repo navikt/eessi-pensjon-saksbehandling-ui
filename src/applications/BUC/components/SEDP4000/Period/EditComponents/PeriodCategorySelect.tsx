@@ -1,8 +1,21 @@
+import { Period } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodCategorySelect = ({ mode, period, setType, t }) => (
+export interface PeriodCategorySelectProps  {
+  mode: string;
+  period: Period;
+  setType: (e: React.ChangeEvent) => void;
+  t: T
+}
+
+const PeriodCategorySelect: React.FC<PeriodCategorySelectProps> = ({
+  mode, period, setType, t
+}: PeriodCategorySelectProps): JSX.Element => (
   <Ui.Nav.Row className={mode}>
     <div className='col-sm-8'>
       <Ui.Nav.Hjelpetekst>
@@ -40,9 +53,9 @@ const PeriodCategorySelect = ({ mode, period, setType, t }) => (
 
 PeriodCategorySelect.propTypes = {
   mode: PT.string.isRequired,
-  period: PT.object,
-  setType: PT.func,
-  t: PT.func.isRequired
+  period: PeriodPropType.isRequired,
+  setType: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default PeriodCategorySelect

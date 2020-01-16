@@ -1,6 +1,11 @@
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
+import { T } from 'declarations/types'
+import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { Widget } from 'eessi-pensjon-ui/dist/declarations/Dashboard.d'
+import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -8,8 +13,22 @@ import React, { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, Dispatch, State, T } from 'types.d'
 import './VarslerPanel.css'
+
+const mapStateToProps = /* istanbul ignore next */ (state: State) => ({
+  aktoerId: state.app.params.aktoerId,
+  fileList: state.storage.fileList,
+  file: state.storage.file,
+  invite: state.pinfo.invite,
+  isInvitingPinfo: state.loading.isInvitingPinfo,
+  sakId: state.app.params.sakId,
+  sakType: state.app.params.sakType,
+  person: state.app.person
+})
+
+const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => ({
+  actions: bindActionCreators({ ...pinfoActions, ...storageActions }, dispatch)
+})
 
 export interface Varsler {
   tittel: string;
@@ -17,44 +36,38 @@ export interface Varsler {
   timestamp: string;
 }
 
+export const VarslerPropType = PT.shape({
+  tittel: PT.string.isRequired,
+  fulltnavn: PT.string.isRequired,
+  timestamp: PT.string.isRequired
+})
+
 interface Invite {
   status: string;
   message: string;
 }
 
+export const InvitePropType = PT.shape({
+  status: PT.string.isRequired,
+  message: PT.string.isRequired
+})
+
 export interface VarslerPanelProps {
   actions: ActionCreators;
   aktoerId: string;
   file: Varsler | undefined;
-  fileList: Array<string> |undefined |null;
+  fileList: Array<string> | undefined | null;
   isInvitingPinfo: boolean;
   invite: Invite | undefined;
-  onUpdate: Function;
+  onUpdate: (w: Widget) => void;
   person: any;
   sakId?: string;
   sakType: string;
   t: T;
-  widget: any;
+  widget: Widget;
 }
 
-const mapStateToProps = /* istanbul ignore next */ (state: State) => {
-  return {
-    aktoerId: state.app.params.aktoerId,
-    fileList: state.storage.fileList,
-    file: state.storage.file,
-    invite: state.pinfo.invite,
-    isInvitingPinfo: state.loading.isInvitingPinfo,
-    sakId: state.app.params.sakId,
-    sakType: state.app.params.sakType,
-    person: state.app.person
-  }
-}
-
-const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
-  return { actions: bindActionCreators({ ...pinfoActions, ...storageActions }, dispatch) }
-}
-
-export const VarslerPanel = ({
+export const VarslerPanel: React.FC<VarslerPanelProps> = ({
   actions, aktoerId, file, fileList, isInvitingPinfo, invite, onUpdate, person, sakId, sakType, t, widget
 }: VarslerPanelProps) => {
   const [isReady, setIsReady] = useState(false)
@@ -166,6 +179,7 @@ export const VarslerPanel = ({
 
   return (
     <Ui.Nav.EkspanderbartpanelBase
+      collapseProps={{ id: 'w-varslerPanel-id' }}
       className='w-varslerPanel s-border'
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
@@ -249,17 +263,17 @@ export const VarslerPanel = ({
 }
 
 VarslerPanel.propTypes = {
-  actions: PT.object.isRequired,
-  aktoerId: PT.string,
-  file: PT.object,
-  fileList: PT.array,
-  isInvitingPinfo: PT.bool,
-  invite: PT.object,
+  actions: ActionCreatorsPropType.isRequired,
+  aktoerId: PT.string.isRequired,
+  file: VarslerPropType,
+  fileList: PT.arrayOf(PT.string.isRequired),
+  isInvitingPinfo: PT.bool.isRequired,
+  invite: InvitePropType,
   person: PT.object,
   sakId: PT.string,
-  sakType: PT.string,
-  t: PT.func.isRequired,
-  widget: PT.object.isRequired
+  sakType: PT.string.isRequired,
+  t: TPropType.isRequired,
+  widget: WidgetPropType.isRequired
 }
 
 // @ts-ignore

@@ -1,4 +1,4 @@
-import { Buc, BucInfo, BucsInfo } from 'applications/BUC/declarations/buc.d'
+import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
@@ -17,7 +17,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     aktoerId: '123',
     buc: buc,
     bucInfo: bucInfo,
-    bucsInfo: { foo: 'bar' },
+    bucsInfo: (sampleBucsInfo as BucsInfo),
     loading: {},
     onTagChange: jest.fn(),
     t: jest.fn(t => t),
@@ -34,7 +34,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    // expect(wrapper).toMatchSnapshot()// - do not use, collapse dependency generates random ids
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('UseEffect: fetches tag list', () => {
@@ -48,7 +48,13 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     const tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
     tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     tagSelect.find('input').simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    expect(initialMockProps.onTagChange).toHaveBeenCalledWith(['mockTag1', 'mockTag2'])
+    expect(initialMockProps.onTagChange).toHaveBeenCalledWith([{
+      label: 'buc:tag-vip',
+      value: 'tag-vip'
+    }, {
+      label: 'buc:mockTag1',
+      value: 'mockTag1'
+    }])
   })
 
   it('Changes comments', () => {
@@ -75,7 +81,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
       buc: buc,
       comment: bucInfo.comment,
       tags: [{ label: 'buc:tag-vip', value: 'tag-vip' }],
-      bucsInfo: { foo: 'bar' }
+      bucsInfo: (sampleBucsInfo as BucsInfo)
     })
   })
 

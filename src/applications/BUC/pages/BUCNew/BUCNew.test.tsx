@@ -13,8 +13,6 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
     t: jest.fn(t => t),
     loading: {},
     locale: 'nb',
-    rinaUrl: 'http://mock.url',
-    mode: 'widget',
     setMode: jest.fn(),
     onTagsChanged: jest.fn()
   }
@@ -29,6 +27,5 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
     wrapper = mount(<BUCNew {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-p-bucnew')).toBeTruthy()
     expect(wrapper.exists('.mock-bucstart')).toBeTruthy()
-    expect(wrapper.find('.mock-bucstart').props().title).toEqual('widget')
   })
 })

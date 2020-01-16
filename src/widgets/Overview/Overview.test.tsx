@@ -9,11 +9,17 @@ describe('widgets/Overview/Overview', () => {
       getPersonInfo: jest.fn()
     },
     aktoerId: '123',
+    gettingPersonInfo: false,
     highContrast: false,
     locale: 'nb',
+    person: undefined,
     onUpdate: jest.fn(),
     t: jest.fn(t => t),
     widget: {
+      i: 'i',
+      type: 'foo',
+      visible: true,
+      title: 'foo',
       options: {
         collapsed: false
       }
@@ -30,6 +36,7 @@ describe('widgets/Overview/Overview', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('UseEffect: fetches person info when mounting', () => {
@@ -51,10 +58,10 @@ describe('widgets/Overview/Overview', () => {
 
   it('Expandable ', () => {
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
-    expect(initialMockProps.onUpdate).toHaveBeenCalledWith({
+    expect(initialMockProps.onUpdate).toHaveBeenCalledWith(expect.objectContaining({
       options: {
         collapsed: true
       }
-    })
+    }))
   })
 })

@@ -1,8 +1,24 @@
+import { Period } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components.d'
+import { Files } from 'eessi-pensjon-ui/dist/declarations/types.d'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodAttachments = ({ closeModal, openModal, period, setAttachments, t }) => (
+export interface PeriodAttachmentsProps {
+  closeModal: () => void;
+  openModal: (m: ModalContent) => void;
+  period: Period;
+  setAttachments: (f: Files) => void;
+  t: T
+}
+
+const PeriodAttachments: React.FC<PeriodAttachmentsProps> = ({
+  closeModal, openModal, period, setAttachments, t
+}: PeriodAttachmentsProps): JSX.Element => (
   <Ui.Nav.Row>
     <div className='col-sm-12'>
       <Ui.Nav.Undertittel className='mt-5 mb-2'>
@@ -22,7 +38,7 @@ const PeriodAttachments = ({ closeModal, openModal, period, setAttachments, t })
         id='a-buc-c-sedp4000-period__vedlegg-fileupload-id'
         maxFiles={10}
         maxFileSize={10 * 1024 * 1024}
-        onFilesChanged={(newFiles) => setAttachments(newFiles)}
+        onFilesChanged={(newFiles: Files) => setAttachments(newFiles)}
         openModal={openModal}
         t={t}
       />
@@ -33,9 +49,9 @@ const PeriodAttachments = ({ closeModal, openModal, period, setAttachments, t })
 PeriodAttachments.propTypes = {
   closeModal: PT.func.isRequired,
   openModal: PT.func.isRequired,
-  period: PT.object,
+  period: PeriodPropType.isRequired,
   setAttachments: PT.func.isRequired,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default PeriodAttachments

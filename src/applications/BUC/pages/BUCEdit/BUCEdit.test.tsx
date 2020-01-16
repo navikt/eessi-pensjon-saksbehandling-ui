@@ -1,4 +1,4 @@
-import { BucsInfo, Tags } from 'applications/BUC/declarations/buc.d'
+import { Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
@@ -7,13 +7,13 @@ import BUCEdit, { BUCEditProps } from './BUCEdit'
 
 describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   let wrapper: ReactWrapper
-  const mockBucs = _.keyBy(sampleBucs, 'caseId')
+  const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: BUCEditProps = {
     actions: {
       setCurrentSed: jest.fn()
     },
     aktoerId: '123',
-    attachments: [],
+    attachments: {},
     bucs: mockBucs,
     bucsInfo: {} as BucsInfo,
     currentBuc: '195440',

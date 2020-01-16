@@ -1,10 +1,13 @@
+import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import Overview from './Overview'
 
-const OverviewWidget = ({ onResize, onUpdate, widget }: any) => {
-  const [mounted, setMounted] = useState(false)
+const OverviewWidget: WidgetFC<WidgetProps> = ({
+  onResize, onUpdate, widget
+}: WidgetProps): JSX.Element => {
+  const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
     if (!mounted && onResize) {

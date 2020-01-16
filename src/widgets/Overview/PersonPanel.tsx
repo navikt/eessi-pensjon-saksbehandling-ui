@@ -1,9 +1,10 @@
+import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 import Ui from 'eessi-pensjon-ui'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 
 export interface PersonPanelProps {
   highContrast: boolean;
@@ -12,7 +13,7 @@ export interface PersonPanelProps {
   t: T
 }
 
-const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
+const PersonPanel: React.FC<PersonPanelProps> = ({ highContrast, locale, person, t }: PersonPanelProps): JSX.Element | null => {
   if (!person) {
     return null
   }
@@ -25,7 +26,7 @@ const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
   let bostedsadresse: Array<JSX.Element | Element | string> = []
   let postadresse: Array<JSX.Element | Element | string> = []
 
-  const renderEntity = (label: string, value: any) => {
+  const renderEntity = (label: string, value: any): JSX.Element => {
     let _value
     if (!value) {
       _value = [t('ui:notRegistered')]
@@ -162,10 +163,10 @@ const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
 }
 
 PersonPanel.propTypes = {
-  highContrast: PT.bool,
-  locale: PT.string,
+  highContrast: PT.bool.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
   person: PT.object,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default PersonPanel

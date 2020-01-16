@@ -49,13 +49,10 @@ describe('reducers/joark', () => {
     tema: 'mocktema',
     dokumentInfoId: 'mockdokumentInfoId',
     datoOpprettet: new Date(Date.parse('2020-12-17T03:24:00')),
-    varianter: [{
+    variant: {
       variantformat: 'mockVariantFormat1',
       filnavn: 'mockFilnavn1'
-    }, {
-      variantformat: 'mockVariantFormat2',
-      filnavn: 'mockFilnavn2'
-    }]
+    }
   }, {
     tilleggsopplysninger: 'mocktilleggsopplysninger2',
     journalpostId: 'mockjournalpostId2',
@@ -63,13 +60,10 @@ describe('reducers/joark', () => {
     tema: 'mocktema2',
     dokumentInfoId: 'mockdokumentInfoId2',
     datoOpprettet: new Date(Date.parse('2020-12-17T03:24:00')),
-    varianter: [{
+    variant: {
       variantformat: 'mockVariantFormat3',
       filnavn: 'mockFilnavn3'
-    }, {
-      variantformat: 'mockVariantFormat4',
-      filnavn: 'mockFilnavn4'
-    }]
+    }
   }]
 
   it('JOARK_LIST_SUCCESS', () => {

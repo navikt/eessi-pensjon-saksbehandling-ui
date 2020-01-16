@@ -1,5 +1,5 @@
 import { SEDAttachmentsProps } from 'applications/BUC/components/SEDAttachments/SEDAttachments'
-import { Buc } from 'applications/BUC/declarations/buc.d'
+import { Buc } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { act } from 'react-dom/test-utils'

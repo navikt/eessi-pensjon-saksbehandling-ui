@@ -3,7 +3,7 @@ import Step1, { Step1Props } from './Step1'
 import { mount, ReactWrapper } from 'enzyme'
 import sampleBucs from 'resources/tests/sampleBucs'
 import _ from 'lodash'
-import { Bucs } from '../../declarations/buc'
+import { Bucs } from 'declarations/buc'
 
 describe('applications/BUC/components/SEDStart/Step1', () => {
   let wrapper: ReactWrapper

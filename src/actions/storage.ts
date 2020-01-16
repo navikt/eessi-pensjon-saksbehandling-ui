@@ -2,7 +2,7 @@ import * as api from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
-import { Action, ActionWithPayload } from 'types.d'
+import { Action, ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 import { Varsler } from 'widgets/Varsler/VarslerPanel'
 const sprintf = require('sprintf-js').sprintf
 

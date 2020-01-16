@@ -1,4 +1,4 @@
-import { Buc, BucsInfo } from 'applications/BUC/declarations/buc.d'
+import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
@@ -35,7 +35,6 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     sakId: '123',
     subjectAreaList: ['mockSubjectArea1', 'mockSubjectArea2'],
     locale: 'nb',
-    mode: 'widget',
     onTagsChanged: jest.fn(),
     setMode: jest.fn(),
     t: jest.fn(t => t)
@@ -67,12 +66,6 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('Renders a spinner when fetching data', () => {
     wrapper.setProps({ loading: { gettingSubjectAreaList: true } })
     expect(wrapper.exists('.a-buc-c-bucstart__spinner')).toBeTruthy()
-  })
-
-  it('Renders as a standalone page', () => {
-    wrapper.setProps({ mode: 'page' })
-    expect(wrapper.exists('.a-buc-c-bucstart__page-title')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart EESSIPensjonVeilederPanel')).toBeTruthy()
   })
 
   it('UseEffect: fetches subject areas, bucs, tags list if empty', () => {

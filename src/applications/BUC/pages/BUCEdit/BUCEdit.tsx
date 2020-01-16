@@ -4,32 +4,43 @@ import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/componen
 import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
-import { Buc, BucInfo, Bucs, BucsInfo, InstitutionNames, Sed, Tags } from 'applications/BUC/declarations/buc.d'
+import {
+  AttachedFiles,
+  Buc,
+  BucInfo,
+  Bucs,
+  BucsInfo,
+  InstitutionNames,
+  Sed,
+  Tags
+} from 'declarations/buc'
+import { AllowedLocaleString, Loading, RinaUrl, T } from 'declarations/types'
+import { AllowedLocaleStringPropType, RinaUrlPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, T } from 'types.d'
 import './BUCEdit.css'
 
 export interface BUCEditProps {
   actions: ActionCreators;
   aktoerId?: string;
-  attachments: Array<any>;
+  attachments: AttachedFiles;
   attachmentsError ?: boolean;
   bucs: Bucs;
-  bucsInfo: BucsInfo;
+  bucsInfo?: BucsInfo;
   currentBuc?: string | undefined;
   initialSearch ?: string;
   initialStatusSearch ?: Tags;
   institutionNames: InstitutionNames;
   loading: Loading;
-  locale?: AllowedLocaleString;
-  rinaUrl?: string;
-  setMode: Function;
+  locale: AllowedLocaleString;
+  rinaUrl?: RinaUrl;
+  setMode: (s: string) => void;
   t: T;
-  tagList: Array<string>;
+  tagList?: Array<string>;
 }
 
 const BUCEdit = ({
@@ -57,16 +68,16 @@ const BUCEdit = ({
   }
 
   const sedSearchFilter = (sed: Sed): boolean => {
-    let match = true
+    let match: boolean = true
     if (match && search) {
-      const _search = search.toLowerCase()
-      const bucType = getBucTypeLabel({
+      const _search: string = search.toLowerCase()
+      const bucType: string = getBucTypeLabel({
         t: t,
         locale: locale,
         type: sed.type
       })
-      match = sed.type.toLowerCase().match(_search) ||
-        bucType.toLowerCase().match(_search) ||
+      match = !!sed.type.toLowerCase().match(_search) ||
+        !!bucType.toLowerCase().match(_search) ||
         _.find(sed.participants, (it) => {
           const organizationId = it.organisation.id.toLowerCase()
           const organizationName = it.organisation.name.toLowerCase()
@@ -78,7 +89,7 @@ const BUCEdit = ({
           return organizationId.match(_search) || organizationName.match(_search) ||
           countryCode.match(_search) || countryName.match(_search) || creationDate.match(_search) ||
           lastUpdate.match(_search) || status.match(_search)
-        })
+        }) !== undefined
     }
     if (match && !_.isEmpty(statusSearch)) {
       match = _.find(statusSearch, { value: sed.status }) !== undefined
@@ -173,8 +184,8 @@ BUCEdit.propTypes = {
   initialStatusSearch: PT.array,
   institutionNames: PT.object,
   loading: PT.object,
-  locale: PT.string.isRequired,
-  rinaUrl: PT.string,
+  locale: AllowedLocaleStringPropType.isRequired,
+  rinaUrl: RinaUrlPropType,
   t: PT.func.isRequired,
   tagList: PT.array
 }

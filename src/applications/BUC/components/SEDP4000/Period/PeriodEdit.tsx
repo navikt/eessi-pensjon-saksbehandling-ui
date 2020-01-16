@@ -1,3 +1,13 @@
+import { Period, Periods } from 'declarations/period'
+import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
+import { AllowedLocaleString, Validation } from 'declarations/types'
+import {
+  ActionCreatorsPropType,
+  AllowedLocaleStringPropType,
+  TPropType,
+  ValidationPropType
+} from 'declarations/types.pt'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
@@ -16,16 +26,16 @@ import PeriodWork from 'applications/BUC/components/SEDP4000/Period/EditComponen
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
 export interface PeriodEditProps {
-  actions: any;
+  actions: ActionCreators;
   blurChildBirthDate?: () => void;
   blurEndDate?: () => void;
   blurStartDate?: () => void;
   cancelPeriodRequest?: () => void;
-  locale: string;
-  localErrors: any;
+  locale: AllowedLocaleString;
+  localErrors: Validation;
   mode: string;
-  period: any;
-  periods: Array<any>;
+  period: Period;
+  periods: Periods;
   saveEditPeriod: () => void;
   saveNewPeriod: () => void;
   setAttachments: (e: any) => void;
@@ -96,8 +106,8 @@ const PeriodEdit: React.FC<PeriodEditProps> = ({
       {period.type ? (
         <>
           <PeriodDate
-            blurEndDate={blurEndDate}
-            blurStartDate={blurStartDate}
+            blurEndDate={blurEndDate!}
+            blurStartDate={blurStartDate!}
             localErrors={localErrors}
             period={period}
             setDateType={setDateType}
@@ -136,7 +146,7 @@ const PeriodEdit: React.FC<PeriodEditProps> = ({
           {period.type === 'child'
             ? (
               <PeriodChild
-                blurChildBirthDate={blurChildBirthDate}
+                blurChildBirthDate={blurChildBirthDate!}
                 localErrors={localErrors}
                 setChildBirthDate={setChildBirthDate}
                 setChildFirstName={setChildFirstName}
@@ -146,7 +156,7 @@ const PeriodEdit: React.FC<PeriodEditProps> = ({
             ) : null}
           <PeriodComment period={period} setComment={setComment} t={t} />
           <PeriodAttachments closeModal={actions.closeModal} openModal={actions.openModal} period={period} setAttachments={setAttachments} t={t} />
-          <PeriodButtons cancelPeriodRequest={cancelPeriodRequest} mode={mode} saveEditPeriod={saveEditPeriod} saveNewPeriod={saveNewPeriod} t={t} />
+          <PeriodButtons cancelPeriodRequest={cancelPeriodRequest!} mode={mode} saveEditPeriod={saveEditPeriod} saveNewPeriod={saveNewPeriod} t={t} />
         </>
       ) : null}
     </div>
@@ -154,16 +164,16 @@ const PeriodEdit: React.FC<PeriodEditProps> = ({
 }
 
 PeriodEdit.propTypes = {
-  actions: PT.any.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   blurChildBirthDate: PT.func,
   blurEndDate: PT.func,
   blurStartDate: PT.func,
   cancelPeriodRequest: PT.func,
-  locale: PT.string.isRequired,
-  localErrors: PT.object,
+  locale: AllowedLocaleStringPropType.isRequired,
+  localErrors: ValidationPropType.isRequired,
   mode: PT.string.isRequired,
-  period: PT.object,
-  periods: PT.array.isRequired,
+  period: PeriodPropType.isRequired,
+  periods: PeriodsPropType.isRequired,
   saveEditPeriod: PT.func.isRequired,
   saveNewPeriod: PT.func.isRequired,
   setAttachments: PT.func.isRequired,
@@ -188,7 +198,7 @@ PeriodEdit.propTypes = {
   setWorkStreet: PT.func.isRequired,
   setWorkType: PT.func.isRequired,
   setWorkZipCode: PT.func.isRequired,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default PeriodEdit

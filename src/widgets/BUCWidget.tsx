@@ -1,18 +1,14 @@
 import Buc from 'applications/BUC/'
+import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
-export interface BUCWidgetProps {
-  onResize: () => void;
-  onFullFocus: Function;
-  onRestoreFocus: Function;
-  widget: any;
-}
-
-const BUCWidget = ({ onResize, onFullFocus, onRestoreFocus, widget }: BUCWidgetProps) => {
-  const [mounted, setMounted] = useState(false)
+const BUCWidget: WidgetFC<WidgetProps> = ({
+  onResize, onFullFocus, onRestoreFocus, widget
+}: WidgetProps): JSX.Element => {
+  const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
     if (!mounted && onResize) {

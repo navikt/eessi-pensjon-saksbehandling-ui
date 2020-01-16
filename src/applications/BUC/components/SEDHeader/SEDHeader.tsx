@@ -1,37 +1,37 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import { Buc, Institution, InstitutionNames, Participant, Sed } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
+import { Buc, InstitutionNames, Institutions, Participant, Sed, Seds } from 'declarations/buc'
+import { BucPropType, InstitutionNamesPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
+import { AllowedLocaleString, T } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, T } from 'types.d'
 import './SEDHeader.css'
 
 export interface SEDHeaderProps {
   buc: Buc;
   className ?: string;
+  followUpSeds: Seds;
   institutionNames: InstitutionNames;
   locale: AllowedLocaleString;
   onSEDNew: (buc: Buc, sed: Sed) => void;
   sed: Sed;
   style?: React.CSSProperties;
-  followUpSeds: Array<Sed>;
   t: T;
 }
 
-const SEDHeader = ({
+const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc, className, followUpSeds, institutionNames, locale, onSEDNew, sed, style, t
-}: SEDHeaderProps) => {
-  const institutionList: Array<Institution> = sed.participants ? sed.participants.map((participant: Participant) => {
-    return {
-      country: participant.organisation.countryCode,
-      institution: participant.organisation.name
-    }
-  }) : []
+}: SEDHeaderProps): JSX.Element => {
+  const institutionList: Institutions = sed.participants ? sed.participants.map((participant: Participant) => ({
+    country: participant.organisation.countryCode,
+    institution: participant.organisation.name
+  })) : []
 
   const sedLabel: string = getBucTypeLabel({
     t: t,
@@ -93,15 +93,15 @@ const SEDHeader = ({
 }
 
 SEDHeader.propTypes = {
-  buc: PT.object,
+  buc: BucPropType.isRequired,
   className: PT.string,
-  followUpSeds: PT.array,
-  institutionNames: PT.object,
-  locale: PT.string.isRequired,
+  followUpSeds: SedsPropType.isRequired,
+  institutionNames: InstitutionNamesPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
   onSEDNew: PT.func.isRequired,
-  sed: PT.object.isRequired,
+  sed: SedPropType.isRequired,
   style: PT.object,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default SEDHeader

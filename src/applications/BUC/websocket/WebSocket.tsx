@@ -3,11 +3,12 @@
 import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
+import { ActionCreatorsPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
-import { ActionCreators } from 'types.d'
 import './WebSocket.css'
 
 export interface BucWebSocketProps {
@@ -27,7 +28,9 @@ interface EESSIPen {
 }
 interface WindowEESSIPen extends Window, EESSIPen {}
 
-const BucWebSocket = ({ actions, fnr, avdodfnr }: BucWebSocketProps) => {
+const BucWebSocket: React.FC<BucWebSocketProps> = ({
+  actions, fnr, avdodfnr
+}: BucWebSocketProps): JSX.Element => {
   const [status, setStatus] = useState<string>(NOTCONNECTED)
   const [popoverOpen, setPopoverOpen] = useState<boolean>(false)
   const [popoverAnchor, setPopoverAnchor] = useState<HTMLElement | undefined>(undefined)
@@ -149,8 +152,8 @@ const BucWebSocket = ({ actions, fnr, avdodfnr }: BucWebSocketProps) => {
 }
 
 BucWebSocket.propTypes = {
-  actions: PT.object.isRequired,
-  fnr: PT.string,
+  actions: ActionCreatorsPropType.isRequired,
+  fnr: PT.string.isRequired,
   avdodfnr: PT.string
 }
 

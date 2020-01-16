@@ -4,8 +4,8 @@ import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import * as urls from 'constants/urls'
 import sampleJoark from 'resources/tests/sampleJoarkRaw'
-import { ActionWithPayload } from 'types.d'
-import { JoarkFile } from 'applications/BUC/declarations/joark'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { JoarkFile } from 'declarations/joark'
 const sprintf = require('sprintf-js').sprintf
 
 export const listJoarkFiles = (userId: string): Function => {

@@ -1,24 +1,23 @@
-import { P4000Info } from 'applications/BUC/declarations/period'
+import { Bucs } from 'declarations/buc'
+import { JoarkFile } from 'declarations/joark'
+import { P4000Info } from 'declarations/period'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
+import { act } from 'react-dom/test-utils'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import targetP4000info from 'resources/tests/targetP4000info'
 import { SEDStart, SEDStartProps } from './SEDStart'
-jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => {
-  return ({ children }: {children: JSX.Element}) => {
-    return (
-      <div className='mock-sedP4000'>
-        {children}
-      </div>
-    )
-  }
-})
+jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => ({ children }: {children: JSX.Element}) => (
+  <div className='mock-sedP4000'>
+    {children}
+  </div>
+))
 
 describe('applications/BUC/components/SEDStart/SEDStart', () => {
   let wrapper: ReactWrapper
-  const mockBucs = _.keyBy(sampleBucs, 'caseId')
+  const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
 
   const initialMockProps: SEDStartProps = {
     actions: {
@@ -31,7 +30,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       fetchBucs: jest.fn()
     },
     aktoerId: '123',
-    attachments: [],
+    attachments: {},
     avdodfnr: undefined,
     bucs: mockBucs,
     bucsInfoList: [],
@@ -39,6 +38,9 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     currentBuc: '195440',
     initialAttachments: {
       joark: [{
+        tittel: 'tittel',
+        tema: 'tema',
+        datoOpprettet: new Date(2020, 1, 1),
         journalpostId: '456',
         dokumentInfoId: '789',
         variant: {
@@ -83,23 +85,24 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
 
   it('UseEffect: sendAttachmentToSed', () => {
     expect(initialMockProps.actions.sendAttachmentToSed).not.toHaveBeenCalled()
-    wrapper.setProps({ sed: { id: 'mockSedId' } })
+    act(() => {
+      wrapper.setProps({ sed: { id: 'mockSedId' } })
+    })
     expect(initialMockProps.actions.sendAttachmentToSed).toHaveBeenCalledWith({
       aktoerId: initialMockProps.aktoerId,
       rinaId: initialMockProps.currentBuc,
       rinaDokumentId: 'mockSedId',
-      journalpostId: initialMockProps.initialAttachments!.joark[0].journalpostId,
-      dokumentInfoId: initialMockProps.initialAttachments!.joark[0].dokumentInfoId,
-      variantformat: initialMockProps.initialAttachments!.joark[0].variant.variantformat
+      journalpostId: (initialMockProps.initialAttachments!.joark[0] as JoarkFile).journalpostId,
+      dokumentInfoId: (initialMockProps.initialAttachments!.joark[0] as JoarkFile).dokumentInfoId,
+      variantformat: (initialMockProps.initialAttachments!.joark[0] as JoarkFile).variant.variantformat
     }, initialMockProps.initialAttachments!.joark[0])
-    wrapper.setProps({ attachments: [{ id: 'mockSedId' }] })
-    expect(initialMockProps.actions.resetSed).toHaveBeenCalled()
-    expect(initialMockProps.actions.fetchBucs).toHaveBeenCalledWith(initialMockProps.aktoerId)
-    expect(initialMockProps.setMode).toHaveBeenCalledWith('bucedit')
   })
 
   it('With a BUC with SEDs that have NO participants, demand a institution', () => {
-    wrapper = mount(<SEDStart {...initialMockProps} bucs={mockBucs} />)
+    const mockBucsWithNoParticipants: Bucs = _.cloneDeep(mockBucs)
+    mockBucsWithNoParticipants[initialMockProps.currentBuc!].institusjon = []
+    mockBucsWithNoParticipants[initialMockProps.currentBuc!].seds = []
+    wrapper = mount(<SEDStart {...initialMockProps} bucs={mockBucsWithNoParticipants} />)
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)
     wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'mockSed' } })
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)

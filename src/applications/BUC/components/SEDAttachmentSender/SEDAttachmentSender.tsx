@@ -1,30 +1,32 @@
-import { JoarkFile } from 'applications/BUC/declarations/joark'
+import { JoarkFiles, JoarkFile } from 'declarations/joark'
 import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
+import { JoarkFilesPropType } from 'declarations/joark.pt'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 
 export interface SEDAttachmentSenderProps {
-  allAttachments: Array<JoarkFile>;
+  allAttachments: JoarkFiles;
   attachmentsError ?: boolean;
   className?: string;
   initialStatus ?: string;
-  onFinished ?: Function;
+  onFinished ?: () => void;
   payload: any;
-  savedAttachments: Array<JoarkFile>;
-  sendAttachmentToSed : Function;
+  savedAttachments: JoarkFiles;
+  sendAttachmentToSed : (params: any, unsent: JoarkFile) => void;
   t: T;
 }
 
-const SEDAttachmentSender = ({
+const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   allAttachments, attachmentsError, className, initialStatus = 'inprogress',
   payload = {}, onFinished, savedAttachments, sendAttachmentToSed, t
-}: SEDAttachmentSenderProps) => {
+}: SEDAttachmentSenderProps): JSX.Element => {
   const [sendingAttachment, setSendingAttachment] = useState<boolean>(false)
-  const [_storeAttachments, setStoreAttachments] = useState<Array<JoarkFile>>(savedAttachments || [])
+  const [_storeAttachments, setStoreAttachments] = useState<JoarkFiles>(savedAttachments || [])
   const [status, setStatus] = useState<string>(initialStatus)
   const handleFinished: Function = useCallback(() => {
     if (_.isFunction(onFinished)) {
@@ -51,7 +53,7 @@ const SEDAttachmentSender = ({
       if (!IS_TEST) {
         console.log('SEDAttachmentSender: Picking a new unsent attachment')
       }
-      const unsentAttachments: Array<JoarkFile> = allAttachments.filter(a => {
+      const unsentAttachments: JoarkFiles = allAttachments.filter(a => {
         return !_.find(_storeAttachments, b => {
           return a.dokumentInfoId === b.dokumentInfoId &&
             a.journalpostId === b.journalpostId &&
@@ -107,7 +109,7 @@ const SEDAttachmentSender = ({
   }, [attachmentsError, setStatus])
 
   if (_.isNil(_storeAttachments) || _.isNil(allAttachments)) {
-    return null
+    return <div />
   }
 
   const current: number = (_storeAttachments.length === allAttachments.length ? _storeAttachments.length : _storeAttachments.length + 1)
@@ -128,16 +130,16 @@ const SEDAttachmentSender = ({
   )
 }
 
-SEDAttachmentSender.propType = {
-  allAttachments: PT.array,
+SEDAttachmentSender.propTypes = {
+  allAttachments: JoarkFilesPropType.isRequired,
   attachmentsError: PT.bool,
   className: PT.string,
   initialStatus: PT.string,
   onFinished: PT.func,
   payload: PT.object,
-  savedAttachments: PT.array,
+  savedAttachments: JoarkFilesPropType.isRequired,
   sendAttachmentToSed: PT.func.isRequired,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default SEDAttachmentSender

@@ -4,11 +4,17 @@ import _ from 'lodash'
 import React, { ChangeEvent } from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
 
-jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => {
-  return () => { return <div className='a-buc-sednew' /> }
-})
-jest.mock('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
-  return ({ setMode }: { setMode: (e: ChangeEvent) => void}) => (<select className='mock-buccrumbs' onChange={(e: ChangeEvent) => setMode(e.target.value)} />)
+jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => () => (<div className='a-buc-sednew' />))
+jest.mock('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => ({ setMode }: { setMode: (e: ChangeEvent) => void}) => (<select className='mock-buccrumbs' onChange={(e: ChangeEvent) => setMode(e.target.value)} />))
+jest.mock('eessi-pensjon-ui', () => {
+  const Ui = jest.requireActual('eessi-pensjon-ui').default
+  return {
+    ...Ui,
+    Nav: {
+      ...Ui.Nav,
+      Popover: ({ children }: any) => (<div className='mock-popover'>{children}</div>)
+    }
+  }
 })
 
 describe('applications/BUC/index', () => {
@@ -18,6 +24,7 @@ describe('applications/BUC/index', () => {
     actions: {
       saveBucsInfo: jest.fn(),
       getInstitutionsListForBucAndCountry: jest.fn(),
+      getSubjectAreaList: jest.fn(),
       getBucList: jest.fn(),
       getTagList: jest.fn(),
       fetchBucs: jest.fn(),
@@ -28,18 +35,30 @@ describe('applications/BUC/index', () => {
       setMode: jest.fn()
     },
     aktoerId: '123',
+    attachments: {},
+    avdodBucs: undefined,
+    avdodfnr: undefined,
     bucs: mockBucs,
+    bucsInfo: undefined,
+    bucsInfoList: undefined,
+    countryList: [],
     currentBuc: '195440',
+    institutionList: {},
+    institutionNames: {},
     loading: {},
     locale: 'nb',
     mode: 'buclist',
     onFullFocus: jest.fn(),
     onRestoreFocus: jest.fn(),
+    p4000info: { person: {}, bank: {}, stayAbroad: [] },
+    person: {},
     rinaUrl: 'http://mockUrl/rina',
     sakId: '456',
-    subjectAreaList: ['mockSubjectArea1', 'mockSubjectArea2'],
+    sed: undefined,
+    sedList: undefined,
     t: jest.fn(t => t),
     tagList: ['mockTag1', 'mockTag2'],
+    vedtakId: undefined,
     waitForMount: false
   }
 

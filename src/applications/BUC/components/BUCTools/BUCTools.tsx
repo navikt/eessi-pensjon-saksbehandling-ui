@@ -1,10 +1,13 @@
-import { Buc, BucInfo, BucsInfo, Tags } from 'applications/BUC/declarations/buc.d'
+import { Buc, BucInfo, BucsInfo, Tags } from 'declarations/buc'
 import classNames from 'classnames'
+import { BucInfoPropType, BucPropType, BucsInfoPropType } from 'declarations/buc.pt'
+import { ActionCreatorsPropType, LoadingPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, Loading, T } from 'types.d'
+import { Loading, T } from 'declarations/types'
 import './BUCTools.css'
 
 export interface BUCToolsProps {
@@ -12,7 +15,7 @@ export interface BUCToolsProps {
   aktoerId: string;
   buc: Buc;
   bucInfo: BucInfo;
-  bucsInfo: BucsInfo;
+  bucsInfo?: BucsInfo;
   className?: string;
   loading: Loading;
   onTagChange ?: (tagList: Tags) => void;
@@ -20,12 +23,12 @@ export interface BUCToolsProps {
   tagList: Array<string> | undefined;
 }
 
-const BUCTools = (
-  { actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, onTagChange, t, tagList }: BUCToolsProps
-) => {
-  const [comment, setComment] = useState<string | undefined>(bucInfo ? bucInfo.comment : undefined)
-  const [allTags, setAllTags] = useState<Tags>([])
-  const [tags, setTags] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
+const BUCTools: React.FC<BUCToolsProps> = ({
+  actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, onTagChange, t, tagList
+}: BUCToolsProps): JSX.Element => {
+  const [comment, setComment] = useState<string>(bucInfo ? bucInfo.comment : '')
+  const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
+  const [tags, setTags] = useState<Tags>(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
@@ -45,18 +48,18 @@ const BUCTools = (
     }
   }, [t, allTags, tagList])
 
-  const onTagsChange = (tagsList: Tags) => {
+  const onTagsChange = (tagsList: Tags): void => {
     if (_.isFunction(onTagChange)) {
       onTagChange(tagsList)
     }
     setTags(tagsList)
   }
 
-  const onCommentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onCommentChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     setComment(e.target.value)
   }
 
-  const onSaveButtonClick = () => {
+  const onSaveButtonClick = (): void => {
     actions.saveBucsInfo({
       bucsInfo: bucsInfo,
       aktoerId: aktoerId,
@@ -68,6 +71,7 @@ const BUCTools = (
 
   return (
     <Ui.Nav.EkspanderbartpanelBase
+      collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
       id='a-buc-c-buctools__panel-id'
       className={classNames('a-buc-c-buctools', 's-border', className)}
       heading={
@@ -113,15 +117,15 @@ const BUCTools = (
 }
 
 BUCTools.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string.isRequired,
-  buc: PT.object.isRequired,
-  bucInfo: PT.object,
-  bucsInfo: PT.object,
+  buc: BucPropType.isRequired,
+  bucInfo: BucInfoPropType.isRequired,
+  bucsInfo: BucsInfoPropType,
   className: PT.string,
-  loading: PT.object.isRequired,
+  loading: LoadingPropType.isRequired,
   onTagChange: PT.func,
-  t: PT.func.isRequired,
+  t: TPropType.isRequired,
   tagList: PT.array
 }
 

@@ -1,20 +1,28 @@
-import React, { useEffect, useCallback } from 'react'
-import PT from 'prop-types'
-import _ from 'lodash'
+import 'applications/BUC/components/SEDP4000/Period/Period.css'
 import PeriodEdit from 'applications/BUC/components/SEDP4000/Period/PeriodEdit'
 import PeriodView from 'applications/BUC/components/SEDP4000/Period/PeriodView'
 import { periodValidation } from 'applications/BUC/components/SEDP4000/Validation/singleTests'
 import { periodStep } from 'applications/BUC/components/SEDP4000/Validation/stepTests'
-import {Period as IPeriod, Periods as IPeriods, PeriodDate, PeriodErrors} from 'applications/BUC/declarations/period'
-import { ActionCreators, AllowedLocaleString, T } from 'types.d'
-import 'applications/BUC/components/SEDP4000/Period/Period.css'
+import { Period as IPeriod, PeriodDate, PeriodErrors, Periods as IPeriods } from 'declarations/period'
+import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
+import { AllowedLocaleString, T, Validation } from 'declarations/types'
+import {
+  ActionCreatorsPropType,
+  AllowedLocaleStringPropType,
+  TPropType,
+  ValidationPropType
+} from 'declarations/types.pt'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
+import _ from 'lodash'
+import PT from 'prop-types'
+import React, { useCallback, useEffect } from 'react'
 
 export interface PeriodProps {
   actions: ActionCreators;
   first?: boolean;
   last?: boolean;
   locale: AllowedLocaleString;
-  localErrors: {[k: string] : string |undefined};
+  localErrors: Validation;
   mode: string;
   period: IPeriod;
   periods: Array<IPeriod>;
@@ -302,19 +310,19 @@ const Period = ({
 }
 
 Period.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   first: PT.bool,
   last: PT.bool,
-  locale: PT.string.isRequired,
-  localErrors: PT.object.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
+  localErrors: ValidationPropType.isRequired,
   mode: PT.string.isRequired,
-  period: PT.object,
-  periods: PT.array,
-  setLocalErrors: PT.func,
-  setLocalError: PT.func,
-  setPeriod: PT.func,
-  setPeriods: PT.func,
-  t: PT.func.isRequired
+  period: PeriodPropType.isRequired,
+  periods: PeriodsPropType.isRequired,
+  setLocalErrors: PT.func.isRequired,
+  setLocalError: PT.func.isRequired,
+  setPeriod: PT.func.isRequired,
+  setPeriods: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default Period

@@ -1,12 +1,12 @@
-import { JoarkFile } from 'applications/BUC/declarations/joark'
+import { JoarkFile } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import sampleJoarkReduced from 'resources/tests/sampleJoarkReduced'
 import SEDAttachments, { SEDAttachmentsProps } from './SEDAttachments'
 
-jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
-  return (props: any) => (<div className='mock-joarkbrowser' onClick={() => props.onFilesChange([{ foo: 'bar' }])} />)
-})
+jest.mock('components/JoarkBrowser/JoarkBrowser', () =>
+  (props: any) => (<div className='mock-joarkbrowser' onClick={() => props.onFilesChange([{ foo: 'bar' }])} />)
+)
 
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper: ReactWrapper
@@ -50,7 +50,7 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
     wrapper = mount(<SEDAttachments {...initialMockProps} initialMode='confirm' files={{ joark: [(sampleJoarkReduced[0] as JoarkFile)] }} />)
     // @ts-ignore
     wrapper.find('button.a-buc-c-sedattachments__submit-button').props().onClick()
-    expect(initialMockProps.onSubmit).toHaveBeenCalledWith({ joark: [{ foo: 'bar2' }] })
+    expect(initialMockProps.onSubmit).toHaveBeenCalledWith({ joark: [(sampleJoarkReduced[0] as JoarkFile)] })
   })
 
   it('onEnableAttachmentsButtonClicked triggered', () => {

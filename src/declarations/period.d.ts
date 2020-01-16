@@ -1,3 +1,5 @@
+import { Files } from 'eessi-pensjon-ui/dist/declarations/types'
+
 export interface PeriodDate {
   day: string;
   month: string;
@@ -10,10 +12,10 @@ export interface Country {
 }
 
 export interface Period {
-  id?: number,
+  id?: number | null,
   type: string;
   startDate: PeriodDate;
-  endDate?: PeriodDate;
+  endDate?: PeriodDate | null;
   dateType: string;
   uncertainDate: boolean;
   country: Country;
@@ -34,7 +36,7 @@ export interface Period {
   childBirthDate ?: PeriodDate;
   learnInstitution ?: string;
   payingInstitution ?: string;
-  attachments ?: Array<IFile>;
+  attachments ?: Files;
   [key: string]: any;
 }
 
@@ -94,8 +96,12 @@ export interface Payload {
 
 export type StayAbroad = Array<Period>
 
+export interface Person {
+
+}
+
 export interface P4000Info {
-  person: any,
+  person: Person,
   bank: any,
   stayAbroad: StayAbroad
 }

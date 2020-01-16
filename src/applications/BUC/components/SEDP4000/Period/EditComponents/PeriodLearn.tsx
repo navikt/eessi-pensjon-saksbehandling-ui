@@ -1,8 +1,21 @@
+import { Period } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { T, Validation } from 'declarations/types'
+import { TPropType, ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodLearn = ({ localErrors, period, setLearnInstitution, t }) => (
+export interface PeriodLearnProps {
+   localErrors: Validation;
+   period: Period;
+   setLearnInstitution: (e: React.ChangeEvent) => void;
+   t: T
+}
+
+const PeriodLearn: React.FC<PeriodLearnProps> = ({
+  localErrors, period, setLearnInstitution, t
+}: PeriodLearnProps): JSX.Element => (
   <Ui.Nav.Row className='period-learn'>
     <div className='col-sm-12'>
       <Ui.Nav.Input
@@ -21,17 +34,17 @@ const PeriodLearn = ({ localErrors, period, setLearnInstitution, t }) => (
         value={period.learnInstitution || ''}
         placeholder={t('ui:writeIn')}
         onChange={setLearnInstitution}
-        feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
+        feil={localErrors.learnInstitution ? t(localErrors.learnInstitution) : false}
       />
     </div>
   </Ui.Nav.Row>
 )
 
 PeriodLearn.propTypes = {
-  localErrors: PT.object,
-  period: PT.object,
-  setLearnInstitution: PT.func,
-  t: PT.func.isRequired
+  localErrors: ValidationPropType.isRequired,
+  period: PeriodPropType.isRequired,
+  setLearnInstitution: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default PeriodLearn

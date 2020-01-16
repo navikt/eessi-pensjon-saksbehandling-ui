@@ -1,8 +1,24 @@
+import { Period, PeriodDate } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { T, Validation } from 'declarations/types'
+import { TPropType, ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDate, setChildFirstName, setChildLastName, t }) => (
+export interface PeriodChildProps {
+  blurChildBirthDate: () => void;
+  localErrors: Validation;
+  period: Period;
+  setChildBirthDate: (e: PeriodDate) => void;
+  setChildFirstName: (e: React.ChangeEvent) => void;
+  setChildLastName: (e: React.ChangeEvent) => void;
+  t: T
+}
+
+const PeriodChild: React.FC<PeriodChildProps> = ({
+  blurChildBirthDate, localErrors, period, setChildBirthDate, setChildFirstName, setChildLastName, t
+}: PeriodChildProps): JSX.Element => (
   <Ui.Nav.Row>
     <div className='col-sm-12'>
       <Ui.Nav.Undertittel className='mt-5 mb-2'>
@@ -21,7 +37,7 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
         value={period.childLastName || ''}
         placeholder={t('ui:writeIn')}
         onChange={setChildLastName}
-        feil={localErrors.childLastName ? { feilmelding: t(localErrors.childLastName) } : null}
+        feil={localErrors.childLastName ? t(localErrors.childLastName) : false}
       />
     </div>
     <div className='col-sm-12'>
@@ -38,7 +54,7 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
         value={period.childFirstName || ''}
         placeholder={t('ui:writeIn')}
         onChange={setChildFirstName}
-        feil={localErrors.childFirstName ? { feilmelding: t(localErrors.childFirstName) } : null}
+        feil={localErrors.childFirstName ? t(localErrors.childFirstName) : null}
       />
     </div>
     <div className='col-sm-6 col-12 mb-2'>
@@ -62,20 +78,20 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
         }}
         initialValues={period.childBirthDate}
         onChange={setChildBirthDate}
-        error={localErrors.childBirthDate || localErrors.timeSpan ? t(localErrors.childBirthDate || localErrors.timeSpan) : undefined}
+        error={localErrors.childBirthDate || localErrors.timeSpan ? t((localErrors.childBirthDate || localErrors.timeSpan)!) : undefined}
       />
     </div>
   </Ui.Nav.Row>
 )
 
 PeriodChild.propTypes = {
-  blurChildBirthDate: PT.func,
-  localErrors: PT.object,
-  period: PT.object,
-  setChildBirthDate: PT.func,
-  setChildFirstName: PT.func,
-  setChildLastName: PT.func,
-  t: PT.func.isRequired
+  blurChildBirthDate: PT.func.isRequired,
+  localErrors: ValidationPropType.isRequired,
+  period: PeriodPropType.isRequired,
+  setChildBirthDate: PT.func.isRequired,
+  setChildFirstName: PT.func.isRequired,
+  setChildLastName: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
 export default PeriodChild

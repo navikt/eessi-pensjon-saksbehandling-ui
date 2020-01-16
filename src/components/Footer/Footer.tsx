@@ -1,9 +1,10 @@
 import classNames from 'classnames'
+import { ActionCreatorsPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import './Footer.css'
-import { ActionCreators } from 'types.d'
 
 export interface FooterProps {
   actions: ActionCreators;
@@ -12,8 +13,10 @@ export interface FooterProps {
   params: {[k: string]: any}
 }
 
-const Footer = ({ actions, className, footerOpen, params = {} }: FooterProps) => {
-  const validParams = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'avdodfnr', 'vedtakId', 'kravId', 'fnr', 'mottaker']
+const Footer: React.FC<FooterProps> = ({
+  actions, className, footerOpen, params = {}
+}: FooterProps): JSX.Element => {
+  const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'avdodfnr', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const [paramName, setParamName] = useState<string |undefined>(undefined)
   const [paramValue, setParamValue] = useState<string |undefined>(undefined)
 
@@ -90,10 +93,10 @@ const Footer = ({ actions, className, footerOpen, params = {} }: FooterProps) =>
 }
 
 Footer.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   className: PT.string,
-  footerOpen: PT.bool,
-  params: PT.object
+  footerOpen: PT.bool.isRequired,
+  params: PT.object.isRequired
 }
 
 export default Footer

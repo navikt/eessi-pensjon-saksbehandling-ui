@@ -1,12 +1,14 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { Buc, BucInfo, Institution, InstitutionNames } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
+import { Buc, BucInfo, InstitutionNames, Institutions } from 'declarations/buc'
+import { BucInfoPropType, BucPropType, InstitutionNamesPropType } from 'declarations/buc.pt'
+import { AllowedLocaleString, RinaUrl, T } from 'declarations/types'
+import { AllowedLocaleStringPropType, RinaUrlPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, RinaUrl, T } from 'types.d'
 import './BUCDetail.css'
 
 export interface BUCDetailProps {
@@ -19,9 +21,9 @@ export interface BUCDetailProps {
   t: T;
 }
 
-const BUCDetail = ({
+const BUCDetail: React.FC<BUCDetailProps> = ({
   buc, bucInfo, className, institutionNames, locale, rinaUrl, t
-}: BUCDetailProps) => (
+}: BUCDetailProps): JSX.Element => (
   <Ui.Nav.EkspanderbartpanelBase
     id='a-buc-c-bucdetail__panel-id'
     className={classNames('a-buc-c-bucdetail', 's-border', className)}
@@ -32,7 +34,7 @@ const BUCDetail = ({
         className='a-buc-c-bucdetail__header'
       >
         {buc.type + ' - ' + getBucTypeLabel({
-          type: buc.type,
+          type: buc.type!,
           locale: locale,
           t: t
         })}
@@ -100,7 +102,7 @@ const BUCDetail = ({
       <div className='a-buc-c-bucdetail__institutions'>
         <InstitutionList
           t={t}
-          institutions={(buc.institusjon as Array<Institution>)}
+          institutions={(buc.institusjon as Institutions)}
           institutionNames={institutionNames}
           locale={locale}
           type='joined'
@@ -111,13 +113,13 @@ const BUCDetail = ({
 )
 
 BUCDetail.propTypes = {
-  buc: PT.object.isRequired,
-  bucInfo: PT.object,
+  buc: BucPropType.isRequired,
+  bucInfo: BucInfoPropType.isRequired,
   className: PT.string,
-  institutionNames: PT.object,
-  locale: PT.string.isRequired,
-  rinaUrl: PT.string.isRequired,
-  t: PT.func.isRequired
+  institutionNames: InstitutionNamesPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
+  rinaUrl: RinaUrlPropType.isRequired,
+  t: TPropType.isRequired
 }
 
 export default BUCDetail

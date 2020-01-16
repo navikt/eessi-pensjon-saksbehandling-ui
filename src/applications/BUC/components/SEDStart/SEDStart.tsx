@@ -4,24 +4,37 @@ import * as uiActions from 'actions/ui'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import P4000Payload from 'applications/BUC/components/SEDP4000/P4000Payload'
+import { IS_TEST } from 'constants/environment'
+import * as storage from 'constants/storage'
 import {
+  AttachedFiles,
   Buc,
   Bucs,
   Institution,
   InstitutionListMap,
   InstitutionNames,
+  Institutions,
   RawInstitution,
   Sed
-} from 'applications/BUC/declarations/buc.d'
-import { P4000Info } from 'applications/BUC/declarations/period'
-import { IS_TEST } from 'constants/environment'
-import * as storage from 'constants/storage'
+} from 'declarations/buc'
+import {
+  AttachedFilesPropType,
+  BucsPropType,
+  InstitutionListMapPropType,
+  InstitutionNamesPropType,
+  SedPropType
+} from 'declarations/buc.pt'
+import { JoarkFiles } from 'declarations/joark'
+import { P4000Info } from 'declarations/period'
+import { P4000InfoPropType } from 'declarations/period.pt'
+import { AllowedLocaleString, Loading, T, Validation } from 'declarations/types'
+import { ActionCreatorsPropType, AllowedLocaleStringPropType, LoadingPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, AllowedLocaleString, Dispatch, Loading, State, T } from 'types.d'
 import Step1 from './Step1'
 import Step2 from './Step2'
 
@@ -29,14 +42,14 @@ export interface SEDStartProps {
   actions: ActionCreators;
   aktoerId?: string;
   avdodfnr?: string;
-  attachments: Array<any>;
+  attachments: AttachedFiles;
   attachmentsError ?: boolean;
   bucs: Bucs;
-  bucsInfoList: Array<string>;
+  bucsInfoList?: Array<string>;
   countryList: Array<string>;
   currentBuc?: string;
   currentSed ?: string;
-  initialAttachments ?: { [namespace: string]: Array<any> };
+  initialAttachments ?: AttachedFiles;
   initialSed ?: string | undefined;
   initialStep ?: number;
   institutionList: InstitutionListMap<RawInstitution>;
@@ -45,72 +58,58 @@ export interface SEDStartProps {
   locale?: AllowedLocaleString;
   p4000info: P4000Info;
   sakId?: string;
-  sed: Sed | undefined;
-  sedList: Array<string>;
-  setMode: Function;
+  sed?: Sed | undefined;
+  sedList?: Array<string>;
+  setMode: (s: string) => void;
   t: T;
   vedtakId: string | undefined;
 }
 
-const mapStateToProps: Function = /* istanbul ignore next */ (state: State) => {
-  return {
-    attachments: state.buc.attachments,
-    bucsInfoList: state.buc.bucsInfoList,
-    countryList: state.buc.countryList,
-    institutionList: state.buc.institutionList,
-    attachmentsError: state.buc.attachmentsError,
-    loading: state.loading,
-    locale: state.ui.locale,
-    sed: state.buc.sed,
-    sedList: state.buc.sedList,
-    p4000info: state.buc.p4000info,
-    avdodfnr: state.app.params.avdodfnr
-  }
-}
+const mapStateToProps: Function = /* istanbul ignore next */ (state: State): State => ({
+  attachments: state.buc.attachments,
+  bucsInfoList: state.buc.bucsInfoList,
+  countryList: state.buc.countryList,
+  institutionList: state.buc.institutionList,
+  attachmentsError: state.buc.attachmentsError,
+  loading: state.loading,
+  locale: state.ui.locale,
+  sed: state.buc.sed,
+  sedList: state.buc.sedList,
+  p4000info: state.buc.p4000info,
+  avdodfnr: state.app.params.avdodfnr
+})
 
-const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
-  return { actions: bindActionCreators({ ...storageActions, ...bucActions, ...uiActions }, dispatch) }
-}
+const mapDispatchToProps: Function = /* istanbul ignore next */ (dispatch: Dispatch) => ({
+  actions: bindActionCreators({ ...storageActions, ...bucActions, ...uiActions }, dispatch)
+})
 
-export const SEDStart = (props: SEDStartProps) => {
+export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element | null => {
   const { actions, aktoerId, avdodfnr, attachments, attachmentsError, bucs, bucsInfoList, countryList, currentBuc, currentSed } = props
   const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList, institutionNames } = props
   const { loading, locale, p4000info, sakId, sed, sedList, setMode, t, vedtakId = undefined } = props
-  const prefillInstitutions: () => Array<string> = () => {
-    const institutions: Array<string> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
+
+  const prefill: (prop: string) => Array<string> = (prop: string) => {
+    const institutions: Array<any> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
       ? bucs[currentBuc!]
         .seds!
         .filter(sedFilter)
         .map((sed: Sed) => {
           return sed.participants
             .filter(p => p.role === 'Sender')
-            .map(p => p.organisation.id)
+            .map(p => {
+              return _.get(p.organisation, prop)
+            })
         })
-        .flat()
       : []
-    return Array.from(new Set(institutions)) // remove duplicates
-  }
-  const prefillCountries: () => Array<string> = () => {
-    const countries: Array<string> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
-      ? bucs[currentBuc!]
-        .seds!
-        .filter(sedFilter)
-        .map((sed: Sed) => {
-          return sed.participants
-            .filter(p => p.role === 'Sender')
-            .map(p => p.organisation.countryCode)
-        })
-        .flat()
-      : []
-    return Array.from(new Set(countries)) // remove duplicates
+    return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
   const [_sed, setSed] = useState<string | undefined>(initialSed)
-  const [_institutions, setInstitutions] = useState<Array<string>>(prefillInstitutions())
-  const [_countries, setCountries] = useState<Array<string>>(prefillCountries())
+  const [_institutions, setInstitutions] = useState<Array<string>>(prefill('id'))
+  const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
   const [_vedtakId, setVedtakId] = useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
-  const [_attachments, setAttachments] = useState<{ [namespace: string]: Array<any> }>(initialAttachments)
+  const [_attachments, setAttachments] = useState<AttachedFiles>(initialAttachments)
   const [step, setStep] = useState<number>(initialStep)
-  const [validation, setValidation] = useState<{[k: string]: string}>({})
+  const [validation, setValidation] = useState<Validation>({})
 
   const [showButtons, setShowButtons] = useState<boolean>(true)
   const [sedSent, setSedSent] = useState<boolean>(false)
@@ -179,7 +178,7 @@ export const SEDStart = (props: SEDStartProps) => {
         actions.fetchBucs(avdodfnr)
       }
       if (!_.isEmpty(bucsInfoList) &&
-        bucsInfoList.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
+        bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
         actions.fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
       }
       setMode('bucedit')
@@ -199,17 +198,17 @@ export const SEDStart = (props: SEDStartProps) => {
     return false
   }
 
-  const sedNeedsVedtakId: Function = (): boolean => {
+  const sedNeedsVedtakId = (): boolean => {
     return _sed === 'P6000' || _sed === 'P7000'
   }
 
-  const sedCanHaveAttachments: Function = (): boolean => {
+  const sedCanHaveAttachments = (): boolean => {
     const sedsWithoutAttachments = ['P4000', 'P5000', 'P7000', 'H070']
     return _sed !== undefined && !_.includes(sedsWithoutAttachments, _sed)
   }
 
   const convertInstitutionIDsToInstitutionObjects: Function = (): Array<Institution> => {
-    const institutions = [] as Array<Institution>
+    const institutions = [] as Institutions
     _institutions.forEach(item => {
       Object.keys(institutionList).forEach((landkode: string) => {
         const found = _.find(institutionList[landkode], { id: item })
@@ -304,7 +303,6 @@ export const SEDStart = (props: SEDStartProps) => {
           {...props}
           _sed={_sed!}
           buc={buc}
-          locale={locale!}
           showButtons={showButtons} setShowButtons={setShowButtons}
           validation={validation} setValidation={setValidation}
         />
@@ -319,8 +317,8 @@ export const SEDStart = (props: SEDStartProps) => {
             rinaId: buc.caseId,
             rinaDokumentId: sed!.id
           }}
-          allAttachments={_attachments.joark}
-          savedAttachments={attachments}
+          allAttachments={_attachments.joark as JoarkFiles}
+          savedAttachments={attachments.joark as JoarkFiles}
           onFinished={() => setAttachmentsSent(true)}
           t={t}
         />
@@ -360,23 +358,23 @@ export const SEDStart = (props: SEDStartProps) => {
 }
 
 SEDStart.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string.isRequired,
   avdodfnr: PT.string,
-  attachments: PT.array,
-  bucs: PT.object.isRequired,
-  bucsInfoList: PT.array,
-  countryList: PT.array,
+  attachments: AttachedFilesPropType.isRequired,
+  bucs: BucsPropType.isRequired,
+  bucsInfoList: PT.arrayOf(PT.string.isRequired),
+  countryList: PT.arrayOf(PT.string.isRequired).isRequired,
   currentBuc: PT.string.isRequired,
-  initialAttachments: PT.object,
-  institutionList: PT.object,
-  institutionNames: PT.object,
-  loading: PT.object.isRequired,
-  locale: PT.string,
-  p4000info: PT.object,
+  initialAttachments: AttachedFilesPropType,
+  institutionList: InstitutionListMapPropType.isRequired,
+  institutionNames: InstitutionNamesPropType.isRequired,
+  loading: LoadingPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
+  p4000info: P4000InfoPropType.isRequired,
   sakId: PT.string.isRequired,
-  sed: PT.object,
-  t: PT.func.isRequired,
+  sed: SedPropType,
+  t: TPropType.isRequired,
   vedtakId: PT.string
 }
 

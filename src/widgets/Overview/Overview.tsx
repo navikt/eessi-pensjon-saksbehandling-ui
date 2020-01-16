@@ -1,15 +1,35 @@
 import * as appActions from 'actions/app'
 import classNames from 'classnames'
+import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { Widget } from 'eessi-pensjon-ui/dist/declarations/Dashboard.d'
+import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, AllowedLocaleString, Dispatch, State, T } from 'types.d'
+import { AllowedLocaleString, T } from 'declarations/types'
 import './Overview.css'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
+
+const mapStateToProps = (state: State) => ({
+  /* istanbul ignore next */
+  aktoerId: state.app.params.aktoerId,
+  gettingPersonInfo: state.loading.gettingPersonInfo,
+  isSendingPinfo: state.loading.isSendingPinfo,
+  locale: state.ui.locale,
+  person: state.app.person,
+  sakId: state.app.params.sakId,
+  highContrast: state.ui.highContrast
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  /* istanbul ignore next */
+  actions: bindActionCreators({ ...appActions }, dispatch)
+})
 
 export interface OverviewProps {
   actions: ActionCreators;
@@ -17,30 +37,13 @@ export interface OverviewProps {
   gettingPersonInfo: boolean;
   highContrast: boolean;
   locale: AllowedLocaleString;
-  onUpdate: Function;
+  onUpdate: (w: Widget) => void;
+  person: any;
   t: T;
-  widget: any;
+  widget: Widget;
 }
 
-const mapStateToProps = (state: State) => {
-  /* istanbul ignore next */
-  return {
-    aktoerId: state.app.params.aktoerId,
-    gettingPersonInfo: state.loading.gettingPersonInfo,
-    isSendingPinfo: state.loading.isSendingPinfo,
-    locale: state.ui.locale,
-    person: state.app.person,
-    sakId: state.app.params.sakId,
-    highContrast: state.ui.highContrast
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  /* istanbul ignore next */
-  return { actions: bindActionCreators({ ...appActions }, dispatch) }
-}
-
-export const Overview = (props: OverviewProps) => {
+export const Overview: React.FC<OverviewProps> = (props: OverviewProps): JSX.Element => {
   const { actions, aktoerId, highContrast, onUpdate, t, widget } = props
   const [mounted, setMounted] = useState<boolean>(false)
 
@@ -67,6 +70,7 @@ export const Overview = (props: OverviewProps) => {
 
   return (
     <Ui.Nav.EkspanderbartpanelBase
+      collapseProps={{ id: 'w-overview-id' }}
       className={classNames('w-overview', 's-border', { highContrast: highContrast })}
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
@@ -78,12 +82,14 @@ export const Overview = (props: OverviewProps) => {
 }
 
 Overview.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string,
-  hihContrast: PT.bool,
+  gettingPersonInfo: PT.bool.isRequired,
+  highContrast: PT.bool.isRequired,
   onUpdate: PT.func.isRequired,
-  widget: PT.object.isRequired,
-  t: PT.func.isRequired
+  person: PT.any.isRequired,
+  widget: WidgetPropType.isRequired,
+  t: TPropType.isRequired
 }
 
 // @ts-ignore

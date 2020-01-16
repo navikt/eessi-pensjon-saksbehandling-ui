@@ -1,3 +1,4 @@
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import React from 'react'
 import { TopContainer, TopContainerProps } from './TopContainer'
 import { mount, ReactWrapper } from 'enzyme'
@@ -18,6 +19,7 @@ describe('components/TopContainer', () => {
     highContrast: false,
     history: {},
     isLoggingOut: false,
+    modal: undefined,
     params: {},
     snow: false,
     t: jest.fn(t => t),
@@ -41,13 +43,13 @@ describe('components/TopContainer', () => {
     expect(wrapper.exists('Header')).toBeTruthy()
     expect(wrapper.exists('Banner')).toBeTruthy()
     expect(wrapper.exists('Alert')).toBeTruthy()
-    expect(wrapper.exists('Modal')).toBeTruthy()
     expect(wrapper.exists('SessionMonitor')).toBeTruthy()
     expect(wrapper.exists('Footer')).toBeTruthy()
+    expect(wrapper.exists('Modal')).toBeFalsy()
   })
 
   it('Compute the client error message', () => {
-    initialMockProps.actions.clientClear.mockReset()
+    (initialMockProps.actions.clientClear as jest.Mock).mockReset()
     wrapper.setProps({
       clientErrorMessage: 'mockMessage|mockParams'
     })
@@ -65,7 +67,8 @@ describe('components/TopContainer', () => {
   })
 
   it('Opens and closes modal', () => {
-    const mockModal = {
+    expect(wrapper.exists('Modal')).toBeFalsy()
+    const mockModal: ModalContent = {
       modalTitle: 'mockTitle',
       modalText: 'mockText',
       modalButtons: [{
@@ -80,9 +83,8 @@ describe('components/TopContainer', () => {
     act(() => {
       wrapper.update()
     })
-    const modal = wrapper.find('.c-topContainer > Modal')
-    expect(modal.props().modal).toEqual(expect.objectContaining(mockModal))
-
+    expect(wrapper.exists('Modal')).toBeTruthy()
+    const modal = wrapper.find('Modal').first()
     modal.find('button').hostNodes().last().simulate('click')
     expect(initialMockProps.actions.closeModal).toHaveBeenCalled()
   })

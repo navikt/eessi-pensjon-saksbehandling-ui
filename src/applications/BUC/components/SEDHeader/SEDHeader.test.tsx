@@ -1,4 +1,4 @@
-import { Buc, Sed } from 'applications/BUC/declarations/buc.d'
+import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
@@ -40,7 +40,10 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     expect(institutions.find('InstitutionList').render().text()).toEqual(['NAV ACCEPTANCE TEST 07', 'NAV ACCEPTANCE TEST 08'].join(''))
 
     const actions = wrapper.find('.a-buc-c-sedheader__actions').hostNodes()
-    expect(actions.exists('Icons')).toBeFalsy()
+    expect(actions.exists('Icons')).toBeTruthy()
     expect(actions.exists('Flatknapp.a-buc-c-sedheader__actions-answer-button')).toBeTruthy()
+    const replySedButton = wrapper.find('.a-buc-c-sedheader__actions-answer-button').hostNodes().first()
+    replySedButton.simulate('click')
+    expect(initialMockProps.onSEDNew).toBeCalledWith(buc, sed)
   })
 })

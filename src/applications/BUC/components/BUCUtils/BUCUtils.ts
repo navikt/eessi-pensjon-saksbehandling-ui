@@ -1,21 +1,25 @@
+import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
-import { Buc, Sed, ValidBuc } from 'applications/BUC/declarations/buc.d'
+import { Buc, Sed, ValidBuc } from 'declarations/buc'
 import moment from 'moment'
 
 interface getBucTypeLabelProps {
   type: string;
-  locale: string;
+  locale: AllowedLocaleString;
   t: (...args: any[]) => any;
 }
 
-export const getBucTypeLabel: Function = ({ type, locale, t }: getBucTypeLabelProps): string => {
+export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): string => {
   if (!type.match('P3000_')) {
     return t('buc:buc-' + type)
   }
-  // @ts-ignore
-  const country = type.match(/_(.*)$/)[1]
-  const countryLabel = Ui.CountryData.getCountryInstance(locale).findByValue(country)
+  const re: RegExpMatchArray | null = type.match(/_(.*)$/)
+  if (!re) {
+    return ''
+  }
+  const country: string = re[1]
+  const countryLabel: any = Ui.CountryData.getCountryInstance(locale).findByValue(country)
   return t('buc:buc-P3000_XX', { country: countryLabel.label })
 }
 
@@ -37,7 +41,7 @@ export const sedSorter = (a: Sed, b: Sed): number => {
   return mainCompare > 0 ? 1 : -1
 }
 
-export const sedFilter = (sed: Sed) => {
+export const sedFilter = (sed: Sed): boolean => {
   return sed.status !== 'empty'
 }
 

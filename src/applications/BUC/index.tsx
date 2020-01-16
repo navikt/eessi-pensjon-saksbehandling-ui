@@ -2,7 +2,7 @@ import * as appActions from 'actions/app'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import { P4000Info } from 'applications/BUC/declarations/period'
+import { P4000Info } from 'declarations/period'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
@@ -10,31 +10,40 @@ import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, AllowedLocaleString, Dispatch, Loading, RinaUrl, State, T } from 'types.d'
-import { Bucs, BucsInfo, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from './declarations/buc'
+import { AllowedLocaleString, Loading, RinaUrl, T } from 'declarations/types'
+import {
+  AttachedFiles,
+  Bucs,
+  BucsInfo,
+  InstitutionListMap,
+  InstitutionNames,
+  RawInstitution,
+  Sed
+} from 'declarations/buc'
 import './index.css'
 
 export interface BUCIndexProps {
   actions: ActionCreators;
   aktoerId?: string;
   allowFullScreen?: boolean;
-  attachments: Array<any>;
+  attachments: AttachedFiles;
   avdodfnr?: string;
   avdodBucs: Bucs;
   bucs: Bucs;
-  bucsInfo: BucsInfo;
-  bucsInfoList: Array<string>;
+  bucsInfo?: BucsInfo;
+  bucsInfoList?: Array<string>;
   countryList: Array<string>;
   currentBuc?: string;
   institutionList: InstitutionListMap<RawInstitution>;
   institutionNames: InstitutionNames;
   loading: Loading;
-  locale ?: AllowedLocaleString;
+  locale: AllowedLocaleString;
   mode: string;
   onFullFocus?: () => void;
   onRestoreFocus?: () => void;
@@ -42,9 +51,9 @@ export interface BUCIndexProps {
   person: any;
   rinaUrl?: RinaUrl;
   sakId?: string;
-  sed: Sed;
-  sedList: Array<string>;
-  tagList: Array<string>;
+  sed?: Sed;
+  sedList?: Array<string>;
+  tagList?: Array<string>;
   t: T;
   waitForMount: boolean;
   vedtakId: string | undefined;
@@ -162,7 +171,6 @@ export const BUCIndex = (props: BUCIndexProps) => {
     )
   }
 
-  // @ts-ignore
   return (
     <div className='a-buc-widget'>
       <div className='a-buc-widget__header mb-3'>
@@ -208,7 +216,7 @@ BUCIndex.propTypes = {
   mode: PT.string.isRequired,
   onFullFocus: PT.func,
   onRestoreFocus: PT.func,
-  person: PT.object,
+  person: PT.object.isRequired,
   rinaUrl: PT.string,
   sakId: PT.string,
   t: PT.func.isRequired,

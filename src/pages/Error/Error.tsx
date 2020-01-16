@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import TopContainer from 'components/TopContainer/TopContainer'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 import './Error.css'
 
 export interface ErrorProps {

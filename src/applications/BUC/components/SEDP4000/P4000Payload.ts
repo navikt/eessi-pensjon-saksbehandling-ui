@@ -5,10 +5,10 @@ import {
   PayloadPeriod,
   Period,
   PeriodDate
-} from 'applications/BUC/declarations/period'
+} from 'declarations/period'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
-import { T } from 'types.d'
+import { T } from 'declarations/types'
 
 export default class P4000Payload {
   public pinfo: Array<Period>
@@ -20,9 +20,9 @@ export default class P4000Payload {
 
   static pinfoDateToDate (date: PeriodDate | null): Date | null {
     if (!date || !date.year || !date.month) { return null }
-    const day = typeof date.day === 'number' ? date.day : parseInt(date.day) || 1
+    const day = typeof date.day === 'number' ? date.day : parseInt(date.day, 10) || 1
     const month = typeof date.month === 'number' ? date.month - 1 : parseInt(date.month, 10) - 1
-    const year = typeof date.year === 'number' ? date.year : parseInt(date.year)
+    const year = typeof date.year === 'number' ? date.year : parseInt(date.year, 10)
     return new Date(year, month, day)
   }
 

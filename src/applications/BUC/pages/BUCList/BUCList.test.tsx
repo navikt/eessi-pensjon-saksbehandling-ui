@@ -1,3 +1,4 @@
+import { Bucs } from 'declarations/buc'
 import React from 'react'
 import BUCList, { BUCListProps } from './BUCList'
 import sampleBucs from 'resources/tests/sampleBucs'
@@ -6,22 +7,9 @@ import * as storage from 'constants/storage'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 
-jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui')
-  return {
-    ...Ui,
-    ExpandingPanel: ({ heading, children }: {heading: JSX.Element; children: JSX.Element;}) => (
-      <div className='mock-ExpandingPanel'>{heading}{children}</div>
-    ),
-    Nav: {
-      ...Ui.Nav
-    }
-  }
-})
-
 describe('applications/BUC/widgets/BUCList/BUCList', () => {
   let wrapper: ReactWrapper
-  const mockBucs = _.keyBy(sampleBucs, 'caseId')
+  const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: BUCListProps = {
     actions: {
       setCurrentBuc: jest.fn(),
@@ -85,16 +73,9 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('.a-buc-p-buclist')).toBeTruthy()
     expect(wrapper.exists('.a-buc-p-buclist__buttons')).toBeTruthy()
     expect(wrapper.exists('#a-buc-p-buclist__newbuc-button-id')).toBeTruthy()
-    expect(wrapper.find('.mock-ExpandingPanel').hostNodes().length).toEqual(sampleBucs.filter(buc => !buc.error).length)
-    expect(wrapper.exists('.a-buc-c-sedlist')).toBeTruthy()
-    expect(wrapper.find('.a-buc-p-buclist__sedheader-head').hostNodes().length).toEqual(12)
+    expect(wrapper.find('.c-expandingpanel').hostNodes().length).toEqual(sampleBucs.filter(buc => !buc.error).length)
+    expect(wrapper.exists('.a-buc-c-sedlist')).toBeFalsy()
     expect(wrapper.exists('.a-buc-c-footer')).toBeTruthy()
-  })
-
-  it('Moves to mode sednew when button pressed', () => {
-    const replySedButton = wrapper.find('.a-buc-c-sedheader__actions-answer-button').hostNodes().first()
-    replySedButton.simulate('click')
-    expect(initialMockProps.setMode).toBeCalledWith('sednew')
   })
 
   it('Moves to mode bucedit when button pressed', () => {

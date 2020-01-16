@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'types.d'
-import { JoarkDoc, JoarkFile, JoarkPoster, JoarkFileVariant } from '../applications/BUC/declarations/joark'
+import { JoarkDoc, JoarkFile, JoarkFileVariant, JoarkPoster } from 'declarations/joark'
+import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 
 export const initialJoarkState: State = {

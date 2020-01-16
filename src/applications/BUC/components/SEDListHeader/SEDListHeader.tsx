@@ -1,14 +1,16 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import { Buc, Institution, InstitutionNames, Participant, Sed } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
+import { Buc, InstitutionNames, Institutions, Participant, Sed, Seds } from 'declarations/buc'
+import { BucPropType, InstitutionNamesPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
+import { AllowedLocaleString, T } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, T } from 'types.d'
 import './SEDListHeader.css'
 
 export interface SEDListHeaderProps {
@@ -19,30 +21,26 @@ export interface SEDListHeaderProps {
   onSEDNew: (buc: Buc, sed: Sed) => void;
   sed: Sed;
   style?: React.CSSProperties;
-  followUpSeds: Array<Sed>;
+  followUpSeds: Seds;
   t: T;
 }
 
-const SEDListHeader = ({
+const SEDListHeader: React.FC<SEDListHeaderProps> = ({
   buc, className, followUpSeds, institutionNames, locale, onSEDNew, sed, style, t
-}: SEDListHeaderProps) => {
-  const institutionSenderList: Array<Institution> = sed.participants ? sed.participants
+}: SEDListHeaderProps): JSX.Element => {
+  const institutionSenderList: Institutions = sed.participants ? sed.participants
     .filter((participant: Participant) => participant.role === 'Sender')
-    .map((participant: Participant) => {
-      return {
-        country: participant.organisation.countryCode,
-        institution: participant.organisation.name
-      }
-    }) : []
+    .map((participant: Participant) => ({
+      country: participant.organisation.countryCode,
+      institution: participant.organisation.name
+    })) : []
 
-  const institutionReceiverList: Array<Institution> = sed.participants ? sed.participants
+  const institutionReceiverList: Institutions = sed.participants ? sed.participants
     .filter((participant: Participant) => participant.role === 'Receiver')
-    .map((participant: Participant) => {
-      return {
-        country: participant.organisation.countryCode,
-        institution: participant.organisation.name
-      }
-    }) : []
+    .map((participant: Participant) => ({
+      country: participant.organisation.countryCode,
+      institution: participant.organisation.name
+    })) : []
 
   const sedLabel: string = getBucTypeLabel({
     t: t,
@@ -113,13 +111,15 @@ const SEDListHeader = ({
 }
 
 SEDListHeader.propTypes = {
-  buc: PT.object,
+  buc: BucPropType.isRequired,
   className: PT.string,
-  institutionNames: PT.object,
-  locale: PT.string.isRequired,
+  institutionNames: InstitutionNamesPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
   onSEDNew: PT.func.isRequired,
-  sed: PT.object.isRequired,
-  t: PT.func.isRequired
+  sed: SedPropType.isRequired,
+  style: PT.object,
+  followUpSeds: SedsPropType.isRequired,
+  t: TPropType.isRequired
 }
 
 export default SEDListHeader

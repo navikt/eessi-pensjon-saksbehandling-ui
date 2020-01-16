@@ -1,4 +1,4 @@
-import { Sed } from 'applications/BUC/declarations/buc.d'
+import { Seds } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
@@ -12,7 +12,7 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
     locale: 'nb',
     maxSeds: 99,
     onSEDNew: jest.fn(),
-    seds: (sampleBucs[0].seds as Array<Sed>),
+    seds: (sampleBucs[0].seds as Seds),
     t: jest.fn(t => t)
   }
 

@@ -2,26 +2,14 @@ import React from 'react'
 import { VarslerPanel, VarslerPanelProps } from './VarslerPanel'
 import { mount, ReactWrapper } from 'enzyme'
 
-jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui')
-  return {
-    ...Ui,
-    Nav: {
-      ...Ui.Nav,
-      EkspanderbartpanelBase: ({ onClick, children } : {onClick: () => void, children: JSX.Element}) => (
-        <div className='mock-EkspanderbartpanelBase' onClick={onClick}>{children}</div>
-      )
-    }
-  }
-})
-
 describe('widgets/Varsler/VarslerPanel', () => {
   let wrapper: ReactWrapper
   const initialMockProps: VarslerPanelProps = {
     actions: {
       sendInvite: jest.fn(),
       listStorageFiles: jest.fn(),
-      getStorageFile: jest.fn()
+      getStorageFile: jest.fn(),
+      onUpdate: jest.fn()
     },
     aktoerId: '10293847565',
     file: undefined,
@@ -34,6 +22,10 @@ describe('widgets/Varsler/VarslerPanel', () => {
     sakType: 'Alderspensjon',
     t: jest.fn(t => t),
     widget: {
+      i: 'i',
+      type: 'varsler',
+      title: 'Varsler',
+      visible: true,
       options: {
         collapsed: false
       }
@@ -112,11 +104,11 @@ describe('widgets/Varsler/VarslerPanel', () => {
 
   it('Expandable panel triggers widget update', () => {
     (initialMockProps.actions.onUpdate as jest.Mock).mockReset()
-    wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().simulate('click')
-    expect(initialMockProps.onUpdate).toBeCalledWith({
+    wrapper.find('.ekspanderbartPanel > button').hostNodes().simulate('click')
+    expect(initialMockProps.onUpdate).toBeCalledWith(expect.objectContaining({
       options: {
         collapsed: !initialMockProps.widget.options.collapsed
       }
-    })
+    }))
   })
 })

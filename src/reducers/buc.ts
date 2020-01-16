@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'types.d'
+import { Buc, Bucs, RawInstitution } from 'declarations/buc'
+import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
-import { Buc, Bucs, RawInstitution } from '../applications/BUC/declarations/buc'
 
 export const initialBucState: State = {
   attachments: [],

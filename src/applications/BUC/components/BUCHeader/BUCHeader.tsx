@@ -8,13 +8,15 @@ import {
   InstitutionListMap,
   InstitutionNames,
   Sed
-} from 'applications/BUC/declarations/buc.d'
+} from 'declarations/buc'
+import { BucInfoPropType, BucPropType, InstitutionNamesPropType } from 'declarations/buc.pt'
+import { AllowedLocaleStringPropType, RinaUrlPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
-import { AllowedLocaleString, RinaUrl, T } from 'types.d'
+import { AllowedLocaleString, RinaUrl, T } from 'declarations/types'
 import './BUCHeader.css'
 
 export interface BUCHeaderProps {
@@ -27,7 +29,9 @@ export interface BUCHeaderProps {
   t: T;
 }
 
-const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl, t }: BUCHeaderProps) => {
+const BUCHeader: React.FC<BUCHeaderProps> = ({
+  buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl, t
+}: BUCHeaderProps): JSX.Element => {
   const institutionList: InstitutionListMap<string> = {}
   const attachments: Array<BUCAttachment> = []
   const numberOfSeds: number = buc.seds ? buc.seds.filter(sedFilter).length : 0
@@ -74,7 +78,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
         {buc.type + ' - ' + getBucTypeLabel({
           t: t,
           locale: locale,
-          type: buc.type
+          type: buc.type!
         })}
       </Ui.Nav.Undertittel>
       <Ui.Nav.Row className='a-buc-c-bucheader__row no-gutters w-100'>
@@ -173,13 +177,13 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
 }
 
 BUCHeader.propTypes = {
-  buc: PT.object.isRequired,
-  bucInfo: PT.object,
-  institutionNames: PT.object,
-  locale: PT.string.isRequired,
+  buc: BucPropType.isRequired,
+  bucInfo: BucInfoPropType.isRequired,
+  institutionNames: InstitutionNamesPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
   onBUCEdit: PT.func.isRequired,
-  rinaUrl: PT.string,
-  t: PT.func.isRequired
+  rinaUrl: RinaUrlPropType.isRequired,
+  t: TPropType.isRequired
 }
 
 export default BUCHeader

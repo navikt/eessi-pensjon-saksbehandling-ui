@@ -3,19 +3,11 @@ import { mount, ReactWrapper } from 'enzyme'
 import { createBrowserHistory } from 'history'
 import React from 'react'
 import { Router } from 'react-router'
-import { AuthenticatedRoute } from './AuthenticatedRoute'
-
-jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui')
-  return {
-    ...Ui,
-    WaitingPanel: () => <div className='mock-waitingPanel' />
-  }
-})
+import { AuthenticatedRoute, AuthenticatedRouteProps } from './AuthenticatedRoute'
 
 describe('components/AuthenticatedRoute', () => {
   let wrapper: ReactWrapper
-  const initialMockProps = {
+  const initialMockProps: AuthenticatedRouteProps = {
     actions: {
       setStatusParam: jest.fn(),
       login: jest.fn(),
@@ -47,8 +39,8 @@ describe('components/AuthenticatedRoute', () => {
 
   it('UseEffect: redirect for login', () => {
     mount(<AuthenticatedRoute {...initialMockProps} loggedIn={false} />)
-    expect(initialMockProps.actions.login).toBeCalled()
-    initialMockProps.actions.login.mockRestore()
+    expect(initialMockProps.actions.login).toBeCalled();
+    (initialMockProps.actions.login as jest.Mock).mockRestore()
   })
 
   it('UseEffect: no need for login redirect', () => {

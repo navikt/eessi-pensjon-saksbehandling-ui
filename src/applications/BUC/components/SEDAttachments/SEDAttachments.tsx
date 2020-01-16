@@ -1,42 +1,45 @@
-import { JoarkFile } from 'applications/BUC/declarations/joark'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
+import { AttachedFiles } from 'declarations/buc'
+import { AttachedFilesPropType } from 'declarations/buc.pt'
+import { JoarkFiles } from 'declarations/joark'
+import { T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { T } from 'types.d'
 
 export interface SEDAttachmentsProps {
   disableButtons?: boolean;
-  files: { [k: string]: Array<JoarkFile> };
-  initialMode ?: string;
+  files: AttachedFiles;
+  initialMode ?: 'view' | 'confirm';
   open?: boolean;
-  onFilesChange?: Function;
-  onOpen?: Function;
-  onSubmit?: Function;
+  onFilesChange?: (f: JoarkFiles) => void;
+  onOpen?: () => void;
+  onSubmit?: (f: AttachedFiles) => void;
   t: T;
 }
 
-const SEDAttachments = ({
+const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
   disableButtons = false, files, initialMode = 'view', open = false, onFilesChange, onOpen, onSubmit, t
-}: SEDAttachmentsProps) => {
-  const [mode, setMode] = useState(initialMode)
-  const [localFiles, setLocalFiles] = useState<Array<JoarkFile>>(files && _.isArray(files.joark) ? files.joark : [])
+}: SEDAttachmentsProps): JSX.Element => {
+  const [mode, setMode] = useState<string | undefined>(initialMode)
+  const [localFiles, setLocalFiles] = useState<JoarkFiles>(files && _.isArray(files.joark) ? files.joark as JoarkFiles : [])
 
   const onEnableAttachmentsButtonClicked: Function = (): void => {
-    if (onOpen && _(onOpen).isFunction()) {
+    if (_.isFunction(onOpen)) {
       onOpen()
     }
   }
 
-  const onLocalFileChange: Function = (changedFiles: Array<JoarkFile>): void => {
+  const onLocalFileChange: Function = (changedFiles: JoarkFiles): void => {
     setLocalFiles(changedFiles)
     if (_.isFunction(onFilesChange)) {
       onFilesChange(changedFiles)
     }
   }
 
-  const onSubmitJoarkFiles: Function = (joarkFiles: Array<JoarkFile>): void => {
+  const onSubmitJoarkFiles: Function = (joarkFiles: JoarkFiles): void => {
     if (_.isFunction(onSubmit)) {
       onSubmit({
         ...files,
@@ -107,13 +110,13 @@ const SEDAttachments = ({
 
 SEDAttachments.propTypes = {
   disableButtons: PT.bool,
-  files: PT.object.isRequired,
+  files: AttachedFilesPropType.isRequired,
   initialMode: PT.oneOf(['view', 'confirm']),
   open: PT.bool,
   onFilesChange: PT.func,
   onOpen: PT.func,
   onSubmit: PT.func,
-  t: PT.func.isRequired
+  t: TPropType.isRequired
 }
 
 export default SEDAttachments

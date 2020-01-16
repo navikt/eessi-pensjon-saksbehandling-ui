@@ -1,3 +1,4 @@
+import { Buc, Sed } from 'declarations/buc'
 import Mustache from 'mustache'
 import * as BUCUtils from './BUCUtils'
 
@@ -52,16 +53,18 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 
-  const mockSed = {
+  const mockSed: Sed = {
     id: '123',
     type: 'mockType',
+    status: 'received',
     creationDate: 1,
     lastUpdate: 2,
     participants: [],
     attachments: []
   }
 
-  const mockBuc = {
+  const mockBuc: Buc = {
+    type: 'P2000',
     caseId: '123',
     sakType: 'mockSakType',
     creator: {

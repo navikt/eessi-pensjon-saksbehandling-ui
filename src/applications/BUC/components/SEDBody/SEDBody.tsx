@@ -1,33 +1,37 @@
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import { Buc, Sed } from 'applications/BUC/declarations/buc.d'
+import { AttachedFiles, Buc, Sed } from 'declarations/buc'
+import { AttachedFilesPropType, BucPropType, SedPropType } from 'declarations/buc.pt'
+import { JoarkFiles } from 'declarations/joark'
+import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, T } from 'types.d'
+import { T } from 'declarations/types'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 export interface SEDBodyProps {
   actions: ActionCreators;
   aktoerId: string;
-  attachments: Array<any>;
+  attachments: AttachedFiles;
   attachmentsError: boolean;
   buc: Buc;
   initialAttachmentsSent?: boolean;
   initialSeeAttachmentPanel?: boolean;
   initialSendingAttachments?: boolean;
-  onAttachmentsSubmit?: Function;
-  onAttachmentsPanelOpen?: Function;
+  onAttachmentsSubmit?: (af: AttachedFiles) => void;
+  onAttachmentsPanelOpen?: (o: boolean) => void;
   sed: Sed;
   t: T;
 }
 
-const SEDBody = ({
+const SEDBody: React.FC<SEDBodyProps> = ({
   actions, aktoerId, attachments, attachmentsError, buc, initialAttachmentsSent = false, initialSeeAttachmentPanel = false,
   initialSendingAttachments = false, onAttachmentsSubmit, onAttachmentsPanelOpen, sed, t
-}: SEDBodyProps) => {
-  const [_attachments, setAttachments] = useState<{[namespace: string]: Array<any>}>({ sed: sed.attachments || [], joark: [] })
+}: SEDBodyProps): JSX.Element => {
+  const [_attachments, setAttachments] = useState<AttachedFiles>({ sed: sed.attachments || [], joark: [] })
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(initialAttachmentsSent)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(initialSeeAttachmentPanel)
@@ -50,8 +54,8 @@ const SEDBody = ({
     }
   }
 
-  const onAttachmentsSubmitted = (files: {[namespace: string]: Array<any>}) => {
-    const newFiles = {
+  const onAttachmentsSubmitted = (files: AttachedFiles) => {
+    const newFiles: AttachedFiles = {
       ..._attachments,
       joark: files.joark
     }
@@ -87,8 +91,8 @@ const SEDBody = ({
             rinaId: buc.caseId,
             rinaDokumentId: sed.id
           }}
-          allAttachments={_attachments.joark}
-          savedAttachments={attachments}
+          allAttachments={_attachments.joark as JoarkFiles}
+          savedAttachments={attachments.joark as JoarkFiles}
           onFinished={() => setAttachmentsSent(true)}
           t={t}
         />
@@ -98,18 +102,18 @@ const SEDBody = ({
 }
 
 SEDBody.propTypes = {
-  actions: PT.object.isRequired,
-  aktoerId: PT.string,
-  attachments: PT.array,
-  attachmentsError: PT.bool,
-  buc: PT.object,
+  actions: ActionCreatorsPropType.isRequired,
+  aktoerId: PT.string.isRequired,
+  attachments: AttachedFilesPropType.isRequired,
+  attachmentsError: PT.bool.isRequired,
+  buc: BucPropType.isRequired,
   initialAttachmentsSent: PT.bool,
   initialSeeAttachmentPanel: PT.bool,
   initialSendingAttachments: PT.bool,
   onAttachmentsSubmit: PT.func,
   onAttachmentsPanelOpen: PT.func,
-  sed: PT.object.isRequired,
-  t: PT.func.isRequired
+  sed: SedPropType.isRequired,
+  t: TPropType.isRequired
 }
 
 export default SEDBody

@@ -11,24 +11,32 @@ import {
   InstitutionNames,
   Participant,
   Sed
-} from 'applications/BUC/declarations/buc.d'
+  , InstitutionListMap, RawInstitution
+} from 'declarations/buc'
 import classNames from 'classnames'
 import * as storage from 'constants/storage'
+import { BucsPropType, InstitutionNamesPropType } from 'declarations/buc.pt'
+import {
+  ActionCreatorsPropType,
+  AllowedLocaleStringPropType,
+  LoadingPropType,
+  RinaUrlPropType, TPropType
+} from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-
+import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, RinaUrl, T } from 'types.d'
-import { InstitutionListMap, RawInstitution } from '../../declarations/buc'
+import { AllowedLocaleString, Loading, RinaUrl, T } from 'declarations/types'
+
 import './BUCList.css'
 
 export interface BUCListProps {
   actions: ActionCreators;
   aktoerId?: string;
   bucs: Bucs;
-  bucsInfoList: Array<string>;
-  bucsInfo: BucsInfo;
+  bucsInfoList?: Array<string>;
+  bucsInfo?: BucsInfo;
   institutionList: InstitutionListMap<RawInstitution>;
   institutionNames: InstitutionNames;
   loading: Loading;
@@ -42,10 +50,10 @@ export interface BUCListProps {
 type Country = {country: string, buc: string}
 type CountryList = Array<Country>
 
-const BUCList = ({
+const BUCList: React.FC<BUCListProps> = ({
   actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList = {}, institutionNames,
   loading, locale, rinaUrl, sakId, setMode, t
-}: BUCListProps) => {
+}: BUCListProps): JSX.Element => {
   const [gettingBucsInfo, setGettingBucsInfo] = useState<boolean>(false)
   const [mounted, setMounted] = useState<boolean>(false)
 
@@ -59,14 +67,14 @@ const BUCList = ({
     setMode('sednew')
   }
 
-  const onBUCEdit = async (buc: Buc) => {
+  const onBUCEdit = (buc: Buc) => {
     actions.setCurrentBuc(buc.caseId)
     setMode('bucedit')
   }
 
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo &&
-      bucsInfoList.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
+      bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
       actions.fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
       setGettingBucsInfo(true)
     }
@@ -76,7 +84,7 @@ const BUCList = ({
     if (!mounted && !_.isEmpty(bucs)) {
       const listOfCountries: CountryList = []
       Object.keys(bucs).forEach(key => {
-        const buc = bucs[key]
+        const buc: Buc = bucs[key]
         if (_.isArray(buc.institusjon)) {
           buc.institusjon.forEach((it: Institution) => {
             if (!_.find(listOfCountries, { country: it.country })) {
@@ -151,6 +159,7 @@ const BUCList = ({
             const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId!] : {} as BucInfo
             return (
               <Ui.ExpandingPanel
+                collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
                 id={'a-buc-p-buclist__buc-' + bucId}
                 className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
                 key={index}
@@ -199,14 +208,14 @@ const BUCList = ({
 }
 
 BUCList.propTypes = {
-  actions: PT.object.isRequired,
+  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string,
-  bucs: PT.object,
-  rinaUrl: PT.string,
-  institutionNames: PT.object,
-  loading: PT.object.isRequired,
-  locale: PT.string.isRequired,
-  t: PT.func.isRequired
+  bucs: BucsPropType.isRequired,
+  rinaUrl: RinaUrlPropType,
+  institutionNames: InstitutionNamesPropType.isRequired,
+  loading: LoadingPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
+  t: TPropType.isRequired
 }
 
 export default BUCList

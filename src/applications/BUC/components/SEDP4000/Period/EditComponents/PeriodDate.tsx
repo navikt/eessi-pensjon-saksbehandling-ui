@@ -1,18 +1,27 @@
+import { Period, PeriodDate } from 'declarations/period'
+import { PeriodPropType } from 'declarations/period.pt'
+import { T, Validation } from 'declarations/types'
+import { TPropType, ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
 
-const PeriodDate = ({
-  blurEndDate,
-  blurStartDate,
-  localErrors,
-  period,
-  setDateType,
-  setEndDate,
-  setStartDate,
-  setUncertainDate,
-  t
-}) => (
+export interface PeriodDateProps {
+  blurEndDate: () => void;
+  blurStartDate: () => void;
+  localErrors: Validation;
+  period: Period;
+  setDateType: (e: Event) => void;
+  setEndDate: (e: PeriodDate) => void;
+  setStartDate: (e: PeriodDate) => void;
+  setUncertainDate: (e: React.ChangeEvent) => void;
+  t: T
+}
+
+const PeriodDateFC: React.FC<PeriodDateProps> = ({
+  blurEndDate, blurStartDate, localErrors, period, setDateType, setEndDate,
+  setStartDate, setUncertainDate, t
+}: PeriodDateProps): JSX.Element => (
   <>
     {period.type === 'home' ? (
       <Ui.Nav.AlertStripe
@@ -67,7 +76,7 @@ const PeriodDate = ({
           className='startDate pr-2'
           initialValues={period.startDate}
           onChange={setStartDate}
-          error={localErrors.startDate || localErrors.timeSpan ? t(localErrors.startDate || localErrors.timeSpan) : undefined}
+          error={localErrors.startDate || localErrors.timeSpan ? t((localErrors.startDate || localErrors.timeSpan)!) : undefined}
         />
       </div>
       <div className='a-buc-c-sedp4000-period__endDate col-sm-6 col-12 mb-2'>
@@ -96,7 +105,7 @@ const PeriodDate = ({
           className='endDate pr-2'
           initialValues={period.endDate}
           onChange={setEndDate}
-          error={localErrors.endDate || localErrors.timeSpan ? t(localErrors.endDate || localErrors.timeSpan) : undefined}
+          error={localErrors.endDate || localErrors.timeSpan ? t((localErrors.endDate || localErrors.timeSpan)!) : undefined}
         />
       </div>
       <div className='a-buc-c-sedp4000-period__uncertainDate col-sm-6 col-12 mb-2'>
@@ -112,17 +121,16 @@ const PeriodDate = ({
   </>
 )
 
-PeriodDate.propTypes = {
-  blurChildBirthDate: PT.func,
-  blurEndDate: PT.func,
-  blurStartDate: PT.func,
-  localErrors: PT.object,
-  period: PT.object,
-  setDateType: PT.func,
-  setEndDate: PT.func,
-  setStartDate: PT.func,
-  setUncertainDate: PT.func,
-  t: PT.func.isRequired
+PeriodDateFC.propTypes = {
+  blurEndDate: PT.func.isRequired,
+  blurStartDate: PT.func.isRequired,
+  localErrors: ValidationPropType.isRequired,
+  period: PeriodPropType.isRequired,
+  setDateType: PT.func.isRequired,
+  setEndDate: PT.func.isRequired,
+  setStartDate: PT.func.isRequired,
+  setUncertainDate: PT.func.isRequired,
+  t: TPropType.isRequired
 }
 
-export default PeriodDate
+export default PeriodDateFC
