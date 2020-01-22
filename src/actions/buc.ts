@@ -14,33 +14,25 @@ import { Buc, BucsInfo, NewSedPayload } from 'declarations/buc'
 import { P4000Info } from 'declarations/period'
 const sprintf = require('sprintf-js').sprintf
 
-export const setMode = (mode: string): ActionWithPayload<string> => {
-  return {
-    type: types.BUC_MODE_SET,
-    payload: mode
-  }
-}
+export const setMode = (mode: string): ActionWithPayload<string> => ({
+  type: types.BUC_MODE_SET,
+  payload: mode
+})
 
-export const setCurrentBuc = (bucCaseId: string): ActionWithPayload<string> => {
-  return {
-    type: types.BUC_CURRENTBUC_SET,
-    payload: bucCaseId
-  }
-}
+export const setCurrentBuc = (bucCaseId: string): ActionWithPayload<string> => ({
+  type: types.BUC_CURRENTBUC_SET,
+  payload: bucCaseId
+})
 
-export const setCurrentSed = (sedDocumentId: string) : ActionWithPayload<string> => {
-  return {
-    type: types.BUC_CURRENTSED_SET,
-    payload: sedDocumentId
-  }
-}
+export const setCurrentSed = (sedDocumentId: string) : ActionWithPayload<string> => ({
+  type: types.BUC_CURRENTSED_SET,
+  payload: sedDocumentId
+})
 
-export const setSedList = (sedList: Array<string>): ActionWithPayload<Array<string>> => {
-  return {
-    type: types.BUC_SEDLIST_SET,
-    payload: sedList
-  }
-}
+export const setSedList = (sedList: Array<string>): ActionWithPayload<Array<string>> => ({
+  type: types.BUC_SEDLIST_SET,
+  payload: sedList
+})
 
 export const resetBuc = (): Action => {
   return {

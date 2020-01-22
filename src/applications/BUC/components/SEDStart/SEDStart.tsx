@@ -171,6 +171,7 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
       if (!IS_TEST) {
         console.log('SEDStart: Attachments sent, cleaning up')
       }
+      setSed(undefined)
       actions.resetSed()
       actions.resetSedAttachments()
       actions.fetchBucs(aktoerId)
@@ -263,6 +264,7 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
   }
 
   const onCancelButtonClick = () => {
+    setSed(undefined)
     actions.resetSed()
     setMode('bucedit')
   }

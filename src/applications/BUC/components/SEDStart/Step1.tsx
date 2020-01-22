@@ -274,7 +274,7 @@ const Step1: React.FC<Step1Props> = ({
           !currentSed
             ? t('buc:step-startSEDTitle', {
               buc: t(`buc:buc-${buc.type}`),
-              sed: _sed || t('buc:form-newSed')
+              sed: _sed === placeholders.sed ? t('buc:form-newSed') : _sed || t('buc:form-newSed')
             })
             : t('buc:step-replySEDTitle', {
               buc: t(`buc:buc-${buc.type}`),
