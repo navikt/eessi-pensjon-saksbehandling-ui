@@ -1,21 +1,21 @@
+import { resetBuc, resetSed } from 'actions/buc'
 import classNames from 'classnames'
 import { Bucs } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types.d'
 import { T } from 'declarations/types.d'
-import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import './BUCCrumbs.css'
 
 export interface BUCCrumbsProps {
-  actions: ActionCreators;
   bucs: Bucs;
   className?: string;
   currentBuc: string | undefined;
   mode: string;
-  setMode: Function;
+  setMode: (mode: string) => void;
   showLastLink ?: boolean;
   t: T;
 }
@@ -26,18 +26,19 @@ interface BUCCrumbLink {
 }
 
 const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
-  actions, bucs, currentBuc, className, mode, setMode, showLastLink = false, t
+  bucs, currentBuc, className, mode, setMode, showLastLink = false, t
 }: BUCCrumbsProps): JSX.Element => {
+  const dispatch = useDispatch()
   const goToHome: Function = useCallback(() => {
-    actions.resetSed()
-    actions.resetBuc()
+    dispatch(resetSed())
+    dispatch(resetBuc())
     setMode('buclist')
-  }, [actions, setMode])
+  }, [dispatch, setMode])
 
   const goToEdit: Function = useCallback(() => {
-    actions.resetSed()
+    dispatch(resetSed())
     setMode('bucedit')
-  }, [actions, setMode])
+  }, [dispatch, setMode])
 
   const goToNewBUC: Function = useCallback(() => {
     setMode('bucnew')
@@ -97,7 +98,6 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
 }
 
 BUCCrumbs.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   bucs: BucsPropType.isRequired,
   className: PT.string,
   currentBuc: PT.string,

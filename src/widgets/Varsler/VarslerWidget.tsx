@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import VarslerPanel from 'widgets/Varsler/VarslerPanel'
 
-const VarslerWidget: WidgetFC<WidgetProps> = (props: WidgetProps): JSX.Element => {
-  const { onResize } = props
+const VarslerWidget: WidgetFC<WidgetProps> = ({ onResize, onUpdate, widget }: WidgetProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
@@ -22,7 +21,7 @@ const VarslerWidget: WidgetFC<WidgetProps> = (props: WidgetProps): JSX.Element =
         handleHeight
         onResize={onResize}
       />
-      <VarslerPanel {...props} />
+      <VarslerPanel onUpdate={onUpdate} widget={widget} />
     </div>
   )
 }
@@ -42,7 +41,9 @@ VarslerWidget.properties = {
 }
 
 VarslerWidget.propTypes = {
-  onResize: PT.func.isRequired
+  onResize: PT.func.isRequired,
+  onUpdate: PT.func,
+  widget: PT.object.isRequired
 }
 
 export default VarslerWidget

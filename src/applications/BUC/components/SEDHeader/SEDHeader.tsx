@@ -2,37 +2,45 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import classNames from 'classnames'
-import { Buc, InstitutionNames, Institutions, Participant, Sed, Seds } from 'declarations/buc'
-import { BucPropType, InstitutionNamesPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
+import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
+import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString, T } from 'declarations/types'
-import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './SEDHeader.css'
 
 export interface SEDHeaderProps {
   buc: Buc;
   className ?: string;
   followUpSeds: Seds;
-  institutionNames: InstitutionNames;
-  locale: AllowedLocaleString;
   onSEDNew: (buc: Buc, sed: Sed) => void;
   sed: Sed;
   style?: React.CSSProperties;
   t: T;
 }
 
+export interface SEDHeaderSelector {
+  locale: AllowedLocaleString
+}
+
+const mapState = (state: State): SEDHeaderSelector => ({
+  locale: state.ui.locale
+})
+
 const SEDHeader: React.FC<SEDHeaderProps> = ({
-  buc, className, followUpSeds, institutionNames, locale, onSEDNew, sed, style, t
+  buc, className, followUpSeds, onSEDNew, sed, style, t
 }: SEDHeaderProps): JSX.Element => {
   const institutionList: Institutions = sed.participants ? sed.participants.map((participant: Participant) => ({
     country: participant.organisation.countryCode,
     institution: participant.organisation.name
   })) : []
-
+  const { locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
   const sedLabel: string = getBucTypeLabel({
     t: t,
     type: sed.type,
@@ -60,7 +68,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__institutions col-3'>
           <InstitutionList
             t={t}
-            institutionNames={institutionNames}
             locale={locale}
             type='separated'
             institutions={institutionList}
@@ -96,8 +103,6 @@ SEDHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
   followUpSeds: SedsPropType.isRequired,
-  institutionNames: InstitutionNamesPropType.isRequired,
-  locale: AllowedLocaleStringPropType.isRequired,
   onSEDNew: PT.func.isRequired,
   sed: SedPropType.isRequired,
   style: PT.object,

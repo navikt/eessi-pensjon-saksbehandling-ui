@@ -1,26 +1,46 @@
-import React from 'react'
-import { VarslerPanel, VarslerPanelProps } from './VarslerPanel'
+import { sendInvite } from 'actions/pinfo'
+import { getStorageFile, listStorageFiles } from 'actions/storage'
 import { mount, ReactWrapper } from 'enzyme'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { VarslerPanel, VarslerPanelProps, VarslerPanelSelector } from './VarslerPanel'
+
+jest.mock('actions/pinfo', () => ({
+  sendInvite: jest.fn()
+}))
+
+jest.mock('actions/storage', () => ({
+  getStorageFile: jest.fn(),
+  listStorageFiles: jest.fn()
+}))
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+const defaultSelector: VarslerPanelSelector = {
+  aktoerId: '10293847565',
+  file: undefined,
+  fileList: undefined,
+  isInvitingPinfo: false,
+  invite: undefined,
+  person: {},
+  sakId: '123',
+  sakType: 'Alderspensjon'
+};
+
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+
+export const setup = (params: any) => {
+  (useSelector as jest.Mock).mockImplementation(() => ({
+    ...defaultSelector,
+    ...params
+  }))
+}
 
 describe('widgets/Varsler/VarslerPanel', () => {
   let wrapper: ReactWrapper
   const initialMockProps: VarslerPanelProps = {
-    actions: {
-      sendInvite: jest.fn(),
-      listStorageFiles: jest.fn(),
-      getStorageFile: jest.fn(),
-      onUpdate: jest.fn()
-    },
-    aktoerId: '10293847565',
-    file: undefined,
-    fileList: undefined,
-    isInvitingPinfo: false,
-    invite: undefined,
     onUpdate: jest.fn(),
-    person: {},
-    sakId: '123',
-    sakType: 'Alderspensjon',
-    t: jest.fn(t => t),
     widget: {
       i: 'i',
       type: 'varsler',
@@ -33,6 +53,7 @@ describe('widgets/Varsler/VarslerPanel', () => {
   }
 
   beforeEach(() => {
+    setup({})
     wrapper = mount(<VarslerPanel {...initialMockProps} />)
   })
 
@@ -50,60 +71,61 @@ describe('widgets/Varsler/VarslerPanel', () => {
   })
 
   it('With no params', () => {
-    wrapper = mount(<VarslerPanel {...initialMockProps} sakId={undefined} />)
+    setup({ sakId: undefined })
+    wrapper = mount(<VarslerPanel {...initialMockProps} />)
     expect(wrapper.exists('.w-varslerPanel__noParams-title')).toBeTruthy()
     expect(wrapper.exists('Veileder')).toBeTruthy()
   })
 
   it('UseEffect: There is a file list', () => {
-    (initialMockProps.actions.getStorageFile as jest.Mock).mockReset()
-    wrapper.setProps({
-      fileList: ['mockFileName']
-    })
-    expect(initialMockProps.actions.getStorageFile).toHaveBeenCalledWith({
-      userId: initialMockProps.aktoerId,
+    (getStorageFile as jest.Mock).mockReset()
+    setup({ fileList: ['mockFileName'] })
+    wrapper = mount(<VarslerPanel {...initialMockProps} />)
+    expect(getStorageFile).toHaveBeenCalledWith({
+      userId: defaultSelector.aktoerId,
       namespace: 'varsler',
-      file: initialMockProps.sakId + '___mockFileName'
+      file: defaultSelector.sakId + '___mockFileName'
     }, {
       notification: false
     })
   })
 
   it('UseEffect: There is a file', () => {
-    (initialMockProps.actions.listStorageFiles as jest.Mock).mockReset()
-    wrapper.setProps({
+    (listStorageFiles as jest.Mock).mockReset()
+    setup({
       fileList: ['mockFileName'],
       file: { name: 'mockFileName' }
     })
-    expect(initialMockProps.actions.getStorageFile).toHaveBeenCalledWith({
-      userId: initialMockProps.aktoerId,
+    wrapper = mount(<VarslerPanel {...initialMockProps} />)
+    expect(getStorageFile).toHaveBeenCalledWith({
+      userId: defaultSelector.aktoerId,
       namespace: 'varsler',
-      file: initialMockProps.sakId + '___mockFileName'
+      file: defaultSelector.sakId + '___mockFileName'
     }, {
       notification: false
     })
   })
 
   it('Refresh button triggers refresh action', () => {
-    (initialMockProps.actions.listStorageFiles as jest.Mock).mockReset()
+    (listStorageFiles as jest.Mock).mockReset()
     wrapper.find('.w-varslerPanel__refresh-button a').hostNodes().simulate('click')
-    expect(initialMockProps.actions.listStorageFiles).toHaveBeenCalledWith({
-      userId: initialMockProps.aktoerId,
-      namespace: 'varsler___' + initialMockProps.sakId
+    expect(listStorageFiles).toHaveBeenCalledWith({
+      userId: defaultSelector.aktoerId,
+      namespace: 'varsler___' + defaultSelector.sakId
     })
   })
 
   it('Invite button triggers a invite action', () => {
-    (initialMockProps.actions.sendInvite as jest.Mock).mockReset()
+    (sendInvite as jest.Mock).mockReset()
     wrapper.find('.w-varslerPanel__invite-button').hostNodes().simulate('click')
-    expect(initialMockProps.actions.sendInvite).toBeCalledWith({
-      aktoerId: initialMockProps.aktoerId,
-      sakId: initialMockProps.sakId
+    expect(sendInvite).toBeCalledWith({
+      aktoerId: defaultSelector.aktoerId,
+      sakId: defaultSelector.sakId
     })
   })
 
   it('Expandable panel triggers widget update', () => {
-    (initialMockProps.actions.onUpdate as jest.Mock).mockReset()
+    (initialMockProps.onUpdate as jest.Mock).mockReset()
     wrapper.find('.ekspanderbartPanel > button').hostNodes().simulate('click')
     expect(initialMockProps.onUpdate).toBeCalledWith(expect.objectContaining({
       options: {

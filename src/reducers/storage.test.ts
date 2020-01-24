@@ -18,7 +18,7 @@ describe('reducers/storage', () => {
     expect(
       storageReducer({
         ...initialStorageState,
-        fileList: 'something'
+        fileList: ['something']
       }, {
         type: types.STORAGE_LIST_FAILURE
       })
@@ -45,7 +45,7 @@ describe('reducers/storage', () => {
     expect(
       storageReducer({
         ...initialStorageState,
-        fileList: 'something'
+        fileList: ['something']
       }, {
         type: types.STORAGE_POST_SUCCESS
       })
@@ -79,14 +79,14 @@ describe('reducers/storage', () => {
     expect(
       storageReducer({
         ...initialStorageState,
-        fileList: [{ a: 1 }, { b: 2 }, { c: 3 }],
-        fileToDelete: { b: 2 }
+        fileList: ['something', 'todelete', 'tokeep'],
+        fileToDelete: 'todelete'
       }, {
         type: types.STORAGE_DELETE_SUCCESS
       })
     ).toEqual({
       ...initialStorageState,
-      fileList: [{ a: 1 }, { c: 3 }]
+      fileList: ['something', 'tokeep']
     })
   })
 
@@ -94,11 +94,10 @@ describe('reducers/storage', () => {
     expect(
       storageReducer({
         ...initialStorageState,
-        fileList: [1, 2, 3],
+        fileList: ['somethingtodelete'],
         fileToDelete: 'something'
       }, {
-        type: types.APP_CLEAR_DATA,
-        payload: 'something'
+        type: types.APP_CLEAR_DATA
       })
     ).toEqual(initialStorageState)
   })

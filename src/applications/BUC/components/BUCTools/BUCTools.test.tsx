@@ -4,24 +4,35 @@ import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BUCTools, { BUCToolsProps } from './BUCTools'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTagList, saveBucsInfo } from 'actions/buc'
+
+jest.mock('actions/buc', () => ({
+  getTagList: jest.fn(),
+  saveBucsInfo: jest.fn()
+}))
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+const defaultSelector = {
+  tagList: ['mockTag1', 'mockTag2'],
+  bucsInfo: (sampleBucsInfo as BucsInfo),
+  loading: {}
+};
+
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
 describe('applications/BUC/components/BUCTools/BUCTools', () => {
   let wrapper: ReactWrapper
   const buc: Buc = sampleBucs[0]
   const bucInfo: BucInfo = (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId]
   const initialMockProps: BUCToolsProps = {
-    actions: {
-      getTagList: jest.fn(),
-      saveBucsInfo: jest.fn()
-    },
     aktoerId: '123',
     buc: buc,
     bucInfo: bucInfo,
-    bucsInfo: (sampleBucsInfo as BucsInfo),
-    loading: {},
     onTagChange: jest.fn(),
-    t: jest.fn(t => t),
-    tagList: ['mockTag1', 'mockTag2']
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {
@@ -38,8 +49,13 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('UseEffect: fetches tag list', () => {
-    mount(<BUCTools {...initialMockProps} tagList={undefined} />)
-    expect(initialMockProps.actions.getTagList).toHaveBeenCalled()
+    (useSelector as jest.Mock).mockImplementation(() => ({
+      ...defaultSelector,
+      tagList: undefined
+    }))
+    mount(<BUCTools {...initialMockProps} />)
+    expect(getTagList).toHaveBeenCalled();
+    (useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
   })
 
   it('Changes tags', () => {
@@ -76,11 +92,11 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     expect(wrapper.exists('.a-buc-c-buctools')).toBeTruthy()
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     wrapper.find('button#a-buc-c-buctools__save-button-id').simulate('click')
-    expect(initialMockProps.actions.saveBucsInfo).toHaveBeenCalledWith({
+    expect(saveBucsInfo).toHaveBeenCalledWith({
       aktoerId: '123',
       buc: buc,
       comment: bucInfo.comment,
-      tags: [{ label: 'buc:tag-vip', value: 'tag-vip' }],
+      tags: ['tag-vip'],
       bucsInfo: (sampleBucsInfo as BucsInfo)
     })
   })

@@ -91,6 +91,7 @@ describe('applications/BUC/components/SEDP4000/Validation/singleTests', () => {
   })
 
   it('periodValidation.periodEndDateOnBlur function', () => {
+    // @ts-ignore
     let result: string | undefined = singleTests.periodValidation.periodEndDateOnBlur({ year: '70' })
     expect(result).toEqual('buc:validation-inValidYear')
     result = singleTests.periodValidation.periodEndDateOnBlur({ day: '1', month: '1', year: '1970' })
@@ -98,6 +99,7 @@ describe('applications/BUC/components/SEDP4000/Validation/singleTests', () => {
   })
 
   it('periodValidation.childBirthDateOnBlur function', () => {
+    // @ts-ignore
     let result: string | undefined = singleTests.periodValidation.childBirthDateOnBlur({ year: '70' })
     expect(result).toEqual('buc:validation-inValidYear')
     result = singleTests.periodValidation.childBirthDateOnBlur({ day: '1', month: '1', year: '1970' })

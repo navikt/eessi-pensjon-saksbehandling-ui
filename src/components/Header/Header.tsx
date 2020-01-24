@@ -1,16 +1,16 @@
-import { ActionCreatorsPropType } from 'declarations/types.pt'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
-import React from 'react'
-import PT from 'prop-types'
+import { clearData, logout } from 'actions/app'
+import { toggleHighContrast, toggleSnow } from 'actions/ui'
 import classNames from 'classnames'
-import Ui from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
-import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import { T } from 'declarations/types'
+import Ui from 'eessi-pensjon-ui'
+import PT from 'prop-types'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import './Header.css'
 
 export interface HeaderProps {
-  actions: ActionCreators;
   className ?: string;
   children?: JSX.Element | Array<JSX.Element | null>;
   gettingUserInfo?: boolean;
@@ -22,11 +22,10 @@ export interface HeaderProps {
   username?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  actions, className, children, gettingUserInfo, header, history, isLoggingOut, snow, t, username
-}: HeaderProps): JSX.Element => {
+const Header: React.FC<HeaderProps> = ({ className, children, gettingUserInfo, header, history, isLoggingOut, snow, t, username }: HeaderProps): JSX.Element => {
+  const dispatch = useDispatch()
   const onLogoClick = () => {
-    actions.clearData()
+    dispatch(clearData())
     history.push({
       pathname: routes.ROOT,
       search: window.location.search
@@ -35,8 +34,8 @@ const Header: React.FC<HeaderProps> = ({
 
   const handleUsernameSelectRequest = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === 'logout') {
-      actions.clearData()
-      actions.logout()
+      dispatch(clearData())
+      dispatch(logout())
     }
   }
 
@@ -58,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault()
               e.stopPropagation()
-              actions.toggleHighContrast()
+              dispatch(toggleHighContrast())
             }}
           >
             {t('ui:highContrast')}
@@ -70,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault()
               e.stopPropagation()
-              actions.toggleSnow()
+              dispatch(toggleSnow())
             }}
           >
             {!snow ? 'la det snø!' : 'nok med snø!'}
@@ -124,7 +123,6 @@ const Header: React.FC<HeaderProps> = ({
 }
 
 Header.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   className: PT.string,
   gettingUserInfo: PT.bool,
   header: PT.element,

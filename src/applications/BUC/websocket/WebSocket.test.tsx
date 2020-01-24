@@ -1,8 +1,10 @@
+import { fetchSingleBuc } from 'actions/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import { Server, WebSocket } from 'mock-socket'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
+import { useDispatch } from 'react-redux'
 import BucWebSocket, { BucWebSocketProps } from './WebSocket'
 jest.mock('eessi-pensjon-ui', () => {
   const Ui = jest.requireActual('eessi-pensjon-ui').default
@@ -14,18 +16,18 @@ jest.mock('eessi-pensjon-ui', () => {
     }
   }
 })
-jest.mock('constants/urls', () => {
-  return {
-    WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
-  }
-})
+jest.mock('constants/urls', () => ({
+  WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
+}))
+jest.mock('actions/buc', () => ({
+  fetchSingleBuc: jest.fn()
+}))
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 describe('applications/BUC/websocket/WebSocket', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BucWebSocketProps = {
-    actions: {
-      fetchSingleBuc: jest.fn()
-    },
     fnr: '123',
     avdodfnr: '456'
   }
@@ -78,7 +80,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
           const logs = wrapper.find('.mock-popover span.log')
           expect(logs.length).toBe(6)
           expect(_(logs.at(5).render().html()).endsWith('Updating buc 123')).toBeTruthy()
-          expect(initialMockProps.actions.fetchSingleBuc).toHaveBeenCalledWith('123')
+          expect(fetchSingleBuc).toHaveBeenCalledWith('123')
           done()
         }, 300)
       }, 300)

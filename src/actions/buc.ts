@@ -1,17 +1,21 @@
+import { SEDAttachmentPayloadWithFile } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
+import * as urls from 'constants/urls'
+import { BucsInfo, NewSedPayload } from 'declarations/buc'
+import { JoarkFile } from 'declarations/joark'
+import { P4000Info } from 'declarations/period'
+import Ui from 'eessi-pensjon-ui'
 import * as api from 'eessi-pensjon-ui/dist/api'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
+import { Action } from 'redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
-import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
-import Ui from 'eessi-pensjon-ui'
-import { Action, ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
-import { Buc, BucsInfo, NewSedPayload } from 'declarations/buc'
-import { P4000Info } from 'declarations/period'
+import sampleP4000info from 'resources/tests/sampleP4000info'
+
 const sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode: string): ActionWithPayload<string> => ({
@@ -19,12 +23,12 @@ export const setMode = (mode: string): ActionWithPayload<string> => ({
   payload: mode
 })
 
-export const setCurrentBuc = (bucCaseId: string): ActionWithPayload<string> => ({
+export const setCurrentBuc = (bucCaseId: string | undefined): ActionWithPayload<string | undefined> => ({
   type: types.BUC_CURRENTBUC_SET,
   payload: bucCaseId
 })
 
-export const setCurrentSed = (sedDocumentId: string) : ActionWithPayload<string> => ({
+export const setCurrentSed = (sedDocumentId: string | undefined) : ActionWithPayload<string | undefined> => ({
   type: types.BUC_CURRENTSED_SET,
   payload: sedDocumentId
 })
@@ -34,29 +38,22 @@ export const setSedList = (sedList: Array<string>): ActionWithPayload<Array<stri
   payload: sedList
 })
 
-export const resetBuc = (): Action => {
-  return {
-    type: types.BUC_BUC_RESET
-  }
-}
+export const resetBuc = (): Action => ({
+  type: types.BUC_BUC_RESET
+})
 
-export const resetSed = (): Action => {
-  return {
-    type: types.BUC_SED_RESET
-  }
-}
-export const resetSedAttachments = (): Action => {
-  return {
-    type: types.BUC_SED_ATTACHMENTS_RESET
-  }
-}
+export const resetSed = (): Action => ({
+  type: types.BUC_SED_RESET
+})
 
-export const setP4000Info = (p4000: P4000Info): ActionWithPayload<P4000Info> => {
-  return {
-    type: types.BUC_P4000_INFO_SET,
-    payload: p4000
-  }
-}
+export const resetSedAttachments = (): Action => ({
+  type: types.BUC_SED_ATTACHMENTS_RESET
+})
+
+export const setP4000Info = (p4000: P4000Info): ActionWithPayload<P4000Info> => ({
+  type: types.BUC_P4000_INFO_SET,
+  payload: p4000
+})
 
 export const fetchSingleBuc = (rinaCaseId: string): Function => {
   return api.call({
@@ -144,14 +141,12 @@ export const getBucList = (): Function => {
   })
 }
 
-export const getTagList = (): ActionWithPayload<Array<string>> => {
-  return {
-    type: types.BUC_GET_TAG_LIST_SUCCESS,
-    payload: tagsList
-  }
-}
+export const getTagList = (): ActionWithPayload<Array<string>> => ({
+  type: types.BUC_GET_TAG_LIST_SUCCESS,
+  payload: tagsList
+})
 
-export const createBuc = (buc: Buc): Function => {
+export const createBuc = (buc: string): Function => {
   return api.call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
@@ -178,12 +173,12 @@ export interface SaveBucsInfoProps {
   };
   bucsInfo: BucsInfo;
   comment?: string;
-  tags?: Array<{value: string}>;
+  tags?: Array<string>;
 }
 
 export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = { bucs: {} }, comment, tags }: SaveBucsInfoProps): Function => {
   const newBucsInfo = _.cloneDeep(bucsInfo)
-  const newTags = tags ? tags.map(tag => tag.value) : []
+  const newTags = tags || [] // ? tags.map(tag => tag.value) : []
   const bucId = parseInt(buc.caseId, 10)
   newBucsInfo.bucs = newBucsInfo.bucs || {}
   newBucsInfo.bucs[bucId] = newBucsInfo.bucs[bucId] || {}
@@ -222,7 +217,7 @@ export const getCountryList = (bucType: string): Function => {
 }
 
 export const getSedList = (buc: {type: string, caseId: string}): Function => {
-  const url = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
+  const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
     expectedPayload: ['P2000', 'P4000', 'P5000', 'P6000'],
@@ -236,7 +231,7 @@ export const getSedList = (buc: {type: string, caseId: string}): Function => {
 
 export const getInstitutionsListForBucAndCountry = (bucType: string, country: string): Function => {
   // RINA uses UK, not GB
-  let _country = country
+  let _country: string = country
   if (_country.toUpperCase() === 'GB') {
     _country = 'UK'
   }
@@ -289,7 +284,7 @@ export const createReplySed = (payload: NewSedPayload, parentId: string): Functi
   })
 }
 
-export const sendAttachmentToSed = (params: any, context: any): Function => {
+export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, context: JoarkFile): Function => {
   return api.call({
     url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, params),
     method: 'PUT',

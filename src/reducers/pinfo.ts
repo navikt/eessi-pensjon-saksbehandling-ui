@@ -1,11 +1,18 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Action } from 'redux'
 
-export const initialPinfoState: State = {
+export interface PinfoState {
+  invite: {
+    message: string;
+    status: string;
+  } | undefined
+}
+
+export const initialPinfoState: PinfoState = {
   invite: undefined
 }
 
-const pinfoReducer = (state: State = initialPinfoState, action: Action) => {
+const pinfoReducer = (state: PinfoState = initialPinfoState, action: Action) => {
   switch (action.type) {
     case types.PINFO_INVITE_REQUEST:
 

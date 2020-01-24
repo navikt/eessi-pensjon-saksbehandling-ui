@@ -6,7 +6,10 @@ describe('reducers/pinfo', () => {
     expect(
       pinfoReducer({
         ...initialPinfoState,
-        invite: 'something'
+        invite: {
+          message: 'something',
+          status: 'OK'
+        }
       }, {
         type: types.PINFO_INVITE_REQUEST
       })

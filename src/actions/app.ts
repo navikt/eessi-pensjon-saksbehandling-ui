@@ -1,8 +1,10 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Action } from 'redux'
 import samplePerson from 'resources/tests/samplePerson'
-import { Action, ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+
 const sprintf = require('sprintf-js').sprintf
 
 export interface ParamPayload {

@@ -4,14 +4,18 @@ import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
 
+// locale
+const mockSelectors = { locale: 'nb' }
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(() => mockSelectors)
+}))
+
 describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
   const buc: Buc = sampleBucs[0] as Buc
   const sed: Sed = buc.seds![0]
   sed.status = 'received'
   const initialMockProps: SEDListHeaderProps = {
     buc: buc,
-    institutionNames: {},
-    locale: 'nb',
     onSEDNew: jest.fn(),
     sed: sed,
     followUpSeds: [buc.seds![1]],

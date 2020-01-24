@@ -1,35 +1,34 @@
+import { getP4000, listP4000, saveP4000asSaksbehandler, setP4000Info } from 'actions/buc'
 import Period from 'applications/BUC/components/SEDP4000/Period/Period'
-import { P4000Info, Period as IPeriod, PeriodErrors } from 'declarations/period.d'
 import classNames from 'classnames'
 import * as storage from 'constants/storage'
-import { P4000InfoPropType } from 'declarations/period.pt'
-import { ActionCreatorsPropType, AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
+import { P4000Info, Period as IPeriod, PeriodErrors } from 'declarations/period.d'
+import { AllowedLocaleString, T } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators, State } from 'eessi-pensjon-ui/dist/declarations/types.d'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { connect } from 'store'
-import { AllowedLocaleString, T } from 'declarations/types'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import P4000Payload from './P4000Payload'
 
 export interface SEDP4000Props {
-  actions: ActionCreators;
   aktoerId: string;
-  loadingP4000info: boolean;
-  loadingP4000list: boolean;
   locale: AllowedLocaleString;
-  p4000info?: P4000Info | undefined;
-  p4000list: Array<string> | null | undefined;
   setShowButtons: (b: boolean) => void;
   showButtons: boolean;
   t: T
 }
 
-export const mapStateToProps: Function = /* istanbul ignore next */ (state: State): State => ({
-  aktoerId: state.app.params.aktoerId,
-  p4000: state.buc.p4000,
-  locale: state.ui.locale,
+export interface SEDP4000Selector {
+  loadingP4000list: boolean;
+  loadingP4000info: boolean;
+  p4000info?: P4000Info | undefined;
+  p4000list?: Array<string> | undefined;
+}
+
+const mapState = (state: State): SEDP4000Selector => ({
   loadingP4000list: state.loading.loadingP4000list,
   loadingP4000info: state.loading.loadingP4000info,
   p4000list: state.buc.p4000list,
@@ -37,8 +36,7 @@ export const mapStateToProps: Function = /* istanbul ignore next */ (state: Stat
 })
 
 export const SEDP4000: React.FC<SEDP4000Props> = ({
-  actions, aktoerId, loadingP4000info, loadingP4000list,
-  locale, p4000info, p4000list, setShowButtons, showButtons, t
+  aktoerId, locale, setShowButtons, showButtons, t
 }: SEDP4000Props): JSX.Element => {
   const [period, setPeriod] = useState<IPeriod>({} as IPeriod)
   const [isReady, setIsReady] = useState<boolean>(false)
@@ -46,6 +44,9 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
   const [p4000file, setP4000file] = useState<string | undefined | null>(undefined)
   const [role, setRole] = useState<string | undefined>(undefined)
   const mode: string = period.id ? 'edit' : 'new'
+
+  const { loadingP4000list, loadingP4000info, p4000list, p4000info }: SEDP4000Selector = useSelector<State, SEDP4000Selector>(mapState)
+  const dispatch = useDispatch()
 
   // check aktoerId
   useEffect(() => {
@@ -80,31 +81,31 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
   }
 
   const setPeriods = (periods: Array<IPeriod>): void => {
-    actions.setP4000Info({
+    dispatch(setP4000Info({
       ...p4000info,
       stayAbroad: periods
-    })
+    } as P4000Info))
   }
 
   const handleContinueButton: Function = (): void => {
-    actions.saveP4000asSaksbehandler(aktoerId, p4000file)
+    dispatch(saveP4000asSaksbehandler(aktoerId, p4000file!))
     setIsReady(true)
   }
 
   const handleGetP4000infoButton: Function = (): void => {
-    actions.getP4000(p4000file)
+    dispatch(getP4000(p4000file!))
   }
 
   const handleListP4000userButton: Function = (): void => {
     setRole('user')
     setP4000file(aktoerId + '___' + storage.NAMESPACE_PINFO + '___' + storage.FILE_PINFO)
-    actions.listP4000(aktoerId)
+    dispatch(listP4000(aktoerId))
   }
 
   const handleListP4000saksbehandlerButton = (): void => {
     setRole('saksbehandler')
     setP4000file(aktoerId + '___' + storage.NAMESPACE_PINFO + '___' + storage.FILE_PINFOSB)
-    actions.listP4000(aktoerId)
+    dispatch(listP4000(aktoerId))
   }
 
   const noP4000Info = (): boolean => {
@@ -208,7 +209,6 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
               <Period
                 t={t}
                 locale={locale}
-                actions={actions}
                 mode='view'
                 first={index === 0}
                 last={index === p4000info.stayAbroad.length - 1}
@@ -228,7 +228,6 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
         : null}
       <Period
         t={t}
-        actions={actions}
         mode={mode}
         period={period}
         periods={p4000info ? p4000info.stayAbroad : []}
@@ -249,16 +248,11 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
 }
 
 SEDP4000.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string.isRequired,
-  loadingP4000info: PT.bool.isRequired,
-  loadingP4000list: PT.bool.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
-  p4000info: P4000InfoPropType,
-  p4000list: PT.arrayOf(PT.string.isRequired),
   setShowButtons: PT.func.isRequired,
   showButtons: PT.bool.isRequired,
   t: TPropType.isRequired
 }
 
-export default connect(mapStateToProps, () => {})(SEDP4000)
+export default SEDP4000

@@ -1,13 +1,13 @@
-import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
+import { closeModal, openModal } from 'actions/ui'
+import { TPropType } from 'declarations/types.pt'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { T } from 'declarations/types'
+import { useDispatch } from 'react-redux'
 
 export interface SessionMonitorProps {
-  actions: ActionCreators;
   checkInterval?: number;
-  expirationTime: Date;
+  expirationTime?: Date;
   millisecondsForWarning?: number;
   sessionExpiredReload?: number;
   now?: Date;
@@ -15,7 +15,6 @@ export interface SessionMonitorProps {
 }
 
 const SessionMonitor: React.FC<SessionMonitorProps> = ({
-  actions,
   /* check every minute */
   checkInterval = 1000 * 60,
   /* When session will expire */
@@ -29,6 +28,7 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
 }: SessionMonitorProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
 
+  const dispatch = useDispatch()
   useEffect(() => {
     const checkTimeout = () => {
       if (!expirationTime) {
@@ -41,15 +41,15 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
           window.location.reload()
         }
         if (diff < millisecondsForWarning) {
-          actions.openModal({
+          dispatch(openModal({
             modalTitle: t('ui:session-expire-title'),
             modalText: t('ui:session-expire-text', { minutes: Math.ceil(Math.abs(diff / 1000 / 60)) }),
             modalButtons: [{
               main: true,
               text: t('ui:ok-got-it'),
-              onClick: actions.closeModal
+              onClick: dispatch(closeModal)
             }]
-          })
+          }))
         }
         checkTimeout()
       }, checkInterval)
@@ -59,15 +59,14 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
       checkTimeout()
       setMounted(true)
     }
-  }, [actions, checkInterval, expirationTime, millisecondsForWarning, mounted, now, sessionExpiredReload, t])
+  }, [checkInterval, expirationTime, millisecondsForWarning, mounted, now, sessionExpiredReload, t])
 
   return <div className='c-sessionMonitor' />
 }
 
 SessionMonitor.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   checkInterval: PT.number,
-  expirationTime: PT.instanceOf(Date).isRequired,
+  expirationTime: PT.instanceOf(Date),
   millisecondsForWarning: PT.number,
   sessionExpiredReload: PT.number,
   now: PT.instanceOf(Date),

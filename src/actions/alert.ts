@@ -1,5 +1,6 @@
 import * as types from 'constants/actionTypes'
-import { Action, ActionWithPayload, ErrorPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload, ErrorPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Action } from 'redux'
 
 export const clientClear = (): Action => ({
   type: types.ALERT_CLIENT_CLEAR

@@ -1,30 +1,42 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
+import { AllowedLocaleString } from 'declarations/types'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Action } from 'redux'
 import i18n from '../i18n'
 
-export const initialUiState: State = {
-  language: i18n.language,
-  locale: i18n.language,
+export interface UiState {
+  language: AllowedLocaleString;
+  locale: AllowedLocaleString;
+  modal: ModalContent | undefined,
+  footerOpen: false,
+  highContrast: false,
+  snow: false
+}
+
+export const initialUiState: UiState = {
+  language: i18n.language as AllowedLocaleString,
+  locale: i18n.language as AllowedLocaleString,
   modal: undefined,
   footerOpen: false,
   highContrast: false,
   snow: false
 }
 
-const uiReducer = (state: State = initialUiState, action: Action) => {
+const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithPayload) => {
   switch (action.type) {
     case types.UI_MODAL_SET:
       return {
         ...state,
-        modal: action.payload
+        modal: (action as ActionWithPayload).payload
       }
 
     case types.UI_LANGUAGE_CHANGED:
 
       return {
         ...state,
-        language: action.payload,
-        locale: action.payload === 'nb' ? 'nb' : 'en'
+        language: (action as ActionWithPayload).payload,
+        locale: (action as ActionWithPayload).payload === 'nb' ? 'nb' : 'en'
       }
 
     case types.UI_FOOTER_TOGGLE_OPEN :

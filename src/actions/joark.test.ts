@@ -1,9 +1,11 @@
-import _ from 'lodash'
-import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
+import { JoarkFile } from 'declarations/joark'
+import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
+import _ from 'lodash'
 import sampleJoark from 'resources/tests/sampleJoarkRaw'
+
 const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
@@ -18,13 +20,16 @@ describe('actions/joark', () => {
   afterAll(() => {
     call.mockRestore()
   })
-  const mockItem = {
+  const mockItem: JoarkFile = {
     tittel: 'tittel',
     tema: 'tema',
-    datoOpprettet: 'date',
+    datoOpprettet: new Date(1970, 1, 1),
     journalpostId: '1',
     dokumentInfoId: '4',
-    variant: { variantformat: 'mockVariant' }
+    variant: {
+      variantformat: 'mockVariant',
+      filnavn: 'mockFilnavn'
+    }
   }
 
   it('listJoarkFiles()', () => {

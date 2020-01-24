@@ -29,7 +29,7 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
   <>
     <Ui.Nav.Row>
       <div className='col-sm-12'>
-        <Ui.Nav.Fieldset
+        <Ui.Nav.Panel
           id='a-buc-c-sedp4000-period__workType-radio-id'
           className='a-buc-c-sedp4000-period__workType-radio'
           legend={t('buc:p4000-label-work-type')}
@@ -50,7 +50,7 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
             checked={period.workType === '02'}
             onChange={setWorkType}
           />
-        </Ui.Nav.Fieldset>
+        </Ui.Nav.Panel>
       </div>
       <div className='col-sm-12'>
         <Ui.Nav.Input

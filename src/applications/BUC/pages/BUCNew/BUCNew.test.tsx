@@ -5,16 +5,16 @@ import BUCNew, { BUCNewProps } from './BUCNew'
 jest.mock('applications/BUC/components/BUCStart/BUCStart', () => {
   return (props: any) => (<div className='mock-bucstart' title={props.mode} />)
 })
+jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => {
+  return () => (<div className='mock-bucfooter' />)
+})
 
 describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCNewProps = {
-    actions: {},
+    aktoerId: '123',
     t: jest.fn(t => t),
-    loading: {},
-    locale: 'nb',
-    setMode: jest.fn(),
-    onTagsChanged: jest.fn()
+    setMode: jest.fn()
   }
 
   it('Renders', () => {
@@ -27,5 +27,6 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
     wrapper = mount(<BUCNew {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-p-bucnew')).toBeTruthy()
     expect(wrapper.exists('.mock-bucstart')).toBeTruthy()
+    expect(wrapper.exists('.mock-bucfooter')).toBeTruthy()
   })
 })

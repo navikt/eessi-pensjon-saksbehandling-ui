@@ -1,18 +1,17 @@
 /* global WebSocket */
 
+import { fetchSingleBuc } from 'actions/buc'
 import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
-import { ActionCreatorsPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import './WebSocket.css'
 
 export interface BucWebSocketProps {
-  actions: ActionCreators;
   fnr: string;
   avdodfnr: string | undefined;
 }
@@ -29,7 +28,7 @@ interface EESSIPen {
 interface WindowEESSIPen extends Window, EESSIPen {}
 
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
-  actions, fnr, avdodfnr
+  fnr, avdodfnr
 }: BucWebSocketProps): JSX.Element => {
   const [status, setStatus] = useState<string>(NOTCONNECTED)
   const [popoverOpen, setPopoverOpen] = useState<boolean>(false)
@@ -37,15 +36,16 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   const [log, setLog] = useState<Array<JSX.Element>>([])
   const [simpleLog, setSimpleLog] = useState<Array<string>>([])
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
+  const dispatch = useDispatch()
 
-  const onMessageHandler: ((this: WebSocket, ev: MessageEvent) => any) = useCallback((e) => {
+  const onMessageHandler = (e: MessageEvent) => {
     setStatus(RECEIVING)
     console.log('Receiving websocket message')
     try {
       const data = JSON.parse(e.data)
       if (data.bucUpdated && data.bucUpdated.caseId) {
         pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
-        actions.fetchSingleBuc(data.bucUpdated.caseId)
+        dispatch(fetchSingleBuc(data.bucUpdated.caseId))
       }
       if (data.subscriptions) {
         pushToLog('info', 'Subscription status is ' + data.subscriptions)
@@ -55,7 +55,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
     } finally {
       setStatus(CONNECTED)
     }
-  }, [actions])
+  }
 
   const websocketSubscribe = useCallback((connection) => {
     const ids = []
@@ -152,7 +152,6 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 }
 
 BucWebSocket.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   fnr: PT.string.isRequired,
   avdodfnr: PT.string
 }

@@ -1,32 +1,57 @@
+import { clientClear } from 'actions/alert'
+import { closeModal, toggleHighContrast } from 'actions/ui'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
-import React from 'react'
-import { TopContainer, TopContainerProps } from './TopContainer'
 import { mount, ReactWrapper } from 'enzyme'
-import { act } from 'react-dom/test-utils'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { TopContainer, TopContainerProps, TopContainerSelector } from './TopContainer'
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+const defaultSelector: TopContainerSelector = {
+  clientErrorStatus: 'ERROR',
+  clientErrorMessage: 'mockErrorMessage',
+  serverErrorMessage: undefined,
+  error: undefined,
+  expirationTime: undefined,
+  params: {},
+  username: 'mockUsername',
+  gettingUserInfo: false,
+  isLoggingOut: false,
+  footerOpen: false,
+  modal: undefined,
+  snow: false,
+  highContrast: false
+}
+
+const setup = (params: any) => {
+  (useSelector as jest.Mock).mockImplementation(() => ({
+    ...defaultSelector,
+    ...params
+  }))
+}
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+
+jest.mock('actions/alert', () => ({
+  clientClear: jest.fn()
+}))
+
+jest.mock('actions/ui', () => ({
+  closeModal: jest.fn(),
+  toggleHighContrast: jest.fn()
+}))
 
 describe('components/TopContainer', () => {
   let wrapper: ReactWrapper
   const initialMockProps: TopContainerProps = {
-    actions: {
-      toggleHighContrast: jest.fn(),
-      clientClear: jest.fn(),
-      closeModal: jest.fn()
-    },
-    clientErrorMessage: 'mockErrorMessage',
-    gettingUserInfo: false,
-    footerOpen: false,
     header: 'mockHeader',
-    highContrast: false,
     history: {},
-    isLoggingOut: false,
-    modal: undefined,
-    params: {},
-    snow: false,
-    t: jest.fn(t => t),
-    username: 'mockUsername'
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {
+    setup({})
     wrapper = mount(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
@@ -49,21 +74,24 @@ describe('components/TopContainer', () => {
   })
 
   it('Compute the client error message', () => {
-    (initialMockProps.actions.clientClear as jest.Mock).mockReset()
-    wrapper.setProps({
-      clientErrorMessage: 'mockMessage|mockParams'
-    })
+    (clientClear as jest.Mock).mockReset()
+    setup({ clientErrorMessage: 'mockMessage|mockParams' })
+    wrapper = mount(
+      <TopContainer {...initialMockProps}>
+        <div id='TEST_CHILD' />
+      </TopContainer>
+    )
     const clientAlert = wrapper.find('Alert[type="client"]')
     expect(clientAlert.render().text()).toEqual('mockMessage: mockParams')
 
     clientAlert.find('Icons').simulate('click')
-    expect(initialMockProps.actions.clientClear).toHaveBeenCalled()
+    expect(clientClear).toHaveBeenCalled()
   })
 
   it('Toggles high contrast', () => {
-    (initialMockProps.actions.toggleHighContrast as jest.Mock).mockReset()
+    (toggleHighContrast as jest.Mock).mockReset()
     wrapper.find('Banner #c-banner__highcontrast-link-id').hostNodes().simulate('click')
-    expect(initialMockProps.actions.toggleHighContrast).toHaveBeenCalledWith()
+    expect(toggleHighContrast).toHaveBeenCalledWith()
   })
 
   it('Opens and closes modal', () => {
@@ -75,17 +103,16 @@ describe('components/TopContainer', () => {
         text: 'ok'
       }]
     }
-    act(() => {
-      wrapper.setProps({
-        modal: mockModal
-      })
-    })
-    act(() => {
-      wrapper.update()
-    })
+    setup({ modal: mockModal })
+    wrapper = mount(
+      <TopContainer {...initialMockProps}>
+        <div id='TEST_CHILD' />
+      </TopContainer>
+    )
+
     expect(wrapper.exists('Modal')).toBeTruthy()
     const modal = wrapper.find('Modal').first()
     modal.find('button').hostNodes().last().simulate('click')
-    expect(initialMockProps.actions.closeModal).toHaveBeenCalled()
+    expect(closeModal).toHaveBeenCalled()
   })
 })

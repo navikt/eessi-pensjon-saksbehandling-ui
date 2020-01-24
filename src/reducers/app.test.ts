@@ -92,7 +92,8 @@ describe('reducers/app', () => {
   it('APP_USERINFO_FAILURE', () => {
     expect(
       appReducer(initialAppState, {
-        type: types.APP_USERINFO_FAILURE
+        type: types.APP_USERINFO_FAILURE,
+        payload: undefined
       })
     ).toEqual({
       ...initialAppState,
@@ -118,7 +119,8 @@ describe('reducers/app', () => {
   it('APP_LOGOUT_SUCCESS', () => {
     expect(
       appReducer(initialAppState, {
-        type: types.APP_LOGOUT_SUCCESS
+        type: types.APP_LOGOUT_SUCCESS,
+        payload: undefined
       })
     ).toEqual(initialAppState)
   })
@@ -142,7 +144,8 @@ describe('reducers/app', () => {
   it('APP_SAKTYPE_FAILURE', () => {
     expect(
       appReducer(initialAppState, {
-        type: types.APP_SAKTYPE_FAILURE
+        type: types.APP_SAKTYPE_FAILURE,
+        payload: undefined
       })
     ).toEqual({
       ...initialAppState,

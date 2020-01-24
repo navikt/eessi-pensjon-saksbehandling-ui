@@ -1,29 +1,20 @@
-import * as appActions from 'actions/app'
+import { getUserInfo, login, setStatusParam } from 'actions/app'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
-import { T } from 'declarations/types'
-import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
-import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { withTranslation } from 'react-i18next'
-import { Redirect, Route, withRouter } from 'react-router'
-import { bindActionCreators, connect } from 'store'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect, Route, RouteProps } from 'react-router'
 import './AuthenticatedRoute.css'
 
-const mapStateToProps = (state: State) => ({
+const mapState = (state: State): AuthenticatedRouteSelector => ({
   /* istanbul ignore next */
   userRole: state.app.userRole,
-  userStatus: state.app.userStatus,
   loggedIn: state.app.loggedIn,
   allowed: state.app.allowed
-})
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  /* istanbul ignore next */
-  actions: bindActionCreators(appActions, dispatch)
 })
 
 const paramAliases: {[k: string]: string} = {
@@ -36,61 +27,64 @@ const paramAliases: {[k: string]: string} = {
 
 type Params = {[k: string]: any}
 
-export interface AuthenticatedRouteProps {
-  actions: ActionCreators;
-  allowed?: boolean;
-  location: any;
-  loggedIn?: boolean;
-  t: T;
-  userRole?: string;
+export interface AuthenticatedRouteSelector {
+  userRole: string | undefined;
+  loggedIn: boolean | undefined;
+  allowed: boolean | undefined;
 }
 
-export const AuthenticatedRoute: React.FC<AuthenticatedRouteProps> = (props: AuthenticatedRouteProps): JSX.Element => {
-  const { actions, allowed, location, loggedIn, t, userRole } = props
+export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX.Element => {
+  const { location } = props
   const [_params, _setParams] = useState<Params>({})
   const [mounted, setMounted] = useState<boolean>(false)
   const [requestingUserInfo, setRequestingUserInfo] = useState<boolean>(false)
   const [requestingLogin, setRequestingLogin] = useState<boolean>(false)
+  const { allowed, loggedIn, userRole } = useSelector<State, AuthenticatedRouteSelector>(mapState)
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const parseSearchParams = () => {
-      const params: URLSearchParams = new URLSearchParams(location.search)
       const newParams: Params = {}
-      params.forEach((value, key) => {
-        const _key = Object.prototype.hasOwnProperty.call(paramAliases, key)
-          ? paramAliases[key]
-          : key
-        const _value: string | undefined = value || undefined
-        if (_value !== _params[_key]) {
-          actions.setStatusParam(_key, _value)
-          newParams[_key] = _value
+      if (location) {
+        const params: URLSearchParams = new URLSearchParams(location.search)
+
+        params.forEach((value, key) => {
+          const _key = Object.prototype.hasOwnProperty.call(paramAliases, key)
+            ? paramAliases[key]
+            : key
+          const _value: string | undefined = value || undefined
+          if (_value !== _params[_key]) {
+            dispatch(setStatusParam(_key, _value))
+            newParams[_key] = _value
+          }
+        })
+        if (!_.isEmpty(newParams)) {
+          _setParams(newParams)
         }
-      })
-      if (!_.isEmpty(newParams)) {
-        _setParams(newParams)
       }
       return newParams
     }
 
     parseSearchParams()
-  }, [location.search, _params, actions])
+  }, [location, _params])
 
   useEffect(() => {
     if (!mounted) {
       if (loggedIn === undefined && !requestingUserInfo) {
-        actions.getUserInfo()
+        dispatch(getUserInfo())
         setRequestingUserInfo(true)
       }
 
       if (loggedIn === false && !requestingLogin) {
-        actions.login()
+        dispatch(login())
         setRequestingLogin(true)
       }
       if (loggedIn === true) {
         setMounted(true)
       }
     }
-  }, [loggedIn, actions, requestingUserInfo, requestingLogin, mounted])
+  }, [loggedIn, requestingUserInfo, requestingLogin, mounted])
 
   if (!mounted) {
     return (
@@ -120,14 +114,4 @@ export const AuthenticatedRoute: React.FC<AuthenticatedRouteProps> = (props: Aut
   return <Route {...props} />
 }
 
-AuthenticatedRoute.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
-  allowed: PT.bool,
-  location: PT.object.isRequired,
-  loggedIn: PT.bool,
-  t: TPropType.isRequired,
-  userRole: PT.string
-}
-
-// @ts-ignore
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withTranslation()(AuthenticatedRoute)))
+export default AuthenticatedRoute

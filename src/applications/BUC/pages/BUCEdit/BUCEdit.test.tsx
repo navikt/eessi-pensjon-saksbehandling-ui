@@ -2,31 +2,40 @@ import { Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import BUCEdit, { BUCEditProps } from './BUCEdit'
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+const defaultSelector = {
+  loading: {},
+  locale: 'nb',
+  bucsInfo: {} as BucsInfo,
+  currentBuc: '195440'
+};
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+
+export const setup = (params: any) => {
+  (useSelector as jest.Mock).mockImplementation(() => ({
+    ...defaultSelector,
+    ...params
+  }))
+}
 
 describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   let wrapper: ReactWrapper
   const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: BUCEditProps = {
-    actions: {
-      setCurrentSed: jest.fn()
-    },
     aktoerId: '123',
-    attachments: {},
     bucs: mockBucs,
-    bucsInfo: {} as BucsInfo,
-    currentBuc: '195440',
-    institutionNames: {},
-    loading: {},
-    locale: 'nb',
-    rinaUrl: 'http://mockUrl/rinaUrl',
     setMode: jest.fn(),
-    t: jest.fn(t => t),
-    tagList: ['mockTag1', 'mockTag2']
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {
+    setup({})
     wrapper = mount(<BUCEdit {...initialMockProps} />)
   })
 
@@ -44,7 +53,8 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Renders null without currentBuc', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} currentBuc={undefined} />)
+    setup({ currentBuc: undefined })
+    wrapper = mount(<BUCEdit {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeTruthy()
   })
 

@@ -1,8 +1,17 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
+import { Action } from 'redux'
 
-export const initialAlertState: State = {
+export interface AlertState {
+  clientErrorStatus: string | undefined;
+  clientErrorMessage: string | undefined;
+  serverErrorMessage: string | undefined;
+  uuid: string | undefined;
+  error: any |undefined;
+}
+
+export const initialAlertState: AlertState = {
   clientErrorStatus: undefined,
   clientErrorMessage: undefined,
   serverErrorMessage: undefined,
@@ -10,7 +19,7 @@ export const initialAlertState: State = {
   error: undefined
 }
 
-const alertReducer = (state: State = initialAlertState, action: Action) => {
+const alertReducer = (state: AlertState = initialAlertState, action: Action | ActionWithPayload) => {
   let clientErrorMessage: string | undefined, serverErrorMessage: string, clientErrorStatus: string
 
   if (action.type === types.ALERT_CLIENT_CLEAR) {
@@ -28,15 +37,15 @@ const alertReducer = (state: State = initialAlertState, action: Action) => {
         break
 
       default:
-        serverErrorMessage = action.payload && action.payload.message ? action.payload.message : 'ui:serverInternalError'
+        serverErrorMessage = (action as ActionWithPayload).payload.message || 'ui:serverInternalError'
         break
     }
 
     return {
       ...state,
       serverErrorMessage: serverErrorMessage,
-      error: action.payload ? action.payload.error : undefined,
-      uuid: action.payload ? action.payload.uuid : undefined
+      error: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.error : undefined,
+      uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
   }
 
@@ -158,30 +167,30 @@ const alertReducer = (state: State = initialAlertState, action: Action) => {
       ...state,
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
       clientErrorMessage: clientErrorMessage,
-      error: action.payload ? action.payload.error : undefined,
-      uuid: action.payload ? action.payload.uuid : undefined
+      error: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.error : undefined,
+      uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
   }
 
   switch (action.type) {
     case types.BUC_CREATE_BUC_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdBuc|' + action.payload.type
+      clientErrorMessage = 'buc:alert-createdBuc|' + (action as ActionWithPayload).payload.type
       break
 
     case types.BUC_CREATE_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdSed|' + (action.payload.type || action.payload.sed)
+      clientErrorMessage = 'buc:alert-createdSed|' + ((action as ActionWithPayload).payload.type || (action as ActionWithPayload).payload.sed)
       break
 
     case types.STORAGE_GET_SUCCESS:
-      if (action.context && action.context.notification) {
+      if ((action as ActionWithPayload).context && (action as ActionWithPayload).context.notification) {
         clientErrorMessage = 'ui:loadSuccess'
       }
       break
 
     case types.STORAGE_POST_SUCCESS:
-      if (action.context && action.context.notification) {
+      if ((action as ActionWithPayload).context && (action as ActionWithPayload).context.notification) {
         clientErrorMessage = 'ui:saveSuccess'
       }
       break

@@ -1,13 +1,13 @@
 import TopContainer from 'components/TopContainer/TopContainer'
+import { T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
-import { State } from 'eessi-pensjon-ui/dist/declarations/types'
 import PT from 'prop-types'
 import React from 'react'
-import { withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
-import { connect } from 'store'
-import { T } from 'declarations/types'
+import { State } from 'declarations/reducers'
 import * as extraWidgets from 'widgets'
 import './IndexPage.css'
 
@@ -117,14 +117,21 @@ const defaultConfig = {
 
 const allowedWidgets = ['buc', 'varsler', 'overview']
 
-const mapStateToProps = (state: State) => ({
+export interface IndexPageSelector {
+  username: string | undefined
+}
+
+const mapState = (state: State): IndexPageSelector => ({
   username: state.app.username
 })
 
-export const IndexPage: React.FC<IndexPageProps> = ({ history, t, username }: IndexPageProps): JSX.Element => {
+export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps): JSX.Element => {
+  const { username }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { t } = useTranslation()
   const afterLayoutChange = () => {
     ReactTooltip.rebuild()
   }
+
   return (
     <TopContainer
       className='p-indexPage'
@@ -132,6 +139,7 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history, t, username }: In
       history={history}
     >
       <ReactTooltip place='top' type='dark' effect='solid' />
+
       <Ui.Dashboard
         id='eessi-pensjon-ui-fss'
         extraWidgets={extraWidgets}
@@ -146,10 +154,7 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history, t, username }: In
 }
 
 IndexPage.propTypes = {
-  history: PT.object.isRequired,
-  t: PT.func.isRequired,
-  username: PT.string
+  history: PT.object.isRequired
 }
 
-// @ts-ignore
-export default connect(mapStateToProps, () => {})(withTranslation()(IndexPage))
+export default IndexPage

@@ -1,15 +1,23 @@
+import { setStatusParam, unsetStatusParam } from 'actions/app'
+import { toggleFooterOpen } from 'actions/ui'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import Footer, { FooterProps } from './Footer'
 
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+jest.mock('actions/ui', () => ({
+  toggleFooterOpen: jest.fn()
+}))
+jest.mock('actions/app', () => ({
+  setStatusParam: jest.fn(),
+  unsetStatusParam: jest.fn()
+}))
 describe('components/Footer', () => {
   let wrapper: ReactWrapper
   const initialMockProps: FooterProps = {
-    actions: {
-      toggleFooterOpen: jest.fn(),
-      setStatusParam: jest.fn(),
-      unsetStatusParam: jest.fn()
-    },
     footerOpen: true,
     params: {}
   }
@@ -30,7 +38,7 @@ describe('components/Footer', () => {
   it('Toggles open/closed with click', () => {
     wrapper = mount(<Footer {...initialMockProps} footerOpen={false} />)
     wrapper.find('.footerButtonClosed').hostNodes().simulate('click')
-    expect(initialMockProps.actions.toggleFooterOpen).toHaveBeenCalled()
+    expect(toggleFooterOpen).toHaveBeenCalled()
   })
 
   it('Adds a param', () => {
@@ -38,13 +46,13 @@ describe('components/Footer', () => {
     wrapper.find('#c-footer__select-id').hostNodes().simulate('change', { target: { value: 'aktoerId' } })
     wrapper.find('#c-footer__input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('#c-footer__add-button-id').hostNodes().simulate('click')
-    expect(initialMockProps.actions.setStatusParam).toHaveBeenCalled()
+    expect(setStatusParam).toHaveBeenCalled()
   })
 
   it('Remove a param', () => {
     wrapper = mount(<Footer {...initialMockProps} params={{ sakId: '123' }} />)
     expect(wrapper.find('.c-footer__param-string').hostNodes().render().text()).toEqual('sakId 123')
     wrapper.find('.c-footer__remove-button').hostNodes().simulate('click')
-    expect(initialMockProps.actions.unsetStatusParam).toHaveBeenCalled()
+    expect(unsetStatusParam).toHaveBeenCalled()
   })
 })

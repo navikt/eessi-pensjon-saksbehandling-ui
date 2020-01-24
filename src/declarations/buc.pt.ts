@@ -94,16 +94,17 @@ export const ErrorBucPropType = PT.shape({
 })
 
 export const ValidBucPropType = PT.shape({
-  type: PT.string.isRequired,
+  aktoerId: PT.string,
   caseId: PT.string.isRequired,
   creator: InstitutionPropType.isRequired,
+  description: PT.string,
+  institusjon: PT.arrayOf(InstitutionPropType.isRequired).isRequired,
+  lastUpdate: PT.number.isRequired,
   sakType: PT.string.isRequired,
-  aktoerId: PT.string,
   status: PT.string.isRequired,
   startDate: PT.number.isRequired,
-  lastUpdate: PT.number.isRequired,
-  institusjon: PT.arrayOf(InstitutionPropType.isRequired).isRequired,
-  seds: PT.arrayOf(SedPropType.isRequired).isRequired
+  seds: PT.arrayOf(SedPropType.isRequired).isRequired,
+  type: PT.string.isRequired
 })
 
 export const BucPropType = PT.oneOfType([ValidBucPropType, ErrorBucPropType])
@@ -112,7 +113,7 @@ export const BucsPropType = PT.objectOf(BucPropType.isRequired)
 
 export const BucInfoPropType = PT.shape({
   tags: PT.arrayOf(PT.string.isRequired).isRequired,
-  comment: PT.string.isRequired
+  comment: PT.string
 })
 
 export const BucsInfoPropType = PT.shape({

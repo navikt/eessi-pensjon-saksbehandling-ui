@@ -1,43 +1,51 @@
-import { Bucs } from 'declarations/buc'
-import React from 'react'
-import BUCList, { BUCListProps } from './BUCList'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import { fetchBucsInfo } from 'actions/buc'
 import * as storage from 'constants/storage'
+import { Bucs } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
+import React from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
+import sampleBucs from 'resources/tests/sampleBucs'
+import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import BUCList, { BUCListProps, BUCListSelector } from './BUCList'
+
+jest.mock('actions/buc', () => ({
+  fetchBucsInfo: jest.fn(),
+  getInstitutionsListForBucAndCountry: jest.fn(),
+  setCurrentBuc: jest.fn()
+}))
+
+jest.mock('actions/app', () => ({
+  setStatusParam: jest.fn()
+}))
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+const defaultSelector: BUCListSelector = {
+  bucsInfo: sampleBucsInfo,
+  bucsInfoList: [],
+  institutionList: {
+    NO: [{
+      navn: 'mockInstitution1',
+      akronym: 'MI1',
+      id: 'NO:MI1',
+      landkode: 'NO'
+    }]
+  },
+  loading: {
+    gettingBUCs: false
+  }
+};
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
 describe('applications/BUC/widgets/BUCList/BUCList', () => {
   let wrapper: ReactWrapper
   const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: BUCListProps = {
-    actions: {
-      setCurrentBuc: jest.fn(),
-      getInstitutionsListForBucAndCountry: jest.fn(),
-      fetchBucs: jest.fn(),
-      fetchBucsInfo: jest.fn(),
-      fetchBucsInfoList: jest.fn(),
-      setCurrentSed: jest.fn()
-    },
     aktoerId: '123',
     bucs: mockBucs,
-    bucsInfoList: [],
-    bucsInfo: sampleBucsInfo,
-    institutionList: {
-      NO: [{
-        navn: 'mockInstitution1',
-        akronym: 'MI1',
-        id: 'NO:MI1',
-        landkode: 'NO'
-      }]
-    },
-    institutionNames: {},
-    loading: {
-      gettingBUCs: false
-    },
-    locale: 'nb',
-    rinaUrl: 'http://mockUrl/rinaUrl',
-    sakId: '456',
     setMode: jest.fn(),
     t: jest.fn((translationString) => {
       return translationString
@@ -59,14 +67,16 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   })
 
   it('UseEffect: fetch bucs info', () => {
+    (useSelector as jest.Mock).mockImplementation(() => ({
+      ...defaultSelector,
+      bucsInfoList: [
+        initialMockProps.aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO
+      ]
+    }))
     wrapper = mount(
-      <BUCList
-        {...initialMockProps} bucsInfoList={[
-          initialMockProps.aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO
-        ]}
-      />
+      <BUCList {...initialMockProps} />
     )
-    expect(initialMockProps.actions.fetchBucsInfo).toHaveBeenCalledWith(initialMockProps.aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
+    expect(fetchBucsInfo).toHaveBeenCalledWith(initialMockProps.aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
   })
 
   it('Has proper HTML structure', () => {

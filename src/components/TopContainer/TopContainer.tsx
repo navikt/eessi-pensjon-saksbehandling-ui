@@ -1,80 +1,80 @@
-import * as alertActions from 'actions/alert'
-import * as appActions from 'actions/app'
-import * as uiActions from 'actions/ui'
+import { clientClear, clientError } from 'actions/alert'
+import { closeModal, toggleHighContrast } from 'actions/ui'
 import classNames from 'classnames'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
+import { T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import SnowStorm from 'react-snowstorm'
-import { bindActionCreators, connect } from 'store'
-import { T } from 'declarations/types'
+import { State } from 'declarations/reducers'
 import './TopContainer.css'
 
 export interface TopContainerProps {
-  actions: ActionCreators;
+  className?: string;
   children?: JSX.Element | Array<JSX.Element | null>;
-  clientErrorMessage ?: string;
-  clientErrorStatus ?: string;
-  error?: any;
-  expirationTime?: Date;
   fluid?: boolean;
-  footerOpen: boolean;
-  gettingUserInfo: boolean;
-  header: string | JSX.Element;
+  header?: string | JSX.Element;
   history: any;
-  highContrast?: boolean;
-  isLoggingOut?: boolean;
-  modal?: any;
-  params: any;
-  serverErrorMessage?: string;
-  snow: boolean;
   t: T;
-  username: string;
 }
 
-const mapStateToProps = /* istanbul ignore next */ (state: State) => {
-  return {
-    clientErrorStatus: state.alert.clientErrorStatus,
-    clientErrorMessage: state.alert.clientErrorMessage,
-    serverErrorMessage: state.alert.serverErrorMessage,
-    error: state.alert.error,
-    expirationTime: state.app.expirationTime,
-    params: state.app.params,
-    username: state.app.username,
-    gettingUserInfo: state.loading.gettingUserInfo,
-    isLoggingOut: state.loading.isLoggingOut,
-    footerOpen: state.ui.footerOpen,
-    modal: state.ui.modal,
-    snow: state.ui.snow,
-    highContrast: state.ui.highContrast
-  }
+export interface TopContainerSelector {
+  clientErrorStatus: string | undefined;
+  clientErrorMessage: string | undefined;
+  serverErrorMessage: string | undefined;
+  error: any | undefined;
+  expirationTime: Date | undefined;
+  params: {[k: string] : string};
+  username: string | undefined;
+  gettingUserInfo: boolean;
+  isLoggingOut: boolean;
+  footerOpen: boolean;
+  modal: ModalContent | undefined;
+  snow: boolean;
+  highContrast: boolean;
 }
 
-const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
-  return { actions: bindActionCreators({ ...alertActions, ...appActions, ...uiActions }, dispatch) }
-}
+const mapState = (state: State): TopContainerSelector => ({
+  clientErrorStatus: state.alert.clientErrorStatus,
+  clientErrorMessage: state.alert.clientErrorMessage,
+  serverErrorMessage: state.alert.serverErrorMessage,
+  error: state.alert.error,
+  expirationTime: state.app.expirationTime,
+  params: state.app.params,
+  username: state.app.username,
+  gettingUserInfo: state.loading.gettingUserInfo,
+  isLoggingOut: state.loading.isLoggingOut,
+  footerOpen: state.ui.footerOpen,
+  modal: state.ui.modal,
+  snow: state.ui.snow,
+  highContrast: state.ui.highContrast
+})
 
 export const TopContainer: React.FC<TopContainerProps> = ({
-  actions, children, clientErrorMessage, clientErrorStatus, error,
-  expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
-  highContrast, isLoggingOut, modal, params, serverErrorMessage, snow, t, username
+  className, children, fluid = true, header, history, t
 }: TopContainerProps): JSX.Element => {
+  const {
+    clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
+    isLoggingOut, footerOpen, modal, snow, highContrast
+  } = useSelector(mapState)
+  const dispatch = useDispatch()
   const handleModalClose = (): void => {
-    actions.closeModal()
+    dispatch(closeModal())
   }
 
   const onClear = (): void => {
-    actions.clientClear()
+    dispatch(clientClear())
   }
 
   const handleHighContrastToggle = (): void => {
-    actions.toggleHighContrast()
+    dispatch(toggleHighContrast())
   }
 
   const getClientErrorMessage = (): string | null => {
@@ -97,7 +97,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   if (_.isNil(window.onerror)) {
     window.onerror = (msg) => {
-      actions.clientError({ message: msg })
+      dispatch(clientError({ error: msg }))
     }
   }
 
@@ -105,7 +105,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     <>
       {snow ? <SnowStorm /> : null}
       <Header
-        actions={actions}
         className={classNames({ highContrast: highContrast })}
         t={t}
         history={history}
@@ -142,16 +141,14 @@ export const TopContainer: React.FC<TopContainerProps> = ({
         ) : null}
         <SessionMonitor
           t={t}
-          actions={actions}
           expirationTime={expirationTime!}
         />
       </Header>
-      <main id='main' role='main' className={classNames('_container', 'p-0', { 'container-fluid': fluid, highContrast: highContrast })}>
+      <main id='main' role='main' className={classNames(className, '_container', 'p-0', { 'container-fluid': fluid, highContrast: highContrast })}>
         {children}
       </main>
       <Footer
         className={classNames({ highContrast: highContrast })}
-        actions={actions}
         params={params}
         footerOpen={footerOpen}
       />
@@ -160,13 +157,12 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 }
 
 TopContainer.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
+  className: PT.string,
   children: PT.any,
   fluid: PT.bool,
   header: PT.any,
   history: PT.object.isRequired,
-  highContrast: PT.bool,
   t: TPropType.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopContainer)
+export default TopContainer

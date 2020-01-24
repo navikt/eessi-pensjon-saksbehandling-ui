@@ -1,21 +1,19 @@
-import * as pinfoActions from 'actions/pinfo'
-import * as storageActions from 'actions/storage'
-import { T } from 'declarations/types'
-import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
+import { sendInvite } from 'actions/pinfo'
+import { getStorageFile, listStorageFiles } from 'actions/storage'
+import { WidgetPropType } from 'declarations/Dashboard.pt'
 import Ui from 'eessi-pensjon-ui'
 import { Widget } from 'eessi-pensjon-ui/dist/declarations/Dashboard.d'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
-import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
-import { bindActionCreators, connect } from 'store'
 import './VarslerPanel.css'
 
-const mapStateToProps = /* istanbul ignore next */ (state: State) => ({
+const mapState = /* istanbul ignore next */ (state: State) => ({
   aktoerId: state.app.params.aktoerId,
   fileList: state.storage.fileList,
   file: state.storage.file,
@@ -24,10 +22,6 @@ const mapStateToProps = /* istanbul ignore next */ (state: State) => ({
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType,
   person: state.app.person
-})
-
-const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => ({
-  actions: bindActionCreators({ ...pinfoActions, ...storageActions }, dispatch)
 })
 
 export interface Varsler {
@@ -52,66 +46,70 @@ export const InvitePropType = PT.shape({
   message: PT.string.isRequired
 })
 
-export interface VarslerPanelProps {
-  actions: ActionCreators;
+export interface VarslerPanelSelector {
   aktoerId: string;
-  file: Varsler | undefined;
-  fileList: Array<string> | undefined | null;
-  isInvitingPinfo: boolean;
+  fileList: Array<string> | undefined;
+  file: any;
   invite: Invite | undefined;
-  onUpdate: (w: Widget) => void;
+  isInvitingPinfo: boolean;
+  sakId: string;
+  sakType: string | undefined;
   person: any;
-  sakId?: string;
-  sakType: string;
-  t: T;
+}
+
+export interface VarslerPanelProps {
+  onUpdate?: (w: Widget) => void;
   widget: Widget;
 }
 
-export const VarslerPanel: React.FC<VarslerPanelProps> = ({
-  actions, aktoerId, file, fileList, isInvitingPinfo, invite, onUpdate, person, sakId, sakType, t, widget
-}: VarslerPanelProps) => {
+export const VarslerPanel: React.FC<VarslerPanelProps> = ({ onUpdate, widget }: VarslerPanelProps) => {
+  const { aktoerId, file, fileList, isInvitingPinfo, invite, person, sakId, sakType }: VarslerPanelSelector = useSelector<State, VarslerPanelSelector>(mapState)
   const [isReady, setIsReady] = useState(false)
   const [_fileList, setFileList] = useState<Array<string> | undefined | null>(undefined)
   const [_files, setFiles] = useState<{[k: string]: Varsler}>({})
   const [mounted, setMounted] = useState(false)
   const [hasParams, setHasParams] = useState(false)
 
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
   const onInviteButtonClick = () => {
-    actions.sendInvite({
+    dispatch(sendInvite({
       aktoerId: aktoerId,
       sakId: sakId
-    })
+    }))
   }
 
   const onExpandablePanelChange = () => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
-    onUpdate(newWidget)
+    if (onUpdate) {
+      onUpdate(newWidget)
+    }
   }
 
   useEffect(() => {
     if (!mounted) {
       if (aktoerId && sakId && fileList === undefined) {
-        actions.listStorageFiles({
+        dispatch(listStorageFiles({
           userId: aktoerId,
           namespace: 'varsler___' + sakId
-        })
+        }))
       }
       setHasParams(aktoerId !== undefined && sakId !== undefined)
       setMounted(true)
     }
-  }, [actions, aktoerId, sakId, fileList, mounted])
+  }, [aktoerId, dispatch, sakId, fileList, mounted])
 
   useEffect(() => {
     if (!_.isNil(fileList) && _fileList === undefined) {
       fileList.map(file => {
-        actions.getStorageFile({
+        dispatch(getStorageFile({
           userId: aktoerId,
           namespace: 'varsler',
           file: sakId + '___' + file
         }, {
           notification: false
-        })
+        }))
         return file
       })
 
@@ -129,17 +127,17 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
         setIsReady(allFilesDone)
       }
     }
-  }, [actions, aktoerId, fileList, _fileList, _files, file, isReady, sakId])
+  }, [aktoerId, dispatch, fileList, _fileList, _files, file, isReady, sakId])
 
   const onRefreshHandle = () => {
     if (aktoerId && sakId) {
       setFileList(undefined)
       setFiles({})
       setIsReady(false)
-      actions.listStorageFiles({
+      dispatch(listStorageFiles({
         userId: aktoerId,
         namespace: 'varsler___' + sakId
-      })
+      }))
     }
   }
 
@@ -263,18 +261,8 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
 }
 
 VarslerPanel.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
-  aktoerId: PT.string.isRequired,
-  file: VarslerPropType,
-  fileList: PT.arrayOf(PT.string.isRequired),
-  isInvitingPinfo: PT.bool.isRequired,
-  invite: InvitePropType,
-  person: PT.object,
-  sakId: PT.string,
-  sakType: PT.string.isRequired,
-  t: TPropType.isRequired,
+  onUpdate: PT.func,
   widget: WidgetPropType.isRequired
 }
 
-// @ts-ignore
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(VarslerPanel))
+export default VarslerPanel

@@ -1,13 +1,19 @@
+import { setStatusParam } from 'actions/app'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import BUCEmpty, { BUCEmptyProps } from './BUCEmpty'
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+jest.mock('actions/app', () => ({
+  setStatusParam: jest.fn()
+}))
 
 describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCEmptyProps = {
-    actions: {
-      setStatusParam: jest.fn()
-    },
     onBUCNew: jest.fn(),
     rinaUrl: 'http://mock.url',
     t: jest.fn(t => t)
@@ -65,7 +71,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     wrapper.find('#a-buc-p-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('#a-buc-p-bucempty__aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(initialMockProps.actions.setStatusParam).toBeCalledWith('aktoerId', '123')
+    expect(setStatusParam).toBeCalledWith('aktoerId', '123')
 
     wrapper.find('#a-buc-p-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
     wrapper.find('#a-buc-p-bucempty__sakid-button-id').hostNodes().simulate('click')
@@ -75,6 +81,6 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     wrapper.find('#a-buc-p-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('#a-buc-p-bucempty__sakid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(initialMockProps.actions.setStatusParam).toBeCalledWith('sakId', '123')
+    expect(setStatusParam).toBeCalledWith('sakId', '123')
   })
 })

@@ -2,22 +2,22 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import classNames from 'classnames'
-import { Buc, InstitutionNames, Institutions, Participant, Sed, Seds } from 'declarations/buc'
-import { BucPropType, InstitutionNamesPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
+import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
+import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString, T } from 'declarations/types'
-import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './SEDListHeader.css'
 
 export interface SEDListHeaderProps {
   buc: Buc;
   className ?: string;
-  institutionNames: InstitutionNames;
-  locale: AllowedLocaleString;
   onSEDNew: (buc: Buc, sed: Sed) => void;
   sed: Sed;
   style?: React.CSSProperties;
@@ -25,9 +25,18 @@ export interface SEDListHeaderProps {
   t: T;
 }
 
+export interface SEDListSelector {
+  locale: AllowedLocaleString
+}
+
+const mapState = (state: State): SEDListSelector => ({
+  locale: state.ui.locale
+})
+
 const SEDListHeader: React.FC<SEDListHeaderProps> = ({
-  buc, className, followUpSeds, institutionNames, locale, onSEDNew, sed, style, t
+  buc, className, followUpSeds, onSEDNew, sed, style, t
 }: SEDListHeaderProps): JSX.Element => {
+  const { locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const institutionSenderList: Institutions = sed.participants ? sed.participants
     .filter((participant: Participant) => participant.role === 'Sender')
     .map((participant: Participant) => ({
@@ -69,7 +78,6 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__institutions col-3'>
           <InstitutionList
             t={t}
-            institutionNames={institutionNames}
             locale={locale}
             type='separated'
             institutions={institutionSenderList}
@@ -78,7 +86,6 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__institutions col-3'>
           <InstitutionList
             t={t}
-            institutionNames={institutionNames}
             locale={locale}
             type='separated'
             institutions={institutionReceiverList}
@@ -113,8 +120,6 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
 SEDListHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
-  institutionNames: InstitutionNamesPropType.isRequired,
-  locale: AllowedLocaleStringPropType.isRequired,
   onSEDNew: PT.func.isRequired,
   sed: SedPropType.isRequired,
   style: PT.object,

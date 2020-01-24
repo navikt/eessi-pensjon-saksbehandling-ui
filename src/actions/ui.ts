@@ -1,8 +1,11 @@
+import { AllowedLocaleString } from 'declarations/types'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
-import { Action, ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Action } from 'redux'
 
-export const changeLanguage = (language: string): ActionWithPayload<string> => {
+export const changeLanguage = (language: AllowedLocaleString): ActionWithPayload<AllowedLocaleString> => {
   i18n.changeLanguage(language)
   return {
     type: types.UI_LANGUAGE_CHANGED,
@@ -10,7 +13,7 @@ export const changeLanguage = (language: string): ActionWithPayload<string> => {
   }
 }
 
-export const openModal = (modal: any): ActionWithPayload<any> => ({
+export const openModal = (modal: ModalContent): ActionWithPayload<ModalContent> => ({
   type: types.UI_MODAL_SET,
   payload: modal
 })

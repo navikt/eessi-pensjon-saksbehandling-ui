@@ -1,3 +1,4 @@
+import { closeModal, openModal } from 'actions/ui'
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 import PeriodEdit from 'applications/BUC/components/SEDP4000/Period/PeriodEdit'
 import PeriodView from 'applications/BUC/components/SEDP4000/Period/PeriodView'
@@ -6,19 +7,13 @@ import { periodStep } from 'applications/BUC/components/SEDP4000/Validation/step
 import { Period as IPeriod, PeriodDate, PeriodErrors, Periods as IPeriods } from 'declarations/period'
 import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
 import { AllowedLocaleString, T, Validation } from 'declarations/types'
-import {
-  ActionCreatorsPropType,
-  AllowedLocaleStringPropType,
-  TPropType,
-  ValidationPropType
-} from 'declarations/types.pt'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
+import { AllowedLocaleStringPropType, TPropType, ValidationPropType } from 'declarations/types.pt'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 export interface PeriodProps {
-  actions: ActionCreators;
   first?: boolean;
   last?: boolean;
   locale: AllowedLocaleString;
@@ -34,7 +29,7 @@ export interface PeriodProps {
 }
 
 const Period = ({
-  actions, first, last, locale, localErrors, mode, period, periods,
+  first, last, locale, localErrors, mode, period, periods,
   setLocalError, setLocalErrors, setPeriod, setPeriods, t
 }: PeriodProps): JSX.Element => {
   const valueSetProperty = useCallback((key, validateFunction, value) => {
@@ -81,6 +76,8 @@ const Period = ({
   const setLearnInstitution = /* istanbul ignore next */ (e: React.ChangeEvent) => eventSetProperty('learnInstitution', periodValidation.learnInstitution, e)
   const setPayingInstitution = /* istanbul ignore next */ (e: React.ChangeEvent) => eventSetProperty('payingInstitution', periodValidation.payingInstitution, e)
   const setOtherType = /* istanbul ignore next */ (e: React.ChangeEvent) => eventSetProperty('otherType', periodValidation.otherType, e)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (period.type && !period.dateType) {
@@ -204,12 +201,12 @@ const Period = ({
   const doCancelPeriod = () => {
     setLocalErrors({})
     setPeriod({})
-    actions.closeModal()
+    dispatch(closeModal())
     window.scrollTo(0, 0)
   }
 
   const removePeriodRequest = (period: IPeriod) => {
-    actions.openModal({
+    dispatch(openModal({
       modalTitle: t('buc:p4000-alert-deletePeriod-title'),
       modalText: t('buc:p4000-alert-deletePeriod-description'),
       modalButtons: [{
@@ -218,13 +215,13 @@ const Period = ({
         onClick: () => doRemovePeriod(period)
       }, {
         text: t('ui:no') + ', ' + t('ui:cancel').toLowerCase(),
-        onClick: () => actions.closeModal()
+        onClick: () => dispatch(closeModal())
       }]
-    })
+    }))
   }
 
   const cancelPeriodRequest = () => {
-    actions.openModal({
+    dispatch(openModal({
       modalTitle: t('buc:p4000-alert-cancelPeriod-title'),
       modalText: t('buc:p4000-alert-cancelPeriod-description'),
       modalButtons: [{
@@ -233,9 +230,9 @@ const Period = ({
         onClick: () => doCancelPeriod()
       }, {
         text: t('ui:no').toLowerCase(),
-        onClick: () => actions.closeModal()
+        onClick: () => dispatch(closeModal())
       }]
-    })
+    }))
   }
 
   const doRemovePeriod = (period: IPeriod) => {
@@ -246,7 +243,7 @@ const Period = ({
       newPeriods.splice(index, 1)
       setPeriods(newPeriods)
     }
-    actions.closeModal()
+    closeModal()
   }
 
   switch (mode) {
@@ -267,7 +264,8 @@ const Period = ({
     case 'new':
       return (
         <PeriodEdit
-          actions={actions}
+          openModal={openModal}
+          closeModal={closeModal}
           blurChildBirthDate={blurChildBirthDate}
           blurEndDate={blurEndDate}
           blurStartDate={blurStartDate}
@@ -310,7 +308,6 @@ const Period = ({
 }
 
 Period.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   first: PT.bool,
   last: PT.bool,
   locale: AllowedLocaleStringPropType.isRequired,

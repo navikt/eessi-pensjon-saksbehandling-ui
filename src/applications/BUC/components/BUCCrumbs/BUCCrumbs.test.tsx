@@ -5,16 +5,16 @@ import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
 import BUCCrumbs, { BUCCrumbsProps } from './BUCCrumbs'
 
-const mockBucs = _.keyBy(sampleBucs, 'caseId')
+jest.mock('react-redux', () => ({
+  useDispatch: () => jest.fn()
+}))
+
+const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
 
 describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCCrumbsProps = {
-    actions: {
-      resetSed: jest.fn(),
-      resetBuc: jest.fn()
-    },
-    bucs: mockBucs as Bucs,
+    bucs: mockBucs,
     currentBuc: '195440',
     mode: '',
     showLastLink: true,

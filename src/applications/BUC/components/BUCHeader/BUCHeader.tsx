@@ -1,40 +1,45 @@
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import {
-  Buc,
-  BUCAttachment,
-  BucInfo,
-  Institution,
-  InstitutionListMap,
-  InstitutionNames,
-  Sed
-} from 'declarations/buc'
-import { BucInfoPropType, BucPropType, InstitutionNamesPropType } from 'declarations/buc.pt'
-import { AllowedLocaleStringPropType, RinaUrlPropType, TPropType } from 'declarations/types.pt'
+import { Buc, BUCAttachments, BucInfo, Institution, InstitutionListMap, InstitutionNames, Sed } from 'declarations/buc'
+import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
+import { AllowedLocaleString, RinaUrl, T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
-import { AllowedLocaleString, RinaUrl, T } from 'declarations/types'
+import { useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './BUCHeader.css'
 
 export interface BUCHeaderProps {
   buc: Buc;
   bucInfo: BucInfo;
-  institutionNames: InstitutionNames;
-  locale: AllowedLocaleString;
   onBUCEdit: Function;
-  rinaUrl: RinaUrl;
   t: T;
 }
 
+interface BUCHeaderSelector {
+  institutionNames: InstitutionNames;
+  locale: AllowedLocaleString;
+  rinaUrl: RinaUrl | undefined;
+}
+
+const mapState = (state: State): BUCHeaderSelector => ({
+  institutionNames: state.buc.institutionNames,
+  locale: state.ui.locale,
+  rinaUrl: state.buc.rinaUrl
+})
+
 const BUCHeader: React.FC<BUCHeaderProps> = ({
-  buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl, t
+  buc, bucInfo, onBUCEdit, t
 }: BUCHeaderProps): JSX.Element => {
   const institutionList: InstitutionListMap<string> = {}
-  const attachments: Array<BUCAttachment> = []
+  const attachments: BUCAttachments = []
   const numberOfSeds: number = buc.seds ? buc.seds.filter(sedFilter).length : 0
+  const { institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
+
   const onBucHandle: Function = useCallback((buc, e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -101,7 +106,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               t={t}
               flagType='circle'
               className='a-buc-c-bucheader__owner-institutions'
-              institutionNames={institutionNames}
               locale={locale}
               type='separated'
               institutions={[buc.creator!]}
@@ -112,20 +116,22 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               id='a-buc-c-bucheader__case-id'
               className='a-buc-c-bucheader__case'
             >
-              <Ui.Nav.Normaltekst className='pr-2 text-nowrap'>
-                {t('buc:form-caseNumberInRina') + ': '}
-                <Ui.Nav.Lenke
-                  className='a-buc-c-bucheader__gotorina-link'
-                  href={rinaUrl + buc.caseId}
-                  target='rinaWindow'
-                  onClick={(e: MouseEvent) => {
-                    e.stopPropagation()
-                    window.open(rinaUrl + buc.caseId, 'rinaWindow')
-                  }}
-                >
-                  {buc.caseId}
-                </Ui.Nav.Lenke>
-              </Ui.Nav.Normaltekst>
+              {rinaUrl ? (
+                <Ui.Nav.Normaltekst className='pr-2 text-nowrap'>
+                  {t('buc:form-caseNumberInRina') + ': '}
+                  <Ui.Nav.Lenke
+                    className='a-buc-c-bucheader__gotorina-link'
+                    href={rinaUrl + buc.caseId}
+                    target='rinaWindow'
+                    onClick={(e: MouseEvent) => {
+                      e.stopPropagation()
+                      window.open(rinaUrl + buc.caseId, 'rinaWindow')
+                    }}
+                  >
+                    {buc.caseId}
+                  </Ui.Nav.Lenke>
+                </Ui.Nav.Normaltekst>
+              ) : <Ui.WaitingPanel size='S' />}
             </div>
           ) : null}
         </div>
@@ -179,10 +185,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
 BUCHeader.propTypes = {
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType.isRequired,
-  institutionNames: InstitutionNamesPropType.isRequired,
-  locale: AllowedLocaleStringPropType.isRequired,
   onBUCEdit: PT.func.isRequired,
-  rinaUrl: RinaUrlPropType.isRequired,
   t: TPropType.isRequired
 }
 

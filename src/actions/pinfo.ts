@@ -3,7 +3,7 @@ import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
 const sprintf = require('sprintf-js').sprintf
 
-interface InviteParams {
+export interface InviteParams {
   aktoerId: string;
   sakId: string;
 }

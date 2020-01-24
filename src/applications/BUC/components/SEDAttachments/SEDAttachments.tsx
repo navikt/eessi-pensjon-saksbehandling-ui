@@ -23,23 +23,23 @@ export interface SEDAttachmentsProps {
 const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
   disableButtons = false, files, initialMode = 'view', open = false, onFilesChange, onOpen, onSubmit, t
 }: SEDAttachmentsProps): JSX.Element => {
-  const [mode, setMode] = useState<string | undefined>(initialMode)
+  const [mode, setMode] = useState<string>(initialMode)
   const [localFiles, setLocalFiles] = useState<JoarkFiles>(files && _.isArray(files.joark) ? files.joark as JoarkFiles : [])
 
-  const onEnableAttachmentsButtonClicked: Function = (): void => {
+  const onEnableAttachmentsButtonClicked = (): void => {
     if (_.isFunction(onOpen)) {
       onOpen()
     }
   }
 
-  const onLocalFileChange: Function = (changedFiles: JoarkFiles): void => {
+  const onLocalFileChange = (changedFiles: JoarkFiles): void => {
     setLocalFiles(changedFiles)
     if (_.isFunction(onFilesChange)) {
       onFilesChange(changedFiles)
     }
   }
 
-  const onSubmitJoarkFiles: Function = (joarkFiles: JoarkFiles): void => {
+  const onSubmitJoarkFiles = (joarkFiles: JoarkFiles): void => {
     if (_.isFunction(onSubmit)) {
       onSubmit({
         ...files,

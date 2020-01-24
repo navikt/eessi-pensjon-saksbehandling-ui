@@ -1,10 +1,10 @@
 import * as bucActions from 'actions/buc'
-import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
-import sampleBucs from '../resources/tests/sampleBucs'
+import * as urls from 'constants/urls'
+import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
+
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
 }))
@@ -187,7 +187,7 @@ describe('actions/buc', () => {
   })
 
   it('createBuc()', () => {
-    const mockBuc = sampleBucs[0]
+    const mockBuc = 'P_BUC_01'
     bucActions.createBuc(mockBuc)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -231,7 +231,7 @@ describe('actions/buc', () => {
     const mockParams = {
       bucsInfo: { bucs: {} },
       aktoerId: '123',
-      tags: [{ value: 'tag' }],
+      tags: ['tag'],
       comment: 'comment',
       buc: {
         caseId: '456'

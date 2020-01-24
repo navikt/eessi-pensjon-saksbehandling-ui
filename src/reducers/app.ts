@@ -1,9 +1,25 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 
-export const initialAppState: State = {
+export interface AppState {
+  loggedIn: boolean | undefined;
+  loggedTime: Date | undefined;
+  allowed: boolean;
+  expirationTime: Date | undefined;
+  username: string | undefined
+  userRole: string | undefined,
+  userStatus: string | undefined,
+  firstName: string | undefined,
+  middleName: string | undefined,
+  lastname: string | undefined,
+  person: any | undefined,
+  params: {[k: string] : string};
+}
+
+export const initialAppState: AppState = {
   loggedIn: undefined,
   loggedTime: undefined,
+  expirationTime: undefined,
   allowed: false,
   username: undefined,
   userRole: undefined,
@@ -15,7 +31,7 @@ export const initialAppState: State = {
   params: {}
 }
 
-const appReducer = (state: State = initialAppState, action: Action) => {
+const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
   switch (action.type) {
     case types.APP_PARAM_SET:
 

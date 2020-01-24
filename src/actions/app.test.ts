@@ -2,7 +2,9 @@ import * as appActions from 'actions/app'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
-import { Action, ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Action } from 'redux'
+
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
 }))

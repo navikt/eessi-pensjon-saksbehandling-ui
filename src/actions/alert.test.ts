@@ -1,5 +1,6 @@
 import * as alertActions from 'actions/alert'
 import * as types from 'constants/actionTypes'
+import { ErrorPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 
 describe('actions/alert', () => {
   it('clientClear()', () => {
@@ -10,7 +11,8 @@ describe('actions/alert', () => {
   })
 
   it('clientError()', () => {
-    const mockPayload = {
+    const mockPayload: ErrorPayload = {
+      type: 'mockType',
       error: 'mockError'
     }
     const generatedResult = alertActions.clientError(mockPayload)

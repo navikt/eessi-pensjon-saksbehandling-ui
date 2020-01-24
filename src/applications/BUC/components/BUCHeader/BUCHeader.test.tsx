@@ -6,16 +6,22 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BucHeader, { BUCHeaderProps } from './BUCHeader'
 
+const mockSelectors = {
+  locale: 'nb',
+  rinaUrl: 'http://rinaurl.mock.com'
+}
+
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(() => mockSelectors)
+}))
+
 describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   let wrapper: ReactWrapper
   const buc: Buc = sampleBucs[0]
   const initialMockProps: BUCHeaderProps = {
     buc: buc,
     bucInfo: (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId],
-    institutionNames: {},
-    locale: 'nb',
     onBUCEdit: jest.fn(),
-    rinaUrl: 'http://mockurl.com/rina',
     t: jest.fn(t => t)
   }
 
@@ -78,6 +84,6 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   it('Handles Rina link', () => {
     window.open = jest.fn()
     wrapper.find('.a-buc-c-bucheader__gotorina-link').first().simulate('click')
-    expect(window.open).toHaveBeenCalledWith(initialMockProps.rinaUrl + initialMockProps.buc.caseId, 'rinaWindow')
+    expect(window.open).toHaveBeenCalledWith(mockSelectors.rinaUrl + initialMockProps.buc.caseId, 'rinaWindow')
   })
 })

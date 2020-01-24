@@ -1,10 +1,27 @@
+import { resetSedAttachments } from 'actions/buc'
 import { SEDAttachmentsProps } from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import { Buc } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
+import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import SEDBody, { SEDBodyProps } from './SEDBody'
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+jest.mock('actions/buc', () => ({
+  resetSedAttachments: jest.fn(),
+  sendAttachmentToSed: jest.fn()
+}))
+
+const defaultSelector = {
+  attachments: {},
+  attachmentsError: false
+};
+
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
 jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
   return () => <div className='mock-joarkbrowser' />
@@ -14,13 +31,7 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   let wrapper: ReactWrapper
   const buc: Buc = sampleBucs[0]
   const initialMockProps: SEDBodyProps = {
-    actions: {
-      resetSedAttachments: jest.fn(),
-      sendAttachmentToSed: jest.fn()
-    },
     aktoerId: '123',
-    attachments: {},
-    attachmentsError: false,
     buc: buc,
     initialAttachmentsSent: false,
     initialSeeAttachmentPanel: false,
@@ -51,7 +62,7 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   it('UseEffect: cleanup after attachments sent', () => {
     wrapper = mount(<SEDBody {...initialMockProps} initialAttachmentsSent initialSendingAttachments />)
     wrapper.update()
-    expect(initialMockProps.actions.resetSedAttachments).toHaveBeenCalled()
+    expect(resetSedAttachments).toHaveBeenCalled()
   })
 
   it('Shows the SEDAttachmentSender', () => {

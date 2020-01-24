@@ -1,15 +1,21 @@
 import * as types from 'constants/actionTypes'
-import { JoarkDoc, JoarkFile, JoarkFileVariant, JoarkPoster } from 'declarations/joark'
-import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
+import { JoarkDoc, JoarkFile, JoarkFileVariant, JoarkFileWithContent, JoarkPoster } from 'declarations/joark'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 
-export const initialJoarkState: State = {
+export interface JoarkState {
+  list: Array<JoarkFile> | undefined;
+  file: JoarkFileWithContent | undefined;
+  previewFile: JoarkFileWithContent | undefined;
+}
+
+export const initialJoarkState: JoarkState = {
   list: undefined,
   file: undefined,
   previewFile: undefined
 }
 
-const joarkReducer = (state: State = initialJoarkState, action: Action) => {
+const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithPayload) => {
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS: {
       const documents: Array<JoarkFile> = []
@@ -57,7 +63,7 @@ const joarkReducer = (state: State = initialJoarkState, action: Action) => {
           content: {
             base64: action.payload.filInnhold
           }
-        }
+        } as JoarkFileWithContent
       }
 
     case types.JOARK_PREVIEW_SET:
@@ -83,7 +89,7 @@ const joarkReducer = (state: State = initialJoarkState, action: Action) => {
           content: {
             base64: action.payload.filInnhold
           }
-        }
+        } as JoarkFileWithContent
       }
 
     default:

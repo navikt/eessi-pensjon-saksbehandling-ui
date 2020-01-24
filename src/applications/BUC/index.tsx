@@ -1,140 +1,100 @@
-import * as appActions from 'actions/app'
-import * as bucActions from 'actions/buc'
-import * as uiActions from 'actions/ui'
+import { getSakType, setStatusParam } from 'actions/app'
+import { fetchAvdodBucs, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import { P4000Info } from 'declarations/period'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
+import { Bucs } from 'declarations/buc'
+import { Loading, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
-import { withTranslation } from 'react-i18next'
-import { bindActionCreators, connect } from 'store'
-import { AllowedLocaleString, Loading, RinaUrl, T } from 'declarations/types'
-import {
-  AttachedFiles,
-  Bucs,
-  BucsInfo,
-  InstitutionListMap,
-  InstitutionNames,
-  RawInstitution,
-  Sed
-} from 'declarations/buc'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './index.css'
 
 export interface BUCIndexProps {
-  actions: ActionCreators;
-  aktoerId?: string;
   allowFullScreen?: boolean;
-  attachments: AttachedFiles;
-  avdodfnr?: string;
-  avdodBucs: Bucs;
-  bucs: Bucs;
-  bucsInfo?: BucsInfo;
-  bucsInfoList?: Array<string>;
-  countryList: Array<string>;
-  currentBuc?: string;
-  institutionList: InstitutionListMap<RawInstitution>;
-  institutionNames: InstitutionNames;
-  loading: Loading;
-  locale: AllowedLocaleString;
-  mode: string;
   onFullFocus?: () => void;
   onRestoreFocus?: () => void;
-  p4000info: P4000Info;
+  waitForMount?: boolean;
+}
+
+export interface BUCIndexSelector {
+  aktoerId: string | undefined;
+  avdodfnr: string | undefined;
+  avdodBucs: Bucs | undefined;
+  bucs: Bucs | undefined;
+  currentBuc: string | undefined;
+  loading: Loading;
+  mode: string;
   person: any;
-  rinaUrl?: RinaUrl;
-  sakId?: string;
-  sed?: Sed;
-  sedList?: Array<string>;
-  tagList?: Array<string>;
-  t: T;
-  waitForMount: boolean;
-  vedtakId: string | undefined;
-  sakType?: string;
+  rinaUrl: RinaUrl | undefined;
+  sakId: string | undefined,
+  sakType: string | undefined
 }
 
-const mapStateToProps = /* istanbul ignore next */ (state: State) => {
-  return {
-    aktoerId: state.app.params.aktoerId,
-    sakId: state.app.params.sakId,
-    vedtakId: state.app.params.vedtakId,
-    avdodfnr: state.app.params.avdodfnr,
-    bucParam: state.app.params.buc,
-    attachments: state.buc.attachments,
-    attachmentsError: state.buc.attachmentsError,
-    currentBuc: state.buc.currentBuc,
-    currentSed: state.buc.currentSed,
-    mode: state.buc.mode,
-    bucs: state.buc.bucs,
-    avdodBucs: state.buc.avdodBucs,
-    subjectAreaList: state.buc.subjectAreaList,
-    bucList: state.buc.bucList,
-    tagList: state.buc.tagList,
-    bucsInfo: state.buc.bucsInfo,
-    bucsInfoList: state.buc.bucsInfoList,
-    institutionList: state.buc.institutionList,
-    institutionNames: state.buc.institutionNames,
-    rinaId: state.buc.rinaId,
-    rinaUrl: state.buc.rinaUrl,
-    seds: state.buc.seds,
-    loading: state.loading,
-    locale: state.ui.locale,
-    sakType: state.app.params.sakType,
-    person: state.app.person
-  }
-}
+const mapState = (state: State): BUCIndexSelector => ({
+  aktoerId: state.app.params.aktoerId,
+  avdodfnr: state.app.params.avdodfnr,
+  avdodBucs: state.buc.avdodBucs,
+  bucs: state.buc.bucs,
+  currentBuc: state.buc.currentBuc,
+  loading: state.loading,
+  mode: state.buc.mode,
+  person: state.app.person,
+  rinaUrl: state.buc.rinaUrl,
+  sakId: state.app.params.sakId,
+  sakType: state.app.params.sakType
+})
 
-const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
-  return {
-    actions: bindActionCreators({ ...bucActions, ...appActions, ...uiActions }, dispatch)
-  }
-}
-
-export const BUCIndex = (props: BUCIndexProps) => {
-  const { actions, aktoerId, allowFullScreen, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode } = props
-  const { onFullFocus, onRestoreFocus, person, rinaUrl, sakId, t, waitForMount = true, sakType } = props
+export const BUCIndex: React.FC<BUCIndexProps> = ({
+  allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
+}: BUCIndexProps): JSX.Element => {
   const [mounted, setMounted] = useState(!waitForMount)
   const [_avdodfnr, setAvdodfnr] = useState('')
   const [show, setShow] = useState(false)
+  const { aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, person, rinaUrl, sakId, sakType }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+
   const combinedBucs = { ...avdodBucs, ...bucs }
 
   useEffect(() => {
     if (!mounted) {
       if (!rinaUrl) {
-        actions.getRinaUrl()
+        dispatch(getRinaUrl())
       }
       setMounted(true)
     }
-  }, [actions, mounted, rinaUrl])
+  }, [mounted, rinaUrl])
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
-      actions.fetchBucs(aktoerId)
-      actions.fetchBucsInfoList(aktoerId)
+      dispatch(fetchBucs(aktoerId))
+      dispatch(fetchBucsInfoList(aktoerId))
     }
-  }, [actions, aktoerId, bucs, loading.gettingBUCs, sakId])
+  }, [aktoerId, bucs, loading.gettingBUCs, sakId])
 
   useEffect(() => {
     if (avdodfnr && sakId && avdodBucs === undefined && !loading.gettingAvdodBUCs) {
-      actions.fetchAvdodBucs(avdodfnr)
+      dispatch(fetchAvdodBucs(avdodfnr))
     }
-  }, [actions, avdodBucs, avdodfnr, loading.gettingAvdodBUCs, sakId])
+  }, [avdodBucs, avdodfnr, loading.gettingAvdodBUCs, sakId])
 
   useEffect(() => {
     if (!sakType && !loading.gettingSakType && sakId && aktoerId) {
-      actions.getSakType(sakId, aktoerId)
+      dispatch(getSakType(sakId, aktoerId))
     }
-  }, [actions, aktoerId, loading.gettingSakType, sakType, sakId])
+  }, [aktoerId, loading.gettingSakType, sakType, sakId])
 
-  const setMode = useCallback((mode) => {
-    actions.setMode(mode)
+  const _setMode = useCallback((mode) => {
+    dispatch(setMode(mode))
     if (allowFullScreen) {
       if (mode === 'bucnew' || mode === 'sednew') {
         if (_.isFunction(onFullFocus)) {
@@ -146,13 +106,13 @@ export const BUCIndex = (props: BUCIndexProps) => {
         }
       }
     }
-  }, [actions, allowFullScreen, onRestoreFocus, onFullFocus])
+  }, [allowFullScreen, onRestoreFocus, onFullFocus])
 
   useEffect(() => {
     if (loading.gettingBUCs && mode !== 'buclist') {
-      setMode('buclist')
+      _setMode('buclist')
     }
-  }, [loading.gettingBUCs, mode, setMode])
+  }, [loading.gettingBUCs, mode, _setMode])
 
   if (!mounted) {
     return <Ui.WaitingPanel />
@@ -161,9 +121,8 @@ export const BUCIndex = (props: BUCIndexProps) => {
   if (!sakId || !aktoerId) {
     return (
       <BUCEmpty
-        actions={actions}
         aktoerId={aktoerId}
-        onBUCNew={() => setMode('bucnew')}
+        onBUCNew={() => _setMode('bucnew')}
         rinaUrl={rinaUrl}
         sakId={sakId}
         t={t}
@@ -175,54 +134,39 @@ export const BUCIndex = (props: BUCIndexProps) => {
     <div className='a-buc-widget'>
       <div className='a-buc-widget__header mb-3'>
         <BUCCrumbs
-          actions={actions}
           t={t}
           bucs={combinedBucs}
           currentBuc={currentBuc}
           mode={mode}
-          setMode={setMode}
+          setMode={_setMode}
         />
-        <BUCWebSocket actions={actions} fnr={_.get(person, 'aktoer.ident.ident')} avdodfnr={avdodfnr} />
+        <BUCWebSocket fnr={_.get(person, 'aktoer.ident.ident')} avdodfnr={avdodfnr} />
       </div>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
           show ? (
             <div className='d-flex flex-row align-items-end'>
               <Ui.Nav.Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e: ChangeEvent<HTMLInputElement>) => setAvdodfnr(e.target.value)} />
-              <Ui.Nav.Knapp mini className='ml-2 mb-3' onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:form-avdodfnrButton')}</Ui.Nav.Knapp>
+              <Ui.Nav.Knapp mini className='ml-2 mb-3' onClick={() => dispatch(setStatusParam('avdodfnr', _avdodfnr))}>{t('buc:form-avdodfnrButton')}</Ui.Nav.Knapp>
             </div>
           ) : (
             <Ui.Nav.Knapp mini onClick={() => setShow(true)}>{t('buc:form-avdodfnr')}</Ui.Nav.Knapp>
           )
         )
         : null}
-      {mode === 'buclist' ? <BUCList {...props} bucs={combinedBucs} setMode={setMode} /> : null}
-      {mode === 'bucedit' ? <BUCEdit {...props} bucs={combinedBucs} setMode={setMode} /> : null}
-      {mode === 'bucnew' ? <BUCNew {...props} setMode={setMode} /> : null}
-      {mode === 'sednew' ? <SEDNew {...props} bucs={combinedBucs} setMode={setMode} /> : null}
+      {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
+      {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
+      {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} t={t} /> : null}
+      {mode === 'sednew' ? <SEDNew t={t} bucs={combinedBucs} setMode={_setMode} /> : null}
     </div>
   )
 }
 
 BUCIndex.propTypes = {
-  actions: PT.object.isRequired,
-  aktoerId: PT.string,
   allowFullScreen: PT.bool,
-  avdodfnr: PT.string,
-  avdodBucs: PT.object,
-  bucs: PT.object,
-  currentBuc: PT.string,
-  loading: PT.object,
-  mode: PT.string.isRequired,
   onFullFocus: PT.func,
   onRestoreFocus: PT.func,
-  person: PT.object.isRequired,
-  rinaUrl: PT.string,
-  sakId: PT.string,
-  t: PT.func.isRequired,
-  waitForMount: PT.bool,
-  sakType: PT.string
+  waitForMount: PT.bool
 }
 
-// @ts-ignore
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCIndex))
+export default BUCIndex

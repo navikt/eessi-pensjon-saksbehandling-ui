@@ -15,6 +15,13 @@ jest.mock('eessi-pensjon-ui', () => {
     }
   }
 })
+jest.mock('react-redux', () => ({
+  useDispatch: () => jest.fn()
+}));
+jest.mock('actions/ui', () => ({
+  openModal: jest.fn()
+}));
+import { openModal } from 'actions/ui'
 
 let sampleWorkPeriod: IPeriod | undefined = _.find(sampleP4000info.stayAbroad as Array<IPeriod>, (it: IPeriod) => it.type === 'work')
 sampleWorkPeriod!.attachments = [{
@@ -30,10 +37,6 @@ const sampleHomePeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'h
 
 let wrapper: ReactWrapper
 const initialMockProps: PeriodProps = {
-  actions: {
-    openModal: jest.fn(),
-    closeModal: jest.fn()
-  },
   mode: 'view',
   locale: 'nb',
   period: sampleWorkPeriod!,
@@ -90,7 +93,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
     const wrapper = mount(<Period {...initialMockProps} mode='view' />)
     const periodButtons = wrapper.find('.a-buc-c-sedp4000-period__existingPeriod-buttons').hostNodes()
     periodButtons.find('.remove').hostNodes().simulate('click')
-    expect(initialMockProps.actions.openModal).toHaveBeenCalled()
+    expect(openModal).toHaveBeenCalled()
   })
 })
 

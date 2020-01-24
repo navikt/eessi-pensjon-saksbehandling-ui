@@ -1,43 +1,55 @@
-import { Buc, BucInfo, BucsInfo, Tags } from 'declarations/buc'
+import { getTagList, saveBucsInfo } from 'actions/buc'
 import classNames from 'classnames'
-import { BucInfoPropType, BucPropType, BucsInfoPropType } from 'declarations/buc.pt'
-import { ActionCreatorsPropType, LoadingPropType, TPropType } from 'declarations/types.pt'
+import { Buc, BucInfo, BucsInfo, Tags, ValidBuc } from 'declarations/buc'
+import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
+import { Loading, T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { Loading, T } from 'declarations/types'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './BUCTools.css'
 
 export interface BUCToolsProps {
-  actions: ActionCreators;
   aktoerId: string;
   buc: Buc;
   bucInfo: BucInfo;
-  bucsInfo?: BucsInfo;
   className?: string;
-  loading: Loading;
   onTagChange ?: (tagList: Tags) => void;
   t: T;
-  tagList: Array<string> | undefined;
 }
 
+export interface BUCToolsSelector {
+  loading: Loading;
+  bucsInfo?: BucsInfo | undefined;
+  tagList?: Array<string> | undefined;
+}
+
+const mapState = (state: State): BUCToolsSelector => ({
+  loading: state.loading,
+  bucsInfo: state.buc.bucsInfo,
+  tagList: state.buc.tagList
+})
+
 const BUCTools: React.FC<BUCToolsProps> = ({
-  actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, onTagChange, t, tagList
+  aktoerId, buc, bucInfo, className, onTagChange, t
 }: BUCToolsProps): JSX.Element => {
-  const [comment, setComment] = useState<string>(bucInfo ? bucInfo.comment : '')
+  const [comment, setComment] = useState<string | undefined >(bucInfo ? bucInfo.comment : '')
   const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [tags, setTags] = useState<Tags>(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
+  const { loading, bucsInfo, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
-      actions.getTagList()
+      dispatch(getTagList())
     }
-  }, [actions, loading, tagList])
+  }, [loading, tagList])
 
   useEffect(() => {
     if (!allTags && tagList) {
@@ -60,13 +72,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onSaveButtonClick = (): void => {
-    actions.saveBucsInfo({
-      bucsInfo: bucsInfo,
+    dispatch(saveBucsInfo({
+      bucsInfo: bucsInfo!,
       aktoerId: aktoerId,
-      tags: tags,
+      tags: tags.map(tag => tag.value),
       comment: comment,
-      buc: buc
-    })
+      buc: buc as ValidBuc
+    }))
   }
 
   return (
@@ -117,16 +129,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 }
 
 BUCTools.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType.isRequired,
-  bucsInfo: BucsInfoPropType,
   className: PT.string,
-  loading: LoadingPropType.isRequired,
   onTagChange: PT.func,
-  t: TPropType.isRequired,
-  tagList: PT.array
+  t: TPropType.isRequired
 }
 
 export default BUCTools

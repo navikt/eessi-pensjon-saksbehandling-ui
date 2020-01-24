@@ -1,63 +1,62 @@
-import * as appActions from 'actions/app'
+import { getPersonInfo } from 'actions/app'
 import classNames from 'classnames'
-import { ActionCreatorsPropType, TPropType } from 'declarations/types.pt'
+import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { Widget } from 'eessi-pensjon-ui/dist/declarations/Dashboard.d'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
-import { ActionCreators, Dispatch, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { withTranslation } from 'react-i18next'
-import { bindActionCreators, connect } from 'store'
-import { AllowedLocaleString, T } from 'declarations/types'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './Overview.css'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
 
-const mapStateToProps = (state: State) => ({
+const mapState = (state: State): OverviewSelector => ({
   /* istanbul ignore next */
   aktoerId: state.app.params.aktoerId,
   gettingPersonInfo: state.loading.gettingPersonInfo,
-  isSendingPinfo: state.loading.isSendingPinfo,
   locale: state.ui.locale,
   person: state.app.person,
-  sakId: state.app.params.sakId,
   highContrast: state.ui.highContrast
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  /* istanbul ignore next */
-  actions: bindActionCreators({ ...appActions }, dispatch)
-})
+export interface OverviewSelector {
+  aktoerId: string;
+  gettingPersonInfo: boolean;
+  locale: AllowedLocaleString;
+  person: any;
+  highContrast: boolean;
+}
 
 export interface OverviewProps {
-  actions: ActionCreators;
-  aktoerId: string | undefined;
-  gettingPersonInfo: boolean;
-  highContrast: boolean;
-  locale: AllowedLocaleString;
-  onUpdate: (w: Widget) => void;
-  person: any;
-  t: T;
+  onUpdate?: (w: Widget) => void;
+  skipMount?: boolean;
   widget: Widget;
 }
 
-export const Overview: React.FC<OverviewProps> = (props: OverviewProps): JSX.Element => {
-  const { actions, aktoerId, highContrast, onUpdate, t, widget } = props
-  const [mounted, setMounted] = useState<boolean>(false)
+export const Overview: React.FC<OverviewProps> = ({ onUpdate, skipMount = false, widget }: OverviewProps): JSX.Element => {
+  const [mounted, setMounted] = useState<boolean>(skipMount)
+  const { aktoerId, gettingPersonInfo, locale, person, highContrast }: OverviewSelector = useSelector<State, OverviewSelector>(mapState)
+
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (!mounted && aktoerId) {
-      actions.getPersonInfo(aktoerId)
+      dispatch(getPersonInfo(aktoerId))
       setMounted(true)
     }
-  }, [mounted, actions, aktoerId])
+  }, [mounted, aktoerId])
 
   const onExpandablePanelChange = (): void => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
-    onUpdate(newWidget)
+    if (onUpdate) {
+      onUpdate(newWidget)
+    }
   }
 
   if (!aktoerId) {
@@ -74,23 +73,28 @@ export const Overview: React.FC<OverviewProps> = (props: OverviewProps): JSX.Ele
       className={classNames('w-overview', 's-border', { highContrast: highContrast })}
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
-      heading={<PersonTitle {...props} />}
+      heading={(
+        <PersonTitle
+          gettingPersonInfo={gettingPersonInfo}
+          person={person}
+          t={t}
+        />
+      )}
     >
-      <PersonPanel {...props} />
+      <PersonPanel
+        highContrast={highContrast}
+        locale={locale}
+        person={person}
+        t={t}
+      />
     </Ui.Nav.EkspanderbartpanelBase>
   )
 }
 
 Overview.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
-  aktoerId: PT.string,
-  gettingPersonInfo: PT.bool.isRequired,
-  highContrast: PT.bool.isRequired,
-  onUpdate: PT.func.isRequired,
-  person: PT.any.isRequired,
-  widget: WidgetPropType.isRequired,
-  t: TPropType.isRequired
+  onUpdate: PT.func,
+  skipMount: PT.bool,
+  widget: WidgetPropType.isRequired
 }
 
-// @ts-ignore
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(Overview))
+export default Overview

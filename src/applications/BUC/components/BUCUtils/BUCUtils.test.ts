@@ -1,9 +1,11 @@
 import { Buc, Sed } from 'declarations/buc'
 import Mustache from 'mustache'
+import sampleBucs from 'resources/tests/sampleBucs'
 import * as BUCUtils from './BUCUtils'
 
 describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
   const t = jest.fn((label, vars) => Mustache.render(label, vars))
+  const sed = sampleBucs[0].seds![0]
 
   it('getBucTypeLabel()', () => {
     expect(BUCUtils.getBucTypeLabel({
@@ -23,33 +25,33 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     const CORRECT_ORDER = -1
     const WRONG_ORDER_WILL_SWAP = 1
     expect(BUCUtils.sedSorter(
-      { lastUpdate: new Date(2010, 1, 2), type: 'P1000' },
-      { lastUpdate: new Date(2010, 1, 1), type: 'P1000' }
+      { ...sed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' },
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' }
     )).toEqual(CORRECT_ORDER)
 
     expect(BUCUtils.sedSorter(
-      { lastUpdate: new Date(2010, 1, 1), type: 'P1000' },
-      { lastUpdate: new Date(2010, 1, 2), type: 'P1000' }
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
+      { ...sed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' }
     )).toEqual(WRONG_ORDER_WILL_SWAP)
 
     expect(BUCUtils.sedSorter(
-      { lastUpdate: new Date(2010, 1, 1), type: 'P1000' },
-      { lastUpdate: new Date(2010, 1, 1), type: 'P2000' }
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
     )).toEqual(CORRECT_ORDER)
 
     expect(BUCUtils.sedSorter(
-      { lastUpdate: new Date(2010, 1, 1), type: 'P10000' },
-      { lastUpdate: new Date(2010, 1, 1), type: 'P2000' }
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P10000' },
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
     )).toEqual(WRONG_ORDER_WILL_SWAP)
 
     expect(BUCUtils.sedSorter(
-      { lastUpdate: new Date(2010, 1, 1), type: 'P1000' },
-      { lastUpdate: new Date(2010, 1, 1), type: 'X1000' }
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' }
     )).toEqual(CORRECT_ORDER)
 
     expect(BUCUtils.sedSorter(
-      { lastUpdate: new Date(2010, 1, 1), type: 'X1000' },
-      { lastUpdate: new Date(2010, 1, 1), type: 'H1000' }
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' },
+      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'H1000' }
     )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 

@@ -1,31 +1,52 @@
+import {
+  createBuc,
+  getBucList,
+  getSubjectAreaList,
+  getTagList,
+  resetBuc,
+  saveBucsInfo,
+  SaveBucsInfoProps
+} from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { Buc, BucsInfo, Tags } from 'declarations/buc'
 import classNames from 'classnames'
-import { BucPropType, BucsInfoPropType } from 'declarations/buc.pt'
-import { ActionCreatorsPropType, AllowedLocaleStringPropType, LoadingPropType, TPropType } from 'declarations/types.pt'
+import { Buc, BucsInfo, Tags } from 'declarations/buc'
+import { BucPropType } from 'declarations/buc.pt'
+import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 
 export interface BUCStartProps {
-  actions: ActionCreators;
-  aktoerId?: string;
+  aktoerId: string;
   buc?: Buc;
-  bucParam?: string;
-  bucsInfo?: BucsInfo;
-  bucList?: Array<string>;
-  loading: Loading;
-  locale: AllowedLocaleString;
   onTagsChanged?: (t: Array<string>) => void;
-  sakId?: string;
   setMode: (mode: string) => void;
-  subjectAreaList?: Array<string>;
-  tagList?: Array<string>;
   t: T;
 }
+
+export interface BUCStartSelector {
+  bucParam: string | undefined;
+  locale: AllowedLocaleString;
+  loading: Loading;
+  bucsInfo?: BucsInfo | undefined;
+  bucList?: Array<string> | undefined;
+  subjectAreaList?: Array<string> | undefined;
+  tagList?: Array<string> | undefined;
+}
+
+const mapState = (state: State): BUCStartSelector => ({
+  loading: state.loading,
+  locale: state.ui.locale,
+  bucParam: state.app.params.buc,
+  bucsInfo: state.buc.bucsInfo,
+  bucList: state.buc.bucList,
+  subjectAreaList: state.buc.subjectAreaList,
+  tagList: state.buc.tagList
+})
 
 const placeholders: {[k: string]: string} = {
   subjectArea: 'buc:form-chooseSubjectArea',
@@ -33,9 +54,10 @@ const placeholders: {[k: string]: string} = {
 }
 
 const BUCStart: React.FC<BUCStartProps> = ({
-  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, locale,
-  onTagsChanged, sakId, setMode, subjectAreaList, tagList, t
+  aktoerId, buc, onTagsChanged, setMode, t
 }: BUCStartProps): JSX.Element | null => {
+  const { locale, loading, bucParam, bucsInfo, bucList, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
+
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Array<string>>([])
@@ -46,29 +68,31 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [isBucCreated, setIsBucCreated] = useState<boolean>(false)
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState<boolean>(false)
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
-      actions.getSubjectAreaList()
+      dispatch(getSubjectAreaList())
     }
     if (bucList === undefined && !loading.gettingBucList) {
-      actions.getBucList()
+      dispatch(getBucList())
     }
     if (tagList === undefined && !loading.gettingTagList) {
-      actions.getTagList()
+      dispatch(getTagList())
     }
-  }, [actions, loading, bucList, subjectAreaList, tagList])
+  }, [loading, bucList, subjectAreaList, tagList])
 
   useEffect(() => {
     if (!isBucCreated && buc) {
-      actions.saveBucsInfo({
+      dispatch(saveBucsInfo({
         bucsInfo: bucsInfo,
         aktoerId: aktoerId,
         tags: _tags,
         buc: buc
-      })
+      } as SaveBucsInfoProps))
       setIsBucCreated(true)
     }
-  }, [actions, loading, bucsInfo, aktoerId, buc, _buc, _tags, isBucCreated])
+  }, [loading, bucsInfo, aktoerId, buc, _buc, _tags, isBucCreated])
 
   useEffect(() => {
     if (!hasBucInfoSaved && loading.savingBucsInfo) {
@@ -78,7 +102,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       setMode('sednew')
       setHasBucInfoSaved(false)
     }
-  }, [actions, loading, buc, hasBucInfoSaved, setMode])
+  }, [loading, buc, hasBucInfoSaved, setMode])
 
   const validateSubjectArea: Function = (subjectArea: string): boolean => {
     if (!subjectArea || subjectArea === placeholders.subjectArea) {
@@ -118,24 +142,24 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const onForwardButtonClick: Function = (): void => {
-    if (validateSubjectArea(_subjectArea) && validateBuc(_buc)) {
-      actions.createBuc(_buc)
+    if (validateSubjectArea(_subjectArea) && _buc && validateBuc(_buc)) {
+      dispatch(createBuc(_buc))
     }
   }
 
   const onCancelButtonClick: Function = (): void => {
-    actions.resetBuc()
+    dispatch(resetBuc())
     setMode('buclist')
   }
 
   const onSubjectAreaChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const thisSubjectArea = e.target.value
+    const thisSubjectArea: string = e.target.value
     setSubjectArea(thisSubjectArea)
     validateSubjectArea(thisSubjectArea)
   }
 
   const onBucChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const thisBuc = e.target.value
+    const thisBuc: string = e.target.value
     setBuc(thisBuc)
     validateBuc(thisBuc)
   }
@@ -200,10 +224,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const allowedToForward: Function = (): boolean => {
     return _buc && _subjectArea && hasNoValidationErrors() && !loading.creatingBUC && !loading.savingBucsInfo
-  }
-
-  if (!sakId || !aktoerId) {
-    return null
   }
 
   return (
@@ -292,18 +312,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
 }
 
 BUCStart.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
-  aktoerId: PT.string,
+  aktoerId: PT.string.isRequired,
   buc: BucPropType,
-  bucsInfo: BucsInfoPropType,
-  bucList: PT.arrayOf(PT.string.isRequired),
-  bucParam: PT.string,
-  loading: LoadingPropType.isRequired,
-  locale: AllowedLocaleStringPropType.isRequired,
   onTagsChanged: PT.func,
-  sakId: PT.string,
-  subjectAreaList: PT.arrayOf(PT.string.isRequired),
-  tagList: PT.arrayOf(PT.string.isRequired),
   t: TPropType.isRequired
 }
 

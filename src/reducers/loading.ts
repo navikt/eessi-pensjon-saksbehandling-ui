@@ -1,8 +1,12 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
+import { Action } from 'redux'
 
-export const initialLoadingState: State = {
+export interface LoadingState {
+  [k: string]: boolean;
+}
+
+export const initialLoadingState: LoadingState = {
   creatingBUC: false,
   creatingSed: false,
   deletingStorageFile: false,
@@ -32,28 +36,14 @@ export const initialLoadingState: State = {
   loadingStorageFileList: false,
   rinaUrl: false,
   savingBucsInfo: false,
-  savingStorageFile: false,
-  status: undefined
+  savingStorageFile: false
 }
 
-const loadingReducer = (state: State = initialLoadingState, action: Action) => {
-  let status: string | undefined
-
+const loadingReducer = (state: LoadingState = initialLoadingState, action: Action) => {
   if (_.endsWith(action.type, '/ERROR')) {
     return initialLoadingState
   }
 
-  if (_.endsWith(action.type, '/REQUEST')) {
-    status = undefined
-  }
-
-  if (_.endsWith(action.type, '/FAILURE')) {
-    status = 'ERROR'
-  }
-
-  if (_.endsWith(action.type, '/SUCCESS')) {
-    status = 'OK'
-  }
   switch (action.type) {
   // APP
 
@@ -61,8 +51,7 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingUserInfo: true,
-        status: status
+        gettingUserInfo: true
       }
 
     case types.APP_USERINFO_SUCCESS:
@@ -70,16 +59,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingUserInfo: false,
-        status: status
+        gettingUserInfo: false
       }
 
     case types.APP_PERSONINFO_REQUEST:
 
       return {
         ...state,
-        gettingPersonInfo: true,
-        status: status
+        gettingPersonInfo: true
       }
 
     case types.APP_PERSONINFO_SUCCESS:
@@ -87,16 +74,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingPersonInfo: false,
-        status: status
+        gettingPersonInfo: false
       }
 
     case types.APP_SAKTYPE_REQUEST:
 
       return {
         ...state,
-        gettingSakType: true,
-        status: status
+        gettingSakType: true
       }
 
     case types.APP_SAKTYPE_SUCCESS:
@@ -104,15 +89,13 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingSakType: false,
-        status: status
+        gettingSakType: false
       }
 
     case types.APP_LOGIN_REQUEST: {
       return {
         ...state,
-        isLoggingIn: true,
-        status: status
+        isLoggingIn: true
       }
     }
 
@@ -120,15 +103,13 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
     case types.APP_LOGOUT_FAILURE:
       return {
         ...state,
-        isLoggingOut: false,
-        status: status
+        isLoggingOut: false
       }
 
     case types.APP_LOGOUT_REQUEST:
       return {
         ...state,
-        isLoggingOut: true,
-        status: status
+        isLoggingOut: true
       }
 
       // BUC
@@ -137,40 +118,35 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingBUCs: true,
-        status: status
+        gettingBUCs: true
       }
 
     case types.BUC_GET_BUCS_SUCCESS:
     case types.BUC_GET_BUCS_FAILURE:
       return {
         ...state,
-        gettingBUCs: false,
-        status: status
+        gettingBUCs: false
       }
 
     case types.BUC_GET_AVDOD_BUCS_REQUEST:
 
       return {
         ...state,
-        gettingAvdodBUCs: true,
-        status: status
+        gettingAvdodBUCs: true
       }
 
     case types.BUC_GET_AVDOD_BUCS_SUCCESS:
     case types.BUC_GET_AVDOD_BUCS_FAILURE:
       return {
         ...state,
-        gettingAvdodBUCs: false,
-        status: status
+        gettingAvdodBUCs: false
       }
 
     case types.BUC_GET_BUCSINFO_REQUEST:
 
       return {
         ...state,
-        gettingBUCinfo: true,
-        status: status
+        gettingBUCinfo: true
       }
 
     case types.BUC_GET_BUCSINFO_SUCCESS:
@@ -178,16 +154,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingBUCinfo: false,
-        status: status
+        gettingBUCinfo: false
       }
 
     case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
 
       return {
         ...state,
-        gettingSubjectAreaList: true,
-        status: status
+        gettingSubjectAreaList: true
       }
 
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
@@ -195,16 +169,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingSubjectAreaList: false,
-        status: status
+        gettingSubjectAreaList: false
       }
 
     case types.BUC_GET_BUC_LIST_REQUEST:
 
       return {
         ...state,
-        gettingBucList: true,
-        status: status
+        gettingBucList: true
       }
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
@@ -212,16 +184,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingBucList: false,
-        status: status
+        gettingBucList: false
       }
 
     case types.BUC_CREATE_BUC_REQUEST:
 
       return {
         ...state,
-        creatingBUC: true,
-        status: status
+        creatingBUC: true
       }
 
     case types.BUC_CREATE_BUC_SUCCESS:
@@ -229,16 +199,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        creatingBUC: false,
-        status: status
+        creatingBUC: false
       }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:
 
       return {
         ...state,
-        savingBucsInfo: true,
-        status: status
+        savingBucsInfo: true
       }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
@@ -246,16 +214,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        savingBucsInfo: false,
-        status: status
+        savingBucsInfo: false
       }
 
     case types.BUC_GET_SED_LIST_REQUEST:
 
       return {
         ...state,
-        gettingSedList: true,
-        status: status
+        gettingSedList: true
       }
 
     case types.BUC_GET_SED_LIST_SUCCESS:
@@ -263,16 +229,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingSedList: false,
-        status: status
+        gettingSedList: false
       }
 
     case types.BUC_GET_COUNTRY_LIST_REQUEST:
 
       return {
         ...state,
-        gettingCountryList: true,
-        status: status
+        gettingCountryList: true
       }
 
     case types.BUC_GET_COUNTRY_LIST_SUCCESS:
@@ -280,16 +244,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingCountryList: false,
-        status: status
+        gettingCountryList: false
       }
 
     case types.BUC_GET_INSTITUTION_LIST_REQUEST:
 
       return {
         ...state,
-        gettingInstitutionList: true,
-        status: status
+        gettingInstitutionList: true
       }
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
@@ -297,16 +259,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        gettingInstitutionList: false,
-        status: status
+        gettingInstitutionList: false
       }
 
     case types.BUC_CREATE_SED_REQUEST:
 
       return {
         ...state,
-        creatingSed: true,
-        status: status
+        creatingSed: true
       }
 
     case types.BUC_CREATE_SED_SUCCESS:
@@ -314,16 +274,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        creatingSed: false,
-        status: status
+        creatingSed: false
       }
 
     case types.BUC_RINA_GET_URL_REQUEST:
 
       return {
         ...state,
-        rinaUrl: true,
-        status: status
+        rinaUrl: true
       }
 
     case types.BUC_RINA_GET_URL_SUCCESS:
@@ -331,16 +289,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        rinaUrl: false,
-        status: status
+        rinaUrl: false
       }
 
     case types.BUC_GET_P4000_LIST_REQUEST:
 
       return {
         ...state,
-        loadingP4000list: true,
-        status: status
+        loadingP4000list: true
       }
 
     case types.BUC_GET_P4000_LIST_SUCCESS:
@@ -348,16 +304,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingP4000list: false,
-        status: status
+        loadingP4000list: false
       }
 
     case types.BUC_GET_P4000_INFO_REQUEST:
 
       return {
         ...state,
-        loadingP4000info: true,
-        status: status
+        loadingP4000info: true
       }
 
     case types.BUC_GET_P4000_INFO_SUCCESS:
@@ -365,8 +319,7 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingP4000info: false,
-        status: status
+        loadingP4000info: false
       }
       // JOARK
 
@@ -374,8 +327,7 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingJoarkList: true,
-        status: status
+        loadingJoarkList: true
       }
 
     case types.JOARK_LIST_SUCCESS:
@@ -383,16 +335,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingJoarkList: false,
-        status: status
+        loadingJoarkList: false
       }
 
     case types.JOARK_PREVIEW_REQUEST:
 
       return {
         ...state,
-        loadingJoarkPreviewFile: true,
-        status: status
+        loadingJoarkPreviewFile: true
       }
 
     case types.JOARK_PREVIEW_SUCCESS:
@@ -400,16 +350,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingJoarkPreviewFile: false,
-        status: status
+        loadingJoarkPreviewFile: false
       }
 
     case types.JOARK_GET_REQUEST:
 
       return {
         ...state,
-        loadingJoarkFile: true,
-        status: status
+        loadingJoarkFile: true
       }
 
     case types.JOARK_GET_SUCCESS:
@@ -417,16 +365,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingJoarkFile: false,
-        status: status
+        loadingJoarkFile: false
       }
 
     case types.STORAGE_LIST_REQUEST:
 
       return {
         ...state,
-        loadingStorageFileList: true,
-        status: status
+        loadingStorageFileList: true
       }
 
     case types.STORAGE_LIST_SUCCESS:
@@ -434,16 +380,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingStorageFileList: false,
-        status: status
+        loadingStorageFileList: false
       }
 
     case types.STORAGE_GET_REQUEST:
 
       return {
         ...state,
-        loadingStorageFile: true,
-        status: status
+        loadingStorageFile: true
       }
 
     case types.STORAGE_GET_SUCCESS:
@@ -451,16 +395,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        loadingStorageFile: false,
-        status: status
+        loadingStorageFile: false
       }
 
     case types.STORAGE_POST_REQUEST:
 
       return {
         ...state,
-        savingStorageFile: true,
-        status: status
+        savingStorageFile: true
       }
 
     case types.STORAGE_POST_SUCCESS:
@@ -468,16 +410,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        savingStorageFile: false,
-        status: status
+        savingStorageFile: false
       }
 
     case types.STORAGE_DELETE_REQUEST:
 
       return {
         ...state,
-        deletingStorageFile: true,
-        status: status
+        deletingStorageFile: true
       }
 
     case types.STORAGE_DELETE_SUCCESS:
@@ -485,8 +425,7 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        deletingStorageFile: false,
-        status: status
+        deletingStorageFile: false
       }
 
     case types.PINFO_SEND_SUCCESS:
@@ -494,16 +433,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        isSendingPinfo: false,
-        status: status
+        isSendingPinfo: false
       }
 
     case types.PINFO_SEND_REQUEST:
 
       return {
         ...state,
-        isSendingPinfo: true,
-        status: status
+        isSendingPinfo: true
       }
 
     case types.PINFO_INVITE_SUCCESS:
@@ -511,16 +448,14 @@ const loadingReducer = (state: State = initialLoadingState, action: Action) => {
 
       return {
         ...state,
-        isInvitingPinfo: false,
-        status: status
+        isInvitingPinfo: false
       }
 
     case types.PINFO_INVITE_REQUEST:
 
       return {
         ...state,
-        isInvitingPinfo: true,
-        status: status
+        isInvitingPinfo: true
       }
 
     default:

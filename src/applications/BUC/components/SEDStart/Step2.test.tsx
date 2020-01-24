@@ -12,6 +12,7 @@ describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
   let wrapper: ReactWrapper
   const mockBucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: Step2Props = {
+    aktoerId: '123',
     buc: mockBucs['195440'],
     locale: 'nb',
     _sed: 'P4000',

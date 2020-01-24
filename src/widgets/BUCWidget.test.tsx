@@ -1,5 +1,6 @@
+import { WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import React from 'react'
-import BUCWidget, { BUCWidgetProps } from './BUCWidget'
+import BUCWidget from './BUCWidget'
 import { mount, ReactWrapper } from 'enzyme'
 
 jest.mock('applications/BUC/', () => {
@@ -8,11 +9,17 @@ jest.mock('applications/BUC/', () => {
 
 describe('widgets/BUCWidget', () => {
   let wrapper: ReactWrapper
-  const initialMockProps: BUCWidgetProps = {
+  const initialMockProps: WidgetProps = {
     onResize: jest.fn(),
     onFullFocus: jest.fn(),
     onRestoreFocus: jest.fn(),
-    widget: {}
+    widget: {
+      i: 'i',
+      type: 'buc',
+      title: 'Buc',
+      visible: true,
+      options: {}
+    }
   }
 
   beforeEach(() => {

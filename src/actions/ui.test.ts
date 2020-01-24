@@ -7,9 +7,8 @@ jest.mock('i18n', () => ({
 
 describe('actions/ui', () => {
   it('changeLanguage()', () => {
-    const mockLanguage = 'zz'
+    const mockLanguage = 'en'
     const generatedResult = uiActions.changeLanguage(mockLanguage)
-    // @ts-ignore
     expect(i18n.changeLanguage).toBeCalledWith(mockLanguage)
     expect(generatedResult).toMatchObject({
       type: types.UI_LANGUAGE_CHANGED,

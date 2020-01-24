@@ -2,7 +2,7 @@ import loadingReducer, { initialLoadingState } from './loading'
 import * as types from 'constants/actionTypes'
 
 describe('reducers/loading', () => {
-  const simulate = (type, param, initialBool, status) => {
+  const simulate = (type: string, param: string, initialBool: boolean) => {
     expect(
       loadingReducer({
         ...initialLoadingState,
@@ -12,21 +12,20 @@ describe('reducers/loading', () => {
       })
     ).toEqual({
       ...initialLoadingState,
-      [param]: !initialBool,
-      status: status
+      [param]: !initialBool
     })
   }
 
-  const simulateRequest = (type, param) => {
-    return simulate(type, param, false, undefined)
+  const simulateRequest = (type: string, param: string) => {
+    return simulate(type, param, false)
   }
 
-  const simulateSuccess = (type, param) => {
-    return simulate(type, param, true, 'OK')
+  const simulateSuccess = (type: string, param: string) => {
+    return simulate(type, param, true)
   }
 
-  const simulateFailure = (type, param) => {
-    return simulate(type, param, true, 'ERROR')
+  const simulateFailure = (type: string, param: string) => {
+    return simulate(type, param, true)
   }
 
   it('SOMETHING_ERROR', () => {

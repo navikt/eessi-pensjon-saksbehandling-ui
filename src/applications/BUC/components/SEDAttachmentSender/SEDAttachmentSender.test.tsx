@@ -12,7 +12,11 @@ describe('applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', 
     className: 'mock-sedAttachmentSender',
     initialStatus: 'inprogress',
     onFinished: jest.fn(),
-    payload: {},
+    payload: {
+      aktoerId: '123',
+      rinaId: '456',
+      rinaDokumentId: '789'
+    },
     savedAttachments: [],
     sendAttachmentToSed: jest.fn(),
     t: jest.fn(t => t)

@@ -18,3 +18,19 @@ Object.defineProperty(window, 'getComputedStyle', {
     getPropertyValue: () => ('')
   })
 })
+
+jest.mock('i18next', () => {
+  const use = jest.fn()
+  const init = jest.fn()
+  const loadLanguages = jest.fn()
+  const result = {
+    use: use,
+    init: init,
+    loadLanguages: loadLanguages
+  }
+  use.mockImplementation(() => result)
+  return result
+})
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key: any) => key })
+}))

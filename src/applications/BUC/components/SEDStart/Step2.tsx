@@ -1,14 +1,16 @@
 import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 import { Buc } from 'declarations/buc'
 import { BucPropType } from 'declarations/buc.pt'
-import { T, Validation } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { AllowedLocaleString, T, Validation } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 
 export interface Step2Props {
+  aktoerId: string;
   buc: Buc;
+  locale: AllowedLocaleString;
   t: T;
   _sed: string;
   showButtons: boolean;
@@ -18,7 +20,7 @@ export interface Step2Props {
 }
 
 const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {
-  const { buc, t, _sed } = props
+  const { aktoerId, buc, locale, t, _sed, showButtons, setShowButtons } = props
   return (
     <>
       <div className='col-md-12'>
@@ -32,7 +34,13 @@ const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {
       {_sed === 'P4000' ? (
         <>
           <div className='col-md-8'>
-            <SEDP4000 {...props} />
+            <SEDP4000
+              t={t}
+              aktoerId={aktoerId}
+              locale={locale}
+              showButtons={showButtons}
+              setShowButtons={setShowButtons}
+            />
           </div>
           <div className='col-md-4' />
         </>
@@ -42,7 +50,9 @@ const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {
 }
 
 Step2.propTypes = {
+  aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,
+  locale: AllowedLocaleStringPropType.isRequired,
   _sed: PT.string.isRequired,
   t: TPropType.isRequired
 }

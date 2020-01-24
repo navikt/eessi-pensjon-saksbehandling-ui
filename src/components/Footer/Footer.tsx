@@ -1,31 +1,31 @@
+import { setStatusParam, unsetStatusParam } from 'actions/app'
+import { toggleFooterOpen } from 'actions/ui'
 import classNames from 'classnames'
-import { ActionCreatorsPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import PT from 'prop-types'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import './Footer.css'
 
 export interface FooterProps {
-  actions: ActionCreators;
   className ?: string;
   footerOpen: boolean;
   params: {[k: string]: any}
 }
 
 const Footer: React.FC<FooterProps> = ({
-  actions, className, footerOpen, params = {}
+  className, footerOpen, params = {}
 }: FooterProps): JSX.Element => {
   const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'avdodfnr', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const [paramName, setParamName] = useState<string |undefined>(undefined)
   const [paramValue, setParamValue] = useState<string |undefined>(undefined)
-
+  const dispatch = useDispatch()
   const onUnsetParam = (key: string) => {
-    actions.unsetStatusParam(key)
+    dispatch(unsetStatusParam(key))
   }
 
   const onSetParam = () => {
-    actions.setStatusParam(paramName, paramValue)
+    dispatch(setStatusParam(paramName!, paramValue))
     setParamName(undefined)
     setParamValue(undefined)
   }
@@ -44,8 +44,8 @@ const Footer: React.FC<FooterProps> = ({
     }
   }
 
-  const toggleFooterOpen = () => {
-    actions.toggleFooterOpen()
+  const _toggleFooterOpen = () => {
+    dispatch(toggleFooterOpen())
   }
 
   return (
@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({
       <div className={classNames('contents', { fullWidth: !footerOpen })}>
         <div
           className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
-          onClick={toggleFooterOpen}
+          onClick={_toggleFooterOpen}
         >
           {footerOpen ? '▼' : null}
         </div>
@@ -93,7 +93,6 @@ const Footer: React.FC<FooterProps> = ({
 }
 
 Footer.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   className: PT.string,
   footerOpen: PT.bool.isRequired,
   params: PT.object.isRequired

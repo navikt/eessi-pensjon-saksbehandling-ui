@@ -1,4 +1,4 @@
-import * as pinfoActions from 'actions/pinfo'
+import { sendInvite, InviteParams } from 'actions/pinfo'
 import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
@@ -18,11 +18,11 @@ describe('actions/pinfo', () => {
   })
 
   it('sendInvite()', () => {
-    const mockParams = {
+    const mockParams: InviteParams = {
       sakId: '123',
       aktoerId: '456'
     }
-    pinfoActions.sendInvite(mockParams)
+    sendInvite(mockParams)
     expect(call).toBeCalledWith({
       method: 'POST',
       payload: {},

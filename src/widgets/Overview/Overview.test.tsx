@@ -1,20 +1,38 @@
+import { getPersonInfo } from 'actions/app'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { Overview, OverviewProps } from './Overview'
+import { useDispatch, useSelector } from 'react-redux'
+import { Overview, OverviewProps, OverviewSelector } from './Overview'
+
+jest.mock('actions/app', () => ({
+  getPersonInfo: jest.fn()
+}))
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+const defaultSelector: OverviewSelector = {
+  aktoerId: '123',
+  gettingPersonInfo: false,
+  highContrast: false,
+  locale: 'nb',
+  person: undefined
+};
+
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+
+export const setup = (params: any) => {
+  (useSelector as jest.Mock).mockImplementation(() => ({
+    ...defaultSelector,
+    ...params
+  }))
+}
 
 describe('widgets/Overview/Overview', () => {
   let wrapper: ReactWrapper
   const initialMockProps: OverviewProps = {
-    actions: {
-      getPersonInfo: jest.fn()
-    },
-    aktoerId: '123',
-    gettingPersonInfo: false,
-    highContrast: false,
-    locale: 'nb',
-    person: undefined,
     onUpdate: jest.fn(),
-    t: jest.fn(t => t),
+    skipMount: false,
     widget: {
       i: 'i',
       type: 'foo',
@@ -40,7 +58,7 @@ describe('widgets/Overview/Overview', () => {
   })
 
   it('UseEffect: fetches person info when mounting', () => {
-    expect(initialMockProps.actions.getPersonInfo).toHaveBeenCalled()
+    expect(getPersonInfo).toHaveBeenCalled()
   })
 
   it('Has proper HTML structure', () => {
@@ -51,12 +69,15 @@ describe('widgets/Overview/Overview', () => {
   })
 
   it('With no aktoerId', () => {
-    wrapper = mount(<Overview {...initialMockProps} aktoerId={undefined} />)
+    setup({ aktoerId: undefined })
+    wrapper = mount(<Overview {...initialMockProps} />)
     expect(wrapper.exists('.w-overview__alert')).toBeTruthy()
     expect(wrapper.find('.w-overview__alert').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
   })
 
   it('Expandable ', () => {
+    setup({ aktoerId: '123' })
+    wrapper = mount(<Overview {...initialMockProps} skipMount />)
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(initialMockProps.onUpdate).toHaveBeenCalledWith(expect.objectContaining({
       options: {

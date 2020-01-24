@@ -37,12 +37,10 @@ export const getPreviewJoarkFile = (item: JoarkFile): Function => {
   })
 }
 
-export const setPreviewJoarkFile = (item: JoarkFile): ActionWithPayload<JoarkFile> => {
-  return {
-    type: types.JOARK_PREVIEW_SET,
-    payload: item
-  }
-}
+export const setPreviewJoarkFile = (item: JoarkFile | undefined): ActionWithPayload<JoarkFile | undefined> => ({
+  type: types.JOARK_PREVIEW_SET,
+  payload: item
+})
 
 export const getJoarkFile = (item: JoarkFile): Function => {
   return api.call({

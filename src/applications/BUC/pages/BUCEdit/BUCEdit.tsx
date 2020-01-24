@@ -1,61 +1,56 @@
+import { setCurrentSed } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
-import {
-  AttachedFiles,
-  Buc,
-  BucInfo,
-  Bucs,
-  BucsInfo,
-  InstitutionNames,
-  Sed,
-  Tags
-} from 'declarations/buc'
-import { AllowedLocaleString, Loading, RinaUrl, T } from 'declarations/types'
-import { AllowedLocaleStringPropType, RinaUrlPropType } from 'declarations/types.pt'
+import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
+import { AllowedLocaleString, T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './BUCEdit.css'
 
 export interface BUCEditProps {
-  actions: ActionCreators;
-  aktoerId?: string;
-  attachments: AttachedFiles;
-  attachmentsError ?: boolean;
+  aktoerId: string;
   bucs: Bucs;
-  bucsInfo?: BucsInfo;
-  currentBuc?: string | undefined;
   initialSearch ?: string;
   initialStatusSearch ?: Tags;
-  institutionNames: InstitutionNames;
-  loading: Loading;
-  locale: AllowedLocaleString;
-  rinaUrl?: RinaUrl;
   setMode: (s: string) => void;
   t: T;
-  tagList?: Array<string>;
 }
 
+export interface BUCEditSelector {
+  bucsInfo?: BucsInfo;
+  currentBuc?: string | undefined;
+  locale: AllowedLocaleString
+}
+
+const mapState = (state: State): BUCEditSelector => ({
+  bucsInfo: state.buc.bucsInfo,
+  currentBuc: state.buc.currentBuc,
+  locale: state.ui.locale
+})
+
 const BUCEdit = ({
-  actions, aktoerId, attachments, attachmentsError = false, bucs, bucsInfo, currentBuc, initialSearch, initialStatusSearch,
-  institutionNames, loading, locale, rinaUrl, setMode, t, tagList
+  aktoerId, bucs, initialSearch, initialStatusSearch, setMode, t
 }: BUCEditProps) => {
   const [search, setSearch] = useState<string | undefined>(initialSearch)
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
+  const { bucsInfo, currentBuc, locale }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
+  const dispatch = useDispatch()
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
   }
 
   const onSEDNew = (sed: Sed | undefined): void => {
-    actions.setCurrentSed(sed ? sed.id : undefined)
+    dispatch(setCurrentSed(sed ? sed.id : undefined))
     setMode('sednew')
   }
 
@@ -128,19 +123,14 @@ const BUCEdit = ({
               return (
                 <SEDPanel
                   className='mt-2'
-                  actions={actions}
                   aktoerId={aktoerId!}
-                  attachments={attachments}
-                  attachmentsError={attachmentsError}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   buc={buc}
-                  locale={locale!}
                   t={t}
                   key={index}
                   sed={sed}
                   followUpSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
                   onSEDNew={() => onSEDNew(sed)}
-                  institutionNames={institutionNames}
                 />
               )
             }) : null}
@@ -151,20 +141,13 @@ const BUCEdit = ({
             t={t}
             buc={buc}
             bucInfo={bucInfo}
-            locale={locale!}
-            rinaUrl={rinaUrl!}
-            institutionNames={institutionNames}
           />
           <BUCTools
             className='mb-3'
             t={t}
-            actions={actions}
             aktoerId={aktoerId!}
             buc={buc}
             bucInfo={bucInfo}
-            bucsInfo={bucsInfo}
-            loading={loading}
-            tagList={tagList}
           />
         </div>
       </Ui.Nav.Row>
@@ -173,21 +156,13 @@ const BUCEdit = ({
 }
 
 BUCEdit.propTypes = {
-  actions: PT.object.isRequired,
   aktoerId: PT.string.isRequired,
-  attachments: PT.array,
-  attachmentsError: PT.bool,
   bucs: PT.object.isRequired,
   bucsInfo: PT.object,
   currentBuc: PT.string,
   initialSearch: PT.string,
   initialStatusSearch: PT.array,
-  institutionNames: PT.object,
-  loading: PT.object,
-  locale: AllowedLocaleStringPropType.isRequired,
-  rinaUrl: RinaUrlPropType,
-  t: PT.func.isRequired,
-  tagList: PT.array
+  t: PT.func.isRequired
 }
 
 export default BUCEdit

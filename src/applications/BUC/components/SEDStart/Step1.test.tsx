@@ -1,15 +1,18 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import Step1, { Step1Props } from './Step1'
 import { mount, ReactWrapper } from 'enzyme'
 import sampleBucs from 'resources/tests/sampleBucs'
 import _ from 'lodash'
 import { Bucs } from 'declarations/buc'
 
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
 describe('applications/BUC/components/SEDStart/Step1', () => {
   let wrapper: ReactWrapper
   const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: Step1Props = {
-    actions: {},
     _attachments: {},
     buc: mockBucs['195440'],
     _countries: [],
@@ -23,7 +26,6 @@ describe('applications/BUC/components/SEDStart/Step1', () => {
         id: 'NO:DEMO001'
       }]
     },
-    institutionNames: {},
     loading: {},
     layout: 'row',
     locale: 'nb',

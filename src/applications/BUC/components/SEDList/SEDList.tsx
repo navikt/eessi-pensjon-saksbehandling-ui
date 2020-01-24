@@ -1,19 +1,17 @@
 import { sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { Buc, InstitutionNames, Sed, Seds } from 'declarations/buc'
-import { BucPropType, InstitutionNamesPropType, SedsPropType } from 'declarations/buc.pt'
-import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
+import { Buc, Sed, Seds } from 'declarations/buc'
+import { BucPropType, SedsPropType } from 'declarations/buc.pt'
+import { T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, T } from 'declarations/types'
 import './SEDList.css'
 
 export interface SEDListProps {
   buc: Buc;
-  institutionNames: InstitutionNames;
-  locale: AllowedLocaleString;
   maxSeds ?: number;
   onSEDNew: (buc: Buc, sed: Sed) => void;
   seds: Seds;
@@ -21,7 +19,7 @@ export interface SEDListProps {
 }
 
 const SEDList: React.FC<SEDListProps> = ({
-  buc, institutionNames, locale, maxSeds = 5, onSEDNew, seds, t
+  buc, maxSeds = 5, onSEDNew, seds, t
 }: SEDListProps): JSX.Element => (
   <div className='a-buc-c-sedlist'>
     {seds ? seds
@@ -36,9 +34,7 @@ const SEDList: React.FC<SEDListProps> = ({
             buc={buc}
             sed={sed}
             followUpSeds={seds.filter(_seds => _seds.parentDocumentId === sed.id)}
-            locale={locale}
             onSEDNew={onSEDNew}
-            institutionNames={institutionNames}
           />
         )
       }) : null}
@@ -51,8 +47,6 @@ const SEDList: React.FC<SEDListProps> = ({
 
 SEDList.propTypes = {
   buc: BucPropType.isRequired,
-  institutionNames: InstitutionNamesPropType.isRequired,
-  locale: AllowedLocaleStringPropType.isRequired,
   maxSeds: PT.number,
   onSEDNew: PT.func.isRequired,
   seds: SedsPropType.isRequired,

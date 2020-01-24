@@ -2,6 +2,16 @@ import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import InstitutionList, { InstitutionListProps } from './InstitutionList'
 
+// InstitutionNames
+const mockSelectors = {
+  'NO:Mock1': 'Mock 1 institution',
+  'NO:Mock2': 'Mock 2 institution'
+}
+
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(() => mockSelectors)
+}))
+
 describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
   let wrapper: ReactWrapper
   const initialMockProps: InstitutionListProps = {
@@ -12,10 +22,6 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
       country: 'NO',
       institution: 'Mock2'
     }],
-    institutionNames: {
-      'NO:Mock1': 'Mock 1 institution',
-      'NO:Mock2': 'Mock 2 institution'
-    },
     locale: 'nb',
     t: jest.fn(t => t)
   }

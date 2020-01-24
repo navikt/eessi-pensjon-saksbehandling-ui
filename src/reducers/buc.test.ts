@@ -1,3 +1,5 @@
+import { Buc, BucsInfo, Sed } from 'declarations/buc'
+import sampleBucs from 'resources/tests/sampleBucs'
 import bucReducer, { initialBucState } from './buc'
 import * as types from 'constants/actionTypes'
 
@@ -62,7 +64,9 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        sed: 'mockSed'
+        sed: {
+          id: '1'
+        } as Sed
       }, {
         type: types.BUC_SED_RESET
       })
@@ -73,7 +77,16 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        attachments: 'mockAttachments'
+        attachments: {
+          joark: [{
+            journalpostId: '1',
+            tittel: 'tittel',
+            tema: 'tema',
+            datoOpprettet: new Date(2020, 1, 1),
+            dokumentInfoId: '1',
+            variant: { variantformat: 'variant', filnavn: 'filnavn' }
+          }]
+        }
       }, {
         type: types.BUC_SED_ATTACHMENTS_RESET
       })
@@ -84,8 +97,19 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        sed: 'mockSed',
-        attachments: 'mockAttachments'
+        sed: {
+          id: '1'
+        } as Sed,
+        attachments: {
+          joark: [{
+            journalpostId: '1',
+            tittel: 'tittel',
+            tema: 'tema',
+            datoOpprettet: new Date(2020, 1, 1),
+            dokumentInfoId: '1',
+            variant: { variantformat: 'variant', filnavn: 'filnavn' }
+          }]
+        }
       }, {
         type: types.BUC_BUC_RESET,
         payload: 'mockPayload'
@@ -97,17 +121,21 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucs: { mockPayload: { caseId: 'mockPayload' } }
+        bucs: {
+          123: sampleBucs[0] as Buc
+        }
       }, {
         type: types.BUC_GET_SINGLE_BUC_SUCCESS,
         payload: [{
-          caseId: 'mockPayload',
-          type: 'P_BUC_01'
+          caseId: sampleBucs[0].caseId,
+          type: sampleBucs[0].type
         }]
       })
     ).toEqual({
       ...initialBucState,
-      bucs: { mockPayload: { caseId: 'mockPayload' } }
+      bucs: {
+        123: sampleBucs[0]
+      }
     })
   })
 
@@ -127,7 +155,9 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucs: 'mockBucs'
+        bucs: {
+          123: sampleBucs[0] as Buc
+        }
       }, {
         type: types.BUC_GET_BUCS_FAILURE
       })
@@ -153,7 +183,9 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        avdodBucs: 'mockBucs'
+        avdodBucs: {
+          123: sampleBucs[0] as Buc
+        }
       }, {
         type: types.BUC_GET_AVDOD_BUCS_FAILURE
       })
@@ -178,7 +210,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucsInfoList: 'mockBucsInfoList'
+        bucsInfoList: ['mockBucsInfoList']
       }, {
         type: types.BUC_GET_BUCSINFO_LIST_REQUEST
       })
@@ -192,7 +224,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucsInfoList: 'mockBucsInfoList'
+        bucsInfoList: ['mockBucsInfoList']
       }, {
         type: types.BUC_GET_BUCSINFO_LIST_FAILURE
       })
@@ -218,7 +250,9 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucsInfo: 'mockBucsInfo'
+        bucsInfo: {
+          bucs: {}
+        } as BucsInfo
       }, {
         type: types.BUC_GET_BUCSINFO_REQUEST
       })
@@ -232,7 +266,9 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucsInfo: 'mockBucsInfo'
+        bucsInfo: {
+          bucs: {}
+        } as BucsInfo
       }, {
         type: types.BUC_GET_BUCSINFO_FAILURE
       })
@@ -258,7 +294,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        subjectAreaList: 'mockSubjectAreaList'
+        subjectAreaList: ['mockSubjectAreaList']
       }, {
         type: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST
       })
@@ -271,7 +307,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        subjectAreaList: 'mockSubjectAreaList'
+        subjectAreaList: ['mockSubjectAreaList']
       }, {
         type: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
       })
@@ -297,7 +333,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucList: 'mockBucList'
+        bucList: ['mockBucList']
       }, {
         type: types.BUC_GET_BUC_LIST_REQUEST
       })
@@ -310,7 +346,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucList: 'mockBucList'
+        bucList: ['mockBucList']
       }, {
         type: types.BUC_GET_BUC_LIST_FAILURE
       })
@@ -336,7 +372,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        tagList: 'mockTagList'
+        tagList: ['mockTagList']
       }, {
         type: types.BUC_GET_TAG_LIST_REQUEST
       })
@@ -350,7 +386,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        tagList: 'mockTagList'
+        tagList: ['mockTagList']
       }, {
         type: types.BUC_GET_TAG_LIST_FAILURE
       })
@@ -377,7 +413,7 @@ describe('reducers/buc', () => {
       currentBuc: 'mockCaseId',
       mode: 'bucedit',
       sed: undefined,
-      attachments: []
+      attachments: {}
     })
   })
 
@@ -420,7 +456,9 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucsInfo: 'something'
+        bucsInfo: {
+          bucs: {}
+        }
       }, {
         type: types.BUC_SAVE_BUCSINFO_REQUEST
       })
@@ -431,7 +469,9 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucsInfo: 'something'
+        bucsInfo: {
+          bucs: {}
+        }
       }, {
         type: types.BUC_SAVE_BUCSINFO_FAILURE
       })
@@ -454,7 +494,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        countryList: 'something'
+        countryList: ['something']
       }, {
         type: types.BUC_GET_COUNTRY_LIST_REQUEST
       })
@@ -465,7 +505,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        countryList: 'something'
+        countryList: ['something']
       }, {
         type: types.BUC_GET_COUNTRY_LIST_FAILURE
       })
@@ -488,7 +528,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        sedList: 'something'
+        sedList: ['something']
       }, {
         type: types.BUC_GET_SED_LIST_REQUEST
       })
@@ -499,7 +539,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        sedList: 'something'
+        sedList: ['something']
       }, {
         type: types.BUC_GET_SED_LIST_FAILURE
       })
@@ -586,26 +626,36 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        attachments: [{
-          dokumentInfoId: 1,
-          journalpostId: 1,
-          variant: 1
-        }]
+        attachments: {
+          joark: [{
+            dokumentInfoId: '1',
+            journalpostId: '1',
+            variant: { variantformat: 'variantformat', filnavn: 'filnavn' },
+            tittel: 'tittel',
+            tema: 'tema',
+            datoOpprettet: new Date(2020, 1, 1)
+          }]
+        }
       }, {
         type: types.BUC_SEND_ATTACHMENT_SUCCESS,
         context: {
-          dokumentInfoId: 1,
-          journalpostId: 1,
-          variant: 1
+          dokumentInfoId: '1',
+          journalpostId: '1',
+          variant: { variantformat: 'variantformat', filnavn: 'filnavn' }
         }
       })
     ).toEqual({
       ...initialBucState,
-      attachments: [{
-        dokumentInfoId: 1,
-        journalpostId: 1,
-        variant: 1
-      }]
+      attachments: {
+        joark: [{
+          dokumentInfoId: '1',
+          journalpostId: '1',
+          variant: { variantformat: 'variantformat', filnavn: 'filnavn' },
+          tittel: 'tittel',
+          tema: 'tema',
+          datoOpprettet: new Date(2020, 1, 1)
+        }]
+      }
     })
   })
 
@@ -613,30 +663,36 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        attachments: [{
-          dokumentInfoId: 1,
-          journalpostId: 1,
-          variant: 1
-        }]
+        attachments: {
+          joark: [{
+            dokumentInfoId: '1',
+            journalpostId: '1',
+            variant: { variantformat: 'variantformat', filnavn: 'filnavn' },
+            tittel: 'tittel',
+            tema: 'tema',
+            datoOpprettet: new Date(2020, 1, 1)
+          }]
+        }
       }, {
         type: types.BUC_SEND_ATTACHMENT_SUCCESS,
         context: {
-          dokumentInfoId: 2,
-          journalpostId: 1,
-          variant: 1
+          dokumentInfoId: '1',
+          journalpostId: '1',
+          variant: { variantformat: 'variantformat', filnavn: 'filnavn' }
         }
       })
     ).toEqual({
       ...initialBucState,
-      attachments: [{
-        dokumentInfoId: 1,
-        journalpostId: 1,
-        variant: 1
-      }, {
-        dokumentInfoId: 2,
-        journalpostId: 1,
-        variant: 1
-      }]
+      attachments: {
+        joark: [{
+          dokumentInfoId: '1',
+          journalpostId: '1',
+          variant: { variantformat: 'variantformat', filnavn: 'filnavn' },
+          tittel: 'tittel',
+          tema: 'tema',
+          datoOpprettet: new Date(2020, 1, 1)
+        }]
+      }
     })
   })
 
@@ -656,7 +712,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        p4000list: 'something'
+        p4000list: ['something']
       }, {
         type: types.BUC_GET_P4000_LIST_FAILURE
       })
@@ -694,7 +750,11 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        p4000info: 'something'
+        p4000info: {
+          person: {},
+          bank: {},
+          stayAbroad: []
+        }
       }, {
         type: types.BUC_GET_P4000_INFO_FAILURE
       })

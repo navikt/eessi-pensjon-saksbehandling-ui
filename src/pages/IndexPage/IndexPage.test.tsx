@@ -1,31 +1,33 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
-import { IndexPage, IndexPageProps } from './IndexPage'
+import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
 ReactTooltip.rebuild = jest.fn()
 
+jest.mock('react-redux')
+const defaultSelector: IndexPageSelector = {
+  username: 'mockUsername'
+};
+(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+
 jest.mock('components/TopContainer/TopContainer', () => {
-  return ({ children }: {children: JSX.Element}) => {
-    return (
-      <div className='mock-c-topcontainer'>
-        {children}
-      </div>
-    )
-  }
+  return ({ children }: {children: JSX.Element}) => (
+    <div className='mock-c-topcontainer'>
+      {children}
+    </div>
+  )
 })
-jest.mock('eessi-pensjon-ui', () => {
-  return {
-    Dashboard: (props: any) => <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
-  }
-})
+jest.mock('eessi-pensjon-ui', () => ({
+  Dashboard: (props: any) => <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
+}))
 
 describe('pages/IndexPage', () => {
   let wrapper: ReactWrapper
   const initialMockProps: IndexPageProps = {
     history: {},
-    t: jest.fn(t => t),
-    username: 'mockUsername'
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

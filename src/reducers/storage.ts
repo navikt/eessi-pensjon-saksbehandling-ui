@@ -1,20 +1,29 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
+import { Action } from 'redux'
 
-export const initialStorageState: State = {
+export interface StorageState {
+  modal: ModalContent | undefined;
+  fileToDelete: any;
+  fileList: Array<string> | undefined;
+  file: any;
+}
+
+export const initialStorageState: StorageState = {
   modal: undefined,
   fileToDelete: undefined,
   fileList: undefined,
   file: undefined
 }
 
-const storageReducer = (state: State = initialStorageState, action: Action) => {
+const storageReducer = (state: StorageState = initialStorageState, action: Action | ActionWithPayload) => {
   switch (action.type) {
     case types.STORAGE_LIST_SUCCESS:
       return {
         ...state,
-        fileList: action.payload.map((file: string) => {
+        fileList: (action as ActionWithPayload).payload.map((file: string) => {
           const index = file.lastIndexOf('___')
           return index >= 0 ? file.substring(index + 3) : file
         })
@@ -29,7 +38,7 @@ const storageReducer = (state: State = initialStorageState, action: Action) => {
     case types.STORAGE_GET_SUCCESS:
       return {
         ...state,
-        file: action.payload
+        file: (action as ActionWithPayload).payload
       }
 
     case types.STORAGE_POST_SUCCESS:
@@ -42,7 +51,7 @@ const storageReducer = (state: State = initialStorageState, action: Action) => {
     case types.STORAGE_TARGET_FILE_TO_DELETE_SET:
       return {
         ...state,
-        fileToDelete: action.payload
+        fileToDelete: (action as ActionWithPayload).payload
       }
 
     case types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL:

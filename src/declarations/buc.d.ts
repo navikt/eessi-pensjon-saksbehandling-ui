@@ -79,30 +79,31 @@ export interface Institution {
 export type Institutions = Array<Institution>
 
 export interface ErrorBuc {
-  type: string | null;
   caseId: string | null;
   creator: null;
+  error: string;
+  institusjon: null;
+  lastUpdate: null;
   sakType: null;
+  seds: null;
   status: null;
   startDate: null;
-  lastUpdate: null;
-  institusjon: null;
-  seds: null;
-  error: string;
+  type: string | null;
 }
 
 export interface ValidBuc {
-  type: string;
+  aktoerId?: string | null;
   caseId: string;
   creator: Institution;
+  description?: string | null | undefined;
+  error?: null | undefined;
+  institusjon: Institutions;
+  lastUpdate: number;
   sakType: string | null;
-  aktoerId?: string | null;
+  seds: Seds;
   status: string;
   startDate: number;
-  lastUpdate: number;
-  institusjon: Institutions;
-  seds: Seds;
-  error?: null | undefined;
+  type: string;
 }
 
 export type Buc = ValidBuc | ErrorBuc
@@ -111,7 +112,7 @@ export type Bucs = {[caseId: string]: Buc}
 
 export interface BucInfo {
   tags: Array<string>;
-  comment: string;
+  comment?: string | undefined;
 }
 
 export interface BucsInfo {

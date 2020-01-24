@@ -1,24 +1,18 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
-import { AttachedFiles, Buc, InstitutionNames, Sed, Seds } from 'declarations/buc'
 import classNames from 'classnames'
+import { Buc, Sed, Seds } from 'declarations/buc'
+import { T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import React from 'react'
-import { AllowedLocaleString, T } from 'declarations/types'
 import SEDBody from '../SEDBody/SEDBody'
 import './SEDPanel.css'
 
 export interface SEDPanelProps {
-  actions: ActionCreators;
   aktoerId: string;
-  attachments: AttachedFiles;
-  attachmentsError: boolean;
   buc: Buc;
   className ?: string;
   followUpSeds: Seds;
-  institutionNames: InstitutionNames;
-  locale: AllowedLocaleString;
   onSEDNew: (buc: Buc, sed: Sed) => void;
   sed: Sed;
   style: React.CSSProperties;
@@ -28,13 +22,12 @@ export interface SEDPanelProps {
 const allowedStatus: Array<string> = ['new', 'active']
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
-  actions, aktoerId, attachments, attachmentsError, buc, className, followUpSeds, institutionNames, locale, onSEDNew,
+  aktoerId, buc, className, followUpSeds, onSEDNew,
   sed, style, t
 }: SEDPanelProps): JSX.Element => {
   const sedHasOption: Function = (sed: Sed): boolean => {
     return _.includes(allowedStatus, sed.status)
   }
-
   return (
     <div className={classNames('a-buc-c-sedpanel', className)}>
       {!sedHasOption(sed) ? (
@@ -43,8 +36,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           followUpSeds={followUpSeds}
           t={t}
           sed={sed}
-          institutionNames={institutionNames}
-          locale={locale}
           style={style}
           buc={buc}
           onSEDNew={onSEDNew}
@@ -58,18 +49,13 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
               followUpSeds={followUpSeds}
               t={t}
               sed={sed}
-              institutionNames={institutionNames}
-              locale={locale}
               buc={buc}
               onSEDNew={onSEDNew}
             />
           }
         >
           <SEDBody
-            actions={actions}
             aktoerId={aktoerId}
-            attachments={attachments}
-            attachmentsError={attachmentsError}
             buc={buc}
             sed={sed}
             t={t}

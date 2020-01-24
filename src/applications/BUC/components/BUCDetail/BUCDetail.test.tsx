@@ -6,16 +6,22 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BUCDetail, { BUCDetailProps } from './BUCDetail'
 
+const mockSelectors = {
+  locale: 'nb',
+  rinaUrl: 'http://rinaurl.mock.com'
+}
+
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(() => mockSelectors)
+}))
+
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   let wrapper: ReactWrapper
-  const buc: Buc = sampleBucs[0]
+  const buc: Buc = sampleBucs[0] as Buc
   const bucInfo: BucInfo = (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId]
   const initialMockProps: BUCDetailProps = {
     buc: buc,
     bucInfo: bucInfo,
-    institutionNames: {},
-    locale: 'nb',
-    rinaUrl: 'http://rinaurl.mock.com',
     t: jest.fn(t => t)
   }
 

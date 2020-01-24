@@ -1,28 +1,22 @@
+import { openModal } from 'actions/ui'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import SessionMonitor, { SessionMonitorProps } from './SessionMonitor'
 
-jest.mock('i18next', () => {
-  const use = jest.fn()
-  const init = jest.fn()
-  const loadLanguages = jest.fn()
-  const result = {
-    use: use,
-    init: init,
-    loadLanguages: loadLanguages
-  }
-  use.mockImplementation(() => result)
-  return result
-})
+jest.mock('actions/ui', () => ({
+  openModal: jest.fn(),
+  closeModal: jest.fn()
+}))
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 describe('components/SessionMonitor', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SessionMonitorProps = {
     t: jest.fn(t => t),
-    expirationTime: new Date(2020, 1, 1),
-    actions: {
-      openModal: jest.fn()
-    }
+    expirationTime: new Date(2020, 1, 1)
   }
 
   it('Renders', () => {
@@ -54,10 +48,10 @@ describe('components/SessionMonitor', () => {
         sessionExpiredReload={1000}
         {...initialMockProps}
       />)
-    expect(initialMockProps.actions.openModal).not.toHaveBeenCalled()
+    expect(openModal).not.toHaveBeenCalled()
     await new Promise(resolve => {
       setTimeout(() => {
-        expect(initialMockProps.actions.openModal).toHaveBeenCalled()
+        expect(openModal).toHaveBeenCalled()
         done()
         resolve()
       }, 1000)

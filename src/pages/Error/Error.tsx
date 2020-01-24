@@ -1,10 +1,10 @@
-import React from 'react'
-import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import Ui from 'eessi-pensjon-ui'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { T } from 'declarations/types'
+import Ui from 'eessi-pensjon-ui'
+import PT from 'prop-types'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 import './Error.css'
 
 export interface ErrorProps {
@@ -13,9 +13,9 @@ export interface ErrorProps {
   type: string;
 }
 
-export const Error = ({ history, t, type }: ErrorProps) => {
+export const Error = ({ history, type }: ErrorProps) => {
   let title, description
-
+  const { t } = useTranslation()
   switch (type) {
     case 'forbidden':
       title = t('ui:error-saksbehandler-forbidden-title')
@@ -66,5 +66,4 @@ Error.propTypes = {
   type: PT.string.isRequired
 }
 
-// @ts-ignore
-export default withTranslation()(Error)
+export default Error

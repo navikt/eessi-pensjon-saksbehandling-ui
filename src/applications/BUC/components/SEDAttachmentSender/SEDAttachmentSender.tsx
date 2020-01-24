@@ -9,21 +9,33 @@ import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { T } from 'declarations/types'
 
+export interface SEDAttachmentPayload {
+  aktoerId: string;
+  rinaId: string;
+  rinaDokumentId: string;
+}
+
+export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
+  journalpostId: string;
+  dokumentInfoId: string;
+  variantformat: string;
+}
+
 export interface SEDAttachmentSenderProps {
   allAttachments: JoarkFiles;
   attachmentsError ?: boolean;
   className?: string;
   initialStatus ?: string;
   onFinished ?: () => void;
-  payload: any;
+  payload: SEDAttachmentPayload;
   savedAttachments: JoarkFiles;
-  sendAttachmentToSed : (params: any, unsent: JoarkFile) => void;
+  sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkFile) => void;
   t: T;
 }
 
 const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   allAttachments, attachmentsError, className, initialStatus = 'inprogress',
-  payload = {}, onFinished, savedAttachments, sendAttachmentToSed, t
+  payload, onFinished, savedAttachments, sendAttachmentToSed, t
 }: SEDAttachmentSenderProps): JSX.Element => {
   const [sendingAttachment, setSendingAttachment] = useState<boolean>(false)
   const [_storeAttachments, setStoreAttachments] = useState<JoarkFiles>(savedAttachments || [])
@@ -73,7 +85,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
 
       const unsentAttachment: JoarkFile | undefined = _.first(unsentAttachments)
       if (unsentAttachment) {
-        const params = {
+        const params: SEDAttachmentPayloadWithFile = {
           ...payload,
           journalpostId: unsentAttachment.journalpostId,
           dokumentInfoId: unsentAttachment.dokumentInfoId,
@@ -136,7 +148,7 @@ SEDAttachmentSender.propTypes = {
   className: PT.string,
   initialStatus: PT.string,
   onFinished: PT.func,
-  payload: PT.object,
+  payload: PT.any,
   savedAttachments: JoarkFilesPropType.isRequired,
   sendAttachmentToSed: PT.func.isRequired,
   t: TPropType.isRequired

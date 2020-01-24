@@ -1,16 +1,3 @@
-import { Period, Periods } from 'declarations/period'
-import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
-import { AllowedLocaleString, Validation } from 'declarations/types'
-import {
-  ActionCreatorsPropType,
-  AllowedLocaleStringPropType,
-  TPropType,
-  ValidationPropType
-} from 'declarations/types.pt'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
-import React from 'react'
-import PT from 'prop-types'
-import classNames from 'classnames'
 import PeriodAttachments from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodAttachments'
 import PeriodButtons from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodButtons'
 import PeriodCategorySelect from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodCategorySelect'
@@ -24,16 +11,25 @@ import PeriodOther from 'applications/BUC/components/SEDP4000/Period/EditCompone
 import PeriodTitle from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodTitle'
 import PeriodWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodWork'
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
+import classNames from 'classnames'
+import { Period, Periods } from 'declarations/period'
+import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
+import { AllowedLocaleString, Validation } from 'declarations/types'
+import { AllowedLocaleStringPropType, TPropType, ValidationPropType } from 'declarations/types.pt'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import PT from 'prop-types'
+import React from 'react'
 
 export interface PeriodEditProps {
-  actions: ActionCreators;
   blurChildBirthDate?: () => void;
   blurEndDate?: () => void;
   blurStartDate?: () => void;
   cancelPeriodRequest?: () => void;
+  closeModal: () => void;
   locale: AllowedLocaleString;
   localErrors: Validation;
   mode: string;
+  openModal: (m: ModalContent) => void;
   period: Period;
   periods: Periods;
   saveEditPeriod: () => void;
@@ -64,14 +60,15 @@ export interface PeriodEditProps {
 }
 
 const PeriodEdit: React.FC<PeriodEditProps> = ({
-  actions,
   blurChildBirthDate,
   blurEndDate,
   blurStartDate,
   cancelPeriodRequest,
+  closeModal,
   locale,
   localErrors,
   mode,
+  openModal,
   period,
   saveEditPeriod,
   saveNewPeriod,
@@ -155,7 +152,7 @@ const PeriodEdit: React.FC<PeriodEditProps> = ({
               />
             ) : null}
           <PeriodComment period={period} setComment={setComment} t={t} />
-          <PeriodAttachments closeModal={actions.closeModal} openModal={actions.openModal} period={period} setAttachments={setAttachments} t={t} />
+          <PeriodAttachments closeModal={closeModal} openModal={openModal} period={period} setAttachments={setAttachments} t={t} />
           <PeriodButtons cancelPeriodRequest={cancelPeriodRequest!} mode={mode} saveEditPeriod={saveEditPeriod} saveNewPeriod={saveNewPeriod} t={t} />
         </>
       ) : null}
@@ -164,14 +161,15 @@ const PeriodEdit: React.FC<PeriodEditProps> = ({
 }
 
 PeriodEdit.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   blurChildBirthDate: PT.func,
   blurEndDate: PT.func,
   blurStartDate: PT.func,
   cancelPeriodRequest: PT.func,
+  closeModal: PT.func.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
   localErrors: ValidationPropType.isRequired,
   mode: PT.string.isRequired,
+  openModal: PT.func.isRequired,
   period: PeriodPropType.isRequired,
   periods: PeriodsPropType.isRequired,
   saveEditPeriod: PT.func.isRequired,

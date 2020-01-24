@@ -1,84 +1,86 @@
+import { fetchBucsInfo, getInstitutionsListForBucAndCountry, setCurrentBuc, setCurrentSed } from 'actions/buc'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
+import classNames from 'classnames'
+import * as storage from 'constants/storage'
 import {
   Buc,
   BucInfo,
   Bucs,
   BucsInfo,
   Institution,
-  InstitutionNames,
+  InstitutionListMap,
   Participant,
+  RawInstitution,
   Sed
-  , InstitutionListMap, RawInstitution
 } from 'declarations/buc'
-import classNames from 'classnames'
-import * as storage from 'constants/storage'
-import { BucsPropType, InstitutionNamesPropType } from 'declarations/buc.pt'
-import {
-  ActionCreatorsPropType,
-  AllowedLocaleStringPropType,
-  LoadingPropType,
-  RinaUrlPropType, TPropType
-} from 'declarations/types.pt'
+import { BucsPropType } from 'declarations/buc.pt'
+import { Loading, T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { AllowedLocaleString, Loading, RinaUrl, T } from 'declarations/types'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from 'declarations/reducers'
 import './BUCList.css'
 
 export interface BUCListProps {
-  actions: ActionCreators;
-  aktoerId?: string;
+  aktoerId: string;
   bucs: Bucs;
-  bucsInfoList?: Array<string>;
-  bucsInfo?: BucsInfo;
-  institutionList: InstitutionListMap<RawInstitution>;
-  institutionNames: InstitutionNames;
-  loading: Loading;
-  locale?: AllowedLocaleString;
-  rinaUrl?: RinaUrl;
-  sakId?: string;
   setMode: Function;
   t: T;
 }
+
+export interface BUCListSelector {
+  institutionList: InstitutionListMap<RawInstitution> | undefined;
+  loading: Loading;
+  bucsInfo: BucsInfo | undefined;
+  bucsInfoList: Array<string> | undefined
+}
+
+const mapState = (state: State): BUCListSelector => ({
+  institutionList: state.buc.institutionList,
+  loading: state.loading,
+  bucsInfo: state.buc.bucsInfo,
+  bucsInfoList: state.buc.bucsInfoList
+})
 
 type Country = {country: string, buc: string}
 type CountryList = Array<Country>
 
 const BUCList: React.FC<BUCListProps> = ({
-  actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList = {}, institutionNames,
-  loading, locale, rinaUrl, sakId, setMode, t
+  aktoerId, bucs, setMode, t
 }: BUCListProps): JSX.Element => {
   const [gettingBucsInfo, setGettingBucsInfo] = useState<boolean>(false)
   const [mounted, setMounted] = useState<boolean>(false)
+  const { bucsInfo, bucsInfoList, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
+  const dispatch = useDispatch()
 
   const onBUCNew = (): void => {
     setMode('bucnew')
   }
 
   const onSEDNew = (buc: Buc, sed: Sed): void => {
-    actions.setCurrentBuc(buc ? buc.caseId : undefined)
-    actions.setCurrentSed(sed ? sed.id : undefined)
+    dispatch(setCurrentBuc(buc ? buc.caseId! : undefined))
+    dispatch(setCurrentSed(sed ? sed.id : undefined))
     setMode('sednew')
   }
 
   const onBUCEdit = (buc: Buc) => {
-    actions.setCurrentBuc(buc.caseId)
+    dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit')
   }
 
   useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo &&
+    if (aktoerId && !_.isEmpty(bucsInfoList) && !gettingBucsInfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
-      actions.fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
+      dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
       setGettingBucsInfo(true)
     }
-  }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
+  }, [bucsInfoList, gettingBucsInfo, aktoerId])
 
   useEffect(() => {
     if (!mounted && !_.isEmpty(bucs)) {
@@ -113,32 +115,28 @@ const BUCList: React.FC<BUCListProps> = ({
       })
 
       listOfCountries.forEach((country: Country) => {
-        if (!_.find(Object.keys(institutionList), country.country)) {
-          actions.getInstitutionsListForBucAndCountry(country.buc, country.country)
+        if (institutionList && !_.find(Object.keys(institutionList), country.country)) {
+          dispatch(getInstitutionsListForBucAndCountry(country.buc, country.country))
         }
       })
       setMounted(true)
     }
-  }, [institutionList, bucs, mounted, actions])
+  }, [institutionList, bucs, mounted])
 
-  if (aktoerId && sakId && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
+  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
     setMode('bucnew')
   }
 
   return (
     <div className='a-buc-p-buclist'>
       <div className='a-buc-p-buclist__buttons mb-3'>
-        {aktoerId && sakId
-          ? (
-            <Ui.Nav.Knapp
-              id='a-buc-p-buclist__newbuc-button-id'
-              className='a-buc-p-buclist__newbuc-button'
-              onClick={onBUCNew}
-            >
-              {t('buc:form-createNewCase')}
-            </Ui.Nav.Knapp>
-          )
-          : null}
+        <Ui.Nav.Knapp
+          id='a-buc-p-buclist__newbuc-button-id'
+          className='a-buc-p-buclist__newbuc-button'
+          onClick={onBUCNew}
+        >
+          {t('buc:form-createNewCase')}
+        </Ui.Nav.Knapp>
       </div>
       {loading.gettingBUCs
         ? (
@@ -169,9 +167,6 @@ const BUCList: React.FC<BUCListProps> = ({
                     t={t}
                     buc={buc}
                     bucInfo={bucInfo}
-                    institutionNames={institutionNames}
-                    locale={locale!}
-                    rinaUrl={rinaUrl!}
                     onBUCEdit={onBUCEdit}
                   />
                 }
@@ -194,27 +189,20 @@ const BUCList: React.FC<BUCListProps> = ({
                 <SEDList
                   t={t}
                   seds={buc.seds || []}
-                  locale={locale!}
                   buc={buc}
-                  institutionNames={institutionNames}
                   onSEDNew={onSEDNew}
                 />
               </Ui.ExpandingPanel>
             )
           }) : null}
-      {rinaUrl ? <BUCFooter className='w-100 mt-2 mb-2' rinaUrl={rinaUrl} t={t} /> : null}
+      <BUCFooter className='w-100 mt-2 mb-2' t={t} />
     </div>
   )
 }
 
 BUCList.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
-  aktoerId: PT.string,
+  aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
-  rinaUrl: RinaUrlPropType,
-  institutionNames: InstitutionNamesPropType.isRequired,
-  loading: LoadingPropType.isRequired,
-  locale: AllowedLocaleStringPropType.isRequired,
   t: TPropType.isRequired
 }
 

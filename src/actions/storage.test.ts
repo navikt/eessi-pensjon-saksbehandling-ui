@@ -3,6 +3,7 @@ import * as storageActions from 'actions/storage'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
@@ -19,11 +20,11 @@ describe('actions/storage', () => {
   })
 
   it('openStorageModal()', () => {
-    const options = { foo: 'bar' }
-    const generatedResult = storageActions.openStorageModal(options)
+    const modal: ModalContent = { modalTitle: 'title' }
+    const generatedResult = storageActions.openStorageModal(modal)
     expect(generatedResult).toMatchObject({
       type: types.STORAGE_MODAL_OPEN,
-      payload: options
+      payload: modal
     })
   })
 

@@ -1,18 +1,18 @@
+import { setStatusParam } from 'actions/app'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
-import { ActionCreatorsPropType, RinaUrlPropType, TPropType } from 'declarations/types.pt'
+import { RinaUrl, T } from 'declarations/types'
+import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators } from 'eessi-pensjon-ui/dist/declarations/types'
 import PT from 'prop-types'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import CupPNG from 'resources/images/artwork/kop.png'
 import MousePNG from 'resources/images/artwork/NAVmusematte.png'
 import MapPNG from 'resources/images/artwork/saksstatus.png'
-import { RinaUrl, T } from 'declarations/types'
 import './BUCEmpty.css'
 
 export interface BUCEmptyProps {
-  actions: ActionCreators;
   aktoerId?: string;
   onBUCNew: Function;
   rinaUrl?: RinaUrl;
@@ -21,11 +21,12 @@ export interface BUCEmptyProps {
 }
 
 const BUCEmpty: React.FC<BUCEmptyProps> = ({
-  actions, aktoerId, onBUCNew, rinaUrl, sakId, t
+  aktoerId, onBUCNew, rinaUrl, sakId, t
 }: BUCEmptyProps): JSX.Element => {
   const [_sakId, setSakId] = useState<string | undefined>(sakId)
   const [_aktoerId, setAktoerId] = useState<string | undefined>(aktoerId)
   const [validation, setValidation] = useState<string | undefined>(undefined)
+  const dispatch = useDispatch()
 
   const onAktoerIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidation(undefined)
@@ -36,7 +37,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
     if (!_aktoerId || !_aktoerId.match(/^\d+$/)) {
       setValidation(t('buc:validation-noAktoerId'))
     } else {
-      actions.setStatusParam('aktoerId', _aktoerId)
+      dispatch(setStatusParam('aktoerId', _aktoerId))
     }
   }
 
@@ -49,7 +50,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
     if (!_sakId || !_sakId.match(/^\d+$/)) {
       setValidation(t('buc:validation-noSakId'))
     } else {
-      actions.setStatusParam('sakId', _sakId)
+      dispatch(setStatusParam('sakId', _sakId))
     }
   }
 
@@ -80,7 +81,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               value={_aktoerId || ''}
               bredde='fullbredde'
               onChange={onAktoerIdChange}
-              feil={validation ? validation : false}
+              feil={validation || false}
             />
             <Ui.Nav.Hovedknapp
               id='a-buc-p-bucempty__aktoerid-button-id'
@@ -100,7 +101,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               value={_sakId || ''}
               bredde='fullbredde'
               onChange={onSakIdChange}
-              feil={validation ? validation : false}
+              feil={validation || false}
             />
             <Ui.Nav.Hovedknapp
               id='a-buc-p-bucempty__sakid-button-id'
@@ -112,16 +113,14 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
           </div>
         ) : null}
       </div>
-      {rinaUrl ? <BUCFooter className='w-100 mt-2 mb-2' rinaUrl={rinaUrl} t={t} /> : null}
+      {rinaUrl ? <BUCFooter className='w-100 mt-2 mb-2' t={t} /> : null}
     </>
   )
 }
 
 BUCEmpty.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   aktoerId: PT.string,
   onBUCNew: PT.func.isRequired,
-  rinaUrl: RinaUrlPropType,
   sakId: PT.string,
   t: TPropType.isRequired
 }

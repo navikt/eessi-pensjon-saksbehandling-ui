@@ -1,30 +1,21 @@
+import { getInstitutionsListForBucAndCountry } from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import { AttachedFiles, Buc, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from 'declarations/buc'
-import {
-  AttachedFilesPropType,
-  BucPropType,
-  InstitutionListMapPropType,
-  InstitutionNamesPropType
-} from 'declarations/buc.pt'
+import { AttachedFiles, Buc, InstitutionListMap, RawInstitution, Sed } from 'declarations/buc'
+import { AttachedFilesPropType, BucPropType, InstitutionListMapPropType } from 'declarations/buc.pt'
 import { Country } from 'declarations/period'
 import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
-import {
-  ActionCreatorsPropType,
-  AllowedLocaleStringPropType,
-  LoadingPropType,
-  ValidationPropType
-} from 'declarations/types.pt'
+import { AllowedLocaleStringPropType, LoadingPropType, ValidationPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
-import { ActionCreators, Labels } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Labels } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 export interface Step1Props {
-  actions: ActionCreators;
   _attachments: AttachedFiles;
   buc: Buc;
   _countries: Array<string>;
@@ -32,7 +23,6 @@ export interface Step1Props {
   currentSed ?: string | undefined;
   _institutions: Array<string>;
   institutionList: InstitutionListMap<RawInstitution>;
-  institutionNames: InstitutionNames | undefined;
   layout? : string;
   loading: Loading;
   locale: AllowedLocaleString;
@@ -59,7 +49,7 @@ const placeholders: Labels = {
 }
 
 const Step1: React.FC<Step1Props> = ({
-  actions, _attachments, buc, _countries, countryList = [], currentSed, _institutions, institutionList, institutionNames,
+  _attachments, buc, _countries, countryList = [], currentSed, _institutions, institutionList,
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
 }: Step1Props): JSX.Element => {
@@ -70,6 +60,8 @@ const Step1: React.FC<Step1Props> = ({
   const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort((a: Country, b: Country) => a.label.localeCompare(b.label)) : []
   const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
   const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
+  const dispatch = useDispatch()
+
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
       if (_.includes(_countries, landkode)) {
@@ -140,7 +132,7 @@ const Step1: React.FC<Step1Props> = ({
       const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
 
       addedCountries.map(country => {
-        return actions.getInstitutionsListForBucAndCountry(buc.type, country)
+        return dispatch(getInstitutionsListForBucAndCountry(buc.type!, country))
       })
       removedCountries.forEach(country => {
         const newInstitutions = _institutions.filter(item => {
@@ -151,7 +143,7 @@ const Step1: React.FC<Step1Props> = ({
       })
       setCountries(newCountries)
       validateCountries(newCountries)
-    }, [_countries, _institutions, actions, buc.type, setCountries, setInstitutions, validateCountries])
+    }, [_countries, dispatch, _institutions, buc.type, setCountries, setInstitutions, validateCountries])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
@@ -350,7 +342,6 @@ const Step1: React.FC<Step1Props> = ({
               <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Ui.Nav.Undertittel>
               <InstitutionList
                 t={t}
-                institutionNames={institutionNames!}
                 institutions={_institutions.map(item => {
                   var [country, institution] = item.split(':')
                   return {
@@ -389,7 +380,6 @@ const Step1: React.FC<Step1Props> = ({
 }
 
 Step1.propTypes = {
-  actions: ActionCreatorsPropType.isRequired,
   _attachments: AttachedFilesPropType.isRequired,
   buc: BucPropType.isRequired,
   _countries: PT.arrayOf(PT.string.isRequired).isRequired,
@@ -397,7 +387,6 @@ Step1.propTypes = {
   currentSed: PT.string,
   _institutions: PT.arrayOf(PT.string.isRequired).isRequired,
   institutionList: InstitutionListMapPropType.isRequired,
-  institutionNames: InstitutionNamesPropType.isRequired,
   layout: PT.string,
   loading: LoadingPropType.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,

@@ -16,9 +16,11 @@ import ReactDOM from 'react-dom'
 import { createBrowserHistory } from 'history'
 import { Switch, Redirect, Route, Router } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
-import { StoreProvider } from 'store'
-import Loadable from 'loadable'
-import reducer, { initialState } from 'reducer'
+import { combineReducers, applyMiddleware, createStore, Store } from 'redux'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+// import Loadable from 'loadable'
+import * as reducers from './reducers'
 import { IS_PRODUCTION } from 'constants/environment'
 import 'moment'
 import 'moment/locale/en-gb'
@@ -31,11 +33,15 @@ import 'eessi-pensjon-ui/dist/minibootstrap.css'
 import 'eessi-pensjon-ui/dist/nav.css'
 import 'index.css'
 import 'index_highContrast.css'
+import Error from './pages/Error/Error'
+import IndexPage from './pages/IndexPage/IndexPage'
 
+const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
+/*
 const Pages = {
   Error: Loadable({ loader: () => import('./pages/Error/Error') }),
   IndexPage: Loadable({ loader: () => import('./pages/IndexPage/IndexPage') })
-}
+} */
 
 window.onerror = (msg, src, lineno, colno, error) => {
   console.log('error', msg, src, lineno, colno, error)
@@ -49,12 +55,12 @@ if (!IS_PRODUCTION) {
 
 const renderErrorPage = (type: string) => {
   // @ts-ignore
-  return () => <Pages.Error type={type} />
+  return () => <Error type={type} />
 }
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>
-    <StoreProvider initialState={initialState} reducer={reducer}>
+    <Provider store={store}>
       <Suspense fallback={<span>...</span>}>
         <Router history={createBrowserHistory()}>
           <Switch>
@@ -62,12 +68,12 @@ ReactDOM.render(
             <Route path={routes.NOT_INVITED} render={renderErrorPage('notInvited')} />
             <Route path={routes.FORBIDDEN} render={renderErrorPage('forbidden')} />
             <Route path={routes.ROOT + ':PATH+'} render={renderErrorPage('error')} />
-            <AuthenticatedRoute path={routes.ROOT} component={Pages.IndexPage} />
+            <AuthenticatedRoute path={routes.ROOT} component={IndexPage} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
           </Switch>
         </Router>
       </Suspense>
-    </StoreProvider>
+    </Provider>
   </I18nextProvider>,
   document.getElementById('root')
 )
