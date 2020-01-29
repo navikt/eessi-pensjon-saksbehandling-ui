@@ -65,3 +65,5 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: nais/dev-fss-q2.yml
           IMAGE: ${{ env.IMAGE }}
+
+
