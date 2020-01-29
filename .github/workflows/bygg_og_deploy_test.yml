@@ -38,8 +38,8 @@ jobs:
       # BYGGER APP
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
-          with:
-            node-version: ${{ matrix.node-version }}
+        with:
+          node-version: ${{ matrix.node-version }}
         run: |
           npm install
           npm audit --json
