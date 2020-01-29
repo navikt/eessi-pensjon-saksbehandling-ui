@@ -49,7 +49,7 @@ export const Overview: React.FC<OverviewProps> = ({ onUpdate, skipMount = false,
       dispatch(getPersonInfo(aktoerId))
       setMounted(true)
     }
-  }, [mounted, aktoerId])
+  }, [mounted, dispatch, aktoerId])
 
   const onExpandablePanelChange = (): void => {
     const newWidget = _.cloneDeep(widget)

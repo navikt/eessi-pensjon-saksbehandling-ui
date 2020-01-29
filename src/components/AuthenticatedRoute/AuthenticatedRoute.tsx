@@ -67,7 +67,7 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
     }
 
     parseSearchParams()
-  }, [location, _params])
+  }, [dispatch, location,  _params])
 
   useEffect(() => {
     if (!mounted) {
@@ -84,7 +84,7 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
         setMounted(true)
       }
     }
-  }, [loggedIn, requestingUserInfo, requestingLogin, mounted])
+  }, [dispatch, loggedIn, requestingUserInfo, requestingLogin, mounted])
 
   if (!mounted) {
     return (

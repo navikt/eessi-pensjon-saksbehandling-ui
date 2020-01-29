@@ -55,7 +55,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       dispatch(listJoarkFiles(aktoerId))
     }
     setMounted(true)
-  }, [mounted, list, loadingJoarkList, aktoerId])
+  }, [aktoerId, dispatch, list, loadingJoarkList, mounted])
 
   const equalFiles: Function = (a: JoarkFile, b: JoarkFile): boolean => {
     if (!a && !b) { return true }
@@ -67,7 +67,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   const handleModalClose = useCallback(() => {
     dispatch(setPreviewJoarkFile(undefined))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (file && (!_file ||

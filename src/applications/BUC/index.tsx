@@ -72,26 +72,26 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       }
       setMounted(true)
     }
-  }, [mounted, rinaUrl])
+  }, [dispatch, mounted, rinaUrl])
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
       dispatch(fetchBucs(aktoerId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
-  }, [aktoerId, bucs, loading.gettingBUCs, sakId])
+  }, [aktoerId, bucs, dispatch, loading.gettingBUCs, sakId])
 
   useEffect(() => {
     if (avdodfnr && sakId && avdodBucs === undefined && !loading.gettingAvdodBUCs) {
       dispatch(fetchAvdodBucs(avdodfnr))
     }
-  }, [avdodBucs, avdodfnr, loading.gettingAvdodBUCs, sakId])
+  }, [avdodBucs, avdodfnr, dispatch, loading.gettingAvdodBUCs, sakId])
 
   useEffect(() => {
     if (!sakType && !loading.gettingSakType && sakId && aktoerId) {
       dispatch(getSakType(sakId, aktoerId))
     }
-  }, [aktoerId, loading.gettingSakType, sakType, sakId])
+  }, [aktoerId, dispatch, loading.gettingSakType, sakType, sakId])
 
   const _setMode = useCallback((mode) => {
     dispatch(setMode(mode))
@@ -106,7 +106,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         }
       }
     }
-  }, [allowFullScreen, onRestoreFocus, onFullFocus])
+  }, [allowFullScreen, dispatch, onRestoreFocus, onFullFocus])
 
   useEffect(() => {
     if (loading.gettingBUCs && mode !== 'buclist') {
@@ -157,7 +157,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
       {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
       {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} t={t} /> : null}
-      {mode === 'sednew' ? <SEDNew t={t} bucs={combinedBucs} setMode={_setMode} /> : null}
+      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
     </div>
   )
 }

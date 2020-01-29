@@ -49,7 +49,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
-  }, [loading, tagList])
+  }, [dispatch, loading, tagList])
 
   useEffect(() => {
     if (!allTags && tagList) {

@@ -57,7 +57,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       setSeeAttachmentPanel(false)
       dispatch(resetSedAttachments())
     }
-  }, [attachmentsSent, sendingAttachments])
+  }, [attachmentsSent, dispatch, sendingAttachments])
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkFile): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))

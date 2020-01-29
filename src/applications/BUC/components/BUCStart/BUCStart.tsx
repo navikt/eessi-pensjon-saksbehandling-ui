@@ -10,7 +10,7 @@ import {
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import { Buc, BucsInfo, Tags } from 'declarations/buc'
-import { BucPropType } from 'declarations/buc.pt'
+import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
 import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
@@ -18,17 +18,16 @@ import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 
 export interface BUCStartProps {
   aktoerId: string;
-  buc?: Buc;
   onTagsChanged?: (t: Array<string>) => void;
   setMode: (mode: string) => void;
   t: T;
 }
 
 export interface BUCStartSelector {
+  buc?: Buc;
   bucParam: string | undefined;
   locale: AllowedLocaleString;
   loading: Loading;
@@ -54,10 +53,9 @@ const placeholders: {[k: string]: string} = {
 }
 
 const BUCStart: React.FC<BUCStartProps> = ({
-  aktoerId, buc, onTagsChanged, setMode, t
+  aktoerId, onTagsChanged, setMode, t
 }: BUCStartProps): JSX.Element | null => {
-  const { locale, loading, bucParam, bucsInfo, bucList, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
-
+  const { buc, locale, loading, bucParam, bucsInfo, bucList, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Array<string>>([])
@@ -80,7 +78,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
-  }, [loading, bucList, subjectAreaList, tagList])
+  }, [bucList, dispatch, loading, subjectAreaList, tagList])
 
   useEffect(() => {
     if (!isBucCreated && buc) {
@@ -92,7 +90,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       } as SaveBucsInfoProps))
       setIsBucCreated(true)
     }
-  }, [loading, bucsInfo, aktoerId, buc, _buc, _tags, isBucCreated])
+  }, [aktoerId, buc, _buc, bucsInfo, dispatch, loading, _tags, isBucCreated])
 
   useEffect(() => {
     if (!hasBucInfoSaved && loading.savingBucsInfo) {
@@ -313,7 +311,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
 BUCStart.propTypes = {
   aktoerId: PT.string.isRequired,
-  buc: BucPropType,
   onTagsChanged: PT.func,
   t: TPropType.isRequired
 }

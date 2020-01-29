@@ -38,7 +38,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
   const dispatch = useDispatch()
 
-  const onMessageHandler = (e: MessageEvent) => {
+  const onMessageHandler = useCallback((e: MessageEvent) => {
     setStatus(RECEIVING)
     console.log('Receiving websocket message')
     try {
@@ -55,7 +55,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
     } finally {
       setStatus(CONNECTED)
     }
-  }
+  }, [dispatch])
 
   const websocketSubscribe = useCallback((connection) => {
     const ids = []

@@ -59,7 +59,7 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
       checkTimeout()
       setMounted(true)
     }
-  }, [checkInterval, expirationTime, millisecondsForWarning, mounted, now, sessionExpiredReload, t])
+  }, [checkInterval, dispatch, expirationTime, millisecondsForWarning, mounted, now, sessionExpiredReload, t])
 
   return <div className='c-sessionMonitor' />
 }

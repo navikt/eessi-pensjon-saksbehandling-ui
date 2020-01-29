@@ -45,12 +45,9 @@ import Step2 from './Step2'
 export interface SEDStartProps {
   aktoerId?: string;
   bucs: Bucs;
-  currentBuc?: string;
-  currentSed ?: string;
   initialAttachments ?: AttachedFiles;
   initialSed ?: string | undefined;
   initialStep ?: number;
-  sakId?: string;
   setMode: (s: string) => void;
   t: T;
 }
@@ -61,9 +58,12 @@ export interface SEDStartSelector {
   avdodfnr: string | undefined;
   bucsInfoList: Array<string> | undefined;
   countryList: Array<string> | undefined;
+  currentBuc ?: string;
+  currentSed ?: string;
   institutionList: InstitutionListMap<RawInstitution> | undefined;
   loading: Loading;
   locale: AllowedLocaleString;
+  sakId?: string;
   sed: Sed | undefined;
   sedList: Array<string> | undefined;
   p4000info: P4000Info | undefined;
@@ -76,9 +76,12 @@ const mapState = (state: State): SEDStartSelector => ({
   avdodfnr: state.app.params.avdodfnr,
   bucsInfoList: state.buc.bucsInfoList,
   countryList: state.buc.countryList,
+  currentBuc: state.buc.currentBuc,
+  currentSed : state.buc.currentSed,
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
+  sakId: state.app.params.sakId,
   sed: state.buc.sed,
   sedList: state.buc.sedList,
   p4000info: state.buc.p4000info,
@@ -86,11 +89,10 @@ const mapState = (state: State): SEDStartSelector => ({
 })
 
 export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element | null => {
-  const { aktoerId, bucs, currentBuc, currentSed, initialAttachments = {}, initialSed = undefined } = props
-  const { initialStep = 0, sakId, setMode, t } = props
+  const { aktoerId, bucs, initialAttachments = {}, initialSed = undefined , initialStep = 0, setMode, t } = props
   const {
-    attachments, attachmentsError, avdodfnr, bucsInfoList, countryList, institutionList, loading, locale,
-    sed, sedList, p4000info, vedtakId
+    attachments, attachmentsError, avdodfnr, bucsInfoList, currentBuc, currentSed, countryList, institutionList, loading, locale,
+    sakId, sed, sedList, p4000info, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const dispatch = useDispatch()
 
@@ -374,9 +376,8 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
 SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
-  currentBuc: PT.string.isRequired,
   initialAttachments: AttachedFilesPropType,
-  sakId: PT.string.isRequired,
+  setMode: PT.func.isRequired,
   t: TPropType.isRequired
 }
 
