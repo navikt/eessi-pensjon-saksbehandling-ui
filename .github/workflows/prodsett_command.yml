@@ -31,3 +31,4 @@ jobs:
           RESOURCE: nais/${{ github.event.client_payload.slash_command.arg2 }}-${{ github.event.client_payload.slash_command.arg3 }}.yml
           VARS: nais/${{ github.event.client_payload.slash_command.arg2 }}-${{ github.event.client_payload.slash_command.arg3 }}.json
           IMAGE: docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-frontend-ui-fss:${{ github.event.client_payload.slash_command.arg1 }}
+
