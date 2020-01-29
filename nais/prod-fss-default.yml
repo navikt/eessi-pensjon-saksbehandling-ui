@@ -2,7 +2,7 @@ kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
   name: eessi-pensjon-saksbehandling-ui
-  namespace: q2
+  namespace: default
   labels:
     team: eessipensjon
 spec:
@@ -10,15 +10,15 @@ spec:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
     - name: NAV_DEKORATOREN_URL
-      value: https://www-q0.nav.no
+      value: https://www.nav.no
     - name: ZONE
       value: fss
     - name: PUBLIC_WEBSOCKETURL
-      value: https://eessi-pensjon-saksbehandling-ui-q2.nais.preprod.local/
-  image: repo.adeo.no:5443/eessi-pensjon-frontend-ui-fss
+      value: https://eessi-pensjon-saksbehandling-ui.nais.adeo.no/
+  image: {{ image }}
   ingresses:
-    - https://eessi-pensjon-saksbehandling-ui.nais.preprod.local
-    - https://pensjon-utland-q2.nais.preprod.local
+    - https://eessi-pensjon-saksbehandling-ui-fss.nais.adeo.no
+    - https://pensjon-utland.nais.adeo.no
   liveness:
     path: internal/isAlive
     port: 8080

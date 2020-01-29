@@ -15,7 +15,7 @@ spec:
       value: fss
     - name: PUBLIC_WEBSOCKETURL
       value: https://eessi-pensjon-saksbehandling-ui-q2.nais.preprod.local/
-  image: repo.adeo.no:5443/eessi-pensjon-frontend-ui-fss
+  image: {{ image }}
   ingresses:
     - https://eessi-pensjon-saksbehandling-ui.nais.preprod.local
     - https://pensjon-utland-q2.nais.preprod.local
