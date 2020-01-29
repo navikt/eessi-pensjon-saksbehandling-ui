@@ -35,11 +35,14 @@ jobs:
       - name: 'Set Image'
         run: echo "::set-env name=IMAGE::docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-saksbehandling-ui:${{ steps.previoustag.outputs.tag }}"
 
-      # BYGGER APP
+      # SETTER OPP NODE
       - name: Use Node.js ${{ matrix.node-version }}
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      # BYGGER APP
+      - name: 'Bygg'
         run: |
           npm install
           npm audit --json
