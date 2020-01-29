@@ -1,4 +1,4 @@
-FROM pus/decorator:234.20200122.1347
+FROM navikt/pus-decorator
 ENV APPLICATION_NAME=eessipen
 ENV PUBLIC_ZONE=fss
 ENV DISABLE_FRONTEND_LOGGER=true
