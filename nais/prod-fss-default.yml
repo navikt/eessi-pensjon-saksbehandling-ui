@@ -1,7 +1,7 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: eessi-pensjon-saksbehandling-ui
+  name: eessi-pensjon-frontend-ui-fss
   namespace: default
   labels:
     team: eessipensjon
@@ -14,10 +14,10 @@ spec:
     - name: ZONE
       value: fss
     - name: PUBLIC_WEBSOCKETURL
-      value: https://eessi-pensjon-saksbehandling-ui.nais.adeo.no/
+      value: https://eessi-pensjon-frontend-ui-fss.nais.adeo.no/
   image: {{ image }}
   ingresses:
-    - https://eessi-pensjon-saksbehandling-ui-fss.nais.adeo.no
+    - https://eessi-pensjon-frontend-ui-fss.nais.adeo.no
     - https://pensjon-utland.nais.adeo.no
   liveness:
     path: internal/isAlive
