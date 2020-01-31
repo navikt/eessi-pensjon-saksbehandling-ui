@@ -43,7 +43,7 @@ jobs:
 
       # OPPRETTER IMAGE VARIABEL MED VERSJONSNUMMER
       - name: 'Set Image'
-        run: echo "::set-env name=IMAGE::docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-selvbetjening-ui:${{ steps.previoustag.outputs.tag }}"
+        run: echo "::set-env name=IMAGE::docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-saksbehandling-ui:${{ steps.previoustag.outputs.tag }}"
 
       # SETTER OPP NODE
       - name: Use Node.js ${{ matrix.node-version }}
