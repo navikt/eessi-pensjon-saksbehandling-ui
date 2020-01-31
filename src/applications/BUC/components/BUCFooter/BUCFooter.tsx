@@ -1,21 +1,21 @@
 import classNames from 'classnames'
-import { RinaUrl, T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import './BUCFooter.css'
 
 export interface BUCFooterProps {
   className ?: string;
-  t: T
 }
 
 const BUCFooter: React.FC<BUCFooterProps> = ({
-  className, t
+  className
 }: BUCFooterProps): JSX.Element => {
+  const { t } = useTranslation()
   const rinaUrl: RinaUrl | undefined = useSelector<State, RinaUrl | undefined>(state => state.buc.rinaUrl)
   if (!rinaUrl) {
     return <div />
@@ -38,7 +38,6 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
 }
 
 BUCFooter.propTypes = {
-  className: PT.string,
-  t: TPropType.isRequired
+  className: PT.string
 }
 export default BUCFooter

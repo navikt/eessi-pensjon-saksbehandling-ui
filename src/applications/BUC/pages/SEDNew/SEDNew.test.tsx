@@ -9,8 +9,7 @@ describe('applications/BUC/widgets/SEDNew/SEDNew', () => {
   let wrapper: ReactWrapper
   const initialMockProps = {
     bucs: {},
-    setMode: jest.fn(),
-    t: jest.fn(t => t)
+    setMode: jest.fn()
   }
   it('Renders', () => {
     wrapper = mount(<SEDNew {...initialMockProps} />)

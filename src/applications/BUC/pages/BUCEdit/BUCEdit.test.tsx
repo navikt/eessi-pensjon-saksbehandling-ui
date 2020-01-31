@@ -12,8 +12,7 @@ jest.mock('react-redux');
 const defaultSelector = {
   loading: {},
   locale: 'nb',
-  bucsInfo: {} as BucsInfo,
-  currentBuc: '195440'
+  bucsInfo: {} as BucsInfo
 };
 (useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
@@ -30,8 +29,8 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   const initialMockProps: BUCEditProps = {
     aktoerId: '123',
     bucs: mockBucs,
-    setMode: jest.fn(),
-    t: jest.fn(t => t)
+    currentBuc: '195440',
+    setMode: jest.fn()
   }
 
   beforeEach(() => {
@@ -53,8 +52,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Renders null without currentBuc', () => {
-    setup({ currentBuc: undefined })
-    wrapper = mount(<BUCEdit {...initialMockProps} />)
+    wrapper = mount(<BUCEdit {...initialMockProps} currentBuc={undefined} />)
     expect(wrapper.isEmptyRender()).toBeTruthy()
   })
 

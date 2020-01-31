@@ -16,7 +16,6 @@ describe('pages/Error', () => {
   let wrapper: ReactWrapper
   const initialMockProps: ErrorProps = {
     history: {},
-    t: jest.fn(t => t),
     type: 'mockType'
   }
 

@@ -80,19 +80,6 @@ export const InstitutionPropType = PT.shape({
 
 export const InstitutionsPropType = PT.arrayOf(InstitutionPropType.isRequired)
 
-export const ErrorBucPropType = PT.shape({
-  type: PT.string.isRequired,
-  caseId: PT.string.isRequired,
-  creator: PT.oneOf([null]).isRequired,
-  sakType: PT.oneOf([null]).isRequired,
-  status: PT.oneOf([null]).isRequired,
-  startDate: PT.oneOf([null]).isRequired,
-  lastUpdate: PT.oneOf([null]).isRequired,
-  institusjon: PT.oneOf([null]).isRequired,
-  seds: PT.oneOf([null]).isRequired,
-  error: PT.string.isRequired
-})
-
 export const ValidBucPropType = PT.shape({
   aktoerId: PT.string,
   caseId: PT.string.isRequired,
@@ -105,6 +92,20 @@ export const ValidBucPropType = PT.shape({
   startDate: PT.number.isRequired,
   seds: PT.arrayOf(SedPropType.isRequired).isRequired,
   type: PT.string.isRequired
+})
+
+export const ErrorBucPropType = PT.shape({
+  type: PT.string.isRequired,
+  caseId: PT.string.isRequired,
+  creator: () => null,
+  description: () => null,
+  institusjon: () => null,
+  lastUpdate: () => null,
+  sakType: () => null,
+  status: () => null,
+  startDate: () => null,
+  seds: () => null,
+  error: PT.string
 })
 
 export const BucPropType = PT.oneOfType([ValidBucPropType, ErrorBucPropType])

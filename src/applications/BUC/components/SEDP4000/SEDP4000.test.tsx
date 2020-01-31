@@ -27,8 +27,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     aktoerId: '123',
     locale: 'nb',
     showButtons: true,
-    setShowButtons: jest.fn(),
-    t: jest.fn(t => t)
+    setShowButtons: jest.fn()
   }
 
   beforeEach(() => {

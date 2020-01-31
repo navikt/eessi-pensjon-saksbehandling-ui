@@ -1,12 +1,11 @@
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
-import { T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import './JoarkBrowser.css'
@@ -36,15 +35,14 @@ export interface JoarkBrowserProps {
   mode: string;
   onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void;
   onPreviewFile?: (f: JoarkFileWithContent) => void;
-  t: T
 }
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
-  files, mode = 'view', onFilesChange, onPreviewFile, t
+  files, mode = 'view', onFilesChange, onPreviewFile
 }: JoarkBrowserProps): JSX.Element => {
   const { aktoerId, file, list, loadingJoarkList, loadingJoarkFile, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector = useSelector<State, JoarkBrowserSelector>(mapState)
   const dispatch = useDispatch()
-
+  const { t } = useTranslation()
   const [_file, setFile] = useState<JoarkFileWithContent | undefined>(file)
   const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(previewFile)
   const [clickedPreviewFile, setClickedPreviewFile] = useState<any>(undefined)
@@ -255,8 +253,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 JoarkBrowser.propTypes = {
   files: PT.arrayOf(PT.oneOfType([JoarkFilePropType, JoarkFileWithContentPropType]).isRequired).isRequired,
   onFilesChange: PT.func.isRequired,
-  onPreviewFile: PT.func,
-  t: TPropType.isRequired
+  onPreviewFile: PT.func
 }
 
 export default JoarkBrowser

@@ -1,3 +1,4 @@
+import { BUCMode } from 'applications/BUC'
 import * as types from 'constants/actionTypes'
 import {
   AttachedFiles,
@@ -34,7 +35,7 @@ export interface BucState {
   p4000list: Array<string> | undefined,
   institutionList: InstitutionListMap<RawInstitution> | undefined,
   institutionNames: InstitutionNames;
-  mode: string;
+  mode: BUCMode;
   rinaId: string | undefined;
   rinaUrl: RinaUrl | undefined;
   tagList: Array<string> | undefined;
@@ -78,7 +79,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_CURRENTBUC_SET:
-      console.log(action)
       return {
         ...state,
         currentBuc: (action as ActionWithPayload).payload

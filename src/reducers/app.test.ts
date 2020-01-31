@@ -61,7 +61,6 @@ describe('reducers/app', () => {
       userRole: 'mockRole',
       allowed: 'mockAllowed',
       loggedIn: true,
-      userStatus: 'OK',
       loggedTime: new Date(mockNowDate),
       expirationTime: new Date(mockExpirationDate)
     })
@@ -83,7 +82,6 @@ describe('reducers/app', () => {
       userRole: 'mockRole',
       allowed: 'mockAllowed',
       loggedIn: true,
-      userStatus: 'OK',
       loggedTime: expect.any(Date),
       expirationTime: expect.any(Date)
     })
@@ -97,8 +95,7 @@ describe('reducers/app', () => {
       })
     ).toEqual({
       ...initialAppState,
-      loggedIn: false,
-      userStatus: 'ERROR'
+      loggedIn: false
     })
   })
 

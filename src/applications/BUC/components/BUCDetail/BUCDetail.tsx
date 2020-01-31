@@ -3,21 +3,20 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import classNames from 'classnames'
 import { Buc, BucInfo, Institutions } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString, RinaUrl, T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
+import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import './BUCDetail.css'
 
 export interface BUCDetailProps {
   buc: Buc;
   bucInfo: BucInfo;
   className ?: string;
-  t: T;
 }
 
 interface BUCDetailSelector {
@@ -31,10 +30,10 @@ const mapState = (state: State): BUCDetailSelector => ({
 })
 
 const BUCDetail: React.FC<BUCDetailProps> = ({
-  buc, bucInfo, className, t
+  buc, bucInfo, className
 }: BUCDetailProps): JSX.Element => {
   const { locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
-
+  const { t } = useTranslation()
   return (
     <Ui.Nav.EkspanderbartpanelBase
       id='a-buc-c-bucdetail__panel-id'
@@ -69,7 +68,6 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
               institutions={[buc.creator!]}
               locale={locale}
               type='joined'
-              t={t}
             />
           </dd>
           <dt className='odd'>
@@ -114,7 +112,6 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
         </Ui.Nav.Undertittel>
         <div className='a-buc-c-bucdetail__institutions'>
           <InstitutionList
-            t={t}
             institutions={(buc.institusjon as Institutions)}
             locale={locale}
             type='joined'
@@ -125,11 +122,11 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   )
 }
 
+// @ts-ignore
 BUCDetail.propTypes = {
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType.isRequired,
-  className: PT.string,
-  t: TPropType.isRequired
+  className: PT.string
 }
 
 export default BUCDetail

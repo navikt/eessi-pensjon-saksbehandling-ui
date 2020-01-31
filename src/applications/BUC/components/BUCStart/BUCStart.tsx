@@ -11,19 +11,18 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import { Buc, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { AllowedLocaleString, Loading, Option, Validation } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 export interface BUCStartProps {
   aktoerId: string;
   onTagsChanged?: (t: Array<string>) => void;
   setMode: (mode: string) => void;
-  t: T;
 }
 
 export interface BUCStartSelector {
@@ -53,7 +52,7 @@ const placeholders: {[k: string]: string} = {
 }
 
 const BUCStart: React.FC<BUCStartProps> = ({
-  aktoerId, onTagsChanged, setMode, t
+  aktoerId, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
   const { buc, locale, loading, bucParam, bucsInfo, bucList, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
@@ -65,7 +64,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   })
   const [isBucCreated, setIsBucCreated] = useState<boolean>(false)
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState<boolean>(false)
-
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -210,7 +209,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const getSpinner: Function = (text:string): JSX.Element => {
-    return <Ui.WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} />
+    return <Ui.WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} oneLine />
   }
 
   const tagObjectList: Tags = tagList ? tagList.map(tag => {
@@ -311,8 +310,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
 BUCStart.propTypes = {
   aktoerId: PT.string.isRequired,
-  onTagsChanged: PT.func,
-  t: TPropType.isRequired
+  onTagsChanged: PT.func
 }
 
 export default BUCStart

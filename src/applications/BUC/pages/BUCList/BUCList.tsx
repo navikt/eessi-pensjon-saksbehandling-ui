@@ -3,6 +3,7 @@ import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
+import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import * as storage from 'constants/storage'
 import {
@@ -17,21 +18,20 @@ import {
   Sed
 } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
-import { Loading, T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
+import { Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import './BUCList.css'
 
 export interface BUCListProps {
   aktoerId: string;
   bucs: Bucs;
-  setMode: Function;
-  t: T;
+  setMode: (mode: BUCMode) => void;
 }
 
 export interface BUCListSelector {
@@ -52,12 +52,12 @@ type Country = {country: string, buc: string}
 type CountryList = Array<Country>
 
 const BUCList: React.FC<BUCListProps> = ({
-  aktoerId, bucs, setMode, t
+  aktoerId, bucs, setMode
 }: BUCListProps): JSX.Element => {
-  const [gettingBucsInfo, setGettingBucsInfo] = useState<boolean>(false)
   const [mounted, setMounted] = useState<boolean>(false)
   const { bucsInfo, bucsInfoList, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const onBUCNew = (): void => {
     setMode('bucnew')
@@ -75,12 +75,11 @@ const BUCList: React.FC<BUCListProps> = ({
   }
 
   useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo &&
+    if (!_.isEmpty(bucsInfoList) && !loading.gettingBUCinfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
-      setGettingBucsInfo(true)
     }
-  }, [aktoerId, bucsInfoList, dispatch, loading, gettingBucsInfo])
+  }, [aktoerId, bucsInfoList, dispatch, loading])
 
   useEffect(() => {
     if (!mounted && !_.isEmpty(bucs)) {
@@ -153,18 +152,17 @@ const BUCList: React.FC<BUCListProps> = ({
           .filter(bucFilter)
           .sort(bucSorter)
           .map((buc: Buc, index: number) => {
-            const bucId = buc.caseId
-            const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId!] : {} as BucInfo
+            const bucId: string = buc.caseId!
+            const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {} as BucInfo
             return (
               <Ui.ExpandingPanel
-                collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
                 id={'a-buc-p-buclist__buc-' + bucId}
-                className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
                 key={index}
+                collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
+                className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
                 style={{ animationDelay: (0.2 * index) + 's' }}
                 heading={
                   <BUCHeader
-                    t={t}
                     buc={buc}
                     bucInfo={bucInfo}
                     onBUCEdit={onBUCEdit}
@@ -187,23 +185,23 @@ const BUCList: React.FC<BUCListProps> = ({
                   <div className='a-buc-p-buclist__sedheader-head col-2' />
                 </div>
                 <SEDList
-                  t={t}
-                  seds={buc.seds || []}
+                  seds={buc.seds}
                   buc={buc}
                   onSEDNew={onSEDNew}
                 />
               </Ui.ExpandingPanel>
             )
           }) : null}
-      <BUCFooter className='w-100 mt-2 mb-2' t={t} />
+      <BUCFooter className='w-100 mt-2 mb-2' />
     </div>
   )
 }
 
+// @ts-ignore
 BUCList.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
-  t: TPropType.isRequired
+  setMode: PT.func.isRequired
 }
 
 export default BUCList

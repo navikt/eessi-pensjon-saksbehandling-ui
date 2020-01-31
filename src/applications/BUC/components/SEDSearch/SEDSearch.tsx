@@ -2,22 +2,22 @@ import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { T } from 'declarations/types'
+import { useTranslation } from 'react-i18next'
 import './SEDSearch.css'
 
 export interface SEDSearchProps {
   className ?: string;
   onSearch: (e: string) => void;
   onStatusSearch: (sl: StatusList) => void;
-  t: T;
   value: string | undefined;
 }
 
 export type StatusList = Array<{label: string, value: string}>
 
-const SEDSearch = ({ className, onSearch, onStatusSearch, t, value }: SEDSearchProps) => {
+const SEDSearch = ({ className, onSearch, onStatusSearch, value }: SEDSearchProps) => {
   const [_query, setQuery] = useState<string | undefined>(value)
   const [_status, setStatus] = useState<StatusList>([])
+  const { t } = useTranslation()
 
   const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (typeof onSearch === 'function') {
@@ -80,7 +80,6 @@ SEDSearch.propTypes = {
   className: PT.string,
   onSearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
-  t: PT.func.isRequired,
   value: PT.string.isRequired
 }
 

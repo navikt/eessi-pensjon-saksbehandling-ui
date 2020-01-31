@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import TopContainer from 'components/TopContainer/TopContainer'
-import { T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
@@ -9,7 +8,6 @@ import './Error.css'
 
 export interface ErrorProps {
   history: any;
-  t: T;
   type: string;
 }
 
@@ -38,7 +36,6 @@ export const Error = ({ history, type }: ErrorProps) => {
   return (
     <TopContainer
       className={classNames('p-error')}
-      t={t}
       history={history}
     >
       <div className='p-error__content'>
@@ -62,7 +59,6 @@ export const Error = ({ history, type }: ErrorProps) => {
 
 Error.propTypes = {
   history: PT.object.isRequired,
-  t: PT.func.isRequired,
   type: PT.string.isRequired
 }
 

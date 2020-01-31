@@ -31,25 +31,25 @@ import {
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
-import { AllowedLocaleString, Loading, T, Validation } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
+import { AllowedLocaleString, Loading, Validation } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import Step1 from './Step1'
 import Step2 from './Step2'
 
 export interface SEDStartProps {
   aktoerId?: string;
   bucs: Bucs;
+  currentBuc ?: string;
   initialAttachments ?: AttachedFiles;
   initialSed ?: string | undefined;
   initialStep ?: number;
   setMode: (s: string) => void;
-  t: T;
 }
 
 export interface SEDStartSelector {
@@ -58,7 +58,6 @@ export interface SEDStartSelector {
   avdodfnr: string | undefined;
   bucsInfoList: Array<string> | undefined;
   countryList: Array<string> | undefined;
-  currentBuc ?: string;
   currentSed ?: string;
   institutionList: InstitutionListMap<RawInstitution> | undefined;
   loading: Loading;
@@ -76,8 +75,7 @@ const mapState = (state: State): SEDStartSelector => ({
   avdodfnr: state.app.params.avdodfnr,
   bucsInfoList: state.buc.bucsInfoList,
   countryList: state.buc.countryList,
-  currentBuc: state.buc.currentBuc,
-  currentSed : state.buc.currentSed,
+  currentSed: state.buc.currentSed,
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
@@ -88,12 +86,14 @@ const mapState = (state: State): SEDStartSelector => ({
   vedtakId: state.app.params.vedtakId
 })
 
-export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element | null => {
-  const { aktoerId, bucs, initialAttachments = {}, initialSed = undefined , initialStep = 0, setMode, t } = props
+export const SEDStart: React.FC<SEDStartProps> = ({
+  aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined, initialStep = 0, setMode
+} : SEDStartProps): JSX.Element | null => {
   const {
-    attachments, attachmentsError, avdodfnr, bucsInfoList, currentBuc, currentSed, countryList, institutionList, loading, locale,
+    attachments, attachmentsError, avdodfnr, bucsInfoList, currentSed, countryList, institutionList, loading, locale,
     sakId, sed, sedList, p4000info, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   const prefill: (prop: string) => Array<string> = (prop: string) => {
@@ -127,10 +127,10 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
   const buc: Buc = _.cloneDeep(bucs[currentBuc!])
 
   useEffect(() => {
-    if (_.isEmpty(countryList) && buc.type && !loading.gettingCountryList) {
+    if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
       dispatch(getCountryList(buc.type))
     }
-  }, [countryList, dispatch, loading, buc.type])
+  }, [countryList, dispatch, loading, buc])
 
   useEffect(() => {
     if (!mounted) {
@@ -299,7 +299,6 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
     <Ui.Nav.Row className='a-buc-c-sedstart'>
       {step === 0 ? (
         <Step1
-          t={t}
           loading={loading}
           locale={locale!}
           _sed={_sed} setSed={setSed} currentSed={currentSed} sedList={sedList} buc={buc}
@@ -314,7 +313,6 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
       ) : null}
       {step === 1 ? (
         <Step2
-          t={t}
           locale={locale!}
           aktoerId={aktoerId!}
           _sed={_sed!}
@@ -336,7 +334,6 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
           allAttachments={_attachments.joark as JoarkFiles}
           savedAttachments={attachments.joark as JoarkFiles}
           onFinished={() => setAttachmentsSent(true)}
-          t={t}
         />
       ) : null}
       {showButtons ? (
@@ -373,12 +370,12 @@ export const SEDStart: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Ele
   )
 }
 
+// @ts-ignore
 SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
   initialAttachments: AttachedFilesPropType,
-  setMode: PT.func.isRequired,
-  t: TPropType.isRequired
+  setMode: PT.func.isRequired
 }
 
 export default SEDStart

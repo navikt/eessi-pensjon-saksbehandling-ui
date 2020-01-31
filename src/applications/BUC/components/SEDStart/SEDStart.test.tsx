@@ -21,7 +21,8 @@ jest.mock('actions/buc', () => ({
   getCountryList: jest.fn(),
   getSedList: jest.fn(),
   resetSed: jest.fn(),
-  sendAttachmentToSed: jest.fn()
+  sendAttachmentToSed: jest.fn(),
+  getInstitutionsListForBucAndCountry: jest.fn()
 }))
 
 jest.mock('react-redux');
@@ -36,6 +37,7 @@ const defaultSelector: SEDStartSelector = {
   institutionList: {},
   loading: {},
   locale: 'nb',
+  sakId: '123',
   sed: undefined,
   sedList: undefined,
   p4000info: sampleP4000info,
@@ -66,9 +68,8 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       }]
     },
     initialSed: 'P2000',
-    sakId: '123',
-    setMode: jest.fn(),
-    t: jest.fn(t => t)
+
+    setMode: jest.fn()
   }
 
   beforeEach(() => {

@@ -26,8 +26,7 @@ jest.mock('eessi-pensjon-ui', () => ({
 describe('pages/IndexPage', () => {
   let wrapper: ReactWrapper
   const initialMockProps: IndexPageProps = {
-    history: {},
-    t: jest.fn(t => t)
+    history: {}
   }
 
   beforeEach(() => {

@@ -19,7 +19,6 @@ jest.mock('actions/ui', () => ({
 describe('components/Header', () => {
   let wrapper: ReactWrapper
   const initialMockProps: HeaderProps = {
-    t: jest.fn(t => t),
     username: 'testUser',
     history: {
       push: jest.fn()

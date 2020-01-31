@@ -9,8 +9,7 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
     attachments: {
       joark: [sampleJoarkReduced[0]],
       sed: [sampleJoarkReduced[2]]
-    },
-    t: jest.fn(t => t)
+    }
   }
 
   beforeEach(() => {

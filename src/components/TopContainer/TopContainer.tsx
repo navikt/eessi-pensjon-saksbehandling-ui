@@ -4,13 +4,12 @@ import classNames from 'classnames'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import { T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import SnowStorm from 'react-snowstorm'
 import { State } from 'declarations/reducers'
@@ -22,7 +21,6 @@ export interface TopContainerProps {
   fluid?: boolean;
   header?: string | JSX.Element;
   history: any;
-  t: T;
 }
 
 export interface TopContainerSelector {
@@ -58,13 +56,14 @@ const mapState = (state: State): TopContainerSelector => ({
 })
 
 export const TopContainer: React.FC<TopContainerProps> = ({
-  className, children, fluid = true, header, history, t
+  className, children, fluid = true, header, history
 }: TopContainerProps): JSX.Element => {
   const {
     clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
     isLoggingOut, footerOpen, modal, snow, highContrast
   } = useSelector(mapState)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const handleModalClose = (): void => {
     dispatch(closeModal())
   }
@@ -106,7 +105,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
       {snow ? <SnowStorm /> : null}
       <Header
         className={classNames({ highContrast: highContrast })}
-        t={t}
         history={history}
         username={username}
         gettingUserInfo={gettingUserInfo}
@@ -140,7 +138,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           />
         ) : null}
         <SessionMonitor
-          t={t}
           expirationTime={expirationTime!}
         />
       </Header>
@@ -161,8 +158,7 @@ TopContainer.propTypes = {
   children: PT.any,
   fluid: PT.bool,
   header: PT.any,
-  history: PT.object.isRequired,
-  t: TPropType.isRequired
+  history: PT.object.isRequired
 }
 
 export default TopContainer

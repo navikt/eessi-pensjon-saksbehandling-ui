@@ -34,7 +34,8 @@ const setup = (params: any) => {
 (useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
 jest.mock('actions/alert', () => ({
-  clientClear: jest.fn()
+  clientClear: jest.fn(),
+  clientError: jest.fn()
 }))
 
 jest.mock('actions/ui', () => ({
@@ -46,8 +47,7 @@ describe('components/TopContainer', () => {
   let wrapper: ReactWrapper
   const initialMockProps: TopContainerProps = {
     header: 'mockHeader',
-    history: {},
-    t: jest.fn(t => t)
+    history: {}
   }
 
   beforeEach(() => {

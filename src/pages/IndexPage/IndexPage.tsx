@@ -1,10 +1,8 @@
 import TopContainer from 'components/TopContainer/TopContainer'
-import { T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import PT from 'prop-types'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
 import { State } from 'declarations/reducers'
@@ -13,7 +11,6 @@ import './IndexPage.css'
 
 export interface IndexPageProps {
   history: any;
-  t: T;
   username?: string;
 }
 
@@ -127,7 +124,6 @@ const mapState = (state: State): IndexPageSelector => ({
 
 export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps): JSX.Element => {
   const { username }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
-  const { t } = useTranslation()
   const afterLayoutChange = () => {
     ReactTooltip.rebuild()
   }
@@ -135,7 +131,6 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps)
   return (
     <TopContainer
       className='p-indexPage'
-      t={t}
       history={history}
     >
       <ReactTooltip place='top' type='dark' effect='solid' />

@@ -1,7 +1,6 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import classNames from 'classnames'
 import { Buc, Sed, Seds } from 'declarations/buc'
-import { T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import React from 'react'
@@ -16,14 +15,13 @@ export interface SEDPanelProps {
   onSEDNew: (buc: Buc, sed: Sed) => void;
   sed: Sed;
   style: React.CSSProperties;
-  t: T;
 }
 
 const allowedStatus: Array<string> = ['new', 'active']
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId, buc, className, followUpSeds, onSEDNew,
-  sed, style, t
+  sed, style
 }: SEDPanelProps): JSX.Element => {
   const sedHasOption: Function = (sed: Sed): boolean => {
     return _.includes(allowedStatus, sed.status)
@@ -34,7 +32,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
         <SEDListHeader
           className='p-3 mb-3 s-border'
           followUpSeds={followUpSeds}
-          t={t}
           sed={sed}
           style={style}
           buc={buc}
@@ -47,7 +44,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           heading={
             <SEDListHeader
               followUpSeds={followUpSeds}
-              t={t}
               sed={sed}
               buc={buc}
               onSEDNew={onSEDNew}
@@ -58,7 +54,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             aktoerId={aktoerId}
             buc={buc}
             sed={sed}
-            t={t}
           />
         </Ui.Nav.EkspanderbartpanelBase>
       )}

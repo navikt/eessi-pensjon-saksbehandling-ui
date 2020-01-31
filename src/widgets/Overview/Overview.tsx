@@ -77,7 +77,6 @@ export const Overview: React.FC<OverviewProps> = ({ onUpdate, skipMount = false,
         <PersonTitle
           gettingPersonInfo={gettingPersonInfo}
           person={person}
-          t={t}
         />
       )}
     >
@@ -85,7 +84,6 @@ export const Overview: React.FC<OverviewProps> = ({ onUpdate, skipMount = false,
         highContrast={highContrast}
         locale={locale}
         person={person}
-        t={t}
       />
     </Ui.Nav.EkspanderbartpanelBase>
   )

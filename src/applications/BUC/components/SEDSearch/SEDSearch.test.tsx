@@ -7,7 +7,6 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
   const initialMockProps: SEDSearchProps = {
     onSearch: jest.fn(),
     onStatusSearch: jest.fn(),
-    t: jest.fn(t => t),
     value: undefined
   }
 

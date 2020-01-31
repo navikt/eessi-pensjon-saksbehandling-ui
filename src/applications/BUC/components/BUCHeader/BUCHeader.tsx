@@ -1,23 +1,23 @@
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { Buc, BUCAttachments, BucInfo, Institution, InstitutionListMap, InstitutionNames, Sed } from 'declarations/buc'
+import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString, RinaUrl, T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
+import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
+import { FlagItems } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import './BUCHeader.css'
 
 export interface BUCHeaderProps {
   buc: Buc;
   bucInfo: BucInfo;
   onBUCEdit: Function;
-  t: T;
 }
 
 interface BUCHeaderSelector {
@@ -33,35 +33,36 @@ const mapState = (state: State): BUCHeaderSelector => ({
 })
 
 const BUCHeader: React.FC<BUCHeaderProps> = ({
-  buc, bucInfo, onBUCEdit, t
+  buc, bucInfo, onBUCEdit
 }: BUCHeaderProps): JSX.Element => {
-  const institutionList: InstitutionListMap<string> = {}
-  const attachments: BUCAttachments = []
   const numberOfSeds: number = buc.seds ? buc.seds.filter(sedFilter).length : 0
   const { institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
-
+  const { t } = useTranslation()
   const onBucHandle: Function = useCallback((buc, e) => {
     e.preventDefault()
     e.stopPropagation()
     onBUCEdit(buc)
   }, [onBUCEdit])
 
-  if (_.isArray(buc.institusjon)) {
-    buc.institusjon.forEach((institution: Institution) => {
+  const generateFlagItems = (): FlagItems => {
+    const institutionList: InstitutionListMap<string> = {}
+    buc.institusjon!.forEach((institution: Institution) => {
       if (Object.prototype.hasOwnProperty.call(institutionList, institution.country)) {
         institutionList[institution.country].push(institution.institution)
       } else {
         institutionList[institution.country] = [institution.institution]
       }
     })
-  }
 
-  if (_.isArray(buc.seds)) {
-    buc.seds.forEach((sed: Sed) => {
-      sed.attachments.forEach(att => {
-        attachments.push(att)
-      })
-    })
+    return Object.keys(institutionList).map(landkode => ({
+      country: landkode,
+      label: institutionList[landkode].map((institutionId) => {
+        return institutionNames &&
+        Object.prototype.hasOwnProperty.call(institutionNames, institutionId)
+          ? institutionNames[institutionId]
+          : institutionId
+      }).join(', ')
+    }))
   }
 
   if (buc.error) {
@@ -71,6 +72,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       </div>
     )
   }
+
+  const flagItems: FlagItems = _.isArray(buc.institusjon) ? generateFlagItems() : []
 
   return (
     <div
@@ -103,9 +106,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               {t('buc:form-caseOwner') + ': '}
             </Ui.Nav.Normaltekst>
             <InstitutionList
-              t={t}
-              flagType='circle'
               className='a-buc-c-bucheader__owner-institutions'
+              flagType='circle'
               locale={locale}
               type='separated'
               institutions={[buc.creator!]}
@@ -140,15 +142,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             locale={locale}
             type='circle'
             size='L'
-            items={Object.keys(institutionList).map(landkode => ({
-              country: landkode,
-              label: institutionList[landkode].map((institutionId) => {
-                return institutionNames &&
-                Object.prototype.hasOwnProperty.call(institutionNames, institutionId)
-                  ? institutionNames[institutionId]
-                  : institutionId
-              }).join(', ')
-            }))}
+            items={flagItems}
             overflowLimit={5}
           />
           <div
@@ -182,11 +176,11 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   )
 }
 
+// @ts-ignore
 BUCHeader.propTypes = {
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType.isRequired,
-  onBUCEdit: PT.func.isRequired,
-  t: TPropType.isRequired
+  onBUCEdit: PT.func.isRequired
 }
 
 export default BUCHeader

@@ -6,44 +6,45 @@ import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
-import { AllowedLocaleString, T } from 'declarations/types'
+import { BucsPropType } from 'declarations/buc.pt'
+import { State } from 'declarations/reducers'
+import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import './BUCEdit.css'
 
 export interface BUCEditProps {
   aktoerId: string;
   bucs: Bucs;
+  currentBuc?: string | undefined;
   initialSearch ?: string;
   initialStatusSearch ?: Tags;
   setMode: (s: string) => void;
-  t: T;
 }
 
 export interface BUCEditSelector {
   bucsInfo?: BucsInfo;
-  currentBuc?: string | undefined;
   locale: AllowedLocaleString
 }
 
 const mapState = (state: State): BUCEditSelector => ({
   bucsInfo: state.buc.bucsInfo,
-  currentBuc: state.buc.currentBuc,
   locale: state.ui.locale
 })
 
-const BUCEdit = ({
-  aktoerId, bucs, initialSearch, initialStatusSearch, setMode, t
-}: BUCEditProps) => {
+const BUCEdit: React.FC<BUCEditProps> = ({
+  aktoerId, bucs, currentBuc, initialSearch, initialStatusSearch, setMode
+}: BUCEditProps): JSX.Element | null => {
   const [search, setSearch] = useState<string | undefined>(initialSearch)
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
-  const { bucsInfo, currentBuc, locale }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
+  const { bucsInfo, locale }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -109,12 +110,11 @@ const BUCEdit = ({
         <div className='col-md-8'>
           <SEDSearch
             className='mb-2'
-            t={t}
             value={search}
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
           />
-          <SEDPanelHeader t={t} />
+          <SEDPanelHeader />
           {buc.seds ? buc.seds
             .filter(sedFilter)
             .filter(sedSearchFilter)
@@ -126,7 +126,6 @@ const BUCEdit = ({
                   aktoerId={aktoerId!}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   buc={buc}
-                  t={t}
                   key={index}
                   sed={sed}
                   followUpSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
@@ -138,13 +137,11 @@ const BUCEdit = ({
         <div className='col-md-4'>
           <BUCDetail
             className='mb-3'
-            t={t}
             buc={buc}
             bucInfo={bucInfo}
           />
           <BUCTools
             className='mb-3'
-            t={t}
             aktoerId={aktoerId!}
             buc={buc}
             bucInfo={bucInfo}
@@ -155,14 +152,13 @@ const BUCEdit = ({
   )
 }
 
+// @ts-ignore
 BUCEdit.propTypes = {
   aktoerId: PT.string.isRequired,
-  bucs: PT.object.isRequired,
-  bucsInfo: PT.object,
+  bucs: BucsPropType.isRequired,
   currentBuc: PT.string,
   initialSearch: PT.string,
-  initialStatusSearch: PT.array,
-  t: PT.func.isRequired
+  initialStatusSearch: PT.array
 }
 
 export default BUCEdit

@@ -12,7 +12,6 @@ describe('actions/alert', () => {
 
   it('clientError()', () => {
     const mockPayload: ErrorPayload = {
-      type: 'mockType',
       error: 'mockError'
     }
     const generatedResult = alertActions.clientError(mockPayload)

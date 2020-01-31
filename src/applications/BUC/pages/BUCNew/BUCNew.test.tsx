@@ -13,7 +13,6 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCNewProps = {
     aktoerId: '123',
-    t: jest.fn(t => t),
     setMode: jest.fn()
   }
 

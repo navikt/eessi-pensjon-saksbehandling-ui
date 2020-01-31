@@ -11,7 +11,7 @@ jest.mock('eessi-pensjon-ui', () => {
     ...Ui,
     Nav: {
       ...Ui.Nav,
-      Hjelpetekst: ({children}: any) => (<div className='mock-hjelpetekst'>{children}</div>)
+      Hjelpetekst: ({ children }: any) => (<div className='mock-hjelpetekst'>{children}</div>)
     }
   }
 })
@@ -47,8 +47,7 @@ const initialMockProps: PeriodProps = {
   setPeriod: jest.fn(),
   setPeriods: jest.fn(),
   setLocalError: jest.fn(),
-  setLocalErrors: jest.fn(),
-  t: jest.fn(t => t)
+  setLocalErrors: jest.fn()
 }
 
 describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () => {

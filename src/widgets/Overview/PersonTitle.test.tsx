@@ -7,8 +7,7 @@ describe('widgets/Overview/PersonTitle', () => {
   let wrapper: ReactWrapper
   const initialMockProps: PersonTitleProps = {
     gettingPersonInfo: false,
-    person: samplePerson.person,
-    t: jest.fn(t => t)
+    person: samplePerson.person
   }
 
   beforeEach(() => {

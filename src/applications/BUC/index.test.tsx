@@ -49,7 +49,7 @@ const defaultSelector: BUCIndexSelector = {
     gettingBUCs: false
   },
   mode: 'buclist',
-  person: {},
+  person: undefined,
   rinaUrl: undefined,
   sakId: '456',
   sakType: undefined
@@ -63,7 +63,6 @@ describe('applications/BUC/index', () => {
     allowFullScreen: true,
     onFullFocus: jest.fn(),
     onRestoreFocus: jest.fn(),
-    t: jest.fn(t => t),
     waitForMount: false
   }
 

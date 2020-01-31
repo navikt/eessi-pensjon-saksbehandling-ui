@@ -2,12 +2,12 @@ import { getTagList, saveBucsInfo } from 'actions/buc'
 import classNames from 'classnames'
 import { Buc, BucInfo, BucsInfo, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { Loading, T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import './BUCTools.css'
@@ -18,7 +18,6 @@ export interface BUCToolsProps {
   bucInfo: BucInfo;
   className?: string;
   onTagChange ?: (tagList: Tags) => void;
-  t: T;
 }
 
 export interface BUCToolsSelector {
@@ -34,8 +33,9 @@ const mapState = (state: State): BUCToolsSelector => ({
 })
 
 const BUCTools: React.FC<BUCToolsProps> = ({
-  aktoerId, buc, bucInfo, className, onTagChange, t
+  aktoerId, buc, bucInfo, className, onTagChange
 }: BUCToolsProps): JSX.Element => {
+  const { t } = useTranslation()
   const [comment, setComment] = useState<string | undefined >(bucInfo ? bucInfo.comment : '')
   const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [tags, setTags] = useState<Tags>(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
@@ -128,13 +128,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   )
 }
 
+// @ts-ignore
 BUCTools.propTypes = {
   aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType.isRequired,
   className: PT.string,
-  onTagChange: PT.func,
-  t: TPropType.isRequired
+  onTagChange: PT.func
 }
 
 export default BUCTools

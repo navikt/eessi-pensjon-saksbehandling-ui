@@ -2,12 +2,11 @@ import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import { AttachedFiles } from 'declarations/buc'
 import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFiles } from 'declarations/joark'
-import { T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export interface SEDAttachmentsProps {
   disableButtons?: boolean;
@@ -17,15 +16,14 @@ export interface SEDAttachmentsProps {
   onFilesChange?: (f: JoarkFiles) => void;
   onOpen?: () => void;
   onSubmit?: (f: AttachedFiles) => void;
-  t: T;
 }
 
 const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
-  disableButtons = false, files, initialMode = 'view', open = false, onFilesChange, onOpen, onSubmit, t
+  disableButtons = false, files, initialMode = 'view', open = false, onFilesChange, onOpen, onSubmit
 }: SEDAttachmentsProps): JSX.Element => {
   const [mode, setMode] = useState<string>(initialMode)
   const [localFiles, setLocalFiles] = useState<JoarkFiles>(files && _.isArray(files.joark) ? files.joark as JoarkFiles : [])
-
+  const { t } = useTranslation()
   const onEnableAttachmentsButtonClicked = (): void => {
     if (_.isFunction(onOpen)) {
       onOpen()
@@ -68,7 +66,6 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
             files={localFiles}
             mode={mode}
             onFilesChange={onLocalFileChange}
-            t={t}
           />
           <div className='mt-4'>
             {mode === 'view' ? (
@@ -115,8 +112,7 @@ SEDAttachments.propTypes = {
   open: PT.bool,
   onFilesChange: PT.func,
   onOpen: PT.func,
-  onSubmit: PT.func,
-  t: TPropType.isRequired
+  onSubmit: PT.func
 }
 
 export default SEDAttachments

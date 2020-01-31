@@ -46,10 +46,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   const initialMockProps: BUCListProps = {
     aktoerId: '123',
     bucs: mockBucs,
-    setMode: jest.fn(),
-    t: jest.fn((translationString) => {
-      return translationString
-    })
+    setMode: jest.fn()
   }
 
   beforeEach(() => {

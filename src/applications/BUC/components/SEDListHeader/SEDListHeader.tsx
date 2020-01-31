@@ -4,15 +4,15 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import classNames from 'classnames'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString, T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
+import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import './SEDListHeader.css'
 
 export interface SEDListHeaderProps {
@@ -22,7 +22,6 @@ export interface SEDListHeaderProps {
   sed: Sed;
   style?: React.CSSProperties;
   followUpSeds: Seds;
-  t: T;
 }
 
 export interface SEDListSelector {
@@ -34,9 +33,10 @@ const mapState = (state: State): SEDListSelector => ({
 })
 
 const SEDListHeader: React.FC<SEDListHeaderProps> = ({
-  buc, className, followUpSeds, onSEDNew, sed, style, t
+  buc, className, followUpSeds, onSEDNew, sed, style
 }: SEDListHeaderProps): JSX.Element => {
   const { locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { t } = useTranslation()
   const institutionSenderList: Institutions = sed.participants ? sed.participants
     .filter((participant: Participant) => participant.role === 'Sender')
     .map((participant: Participant) => ({
@@ -66,7 +66,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__name col-4'>
           <Ui.Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Ui.Nav.Element>
           <div className='a-buc-c-sedlistheader__status'>
-            <SEDStatus t={t} className='col-auto' status={sed.status} />
+            <SEDStatus className='col-auto' status={sed.status} />
             <div className='pl-2'>
               <Ui.Nav.Normaltekst className='a-buc-c-sedlistheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
                 {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
@@ -77,7 +77,6 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
         </div>
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__institutions col-3'>
           <InstitutionList
-            t={t}
             locale={locale}
             type='separated'
             institutions={institutionSenderList}
@@ -85,7 +84,6 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
         </div>
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__institutions col-3'>
           <InstitutionList
-            t={t}
             locale={locale}
             type='separated'
             institutions={institutionReceiverList}
@@ -117,14 +115,14 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
   )
 }
 
+// @ts-ignore
 SEDListHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
   onSEDNew: PT.func.isRequired,
   sed: SedPropType.isRequired,
   style: PT.object,
-  followUpSeds: SedsPropType.isRequired,
-  t: TPropType.isRequired
+  followUpSeds: SedsPropType.isRequired
 }
 
 export default SEDListHeader

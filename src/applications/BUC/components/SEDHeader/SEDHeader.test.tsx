@@ -19,8 +19,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     onSEDNew: jest.fn(),
     buc: buc,
     sed: sed,
-    followUpSeds: [buc.seds![1]],
-    t: jest.fn(t => t)
+    followUpSeds: [buc.seds![1]]
   }
   let wrapper: ReactWrapper
 
