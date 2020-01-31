@@ -6,13 +6,13 @@ on:
       - master
 jobs:
   remove-package-versions:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Remove package versions
-      id: remove-package-versions
-      uses: navikt/remove-package-versions@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+     - name: Remove package versions
+       id: remove-package-versions
+       uses: navikt/remove-package-versions@master
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   tag_build_and_deploy:
     name: 'Build, push, and deploy'
