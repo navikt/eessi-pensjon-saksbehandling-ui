@@ -380,6 +380,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         variant: newAttachment.variant
       })
       if (!found) {
+        if (!existingAttachments.joark) {
+          existingAttachments.joark = []
+        }
         (existingAttachments.joark as Array<JoarkFile>).push(newAttachment as JoarkFile)
       }
       return {

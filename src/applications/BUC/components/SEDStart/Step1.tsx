@@ -160,7 +160,7 @@ const Step1: React.FC<Step1Props> = ({
       })
       setMounted(true)
     }
-  }, [mounted, fetchInstitutionsForSelectedCountries, _countries])
+  }, [mounted, buc.type, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
 
   const validateSed = (sed: string): boolean => {
     if (!sed || sed === placeholders.sed) {

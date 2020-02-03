@@ -75,11 +75,11 @@ const BUCList: React.FC<BUCListProps> = ({
   }
 
   useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && !loading.gettingBUCinfo &&
+    if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !loading.gettingBUCinfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
     }
-  }, [aktoerId, bucsInfoList, dispatch, loading])
+  }, [aktoerId, bucsInfo, bucsInfoList, dispatch, loading])
 
   useEffect(() => {
     if (!mounted && !_.isEmpty(bucs)) {

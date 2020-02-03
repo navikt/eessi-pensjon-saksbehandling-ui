@@ -30,7 +30,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
       items.push({
         key: index1 + '_' + index2,
         namespace: namespace,
-        title: (att as JoarkFile).tittel +
+        title: (att as JoarkFile).tittel || (att as BUCAttachment).name  +
           ((att as JoarkFile).variant ? ' + ' + (att as JoarkFile).variant.variantformat + ' (' + (att as JoarkFile).variant.filnavn + ')' : '')
       })
     })
