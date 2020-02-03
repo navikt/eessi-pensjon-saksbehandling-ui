@@ -34,6 +34,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
 }: BUCDetailProps): JSX.Element => {
   const { locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
   const { t } = useTranslation()
+
   return (
     <Ui.Nav.EkspanderbartpanelBase
       id='a-buc-c-bucdetail__panel-id'

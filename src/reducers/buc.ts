@@ -5,6 +5,7 @@ import {
   Buc,
   Bucs,
   BucsInfo,
+  Institution,
   InstitutionListMap,
   InstitutionNames,
   RawInstitution,
@@ -137,18 +138,28 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     }
 
     case types.BUC_GET_BUCS_SUCCESS: {
-      const bucReducer = (currentBucs: Bucs, newBuc: Buc) => {
-        currentBucs[newBuc.caseId as string] = newBuc
-        return currentBucs
-      }
 
       if (!_.isArray((action as ActionWithPayload).payload)) {
         return state
       }
 
+      const bucs = _.keyBy((action as ActionWithPayload).payload, 'caseId') || {}
+      const institutionNames = _.cloneDeep(state.institutionNames)
+
+      Object.keys(bucs).forEach(bucId => {
+        if (bucs[bucId].institusjon) {
+          bucs[bucId].institusjon.forEach((inst: Institution) => {
+            if (inst.institution && inst.name && !institutionNames[inst.institution]) {
+              institutionNames[inst.institution] = inst.name
+            }
+          })
+        }
+      })
+
       return {
         ...state,
-        bucs: (action as ActionWithPayload).payload.reduce(bucReducer, state.bucs || {})
+        bucs: bucs,
+        institutionNames: institutionNames
       }
     }
 
