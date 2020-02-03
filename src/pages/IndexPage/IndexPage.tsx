@@ -18,7 +18,7 @@ const defaultLayouts: LayoutTabs = [{
   label: 'default',
   body: {
     lg: [
-      { i: 'w-1-overview ', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
+      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
     ],
     md: [

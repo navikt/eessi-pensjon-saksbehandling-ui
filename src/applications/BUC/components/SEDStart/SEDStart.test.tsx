@@ -29,7 +29,7 @@ jest.mock('react-redux');
 (useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 const defaultSelector: SEDStartSelector = {
-  attachments: {},
+  attachments: {sed: [], joark :[]},
   attachmentsError: false,
   avdodfnr: undefined,
   bucsInfoList: undefined,

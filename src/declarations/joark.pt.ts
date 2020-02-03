@@ -26,7 +26,7 @@ export const JoarkFilePropType = PT.shape({
   tema: PT.string.isRequired,
   datoOpprettet: PT.instanceOf(Date).isRequired,
   dokumentInfoId: PT.string.isRequired,
-  tilleggsopplysninger: PT.string.isRequired,
+  tilleggsopplysninger: PT.string,
   variant: JoarkFileVariantPropType.isRequired
 })
 

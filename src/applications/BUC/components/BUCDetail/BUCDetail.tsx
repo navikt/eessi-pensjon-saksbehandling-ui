@@ -125,7 +125,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
 // @ts-ignore
 BUCDetail.propTypes = {
   buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType.isRequired,
+  bucInfo: BucInfoPropType,
   className: PT.string
 }
 

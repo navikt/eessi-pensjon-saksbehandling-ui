@@ -7,9 +7,9 @@ import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
-import { Bucs } from 'declarations/buc'
+import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { Loading, Person, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, Loading, Person, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
@@ -32,8 +32,10 @@ export interface BUCIndexSelector {
   avdodfnr: string | undefined;
   avdodBucs: Bucs | undefined;
   bucs: Bucs | undefined;
+  bucsInfo: BucsInfo | undefined;
   currentBuc: string | undefined;
   loading: Loading;
+  locale: AllowedLocaleString;
   mode: BUCMode;
   person: Person | undefined;
   rinaUrl: RinaUrl | undefined;
@@ -46,8 +48,10 @@ const mapState = (state: State): BUCIndexSelector => ({
   avdodfnr: state.app.params.avdodfnr,
   avdodBucs: state.buc.avdodBucs,
   bucs: state.buc.bucs,
+  bucsInfo: state.buc.bucsInfo,
   currentBuc: state.buc.currentBuc,
   loading: state.loading,
+  locale: state.ui.locale,
   mode: state.buc.mode,
   person: state.app.person,
   rinaUrl: state.buc.rinaUrl,

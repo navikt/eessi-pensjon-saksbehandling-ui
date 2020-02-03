@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux'
 import './WebSocket.css'
 
 export interface BucWebSocketProps {
-  fnr: string;
+  fnr: string | undefined;
   avdodfnr: string | undefined;
 }
 
@@ -152,7 +152,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 }
 
 BucWebSocket.propTypes = {
-  fnr: PT.string.isRequired,
+  fnr: PT.string,
   avdodfnr: PT.string
 }
 

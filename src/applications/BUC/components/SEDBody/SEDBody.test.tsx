@@ -17,7 +17,7 @@ jest.mock('actions/buc', () => ({
 }))
 
 const defaultSelector = {
-  attachments: {},
+  attachments: { sed: [], joark: []},
   attachmentsError: false
 };
 

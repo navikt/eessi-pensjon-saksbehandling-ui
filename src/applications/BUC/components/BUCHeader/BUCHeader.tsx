@@ -65,14 +65,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     }))
   }
 
-  if (buc.error) {
-    return (
-      <div className='a-buc-c-bucheader p-0 w-100'>
-        <Ui.Nav.AlertStripe type='advarsel' className='w-100'>{buc.error}</Ui.Nav.AlertStripe>
-      </div>
-    )
-  }
-
   const flagItems: FlagItems = _.isArray(buc.institusjon) ? generateFlagItems() : []
 
   return (
@@ -179,7 +171,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
 // @ts-ignore
 BUCHeader.propTypes = {
   buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType.isRequired,
+  bucInfo: BucInfoPropType,
   onBUCEdit: PT.func.isRequired
 }
 

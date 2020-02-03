@@ -15,7 +15,7 @@ export interface SEDSearchProps {
 export type StatusList = Array<{label: string, value: string}>
 
 const SEDSearch = ({ className, onSearch, onStatusSearch, value }: SEDSearchProps) => {
-  const [_query, setQuery] = useState<string | undefined>(value)
+  const [_query, setQuery] = useState<string | undefined>(value || '')
   const [_status, setStatus] = useState<StatusList>([])
   const { t } = useTranslation()
 
@@ -80,7 +80,7 @@ SEDSearch.propTypes = {
   className: PT.string,
   onSearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
-  value: PT.string.isRequired
+  value: PT.string
 }
 
 export default SEDSearch

@@ -19,7 +19,7 @@ import {
 } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { Loading } from 'declarations/types'
+import { AllowedLocaleString, Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
@@ -37,6 +37,7 @@ export interface BUCListProps {
 export interface BUCListSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined;
   loading: Loading;
+  locale: AllowedLocaleString,
   bucsInfo: BucsInfo | undefined;
   bucsInfoList: Array<string> | undefined
 }
@@ -44,6 +45,7 @@ export interface BUCListSelector {
 const mapState = (state: State): BUCListSelector => ({
   institutionList: state.buc.institutionList,
   loading: state.loading,
+  locale: state.ui.locale,
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList
 })
@@ -152,8 +154,15 @@ const BUCList: React.FC<BUCListProps> = ({
           .filter(bucFilter)
           .sort(bucSorter)
           .map((buc: Buc, index: number) => {
+            if (buc.error) {
+              return (
+                <div key={index} className='a-buc-c-bucheader p-0 w-100'>
+                  <Ui.Nav.AlertStripe type='advarsel' className='w-100'>{buc.error}</Ui.Nav.AlertStripe>
+                </div>
+              )
+            }
             const bucId: string = buc.caseId!
-            const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {} as BucInfo
+            const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
             return (
               <Ui.ExpandingPanel
                 id={'a-buc-p-buclist__buc-' + bucId}

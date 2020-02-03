@@ -19,7 +19,8 @@ jest.mock('react-redux', () => ({
   useDispatch: () => jest.fn()
 }));
 jest.mock('actions/ui', () => ({
-  openModal: jest.fn()
+  openModal: jest.fn(),
+  closeModal: jest.fn()
 }));
 import { openModal } from 'actions/ui'
 

@@ -399,13 +399,13 @@ Step1.propTypes = {
   setAttachments: PT.func.isRequired,
   setCountries: PT.func.isRequired,
   setInstitutions: PT.func.isRequired,
-  sedList: PT.arrayOf(PT.string.isRequired).isRequired,
+  sedList: PT.arrayOf(PT.string.isRequired),
   sedNeedsVedtakId: PT.func.isRequired,
   setSed: PT.func.isRequired,
   setValidation: PT.func.isRequired,
   setVedtakId: PT.func.isRequired,
   validation: ValidationPropType.isRequired,
-  vedtakId: PT.number.isRequired
+  vedtakId: PT.number
 }
 
 export default Step1
