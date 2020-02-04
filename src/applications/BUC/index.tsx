@@ -130,6 +130,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     )
   }
 
+  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
+    _setMode('bucnew')
+  }
+
   return (
     <div className='a-buc-widget'>
       <div className='a-buc-widget__header mb-3'>

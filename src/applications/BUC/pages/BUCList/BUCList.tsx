@@ -35,19 +35,19 @@ export interface BUCListProps {
 }
 
 export interface BUCListSelector {
+  bucsInfo: BucsInfo | undefined;
+  bucsInfoList: Array<string> | undefined;
   institutionList: InstitutionListMap<RawInstitution> | undefined;
   loading: Loading;
-  locale: AllowedLocaleString,
-  bucsInfo: BucsInfo | undefined;
-  bucsInfoList: Array<string> | undefined
+  locale: AllowedLocaleString;
 }
 
 const mapState = (state: State): BUCListSelector => ({
+  bucsInfo: state.buc.bucsInfo,
+  bucsInfoList: state.buc.bucsInfoList,
   institutionList: state.buc.institutionList,
   loading: state.loading,
-  locale: state.ui.locale,
-  bucsInfo: state.buc.bucsInfo,
-  bucsInfoList: state.buc.bucsInfoList
+  locale: state.ui.locale
 })
 
 type Country = {country: string, buc: string}
@@ -123,10 +123,6 @@ const BUCList: React.FC<BUCListProps> = ({
       setMounted(true)
     }
   }, [institutionList, bucs, dispatch, mounted])
-
-  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
-    setMode('bucnew')
-  }
 
   return (
     <div className='a-buc-p-buclist'>
