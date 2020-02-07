@@ -54,8 +54,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     files: [],
     onFilesChange: jest.fn(),
     mode: 'view',
-    onPreviewFile: jest.fn(),
-    t: jest.fn(t => t)
+    onPreviewFile: jest.fn()
   }
 
   beforeEach(() => {

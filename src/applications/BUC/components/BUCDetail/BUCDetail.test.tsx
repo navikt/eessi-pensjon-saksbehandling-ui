@@ -21,8 +21,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   const bucInfo: BucInfo = (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId]
   const initialMockProps: BUCDetailProps = {
     buc: buc,
-    bucInfo: bucInfo,
-    t: jest.fn(t => t)
+    bucInfo: bucInfo
   }
 
   beforeEach(() => {

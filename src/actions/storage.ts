@@ -41,7 +41,7 @@ const mockListStorageFiles = /* istanbul ignore next */ (userId: string, namespa
   return []
 }
 
-export const listStorageFiles = ({ userId, namespace }: StorageParams, context?: any | undefined): Function => {
+export const listStorageFiles = ({ userId, namespace }: StorageParams, context?: any): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
@@ -55,7 +55,7 @@ export const listStorageFiles = ({ userId, namespace }: StorageParams, context?:
   })
 }
 
-export const getStorageFile = ({ userId, namespace, file }: StorageParams, context: any | undefined): Function => {
+export const getStorageFile = ({ userId, namespace, file }: StorageParams, context?: any): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
@@ -91,7 +91,7 @@ export const getAttachmentFromStorage = ({ userId, namespace, file }: StoragePar
   })
 }
 
-export const postStorageFile = ({ userId, namespace, file }: StorageParams, payload: any, context: any | undefined): Function => {
+export const postStorageFile = ({ userId, namespace, file }: StorageParams, payload: any, context?: any): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',

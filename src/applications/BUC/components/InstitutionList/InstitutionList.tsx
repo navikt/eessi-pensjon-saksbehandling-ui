@@ -1,12 +1,13 @@
 import classNames from 'classnames'
 import { InstitutionListMap, InstitutionNames, Institutions } from 'declarations/buc'
 import { InstitutionsPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString, T } from 'declarations/types'
-import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
+import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleStringPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import './InstitutionList.css'
@@ -17,15 +18,16 @@ export interface InstitutionListProps {
   flagType?: string;
   institutions: Institutions;
   locale: AllowedLocaleString;
-  t: T;
   type?: string;
 }
 
 const InstitutionList: React.FC<InstitutionListProps> = ({
-  className, flag = true, flagType = 'circle', institutions = [], locale, t, type = 'joined'
+  className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined'
 }: InstitutionListProps): JSX.Element => {
   const institutionList: InstitutionListMap<string> = {}
   const institutionNames: InstitutionNames = useSelector<State, InstitutionNames>(state => state.buc.institutionNames)
+  const { t } = useTranslation()
+
   if (institutions) {
     institutions.forEach(item => {
       let institution: string = item.institution
@@ -92,7 +94,6 @@ InstitutionList.propTypes = {
   flagType: PT.string,
   institutions: InstitutionsPropType.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
-  t: TPropType.isRequired,
   type: PT.string
 }
 

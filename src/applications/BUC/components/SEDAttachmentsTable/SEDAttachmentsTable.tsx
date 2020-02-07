@@ -1,16 +1,14 @@
 import { AttachedFiles, BUCAttachment } from 'declarations/buc'
 import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFile } from 'declarations/joark'
-import { T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import React from 'react'
 import './SEDAttachmentsTable.css'
+import { useTranslation } from 'react-i18next'
 
 export interface SEDAttachmentsTableProps {
   attachments: AttachedFiles;
-  t: T;
 }
 
 export interface SEDAttachmentsTableRow {
@@ -22,16 +20,17 @@ export interface SEDAttachmentsTableRow {
 export type SEDAttachmentsTableRows = Array<SEDAttachmentsTableRow>
 
 const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
-  attachments = {}, t
+  attachments = {}
 }: SEDAttachmentsTableProps): JSX.Element => {
   const items: SEDAttachmentsTableRows = []
+  const { t } = useTranslation()
 
   Object.keys(attachments).forEach((namespace, index1) => {
     attachments[namespace].forEach((att: JoarkFile | BUCAttachment, index2: number) => {
       items.push({
         key: index1 + '_' + index2,
         namespace: namespace,
-        title: (att as JoarkFile).tittel +
+        title: (att as JoarkFile).tittel || (att as BUCAttachment).name +
           ((att as JoarkFile).variant ? ' + ' + (att as JoarkFile).variant.variantformat + ' (' + (att as JoarkFile).variant.filnavn + ')' : '')
       })
     })
@@ -68,8 +67,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
 }
 
 SEDAttachmentsTable.propTypes = {
-  attachments: AttachedFilesPropType.isRequired,
-  t: TPropType.isRequired
+  attachments: AttachedFilesPropType.isRequired
 }
 
 export default SEDAttachmentsTable

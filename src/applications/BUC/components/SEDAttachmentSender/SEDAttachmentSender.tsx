@@ -1,13 +1,12 @@
-import { JoarkFiles, JoarkFile } from 'declarations/joark'
 import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
+import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { JoarkFilesPropType } from 'declarations/joark.pt'
-import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
-import { T } from 'declarations/types'
+import { useTranslation } from 'react-i18next'
 
 export interface SEDAttachmentPayload {
   aktoerId: string;
@@ -30,16 +29,16 @@ export interface SEDAttachmentSenderProps {
   payload: SEDAttachmentPayload;
   savedAttachments: JoarkFiles;
   sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkFile) => void;
-  t: T;
 }
 
 const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   allAttachments, attachmentsError, className, initialStatus = 'inprogress',
-  payload, onFinished, savedAttachments, sendAttachmentToSed, t
+  payload, onFinished, savedAttachments, sendAttachmentToSed
 }: SEDAttachmentSenderProps): JSX.Element => {
   const [sendingAttachment, setSendingAttachment] = useState<boolean>(false)
   const [_storeAttachments, setStoreAttachments] = useState<JoarkFiles>(savedAttachments || [])
   const [status, setStatus] = useState<string>(initialStatus)
+  const { t } = useTranslation()
   const handleFinished: Function = useCallback(() => {
     if (_.isFunction(onFinished)) {
       onFinished()
@@ -150,8 +149,7 @@ SEDAttachmentSender.propTypes = {
   onFinished: PT.func,
   payload: PT.any,
   savedAttachments: JoarkFilesPropType.isRequired,
-  sendAttachmentToSed: PT.func.isRequired,
-  t: TPropType.isRequired
+  sendAttachmentToSed: PT.func.isRequired
 }
 
 export default SEDAttachmentSender

@@ -2,10 +2,10 @@ import { clearData, logout } from 'actions/app'
 import { toggleHighContrast, toggleSnow } from 'actions/ui'
 import classNames from 'classnames'
 import * as routes from 'constants/routes'
-import { T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import './Header.css'
@@ -18,12 +18,12 @@ export interface HeaderProps {
   history: any;
   isLoggingOut?: boolean;
   snow?: boolean;
-  t: T;
   username?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ className, children, gettingUserInfo, header, history, isLoggingOut, snow, t, username }: HeaderProps): JSX.Element => {
+const Header: React.FC<HeaderProps> = ({ className, children, gettingUserInfo, header, history, isLoggingOut, snow, username }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const onLogoClick = () => {
     dispatch(clearData())
     history.push({
@@ -128,7 +128,6 @@ Header.propTypes = {
   header: PT.element,
   history: PT.object,
   isLoggingOut: PT.bool,
-  t: PT.func.isRequired,
   username: PT.string
 }
 

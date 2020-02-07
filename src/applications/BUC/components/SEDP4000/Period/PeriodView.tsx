@@ -5,7 +5,7 @@ import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'declarations/types'
+import { useTranslation } from 'react-i18next'
 import P4000Payload from '../P4000Payload'
 
 export interface PeriodViewProps {
@@ -15,12 +15,12 @@ export interface PeriodViewProps {
   period: Period;
   removePeriodRequest: (p: Period) => void;
   requestEditPeriod: (p: Period) => void;
-  t: T;
 }
 
 const PeriodView: React.FC<PeriodViewProps> = ({
-  first, last, mode, period, removePeriodRequest, requestEditPeriod, t
+  first, last, mode, period, removePeriodRequest, requestEditPeriod
 }: PeriodViewProps): JSX.Element => {
+  const { t } = useTranslation()
   return (
     <Ui.Nav.Row className={classNames('a-buc-c-sedp4000-period', mode)}>
       <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
@@ -117,8 +117,7 @@ PeriodView.propTypes = {
   mode: PT.string.isRequired,
   period: PT.any.isRequired,
   removePeriodRequest: PT.func.isRequired,
-  requestEditPeriod: PT.func.isRequired,
-  t: PT.func.isRequired
+  requestEditPeriod: PT.func.isRequired
 }
 
 export default PeriodView

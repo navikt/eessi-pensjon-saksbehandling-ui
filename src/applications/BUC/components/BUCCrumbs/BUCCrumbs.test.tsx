@@ -16,10 +16,9 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   const initialMockProps: BUCCrumbsProps = {
     bucs: mockBucs,
     currentBuc: '195440',
-    mode: '',
+    mode: 'buclist',
     showLastLink: true,
-    setMode: jest.fn(),
-    t: jest.fn(t => t)
+    setMode: jest.fn()
   }
 
   afterEach(() => {

@@ -17,7 +17,7 @@ jest.mock('actions/buc', () => ({
 }))
 
 const defaultSelector = {
-  attachments: {},
+  attachments: { sed: [], joark: [] },
   attachmentsError: false
 };
 
@@ -38,7 +38,6 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     initialSendingAttachments: false,
     onAttachmentsSubmit: jest.fn(),
     onAttachmentsPanelOpen: jest.fn(),
-    t: jest.fn(t => t),
     sed: buc.seds![0]
   }
 

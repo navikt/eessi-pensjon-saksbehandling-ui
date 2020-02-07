@@ -3,12 +3,13 @@ import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 import classNames from 'classnames'
 import * as storage from 'constants/storage'
 import { P4000Info, Period as IPeriod, PeriodErrors } from 'declarations/period.d'
-import { AllowedLocaleString, T } from 'declarations/types'
-import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
+import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleStringPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import P4000Payload from './P4000Payload'
@@ -18,7 +19,6 @@ export interface SEDP4000Props {
   locale: AllowedLocaleString;
   setShowButtons: (b: boolean) => void;
   showButtons: boolean;
-  t: T
 }
 
 export interface SEDP4000Selector {
@@ -36,7 +36,7 @@ const mapState = (state: State): SEDP4000Selector => ({
 })
 
 export const SEDP4000: React.FC<SEDP4000Props> = ({
-  aktoerId, locale, setShowButtons, showButtons, t
+  aktoerId, locale, setShowButtons, showButtons
 }: SEDP4000Props): JSX.Element => {
   const [period, setPeriod] = useState<IPeriod>({} as IPeriod)
   const [isReady, setIsReady] = useState<boolean>(false)
@@ -44,7 +44,7 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
   const [p4000file, setP4000file] = useState<string | undefined | null>(undefined)
   const [role, setRole] = useState<string | undefined>(undefined)
   const mode: string = period.id ? 'edit' : 'new'
-
+  const { t } = useTranslation()
   const { loadingP4000list, loadingP4000info, p4000list, p4000info }: SEDP4000Selector = useSelector<State, SEDP4000Selector>(mapState)
   const dispatch = useDispatch()
 
@@ -207,7 +207,6 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
           }).map((period, index) => {
             return (
               <Period
-                t={t}
                 locale={locale}
                 mode='view'
                 first={index === 0}
@@ -227,7 +226,6 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
       )
         : null}
       <Period
-        t={t}
         mode={mode}
         period={period}
         periods={p4000info ? p4000info.stayAbroad : []}
@@ -251,8 +249,7 @@ SEDP4000.propTypes = {
   aktoerId: PT.string.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
   setShowButtons: PT.func.isRequired,
-  showButtons: PT.bool.isRequired,
-  t: TPropType.isRequired
+  showButtons: PT.bool.isRequired
 }
 
 export default SEDP4000

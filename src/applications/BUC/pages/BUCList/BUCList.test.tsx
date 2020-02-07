@@ -36,7 +36,8 @@ const defaultSelector: BUCListSelector = {
   },
   loading: {
     gettingBUCs: false
-  }
+  },
+  locale: 'nb'
 };
 (useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
@@ -46,10 +47,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   const initialMockProps: BUCListProps = {
     aktoerId: '123',
     bucs: mockBucs,
-    setMode: jest.fn(),
-    t: jest.fn((translationString) => {
-      return translationString
-    })
+    setMode: jest.fn()
   }
 
   beforeEach(() => {
@@ -71,7 +69,8 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
       ...defaultSelector,
       bucsInfoList: [
         initialMockProps.aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO
-      ]
+      ],
+      bucsInfo: undefined
     }))
     wrapper = mount(
       <BUCList {...initialMockProps} />
@@ -83,7 +82,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('.a-buc-p-buclist')).toBeTruthy()
     expect(wrapper.exists('.a-buc-p-buclist__buttons')).toBeTruthy()
     expect(wrapper.exists('#a-buc-p-buclist__newbuc-button-id')).toBeTruthy()
-    expect(wrapper.find('.c-expandingpanel').hostNodes().length).toEqual(sampleBucs.filter(buc => !buc.error).length)
+    expect(wrapper.find('.a-buc-c-bucheader').hostNodes().length).toEqual(sampleBucs.filter(buc => !buc.error).length)
     expect(wrapper.exists('.a-buc-c-sedlist')).toBeFalsy()
     expect(wrapper.exists('.a-buc-c-footer')).toBeTruthy()
   })

@@ -31,8 +31,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     aktoerId: '123',
     buc: buc,
     bucInfo: bucInfo,
-    onTagChange: jest.fn(),
-    t: jest.fn(t => t)
+    onTagChange: jest.fn()
   }
 
   beforeEach(() => {

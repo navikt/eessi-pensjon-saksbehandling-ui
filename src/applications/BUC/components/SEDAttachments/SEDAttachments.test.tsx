@@ -11,7 +11,6 @@ jest.mock('components/JoarkBrowser/JoarkBrowser', () =>
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SEDAttachmentsProps = {
-    t: jest.fn(t => t),
     files: {},
     initialMode: 'view',
     onFilesChange: jest.fn(),

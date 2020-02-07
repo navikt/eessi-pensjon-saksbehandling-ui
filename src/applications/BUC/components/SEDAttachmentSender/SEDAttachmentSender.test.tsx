@@ -18,8 +18,7 @@ describe('applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', 
       rinaDokumentId: '789'
     },
     savedAttachments: [],
-    sendAttachmentToSed: jest.fn(),
-    t: jest.fn(t => t)
+    sendAttachmentToSed: jest.fn()
   }
 
   beforeEach(() => {

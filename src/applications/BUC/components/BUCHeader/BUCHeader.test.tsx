@@ -21,8 +21,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   const initialMockProps: BUCHeaderProps = {
     buc: buc,
     bucInfo: (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId],
-    onBUCEdit: jest.fn(),
-    t: jest.fn(t => t)
+    onBUCEdit: jest.fn()
   }
 
   beforeEach(() => {

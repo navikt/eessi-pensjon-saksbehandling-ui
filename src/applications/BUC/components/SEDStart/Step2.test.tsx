@@ -16,7 +16,6 @@ describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
     buc: mockBucs['195440'],
     locale: 'nb',
     _sed: 'P4000',
-    t: jest.fn(t => t),
     showButtons: true,
     setShowButtons: jest.fn(),
     validation: {},

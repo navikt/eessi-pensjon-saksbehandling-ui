@@ -1,32 +1,41 @@
 import { setStatusParam } from 'actions/app'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
-import { RinaUrl, T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
+import { RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import CupPNG from 'resources/images/artwork/kop.png'
 import MousePNG from 'resources/images/artwork/NAVmusematte.png'
 import MapPNG from 'resources/images/artwork/saksstatus.png'
 import './BUCEmpty.css'
 
+export interface BUCEmptySelector {
+  rinaUrl: RinaUrl | undefined
+}
+
+const mapState = (state: State): BUCEmptySelector => ({
+  rinaUrl: state.buc.rinaUrl
+})
+
 export interface BUCEmptyProps {
   aktoerId?: string;
-  onBUCNew: Function;
-  rinaUrl?: RinaUrl;
+  onBUCNew: () => void;
   sakId?: string;
-  t: T;
 }
 
 const BUCEmpty: React.FC<BUCEmptyProps> = ({
-  aktoerId, onBUCNew, rinaUrl, sakId, t
+  aktoerId, onBUCNew, sakId
 }: BUCEmptyProps): JSX.Element => {
   const [_sakId, setSakId] = useState<string | undefined>(sakId)
   const [_aktoerId, setAktoerId] = useState<string | undefined>(aktoerId)
   const [validation, setValidation] = useState<string | undefined>(undefined)
   const dispatch = useDispatch()
+  const { rinaUrl }: BUCEmptySelector = useSelector<State, BUCEmptySelector>(mapState)
+  const { t } = useTranslation()
 
   const onAktoerIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidation(undefined)
@@ -113,7 +122,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
           </div>
         ) : null}
       </div>
-      {rinaUrl ? <BUCFooter className='w-100 mt-2 mb-2' t={t} /> : null}
+      {rinaUrl ? <BUCFooter className='w-100 mt-2 mb-2' /> : null}
     </>
   )
 }
@@ -121,8 +130,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
 BUCEmpty.propTypes = {
   aktoerId: PT.string,
   onBUCNew: PT.func.isRequired,
-  sakId: PT.string,
-  t: TPropType.isRequired
+  sakId: PT.string
 }
 
 export default BUCEmpty

@@ -7,35 +7,39 @@ import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
-import { Bucs } from 'declarations/buc'
-import { Loading, RinaUrl } from 'declarations/types'
+import { Bucs, BucsInfo } from 'declarations/buc'
+import { State } from 'declarations/reducers'
+import { AllowedLocaleString, Loading, Person, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import './index.css'
 
 export interface BUCIndexProps {
-  allowFullScreen?: boolean;
-  onFullFocus?: () => void;
-  onRestoreFocus?: () => void;
+  allowFullScreen: boolean;
+  onFullFocus: () => void;
+  onRestoreFocus: () => void;
   waitForMount?: boolean;
 }
+
+export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew'
 
 export interface BUCIndexSelector {
   aktoerId: string | undefined;
   avdodfnr: string | undefined;
   avdodBucs: Bucs | undefined;
   bucs: Bucs | undefined;
+  bucsInfo: BucsInfo | undefined;
   currentBuc: string | undefined;
   loading: Loading;
-  mode: string;
-  person: any;
+  locale: AllowedLocaleString;
+  mode: BUCMode;
+  person: Person | undefined;
   rinaUrl: RinaUrl | undefined;
-  sakId: string | undefined,
+  sakId: string | undefined;
   sakType: string | undefined
 }
 
@@ -44,8 +48,10 @@ const mapState = (state: State): BUCIndexSelector => ({
   avdodfnr: state.app.params.avdodfnr,
   avdodBucs: state.buc.avdodBucs,
   bucs: state.buc.bucs,
+  bucsInfo: state.buc.bucsInfo,
   currentBuc: state.buc.currentBuc,
   loading: state.loading,
+  locale: state.ui.locale,
   mode: state.buc.mode,
   person: state.app.person,
   rinaUrl: state.buc.rinaUrl,
@@ -56,23 +62,23 @@ const mapState = (state: State): BUCIndexSelector => ({
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const [mounted, setMounted] = useState(!waitForMount)
-  const [_avdodfnr, setAvdodfnr] = useState('')
-  const [show, setShow] = useState(false)
   const { aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, person, rinaUrl, sakId, sakType }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const [_avdodfnr, setAvdodfnr] = useState('')
+  const [_mounted, setMounted] = useState(!waitForMount)
+  const [_showAvdodfnr, setShowAvdodfnr] = useState(false)
 
   const combinedBucs = { ...avdodBucs, ...bucs }
 
   useEffect(() => {
-    if (!mounted) {
+    if (!_mounted) {
       if (!rinaUrl) {
         dispatch(getRinaUrl())
       }
       setMounted(true)
     }
-  }, [dispatch, mounted, rinaUrl])
+  }, [dispatch, _mounted, rinaUrl])
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
@@ -97,16 +103,12 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     dispatch(setMode(mode))
     if (allowFullScreen) {
       if (mode === 'bucnew' || mode === 'sednew') {
-        if (_.isFunction(onFullFocus)) {
-          onFullFocus()
-        }
+        onFullFocus()
       } else {
-        if (_.isFunction(onRestoreFocus)) {
-          onRestoreFocus()
-        }
+        onRestoreFocus()
       }
     }
-  }, [allowFullScreen, dispatch, onRestoreFocus, onFullFocus])
+  }, [allowFullScreen, dispatch, onFullFocus, onRestoreFocus])
 
   useEffect(() => {
     if (loading.gettingBUCs && mode !== 'buclist') {
@@ -114,7 +116,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [loading.gettingBUCs, mode, _setMode])
 
-  if (!mounted) {
+  if (!_mounted) {
     return <Ui.WaitingPanel />
   }
 
@@ -123,49 +125,53 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       <BUCEmpty
         aktoerId={aktoerId}
         onBUCNew={() => _setMode('bucnew')}
-        rinaUrl={rinaUrl}
         sakId={sakId}
-        t={t}
       />
     )
+  }
+
+  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
+    _setMode('bucnew')
   }
 
   return (
     <div className='a-buc-widget'>
       <div className='a-buc-widget__header mb-3'>
         <BUCCrumbs
-          t={t}
           bucs={combinedBucs}
           currentBuc={currentBuc}
           mode={mode}
           setMode={_setMode}
         />
-        <BUCWebSocket fnr={_.get(person, 'aktoer.ident.ident')} avdodfnr={avdodfnr} />
+        <BUCWebSocket
+          fnr={_.get(person, 'aktoer.ident.ident')}
+          avdodfnr={avdodfnr}
+        />
       </div>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
-          show ? (
+          _showAvdodfnr ? (
             <div className='d-flex flex-row align-items-end'>
               <Ui.Nav.Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e: ChangeEvent<HTMLInputElement>) => setAvdodfnr(e.target.value)} />
               <Ui.Nav.Knapp mini className='ml-2 mb-3' onClick={() => dispatch(setStatusParam('avdodfnr', _avdodfnr))}>{t('buc:form-avdodfnrButton')}</Ui.Nav.Knapp>
             </div>
           ) : (
-            <Ui.Nav.Knapp mini onClick={() => setShow(true)}>{t('buc:form-avdodfnr')}</Ui.Nav.Knapp>
+            <Ui.Nav.Knapp mini onClick={() => setShowAvdodfnr(true)}>{t('buc:form-avdodfnr')}</Ui.Nav.Knapp>
           )
         )
         : null}
-      {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
-      {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
-      {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} t={t} /> : null}
-      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} t={t} /> : null}
+      {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} /> : null}
+      {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc} setMode={_setMode} /> : null}
+      {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} /> : null}
+      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc} setMode={_setMode} /> : null}
     </div>
   )
 }
 
 BUCIndex.propTypes = {
-  allowFullScreen: PT.bool,
-  onFullFocus: PT.func,
-  onRestoreFocus: PT.func,
+  allowFullScreen: PT.bool.isRequired,
+  onFullFocus: PT.func.isRequired,
+  onRestoreFocus: PT.func.isRequired,
   waitForMount: PT.bool
 }
 

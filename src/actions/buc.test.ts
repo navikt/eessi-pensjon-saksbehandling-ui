@@ -357,7 +357,14 @@ describe('actions/buc', () => {
       dokumentInfoId: '12346789',
       variantformat: 'DUMMY'
     }
-    const mockContext = { foo: 'bar' }
+    const mockContext = {
+      journalpostId: '123456',
+      tittel: 'tittel',
+      tema: 'tema',
+      datoOpprettet: new Date(2020, 1, 1),
+      dokumentInfoId: '12346789',
+      variant: { variantformat: 'DUMMY', filnavn: 'filnavn' }
+    }
     bucActions.sendAttachmentToSed(mockParams, mockContext)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {

@@ -1,9 +1,11 @@
+import { BUCMode } from 'applications/BUC'
 import * as types from 'constants/actionTypes'
 import {
   AttachedFiles,
   Buc,
   Bucs,
   BucsInfo,
+  Institution,
   InstitutionListMap,
   InstitutionNames,
   RawInstitution,
@@ -34,7 +36,7 @@ export interface BucState {
   p4000list: Array<string> | undefined,
   institutionList: InstitutionListMap<RawInstitution> | undefined,
   institutionNames: InstitutionNames;
-  mode: string;
+  mode: BUCMode;
   rinaId: string | undefined;
   rinaUrl: RinaUrl | undefined;
   tagList: Array<string> | undefined;
@@ -78,7 +80,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_CURRENTBUC_SET:
-      console.log(action)
       return {
         ...state,
         currentBuc: (action as ActionWithPayload).payload
@@ -137,18 +138,28 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     }
 
     case types.BUC_GET_BUCS_SUCCESS: {
-      const bucReducer = (currentBucs: Bucs, newBuc: Buc) => {
-        currentBucs[newBuc.caseId as string] = newBuc
-        return currentBucs
-      }
 
       if (!_.isArray((action as ActionWithPayload).payload)) {
         return state
       }
 
+      const bucs = _.keyBy((action as ActionWithPayload).payload, 'caseId') || {}
+      const institutionNames = _.cloneDeep(state.institutionNames)
+
+      Object.keys(bucs).forEach(bucId => {
+        if (bucs[bucId].institusjon) {
+          bucs[bucId].institusjon.forEach((inst: Institution) => {
+            if (inst.institution && inst.name && !institutionNames[inst.institution]) {
+              institutionNames[inst.institution] = inst.name
+            }
+          })
+        }
+      })
+
       return {
         ...state,
-        bucs: (action as ActionWithPayload).payload.reduce(bucReducer, state.bucs || {})
+        bucs: bucs,
+        institutionNames: institutionNames
       }
     }
 
@@ -380,6 +391,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         variant: newAttachment.variant
       })
       if (!found) {
+        if (!existingAttachments.joark) {
+          existingAttachments.joark = []
+        }
         (existingAttachments.joark as Array<JoarkFile>).push(newAttachment as JoarkFile)
       }
       return {

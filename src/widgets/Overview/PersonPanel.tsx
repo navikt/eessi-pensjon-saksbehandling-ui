@@ -1,19 +1,20 @@
-import { AllowedLocaleStringPropType, TPropType } from 'declarations/types.pt'
+import { AllowedLocaleStringPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 import Ui from 'eessi-pensjon-ui'
-import { T } from 'declarations/types'
+import { useTranslation } from 'react-i18next'
 
 export interface PersonPanelProps {
   highContrast: boolean;
   locale: string;
   person: any;
-  t: T
 }
 
-const PersonPanel: React.FC<PersonPanelProps> = ({ highContrast, locale, person, t }: PersonPanelProps): JSX.Element | null => {
+const PersonPanel: React.FC<PersonPanelProps> = ({ highContrast, locale, person }: PersonPanelProps): JSX.Element | null => {
+  const { t } = useTranslation()
+
   if (!person) {
     return null
   }
@@ -165,8 +166,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({ highContrast, locale, person,
 PersonPanel.propTypes = {
   highContrast: PT.bool.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
-  person: PT.object,
-  t: TPropType.isRequired
+  person: PT.object
 }
 
 export default PersonPanel

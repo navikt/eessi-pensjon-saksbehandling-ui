@@ -5,6 +5,7 @@ import _ from 'lodash'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
+import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
 jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => () => (<div className='a-buc-sednew' />))
 jest.mock('applications/BUC/components/BUCCrumbs/BUCCrumbs', () =>
@@ -44,12 +45,14 @@ const defaultSelector: BUCIndexSelector = {
   avdodfnr: undefined,
   avdodBucs: undefined,
   bucs: mockBucs,
+  bucsInfo: sampleBucsInfo,
   currentBuc: '195440',
   loading: {
     gettingBUCs: false
   },
+  locale: 'nb',
   mode: 'buclist',
-  person: {},
+  person: undefined,
   rinaUrl: undefined,
   sakId: '456',
   sakType: undefined
@@ -63,7 +66,6 @@ describe('applications/BUC/index', () => {
     allowFullScreen: true,
     onFullFocus: jest.fn(),
     onRestoreFocus: jest.fn(),
-    t: jest.fn(t => t),
     waitForMount: false
   }
 

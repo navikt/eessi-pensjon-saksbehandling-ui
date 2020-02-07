@@ -1,12 +1,12 @@
 import { resetBuc, resetSed } from 'actions/buc'
+import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import { Bucs } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
-import { T } from 'declarations/types.d'
-import { TPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import './BUCCrumbs.css'
 
@@ -14,41 +14,43 @@ export interface BUCCrumbsProps {
   bucs: Bucs;
   className?: string;
   currentBuc: string | undefined;
-  mode: string;
-  setMode: (mode: string) => void;
+  mode: BUCMode;
+  setMode: (mode: BUCMode) => void;
   showLastLink ?: boolean;
-  t: T;
 }
 
-interface BUCCrumbLink {
+export interface BUCCrumbLink {
   label: string;
   func: Function
 }
 
+type BUCCrumbLinks = Array<BUCCrumbLink>
+
 const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
-  bucs, currentBuc, className, mode, setMode, showLastLink = false, t
+  bucs, currentBuc, className, mode, setMode, showLastLink = false
 }: BUCCrumbsProps): JSX.Element => {
   const dispatch = useDispatch()
-  const goToHome: Function = useCallback(() => {
+  const { t } = useTranslation()
+  const goToHome = useCallback(() => {
     dispatch(resetSed())
     dispatch(resetBuc())
     setMode('buclist')
   }, [dispatch, setMode])
 
-  const goToEdit: Function = useCallback(() => {
+  const goToEdit = useCallback(() => {
     dispatch(resetSed())
     setMode('bucedit')
   }, [dispatch, setMode])
 
-  const goToNewBUC: Function = useCallback(() => {
+  const goToNewBUC = useCallback(() => {
     setMode('bucnew')
   }, [setMode])
 
-  const goToNewSED: Function = useCallback(() => {
+  const goToNewSED = useCallback(() => {
     setMode('sednew')
   }, [setMode])
 
-  const buccrumbs: Array<BUCCrumbLink> = [{
+  const buccrumbs: BUCCrumbLinks = [{
     label: t('buc:buccrumb-home'),
     func: goToHome
   }]
@@ -97,14 +99,14 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   )
 }
 
+// @ts-ignore
 BUCCrumbs.propTypes = {
   bucs: BucsPropType.isRequired,
   className: PT.string,
   currentBuc: PT.string,
-  mode: PT.string.isRequired,
+  mode: PT.oneOf<BUCMode>(['buclist', 'bucedit', 'bucnew', 'sednew']).isRequired,
   setMode: PT.func.isRequired,
-  showLastLink: PT.bool,
-  t: TPropType.isRequired
+  showLastLink: PT.bool
 }
 
 export default BUCCrumbs

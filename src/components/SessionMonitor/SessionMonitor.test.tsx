@@ -15,7 +15,6 @@ jest.mock('react-redux');
 describe('components/SessionMonitor', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SessionMonitorProps = {
-    t: jest.fn(t => t),
     expirationTime: new Date(2020, 1, 1)
   }
 

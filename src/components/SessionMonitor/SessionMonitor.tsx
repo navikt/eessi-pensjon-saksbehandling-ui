@@ -1,8 +1,7 @@
 import { closeModal, openModal } from 'actions/ui'
-import { TPropType } from 'declarations/types.pt'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { T } from 'declarations/types'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
 export interface SessionMonitorProps {
@@ -11,7 +10,6 @@ export interface SessionMonitorProps {
   millisecondsForWarning?: number;
   sessionExpiredReload?: number;
   now?: Date;
-  t: T
 }
 
 const SessionMonitor: React.FC<SessionMonitorProps> = ({
@@ -23,11 +21,10 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
   millisecondsForWarning = 5 * 1000 * 60,
   /* Reload under a minute */
   sessionExpiredReload = 1000,
-  now,
-  t
+  now
 }: SessionMonitorProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
-
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   useEffect(() => {
     const checkTimeout = () => {
@@ -69,7 +66,6 @@ SessionMonitor.propTypes = {
   expirationTime: PT.instanceOf(Date),
   millisecondsForWarning: PT.number,
   sessionExpiredReload: PT.number,
-  now: PT.instanceOf(Date),
-  t: TPropType.isRequired
+  now: PT.instanceOf(Date)
 }
 export default SessionMonitor

@@ -2,7 +2,7 @@ import { AllowedLocaleString } from 'declarations/types.d'
 import PT from 'prop-types'
 
 export const ActionCreatorPropType = PT.func
-export const ActionCreatorsPropType = PT.objectOf(ActionCreatorPropType.isRequired)
+
 export const LabelsPropType = PT.objectOf(PT.string.isRequired)
 
 export const FilePropType = PT.shape({
@@ -16,6 +16,8 @@ export const FilePropType = PT.shape({
     base64: PT.string
   }).isRequired
 })
+
+export const PersonPropType = PT.any
 
 export const FilesPropType = PT.arrayOf(FilePropType.isRequired)
 

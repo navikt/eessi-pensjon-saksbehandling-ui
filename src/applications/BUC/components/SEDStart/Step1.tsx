@@ -6,13 +6,14 @@ import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable
 import { AttachedFiles, Buc, InstitutionListMap, RawInstitution, Sed } from 'declarations/buc'
 import { AttachedFilesPropType, BucPropType, InstitutionListMapPropType } from 'declarations/buc.pt'
 import { Country } from 'declarations/period'
-import { AllowedLocaleString, Loading, Option, T, Validation } from 'declarations/types'
+import { AllowedLocaleString, Loading, Option, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType, LoadingPropType, ValidationPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import { Labels } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
 export interface Step1Props {
@@ -36,7 +37,6 @@ export interface Step1Props {
   setSed: (s: string) => void;
   setValidation: (v: Validation) => void;
   setVedtakId: (v: number) => void;
-  t: T;
   validation: Validation;
   vedtakId: number | undefined;
 }
@@ -51,7 +51,7 @@ const placeholders: Labels = {
 const Step1: React.FC<Step1Props> = ({
   _attachments, buc, _countries, countryList = [], currentSed, _institutions, institutionList,
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
-  sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
+  sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, validation, vedtakId
 }: Step1Props): JSX.Element => {
   const countryData = Ui.CountryData.getCountryInstance(locale)
   const [mounted, setMounted] = useState<boolean>(false)
@@ -61,7 +61,7 @@ const Step1: React.FC<Step1Props> = ({
   const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
   const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
   const dispatch = useDispatch()
-
+  const { t } = useTranslation()
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
       if (_.includes(_countries, landkode)) {
@@ -121,7 +121,7 @@ const Step1: React.FC<Step1Props> = ({
     }
   }, [resetValidationState, setValidationState, t])
 
-  const fetchCountries = useCallback(
+  const fetchInstitutionsForSelectedCountries = useCallback(
     (countries: Array<Country>) => {
       const newCountries: Array<string> = countries ? countries.map(item => {
         return item.value
@@ -152,12 +152,15 @@ const Step1: React.FC<Step1Props> = ({
   }, [sedList, _sed, setSed])
 
   useEffect(() => {
-    if (!mounted) {
-      // when mounts, fetch country info for the default SED countries
-      fetchCountries(_countries.map(country => ({ value: country } as Country)))
+    if (!mounted && !_.isEmpty(_countries)) {
+      _countries.forEach(country => {
+        if (!institutionList || !Object.keys(institutionList).includes(country)) {
+          dispatch(getInstitutionsListForBucAndCountry(buc.type!, country))
+        }
+      })
       setMounted(true)
     }
-  }, [mounted, fetchCountries, _countries])
+  }, [mounted, buc.type, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
 
   const validateSed = (sed: string): boolean => {
     if (!sed || sed === placeholders.sed) {
@@ -204,7 +207,7 @@ const Step1: React.FC<Step1Props> = ({
   }
 
   const onCountriesChange = (countries: Array<Country>) => {
-    fetchCountries(countries)
+    fetchInstitutionsForSelectedCountries(countries)
   }
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -250,7 +253,7 @@ const Step1: React.FC<Step1Props> = ({
 
   const getSpinner = (text: string) => {
     return (
-      <Ui.WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} />
+      <Ui.WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} oneLine />
     )
   }
 
@@ -316,6 +319,7 @@ const Step1: React.FC<Step1Props> = ({
                   className='a-buc-c-sedstart__country-select'
                   id='a-buc-c-sedstart__country-select-id'
                   disabled={loading.gettingCountryList}
+                  isLoading={loading.gettingCountryList}
                   placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t(placeholders.country!)}
                   aria-describedby='help-country'
                   values={countryValueList}
@@ -330,8 +334,9 @@ const Step1: React.FC<Step1Props> = ({
                   label={t('ui:institution')}
                   className='a-buc-c-sedstart__institution-select'
                   id='a-buc-c-sedstart__institution-select-id'
-                  disabled={loading.institutionList}
-                  placeholder={loading.institutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution!)}
+                  disabled={loading.gettingInstitutionList}
+                  isLoading={loading.gettingInstitutionList}
+                  placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution!)}
                   aria-describedby='help-institution'
                   values={institutionValueList}
                   onSelect={onInstitutionsChange}
@@ -341,7 +346,6 @@ const Step1: React.FC<Step1Props> = ({
               </div>
               <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Ui.Nav.Undertittel>
               <InstitutionList
-                t={t}
                 institutions={_institutions.map(item => {
                   var [country, institution] = item.split(':')
                   return {
@@ -357,7 +361,7 @@ const Step1: React.FC<Step1Props> = ({
         {sedCanHaveAttachments() ? (
           <div className='mt-4'>
             <Ui.Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Ui.Nav.Undertittel>
-            <SEDAttachmentsTable attachments={_attachments} t={t} />
+            <SEDAttachmentsTable attachments={_attachments} />
           </div>
         ) : null}
       </div>
@@ -367,7 +371,6 @@ const Step1: React.FC<Step1Props> = ({
             {t('ui:attachments')}
           </Ui.Nav.Undertittel>
           <SEDAttachments
-            t={t}
             onSubmit={setFiles}
             files={_attachments}
             open={seeAttachmentPanel}
@@ -379,6 +382,7 @@ const Step1: React.FC<Step1Props> = ({
   )
 }
 
+// @ts-ignore
 Step1.propTypes = {
   _attachments: AttachedFilesPropType.isRequired,
   buc: BucPropType.isRequired,
@@ -395,14 +399,13 @@ Step1.propTypes = {
   setAttachments: PT.func.isRequired,
   setCountries: PT.func.isRequired,
   setInstitutions: PT.func.isRequired,
-  sedList: PT.arrayOf(PT.string.isRequired).isRequired,
+  sedList: PT.arrayOf(PT.string.isRequired),
   sedNeedsVedtakId: PT.func.isRequired,
   setSed: PT.func.isRequired,
   setValidation: PT.func.isRequired,
   setVedtakId: PT.func.isRequired,
-  t: PT.func.isRequired,
   validation: ValidationPropType.isRequired,
-  vedtakId: PT.number.isRequired
+  vedtakId: PT.number
 }
 
 export default Step1

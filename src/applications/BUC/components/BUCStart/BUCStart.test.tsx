@@ -45,8 +45,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   const initialMockProps: BUCStartProps = {
     aktoerId: '456',
     onTagsChanged: jest.fn(),
-    setMode: jest.fn(),
-    t: jest.fn(t => t)
+    setMode: jest.fn()
   }
 
   beforeEach(() => {
@@ -90,9 +89,10 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('UseEffect: saves bucsInfo after when buc was saved', () => {
     (useSelector as jest.Mock).mockImplementation(() => ({
       ...defaultSelector,
-      bucsInfo: sampleBucsInfo as BucsInfo
+      bucsInfo: sampleBucsInfo as BucsInfo,
+      buc: buc
     }))
-    wrapper = mount(<BUCStart {...initialMockProps} buc={buc} />)
+    wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(saveBucsInfo).toHaveBeenCalledWith({
       bucsInfo: sampleBucsInfo,
       aktoerId: '456',
@@ -104,9 +104,10 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('UseEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
     (useSelector as jest.Mock).mockImplementation(() => ({
       ...defaultSelector,
-      bucsInfo: sampleBucsInfo as BucsInfo
+      bucsInfo: sampleBucsInfo as BucsInfo,
+      buc: buc
     }))
-    wrapper = mount(<BUCStart {...initialMockProps} buc={buc} />)
+    wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(initialMockProps.setMode).not.toHaveBeenCalled()
     done()
     /* wrapper.setProps({

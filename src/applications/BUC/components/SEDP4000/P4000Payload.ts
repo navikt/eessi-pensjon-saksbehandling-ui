@@ -1,14 +1,7 @@
-import {
-  Country,
-  P4000PayloadInfo,
-  Payload,
-  PayloadPeriod,
-  Period,
-  PeriodDate
-} from 'declarations/period'
+import { Country, P4000PayloadInfo, Payload, PayloadPeriod, Period, PeriodDate } from 'declarations/period'
+import { T } from 'declarations/types'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
-import { T } from 'declarations/types'
 
 export default class P4000Payload {
   public pinfo: Array<Period>

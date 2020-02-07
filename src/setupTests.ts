@@ -31,6 +31,7 @@ jest.mock('i18next', () => {
   use.mockImplementation(() => result)
   return result
 })
+
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: any) => key })
 }))

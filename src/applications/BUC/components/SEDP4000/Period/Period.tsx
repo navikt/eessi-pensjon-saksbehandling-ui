@@ -6,11 +6,12 @@ import { periodValidation } from 'applications/BUC/components/SEDP4000/Validatio
 import { periodStep } from 'applications/BUC/components/SEDP4000/Validation/stepTests'
 import { Period as IPeriod, PeriodDate, PeriodErrors, Periods as IPeriods } from 'declarations/period'
 import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
-import { AllowedLocaleString, T, Validation } from 'declarations/types'
-import { AllowedLocaleStringPropType, TPropType, ValidationPropType } from 'declarations/types.pt'
+import { AllowedLocaleString, Validation } from 'declarations/types'
+import { AllowedLocaleStringPropType, ValidationPropType } from 'declarations/types.pt'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
 export interface PeriodProps {
@@ -25,13 +26,13 @@ export interface PeriodProps {
   setLocalErrors: (...args: any[]) => any;
   setPeriod: (...args: any[]) => void;
   setPeriods: (...args: any[]) => void;
-  t: T;
 }
 
 const Period = ({
   first, last, locale, localErrors, mode, period, periods,
-  setLocalError, setLocalErrors, setPeriod, setPeriods, t
+  setLocalError, setLocalErrors, setPeriod, setPeriods
 }: PeriodProps): JSX.Element => {
+  const { t } = useTranslation()
   const valueSetProperty = useCallback((key, validateFunction, value) => {
     const error = validateFunction ? validateFunction(value) : undefined
     setPeriod({
@@ -186,7 +187,6 @@ const Period = ({
     if (hasNoErrors(errors)) {
       const newPeriods: IPeriods = _.clone(periods)
       const newPeriod: IPeriod = _.clone(period)
-      // @ts-ignore
       const index: number = _.findIndex(periods, { id: period.id })
       if (index >= 0) {
         newPeriods[index] = newPeriod
@@ -236,7 +236,6 @@ const Period = ({
   }
 
   const doRemovePeriod = (period: IPeriod) => {
-    // @ts-ignore
     const index = _.findIndex(periods, { id: period.id })
     if (index >= 0) {
       const newPeriods = _.clone(periods)
@@ -257,7 +256,6 @@ const Period = ({
           period={period}
           removePeriodRequest={removePeriodRequest}
           requestEditPeriod={requestEditPeriod}
-          t={t}
         />
       )
     case 'edit':
@@ -299,7 +297,6 @@ const Period = ({
           setWorkStreet={setWorkStreet}
           setWorkType={setWorkType}
           setWorkZipCode={setWorkZipCode}
-          t={t}
         />
       )
     default:
@@ -318,8 +315,7 @@ Period.propTypes = {
   setLocalErrors: PT.func.isRequired,
   setLocalError: PT.func.isRequired,
   setPeriod: PT.func.isRequired,
-  setPeriods: PT.func.isRequired,
-  t: TPropType.isRequired
+  setPeriods: PT.func.isRequired
 }
 
 export default Period

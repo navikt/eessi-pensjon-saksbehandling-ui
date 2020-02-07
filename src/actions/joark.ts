@@ -72,7 +72,7 @@ export const getMockedPayload = (journalpostId: string): JoarkPayload | undefine
     return {
       fileName: tittel,
       contentType: 'application/pdf',
-      filInnhold: (sampleJoark.files as any)[tittel]
+      filInnhold: sampleJoark.files[tittel]
     }
   }
   return undefined

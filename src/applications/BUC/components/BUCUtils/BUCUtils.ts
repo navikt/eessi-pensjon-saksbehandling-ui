@@ -1,4 +1,4 @@
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString, T } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
@@ -7,7 +7,7 @@ import moment from 'moment'
 interface getBucTypeLabelProps {
   type: string;
   locale: AllowedLocaleString;
-  t: (...args: any[]) => any;
+  t: T
 }
 
 export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): string => {
@@ -46,10 +46,9 @@ export const sedFilter = (sed: Sed): boolean => {
 }
 
 export const bucFilter = (buc: Buc): boolean => {
-  return !_.isEmpty(buc.error) ||
-    (buc.type ? (
-      buc.type.startsWith('P_BUC') ||
-    _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
+  return !_.isEmpty(buc.error) || (
+    buc.type ? (
+      buc.type.startsWith('P_BUC') || _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
     ) : true
-    )
+  )
 }

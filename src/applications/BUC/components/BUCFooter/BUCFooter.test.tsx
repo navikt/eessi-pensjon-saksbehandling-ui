@@ -9,9 +9,7 @@ const defaultSelector = 'http://mockurl/rinaUrl';
 
 describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
   let wrapper: ReactWrapper
-  const initialMockProps: BUCFooterProps = {
-    t: jest.fn(t => t)
-  }
+  const initialMockProps: BUCFooterProps = {}
 
   beforeEach(() => {
     wrapper = mount(<BUCFooter {...initialMockProps} />)

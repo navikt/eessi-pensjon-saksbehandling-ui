@@ -106,7 +106,7 @@ describe('actions/joark', () => {
     expect(generatedResult).toMatchObject({
       fileName: tittel,
       contentType: 'application/pdf',
-      filInnhold: (sampleJoark.files as any)[tittel]
+      filInnhold: sampleJoark.files[tittel]
     })
   })
 })

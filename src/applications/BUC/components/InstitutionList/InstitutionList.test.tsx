@@ -22,8 +22,7 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
       country: 'NO',
       institution: 'Mock2'
     }],
-    locale: 'nb',
-    t: jest.fn(t => t)
+    locale: 'nb'
   }
 
   beforeEach(() => {

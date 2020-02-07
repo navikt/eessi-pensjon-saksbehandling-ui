@@ -4,17 +4,16 @@ import SEDAttachmentSender, {
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import { AttachedFiles, Buc, Sed } from 'declarations/buc'
+import { AttachedFiles, Buc, BUCAttachments, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
-import { T } from 'declarations/types'
-import { TPropType } from 'declarations/types.pt'
+import { State } from 'declarations/reducers'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 export interface SEDBodyProps {
@@ -26,7 +25,6 @@ export interface SEDBodyProps {
   onAttachmentsSubmit?: (af: AttachedFiles) => void;
   onAttachmentsPanelOpen?: (o: boolean) => void;
   sed: Sed;
-  t: T;
 }
 
 export interface SEDBody {
@@ -41,13 +39,14 @@ const mapState = (state: State): SEDBody => ({
 
 const SEDBody: React.FC<SEDBodyProps> = ({
   aktoerId, buc, initialAttachmentsSent = false, initialSeeAttachmentPanel = false,
-  initialSendingAttachments = false, onAttachmentsSubmit, onAttachmentsPanelOpen, sed, t
+  initialSendingAttachments = false, onAttachmentsSubmit, onAttachmentsPanelOpen, sed
 }: SEDBodyProps): JSX.Element => {
-  const [_attachments, setAttachments] = useState<AttachedFiles>({ sed: sed.attachments || [], joark: [] })
+  const [_attachments, setAttachments] = useState<AttachedFiles>({ sed: sed.attachments || [] as BUCAttachments, joark: [] as JoarkFiles })
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(initialAttachmentsSent)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(initialSeeAttachmentPanel)
   const { attachments, attachmentsError }: SEDBody = useSelector<State, SEDBody>(mapState)
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -88,11 +87,10 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     <div className='a-buc-c-sedbody'>
       <Ui.Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Ui.Nav.Undertittel>
       <div className='mt-4 mb-4'>
-        {!sendingAttachments ? <SEDAttachmentsTable attachments={_attachments} t={t} /> : null}
+        {!sendingAttachments ? <SEDAttachmentsTable attachments={_attachments} /> : null}
       </div>
       {seeAttachmentPanel ? <Ui.Nav.Undertittel className='mb-3 mt-3'>{t('ui:addAttachments')}</Ui.Nav.Undertittel> : null}
       <SEDAttachments
-        t={t}
         files={_attachments}
         open={seeAttachmentPanel}
         onOpen={onAttachmentsPanelOpened}
@@ -112,13 +110,13 @@ const SEDBody: React.FC<SEDBodyProps> = ({
           allAttachments={_attachments.joark as JoarkFiles}
           savedAttachments={attachments.joark as JoarkFiles}
           onFinished={() => setAttachmentsSent(true)}
-          t={t}
         />
       ) : null}
     </div>
   )
 }
 
+// @ts-ignore
 SEDBody.propTypes = {
   aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,
@@ -127,8 +125,7 @@ SEDBody.propTypes = {
   initialSendingAttachments: PT.bool,
   onAttachmentsSubmit: PT.func,
   onAttachmentsPanelOpen: PT.func,
-  sed: SedPropType.isRequired,
-  t: TPropType.isRequired
+  sed: SedPropType.isRequired
 }
 
 export default SEDBody

@@ -1,6 +1,6 @@
 
 export interface JoarkFileVariant {
-  variantformat:string;
+  variantformat: string;
   filnavn: string;
 }
 

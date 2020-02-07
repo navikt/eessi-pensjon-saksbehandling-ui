@@ -98,7 +98,7 @@ export const PayloadPropType = PT.shape({
 
 export const StayAbroadPropType = PT.arrayOf(PeriodPropType.isRequired)
 
-export const PersonPropType = PT.object
+export const PersonPropType = PT.any
 
 export const BankPropType = PT.object
 

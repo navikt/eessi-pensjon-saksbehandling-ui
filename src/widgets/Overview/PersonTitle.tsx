@@ -1,23 +1,23 @@
 import classNames from 'classnames'
-import { TPropType } from 'declarations/types.pt'
+import { PersonPropType } from 'declarations/types.pt'
+import { Person } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'declarations/types'
 import './PersonTitle.css'
+import { useTranslation } from 'react-i18next'
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean;
-  person: any;
-  t: T
+  person?: Person;
 }
 
-const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person, t }: PersonTitleProps): JSX.Element => {
+const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: PersonTitleProps): JSX.Element => {
   let birthDate: Date | Moment | undefined
   let deathDate: Date | Moment | undefined
-
+  const { t } = useTranslation()
   if (!person || gettingPersonInfo) {
     return <Ui.WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
   }
@@ -56,8 +56,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person, t 
 
 PersonTitle.propTypes = {
   gettingPersonInfo: PT.bool.isRequired,
-  person: PT.object,
-  t: TPropType.isRequired
+  person: PersonPropType
 }
 
 export default PersonTitle

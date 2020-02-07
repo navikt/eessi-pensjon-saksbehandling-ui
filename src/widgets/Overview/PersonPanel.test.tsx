@@ -8,8 +8,7 @@ describe('widgets/Overview/PersonPanel', () => {
   const initialMockProps: PersonPanelProps = {
     highContrast: false,
     person: samplePerson.person,
-    locale: 'nb',
-    t: jest.fn(t => t)
+    locale: 'nb'
   }
 
   beforeEach(() => {

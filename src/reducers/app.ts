@@ -1,4 +1,5 @@
 import * as types from 'constants/actionTypes'
+import { Params, Person } from 'declarations/types'
 import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 
 export interface AppState {
@@ -8,12 +9,8 @@ export interface AppState {
   expirationTime: Date | undefined;
   username: string | undefined
   userRole: string | undefined,
-  userStatus: string | undefined,
-  firstName: string | undefined,
-  middleName: string | undefined,
-  lastname: string | undefined,
-  person: any | undefined,
-  params: {[k: string] : string};
+  person: Person | undefined,
+  params: Params;
 }
 
 export const initialAppState: AppState = {
@@ -23,10 +20,6 @@ export const initialAppState: AppState = {
   allowed: false,
   username: undefined,
   userRole: undefined,
-  userStatus: undefined,
-  firstName: undefined,
-  middleName: undefined,
-  lastname: undefined,
   person: undefined,
   params: {}
 }
@@ -64,7 +57,6 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
-        userStatus: 'OK',
         loggedTime: now,
         expirationTime: expirationTime
       }
@@ -74,8 +66,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
 
       return {
         ...initialAppState,
-        loggedIn: false,
-        userStatus: 'ERROR'
+        loggedIn: false
       }
 
     case types.APP_PERSONINFO_SUCCESS:

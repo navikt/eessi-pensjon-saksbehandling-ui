@@ -18,8 +18,7 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
     buc: sampleBucs[0],
     maxSeds: 99,
     onSEDNew: jest.fn(),
-    seds: (sampleBucs[0].seds as Seds),
-    t: jest.fn(t => t)
+    seds: (sampleBucs[0].seds as Seds)
   }
 
   beforeEach(() => {
@@ -37,7 +36,7 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.find('SEDHeader').length).toEqual(
-      initialMockProps.seds.filter(sed => sed.status !== 'empty').length
+      initialMockProps.seds!.filter(sed => sed.status !== 'empty').length
     )
     expect(wrapper.exists('.a-buc-c-sedlist__footer')).toBeTruthy()
   })

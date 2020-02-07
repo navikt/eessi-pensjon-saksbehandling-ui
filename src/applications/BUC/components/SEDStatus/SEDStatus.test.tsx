@@ -5,8 +5,7 @@ import SEDStatus, { SEDStatusProps } from './SEDStatus'
 describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
   let wrapper : ReactWrapper
   const initialMockProps: SEDStatusProps = {
-    status: 'new',
-    t: jest.fn(t => t)
+    status: 'new'
   }
 
   it('Renders', () => {

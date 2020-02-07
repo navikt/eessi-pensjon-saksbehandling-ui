@@ -1,5 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as uiActions from 'actions/ui'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import i18n from 'i18n'
 jest.mock('i18n', () => ({
   changeLanguage: jest.fn()
@@ -17,7 +18,9 @@ describe('actions/ui', () => {
   })
 
   it('openModal()', () => {
-    const mockModal = { foo: 'bar' }
+    const mockModal = {
+      modalTitle: 'title'
+    } as ModalContent
     const generatedResult = uiActions.openModal(mockModal)
     expect(generatedResult).toMatchObject({
       type: types.UI_MODAL_SET,
