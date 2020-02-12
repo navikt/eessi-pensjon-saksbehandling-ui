@@ -216,7 +216,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const sedCanHaveAttachments = (): boolean => {
-    const sedsWithoutAttachments = ['P4000', 'P5000', 'P7000', 'H070']
+    const sedsWithoutAttachments = ['P5000', 'P7000', 'H070']
     return _sed !== undefined && !_.includes(sedsWithoutAttachments, _sed)
   }
 
