@@ -1,4 +1,5 @@
 import Buc from 'applications/BUC/'
+import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import _ from 'lodash'
 import PT from 'prop-types'
@@ -51,7 +52,7 @@ BUCWidget.propTypes = {
   onResize: PT.func.isRequired,
   onFullFocus: PT.func.isRequired,
   onRestoreFocus: PT.func.isRequired,
-  widget: PT.object
+  widget: WidgetPropType.isRequired
 }
 
 export default BUCWidget

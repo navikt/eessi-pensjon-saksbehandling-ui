@@ -1,3 +1,4 @@
+import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -45,7 +46,7 @@ OverviewWidget.properties = {
 OverviewWidget.propTypes = {
   onResize: PT.func.isRequired,
   onUpdate: PT.func.isRequired,
-  widget: PT.object.isRequired
+  widget: WidgetPropType.isRequired
 }
 
 export default OverviewWidget

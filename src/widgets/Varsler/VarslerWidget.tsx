@@ -1,3 +1,4 @@
+import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -15,7 +16,7 @@ const VarslerWidget: WidgetFC<WidgetProps> = ({ onResize, onUpdate, widget }: Wi
   }, [mounted, onResize])
 
   return (
-    <div className='w-varslerWidget'>
+    <div className='w-VarslerWidget'>
       <ReactResizeDetector
         handleWidth
         handleHeight
@@ -42,8 +43,8 @@ VarslerWidget.properties = {
 
 VarslerWidget.propTypes = {
   onResize: PT.func.isRequired,
-  onUpdate: PT.func,
-  widget: PT.object.isRequired
+  onUpdate: PT.func.isRequired,
+  widget: WidgetPropType.isRequired
 }
 
 export default VarslerWidget

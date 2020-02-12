@@ -48,13 +48,16 @@ describe('widgets/Overview/PersonPanel', () => {
     wrapper.setProps({
       person: {
         ...samplePerson.person,
-        bostedsadresse: null
+        bostedsadresse: null,
+        foedselsdato: null
       }
     })
     expect(wrapper.exists('.w-overview-personPanel__content')).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').render().text()).toEqual(
       'ui:bostedsadresse:ui:notRegistered')
+    expect(wrapper.find('#w-overview-personPanel__element-birthdate').render().text()).toEqual(
+      'ui:birthdate:ui:notRegistered')
   })
 
   it('gets dates converted properly', () => {

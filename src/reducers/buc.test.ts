@@ -1,7 +1,7 @@
+import * as types from 'constants/actionTypes'
 import { Buc, BucsInfo, Sed } from 'declarations/buc'
 import sampleBucs from 'resources/tests/sampleBucs'
 import bucReducer, { initialBucState } from './buc'
-import * as types from 'constants/actionTypes'
 
 describe('reducers/buc', () => {
   it('APP_CLEAR_DATA', () => {
@@ -139,15 +139,58 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_BUCS_SUCCESS', () => {
+  it('BUC_GET_SINGLE_BUC_SUCCESS: P_BUC_02', () => {
     expect(
       bucReducer(initialBucState, {
-        type: types.BUC_GET_BUCS_SUCCESS,
-        payload: [{ caseId: 'mockPayload' }]
+        type: types.BUC_GET_SINGLE_BUC_SUCCESS,
+        payload: {
+          caseId: '123',
+          type: 'P_BUC_02'
+        }
       })
     ).toEqual({
       ...initialBucState,
-      bucs: { mockPayload: { caseId: 'mockPayload' } }
+      avdodBucs: {
+        123: {
+          caseId: '123',
+          type: 'P_BUC_02'
+        }
+      }
+    })
+  })
+
+  it('BUC_GET_BUCS_SUCCESS with bad payload', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_GET_BUCS_SUCCESS,
+        payload: null
+      })
+    ).toEqual(initialBucState)
+  })
+
+  it('BUC_GET_BUCS_SUCCESS', () => {
+    const sampleBuc = {
+      caseId: '123456',
+      institusjon: [{
+        country: 'NO',
+        institution: 'NO:NAVAT07',
+        name: 'NAV ACCEPTANCE TEST 07'
+      }]
+    }
+    expect(
+      bucReducer({
+        ...initialBucState,
+        institutionNames: {}
+      }, {
+        type: types.BUC_GET_BUCS_SUCCESS,
+        payload: [sampleBuc]
+      })
+    ).toEqual({
+      ...initialBucState,
+      bucs: { 123456: sampleBuc },
+      institutionNames: {
+        'NO:NAVAT07': 'NAV ACCEPTANCE TEST 07'
+      }
     })
   })
 
@@ -164,6 +207,17 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       bucs: null
+    })
+  })
+
+  it('BUC_GET_AVDOD_BUCS_SUCCESS with bad payload', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_GET_AVDOD_BUCS_SUCCESS,
+        payload: null
+      })
+    ).toEqual({
+      ...initialBucState
     })
   })
 
@@ -622,6 +676,28 @@ describe('reducers/buc', () => {
     })
   })
 
+  it('BUC_SEND_ATTACHMENT_REQUEST', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_SEND_ATTACHMENT_REQUEST
+      })
+    ).toEqual({
+      ...initialBucState,
+      attachmentsError: false
+    })
+  })
+
+  it('BUC_SEND_ATTACHMENT_FAILURE', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_SEND_ATTACHMENT_FAILURE
+      })
+    ).toEqual({
+      ...initialBucState,
+      attachmentsError: true
+    })
+  })
+
   it('BUC_SEND_ATTACHMENT_SUCCESS: existing attachment', () => {
     expect(
       bucReducer({
@@ -663,22 +739,16 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        attachments: {
-          joark: [{
-            dokumentInfoId: '1',
-            journalpostId: '1',
-            variant: { variantformat: 'variantformat', filnavn: 'filnavn' },
-            tittel: 'tittel',
-            tema: 'tema',
-            datoOpprettet: new Date(2020, 1, 1)
-          }]
-        }
+        attachments: {}
       }, {
         type: types.BUC_SEND_ATTACHMENT_SUCCESS,
         context: {
           dokumentInfoId: '1',
           journalpostId: '1',
-          variant: { variantformat: 'variantformat', filnavn: 'filnavn' }
+          variant: { variantformat: 'variantformat', filnavn: 'filnavn' },
+          tittel: 'tittel',
+          tema: 'tema',
+          datoOpprettet: new Date(2020, 1, 1)
         }
       })
     ).toEqual({
@@ -762,5 +832,14 @@ describe('reducers/buc', () => {
       ...initialBucState,
       p4000info: null
     })
+  })
+
+  it('UNKNOWN_ACTION', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: 'UNKNOWN_ACTION',
+        payload: undefined
+      })
+    ).toEqual(initialBucState)
   })
 })

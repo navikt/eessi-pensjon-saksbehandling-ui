@@ -1,5 +1,5 @@
-import joarkReducer, { initialJoarkState } from './joark'
 import * as types from 'constants/actionTypes'
+import joarkReducer, { initialJoarkState } from './joark'
 
 describe('reducers/joark', () => {
   const mockPayload = {
@@ -75,6 +75,18 @@ describe('reducers/joark', () => {
     ).toEqual({
       ...initialJoarkState,
       list: mockList
+    })
+  })
+
+  it('JOARK_PREVIEW_SET', () => {
+    expect(
+      joarkReducer(initialJoarkState, {
+        type: types.JOARK_PREVIEW_SET,
+        payload: mockPayload
+      })
+    ).toEqual({
+      ...initialJoarkState,
+      previewFile: mockPayload
     })
   })
 
@@ -154,5 +166,14 @@ describe('reducers/joark', () => {
         }
       }
     })
+  })
+
+  it('UNKNOWN_ACTION', () => {
+    expect(
+      joarkReducer(initialJoarkState, {
+        type: 'UNKNOWN_ACTION',
+        payload: undefined
+      })
+    ).toEqual(initialJoarkState)
   })
 })

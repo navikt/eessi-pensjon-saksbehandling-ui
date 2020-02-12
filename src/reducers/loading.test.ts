@@ -363,4 +363,12 @@ describe('reducers/loading', () => {
   it('PINFO_INVITE_FAILURE', () => {
     simulateFailure(types.PINFO_INVITE_FAILURE, 'isInvitingPinfo')
   })
+
+  it('UNKNOWN_ACTION', () => {
+    expect(
+      loadingReducer(initialLoadingState, {
+        type: 'UNKNOWN_ACTION'
+      })
+    ).toEqual(initialLoadingState)
+  })
 })

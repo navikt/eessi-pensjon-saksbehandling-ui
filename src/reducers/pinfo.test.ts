@@ -1,5 +1,5 @@
-import pinfoReducer, { initialPinfoState } from './pinfo'
 import * as types from 'constants/actionTypes'
+import pinfoReducer, { initialPinfoState } from './pinfo'
 
 describe('reducers/pinfo', () => {
   it('PINFO_INVITE_REQUEST', () => {
@@ -42,5 +42,13 @@ describe('reducers/pinfo', () => {
         status: 'OK'
       }
     })
+  })
+
+  it('UNKNOWN_ACTION', () => {
+    expect(
+      pinfoReducer(initialPinfoState, {
+        type: 'UNKNOWN_ACTION'
+      })
+    ).toEqual(initialPinfoState)
   })
 })

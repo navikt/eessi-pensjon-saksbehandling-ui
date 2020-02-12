@@ -389,4 +389,14 @@ describe('reducers/alert', () => {
       clientErrorMessage: 'pinfo:alert-sendSuccess'
     })
   })
+
+  it('UNKNOWN_ACTION', () => {
+    expect(
+      alertReducer(initialAlertState, {
+        type: 'UNKNOWN_ACTION'
+      })
+    ).toEqual({
+      ...initialAlertState
+    })
+  })
 })

@@ -17,15 +17,25 @@ export interface SEDPanelProps {
   style: React.CSSProperties;
 }
 
-const allowedStatus: Array<string> = ['new', 'active']
+const activeStatus: Array<string> = ['new', 'active']
+const sedWithProperties: Array<string> = ['P5000']
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId, buc, className, followUpSeds, onSEDNew,
   sed, style
 }: SEDPanelProps): JSX.Element => {
-  const sedHasOption: Function = (sed: Sed): boolean => {
-    return _.includes(allowedStatus, sed.status)
+  const sedCanHaveAttachments = (sed: Sed): boolean => {
+    return _.includes(activeStatus, sed.status)
   }
+
+  const sedCanShowProperties = (sed: Sed): boolean => {
+    return _.includes(sedWithProperties, sed.type)
+  }
+
+  const sedHasOption = (sed: Sed): boolean => {
+    return sedCanHaveAttachments(sed) || sedCanShowProperties(sed)
+  }
+
   return (
     <div className={classNames('a-buc-c-sedpanel', className)}>
       {!sedHasOption(sed) ? (
@@ -54,6 +64,8 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             aktoerId={aktoerId}
             buc={buc}
             sed={sed}
+            canHaveAttachments={sedCanHaveAttachments(sed)}
+            canShowProperties={sedCanShowProperties(sed)}
           />
         </Ui.Nav.EkspanderbartpanelBase>
       )}

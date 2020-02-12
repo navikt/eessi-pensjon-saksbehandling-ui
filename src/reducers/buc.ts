@@ -138,7 +138,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     }
 
     case types.BUC_GET_BUCS_SUCCESS: {
-
       if (!_.isArray((action as ActionWithPayload).payload)) {
         return state
       }

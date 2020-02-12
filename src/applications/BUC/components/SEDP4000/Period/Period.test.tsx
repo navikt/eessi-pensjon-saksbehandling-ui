@@ -5,6 +5,8 @@ import { mount, ReactWrapper } from 'enzyme'
 import { PeriodProps } from './Period'
 import { Period as IPeriod } from 'declarations/period'
 import sampleP4000info from 'resources/tests/sampleP4000info'
+import { openModal } from 'actions/ui'
+
 jest.mock('eessi-pensjon-ui', () => {
   const Ui = jest.requireActual('eessi-pensjon-ui').default
   return {
@@ -15,14 +17,16 @@ jest.mock('eessi-pensjon-ui', () => {
     }
   }
 })
+
 jest.mock('react-redux', () => ({
   useDispatch: () => jest.fn()
 }));
+
 jest.mock('actions/ui', () => ({
   openModal: jest.fn(),
   closeModal: jest.fn()
 }));
-import { openModal } from 'actions/ui'
+
 
 let sampleWorkPeriod: IPeriod | undefined = _.find(sampleP4000info.stayAbroad as Array<IPeriod>, (it: IPeriod) => it.type === 'work')
 sampleWorkPeriod!.attachments = [{

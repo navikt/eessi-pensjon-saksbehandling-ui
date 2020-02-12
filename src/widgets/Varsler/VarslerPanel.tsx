@@ -30,6 +30,8 @@ export interface Varsler {
   timestamp: string;
 }
 
+export type Varslers = {[k: string]: Varsler}
+
 export const VarslerPropType = PT.shape({
   tittel: PT.string.isRequired,
   fulltnavn: PT.string.isRequired,
@@ -58,15 +60,16 @@ export interface VarslerPanelSelector {
 }
 
 export interface VarslerPanelProps {
+  initialFiles?: Varslers;
   onUpdate?: (w: Widget) => void;
   widget: Widget;
 }
 
-export const VarslerPanel: React.FC<VarslerPanelProps> = ({ onUpdate, widget }: VarslerPanelProps) => {
+export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, onUpdate, widget }: VarslerPanelProps) => {
   const { aktoerId, file, fileList, isInvitingPinfo, invite, person, sakId, sakType }: VarslerPanelSelector = useSelector<State, VarslerPanelSelector>(mapState)
   const [isReady, setIsReady] = useState(false)
   const [_fileList, setFileList] = useState<Array<string> | undefined | null>(undefined)
-  const [_files, setFiles] = useState<{[k: string]: Varsler}>({})
+  const [_files, setFiles] = useState<Varslers>(initialFiles)
   const [mounted, setMounted] = useState(false)
   const [hasParams, setHasParams] = useState(false)
 
@@ -102,15 +105,16 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ onUpdate, widget }: 
 
   useEffect(() => {
     if (!_.isNil(fileList) && _fileList === undefined) {
-      fileList.map(file => {
-        dispatch(getStorageFile({
-          userId: aktoerId,
-          namespace: 'varsler',
-          file: sakId + '___' + file
-        }, {
-          notification: false
-        }))
-        return file
+      fileList.forEach(file => {
+        if (!_.includes(Object.keys(_files), file)) {
+          dispatch(getStorageFile({
+            userId: aktoerId,
+            namespace: 'varsler',
+            file: sakId + '___' + file
+          }, {
+            notification: false
+          }))
+        }
       })
 
       setIsReady(_.isEmpty(fileList))
@@ -239,7 +243,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ onUpdate, widget }: 
                   id: 'type',
                   label: t('ui:sentDocuments'),
                   type: 'object',
-                  needle: (it: string) => it.toLowerCase(),
+                  needle: /* istanbul ignore next */ (it: string) => it.toLowerCase(),
                   renderCell: (item: any) => (
                     <div className='d-flex'>
                       <Ui.Icons className='mr-2' kind='nav-message-sent' />
@@ -261,7 +265,8 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ onUpdate, widget }: 
 }
 
 VarslerPanel.propTypes = {
-  onUpdate: PT.func,
+  initialFiles: PT.objectOf(VarslerPropType.isRequired),
+  onUpdate: PT.func.isRequired,
   widget: WidgetPropType.isRequired
 }
 

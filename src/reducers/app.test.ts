@@ -1,5 +1,5 @@
-import appReducer, { initialAppState } from './app'
 import * as types from 'constants/actionTypes'
+import appReducer, { initialAppState } from './app'
 
 describe('reducers/app', () => {
   it('APP_PARAM_SET', () => {
@@ -150,5 +150,14 @@ describe('reducers/app', () => {
         sakType: 'Unknown'
       }
     })
+  })
+
+  it('UNKNOWN_ACTION', () => {
+    expect(
+      appReducer(initialAppState, {
+        type: 'UNKNOWN_ACTION',
+        payload: undefined
+      })
+    ).toEqual(initialAppState)
   })
 })

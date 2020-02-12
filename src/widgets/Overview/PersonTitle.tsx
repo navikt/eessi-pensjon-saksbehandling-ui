@@ -22,13 +22,13 @@ const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: 
     return <Ui.WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
   }
 
-  if (person && person.foedselsdato && person.foedselsdato.foedselsdato) {
+  if (_.get(person, 'foedselsdato.foedselsdato')) {
     birthDate = moment(person.foedselsdato.foedselsdato)
     if (birthDate) {
       birthDate = birthDate.toDate()
     }
   }
-  if (person && person.doedsdato && person.doedsdato.doedsdato) {
+  if (_.get(person, 'doedsdato.doedsdato')) {
     deathDate = moment(person.doedsdato.doedsdato)
     if (deathDate) {
       deathDate = deathDate.toDate()
@@ -46,7 +46,11 @@ const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: 
 
   return (
     <div className='w-overview-personPanel__title'>
-      <Ui.Icons size={40} kind={kind} className={classNames('w-overview-personPanel__icon', { dead: !_.isNil(deathDate) })} />
+      <Ui.Icons
+        size={40}
+        kind={kind}
+        className={classNames('w-overview-personPanel__icon', { dead: !_.isNil(deathDate) })}
+      />
       <Ui.Nav.Systemtittel className='ml-2'>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
       </Ui.Nav.Systemtittel>

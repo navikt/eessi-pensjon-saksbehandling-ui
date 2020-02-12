@@ -1,6 +1,8 @@
-import Enzyme, { shallow, render, mount } from 'enzyme'
+import Enzyme, { mount, render, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { act } from 'react-dom/test-utils'
+import { useDispatch, useSelector } from 'react-redux'
+
 Enzyme.configure({ adapter: new Adapter() });
 
 (global as any).shallow = shallow;
@@ -35,3 +37,13 @@ jest.mock('i18next', () => {
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: any) => key })
 }))
+
+jest.mock('react-redux');
+(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+
+export const stageSelector = (defaultSelector: any, params: any) => {
+  (useSelector as jest.Mock).mockImplementation(() => ({
+    ...defaultSelector,
+    ...params
+  }))
+}

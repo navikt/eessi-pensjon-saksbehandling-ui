@@ -19,7 +19,7 @@ import { I18nextProvider } from 'react-i18next'
 import { combineReducers, applyMiddleware, createStore, Store } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-// import Loadable from 'loadable'
+import Loadable from 'loadable'
 import * as reducers from './reducers'
 import { IS_PRODUCTION } from 'constants/environment'
 import 'moment'
@@ -33,15 +33,13 @@ import 'eessi-pensjon-ui/dist/minibootstrap.css'
 import 'eessi-pensjon-ui/dist/nav.css'
 import 'index.css'
 import 'index_highContrast.css'
-import Error from './pages/Error/Error'
-import IndexPage from './pages/IndexPage/IndexPage'
 
 const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
-/*
+
 const Pages = {
   Error: Loadable({ loader: () => import('./pages/Error/Error') }),
   IndexPage: Loadable({ loader: () => import('./pages/IndexPage/IndexPage') })
-} */
+}
 
 window.onerror = (msg, src, lineno, colno, error) => {
   console.log('error', msg, src, lineno, colno, error)
@@ -55,7 +53,7 @@ if (!IS_PRODUCTION) {
 
 const renderErrorPage = (type: string) => {
   // @ts-ignore
-  return () => <Error type={type} />
+  return (): any => (<Pages.Error type={type} />)
 }
 
 ReactDOM.render(
@@ -68,7 +66,7 @@ ReactDOM.render(
             <Route path={routes.NOT_INVITED} render={renderErrorPage('notInvited')} />
             <Route path={routes.FORBIDDEN} render={renderErrorPage('forbidden')} />
             <Route path={routes.ROOT + ':PATH+'} render={renderErrorPage('error')} />
-            <AuthenticatedRoute path={routes.ROOT} component={IndexPage} />
+            <AuthenticatedRoute path={routes.ROOT} component={Pages.IndexPage} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
           </Switch>
         </Router>

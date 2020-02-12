@@ -285,9 +285,9 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('getInstitutionsListForBucAndCountry()', () => {
+  it('getInstitutionsListForBucAndCountry() - GB translated to UK', () => {
     const mockBucType = 'P_BUC_01'
-    const mockCountry = 'NO'
+    const mockCountry = 'GB'
     bucActions.getInstitutionsListForBucAndCountry(mockBucType, mockCountry)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -299,7 +299,7 @@ describe('actions/buc', () => {
         buc: mockBucType,
         country: mockCountry
       },
-      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: mockCountry })
+      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: 'UK' })
     }))
   })
 

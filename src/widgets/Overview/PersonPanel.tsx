@@ -62,10 +62,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({ highContrast, locale, person 
 
   const getCountry = (value: string): string | null => {
     const nationality = Ui.CountryData.getCountryInstance(locale).findByValue3(value)
-    if (nationality) {
-      return nationality.label
-    }
-    return null
+    return nationality ? nationality.label : null
   }
 
   if (_.get(person, 'sivilstand.fomGyldighetsperiode')) {

@@ -3,16 +3,15 @@ import React from 'react'
 import BUCWidget from './BUCWidget'
 import { mount, ReactWrapper } from 'enzyme'
 
-jest.mock('applications/BUC/', () => {
-  return () => { return <div className='mock-a-buc' /> }
-})
+jest.mock('applications/BUC/', () => () => (<div className='mock-a-buc' />))
 
 describe('widgets/BUCWidget', () => {
   let wrapper: ReactWrapper
   const initialMockProps: WidgetProps = {
-    onResize: jest.fn(),
     onFullFocus: jest.fn(),
+    onResize: jest.fn(),
     onRestoreFocus: jest.fn(),
+    onUpdate: jest.fn(),
     widget: {
       i: 'i',
       type: 'buc',

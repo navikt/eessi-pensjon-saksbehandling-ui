@@ -9,6 +9,8 @@ describe('widgets/OverviewWidget', () => {
   let wrapper: ReactWrapper
   const initialMockProps: WidgetProps = {
     onResize: jest.fn(),
+    onFullFocus: jest.fn(),
+    onRestoreFocus: jest.fn(),
     onUpdate: jest.fn(),
     widget: {
       i: 'i',

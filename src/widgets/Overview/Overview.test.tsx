@@ -1,35 +1,24 @@
 import { getPersonInfo } from 'actions/app'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { stageSelector } from 'setupTests'
 import { Overview, OverviewProps, OverviewSelector } from './Overview'
 
 jest.mock('actions/app', () => ({
   getPersonInfo: jest.fn()
 }))
 
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
-
-const defaultSelector: OverviewSelector = {
-  aktoerId: '123',
-  gettingPersonInfo: false,
-  highContrast: false,
-  locale: 'nb',
-  person: undefined
-};
-
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
-
-export const setup = (params: any) => {
-  (useSelector as jest.Mock).mockImplementation(() => ({
-    ...defaultSelector,
-    ...params
-  }))
-}
-
 describe('widgets/Overview/Overview', () => {
   let wrapper: ReactWrapper
+
+  const defaultSelector: OverviewSelector = {
+    aktoerId: '123',
+    gettingPersonInfo: false,
+    highContrast: false,
+    locale: 'nb',
+    person: undefined
+  }
+
   const initialMockProps: OverviewProps = {
     onUpdate: jest.fn(),
     skipMount: false,
@@ -45,6 +34,7 @@ describe('widgets/Overview/Overview', () => {
   }
 
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<Overview {...initialMockProps} />)
   })
 
@@ -69,14 +59,14 @@ describe('widgets/Overview/Overview', () => {
   })
 
   it('With no aktoerId', () => {
-    setup({ aktoerId: undefined })
+    stageSelector(defaultSelector, ({ aktoerId: undefined }))
     wrapper = mount(<Overview {...initialMockProps} />)
     expect(wrapper.exists('.w-overview__alert')).toBeTruthy()
     expect(wrapper.find('.w-overview__alert').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
   })
 
   it('Expandable ', () => {
-    setup({ aktoerId: '123' })
+    stageSelector(defaultSelector, ({ aktoerId: '123' }))
     wrapper = mount(<Overview {...initialMockProps} skipMount />)
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(initialMockProps.onUpdate).toHaveBeenCalledWith(expect.objectContaining({

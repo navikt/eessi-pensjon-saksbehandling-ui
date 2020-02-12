@@ -1,5 +1,5 @@
-import storageReducer, { initialStorageState } from './storage'
 import * as types from 'constants/actionTypes'
+import storageReducer, { initialStorageState } from './storage'
 
 describe('reducers/storage', () => {
   it('STORAGE_LIST_SUCCESS', () => {
@@ -98,6 +98,14 @@ describe('reducers/storage', () => {
         fileToDelete: 'something'
       }, {
         type: types.APP_CLEAR_DATA
+      })
+    ).toEqual(initialStorageState)
+  })
+
+  it('UNKNOWN_ACTION', () => {
+    expect(
+      storageReducer(initialStorageState, {
+        type: 'UNKNOWN_ACTION'
       })
     ).toEqual(initialStorageState)
   })
