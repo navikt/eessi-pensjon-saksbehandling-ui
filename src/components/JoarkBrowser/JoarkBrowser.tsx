@@ -2,6 +2,7 @@ import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'action
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
 import Ui from 'eessi-pensjon-ui'
+import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -47,7 +48,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(previewFile)
   const [clickedPreviewFile, setClickedPreviewFile] = useState<any>(undefined)
   const [mounted, setMounted] = useState<boolean>(false)
-  const [modal, setModal] = useState<any>(undefined)
+  const [modal, setModal] = useState<ModalContent | undefined>(undefined)
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
       dispatch(listJoarkFiles(aktoerId))

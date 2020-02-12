@@ -3,59 +3,61 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { BucsInfo, NewSedPayload } from 'declarations/buc'
+import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
 import Ui from 'eessi-pensjon-ui'
 import * as api from 'eessi-pensjon-ui/dist/api'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload, ThunkResult } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
-import { Action } from 'redux'
+import { Action, ActionCreator } from 'redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
 import sampleP4000info from 'resources/tests/sampleP4000info'
+import sampleSedP50001 from 'resources/tests/sampleSedP50001'
+import sampleSedP50002 from 'resources/tests/sampleSedP50002'
 
 const sprintf = require('sprintf-js').sprintf
 
-export const setMode = (mode: string): ActionWithPayload<string> => ({
+export const setMode: ActionCreator<ActionWithPayload> = (mode: string): ActionWithPayload<string> => ({
   type: types.BUC_MODE_SET,
   payload: mode
 })
 
-export const setCurrentBuc = (bucCaseId: string | undefined): ActionWithPayload<string | undefined> => ({
+export const setCurrentBuc: ActionCreator<ActionWithPayload> = (bucCaseId: string | undefined): ActionWithPayload<string | undefined> => ({
   type: types.BUC_CURRENTBUC_SET,
   payload: bucCaseId
 })
 
-export const setCurrentSed = (sedDocumentId: string | undefined) : ActionWithPayload<string | undefined> => ({
+export const setCurrentSed: ActionCreator<ActionWithPayload> = (sedDocumentId: string | undefined) : ActionWithPayload<string | undefined> => ({
   type: types.BUC_CURRENTSED_SET,
   payload: sedDocumentId
 })
 
-export const setSedList = (sedList: Array<string>): ActionWithPayload<Array<string>> => ({
+export const setSedList: ActionCreator<ActionWithPayload> = (sedList: Array<string>): ActionWithPayload<Array<string>> => ({
   type: types.BUC_SEDLIST_SET,
   payload: sedList
 })
 
-export const resetBuc = (): Action => ({
+export const resetBuc: ActionCreator<Action> = (): Action => ({
   type: types.BUC_BUC_RESET
 })
 
-export const resetSed = (): Action => ({
+export const resetSed: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_RESET
 })
 
-export const resetSedAttachments = (): Action => ({
+export const resetSedAttachments: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_ATTACHMENTS_RESET
 })
 
-export const setP4000Info = (p4000: P4000Info): ActionWithPayload<P4000Info> => ({
+export const setP4000Info: ActionCreator<ActionWithPayload> = (p4000: P4000Info): ActionWithPayload<P4000Info> => ({
   type: types.BUC_P4000_INFO_SET,
   payload: p4000
 })
 
-export const fetchSingleBuc = (rinaCaseId: string): Function => {
+export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: rinaCaseId }),
     expectedPayload: sampleBucs[0],
@@ -67,7 +69,7 @@ export const fetchSingleBuc = (rinaCaseId: string): Function => {
   })
 }
 
-export const fetchBucs = (aktoerId: string): Function => {
+export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
@@ -80,7 +82,7 @@ export const fetchBucs = (aktoerId: string): Function => {
   })
 }
 
-export const fetchAvdodBucs = (aktoerId: string): Function => {
+export const fetchAvdodBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
@@ -93,7 +95,7 @@ export const fetchAvdodBucs = (aktoerId: string): Function => {
   })
 }
 
-export const fetchBucsInfoList = (aktoerId: string): Function => {
+export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
     expectedPayload: [aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO],
@@ -105,7 +107,7 @@ export const fetchBucsInfoList = (aktoerId: string): Function => {
   })
 }
 
-export const fetchBucsInfo = (userId: string, namespace: string, file: string): Function => {
+export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (userId: string, namespace: string, file: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     expectedPayload: sampleBucsInfo,
@@ -117,7 +119,7 @@ export const fetchBucsInfo = (userId: string, namespace: string, file: string): 
   })
 }
 
-export const getSubjectAreaList = (): Function => {
+export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: urls.EUX_SUBJECT_AREA_URL,
     expectedPayload: ['Pensjon'],
@@ -129,7 +131,7 @@ export const getSubjectAreaList = (): Function => {
   })
 }
 
-export const getBucList = (): Function => {
+export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: urls.BUC_GET_BUC_LIST_URL,
     expectedPayload: ['DEMO_BUC_01'],
@@ -141,12 +143,12 @@ export const getBucList = (): Function => {
   })
 }
 
-export const getTagList = (): ActionWithPayload<Array<string>> => ({
+export const getTagList: ActionCreator<ActionWithPayload> = (): ActionWithPayload<Array<string>> => ({
   type: types.BUC_GET_TAG_LIST_SUCCESS,
   payload: tagsList
 })
 
-export const createBuc = (buc: string): Function => {
+export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
@@ -176,7 +178,9 @@ export interface SaveBucsInfoProps {
   tags?: Array<string>;
 }
 
-export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = { bucs: {} }, comment, tags }: SaveBucsInfoProps): Function => {
+export const saveBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = ({
+  aktoerId, buc, bucsInfo = { bucs: {} }, comment, tags
+}: SaveBucsInfoProps): ThunkResult<ActionWithPayload> => {
   const newBucsInfo = _.cloneDeep(bucsInfo)
   const newTags = tags || [] // ? tags.map(tag => tag.value) : []
   const bucId = parseInt(buc.caseId, 10)
@@ -201,7 +205,7 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = { bucs: {} }, comment, 
   })
 }
 
-export const getCountryList = (bucType: string): Function => {
+export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload>> = (bucType: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: bucType }),
     context: {
@@ -216,7 +220,7 @@ export const getCountryList = (bucType: string): Function => {
   })
 }
 
-export const getSedList = (buc: {type: string, caseId: string}): Function => {
+export const getSedList: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: {type: string, caseId: string}): Function => {
   const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
@@ -295,6 +299,20 @@ export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, contex
       request: types.BUC_SEND_ATTACHMENT_REQUEST,
       success: types.BUC_SEND_ATTACHMENT_SUCCESS,
       failure: types.BUC_SEND_ATTACHMENT_FAILURE
+    }
+  })
+}
+
+export const getSed = (caseId: string, sed: Sed): Function => {
+  return api.call({
+    url: sprintf(urls.BUC_GET_SED_URL, { caseId: caseId, documentId: sed.id }),
+    cascadeFailureError: true,
+    context: sed,
+    expectedPayload: () => (sed.creationDate % 2 !== 0 ? sampleSedP50001 : sampleSedP50002),
+    type: {
+      request: types.BUC_GET_SED_REQUEST,
+      success: types.BUC_GET_SED_SUCCESS,
+      failure: types.BUC_GET_SED_FAILURE
     }
   })
 }

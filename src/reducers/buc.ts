@@ -9,7 +9,8 @@ import {
   InstitutionListMap,
   InstitutionNames,
   RawInstitution,
-  Sed
+  Sed,
+  SedContentMap
 } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
@@ -29,16 +30,17 @@ export interface BucState {
   countryList: Array<string> | undefined;
   currentBuc: string | undefined;
   currentSed: string | undefined,
-  sed: Sed | undefined,
-  sedList: Array<string> | undefined,
-  subjectAreaList: Array<string> | undefined,
-  p4000info: P4000Info | undefined,
-  p4000list: Array<string> | undefined,
   institutionList: InstitutionListMap<RawInstitution> | undefined,
   institutionNames: InstitutionNames;
   mode: BUCMode;
+  p4000info: P4000Info | undefined,
+  p4000list: Array<string> | undefined,
   rinaId: string | undefined;
   rinaUrl: RinaUrl | undefined;
+  sed: Sed | undefined,
+  sedContent: SedContentMap;
+  sedList: Array<string> | undefined,
+  subjectAreaList: Array<string> | undefined,
   tagList: Array<string> | undefined;
 }
 
@@ -53,16 +55,17 @@ export const initialBucState: BucState = {
   countryList: undefined,
   currentBuc: undefined,
   currentSed: undefined,
-  sed: undefined,
-  sedList: undefined,
-  subjectAreaList: undefined,
-  p4000info: undefined,
-  p4000list: undefined,
   institutionList: undefined,
   institutionNames: {},
   mode: 'buclist',
+  p4000info: undefined,
+  p4000list: undefined,
   rinaId: undefined,
   rinaUrl: undefined,
+  sed: undefined,
+  sedContent: {},
+  sedList: undefined,
+  subjectAreaList: undefined,
   tagList: undefined
 }
 
@@ -104,7 +107,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         sed: undefined,
         countryList: undefined,
-        institutionList: undefined
+        institutionList: undefined,
+        sedContent: {}
       }
 
     case types.BUC_SED_ATTACHMENTS_RESET: {
@@ -119,7 +123,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         currentBuc: undefined,
         sed: undefined,
-        attachments: {}
+        attachments: {},
+        sedContent: {}
       }
 
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
@@ -436,6 +441,15 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         p4000info: null
+      }
+
+    case types.BUC_GET_SED_SUCCESS:
+      return {
+        ...state,
+        sedContent: {
+          ...state.sedContent,
+          [(action as ActionWithPayload).context.id]: (action as ActionWithPayload).payload
+        }
       }
 
     default:

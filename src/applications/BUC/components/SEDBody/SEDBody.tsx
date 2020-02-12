@@ -4,7 +4,6 @@ import SEDAttachmentSender, {
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import { AttachedFiles, Buc, BUCAttachments, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
@@ -88,9 +87,9 @@ const SEDBody: React.FC<SEDBodyProps> = ({
 
   return (
     <div className='a-buc-c-sedbody'>
-      {canShowProperties ? (
+      {/* canShowProperties ? (
         sed.type === 'P5000' ? <SEDP5000 sed={sed} /> : null
-      ) : null}
+      ) : null */}
       {canHaveAttachments ? (
         <>
           <Ui.Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Ui.Nav.Undertittel>

@@ -70,6 +70,10 @@ export interface Sed {
 
 export type Seds = Array<Sed>;
 
+export type SedContent = any;
+
+export type SedContentMap = {[k: string]: SedContent}
+
 export interface Institution {
   country: string;
   institution: string;

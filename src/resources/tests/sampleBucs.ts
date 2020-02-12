@@ -926,6 +926,65 @@ export default [
         version: '1'
       },
       {
+        id: '50578cf8bf9f45a7819a39987c6c8fd4',
+        parentDocumentId: null,
+        type: 'P5000',
+        status: 'received',
+        creationDate: 1571234189234,
+        lastUpdate: 1571547188033,
+        displayName: 'Insurance/residence periods',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: '2018-08-26T22:00:00.000+0000',
+              registryNumber: null,
+              acronym: 'NAV ACCT 07',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAV ACCEPTANCE TEST 07',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVAT07',
+              accessPoint: null
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: '2018-08-26T22:00:00.000+0000',
+              registryNumber: null,
+              acronym: 'NAV ACCT 08',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAV ACCEPTANCE TEST 08',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVAT08',
+              accessPoint: null
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1'
+      },
+      {
         id: '51d9d9277ab847008bc88c1b31b34865',
         parentDocumentId: null,
         type: 'P8000',

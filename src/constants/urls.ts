@@ -54,6 +54,7 @@ export const BUC_GET_SINGLE_BUC = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
 export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
+export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(documentId)s'
 
 // PensjonController
 export const PENSJON_GET_SAKTYPE_URL = PENSJON_URL + '/saktype/%(sakId)s/%(aktoerId)s'

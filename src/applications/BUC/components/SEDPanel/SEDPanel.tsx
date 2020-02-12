@@ -25,7 +25,8 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   sed, style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
-    return _.includes(activeStatus, sed.status)
+    const sedsWithoutAttachments = ['P5000', 'P7000', 'H070']
+    return sed !== undefined && !_.includes(sedsWithoutAttachments, sed.type) && _.includes(activeStatus, sed.status)
   }
 
   const sedCanShowProperties = (sed: Sed): boolean => {

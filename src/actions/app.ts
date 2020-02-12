@@ -1,8 +1,8 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
-import { Action } from 'redux'
+import { ActionWithPayload, ThunkResult } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Action, ActionCreator } from 'redux'
 import samplePerson from 'resources/tests/samplePerson'
 
 const sprintf = require('sprintf-js').sprintf
@@ -12,7 +12,7 @@ export interface ParamPayload {
   value?: any
 }
 
-export const setStatusParam = (key: string, value: any): ActionWithPayload<ParamPayload> => ({
+export const setStatusParam: ActionCreator<ActionWithPayload> = (key: string, value: any): ActionWithPayload<ParamPayload> => ({
   type: types.APP_PARAM_SET,
   payload: {
     key: key,
@@ -20,7 +20,7 @@ export const setStatusParam = (key: string, value: any): ActionWithPayload<Param
   }
 })
 
-export const unsetStatusParam = (key: string): ActionWithPayload<ParamPayload> => ({
+export const unsetStatusParam: ActionCreator<ActionWithPayload> = (key: string): ActionWithPayload<ParamPayload> => ({
   type: types.APP_PARAM_UNSET,
   payload: {
     key: key
@@ -43,7 +43,7 @@ export const logout = (): Action => {
   }
 }
 
-export const getUserInfo = (): Function => {
+export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: urls.API_USERINFO_URL,
     cascadeFailureError: true,
@@ -60,7 +60,7 @@ export const getUserInfo = (): Function => {
   })
 }
 
-export const getPersonInfo = (aktoerId: string): Function => {
+export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
     expectedPayload: samplePerson,
@@ -72,7 +72,7 @@ export const getPersonInfo = (aktoerId: string): Function => {
   })
 }
 
-export const getSakType = (sakId: string, aktoerId: string): Function => {
+export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (sakId: string, aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
     expectedPayload: {
