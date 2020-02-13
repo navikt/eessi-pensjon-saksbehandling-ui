@@ -2,7 +2,7 @@ contextPath: /
 
 proxy:
   - contextPath: /frontend
-    baseUrl: http://eessi-pensjon-frontend-api-fss
+    baseUrl: http://eessi-pensjon-saksbehandling-api
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /internal/isalive
     validateOidcToken: false
