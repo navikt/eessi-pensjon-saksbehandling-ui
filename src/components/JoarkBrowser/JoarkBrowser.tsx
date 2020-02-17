@@ -96,6 +96,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               width={600}
               height={800}
               tema='simple'
+              viewOnePage={false}
               onContentClick={handleModalClose}
             />
           </div>
