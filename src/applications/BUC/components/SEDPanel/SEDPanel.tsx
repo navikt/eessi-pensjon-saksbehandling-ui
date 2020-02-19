@@ -18,7 +18,7 @@ export interface SEDPanelProps {
 }
 
 const activeStatus: Array<string> = ['new', 'active']
-const sedWithProperties: Array<string> = ['P5000']
+const sedWithProperties: Array<string> = []
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId, buc, className, followUpSeds, onSEDNew,
@@ -49,7 +49,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           onSEDNew={onSEDNew}
         />
       ) : (
-        <Ui.Nav.EkspanderbartpanelBase
+        <Ui.ExpandingPanel
           style={style}
           className='mb-3 s-border'
           heading={
@@ -68,7 +68,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             canHaveAttachments={sedCanHaveAttachments(sed)}
             canShowProperties={sedCanShowProperties(sed)}
           />
-        </Ui.Nav.EkspanderbartpanelBase>
+        </Ui.ExpandingPanel>
       )}
     </div>
   )

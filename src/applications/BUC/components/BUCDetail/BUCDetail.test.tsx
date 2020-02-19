@@ -2,18 +2,18 @@ import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BUCDetail, { BUCDetailProps } from './BUCDetail'
+jest.mock('react-redux');
 
 const mockSelectors = {
   locale: 'nb',
   rinaUrl: 'http://rinaurl.mock.com'
-}
+};
 
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn(() => mockSelectors)
-}))
+(useSelector as jest.Mock).mockImplementation(() => mockSelectors)
 
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   let wrapper: ReactWrapper
@@ -37,7 +37,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
+    expect(wrapper.exists('.c-expandingpanel')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucdetail__body')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucdetail__props')).toBeTruthy()
     expect(wrapper.find('#a-buc-c-bucdetail__props-caseId-id').render().text()).toEqual(buc.caseId)

@@ -68,10 +68,10 @@ export const Overview: React.FC<OverviewProps> = ({ onUpdate, skipMount = false,
   }
 
   return (
-    <Ui.Nav.EkspanderbartpanelBase
+    <Ui.ExpandingPanel
       collapseProps={{ id: 'w-overview-id' }}
       className={classNames('w-overview', 's-border', { highContrast: highContrast })}
-      apen={!widget.options.collapsed}
+      open={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
       heading={(
         <PersonTitle
@@ -85,7 +85,7 @@ export const Overview: React.FC<OverviewProps> = ({ onUpdate, skipMount = false,
         locale={locale}
         person={person}
       />
-    </Ui.Nav.EkspanderbartpanelBase>
+    </Ui.ExpandingPanel>
   )
 }
 

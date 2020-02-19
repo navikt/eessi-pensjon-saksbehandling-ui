@@ -36,10 +36,10 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   const { t } = useTranslation()
 
   return (
-    <Ui.Nav.EkspanderbartpanelBase
+    <Ui.ExpandingPanel
       id='a-buc-c-bucdetail__panel-id'
       className={classNames('a-buc-c-bucdetail', 's-border', className)}
-      apen
+      open
       heading={
         <Ui.Nav.Systemtittel
           id='a-buc-c-bucdetail__header-id'
@@ -119,7 +119,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
           />
         </div>
       </div>
-    </Ui.Nav.EkspanderbartpanelBase>
+    </Ui.ExpandingPanel>
   )
 }
 

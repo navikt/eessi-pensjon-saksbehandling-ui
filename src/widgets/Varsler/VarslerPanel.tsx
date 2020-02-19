@@ -180,10 +180,10 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
     }) : []
 
   return (
-    <Ui.Nav.EkspanderbartpanelBase
+    <Ui.ExpandingPanel
       collapseProps={{ id: 'w-varslerPanel-id' }}
       className='w-varslerPanel s-border'
-      apen={!widget.options.collapsed}
+      open={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
       heading={<Ui.Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Ui.Nav.Systemtittel>}
     >
@@ -260,7 +260,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
           )}
         </div>
       </Ui.Nav.Row>
-    </Ui.Nav.EkspanderbartpanelBase>
+    </Ui.ExpandingPanel>
   )
 }
 

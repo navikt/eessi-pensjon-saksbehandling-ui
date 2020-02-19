@@ -53,7 +53,7 @@ describe('widgets/Overview/Overview', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.w-overview')).toBeTruthy()
-    expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
+    expect(wrapper.exists('.c-expandingpanel')).toBeTruthy()
     expect(wrapper.exists('PersonTitle')).toBeTruthy()
     expect(wrapper.exists('PersonPanel')).toBeTruthy()
   })
@@ -68,7 +68,7 @@ describe('widgets/Overview/Overview', () => {
   it('Expandable ', () => {
     stageSelector(defaultSelector, ({ aktoerId: '123' }))
     wrapper = mount(<Overview {...initialMockProps} skipMount />)
-    wrapper.find('EkspanderbartpanelBase button').simulate('click')
+    wrapper.find('.c-expandingpanel button').simulate('click')
     expect(initialMockProps.onUpdate).toHaveBeenCalledWith(expect.objectContaining({
       options: {
         collapsed: true

@@ -135,10 +135,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   return (
-    <Ui.Nav.EkspanderbartpanelBase
+    <Ui.ExpandingPanel
       collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
       id='a-buc-c-buctools__panel-id'
-      apen
+      open
       className={classNames('a-buc-c-buctools', 's-border', className)}
       heading={
         <Ui.Nav.Systemtittel className='a-buc-c-buctools__title'>
@@ -195,7 +195,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
         </Ui.Nav.Knapp>
       </div>
-    </Ui.Nav.EkspanderbartpanelBase>
+    </Ui.ExpandingPanel>
   )
 }
 

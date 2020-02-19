@@ -1,6 +1,8 @@
+import { openModal } from 'actions/ui'
 import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { act } from 'react-dom/test-utils'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BUCTools, { BUCToolsProps } from './BUCTools'
@@ -58,7 +60,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Changes tags', () => {
-    wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('#a-buc-c-buctools__tags-select-id')).toBeTruthy()
     const tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
     tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
@@ -75,7 +76,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   it('Changes comments', () => {
     const firstMockedComment = bucInfo.comment
     const secondMockedComment = 'this is a mocked comment'
-    wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('#a-buc-c-buctools__comment-textarea-id')).toBeTruthy()
 
     let commentTextarea = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
@@ -89,8 +89,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Handles onSaveButtonClick()', () => {
     expect(wrapper.exists('.a-buc-c-buctools')).toBeTruthy()
-    wrapper.find('EkspanderbartpanelBase button').simulate('click')
-    wrapper.find('button#a-buc-c-buctools__save-button-id').simulate('click')
+    wrapper.find('#a-buc-c-buctools__save-button-id').hostNodes().simulate('click')
     expect(saveBucsInfo).toHaveBeenCalledWith({
       aktoerId: '123',
       buc: buc,
@@ -100,18 +99,21 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     })
   })
 
-  it('HTML with EkspanderbartpanelBase close', () => {
-    expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-buctools__save-button')).toBeFalsy()
-  })
-
-  it('HTML with EkspanderbartpanelBase open', () => {
-    expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
-    wrapper.find('EkspanderbartpanelBase button').simulate('click')
-    expect(wrapper.exists('.a-buc-c-buctools')).toBeTruthy()
+  it('HTML with ExpandingPanel open', () => {
+    expect(wrapper.exists('.c-expandingpanel')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-buctools__save-button')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-buctools__title').hostNodes().render().text()).toEqual('buc:form-BUCtools')
     expect(wrapper.exists('.a-buc-c-buctools__tags-select')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-buctools__comment-textarea')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-buctools__save-button')).toBeTruthy()
+  })
+
+  it('HTML with ExpandingPanel close', async (done) => {
+    expect(wrapper.exists('.c-expandingpanel')).toBeTruthy()
+    wrapper.find('.c-expandingpanel .ekspanderbartPanel__knapp').simulate('click')
+    setTimeout(() => {
+      wrapper.update()
+      expect(wrapper.exists('.a-buc-c-buctools')).toBeFalsy()
+      done()
+    }, 1000)
   })
 })

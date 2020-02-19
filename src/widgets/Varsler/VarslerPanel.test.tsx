@@ -131,7 +131,7 @@ describe('widgets/Varsler/VarslerPanel', () => {
 
   it('Expandable panel triggers widget update', () => {
     (initialMockProps.onUpdate as jest.Mock).mockReset()
-    wrapper.find('.ekspanderbartPanel > button').hostNodes().simulate('click')
+    wrapper.find('.ekspanderbartPanel .ekspanderbartPanel__knapp').hostNodes().simulate('click')
     expect(initialMockProps.onUpdate).toBeCalledWith(expect.objectContaining({
       options: {
         collapsed: !initialMockProps.widget.options.collapsed
