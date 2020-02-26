@@ -1,13 +1,11 @@
-import { openModal } from 'actions/ui'
+import { getTagList, saveBucsInfo } from 'actions/buc'
 import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { act } from 'react-dom/test-utils'
+import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BUCTools, { BUCToolsProps } from './BUCTools'
-import { useDispatch, useSelector } from 'react-redux'
-import { getTagList, saveBucsInfo } from 'actions/buc'
 
 jest.mock('actions/buc', () => ({
   getTagList: jest.fn(),

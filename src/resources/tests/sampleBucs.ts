@@ -16,6 +16,7 @@ export default [
       institution: 'NO:NAVAT07',
       name: 'NAV ACCEPTANCE TEST 07'
     }, {
+
       country: 'GB',
       institution: 'GB:DEMO001',
       name: 'GB Demo 01'

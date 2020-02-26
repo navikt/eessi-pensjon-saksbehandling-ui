@@ -99,7 +99,6 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   )
 }
 
-// @ts-ignore
 BUCCrumbs.propTypes = {
   bucs: BucsPropType.isRequired,
   className: PT.string,

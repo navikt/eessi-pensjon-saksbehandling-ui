@@ -15,7 +15,7 @@ import './BUCDetail.css'
 
 export interface BUCDetailProps {
   buc: Buc;
-  bucInfo: BucInfo;
+  bucInfo?: BucInfo;
   className ?: string;
 }
 

@@ -40,14 +40,12 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props):
   }
 
   const getItems = () => {
-    console.log(sedContent)
     let res: Array<any> = []
-    if (activeSeds['60578cf8bf9f45a7819a39987c6c8fd4']) {
-      res = res.concat(convertRawP5000toRow(sedContent['60578cf8bf9f45a7819a39987c6c8fd4']))
-    }
-    if (activeSeds['50578cf8bf9f45a7819a39987c6c8fd4']) {
-      res = res.concat(convertRawP5000toRow(sedContent['50578cf8bf9f45a7819a39987c6c8fd4']))
-    }
+    Object.keys(activeSeds).forEach((key: string) => {
+      if (activeSeds[key]) {
+        res = res.concat(convertRawP5000toRow(sedContent[key]))
+      }
+    })
     return res
   }
 

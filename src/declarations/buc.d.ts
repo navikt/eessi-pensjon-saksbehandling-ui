@@ -77,7 +77,7 @@ export type SedContentMap = {[k: string]: SedContent}
 export interface Institution {
   country: string;
   institution: string;
-  name?: string | undefined;
+  name?: string;
 }
 
 export type Institutions = Array<Institution>
@@ -116,7 +116,7 @@ export type Bucs = {[caseId: string]: Buc}
 
 export interface BucInfo {
   tags: Array<string>;
-  comment?: string | undefined;
+  comment?: string;
 }
 
 export interface BucsInfo {

@@ -85,7 +85,7 @@ export const ValidBucPropType = PT.shape({
   caseId: PT.string.isRequired,
   creator: InstitutionPropType.isRequired,
   description: PT.string,
-  institusjon: PT.arrayOf(InstitutionPropType.isRequired).isRequired,
+  institusjon: InstitutionsPropType.isRequired,
   lastUpdate: PT.number.isRequired,
   sakType: PT.string.isRequired,
   status: PT.string.isRequired,
@@ -97,7 +97,7 @@ export const ValidBucPropType = PT.shape({
 export const ErrorBucPropType = PT.shape({
   type: PT.string.isRequired,
   caseId: PT.string.isRequired,
-  creator: () => null,
+  creator: PT.any.isRequired,
   description: () => null,
   institusjon: () => null,
   lastUpdate: () => null,
@@ -108,12 +108,12 @@ export const ErrorBucPropType = PT.shape({
   error: PT.string
 })
 
-export const BucPropType = PT.oneOfType([ValidBucPropType, ErrorBucPropType])
+export const BucPropType = PT.any//oneOfType([ValidBucPropType, ErrorBucPropType])
 
-export const BucsPropType = PT.objectOf(BucPropType.isRequired)
+export const BucsPropType = PT.objectOf(BucPropType)
 
 export const BucInfoPropType = PT.shape({
-  tags: PT.arrayOf(PT.string.isRequired),
+  tags: PT.arrayOf(PT.string.isRequired).isRequired,
   comment: PT.string
 })
 

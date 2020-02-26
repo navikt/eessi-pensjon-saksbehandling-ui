@@ -16,7 +16,7 @@ import './BUCHeader.css'
 
 export interface BUCHeaderProps {
   buc: Buc;
-  bucInfo: BucInfo;
+  bucInfo?: BucInfo;
   onBUCEdit: Function;
 }
 
