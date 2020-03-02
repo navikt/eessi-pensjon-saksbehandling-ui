@@ -1,4 +1,4 @@
-import { getTagList, saveBucsInfo } from 'actions/buc'
+import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import classNames from 'classnames'
 import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
@@ -115,7 +115,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       buc: buc as ValidBuc
     }))
   }
-/*
+
   const onModalClose = () => {
     setModal(undefined)
   }
@@ -133,7 +133,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       })
     }
   }
-*/
+
   return (
     <Ui.ExpandingPanel
       collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
@@ -182,8 +182,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
         </Ui.Nav.Knapp>
       </div>
-      {modal}
-      {/*<div className='mb-3'>
+      <div className='mb-3'>
         <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
         {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
         <Ui.Nav.Knapp
@@ -195,7 +194,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         >
           {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
         </Ui.Nav.Knapp>
-      </div>*/}
+      </div>
     </Ui.ExpandingPanel>
   )
 }
