@@ -26,7 +26,7 @@ jobs:
 
       # SETTER IMAGE VARIABEL
       - name: 'Setter Image'
-        run: echo "::set-env name=IMAGE::docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-saksbehandling-ui-temp:${{ env.DATE }}---${{ env.COMMIT_HASH }}"
+        run: echo "::set-env name=IMAGE::docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-frontend-ui-fss:${{ env.DATE }}---${{ env.COMMIT_HASH }}"
 
       # SETTER OPP NODE
       - name: Use Node.js ${{ matrix.node-version }}
