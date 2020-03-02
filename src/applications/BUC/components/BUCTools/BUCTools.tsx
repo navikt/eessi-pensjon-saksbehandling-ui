@@ -1,14 +1,14 @@
-import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
-import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
+import { getTagList, saveBucsInfo } from 'actions/buc'
+// import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import classNames from 'classnames'
-import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
+import { Buc, BucInfo, BucsInfo, SedContentMap, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString, Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+// import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
 import PT from 'prop-types'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
@@ -44,13 +44,14 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const { t } = useTranslation()
   const [comment, setComment] = useState<string | undefined >(bucInfo ? bucInfo.comment : '')
   const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
-  const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
-  const [modal, setModal] = useState<ModalContent | undefined>(undefined)
+  // const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
+  // const [modal, setModal] = useState<ModalContent | undefined>(undefined)
   const [tags, setTags] = useState<Tags>(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
-  const { loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  const { loading, bucsInfo, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  // const { loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -68,6 +69,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }, [t, allTags, tagList])
 
+  /*
   const getP5000 = useCallback(() => {
     if (!buc.seds) {
       return undefined
@@ -96,6 +98,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       }
     }
   }, [displayP5000table, fetchingP5000, sedContent, setModal])
+  */
 
   const onTagsChange = (tagsList: Tags): void => {
     if (_.isFunction(onTagChange)) {
@@ -117,7 +120,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       buc: buc as ValidBuc
     }))
   }
-
+  /*
   const onModalClose = () => {
     setModal(undefined)
   }
@@ -135,7 +138,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       })
     }
   }
-
+  */
   return (
     <Ui.ExpandingPanel
       collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
@@ -184,7 +187,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
         </Ui.Nav.Knapp>
       </div>
-      <div className='mb-3'>
+      {/* <div className='mb-3'>
         <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
         {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
         <Ui.Nav.Knapp
@@ -196,7 +199,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         >
           {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
         </Ui.Nav.Knapp>
-      </div>
+      </div> */}
     </Ui.ExpandingPanel>
   )
 }
