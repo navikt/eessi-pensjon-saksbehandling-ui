@@ -3,7 +3,7 @@ import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import classNames from 'classnames'
 import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { Loading } from 'declarations/types'
+import { AllowedLocaleString, Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
@@ -24,6 +24,7 @@ export interface BUCToolsProps {
 
 export interface BUCToolsSelector {
   loading: Loading;
+  locale: AllowedLocaleString;
   bucsInfo?: BucsInfo | undefined;
   sedContent: SedContentMap;
   tagList?: Array<string> | undefined;
@@ -31,6 +32,7 @@ export interface BUCToolsSelector {
 
 const mapState = (state: State): BUCToolsSelector => ({
   loading: state.loading,
+  locale: state.ui.locale,
   bucsInfo: state.buc.bucsInfo,
   tagList: state.buc.tagList,
   sedContent: state.buc.sedContent
@@ -48,7 +50,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
-  const { loading, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  const { loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -76,7 +78,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const displayP5000table = useCallback(() => {
     setModal({
       modalTitle: 'P5000 items',
-      modalContent: <SEDP5000 seds={getP5000()!} sedContent={sedContent} />
+      modalContent: <SEDP5000 seds={getP5000()!} sedContent={sedContent} locale={locale} />
     })
   }, [setModal, getP5000, sedContent])
 

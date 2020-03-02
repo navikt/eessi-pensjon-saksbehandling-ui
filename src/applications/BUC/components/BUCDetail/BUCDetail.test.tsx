@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BUCDetail, { BUCDetailProps } from './BUCDetail'
-jest.mock('react-redux');
+jest.mock('react-redux')
 
 const mockSelectors = {
   locale: 'nb',

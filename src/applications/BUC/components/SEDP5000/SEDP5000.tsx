@@ -1,21 +1,32 @@
-import { SedContent, SedContentMap, Seds } from 'declarations/buc'
+import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
+import { Country } from 'eessi-pensjon-ui/dist/declarations/components.d'
+import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import printJS from 'print-js'
-import React, { useState } from 'react'
 import PT from 'prop-types'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as labels from './SEDP5000.labels'
 
 export interface SEDP5000Props {
+  locale: AllowedLocaleString;
   seds: Seds;
   sedContent: SedContentMap;
 }
 
-const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props): JSX.Element => {
+type ActiveSeds = {[k: string]: boolean}
+
+interface SedSender {
+  country: string;
+  countryLabel: string;
+  institution: string;
+}
+
+const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props): JSX.Element => {
   const { t } = useTranslation()
-  const [activeSeds, setActiveSeds] = useState<{[k: string]: boolean}>(_.mapValues(_.keyBy(seds, 'id'), () => true))
+  const [activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
 
   const convertRawP5000toRow = (sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
@@ -28,7 +39,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props):
         kvartal: m.sum.kvartal,
         måned: m.sum.maaneder,
         uke: '',
-        dagerEnhet: m.sum.dager.nr + '/' + m.sum.dager.type,
+        dagerEnhet: (m.sum.dager.nr || '-') + '/' + m.sum.dager.type,
         land: m.land,
         relevantForYtelse: m.relevans,
         ordning: m.ordning,
@@ -37,6 +48,22 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props):
       })
     })
     return res
+  }
+
+  const getSedSender = (sedId: string): SedSender | undefined => {
+    const sed = _.find(seds, { id: sedId })
+    if (!sed) {
+      return undefined
+    }
+    const sender: Participant | undefined = sed.participants.find((participant: Participant) => participant.role === 'Sender')
+    if (sender) {
+      return {
+        countryLabel: Ui.CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
+        country: sender.organisation.countryCode,
+        institution: sender.organisation.name
+      }
+    }
+    return undefined
   }
 
   const getItems = () => {
@@ -53,8 +80,20 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props):
     printJS({
       printable: 'printJS-form',
       type: 'html',
+      style: '@page { size: A4 landscape; }',
       header: 'P5000'
     })
+  }
+
+  const renderLand = (item: any, value: any) => {
+    if (!value) return <div />
+    const country: Country = Ui.CountryData.getCountryInstance(locale).findByValue(value)
+    return (
+      <div className='d-flex align-items-center'>
+        <Ui.Flag type='circle' className='ml-1 mr-1' size='S' country={country.value} label={country.label} />
+        <span>{country.label}</span>
+      </div>
+    )
   }
 
   const changeActiveSed = (sedId: string) => {
@@ -67,16 +106,32 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props):
   return (
     <div className='a-buc-c-sedp5000' style={{ minHeight: '500px' }}>
       <div className='d-flex flex-column'>
-        {Object.keys(activeSeds).map(sedId => (
-          <Ui.Nav.Checkbox
-            key={sedId}
-            id={'checkbox-' + sedId}
-            className='mb-2'
-            checked={activeSeds[sedId]}
-            onChange={() => changeActiveSed(sedId)}
-            label={t('buc:form-titleP5000') + ' - ' + sedId}
-          />
-        ))}
+        {Object.keys(activeSeds).map(sedId => {
+          const sender: SedSender | undefined = getSedSender(sedId)
+          return (
+            <Ui.Nav.Checkbox
+              key={sedId}
+              id={'checkbox-' + sedId}
+              className='mb-2'
+              checked={activeSeds[sedId]}
+              onChange={() => changeActiveSed(sedId)}
+              label={(
+                <div className='d-flex align-items-end'>
+                  <span>{t('buc:form-titleP5000')}</span>
+                  <span className='ml-1 mr-1'>-</span>
+                  {sender ? (
+                    <div className='d-flex align-items-center'>
+                      <Ui.Flag type='circle' className='ml-1 mr-1' size='S' country={sender?.country} label={sender?.countryLabel} />
+                      <span>{sender?.countryLabel}</span>
+                      <span className='ml-1 mr-1'>-</span>
+                      <span>{sender?.institution}</span>
+                    </div>
+                  ) : sedId}
+                </div>
+              )}
+            />
+          )
+        })}
       </div>
       <div id='printJS-form'>
         <Ui.TableSorter
@@ -95,7 +150,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props):
             { id: 'måned', label: t('ui:month'), type: 'string' },
             { id: 'uke', label: t('ui:week'), type: 'string' },
             { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-            { id: 'land', label: t('ui:country'), type: 'string' },
+            { id: 'land', label: t('ui:country'), type: 'object', renderCell: renderLand },
             { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
             { id: 'ordning', label: t('ui:scheme'), type: 'string' },
             { id: 'yrke', label: t('ui:profession'), type: 'string' },
@@ -104,7 +159,9 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ seds, sedContent }: SEDP5000Props):
         />
       </div>
       <div className='mt-4'>
-        <Ui.Nav.Knapp onClick={printOut}>Utskift</Ui.Nav.Knapp>
+        <Ui.Nav.Knapp onClick={printOut}>
+          {t('ui:print')}
+        </Ui.Nav.Knapp>
       </div>
     </div>
   )

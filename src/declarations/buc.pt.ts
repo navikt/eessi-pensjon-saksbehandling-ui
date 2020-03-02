@@ -108,7 +108,7 @@ export const ErrorBucPropType = PT.shape({
   error: PT.string
 })
 
-export const BucPropType = PT.any//oneOfType([ValidBucPropType, ErrorBucPropType])
+export const BucPropType = PT.any// oneOfType([ValidBucPropType, ErrorBucPropType])
 
 export const BucsPropType = PT.objectOf(BucPropType)
 
