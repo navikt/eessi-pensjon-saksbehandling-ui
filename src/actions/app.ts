@@ -75,6 +75,7 @@ export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (akt
 export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (sakId: string, aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
+    cascadeFailureError: true,
     expectedPayload: {
       sakId: '123',
       sakType: 'GJENLEV'
