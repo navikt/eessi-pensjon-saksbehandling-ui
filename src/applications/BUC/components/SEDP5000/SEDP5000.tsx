@@ -1,6 +1,5 @@
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
-import { Country } from 'eessi-pensjon-ui/dist/declarations/components.d'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
@@ -40,7 +39,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         måned: m.sum.maaneder,
         uke: '',
         dagerEnhet: (m.sum.dager.nr || '-') + '/' + m.sum.dager.type,
-        land: m.land,
         relevantForYtelse: m.relevans,
         ordning: m.ordning,
         yrke: m.yrke,
@@ -83,17 +81,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       style: '@page { size: A4 landscape; }',
       header: 'P5000'
     })
-  }
-
-  const renderLand = (item: any, value: any) => {
-    if (!value) return <div />
-    const country: Country = Ui.CountryData.getCountryInstance(locale).findByValue(value)
-    return (
-      <div className='d-flex align-items-center'>
-        <Ui.Flag type='circle' className='ml-1 mr-1' size='S' country={country.value} label={country.label} />
-        <span>{country.label}</span>
-      </div>
-    )
   }
 
   const changeActiveSed = (sedId: string) => {
@@ -150,7 +137,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             { id: 'måned', label: t('ui:month'), type: 'string' },
             { id: 'uke', label: t('ui:week'), type: 'string' },
             { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-            { id: 'land', label: t('ui:country'), type: 'object', renderCell: renderLand },
             { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
             { id: 'ordning', label: t('ui:scheme'), type: 'string' },
             { id: 'yrke', label: t('ui:profession'), type: 'string' },
