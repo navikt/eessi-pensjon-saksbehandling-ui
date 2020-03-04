@@ -2,6 +2,7 @@
     "app-headerTitle" : "Pensjon",
 
     "alert-noSuchUser" : "Ukjent bruker",
+    "alert-noSaktype": "Ukjent saktype",
 
     "error-user-notInvited-title" : "Ikke tilgang",
     "error-user-notInvited-description" : "Du har ikke tilgang til denne siden.",
