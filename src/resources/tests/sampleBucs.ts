@@ -16,7 +16,6 @@ export default [
       institution: 'NO:NAVAT07',
       name: 'NAV ACCEPTANCE TEST 07'
     }, {
-
       country: 'GB',
       institution: 'GB:DEMO001',
       name: 'GB Demo 01'
@@ -108,7 +107,15 @@ export default [
           },
           medical: false
         }],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        }
       },
       {
         id: '10678159cd4142f890d56264bfdefd13',
@@ -116,7 +123,7 @@ export default [
         type: 'P6000',
         status: 'active',
         creationDate: 1571818194896,
-        lastUpdate: 1571818194896,
+        lastUpdate: 1571818294896,
         displayName: 'Pension decision',
         participants: [
           {
@@ -233,7 +240,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '3'
+        version: '3',
+        firstVersion: {
+          id: '1',
+          date: 1571818194896
+        },
+        lastVersion: {
+          id: '3',
+          date: 1571818294896
+        }
       },
       {
         id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
@@ -292,7 +307,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        }
       },
       {
         id: 'ef2905700e6f410b9edd04023856d49b',
@@ -351,7 +374,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818201591
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818201591
+        }
       },
       {
         id: '8c582ae21c8744aa8e697c8a5c84d84f',
@@ -410,7 +441,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        }
       },
       {
         id: '7c52d3b4006b489d89ee1af37caef6f6',
@@ -469,7 +508,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818176000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818176000
+        }
       },
       {
         id: 'dc4670bbd59d4c8ab3b41974a72bf11d',
@@ -570,7 +617,15 @@ export default [
           },
           medical: false
         }],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818181793
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818181793
+        }
       },
       {
         id: '34b286dc45ff4f6fa8c91a8aa698345d',
@@ -629,7 +684,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818176000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818176000
+        }
       },
       {
         id: '6b626b56303e4bca9fd8e40d758a4044',
@@ -688,7 +751,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        }
       },
       {
         id: '619f742acee74769bcd449b13eb9cf54',
@@ -747,7 +818,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818216066
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818216066
+        }
       },
       {
         id: '5d549c96e0ce40788a2eea2992c1f65f',
@@ -806,7 +885,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818170586
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818170586
+        }
       },
       {
         id: 'd1f436ac1402462e827ad70b616d9594',
@@ -865,7 +952,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        }
       },
       {
         id: '60578cf8bf9f45a7819a39987c6c8fd4',
@@ -924,7 +1019,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818188033
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818188033
+        }
       },
       {
         id: '50578cf8bf9f45a7819a39987c6c8fd4',
@@ -983,7 +1086,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571547188033
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571547188033
+        }
       },
       {
         id: '51d9d9277ab847008bc88c1b31b34865',
@@ -1042,7 +1153,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818208620
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818208620
+        }
       },
       {
         id: 'fd55d46e6ab741838d3a8e1735d33f1b',
@@ -1101,7 +1220,15 @@ export default [
           }
         ],
         attachments: [],
-        version: '1'
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818174000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818174000
+        }
       }
     ],
     error: null
@@ -1221,7 +1348,16 @@ export default [
             monthValue: 5
           },
           medical: false
-        }]
+        }],
+        version: '5',
+        firstVersion: {
+          id: '1',
+          date: 1559117379454
+        },
+        lastVersion: {
+          id: 'r',
+          date: 1559080800000
+        }
       },
       {
         id: 'ff98ea9256244b908e19d4439db5bad3',
@@ -1278,7 +1414,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '4',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '4',
+          date: 1559080800000
+        }
       },
       {
         id: '549bab7141c54cfcb14902e7e3b107b4',
@@ -1334,7 +1479,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '4',
+        firstVersion: {
+          id: '1',
+          date: 1559117443000
+        },
+        lastVersion: {
+          id: '4',
+          date: 1559080800000
+        }
       },
       {
         id: '1911923c542746ada10f7c922b46a271',
@@ -1390,7 +1544,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '3',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '3',
+          date: 1559080800000
+        }
       },
       {
         id: '9ebb27b848c644ba8a8ba95772403618',
@@ -1446,7 +1609,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '4',
+        firstVersion: {
+          id: '1',
+          date: 1559117443000
+        },
+        lastVersion: {
+          id: '4',
+          date: 1559080800000
+        }
       },
       {
         id: '4ae14845e31d4d0db52acb692d9abe8e',
@@ -1502,7 +1674,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: '5ef5fdea78e94911a873322d98589664',
@@ -1558,7 +1739,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117443000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: '2cfa8cc7af2647c4ad89315a6d1b0ad7',
@@ -1614,7 +1804,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117443000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: 'af7f8476e55f4c53b501c41fd03a25be',
@@ -1670,7 +1869,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117443000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: '4c10c2288a23442f85b511ecfaecb0f7',
@@ -1726,7 +1934,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: '147065531dca429a90d47b5aa3b7cf2c',
@@ -1782,7 +1999,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: '07cce7d3b2514676ba342caab580c573',
@@ -1838,7 +2064,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: '7e2b28e4bc3b47e992fc06e5024bec3a',
@@ -1894,7 +2129,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: '7c60826b53cc431f9059d8b30e4a1f7d',
@@ -1950,7 +2194,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117443000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       },
       {
         id: 'c1069862321c419e8e3ca418f7372d64',
@@ -2006,7 +2259,16 @@ export default [
             selected: false
           }
         ],
-        attachments: []
+        attachments: [],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1559117444000
+        },
+        lastVersion: {
+          id: '2',
+          date: 1559080800000
+        }
       }
     ]
   },
@@ -2085,7 +2347,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393035000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393035000
+      }
     }, {
       id: '0bb1ad15987741f1bbf45eba4f955e80',
       parentDocumentId: null,
@@ -2139,7 +2410,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393035000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393035000
+      }
     }, {
       id: '06f698fa890b4046b736e2efe3b25074',
       parentDocumentId: null,
@@ -2193,7 +2473,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393062757
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393062757
+      }
     }, {
       id: '3b82e3d56f304ca0ac05c1ce626d9472',
       parentDocumentId: null,
@@ -2247,7 +2536,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393101000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393101000
+      }
     }, {
       id: '52c08e4129da4120b9b982142c272a61',
       parentDocumentId: null,
@@ -2301,7 +2599,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '2',
+      firstVersion: {
+        id: '1',
+        date: 1557393081308
+      },
+      lastVersion: {
+        id: '2',
+        date: 1558360875571
+      }
     }, {
       id: 'cac9db2726d54f2c9b51d1562b7b0a79',
       parentDocumentId: null,
@@ -2371,7 +2678,16 @@ export default [
         documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
         lastUpdate: 1558361557000,
         medical: false
-      }]
+      }],
+      version: '2',
+      firstVersion: {
+        id: '1',
+        date: 1557825747269
+      },
+      lastVersion: {
+        id: '2',
+        date: 1558362934400
+      }
     }, {
       id: '3fe845d1142742a5a7a28f339e5d5b30',
       parentDocumentId: null,
@@ -2425,7 +2741,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557392992767
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557392992767
+      }
     }, {
       id: '268b8ed450bf4e8a99e6c0057d5ed857',
       parentDocumentId: null,
@@ -2479,7 +2804,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393034000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393034000
+      }
     }, {
       id: 'a8160dcb66c840a88ef331eed4b193be',
       parentDocumentId: '3fe845d1142742a5a7a28f339e5d5b30',
@@ -2533,7 +2867,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393034000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393034000
+      }
     }, {
       id: '5d4e5b878a60433a919c833c146401cb',
       parentDocumentId: null,
@@ -2587,7 +2930,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393034000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393034000
+      }
     }, {
       id: '836de1a761514b1eab50c88e507e9a1c',
       parentDocumentId: null,
@@ -2641,7 +2993,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393035000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393035000
+      }
     }, {
       id: '2d305e9ac51f43cf9a4012679ea3036e',
       parentDocumentId: null,
@@ -2695,7 +3056,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393034000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393034000
+      }
     }, {
       id: 'ef5811b43d564539997c9e1e8539a0a5',
       parentDocumentId: '891a8c61651049d6b2e0c0bd32215203',
@@ -2749,7 +3119,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393031000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393031000
+      }
     }, {
       id: '74cfcccbdb764b768365090152c84892',
       parentDocumentId: '06f698fa890b4046b736e2efe3b25074',
@@ -2803,7 +3182,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393078000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393078000
+      }
     }, {
       id: '3e29fb69d44f440a81e01aa2199d4b2f',
       parentDocumentId: null,
@@ -2857,7 +3245,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393035000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393035000
+      }
     }, {
       id: '4ef97838c25c46fba04dcd57a511338d',
       parentDocumentId: null,
@@ -2911,7 +3308,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393033000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393033000
+      }
     }, {
       id: '6808b56f66b64a24ae94ddad3aeb9290',
       parentDocumentId: null,
@@ -2965,7 +3371,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393034000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393034000
+      }
     }, {
       id: '891a8c61651049d6b2e0c0bd32215203',
       parentDocumentId: null,
@@ -3019,7 +3434,16 @@ export default [
         },
         selected: false
       }],
-      attachments: []
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393087051
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393087051
+      }
     }]
   },
   {

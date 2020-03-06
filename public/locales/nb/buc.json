@@ -331,10 +331,11 @@
 
   "status-active" : "Under oppdatering",
   "status-cancelled": "Ugyldiggjort",
+  "status-first" : "Først sendt",
   "status-new" : "Utkast",
   "status-received" : "Mottatt",
   "status-sent" : "Sendt",
-  "stauts-unknown" : "Ukjent",
+  "status-unknown" : "Ukjent",
 
   "tag-urgent"    : "Urgent",
   "tag-vip"       : "VIP",

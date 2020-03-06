@@ -66,13 +66,25 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__name col-4'>
           <Ui.Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Ui.Nav.Element>
           <div className='a-buc-c-sedlistheader__status'>
-            <SEDStatus className='col-auto' status={sed.status} />
-            <div className='pl-2'>
-              <Ui.Nav.Normaltekst className='a-buc-c-sedlistheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
-                {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
-              </Ui.Nav.Normaltekst>
-              {sed.version ? <Ui.Nav.Normaltekst className='a-buc-c-sedlistheader__version'>{t('ui:version')}{': '}{sed.version || '-'}</Ui.Nav.Normaltekst> : null}
+            <div className='a-buc-c-sedlistheader__status-item'>
+              <SEDStatus className='col-auto' status={sed.status} />
+              <div className='pl-2'>
+                <Ui.Nav.Normaltekst className='a-buc-c-sedheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
+                  {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
+                </Ui.Nav.Normaltekst>
+                {sed.version ? <Ui.Nav.Normaltekst className='a-buc-c-sedheader__version'>{t('ui:version')}{': '}{sed.version || '-'}</Ui.Nav.Normaltekst> : null}
+              </div>
             </div>
+            {sed.version !== '1' ? (
+              <div className='a-buc-c-sedlistheader__status-item'>
+                <SEDStatus className='col-auto' status='first' />
+                <div className='pl-2'>
+                  <Ui.Nav.Normaltekst className='a-buc-c-sedheader__firstSend' data-tip={t('ui:status-first')}>
+                    {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                  </Ui.Nav.Normaltekst>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__institutions col-3'>

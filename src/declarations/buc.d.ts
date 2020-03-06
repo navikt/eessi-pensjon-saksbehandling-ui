@@ -55,6 +55,11 @@ export interface Participant {
   selected: boolean;
 }
 
+export interface Version {
+  id: string;
+  date: number;
+}
+
 export interface Sed {
   id: string;
   parentDocumentId?: string | null | undefined;
@@ -66,6 +71,8 @@ export interface Sed {
   participants: Array<Participant>;
   attachments: Array<BUCAttachment>;
   version?: string;
+  firstVersion: Version;
+  lastVersion: Version;
 }
 
 export type Seds = Array<Sed>;

@@ -80,7 +80,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       modalTitle: 'P5000 items',
       modalContent: <SEDP5000 seds={getP5000()!} sedContent={sedContent} locale={locale} />
     })
-  }, [setModal, getP5000, sedContent])
+  }, [setModal, getP5000, locale, sedContent])
 
   useEffect(() => {
     if (!_.isEmpty(fetchingP5000)) {

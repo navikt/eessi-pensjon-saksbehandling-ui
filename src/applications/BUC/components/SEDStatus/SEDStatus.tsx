@@ -17,7 +17,8 @@ const statusList: Labels = {
   received: 'info',
   cancelled: 'advarsel',
   active: 'advarsel',
-  unknown: 'info'
+  unknown: 'info',
+  first: 'advarsel'
 }
 
 const SEDStatus: React.FC<SEDStatusProps> = ({

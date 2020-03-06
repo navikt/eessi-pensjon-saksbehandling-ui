@@ -57,6 +57,11 @@ export const ParticipantPropType = PT.shape({
   selected: PT.bool.isRequired
 })
 
+export const VersionPropType = PT.shape({
+  id: PT.string.isRequired,
+  date: PT.number.isRequired
+})
+
 export const SedPropType = PT.shape({
   id: PT.string.isRequired,
   parentDocumentId: PT.string,
@@ -67,7 +72,9 @@ export const SedPropType = PT.shape({
   displayName: PT.string,
   participants: PT.arrayOf(ParticipantPropType.isRequired).isRequired,
   attachments: PT.arrayOf(BUCAttachmentPropType.isRequired).isRequired,
-  version: PT.string
+  version: PT.string,
+  firstVersion: VersionPropType.isRequired,
+  lastVersion: VersionPropType.isRequired
 })
 
 export const SedsPropType = PT.arrayOf(SedPropType.isRequired)
