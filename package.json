@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "EESSI Pensjon Saksbehandling UI",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "build": "npm run build:css && npm run build:js && npm run build:git",
     "build:git": "export GIT_VERSION=`git describe --always` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
     "build:css": "less-watch-compiler --run-once --config less.json",
@@ -66,7 +67,6 @@
     "@types/react-tooltip": "^3.11.0",
     "@typescript-eslint/eslint-plugin": "^2.22.0",
     "@typescript-eslint/parser": "^2.22.0",
-    "acorn": "^7.1.1",
     "cross-env": "^7.0.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -87,6 +87,9 @@
     "standardx": "^5.0.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
+  },
+  "resolutions": {
+    "acorn": "^7.1.1"
   },
   "browserslist": [
     ">0.2%",
