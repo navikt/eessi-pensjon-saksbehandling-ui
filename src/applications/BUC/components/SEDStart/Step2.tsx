@@ -49,7 +49,6 @@ const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {
   )
 }
 
-// @ts-ignore
 Step2.propTypes = {
   aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,

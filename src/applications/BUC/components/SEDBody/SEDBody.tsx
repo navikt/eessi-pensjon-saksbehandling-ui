@@ -87,9 +87,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
 
   return (
     <div className='a-buc-c-sedbody'>
-      {/* canShowProperties ? (
-        sed.type === 'P5000' ? <SEDP5000 sed={sed} /> : null
-      ) : null */}
       {canHaveAttachments ? (
         <>
           <Ui.Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Ui.Nav.Undertittel>
@@ -125,7 +122,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   )
 }
 
-// @ts-ignore
 SEDBody.propTypes = {
   aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,

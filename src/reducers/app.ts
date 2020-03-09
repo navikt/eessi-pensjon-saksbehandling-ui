@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { Params, Person } from 'declarations/types'
+import { Features, Params, Person } from 'declarations/types'
 import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 
 export interface AppState {
@@ -11,6 +11,11 @@ export interface AppState {
   userRole: string | undefined,
   person: Person | undefined,
   params: Params;
+  features: Features;
+}
+
+const initialFeatures = {
+  P5000_VISIBLE: false
 }
 
 export const initialAppState: AppState = {
@@ -21,7 +26,8 @@ export const initialAppState: AppState = {
   username: undefined,
   userRole: undefined,
   person: undefined,
-  params: {}
+  params: {},
+  features: initialFeatures
 }
 
 const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
@@ -53,6 +59,10 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         : new Date(new Date().setMinutes(now.getMinutes() + 60))
       return {
         ...state,
+        features: {
+          ...state.features,
+          ...(action.payload.features || {})
+        },
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,

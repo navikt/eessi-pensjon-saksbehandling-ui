@@ -3,10 +3,12 @@ export type AllowedLocaleString = 'en' | 'nb'
 
 export type T = (line: string, ...args: any[]) => string
 
-export type RinaUrl = string;
-export type Loading = {[key: string]: boolean};
+export type RinaUrl = string
+export type Loading = {[key: string]: boolean}
 export type Validation = {[key: string]: string | null | undefined}
 export type Params = {[k: string] : string}
+export type Features = {[key: string]: boolean}
+
 interface Option {
   label: string;
   navn?: string;

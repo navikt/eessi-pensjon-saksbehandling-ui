@@ -382,7 +382,6 @@ const Step1: React.FC<Step1Props> = ({
   )
 }
 
-// @ts-ignore
 Step1.propTypes = {
   _attachments: AttachedFilesPropType.isRequired,
   buc: BucPropType.isRequired,

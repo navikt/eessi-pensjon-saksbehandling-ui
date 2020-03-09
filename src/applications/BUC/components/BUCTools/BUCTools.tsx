@@ -3,7 +3,7 @@ import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import classNames from 'classnames'
 import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString, Loading } from 'declarations/types'
+import { AllowedLocaleString, Features, Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
@@ -23,6 +23,7 @@ export interface BUCToolsProps {
 }
 
 export interface BUCToolsSelector {
+  features: Features;
   loading: Loading;
   locale: AllowedLocaleString;
   bucsInfo?: BucsInfo | undefined;
@@ -31,6 +32,7 @@ export interface BUCToolsSelector {
 }
 
 const mapState = (state: State): BUCToolsSelector => ({
+  features: state.app.features,
   loading: state.loading,
   locale: state.ui.locale,
   bucsInfo: state.buc.bucsInfo,
@@ -50,7 +52,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
-  const { loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  const { features, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -184,24 +186,25 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
         </Ui.Nav.Knapp>
       </div>
-      <div className='mb-3'>
-        <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
-        {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
-        <Ui.Nav.Knapp
-          id='a-buc-c-buctools__save-button-id'
-          className='a-buc-c-buctools__save-button mb-2'
-          disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
-          spinner={!_.isEmpty(fetchingP5000)}
-          onClick={onGettingP5000sClick}
-        >
-          {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
-        </Ui.Nav.Knapp>
-      </div>
+      {features && features.P5000_VISIBLE ? (
+        <div className='mb-3'>
+          <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
+          {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
+          <Ui.Nav.Knapp
+            id='a-buc-c-buctools__save-button-id'
+            className='a-buc-c-buctools__save-button mb-2'
+            disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
+            spinner={!_.isEmpty(fetchingP5000)}
+            onClick={onGettingP5000sClick}
+          >
+            {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+          </Ui.Nav.Knapp>
+        </div>
+        ): null}
     </Ui.ExpandingPanel>
   )
 }
 
-// @ts-ignore
 BUCTools.propTypes = {
   aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,

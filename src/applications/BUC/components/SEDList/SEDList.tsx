@@ -45,7 +45,6 @@ const SEDList: React.FC<SEDListProps> = ({
   )
 }
 
-// @ts-ignore
 SEDList.propTypes = {
   buc: BucPropType.isRequired,
   maxSeds: PT.number,

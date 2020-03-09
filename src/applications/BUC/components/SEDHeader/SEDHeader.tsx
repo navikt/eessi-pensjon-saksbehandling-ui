@@ -110,7 +110,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   )
 }
 
-// @ts-ignore
 SEDHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,

@@ -127,7 +127,6 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
   )
 }
 
-// @ts-ignore
 SEDListHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,

@@ -50,7 +50,10 @@ export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (): Th
     expectedPayload: {
       subject: 'demoSaksbehandlerUser',
       role: 'SAKSBEHANDLER',
-      allowed: true
+      allowed: true,
+      features: {
+        P5000_VISIBLE: true
+      }
     },
     type: {
       request: types.APP_USERINFO_REQUEST,

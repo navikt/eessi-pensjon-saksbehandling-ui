@@ -152,7 +152,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   )
 }
 
-// @ts-ignore
 BUCEdit.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,

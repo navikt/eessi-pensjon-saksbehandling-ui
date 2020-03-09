@@ -370,7 +370,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   )
 }
 
-// @ts-ignore
 SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,

@@ -202,7 +202,6 @@ const BUCList: React.FC<BUCListProps> = ({
   )
 }
 
-// @ts-ignore
 BUCList.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,

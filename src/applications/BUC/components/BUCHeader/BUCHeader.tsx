@@ -168,7 +168,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   )
 }
 
-// @ts-ignore
 BUCHeader.propTypes = {
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType,
