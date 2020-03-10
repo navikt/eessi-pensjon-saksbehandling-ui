@@ -19,7 +19,6 @@ import { I18nextProvider } from 'react-i18next'
 import { combineReducers, applyMiddleware, createStore, Store } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import Loadable from 'loadable'
 import * as reducers from './reducers'
 import { IS_PRODUCTION } from 'constants/environment'
 import 'moment'
@@ -37,8 +36,8 @@ import 'index_highContrast.css'
 const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
 
 const Pages = {
-  Error: Loadable({ loader: () => import('./pages/Error/Error') }),
-  IndexPage: Loadable({ loader: () => import('./pages/IndexPage/IndexPage') })
+  Error: require('./pages/Error/Error').default,
+  IndexPage: require('./pages/IndexPage/IndexPage').default
 }
 
 window.onerror = (msg, src, lineno, colno, error) => {
@@ -52,7 +51,6 @@ if (!IS_PRODUCTION) {
 }
 
 const renderErrorPage = (type: string) => {
-  // @ts-ignore
   return (): any => (<Pages.Error type={type} />)
 }
 

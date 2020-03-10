@@ -62,7 +62,15 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     creationDate: 1,
     lastUpdate: 2,
     participants: [],
-    attachments: []
+    attachments: [],
+    firstVersion: {
+      id: '1',
+      date: 1
+    },
+    lastVersion: {
+      id: '1',
+      date: 1
+    }
   }
 
   const mockBuc: Buc = {
