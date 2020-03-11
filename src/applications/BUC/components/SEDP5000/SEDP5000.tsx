@@ -84,6 +84,9 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   }
 
   const changeActiveSed = (sedId: string) => {
+    if (!sedId) {
+      return
+    }
     setActiveSeds({
       ...activeSeds,
       [sedId]: !activeSeds[sedId]

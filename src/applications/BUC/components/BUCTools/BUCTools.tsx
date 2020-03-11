@@ -200,7 +200,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
           </Ui.Nav.Knapp>
         </div>
-        ): null}
+      ) : null}
     </Ui.ExpandingPanel>
   )
 }
