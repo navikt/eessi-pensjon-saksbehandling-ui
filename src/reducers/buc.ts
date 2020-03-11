@@ -276,12 +276,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_BUC_SUCCESS: {
       const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
 
-      return Object.assign({}, state, {
+      let newState = _.cloneDeep(state)
+      let item = _.cloneDeep(state[key])
+      item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
+      newState[key] = item
+
+      return Object.assign({}, newState, {
         currentBuc: (action as ActionWithPayload).payload.caseId,
-        [key]: {
-          ...state[key],
-          [(action as ActionWithPayload).payload.caseId]: (action as ActionWithPayload).payload
-        },
         mode: 'bucedit',
         sed: undefined,
         attachments: {}
