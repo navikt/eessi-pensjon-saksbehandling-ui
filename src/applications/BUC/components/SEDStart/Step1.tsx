@@ -105,10 +105,9 @@ const Step1: React.FC<Step1Props> = ({
   }, [setValidation, validation])
 
   const setValidationState = useCallback((key: string, value: string): void => {
-    setValidation({
-      ...validation,
-      [key]: value
-    })
+    const newValidation = _.cloneDeep(validation)
+    newValidation[key] = value
+    setValidation(newValidation)
   }, [setValidation, validation])
 
   const validateCountries = useCallback((country: Array<string>): boolean => {

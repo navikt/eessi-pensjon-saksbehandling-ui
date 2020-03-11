@@ -132,10 +132,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const setValidationState: Function = (key: string, value: string) => {
-    setValidation({
-      ...validation,
-      [key]: value
-    })
+    const newValidation = _.cloneDeep(validation)
+    newValidation[key] = value
+    setValidation(newValidation)
   }
 
   const onForwardButtonClick: Function = (): void => {

@@ -1,6 +1,7 @@
 import * as types from 'constants/actionTypes'
 import { Features, Params, Person } from 'declarations/types'
 import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import _ from 'lodash'
 
 export interface AppState {
   loggedIn: boolean | undefined;
@@ -31,25 +32,26 @@ export const initialAppState: AppState = {
 }
 
 const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
+  let newParams
   switch (action.type) {
     case types.APP_PARAM_SET:
 
+      newParams = _.cloneDeep(state.params)
+      newParams[action.payload.key] = action.payload.value
+
       return {
         ...state,
-        params: {
-          ...state.params,
-          [action.payload.key]: action.payload.value
-        }
+        params: newParams
       }
 
     case types.APP_PARAM_UNSET:
 
+      newParams = _.cloneDeep(state.params)
+      delete newParams[action.payload.key]
+
       return {
         ...state,
-        params: {
-          ...state.params,
-          [action.payload.key]: undefined
-        }
+        params: newParams
       }
 
     case types.APP_USERINFO_SUCCESS: {

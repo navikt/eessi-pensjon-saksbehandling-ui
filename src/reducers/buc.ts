@@ -130,16 +130,14 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
       if (!(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type) { return state }
       const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
-
       return !(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type
         ? state
-        : {
-          ...state,
+        : Object.assign({}, state, {
           [key]: {
             ...state[key],
             [(action as ActionWithPayload).payload.caseId]: (action as ActionWithPayload).payload
           }
-        }
+        })
     }
 
     case types.BUC_GET_BUCS_SUCCESS: {
@@ -281,8 +279,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_BUC_SUCCESS: {
       const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
 
-      return {
-        ...state,
+      return Object.assign({}, state, {
         currentBuc: (action as ActionWithPayload).payload.caseId,
         [key]: {
           ...state[key],
@@ -291,7 +288,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         mode: 'bucedit',
         sed: undefined,
         attachments: {}
-      }
+      })
     }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
@@ -444,13 +441,11 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_SED_SUCCESS:
-      return {
-        ...state,
-        sedContent: {
-          ...state.sedContent,
+      return Object.assign({}, state, {
+        sedContent: Object.assign({}, state.sedContent, {
           [(action as ActionWithPayload).context.id]: (action as ActionWithPayload).payload
-        }
-      }
+        })
+      })
 
     default:
       return state

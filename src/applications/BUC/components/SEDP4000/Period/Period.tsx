@@ -35,10 +35,9 @@ const Period = ({
   const { t } = useTranslation()
   const valueSetProperty = useCallback((key, validateFunction, value) => {
     const error = validateFunction ? validateFunction(value) : undefined
-    setPeriod({
-      ...period,
-      [key]: value
-    })
+    const newPeriod = _.cloneDeep(period)
+    newPeriod[key] = value
+    setPeriod(newPeriod)
     setLocalError(key, error)
   }, [period, setLocalError, setPeriod])
 
@@ -123,10 +122,9 @@ const Period = ({
     if (key === 'endDate' && startDate) {
       timeSpanError = periodValidation.periodTimeSpan(startDate, date)
     }
-    setPeriod({
-      ...period,
-      [key]: date
-    })
+    const newPeriod = _.cloneDeep(period)
+    newPeriod[key] = date
+    setPeriod(newPeriod)
     setLocalError(key, error)
     setLocalError('timeSpan', timeSpanError)
   }

@@ -74,10 +74,9 @@ export const SEDP4000: React.FC<SEDP4000Props> = ({
   }, [mode, setShowButtons, showButtons, period])
 
   const setLocalError = (key: string, error: string | undefined): void => {
-    setLocalErrors({
-      ...localErrors,
-      [key]: error
-    })
+    const newLocalErrors = _.cloneDeep(localErrors)
+    newLocalErrors[key] = error
+    setLocalErrors(newLocalErrors)
   }
 
   const setPeriods = (periods: Array<IPeriod>): void => {
