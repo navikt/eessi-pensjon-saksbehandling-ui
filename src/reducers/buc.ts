@@ -130,13 +130,11 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
       if (!(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type) { return state }
       const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
-      return !(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type
-        ? state
-        : Object.assign({}, state, {
-          [key]:  Object.assign({}, state[key], {
-            [(action as ActionWithPayload).payload.caseId]: (action as ActionWithPayload).payload
-          })
-        })
+      let newState = _.cloneDeep(state)
+      let item = _.cloneDeep(state[key])
+      item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
+      newState[key] = item
+      return newState
     }
 
     case types.BUC_GET_BUCS_SUCCESS: {
