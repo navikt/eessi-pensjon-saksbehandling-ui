@@ -133,10 +133,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return !(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type
         ? state
         : Object.assign({}, state, {
-          [key]: {
-            ...state[key],
+          [key]:  Object.assign({}, state[key], {
             [(action as ActionWithPayload).payload.caseId]: (action as ActionWithPayload).payload
-          }
+          })
         })
     }
 
