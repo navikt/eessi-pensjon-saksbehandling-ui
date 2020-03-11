@@ -439,11 +439,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_SED_SUCCESS:
-      return Object.assign({}, state, {
-        sedContent: Object.assign({}, state.sedContent, {
-          [(action as ActionWithPayload).context.id]: (action as ActionWithPayload).payload
-        })
-      })
+
+      let newSedContent = _.cloneDeep(state.sedContent)
+      newSedContent[(action as ActionWithPayload).context.id] = (action as ActionWithPayload).payload
+      return {
+        ...state,
+        sedContent: newSedContent
+      }
 
     default:
       return state
