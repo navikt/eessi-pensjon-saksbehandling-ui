@@ -4,48 +4,109 @@
 EESSI Pensjon Saksbehandling UI
 ===============================
 
-This is the frontend part of the EESSI Pensjon web application for saksbehandler, developed in [ReactJS](//reactjs.org).
+This is the ESSI Pensjon web application for saksbehandlers, developed in [ReactJS](//reactjs.org).
+
+## TL;DR
+
+    git clone git@github.com:navikt/eessi-pensjon-saksbehandling-ui.git 
+    npm install
+    npm run start
+
+## SETUP
+
+Make sure you have installed: 
+
+* [Git](//git-scm.com)
+* [Node.js](//nodejs.org) 
+* [NPM](//npmjs.com) (normally comes with the Node.js package above)
+
+Also, make sure you have read access to [github.com/navikt](//github.com/navikt)
+
+## DOWNLOAD
+
+Go into your local working directory, and run (HTTPS) 
+
+    git clone https://github.com/navikt/eessi-pensjon-saksbehandling-ui.git
+    
+or (GIT+SSH)
+    
+    git clone git@github.com:navikt/eessi-pensjon-saksbehandling-ui.git 
+
+With HTTPS you may have to provide username/password, with git+ssh your private key can be used for authentication.
 
 ## INSTALL 
 
-run `npm install` if you just cloned this repo, or everytime there is some code changes.
+Run 
+
+    npm install
+     
+if you just cloned this repository, or everytime there is code update that changes `package.json` or `package-lock.json`. This commend installs the dependencis for the project. 
+
+`package.json` is the file where project dependencies (and dev dependencies) are listed.
+
+`package-lock.json` is the file that locks dependency versions into this project's version.
 
 ## TEST
 
-Run tests with `npm run test`.
+Run tests with
+ 
+    npm run test
+    
+This runs all tests in watch mode, that is, after all tests finished the console is watching for changes in code so it can re-run tests again. 
 
-For coverage report, run `npm run test:coverage`.
+To run a subset of tests, add a pattern on the -t flag, as in
+ 
+    npm run test -t actions/buc
+    
+For coverage report, run
+ 
+    npm run test:coverage
+    
+Coverage tests don't run in watch mode.    
 
 ## LINT
 
-To lint the code, run `npm run lint` 
+Linting code makes it tidy, clean, indented and pretty.
 
-To fix lint issues, run `npm run lint:fix` 
+To lint the code, run 
+
+    npm run lint
+
+To fix lint issues, run 
+
+    npm run lint:fix
 
 ## RUN 
 
-First, make sure you have an [instance of EESSI-Pensjon frontend API](//github.com/navikt/eessi-pensjon-frontend-api) running on port 8080. If you want to use another port, change the `"proxy": "http://localhost:8080"` directive on package.json.
+To start the app in development mode, run 
+     
+    npm run start
+     
+This will launch a webpack server on port 3000 and launch a window/tab in your predefined browser.
 
-In order to browse the webapp, you need a valid authentication token. 
-
-### Run in development environment, with hot reloading
-
-To start the app in development mode, run `npm run start`. This will launch a webpack server on port 3000 and launch a brower window/tab.
+Code will run in watch mode, so any changes made to code files will trigger a page reload.
  
-*Note*: To change default port, do `set PORT={wantedPort}` (Windows) or `export PORT={wantedPort}` (Linux/Mac). 
+If you want to change the default port, add as a env var (Windows)
+ 
+    set PORT={wantedPort}
+     
+or (Linux/Mac)
 
-Any changes made to code files will trigger a page reload.
+    export PORT={wantedPort}
 
-### Run in production environment
+### BUILD
 
-To build the app for production mode, run `npm run build`. It will process LESS, compact JS code and build a minimized package ready for production.
+To build the app for production mode, run 
 
-Point your browser to the build/ folder, and it should load the index.html page.
+    npm run build
+    
+You do not need to do this locally. This is the production version, with minimized code.
 
-### Docker
+Yet, you can see how it looks. Run
 
-The apps docker image builds on [pus-decorator](https://github.com/navikt/pus-decorator). Use Dockerfile_sbs and Dockerfile_fss to build images for sbs and fss respectively. The dockerfiles sets some options as defined in [pus-decorator-README](https://github.com/navikt/pus-decorator/blob/master/README.md).
-The image uses the proxy_[fss/sbs].json files to define proxy paths to eessi-pensjon-frontend-api-[fss/sbs].
+    serve -s build
+
+then visit `localhost:5000` to see the production-ready version of this webpage.
 
 ## Troubleshoot
 
