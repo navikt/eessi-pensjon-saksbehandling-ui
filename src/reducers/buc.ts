@@ -130,8 +130,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
       if (!(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type) { return state }
       const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
-      let newState = _.cloneDeep(state)
-      let item = _.cloneDeep(state[key])
+      const newState = _.cloneDeep(state)
+      const item = _.cloneDeep(state[key])
       item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
       newState[key] = item
       return newState
@@ -276,8 +276,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_BUC_SUCCESS: {
       const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
 
-      let newState = _.cloneDeep(state)
-      let item = _.cloneDeep(state[key])
+      const newState = _.cloneDeep(state)
+      const item = _.cloneDeep(state[key])
       item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
       newState[key] = item
 
@@ -440,7 +440,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_GET_SED_SUCCESS:
 
-      let newSedContent = _.cloneDeep(state.sedContent)
+      const newSedContent = _.cloneDeep(state.sedContent)
       newSedContent[(action as ActionWithPayload).context.id] = (action as ActionWithPayload).payload
       return {
         ...state,
