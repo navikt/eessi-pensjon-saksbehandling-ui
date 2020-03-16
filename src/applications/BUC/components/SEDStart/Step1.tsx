@@ -45,7 +45,7 @@ const placeholders: Labels = {
   sed: 'buc:form-chooseSed',
   institution: 'buc:form-chooseInstitution',
   country: 'buc:form-chooseCountry',
-  vedtakId: 'buc:form-enterVedtakId'
+  vedtakId: 'buc:form-noVedtakId'
 }
 
 const Step1: React.FC<Step1Props> = ({
@@ -297,6 +297,7 @@ const Step1: React.FC<Step1Props> = ({
         {sedNeedsVedtakId() ? (
           <div className='mb-3'>
             <Ui.Nav.Input
+              disabled
               id='a-buc-c-sedstart__vedtakid-input-id'
               className='a-buc-c-sedstart__vedtakid-input'
               label={t('buc:form-vedtakId')}
