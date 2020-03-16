@@ -278,9 +278,16 @@ const Step1: React.FC<Step1Props> = ({
         </Ui.Nav.Systemtittel>
         <hr />
       </div>
+      {!vedtakId && _sed === 'P6000' ? (
+        <div className='col-md-12'>
+          <div className='d-flex flex-column align-items-center mt-4 mb-4'>
+            <Ui.Alert type='client' fixed={false} status='WARNING' message={t('buc:alert-noVedtakId')} />
+          </div>
+        </div>
+      ) : null}
       <div className={layout === 'row' ? 'col-md-6 pr-3' : 'col-md-12'}>
         <Ui.Nav.Select
-          className='a-buc-c-sedstart__sed-select flex-fill'
+          className='a-buc-c-sedstart__sed-select flex-fill mt-4 mb-4'
           id='a-buc-c-sedstart__sed-select-id'
           disabled={loading.gettingSedList}
           aria-describedby='help-sed'
@@ -299,7 +306,7 @@ const Step1: React.FC<Step1Props> = ({
             <Ui.Nav.Input
               disabled
               id='a-buc-c-sedstart__vedtakid-input-id'
-              className='a-buc-c-sedstart__vedtakid-input'
+              className='a-buc-c-sedstart__vedtakid-input  mt-4 mb-4'
               label={t('buc:form-vedtakId')}
               bredde='fullbredde'
               value={vedtakId || ''}
@@ -312,7 +319,7 @@ const Step1: React.FC<Step1Props> = ({
         {!currentSed
           ? (
             <>
-              <div className='mb-3 flex-fill'>
+              <div className='mt-4 mb-4 flex-fill'>
                 <Ui.MultipleSelect
                   ariaLabel={t('ui:country')}
                   label={t('ui:country')}
@@ -328,7 +335,7 @@ const Step1: React.FC<Step1Props> = ({
                   options={countryObjectList}
                 />
               </div>
-              <div className='mb-3 flex-fill'>
+              <div className='mt-4 mb-4 flex-fill'>
                 <Ui.MultipleSelect
                   ariaLabel={t('ui:institution')}
                   label={t('ui:institution')}
