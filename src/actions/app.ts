@@ -75,22 +75,6 @@ export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (akt
   })
 }
 
-export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (sakId: string, aktoerId: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
-    url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
-    cascadeFailureError: true,
-    expectedPayload: {
-      sakId: '123',
-      sakType: 'GJENLEV'
-    },
-    type: {
-      request: types.APP_SAKTYPE_REQUEST,
-      success: types.APP_SAKTYPE_SUCCESS,
-      failure: types.APP_SAKTYPE_FAILURE
-    }
-  })
-}
-
 export const clearData = (): Action => ({
   type: types.APP_CLEAR_DATA
 })

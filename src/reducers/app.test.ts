@@ -122,36 +122,6 @@ describe('reducers/app', () => {
     ).toEqual(initialAppState)
   })
 
-  it('APP_SAKTYPE_SUCCESS', () => {
-    expect(
-      appReducer(initialAppState, {
-        type: types.APP_SAKTYPE_SUCCESS,
-        payload: {
-          sakType: 'GJENLEV'
-        }
-      })
-    ).toEqual({
-      ...initialAppState,
-      params: {
-        sakType: 'Gjenlevendeytelse'
-      }
-    })
-  })
-
-  it('APP_SAKTYPE_FAILURE', () => {
-    expect(
-      appReducer(initialAppState, {
-        type: types.APP_SAKTYPE_FAILURE,
-        payload: undefined
-      })
-    ).toEqual({
-      ...initialAppState,
-      params: {
-        sakType: 'Unknown'
-      }
-    })
-  })
-
   it('UNKNOWN_ACTION', () => {
     expect(
       appReducer(initialAppState, {
