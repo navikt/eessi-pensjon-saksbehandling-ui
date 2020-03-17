@@ -2,18 +2,19 @@ import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import BucHeader, { BUCHeaderProps } from './BUCHeader'
+jest.mock('react-redux')
 
 const mockSelectors = {
+  institutionNames: {},
   locale: 'nb',
   rinaUrl: 'http://rinaurl.mock.com'
-}
+};
 
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn(() => mockSelectors)
-}))
+(useSelector as jest.Mock).mockImplementation(() => mockSelectors)
 
 describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   let wrapper: ReactWrapper
@@ -52,7 +53,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('8')
+    expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('9')
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__actions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__bucedit-link')).toBeTruthy()

@@ -33,7 +33,7 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   const initialMockProps: SEDBodyProps = {
     aktoerId: '123',
     buc: buc,
-    canHaveAttachments: false,
+    canHaveAttachments: true,
     canShowProperties: false,
     initialAttachmentsSent: false,
     initialSeeAttachmentPanel: false,

@@ -2,13 +2,14 @@ import SEDListHeader, { SEDListHeaderProps } from 'applications/BUC/components/S
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
+jest.mock('react-redux')
 
 // locale
-const mockSelectors = { locale: 'nb' }
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn(() => mockSelectors)
-}))
+const mockSelectors = { locale: 'nb' };
+
+(useSelector as jest.Mock).mockImplementation(() => mockSelectors)
 
 describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
   const buc: Buc = sampleBucs[0] as Buc
@@ -39,6 +40,7 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
 
     const status = wrapper.find('.a-buc-c-sedlistheader__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('buc:status-' + sed.status)
+    expect
     expect(status.find('Normaltekst.a-buc-c-sedlistheader__lastUpdate').render().text()).toEqual('23.10.2019')
 
     const institutions = wrapper.find('.a-buc-c-sedlistheader__institutions').hostNodes()

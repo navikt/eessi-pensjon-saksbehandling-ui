@@ -141,7 +141,10 @@ describe('reducers/buc', () => {
 
   it('BUC_GET_SINGLE_BUC_SUCCESS: P_BUC_02', () => {
     expect(
-      bucReducer(initialBucState, {
+      bucReducer({
+        ...initialBucState,
+        avdodBucs: {}
+      } , {
         type: types.BUC_GET_SINGLE_BUC_SUCCESS,
         payload: {
           caseId: '123',
@@ -452,7 +455,10 @@ describe('reducers/buc', () => {
 
   it('BUC_CREATE_BUC_SUCCESS', () => {
     expect(
-      bucReducer(initialBucState, {
+      bucReducer({
+        ...initialBucState,
+        bucs: {}
+      }, {
         type: types.BUC_CREATE_BUC_SUCCESS,
         payload: { caseId: 'mockCaseId', mockPayload: 'mockPayload' }
       })
