@@ -4,7 +4,7 @@
 EESSI Pensjon Saksbehandling UI
 ===============================
 
-This is the ESSI Pensjon web application for saksbehandlers, developed in [ReactJS](//reactjs.org).
+This is the EESSI Pensjon web application for saksbehandlers, developed in [ReactJS](//reactjs.org).
 
 ## TL;DR
 
@@ -53,6 +53,7 @@ if you just cloned this repository, or everytime there is code update that chang
 
 `package-lock.json` is the file that locks dependency versions into this project's version.
 
+<<<<<<< HEAD
 In the end, you should see a npm summary output with all dependency packages installed, and an audit report. 
 
 ## AUDIT 
@@ -161,7 +162,13 @@ then visit `localhost:5000` to see the production-ready version of this webpage.
 
 ## Troubleshoot
 
-None at the moment
+If you're on Mac and get a lot of warnings mentioning `gyp: No Xcode or CLT version detected!` try this:
+
+```shell script
+sudo rm -rf $(xcode-select -print-path)
+xcode-select --install
+```
+
 
 ---
 
