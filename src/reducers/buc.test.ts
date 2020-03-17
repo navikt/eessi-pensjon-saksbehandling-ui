@@ -144,7 +144,7 @@ describe('reducers/buc', () => {
       bucReducer({
         ...initialBucState,
         avdodBucs: {}
-      } , {
+      }, {
         type: types.BUC_GET_SINGLE_BUC_SUCCESS,
         payload: {
           caseId: '123',

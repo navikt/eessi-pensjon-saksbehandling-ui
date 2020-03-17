@@ -99,20 +99,6 @@ describe('actions/app', () => {
     }))
   })
 
-  it('getSakType()', () => {
-    const mockSakId: string = '123'
-    const mockAktoerId: string = '456'
-    appActions.getSakType(mockSakId, mockAktoerId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.APP_SAKTYPE_REQUEST,
-        success: types.APP_SAKTYPE_SUCCESS,
-        failure: types.APP_SAKTYPE_FAILURE
-      },
-      url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: mockSakId, aktoerId: mockAktoerId })
-    }))
-  })
-
   it('clearData()', () => {
     const generatedResult: Action = appActions.clearData()
     expect(generatedResult).toMatchObject({

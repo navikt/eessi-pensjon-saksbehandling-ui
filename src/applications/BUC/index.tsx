@@ -1,4 +1,4 @@
-import { getSakType, setStatusParam } from 'actions/app'
+import { setStatusParam } from 'actions/app'
 import { fetchAvdodBucs, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -92,12 +92,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       dispatch(fetchAvdodBucs(avdodfnr))
     }
   }, [avdodBucs, avdodfnr, dispatch, loading.gettingAvdodBUCs, sakId])
-
-  useEffect(() => {
-    if (!sakType && !loading.gettingSakType && sakId && aktoerId) {
-      dispatch(getSakType(sakId, aktoerId))
-    }
-  }, [aktoerId, dispatch, loading.gettingSakType, sakType, sakId])
 
   const _setMode = useCallback((mode) => {
     dispatch(setMode(mode))

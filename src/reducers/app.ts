@@ -92,22 +92,6 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       return initialAppState
     }
 
-    case types.APP_SAKTYPE_SUCCESS: {
-      const sakType = (action.payload.sakType === 'GJENLEV') ? 'Gjenlevendeytelse' : action.payload.sakType
-
-      return {
-        ...state,
-        params: { ...state.params, sakType: sakType }
-      }
-    }
-
-    case types.APP_SAKTYPE_FAILURE: {
-      return {
-        ...state,
-        params: { ...state.params, sakType: 'Unknown' }
-      }
-    }
-
     default:
       return state
   }

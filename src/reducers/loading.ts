@@ -18,7 +18,6 @@ export const initialLoadingState: LoadingState = {
   gettingCountryList: false,
   gettingInstitutionList: false,
   gettingPersonInfo: false,
-  gettingSakType: false,
   gettingSedList: false,
   gettingSubjectAreaList: false,
   gettingTagList: false,
@@ -75,21 +74,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingPersonInfo: false
-      }
-
-    case types.APP_SAKTYPE_REQUEST:
-
-      return {
-        ...state,
-        gettingSakType: true
-      }
-
-    case types.APP_SAKTYPE_SUCCESS:
-    case types.APP_SAKTYPE_FAILURE:
-
-      return {
-        ...state,
-        gettingSakType: false
       }
 
     case types.APP_LOGIN_REQUEST: {

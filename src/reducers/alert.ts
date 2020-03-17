@@ -53,11 +53,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     clientErrorStatus = 'ERROR'
 
     switch (action.type) {
-      case types.APP_SAKTYPE_FAILURE:
-
-        clientErrorMessage = 'ui:alert-noSaktype'
-        break
-
       case types.BUC_GET_BUCS_FAILURE:
 
         clientErrorMessage = 'buc:alert-noBucs'
