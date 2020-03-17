@@ -18,7 +18,7 @@
   "alert-noSubjectAreaList"       : "Ingen fagområde liste",
   "alert-saveBucsInfoFailure"     : "Feil til å lagre BUC info",
   "alert-savedData"               : "Lagret sak",
-  "alert-noVedtakId"              : "Du må gå via 'Vedtakshistorikken' i Pesys og trykke på Jordklode-ikonet ved aktuelt vedtak for å kunne bestille P6000",
+  "alert-noVedtakId"              : "Bestille P6000: gå til skjermbilde Vedtakshistorikk og klikk på Jordkloden-ikonet på det aktuelle vedtaket",
 
   "attachments-step0" : "Velg vedlegg",
   "attachments-step1" : "Rediger vedlegg",
