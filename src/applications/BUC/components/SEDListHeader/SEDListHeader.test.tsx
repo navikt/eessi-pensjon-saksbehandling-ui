@@ -40,7 +40,6 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
 
     const status = wrapper.find('.a-buc-c-sedlistheader__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('buc:status-' + sed.status)
-    expect
     expect(status.find('Normaltekst.a-buc-c-sedlistheader__lastUpdate').render().text()).toEqual('23.10.2019')
 
     const institutions = wrapper.find('.a-buc-c-sedlistheader__institutions').hostNodes()

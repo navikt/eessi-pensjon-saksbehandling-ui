@@ -133,7 +133,7 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps)
       className='p-indexPage'
       history={history}
     >
-      <ReactTooltip place='top' type='dark' effect='solid' multiline />
+      <ReactTooltip id='eessi-pensjon-ui-sbs' place='top' type='dark' effect='solid' multiline />
 
       <Ui.Dashboard
         id='eessi-pensjon-ui-fss'

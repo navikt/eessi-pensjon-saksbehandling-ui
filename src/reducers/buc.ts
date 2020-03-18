@@ -8,6 +8,9 @@ import {
   Institution,
   InstitutionListMap,
   InstitutionNames,
+  Institutions,
+  Participant,
+  Participants,
   RawInstitution,
   Sed,
   SedContentMap
@@ -187,12 +190,19 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_PARTICIPANTS_SUCCESS: {
       const rinaCaseId = (action as ActionWithPayload).context.rinaCaseId
       const bucs = _.cloneDeep(state.bucs)
-      const avdodBucs =  _.cloneDeep(state.avdodBucs)
+      const avdodBucs = _.cloneDeep(state.avdodBucs)
+
+      const deltakere: Institutions = (action as ActionWithPayload<Participants>).payload.map((participant: Participant) => ({
+        country: participant.organisation.countryCode,
+        institution: participant.organisation.id,
+        name: participant.organisation.name
+      }))
+
       if (bucs![rinaCaseId]) {
-        bucs![rinaCaseId].deltakere = (action as ActionWithPayload).payload
+        bucs![rinaCaseId].deltakere = deltakere
       }
       if (avdodBucs![rinaCaseId]) {
-        avdodBucs![rinaCaseId].deltakere = (action as ActionWithPayload).payload
+        avdodBucs![rinaCaseId].deltakere = deltakere
       }
       return {
         ...state,
@@ -471,14 +481,14 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         p4000info: null
       }
 
-    case types.BUC_GET_SED_SUCCESS:
-
+    case types.BUC_GET_SED_SUCCESS: {
       const newSedContent = _.cloneDeep(state.sedContent)
       newSedContent[(action as ActionWithPayload).context.id] = (action as ActionWithPayload).payload
       return {
         ...state,
         sedContent: newSedContent
       }
+    }
 
     default:
       return state

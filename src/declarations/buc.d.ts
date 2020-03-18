@@ -55,6 +55,8 @@ export interface Participant {
   selected: boolean;
 }
 
+export type Participants = Array<Participant>
+
 export interface Version {
   id: string;
   date: number;
@@ -68,7 +70,7 @@ export interface Sed {
   creationDate: number;
   lastUpdate: number;
   displayName?: string | null;
-  participants: Array<Participant>;
+  participants: Participants;
   attachments: Array<BUCAttachment>;
   version?: string;
   firstVersion: Version;
