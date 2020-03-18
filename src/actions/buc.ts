@@ -60,7 +60,7 @@ export const setP4000Info: ActionCreator<ActionWithPayload> = (p4000: P4000Info)
 export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: rinaCaseId }),
-    expectedPayload: sampleBucs[0],
+    expectedPayload: _.find(sampleBucs, buc => buc.caseId === rinaCaseId)!,
     type: {
       request: types.BUC_GET_SINGLE_BUC_REQUEST,
       success: types.BUC_GET_SINGLE_BUC_SUCCESS,
@@ -72,7 +72,10 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (ri
 export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: rinaCaseId }),
-    expectedPayload: sampleBucs[0].institusjon,
+    expectedPayload: _.find(sampleBucs, buc => buc.caseId === rinaCaseId)!.institusjon,
+    context: {
+      rinaCaseId: rinaCaseId
+    },
     type: {
       request: types.BUC_GET_PARTICIPANTS_REQUEST,
       success: types.BUC_GET_PARTICIPANTS_SUCCESS,
@@ -85,7 +88,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerI
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: sampleBucs,
+    expectedPayload: sampleBucs.map(buc => ({ ...buc, seds: undefined })),
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,

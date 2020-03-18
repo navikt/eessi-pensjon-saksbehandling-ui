@@ -191,6 +191,7 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       bucs: { 123456: sampleBuc },
+      avdodBucs: {},
       institutionNames: {
         'NO:NAVAT07': 'NAV ACCEPTANCE TEST 07'
       }

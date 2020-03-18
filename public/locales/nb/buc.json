@@ -188,6 +188,7 @@
   "loading-creatingCaseinRINA"    : "Oppretter sak i RINA...",
   "loading-creatingSED"           : "Oppretter ny SED...",
   "loading-gettingUserInfo"       : "Laster brukers informasjon...",
+  "loading-gettingSEDs"           : "Laster SED-er...",
   "loading-institution"           : "Laster mottager...",
   "loading-p4000list"             : "Henter P4000 liste...",
   "loading-p4000info"             : "Henter P4000 info...",

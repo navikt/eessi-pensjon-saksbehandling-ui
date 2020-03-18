@@ -94,6 +94,7 @@ export interface ErrorBuc {
   creator: null;
   error: string;
   institusjon: null;
+  deltakere: null;
   lastUpdate: null;
   sakType: null;
   seds: null;
@@ -108,6 +109,7 @@ export interface ValidBuc {
   creator: Institution;
   description?: string | null | undefined;
   error?: null | undefined;
+  deltakere?: Institutions;
   institusjon: Institutions;
   lastUpdate: number;
   sakType: string | null;

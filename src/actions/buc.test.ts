@@ -95,7 +95,7 @@ describe('actions/buc', () => {
         success: types.BUC_GET_SINGLE_BUC_SUCCESS,
         failure: types.BUC_GET_SINGLE_BUC_FAILURE
       },
-      url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: mockRinaCaseId })
+      url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: mockRinaCaseId })
     }))
   })
 

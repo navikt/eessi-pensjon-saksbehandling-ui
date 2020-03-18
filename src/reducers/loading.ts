@@ -12,6 +12,7 @@ export const initialLoadingState: LoadingState = {
   deletingStorageFile: false,
   generatingPDF: false,
   gettingBUCs: false,
+  gettingBucDeltakere: false,
   gettingAvdodBUCs: false,
   gettingBucList: false,
   gettingBUCinfo: false,
@@ -124,6 +125,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingAvdodBUCs: false
+      }
+
+    case types.BUC_GET_PARTICIPANTS_REQUEST:
+
+      return {
+        ...state,
+        gettingBucDeltakere: true
+      }
+
+    case types.BUC_GET_PARTICIPANTS_SUCCESS:
+    case types.BUC_GET_PARTICIPANTS_FAILURE:
+
+      return {
+        ...state,
+        gettingBucDeltakere: false
       }
 
     case types.BUC_GET_BUCSINFO_REQUEST:

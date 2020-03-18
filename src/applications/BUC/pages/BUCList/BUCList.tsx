@@ -1,4 +1,10 @@
-import { fetchBucsInfo, getInstitutionsListForBucAndCountry, setCurrentBuc, setCurrentSed } from 'actions/buc'
+import {
+  fetchBucsInfo,
+  fetchSingleBuc,
+  getInstitutionsListForBucAndCountry,
+  setCurrentBuc,
+  setCurrentSed
+} from 'actions/buc'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -72,8 +78,19 @@ const BUCList: React.FC<BUCListProps> = ({
   }
 
   const onBUCEdit = (buc: Buc) => {
+    getSeds(buc.caseId!)
     dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit')
+  }
+
+  const onBucOpen = (bucId: string) => {
+    getSeds(bucId)
+  }
+
+  const getSeds = (bucId: string) => {
+    if (_.isNil(bucs[bucId].seds)) {
+      dispatch(fetchSingleBuc(bucId))
+    }
   }
 
   useEffect(() => {
@@ -166,6 +183,7 @@ const BUCList: React.FC<BUCListProps> = ({
                 collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
                 className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
                 style={{ animationDelay: (0.2 * index) + 's' }}
+                onClick={() => onBucOpen(bucId)}
                 heading={
                   <BUCHeader
                     buc={buc}
@@ -189,11 +207,13 @@ const BUCList: React.FC<BUCListProps> = ({
                   </div>
                   <div className='a-buc-p-buclist__sedheader-head col-2' />
                 </div>
-                <SEDList
-                  seds={buc.seds}
-                  buc={buc}
-                  onSEDNew={onSEDNew}
-                />
+                {!_.isNil(buc.seds) ? (
+                  <SEDList
+                    seds={buc.seds}
+                    buc={buc}
+                    onSEDNew={onSEDNew}
+                  />
+                ) : <Ui.WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
               </Ui.ExpandingPanel>
             )
           }) : null}

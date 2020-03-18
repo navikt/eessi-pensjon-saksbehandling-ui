@@ -24,18 +24,20 @@ interface BUCHeaderSelector {
   institutionNames: InstitutionNames;
   locale: AllowedLocaleString;
   rinaUrl: RinaUrl | undefined;
+  gettingBucDeltakere: boolean;
 }
 
 const mapState = (state: State): BUCHeaderSelector => ({
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
-  rinaUrl: state.buc.rinaUrl
+  rinaUrl: state.buc.rinaUrl,
+  gettingBucDeltakere: state.loading.gettingBucDeltakere
 })
 
 const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo, onBUCEdit
 }: BUCHeaderProps): JSX.Element => {
-  const numberOfSeds: number = buc.seds ? buc.seds.filter(sedFilter).length : 0
+  const numberOfSeds: string = buc.seds ? '' + buc.seds.filter(sedFilter).length : '?'
   const { institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const onBucHandle: Function = useCallback((buc, e) => {
@@ -46,7 +48,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
 
   const generateFlagItems = (): FlagItems => {
     const institutionList: InstitutionListMap<string> = {}
-    buc.institusjon!.forEach((institution: Institution) => {
+    buc.deltakere!.forEach((institution: Institution) => {
       if (Object.prototype.hasOwnProperty.call(institutionList, institution.country)) {
         institutionList[institution.country].push(institution.institution)
       } else {
@@ -65,7 +67,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     }))
   }
 
-  const flagItems: FlagItems = _.isArray(buc.institusjon) ? generateFlagItems() : []
+  const flagItems: FlagItems = _.isArray(buc.deltakere) ? generateFlagItems() : []
 
   return (
     <div
@@ -130,13 +132,15 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           ) : null}
         </div>
         <div className='a-buc-c-bucheader__icons col-sm-4'>
-          <Ui.FlagList
-            locale={locale}
-            type='circle'
-            size='L'
-            items={flagItems}
-            overflowLimit={5}
-          />
+          {!_.isEmpty(flagItems) ? (
+            <Ui.FlagList
+              locale={locale}
+              type='circle'
+              size='L'
+              items={flagItems}
+              overflowLimit={5}
+            />
+          ) : <Ui.WaitingPanel message='' size='M' />}
           <div
             className='a-buc-c-bucheader__icon-numberofseds'
             data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}

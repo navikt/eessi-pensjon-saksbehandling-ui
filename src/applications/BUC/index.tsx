@@ -89,7 +89,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [aktoerId, bucs, dispatch, loading.gettingBUCs, sakId])
 
-
   useEffect(() => {
     if (avdodfnr && sakId && avdodBucs === undefined && !loading.gettingAvdodBUCs) {
       dispatch(fetchAvdodBucs(avdodfnr))

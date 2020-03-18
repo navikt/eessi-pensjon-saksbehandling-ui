@@ -29,7 +29,8 @@ export interface BUCEditProps {
 
 export interface BUCEditSelector {
   bucsInfo?: BucsInfo;
-  locale: AllowedLocaleString
+  locale: AllowedLocaleString,
+
 }
 
 const mapState = (state: State): BUCEditSelector => ({
@@ -115,7 +116,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             onStatusSearch={onStatusSearch}
           />
           <SEDPanelHeader />
-          {buc.seds ? buc.seds
+          {!_.isNil(buc.seds) ? buc.seds
             .filter(sedFilter)
             .filter(sedSearchFilter)
             .sort(sedSorter as (a: Sed, b: Sed) => number)
@@ -128,11 +129,11 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   buc={buc}
                   key={index}
                   sed={sed}
-                  followUpSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
+                  followUpSeds={buc.seds!.filter(_seds => _seds.parentDocumentId === sed.id)}
                   onSEDNew={() => onSEDNew(sed)}
                 />
               )
-            }) : null}
+            }) : <Ui.WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
         </div>
         <div className='col-md-4'>
           <BUCDetail

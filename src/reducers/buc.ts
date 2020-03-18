@@ -131,9 +131,10 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       if (!(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type) { return state }
       const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
       const newState = _.cloneDeep(state)
-      const item = _.cloneDeep(state[key])
-      item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
-      newState[key] = item
+      const bucs = _.cloneDeep(state[key])
+      bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
+      bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
+      newState[key] = bucs
       return newState
     }
 
@@ -155,9 +156,24 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         }
       })
 
+      // temporary measurement to simulate no seds
+      Object.keys(bucs).forEach(bucId => {
+        bucs[bucId].seds = undefined
+      })
+
+      // send P_BUC_02 bucs to avdodBucs
+      const avdodBucs: Bucs = {}
+      Object.keys(bucs).forEach(bucId => {
+        if (bucs[bucId].type === 'P_BUC_02') {
+          avdodBucs[bucId] = _.cloneDeep(bucs[bucId])
+          delete bucs[bucId]
+        }
+      })
+
       return {
         ...state,
         bucs: bucs,
+        avdodBucs: avdodBucs,
         institutionNames: institutionNames
       }
     }
@@ -167,6 +183,23 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         bucs: null
       }
+
+    case types.BUC_GET_PARTICIPANTS_SUCCESS: {
+      const rinaCaseId = (action as ActionWithPayload).context.rinaCaseId
+      const bucs = _.cloneDeep(state.bucs)
+      const avdodBucs =  _.cloneDeep(state.avdodBucs)
+      if (bucs![rinaCaseId]) {
+        bucs![rinaCaseId].deltakere = (action as ActionWithPayload).payload
+      }
+      if (avdodBucs![rinaCaseId]) {
+        avdodBucs![rinaCaseId].deltakere = (action as ActionWithPayload).payload
+      }
+      return {
+        ...state,
+        bucs: bucs,
+        avdodBucs: avdodBucs
+      }
+    }
 
     case types.BUC_GET_AVDOD_BUCS_SUCCESS: {
       const bucReducer = (currentBucs: Bucs, newBuc: Buc) => {
