@@ -1,4 +1,5 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
+import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import classNames from 'classnames'
 import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
@@ -74,7 +75,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     if (!buc.seds) {
       return undefined
     }
-    return _.filter(buc.seds, sed => sed.type === 'P5000')
+    return buc.seds.filter(sedFilter).filter(sed => sed.type === 'P5000')
   }, [buc])
 
   const displayP5000table = useCallback(() => {
