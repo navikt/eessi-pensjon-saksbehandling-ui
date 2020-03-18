@@ -44,10 +44,11 @@ export const PERSON_URL = PER_URL + '/%(aktoerId)s'
 
 // BucController
 export const BUC_GET_BUCS_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
+export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_SEND_ATTACHMENT_URL = BUC_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(journalpostId)s/%(dokumentInfoId)s/%(variantformat)s'
 export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs'
-export const BUC_GET_SINGLE_BUC = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
+export const BUC_GET_SINGLE_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'

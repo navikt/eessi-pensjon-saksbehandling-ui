@@ -59,12 +59,24 @@ export const setP4000Info: ActionCreator<ActionWithPayload> = (p4000: P4000Info)
 
 export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
-    url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: rinaCaseId }),
+    url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: rinaCaseId }),
     expectedPayload: sampleBucs[0],
     type: {
       request: types.BUC_GET_SINGLE_BUC_REQUEST,
       success: types.BUC_GET_SINGLE_BUC_SUCCESS,
       failure: types.BUC_GET_SINGLE_BUC_FAILURE
+    }
+  })
+}
+
+export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
+  return api.call({
+    url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: rinaCaseId }),
+    expectedPayload: sampleBucs[0].institusjon,
+    type: {
+      request: types.BUC_GET_PARTICIPANTS_REQUEST,
+      success: types.BUC_GET_PARTICIPANTS_SUCCESS,
+      failure: types.BUC_GET_PARTICIPANTS_FAILURE
     }
   })
 }

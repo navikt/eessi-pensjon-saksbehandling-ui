@@ -1,5 +1,5 @@
 import { setStatusParam } from 'actions/app'
-import { fetchAvdodBucs, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
+import { fetchAvdodBucs, fetchBucParticipants, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
@@ -65,9 +65,11 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   const { aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, person, rinaUrl, sakId, sakType }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [_avdodfnr, setAvdodfnr] = useState('')
-  const [_mounted, setMounted] = useState(!waitForMount)
-  const [_showAvdodfnr, setShowAvdodfnr] = useState(false)
+  const [_avdodfnr, setAvdodfnr] = useState<string | undefined>(avdodfnr)
+  const [_mounted, setMounted] = useState<boolean>(!waitForMount)
+  const [_showAvdodfnr, setShowAvdodfnr] = useState<boolean>(false)
+  const [_bucs, setBucs] = useState<Bucs | undefined>(bucs)
+  const [_avdodBucs, setAvdodBucs] = useState<Bucs | undefined>(avdodBucs)
 
   const combinedBucs = { ...avdodBucs, ...bucs }
 
@@ -87,11 +89,30 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [aktoerId, bucs, dispatch, loading.gettingBUCs, sakId])
 
+
   useEffect(() => {
     if (avdodfnr && sakId && avdodBucs === undefined && !loading.gettingAvdodBUCs) {
       dispatch(fetchAvdodBucs(avdodfnr))
     }
   }, [avdodBucs, avdodfnr, dispatch, loading.gettingAvdodBUCs, sakId])
+
+  useEffect(() => {
+    if (bucs && !_bucs) {
+      Object.keys(bucs).forEach(bucId => {
+        dispatch(fetchBucParticipants(bucId))
+      })
+      setBucs(bucs)
+    }
+  }, [bucs, _bucs])
+
+  useEffect(() => {
+    if (avdodBucs && !_avdodBucs) {
+      Object.keys(avdodBucs).forEach(bucId => {
+        dispatch(fetchBucParticipants(bucId))
+      })
+      setAvdodBucs(avdodBucs)
+    }
+  }, [avdodBucs, !_avdodBucs])
 
   const _setMode = useCallback((mode) => {
     dispatch(setMode(mode))
