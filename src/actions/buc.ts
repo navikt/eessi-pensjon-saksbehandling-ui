@@ -3,7 +3,7 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
+import { BucsInfo, Institution, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
 import Ui from 'eessi-pensjon-ui'
@@ -72,7 +72,15 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (ri
 export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: rinaCaseId }),
-    expectedPayload: _.find(sampleBucs, buc => buc.caseId === rinaCaseId)?.institusjon,
+    expectedPayload: () => {
+      const buc = _.find(sampleBucs, buc => buc.caseId === rinaCaseId)
+      return buc && buc.institusjon ? _.map(buc.institusjon, (i: Institution) => ({
+        organisation: {
+          countryCode: i.country,
+          id: i.institution
+        }
+      })) : []
+    },
     context: {
       rinaCaseId: rinaCaseId
     },
@@ -88,7 +96,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerI
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: sampleBucs.map(buc => ({ ...buc, seds: undefined })),
+    expectedPayload: _.cloneDeep(sampleBucs),
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
@@ -101,7 +109,7 @@ export const fetchAvdodBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (ak
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: sampleBucs,
+    expectedPayload: _.cloneDeep(sampleBucs),
     type: {
       request: types.BUC_GET_AVDOD_BUCS_REQUEST,
       success: types.BUC_GET_AVDOD_BUCS_SUCCESS,

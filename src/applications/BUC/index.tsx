@@ -98,20 +98,24 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   useEffect(() => {
     if (bucs && !_bucs) {
       Object.keys(bucs).forEach(bucId => {
-        dispatch(fetchBucParticipants(bucId))
+        if (_.isNil(bucs[bucId].institusjon)) {
+          dispatch(fetchBucParticipants(bucId))
+        }
       })
       setBucs(bucs)
     }
-  }, [bucs, _bucs])
+  }, [bucs, _bucs, dispatch])
 
   useEffect(() => {
     if (avdodBucs && !_avdodBucs) {
       Object.keys(avdodBucs).forEach(bucId => {
-        dispatch(fetchBucParticipants(bucId))
+        if (_.isNil(avdodBucs[bucId].institusjon)) {
+          dispatch(fetchBucParticipants(bucId))
+        }
       })
       setAvdodBucs(avdodBucs)
     }
-  }, [avdodBucs, !_avdodBucs])
+  }, [avdodBucs, _avdodBucs, dispatch])
 
   const _setMode = useCallback((mode) => {
     dispatch(setMode(mode))

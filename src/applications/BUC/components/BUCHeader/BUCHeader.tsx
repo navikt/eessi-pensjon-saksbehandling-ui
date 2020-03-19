@@ -37,7 +37,7 @@ const mapState = (state: State): BUCHeaderSelector => ({
 const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo, onBUCEdit
 }: BUCHeaderProps): JSX.Element => {
-  const numberOfSeds: string = buc.seds ? '' + buc.seds.filter(sedFilter).length : '?'
+  const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
   const { institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const onBucHandle: Function = useCallback((buc, e) => {
@@ -141,12 +141,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               overflowLimit={5}
             />
           ) : <Ui.WaitingPanel message='' size='M' />}
-          <div
-            className='a-buc-c-bucheader__icon-numberofseds'
-            data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
-          >
-            {numberOfSeds}
-          </div>
+          {numberOfSeds ? (
+            <div
+              className='a-buc-c-bucheader__icon-numberofseds'
+              data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
+            >
+              {numberOfSeds}
+            </div>
+          ) : null}
           {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
             ? (
               <div

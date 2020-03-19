@@ -40,7 +40,7 @@ const mapState = (state: State): SEDBodySelector => ({
 })
 
 const SEDBody: React.FC<SEDBodyProps> = ({
-  aktoerId, buc, canHaveAttachments, canShowProperties, initialAttachmentsSent = false, initialSeeAttachmentPanel = false,
+  aktoerId, buc, canHaveAttachments, initialAttachmentsSent = false, initialSeeAttachmentPanel = false,
   initialSendingAttachments = false, onAttachmentsSubmit, onAttachmentsPanelOpen, sed
 }: SEDBodyProps): JSX.Element => {
   const { t } = useTranslation()

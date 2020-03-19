@@ -159,9 +159,17 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         }
       })
 
-      // temporary measurement to simulate no seds
-      Object.keys(bucs).forEach(bucId => {
+      // pick one:
+
+      // - Simulate lazy load while we do not have lazy load backend: to simulate no seds and institutions
+      /* Object.keys(bucs).forEach(bucId => {
+        bucs[bucId].institusjon = undefined
         bucs[bucId].seds = undefined
+      }) */
+
+      // - Get all working for no lazy load
+      Object.keys(bucs).forEach(bucId => {
+        bucs[bucId].deltakere = bucs[bucId].institusjon
       })
 
       // send P_BUC_02 bucs to avdodBucs
