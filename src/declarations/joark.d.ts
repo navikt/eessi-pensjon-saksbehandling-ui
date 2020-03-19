@@ -6,7 +6,7 @@ export interface JoarkFileVariant {
 
 export interface JoarkDoc {
   dokumentInfoId: string;
-  tittel: string;
+  tittel?: string | null | undefined;
   dokumentvarianter: Array<JoarkFileVariant>;
 }
 export interface JoarkPoster {
@@ -20,7 +20,7 @@ export interface JoarkPoster {
 
 export interface JoarkFile {
   journalpostId: string;
-  tittel: string;
+  tittel: string | null | undefined;
   tema: string;
   datoOpprettet: Date;
   dokumentInfoId: string;
