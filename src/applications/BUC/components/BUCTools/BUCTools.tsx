@@ -80,10 +80,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   const displayP5000table = useCallback(() => {
     setModal({
-      modalTitle: 'P5000 items',
+      modalTitle: t('buc:P5000-title'),
       modalContent: <SEDP5000 seds={getP5000()!} sedContent={sedContent} locale={locale} />
     })
-  }, [setModal, getP5000, locale, sedContent])
+  }, [setModal, getP5000, locale, sedContent, t])
 
   useEffect(() => {
     if (!_.isEmpty(fetchingP5000)) {

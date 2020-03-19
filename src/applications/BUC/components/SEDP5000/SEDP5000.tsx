@@ -1,5 +1,6 @@
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
+import { Country } from 'eessi-pensjon-ui/dist/declarations/components.d'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
@@ -29,20 +30,21 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
 
   const convertRawP5000toRow = (sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
+
     sedContent.pensjon.medlemskap.forEach((m: any) => {
       res.push({
-        type: m?.type || '-',
-        startdato: m?.periode?.fom || '-',
-        sluttdato: m?.periode?.tom || '-',
-        år: m?.sum?.aar || '-',
-        kvartal: m?.sum?.kvartal || '-',
-        måned: m?.sum?.maaneder || '-',
+        land: m.land || '-',
+        type: m.type || '-',
+        startdato: m.periode?.fom || '-',
+        sluttdato: m.periode?.tom || '-',
+        år: m.sum?.aar || '-',
+        kvartal: m.sum?.kvartal || '-',
+        måned: m.sum?.maaneder || '-',
         uke: '',
-        dagerEnhet: (m?.sum?.dager?.nr || '-') + '/' + (m?.sum?.dager?.type || '-'),
-        relevantForYtelse: m?.relevans || '-',
-        ordning: m?.ordning || '-',
-        yrke: m?.yrke || '-',
-        informasjonOmBeregning: m?.beregning || '-'
+        dagerEnhet: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
+        relevantForYtelse: m.relevans || '-',
+        ordning: m.ordning || '-',
+        informasjonOmBeregning: m.beregning || '-'
       })
     })
     return res
@@ -81,6 +83,12 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       style: '@page { size: A4 landscape; }',
       header: 'P5000'
     })
+  }
+
+  const renderLand = (item: any, value: any) => {
+    if (!value || value === '-') return <div />
+    const country: Country = Ui.CountryData.getCountryInstance(locale).findByValue(value)
+    return (<span>{country.label}</span>)
   }
 
   const changeActiveSed = (sedId: string) => {
@@ -128,6 +136,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           sortable
           labels={labels}
           columns={[
+            { id: 'land', label: t('ui:country'), type: 'object', renderCell: renderLand },
             { id: 'type', label: t('ui:type'), type: 'string' },
             { id: 'startdato', label: t('ui:startDate'), type: 'string' },
             { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
@@ -138,7 +147,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
             { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
             { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-            { id: 'yrke', label: t('ui:profession'), type: 'string' },
             { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
           ]}
         />
