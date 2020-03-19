@@ -168,6 +168,45 @@ describe('reducers/joark', () => {
     })
   })
 
+  it('JOARK_PREVIEW_SUCCESS, empty tittel', () => {
+    expect(
+      joarkReducer(initialJoarkState, {
+        type: types.JOARK_PREVIEW_SUCCESS,
+        context: {
+          journalpostId: 'mockjournalpostId',
+          tilleggsopplysninger: 'mocktilleggsopplysninger',
+          tittel: undefined,
+          tema: 'mocktema',
+          dokumentInfoId: 'mockdokumentInfoId',
+          datoOpprettet: '2020-12-17T03:24:00',
+          variant: 'mockVariant'
+        },
+        payload: {
+          fileName: 'mockName',
+          filInnhold: 'mockContent',
+          contentType: 'mockContentType'
+        }
+      })
+    ).toEqual({
+      ...initialJoarkState,
+      previewFile: {
+        journalpostId: 'mockjournalpostId',
+        tilleggsopplysninger: 'mocktilleggsopplysninger',
+        tittel: undefined,
+        tema: 'mocktema',
+        dokumentInfoId: 'mockdokumentInfoId',
+        datoOpprettet: '2020-12-17T03:24:00',
+        variant: 'mockVariant',
+        name: 'mockName',
+        size: 11,
+        mimetype: 'mockContentType',
+        content: {
+          base64: 'mockContent'
+        }
+      }
+    })
+  })
+
   it('UNKNOWN_ACTION', () => {
     expect(
       joarkReducer(initialJoarkState, {

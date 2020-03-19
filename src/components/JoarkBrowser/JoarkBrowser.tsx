@@ -183,7 +183,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     items = list ? list.map((file) => {
       return {
         key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat,
-        name: file.tittel,
+        name: file.tittel || '-',
         tema: file.tema,
         date: file.datoOpprettet,
         label: file.variant.variantformat + (file.variant.filnavn ? ' (' + file.variant.filnavn + ')' : ''),
