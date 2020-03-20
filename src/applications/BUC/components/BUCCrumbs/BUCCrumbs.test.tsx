@@ -5,10 +5,6 @@ import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
 import BUCCrumbs, { BUCCrumbsProps } from './BUCCrumbs'
 
-jest.mock('react-redux', () => ({
-  useDispatch: () => jest.fn()
-}))
-
 const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
 
 describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {

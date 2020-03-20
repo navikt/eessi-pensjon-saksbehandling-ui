@@ -2,8 +2,8 @@ import { getPreviewJoarkFile, listJoarkFiles } from 'actions/joark'
 import { JoarkDoc, JoarkFile, JoarkPoster } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import sampleJoark from 'resources/tests/sampleJoarkRaw'
+import { stageSelector } from 'setupTests'
 import { JoarkBrowser, JoarkBrowserProps, JoarkBrowserSelector } from './JoarkBrowser'
 
 jest.mock('actions/joark', () => ({
@@ -26,9 +26,6 @@ sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter.forEach((post: Jo
   })
 })
 
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
-
 const defaultSelector: JoarkBrowserSelector = {
   aktoerId: '123',
   file: undefined,
@@ -38,14 +35,6 @@ const defaultSelector: JoarkBrowserSelector = {
   loadingJoarkPreviewFile: false,
   previewFile: undefined
 }
-
-function setup (params: any) {
-  (useSelector as jest.Mock).mockImplementation(() => ({
-    ...defaultSelector,
-    ...params
-  }))
-}
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
 describe('components/JoarkBrowser/JoarkBrowser', () => {
   let wrapper: ReactWrapper
@@ -58,7 +47,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   }
 
   beforeEach(() => {
-    setup({})
+    stageSelector(defaultSelector, {})
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
   })
 
@@ -71,7 +60,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   })
 
   it('Render: loading', () => {
-    setup({ loadingJoarkList: true })
+    stageSelector(defaultSelector, { loadingJoarkList: true })
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
     expect(wrapper.find('WaitingPanel')).toBeTruthy()
   })
@@ -82,11 +71,11 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   })
 
   it('UseEffect: list Joark files ', () => {
-    setup({ list: undefined })
+    stageSelector(defaultSelector, { list: undefined })
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
     expect(listJoarkFiles).toHaveBeenCalledWith(defaultSelector.aktoerId)
   })
-  /*
+
   it('UseEffect: when new file is available, load it', () => {
     const mockFile = {
       name: 'file.txt',
@@ -96,13 +85,11 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
       content: {
         base64: '1232341234234'
       }
-    };
-    console.log("z")
-    setup({file: mockFile})
+    }
+    stageSelector(defaultSelector, { file: mockFile })
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
-    setup({file: undefined})
-    console.log("z2")
     expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([mockFile])
+    stageSelector(defaultSelector, {})
   })
 
   it('UseEffect: when new preview file is available, trigger it', () => {
@@ -114,11 +101,12 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
       content: {
         base64: '1232341234234'
       }
-    };
-    setup({previewFile: undefined})
+    }
+    stageSelector(defaultSelector, { previewFile: mockFile })
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
     expect(initialMockProps.onPreviewFile).toHaveBeenCalledWith(mockFile)
-  }) */
+    stageSelector(defaultSelector, {})
+  })
 
   it('Calls onFilesChange when selecting a file', () => {
     (initialMockProps.onFilesChange as jest.Mock).mockReset()

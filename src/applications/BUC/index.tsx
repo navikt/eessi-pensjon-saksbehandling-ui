@@ -68,8 +68,8 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   const [_avdodfnr, setAvdodfnr] = useState<string | undefined>(avdodfnr)
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_showAvdodfnr, setShowAvdodfnr] = useState<boolean>(false)
-  const [_bucs, setBucs] = useState<Bucs | undefined>(bucs)
-  const [_avdodBucs, setAvdodBucs] = useState<Bucs | undefined>(avdodBucs)
+  const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
+  const [_avdodBucs, setAvdodBucs] = useState<Bucs | undefined>(undefined)
 
   const combinedBucs = { ...avdodBucs, ...bucs }
 

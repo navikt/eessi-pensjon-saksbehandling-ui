@@ -3,11 +3,8 @@ import { closeModal, toggleHighContrast } from 'actions/ui'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { TopContainer, TopContainerProps, TopContainerSelector } from './TopContainer'
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+import { stageSelector } from 'setupTests'
 
 const defaultSelector: TopContainerSelector = {
   clientErrorStatus: 'ERROR',
@@ -24,14 +21,6 @@ const defaultSelector: TopContainerSelector = {
   snow: false,
   highContrast: false
 }
-
-const setup = (params: any) => {
-  (useSelector as jest.Mock).mockImplementation(() => ({
-    ...defaultSelector,
-    ...params
-  }))
-}
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
 
 jest.mock('actions/alert', () => ({
   clientClear: jest.fn(),
@@ -51,7 +40,7 @@ describe('components/TopContainer', () => {
   }
 
   beforeEach(() => {
-    setup({})
+    stageSelector(defaultSelector, {})
     wrapper = mount(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
@@ -75,7 +64,7 @@ describe('components/TopContainer', () => {
 
   it('Compute the client error message', () => {
     (clientClear as jest.Mock).mockReset()
-    setup({ clientErrorMessage: 'mockMessage|mockParams' })
+    stageSelector(defaultSelector, { clientErrorMessage: 'mockMessage|mockParams' })
     wrapper = mount(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
@@ -103,7 +92,7 @@ describe('components/TopContainer', () => {
         text: 'ok'
       }]
     }
-    setup({ modal: mockModal })
+    stageSelector(defaultSelector, { modal: mockModal })
     wrapper = mount(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />

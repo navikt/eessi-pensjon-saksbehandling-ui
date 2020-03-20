@@ -68,7 +68,7 @@ interface JoarkPayload {
 export const getMockedPayload = (journalpostId: string): JoarkPayload | undefined => {
   if (urls.HOST === 'localhost' && !IS_TEST) {
     const item = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: journalpostId })
-    const tittel: string = item ? item.tittel : 'red.pdf'
+    const tittel: /* istanbul ignore next */ string = item ? item.tittel : 'red.pdf'
     return {
       fileName: tittel,
       contentType: 'application/pdf',

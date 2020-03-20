@@ -2,25 +2,14 @@ import { Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
+import { stageSelector } from 'setupTests'
 import BUCEdit, { BUCEditProps } from './BUCEdit'
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 const defaultSelector = {
   loading: {},
   locale: 'nb',
   bucsInfo: {} as BucsInfo
-};
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
-
-export const setup = (params: any) => {
-  (useSelector as jest.Mock).mockImplementation(() => ({
-    ...defaultSelector,
-    ...params
-  }))
 }
 
 describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
@@ -34,7 +23,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   }
 
   beforeEach(() => {
-    setup({})
+    stageSelector(defaultSelector, {})
     wrapper = mount(<BUCEdit {...initialMockProps} />)
   })
 

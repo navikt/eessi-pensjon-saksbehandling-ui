@@ -12,11 +12,18 @@ export interface BUCFooterProps {
   className ?: string;
 }
 
+export interface BUCFooterSelector {
+  rinaUrl: RinaUrl | undefined
+}
+
+const mapState = (state: State): BUCFooterSelector => ({
+  rinaUrl: state.buc.rinaUrl
+})
 const BUCFooter: React.FC<BUCFooterProps> = ({
   className
 }: BUCFooterProps): JSX.Element => {
   const { t } = useTranslation()
-  const rinaUrl: RinaUrl | undefined = useSelector<State, RinaUrl | undefined>(state => state.buc.rinaUrl)
+  const { rinaUrl }: BUCFooterSelector = useSelector<State, BUCFooterSelector>(mapState)
   if (!rinaUrl) {
     return <div />
   }

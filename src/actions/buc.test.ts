@@ -3,6 +3,7 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
+import { Sed } from 'declarations/buc'
 import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
@@ -96,6 +97,19 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_SINGLE_BUC_FAILURE
       },
       url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: mockRinaCaseId })
+    }))
+  })
+
+  it('fetchBucParticipants()', () => {
+    const mockRinaCaseId = '123'
+    bucActions.fetchBucParticipants(mockRinaCaseId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_PARTICIPANTS_REQUEST,
+        success: types.BUC_GET_PARTICIPANTS_SUCCESS,
+        failure: types.BUC_GET_PARTICIPANTS_FAILURE
+      },
+      url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: mockRinaCaseId })
     }))
   })
 
@@ -375,6 +389,22 @@ describe('actions/buc', () => {
       context: mockContext,
       method: 'PUT',
       url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, mockParams)
+    }))
+  })
+
+  it('getSed()', () => {
+    const mockCaseId = '123'
+    const mockSed = {
+      id: '456'
+    } as Sed
+    bucActions.getSed(mockCaseId, mockSed)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_SED_REQUEST,
+        success: types.BUC_GET_SED_SUCCESS,
+        failure: types.BUC_GET_SED_FAILURE
+      },
+      url: sprintf(urls.BUC_GET_SED_URL, { caseId: mockCaseId, documentId: mockSed.id })
     }))
   })
 

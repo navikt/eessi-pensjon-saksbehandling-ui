@@ -95,8 +95,8 @@ export interface ErrorBuc {
   caseId: string | null;
   creator: null;
   error: string;
-  institusjon: null;
-  deltakere: null;
+  institusjon: null | undefined;
+  deltakere?: null;
   lastUpdate: null;
   sakType: null;
   seds: null;
@@ -112,7 +112,7 @@ export interface ValidBuc {
   description?: string | null | undefined;
   error?: null | undefined;
   deltakere?: Institutions;
-  institusjon: Institutions;
+  institusjon: Institutions | undefined;
   lastUpdate: number;
   sakType: string | null;
   seds: Seds;
@@ -126,7 +126,7 @@ export type Buc = ValidBuc | ErrorBuc
 export type Bucs = {[caseId: string]: Buc}
 
 export interface BucInfo {
-  tags: Array<string>;
+  tags?: Array<string>;
   comment?: string;
 }
 

@@ -79,7 +79,8 @@ describe('actions/app', () => {
       type: {
         request: types.APP_USERINFO_REQUEST,
         success: types.APP_USERINFO_SUCCESS,
-        failure: types.APP_USERINFO_FAILURE
+        failure: types.APP_USERINFO_FAILURE,
+        forbidden: types.APP_USERINFO_FORBIDDEN
       },
       cascadeFailureError: true,
       url: urls.API_USERINFO_URL

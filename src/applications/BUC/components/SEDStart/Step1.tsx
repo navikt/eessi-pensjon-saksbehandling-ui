@@ -48,6 +48,8 @@ const placeholders: Labels = {
   vedtakId: 'buc:form-noVedtakId'
 }
 
+const countrySort = (a: Country, b: Country) => a.label.localeCompare(b.label)
+
 const Step1: React.FC<Step1Props> = ({
   _attachments, buc, _countries, countryList = [], currentSed, _institutions, institutionList,
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
@@ -56,12 +58,13 @@ const Step1: React.FC<Step1Props> = ({
   const countryData = Ui.CountryData.getCountryInstance(locale)
   const [mounted, setMounted] = useState<boolean>(false)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(false)
-  const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort((a: Country, b: Country) => a.label.localeCompare(b.label)) : [])
-  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort((a: Country, b: Country) => a.label.localeCompare(b.label)) : []
+  const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort(countrySort) : [])
+  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort(countrySort) : []
   const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
   const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
   const dispatch = useDispatch()
   const { t } = useTranslation()
+
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
       if (_.includes(_countries, landkode)) {

@@ -4,12 +4,9 @@ import { Buc } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
+import { stageSelector } from 'setupTests'
 import SEDBody, { SEDBodyProps } from './SEDBody'
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 jest.mock('actions/buc', () => ({
   resetSedAttachments: jest.fn(),
@@ -19,9 +16,7 @@ jest.mock('actions/buc', () => ({
 const defaultSelector = {
   attachments: { sed: [], joark: [] },
   attachmentsError: false
-};
-
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
   return () => <div className='mock-joarkbrowser' />
@@ -42,6 +37,10 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     onAttachmentsPanelOpen: jest.fn(),
     sed: buc.seds![0]
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<SEDBody {...initialMockProps} />)

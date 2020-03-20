@@ -1,5 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { Buc, BucsInfo, Sed } from 'declarations/buc'
+import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
 import bucReducer, { initialBucState } from './buc'
 
@@ -212,6 +213,30 @@ describe('reducers/buc', () => {
       ...initialBucState,
       bucs: null
     })
+  })
+
+  it('BUC_GET_PARTICIPANTS_SUCCESS', () => {
+    const mockCaseId = sampleBucs[0].caseId
+    const newState = bucReducer({
+      ...initialBucState,
+      bucs: _.keyBy(sampleBucs, 'caseId'),
+      avdodBucs: {}
+    }, {
+      type: types.BUC_GET_PARTICIPANTS_SUCCESS,
+      context: {
+        rinaCaseId: mockCaseId
+      },
+      payload: [{
+        organisation: {
+          countryCode: 'AA',
+          id: 'ID',
+          name: 'NAME'
+        }
+      }]
+    })
+    expect(newState.bucs![mockCaseId].deltakere).toEqual([
+      { country: 'AA', institution: 'ID', name: 'NAME' }
+    ])
   })
 
   it('BUC_GET_AVDOD_BUCS_SUCCESS with bad payload', () => {

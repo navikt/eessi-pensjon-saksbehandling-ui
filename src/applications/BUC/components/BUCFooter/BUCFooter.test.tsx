@@ -1,15 +1,19 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import BUCFooter, { BUCFooterProps } from './BUCFooter'
+import { stageSelector } from 'setupTests'
+import BUCFooter, { BUCFooterProps, BUCFooterSelector } from './BUCFooter'
 
-jest.mock('react-redux')
-const defaultSelector = 'http://mockurl/rinaUrl';
-(useSelector as jest.Mock).mockImplementation(() => defaultSelector)
+const defaultSelector: BUCFooterSelector = {
+  rinaUrl: 'http://mockurl/rinaUrl'
+}
 
 describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCFooterProps = {}
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<BUCFooter {...initialMockProps} />)
@@ -26,5 +30,11 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-c-footer')).toBeTruthy()
+  })
+
+  it('Renders empty if no RinaUrl given', () => {
+    stageSelector(defaultSelector, { rinaUrl: undefined })
+    wrapper = mount(<BUCFooter {...initialMockProps} />)
+    expect(wrapper.render().html()).toEqual('')
   })
 })

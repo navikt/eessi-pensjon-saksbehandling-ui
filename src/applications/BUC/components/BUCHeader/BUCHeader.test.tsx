@@ -2,28 +2,31 @@ import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
-import BucHeader, { BUCHeaderProps } from './BUCHeader'
-jest.mock('react-redux')
+import { stageSelector } from 'setupTests'
+import BucHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 
-const mockSelectors = {
+const defaultSelector: BUCHeaderSelector = {
+  gettingBucDeltakere: false,
   institutionNames: {},
   locale: 'nb',
   rinaUrl: 'http://rinaurl.mock.com'
-};
-
-(useSelector as jest.Mock).mockImplementation(() => mockSelectors)
+}
 
 describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   let wrapper: ReactWrapper
   const buc: Buc = sampleBucs[0]
+  buc.deltakere = buc.institusjon
   const initialMockProps: BUCHeaderProps = {
     buc: buc,
     bucInfo: (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId],
     onBUCEdit: jest.fn()
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<BucHeader {...initialMockProps} />)
@@ -51,6 +54,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
       'buc:form-caseOwner: NAVAT07'
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions .c-flag')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('9')
@@ -60,7 +64,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.find('.a-buc-c-bucheader__bucedit-link').hostNodes().render().text()).toEqual('ui:processing')
   })
 
-  it('Shows icons if necessary', () => {
+  it('Shows icons only if necessary', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
     wrapper.setProps({
       bucInfo: {
@@ -84,6 +88,6 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   it('Handles Rina link', () => {
     window.open = jest.fn()
     wrapper.find('.a-buc-c-bucheader__gotorina-link').first().simulate('click')
-    expect(window.open).toHaveBeenCalledWith(mockSelectors.rinaUrl + initialMockProps.buc.caseId, 'rinaWindow')
+    expect(window.open).toHaveBeenCalledWith(defaultSelector.rinaUrl! + initialMockProps.buc.caseId, 'rinaWindow')
   })
 })

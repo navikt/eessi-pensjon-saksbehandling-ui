@@ -1,11 +1,9 @@
 import { clearData, logout } from 'actions/app'
+import { toggleHighContrast, toggleSnow } from 'actions/ui'
 import * as routes from 'constants/routes'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import Header, { HeaderProps } from './Header'
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 jest.mock('actions/app', () => ({
   clearData: jest.fn(),
@@ -55,5 +53,15 @@ describe('components/Header', () => {
     select.simulate('change', { target: { value: 'logout' } })
     expect(clearData).toHaveBeenCalled()
     expect(logout).toHaveBeenCalled()
+  })
+
+  it('Clicking highConstrast handled', () => {
+    wrapper.find('a.c-topHeader__highcontrast-link').simulate('click')
+    expect(toggleHighContrast).toHaveBeenCalled()
+  })
+
+  it('Clicking snow handled', () => {
+    wrapper.find('a.c-topHeader__snow-link').simulate('click')
+    expect(toggleSnow).toHaveBeenCalled()
   })
 })

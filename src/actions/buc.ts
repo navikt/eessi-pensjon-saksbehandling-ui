@@ -72,7 +72,7 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (ri
 export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: rinaCaseId }),
-    expectedPayload: () => {
+    expectedPayload: /* istanbul ignore next */ () => {
       const buc = _.find(sampleBucs, buc => buc.caseId === rinaCaseId)
       return buc && buc.institusjon ? _.map(buc.institusjon, (i: Institution) => ({
         organisation: {
@@ -243,7 +243,7 @@ export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload>> = (bu
   })
 }
 
-export const getSedList: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: {type: string, caseId: string}): Function => {
+export const getSedList: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: {type: string, caseId: string}): ThunkResult<ActionWithPayload> => {
   const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
@@ -331,7 +331,7 @@ export const getSed = (caseId: string, sed: Sed): Function => {
     url: sprintf(urls.BUC_GET_SED_URL, { caseId: caseId, documentId: sed.id }),
     cascadeFailureError: true,
     context: sed,
-    expectedPayload: () => (sed.creationDate % 2 !== 0 ? sampleSedP50001 : sampleSedP50002),
+    expectedPayload: /* istanbul ignore next */ () => (sed.creationDate % 2 !== 0 ? sampleSedP50001 : sampleSedP50002),
     type: {
       request: types.BUC_GET_SED_REQUEST,
       success: types.BUC_GET_SED_SUCCESS,

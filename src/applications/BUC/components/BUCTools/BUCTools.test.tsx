@@ -1,27 +1,32 @@
-import { getTagList, saveBucsInfo } from 'actions/buc'
+import { getTagList, saveBucsInfo, getSed } from 'actions/buc'
 import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import sampleSedP50001 from 'resources/tests/sampleSedP50001'
+import sampleSedP50002 from 'resources/tests/sampleSedP50002'
+import { stageSelector } from 'setupTests'
 import BUCTools, { BUCToolsProps } from './BUCTools'
 
 jest.mock('actions/buc', () => ({
   getTagList: jest.fn(),
-  saveBucsInfo: jest.fn()
+  saveBucsInfo: jest.fn(),
+  getSed: jest.fn()
 }))
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 const defaultSelector = {
   tagList: ['mockTag1', 'mockTag2'],
   bucsInfo: (sampleBucsInfo as BucsInfo),
-  loading: {}
-};
-
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+  loading: {},
+  sedContent: {
+    '60578cf8bf9f45a7819a39987c6c8fd4': sampleSedP50001,
+    '50578cf8bf9f45a7819a39987c6c8fd4': sampleSedP50002
+  },
+  features: {
+    P5000_VISIBLE: true
+  }
+}
 
 describe('applications/BUC/components/BUCTools/BUCTools', () => {
   let wrapper: ReactWrapper
@@ -33,6 +38,10 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     bucInfo: bucInfo,
     onTagChange: jest.fn()
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<BUCTools {...initialMockProps} />)
@@ -48,18 +57,16 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('UseEffect: fetches tag list', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      tagList: undefined
-    }))
+    stageSelector(defaultSelector, { tagList: undefined })
     mount(<BUCTools {...initialMockProps} />)
-    expect(getTagList).toHaveBeenCalled();
-    (useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+    expect(getTagList).toHaveBeenCalled()
   })
 
   it('Changes tags', () => {
+    stageSelector(defaultSelector, {})
     expect(wrapper.exists('#a-buc-c-buctools__tags-select-id')).toBeTruthy()
     const tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
+    tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     tagSelect.find('input').simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(initialMockProps.onTagChange).toHaveBeenCalledWith([{
@@ -103,6 +110,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     expect(wrapper.find('.a-buc-c-buctools__title').hostNodes().render().text()).toEqual('buc:form-BUCtools')
     expect(wrapper.exists('.a-buc-c-buctools__tags-select')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-buctools__comment-textarea')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-buctools__p5000-button')).toBeTruthy()
   })
 
   it('HTML with ExpandingPanel close', async (done) => {
@@ -113,5 +121,10 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
       expect(wrapper.exists('.a-buc-c-buctools.ekspanderbartPanel--lukket')).toBeTruthy()
       done()
     }, 500)
+  })
+
+  it('Loads SEDs fpr P5000', () => {
+    wrapper.find('button.a-buc-c-buctools__p5000-button').simulate('click')
+    expect(getSed).toHaveBeenCalledTimes(2)
   })
 })

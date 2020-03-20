@@ -45,7 +45,7 @@ import Step2 from './Step2'
 export interface SEDStartProps {
   aktoerId?: string;
   bucs: Bucs;
-  currentBuc ?: string;
+  currentBuc: string;
   initialAttachments ?: AttachedFiles;
   initialSed ?: string | undefined;
   initialStep ?: number;
@@ -58,7 +58,7 @@ export interface SEDStartSelector {
   avdodfnr: string | undefined;
   bucsInfoList: Array<string> | undefined;
   countryList: Array<string> | undefined;
-  currentSed ?: string;
+  currentSed: string | undefined;
   institutionList: InstitutionListMap<RawInstitution> | undefined;
   loading: Loading;
   locale: AllowedLocaleString;
@@ -69,7 +69,7 @@ export interface SEDStartSelector {
   vedtakId: string | undefined;
 }
 
-const mapState = (state: State): SEDStartSelector => ({
+const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
   attachments: state.buc.attachments,
   attachmentsError: state.buc.attachmentsError,
   avdodfnr: state.app.params.avdodfnr,
@@ -114,7 +114,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_institutions, setInstitutions] = useState<Array<string>>(prefill('id'))
   const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
-  const [_vedtakId, setVedtakId] = useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
+  const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
   const [_attachments, setAttachments] = useState<AttachedFiles>(initialAttachments)
   const [step, setStep] = useState<number>(initialStep)
   const [validation, setValidation] = useState<Validation>({})
@@ -134,7 +134,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (!mounted) {
-      if (!currentSed || !currentBuc) {
+      if (!currentSed) {
         dispatch(getSedList(buc as ValidBuc))
       } else {
         dispatch(setSedList(
@@ -159,7 +159,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (sedSent && !attachmentsSent) {
       // no attachments to send - conclude
       if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark)) {
-        if (!IS_TEST) {
+        /* istanbul ignore next */ if (!IS_TEST) {
           console.log('SEDStart: No attachments to send, concluding')
         }
         setAttachmentsSent(true)
@@ -167,7 +167,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       // mark state as sending attachments
       setSendingAttachments(true)
-      if (!IS_TEST) {
+      /* istanbul ignore next */ if (!IS_TEST) {
         console.log('SEDStart: Marking setSendingAttachments as true')
       }
     }
@@ -176,7 +176,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   useEffect(() => {
     // cleanup after attachments sent
     if (aktoerId && sedSent && attachmentsSent) {
-      if (!IS_TEST) {
+      /* istanbul ignore next */ if (!IS_TEST) {
         console.log('SEDStart: Attachments sent, cleaning up')
       }
       setSed(undefined)

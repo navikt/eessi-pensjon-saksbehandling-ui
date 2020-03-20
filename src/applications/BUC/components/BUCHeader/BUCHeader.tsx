@@ -20,14 +20,14 @@ export interface BUCHeaderProps {
   onBUCEdit: Function;
 }
 
-interface BUCHeaderSelector {
+export interface BUCHeaderSelector {
   institutionNames: InstitutionNames;
   locale: AllowedLocaleString;
   rinaUrl: RinaUrl | undefined;
   gettingBucDeltakere: boolean;
 }
 
-const mapState = (state: State): BUCHeaderSelector => ({
+const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector => ({
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
   rinaUrl: state.buc.rinaUrl,

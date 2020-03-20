@@ -18,10 +18,6 @@ jest.mock('eessi-pensjon-ui', () => {
   }
 })
 
-jest.mock('react-redux', () => ({
-  useDispatch: () => jest.fn()
-}));
-
 jest.mock('actions/ui', () => ({
   openModal: jest.fn(),
   closeModal: jest.fn()

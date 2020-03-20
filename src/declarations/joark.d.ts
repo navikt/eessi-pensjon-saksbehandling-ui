@@ -1,7 +1,7 @@
 
 export interface JoarkFileVariant {
   variantformat: string;
-  filnavn: string;
+  filnavn: string | null;
 }
 
 export interface JoarkDoc {
@@ -14,7 +14,7 @@ export interface JoarkPoster {
   tittel: string;
   tema: string;
   datoOpprettet: string;
-  tilleggsopplysninger?: string;
+  tilleggsopplysninger?: Array<any>;
   dokumenter: Array<JoarkDoc>
 }
 
@@ -24,7 +24,7 @@ export interface JoarkFile {
   tema: string;
   datoOpprettet: Date;
   dokumentInfoId: string;
-  tilleggsopplysninger?: string;
+  tilleggsopplysninger?: Array<any>;
   variant: JoarkFileVariant
 }
 

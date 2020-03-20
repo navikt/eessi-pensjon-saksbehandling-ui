@@ -4,12 +4,12 @@ import { Bucs } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-
-import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import { stageSelector } from 'setupTests'
 import BUCList, { BUCListProps, BUCListSelector } from './BUCList'
 
+jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)
 jest.mock('actions/buc', () => ({
   fetchBucsInfo: jest.fn(),
   getInstitutionsListForBucAndCountry: jest.fn(),
@@ -19,9 +19,6 @@ jest.mock('actions/buc', () => ({
 jest.mock('actions/app', () => ({
   setStatusParam: jest.fn()
 }))
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 const defaultSelector: BUCListSelector = {
   bucsInfo: sampleBucsInfo,
@@ -38,8 +35,7 @@ const defaultSelector: BUCListSelector = {
     gettingBUCs: false
   },
   locale: 'nb'
-};
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 describe('applications/BUC/widgets/BUCList/BUCList', () => {
   let wrapper: ReactWrapper
@@ -49,6 +45,10 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     bucs: mockBucs,
     setMode: jest.fn()
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<BUCList {...initialMockProps} />)
@@ -65,13 +65,12 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   })
 
   it('UseEffect: fetch bucs info', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       bucsInfoList: [
         initialMockProps.aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO
       ],
       bucsInfo: undefined
-    }))
+    })
     wrapper = mount(
       <BUCList {...initialMockProps} />
     )
@@ -84,7 +83,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('#a-buc-p-buclist__newbuc-button-id')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader').hostNodes().length).toEqual(sampleBucs.filter(buc => !buc.error).length)
     expect(wrapper.exists('.a-buc-c-sedlist')).toBeFalsy()
-    expect(wrapper.exists('.a-buc-c-footer')).toBeTruthy()
+    expect(wrapper.exists('.mock-bucfooter')).toBeTruthy()
   })
 
   it('Moves to mode bucedit when button pressed', () => {

@@ -120,7 +120,7 @@ export const BucPropType = PT.any// oneOfType([ValidBucPropType, ErrorBucPropTyp
 export const BucsPropType = PT.objectOf(BucPropType)
 
 export const BucInfoPropType = PT.shape({
-  tags: PT.arrayOf(PT.string.isRequired).isRequired,
+  tags: PT.arrayOf(PT.string.isRequired),
   comment: PT.string
 })
 

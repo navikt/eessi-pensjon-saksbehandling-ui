@@ -1,17 +1,12 @@
 import { setStatusParam } from 'actions/app'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { stageSelector } from 'setupTests'
 import BUCEmpty, { BUCEmptyProps } from './BUCEmpty'
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 const defaultSelector = {
   rinaUrl: 'http://mock.url'
-};
-
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 jest.mock('actions/app', () => ({
   setStatusParam: jest.fn()
@@ -22,6 +17,10 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   const initialMockProps: BUCEmptyProps = {
     onBUCNew: jest.fn()
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)

@@ -1,15 +1,13 @@
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
+import { stageSelector } from 'setupTests'
 import SEDHeader, { SEDHeaderProps, SEDHeaderSelector } from './SEDHeader'
 
-jest.mock('react-redux')
 const defaultSelector: SEDHeaderSelector = {
   locale: 'nb'
-};
-(useSelector as jest.Mock).mockImplementation(() => defaultSelector)
+}
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   const buc: Buc = sampleBucs[0]
@@ -22,6 +20,10 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     followUpSeds: [buc.seds![1]]
   }
   let wrapper: ReactWrapper
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<SEDHeader {...initialMockProps} />)

@@ -160,7 +160,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       })
 
       // pick one:
-
       // - Simulate lazy load while we do not have lazy load backend: to simulate no seds and institutions
       /* Object.keys(bucs).forEach(bucId => {
         bucs[bucId].institusjon = undefined

@@ -2,9 +2,9 @@ import { createBuc, getBucList, getSubjectAreaList, getTagList, saveBucsInfo } f
 import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import { stageSelector } from 'setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
 
 jest.mock('actions/buc', () => ({
@@ -16,9 +16,6 @@ jest.mock('actions/buc', () => ({
   saveBucsInfo: jest.fn()
 }))
 
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
-
 const defaultSelector = {
   bucParam: undefined,
   bucList: ['mockBuc1'],
@@ -26,8 +23,7 @@ const defaultSelector = {
   locale: 'nb',
   subjectAreaList: ['mockSubjectArea1', 'mockSubjectArea2'],
   tagList: ['mockTag1', 'mockTag2']
-};
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 Object.defineProperty(window, 'location', {
   writable: true,
@@ -48,6 +44,10 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     setMode: jest.fn()
   }
 
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
+
   beforeEach(() => {
     wrapper = mount(<BUCStart {...initialMockProps} />)
   })
@@ -62,24 +62,21 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('Renders a spinner when fetching data', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       loading: {
         gettingSubjectAreaList: true
       }
-    }))
+    })
     wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-bucstart__spinner')).toBeTruthy()
   })
 
   it('UseEffect: fetches subject areas, bucs, tags list if empty', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       bucList: undefined,
       subjectAreaList: undefined,
       tagList: undefined
-    }))
-
+    })
     wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(getSubjectAreaList).toHaveBeenCalled()
     expect(getBucList).toHaveBeenCalled()
@@ -87,11 +84,10 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('UseEffect: saves bucsInfo after when buc was saved', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       bucsInfo: sampleBucsInfo as BucsInfo,
       buc: buc
-    }))
+    })
     wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(saveBucsInfo).toHaveBeenCalledWith({
       bucsInfo: sampleBucsInfo,
@@ -102,11 +98,10 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('UseEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       bucsInfo: sampleBucsInfo as BucsInfo,
       buc: buc
-    }))
+    })
     wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(initialMockProps.setMode).not.toHaveBeenCalled()
     done()

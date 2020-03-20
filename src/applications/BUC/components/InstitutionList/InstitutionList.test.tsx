@@ -1,16 +1,13 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { stageSelector } from 'setupTests'
 import InstitutionList, { InstitutionListProps } from './InstitutionList'
 
 // InstitutionNames
-const mockSelectors = {
+const defaultSelector = {
   'NO:Mock1': 'Mock 1 institution',
   'NO:Mock2': 'Mock 2 institution'
 }
-
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn(() => mockSelectors)
-}))
 
 describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
   let wrapper: ReactWrapper
@@ -24,6 +21,10 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
     }],
     locale: 'nb'
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<InstitutionList {...initialMockProps} />)
@@ -40,13 +41,13 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
 
   it('Has proper HTML structure with joined type', () => {
     expect(wrapper.find('.a-buc-c-institutionlist__institution')).toHaveLength(1)
-    expect(wrapper.find('.a-buc-c-institutionlist__institution').hostNodes().render().text()).toEqual('Mock1, Mock2')
+    expect(wrapper.find('.a-buc-c-institutionlist__institution').hostNodes().render().text()).toEqual('Mock 1 institution, Mock 2 institution')
   })
 
   it('Has proper HTML structure with separated type', () => {
     wrapper = mount(<InstitutionList {...initialMockProps} type='separated' />)
     expect(wrapper.find('.a-buc-c-institutionlist__institution').hostNodes()).toHaveLength(2)
-    expect(wrapper.find('.a-buc-c-institutionlist__institution:first-child').hostNodes().render().text()).toEqual('Mock1')
-    expect(wrapper.find('.a-buc-c-institutionlist__institution:last-child').hostNodes().render().text()).toEqual('Mock2')
+    expect(wrapper.find('.a-buc-c-institutionlist__institution:first-child').hostNodes().render().text()).toEqual('Mock 1 institution')
+    expect(wrapper.find('.a-buc-c-institutionlist__institution:last-child').hostNodes().render().text()).toEqual('Mock 2 institution')
   })
 })

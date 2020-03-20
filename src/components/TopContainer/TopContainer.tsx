@@ -68,11 +68,10 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   const { t } = useTranslation()
   const {
     ErrorBoundary, // class - The react component to wrap your children in. This WILL NOT CHANGE
-   // didCatch, // boolean - Whether the ErrorBoundary catched something
-   _error, // null or the error
-   // errorInfo // null or the error info as described in the react docs
+    // didCatch, // boolean - Whether the ErrorBoundary catched something
+    _error // null or the error
+    // errorInfo // null or the error info as described in the react docs
   } = useErrorBoundary()
-
 
   const handleModalClose = (): void => {
     dispatch(closeModal())
@@ -112,7 +111,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   return (
     <ErrorBoundary
-      renderError={({ error }: any) => <Error type='internalError' error={_error}/>}
+      renderError={({ error }: any) => <Error type='internalError' error={_error} />}
     >
       {snow ? <SnowStorm /> : null}
       <Header

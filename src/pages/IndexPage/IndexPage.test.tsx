@@ -1,16 +1,14 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
+import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
 ReactTooltip.rebuild = jest.fn()
 
-jest.mock('react-redux')
 const defaultSelector: IndexPageSelector = {
   username: 'mockUsername'
-};
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 jest.mock('components/TopContainer/TopContainer', () => {
   return ({ children }: {children: JSX.Element}) => (
@@ -28,6 +26,10 @@ describe('pages/IndexPage', () => {
   const initialMockProps: IndexPageProps = {
     history: {}
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<IndexPage {...initialMockProps} />)

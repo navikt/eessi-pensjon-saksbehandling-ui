@@ -39,16 +39,17 @@ export interface JoarkBrowserProps {
 }
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
-  files, mode = 'view', onFilesChange, onPreviewFile
+  files = [], mode = 'view', onFilesChange, onPreviewFile
 }: JoarkBrowserProps): JSX.Element => {
   const { aktoerId, file, list, loadingJoarkList, loadingJoarkFile, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector = useSelector<State, JoarkBrowserSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [_file, setFile] = useState<JoarkFileWithContent | undefined>(file)
-  const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(previewFile)
+  const [_file, setFile] = useState<JoarkFileWithContent | undefined>(undefined)
+  const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(undefined)
   const [clickedPreviewFile, setClickedPreviewFile] = useState<any>(undefined)
   const [mounted, setMounted] = useState<boolean>(false)
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
+
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
       dispatch(listJoarkFiles(aktoerId))
@@ -69,11 +70,9 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }, [dispatch])
 
   useEffect(() => {
-    if (file && (!_file ||
-      (_file.dokumentInfoId !== file.dokumentInfoId || _file.content.base64 !== file.content.base64))) {
+    if (!equalFiles(file, _file)) {
       setFile(file)
-      const newFiles = _.cloneDeep(files)
-      newFiles.push(file)
+      const newFiles = file ? files.concat(file) : _.remove(files, f => _.isEqual(f, file))
       if (onFilesChange) {
         onFilesChange(newFiles)
       }
@@ -81,7 +80,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }, [file, _file, files, onFilesChange])
 
   useEffect(() => {
-    const _onPreviewFile = (previewFile: JoarkFileWithContent) => {
+    const _onPreviewFile = (previewFile: JoarkFileWithContent | undefined) => {
       if (!previewFile) {
         return setModal(undefined)
       }
@@ -103,15 +102,15 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           </div>
         )
       })
-      if (onPreviewFile && _.isFunction(onPreviewFile)) {
+      if (_.isFunction(onPreviewFile)) {
         onPreviewFile(previewFile)
       }
     }
     if (!equalFiles(previewFile, _previewFile)) {
       setPreviewFile(previewFile)
-      _onPreviewFile(previewFile!)
+      _onPreviewFile(previewFile)
     }
-  }, [handleModalClose, onPreviewFile, previewFile, _previewFile, t])
+  }, [handleModalClose, onPreviewFile, previewFile, _previewFile])
 
   if (!mounted) {
     return <div />

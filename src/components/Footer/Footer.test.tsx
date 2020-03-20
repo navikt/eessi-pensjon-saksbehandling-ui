@@ -2,11 +2,7 @@ import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import Footer, { FooterProps } from './Footer'
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 jest.mock('actions/ui', () => ({
   toggleFooterOpen: jest.fn()

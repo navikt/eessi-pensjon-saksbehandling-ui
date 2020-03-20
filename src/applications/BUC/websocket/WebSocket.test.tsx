@@ -4,7 +4,6 @@ import _ from 'lodash'
 import { Server, WebSocket } from 'mock-socket'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import { useDispatch } from 'react-redux'
 import BucWebSocket, { BucWebSocketProps } from './WebSocket'
 jest.mock('eessi-pensjon-ui', () => {
   const Ui = jest.requireActual('eessi-pensjon-ui').default
@@ -22,8 +21,6 @@ jest.mock('constants/urls', () => ({
 jest.mock('actions/buc', () => ({
   fetchSingleBuc: jest.fn()
 }))
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 describe('applications/BUC/websocket/WebSocket', () => {
   let wrapper: ReactWrapper

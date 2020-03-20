@@ -193,8 +193,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
           {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
           <Ui.Nav.Knapp
-            id='a-buc-c-buctools__save-button-id'
-            className='a-buc-c-buctools__save-button mb-2'
+            id='a-buc-c-buctools__p5000-button-id'
+            className='a-buc-c-buctools__p5000-button mb-2'
             disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
             spinner={!_.isEmpty(fetchingP5000)}
             onClick={onGettingP5000sClick}

@@ -2,18 +2,15 @@ import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
-import BUCDetail, { BUCDetailProps } from './BUCDetail'
-jest.mock('react-redux')
+import { stageSelector } from 'setupTests'
+import BUCDetail, { BUCDetailProps, BUCDetailSelector } from './BUCDetail'
 
-const mockSelectors = {
+const defaultSelector: BUCDetailSelector = {
   locale: 'nb',
   rinaUrl: 'http://rinaurl.mock.com'
-};
-
-(useSelector as jest.Mock).mockImplementation(() => mockSelectors)
+}
 
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   let wrapper: ReactWrapper
@@ -23,6 +20,10 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     buc: buc,
     bucInfo: bucInfo
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<BUCDetail {...initialMockProps} />)

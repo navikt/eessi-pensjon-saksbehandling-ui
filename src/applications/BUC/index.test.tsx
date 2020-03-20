@@ -1,13 +1,14 @@
-import { fetchAvdodBucs, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
+import { fetchAvdodBucs, fetchBucParticipants, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
 import { BUCIndex, BUCIndexProps, BUCIndexSelector } from 'applications/BUC/index'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import { stageSelector } from 'setupTests'
 
 jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => () => (<div className='a-buc-sednew' />))
+jest.mock('applications/BUC/components/BUCDetail/BUCDetail', () => () => (<div className='a-buc-bucdetail' />))
 jest.mock('applications/BUC/components/BUCCrumbs/BUCCrumbs', () =>
   ({ setMode }: { setMode: (e: string) => void }) => (
     <select className='mock-buccrumbs' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setMode(e.target.value)} />
@@ -28,6 +29,7 @@ jest.mock('actions/buc', () => ({
   getRinaUrl: jest.fn(),
   fetchAvdodBucs: jest.fn(),
   fetchBucs: jest.fn(),
+  fetchBucParticipants: jest.fn(),
   fetchBucsInfoList: jest.fn(),
   setMode: jest.fn(),
   getSubjectAreaList: jest.fn(),
@@ -35,15 +37,20 @@ jest.mock('actions/buc', () => ({
   getTagList: jest.fn()
 }))
 
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
-
 const mockBucs = _.keyBy(sampleBucs, 'caseId')
+const mockAvdodBucs = {} as any
+Object.keys(mockBucs).forEach(bucId => {
+  delete mockBucs[bucId].institusjon
+  if (mockBucs[bucId].type === 'P_BUC_02') {
+    mockAvdodBucs[bucId] = _.cloneDeep(mockBucs[bucId])
+    delete mockBucs[bucId]
+  }
+})
 
 const defaultSelector: BUCIndexSelector = {
   aktoerId: '123',
   avdodfnr: undefined,
-  avdodBucs: undefined,
+  avdodBucs: mockAvdodBucs,
   bucs: mockBucs,
   bucsInfo: sampleBucsInfo,
   currentBuc: '195440',
@@ -56,9 +63,7 @@ const defaultSelector: BUCIndexSelector = {
   rinaUrl: undefined,
   sakId: '456',
   sakType: undefined
-};
-
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 describe('applications/BUC/index', () => {
   let wrapper: ReactWrapper
@@ -69,22 +74,22 @@ describe('applications/BUC/index', () => {
     waitForMount: false
   }
 
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
+
   it('Renders', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      mode: 'xxx'
-    }))
+    stageSelector(defaultSelector, { mode: 'xxx' })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     // expect(wrapper).toMatchSnapshot()  // React.Tooltip generates uuid now
   })
 
   it('UseEffect: getRinaUrl', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       aktoerId: '123',
       mode: 'xxx'
-    }))
+    })
     wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
     expect(getRinaUrl).toHaveBeenCalledWith()
   })
@@ -92,37 +97,40 @@ describe('applications/BUC/index', () => {
   it('UseEffect: fetchBucs, fetchBucsInfo, fetchAvdodBucs', () => {
     (fetchBucs as jest.Mock).mockReset();
     (fetchBucsInfoList as jest.Mock).mockReset();
-    (fetchAvdodBucs as jest.Mock).mockReset();
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    (fetchAvdodBucs as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {
       avdodfnr: '567',
       sakId: '123',
       aktoerId: '123',
       bucs: undefined,
-      mode: 'xxx'
-    }))
+      mode: 'xxx',
+      avdodBucs: undefined
+    })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(fetchBucs).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
     expect(fetchAvdodBucs).toHaveBeenCalled()
   })
 
+  it('UseEffect: when getting bucs/avdodBucs list, get participants', () => {
+    (fetchBucParticipants as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {})
+    wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
+    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs).length + Object.keys(mockAvdodBucs).length)
+  })
+
   it('UseEffect: when getting BUCs, set mode to buclist', () => {
-    (setMode as jest.Mock).mockReset();
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    (setMode as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {
       loading: { gettingBUCs: true },
       mode: 'bucnew'
-    }))
+    })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(setMode).toHaveBeenCalledWith('buclist')
   })
 
   it('Has proper HTML structure ', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      mode: 'xxx'
-    }))
+    stageSelector(defaultSelector, { mode: 'xxx' })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-widget')).toBeTruthy()
     expect(wrapper.exists('.a-buc-widget__header')).toBeTruthy()
@@ -130,48 +138,35 @@ describe('applications/BUC/index', () => {
   })
 
   it('Has proper HTML structure in buclist mode', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      mode: 'buclist'
-    }))
+    stageSelector(defaultSelector, { mode: 'buclist' })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(wrapper.exists('BUCList')).toBeTruthy()
   })
 
   it('Has proper HTML structure in bucedit mode', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      mode: 'bucedit'
-    }))
+    stageSelector(defaultSelector, { mode: 'bucedit' })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(wrapper.exists('BUCEdit')).toBeTruthy()
   })
 
   it('Has proper HTML structure in bucnew mode', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      mode: 'bucnew'
-    }))
+    stageSelector(defaultSelector, { mode: 'bucnew' })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(wrapper.exists('BUCNew')).toBeTruthy()
   })
 
   it('Has proper HTML structure in sednew mode', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      mode: 'sednew'
-    }))
+    stageSelector(defaultSelector, { mode: 'sednew' })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-sednew')).toBeTruthy()
   })
 
   it('Shows BUCEmpty when no sakId and aktoerId are given', () => {
-    (setMode as jest.Mock).mockReset();
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    (setMode as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {
       sakId: undefined,
       aktoerId: undefined
-    }))
+    })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(wrapper.exists('BUCEmpty')).toBeTruthy()
     wrapper.find('#a-buc-p-bucempty__newbuc-link-id').hostNodes().simulate('click')
@@ -180,12 +175,11 @@ describe('applications/BUC/index', () => {
 
   it('Calls fullFocus and ReplaceFocus functions', () => {
     (initialMockProps.onFullFocus as jest.Mock).mockReset();
-    (initialMockProps.onRestoreFocus as jest.Mock).mockReset();
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    (initialMockProps.onRestoreFocus as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {
       sakId: '456',
       aktoerId: '123'
-    }))
+    })
     wrapper = mount(<BUCIndex {...initialMockProps} allowFullScreen />)
     wrapper.find('.mock-buccrumbs').simulate('change', { target: { value: 'bucnew' } })
     wrapper.update()

@@ -19,7 +19,7 @@ export interface BUCDetailProps {
   className ?: string;
 }
 
-interface BUCDetailSelector {
+export interface BUCDetailSelector {
   locale: AllowedLocaleString;
   rinaUrl: RinaUrl | undefined;
 }

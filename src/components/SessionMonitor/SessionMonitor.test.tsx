@@ -1,16 +1,12 @@
 import { openModal } from 'actions/ui'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import SessionMonitor, { SessionMonitorProps } from './SessionMonitor'
 
 jest.mock('actions/ui', () => ({
   openModal: jest.fn(),
   closeModal: jest.fn()
 }))
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 describe('components/SessionMonitor', () => {
   let wrapper: ReactWrapper

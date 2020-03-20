@@ -2,24 +2,19 @@ import { listP4000 } from 'actions/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import sampleP4000info from 'resources/tests/sampleP4000info'
+import { stageSelector } from 'setupTests'
 import { SEDP4000, SEDP4000Props } from './SEDP4000'
-import { useDispatch, useSelector } from 'react-redux'
-jest.mock('react-redux')
 jest.mock('./Period/Period', () => () => <div className='mock-period' />)
 jest.mock('actions/buc', () => ({
   listP4000: jest.fn()
-}));
-
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+}))
 
 const defaultSelector = {
   loadingP4000list: false,
   loadingP4000info: false,
   p4000info: undefined,
   p4000list: undefined
-};
-
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
   let wrapper: ReactWrapper
@@ -29,6 +24,10 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     showButtons: true,
     setShowButtons: jest.fn()
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   beforeEach(() => {
     wrapper = mount(<SEDP4000 {...initialMockProps} />)
@@ -66,11 +65,10 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
   }) */
 
   it('Has proper HTML structure: mounted state', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       p4000list: ['sampleP4000file'],
       p4000info: sampleP4000info
-    }))
+    })
     wrapper = mount(<SEDP4000 {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-sedp4000')).toBeTruthy()
   })

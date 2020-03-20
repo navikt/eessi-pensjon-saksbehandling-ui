@@ -32,6 +32,18 @@ const Header: React.FC<HeaderProps> = ({ className, children, gettingUserInfo, h
     })
   }
 
+  const onHighContrastClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    dispatch(toggleHighContrast())
+  }
+
+  const onSnowClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    dispatch(toggleSnow())
+  }
+
   const handleUsernameSelectRequest = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === 'logout') {
       dispatch(clearData())
@@ -54,11 +66,7 @@ const Header: React.FC<HeaderProps> = ({ className, children, gettingUserInfo, h
             id='c-topHeader__highcontrast-link-id'
             className='c-topHeader__highcontrast-link c-topHeader__link mt-1'
             href='#highContrast'
-            onClick={(e: React.MouseEvent<HTMLElement>) => {
-              e.preventDefault()
-              e.stopPropagation()
-              dispatch(toggleHighContrast())
-            }}
+            onClick={onHighContrastClick}
           >
             {t('ui:highContrast')}
           </Ui.Nav.Lenke>
@@ -66,11 +74,7 @@ const Header: React.FC<HeaderProps> = ({ className, children, gettingUserInfo, h
             id='c-topHeader__snow-link-id'
             className='c-topHeader__snow-link c-topHeader__link ml-4 mt-1'
             href='#snow'
-            onClick={(e: React.MouseEvent<HTMLElement>) => {
-              e.preventDefault()
-              e.stopPropagation()
-              dispatch(toggleSnow())
-            }}
+            onClick={onSnowClick}
           >
             {!snow ? 'la det snø!' : 'nok med snø!'}
           </Ui.Nav.Lenke>

@@ -2,6 +2,7 @@ import Enzyme, { mount, render, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { act } from 'react-dom/test-utils'
 import { useDispatch, useSelector } from 'react-redux'
+jest.mock('react-redux')
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -33,11 +34,12 @@ jest.mock('i18next', () => {
   return result
 })
 
+jest.mock('uuid/v4', () => 'mock_uuid')
+
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: any) => key })
-}))
+}));
 
-jest.mock('react-redux');
 (useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 export const stageSelector = (defaultSelector: any, params: any) => {

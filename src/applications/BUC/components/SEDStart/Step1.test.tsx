@@ -1,13 +1,9 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import Step1, { Step1Props } from './Step1'
-import { mount, ReactWrapper } from 'enzyme'
-import sampleBucs from 'resources/tests/sampleBucs'
-import _ from 'lodash'
 import { Bucs } from 'declarations/buc'
-
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
+import { mount, ReactWrapper } from 'enzyme'
+import _ from 'lodash'
+import React from 'react'
+import sampleBucs from 'resources/tests/sampleBucs'
+import Step1, { Step1Props } from './Step1'
 
 describe('applications/BUC/components/SEDStart/Step1', () => {
   let wrapper: ReactWrapper

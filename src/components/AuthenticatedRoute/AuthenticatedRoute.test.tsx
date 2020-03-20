@@ -3,9 +3,8 @@ import * as routes from 'constants/routes'
 import { mount, ReactWrapper } from 'enzyme'
 import { createBrowserHistory, Location } from 'history'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { RouteProps, Router } from 'react-router'
-
+import { stageSelector } from 'setupTests'
 import { AuthenticatedRoute, AuthenticatedRouteSelector } from './AuthenticatedRoute'
 
 jest.mock('actions/app', () => ({
@@ -14,16 +13,11 @@ jest.mock('actions/app', () => ({
   setStatusParam: jest.fn()
 }))
 
-jest.mock('react-redux');
-(useDispatch as jest.Mock).mockImplementation(() => jest.fn())
-
 const defaultSelector: AuthenticatedRouteSelector = {
   userRole: undefined,
   loggedIn: undefined,
   allowed: undefined
-};
-
-(useSelector as jest.Mock).mockImplementation(() => (defaultSelector))
+}
 
 describe('components/AuthenticatedRoute', () => {
   let wrapper: ReactWrapper
@@ -32,6 +26,10 @@ describe('components/AuthenticatedRoute', () => {
       search: '?a=b&sakId=123&aktoerId=456'
     } as Location
   }
+
+  beforeAll(() => {
+    stageSelector(defaultSelector, {})
+  })
 
   it('UseEffect: read status params', () => {
     mount(
@@ -60,20 +58,14 @@ describe('components/AuthenticatedRoute', () => {
   })
 
   it('UseEffect: redirect for login', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      loggedIn: false
-    }))
+    stageSelector(defaultSelector, { loggedIn: false })
     mount(<AuthenticatedRoute {...initialMockProps} />)
     expect(login).toBeCalled();
     (login as jest.Mock).mockRestore()
   })
 
   it('UseEffect: no need for login redirect', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
-      loggedIn: true
-    }))
+    stageSelector(defaultSelector, { loggedIn: true })
     mount(
       <Router history={createBrowserHistory()}>
         <AuthenticatedRoute {...initialMockProps} />
@@ -82,11 +74,10 @@ describe('components/AuthenticatedRoute', () => {
   })
 
   it('Has proper HTML structure: forbidden', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       loggedIn: true,
       userRole: 'UNKNOWN'
-    }))
+    })
     wrapper = mount(
       <Router history={createBrowserHistory()}>
         <AuthenticatedRoute {...initialMockProps} />
@@ -96,12 +87,11 @@ describe('components/AuthenticatedRoute', () => {
   })
 
   it('Has proper HTML structure: not allowed', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       loggedIn: true,
       userRole: 'SAKSBEHANDLER',
       allowed: false
-    }))
+    })
     wrapper = mount(
       <Router history={createBrowserHistory()}>
         <AuthenticatedRoute {...initialMockProps} />
@@ -111,12 +101,11 @@ describe('components/AuthenticatedRoute', () => {
   })
 
   it('Has proper HTML structure: route', () => {
-    (useSelector as jest.Mock).mockImplementation(() => ({
-      ...defaultSelector,
+    stageSelector(defaultSelector, {
       loggedIn: true,
       userRole: 'SAKSBEHANDLER',
       allowed: true
-    }))
+    })
     wrapper = mount(
       <Router history={createBrowserHistory()}>
         <AuthenticatedRoute {...initialMockProps} />
