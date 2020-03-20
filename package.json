@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "EESSI Pensjon Saksbehandling UI",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
+    "npx": "npx npm-force-resolutions",
     "build": "npm run build:css && npm run build:js && npm run build:git",
     "build:git": "export GIT_VERSION=`git describe --always` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
     "build:css": "less-watch-compiler --run-once --config less.json",
@@ -27,7 +27,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "core-js": "^3.6.4",
-    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.2.4",
+    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.2.6",
     "history": "^4.10.1",
     "http-proxy-middleware": "^1.0.3",
     "i18next": "^19.3.3",
