@@ -2,8 +2,6 @@
 // These must be the first lines in src/index.js
 import 'react-app-polyfill/ie11'
 import 'react-app-polyfill/stable'
-import 'core-js/stable/number'
-import 'core-js/stable/number/is-finite'
 
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
@@ -27,15 +25,10 @@ import 'eessi-pensjon-ui/dist/nav.css'
 import 'index.css'
 import 'index_highContrast.css'
 
-console.log(isFinite)
-console.log(Number)
-console.log(Number.isFinite)
-
+// IE11
 if (Number && !Number.isFinite) {
   Number.isFinite = isFinite
 }
-
-console.log(Number.isFinite)
 
 const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
 
