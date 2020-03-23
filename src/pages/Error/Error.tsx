@@ -7,11 +7,12 @@ import { useTranslation } from 'react-i18next'
 import './Error.css'
 
 export interface ErrorProps {
+  error?: any;
   history?: any;
   type: string;
 }
 
-export const Error = ({ history, type }: ErrorProps) => {
+export const Error = ({ error, history, type }: ErrorProps) => {
   let title, description
   const { t } = useTranslation()
   switch (type) {
@@ -26,6 +27,10 @@ export const Error = ({ history, type }: ErrorProps) => {
     case 'notInvited':
       title = t('ui:error-saksbehandler-notInvited-title')
       description = t('ui:error-saksbehandler-notInvited-description')
+      break
+    case 'internalError':
+      title = t('ui:error-internalError-title')
+      description = t('ui:error-internalError-description')
       break
     default:
       title = t('ui:error-404-title')
@@ -48,6 +53,7 @@ export const Error = ({ history, type }: ErrorProps) => {
         <div className='description'>
           <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
+        {error ? JSON.stringify(error) : null}
         <div className='line' />
         <Ui.Nav.Normaltekst className='mt-2'>
           {t('ui:error-footer')}
@@ -58,7 +64,8 @@ export const Error = ({ history, type }: ErrorProps) => {
 }
 
 Error.propTypes = {
-  history: PT.object,
+  error: PT.any,
+  history: PT.any,
   type: PT.string.isRequired
 }
 

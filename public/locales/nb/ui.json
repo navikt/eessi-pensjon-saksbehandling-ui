@@ -18,6 +18,10 @@
 
     "error-404-title" : "",
     "error-404-description" : "For å komme inn på EESSI-pensjon, må du enten logge inn via brukeroversikt eller pensjonsoversikten.",
+
+    "error-internalError-title" : "Intern feil",
+    "error-internalError-description" : "Det har oppstått en intern feil. Vennligst rapporter det slik at vi kan fikse siden.",
+
     "error-footer" : "Dersom du har spørsmål ta kontakt",
 
     "loading-gettingRinaCase" : "Henter RINA sak...",
