@@ -26,7 +26,6 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
-    "core-js": "^3.6.4",
     "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.2.8",
     "history": "^4.10.1",
     "http-proxy-middleware": "^1.0.3",
@@ -38,6 +37,7 @@
     "moment": "^2.24.0",
     "print-js": "^1.0.63",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.3.4",
     "react-loadable": "^5.5.0",
@@ -47,7 +47,6 @@
     "react-snowstorm": "0.0.3",
     "react-tooltip": "^4.1.2",
     "redux": "^4.0.5",
-    "regenerator-runtime": "^0.13.5",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
