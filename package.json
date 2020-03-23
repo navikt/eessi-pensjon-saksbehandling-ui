@@ -47,6 +47,7 @@
     "react-snowstorm": "0.0.3",
     "react-tooltip": "^4.1.2",
     "redux": "^4.0.5",
+    "regenerator-runtime": "^0.13.5",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
