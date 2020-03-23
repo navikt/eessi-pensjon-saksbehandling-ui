@@ -24,7 +24,7 @@ Also, make sure you have read access to [github.com/navikt](//github.com/navikt)
 
 ## DOWNLOAD
 
-Go into your local working directory, and run (HTTPS) 
+To clone this repo, go into your local working directory, and run (HTTPS) 
 
     git clone https://github.com/navikt/eessi-pensjon-saksbehandling-ui.git
     
@@ -34,9 +34,13 @@ or (GIT+SSH)
 
 With HTTPS you may have to provide username/password, with git+ssh your private key can be used for authentication.
 
+You should see a {workDir}/eessi-pensjon-saksbehandling-ui directory with the source code. 
+
 ## INSTALL 
 
-Run 
+Installing reads `package.json` and `package-lock.json` to gather all dependency modules, downloads them from npm repository site and saves them in `node_modules` directory.
+ 
+To install, run: 
 
     npm install
      
@@ -45,6 +49,48 @@ if you just cloned this repository, or everytime there is code update that chang
 `package.json` is the file where project dependencies (and dev dependencies) are listed.
 
 `package-lock.json` is the file that locks dependency versions into this project's version.
+
+In the end, you should see a npm summary output with all dependency packages installed, and an audit report. 
+
+## AUDIT 
+
+This step is optional and not necessary if you are planning to do only local development. 
+
+If you are planning to do a production build, it is recommended to run npm audit to check if all 3rd party dependencies have no vulnerabilities.
+
+To run the audit, do:
+
+    npm audit 
+ 
+Ideally it should output:  
+
+    found 0 vulnerabilities
+    
+If vulnerabilites are found, run:
+    
+    npm audit fix     
+
+If the vulnerabilities can't be fixed, npm lists them and tells the user to solve them manually. 
+
+This happens when the other libraries depend on a (now vulnerable) dependency version, but the library author hasn't updated it yet.
+
+To circumvent that, we can force npm to ignore that specified (and vulnerable) version and install instead a different version. 
+
+To do that, check `package.json` for a `resolutions` key and add the dependency package. For example: 
+  
+     "resolutions": {
+         "acorn": "^7.1.1",
+         "minimist": "1.2.3",
+         "extend": "3.0.2",
+         "cryptiles": "4.1.2"
+     }
+
+Is telling npm to install the 3.0.2 version of the `extend` library, even if somewhere in the `package-lock.json` there 
+is a dependency that requires a difference version. 
+
+To Perform these overrides, run: 
+
+    npm run npx
 
 ## TEST
 
@@ -62,7 +108,7 @@ For coverage report, run
  
     npm run test:coverage
     
-Coverage tests don't run in watch mode.    
+Coverage tests don't run in watch mode.
 
 ## LINT
 
@@ -76,9 +122,11 @@ To fix lint issues, run
 
     npm run lint:fix
 
+Note that if code is properly linted, the command outputs nothing.
+
 ## RUN 
 
-To start the app in development mode, run 
+To start the app locally in development mode, run 
      
     npm run start
      
@@ -96,7 +144,7 @@ or (Linux/Mac)
 
 ### BUILD
 
-To build the app for production mode, run 
+To build the app ready for production, run 
 
     npm run build
     
