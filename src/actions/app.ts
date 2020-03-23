@@ -58,7 +58,8 @@ export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (): Th
     type: {
       request: types.APP_USERINFO_REQUEST,
       success: types.APP_USERINFO_SUCCESS,
-      failure: types.APP_USERINFO_FAILURE
+      failure: types.APP_USERINFO_FAILURE,
+      forbidden:  types.APP_USERINFO_FORBIDDEN
     }
   })
 }

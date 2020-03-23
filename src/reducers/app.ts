@@ -81,6 +81,13 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         loggedIn: false
       }
 
+    case types.APP_USERINFO_FORBIDDEN:
+
+      return {
+        ...initialAppState,
+        userRole: 'FORBIDDEN'
+      }
+
     case types.APP_PERSONINFO_SUCCESS:
 
       return {

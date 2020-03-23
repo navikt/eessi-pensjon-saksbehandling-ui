@@ -37,11 +37,6 @@ const Pages = {
   IndexPage: require('./pages/IndexPage/IndexPage').default
 }
 
-window.onerror = (msg, src, lineno, colno, error) => {
-  console.log('error', msg, src, lineno, colno, error)
-  return <div>Error</div>
-}
-
 if (!IS_PRODUCTION) {
   var axe = require('react-axe')
   axe(React, ReactDOM, 1000)
