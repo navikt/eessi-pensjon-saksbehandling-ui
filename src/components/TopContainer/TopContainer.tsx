@@ -13,6 +13,8 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import SnowStorm from 'react-snowstorm'
 import { State } from 'declarations/reducers'
+import useErrorBoundary from 'use-error-boundary'
+import Error from 'pages/Error/Error'
 import './TopContainer.css'
 
 export interface TopContainerProps {
@@ -64,6 +66,14 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   } = useSelector(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const {
+    ErrorBoundary // class - The react component to wrap your children in. This WILL NOT CHANGE
+   // didCatch, // boolean - Whether the ErrorBoundary catched something
+   // _error, // null or the error
+   // errorInfo // null or the error info as described in the react docs
+  } = useErrorBoundary()
+
+
   const handleModalClose = (): void => {
     dispatch(closeModal())
   }
@@ -101,7 +111,9 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   }
 
   return (
-    <>
+    <ErrorBoundary
+      renderError={({ error }: any) => <Error type='error' />}
+    >
       {snow ? <SnowStorm /> : null}
       <Header
         className={classNames({ highContrast: highContrast })}
@@ -149,7 +161,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
         params={params}
         footerOpen={footerOpen}
       />
-    </>
+    </ErrorBoundary>
   )
 }
 

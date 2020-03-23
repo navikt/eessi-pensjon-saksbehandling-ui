@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import './Error.css'
 
 export interface ErrorProps {
-  history: any;
+  history?: any;
   type: string;
 }
 
@@ -58,7 +58,7 @@ export const Error = ({ history, type }: ErrorProps) => {
 }
 
 Error.propTypes = {
-  history: PT.object.isRequired,
+  history: PT.object,
   type: PT.string.isRequired
 }
 

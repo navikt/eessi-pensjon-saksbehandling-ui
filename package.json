@@ -26,6 +26,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
+    "core-js": "^3.6.4",
     "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.2.8",
     "history": "^4.10.1",
     "http-proxy-middleware": "^1.0.3",
@@ -47,7 +48,8 @@
     "react-snowstorm": "0.0.3",
     "react-tooltip": "^4.1.2",
     "redux": "^4.0.5",
-    "sprintf-js": "^1.1.2"
+    "sprintf-js": "^1.1.2",
+    "use-error-boundary": "^1.2.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.9.2",
