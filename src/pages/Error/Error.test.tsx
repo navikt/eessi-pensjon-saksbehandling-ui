@@ -28,8 +28,8 @@ describe('pages/Error', () => {
   it('Page forbidden: Has proper HTML structure', () => {
     wrapper = mount(<Error {...initialMockProps} type='forbidden' />)
     expect(wrapper.exists('.p-error')).toBeTruthy()
-    expect(wrapper.find('.p-error .title').hostNodes().render().text()).toEqual('ui:error-saksbehandler-forbidden-title')
-    expect(wrapper.find('.p-error .description').hostNodes().render().text()).toEqual('ui:error-saksbehandler-forbidden-description')
+    expect(wrapper.find('.p-error .title').hostNodes().render().text()).toEqual('ui:error-forbidden-title')
+    expect(wrapper.find('.p-error .description').hostNodes().render().text()).toEqual('ui:error-forbidden-description')
   })
 
   it('Page notLogged: Has proper HTML structure', () => {
@@ -42,8 +42,15 @@ describe('pages/Error', () => {
   it('Page notInvited: Has proper HTML structure', () => {
     wrapper = mount(<Error {...initialMockProps} type='notInvited' />)
     expect(wrapper.exists('.p-error')).toBeTruthy()
-    expect(wrapper.find('.p-error .title').hostNodes().render().text()).toEqual('ui:error-saksbehandler-notInvited-title')
-    expect(wrapper.find('.p-error .description').hostNodes().render().text()).toEqual('ui:error-saksbehandler-notInvited-description')
+    expect(wrapper.find('.p-error .title').hostNodes().render().text()).toEqual('ui:error-notInvited-title')
+    expect(wrapper.find('.p-error .description').hostNodes().render().text()).toEqual('ui:error-notInvited-description')
+  })
+
+  it('Page internalError: Has proper HTML structure', () => {
+    wrapper = mount(<Error {...initialMockProps} type='internalError' />)
+    expect(wrapper.exists('.p-error')).toBeTruthy()
+    expect(wrapper.find('.p-error .title').hostNodes().render().text()).toEqual('ui:error-internalError-title')
+    expect(wrapper.find('.p-error .description').hostNodes().render().text()).toEqual('ui:error-internalError-description')
   })
 
   it('Page default: Has proper HTML structure', () => {

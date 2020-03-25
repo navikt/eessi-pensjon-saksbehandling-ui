@@ -181,7 +181,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} /> : null}
       {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc} setMode={_setMode} /> : null}
       {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} /> : null}
-      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc} setMode={_setMode} /> : null}
+      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc!} setMode={_setMode} /> : null}
     </div>
   )
 }

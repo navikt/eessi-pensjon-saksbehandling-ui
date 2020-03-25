@@ -17,16 +17,16 @@ export const Error = ({ error, history, type }: ErrorProps) => {
   const { t } = useTranslation()
   switch (type) {
     case 'forbidden':
-      title = t('ui:error-saksbehandler-forbidden-title')
-      description = t('ui:error-saksbehandler-forbidden-description')
+      title = t('ui:error-forbidden-title')
+      description = t('ui:error-forbidden-description')
       break
     case 'notLogged':
       title = t('ui:error-notLogged-title')
       description = t('ui:error-notLogged-description')
       break
     case 'notInvited':
-      title = t('ui:error-saksbehandler-notInvited-title')
-      description = t('ui:error-saksbehandler-notInvited-description')
+      title = t('ui:error-notInvited-title')
+      description = t('ui:error-notInvited-description')
       break
     case 'internalError':
       title = t('ui:error-internalError-title')
@@ -47,12 +47,10 @@ export const Error = ({ error, history, type }: ErrorProps) => {
         <div className='EESSIPensjonVeileder'>
           <Ui.EESSIPensjonVeileder mood='trist' id='EESSIPensjonVeileder' />
         </div>
-        <Ui.Nav.Undertittel className='title m-4'>
+        <Ui.Nav.Undertittel className='title m-5'>
           {title}
         </Ui.Nav.Undertittel>
-        <div className='description'>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        </div>
+        <div className='description' dangerouslySetInnerHTML={{ __html: description }} />
         {error ? JSON.stringify(error) : null}
         <div className='line' />
         <Ui.Nav.Normaltekst className='mt-2'>
