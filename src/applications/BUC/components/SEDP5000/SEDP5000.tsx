@@ -1,9 +1,9 @@
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
-import { Country } from 'eessi-pensjon-ui/dist/declarations/components.d'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import moment from 'moment'
 import printJS from 'print-js'
 import PT from 'prop-types'
 import React, { useState } from 'react'
@@ -28,15 +28,15 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   const { t } = useTranslation()
   const [activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
 
-  const convertRawP5000toRow = (sedContent: SedContent): Array<any> => {
+  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
-
+    const sender = getSedSender(sedId)
     sedContent.pensjon.medlemskap.forEach((m: any) => {
       res.push({
-        land: m.land || '-',
+        land: sender!.countryLabel || '-',
         type: m.type || '-',
-        startdato: m.periode?.fom || '-',
-        sluttdato: m.periode?.tom || '-',
+        startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD-MM-YYYY') : '-',
+        sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD-MM-YYYY') : '-',
         år: m.sum?.aar || '-',
         kvartal: m.sum?.kvartal || '-',
         måned: m.sum?.maaneder || '-',
@@ -70,7 +70,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     let res: Array<any> = []
     Object.keys(activeSeds).forEach((key: string) => {
       if (activeSeds[key]) {
-        res = res.concat(convertRawP5000toRow(sedContent[key]))
+        res = res.concat(convertRawP5000toRow(key, sedContent[key]))
       }
     })
     return res
@@ -83,12 +83,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       style: '@page { size: A4 landscape; }',
       header: 'P5000'
     })
-  }
-
-  const renderLand = (item: any, value: any) => {
-    if (!value || value === '-') return <div />
-    const country: Country = Ui.CountryData.getCountryInstance(locale).findByValue(value)
-    return (<span>{country.label}</span>)
   }
 
   const changeActiveSed = (sedId: string) => {
@@ -136,7 +130,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           sortable
           labels={labels}
           columns={[
-            { id: 'land', label: t('ui:country'), type: 'object', renderCell: renderLand },
+            { id: 'land', label: t('ui:country'), type: 'string' },
             { id: 'type', label: t('ui:type'), type: 'string' },
             { id: 'startdato', label: t('ui:startDate'), type: 'string' },
             { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
