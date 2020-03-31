@@ -25,8 +25,12 @@ const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithP
           if (!variant) {
             variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'ARKIV')
           }
-          if (!variant && !_.isEmpty(doc.dokumentvarianter)) {
-            variant = doc.dokumentvarianter[0]
+          if (!variant) {
+            if (!_.isEmpty(doc.dokumentvarianter)) {
+              variant = doc.dokumentvarianter[0]
+            } else {
+              return
+            }
           }
           documents.push({
             tilleggsopplysninger: post.tilleggsopplysninger,

@@ -50,6 +50,17 @@ const mockdata = {
           }]
         }]
       }, {
+        tilleggsopplysninger : [],
+        journalpostId : '202123061',
+        datoOpprettet : '2010-11-01T12:26:55',
+        tittel : 'Dok.vedr. norskkurs- faxet Utlendingsnemnda',
+        tema : 'OPP',
+        dokumenter : [ {
+          dokumentInfoId : '202121653',
+          tittel : 'Dok.vedr. norskkurs- faxet Utlendingsnemnda',
+          dokumentvarianter : []
+        } ]
+      }, {
         tilleggsopplysninger: [],
         journalpostId: '472209046',
         datoOpprettet: '2020-03-20T10:01:55',

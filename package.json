@@ -159,18 +159,11 @@
     "collectCoverageFrom": [
       "src/actions/*.{ts,tsx}",
       "src/applications/**/*.{ts,tsx}",
-      "!src/applications/**/*.d.ts",
-      "src/components/*.{ts,tsx}",
-      "!src/components/*.d.ts",
       "src/components/**/*.{ts,tsx}",
-      "!src/components/**/*.d.ts",
       "src/pages/**/*.{ts,tsx}",
-      "!src/pages/**/*.d.ts",
       "src/reducers/*.{ts,tsx}",
       "src/widgets/*.{ts,tsx}",
-      "!src/widgets/*.d.ts",
-      "src/widgets/**/*.{ts,tsx}",
-      "!src/widgets/**/*.d.ts"
+      "src/widgets/**/*.{ts,tsx}"
     ]
   }
 }

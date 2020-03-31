@@ -1,4 +1,7 @@
 import * as types from 'constants/actionTypes'
+import { JoarkDoc, JoarkFileVariant, JoarkPoster } from 'declarations/joark'
+import _ from 'lodash'
+import sampleJoarkRaw from 'resources/tests/sampleJoarkRaw'
 import joarkReducer, { initialJoarkState } from './joark'
 
 describe('reducers/joark', () => {
@@ -65,6 +68,20 @@ describe('reducers/joark', () => {
       filnavn: 'mockFilnavn3'
     }
   }]
+
+  it('JOARK_LIST_SUCCESS with sampleJoarkRaw', () => {
+    const generatedState = joarkReducer(initialJoarkState, {
+      type: types.JOARK_LIST_SUCCESS,
+      payload: sampleJoarkRaw.mockdata
+    })
+    const expectedResponseSize = sampleJoarkRaw.mockdata.data.dokumentoversiktBruker.journalposter.map((post: JoarkPoster) => {
+      return post.dokumenter.map((doc: JoarkDoc) => {
+        return !_.isEmpty(doc.dokumentvarianter) ? doc.dokumentvarianter[0] : undefined
+      })
+    })
+    const expectedLength = _.filter(_.flatten(expectedResponseSize), (e => e)).length
+    expect(generatedState.list!.length).toEqual(expectedLength)
+  })
 
   it('JOARK_LIST_SUCCESS', () => {
     expect(
