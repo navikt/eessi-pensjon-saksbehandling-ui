@@ -35,8 +35,8 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       res.push({
         land: sender!.countryLabel || '-',
         type: m.type || '-',
-        startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD-MM-YYYY') : '-',
-        sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD-MM-YYYY') : '-',
+        startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
+        sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
         år: m.sum?.aar || '-',
         kvartal: m.sum?.kvartal || '-',
         måned: m.sum?.maaneder || '-',

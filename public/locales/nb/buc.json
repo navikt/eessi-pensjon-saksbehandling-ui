@@ -331,13 +331,14 @@
   "P5000-title"                 : "Perioder for P5000",
 
 
-  "status-active" : "Under oppdatering",
-  "status-cancelled": "Ugyldiggjort",
-  "status-first" : "Først sendt",
-  "status-new" : "Utkast",
-  "status-received" : "Mottatt",
-  "status-sent" : "Sendt",
-  "status-unknown" : "Ukjent",
+  "status-active"         : "Under oppdatering",
+  "status-cancelled"      : "Ugyldiggjort",
+  "status-first_sent"     : "Først sendt",
+  "status-first_received" : "Først mottall",
+  "status-new"            : "Utkast",
+  "status-received"       : "Mottatt",
+  "status-sent"           : "Sendt",
+  "status-unknown"        : "Ukjent",
 
   "tag-urgent"    : "Urgent",
   "tag-vip"       : "VIP",

@@ -68,7 +68,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </div>
           {sed.version !== '1' ? (
             <div className='a-buc-c-sedheader__status-item'>
-              <SEDStatus className='col-auto' status='first' />
+              <SEDStatus className='col-auto' status={'first' + sed.status} />
               <div className='pl-2'>
                 <Ui.Nav.Normaltekst className='a-buc-c-sedheader__firstSend' data-tip={t('ui:status-first')}>
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}

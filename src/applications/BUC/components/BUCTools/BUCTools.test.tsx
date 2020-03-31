@@ -64,9 +64,9 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Changes tags', () => {
     stageSelector(defaultSelector, {})
+    wrapper = mount(<BUCTools {...initialMockProps} />)
     expect(wrapper.exists('#a-buc-c-buctools__tags-select-id')).toBeTruthy()
     const tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
-    tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     tagSelect.find('input').simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(initialMockProps.onTagChange).toHaveBeenCalledWith([{
