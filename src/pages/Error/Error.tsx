@@ -13,28 +13,21 @@ export interface ErrorProps {
 }
 
 export const Error = ({ error, history, type }: ErrorProps) => {
-  let title, description
+  let title, description, footer
   const { t } = useTranslation()
   switch (type) {
     case 'forbidden':
-      title = t('ui:error-forbidden-title')
-      description = t('ui:error-forbidden-description')
-      break
     case 'notLogged':
-      title = t('ui:error-notLogged-title')
-      description = t('ui:error-notLogged-description')
-      break
     case 'notInvited':
-      title = t('ui:error-notInvited-title')
-      description = t('ui:error-notInvited-description')
-      break
     case 'internalError':
-      title = t('ui:error-internalError-title')
-      description = t('ui:error-internalError-description')
+      title = t('ui:error-' + type + '-title')
+      description = t('ui:error-' + type + '-description')
+      footer = t('ui:error-' + type + '-footer')
       break
     default:
       title = t('ui:error-404-title')
       description = t('ui:error-404-description')
+      footer =  t('ui:error-404-footer')
       break
   }
 
@@ -51,11 +44,15 @@ export const Error = ({ error, history, type }: ErrorProps) => {
           {title}
         </Ui.Nav.Undertittel>
         <div className='description' dangerouslySetInnerHTML={{ __html: description }} />
-        {error ? JSON.stringify(error) : null}
-        <div className='line' />
-        <Ui.Nav.Normaltekst className='mt-2'>
-          {t('ui:error-footer')}
-        </Ui.Nav.Normaltekst>
+        {error && <div className='error' dangerouslySetInnerHTML={{ __html: error.stack}} />}
+        {footer && (
+          <>
+            <div className='line' />
+            <Ui.Nav.Normaltekst className='mt-2 footer'>
+              {footer}
+            </Ui.Nav.Normaltekst>
+          </>
+        )}
       </div>
     </TopContainer>
   )
