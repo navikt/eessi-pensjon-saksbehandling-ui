@@ -18,6 +18,7 @@ const statusList: Labels = {
   cancelled: 'advarsel',
   active: 'advarsel',
   unknown: 'info',
+  first_new: 'advarsel',
   first_sent: 'advarsel',
   first_received: 'advarsel'
 }

@@ -330,11 +330,11 @@
 
   "P5000-title"                 : "Perioder for P5000",
 
-
   "status-active"         : "Under oppdatering",
   "status-cancelled"      : "Ugyldiggjort",
-  "status-first_sent"     : "Først sendt",
-  "status-first_received" : "Først mottall",
+  "status-first_new"      : "Tidligere utkast",
+  "status-first_sent"     : "Tidligere sendt",
+  "status-first_received" : "Tidligere mottatt",
   "status-new"            : "Utkast",
   "status-received"       : "Mottatt",
   "status-sent"           : "Sendt",
