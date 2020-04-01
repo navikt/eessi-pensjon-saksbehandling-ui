@@ -10,6 +10,9 @@ This is the ESSI Pensjon web application for saksbehandlers, developed in [React
 
     git clone git@github.com:navikt/eessi-pensjon-saksbehandling-ui.git 
     npm install
+    
+    If you work on a mac:
+        npm i -S fsevents 
     npm run start
 
 ## SETUP
