@@ -375,7 +375,7 @@
   "validation-invalidPeriodType"    : "Ugyldig periodetype",
   "validation-invalidStartDate"     : "Ugyldig startdato",
   "validation-inValidYear"          : "Ugyldig år",
-  "validation-noAktoerId"           : "Ingen aktoerId",
+  "validation-noAktoerId"           : "Ingen aktørId",
   "validation-noChildBirthDate"     : "Legg til barn-s fødselsdato",
   "validation-noChildFirstName"     : "Legg til barn-s fornavn",
   "validation-noChildLastName"      : "Legg til barn-s etternavn",
