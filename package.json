@@ -25,7 +25,9 @@
   },
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@types/styled-components": "^5.1.0",
+    "amplitude-js": "^5.10.0",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.3.0",
