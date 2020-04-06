@@ -42,23 +42,6 @@ export const setPreviewJoarkFile = (item: JoarkFile | undefined): ActionWithPayl
   payload: item
 })
 
-export const getJoarkFile = (item: JoarkFile): Function => {
-  return api.call({
-    url: sprintf(urls.API_JOARK_GET_URL, {
-      dokumentInfoId: item.dokumentInfoId,
-      journalpostId: item.journalpostId,
-      variantformat: item.variant.variantformat
-    }),
-    expectedPayload: getMockedPayload(item.journalpostId),
-    context: item,
-    type: {
-      request: types.JOARK_GET_REQUEST,
-      success: types.JOARK_GET_SUCCESS,
-      failure: types.JOARK_GET_FAILURE
-    }
-  })
-}
-
 interface JoarkPayload {
   fileName: string | undefined;
   contentType: string;

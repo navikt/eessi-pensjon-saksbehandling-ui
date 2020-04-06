@@ -5,6 +5,7 @@
   "alert-createBucFailure"        : "Feil til å oprrette BUC",
   "alert-createdBuc"              : "Opprettet ny BUC",
   "alert-createdSed"              : "Opprettet ny SED",
+  "alert-joarkListFailure"        : "Feil henting vedlegg",
   "alert-joarkPreviewFailure"     : "Feil i forhånsvisning vedlegg",
   "alert-createSedFailure"        : "Feil til å oprrette SED",
   "alert-morePreviewData"         : "Generert sak",

@@ -28,7 +28,6 @@ export const initialLoadingState: LoadingState = {
   isLoggingOut: false,
   isSendingPinfo: false,
   loadingJoarkList: false,
-  loadingJoarkFile: false,
   loadingJoarkPreviewFile: false,
   loadingP4000list: false,
   loadingP4000info: false,
@@ -351,21 +350,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         loadingJoarkPreviewFile: false
-      }
-
-    case types.JOARK_GET_REQUEST:
-
-      return {
-        ...state,
-        loadingJoarkFile: true
-      }
-
-    case types.JOARK_GET_SUCCESS:
-    case types.JOARK_GET_FAILURE:
-
-      return {
-        ...state,
-        loadingJoarkFile: false
       }
 
     case types.STORAGE_LIST_REQUEST:

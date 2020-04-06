@@ -55,7 +55,7 @@ describe('pages/Error', () => {
     expect(wrapper.exists('.p-error')).toBeTruthy()
     expect(wrapper.find('.p-error .title').hostNodes().render().text()).toEqual('ui:error-internalError-title')
     expect(wrapper.find('.p-error .description').hostNodes().render().text()).toEqual('ui:error-internalError-description')
-    expect(wrapper.find('.p-error .error').hostNodes().render().text().startsWith('Error: Mock error')).toBeTruthy()
+    expect(wrapper.exists('.p-error .p-error__content-error')).toBeTruthy()
     expect(wrapper.find('.p-error .footer').hostNodes().render().text()).toEqual('ui:error-internalError-footer')
   })
 

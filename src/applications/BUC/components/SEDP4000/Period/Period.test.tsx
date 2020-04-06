@@ -167,7 +167,7 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'home')!
     const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('home')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__alert_home').hostNodes().render().text()).toEqual('buc:p4000-warning-home-period')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__alert_home .alertstripe__tekst').hostNodes().render().text()).toEqual('buc:p4000-warning-home-period')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-home')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 

@@ -116,7 +116,8 @@ describe('applications/BUC/index', () => {
     (fetchBucParticipants as jest.Mock).mockReset()
     stageSelector(defaultSelector, {})
     wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
-    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs).length + Object.keys(mockAvdodBucs).length)
+    // -1 as there is one ErrorBuc in mockBucs
+    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs).length + Object.keys(mockAvdodBucs).length - 1)
   })
 
   it('UseEffect: when getting BUCs, set mode to buclist', () => {

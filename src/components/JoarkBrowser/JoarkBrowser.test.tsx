@@ -34,7 +34,6 @@ const defaultSelector: JoarkBrowserSelector = {
   file: undefined,
   list: files,
   loadingJoarkList: false,
-  loadingJoarkFile: false,
   loadingJoarkPreviewFile: false,
   previewFile: undefined
 }

@@ -27,7 +27,7 @@ export const Error = ({ error, history, type }: ErrorProps) => {
     default:
       title = t('ui:error-404-title')
       description = t('ui:error-404-description')
-      footer =  t('ui:error-404-footer')
+      footer = t('ui:error-404-footer')
       break
   }
 
@@ -44,7 +44,15 @@ export const Error = ({ error, history, type }: ErrorProps) => {
           {title}
         </Ui.Nav.Undertittel>
         <div className='description' dangerouslySetInnerHTML={{ __html: description }} />
-        {error && <div className='error' dangerouslySetInnerHTML={{ __html: error.stack}} />}
+        {error && (
+          <Ui.ExpandingPanel
+            id='p-error__content-error-id'
+            className={classNames('p-error__content-error', 's-border')}
+            heading='Error'
+          >
+            <div className='error' dangerouslySetInnerHTML={{ __html: error.stack }} />
+          </Ui.ExpandingPanel>
+        )}
         {footer && (
           <>
             <div className='line' />

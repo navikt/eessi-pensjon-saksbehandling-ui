@@ -13,20 +13,16 @@ import './JoarkBrowser.css'
 
 export interface JoarkBrowserSelector {
   aktoerId: string;
-  file: JoarkFileWithContent | undefined;
   list: Array<JoarkFile> | undefined;
   loadingJoarkList: boolean;
-  loadingJoarkFile: boolean;
   loadingJoarkPreviewFile: boolean;
   previewFile: JoarkFileWithContent | undefined;
 }
 
 const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector => ({
   aktoerId: state.app.params.aktoerId,
-  file: state.joark.file,
   list: state.joark.list,
   loadingJoarkList: state.loading.loadingJoarkList,
-  loadingJoarkFile: state.loading.loadingJoarkFile,
   loadingJoarkPreviewFile: state.loading.loadingJoarkPreviewFile,
   previewFile: state.joark.previewFile
 })
@@ -41,10 +37,9 @@ export interface JoarkBrowserProps {
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   files = [], mode = 'view', onFilesChange, onPreviewFile
 }: JoarkBrowserProps): JSX.Element => {
-  const { aktoerId, file, list, loadingJoarkList, loadingJoarkFile, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector = useSelector<State, JoarkBrowserSelector>(mapState)
+  const { aktoerId, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector = useSelector<State, JoarkBrowserSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [_file, setFile] = useState<JoarkFileWithContent | undefined>(undefined)
   const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(undefined)
   const [clickedPreviewFile, setClickedPreviewFile] = useState<any>(undefined)
   const [mounted, setMounted] = useState<boolean>(false)
@@ -68,16 +63,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const handleModalClose = useCallback(() => {
     dispatch(setPreviewJoarkFile(undefined))
   }, [dispatch])
-
-  useEffect(() => {
-    if (!equalFiles(file, _file)) {
-      setFile(file)
-      const newFiles = file ? files.concat(file) : _.remove(files, f => _.isEqual(f, file))
-      if (onFilesChange) {
-        onFilesChange(newFiles)
-      }
-    }
-  }, [file, _file, files, onFilesChange])
 
   useEffect(() => {
     const _onPreviewFile = (previewFile: JoarkFileWithContent | undefined) => {
@@ -218,7 +203,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         searchable={mode === 'view'}
         selectable={mode === 'view'}
         sortable
-        loading={loadingJoarkList || loadingJoarkFile}
+        loading={loadingJoarkList}
         columns={[
           {
             id: 'name',

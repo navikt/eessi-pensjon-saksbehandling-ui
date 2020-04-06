@@ -70,23 +70,6 @@ describe('actions/joark', () => {
     })
   })
 
-  it('getJoarkFile()', () => {
-    joarkActions.getJoarkFile(mockItem)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.JOARK_GET_REQUEST,
-        success: types.JOARK_GET_SUCCESS,
-        failure: types.JOARK_GET_FAILURE
-      },
-      context: mockItem,
-      url: sprintf(urls.API_JOARK_GET_URL, {
-        dokumentInfoId: mockItem.dokumentInfoId,
-        journalpostId: mockItem.journalpostId,
-        variantformat: mockItem.variant.variantformat
-      })
-    }))
-  })
-
   it('getMockedPayload() in localhost, test environment will not used mocked values', () => {
     const mockJournalpostId = '1'
     const generatedResult = joarkActions.getMockedPayload(mockJournalpostId)

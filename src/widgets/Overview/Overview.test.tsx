@@ -62,7 +62,7 @@ describe('widgets/Overview/Overview', () => {
     stageSelector(defaultSelector, ({ aktoerId: undefined }))
     wrapper = mount(<Overview {...initialMockProps} />)
     expect(wrapper.exists('.w-overview__alert')).toBeTruthy()
-    expect(wrapper.find('.w-overview__alert').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
+    expect(wrapper.find('.w-overview__alert .alertstripe__tekst').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
   })
 
   it('Expandable ', () => {

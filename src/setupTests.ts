@@ -15,6 +15,15 @@ Enzyme.configure({ adapter: new Adapter() });
 HTMLCanvasElement.prototype.getContext = jest.fn()
 window.scrollTo = jest.fn()
 window.location.reload = jest.fn()
+
+const crypto = require('crypto')
+
+Object.defineProperty(global.self, 'crypto', {
+  value: {
+    getRandomValues: (arr) => crypto.randomBytes(arr.length),
+  },
+})
+
 Object.defineProperty(window, 'getComputedStyle', {
   value: () => ({
     getPropertyValue: () => ('')
@@ -34,7 +43,6 @@ jest.mock('i18next', () => {
   return result
 })
 
-jest.mock('uuid/v4', () => 'mock_uuid')
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: any) => key })

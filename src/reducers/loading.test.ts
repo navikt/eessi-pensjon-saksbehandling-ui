@@ -268,18 +268,6 @@ describe('reducers/loading', () => {
     simulateFailure(types.JOARK_PREVIEW_FAILURE, 'loadingJoarkPreviewFile')
   })
 
-  it('JOARK_GET_REQUEST', () => {
-    simulateRequest(types.JOARK_GET_REQUEST, 'loadingJoarkFile')
-  })
-
-  it('JOARK_GET_SUCCESS', () => {
-    simulateSuccess(types.JOARK_GET_SUCCESS, 'loadingJoarkFile')
-  })
-
-  it('JOARK_GET_FAILURE', () => {
-    simulateFailure(types.JOARK_GET_FAILURE, 'loadingJoarkFile')
-  })
-
   it('STORAGE_LIST_REQUEST', () => {
     simulateRequest(types.STORAGE_LIST_REQUEST, 'loadingStorageFileList')
   })

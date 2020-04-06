@@ -48,7 +48,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   })
 
   return (
-    <Ui.Nav.PanelBase
+    <Ui.Nav.Panel
       style={style}
       className={classNames('a-buc-c-sedheader', 'w-100', 'p-0', className)}
     >
@@ -106,7 +106,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             : null}
         </div>
       </div>
-    </Ui.Nav.PanelBase>
+    </Ui.Nav.Panel>
   )
 }
 

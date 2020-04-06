@@ -137,11 +137,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         clientErrorMessage = 'buc:alert-joarkPreviewFailure'
         break
 
-      case types.JOARK_GET_FAILURE:
-
-        clientErrorMessage = 'buc:alert-joarkGetFailure'
-        break
-
       case types.STORAGE_LIST_FAILURE:
 
         clientErrorMessage = 'ui:listFailure'

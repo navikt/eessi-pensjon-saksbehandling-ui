@@ -71,7 +71,7 @@ describe('components/TopContainer', () => {
       </TopContainer>
     )
     const clientAlert = wrapper.find('Alert[type="client"]')
-    expect(clientAlert.render().text()).toEqual('mockMessage: mockParams')
+    expect(clientAlert.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage: mockParams')
 
     clientAlert.find('Icons').simulate('click')
     expect(clientClear).toHaveBeenCalled()

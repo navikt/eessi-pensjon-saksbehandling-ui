@@ -262,18 +262,6 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('JOARK_GET_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.JOARK_GET_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-joarkGetFailure'
-    })
-  })
-
   it('STORAGE_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {

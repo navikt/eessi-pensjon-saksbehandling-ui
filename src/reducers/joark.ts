@@ -5,13 +5,11 @@ import _ from 'lodash'
 
 export interface JoarkState {
   list: Array<JoarkFile> | undefined;
-  file: JoarkFileWithContent | undefined;
   previewFile: JoarkFileWithContent | undefined;
 }
 
 export const initialJoarkState: JoarkState = {
   list: undefined,
-  file: undefined,
   previewFile: undefined
 }
 
@@ -49,26 +47,6 @@ const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithP
         list: documents
       }
     }
-
-    case types.JOARK_GET_SUCCESS:
-      return {
-        ...state,
-        file: {
-          journalpostId: action.context.journalpostId,
-          tilleggsopplysninger: action.context.tilleggsopplysninger,
-          tittel: action.context.tittel,
-          tema: action.context.tema,
-          dokumentInfoId: action.context.dokumentInfoId,
-          datoOpprettet: action.context.datoOpprettet,
-          variant: action.context.variant,
-          name: action.payload.fileName,
-          size: action.payload.filInnhold.length,
-          mimetype: action.payload.contentType,
-          content: {
-            base64: action.payload.filInnhold
-          }
-        } as JoarkFileWithContent
-      }
 
     case types.JOARK_PREVIEW_SET:
       return {
