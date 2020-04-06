@@ -53,7 +53,6 @@ if you just cloned this repository, or everytime there is code update that chang
 
 `package-lock.json` is the file that locks dependency versions into this project's version.
 
-<<<<<<< HEAD
 In the end, you should see a npm summary output with all dependency packages installed, and an audit report. 
 
 ## AUDIT 

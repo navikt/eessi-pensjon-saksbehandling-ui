@@ -98,7 +98,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   useEffect(() => {
     if (bucs && !_bucs) {
       Object.keys(bucs).forEach(bucId => {
-        if (_.isNil(bucs[bucId].institusjon)) {
+        if (bucs[bucId].type && _.isNil(bucs[bucId].institusjon)) {
           dispatch(fetchBucParticipants(bucId))
         }
       })
@@ -109,7 +109,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   useEffect(() => {
     if (avdodBucs && !_avdodBucs) {
       Object.keys(avdodBucs).forEach(bucId => {
-        if (_.isNil(avdodBucs[bucId].institusjon)) {
+        if (avdodBucs[bucId].type && _.isNil(avdodBucs[bucId].institusjon)) {
           dispatch(fetchBucParticipants(bucId))
         }
       })

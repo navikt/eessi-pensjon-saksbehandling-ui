@@ -26,9 +26,9 @@ describe('components/Footer', () => {
 
   it('Toggles open/closed with props', () => {
     wrapper = mount(<Footer {...initialMockProps} footerOpen={false} />)
-    expect(wrapper.exists('div.footerButtonClosed'))
+    expect(wrapper.exists('div.footerButtonClosed')).toBeTruthy()
     wrapper.setProps({ footerOpen: true })
-    expect(wrapper.exists('div.footerButtonOpen'))
+    expect(wrapper.exists('div.footerButtonOpen')).toBeTruthy()
   })
 
   it('Toggles open/closed with click', () => {
