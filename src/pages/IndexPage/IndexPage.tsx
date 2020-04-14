@@ -123,7 +123,6 @@ const mapState = (state: State): IndexPageSelector => ({
   username: state.app.username
 })
 
-
 export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps): JSX.Element => {
   const { username }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
   const { t } = useTranslation()
@@ -153,6 +152,7 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps)
           target='_blank'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
         >
+          <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:lawsource')}
         </Ui.Nav.Lenke>
         <SeparatorSpan>•</SeparatorSpan>
@@ -160,6 +160,7 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps)
           target='_blank'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
         >
+          <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:help')}
         </Ui.Nav.Lenke>
       </DivWithLinks>

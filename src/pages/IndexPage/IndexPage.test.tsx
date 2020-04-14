@@ -17,9 +17,15 @@ jest.mock('components/TopContainer/TopContainer', () => {
     </div>
   )
 })
-jest.mock('eessi-pensjon-ui', () => ({
-  Dashboard: (props: any) => <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
-}))
+
+jest.mock('eessi-pensjon-ui', () => {
+  const Ui = jest.requireActual('eessi-pensjon-ui').default
+  return {
+    ...Ui,
+    Dashboard: (props: any) => <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />,
+  }
+})
+
 
 describe('pages/IndexPage', () => {
   let wrapper: ReactWrapper

@@ -132,12 +132,22 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           columns={[
             { id: 'land', label: t('ui:country'), type: 'string' },
             { id: 'type', label: t('ui:type'), type: 'string' },
-            { id: 'startdato', label: t('ui:startDate'), type: 'date', renderCell: (item: any, value: any) => (
+            {
+              id: 'startdato',
+              label: t('ui:startDate'),
+              type: 'date',
+              renderCell: (item: any, value: any) => (
                 <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
-              )},
-            { id: 'sluttdato', label: t('ui:endDate'), type: 'date', renderCell: (item: any, value: any) => (
+              )
+            },
+            {
+              id: 'sluttdato',
+              label: t('ui:endDate'),
+              type: 'date',
+              renderCell: (item: any, value: any) => (
                 <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
-              )},
+              )
+            },
             { id: 'år', label: t('ui:year'), type: 'string' },
             { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
             { id: 'måned', label: t('ui:month'), type: 'string' },

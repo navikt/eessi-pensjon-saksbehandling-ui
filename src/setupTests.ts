@@ -20,8 +20,8 @@ const crypto = require('crypto')
 
 Object.defineProperty(global.self, 'crypto', {
   value: {
-    getRandomValues: (arr) => crypto.randomBytes(arr.length),
-  },
+    getRandomValues: (arr) => crypto.randomBytes(arr.length)
+  }
 })
 
 Object.defineProperty(window, 'getComputedStyle', {
@@ -42,7 +42,6 @@ jest.mock('i18next', () => {
   use.mockImplementation(() => result)
   return result
 })
-
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: any) => key })

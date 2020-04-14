@@ -31,7 +31,6 @@ sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter.forEach((post: Jo
 
 const defaultSelector: JoarkBrowserSelector = {
   aktoerId: '123',
-  file: undefined,
   list: files,
   loadingJoarkList: false,
   loadingJoarkPreviewFile: false,
@@ -76,22 +75,6 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     stageSelector(defaultSelector, { list: undefined })
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
     expect(listJoarkFiles).toHaveBeenCalledWith(defaultSelector.aktoerId)
-  })
-
-  it('UseEffect: when new file is available, load it', () => {
-    const mockFile = {
-      name: 'file.txt',
-      dokumentInfoId: '123',
-      journalpostId: '123',
-      variant: 'foo',
-      content: {
-        base64: '1232341234234'
-      }
-    }
-    stageSelector(defaultSelector, { file: mockFile })
-    wrapper = mount(<JoarkBrowser {...initialMockProps} />)
-    expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([mockFile])
-    stageSelector(defaultSelector, {})
   })
 
   it('UseEffect: when new preview file is available, trigger it', () => {
