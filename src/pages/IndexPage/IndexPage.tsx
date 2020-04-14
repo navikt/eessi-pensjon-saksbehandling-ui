@@ -3,11 +3,12 @@ import Ui from 'eessi-pensjon-ui'
 import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import PT from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
 import { State } from 'declarations/reducers'
 import * as extraWidgets from 'widgets'
-import './IndexPage.css'
+import styled from 'styled-components'
 
 export interface IndexPageProps {
   history: any;
@@ -122,8 +123,21 @@ const mapState = (state: State): IndexPageSelector => ({
   username: state.app.username
 })
 
+
 export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps): JSX.Element => {
   const { username }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { t } = useTranslation()
+
+  const DivWithLinks = styled.div`
+     padding: 0.5rem 2rem;
+     background-color: #E9E7E7;
+     display: flex;
+     flex-direction: row-reverse;
+  `
+  const SeparatorSpan = styled.span`
+     padding: 0rem 0.5rem
+  `
+
   const afterLayoutChange = () => {
     ReactTooltip.rebuild()
   }
@@ -134,7 +148,21 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps)
       history={history}
     >
       <ReactTooltip id='eessi-pensjon-ui-sbs' place='top' type='dark' effect='solid' multiline />
-
+      <DivWithLinks>
+        <Ui.Nav.Lenke
+          target='_blank'
+          href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
+        >
+          {t('ui:lawsource')}
+        </Ui.Nav.Lenke>
+        <SeparatorSpan>•</SeparatorSpan>
+        <Ui.Nav.Lenke
+          target='_blank'
+          href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
+        >
+          {t('ui:help')}
+        </Ui.Nav.Lenke>
+      </DivWithLinks>
       <Ui.Dashboard
         id='eessi-pensjon-ui-fss'
         extraWidgets={extraWidgets}
