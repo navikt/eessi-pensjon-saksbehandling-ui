@@ -313,7 +313,7 @@ export const createReplySed = (payload: NewSedPayload, parentId: string): Functi
 
 export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, context: JoarkFile): Function => {
   return api.call({
-    url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, params),
+    url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',
     cascadeFailureError: true,
     expectedPayload: context,

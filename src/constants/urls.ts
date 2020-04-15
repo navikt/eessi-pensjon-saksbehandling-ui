@@ -35,9 +35,10 @@ export const API_STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace
 export const API_STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(userId)s___%(namespace)s'
 
-// JoarkController
+// SafController
 export const API_JOARK_LIST_URL = SAF_URL + '/metadata/%(userId)s'
 export const API_JOARK_GET_URL = SAF_URL + '/hentdokument/%(journalpostId)s/%(dokumentInfoId)s/%(variantformat)s'
+export const API_JOARK_ATTACHMENT_URL = SAF_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(journalpostId)s/%(dokumentInfoId)s/%(variantformat)s'
 
 // PersonController
 export const PERSON_URL = PER_URL + '/%(aktoerId)s'
@@ -46,7 +47,6 @@ export const PERSON_URL = PER_URL + '/%(aktoerId)s'
 export const BUC_GET_BUCS_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
 export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
-export const BUC_SEND_ATTACHMENT_URL = BUC_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(journalpostId)s/%(dokumentInfoId)s/%(variantformat)s'
 export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs'
 export const BUC_GET_SINGLE_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 

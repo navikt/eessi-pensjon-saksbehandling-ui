@@ -388,7 +388,7 @@ describe('actions/buc', () => {
       },
       context: mockContext,
       method: 'PUT',
-      url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, mockParams)
+      url: sprintf(urls.API_JOARK_ATTACHMENT_URL, mockParams)
     }))
   })
 
