@@ -8,11 +8,10 @@ import './Error.css'
 
 export interface ErrorProps {
   error?: any;
-  history?: any;
   type: string;
 }
 
-export const Error = ({ error, history, type }: ErrorProps) => {
+export const Error = ({ error, type }: ErrorProps) => {
   let title, description, footer
   const { t } = useTranslation()
   switch (type) {
@@ -32,10 +31,7 @@ export const Error = ({ error, history, type }: ErrorProps) => {
   }
 
   return (
-    <TopContainer
-      className={classNames('p-error')}
-      history={history}
-    >
+    <TopContainer className={classNames('p-error')}>
       <div className='p-error__content'>
         <div className='EESSIPensjonVeileder'>
           <Ui.EESSIPensjonVeileder mood='trist' id='EESSIPensjonVeileder' />
@@ -68,7 +64,6 @@ export const Error = ({ error, history, type }: ErrorProps) => {
 
 Error.propTypes = {
   error: PT.any,
-  history: PT.any,
   type: PT.string.isRequired
 }
 

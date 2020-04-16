@@ -1,41 +1,39 @@
 // IE11
-// These must be the first lines in src/index.js
+import 'core-js/stable'
 import 'react-app-polyfill/ie11'
-import 'react-app-polyfill/stable'
+import 'react-app-polyfill/ie9'
+import 'regenerator-runtime/runtime'
 
-import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom'
-import { createBrowserHistory } from 'history'
-import { Switch, Redirect, Route, Router } from 'react-router'
-import { I18nextProvider } from 'react-i18next'
-import { combineReducers, applyMiddleware, createStore, Store } from 'redux'
-import thunk from 'redux-thunk'
-import { Provider } from 'react-redux'
-import * as reducers from './reducers'
+import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
 import { IS_PRODUCTION } from 'constants/environment'
+import * as routes from 'constants/routes'
+import { createBrowserHistory } from 'history'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
-import i18n from './i18n'
-import * as routes from 'constants/routes'
+import Pages from 'pages'
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom'
+import { I18nextProvider } from 'react-i18next'
+import { Provider } from 'react-redux'
+import { Redirect, Route, Router, Switch } from 'react-router'
+import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
+import thunk from 'redux-thunk'
 import { unregister } from 'registerServiceWorker'
-import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
+import i18n from './i18n'
+import * as reducers from './reducers'
+
 import 'eessi-pensjon-ui/dist/minibootstrap.css'
 import 'eessi-pensjon-ui/dist/nav.css'
 import 'index.css'
 import 'index_highContrast.css'
 
 // IE11
-if (Number && !Number.isFinite) {
+if (Number && isFinite && !Number.isFinite) {
   Number.isFinite = isFinite
 }
 
 const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
-
-const Pages = {
-  Error: require('./pages/Error/Error').default,
-  IndexPage: require('./pages/IndexPage/IndexPage').default
-}
 
 if (!IS_PRODUCTION) {
   var axe = require('react-axe')
@@ -47,22 +45,24 @@ const renderErrorPage = (type: string) => {
 }
 
 ReactDOM.render(
-  <I18nextProvider i18n={i18n}>
-    <Provider store={store}>
-      <Suspense fallback={<span>...</span>}>
-        <Router history={createBrowserHistory()}>
-          <Switch>
-            <Route path={routes.NOT_LOGGED} render={renderErrorPage('notLogged')} />
-            <Route path={routes.NOT_INVITED} render={renderErrorPage('notInvited')} />
-            <Route path={routes.FORBIDDEN} render={renderErrorPage('forbidden')} />
-            <Route path={routes.ROOT + ':PATH+'} render={renderErrorPage('error')} />
-            <AuthenticatedRoute path={routes.ROOT} component={Pages.IndexPage} />
-            <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
-          </Switch>
-        </Router>
-      </Suspense>
-    </Provider>
-  </I18nextProvider>,
+  <React.StrictMode>
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
+        <Suspense fallback={<span>...</span>}>
+          <Router history={createBrowserHistory()}>
+            <Switch>
+              <Route path={routes.NOT_LOGGED} render={renderErrorPage('notLogged')} />
+              <Route path={routes.NOT_INVITED} render={renderErrorPage('notInvited')} />
+              <Route path={routes.FORBIDDEN} render={renderErrorPage('forbidden')} />
+              <Route path={routes.ROOT + ':PATH+'} render={renderErrorPage('error')} />
+              <AuthenticatedRoute path={routes.ROOT} component={Pages.IndexPage} />
+              <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
+            </Switch>
+          </Router>
+        </Suspense>
+      </Provider>
+    </I18nextProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 )
 

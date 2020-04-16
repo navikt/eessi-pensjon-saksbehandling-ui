@@ -1,7 +1,6 @@
 import TopContainer from 'components/TopContainer/TopContainer'
 import Ui from 'eessi-pensjon-ui'
 import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
-import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -11,7 +10,6 @@ import * as extraWidgets from 'widgets'
 import styled from 'styled-components'
 
 export interface IndexPageProps {
-  history: any;
   username?: string;
 }
 
@@ -123,10 +121,11 @@ const mapState = (state: State): IndexPageSelector => ({
   username: state.app.username
 })
 
-export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps): JSX.Element => {
+export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   const { username }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
   const { t } = useTranslation()
 
+  
   const DivWithLinks = styled.div`
      padding: 0.5rem 2rem;
      background-color: #E9E7E7;
@@ -142,10 +141,7 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps)
   }
 
   return (
-    <TopContainer
-      className='p-indexPage'
-      history={history}
-    >
+    <TopContainer className='p-indexPage'>
       <ReactTooltip id='eessi-pensjon-ui-sbs' place='top' type='dark' effect='solid' multiline />
       <DivWithLinks>
         <Ui.Nav.Lenke
@@ -175,10 +171,6 @@ export const IndexPage: React.FC<IndexPageProps> = ({ history }: IndexPageProps)
       />
     </TopContainer>
   )
-}
-
-IndexPage.propTypes = {
-  history: PT.object.isRequired
 }
 
 export default IndexPage

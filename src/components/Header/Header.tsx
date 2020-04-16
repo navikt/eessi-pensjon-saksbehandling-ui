@@ -7,6 +7,7 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import './Header.css'
 
@@ -15,15 +16,19 @@ export interface HeaderProps {
   children?: JSX.Element | Array<JSX.Element | null>;
   gettingUserInfo?: boolean;
   header?: JSX.Element;
-  history: any;
   isLoggingOut?: boolean;
   snow?: boolean;
   username?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ className, children, gettingUserInfo, header, history, isLoggingOut, snow, username }: HeaderProps): JSX.Element => {
+const Header: React.FC<HeaderProps> = ({
+  className, children, gettingUserInfo, header,
+  isLoggingOut, snow, username
+}: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const history = useHistory()
+
   const onLogoClick = () => {
     dispatch(clearData())
     history.push({
@@ -130,7 +135,6 @@ Header.propTypes = {
   className: PT.string,
   gettingUserInfo: PT.bool,
   header: PT.element,
-  history: PT.object,
   isLoggingOut: PT.bool,
   username: PT.string
 }

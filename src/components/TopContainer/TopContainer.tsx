@@ -22,7 +22,6 @@ export interface TopContainerProps {
   children?: JSX.Element | Array<JSX.Element | null>;
   fluid?: boolean;
   header?: string | JSX.Element;
-  history: any;
 }
 
 export interface TopContainerSelector {
@@ -58,7 +57,7 @@ const mapState = (state: State): TopContainerSelector => ({
 })
 
 export const TopContainer: React.FC<TopContainerProps> = ({
-  className, children, fluid = true, header, history
+  className, children, fluid = true, header
 }: TopContainerProps): JSX.Element => {
   const {
     clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
@@ -111,7 +110,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
       {snow ? <SnowStorm /> : null}
       <Header
         className={classNames({ highContrast: highContrast })}
-        history={history}
         username={username}
         gettingUserInfo={gettingUserInfo}
         isLoggingOut={isLoggingOut}
@@ -163,8 +161,7 @@ TopContainer.propTypes = {
   className: PT.string,
   children: PT.any,
   fluid: PT.bool,
-  header: PT.any,
-  history: PT.object.isRequired
+  header: PT.any
 }
 
 export default TopContainer
