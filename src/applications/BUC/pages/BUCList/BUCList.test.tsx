@@ -1,11 +1,10 @@
 import { fetchBucsInfo } from 'actions/buc'
 import * as storage from 'constants/storage'
-import { Bucs } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
+import mockBucs from 'mocks/buc/bucs'
+import mockBucsInfo from 'mocks/buc/bucsInfo'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import { stageSelector } from 'setupTests'
 import BUCList, { BUCListProps, BUCListSelector } from './BUCList'
 
@@ -21,7 +20,7 @@ jest.mock('actions/app', () => ({
 }))
 
 const defaultSelector: BUCListSelector = {
-  bucsInfo: sampleBucsInfo,
+  bucsInfo: mockBucsInfo,
   bucsInfoList: [],
   institutionList: {
     NO: [{
@@ -39,10 +38,9 @@ const defaultSelector: BUCListSelector = {
 
 describe('applications/BUC/widgets/BUCList/BUCList', () => {
   let wrapper: ReactWrapper
-  const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: BUCListProps = {
     aktoerId: '123',
-    bucs: mockBucs,
+    bucs: _.keyBy(mockBucs(), 'caseId'),
     setMode: jest.fn()
   }
 
@@ -81,7 +79,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('.a-buc-p-buclist')).toBeTruthy()
     expect(wrapper.exists('.a-buc-p-buclist__buttons')).toBeTruthy()
     expect(wrapper.exists('#a-buc-p-buclist__newbuc-button-id')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-bucheader').hostNodes().length).toEqual(sampleBucs.filter(buc => !buc.error).length)
+    expect(wrapper.find('.a-buc-c-bucheader').hostNodes().length).toEqual(mockBucs().filter(buc => !buc.error).length)
     expect(wrapper.exists('.a-buc-c-sedlist')).toBeFalsy()
     expect(wrapper.exists('.mock-bucfooter')).toBeTruthy()
   })

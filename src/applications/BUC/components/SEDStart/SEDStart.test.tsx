@@ -13,9 +13,9 @@ import { JoarkFile } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleP4000info from 'resources/tests/sampleP4000info'
-import targetP4000info from 'resources/tests/targetP4000info'
+import mockBucs from 'mocks/buc/bucs'
+import mockP4000info from 'mocks/P4000/P4000info'
+import mockTargetP4000info from 'mocks/P4000/targetP4000info'
 import { stageSelector } from 'setupTests'
 import { SEDStart, SEDStartProps, SEDStartSelector } from './SEDStart'
 
@@ -52,17 +52,16 @@ const defaultSelector: SEDStartSelector = {
   sakId: '123',
   sed: undefined,
   sedList: undefined,
-  p4000info: sampleP4000info,
+  p4000info: mockP4000info,
   vedtakId: undefined
 }
 
 describe('applications/BUC/components/SEDStart/SEDStart', () => {
   let wrapper: ReactWrapper
-  const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
 
   const initialMockProps: SEDStartProps = {
     aktoerId: '123',
-    bucs: mockBucs,
+    bucs: _.keyBy(mockBucs(), 'caseId'),
     currentBuc: '195440',
     initialAttachments: {
       joark: [{
@@ -134,7 +133,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
 
   it('With a BUC with SEDs that have NO participants, demand a institution', () => {
     stageSelector(defaultSelector, {})
-    const mockBucsWithNoParticipants: Bucs = _.cloneDeep(mockBucs)
+    const mockBucsWithNoParticipants: Bucs = _.keyBy(mockBucs(), 'caseId')
     mockBucsWithNoParticipants[initialMockProps.currentBuc!].institusjon = []
     mockBucsWithNoParticipants[initialMockProps.currentBuc!].seds = []
     wrapper = mount(<SEDStart {...initialMockProps} bucs={mockBucsWithNoParticipants} />)
@@ -165,7 +164,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       buc: 'P_BUC_02',
       euxCaseId: '195440',
       institutions: [],
-      periodeInfo: targetP4000info.trygdetid,
+      periodeInfo: mockTargetP4000info.trygdetid,
       sed: 'P4000',
       sakId: '123'
     })

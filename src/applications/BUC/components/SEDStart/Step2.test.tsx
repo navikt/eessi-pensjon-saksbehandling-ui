@@ -1,7 +1,7 @@
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import Step2, { Step2Props } from './Step2'
 
 jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => {
@@ -10,10 +10,10 @@ jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => {
 
 describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
   let wrapper: ReactWrapper
-  const mockBucs = _.keyBy(sampleBucs, 'caseId')
+  const _mockBucs = _.keyBy(mockBucs(), 'caseId')
   const initialMockProps: Step2Props = {
     aktoerId: '123',
-    buc: mockBucs['195440'],
+    buc: _mockBucs['195440'],
     locale: 'nb',
     _sed: 'P4000',
     showButtons: true,

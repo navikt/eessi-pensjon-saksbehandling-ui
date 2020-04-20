@@ -1,7 +1,7 @@
 import { JoarkFile } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleJoarkReduced from 'resources/tests/sampleJoarkReduced'
+import mockJoarkReduced from 'mocks/joark/joarkReduced'
 import SEDAttachments, { SEDAttachmentsProps } from './SEDAttachments'
 
 jest.mock('components/JoarkBrowser/JoarkBrowser', () =>
@@ -46,10 +46,10 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
 
   it('onSubmit triggered', () => {
     (initialMockProps.onOpen as jest.Mock).mockReset()
-    wrapper = mount(<SEDAttachments {...initialMockProps} initialMode='confirm' files={{ joark: [(sampleJoarkReduced[0] as JoarkFile)] }} />)
+    wrapper = mount(<SEDAttachments {...initialMockProps} initialMode='confirm' files={{ joark: [(mockJoarkReduced[0] as JoarkFile)] }} />)
     // @ts-ignore
     wrapper.find('button.a-buc-c-sedattachments__submit-button').props().onClick()
-    expect(initialMockProps.onSubmit).toHaveBeenCalledWith({ joark: [(sampleJoarkReduced[0] as JoarkFile)] })
+    expect(initialMockProps.onSubmit).toHaveBeenCalledWith({ joark: [(mockJoarkReduced[0] as JoarkFile)] })
   })
 
   it('onEnableAttachmentsButtonClicked triggered', () => {

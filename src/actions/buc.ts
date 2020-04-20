@@ -3,20 +3,27 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { BucsInfo, Institution, NewSedPayload, Sed } from 'declarations/buc'
+import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
 import Ui from 'eessi-pensjon-ui'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import { ActionWithPayload, ThunkResult } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
+import { mockBuc, mockParticipants } from 'mocks/buc/buc'
+import mockBucList from 'mocks/buc/bucList'
+import mockBucs from 'mocks/buc/bucs'
+import mockBucsInfo from 'mocks/buc/bucsInfo'
+import mockBucsInfoList from 'mocks/buc/bucsInfoList'
+import mockCreateBuc from 'mocks/buc/createBuc'
+import mockInstitutions from 'mocks/buc/institutions'
+import mockP4000info from 'mocks/P4000/P4000info'
+import mockP4000list from 'mocks/P4000/P4000list'
+import mockRinaUrl from 'mocks/buc/rinaUrl'
+import mockSed from 'mocks/buc/sed'
+import mockSedList from 'mocks/buc/sedList'
+import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import { Action, ActionCreator } from 'redux'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
-import sampleInstitutions from 'resources/tests/sampleInstitutions'
-import sampleP4000info from 'resources/tests/sampleP4000info'
-import sampleSedP50001 from 'resources/tests/sampleSedP50001'
-import sampleSedP50002 from 'resources/tests/sampleSedP50002'
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -60,7 +67,7 @@ export const setP4000Info: ActionCreator<ActionWithPayload> = (p4000: P4000Info)
 export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: rinaCaseId }),
-    expectedPayload: _.find(sampleBucs, buc => buc.caseId === rinaCaseId),
+    expectedPayload: mockBuc(rinaCaseId),
     type: {
       request: types.BUC_GET_SINGLE_BUC_REQUEST,
       success: types.BUC_GET_SINGLE_BUC_SUCCESS,
@@ -72,15 +79,7 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (ri
 export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: rinaCaseId }),
-    expectedPayload: /* istanbul ignore next */ () => {
-      const buc = _.find(sampleBucs, buc => buc.caseId === rinaCaseId)
-      return buc && buc.institusjon ? _.map(buc.institusjon, (i: Institution) => ({
-        organisation: {
-          countryCode: i.country,
-          id: i.institution
-        }
-      })) : []
-    },
+    expectedPayload: /* istanbul ignore next */ mockParticipants(rinaCaseId),
     context: {
       rinaCaseId: rinaCaseId
     },
@@ -96,7 +95,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerI
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: _.cloneDeep(sampleBucs),
+    expectedPayload: mockBucs,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
@@ -109,7 +108,7 @@ export const fetchAvdodBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (ak
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: _.cloneDeep(sampleBucs),
+    expectedPayload: mockBucs,
     type: {
       request: types.BUC_GET_AVDOD_BUCS_REQUEST,
       success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
@@ -121,7 +120,7 @@ export const fetchAvdodBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (ak
 export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
-    expectedPayload: [aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO],
+    expectedPayload: mockBucsInfoList(aktoerId),
     type: {
       request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
       success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
@@ -133,7 +132,7 @@ export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload>> = 
 export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (userId: string, namespace: string, file: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
-    expectedPayload: sampleBucsInfo,
+    expectedPayload: mockBucsInfo,
     type: {
       request: types.BUC_GET_BUCSINFO_REQUEST,
       success: types.BUC_GET_BUCSINFO_SUCCESS,
@@ -145,7 +144,7 @@ export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (use
 export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: urls.EUX_SUBJECT_AREA_URL,
-    expectedPayload: ['Pensjon'],
+    expectedPayload: mockSubjectAreaList,
     type: {
       request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
       success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
@@ -157,7 +156,7 @@ export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> =
 export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: urls.BUC_GET_BUC_LIST_URL,
-    expectedPayload: ['DEMO_BUC_01'],
+    expectedPayload: mockBucList,
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,
       success: types.BUC_GET_BUC_LIST_SUCCESS,
@@ -175,14 +174,7 @@ export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: st
   return api.call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
-    expectedPayload: {
-      type: buc,
-      caseId: '123',
-      creator: {
-        institution: 'NO:NAV07',
-        country: 'NO'
-      }
-    },
+    expectedPayload: mockCreateBuc(buc),
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
       success: types.BUC_CREATE_BUC_SUCCESS,
@@ -247,7 +239,7 @@ export const getSedList: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: {
   const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
-    expectedPayload: ['P2000', 'P4000', 'P5000', 'P6000'],
+    expectedPayload: mockSedList,
     type: {
       request: types.BUC_GET_SED_LIST_REQUEST,
       success: types.BUC_GET_SED_LIST_SUCCESS,
@@ -268,7 +260,7 @@ export const getInstitutionsListForBucAndCountry = (bucType: string, country: st
       buc: bucType,
       country: country
     },
-    expectedPayload: sampleInstitutions,
+    expectedPayload: mockInstitutions,
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
       success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
@@ -331,7 +323,7 @@ export const getSed = (caseId: string, sed: Sed): Function => {
     url: sprintf(urls.BUC_GET_SED_URL, { caseId: caseId, documentId: sed.id }),
     cascadeFailureError: true,
     context: sed,
-    expectedPayload: /* istanbul ignore next */ () => (sed.creationDate % 2 !== 0 ? sampleSedP50001 : sampleSedP50002),
+    expectedPayload: mockSed(sed),
     type: {
       request: types.BUC_GET_SED_REQUEST,
       success: types.BUC_GET_SED_SUCCESS,
@@ -343,9 +335,7 @@ export const getSed = (caseId: string, sed: Sed): Function => {
 export const getRinaUrl = (): Function => {
   return api.call({
     url: urls.EUX_RINA_URL,
-    expectedPayload: {
-      rinaUrl: 'http://mockurl.com/rinaUrl'
-    },
+    expectedPayload: mockRinaUrl,
     type: {
       request: types.BUC_RINA_GET_URL_REQUEST,
       success: types.BUC_RINA_GET_URL_SUCCESS,
@@ -357,9 +347,7 @@ export const getRinaUrl = (): Function => {
 export const listP4000 = (aktoerId: string): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO }),
-    expectedPayload: [
-      aktoerId + '___' + storage.NAMESPACE_PINFO + '___' + storage.FILE_PINFO
-    ],
+    expectedPayload: mockP4000list(aktoerId),
     type: {
       request: types.BUC_GET_P4000_LIST_REQUEST,
       success: types.BUC_GET_P4000_LIST_SUCCESS,
@@ -371,7 +359,7 @@ export const listP4000 = (aktoerId: string): Function => {
 export const getP4000 = (file: string): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { file: file }),
-    expectedPayload: sampleP4000info,
+    expectedPayload: mockP4000info,
     type: {
       request: types.BUC_GET_P4000_INFO_REQUEST,
       success: types.BUC_GET_P4000_INFO_SUCCESS,
@@ -384,7 +372,7 @@ export const saveP4000asSaksbehandler = (aktoerId: string, file: string): Functi
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO, file: 'PINFOSB.json' }),
     payload: file,
-    expectedPayload: sampleP4000info,
+    expectedPayload: mockP4000info,
     context: { notification: false },
     type: {
       request: types.BUC_SAVE_PINFOSB_REQUEST,

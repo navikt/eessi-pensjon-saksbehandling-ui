@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
-import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
+import { ReactComponent as VeilederSVG } from 'assets/images/NavPensjonVeileder.svg'
 import './VarslerPanel.css'
 
 const mapState = /* istanbul ignore next */ (state: State) => ({

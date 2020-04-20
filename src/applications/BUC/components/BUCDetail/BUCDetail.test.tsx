@@ -2,8 +2,8 @@ import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import mockBucs from 'mocks/buc/bucs'
+import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 import BUCDetail, { BUCDetailProps, BUCDetailSelector } from './BUCDetail'
 
@@ -14,8 +14,8 @@ const defaultSelector: BUCDetailSelector = {
 
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   let wrapper: ReactWrapper
-  const buc: Buc = sampleBucs[0] as Buc
-  const bucInfo: BucInfo = (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId]
+  const buc: Buc = mockBucs()[0] as Buc
+  const bucInfo: BucInfo = (mockBucsInfo as BucsInfo).bucs['' + buc.caseId]
   const initialMockProps: BUCDetailProps = {
     buc: buc,
     bucInfo: bucInfo

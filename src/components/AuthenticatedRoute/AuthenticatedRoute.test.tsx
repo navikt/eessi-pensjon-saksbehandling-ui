@@ -3,7 +3,7 @@ import * as routes from 'constants/routes'
 import { mount, ReactWrapper } from 'enzyme'
 import { createBrowserHistory, Location } from 'history'
 import React from 'react'
-import { RouteProps, Router } from 'react-router'
+import { RouteProps, Router } from 'react-router-dom'
 import { stageSelector } from 'setupTests'
 import { AuthenticatedRoute, AuthenticatedRouteSelector } from './AuthenticatedRoute'
 

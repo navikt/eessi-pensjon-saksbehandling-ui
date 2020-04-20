@@ -1,11 +1,11 @@
 import { Buc, Sed } from 'declarations/buc'
 import Mustache from 'mustache'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import * as BUCUtils from './BUCUtils'
 
 describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
   const t = jest.fn((label, vars) => Mustache.render(label, vars))
-  const sed = sampleBucs[0].seds![0]
+  const sed = mockBucs()[0].seds![0]
 
   it('getBucTypeLabel()', () => {
     expect(BUCUtils.getBucTypeLabel({

@@ -1,13 +1,13 @@
 import { JoarkFiles } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleJoarkReduced from 'resources/tests/sampleJoarkReduced'
+import mockJoarkReduced from 'mocks/joark/joarkReduced'
 import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSender'
 
 describe('applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SEDAttachmentSenderProps = {
-    allAttachments: sampleJoarkReduced as JoarkFiles,
+    allAttachments: mockJoarkReduced as JoarkFiles,
     attachmentsError: false,
     className: 'mock-sedAttachmentSender',
     initialStatus: 'inprogress',

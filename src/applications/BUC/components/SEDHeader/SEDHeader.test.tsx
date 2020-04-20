@@ -1,7 +1,7 @@
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import { stageSelector } from 'setupTests'
 import SEDHeader, { SEDHeaderProps, SEDHeaderSelector } from './SEDHeader'
 
@@ -10,7 +10,7 @@ const defaultSelector: SEDHeaderSelector = {
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
-  const buc: Buc = sampleBucs[0]
+  const buc: Buc = mockBucs()[0]
   const sed: Sed = buc.seds![0]
   sed.status = 'received'
   const initialMockProps: SEDHeaderProps = {

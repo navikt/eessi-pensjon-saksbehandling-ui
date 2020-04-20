@@ -1,11 +1,11 @@
 import * as types from 'constants/actionTypes'
-import * as storage from 'constants/storage'
 import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import mockGetStorageFile from 'mocks/storage/getStorageFile'
+import mockListStorageFiles from 'mocks/storage/listStorageFiles'
 import { Action } from 'redux'
-import { Varsler } from 'widgets/Varsler/VarslerPanel'
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -24,29 +24,12 @@ export const closeStorageModal = (): Action => ({
   type: types.STORAGE_MODAL_CLOSE
 })
 
-const mockListStorageFiles = /* istanbul ignore next */ (userId: string, namespace: string): Array<string> => {
-  if (namespace === storage.NAMESPACE_PINFO) {
-    return [userId + '___' + namespace + '___' + storage.FILE_PINFO]
-  }
-  if (namespace === storage.NAMESPACE_VARSLER + '___123') {
-    return [
-      userId + '___' + namespace + '___2019-02-02Z00:00:00',
-      userId + '___' + namespace + '___2019-02-27Z00:00:00',
-      userId + '___' + namespace + '___2019-03-10Z00:00:00',
-      userId + '___' + namespace + '___2019-03-22Z00:00:00',
-      userId + '___' + namespace + '___2019-04-01Z00:00:00',
-      userId + '___' + namespace + '___2019-06-15Z00:00:00'
-    ]
-  }
-  return []
-}
-
 export const listStorageFiles = ({ userId, namespace }: StorageParams, context?: any): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     context: context || { notification: true },
-    expectedPayload: /* istanbul ignore next */ () => mockListStorageFiles(userId, namespace),
+    expectedPayload: mockListStorageFiles(userId, namespace),
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,
@@ -59,17 +42,7 @@ export const getStorageFile = ({ userId, namespace, file }: StorageParams, conte
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
-    expectedPayload: /* istanbul ignore next */ (): Varsler | undefined => {
-      if (namespace === storage.NAMESPACE_VARSLER) {
-        const names = ['Ola Nordmenn', 'Kari Olsen', 'Bjørn Knutsen', 'Are Petersen', 'Harald Eide', 'Ragnhild Dahl']
-        return {
-          tittel: 'E207',
-          fulltnavn: names[Math.floor(Math.random() * names.length)],
-          timestamp: file ? file.replace('123___', '') : '-'
-        }
-      }
-      return undefined
-    },
+    expectedPayload: mockGetStorageFile(namespace, file),
     context: context || { notification: true },
     type: {
       request: types.STORAGE_GET_REQUEST,

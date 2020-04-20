@@ -1,4 +1,6 @@
-export default [
+import _ from 'lodash'
+
+const mockBuc = [
   {
     type: 'P_BUC_01',
     caseId: '600891',
@@ -3475,3 +3477,7 @@ export default [
     error: 'Rina serverfeil, kan også skyldes ugyldig input, {"status":"INTERNAL_SERVER_ERROR","timestamp":"23-10-2019 15:48:30","messages":["500 null","{\\"stack\\":\\"\\",\\"error_description\\":\\"The user with userName:[Z990638] is not authorised\\",\\"error\\":\\"Cannot get case\\"}"]}'
   }
 ]
+
+const bucs = () => _.cloneDeep(mockBuc)
+
+export default bucs

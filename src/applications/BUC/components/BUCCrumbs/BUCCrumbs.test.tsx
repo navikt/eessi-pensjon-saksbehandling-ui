@@ -1,16 +1,13 @@
-import { Bucs } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import BUCCrumbs, { BUCCrumbsProps } from './BUCCrumbs'
-
-const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
 
 describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCCrumbsProps = {
-    bucs: mockBucs,
+    bucs: _.keyBy(mockBucs(), 'caseId'),
     currentBuc: '195440',
     mode: 'buclist',
     showLastLink: true,
@@ -61,7 +58,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   })
 
   it('Goes to BUC Edit when in New SED mode', () => {
-    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' currentBuc={sampleBucs[0].caseId} />)
+    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' currentBuc={mockBucs()[0].caseId} />)
     wrapper.find('a[title="buc:buc-P_BUC_01"]').simulate('click')
     expect(initialMockProps.setMode).toBeCalledWith('bucedit')
   })

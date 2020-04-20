@@ -14,17 +14,31 @@ jest.mock('actions/ui', () => ({
   toggleSnow: jest.fn()
 }))
 
+const mockHistoryPush = jest.fn()
+
+jest.mock('react-router-dom', () => {
+  const rr = jest.requireActual('react-router-dom')
+  return {
+    ...rr,
+    useHistory: () => ({
+      push: mockHistoryPush
+    }),
+    useLocation: () => ({
+      pathname: '/mockPathname'
+    })
+  }
+})
+
 describe('components/Header', () => {
   let wrapper: ReactWrapper
   const initialMockProps: HeaderProps = {
-    username: 'testUser',
-    history: {
-      push: jest.fn()
-    }
+    username: 'testUser'
   }
 
   beforeEach(() => {
-    wrapper = mount(<Header {...initialMockProps} />)
+    wrapper = mount(
+      <Header {...initialMockProps} />
+    )
   })
 
   afterEach(() => {
@@ -40,7 +54,7 @@ describe('components/Header', () => {
     (clearData as jest.Mock).mockReset()
     wrapper.find('#c-topHeader__logo-link').hostNodes().simulate('click')
     expect(clearData).toHaveBeenCalled()
-    expect(initialMockProps.history.push).toHaveBeenCalledWith({
+    expect(mockHistoryPush).toHaveBeenCalledWith({
       pathname: routes.ROOT,
       search: window.location.search
     })

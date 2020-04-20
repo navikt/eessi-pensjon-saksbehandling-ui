@@ -8,7 +8,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import NavLogoTransparent from 'resources/images/NavLogoTransparent'
+import NavLogoTransparent from 'assets/images/NavLogoTransparent'
 import './Header.css'
 
 export interface HeaderProps {

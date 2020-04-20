@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import { JoarkDoc, JoarkPoster } from 'declarations/joark'
 import _ from 'lodash'
-import sampleJoarkRaw from 'resources/tests/sampleJoarkRaw'
+import mockJoarkRaw from 'mocks/joark/joarkRaw'
 import joarkReducer, { initialJoarkState } from './joark'
 
 describe('reducers/joark', () => {
@@ -69,12 +69,12 @@ describe('reducers/joark', () => {
     }
   }]
 
-  it('JOARK_LIST_SUCCESS with sampleJoarkRaw', () => {
+  it('JOARK_LIST_SUCCESS with mockJoarkRaw', () => {
     const generatedState = joarkReducer(initialJoarkState, {
       type: types.JOARK_LIST_SUCCESS,
-      payload: sampleJoarkRaw.mockdata
+      payload: mockJoarkRaw.mockdata
     })
-    const expectedResponseSize = sampleJoarkRaw.mockdata.data.dokumentoversiktBruker.journalposter.map((post: JoarkPoster) => {
+    const expectedResponseSize = mockJoarkRaw.mockdata.data.dokumentoversiktBruker.journalposter.map((post: JoarkPoster) => {
       return post.dokumenter.map((doc: JoarkDoc) => {
         return !_.isEmpty(doc.dokumentvarianter) ? doc.dokumentvarianter[0] : undefined
       })

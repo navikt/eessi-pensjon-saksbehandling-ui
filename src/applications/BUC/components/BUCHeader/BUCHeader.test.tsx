@@ -2,8 +2,8 @@ import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import mockBucs from 'mocks/buc/bucs'
+import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 import BucHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 
@@ -16,11 +16,11 @@ const defaultSelector: BUCHeaderSelector = {
 
 describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   let wrapper: ReactWrapper
-  const buc: Buc = sampleBucs[0]
+  const buc: Buc = mockBucs()[0]
   buc.deltakere = buc.institusjon
   const initialMockProps: BUCHeaderProps = {
     buc: buc,
-    bucInfo: (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId],
+    bucInfo: (mockBucsInfo as BucsInfo).bucs['' + buc.caseId],
     onBUCEdit: jest.fn()
   }
 

@@ -3,7 +3,8 @@ import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import { ActionWithPayload, ThunkResult } from 'eessi-pensjon-ui/dist/declarations/types'
 import { Action, ActionCreator } from 'redux'
-import samplePerson from 'resources/tests/samplePerson'
+import mockPerson from 'mocks/app/person'
+import mockUser from 'mocks/app/user'
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -47,14 +48,7 @@ export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (): Th
   return api.call({
     url: urls.API_USERINFO_URL,
     cascadeFailureError: true,
-    expectedPayload: {
-      subject: 'demoSaksbehandlerUser',
-      role: 'SAKSBEHANDLER',
-      allowed: true,
-      features: {
-        P5000_VISIBLE: true
-      }
-    },
+    expectedPayload: mockUser,
     type: {
       request: types.APP_USERINFO_REQUEST,
       success: types.APP_USERINFO_SUCCESS,
@@ -67,7 +61,7 @@ export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (): Th
 export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
-    expectedPayload: samplePerson,
+    expectedPayload: mockPerson,
     type: {
       request: types.APP_PERSONINFO_REQUEST,
       success: types.APP_PERSONINFO_SUCCESS,

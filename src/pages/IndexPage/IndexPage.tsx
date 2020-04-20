@@ -125,7 +125,6 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   const { username }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
   const { t } = useTranslation()
 
-  
   const DivWithLinks = styled.div`
      padding: 0.5rem 2rem;
      background-color: #E9E7E7;

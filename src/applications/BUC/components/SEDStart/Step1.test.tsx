@@ -2,15 +2,15 @@ import { Bucs } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import Step1, { Step1Props } from './Step1'
 
 describe('applications/BUC/components/SEDStart/Step1', () => {
   let wrapper: ReactWrapper
-  const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
+  const _mockBucs: Bucs = _.keyBy(mockBucs(), 'caseId')
   const initialMockProps: Step1Props = {
     _attachments: {},
-    buc: mockBucs['195440'],
+    buc: _mockBucs['195440'],
     _countries: [],
     countryList: [],
     _institutions: [],

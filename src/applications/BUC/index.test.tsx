@@ -3,8 +3,8 @@ import { BUCIndex, BUCIndexProps, BUCIndexSelector } from 'applications/BUC/inde
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import mockBucs from 'mocks/buc/bucs'
+import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 
 jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => () => (<div className='a-buc-sednew' />))
@@ -37,13 +37,13 @@ jest.mock('actions/buc', () => ({
   getTagList: jest.fn()
 }))
 
-const mockBucs = _.keyBy(sampleBucs, 'caseId')
+const _mockBucs = _.keyBy(mockBucs(), 'caseId')
 const mockAvdodBucs = {} as any
-Object.keys(mockBucs).forEach(bucId => {
-  delete mockBucs[bucId].institusjon
-  if (mockBucs[bucId].type === 'P_BUC_02') {
-    mockAvdodBucs[bucId] = _.cloneDeep(mockBucs[bucId])
-    delete mockBucs[bucId]
+Object.keys(_mockBucs).forEach(bucId => {
+  delete _mockBucs[bucId].institusjon
+  if (_mockBucs[bucId].type === 'P_BUC_02') {
+    mockAvdodBucs[bucId] = _.cloneDeep(_mockBucs[bucId])
+    delete _mockBucs[bucId]
   }
 })
 
@@ -51,8 +51,8 @@ const defaultSelector: BUCIndexSelector = {
   aktoerId: '123',
   avdodfnr: undefined,
   avdodBucs: mockAvdodBucs,
-  bucs: mockBucs,
-  bucsInfo: sampleBucsInfo,
+  bucs: _mockBucs,
+  bucsInfo: mockBucsInfo,
   currentBuc: '195440',
   loading: {
     gettingBUCs: false
@@ -117,7 +117,7 @@ describe('applications/BUC/index', () => {
     stageSelector(defaultSelector, {})
     wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
     // -1 as there is one ErrorBuc in mockBucs
-    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs).length + Object.keys(mockAvdodBucs).length - 1)
+    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs()).length - 1 + Object.keys(mockAvdodBucs).length - 1)
   })
 
   it('UseEffect: when getting BUCs, set mode to buclist', () => {

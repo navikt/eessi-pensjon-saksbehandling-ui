@@ -7,7 +7,7 @@ import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Route, RouteProps } from 'react-router'
+import { Redirect, Route, RouteProps } from 'react-router-dom'
 import './AuthenticatedRoute.css'
 
 const mapState = (state: State): AuthenticatedRouteSelector => ({

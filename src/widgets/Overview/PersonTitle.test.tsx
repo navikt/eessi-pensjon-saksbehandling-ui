@@ -1,13 +1,13 @@
 import React from 'react'
 import PersonTitle, { PersonTitleProps } from './PersonTitle'
 import { mount, ReactWrapper } from 'enzyme'
-import samplePerson from 'resources/tests/samplePerson'
+import mockPerson from 'mocks/app/person'
 
 describe('widgets/Overview/PersonTitle', () => {
   let wrapper: ReactWrapper
   const initialMockProps: PersonTitleProps = {
     gettingPersonInfo: false,
-    person: samplePerson.person
+    person: mockPerson.person
   }
 
   beforeEach(() => {
@@ -41,16 +41,16 @@ describe('widgets/Overview/PersonTitle', () => {
   })
 
   it('Renders different person icons', () => {
-    samplePerson.person.kjoenn.kjoenn.value = 'M'
-    wrapper.setProps({ person: samplePerson.person })
+    mockPerson.person.kjoenn.kjoenn.value = 'M'
+    wrapper.setProps({ person: mockPerson.person })
     expect(wrapper.find('Icons').props().kind).toEqual('nav-man-icon')
 
-    samplePerson.person.kjoenn.kjoenn.value = 'X'
-    wrapper.setProps({ person: samplePerson.person })
+    mockPerson.person.kjoenn.kjoenn.value = 'X'
+    wrapper.setProps({ person: mockPerson.person })
     expect(wrapper.find('Icons').props().kind).toEqual('nav-unknown-icon')
 
-    samplePerson.person.kjoenn.kjoenn.value = 'K'
-    wrapper.setProps({ person: samplePerson.person })
+    mockPerson.person.kjoenn.kjoenn.value = 'K'
+    wrapper.setProps({ person: mockPerson.person })
     expect(wrapper.find('Icons').props().kind).toEqual('nav-woman-icon')
   })
 })

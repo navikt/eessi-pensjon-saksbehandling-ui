@@ -2,20 +2,20 @@ import { Sed, Seds } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import SEDP5000, { SEDP5000Props } from './SEDP5000'
-import sampleSedP50001 from 'resources/tests/sampleSedP50001'
-import sampleSedP50002 from 'resources/tests/sampleSedP50002'
+import mockSedP50001 from 'mocks/buc/sed_P5000_1'
+import mockSedP50002 from 'mocks/buc/sed_P5000_2'
 
 describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
   let wrapper: ReactWrapper
 
   const initialMockProps: SEDP5000Props = {
     locale: 'nb',
-    seds: _.filter(sampleBucs[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
+    seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
     sedContent: {
-      '60578cf8bf9f45a7819a39987c6c8fd4': sampleSedP50001,
-      '50578cf8bf9f45a7819a39987c6c8fd4': sampleSedP50002
+      '60578cf8bf9f45a7819a39987c6c8fd4': mockSedP50001,
+      '50578cf8bf9f45a7819a39987c6c8fd4': mockSedP50002
     }
   }
 

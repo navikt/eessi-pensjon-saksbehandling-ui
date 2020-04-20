@@ -2,7 +2,7 @@ import { getPreviewJoarkFile, listJoarkFiles } from 'actions/joark'
 import { JoarkDoc, JoarkFile, JoarkPoster } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleJoark from 'resources/tests/sampleJoarkRaw'
+import mockJoark from 'mocks/joark/joarkRaw'
 import { stageSelector } from 'setupTests'
 import { JoarkBrowser, JoarkBrowserProps, JoarkBrowserSelector } from './JoarkBrowser'
 import _ from 'lodash'
@@ -13,7 +13,7 @@ jest.mock('actions/joark', () => ({
 }))
 
 const files: Array<JoarkFile> = []
-sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter.forEach((post: JoarkPoster) => {
+mockJoark.mockdata.data.dokumentoversiktBruker.journalposter.forEach((post: JoarkPoster) => {
   post.dokumenter.forEach((doc: JoarkDoc) => {
     if (!_.isEmpty(doc.dokumentvarianter)) {
       files.push({

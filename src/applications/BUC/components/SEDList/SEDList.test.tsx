@@ -2,7 +2,7 @@ import { SEDHeaderSelector } from 'applications/BUC/components/SEDHeader/SEDHead
 import { Seds } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import { stageSelector } from 'setupTests'
 import SEDList, { SEDListProps } from './SEDList'
 
@@ -13,10 +13,10 @@ const defaultSelector: SEDHeaderSelector = {
 describe('applications/BUC/components/SEDList/SEDList', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SEDListProps = {
-    buc: sampleBucs[0],
+    buc: mockBucs()[0],
     maxSeds: 99,
     onSEDNew: jest.fn(),
-    seds: (sampleBucs[0].seds as Seds)
+    seds: (mockBucs()[0].seds as Seds)
   }
 
   beforeAll(() => {

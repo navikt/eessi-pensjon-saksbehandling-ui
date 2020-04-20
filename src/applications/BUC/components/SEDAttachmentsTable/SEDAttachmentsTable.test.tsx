@@ -1,14 +1,14 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleJoarkReduced from 'resources/tests/sampleJoarkReduced'
+import mockJoarkReduced from 'mocks/joark/joarkReduced'
 import SEDAttachmentsTable, { SEDAttachmentsTableProps } from './SEDAttachmentsTable'
 
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SEDAttachmentsTableProps = {
     attachments: {
-      joark: [sampleJoarkReduced[0]],
-      sed: [sampleJoarkReduced[2]]
+      joark: [mockJoarkReduced[0]],
+      sed: [mockJoarkReduced[2]]
     }
   }
 

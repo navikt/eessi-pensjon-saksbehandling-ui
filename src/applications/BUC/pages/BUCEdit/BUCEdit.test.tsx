@@ -1,8 +1,8 @@
-import { Bucs, BucsInfo, Tags } from 'declarations/buc'
+import { BucsInfo, Tags } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
+import mockBucs from 'mocks/buc/bucs'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
 import { stageSelector } from 'setupTests'
 import BUCEdit, { BUCEditProps } from './BUCEdit'
 
@@ -14,10 +14,9 @@ const defaultSelector = {
 
 describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   let wrapper: ReactWrapper
-  const mockBucs: Bucs = _.keyBy(sampleBucs, 'caseId')
   const initialMockProps: BUCEditProps = {
     aktoerId: '123',
-    bucs: mockBucs,
+    bucs: _.keyBy(mockBucs(), 'caseId'),
     currentBuc: '195440',
     setMode: jest.fn()
   }

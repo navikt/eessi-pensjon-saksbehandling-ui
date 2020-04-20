@@ -1,13 +1,13 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import samplePerson from 'resources/tests/samplePerson'
+import mockPerson from 'mocks/app/person'
 import PersonPanel, { PersonPanelProps } from './PersonPanel'
 
 describe('widgets/Overview/PersonPanel', () => {
   let wrapper: ReactWrapper
   const initialMockProps: PersonPanelProps = {
     highContrast: false,
-    person: samplePerson.person,
+    person: mockPerson.person,
     locale: 'nb'
   }
 
@@ -47,7 +47,7 @@ describe('widgets/Overview/PersonPanel', () => {
   it('Empty value renders not registered', () => {
     wrapper.setProps({
       person: {
-        ...samplePerson.person,
+        ...mockPerson.person,
         bostedsadresse: null,
         foedselsdato: null
       }
@@ -63,7 +63,7 @@ describe('widgets/Overview/PersonPanel', () => {
   it('gets dates converted properly', () => {
     wrapper.setProps({
       person: {
-        ...samplePerson.person,
+        ...mockPerson.person,
         sivilstand: {
           sivilstand: {
             value: 'MOCK',

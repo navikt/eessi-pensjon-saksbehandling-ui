@@ -4,7 +4,7 @@ import { Buc } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import { stageSelector } from 'setupTests'
 import SEDBody, { SEDBodyProps } from './SEDBody'
 
@@ -24,7 +24,7 @@ jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
 
 describe('applications/BUC/components/SEDBody/SEDBody', () => {
   let wrapper: ReactWrapper
-  const buc: Buc = sampleBucs[0]
+  const buc: Buc = mockBucs()[0]
   const initialMockProps: SEDBodyProps = {
     aktoerId: '123',
     buc: buc,

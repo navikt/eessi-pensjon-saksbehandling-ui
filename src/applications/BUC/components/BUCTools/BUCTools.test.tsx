@@ -2,10 +2,10 @@ import { getTagList, saveBucsInfo, getSed } from 'actions/buc'
 import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
-import sampleSedP50001 from 'resources/tests/sampleSedP50001'
-import sampleSedP50002 from 'resources/tests/sampleSedP50002'
+import mockBucs from 'mocks/buc/bucs'
+import mockBucsInfo from 'mocks/buc/bucsInfo'
+import mockSedP50001 from 'mocks/buc/sed_P5000_1'
+import mockSedP50002 from 'mocks/buc/sed_P5000_2'
 import { stageSelector } from 'setupTests'
 import BUCTools, { BUCToolsProps } from './BUCTools'
 
@@ -17,11 +17,11 @@ jest.mock('actions/buc', () => ({
 
 const defaultSelector = {
   tagList: ['mockTag1', 'mockTag2'],
-  bucsInfo: (sampleBucsInfo as BucsInfo),
+  bucsInfo: (mockBucsInfo as BucsInfo),
   loading: {},
   sedContent: {
-    '60578cf8bf9f45a7819a39987c6c8fd4': sampleSedP50001,
-    '50578cf8bf9f45a7819a39987c6c8fd4': sampleSedP50002
+    '60578cf8bf9f45a7819a39987c6c8fd4': mockSedP50001,
+    '50578cf8bf9f45a7819a39987c6c8fd4': mockSedP50002
   },
   features: {
     P5000_VISIBLE: true
@@ -30,8 +30,8 @@ const defaultSelector = {
 
 describe('applications/BUC/components/BUCTools/BUCTools', () => {
   let wrapper: ReactWrapper
-  const buc: Buc = sampleBucs[0]
-  const bucInfo: BucInfo = (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId]
+  const buc: Buc = mockBucs()[0]
+  const bucInfo: BucInfo = (mockBucsInfo as BucsInfo).bucs['' + buc.caseId]
   const initialMockProps: BUCToolsProps = {
     aktoerId: '123',
     buc: buc,
@@ -100,7 +100,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
       buc: buc,
       comment: bucInfo.comment,
       tags: ['tag-vip'],
-      bucsInfo: (sampleBucsInfo as BucsInfo)
+      bucsInfo: (mockBucsInfo as BucsInfo)
     })
   })
 

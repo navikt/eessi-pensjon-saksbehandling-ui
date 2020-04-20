@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import sampleP4000info from 'resources/tests/sampleP4000info'
-import targetP4000info from 'resources/tests/targetP4000info'
+import mockP4000info from 'mocks/P4000/P4000info'
+import mockTargetP4000info from 'mocks/P4000/targetP4000info'
 import { T } from 'declarations/types'
 import { Period, PeriodDate } from 'declarations/period'
 import P4000Payload from './P4000Payload'
@@ -23,7 +23,7 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
   })
 
   it('Initializes', () => {
-    const mockPinfo = [sampleP4000info.stayAbroad[0]] as Array<Period>
+    const mockPinfo = [mockP4000info.stayAbroad[0]] as Array<Period>
     util = new P4000Payload(mockPinfo, t)
     expect(util.pinfo).toEqual(mockPinfo)
   })
@@ -96,22 +96,22 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
   })
 
   it('handleWorkPeriod()', () => {
-    const sourcePeriod: Period = _.find(sampleP4000info.stayAbroad, it => it.type === 'work')!
-    const targetPeriod = targetP4000info.trygdetid.ansattSelvstendigPerioder[0]
+    const sourcePeriod: Period = _.find(mockP4000info.stayAbroad, it => it.type === 'work')!
+    const targetPeriod = mockTargetP4000info.trygdetid.ansattSelvstendigPerioder[0]
     const transformedPeriod = util.handleWorkPeriod(sourcePeriod!)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleHomePeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'home')!
-    const targetPeriod = targetP4000info.trygdetid.boPerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'home')!
+    const targetPeriod = mockTargetP4000info.trygdetid.boPerioder[0]
     const transformedPeriod = util.handleHomePeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleChildPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'child')!
-    const targetPeriod = targetP4000info.trygdetid.barnepassPerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'child')!
+    const targetPeriod = mockTargetP4000info.trygdetid.barnepassPerioder[0]
     const transformedPeriod = util.handleChildPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
@@ -122,54 +122,54 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - with payload', () 
   const t = jest.fn(t => t)
 
   beforeAll(() => {
-    util = new P4000Payload(sampleP4000info.stayAbroad, t)
+    util = new P4000Payload(mockP4000info.stayAbroad, t)
   })
 
   it('handleLearnPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'learn')!
-    const targetPeriod = targetP4000info.trygdetid.opplaeringPerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'learn')!
+    const targetPeriod = mockTargetP4000info.trygdetid.opplaeringPerioder[0]
     const transformedPeriod = util.handleLearnPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleBirthPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'birth')!
-    const targetPeriod = targetP4000info.trygdetid.foedselspermisjonPerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'birth')!
+    const targetPeriod = mockTargetP4000info.trygdetid.foedselspermisjonPerioder[0]
     const transformedPeriod = util.handleBirthPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleVoluntaryPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'voluntary')!
-    const targetPeriod = targetP4000info.trygdetid.frivilligPerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'voluntary')!
+    const targetPeriod = mockTargetP4000info.trygdetid.frivilligPerioder[0]
     const transformedPeriod = util.handleVoluntaryPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleMilitaryPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'military')!
-    const targetPeriod = targetP4000info.trygdetid.forsvartjenestePerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'military')!
+    const targetPeriod = mockTargetP4000info.trygdetid.forsvartjenestePerioder[0]
     const transformedPeriod = util.handleMilitaryPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleDailyPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'daily')!
-    const targetPeriod = targetP4000info.trygdetid.arbeidsledigPerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'daily')!
+    const targetPeriod = mockTargetP4000info.trygdetid.arbeidsledigPerioder[0]
     const transformedPeriod = util.handleDailyPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleSickPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'sick')!
-    const targetPeriod = targetP4000info.trygdetid.sykePerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'sick')!
+    const targetPeriod = mockTargetP4000info.trygdetid.sykePerioder[0]
     const transformedPeriod = util.handleSickPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
 
   it('handleOtherPeriod()', () => {
-    const sourcePeriod: Period = _(sampleP4000info.stayAbroad).find(it => it.type === 'other')!
-    const targetPeriod = targetP4000info.trygdetid.andrePerioder[0]
+    const sourcePeriod: Period = _(mockP4000info.stayAbroad).find(it => it.type === 'other')!
+    const targetPeriod = mockTargetP4000info.trygdetid.andrePerioder[0]
     const transformedPeriod = util.handleOtherPeriod(sourcePeriod)
     expect(transformedPeriod).toEqual(targetPeriod)
   })
@@ -180,12 +180,12 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - with payload', () 
   const t = jest.fn(t => t)
 
   beforeAll(() => {
-    util = new P4000Payload(sampleP4000info.stayAbroad, t)
+    util = new P4000Payload(mockP4000info.stayAbroad, t)
   })
 
   it('generatePayload', () => {
     const result = util.generatePayload()
     expect(result).toHaveProperty('periodeInfo')
-    expect(result.periodeInfo).toEqual(targetP4000info.trygdetid)
+    expect(result.periodeInfo).toEqual(mockTargetP4000info.trygdetid)
   })
 })

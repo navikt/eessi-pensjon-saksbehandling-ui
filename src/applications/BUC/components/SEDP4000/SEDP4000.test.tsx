@@ -1,7 +1,7 @@
 import { listP4000 } from 'actions/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleP4000info from 'resources/tests/sampleP4000info'
+import mockP4000info from 'mocks/P4000/P4000info'
 import { stageSelector } from 'setupTests'
 import { SEDP4000, SEDP4000Props } from './SEDP4000'
 jest.mock('./Period/Period', () => () => <div className='mock-period' />)
@@ -66,8 +66,8 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
 
   it('Has proper HTML structure: mounted state', () => {
     stageSelector(defaultSelector, {
-      p4000list: ['sampleP4000file'],
-      p4000info: sampleP4000info
+      p4000list: ['mockP4000file'],
+      p4000info: mockP4000info
     })
     wrapper = mount(<SEDP4000 {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-sedp4000')).toBeTruthy()

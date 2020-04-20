@@ -5,13 +5,13 @@ import SEDListHeader, {
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import { stageSelector } from 'setupTests'
 
 const defaultSelector: SEDListSelector = { locale: 'nb' }
 
 describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
-  const buc: Buc = sampleBucs[0] as Buc
+  const buc: Buc = mockBucs()[0] as Buc
   const sed: Sed = buc.seds![0]
   sed.status = 'received'
   const initialMockProps: SEDListHeaderProps = {

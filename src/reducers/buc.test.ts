@@ -1,8 +1,10 @@
 import * as types from 'constants/actionTypes'
 import { Buc, BucsInfo, Sed } from 'declarations/buc'
 import _ from 'lodash'
-import sampleBucs from 'resources/tests/sampleBucs'
+import mockBucs from 'mocks/buc/bucs'
 import bucReducer, { initialBucState } from './buc'
+
+const mockBuc: Buc = mockBucs()[0]
 
 describe('reducers/buc', () => {
   it('APP_CLEAR_DATA', () => {
@@ -123,19 +125,19 @@ describe('reducers/buc', () => {
       bucReducer({
         ...initialBucState,
         bucs: {
-          123: sampleBucs[0] as Buc
+          123: mockBuc
         }
       }, {
         type: types.BUC_GET_SINGLE_BUC_SUCCESS,
         payload: [{
-          caseId: sampleBucs[0].caseId,
-          type: sampleBucs[0].type
+          caseId: mockBucs()[0].caseId,
+          type: mockBucs()[0].type
         }]
       })
     ).toEqual({
       ...initialBucState,
       bucs: {
-        123: sampleBucs[0]
+        123: mockBuc
       }
     })
   })
@@ -173,7 +175,7 @@ describe('reducers/buc', () => {
   })
 
   it('BUC_GET_BUCS_SUCCESS', () => {
-    const sampleBuc = {
+    const mockBuc = {
       caseId: '123456',
       institusjon: [{
         country: 'NO',
@@ -187,11 +189,11 @@ describe('reducers/buc', () => {
         institutionNames: {}
       }, {
         type: types.BUC_GET_BUCS_SUCCESS,
-        payload: [sampleBuc]
+        payload: [mockBuc]
       })
     ).toEqual({
       ...initialBucState,
-      bucs: { 123456: sampleBuc },
+      bucs: { 123456: mockBuc },
       avdodBucs: {},
       institutionNames: {
         'NO:NAVAT07': 'NAV ACCEPTANCE TEST 07'
@@ -204,7 +206,7 @@ describe('reducers/buc', () => {
       bucReducer({
         ...initialBucState,
         bucs: {
-          123: sampleBucs[0] as Buc
+          123: mockBuc
         }
       }, {
         type: types.BUC_GET_BUCS_FAILURE
@@ -216,10 +218,10 @@ describe('reducers/buc', () => {
   })
 
   it('BUC_GET_PARTICIPANTS_SUCCESS', () => {
-    const mockCaseId = sampleBucs[0].caseId
+    const mockCaseId = mockBucs()[0].caseId
     const newState = bucReducer({
       ...initialBucState,
-      bucs: _.keyBy(sampleBucs, 'caseId'),
+      bucs: _.keyBy(mockBucs(), 'caseId'),
       avdodBucs: {}
     }, {
       type: types.BUC_GET_PARTICIPANTS_SUCCESS,
@@ -267,7 +269,7 @@ describe('reducers/buc', () => {
       bucReducer({
         ...initialBucState,
         avdodBucs: {
-          123: sampleBucs[0] as Buc
+          123: mockBuc
         }
       }, {
         type: types.BUC_GET_AVDOD_BUCS_FAILURE

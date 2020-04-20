@@ -4,7 +4,8 @@ import * as urls from 'constants/urls'
 import { JoarkFile } from 'declarations/joark'
 import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import _ from 'lodash'
-import sampleJoark from 'resources/tests/sampleJoarkRaw'
+import mockJoarkRaw from 'mocks/joark/joarkRaw'
+import mockJoarkPayload from 'mocks/joark/payload'
 
 const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
@@ -72,7 +73,7 @@ describe('actions/joark', () => {
 
   it('getMockedPayload() in localhost, test environment will not used mocked values', () => {
     const mockJournalpostId = '1'
-    const generatedResult = joarkActions.getMockedPayload(mockJournalpostId)
+    const generatedResult = mockJoarkPayload(mockJournalpostId)
     expect(generatedResult).toEqual(undefined)
   })
 
@@ -82,14 +83,14 @@ describe('actions/joark', () => {
       return { IS_TEST: false }
     })
     const mockJournalpostId = '1'
-    const newJoarkActions = require('actions/joark')
-    const expectedItem = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
-    const generatedResult = newJoarkActions.getMockedPayload(mockJournalpostId)
+    const newMockJoarkPayload = require('mocks/joark/payload').default
+    const expectedItem = _.find(mockJoarkRaw.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
+    const generatedResult = newMockJoarkPayload(mockJournalpostId)
     const tittel = expectedItem ? expectedItem.tittel : ''
     expect(generatedResult).toMatchObject({
       fileName: tittel,
       contentType: 'application/pdf',
-      filInnhold: sampleJoark.files[tittel]
+      filInnhold: mockJoarkRaw.files[tittel]
     })
   })
 })
