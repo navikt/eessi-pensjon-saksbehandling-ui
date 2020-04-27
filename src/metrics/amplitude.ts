@@ -32,6 +32,6 @@ export type AmplitudeLogger = (name: string, values?: object) => void;
 
 export const amplitudeLogger = (name: string, values?: object) => {
   const data = values || {}
-  const key = `eessipensjon.ui.fss.${name}`
-  amplitude.logEvent(key, data)
+  const key = `eessi.pensjon.ui.fss.${name}`
+  amplitude.getInstance().logEvent(key, data)
 }
