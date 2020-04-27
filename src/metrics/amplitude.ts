@@ -8,8 +8,8 @@ export const erProduksjon = () => {
 
 const getApiKey = () => {
   return erProduksjon()
-    ? 'produsjon-apikey'
-    : 'dev-apikey'
+    ? 'a9a60eb3e832909758c46016e1714d3e'
+    : 'feb0ead20059b4be531bfa6e076906ab'
 }
 
 const config = {

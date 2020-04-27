@@ -146,7 +146,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
       <DivWithLinks>
         <Ui.Nav.Lenke
           target='_blank'
-          data-amplitude='rettskilder'
+          data-amplitude='eessi.pensjon.ui.fss.rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
           onClick={linkLogger}
         >
@@ -156,7 +156,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         <SeparatorSpan>•</SeparatorSpan>
         <Ui.Nav.Lenke
           target='_blank'
-          data-amplitude='hjelpe'
+          data-amplitude='eessi.pensjon.ui.fss.hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
           onClick={linkLogger}
         >
