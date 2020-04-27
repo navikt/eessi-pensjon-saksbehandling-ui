@@ -1,6 +1,7 @@
 import TopContainer from 'components/TopContainer/TopContainer'
 import Ui from 'eessi-pensjon-ui'
 import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
+import { linkLogger } from 'metrics/loggers'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -145,7 +146,9 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
       <DivWithLinks>
         <Ui.Nav.Lenke
           target='_blank'
+          data-amplitude='rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
+          onClick={linkLogger}
         >
           <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:lawsource')}
@@ -153,7 +156,9 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         <SeparatorSpan>•</SeparatorSpan>
         <Ui.Nav.Lenke
           target='_blank'
+          data-amplitude='hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
+          onClick={linkLogger}
         >
           <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:help')}
