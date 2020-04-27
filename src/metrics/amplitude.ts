@@ -1,8 +1,6 @@
 import amplitude from 'amplitude-js'
 
-const url = window && window.location && window.location.href
-  ? window.location.href
-  : ''
+const url = window?.location?.href || ''
 
 export const erProduksjon = () => {
   return url.indexOf('www.nav.no') > -1
@@ -26,11 +24,13 @@ const config = {
   }
 }
 
-amplitude.getInstance().init(getApiKey(), undefined, config)
+export const init = () => {
+  amplitude.getInstance().init(getApiKey(), undefined, config)
+}
 
 export type AmplitudeLogger = (name: string, values?: object) => void;
 
-export function amplitudeLogger (name: string, values?: object) {
+export const amplitudeLogger = (name: string, values?: object) => {
   const data = values || {}
   const key = `eessipensjon.ui.fss.${name}`
   amplitude.logEvent(key, data)

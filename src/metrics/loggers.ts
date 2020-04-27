@@ -1,4 +1,4 @@
-import { amplitudeLogger } from './amplitude-utils'
+import { amplitudeLogger } from 'metrics/amplitude'
 
 export const linkLogger = (event: any) => {
   const name = `${event.target.dataset.amplitude}.link.clicked`

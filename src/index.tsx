@@ -4,6 +4,8 @@ import 'react-app-polyfill/ie11'
 import 'react-app-polyfill/ie9'
 import 'regenerator-runtime/runtime'
 
+import * as Sentry from 'metrics/sentry'
+import * as Amplitude from 'metrics/amplitude'
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
 import { IS_PRODUCTION } from 'constants/environment'
 import * as routes from 'constants/routes'
@@ -38,6 +40,9 @@ const store: Store = createStore(combineReducers(reducers), applyMiddleware(thun
 if (!IS_PRODUCTION) {
   var axe = require('react-axe')
   axe(React, ReactDOM, 1000)
+} else {
+  Sentry.init()
+  Amplitude.init()
 }
 
 const renderErrorPage = (type: string) => {

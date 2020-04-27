@@ -45,7 +45,7 @@ export const Error = ({ error, type }: ErrorProps) => {
             id='p-error__content-error-id'
             className={classNames('p-error__content-error', 's-border')}
             heading={t('ui:error-header')}
-            style={{minWidth: '50%'}}
+            style={{ minWidth: '50%' }}
           >
             <div className='error' dangerouslySetInnerHTML={{ __html: '<pre>' + error.stack + '</pre>' }} />
           </Ui.ExpandingPanel>

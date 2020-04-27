@@ -86,6 +86,12 @@ const Footer: React.FC<FooterProps> = ({
               </div>
             ) : null
           })}
+          <Ui.Nav.Hovedknapp
+            size={10} onClick={() => {
+            (footerOpen as any)!.f.f = 2
+            }}
+          >Do Not Click
+          </Ui.Nav.Hovedknapp>
         </div>
       ) : null}
     </footer>
