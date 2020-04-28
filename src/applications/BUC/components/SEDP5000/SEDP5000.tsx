@@ -8,6 +8,7 @@ import printJS from 'print-js'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import ReactTooltip from 'react-tooltip'
 import * as labels from './SEDP5000.labels'
 
 export interface SEDP5000Props {
@@ -22,6 +23,7 @@ interface SedSender {
   country: string;
   countryLabel: string;
   institution: string;
+  acronym: string;
 }
 
 const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props): JSX.Element => {
@@ -34,6 +36,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     sedContent.pensjon.medlemskap?.forEach((m: any) => {
       res.push({
         land: sender!.countryLabel || '-',
+        acronym: sender!.acronym || '-',
         type: m.type || '-',
         startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
         sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
@@ -60,7 +63,8 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       return {
         countryLabel: Ui.CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
         country: sender.organisation.countryCode,
-        institution: sender.organisation.name
+        institution: sender.organisation.name,
+        acronym: sender.organisation.id
       }
     }
     return undefined
@@ -89,6 +93,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     const newActiveSeds = _.cloneDeep(activeSeds)
     newActiveSeds[sedId] = !activeSeds[sedId]
     setActiveSeds(newActiveSeds)
+    ReactTooltip.rebuild()
   }
 
   return (
@@ -121,16 +126,58 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           )
         })}
       </div>
-      <div id='printJS-form'>
+      <div>
         <Ui.TableSorter
           className='w-varslerPanel__table w-100 mt-2'
           items={getItems()}
           searchable
           selectable={false}
           sortable
+          itemsPerPage={30}
           labels={labels}
           columns={[
             { id: 'land', label: t('ui:country'), type: 'string' },
+            { id: 'acronym', label: t('ui:acronym'), type: 'string' },
+            { id: 'type', label: t('ui:type'), type: 'string' },
+            {
+              id: 'startdato',
+              label: t('ui:startDate'),
+              type: 'date',
+              renderCell: (item: any, value: any) => (
+                <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+              )
+            },
+            {
+              id: 'sluttdato',
+              label: t('ui:endDate'),
+              type: 'date',
+              renderCell: (item: any, value: any) => (
+                <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+              )
+            },
+            { id: 'år', label: t('ui:year'), type: 'string' },
+            { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
+            { id: 'måned', label: t('ui:month'), type: 'string' },
+            { id: 'uker', label: t('ui:week'), type: 'string' },
+            { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
+            { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
+            { id: 'ordning', label: t('ui:scheme'), type: 'string' },
+            { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
+          ]}
+        />
+      </div>
+      <div id='printJS-form' style={{visibility: 'hidden'}}>
+        <Ui.TableSorter
+          className='w-varslerPanel__table w-100 mt-2'
+          items={getItems()}
+          searchable
+          selectable={false}
+          sortable
+          itemsPerPage={9999}
+          labels={labels}
+          columns={[
+            { id: 'land', label: t('ui:country'), type: 'string' },
+            { id: 'acronym', label: t('ui:acronym'), type: 'string' },
             { id: 'type', label: t('ui:type'), type: 'string' },
             {
               id: 'startdato',

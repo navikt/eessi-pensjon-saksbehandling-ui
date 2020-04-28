@@ -151,6 +151,21 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         </Ui.Nav.Systemtittel>
       }
     >
+      {features && features.P5000_VISIBLE ? (
+        <div className='mb-3'>
+          <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
+          {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
+          <Ui.Nav.Knapp
+            id='a-buc-c-buctools__p5000-button-id'
+            className='a-buc-c-buctools__p5000-button mb-2'
+            disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
+            spinner={!_.isEmpty(fetchingP5000)}
+            onClick={onGettingP5000sClick}
+          >
+            {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+          </Ui.Nav.Knapp>
+        </div>
+      ) : null}
       <div>
         <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Ui.Nav.Undertittel>
         <div className='mb-3'>
@@ -188,21 +203,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
         </Ui.Nav.Knapp>
       </div>
-      {features && features.P5000_VISIBLE ? (
-        <div className='mb-3'>
-          <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
-          {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
-          <Ui.Nav.Knapp
-            id='a-buc-c-buctools__p5000-button-id'
-            className='a-buc-c-buctools__p5000-button mb-2'
-            disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
-            spinner={!_.isEmpty(fetchingP5000)}
-            onClick={onGettingP5000sClick}
-          >
-            {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
-          </Ui.Nav.Knapp>
-        </div>
-      ) : null}
     </Ui.ExpandingPanel>
   )
 }
