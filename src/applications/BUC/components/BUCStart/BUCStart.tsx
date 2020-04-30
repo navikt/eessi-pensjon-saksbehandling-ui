@@ -14,6 +14,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Option, Validation } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -162,6 +163,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onTagsChange: Function = (tagsList: Array<string>): void => {
     setTags(tagsList)
+    standardLogger('tags', tagsList)
     if (_.isFunction(onTagsChanged)) {
       onTagsChanged(tagsList)
     }
