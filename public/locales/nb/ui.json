@@ -8,7 +8,7 @@
     "error-notInvited-footer" : "Dersom du har spørsmål ta kontakt",
     "error-forbidden-title" : "Du har ikke tilgang til denne siden",
     "error-forbidden-description" : "EESSI-pensjon er en applikasjon for saksbehandlere med utlandsrolle. Du har ikke tilgang til EESSI-løsningen. Vennligst ta kontakt med din identansvarlig.",
-    "error-forbidden-footer" : "Dersom du har spørsmål ta kontakt",
+    "error-forbidden-footer" : "",
     "error-notLogged-title" : "",
     "error-notLogged-description" : "For å komme inn på EESSI-pensjon, må du enten logge inn via brukeroversikt eller pensjonsoversikten.",
     "error-notLogged-footer" : "Dersom du har spørsmål ta kontakt",
