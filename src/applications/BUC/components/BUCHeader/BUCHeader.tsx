@@ -134,6 +134,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         <div className='a-buc-c-bucheader__icons col-sm-4'>
           {!_.isEmpty(flagItems) ? (
             <Ui.FlagList
+              animate={false}
               locale={locale}
               type='circle'
               size='L'

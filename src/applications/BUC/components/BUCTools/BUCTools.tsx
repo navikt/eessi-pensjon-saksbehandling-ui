@@ -189,7 +189,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       <div className='mb-3'>
         <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Ui.Nav.Undertittel>
         <Ui.Nav.Textarea
-          description='comment-textarea'
           id='a-buc-c-buctools__comment-textarea-id'
           className='a-buc-c-buctools__comment-textarea skjemaelement__input'
           label=''

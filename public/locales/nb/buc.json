@@ -336,6 +336,7 @@
   "status-first_new"      : "Tidligere utkast",
   "status-first_sent"     : "Tidligere sendt",
   "status-first_received" : "Tidligere mottatt",
+  "status-first_cancelled" : "Tidligere versjon",
   "status-new"            : "Utkast",
   "status-received"       : "Mottatt",
   "status-sent"           : "Sendt",

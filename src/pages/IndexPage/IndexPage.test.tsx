@@ -1,10 +1,7 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import ReactTooltip from 'react-tooltip'
 import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
-
-ReactTooltip.rebuild = jest.fn()
 
 const defaultSelector: IndexPageSelector = {
   username: 'mockUsername'
@@ -28,9 +25,7 @@ jest.mock('eessi-pensjon-ui', () => {
 
 describe('pages/IndexPage', () => {
   let wrapper: ReactWrapper
-  const initialMockProps: IndexPageProps = {
-    history: {}
-  }
+  const initialMockProps: IndexPageProps = {}
 
   beforeAll(() => {
     stageSelector(defaultSelector, {})
@@ -52,10 +47,5 @@ describe('pages/IndexPage', () => {
   it('IndexPage has proper HTML structure', () => {
     expect(wrapper.exists('.p-indexPage')).toBeTruthy()
     expect(wrapper.exists('.mock-c-dashboard')).toBeTruthy()
-  })
-
-  it('Layout change triggers a tooltip rebuild', () => {
-    wrapper.find('.mock-c-dashboard').simulate('click')
-    expect(ReactTooltip.rebuild).toHaveBeenCalled()
   })
 })

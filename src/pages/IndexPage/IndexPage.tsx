@@ -5,10 +5,10 @@ import { linkLogger } from 'metrics/loggers'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import ReactTooltip from 'react-tooltip'
 import { State } from 'declarations/reducers'
 import * as extraWidgets from 'widgets'
 import styled from 'styled-components'
+import 'rc-tooltip/assets/bootstrap_white.css'
 
 export interface IndexPageProps {
   username?: string;
@@ -136,13 +136,8 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
      padding: 0rem 0.5rem
   `
 
-  const afterLayoutChange = () => {
-    ReactTooltip.rebuild()
-  }
-
   return (
     <TopContainer className='p-indexPage'>
-      <ReactTooltip id='eessi-pensjon-ui-sbs' place='top' type='dark' effect='solid' multiline />
       <DivWithLinks>
         <Ui.Nav.Lenke
           target='_blank'
@@ -171,7 +166,6 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         defaultLayouts={username === 'Z990706' ? defaultLayoutsWithVarsel : defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
-        afterLayoutChange={afterLayoutChange}
       />
     </TopContainer>
   )

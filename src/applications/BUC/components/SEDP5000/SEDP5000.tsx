@@ -8,7 +8,6 @@ import printJS from 'print-js'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ReactTooltip from 'react-tooltip'
 import * as labels from './SEDP5000.labels'
 
 export interface SEDP5000Props {
@@ -93,7 +92,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     const newActiveSeds = _.cloneDeep(activeSeds)
     newActiveSeds[sedId] = !activeSeds[sedId]
     setActiveSeds(newActiveSeds)
-    ReactTooltip.rebuild()
   }
 
   return (
@@ -166,7 +164,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           ]}
         />
       </div>
-      <div id='printJS-form' style={{visibility: 'hidden'}}>
+      <div id='printJS-form' style={{ visibility: 'hidden' }}>
         <Ui.TableSorter
           className='w-varslerPanel__table w-100 mt-2'
           items={getItems()}
