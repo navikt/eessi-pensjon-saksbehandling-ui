@@ -27,6 +27,7 @@ interface SedSender {
 
 const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props): JSX.Element => {
   const { t } = useTranslation()
+  const [itemsPerPage, setItemsPerPage] = useState<number>(25)
   const [activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
 
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
@@ -35,7 +36,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     sedContent.pensjon.medlemskap?.forEach((m: any) => {
       res.push({
         land: sender!.countryLabel || '-',
-        acronym: sender!.acronym || '-',
+        acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
         type: m.type || '-',
         startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
         sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
@@ -96,7 +97,8 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
 
   return (
     <div className='a-buc-c-sedp5000' style={{ minHeight: '500px' }}>
-      <div className='d-flex flex-column'>
+      <div className='d-flex flex-row justify-content-between'>
+        <div className='d-flex flex-column'>
         {Object.keys(activeSeds).map(sedId => {
           const sender: SedSender | undefined = getSedSender(sedId)
           return (
@@ -112,7 +114,13 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                   <span className='ml-1 mr-1'>-</span>
                   {sender ? (
                     <div className='d-flex align-items-center'>
-                      <Ui.Flag type='circle' className='ml-1 mr-1' size='S' country={sender?.country} label={sender?.countryLabel} />
+                      <Ui.Flag
+                        type='circle'
+                        className='ml-1 mr-1'
+                        size='S'
+                        country={sender?.country}
+                        label={sender?.countryLabel}
+                      />
                       <span>{sender?.countryLabel}</span>
                       <span className='ml-1 mr-1'>-</span>
                       <span>{sender?.institution}</span>
@@ -123,6 +131,18 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             />
           )
         })}
+        </div>
+        <Ui.Nav.Select
+          bredde='l'
+          label={t('ui:itemsPerPage')}
+          value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+          onChange={(e:any) => setItemsPerPage( e.target.value === 'all'? 9999 : parseInt(e.target.value, 10))}
+        >
+          <option value='15'>15</option>
+          <option value='20'>20</option>
+          <option value='25'>25</option>
+          <option value='all'>{t('ui:all')}</option>
+        </Ui.Nav.Select>
       </div>
       <div>
         <Ui.TableSorter
@@ -131,7 +151,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           searchable
           selectable={false}
           sortable
-          itemsPerPage={30}
+          itemsPerPage={itemsPerPage}
           labels={labels}
           columns={[
             { id: 'land', label: t('ui:country'), type: 'string' },
@@ -164,7 +184,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           ]}
         />
       </div>
-      <div id='printJS-form' style={{ visibility: 'hidden' }}>
+      <div id='printJS-form' style={{ display: 'none' }}>
         <Ui.TableSorter
           className='w-varslerPanel__table w-100 mt-2'
           items={getItems()}
