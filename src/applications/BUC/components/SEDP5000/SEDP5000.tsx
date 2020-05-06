@@ -35,8 +35,9 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
     const sender = getSedSender(sedId)
-    sedContent.pensjon.medlemskap?.forEach((m: any) => {
+    sedContent.pensjon.medlemskap?.forEach((m: any, i: number) => {
       res.push({
+        key: sedId + '-' + i,
         land: sender!.countryLabel || '-',
         acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
         type: m.type || '-',
@@ -82,19 +83,13 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     return res
   }
 
-  const hasEmptyPeriods = (items: any) => {
+  const hasEmptyPeriods = () => {
     let found = false
-    if (!items) {
-      return found
-    }
-    items.forEach((r: any) => {
-      if (
-        (r.startdato === '-' && r.sluttdato === '-') &&
-        (r.kvartal !== '-' || r.måned !== '-' || r.uker !== '-' || r.dagerEnhet !== '-/-')
-      ) {
+    Object.keys(activeSeds).forEach((key: string) => {
+      if (activeSeds[key] && sedContent[key]?.pensjon?.medlemskapAnnen?.length > 0) {
         found = true
+        return
       }
-      if (found) return
     })
     return found
   }
@@ -115,7 +110,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   }
 
   const items = getItems()
-  const warning = hasEmptyPeriods(items)
+  const warning = hasEmptyPeriods()
 
   return (
     <div className='a-buc-c-sedp5000' style={{ minHeight: '500px' }}>
