@@ -82,6 +82,23 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     return res
   }
 
+  const hasEmptyPeriods = (items: any) => {
+    let found = false
+    if (!items) {
+      return found
+    }
+    items.forEach((r: any) => {
+      if (
+        (r.startdato === '-' && r.sluttdato === '-') &&
+        (r.kvartal !== '-' || r.måned !== '-' || r.uker !== '-' || r.dagerEnhet !== '-/-')
+      ) {
+        found = true
+      }
+      if (found) return
+    })
+    return found
+  }
+
   const printOut = () => {
     printJS({
       printable: 'printJS-form',
@@ -98,6 +115,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   }
 
   const items = getItems()
+  const warning = hasEmptyPeriods(items)
 
   return (
     <div className='a-buc-c-sedp5000' style={{ minHeight: '500px' }}>
@@ -136,7 +154,9 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           )
         })}
         </div>
-        <Ui.Nav.Select
+        <div className='d-flex'>
+          { warning ? <Ui.Alert className='mr-4' type='client' fixed={false} status='WARNING' message={t('buc:form-P5000-warning')}/> : null }
+          <Ui.Nav.Select
           bredde='l'
           label={t('ui:itemsPerPage')}
           value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
@@ -147,6 +167,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           <option value='25'>25</option>
           <option value='all'>{t('ui:all')}</option>
         </Ui.Nav.Select>
+        </div>
       </div>
       <div>
         <Ui.TableSorter
