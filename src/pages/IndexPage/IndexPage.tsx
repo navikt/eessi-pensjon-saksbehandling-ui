@@ -1,3 +1,4 @@
+import { BUCMode } from 'applications/BUC'
 import TopContainer from 'components/TopContainer/TopContainer'
 import Ui from 'eessi-pensjon-ui'
 import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
@@ -115,15 +116,17 @@ const defaultConfig = {
 const allowedWidgets = ['buc', 'varsler', 'overview']
 
 export interface IndexPageSelector {
-  username: string | undefined
+  username: string | undefined,
+  mode: BUCMode
 }
 
 const mapState = (state: State): IndexPageSelector => ({
-  username: state.app.username
+  username: state.app.username,
+  mode: state.buc.mode
 })
 
 export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
-  const { username }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { username, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
   const { t } = useTranslation()
 
   const DivWithLinks = styled.div`
@@ -135,7 +138,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   const SeparatorSpan = styled.span`
      padding: 0rem 0.5rem
   `
-
+  
   return (
     <TopContainer className='p-indexPage'>
       <DivWithLinks>
@@ -143,7 +146,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           target='_blank'
           data-amplitude='rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
-          onClick={linkLogger}
+          onClick={(e: React.MouseEvent) => linkLogger(e, {mode: mode})}
         >
           <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:lawsource')}
@@ -153,7 +156,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           target='_blank'
           data-amplitude='hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
-          onClick={linkLogger}
+          onClick={(e: React.MouseEvent) => linkLogger(e, {mode: mode})}
         >
           <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:help')}
