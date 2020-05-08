@@ -163,7 +163,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onTagsChange: Function = (tagsList: Array<string>): void => {
     setTags(tagsList)
-    standardLogger('tags', tagsList)
+    standardLogger('tags', {tags: tagsList})
     if (_.isFunction(onTagsChanged)) {
       onTagsChanged(tagsList)
     }

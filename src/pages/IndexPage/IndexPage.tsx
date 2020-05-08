@@ -138,7 +138,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   const SeparatorSpan = styled.span`
      padding: 0rem 0.5rem
   `
-  
+
   return (
     <TopContainer className='p-indexPage'>
       <DivWithLinks>
