@@ -146,7 +146,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           target='_blank'
           data-amplitude='rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
-          onClick={(e: React.MouseEvent) => linkLogger(e, {mode: mode})}
+          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
           <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:lawsource')}
@@ -156,7 +156,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           target='_blank'
           data-amplitude='hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
-          onClick={(e: React.MouseEvent) => linkLogger(e, {mode: mode})}
+          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
           <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:help')}

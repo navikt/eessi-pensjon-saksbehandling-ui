@@ -58,7 +58,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const { buc, locale, loading, bucParam, bucsInfo, bucList, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
-  const [_tags, setTags] = useState<Tags>([] )
+  const [_tags, setTags] = useState<Tags>([])
   const [validation, setValidation] = useState<Validation>({
     subjectAreaFail: undefined,
     bucFail: undefined
@@ -163,7 +163,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onTagsChange: Function = (tagsList: Tags): void => {
     setTags(tagsList)
-    standardLogger('tags', {tags: tagsList.map(t => t.label)})
+    standardLogger('tags', { tags: tagsList.map(t => t.label) })
     if (_.isFunction(onTagsChanged)) {
       onTagsChanged(tagsList)
     }

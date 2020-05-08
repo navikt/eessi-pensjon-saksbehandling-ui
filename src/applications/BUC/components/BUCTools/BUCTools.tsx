@@ -105,7 +105,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     if (_.isFunction(onTagChange)) {
       onTagChange(tagsList)
     }
-    standardLogger('tags', {tags: tagsList.map(t => t.label)})
+    standardLogger('tags', { tags: tagsList.map(t => t.label) })
     setTags(tagsList)
   }
 

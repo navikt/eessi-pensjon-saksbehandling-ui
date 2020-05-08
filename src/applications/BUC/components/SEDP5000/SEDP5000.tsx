@@ -10,6 +10,7 @@ import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as labels from './SEDP5000.labels'
+import WarningCircle from 'assets/images/WarningCircle'
 
 export interface SEDP5000Props {
   locale: AllowedLocaleString;
@@ -83,15 +84,20 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     return res
   }
 
-  const hasEmptyPeriods = () => {
-    let found = false
+  type EmptyPeriodsReport = {[k: string]: boolean}
+
+  const getEmptyPeriodsReport = (): EmptyPeriodsReport => {
+    const res: EmptyPeriodsReport = {}
     Object.keys(activeSeds).forEach((key: string) => {
-      if (activeSeds[key] && sedContent[key]?.pensjon?.medlemskapAnnen?.length > 0) {
-        found = true
-        return
+      if (activeSeds[key]) {
+        res[key] = sedContent[key]?.pensjon?.medlemskapAnnen?.length > 0
       }
     })
-    return found
+    return res
+  }
+
+  const hasEmptyPeriods = (emptyPeriodsReport: EmptyPeriodsReport) => {
+    return Object.values(emptyPeriodsReport).indexOf(true) >= 0
   }
 
   const printOut = () => {
@@ -110,58 +116,60 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   }
 
   const items = getItems()
-  const warning = hasEmptyPeriods()
+  const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
+  const warning = hasEmptyPeriods(emptyPeriodReport)
 
   return (
     <div className='a-buc-c-sedp5000' style={{ minHeight: '500px' }}>
       <div className='d-flex flex-row justify-content-between'>
         <div className='d-flex flex-column'>
-        {Object.keys(activeSeds).map(sedId => {
-          const sender: SedSender | undefined = getSedSender(sedId)
-          return (
-            <Ui.Nav.Checkbox
-              key={sedId}
-              id={'checkbox-' + sedId}
-              className='mb-2'
-              checked={activeSeds[sedId]}
-              onChange={() => changeActiveSed(sedId)}
-              label={(
-                <div className='d-flex align-items-end'>
-                  <span>{t('buc:form-titleP5000')}</span>
-                  <span className='ml-1 mr-1'>-</span>
-                  {sender ? (
-                    <div className='d-flex align-items-center'>
-                      <Ui.Flag
-                        type='circle'
-                        className='ml-1 mr-1'
-                        size='S'
-                        country={sender?.country}
-                        label={sender?.countryLabel}
-                      />
-                      <span>{sender?.countryLabel}</span>
-                      <span className='ml-1 mr-1'>-</span>
-                      <span>{sender?.institution}</span>
-                    </div>
-                  ) : sedId}
-                </div>
-              )}
-            />
-          )
-        })}
+          {Object.keys(activeSeds).map(sedId => {
+            const sender: SedSender | undefined = getSedSender(sedId)
+            return (
+              <Ui.Nav.Checkbox
+                key={sedId}
+                id={'checkbox-' + sedId}
+                className='mb-2'
+                checked={activeSeds[sedId]}
+                onChange={() => changeActiveSed(sedId)}
+                label={(
+                  <div className='d-flex align-items-end'>
+                    <span>{t('buc:form-titleP5000')}</span>
+                    <span className='ml-1 mr-1'>-</span>
+                    {sender ? (
+                      <div className='d-flex align-items-center'>
+                        <Ui.Flag
+                          type='circle'
+                          className='ml-1 mr-1'
+                          size='S'
+                          country={sender?.country}
+                          label={sender?.countryLabel}
+                        />
+                        <span>{sender?.countryLabel}</span>
+                        <span className='ml-1 mr-1'>-</span>
+                        <span>{sender?.institution}</span>
+                      </div>
+                    ) : sedId}
+                    {emptyPeriodReport[sedId] ? <WarningCircle className='ml-2' /> : null}
+                  </div>
+                )}
+              />
+            )
+          })}
         </div>
         <div className='d-flex'>
-          { warning ? <Ui.Alert className='mr-4' type='client' fixed={false} status='WARNING' message={t('buc:form-P5000-warning')}/> : null }
+          {warning ? <Ui.Alert className='mr-4' type='client' fixed={false} status='WARNING' message={t('buc:form-P5000-warning')} /> : null}
           <Ui.Nav.Select
-          bredde='l'
-          label={t('ui:itemsPerPage')}
-          value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
-          onChange={(e:any) => setItemsPerPage( e.target.value === 'all'? 9999 : parseInt(e.target.value, 10))}
-        >
-          <option value='15'>15</option>
-          <option value='20'>20</option>
-          <option value='25'>25</option>
-          <option value='all'>{t('ui:all')}</option>
-        </Ui.Nav.Select>
+            bredde='l'
+            label={t('ui:itemsPerPage')}
+            value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+            onChange={(e:any) => setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))}
+          >
+            <option value='15'>15</option>
+            <option value='20'>20</option>
+            <option value='25'>25</option>
+            <option value='all'>{t('ui:all')}</option>
+          </Ui.Nav.Select>
         </div>
       </div>
       <div>
