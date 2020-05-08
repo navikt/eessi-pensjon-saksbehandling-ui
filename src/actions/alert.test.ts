@@ -16,7 +16,7 @@ describe('actions/alert', () => {
     }
     const generatedResult = alertActions.clientError(mockPayload)
     expect(generatedResult).toMatchObject({
-      type: types.ALERT_CLIENT_ERROR,
+      type: types.ALERT_CLIENT_FAILURE,
       payload: mockPayload
     })
   })

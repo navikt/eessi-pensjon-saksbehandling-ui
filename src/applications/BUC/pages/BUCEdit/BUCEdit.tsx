@@ -1,3 +1,4 @@
+import { clientError } from 'actions/alert'
 import { setCurrentSed } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
@@ -51,9 +52,15 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     return null
   }
 
-  const onSEDNew = (sed: Sed | undefined): void => {
-    dispatch(setCurrentSed(sed ? sed.id : undefined))
-    setMode('sednew')
+  const onSEDNew = (buc: Buc, sed: Sed | undefined): void => {
+    if (buc.type === 'P_BUC_06' && _.some(buc.seds, (s: Sed) => s.type === 'P10000')) {
+      dispatch(clientError({
+        error: t('buc:error-P10000')
+      }))
+    } else {
+      dispatch(setCurrentSed(sed ? sed.id : undefined))
+      setMode('sednew')
+    }
   }
 
   const onStatusSearch = (statusSearch: Tags): void => {
@@ -103,7 +110,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         <Ui.Nav.Knapp
           id='a-buc-p-bucedit__new-sed-button-id'
           className='a-buc-p-bucedit__new-sed-button'
-          onClick={() => onSEDNew(undefined)}
+          onClick={() => onSEDNew(buc, undefined)}
         >{t('buc:form-orderNewSED')}
         </Ui.Nav.Knapp>
       </div>
@@ -130,7 +137,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   key={index}
                   sed={sed}
                   followUpSeds={buc.seds!.filter(_seds => _seds.parentDocumentId === sed.id)}
-                  onSEDNew={() => onSEDNew(sed)}
+                  onSEDNew={() => onSEDNew(buc, sed)}
                 />
               )
             }) : <Ui.WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}

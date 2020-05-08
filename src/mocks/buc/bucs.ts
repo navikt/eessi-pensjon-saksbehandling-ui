@@ -3449,6 +3449,71 @@ const mockBuc = [
     }]
   },
   {
+    type: 'P_BUC_06',
+    creator: {
+      country: 'NO',
+      institution: 'NO:DEMO002',
+      name: 'DEMO002'
+    },
+    caseId: '158124',
+    sakType: '',
+    aktoerId: '001122334455',
+    status: 'open',
+    startDate: 1557392989122,
+    lastUpdate: 1558362934000,
+    institusjon: [{
+      country: 'NO',
+      institution: 'NO:DEMO002',
+      name: 'DEMO002'
+    }, {
+      country: 'NO',
+      institution: 'NO:DEMO001',
+      name: 'DEMO001'
+    }],
+    seds: [{
+      id: 'f2123ebf16dc4ddaaaf2420d0adb39c8',
+      parentDocumentId: null,
+      type: 'P10000',
+      status: 'sent',
+      creationDate: 1557393035000,
+      lastUpdate: 1557393035000,
+      displayName: 'Claim for - Reimbursement - Administrative Check /Medical information',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'DEMO002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:DEMO002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557393035000
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557393035000
+      }
+    }]
+  },
+  {
     type: 'X_BUC_XX',
     caseId: '362453',
     description: 'This BUC should not be shown as it is not in the list of allowed bucs',

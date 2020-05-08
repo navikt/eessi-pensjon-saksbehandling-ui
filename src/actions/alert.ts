@@ -7,6 +7,6 @@ export const clientClear = (): Action => ({
 })
 
 export const clientError = (payload: ErrorPayload): ActionWithPayload<ErrorPayload> => ({
-  type: types.ALERT_CLIENT_ERROR,
+  type: types.ALERT_CLIENT_FAILURE,
   payload: payload
 })
