@@ -39,6 +39,7 @@ jobs:
         run: |
           npm install
           npm audit --json
+          npm run build:css
           npm run test
           npm run build
 
