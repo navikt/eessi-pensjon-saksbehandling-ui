@@ -153,9 +153,9 @@ export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> =
   })
 }
 
-export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
+export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (sakId: string): ThunkResult<ActionWithPayload> => {
   return api.call({
-    url: urls.BUC_GET_BUC_LIST_URL,
+    url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId }),
     expectedPayload: mockBucList,
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,

@@ -181,14 +181,15 @@ describe('actions/buc', () => {
   })
 
   it('getBucList()', () => {
-    bucActions.getBucList()
+    const sakId = '123'
+    bucActions.getBucList(sakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_LIST_REQUEST,
         success: types.BUC_GET_BUC_LIST_SUCCESS,
         failure: types.BUC_GET_BUC_LIST_FAILURE
       },
-      url: urls.BUC_GET_BUC_LIST_URL
+      url: sprintf(urls.BUC_GET_BUC_LIST_URL, {sakId: sakId})
     }))
   })
 

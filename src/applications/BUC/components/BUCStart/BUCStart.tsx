@@ -33,6 +33,7 @@ export interface BUCStartSelector {
   loading: Loading;
   bucsInfo?: BucsInfo | undefined;
   bucList?: Array<string> | undefined;
+  sakId: string;
   subjectAreaList?: Array<string> | undefined;
   tagList?: Array<string> | undefined;
 }
@@ -43,6 +44,7 @@ const mapState = (state: State): BUCStartSelector => ({
   bucParam: state.app.params.buc,
   bucsInfo: state.buc.bucsInfo,
   bucList: state.buc.bucList,
+  sakId: state.app.params.sakId,
   subjectAreaList: state.buc.subjectAreaList,
   tagList: state.buc.tagList
 })
@@ -55,7 +57,7 @@ const placeholders: {[k: string]: string} = {
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
-  const { buc, locale, loading, bucParam, bucsInfo, bucList, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
+  const { buc, locale, loading, bucParam, bucsInfo, bucList, sakId, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
@@ -73,12 +75,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
       dispatch(getSubjectAreaList())
     }
     if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList())
+      dispatch(getBucList(sakId))
     }
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
-  }, [bucList, dispatch, loading, subjectAreaList, tagList])
+  }, [bucList, dispatch, loading, sakId, subjectAreaList, tagList])
 
   useEffect(() => {
     if (!isBucCreated && buc) {
