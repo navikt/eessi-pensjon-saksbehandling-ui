@@ -50,12 +50,14 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
+  const [timeWithModal, setTimeWithModal] = useState<Date>(new Date())
   const [tags, setTags] = useState<Tags>(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
   const { features, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
+
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -80,6 +82,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }, [buc])
 
   const displayP5000table = useCallback(() => {
+    setTimeWithModal(new Date())
     setModal({
       modalTitle: t('buc:P5000-title'),
       modalContent: <SEDP5000 seds={getP5000()!} sedContent={sedContent} locale={locale} />
@@ -124,6 +127,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onModalClose = () => {
+    const diffInSeconds = Math.ceil((new Date().getTime() - timeWithModal.getTime()) / 1000)
+    const diffInMinutes =  Math.ceil(diffInSeconds/ 60)
+    standardLogger('timeWithP5000', {
+      seconds: diffInSeconds,
+      minutes: diffInMinutes
+    })
     setModal(undefined)
   }
 
