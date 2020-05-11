@@ -97,7 +97,7 @@
 
   "error-noBucs"             : "Feil å hente BUC-er",
   "error-sendingAttachments" : "Feil å sende vedlegg",
-  "error-P10000": "Det er allerede sendt en P10000 i denne BUC-en. Det er ikke lov å opprette flere SED-er i denne BUC-en.",
+  "error-uniqueSed"          : "Det er allerede sendt en {{sed}} i denne BUC-en. Det er ikke lov å opprette flere SED-er i denne BUC-en.",
 
   "form-addAttachmentsFromJOARK"      : "Legg til vedlegg",
   "form-addAttachmentsFromFileUpload" : "Laster opp ny vedlegg fra din datamaskin",

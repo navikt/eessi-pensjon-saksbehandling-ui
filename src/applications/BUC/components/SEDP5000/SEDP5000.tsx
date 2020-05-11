@@ -36,7 +36,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
     const sender = getSedSender(sedId)
-    sedContent.pensjon.medlemskap?.forEach((m: any, i: number) => {
+    sedContent.pensjon.medlemskap?.forEach((m: any, i: number) =>
       res.push({
         key: sedId + '-' + i,
         land: sender!.countryLabel || '-',
@@ -53,7 +53,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         ordning: m.ordning || '-',
         informasjonOmBeregning: m.beregning || '-'
       })
-    })
+    )
     return res
   }
 

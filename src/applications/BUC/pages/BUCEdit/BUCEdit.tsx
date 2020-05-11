@@ -53,9 +53,13 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   }
 
   const onSEDNew = (buc: Buc, sed: Sed | undefined): void => {
-    if (buc.type === 'P_BUC_06' && _.some(buc.seds, (s: Sed) => s.type === 'P10000')) {
+    const uniqueSed: Sed | undefined = _.find(buc.seds, (s: Sed) =>
+      s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000'
+    )
+
+    if (buc.type === 'P_BUC_06' && uniqueSed) {
       dispatch(clientError({
-        error: t('buc:error-P10000')
+        error: t('buc:error-uniqueSed', { sed: uniqueSed.type })
       }))
     } else {
       dispatch(setCurrentSed(sed ? sed.id : undefined))
