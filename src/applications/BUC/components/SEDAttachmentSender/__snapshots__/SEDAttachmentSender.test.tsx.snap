@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Renders 1`] = `
+<SEDAttachmentSender
+  allAttachments={
+    Array [
+      Object {
+        "datoOpprettet": 2018-12-27T13:42:24.000Z,
+        "dokumentInfoId": "4",
+        "journalpostId": "1",
+        "tema": "foo",
+        "tittel": "blue.pdf",
+        "variant": Object {
+          "filnavn": "23534345.pdf",
+          "variantformat": "ARKIV",
+        },
+      },
+      Object {
+        "datoOpprettet": 2018-12-27T13:42:24.000Z,
+        "dokumentInfoId": "4",
+        "journalpostId": "1",
+        "tema": "foo",
+        "tittel": "blue.pdf",
+        "variant": Object {
+          "filnavn": "908745345.pdf",
+          "variantformat": "DUMMY",
+        },
+      },
+      Object {
+        "datoOpprettet": 2018-12-17T13:42:24.000Z,
+        "dokumentInfoId": "5",
+        "journalpostId": "2",
+        "tema": "bar",
+        "tittel": "red.pdf",
+        "variant": Object {
+          "filnavn": "98734213487.pdf",
+          "variantformat": "ARKIV",
+        },
+      },
+      Object {
+        "datoOpprettet": 2018-12-17T13:42:24.000Z,
+        "dokumentInfoId": "5",
+        "journalpostId": "2",
+        "tema": "bar",
+        "tittel": "red.pdf",
+        "variant": Object {
+          "filnavn": "998424576.pdf",
+          "variantformat": "DUMMY",
+        },
+      },
+      Object {
+        "datoOpprettet": 2018-12-07T13:42:24.000Z,
+        "dokumentInfoId": "6",
+        "journalpostId": "3",
+        "tema": "fuzz",
+        "tittel": "yellow.pdf",
+        "variant": Object {
+          "filnavn": "1078475197.pdf",
+          "variantformat": "ARKIV",
+        },
+      },
+      Object {
+        "datoOpprettet": 2018-12-07T13:42:24.000Z,
+        "dokumentInfoId": "6",
+        "journalpostId": "3",
+        "tema": "fuzz",
+        "tittel": "yellow.pdf",
+        "variant": Object {
+          "filnavn": "09873539824762.pdf",
+          "variantformat": "DUMMY",
+        },
+      },
+    ]
+  }
+  attachmentsError={false}
+  className="mock-sedAttachmentSender"
+  initialStatus="inprogress"
+  onFinished={[MockFunction]}
+  payload={
+    Object {
+      "aktoerId": "123",
+      "rinaDokumentId": "789",
+      "rinaId": "456",
+    }
+  }
+  savedAttachments={Array []}
+  sendAttachmentToSed={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "aktoerId": "123",
+            "dokumentInfoId": "4",
+            "journalpostId": "1",
+            "rinaDokumentId": "789",
+            "rinaId": "456",
+            "variantformat": "ARKIV",
+          },
+          Object {
+            "datoOpprettet": 2018-12-27T13:42:24.000Z,
+            "dokumentInfoId": "4",
+            "journalpostId": "1",
+            "tema": "foo",
+            "tittel": "blue.pdf",
+            "variant": Object {
+              "filnavn": "23534345.pdf",
+              "variantformat": "ARKIV",
+            },
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+>
+  <div
+    className="a-buc-c-sedAttachmentSender mock-sedAttachmentSender"
+  >
+    <Component
+      now={16}
+      status="inprogress"
+    >
+      <div
+        className="c-progressbar w-100"
+      >
+        <div
+          aria-valuemax={100}
+          aria-valuemin={0}
+          aria-valuenow={16}
+          className="c-progressbar__bar c-progressbar__bar-inprogress"
+          role="progressbar"
+          style={
+            Object {
+              "width": "16%",
+            }
+          }
+        >
+          buc:loading-sendingXofY
+        </div>
+      </div>
+    </Component>
+  </div>
+</SEDAttachmentSender>
+`;

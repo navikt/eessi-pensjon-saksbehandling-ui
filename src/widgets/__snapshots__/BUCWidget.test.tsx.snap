@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`widgets/BUCWidget Renders 1`] = `
+<BUCWidget
+  onFullFocus={[MockFunction]}
+  onResize={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  onRestoreFocus={[MockFunction]}
+  onUpdate={[MockFunction]}
+  widget={
+    Object {
+      "i": "i",
+      "options": Object {},
+      "title": "Buc",
+      "type": "buc",
+      "visible": true,
+    }
+  }
+>
+  <div
+    className="w-BucWidget"
+  >
+    <ResizeDetector
+      handleHeight={true}
+      handleWidth={true}
+      nodeType="div"
+      onResize={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      querySelector={null}
+      refreshRate={1000}
+      skipOnMount={false}
+      targetDomEl={null}
+    >
+      <ChildWrapper>
+        <div />
+      </ChildWrapper>
+    </ResizeDetector>
+    <Component
+      onFullFocus={[MockFunction]}
+      onRestoreFocus={[MockFunction]}
+    >
+      <div
+        className="mock-a-buc"
+      />
+    </Component>
+  </div>
+</BUCWidget>
+`;

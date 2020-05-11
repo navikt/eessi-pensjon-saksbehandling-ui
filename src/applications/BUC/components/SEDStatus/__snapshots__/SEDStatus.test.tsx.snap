@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications/BUC/components/SEDStatus/SEDStatus Renders 1`] = `
+<SEDStatus
+  status="new"
+>
+  <EtikettBase
+    className="a-buc-c-sedstatus a-buc-c-sedstatus__new"
+    type="fokus"
+    typo="normaltekst"
+  >
+    <div
+      className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__new etikett--fokus"
+    >
+      <n
+        tag="span"
+        type="normaltekst"
+      >
+        <span
+          className="typo-normal"
+        >
+          buc:status-new
+        </span>
+      </n>
+    </div>
+  </EtikettBase>
+</SEDStatus>
+`;

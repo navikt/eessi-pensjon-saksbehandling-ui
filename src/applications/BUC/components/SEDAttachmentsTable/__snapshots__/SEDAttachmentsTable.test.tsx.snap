@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications/BUC/components/SEDAttachments/SEDAttachments Renders 1`] = `
+<SEDAttachmentsTable
+  attachments={
+    Object {
+      "joark": Array [
+        Object {
+          "datoOpprettet": 2018-12-27T13:42:24.000Z,
+          "dokumentInfoId": "4",
+          "journalpostId": "1",
+          "tema": "foo",
+          "tittel": "blue.pdf",
+          "variant": Object {
+            "filnavn": "23534345.pdf",
+            "variantformat": "ARKIV",
+          },
+        },
+      ],
+      "sed": Array [
+        Object {
+          "datoOpprettet": 2018-12-17T13:42:24.000Z,
+          "dokumentInfoId": "5",
+          "journalpostId": "2",
+          "tema": "bar",
+          "tittel": "red.pdf",
+          "variant": Object {
+            "filnavn": "98734213487.pdf",
+            "variantformat": "ARKIV",
+          },
+        },
+      ],
+    }
+  }
+>
+  <gx
+    className="a-buc-c-sedattachmentstable"
+    columns={
+      Array [
+        Object {
+          "id": "namespace",
+          "label": "ui:type",
+          "renderCell": [Function],
+          "type": "string",
+        },
+        Object {
+          "id": "title",
+          "label": "ui:title",
+          "type": "string",
+        },
+        Object {
+          "id": "buttons",
+          "label": "",
+          "renderCell": [Function],
+          "type": "object",
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "key": "0_0",
+          "namespace": "joark",
+          "title": "blue.pdf",
+        },
+        Object {
+          "key": "1_0",
+          "namespace": "sed",
+          "title": "red.pdf",
+        },
+      ]
+    }
+    searchable={false}
+    selectable={false}
+    sortable={false}
+  >
+    <div
+      className="c-tableSorter tabell a-buc-c-sedattachmentstable"
+    >
+      <div
+        className="c-tableSorter__content"
+      >
+        <table
+          cellSpacing="0"
+          className="c-tableSorter__table w-100"
+        >
+          <thead>
+            <tr
+              className="c-tableSorter__header"
+            >
+              <th
+                style={
+                  Object {
+                    "width": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                    }
+                  }
+                />
+              </th>
+              <th
+                aria-sort="none"
+                className="header "
+                key="namespace"
+                role="columnheader"
+              >
+                ui:type
+              </th>
+              <th
+                aria-sort="none"
+                className="header "
+                key="title"
+                role="columnheader"
+              >
+                ui:title
+              </th>
+              <th
+                aria-sort="none"
+                className="header"
+                key="buttons"
+                role="columnheader"
+              />
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              aria-selected={false}
+              className="slideAnimate"
+              key="0_0"
+              style={
+                Object {
+                  "animationDelay": "0s",
+                }
+              }
+            >
+              <td />
+              <td
+                className=""
+                key="0"
+              >
+                <EtikettLiten>
+                  <n
+                    type="etikettLiten"
+                  >
+                    <p
+                      className="typo-etikett-liten"
+                    >
+                      joark
+                    </p>
+                  </n>
+                </EtikettLiten>
+              </td>
+              <td
+                className=""
+                key="1"
+              >
+                <Normaltekst>
+                  <n
+                    type="normaltekst"
+                  >
+                    <p
+                      className="typo-normal"
+                    >
+                      <span>
+                        blue.pdf
+                      </span>
+                    </p>
+                  </n>
+                </Normaltekst>
+              </td>
+              <td
+                className=""
+                key="2"
+              >
+                <div />
+              </td>
+            </tr>
+            <tr
+              aria-selected={false}
+              className="slideAnimate"
+              key="1_0"
+              style={
+                Object {
+                  "animationDelay": "0.07s",
+                }
+              }
+            >
+              <td />
+              <td
+                className=""
+                key="0"
+              >
+                <EtikettLiten>
+                  <n
+                    type="etikettLiten"
+                  >
+                    <p
+                      className="typo-etikett-liten"
+                    >
+                      sed
+                    </p>
+                  </n>
+                </EtikettLiten>
+              </td>
+              <td
+                className=""
+                key="1"
+              >
+                <Normaltekst>
+                  <n
+                    type="normaltekst"
+                  >
+                    <p
+                      className="typo-normal"
+                    >
+                      <span>
+                        red.pdf
+                      </span>
+                    </p>
+                  </n>
+                </Normaltekst>
+              </td>
+              <td
+                className=""
+                key="2"
+              >
+                <div />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <Component
+          className="c-tableSorter__pagination"
+          initialPage={1}
+          itemsPerPage={10}
+          numberOfItems={2}
+          onChange={[Function]}
+        />
+      </div>
+    </div>
+  </gx>
+</SEDAttachmentsTable>
+`;

@@ -1,0 +1,267 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
+<BUCEmpty
+  onBUCNew={[MockFunction]}
+>
+  <div
+    className="panel a-buc-p-bucempty s-border d-flex"
+  >
+    <div
+      className="a-buc-p-bucempty__artwork"
+    >
+      <img
+        alt=""
+        className="monitor"
+        src="dataskjerm.png"
+      />
+      <img
+        alt=""
+        className="cup"
+        src="kop.png"
+      />
+      <img
+        alt=""
+        className="mouse"
+        src="NAVmusematte.png"
+      />
+      <img
+        alt=""
+        className="map"
+        src="saksstatus.png"
+      />
+    </div>
+    <Undertittel
+      className="a-buc-p-bucempty__title mb-3"
+    >
+      <n
+        className="a-buc-p-bucempty__title mb-3"
+        type="undertittel"
+      >
+        <h2
+          className="typo-undertittel a-buc-p-bucempty__title mb-3"
+        >
+          <Lenke
+            className="a-buc-p-bucempty__newbuc-link"
+            href="#"
+            id="a-buc-p-bucempty__newbuc-link-id"
+            onClick={[MockFunction]}
+          >
+            <a
+              className="lenke a-buc-p-bucempty__newbuc-link"
+              href="#"
+              id="a-buc-p-bucempty__newbuc-link-id"
+              onClick={[MockFunction]}
+            >
+              buc:form-empty-startANewCase
+            </a>
+          </Lenke>
+        </h2>
+      </n>
+    </Undertittel>
+    <div
+      className="a-buc-p-bucempty__form"
+    >
+      <Input
+        bredde="fullbredde"
+        className="a-buc-p-bucempty__aktoerid-input"
+        feil={false}
+        id="a-buc-p-bucempty__aktoerid-input-id"
+        label="ui:aktoerId"
+        onChange={[Function]}
+        value=""
+      >
+        <div
+          className="skjemaelement a-buc-p-bucempty__aktoerid-input"
+        >
+          <t
+            htmlFor="a-buc-p-bucempty__aktoerid-input-id"
+          >
+            <label
+              className="skjemaelement__label"
+              htmlFor="a-buc-p-bucempty__aktoerid-input-id"
+            >
+              ui:aktoerId
+            </label>
+          </t>
+          <input
+            aria-invalid={false}
+            className="skjemaelement__input input--fullbredde"
+            id="a-buc-p-bucempty__aktoerid-input-id"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+      </Input>
+      <Hovedknapp
+        className="a-buc-p-bucempty__aktoerid-button ml-3"
+        id="a-buc-p-bucempty__aktoerid-button-id"
+        onClick={[Function]}
+      >
+        <KnappBase
+          autoDisableVedSpinner={false}
+          className="a-buc-p-bucempty__aktoerid-button ml-3"
+          disabled={false}
+          htmlType="submit"
+          id="a-buc-p-bucempty__aktoerid-button-id"
+          inaktivKlasseVedDisabled={false}
+          kompakt={false}
+          mini={false}
+          onClick={[Function]}
+          spinner={false}
+          type="hoved"
+        >
+          <button
+            className="knapp a-buc-p-bucempty__aktoerid-button ml-3 knapp--hoved"
+            disabled={false}
+            id="a-buc-p-bucempty__aktoerid-button-id"
+            onClick={[Function]}
+            type="submit"
+          >
+            ui:add
+          </button>
+        </KnappBase>
+      </Hovedknapp>
+    </div>
+    <div
+      className="a-buc-p-bucempty__form"
+    >
+      <Input
+        bredde="fullbredde"
+        className="a-buc-p-bucempty__sakid-input"
+        feil={false}
+        id="a-buc-p-bucempty__sakid-input-id"
+        label="buc:form-caseId"
+        onChange={[Function]}
+        value=""
+      >
+        <div
+          className="skjemaelement a-buc-p-bucempty__sakid-input"
+        >
+          <t
+            htmlFor="a-buc-p-bucempty__sakid-input-id"
+          >
+            <label
+              className="skjemaelement__label"
+              htmlFor="a-buc-p-bucempty__sakid-input-id"
+            >
+              buc:form-caseId
+            </label>
+          </t>
+          <input
+            aria-invalid={false}
+            className="skjemaelement__input input--fullbredde"
+            id="a-buc-p-bucempty__sakid-input-id"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+      </Input>
+      <Hovedknapp
+        className="a-buc-p-bucempty__sakid-button ml-3"
+        id="a-buc-p-bucempty__sakid-button-id"
+        onClick={[Function]}
+      >
+        <KnappBase
+          autoDisableVedSpinner={false}
+          className="a-buc-p-bucempty__sakid-button ml-3"
+          disabled={false}
+          htmlType="submit"
+          id="a-buc-p-bucempty__sakid-button-id"
+          inaktivKlasseVedDisabled={false}
+          kompakt={false}
+          mini={false}
+          onClick={[Function]}
+          spinner={false}
+          type="hoved"
+        >
+          <button
+            className="knapp a-buc-p-bucempty__sakid-button ml-3 knapp--hoved"
+            disabled={false}
+            id="a-buc-p-bucempty__sakid-button-id"
+            onClick={[Function]}
+            type="submit"
+          >
+            ui:add
+          </button>
+        </KnappBase>
+      </Hovedknapp>
+    </div>
+  </div>
+  <BUCFooter
+    className="w-100 mt-2 mb-2"
+  >
+    <div
+      className="a-buc-c-footer w-100 mt-2 mb-2"
+    >
+      <Lenke
+        className="a-buc-c-buclist__gotorina"
+        href="http://mock.url"
+        id="a-buc-c-buclist__gotorina-link"
+        target="rinaWindow"
+      >
+        <a
+          className="lenke a-buc-c-buclist__gotorina"
+          href="http://mock.url"
+          id="a-buc-c-buclist__gotorina-link"
+          rel="noopener"
+          target="rinaWindow"
+        >
+          <div
+            className="d-flex"
+          >
+            <Icons
+              className="mr-2"
+              color="#0067C5"
+              kind="outlink"
+            >
+              <we
+                className="mr-2"
+                color="#0067C5"
+                height={24}
+                kind="outlink"
+                width={24}
+              >
+                <svg
+                  className="mr-2"
+                  color="#0067C5"
+                  contentScriptType="text/ecmascript"
+                  contentStyleType="text/css"
+                  enableBackground="new 0 0 24 24"
+                  height={24}
+                  id="Outline_Version"
+                  kind="outlink"
+                  preserveAspectRatio="xMidYMid meet"
+                  version="1.1"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  x="0px"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0px"
+                  zoomAndPan="magnify"
+                >
+                  <g
+                    fill="#0067C5"
+                  >
+                    <path
+                      d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
+                    />
+                    <path
+                      d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
+                    />
+                  </g>
+                </svg>
+              </we>
+            </Icons>
+            <span>
+              ui:goToRina
+            </span>
+          </div>
+        </a>
+      </Lenke>
+    </div>
+  </BUCFooter>
+</BUCEmpty>
+`;

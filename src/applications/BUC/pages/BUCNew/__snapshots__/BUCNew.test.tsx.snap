@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications/BUC/widgets/BUCNew/BUCNew Renders 1`] = `
+<BUCNew
+  aktoerId="123"
+  setMode={[MockFunction]}
+>
+  <Panel
+    border={false}
+    className="a-buc-p-bucnew s-border"
+  >
+    <div
+      className="panel a-buc-p-bucnew s-border"
+    >
+      <Systemtittel>
+        <n
+          type="systemtittel"
+        >
+          <h2
+            className="typo-systemtittel"
+          >
+            buc:step-startBUCTitle
+          </h2>
+        </n>
+      </Systemtittel>
+      <hr />
+      <Component
+        aktoerId="123"
+        setMode={[MockFunction]}
+      >
+        <div
+          className="mock-bucstart"
+        />
+      </Component>
+    </div>
+  </Panel>
+  <Component
+    className="w-100 mt-2 mb-2"
+  >
+    <div
+      className="mock-bucfooter"
+    />
+  </Component>
+</BUCNew>
+`;

@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`widgets/OverviewWidget Renders 1`] = `
+<OverviewWidget
+  onFullFocus={[MockFunction]}
+  onResize={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  onRestoreFocus={[MockFunction]}
+  onUpdate={[MockFunction]}
+  widget={
+    Object {
+      "i": "i",
+      "options": Object {
+        "collapsed": false,
+      },
+      "title": "Overview",
+      "type": "overview",
+      "visible": true,
+    }
+  }
+>
+  <div
+    className="w-OverviewWidget"
+  >
+    <ResizeDetector
+      handleHeight={true}
+      handleWidth={true}
+      nodeType="div"
+      onResize={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      querySelector={null}
+      refreshRate={1000}
+      skipOnMount={false}
+      targetDomEl={null}
+    >
+      <ChildWrapper>
+        <div />
+      </ChildWrapper>
+    </ResizeDetector>
+    <Component
+      onUpdate={[MockFunction]}
+      widget={
+        Object {
+          "i": "i",
+          "options": Object {
+            "collapsed": false,
+          },
+          "title": "Overview",
+          "type": "overview",
+          "visible": true,
+        }
+      }
+    >
+      <div
+        className="mock-w-overview"
+      />
+    </Component>
+  </div>
+</OverviewWidget>
+`;

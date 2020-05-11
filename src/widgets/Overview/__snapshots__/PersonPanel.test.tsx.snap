@@ -1,0 +1,851 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`widgets/Overview/PersonPanel Renders 1`] = `
+<PersonPanel
+  highContrast={false}
+  locale="nb"
+  person={
+    Object {
+      "aktoer": Object {
+        "ident": Object {
+          "ident": "27072942618",
+          "type": Object {
+            "kodeRef": null,
+            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
+            "value": "FNR",
+          },
+        },
+      },
+      "bankkonto": null,
+      "bostedsadresse": Object {
+        "strukturertAdresse": Object {
+          "bolignummer": null,
+          "gatenavn": "KJEMPEBAKKENVEIEN",
+          "gatenummer": null,
+          "husbokstav": null,
+          "husnummer": 12,
+          "kommunenummer": "1201",
+          "landkode": Object {
+            "kodeRef": null,
+            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
+            "value": "NOR",
+          },
+          "poststed": Object {
+            "kodeRef": null,
+            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Postnummer",
+            "value": "5036",
+          },
+          "tilleggsadresse": null,
+          "tilleggsadresseType": "Offisiell adresse",
+        },
+      },
+      "diskresjonskode": null,
+      "doedsdato": Object {
+        "doedsdato": "2018-05-19T22:00:00.000+0000",
+        "endretAv": null,
+        "endringstidspunkt": null,
+        "endringstype": null,
+      },
+      "endretAv": null,
+      "endringstidspunkt": null,
+      "endringstype": null,
+      "foedested": null,
+      "foedselsdato": Object {
+        "endretAv": null,
+        "endringstidspunkt": null,
+        "endringstype": null,
+        "foedselsdato": "1929-07-26T23:00:00.000+0000",
+      },
+      "geografiskTilknytning": Object {
+        "geografiskTilknytning": "0213",
+      },
+      "gjeldendePostadressetype": Object {
+        "kodeRef": null,
+        "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Postadressetyper",
+        "value": "POSTADRESSE",
+      },
+      "harFraRolleI": Array [
+        Object {
+          "endretAv": null,
+          "endringstidspunkt": null,
+          "endringstype": null,
+          "harSammeBosted": false,
+          "tilPerson": Object {
+            "aktoer": Object {
+              "ident": Object {
+                "ident": "27066349360",
+                "type": Object {
+                  "kodeRef": null,
+                  "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
+                  "value": "FNR",
+                },
+              },
+            },
+            "bostedsadresse": null,
+            "diskresjonskode": null,
+            "doedsdato": null,
+            "foedselsdato": null,
+            "harFraRolleI": Array [],
+            "kjoenn": null,
+            "personnavn": Object {
+              "endretAv": null,
+              "endringstidspunkt": null,
+              "endringstype": null,
+              "etternavn": "ELQUAZZANI",
+              "fornavn": "SEAFORA-MASK",
+              "mellomnavn": null,
+              "sammensattNavn": "ELQUAZZANI SEAFORA-MASK",
+            },
+            "personstatus": null,
+            "postadresse": null,
+            "sivilstand": null,
+            "statsborgerskap": null,
+          },
+          "tilRolle": Object {
+            "kodeRef": null,
+            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner",
+            "value": "BARN",
+          },
+        },
+        Object {
+          "endretAv": null,
+          "endringstidspunkt": null,
+          "endringstype": null,
+          "harSammeBosted": false,
+          "tilPerson": Object {
+            "aktoer": Object {
+              "ident": Object {
+                "ident": "25076029647",
+                "type": Object {
+                  "kodeRef": null,
+                  "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
+                  "value": "FNR",
+                },
+              },
+            },
+            "bostedsadresse": null,
+            "diskresjonskode": null,
+            "doedsdato": null,
+            "foedselsdato": null,
+            "harFraRolleI": Array [],
+            "kjoenn": null,
+            "personnavn": Object {
+              "endretAv": null,
+              "endringstidspunkt": null,
+              "endringstype": null,
+              "etternavn": "KAEWYOO",
+              "fornavn": "KAROLI-MASK",
+              "mellomnavn": null,
+              "sammensattNavn": "KAEWYOO KAROLI-MASK",
+            },
+            "personstatus": null,
+            "postadresse": null,
+            "sivilstand": null,
+            "statsborgerskap": null,
+          },
+          "tilRolle": Object {
+            "kodeRef": null,
+            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner",
+            "value": "BARN",
+          },
+        },
+      ],
+      "kjoenn": Object {
+        "kjoenn": Object {
+          "kodeRef": null,
+          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Kj_c3_b8nnstyper",
+          "value": "K",
+        },
+      },
+      "kontaktinformasjon": Array [],
+      "maalform": null,
+      "midlertidigPostadresse": null,
+      "personnavn": Object {
+        "endretAv": null,
+        "endringstidspunkt": null,
+        "endringstype": null,
+        "etternavn": "HØYSÆTHER",
+        "fornavn": "NAZAKMIR-MASK",
+        "mellomnavn": null,
+        "sammensattNavn": "HØYSÆTHER NAZAKMIR-MASK",
+      },
+      "personstatus": Object {
+        "endretAv": null,
+        "endringstidspunkt": null,
+        "endringstype": null,
+        "personstatus": Object {
+          "kodeRef": null,
+          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personstatuser",
+          "value": "DØD",
+        },
+      },
+      "postadresse": Object {
+        "endretAv": null,
+        "endringstidspunkt": null,
+        "endringstype": null,
+        "ustrukturertAdresse": Object {
+          "adresselinje1": "NYACHAE",
+          "adresselinje2": "S-BHF ORANIENBURGER STR.",
+          "adresselinje3": "20095",
+          "adresselinje4": null,
+          "landkode": Object {
+            "kodeRef": null,
+            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
+            "value": "SWE",
+          },
+          "postnr": null,
+          "poststed": null,
+        },
+      },
+      "sikkerhetstiltak": null,
+      "sivilstand": Object {
+        "endretAv": null,
+        "endringstidspunkt": null,
+        "endringstype": null,
+        "fomGyldighetsperiode": "2006-06-18T22:00:00.000+0000",
+        "sivilstand": Object {
+          "kodeRef": null,
+          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Sivilstander",
+          "value": "ENKE",
+        },
+        "tomGyldighetsperiode": null,
+      },
+      "statsborgerskap": Object {
+        "endretAv": null,
+        "endringstidspunkt": null,
+        "endringstype": null,
+        "land": Object {
+          "kodeRef": null,
+          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
+          "value": "DNK",
+        },
+      },
+      "tilrettelagtKommunikasjon": Array [],
+      "vergeListe": Array [],
+    }
+  }
+>
+  <Row
+    className="w-overview-personPanel__content m-4"
+  >
+    <div
+      className="row w-overview-personPanel__content m-4"
+    >
+      <div
+        className="w-overview-personPanel__item col-md-4"
+      >
+        <div
+          className="mr-2"
+        >
+          <Icons
+            color="black"
+            kind="nav-home"
+          >
+            <Me
+              color="black"
+              height={24}
+              kind="nav-home"
+              width={24}
+            >
+              <svg
+                color="black"
+                contentScriptType="text/ecmascript"
+                contentStyleType="text/css"
+                height={24}
+                kind="nav-home"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+                zoomAndPan="magnify"
+              >
+                <g
+                  fill="none"
+                  stroke="black"
+                  strokeLinejoin="round"
+                  strokeMiterlimit="10"
+                >
+                  <path
+                    d="M.5 23.5h23"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M3.5 13.5h17v10h-17zM12 5l-11.5 8.5h23z"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M20.5 11.292v-4.292h-3v2.078"
+                  />
+                  <path
+                    d="M6.5 16.5h3v5h-3zM12.5 16.5h5v3h-5zM5.5 21.5h5v2h-5z"
+                  />
+                </g>
+              </svg>
+            </Me>
+          </Icons>
+        </div>
+        <div
+          className="w-overview-personPanel__element"
+          id="w-overview-personPanel__element-bostedsadresse"
+        >
+          <Undertekst
+            className="mr-2"
+          >
+            <n
+              className="mr-2"
+              type="undertekst"
+            >
+              <p
+                className="typo-undertekst mr-2"
+              >
+                <strong>
+                  ui:bostedsadresse
+                </strong>
+                :
+              </p>
+            </n>
+          </Undertekst>
+          <Normaltekst>
+            <n
+              type="normaltekst"
+            >
+              <p
+                className="typo-normal"
+              >
+                <span
+                  data-tip="ui:gatenavn"
+                  key="KJEMPEBAKKENVEIEN"
+                >
+                  KJEMPEBAKKENVEIEN
+                </span>
+                <span
+                  className="mr-2"
+                  key="0"
+                />
+                <span
+                  data-tip="ui:husnummer"
+                  key="12"
+                >
+                  12
+                </span>
+                <br
+                  key="2"
+                />
+                <span
+                  data-tip="ui:poststed"
+                  key="5036"
+                >
+                  5036
+                </span>
+                <span
+                  className="mr-2"
+                  key="5"
+                />
+                <span
+                  data-tip="ui:city"
+                  key="BERGEN"
+                >
+                  BERGEN
+                </span>
+                <br
+                  key="6"
+                />
+              </p>
+            </n>
+          </Normaltekst>
+        </div>
+      </div>
+      <div
+        className="w-overview-personPanel__item col-md-4"
+      >
+        <div
+          className="mr-2"
+        >
+          <Icons
+            color="black"
+            kind="calendar"
+          >
+            <se
+              color="black"
+              height={24}
+              kind="calendar"
+              width={24}
+            >
+              <svg
+                contentScriptType="text/ecmascript"
+                contentStyleType="text/css"
+                height={24}
+                id="Layer_1"
+                preserveAspectRatio="xMidYMid meet"
+                version="1.1"
+                viewBox="0 0 24 24"
+                width={24}
+                x="0px"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+                zoomAndPan="magnify"
+              >
+                <path
+                  d="M4.5,2.5h-4v21h23v-21h-4"
+                  fill="none"
+                  stroke="black"
+                />
+                <rect
+                  fill="none"
+                  height="4"
+                  stroke="black"
+                  width="3"
+                  x="4.5"
+                  y="0.5"
+                />
+                <rect
+                  fill="none"
+                  height="4"
+                  stroke="black"
+                  width="3"
+                  x="16.5"
+                  y="0.5"
+                />
+                <line
+                  fill="none"
+                  stroke="black"
+                  x1="7.5"
+                  x2="16.5"
+                  y1="2.5"
+                  y2="2.5"
+                />
+                <line
+                  fill="none"
+                  stroke="black"
+                  x1="0.5"
+                  x2="23.5"
+                  y1="7.5"
+                  y2="7.5"
+                />
+              </svg>
+            </se>
+          </Icons>
+        </div>
+        <div
+          className="w-overview-personPanel__element"
+          id="w-overview-personPanel__element-birthdate"
+        >
+          <Undertekst
+            className="mr-2"
+          >
+            <n
+              className="mr-2"
+              type="undertekst"
+            >
+              <p
+                className="typo-undertekst mr-2"
+              >
+                <strong>
+                  ui:birthdate
+                </strong>
+                :
+              </p>
+            </n>
+          </Undertekst>
+          <Normaltekst>
+            <n
+              type="normaltekst"
+            >
+              <p
+                className="typo-normal"
+              >
+                27.07.1929
+              </p>
+            </n>
+          </Normaltekst>
+        </div>
+      </div>
+      <div
+        className="w-overview-personPanel__item col-md-4"
+      >
+        <div
+          className="mr-2"
+        >
+          <Icons
+            color="black"
+            kind="nav-work"
+          >
+            <ge
+              color="black"
+              height={24}
+              kind="nav-work"
+              width={24}
+            >
+              <svg
+                color="black"
+                contentScriptType="text/ecmascript"
+                contentStyleType="text/css"
+                height={24}
+                kind="nav-work"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+                zoomAndPan="magnify"
+              >
+                <g
+                  fill="none"
+                  stroke="black"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeMiterlimit="10"
+                >
+                  <path
+                    d="M1.513 17.5v6h21v-6h1v-8c0-1.104-.896-2-2-2h-19c-1.105 0-2 .896-2 2v8h1zM9.513 15.5h5v3h-5zM16.513 7.5h-9v-1c0-1.656 1.344-3 3-3h3c1.656 0 3 1.344 3 3v1zM1.513 17.5h8M14.513 17.5h8"
+                  />
+                </g>
+              </svg>
+            </ge>
+          </Icons>
+        </div>
+        <div
+          className="w-overview-personPanel__element"
+          id="w-overview-personPanel__element-nationality"
+        >
+          <Undertekst
+            className="mr-2"
+          >
+            <n
+              className="mr-2"
+              type="undertekst"
+            >
+              <p
+                className="typo-undertekst mr-2"
+              >
+                <strong>
+                  ui:nationality
+                </strong>
+                :
+              </p>
+            </n>
+          </Undertekst>
+          <Normaltekst>
+            <n
+              type="normaltekst"
+            >
+              <p
+                className="typo-normal"
+              >
+                Danmark
+              </p>
+            </n>
+          </Normaltekst>
+        </div>
+      </div>
+    </div>
+  </Row>
+  <hr
+    className="m-4"
+  />
+  <Row
+    className="w-overview-personPanel__content m-4"
+  >
+    <div
+      className="row w-overview-personPanel__content m-4"
+    >
+      <div
+        className="w-overview-personPanel__item col-md-4"
+      >
+        <div
+          className="mr-2"
+        >
+          <Icons
+            color="black"
+            kind="address"
+          >
+            <pe
+              color="black"
+              height={24}
+              kind="address"
+              width={24}
+            >
+              <svg
+                color="black"
+                contentScriptType="text/ecmascript"
+                contentStyleType="text/css"
+                enableBackground="new 0 0 24 24"
+                height={24}
+                id="Outline_Version"
+                kind="address"
+                preserveAspectRatio="xMidYMid meet"
+                version="1.1"
+                viewBox="0 0 24 24"
+                width={24}
+                x="0px"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+                zoomAndPan="magnify"
+              >
+                <path
+                  d="M12.005,0c-0.175,0-0.35,0.004-0.52,0.012C4.938,0.274,0,5.321,0,11.75C0,18.505,5.369,24,11.968,24  C18.603,24,24,18.598,24,11.957C24,5.364,18.619,0,12.005,0z M1.012,11.979h5.545c0.054,1.646,0.359,3.32,0.914,5H2.265  C1.493,15.479,1.047,13.78,1.012,11.979z M6.552,10.979H1.037c0.127-1.845,0.698-3.545,1.624-5h4.864  C6.927,7.592,6.602,9.267,6.552,10.979z M8.555,5.979h6.9c0.653,1.609,0.994,3.285,1.048,5H7.506  C7.56,9.264,7.901,7.588,8.555,5.979z M7.509,11.979H16.5c-0.059,1.642-0.384,3.314-0.984,5H8.492  C7.893,15.293,7.567,13.62,7.509,11.979z M17.453,11.979h5.546c-0.004,1.801-0.447,3.498-1.218,5h-5.243  C17.093,15.299,17.398,13.626,17.453,11.979z M17.457,10.979c-0.049-1.712-0.374-3.387-0.973-5h4.723  c0.961,1.463,1.579,3.166,1.743,5H17.457z M20.475,4.979h-4.401c-0.6-1.333-1.39-2.616-2.378-3.835  C16.407,1.563,18.798,2.961,20.475,4.979z M12.276,1.014c1.136,1.258,2.038,2.585,2.718,3.965H9.016  c0.682-1.383,1.585-2.713,2.725-3.973C11.828,1.004,11.916,1,12.005,1C12.097,1,12.186,1.012,12.276,1.014z M10.332,1.123  C9.336,2.348,8.54,3.639,7.938,4.979h-4.56C5.048,2.933,7.486,1.525,10.332,1.123z M2.842,17.979h4.985  c0.64,1.643,1.523,3.284,2.642,4.903C7.294,22.434,4.546,20.598,2.842,17.979z M11.764,22.989c-1.227-1.665-2.18-3.341-2.878-5.011  h6.237c-0.698,1.669-1.65,3.344-2.876,5.008C12.153,22.988,12.062,23,11.968,23C11.898,23,11.832,22.99,11.764,22.989z   M13.545,22.874c1.116-1.617,1.997-3.256,2.637-4.896h5.021C19.506,20.578,16.746,22.412,13.545,22.874z"
+                  fill="black"
+                />
+              </svg>
+            </pe>
+          </Icons>
+        </div>
+        <div
+          className="w-overview-personPanel__element"
+          id="w-overview-personPanel__element-postadresse"
+        >
+          <Undertekst
+            className="mr-2"
+          >
+            <n
+              className="mr-2"
+              type="undertekst"
+            >
+              <p
+                className="typo-undertekst mr-2"
+              >
+                <strong>
+                  ui:postadresse
+                </strong>
+                :
+              </p>
+            </n>
+          </Undertekst>
+          <Normaltekst>
+            <n
+              type="normaltekst"
+            >
+              <p
+                className="typo-normal"
+              >
+                <span
+                  data-tip="ui:adresse"
+                  key="NYACHAE"
+                >
+                  NYACHAE
+                </span>
+                <br
+                  key="0"
+                />
+                <span
+                  data-tip="ui:adresse"
+                  key="S-BHF ORANIENBURGER STR."
+                >
+                  S-BHF ORANIENBURGER STR.
+                </span>
+                <br
+                  key="1"
+                />
+                <span
+                  data-tip="ui:adresse"
+                  key="20095"
+                >
+                  20095
+                </span>
+                <br
+                  key="2"
+                />
+                <span
+                  data-tip="ui:country"
+                  key="Sverige"
+                >
+                  Sverige
+                </span>
+                <br
+                  key="6"
+                />
+              </p>
+            </n>
+          </Normaltekst>
+        </div>
+      </div>
+      <div
+        className="w-overview-personPanel__item col-md-4"
+      >
+        <div
+          className="mr-2"
+        >
+          <Icons
+            color="black"
+            kind="calendar"
+          >
+            <se
+              color="black"
+              height={24}
+              kind="calendar"
+              width={24}
+            >
+              <svg
+                contentScriptType="text/ecmascript"
+                contentStyleType="text/css"
+                height={24}
+                id="Layer_1"
+                preserveAspectRatio="xMidYMid meet"
+                version="1.1"
+                viewBox="0 0 24 24"
+                width={24}
+                x="0px"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+                zoomAndPan="magnify"
+              >
+                <path
+                  d="M4.5,2.5h-4v21h23v-21h-4"
+                  fill="none"
+                  stroke="black"
+                />
+                <rect
+                  fill="none"
+                  height="4"
+                  stroke="black"
+                  width="3"
+                  x="4.5"
+                  y="0.5"
+                />
+                <rect
+                  fill="none"
+                  height="4"
+                  stroke="black"
+                  width="3"
+                  x="16.5"
+                  y="0.5"
+                />
+                <line
+                  fill="none"
+                  stroke="black"
+                  x1="7.5"
+                  x2="16.5"
+                  y1="2.5"
+                  y2="2.5"
+                />
+                <line
+                  fill="none"
+                  stroke="black"
+                  x1="0.5"
+                  x2="23.5"
+                  y1="7.5"
+                  y2="7.5"
+                />
+              </svg>
+            </se>
+          </Icons>
+        </div>
+        <div
+          className="w-overview-personPanel__element"
+          id="w-overview-personPanel__element-deathdate"
+        >
+          <Undertekst
+            className="mr-2"
+          >
+            <n
+              className="mr-2"
+              type="undertekst"
+            >
+              <p
+                className="typo-undertekst mr-2"
+              >
+                <strong>
+                  ui:deathdate
+                </strong>
+                :
+              </p>
+            </n>
+          </Undertekst>
+          <Normaltekst>
+            <n
+              type="normaltekst"
+            >
+              <p
+                className="typo-normal"
+              >
+                20.05.2018
+              </p>
+            </n>
+          </Normaltekst>
+        </div>
+      </div>
+      <div
+        className="w-overview-personPanel__item col-md-4"
+      >
+        <div
+          className="mr-2"
+        >
+          <Icons
+            color="black"
+            kind="nav-child"
+          >
+            <be
+              color="black"
+              height={24}
+              kind="nav-child"
+              width={24}
+            >
+              <svg
+                color="black"
+                contentScriptType="text/ecmascript"
+                contentStyleType="text/css"
+                height={24}
+                kind="nav-child"
+                preserveAspectRatio="xMidYMid meet"
+                version="1.0"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+                zoomAndPan="magnify"
+              >
+                <g
+                  fill="none"
+                  stroke="black"
+                  strokeLinejoin="round"
+                  strokeMiterlimit="10"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="11.5"
+                  />
+                  <path
+                    d="M12 18s5.5-4 5.5-6.962c0-3.418-4.5-4.5-5.5-.341-1-4.159-5.5-3.078-5.5.341 0 2.962 5.5 6.962 5.5 6.962z"
+                  />
+                </g>
+              </svg>
+            </be>
+          </Icons>
+        </div>
+        <div
+          className="w-overview-personPanel__element"
+          id="w-overview-personPanel__element-marital-status"
+        >
+          <Undertekst
+            className="mr-2"
+          >
+            <n
+              className="mr-2"
+              type="undertekst"
+            >
+              <p
+                className="typo-undertekst mr-2"
+              >
+                <strong>
+                  ui:marital-status
+                </strong>
+                :
+              </p>
+            </n>
+          </Undertekst>
+          <Normaltekst>
+            <n
+              type="normaltekst"
+            >
+              <p
+                className="typo-normal"
+              >
+                ui:widget-overview-maritalstatus-Enke (19.06.2006)
+              </p>
+            </n>
+          </Normaltekst>
+        </div>
+      </div>
+    </div>
+  </Row>
+</PersonPanel>
+`;

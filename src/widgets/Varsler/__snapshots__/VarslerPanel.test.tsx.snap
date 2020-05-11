@@ -1,0 +1,336 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
+<VarslerPanel
+  onUpdate={[MockFunction]}
+  widget={
+    Object {
+      "i": "i",
+      "options": Object {
+        "collapsed": false,
+      },
+      "title": "Varsler",
+      "type": "varsler",
+      "visible": true,
+    }
+  }
+>
+  <aw
+    className="w-varslerPanel s-border"
+    collapseProps={
+      Object {
+        "id": "w-varslerPanel-id",
+      }
+    }
+    heading={
+      <Systemtittel
+        className="pb-3"
+      >
+        ui:widget-overview-notifications
+      </Systemtittel>
+    }
+    onClick={[Function]}
+    open={true}
+  >
+    <div
+      className="c-expandingpanel ekspanderbartPanel w-varslerPanel s-border ekspanderbartPanel--apen"
+      style={Object {}}
+    >
+      <div
+        aria-controls="w-varslerPanel-id"
+        aria-expanded={true}
+        className="ekspanderbartPanel__hode"
+        onClick={[Function]}
+      >
+        <div
+          className="ekspanderbartPanel__flex-wrapper"
+        >
+          <Systemtittel
+            className="pb-3"
+          >
+            <n
+              className="pb-3"
+              type="systemtittel"
+            >
+              <h2
+                className="typo-systemtittel pb-3"
+              >
+                ui:widget-overview-notifications
+              </h2>
+            </n>
+          </Systemtittel>
+          <button
+            aria-expanded={true}
+            aria-label="open"
+            className="ekspanderbartPanel__knapp"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            type="button"
+          >
+            <span
+              className="ekspanderbartPanel__indikator"
+            />
+          </button>
+        </div>
+      </div>
+      <t
+        id="w-varslerPanel-id"
+        isOpened={true}
+        onRest={[Function]}
+      >
+        <n
+          checkTimeout={50}
+          id="w-varslerPanel-id"
+          initialStyle={
+            Object {
+              "height": "auto",
+              "overflow": "initial",
+            }
+          }
+          isOpened={true}
+          onRest={[Function]}
+          onWork={[Function]}
+          theme={
+            Object {
+              "collapse": "ReactCollapse--collapse",
+              "content": "ReactCollapse--content",
+            }
+          }
+        >
+          <div
+            className="ReactCollapse--collapse"
+            style={
+              Object {
+                "height": "auto",
+                "overflow": "initial",
+              }
+            }
+          >
+            <div
+              className="ReactCollapse--content"
+            >
+              <article
+                className="ekspanderbartPanel__innhold"
+              >
+                <Row>
+                  <div
+                    className="row"
+                  >
+                    <div
+                      className="col-md-4"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "none",
+                          }
+                        }
+                      >
+                        <div>
+                          <label
+                            className="skjemaelement__label d-inline-block"
+                          >
+                            pinfo:sb-sakId
+                          </label>
+                          : 
+                          123
+                        </div>
+                        <div>
+                          <label
+                            className="skjemaelement__label d-inline-block"
+                          >
+                            ui:aktoerId
+                          </label>
+                          : 
+                          10293847565
+                        </div>
+                        <div>
+                          <label
+                            className="skjemaelement__label d-inline-block"
+                          >
+                            pinfo:sb-sakType
+                          </label>
+                          : 
+                          Alderspensjon
+                        </div>
+                      </div>
+                      <Veileder
+                        fargetema="normal"
+                        posisjon="bunn"
+                        storrelse="M"
+                        tekst={
+                          <React.Fragment>
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "ui:widget-overview-sendNotification-description",
+                                }
+                              }
+                            />
+                          </React.Fragment>
+                        }
+                        type="normal"
+                      >
+                        <div
+                          className="nav-veileder nav-veileder--bunn"
+                        >
+                          <div
+                            className="nav-veileder__frame nav-veileder__frame--m"
+                          >
+                            <ForwardRef(SvgNavPensjonVeileder)>
+                              <svg>
+                                NavPensjonVeileder.svg
+                              </svg>
+                            </ForwardRef(SvgNavPensjonVeileder)>
+                          </div>
+                          <i
+                            className="nav-veileder__snakkeboblePil nav-veileder__snakkeboblePil--bunn"
+                          />
+                          <div
+                            className="nav-veileder__snakkeboble nav-veileder__snakkeboble--bunn"
+                          >
+                             
+                            <div
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "ui:widget-overview-sendNotification-description",
+                                }
+                              }
+                            />
+                          </div>
+                        </div>
+                      </Veileder>
+                      <div
+                        className="text-center"
+                      >
+                        <Hovedknapp
+                          className="w-varslerPanel__invite-button mt-3"
+                          disabled={false}
+                          id="w-varslerPanel__invite-button-id"
+                          onClick={[Function]}
+                          spinner={false}
+                        >
+                          <KnappBase
+                            autoDisableVedSpinner={false}
+                            className="w-varslerPanel__invite-button mt-3"
+                            disabled={false}
+                            htmlType="submit"
+                            id="w-varslerPanel__invite-button-id"
+                            inaktivKlasseVedDisabled={false}
+                            kompakt={false}
+                            mini={false}
+                            onClick={[Function]}
+                            spinner={false}
+                            type="hoved"
+                          >
+                            <button
+                              className="knapp w-varslerPanel__invite-button mt-3 knapp--hoved"
+                              disabled={false}
+                              id="w-varslerPanel__invite-button-id"
+                              onClick={[Function]}
+                              type="submit"
+                            >
+                              ui:widget-overview-sendNotification-button
+                            </button>
+                          </KnappBase>
+                        </Hovedknapp>
+                      </div>
+                    </div>
+                    <div
+                      className="col-md-8"
+                    >
+                      <div
+                        className="w-varslerPanel__title"
+                      >
+                        <div />
+                        <RefreshButton
+                          className="w-varslerPanel__refresh-button"
+                          labelRefresh="ui:refresh"
+                          onRefreshClicked={[Function]}
+                          rotating={true}
+                        >
+                          <div
+                            className="c-refreshbutton w-varslerPanel__refresh-button"
+                          >
+                            <a
+                              className="lenke rotating"
+                              href="#refresh"
+                              onClick={[Function]}
+                              title="ui:refresh"
+                            >
+                              <Icons
+                                kind="refresh"
+                              >
+                                <FontAwesomeIcon
+                                  border={false}
+                                  className=""
+                                  fixedWidth={false}
+                                  flip={null}
+                                  icon={
+                                    Object {
+                                      "icon": Array [
+                                        512,
+                                        512,
+                                        Array [],
+                                        "f2f1",
+                                        "M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z",
+                                      ],
+                                      "iconName": "sync-alt",
+                                      "prefix": "fas",
+                                    }
+                                  }
+                                  inverse={false}
+                                  kind="refresh"
+                                  listItem={false}
+                                  mask={null}
+                                  pull={null}
+                                  pulse={false}
+                                  rotation={null}
+                                  size="1x"
+                                  spin={false}
+                                  swapOpacity={false}
+                                  symbol={false}
+                                  title=""
+                                  transform={null}
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    className="svg-inline--fa fa-sync-alt fa-w-16 fa-1x "
+                                    data-icon="sync-alt"
+                                    data-prefix="fas"
+                                    focusable="false"
+                                    kind="refresh"
+                                    role="img"
+                                    style={Object {}}
+                                    viewBox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z"
+                                      fill="currentColor"
+                                      style={Object {}}
+                                    />
+                                  </svg>
+                                </FontAwesomeIcon>
+                              </Icons>
+                            </a>
+                          </div>
+                        </RefreshButton>
+                      </div>
+                      <div
+                        className="p-2 w-varslerPanel__noMessages font-italic"
+                      >
+                        ui:widget-overview-sendNotification-noMessages
+                      </div>
+                    </div>
+                  </div>
+                </Row>
+              </article>
+            </div>
+          </div>
+        </n>
+      </t>
+    </div>
+  </aw>
+</VarslerPanel>
+`;
