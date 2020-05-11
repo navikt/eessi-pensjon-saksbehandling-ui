@@ -37,7 +37,7 @@ describe('widgets/Overview/PersonPanel', () => {
 
     expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-birthdate').render().text()).toEqual(
-      'ui:birthdate:27.07.1929')
+      'ui:birthdate:26.07.1929')
 
     expect(wrapper.find('svg[kind="nav-work"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-nationality').render().text()).toEqual(

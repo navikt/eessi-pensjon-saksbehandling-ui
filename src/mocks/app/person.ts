@@ -150,7 +150,7 @@ export default {
     },
     doedsdato: { doedsdato: '2018-05-19T22:00:00.000+0000', endringstidspunkt: null, endretAv: null, endringstype: null },
     foedselsdato: {
-      foedselsdato: '1929-07-26T23:00:00.000+0000',
+      foedselsdato: '1929-07-26T13:00:00.000+0000',
       endringstidspunkt: null,
       endretAv: null,
       endringstype: null
