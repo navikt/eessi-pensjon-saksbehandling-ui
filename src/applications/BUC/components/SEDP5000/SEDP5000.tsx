@@ -174,7 +174,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       </div>
       <div>
         <Ui.TableSorter
-          className='w-varslerPanel__table w-100 mt-2'
+          className='w-100 mt-2'
           items={items}
           searchable
           selectable={false}
@@ -215,7 +215,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       <div style={{ display: 'none' }}>
         <div id='printJS-form'>
           <Ui.TableSorter
-            className='w-varslerPanel__table w-100 mt-2'
+            className='print-version w-100 mt-2'
             items={items}
             searchable={false}
             selectable={false}

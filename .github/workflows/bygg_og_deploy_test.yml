@@ -39,6 +39,7 @@ jobs:
         run: |
           npm install
           npm audit --json
+          npm run test
           npm run build
 
       # BYGGER DOCKER CONTAINER
