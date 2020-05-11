@@ -14,9 +14,9 @@
     "start": "cross-env NODE_ENV=development npm-run-all -p start:*",
     "start:css": "less-watch-compiler --config less.json",
     "start:js": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts start",
-    "test": "cross-env NODE_ENV=test react-scripts test",
+    "test": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test",
     "test:clear": "cross-env NODE_ENV=test react-scripts test --clearCache",
-    "test:ci": "cross-env NODE_ENV=test react-scripts test --updateSnapshot --watchAll=false",
+    "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test --updateSnapshot --watchAll=false",
     "test:coverage": "cross-env NODE_ENV=test react-scripts test --coverage  --watchAll=false"
   },
   "repository": {

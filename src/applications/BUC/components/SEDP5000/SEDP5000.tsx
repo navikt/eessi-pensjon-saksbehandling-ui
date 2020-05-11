@@ -160,6 +160,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         <div className='d-flex'>
           {warning ? <Ui.Alert className='mr-4' type='client' fixed={false} status='WARNING' message={t('buc:form-P5000-warning')} /> : null}
           <Ui.Nav.Select
+            id='itemsPerPage'
             bredde='l'
             label={t('ui:itemsPerPage')}
             value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}

@@ -102,7 +102,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
       filnavn: '23534345.pdf'
     }
     expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([{
-      date: new Date('2018-12-27T13:42:24.000Z'),
+      date: new Date('2018-12-27T14:42:24'),
       dokumentInfoId: '4',
       journalpostId: '1',
       key: 'view-1-4-ARKIV',
