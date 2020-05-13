@@ -3490,13 +3490,35 @@ const mockBuc = [
           },
           activeSince: 1518476400000,
           registryNumber: null,
-          acronym: '12348',
+          acronym: 'DEMO002',
           countryCode: 'NO',
           contactMethods: null,
           name: 'DEMO002',
           location: null,
           assignedBUCs: null,
           id: 'NO:DEMO002',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: 'DEMO001',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'DEMO001',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false

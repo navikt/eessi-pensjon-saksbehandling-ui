@@ -43,7 +43,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     expect(status.find('Normaltekst.a-buc-c-sedheader__lastUpdate').render().text()).toEqual('23.10.2019')
 
     const institutions = wrapper.find('.a-buc-c-sedheader__institutions').hostNodes()
-    expect(institutions.find('InstitutionList').render().text()).toEqual(['NAV ACCEPTANCE TEST 07', 'NAV ACCEPTANCE TEST 08'].join(''))
+    expect(institutions.find('InstitutionList').render().text()).toEqual('NAV ACCEPTANCE TEST 07')
 
     const actions = wrapper.find('.a-buc-c-sedheader__actions').hostNodes()
     expect(actions.exists('Icons')).toBeTruthy()

@@ -35,10 +35,16 @@ const mapState = (state: State): SEDHeaderSelector => ({
 const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc, className, followUpSeds, onSEDNew, sed, style
 }: SEDHeaderProps): JSX.Element => {
-  const institutionList: Institutions = sed.participants ? sed.participants.map((participant: Participant) => ({
-    country: participant.organisation.countryCode,
-    institution: participant.organisation.name
-  })) : []
+  const institutionList: Institutions = sed.participants ?
+    sed.participants.filter((participant) => {
+      return (sed.status === 'received') ? participant.role === 'Sender' :
+        (sed.status !== 'draft') ? participant.role !== 'Sender' :
+          participant.organisation.countryCode === 'NO'
+    })
+    .map((participant: Participant) => ({
+      country: participant.organisation.countryCode,
+      institution: participant.organisation.name
+    })) : []
   const { locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
   const { t } = useTranslation()
   const sedLabel: string = getBucTypeLabel({
