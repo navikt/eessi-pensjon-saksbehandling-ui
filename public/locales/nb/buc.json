@@ -339,7 +339,7 @@
   "status-first_sent"     : "Tidligere sendt",
   "status-first_received" : "Tidligere mottatt",
   "status-first_cancelled": "Tidligere versjon",
-  "status-first_active"   : "Tidligere versjon",
+  "status-first_active"   : "Tidligere sendt",
   "status-new"            : "Utkast",
   "status-received"       : "Mottatt",
   "status-sent"           : "Sendt",
