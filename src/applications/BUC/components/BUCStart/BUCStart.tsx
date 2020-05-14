@@ -1,3 +1,4 @@
+import { clientError } from 'actions/alert'
 import {
   createBuc,
   getBucList,
@@ -9,7 +10,7 @@ import {
 } from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
-import { Buc, BucsInfo, Tags } from 'declarations/buc'
+import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Option, Validation } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
@@ -27,23 +28,28 @@ export interface BUCStartProps {
 }
 
 export interface BUCStartSelector {
-  buc?: Buc;
-  bucParam: string | undefined;
-  locale: AllowedLocaleString;
-  loading: Loading;
+  bucs: Bucs | undefined,
+  avdodBucs: Bucs | undefined,
   bucsInfo?: BucsInfo | undefined;
   bucList?: Array<string> | undefined;
+  bucParam: string | undefined;
+  currentBuc: string | undefined;
+  locale: AllowedLocaleString;
+  loading: Loading;
   sakId: string;
   subjectAreaList?: Array<string> | undefined;
   tagList?: Array<string> | undefined;
 }
 
 const mapState = (state: State): BUCStartSelector => ({
-  loading: state.loading,
-  locale: state.ui.locale,
+  avdodBucs: state.buc.avdodBucs,
+  bucs: state.buc.bucs,
   bucParam: state.app.params.buc,
   bucsInfo: state.buc.bucsInfo,
   bucList: state.buc.bucList,
+  currentBuc: state.buc.currentBuc,
+  loading: state.loading,
+  locale: state.ui.locale,
   sakId: state.app.params.sakId,
   subjectAreaList: state.buc.subjectAreaList,
   tagList: state.buc.tagList
@@ -57,7 +63,7 @@ const placeholders: {[k: string]: string} = {
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
-  const { buc, locale, loading, bucParam, bucsInfo, bucList, sakId, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
+  const { avdodBucs, bucs, bucParam, bucsInfo, bucList, currentBuc, locale, loading, sakId, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
@@ -83,26 +89,33 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [bucList, dispatch, loading, sakId, subjectAreaList, tagList])
 
   useEffect(() => {
-    if (!isBucCreated && buc) {
-      dispatch(saveBucsInfo({
-        bucsInfo: bucsInfo,
-        aktoerId: aktoerId,
-        tags: _tags.map(t => t.value),
-        buc: buc
-      } as SaveBucsInfoProps))
-      setIsBucCreated(true)
+    if (!isBucCreated && currentBuc) {
+      const buc: Buc | null = bucs ? bucs[currentBuc] : avdodBucs ? avdodBucs[currentBuc] : null
+      if (buc) {
+        dispatch(saveBucsInfo({
+          bucsInfo: bucsInfo,
+          aktoerId: aktoerId,
+          tags: _tags.map(t => t.value),
+          buc: buc
+        } as SaveBucsInfoProps))
+        setIsBucCreated(true)
+      } else {
+        dispatch(clientError({
+          error: t('buc:error-noBuc')
+        }))
+      }
     }
-  }, [aktoerId, buc, _buc, bucsInfo, dispatch, loading, _tags, isBucCreated])
+  }, [aktoerId, avdodBucs, bucs, bucsInfo, currentBuc, dispatch, isBucCreated, t, _tags])
 
   useEffect(() => {
     if (!hasBucInfoSaved && loading.savingBucsInfo) {
       setHasBucInfoSaved(true)
     }
-    if (hasBucInfoSaved && !loading.savingBucsInfo && buc) {
+    if (hasBucInfoSaved && !loading.savingBucsInfo && currentBuc) {
       setMode('sednew')
       setHasBucInfoSaved(false)
     }
-  }, [loading, buc, hasBucInfoSaved, setMode])
+  }, [loading, currentBuc, hasBucInfoSaved, setMode])
 
   const validateSubjectArea: Function = (subjectArea: string): boolean => {
     if (!subjectArea || subjectArea === placeholders.subjectArea) {

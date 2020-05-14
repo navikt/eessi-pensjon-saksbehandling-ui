@@ -333,7 +333,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       return Object.assign({}, newState, {
         currentBuc: (action as ActionWithPayload).payload.caseId,
-        mode: 'bucedit',
         sed: undefined,
         attachments: {}
       })

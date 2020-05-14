@@ -139,6 +139,7 @@
   "form-name"                         : "Navn på SED",
   "form-newSed"                       : "ny SED",
   "form-noBUCsFound"                  : "Ingen BUC-er funnet, vennligst start ny BUC",
+  "form-noSedsYet"                    : "Ingen SED-er ennå",
   "form-noInstitutionYet"             : "Ingen mottakerinstitusjoner ennå",
   "form-noAttachmentsYet"             : "Ingen vedlegg ennå",
   "form-notifyUser"                   : "Varsle bruker",

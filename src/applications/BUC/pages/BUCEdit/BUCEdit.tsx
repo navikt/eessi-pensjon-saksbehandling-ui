@@ -144,7 +144,12 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   onSEDNew={() => onSEDNew(buc, sed)}
                 />
               )
-            }) : <Ui.WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
+            })
+            : (
+              <div className='mt-5 text-center'>
+                <Ui.Nav.Normaltekst>{t('buc:form-noSedsYet')}</Ui.Nav.Normaltekst>
+              </div>
+            )}
         </div>
         <div className='col-md-4'>
           <BUCDetail

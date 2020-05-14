@@ -499,7 +499,6 @@ describe('reducers/buc', () => {
         }
       },
       currentBuc: 'mockCaseId',
-      mode: 'bucedit',
       sed: undefined,
       attachments: {}
     })

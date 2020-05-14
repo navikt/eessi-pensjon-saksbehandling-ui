@@ -14,7 +14,7 @@ jest.mock('actions/app', () => ({
 }))
 
 jest.mock('eessi-pensjon-ui', () => ({
-  WaitingPanel: () => (<div className='mock-waitingpanel'/>)
+  WaitingPanel: () => (<div className='mock-waitingpanel' />)
 }))
 
 const defaultSelector: AuthenticatedRouteSelector = {

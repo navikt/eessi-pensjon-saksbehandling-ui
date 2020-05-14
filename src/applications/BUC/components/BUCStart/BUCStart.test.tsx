@@ -1,6 +1,7 @@
 import { createBuc, getBucList, getSubjectAreaList, getTagList, saveBucsInfo } from 'actions/buc'
 import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
+import _ from 'lodash'
 import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
@@ -37,7 +38,7 @@ Object.defineProperty(window, 'location', {
 
 describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId', () => {
   let wrapper: ReactWrapper
-  const buc: Buc = mockBucs()[0]
+  const bucs = _.keyBy(mockBucs(), 'caseId')
   const initialMockProps: BUCStartProps = {
     aktoerId: '456',
     onTagsChanged: jest.fn(),
@@ -86,21 +87,23 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('UseEffect: saves bucsInfo after when buc was saved', () => {
     stageSelector(defaultSelector, {
       bucsInfo: mockBucsInfo as BucsInfo,
-      buc: buc
+      bucs: bucs,
+      currentBuc: _.values(bucs)[0].caseId
     })
     wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(saveBucsInfo).toHaveBeenCalledWith({
       bucsInfo: mockBucsInfo,
       aktoerId: '456',
       tags: [],
-      buc: buc
+      buc: _.values(bucs)[0]
     })
   })
 
   it('UseEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
     stageSelector(defaultSelector, {
       bucsInfo: mockBucsInfo as BucsInfo,
-      buc: buc
+      bucs: bucs,
+      currentBuc: _.values(bucs)[0].caseId
     })
     wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(initialMockProps.setMode).not.toHaveBeenCalled()
