@@ -187,7 +187,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         <div className='d-flex'>
           {warning ? (
             <Ui.Alert
-              className='mr-4'
+              className='ml-4 mr-4'
               type='client'
               fixed={false}
               status='WARNING'
