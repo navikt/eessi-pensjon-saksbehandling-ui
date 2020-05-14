@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/TopContainer Renders 1'] = `
+exports[`components/TopContainer Renders 1`] = `
 <TopContainer
   header="mockHeader"
 >
@@ -356,7 +356,7 @@ exports['components/TopContainer Renders 1'] = `
                   className="alertstripe__tekst"
                   tag="div"
                 >
-                  <n
+                  <TypografiBase
                     className="alertstripe__tekst"
                     tag="div"
                     type="normaltekst"
@@ -425,7 +425,7 @@ exports['components/TopContainer Renders 1'] = `
                         </FontAwesomeIcon>
                       </Icons>
                     </div>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
             </AlertStripe>
@@ -472,4 +472,4 @@ exports['components/TopContainer Renders 1'] = `
     </div>
   </ErrorBoundary>
 </TopContainer>
-`
+`;

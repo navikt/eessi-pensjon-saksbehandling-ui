@@ -3767,7 +3767,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             className="alertstripe__tekst"
             tag="div"
           >
-            <n
+            <TypografiBase
               className="alertstripe__tekst"
               tag="div"
               type="normaltekst"
@@ -3777,12 +3777,12 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
               >
                 Rina serverfeil, kan også skyldes ugyldig input, {"status":"INTERNAL_SERVER_ERROR","timestamp":"23-10-2019 15:48:30","messages":["500 null","{\\"stack\\":\\"\\",\\"error_description\\":\\"The user with userName:[Z990638] is not authorised\\",\\"error\\":\\"Cannot get case\\"}"]}
               </div>
-            </n>
+            </TypografiBase>
           </Normaltekst>
         </div>
       </AlertStripe>
     </div>
-    <aw
+    <ExpandingPanel
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -6343,7 +6343,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                 <Undertittel
                   className="a-buc-c-bucheader__title pb-1 w-100"
                 >
-                  <n
+                  <TypografiBase
                     className="a-buc-c-bucheader__title pb-1 w-100"
                     type="undertittel"
                   >
@@ -6352,7 +6352,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       P_BUC_01 - buc:buc-P_BUC_01
                     </h2>
-                  </n>
+                  </TypografiBase>
                 </Undertittel>
                 <Row
                   className="a-buc-c-bucheader__row no-gutters w-100"
@@ -6367,7 +6367,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         className="a-buc-c-bucheader__description"
                         id="a-buc-c-bucheader__description-id"
                       >
-                        <n
+                        <TypografiBase
                           className="a-buc-c-bucheader__description"
                           id="a-buc-c-bucheader__description-id"
                           type="normaltekst"
@@ -6380,7 +6380,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             : 
                             23.10.2019
                           </p>
-                        </n>
+                        </TypografiBase>
                       </Normaltekst>
                       <div
                         className="a-buc-c-bucheader__owner"
@@ -6389,7 +6389,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         <Normaltekst
                           className="pr-2 text-nowrap"
                         >
-                          <n
+                          <TypografiBase
                             className="pr-2 text-nowrap"
                             type="normaltekst"
                           >
@@ -6398,7 +6398,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             >
                               buc:form-caseOwner: 
                             </p>
-                          </n>
+                          </TypografiBase>
                         </Normaltekst>
                         <InstitutionList
                           className="a-buc-c-bucheader__owner-institutions"
@@ -6430,7 +6430,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 size="M"
                                 type="circle"
                               >
-                                <ForwardRef
+                                <ForwardRef(Tooltip)
                                   overlay={
                                     <span>
                                       Norge
@@ -6443,7 +6443,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <Trigger
                                     action={
                                       Array [
                                         "hover",
@@ -6709,11 +6709,11 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
-                                </ForwardRef>
+                                  </Trigger>
+                                </ForwardRef(Tooltip)>
                               </Flag>
                               <Normaltekst>
-                                <n
+                                <TypografiBase
                                   type="normaltekst"
                                 >
                                   <p
@@ -6721,7 +6721,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                   >
                                     NAVAT07
                                   </p>
-                                </n>
+                                </TypografiBase>
                               </Normaltekst>
                             </div>
                           </div>
@@ -6787,7 +6787,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             <Normaltekst
                               className="c-waitingPanel__message ml-2"
                             >
-                              <n
+                              <TypografiBase
                                 className="c-waitingPanel__message ml-2"
                                 type="normaltekst"
                               >
@@ -6796,7 +6796,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 >
                                   Vennligst vent...
                                 </p>
-                              </n>
+                              </TypografiBase>
                             </Normaltekst>
                           </div>
                         </WaitingPanel>
@@ -6875,7 +6875,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                           kind="problem"
                           size={32}
                         >
-                          <Le
+                          <Component
                             height={32}
                             kind="problem"
                             size={32}
@@ -6894,7 +6894,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 fill="currentColor"
                               />
                             </svg>
-                          </Le>
+                          </Component>
                         </Icons>
                       </div>
                     </div>
@@ -6935,14 +6935,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             </button>
           </div>
         </div>
-        <t
+        <UnmountClosed
           id="a-buc-p-buclist__buc-600891"
           isOpened={false}
           onRest={[Function]}
         />
       </div>
-    </aw>
-    <aw
+    </ExpandingPanel>
+    <ExpandingPanel
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -9093,7 +9093,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                 <Undertittel
                   className="a-buc-c-bucheader__title pb-1 w-100"
                 >
-                  <n
+                  <TypografiBase
                     className="a-buc-c-bucheader__title pb-1 w-100"
                     type="undertittel"
                   >
@@ -9102,7 +9102,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       P_BUC_02 - buc:buc-P_BUC_02
                     </h2>
-                  </n>
+                  </TypografiBase>
                 </Undertittel>
                 <Row
                   className="a-buc-c-bucheader__row no-gutters w-100"
@@ -9117,7 +9117,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         className="a-buc-c-bucheader__description"
                         id="a-buc-c-bucheader__description-id"
                       >
-                        <n
+                        <TypografiBase
                           className="a-buc-c-bucheader__description"
                           id="a-buc-c-bucheader__description-id"
                           type="normaltekst"
@@ -9130,7 +9130,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             : 
                             22.10.2019
                           </p>
-                        </n>
+                        </TypografiBase>
                       </Normaltekst>
                       <div
                         className="a-buc-c-bucheader__owner"
@@ -9139,7 +9139,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         <Normaltekst
                           className="pr-2 text-nowrap"
                         >
-                          <n
+                          <TypografiBase
                             className="pr-2 text-nowrap"
                             type="normaltekst"
                           >
@@ -9148,7 +9148,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             >
                               buc:form-caseOwner: 
                             </p>
-                          </n>
+                          </TypografiBase>
                         </Normaltekst>
                         <InstitutionList
                           className="a-buc-c-bucheader__owner-institutions"
@@ -9180,7 +9180,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 size="M"
                                 type="circle"
                               >
-                                <ForwardRef
+                                <ForwardRef(Tooltip)
                                   overlay={
                                     <span>
                                       Norge
@@ -9193,7 +9193,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <Trigger
                                     action={
                                       Array [
                                         "hover",
@@ -9459,11 +9459,11 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
-                                </ForwardRef>
+                                  </Trigger>
+                                </ForwardRef(Tooltip)>
                               </Flag>
                               <Normaltekst>
-                                <n
+                                <TypografiBase
                                   type="normaltekst"
                                 >
                                   <p
@@ -9471,7 +9471,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                   >
                                     NAVAT07
                                   </p>
-                                </n>
+                                </TypografiBase>
                               </Normaltekst>
                             </div>
                           </div>
@@ -9537,7 +9537,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             <Normaltekst
                               className="c-waitingPanel__message ml-2"
                             >
-                              <n
+                              <TypografiBase
                                 className="c-waitingPanel__message ml-2"
                                 type="normaltekst"
                               >
@@ -9546,7 +9546,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 >
                                   Vennligst vent...
                                 </p>
-                              </n>
+                              </TypografiBase>
                             </Normaltekst>
                           </div>
                         </WaitingPanel>
@@ -9625,7 +9625,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                           kind="problem"
                           size={32}
                         >
-                          <Le
+                          <Component
                             height={32}
                             kind="problem"
                             size={32}
@@ -9644,7 +9644,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 fill="currentColor"
                               />
                             </svg>
-                          </Le>
+                          </Component>
                         </Icons>
                       </div>
                     </div>
@@ -9685,14 +9685,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             </button>
           </div>
         </div>
-        <t
+        <UnmountClosed
           id="a-buc-p-buclist__buc-195440"
           isOpened={false}
           onRest={[Function]}
         />
       </div>
-    </aw>
-    <aw
+    </ExpandingPanel>
+    <ExpandingPanel
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -12265,7 +12265,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                 <Undertittel
                   className="a-buc-c-bucheader__title pb-1 w-100"
                 >
-                  <n
+                  <TypografiBase
                     className="a-buc-c-bucheader__title pb-1 w-100"
                     type="undertittel"
                   >
@@ -12274,7 +12274,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       P_BUC_03 - buc:buc-P_BUC_03
                     </h2>
-                  </n>
+                  </TypografiBase>
                 </Undertittel>
                 <Row
                   className="a-buc-c-bucheader__row no-gutters w-100"
@@ -12289,7 +12289,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         className="a-buc-c-bucheader__description"
                         id="a-buc-c-bucheader__description-id"
                       >
-                        <n
+                        <TypografiBase
                           className="a-buc-c-bucheader__description"
                           id="a-buc-c-bucheader__description-id"
                           type="normaltekst"
@@ -12302,7 +12302,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             : 
                             09.05.2019
                           </p>
-                        </n>
+                        </TypografiBase>
                       </Normaltekst>
                       <div
                         className="a-buc-c-bucheader__owner"
@@ -12311,7 +12311,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         <Normaltekst
                           className="pr-2 text-nowrap"
                         >
-                          <n
+                          <TypografiBase
                             className="pr-2 text-nowrap"
                             type="normaltekst"
                           >
@@ -12320,7 +12320,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             >
                               buc:form-caseOwner: 
                             </p>
-                          </n>
+                          </TypografiBase>
                         </Normaltekst>
                         <InstitutionList
                           className="a-buc-c-bucheader__owner-institutions"
@@ -12352,7 +12352,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 size="M"
                                 type="circle"
                               >
-                                <ForwardRef
+                                <ForwardRef(Tooltip)
                                   overlay={
                                     <span>
                                       Norge
@@ -12365,7 +12365,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <Trigger
                                     action={
                                       Array [
                                         "hover",
@@ -12631,11 +12631,11 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
-                                </ForwardRef>
+                                  </Trigger>
+                                </ForwardRef(Tooltip)>
                               </Flag>
                               <Normaltekst>
-                                <n
+                                <TypografiBase
                                   type="normaltekst"
                                 >
                                   <p
@@ -12643,7 +12643,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                   >
                                     DEMO002
                                   </p>
-                                </n>
+                                </TypografiBase>
                               </Normaltekst>
                             </div>
                           </div>
@@ -12709,7 +12709,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             <Normaltekst
                               className="c-waitingPanel__message ml-2"
                             >
-                              <n
+                              <TypografiBase
                                 className="c-waitingPanel__message ml-2"
                                 type="normaltekst"
                               >
@@ -12718,7 +12718,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 >
                                   Vennligst vent...
                                 </p>
-                              </n>
+                              </TypografiBase>
                             </Normaltekst>
                           </div>
                         </WaitingPanel>
@@ -12797,7 +12797,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                           kind="problem"
                           size={32}
                         >
-                          <Le
+                          <Component
                             height={32}
                             kind="problem"
                             size={32}
@@ -12816,7 +12816,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 fill="currentColor"
                               />
                             </svg>
-                          </Le>
+                          </Component>
                         </Icons>
                       </div>
                     </div>
@@ -12857,14 +12857,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             </button>
           </div>
         </div>
-        <t
+        <UnmountClosed
           id="a-buc-p-buclist__buc-158123"
           isOpened={false}
           onRest={[Function]}
         />
       </div>
-    </aw>
-    <aw
+    </ExpandingPanel>
+    <ExpandingPanel
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -13107,7 +13107,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                 <Undertittel
                   className="a-buc-c-bucheader__title pb-1 w-100"
                 >
-                  <n
+                  <TypografiBase
                     className="a-buc-c-bucheader__title pb-1 w-100"
                     type="undertittel"
                   >
@@ -13116,7 +13116,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       P_BUC_06 - buc:buc-P_BUC_06
                     </h2>
-                  </n>
+                  </TypografiBase>
                 </Undertittel>
                 <Row
                   className="a-buc-c-bucheader__row no-gutters w-100"
@@ -13131,7 +13131,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         className="a-buc-c-bucheader__description"
                         id="a-buc-c-bucheader__description-id"
                       >
-                        <n
+                        <TypografiBase
                           className="a-buc-c-bucheader__description"
                           id="a-buc-c-bucheader__description-id"
                           type="normaltekst"
@@ -13144,7 +13144,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             : 
                             09.05.2019
                           </p>
-                        </n>
+                        </TypografiBase>
                       </Normaltekst>
                       <div
                         className="a-buc-c-bucheader__owner"
@@ -13153,7 +13153,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                         <Normaltekst
                           className="pr-2 text-nowrap"
                         >
-                          <n
+                          <TypografiBase
                             className="pr-2 text-nowrap"
                             type="normaltekst"
                           >
@@ -13162,7 +13162,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             >
                               buc:form-caseOwner: 
                             </p>
-                          </n>
+                          </TypografiBase>
                         </Normaltekst>
                         <InstitutionList
                           className="a-buc-c-bucheader__owner-institutions"
@@ -13194,7 +13194,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 size="M"
                                 type="circle"
                               >
-                                <ForwardRef
+                                <ForwardRef(Tooltip)
                                   overlay={
                                     <span>
                                       Norge
@@ -13207,7 +13207,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <Trigger
                                     action={
                                       Array [
                                         "hover",
@@ -13473,11 +13473,11 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
-                                </ForwardRef>
+                                  </Trigger>
+                                </ForwardRef(Tooltip)>
                               </Flag>
                               <Normaltekst>
-                                <n
+                                <TypografiBase
                                   type="normaltekst"
                                 >
                                   <p
@@ -13485,7 +13485,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                   >
                                     DEMO002
                                   </p>
-                                </n>
+                                </TypografiBase>
                               </Normaltekst>
                             </div>
                           </div>
@@ -13551,7 +13551,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                             <Normaltekst
                               className="c-waitingPanel__message ml-2"
                             >
-                              <n
+                              <TypografiBase
                                 className="c-waitingPanel__message ml-2"
                                 type="normaltekst"
                               >
@@ -13560,7 +13560,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                 >
                                   Vennligst vent...
                                 </p>
-                              </n>
+                              </TypografiBase>
                             </Normaltekst>
                           </div>
                         </WaitingPanel>
@@ -13669,13 +13669,13 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             </button>
           </div>
         </div>
-        <t
+        <UnmountClosed
           id="a-buc-p-buclist__buc-158124"
           isOpened={false}
           onRest={[Function]}
         />
       </div>
-    </aw>
+    </ExpandingPanel>
     <Component
       className="w-100 mt-2 mb-2"
     >

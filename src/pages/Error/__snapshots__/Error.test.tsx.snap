@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['pages/Error Renders 1'] = `
+exports[`pages/Error Renders 1`] = `
 <Error
   history={Object {}}
   type="something"
@@ -36,7 +36,7 @@ exports['pages/Error Renders 1'] = `
         <Undertittel
           className="title m-5"
         >
-          <n
+          <TypografiBase
             className="title m-5"
             type="undertittel"
           >
@@ -45,7 +45,7 @@ exports['pages/Error Renders 1'] = `
             >
               ui:error-404-title
             </h2>
-          </n>
+          </TypografiBase>
         </Undertittel>
         <div
           className="description"
@@ -61,7 +61,7 @@ exports['pages/Error Renders 1'] = `
         <Normaltekst
           className="mt-2 footer"
         >
-          <n
+          <TypografiBase
             className="mt-2 footer"
             type="normaltekst"
           >
@@ -70,10 +70,10 @@ exports['pages/Error Renders 1'] = `
             >
               ui:error-404-footer
             </p>
-          </n>
+          </TypografiBase>
         </Normaltekst>
       </div>
     </div>
   </Component>
 </Error>
-`
+`;

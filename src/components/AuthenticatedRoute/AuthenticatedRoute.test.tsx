@@ -13,6 +13,10 @@ jest.mock('actions/app', () => ({
   setStatusParam: jest.fn()
 }))
 
+jest.mock('eessi-pensjon-ui', () => ({
+  WaitingPanel: () => (<div className='mock-waitingpanel'/>)
+}))
+
 const defaultSelector: AuthenticatedRouteSelector = {
   userRole: undefined,
   loggedIn: undefined,

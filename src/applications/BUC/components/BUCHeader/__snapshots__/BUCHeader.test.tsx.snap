@@ -1290,7 +1290,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
     <Undertittel
       className="a-buc-c-bucheader__title pb-1 w-100"
     >
-      <n
+      <TypografiBase
         className="a-buc-c-bucheader__title pb-1 w-100"
         type="undertittel"
       >
@@ -1299,7 +1299,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
         >
           P_BUC_01 - buc:buc-P_BUC_01
         </h2>
-      </n>
+      </TypografiBase>
     </Undertittel>
     <Row
       className="a-buc-c-bucheader__row no-gutters w-100"
@@ -1314,7 +1314,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
             className="a-buc-c-bucheader__description"
             id="a-buc-c-bucheader__description-id"
           >
-            <n
+            <TypografiBase
               className="a-buc-c-bucheader__description"
               id="a-buc-c-bucheader__description-id"
               type="normaltekst"
@@ -1327,7 +1327,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                 : 
                 23.10.2019
               </p>
-            </n>
+            </TypografiBase>
           </Normaltekst>
           <div
             className="a-buc-c-bucheader__owner"
@@ -1336,7 +1336,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
             <Normaltekst
               className="pr-2 text-nowrap"
             >
-              <n
+              <TypografiBase
                 className="pr-2 text-nowrap"
                 type="normaltekst"
               >
@@ -1345,7 +1345,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                 >
                   buc:form-caseOwner: 
                 </p>
-              </n>
+              </TypografiBase>
             </Normaltekst>
             <InstitutionList
               className="a-buc-c-bucheader__owner-institutions"
@@ -1377,7 +1377,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                     size="M"
                     type="circle"
                   >
-                    <ForwardRef
+                    <ForwardRef(Tooltip)
                       overlay={
                         <span>
                           Norge
@@ -1390,7 +1390,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                         ]
                       }
                     >
-                      <t
+                      <Trigger
                         action={
                           Array [
                             "hover",
@@ -1656,11 +1656,11 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             style={Object {}}
                           />
                         </div>
-                      </t>
-                    </ForwardRef>
+                      </Trigger>
+                    </ForwardRef(Tooltip)>
                   </Flag>
                   <Normaltekst>
-                    <n
+                    <TypografiBase
                       type="normaltekst"
                     >
                       <p
@@ -1668,7 +1668,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       >
                         NAVAT07
                       </p>
-                    </n>
+                    </TypografiBase>
                   </Normaltekst>
                 </div>
               </div>
@@ -1681,7 +1681,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
             <Normaltekst
               className="pr-2 text-nowrap"
             >
-              <n
+              <TypografiBase
                 className="pr-2 text-nowrap"
                 type="normaltekst"
               >
@@ -1706,7 +1706,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                     </a>
                   </Lenke>
                 </p>
-              </n>
+              </TypografiBase>
             </Normaltekst>
           </div>
         </div>
@@ -1754,7 +1754,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
               }
               type="circle"
             >
-              <ForwardRef
+              <ForwardRef(Tooltip)
                 overlay={
                   <span>
                     NO:NAVAT07
@@ -1767,7 +1767,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <Trigger
                   action={
                     Array [
                       "hover",
@@ -2041,8 +2041,8 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
-              </ForwardRef>
+                </Trigger>
+              </ForwardRef(Tooltip)>
             </Flag>
             <Flag
               className="m-1 animate"
@@ -2057,7 +2057,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
               }
               type="circle"
             >
-              <ForwardRef
+              <ForwardRef(Tooltip)
                 overlay={
                   <span>
                     GB:DEMO001
@@ -2070,7 +2070,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <Trigger
                   action={
                     Array [
                       "hover",
@@ -2344,8 +2344,8 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
-              </ForwardRef>
+                </Trigger>
+              </ForwardRef(Tooltip)>
             </Flag>
             <Flag
               className="m-1 animate"
@@ -2360,7 +2360,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
               }
               type="circle"
             >
-              <ForwardRef
+              <ForwardRef(Tooltip)
                 overlay={
                   <span>
                     UK:DEMO001
@@ -2373,7 +2373,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <Trigger
                   action={
                     Array [
                       "hover",
@@ -2647,8 +2647,8 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
-              </ForwardRef>
+                </Trigger>
+              </ForwardRef(Tooltip)>
             </Flag>
             <Flag
               className="m-1 animate"
@@ -2663,7 +2663,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
               }
               type="circle"
             >
-              <ForwardRef
+              <ForwardRef(Tooltip)
                 overlay={
                   <span>
                     FR:DEMO001
@@ -2676,7 +2676,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <Trigger
                   action={
                     Array [
                       "hover",
@@ -2950,8 +2950,8 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
-              </ForwardRef>
+                </Trigger>
+              </ForwardRef(Tooltip)>
             </Flag>
           </FlagList>
           <div
@@ -2968,7 +2968,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
               kind="problem"
               size={32}
             >
-              <Le
+              <Component
                 height={32}
                 kind="problem"
                 size={32}
@@ -2987,7 +2987,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                     fill="currentColor"
                   />
                 </svg>
-              </Le>
+              </Component>
             </Icons>
           </div>
         </div>

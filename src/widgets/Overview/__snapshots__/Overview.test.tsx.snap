@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/Overview/Overview Renders 1'] = `
+exports[`widgets/Overview/Overview Renders 1`] = `
 <Overview
   onUpdate={[MockFunction]}
   skipMount={false}
@@ -16,7 +16,7 @@ exports['widgets/Overview/Overview Renders 1'] = `
     }
   }
 >
-  <aw
+  <ExpandingPanel
     className="w-overview s-border"
     collapseProps={
       Object {
@@ -104,7 +104,7 @@ exports['widgets/Overview/Overview Renders 1'] = `
                 <Normaltekst
                   className="c-waitingPanel__message ml-2"
                 >
-                  <n
+                  <TypografiBase
                     className="c-waitingPanel__message ml-2"
                     type="normaltekst"
                   >
@@ -113,7 +113,7 @@ exports['widgets/Overview/Overview Renders 1'] = `
                     >
                       ui:loading
                     </p>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
             </WaitingPanel>
@@ -132,12 +132,12 @@ exports['widgets/Overview/Overview Renders 1'] = `
           </button>
         </div>
       </div>
-      <t
+      <UnmountClosed
         id="w-overview-id"
         isOpened={true}
         onRest={[Function]}
       >
-        <n
+        <Collapse
           checkTimeout={50}
           id="w-overview-id"
           initialStyle={
@@ -178,9 +178,9 @@ exports['widgets/Overview/Overview Renders 1'] = `
               </article>
             </div>
           </div>
-        </n>
-      </t>
+        </Collapse>
+      </UnmountClosed>
     </div>
-  </aw>
+  </ExpandingPanel>
 </Overview>
-`
+`;

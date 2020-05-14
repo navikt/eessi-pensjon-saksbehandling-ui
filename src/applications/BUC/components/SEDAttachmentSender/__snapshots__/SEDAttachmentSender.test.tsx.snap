@@ -121,7 +121,7 @@ exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Ren
   <div
     className="a-buc-c-sedAttachmentSender mock-sedAttachmentSender"
   >
-    <Component
+    <ProgressBar
       now={16}
       status="inprogress"
     >
@@ -143,7 +143,7 @@ exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Ren
           buc:loading-sendingXofY
         </div>
       </div>
-    </Component>
+    </ProgressBar>
   </div>
 </SEDAttachmentSender>
 `;

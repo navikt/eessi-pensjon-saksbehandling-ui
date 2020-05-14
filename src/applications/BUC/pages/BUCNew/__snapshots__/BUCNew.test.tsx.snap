@@ -13,7 +13,7 @@ exports[`applications/BUC/widgets/BUCNew/BUCNew Renders 1`] = `
       className="panel a-buc-p-bucnew s-border"
     >
       <Systemtittel>
-        <n
+        <TypografiBase
           type="systemtittel"
         >
           <h2
@@ -21,7 +21,7 @@ exports[`applications/BUC/widgets/BUCNew/BUCNew Renders 1`] = `
           >
             buc:step-startBUCTitle
           </h2>
-        </n>
+        </TypografiBase>
       </Systemtittel>
       <hr />
       <Component

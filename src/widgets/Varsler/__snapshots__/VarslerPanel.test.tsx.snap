@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/Varsler/VarslerPanel Renders 1'] = `
+exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
 <VarslerPanel
   onUpdate={[MockFunction]}
   widget={
@@ -15,7 +15,7 @@ exports['widgets/Varsler/VarslerPanel Renders 1'] = `
     }
   }
 >
-  <aw
+  <ExpandingPanel
     className="w-varslerPanel s-border"
     collapseProps={
       Object {
@@ -48,7 +48,7 @@ exports['widgets/Varsler/VarslerPanel Renders 1'] = `
           <Systemtittel
             className="pb-3"
           >
-            <n
+            <TypografiBase
               className="pb-3"
               type="systemtittel"
             >
@@ -57,7 +57,7 @@ exports['widgets/Varsler/VarslerPanel Renders 1'] = `
               >
                 ui:widget-overview-notifications
               </h2>
-            </n>
+            </TypografiBase>
           </Systemtittel>
           <button
             aria-expanded={true}
@@ -73,12 +73,12 @@ exports['widgets/Varsler/VarslerPanel Renders 1'] = `
           </button>
         </div>
       </div>
-      <t
+      <UnmountClosed
         id="w-varslerPanel-id"
         isOpened={true}
         onRest={[Function]}
       >
-        <n
+        <Collapse
           checkTimeout={50}
           id="w-varslerPanel-id"
           initialStyle={
@@ -328,9 +328,9 @@ exports['widgets/Varsler/VarslerPanel Renders 1'] = `
               </article>
             </div>
           </div>
-        </n>
-      </t>
+        </Collapse>
+      </UnmountClosed>
     </div>
-  </aw>
+  </ExpandingPanel>
 </VarslerPanel>
-`
+`;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/Overview/PersonPanel Renders 1'] = `
+exports[`widgets/Overview/PersonPanel Renders 1`] = `
 <PersonPanel
   highContrast={false}
   locale="nb"
@@ -241,7 +241,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
             color="black"
             kind="nav-home"
           >
-            <Me
+            <Component
               color="black"
               height={24}
               kind="nav-home"
@@ -281,7 +281,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   />
                 </g>
               </svg>
-            </Me>
+            </Component>
           </Icons>
         </div>
         <div
@@ -291,7 +291,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
           <Undertekst
             className="mr-2"
           >
-            <n
+            <TypografiBase
               className="mr-2"
               type="undertekst"
             >
@@ -303,10 +303,10 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                 </strong>
                 :
               </p>
-            </n>
+            </TypografiBase>
           </Undertekst>
           <Normaltekst>
-            <n
+            <TypografiBase
               type="normaltekst"
             >
               <p
@@ -351,7 +351,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   key="6"
                 />
               </p>
-            </n>
+            </TypografiBase>
           </Normaltekst>
         </div>
       </div>
@@ -365,7 +365,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
             color="black"
             kind="calendar"
           >
-            <se
+            <Component
               color="black"
               height={24}
               kind="calendar"
@@ -423,7 +423,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   y2="7.5"
                 />
               </svg>
-            </se>
+            </Component>
           </Icons>
         </div>
         <div
@@ -433,7 +433,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
           <Undertekst
             className="mr-2"
           >
-            <n
+            <TypografiBase
               className="mr-2"
               type="undertekst"
             >
@@ -445,10 +445,10 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                 </strong>
                 :
               </p>
-            </n>
+            </TypografiBase>
           </Undertekst>
           <Normaltekst>
-            <n
+            <TypografiBase
               type="normaltekst"
             >
               <p
@@ -456,7 +456,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
               >
                 26.07.1929
               </p>
-            </n>
+            </TypografiBase>
           </Normaltekst>
         </div>
       </div>
@@ -470,7 +470,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
             color="black"
             kind="nav-work"
           >
-            <ge
+            <Component
               color="black"
               height={24}
               kind="nav-work"
@@ -500,7 +500,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   />
                 </g>
               </svg>
-            </ge>
+            </Component>
           </Icons>
         </div>
         <div
@@ -510,7 +510,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
           <Undertekst
             className="mr-2"
           >
-            <n
+            <TypografiBase
               className="mr-2"
               type="undertekst"
             >
@@ -522,10 +522,10 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                 </strong>
                 :
               </p>
-            </n>
+            </TypografiBase>
           </Undertekst>
           <Normaltekst>
-            <n
+            <TypografiBase
               type="normaltekst"
             >
               <p
@@ -533,7 +533,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
               >
                 Danmark
               </p>
-            </n>
+            </TypografiBase>
           </Normaltekst>
         </div>
       </div>
@@ -558,7 +558,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
             color="black"
             kind="address"
           >
-            <pe
+            <Component
               color="black"
               height={24}
               kind="address"
@@ -586,7 +586,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   fill="black"
                 />
               </svg>
-            </pe>
+            </Component>
           </Icons>
         </div>
         <div
@@ -596,7 +596,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
           <Undertekst
             className="mr-2"
           >
-            <n
+            <TypografiBase
               className="mr-2"
               type="undertekst"
             >
@@ -608,10 +608,10 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                 </strong>
                 :
               </p>
-            </n>
+            </TypografiBase>
           </Undertekst>
           <Normaltekst>
-            <n
+            <TypografiBase
               type="normaltekst"
             >
               <p
@@ -654,7 +654,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   key="6"
                 />
               </p>
-            </n>
+            </TypografiBase>
           </Normaltekst>
         </div>
       </div>
@@ -668,7 +668,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
             color="black"
             kind="calendar"
           >
-            <se
+            <Component
               color="black"
               height={24}
               kind="calendar"
@@ -726,7 +726,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   y2="7.5"
                 />
               </svg>
-            </se>
+            </Component>
           </Icons>
         </div>
         <div
@@ -736,7 +736,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
           <Undertekst
             className="mr-2"
           >
-            <n
+            <TypografiBase
               className="mr-2"
               type="undertekst"
             >
@@ -748,10 +748,10 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                 </strong>
                 :
               </p>
-            </n>
+            </TypografiBase>
           </Undertekst>
           <Normaltekst>
-            <n
+            <TypografiBase
               type="normaltekst"
             >
               <p
@@ -759,7 +759,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
               >
                 20.05.2018
               </p>
-            </n>
+            </TypografiBase>
           </Normaltekst>
         </div>
       </div>
@@ -773,7 +773,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
             color="black"
             kind="nav-child"
           >
-            <be
+            <Component
               color="black"
               height={24}
               kind="nav-child"
@@ -808,7 +808,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                   />
                 </g>
               </svg>
-            </be>
+            </Component>
           </Icons>
         </div>
         <div
@@ -818,7 +818,7 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
           <Undertekst
             className="mr-2"
           >
-            <n
+            <TypografiBase
               className="mr-2"
               type="undertekst"
             >
@@ -830,10 +830,10 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
                 </strong>
                 :
               </p>
-            </n>
+            </TypografiBase>
           </Undertekst>
           <Normaltekst>
-            <n
+            <TypografiBase
               type="normaltekst"
             >
               <p
@@ -841,11 +841,11 @@ exports['widgets/Overview/PersonPanel Renders 1'] = `
               >
                 ui:widget-overview-maritalstatus-Enke (19.06.2006)
               </p>
-            </n>
+            </TypografiBase>
           </Normaltekst>
         </div>
       </div>
     </div>
   </Row>
 </PersonPanel>
-`
+`;

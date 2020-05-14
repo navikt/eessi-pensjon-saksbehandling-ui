@@ -16,14 +16,13 @@ jest.mock('use-error-boundary', () => ({
 const mockHistoryPush = jest.fn()
 
 jest.mock('react-router-dom', () => {
-  const rr = jest.requireActual('react-router-dom')
   return {
-    ...rr,
     useHistory: () => ({
       push: mockHistoryPush
     })
   }
 })
+
 const defaultSelector: TopContainerSelector = {
   clientErrorStatus: 'ERROR',
   clientErrorMessage: 'mockErrorMessage',

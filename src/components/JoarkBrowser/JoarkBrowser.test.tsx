@@ -58,6 +58,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('Render: loading', () => {
@@ -95,6 +96,8 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   it('Calls onFilesChange when selecting a file', () => {
     (initialMockProps.onFilesChange as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {})
+    wrapper = mount(<JoarkBrowser {...initialMockProps} />)
     wrapper.find('#c-tableSorter__row-checkbox-id-view-1-4-ARKIV').hostNodes().simulate('change', { target: { checked: true } })
     const expectedFile = files[0]
     expectedFile.variant = {

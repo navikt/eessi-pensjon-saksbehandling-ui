@@ -15,7 +15,7 @@ export interface HeaderProps {
   className ?: string;
   children?: JSX.Element | Array<JSX.Element | null>;
   gettingUserInfo?: boolean;
-  header?: JSX.Element;
+  header?: JSX.Element | string;
   isLoggingOut?: boolean;
   snow?: boolean;
   username?: string;
@@ -121,11 +121,12 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       {header
         ? (
-          <Ui.Nav.Systemtittel className='m-4'>
-            {header}
-          </Ui.Nav.Systemtittel>
-        )
-        : null}
+          _.isString(header) ? (
+            <Ui.Nav.Systemtittel className='m-4'>
+              {header}
+            </Ui.Nav.Systemtittel>
+          ) : header
+        ) : null}
       {children}
     </header>
   )
@@ -134,7 +135,7 @@ const Header: React.FC<HeaderProps> = ({
 Header.propTypes = {
   className: PT.string,
   gettingUserInfo: PT.bool,
-  header: PT.element,
+  header: PT.oneOfType([PT.element, PT.string]),
   isLoggingOut: PT.bool,
   username: PT.string
 }

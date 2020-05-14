@@ -30,7 +30,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
         size="M"
         type="circle"
       >
-        <ForwardRef
+        <ForwardRef(Tooltip)
           overlay={
             <span>
               Norge
@@ -43,7 +43,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
             ]
           }
         >
-          <t
+          <Trigger
             action={
               Array [
                 "hover",
@@ -309,11 +309,11 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                 style={Object {}}
               />
             </div>
-          </t>
-        </ForwardRef>
+          </Trigger>
+        </ForwardRef(Tooltip)>
       </Flag>
       <Normaltekst>
-        <n
+        <TypografiBase
           type="normaltekst"
         >
           <p
@@ -321,7 +321,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
           >
             Mock 1 institution, Mock 2 institution
           </p>
-        </n>
+        </TypografiBase>
       </Normaltekst>
     </div>
   </div>

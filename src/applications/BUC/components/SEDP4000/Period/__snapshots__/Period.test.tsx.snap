@@ -129,7 +129,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                 kind="nav-work"
                 size={32}
               >
-                <ge
+                <Component
                   className="iconsvg"
                   height={32}
                   kind="nav-work"
@@ -161,7 +161,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                       />
                     </g>
                   </svg>
-                </ge>
+                </Component>
               </Icons>
             </div>
             <div
@@ -173,7 +173,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                 <UndertekstBold
                   className="pr-2"
                 >
-                  <n
+                  <TypografiBase
                     className="pr-2"
                     type="undertekstBold"
                   >
@@ -182,14 +182,14 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       buc:p4000-label-category-work
                     </p>
-                  </n>
+                  </TypografiBase>
                 </UndertekstBold>
                 <Flag
                   country="MX"
                   label="mockMM"
                   size="M"
                 >
-                  <ForwardRef
+                  <ForwardRef(Tooltip)
                     overlay={
                       <span>
                         mockMM
@@ -202,7 +202,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                       ]
                     }
                   >
-                    <t
+                    <Trigger
                       action={
                         Array [
                           "hover",
@@ -468,13 +468,13 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                           style={Object {}}
                         />
                       </div>
-                    </t>
-                  </ForwardRef>
+                    </Trigger>
+                  </ForwardRef(Tooltip)>
                 </Flag>
                 <Normaltekst
                   className="pl-2"
                 >
-                  <n
+                  <TypografiBase
                     className="pl-2"
                     type="normaltekst"
                   >
@@ -483,7 +483,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       mockMM
                     </p>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
               <div
@@ -492,7 +492,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                 <UndertekstBold
                   className="mr-2"
                 >
-                  <n
+                  <TypografiBase
                     className="mr-2"
                     type="undertekstBold"
                   >
@@ -501,10 +501,10 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       buc:p4000-label-period: 
                     </p>
-                  </n>
+                  </TypografiBase>
                 </UndertekstBold>
                 <Normaltekst>
-                  <n
+                  <TypografiBase
                     type="normaltekst"
                   >
                     <p
@@ -515,7 +515,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                       01.01.1994
                        (?)
                     </p>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
               <div
@@ -524,7 +524,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                 <UndertekstBold
                   className="mr-2"
                 >
-                  <n
+                  <TypografiBase
                     className="mr-2"
                     type="undertekstBold"
                   >
@@ -533,10 +533,10 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       buc:p4000-label-work-activity2: 
                     </p>
-                  </n>
+                  </TypografiBase>
                 </UndertekstBold>
                 <Normaltekst>
-                  <n
+                  <TypografiBase
                     type="normaltekst"
                   >
                     <p
@@ -544,7 +544,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       work period 1 workActivity
                     </p>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
               <div
@@ -553,7 +553,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                 <UndertekstBold
                   className="mr-2"
                 >
-                  <n
+                  <TypografiBase
                     className="mr-2"
                     type="undertekstBold"
                   >
@@ -562,10 +562,10 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       buc:p4000-label-place: 
                     </p>
-                  </n>
+                  </TypografiBase>
                 </UndertekstBold>
                 <Normaltekst>
-                  <n
+                  <TypografiBase
                     type="normaltekst"
                   >
                     <p
@@ -573,7 +573,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       work period 1 workCity
                     </p>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
               <div
@@ -582,7 +582,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                 <UndertekstBold
                   className="mr-2"
                 >
-                  <n
+                  <TypografiBase
                     className="mr-2"
                     type="undertekstBold"
                   >
@@ -591,10 +591,10 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       buc:p4000-label-attachments: 
                     </p>
-                  </n>
+                  </TypografiBase>
                 </UndertekstBold>
                 <Normaltekst>
-                  <n
+                  <TypografiBase
                     type="normaltekst"
                   >
                     <p
@@ -602,7 +602,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                     >
                       mock.pdf
                     </p>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
             </div>
@@ -665,7 +665,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                   kind="bigclose"
                   size={18}
                 >
-                  <ie
+                  <Component
                     className="mr-3"
                     color="#0067C5"
                     height={18}
@@ -699,7 +699,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                         />
                       </g>
                     </svg>
-                  </ie>
+                  </Component>
                 </Icons>
                 ui:remove
               </button>

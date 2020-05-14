@@ -17,9 +17,7 @@ jest.mock('actions/ui', () => ({
 const mockHistoryPush = jest.fn()
 
 jest.mock('react-router-dom', () => {
-  const rr = jest.requireActual('react-router-dom')
   return {
-    ...rr,
     useHistory: () => ({
       push: mockHistoryPush
     }),
