@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Overview/Overview Renders 1`] = `
+exports['widgets/Overview/Overview Renders 1'] = `
 <Overview
   onUpdate={[MockFunction]}
   skipMount={false}
@@ -183,4 +183,4 @@ exports[`widgets/Overview/Overview Renders 1`] = `
     </div>
   </aw>
 </Overview>
-`;
+`

@@ -70,7 +70,7 @@ export default class P4000Payload {
     return country.value
   }
 
-  handleGenericPeriod (period: Period) {
+  handleGenericPeriod (period: Period): PayloadPeriod {
     const result: PayloadPeriod = {
       land: this.handleCountry(period.country),
       periode: this.handleDate(period)

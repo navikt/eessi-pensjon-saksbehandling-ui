@@ -14,7 +14,7 @@ export interface JoarkPoster {
   tittel: string;
   tema: string;
   datoOpprettet: string;
-  tilleggsopplysninger?: Array<any>;
+  tilleggsopplysninger?: Array<any> | null;
   dokumenter: Array<JoarkDoc>
 }
 
@@ -24,7 +24,7 @@ export interface JoarkFile {
   tema: string;
   datoOpprettet: Date;
   dokumentInfoId: string;
-  tilleggsopplysninger?: Array<any>;
+  tilleggsopplysninger?: Array<any> | null;
   variant: JoarkFileVariant
 }
 

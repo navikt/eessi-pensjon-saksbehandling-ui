@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Header Renders 1`] = `
+exports['components/Header Renders 1'] = `
 <Header
   username="testUser"
 >
@@ -258,4 +258,4 @@ exports[`components/Header Renders 1`] = `
     </div>
   </header>
 </Header>
-`;
+`

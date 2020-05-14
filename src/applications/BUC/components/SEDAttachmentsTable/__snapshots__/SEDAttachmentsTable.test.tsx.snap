@@ -128,118 +128,13 @@ exports[`applications/BUC/components/SEDAttachments/SEDAttachments Renders 1`] =
               />
             </tr>
           </thead>
-          <tbody>
-            <tr
-              aria-selected={false}
-              className="slideAnimate"
-              key="0_0"
-              style={
-                Object {
-                  "animationDelay": "0s",
-                }
-              }
-            >
-              <td />
-              <td
-                className=""
-                key="0"
-              >
-                <EtikettLiten>
-                  <n
-                    type="etikettLiten"
-                  >
-                    <p
-                      className="typo-etikett-liten"
-                    >
-                      joark
-                    </p>
-                  </n>
-                </EtikettLiten>
-              </td>
-              <td
-                className=""
-                key="1"
-              >
-                <Normaltekst>
-                  <n
-                    type="normaltekst"
-                  >
-                    <p
-                      className="typo-normal"
-                    >
-                      <span>
-                        blue.pdf
-                      </span>
-                    </p>
-                  </n>
-                </Normaltekst>
-              </td>
-              <td
-                className=""
-                key="2"
-              >
-                <div />
-              </td>
-            </tr>
-            <tr
-              aria-selected={false}
-              className="slideAnimate"
-              key="1_0"
-              style={
-                Object {
-                  "animationDelay": "0.07s",
-                }
-              }
-            >
-              <td />
-              <td
-                className=""
-                key="0"
-              >
-                <EtikettLiten>
-                  <n
-                    type="etikettLiten"
-                  >
-                    <p
-                      className="typo-etikett-liten"
-                    >
-                      sed
-                    </p>
-                  </n>
-                </EtikettLiten>
-              </td>
-              <td
-                className=""
-                key="1"
-              >
-                <Normaltekst>
-                  <n
-                    type="normaltekst"
-                  >
-                    <p
-                      className="typo-normal"
-                    >
-                      <span>
-                        red.pdf
-                      </span>
-                    </p>
-                  </n>
-                </Normaltekst>
-              </td>
-              <td
-                className=""
-                key="2"
-              >
-                <div />
-              </td>
-            </tr>
-          </tbody>
+          <tbody />
         </table>
         <Component
           className="c-tableSorter__pagination"
           initialPage={1}
           itemsPerPage={10}
-          numberOfItems={2}
+          numberOfItems={0}
           onChange={[Function]}
         />
       </div>

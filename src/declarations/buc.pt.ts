@@ -159,4 +159,4 @@ export const TagPropType = PT.shape({
 
 export const TagsPropType = PT.arrayOf(TagPropType.isRequired)
 
-export const AttachedFilesPropType = PT.objectOf(PT.oneOfType([JoarkFilesPropType.isRequired, BUCAttachmentsPropType.isRequired]).isRequired)
+export const AttachedFilesPropType = PT.objectOf(PT.oneOfType([JoarkFilesPropType, BUCAttachmentsPropType]).isRequired)

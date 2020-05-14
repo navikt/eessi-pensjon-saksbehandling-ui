@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Overview/PersonTitle Renders 1`] = `
+exports['widgets/Overview/PersonTitle Renders 1'] = `
 <PersonTitle
   gettingPersonInfo={false}
   person={
@@ -53,7 +53,7 @@ exports[`widgets/Overview/PersonTitle Renders 1`] = `
         "endretAv": null,
         "endringstidspunkt": null,
         "endringstype": null,
-        "foedselsdato": "1929-07-26T23:00:00.000+0000",
+        "foedselsdato": "1929-07-26T13:00:00.000+0000",
       },
       "geografiskTilknytning": Object {
         "geografiskTilknytning": "0213",
@@ -262,4 +262,4 @@ exports[`widgets/Overview/PersonTitle Renders 1`] = `
     </Systemtittel>
   </div>
 </PersonTitle>
-`;
+`

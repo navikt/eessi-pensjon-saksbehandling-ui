@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pages/Error Renders 1`] = `
+exports['pages/Error Renders 1'] = `
 <Error
   history={Object {}}
   type="something"
@@ -76,4 +76,4 @@ exports[`pages/Error Renders 1`] = `
     </div>
   </Component>
 </Error>
-`;
+`

@@ -9,6 +9,7 @@ import printJS from 'print-js'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 import * as labels from './SEDP5000.labels'
 import WarningCircle from 'assets/images/WarningCircle'
 
@@ -26,6 +27,32 @@ interface SedSender {
   institution: string;
   acronym: string;
 }
+
+export const SEDP5000Container = styled.div`
+  min-height: 500px;
+`
+export const SEDP5000Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+`
+export const SEDP5000Checkboxes = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const HiddenDiv = styled.div`
+  display: none;
+`
+export const ButtonsDiv = styled.div`
+  margin-top: '1.5rem;
+  margin-bottom: '1.5rem;
+`
+export const CheckboxLabel = styled.div`
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+`
 
 const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props): JSX.Element => {
   const { t } = useTranslation()
@@ -120,9 +147,9 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
   return (
-    <div className='a-buc-c-sedp5000' style={{ minHeight: '500px' }}>
-      <div className='d-flex flex-row justify-content-between'>
-        <div className='d-flex flex-column'>
+    <SEDP5000Container>
+      <SEDP5000Header>
+        <SEDP5000Checkboxes>
           {Object.keys(activeSeds).map(sedId => {
             const sender: SedSender | undefined = getSedSender(sedId)
             return (
@@ -133,7 +160,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                 checked={activeSeds[sedId]}
                 onChange={() => changeActiveSed(sedId)}
                 label={(
-                  <div className='d-flex align-items-end'>
+                  <CheckboxLabel>
                     <span>{t('buc:form-titleP5000')}</span>
                     <span className='ml-1 mr-1'>-</span>
                     {sender ? (
@@ -151,14 +178,22 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                       </div>
                     ) : sedId}
                     {emptyPeriodReport[sedId] ? <WarningCircle className='ml-2' /> : null}
-                  </div>
+                  </CheckboxLabel>
                 )}
               />
             )
           })}
-        </div>
+        </SEDP5000Checkboxes>
         <div className='d-flex'>
-          {warning ? <Ui.Alert className='mr-4' type='client' fixed={false} status='WARNING' message={t('buc:form-P5000-warning')} /> : null}
+          {warning ? (
+            <Ui.Alert
+              className='mr-4'
+              type='client'
+              fixed={false}
+              status='WARNING'
+              message={t('buc:form-P5000-warning')}
+            />
+          ) : null}
           <Ui.Nav.Select
             id='itemsPerPage'
             bredde='l'
@@ -172,48 +207,47 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             <option value='all'>{t('ui:all')}</option>
           </Ui.Nav.Select>
         </div>
-      </div>
-      <div>
-        <Ui.TableSorter
-          className='w-100 mt-2'
-          items={items}
-          searchable
-          selectable={false}
-          sortable
-          itemsPerPage={itemsPerPage}
-          labels={labels}
-          columns={[
-            { id: 'land', label: t('ui:country'), type: 'string' },
-            { id: 'acronym', label: t('ui:acronym'), type: 'string' },
-            { id: 'type', label: t('ui:type'), type: 'string' },
-            {
-              id: 'startdato',
-              label: t('ui:startDate'),
-              type: 'date',
-              renderCell: (item: any, value: any) => (
-                <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
-              )
-            },
-            {
-              id: 'sluttdato',
-              label: t('ui:endDate'),
-              type: 'date',
-              renderCell: (item: any, value: any) => (
-                <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
-              )
-            },
-            { id: 'år', label: t('ui:year'), type: 'string' },
-            { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
-            { id: 'måned', label: t('ui:month'), type: 'string' },
-            { id: 'uker', label: t('ui:week'), type: 'string' },
-            { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-            { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
-            { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-            { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
-          ]}
-        />
-      </div>
-      <div style={{ display: 'none' }}>
+      </SEDP5000Header>
+      <Ui.TableSorter
+        className='w-100 mt-2'
+        items={items}
+        searchable
+        selectable={false}
+        sortable
+        itemsPerPage={itemsPerPage}
+        labels={labels}
+        compact
+        columns={[
+          { id: 'land', label: t('ui:country'), type: 'string' },
+          { id: 'acronym', label: t('ui:acronym'), type: 'string' },
+          { id: 'type', label: t('ui:type'), type: 'string' },
+          {
+            id: 'startdato',
+            label: t('ui:startDate'),
+            type: 'date',
+            renderCell: (item: any, value: any) => (
+              <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+            )
+          },
+          {
+            id: 'sluttdato',
+            label: t('ui:endDate'),
+            type: 'date',
+            renderCell: (item: any, value: any) => (
+              <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+            )
+          },
+          { id: 'år', label: t('ui:year'), type: 'string' },
+          { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
+          { id: 'måned', label: t('ui:month'), type: 'string' },
+          { id: 'uker', label: t('ui:week'), type: 'string' },
+          { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
+          { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
+          { id: 'ordning', label: t('ui:scheme'), type: 'string' },
+          { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
+        ]}
+      />
+      <HiddenDiv>
         <div id='printJS-form'>
           <Ui.TableSorter
             className='print-version w-100 mt-2'
@@ -223,6 +257,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             sortable={false}
             itemsPerPage={9999}
             labels={labels}
+            compact
             columns={[
               { id: 'land', label: t('ui:country'), type: 'string' },
               { id: 'acronym', label: t('ui:acronym'), type: 'string' },
@@ -254,13 +289,13 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             ]}
           />
         </div>
-      </div>
-      <div className='mt-4'>
+      </HiddenDiv>
+      <ButtonsDiv>
         <Ui.Nav.Knapp onClick={printOut}>
           {t('ui:print')}
         </Ui.Nav.Knapp>
-      </div>
-    </div>
+      </ButtonsDiv>
+    </SEDP5000Container>
   )
 }
 

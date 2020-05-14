@@ -8,8 +8,8 @@ import { stageSelector } from 'setupTests'
 
 jest.mock('use-error-boundary', () => ({
   __esModule: true, // this property makes it work
-  default:() => ({
-    ErrorBoundary: ({children}: any) => <div className='mock-error-boundary'>{children}</div>
+  default: () => ({
+    ErrorBoundary: ({ children }: any) => <div className='mock-error-boundary'>{children}</div>
   })
 }))
 
@@ -65,60 +65,60 @@ describe('components/TopContainer', () => {
     )
   })
 
-    it('Renders', () => {
-      expect(wrapper.isEmptyRender()).toBeFalsy()
-      expect(wrapper).toMatchSnapshot()
-    })
+  it('Renders', () => {
+    expect(wrapper.isEmptyRender()).toBeFalsy()
+    expect(wrapper).toMatchSnapshot()
+  })
 
-    it('Has proper HTML structure', () => {
-      expect(wrapper.exists('Header')).toBeTruthy()
-      expect(wrapper.exists('Banner')).toBeTruthy()
-      expect(wrapper.exists('Alert')).toBeTruthy()
-      expect(wrapper.exists('SessionMonitor')).toBeTruthy()
-      expect(wrapper.exists('Footer')).toBeTruthy()
-      expect(wrapper.exists('Modal')).toBeFalsy()
-    })
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('Header')).toBeTruthy()
+    expect(wrapper.exists('Banner')).toBeTruthy()
+    expect(wrapper.exists('Alert')).toBeTruthy()
+    expect(wrapper.exists('SessionMonitor')).toBeTruthy()
+    expect(wrapper.exists('Footer')).toBeTruthy()
+    expect(wrapper.exists('Modal')).toBeFalsy()
+  })
 
-    it('Compute the client error message', () => {
-      (clientClear as jest.Mock).mockReset()
-      stageSelector(defaultSelector, { clientErrorMessage: 'mockMessage|mockParams' })
-      wrapper = mount(
-        <TopContainer {...initialMockProps}>
-          <div id='TEST_CHILD' />
-        </TopContainer>
-      )
-      const clientAlert = wrapper.find('Alert[type="client"]')
-      expect(clientAlert.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage: mockParams')
+  it('Compute the client error message', () => {
+    (clientClear as jest.Mock).mockReset()
+    stageSelector(defaultSelector, { clientErrorMessage: 'mockMessage|mockParams' })
+    wrapper = mount(
+      <TopContainer {...initialMockProps}>
+        <div id='TEST_CHILD' />
+      </TopContainer>
+    )
+    const clientAlert = wrapper.find('Alert[type="client"]')
+    expect(clientAlert.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage: mockParams')
 
-      clientAlert.find('Icons').simulate('click')
-      expect(clientClear).toHaveBeenCalled()
-    })
+    clientAlert.find('Icons').simulate('click')
+    expect(clientClear).toHaveBeenCalled()
+  })
 
-    it('Toggles high contrast', () => {
-      (toggleHighContrast as jest.Mock).mockReset()
-      wrapper.find('Banner #c-banner__highcontrast-link-id').hostNodes().simulate('click')
-      expect(toggleHighContrast).toHaveBeenCalledWith()
-    })
+  it('Toggles high contrast', () => {
+    (toggleHighContrast as jest.Mock).mockReset()
+    wrapper.find('Banner #c-banner__highcontrast-link-id').hostNodes().simulate('click')
+    expect(toggleHighContrast).toHaveBeenCalledWith()
+  })
 
-    it('Opens and closes modal', () => {
-      expect(wrapper.exists('Modal')).toBeFalsy()
-      const mockModal: ModalContent = {
-        modalTitle: 'mockTitle',
-        modalText: 'mockText',
-        modalButtons: [{
-          text: 'ok'
-        }]
-      }
-      stageSelector(defaultSelector, { modal: mockModal })
-      wrapper = mount(
-        <TopContainer {...initialMockProps}>
-          <div id='TEST_CHILD' />
-        </TopContainer>
-      )
+  it('Opens and closes modal', () => {
+    expect(wrapper.exists('Modal')).toBeFalsy()
+    const mockModal: ModalContent = {
+      modalTitle: 'mockTitle',
+      modalText: 'mockText',
+      modalButtons: [{
+        text: 'ok'
+      }]
+    }
+    stageSelector(defaultSelector, { modal: mockModal })
+    wrapper = mount(
+      <TopContainer {...initialMockProps}>
+        <div id='TEST_CHILD' />
+      </TopContainer>
+    )
 
-      expect(wrapper.exists('Modal')).toBeTruthy()
-      const modal = wrapper.find('Modal').first()
-      modal.find('button').hostNodes().last().simulate('click')
-      expect(closeModal).toHaveBeenCalled()
-    })
+    expect(wrapper.exists('Modal')).toBeTruthy()
+    const modal = wrapper.find('Modal').first()
+    modal.find('button').hostNodes().last().simulate('click')
+    expect(closeModal).toHaveBeenCalled()
+  })
 })

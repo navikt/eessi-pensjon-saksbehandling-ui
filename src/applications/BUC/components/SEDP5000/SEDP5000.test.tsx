@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
-import SEDP5000, { SEDP5000Props } from './SEDP5000'
+import SEDP5000, { SEDP5000Container, SEDP5000Props } from './SEDP5000'
 import mockSedP50001 from 'mocks/buc/sed_P5000_1'
 import mockSedP50002 from 'mocks/buc/sed_P5000_2'
 
@@ -33,7 +33,7 @@ describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedp5000')).toBeTruthy()
+    expect(wrapper.exists(SEDP5000Container)).toBeTruthy()
     expect(wrapper.exists('#checkbox-60578cf8bf9f45a7819a39987c6c8fd4')).toBeTruthy()
     expect(wrapper.exists('#checkbox-50578cf8bf9f45a7819a39987c6c8fd4')).toBeTruthy()
     expect(wrapper.exists('.c-tableSorter')).toBeTruthy()

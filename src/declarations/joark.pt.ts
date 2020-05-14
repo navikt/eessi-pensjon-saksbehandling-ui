@@ -16,7 +16,7 @@ export const JoarkPosterPropType = PT.shape({
   tittel: PT.string.isRequired,
   tema: PT.string.isRequired,
   datoOpprettet: PT.instanceOf(Date).isRequired,
-  tilleggsopplysninger: PT.string,
+  tilleggsopplysninger: PT.arrayOf(PT.string),
   dokumenter: PT.arrayOf(JoarkDocPropType).isRequired
 })
 
@@ -26,7 +26,7 @@ export const JoarkFilePropType = PT.shape({
   tema: PT.string.isRequired,
   datoOpprettet: PT.instanceOf(Date).isRequired,
   dokumentInfoId: PT.string.isRequired,
-  tilleggsopplysninger: PT.string,
+  tilleggsopplysninger: PT.arrayOf(PT.string),
   variant: JoarkFileVariantPropType.isRequired
 })
 
@@ -42,7 +42,7 @@ export const JoarkFileWithContentPropType = PT.shape({
   tema: PT.string.isRequired,
   datoOpprettet: PT.instanceOf(Date).isRequired,
   dokumentInfoId: PT.string.isRequired,
-  tilleggsopplysninger: PT.string.isRequired,
+  tilleggsopplysninger: PT.arrayOf(PT.string).isRequired,
   variant: JoarkFileVariantPropType.isRequired,
   content: ContentPropType.isRequired,
   name: PT.string.isRequired,

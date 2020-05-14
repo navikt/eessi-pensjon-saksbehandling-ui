@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Footer Renders 1`] = `
+exports['components/Footer Renders 1'] = `
 <Footer
   footerOpen={true}
   params={Object {}}
@@ -197,4 +197,4 @@ exports[`components/Footer Renders 1`] = `
     </div>
   </footer>
 </Footer>
-`;
+`

@@ -46,7 +46,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, onTagChange
 }: BUCToolsProps): JSX.Element => {
   const { t } = useTranslation()
-  const [comment, setComment] = useState<string | undefined >(bucInfo ? bucInfo.comment : '')
+  const [comment, setComment] = useState<string | null | undefined >(bucInfo ? bucInfo.comment : '')
   const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
@@ -57,7 +57,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   })) : [])
   const { features, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
-
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -128,7 +127,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   const onModalClose = () => {
     const diffInSeconds = Math.ceil((new Date().getTime() - timeWithModal.getTime()) / 1000)
-    const diffInMinutes =  Math.ceil(diffInSeconds/ 60)
+    const diffInMinutes = Math.ceil(diffInSeconds / 60)
     standardLogger('timeWithP5000', {
       seconds: diffInSeconds,
       minutes: diffInMinutes

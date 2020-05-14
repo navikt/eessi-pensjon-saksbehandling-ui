@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
+exports['widgets/Varsler/VarslerPanel Renders 1'] = `
 <VarslerPanel
   onUpdate={[MockFunction]}
   widget={
@@ -333,4 +333,4 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
     </div>
   </aw>
 </VarslerPanel>
-`;
+`

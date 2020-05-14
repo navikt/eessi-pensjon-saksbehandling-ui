@@ -1,4 +1,4 @@
- import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
+import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
 import Ui from 'eessi-pensjon-ui'
@@ -135,7 +135,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         <div className='buttons'>
           <Ui.Nav.Knapp
             data-tip={t('ui:preview')}
-            form='kompakt'
+            kompakt
             disabled={previewing}
             spinner={spinner}
             id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +

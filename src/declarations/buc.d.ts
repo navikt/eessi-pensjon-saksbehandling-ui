@@ -64,7 +64,7 @@ export interface Version {
 
 export interface Sed {
   id: string;
-  parentDocumentId?: string | null | undefined;
+  parentDocumentId?: string | null;
   type: string;
   status: string;
   creationDate: number;
@@ -72,7 +72,7 @@ export interface Sed {
   displayName?: string | null;
   participants: Participants;
   attachments: Array<BUCAttachment>;
-  version?: string;
+  version?: string | null;
   firstVersion: Version;
   lastVersion: Version;
 }
@@ -86,7 +86,7 @@ export type SedContentMap = {[k: string]: SedContent}
 export interface Institution {
   country: string;
   institution: string;
-  name?: string;
+  name?: string | null;
 }
 
 export type Institutions = Array<Institution>
@@ -126,8 +126,8 @@ export type Buc = ValidBuc | ErrorBuc
 export type Bucs = {[caseId: string]: Buc}
 
 export interface BucInfo {
-  tags?: Array<string>;
-  comment?: string;
+  tags?: Array<string> | null;
+  comment?: string | null;
 }
 
 export interface BucsInfo {

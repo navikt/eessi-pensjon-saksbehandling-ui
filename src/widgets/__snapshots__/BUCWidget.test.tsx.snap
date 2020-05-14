@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/BUCWidget Renders 1`] = `
+exports['widgets/BUCWidget Renders 1'] = `
 <BUCWidget
   onFullFocus={[MockFunction]}
   onResize={
@@ -67,4 +67,4 @@ exports[`widgets/BUCWidget Renders 1`] = `
     </Component>
   </div>
 </BUCWidget>
-`;
+`

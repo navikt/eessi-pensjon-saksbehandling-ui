@@ -20,23 +20,23 @@ export interface Period {
   uncertainDate: boolean;
   country: Country;
   comment: string;
-  otherType?: string;
-  insuranceName?: string;
-  insuranceType?: string;
-  insuranceId ?: string;
-  workActivity ?: string;
-  workName ?: string;
-  workType ?: string;
-  workStreet ?: string;
-  workCity ?: string;
-  workZipCode ?: string;
-  workRegion ?: string;
-  childFirstName ?: string;
-  childLastName ?: string;
-  childBirthDate ?: PeriodDate;
-  learnInstitution ?: string;
-  payingInstitution ?: string;
-  attachments ?: Files;
+  otherType?: string | null;
+  insuranceName?: string | null;
+  insuranceType?: string | null;
+  insuranceId ?: string | null;
+  workActivity ?: string | null;
+  workName ?: string | null;
+  workType ?: string | null;
+  workStreet ?: string | null;
+  workCity ?: string | null;
+  workZipCode ?: string | null;
+  workRegion ?: string | null;
+  childFirstName ?: string | null;
+  childLastName ?: string | null;
+  childBirthDate ?: PeriodDate | null;
+  learnInstitution ?: string | null;
+  payingInstitution ?: string | null;
+  attachments ?: Files | null;
   [key: string]: any;
 }
 
@@ -56,29 +56,29 @@ export interface PayloadPeriod {
       extra: string;
     }
   };
-  vedlegg ?: Array[any];
-  trygdeordningnavn ?: string;
-  medlemskap ?: string;
-  forsikkringEllerRegistreringNr ?: string;
-  annenInformasjon ?: string;
-  usikkerDatoIndikator ?: string;
-  jobbUnderAnsattEllerSelvstendig ?: string;
-  navnFirma ?: string;
-  typePeriode ?: string;
+  vedlegg ?: Array[any] | null;
+  trygdeordningnavn ?: string | null;
+  medlemskap ?: string | null;
+  forsikkringEllerRegistreringNr ?: string | null;
+  annenInformasjon ?: string | null;
+  usikkerDatoIndikator ?: string | null;
+  jobbUnderAnsattEllerSelvstendig ?: string | null;
+  navnFirma ?: string | null;
+  typePeriode ?: string | null;
   adresseFirma ?: {
-    postnummer: string | undefined;
-    by: string | undefined;
+    postnummer: string | null | undefined;
+    by: string | null | undefined;
     land: string;
-    gate: string | undefined;
-    region: string | undefined;
-  };
-  navnPaaInstitusjon ?: string;
+    gate: string | null | undefined;
+    region: string | null | undefined;
+  } | null;
+  navnPaaInstitusjon ?: string | null;
   informasjonBarn ?: {
     etternavn: string | null | undefined;
     fornavn: string | null | undefined;
     foedseldato: string | null | undefined;
     land: string;
-  }
+  } | null;
 }
 
 export interface Payload {

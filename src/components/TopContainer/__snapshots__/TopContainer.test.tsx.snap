@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/TopContainer Renders 1`] = `
+exports['components/TopContainer Renders 1'] = `
 <TopContainer
   header="mockHeader"
 >
@@ -472,4 +472,4 @@ exports[`components/TopContainer Renders 1`] = `
     </div>
   </ErrorBoundary>
 </TopContainer>
-`;
+`

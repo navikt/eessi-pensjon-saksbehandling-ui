@@ -1311,7 +1311,7 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
               Object {
                 "organisation": Object {
                   "accessPoint": null,
-                  "acronym": "12348",
+                  "acronym": "DEMO002",
                   "activeSince": 1518476400000,
                   "address": Object {
                     "country": "NO",
@@ -1329,6 +1329,29 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
                   "registryNumber": null,
                 },
                 "role": "Sender",
+                "selected": false,
+              },
+              Object {
+                "organisation": Object {
+                  "accessPoint": null,
+                  "acronym": "DEMO001",
+                  "activeSince": 1518476400000,
+                  "address": Object {
+                    "country": "NO",
+                    "postalCode": null,
+                    "region": null,
+                    "street": null,
+                    "town": null,
+                  },
+                  "assignedBUCs": null,
+                  "contactMethods": null,
+                  "countryCode": "NO",
+                  "id": "NO:DEMO001",
+                  "location": null,
+                  "name": "DEMO001",
+                  "registryNumber": null,
+                },
+                "role": "Receiver",
                 "selected": false,
               },
             ],
