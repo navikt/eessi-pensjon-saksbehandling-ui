@@ -1358,7 +1358,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
     <Undertittel
       className="mt-4 mb-4"
     >
-      <TypografiBase
+      <n
         className="mt-4 mb-4"
         type="undertittel"
       >
@@ -1367,7 +1367,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
         >
           ui:attachments
         </h2>
-      </TypografiBase>
+      </n>
     </Undertittel>
     <div
       className="mt-4 mb-4"
@@ -1403,7 +1403,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
           }
         }
       >
-        <TableSorter
+        <gx
           className="a-buc-c-sedattachmentstable"
           columns={
             Array [
@@ -1510,7 +1510,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                       key="0"
                     >
                       <EtikettLiten>
-                        <TypografiBase
+                        <n
                           type="etikettLiten"
                         >
                           <p
@@ -1518,7 +1518,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                           >
                             sed
                           </p>
-                        </TypografiBase>
+                        </n>
                       </EtikettLiten>
                     </td>
                     <td
@@ -1526,7 +1526,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                       key="1"
                     >
                       <Normaltekst>
-                        <TypografiBase
+                        <n
                           type="normaltekst"
                         >
                           <p
@@ -1536,7 +1536,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                               balrog.png
                             </span>
                           </p>
-                        </TypografiBase>
+                        </n>
                       </Normaltekst>
                     </td>
                     <td
@@ -1548,7 +1548,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                   </tr>
                 </tbody>
               </table>
-              <Pagination
+              <Component
                 className="c-tableSorter__pagination"
                 initialPage={1}
                 itemsPerPage={10}
@@ -1557,7 +1557,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
               />
             </div>
           </div>
-        </TableSorter>
+        </gx>
       </SEDAttachmentsTable>
     </div>
     <SEDAttachments
@@ -1633,7 +1633,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                   className="mr-2"
                   kind="tilsette"
                 >
-                  <Component
+                  <De
                     className="mr-2"
                     height={24}
                     kind="tilsette"
@@ -1672,7 +1672,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                         />
                       </g>
                     </svg>
-                  </Component>
+                  </De>
                 </Icons>
                 <span>
                   ui:addAttachments

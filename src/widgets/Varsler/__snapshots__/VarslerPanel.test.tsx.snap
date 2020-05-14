@@ -15,7 +15,7 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
     }
   }
 >
-  <ExpandingPanel
+  <aw
     className="w-varslerPanel s-border"
     collapseProps={
       Object {
@@ -48,7 +48,7 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
           <Systemtittel
             className="pb-3"
           >
-            <TypografiBase
+            <n
               className="pb-3"
               type="systemtittel"
             >
@@ -57,7 +57,7 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
               >
                 ui:widget-overview-notifications
               </h2>
-            </TypografiBase>
+            </n>
           </Systemtittel>
           <button
             aria-expanded={true}
@@ -73,12 +73,12 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
           </button>
         </div>
       </div>
-      <UnmountClosed
+      <t
         id="w-varslerPanel-id"
         isOpened={true}
         onRest={[Function]}
       >
-        <Collapse
+        <n
           checkTimeout={50}
           id="w-varslerPanel-id"
           initialStyle={
@@ -328,9 +328,9 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
               </article>
             </div>
           </div>
-        </Collapse>
-      </UnmountClosed>
+        </n>
+      </t>
     </div>
-  </ExpandingPanel>
+  </aw>
 </VarslerPanel>
 `;

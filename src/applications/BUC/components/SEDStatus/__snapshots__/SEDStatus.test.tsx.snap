@@ -12,7 +12,7 @@ exports[`applications/BUC/components/SEDStatus/SEDStatus Renders 1`] = `
     <div
       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__new etikett--fokus"
     >
-      <TypografiBase
+      <n
         tag="span"
         type="normaltekst"
       >
@@ -21,7 +21,7 @@ exports[`applications/BUC/components/SEDStatus/SEDStatus Renders 1`] = `
         >
           buc:status-new
         </span>
-      </TypografiBase>
+      </n>
     </div>
   </EtikettBase>
 </SEDStatus>

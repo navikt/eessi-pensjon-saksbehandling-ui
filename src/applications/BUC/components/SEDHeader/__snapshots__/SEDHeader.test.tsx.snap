@@ -1499,7 +1499,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
           className="a-buc-c-sedheader__column a-buc-c-sedheader__name col-4"
         >
           <Element>
-            <TypografiBase
+            <n
               type="element"
             >
               <p
@@ -1508,7 +1508,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                 X008
                  - buc:buc-X008
               </p>
-            </TypografiBase>
+            </n>
           </Element>
         </div>
         <div
@@ -1529,7 +1529,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                 <div
                   className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__received col-auto etikett--info"
                 >
-                  <TypografiBase
+                  <n
                     tag="span"
                     type="normaltekst"
                   >
@@ -1538,7 +1538,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                     >
                       buc:status-received
                     </span>
-                  </TypografiBase>
+                  </n>
                 </div>
               </EtikettBase>
             </SEDStatus>
@@ -1549,7 +1549,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                 className="a-buc-c-sedheader__lastUpdate"
                 data-tip="ui:lastUpdate"
               >
-                <TypografiBase
+                <n
                   className="a-buc-c-sedheader__lastUpdate"
                   data-tip="ui:lastUpdate"
                   type="normaltekst"
@@ -1560,12 +1560,12 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                   >
                     23.10.2019
                   </p>
-                </TypografiBase>
+                </n>
               </Normaltekst>
               <Normaltekst
                 className="a-buc-c-sedheader__version"
               >
-                <TypografiBase
+                <n
                   className="a-buc-c-sedheader__version"
                   type="normaltekst"
                 >
@@ -1576,7 +1576,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                     : 
                     1
                   </p>
-                </TypografiBase>
+                </n>
               </Normaltekst>
             </div>
           </div>
@@ -1611,7 +1611,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                   size="M"
                   type="circle"
                 >
-                  <ForwardRef(Tooltip)
+                  <ForwardRef
                     overlay={
                       <span>
                         Norge
@@ -1624,7 +1624,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                       ]
                     }
                   >
-                    <Trigger
+                    <t
                       action={
                         Array [
                           "hover",
@@ -1890,11 +1890,11 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                           style={Object {}}
                         />
                       </div>
-                    </Trigger>
-                  </ForwardRef(Tooltip)>
+                    </t>
+                  </ForwardRef>
                 </Flag>
                 <Normaltekst>
-                  <TypografiBase
+                  <n
                     type="normaltekst"
                   >
                     <p
@@ -1902,7 +1902,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                     >
                       NAV ACCEPTANCE TEST 07
                     </p>
-                  </TypografiBase>
+                  </n>
                 </Normaltekst>
               </div>
             </div>
@@ -1918,7 +1918,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
             <Icons
               kind="paperclip"
             >
-              <Component
+              <X
                 height={24}
                 kind="paperclip"
                 width={24}
@@ -1952,7 +1952,7 @@ exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
                     </g>
                   </g>
                 </svg>
-              </Component>
+              </X>
             </Icons>
           </div>
           <Flatknapp

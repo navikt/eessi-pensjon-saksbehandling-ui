@@ -16,7 +16,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
     }
   }
 >
-  <ExpandingPanel
+  <aw
     className="w-overview s-border"
     collapseProps={
       Object {
@@ -104,7 +104,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                 <Normaltekst
                   className="c-waitingPanel__message ml-2"
                 >
-                  <TypografiBase
+                  <n
                     className="c-waitingPanel__message ml-2"
                     type="normaltekst"
                   >
@@ -113,7 +113,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                     >
                       ui:loading
                     </p>
-                  </TypografiBase>
+                  </n>
                 </Normaltekst>
               </div>
             </WaitingPanel>
@@ -132,12 +132,12 @@ exports[`widgets/Overview/Overview Renders 1`] = `
           </button>
         </div>
       </div>
-      <UnmountClosed
+      <t
         id="w-overview-id"
         isOpened={true}
         onRest={[Function]}
       >
-        <Collapse
+        <n
           checkTimeout={50}
           id="w-overview-id"
           initialStyle={
@@ -178,9 +178,9 @@ exports[`widgets/Overview/Overview Renders 1`] = `
               </article>
             </div>
           </div>
-        </Collapse>
-      </UnmountClosed>
+        </n>
+      </t>
     </div>
-  </ExpandingPanel>
+  </aw>
 </Overview>
 `;

@@ -36,7 +36,7 @@ exports[`pages/Error Renders 1`] = `
         <Undertittel
           className="title m-5"
         >
-          <TypografiBase
+          <n
             className="title m-5"
             type="undertittel"
           >
@@ -45,7 +45,7 @@ exports[`pages/Error Renders 1`] = `
             >
               ui:error-404-title
             </h2>
-          </TypografiBase>
+          </n>
         </Undertittel>
         <div
           className="description"
@@ -61,7 +61,7 @@ exports[`pages/Error Renders 1`] = `
         <Normaltekst
           className="mt-2 footer"
         >
-          <TypografiBase
+          <n
             className="mt-2 footer"
             type="normaltekst"
           >
@@ -70,7 +70,7 @@ exports[`pages/Error Renders 1`] = `
             >
               ui:error-404-footer
             </p>
-          </TypografiBase>
+          </n>
         </Normaltekst>
       </div>
     </div>

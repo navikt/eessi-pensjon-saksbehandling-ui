@@ -1,5 +1,5 @@
 import { createBuc, getBucList, getSubjectAreaList, getTagList, saveBucsInfo } from 'actions/buc'
-import { Buc, BucsInfo } from 'declarations/buc'
+import { BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'

@@ -245,7 +245,7 @@ exports[`widgets/Overview/PersonTitle Renders 1`] = `
     <Systemtittel
       className="ml-2"
     >
-      <TypografiBase
+      <n
         className="ml-2"
         type="systemtittel"
       >
@@ -258,7 +258,7 @@ exports[`widgets/Overview/PersonTitle Renders 1`] = `
           ) - 
           27072942618
         </h2>
-      </TypografiBase>
+      </n>
     </Systemtittel>
   </div>
 </PersonTitle>

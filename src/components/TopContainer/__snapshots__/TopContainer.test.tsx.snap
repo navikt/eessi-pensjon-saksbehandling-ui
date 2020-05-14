@@ -356,7 +356,7 @@ exports[`components/TopContainer Renders 1`] = `
                   className="alertstripe__tekst"
                   tag="div"
                 >
-                  <TypografiBase
+                  <n
                     className="alertstripe__tekst"
                     tag="div"
                     type="normaltekst"
@@ -425,7 +425,7 @@ exports[`components/TopContainer Renders 1`] = `
                         </FontAwesomeIcon>
                       </Icons>
                     </div>
-                  </TypografiBase>
+                  </n>
                 </Normaltekst>
               </div>
             </AlertStripe>

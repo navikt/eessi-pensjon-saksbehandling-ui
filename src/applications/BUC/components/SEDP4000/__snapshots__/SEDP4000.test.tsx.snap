@@ -15,7 +15,7 @@ exports[`applications/BUC/components/SEDP4000/SEDP4000 Renders 1`] = `
     >
       <div>
         <Normaltekst>
-          <TypografiBase
+          <n
             type="normaltekst"
           >
             <p
@@ -23,7 +23,7 @@ exports[`applications/BUC/components/SEDP4000/SEDP4000 Renders 1`] = `
             >
               buc:p4000-help-listP4000user
             </p>
-          </TypografiBase>
+          </n>
         </Normaltekst>
         <Hovedknapp
           className="a-buc-c-sedp4000__listP4000user-button mt-3"
@@ -59,7 +59,7 @@ exports[`applications/BUC/components/SEDP4000/SEDP4000 Renders 1`] = `
         className="mt-3"
       >
         <Normaltekst>
-          <TypografiBase
+          <n
             type="normaltekst"
           >
             <p
@@ -67,7 +67,7 @@ exports[`applications/BUC/components/SEDP4000/SEDP4000 Renders 1`] = `
             >
               buc:p4000-help-listP4000saksbehandler
             </p>
-          </TypografiBase>
+          </n>
         </Normaltekst>
         <Hovedknapp
           className="a-buc-c-sedp4000__listP4000saksbehandler-button mt-3"

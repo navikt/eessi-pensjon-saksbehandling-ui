@@ -1057,7 +1057,7 @@ exports[`applications/BUC/components/SEDStart/AttachmentStep2 Renders 1`] = `
     className="col-md-12"
   >
     <Systemtittel>
-      <TypografiBase
+      <n
         type="systemtittel"
       >
         <h2
@@ -1065,7 +1065,7 @@ exports[`applications/BUC/components/SEDStart/AttachmentStep2 Renders 1`] = `
         >
           buc:step-startSEDTitle
         </h2>
-      </TypografiBase>
+      </n>
     </Systemtittel>
     <hr />
   </div>

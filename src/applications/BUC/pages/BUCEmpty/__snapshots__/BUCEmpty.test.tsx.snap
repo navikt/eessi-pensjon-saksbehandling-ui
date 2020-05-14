@@ -34,7 +34,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
     <Undertittel
       className="a-buc-p-bucempty__title mb-3"
     >
-      <TypografiBase
+      <n
         className="a-buc-p-bucempty__title mb-3"
         type="undertittel"
       >
@@ -57,7 +57,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
             </a>
           </Lenke>
         </h2>
-      </TypografiBase>
+      </n>
     </Undertittel>
     <div
       className="a-buc-p-bucempty__form"
@@ -74,7 +74,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
         <div
           className="skjemaelement a-buc-p-bucempty__aktoerid-input"
         >
-          <Label
+          <t
             htmlFor="a-buc-p-bucempty__aktoerid-input-id"
           >
             <label
@@ -83,7 +83,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
             >
               ui:aktoerId
             </label>
-          </Label>
+          </t>
           <input
             aria-invalid={false}
             className="skjemaelement__input input--fullbredde"
@@ -139,7 +139,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
         <div
           className="skjemaelement a-buc-p-bucempty__sakid-input"
         >
-          <Label
+          <t
             htmlFor="a-buc-p-bucempty__sakid-input-id"
           >
             <label
@@ -148,7 +148,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
             >
               buc:form-caseId
             </label>
-          </Label>
+          </t>
           <input
             aria-invalid={false}
             className="skjemaelement__input input--fullbredde"
@@ -217,7 +217,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
               color="#0067C5"
               kind="outlink"
             >
-              <Component
+              <we
                 className="mr-2"
                 color="#0067C5"
                 height={24}
@@ -253,7 +253,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                     />
                   </g>
                 </svg>
-              </Component>
+              </we>
             </Icons>
             <span>
               ui:goToRina

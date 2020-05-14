@@ -26,7 +26,7 @@ exports[`applications/BUC/components/BUCFooter/BUCFooter Renders 1`] = `
             color="#0067C5"
             kind="outlink"
           >
-            <Component
+            <we
               className="mr-2"
               color="#0067C5"
               height={24}
@@ -62,7 +62,7 @@ exports[`applications/BUC/components/BUCFooter/BUCFooter Renders 1`] = `
                   />
                 </g>
               </svg>
-            </Component>
+            </we>
           </Icons>
           <span>
             ui:goToRina
