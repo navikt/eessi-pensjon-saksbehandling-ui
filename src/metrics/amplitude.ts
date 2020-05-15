@@ -1,9 +1,12 @@
 import amplitude from 'amplitude-js'
 
-import { IS_PRODUCTION } from 'constants/environment'
+const isProduction = () => {
+  const host = window?.location?.hostname ||  ''
+  return host === 'pensjon-utland.nais.adeo.no'
+}
 
 const getApiKey = () => {
-  return IS_PRODUCTION
+  return isProduction()
     ? 'a9a60eb3e832909758c46016e1714d3e'
     : 'feb0ead20059b4be531bfa6e076906ab'
 }
