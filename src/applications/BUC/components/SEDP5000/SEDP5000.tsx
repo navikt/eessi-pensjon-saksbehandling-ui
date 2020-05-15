@@ -4,6 +4,7 @@ import { SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import { clickLogger, standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import printJS from 'print-js'
 import PT from 'prop-types'
@@ -127,7 +128,8 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     return Object.values(emptyPeriodsReport).indexOf(true) >= 0
   }
 
-  const printOut = () => {
+  const printOut = (e: any) => {
+    clickLogger(e)
     printJS({
       printable: 'printJS-form',
       type: 'html',
@@ -140,6 +142,11 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     const newActiveSeds = _.cloneDeep(activeSeds)
     newActiveSeds[sedId] = !activeSeds[sedId]
     setActiveSeds(newActiveSeds)
+  }
+
+  const itemsPerPageChanged = (e: any) => {
+    standardLogger('P5000.itemsPerPage', {value: e.target.value})
+    setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
   const items = getItems()
@@ -199,7 +206,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             bredde='l'
             label={t('ui:itemsPerPage')}
             value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
-            onChange={(e:any) => setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))}
+            onChange={itemsPerPageChanged}
           >
             <option value='15'>15</option>
             <option value='20'>20</option>
@@ -291,7 +298,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         </div>
       </HiddenDiv>
       <ButtonsDiv>
-        <Ui.Nav.Knapp onClick={printOut}>
+        <Ui.Nav.Knapp data-amplitude='P5000.print' onClick={printOut}>
           {t('ui:print')}
         </Ui.Nav.Knapp>
       </ButtonsDiv>
