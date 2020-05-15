@@ -8,7 +8,7 @@ import { AllowedLocaleString, Features, Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
-import { clickLogger, standardLogger } from 'metrics/loggers'
+import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -81,7 +81,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }, [buc])
 
   const displayP5000table = useCallback(() => {
-    clickLogger('P5000')
+    standardLogger('P5000.clicked')
     setTimeWithModal(new Date())
     setModal({
       modalTitle: t('buc:P5000-title'),

@@ -2,6 +2,7 @@ import Enzyme, { mount, render, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { act } from 'react-dom/test-utils'
 import { useDispatch, useSelector } from 'react-redux'
+
 jest.mock('react-redux')
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -29,6 +30,13 @@ Object.defineProperty(window, 'getComputedStyle', {
     getPropertyValue: () => ('')
   })
 })
+
+jest.mock('amplitude-js', () => ({
+  getInstance: () => ({
+    init: jest.fn(),
+    logEvent: jest.fn()
+  })
+}))
 
 jest.mock('i18next', () => {
   const use = jest.fn()
