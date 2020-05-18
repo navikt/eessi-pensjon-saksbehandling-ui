@@ -96,7 +96,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         countryLabel: Ui.CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
         country: sender.organisation.countryCode,
         institution: sender.organisation.name,
-        acronym: sender.organisation.id
+        acronym: sender.organisation.acronym
       }
     }
     return undefined
