@@ -145,7 +145,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   }
 
   const itemsPerPageChanged = (e: any) => {
-    standardLogger('P5000.itemsPerPage', {value: e.target.value})
+    standardLogger('P5000.itemsPerPage', { value: e.target.value })
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 

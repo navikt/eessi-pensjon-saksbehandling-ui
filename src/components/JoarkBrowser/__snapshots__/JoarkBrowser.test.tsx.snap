@@ -3689,9 +3689,371 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
             className="c-tableSorter__pagination"
             initialPage={1}
             itemsPerPage={10}
-            numberOfItems={10}
+            numberOfItems={89}
             onChange={[Function]}
-          />
+          >
+            <div
+              className="c-pagination c-tableSorter__pagination"
+            >
+              <div>
+                <Flatknapp
+                  className="c-pagination__button c-pagination__prev-button"
+                  disabled={true}
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__prev-button"
+                    disabled={true}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__prev-button knapp--flat knapp--disabled knapp--kompakt"
+                      disabled={true}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      ◄
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="1"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={true}
+                  key="1"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={true}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--disabled knapp--kompakt"
+                      disabled={true}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      1
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="2"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="2"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      2
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="3"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="3"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      3
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="4"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="4"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      4
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="5"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="5"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      5
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="6"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="6"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      6
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="7"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="7"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      7
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="8"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="8"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      8
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div
+                key="9"
+              >
+                <Flatknapp
+                  className="c-pagination__button c-pagination__page-button"
+                  disabled={false}
+                  key="9"
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__page-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__page-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      9
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+              <div>
+                <Flatknapp
+                  className="c-pagination__button c-pagination__next-button"
+                  disabled={false}
+                  kompakt={true}
+                  onClick={[Function]}
+                >
+                  <KnappBase
+                    autoDisableVedSpinner={false}
+                    className="c-pagination__button c-pagination__next-button"
+                    disabled={false}
+                    htmlType="submit"
+                    inaktivKlasseVedDisabled={false}
+                    kompakt={true}
+                    mini={false}
+                    onClick={[Function]}
+                    spinner={false}
+                    type="flat"
+                  >
+                    <button
+                      className="knapp c-pagination__button c-pagination__next-button knapp--flat knapp--kompakt"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      ►
+                    </button>
+                  </KnappBase>
+                </Flatknapp>
+              </div>
+            </div>
+          </Component>
         </div>
       </div>
     </gx>

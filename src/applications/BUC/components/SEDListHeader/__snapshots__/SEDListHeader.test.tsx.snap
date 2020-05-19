@@ -1522,8 +1522,8 @@ exports[`applications/BUC/components/SEDListHeader/SEDListHeader Renders 1`] = `
               >
                 <EtikettBase
                   className="a-buc-c-sedstatus a-buc-c-sedstatus__received col-auto"
+                  mini={false}
                   type="info"
-                  typo="normaltekst"
                 >
                   <div
                     className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__received col-auto etikett--info"
