@@ -16,7 +16,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
     }
   }
 >
-  <aw
+  <ow
     className="w-overview s-border"
     collapseProps={
       Object {
@@ -181,6 +181,6 @@ exports[`widgets/Overview/Overview Renders 1`] = `
         </n>
       </t>
     </div>
-  </aw>
+  </ow>
 </Overview>
 `;

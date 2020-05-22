@@ -1390,13 +1390,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                         ]
                       }
                     >
-                      <t
+                      <i
                         action={
                           Array [
                             "hover",
                           ]
                         }
                         afterPopupVisibleChange={[Function]}
+                        autoDestroy={false}
                         blurDelay={0.15}
                         builtinPlacements={
                           Object {
@@ -1656,7 +1657,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             style={Object {}}
                           />
                         </div>
-                      </t>
+                      </i>
                     </ForwardRef>
                   </Flag>
                   <Normaltekst>
@@ -1767,13 +1768,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <i
                   action={
                     Array [
                       "hover",
                     ]
                   }
                   afterPopupVisibleChange={[Function]}
+                  autoDestroy={false}
                   blurDelay={0.15}
                   builtinPlacements={
                     Object {
@@ -2041,7 +2043,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
+                </i>
               </ForwardRef>
             </Flag>
             <Flag
@@ -2070,13 +2072,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <i
                   action={
                     Array [
                       "hover",
                     ]
                   }
                   afterPopupVisibleChange={[Function]}
+                  autoDestroy={false}
                   blurDelay={0.15}
                   builtinPlacements={
                     Object {
@@ -2344,7 +2347,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
+                </i>
               </ForwardRef>
             </Flag>
             <Flag
@@ -2373,13 +2376,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <i
                   action={
                     Array [
                       "hover",
                     ]
                   }
                   afterPopupVisibleChange={[Function]}
+                  autoDestroy={false}
                   blurDelay={0.15}
                   builtinPlacements={
                     Object {
@@ -2647,7 +2651,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
+                </i>
               </ForwardRef>
             </Flag>
             <Flag
@@ -2676,13 +2680,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <t
+                <i
                   action={
                     Array [
                       "hover",
                     ]
                   }
                   afterPopupVisibleChange={[Function]}
+                  autoDestroy={false}
                   blurDelay={0.15}
                   builtinPlacements={
                     Object {
@@ -2950,7 +2955,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </t>
+                </i>
               </ForwardRef>
             </Flag>
           </FlagList>

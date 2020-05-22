@@ -3782,7 +3782,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         </div>
       </AlertStripe>
     </div>
-    <aw
+    <ow
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -6443,13 +6443,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <i
                                     action={
                                       Array [
                                         "hover",
                                       ]
                                     }
                                     afterPopupVisibleChange={[Function]}
+                                    autoDestroy={false}
                                     blurDelay={0.15}
                                     builtinPlacements={
                                       Object {
@@ -6709,7 +6710,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
+                                  </i>
                                 </ForwardRef>
                               </Flag>
                               <Normaltekst>
@@ -6941,8 +6942,8 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
           onRest={[Function]}
         />
       </div>
-    </aw>
-    <aw
+    </ow>
+    <ow
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -9193,13 +9194,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <i
                                     action={
                                       Array [
                                         "hover",
                                       ]
                                     }
                                     afterPopupVisibleChange={[Function]}
+                                    autoDestroy={false}
                                     blurDelay={0.15}
                                     builtinPlacements={
                                       Object {
@@ -9459,7 +9461,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
+                                  </i>
                                 </ForwardRef>
                               </Flag>
                               <Normaltekst>
@@ -9691,8 +9693,8 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
           onRest={[Function]}
         />
       </div>
-    </aw>
-    <aw
+    </ow>
+    <ow
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -12365,13 +12367,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <i
                                     action={
                                       Array [
                                         "hover",
                                       ]
                                     }
                                     afterPopupVisibleChange={[Function]}
+                                    autoDestroy={false}
                                     blurDelay={0.15}
                                     builtinPlacements={
                                       Object {
@@ -12631,7 +12634,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
+                                  </i>
                                 </ForwardRef>
                               </Flag>
                               <Normaltekst>
@@ -12863,8 +12866,8 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
           onRest={[Function]}
         />
       </div>
-    </aw>
-    <aw
+    </ow>
+    <ow
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -13207,13 +13210,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <t
+                                  <i
                                     action={
                                       Array [
                                         "hover",
                                       ]
                                     }
                                     afterPopupVisibleChange={[Function]}
+                                    autoDestroy={false}
                                     blurDelay={0.15}
                                     builtinPlacements={
                                       Object {
@@ -13473,7 +13477,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </t>
+                                  </i>
                                 </ForwardRef>
                               </Flag>
                               <Normaltekst>
@@ -13675,7 +13679,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
           onRest={[Function]}
         />
       </div>
-    </aw>
+    </ow>
     <Component
       className="w-100 mt-2 mb-2"
     >

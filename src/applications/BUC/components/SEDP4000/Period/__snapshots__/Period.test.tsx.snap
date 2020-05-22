@@ -202,13 +202,14 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                       ]
                     }
                   >
-                    <t
+                    <i
                       action={
                         Array [
                           "hover",
                         ]
                       }
                       afterPopupVisibleChange={[Function]}
+                      autoDestroy={false}
                       blurDelay={0.15}
                       builtinPlacements={
                         Object {
@@ -468,7 +469,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                           style={Object {}}
                         />
                       </div>
-                    </t>
+                    </i>
                   </ForwardRef>
                 </Flag>
                 <Normaltekst

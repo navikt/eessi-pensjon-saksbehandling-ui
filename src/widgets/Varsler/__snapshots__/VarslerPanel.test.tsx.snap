@@ -15,7 +15,7 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
     }
   }
 >
-  <aw
+  <ow
     className="w-varslerPanel s-border"
     collapseProps={
       Object {
@@ -331,6 +331,6 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
         </n>
       </t>
     </div>
-  </aw>
+  </ow>
 </VarslerPanel>
 `;

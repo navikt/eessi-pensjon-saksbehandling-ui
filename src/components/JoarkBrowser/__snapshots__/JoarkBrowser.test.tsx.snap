@@ -99,7 +99,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
         </t>
       </Modal>
     </Modal>
-    <gx
+    <vx
       className="view"
       columns={
         Array [
@@ -4056,7 +4056,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
           </Component>
         </div>
       </div>
-    </gx>
+    </vx>
   </div>
 </JoarkBrowser>
 `;

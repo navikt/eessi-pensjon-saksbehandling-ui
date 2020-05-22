@@ -170,7 +170,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                   </p>
                 </n>
               </Normaltekst>
-              <ex
+              <tx
                 aria-describedby="help-tags"
                 ariaLabel="buc:form-tagsForBUC"
                 className="a-buc-c-bucstart__tags-select flex-fill"
@@ -1326,7 +1326,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                                                 }
                                               }
                                             >
-                                              <Nw
+                                              <Ow
                                                 clearValue={[Function]}
                                                 component={[Function]}
                                                 cx={[Function]}
@@ -1677,7 +1677,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                                                     </ForwardRef>
                                                   </Placeholder>
                                                 </t>
-                                              </Nw>
+                                              </Ow>
                                             </Component>
                                             <Component
                                               aria-autocomplete="list"
@@ -2570,8 +2570,8 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                                               onMouseDown={[Function]}
                                               onTouchEnd={[Function]}
                                             >
-                                              <OM>
-                                                <_M
+                                              <DM>
+                                                <LM
                                                   size={20}
                                                 >
                                                   <ForwardRef
@@ -2601,8 +2601,8 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                                                       />
                                                     </svg>
                                                   </ForwardRef>
-                                                </_M>
-                                              </OM>
+                                                </LM>
+                                              </DM>
                                             </div>
                                           </ForwardRef>
                                         </DropdownIndicator>
@@ -2618,7 +2618,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                     </a>
                   </r>
                 </div>
-              </ex>
+              </tx>
             </div>
           </div>
           <div

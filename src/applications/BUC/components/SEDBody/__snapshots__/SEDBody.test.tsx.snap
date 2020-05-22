@@ -1403,7 +1403,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
           }
         }
       >
-        <gx
+        <vx
           className="a-buc-c-sedattachmentstable"
           columns={
             Array [
@@ -1557,7 +1557,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
               />
             </div>
           </div>
-        </gx>
+        </vx>
       </SEDAttachmentsTable>
     </div>
     <SEDAttachments

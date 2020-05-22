@@ -4,15 +4,15 @@ import { SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
-import { clickLogger, standardLogger } from 'metrics/loggers'
+import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import printJS from 'print-js'
 import PT from 'prop-types'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import * as labels from './SEDP5000.labels'
 import WarningCircle from 'assets/images/WarningCircle'
+import ReactToPrint from 'react-to-print'
 
 export interface SEDP5000Props {
   locale: AllowedLocaleString;
@@ -54,12 +54,27 @@ export const CheckboxLabel = styled.div`
   align-items: flex-end;
   flex-wrap: wrap;
 `
+export const PrintableTableSorter = styled(Ui.TableSorter)`
+  width: 100%;
+  margin-top: 0.5rem;
+  @media print {
+    @page {
+      size: A4 landscape;
+    }
+    td {
+      padding: 0.5rem;
+    }
+  }
+`
 
-const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props): JSX.Element => {
+const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props) => {
   const { t } = useTranslation()
   const { height } = useWindowDimensions()
   const [itemsPerPage, setItemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
   const [activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
+  const [tableSort, setTableSort] = useState<any>({ column: '', order: 'none' })
+  const [printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
+  const componentRef = useRef(null)
 
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
@@ -128,14 +143,16 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     return Object.values(emptyPeriodsReport).indexOf(true) >= 0
   }
 
-  const printOut = (e: any) => {
-    clickLogger(e)
-    printJS({
-      printable: 'printJS-form',
-      type: 'html',
-      style: '@page { size: A4 landscape; }',
-      header: 'P5000'
-    })
+  const beforePrintOut = () => {
+  }
+
+  const prepareContent = () => {
+    standardLogger('P5000.print.clicked')
+    setPrintDialogOpen(true)
+  }
+
+  const afterPrintOut = () => {
+    setPrintDialogOpen(false)
   }
 
   const changeActiveSed = (sedId: string) => {
@@ -221,6 +238,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         searchable
         selectable={false}
         sortable
+        onColumnSort={(sort: any) => setTableSort(sort)}
         itemsPerPage={itemsPerPage}
         labels={labels}
         compact
@@ -255,13 +273,16 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         ]}
       />
       <HiddenDiv>
-        <div id='printJS-form'>
-          <Ui.TableSorter
-            className='print-version w-100 mt-2'
+        <div ref={componentRef} id='printJS-form'>
+          <PrintableTableSorter
+            // important to it re-renders when sorting changes
+            key={JSON.stringify(tableSort)}
+            className='print-version'
             items={items}
             searchable={false}
             selectable={false}
-            sortable={false}
+            sortable
+            sort={tableSort}
             itemsPerPage={9999}
             labels={labels}
             compact
@@ -298,9 +319,20 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         </div>
       </HiddenDiv>
       <ButtonsDiv>
-        <Ui.Nav.Knapp data-amplitude='P5000.print' onClick={printOut}>
-          {t('ui:print')}
-        </Ui.Nav.Knapp>
+        <ReactToPrint
+          documentTitle='P5000'
+          onBeforePrint={beforePrintOut}
+          onBeforeGetContent={prepareContent}
+          onAfterPrint={afterPrintOut}
+          trigger={() =>
+            <Ui.Nav.Knapp disabled={printDialogOpen} spinner={printDialogOpen}>
+              {t('ui:print')}
+            </Ui.Nav.Knapp>}
+          content={() => {
+            console.log(componentRef.current)
+            return componentRef.current
+          }}
+        />
       </ButtonsDiv>
     </SEDP5000Container>
   )
