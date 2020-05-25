@@ -279,6 +279,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             key={JSON.stringify(tableSort)}
             className='print-version'
             items={items}
+            animatable={false}
             searchable={false}
             selectable={false}
             sortable
