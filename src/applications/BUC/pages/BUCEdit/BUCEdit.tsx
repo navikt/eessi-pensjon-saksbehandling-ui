@@ -54,7 +54,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   const onSEDNew = (buc: Buc, sed: Sed | undefined): void => {
     const uniqueSed: Sed | undefined = _.find(buc.seds, (s: Sed) =>
-      s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000'
+      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') &&
+      (s.status !== 'empty')
     )
 
     if (buc.type === 'P_BUC_06' && uniqueSed) {
