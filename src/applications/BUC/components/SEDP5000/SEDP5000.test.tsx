@@ -38,7 +38,7 @@ describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
     expect(wrapper.exists('#checkbox-50578cf8bf9f45a7819a39987c6c8fd4')).toBeTruthy()
     expect(wrapper.exists('.c-tableSorter')).toBeTruthy()
     expect(wrapper.find('.c-tableSorter:not(.print-version) th').hostNodes().map(it => it.render().text())).toEqual([
-      '', 'ui:country', 'ui:acronym', 'ui:type', 'ui:startDate', 'ui:endDate', 'ui:year', 'ui:quarter', 'ui:month',
+      '', 'ui:country', 'ui:_institution', 'ui:type', 'ui:startDate', 'ui:endDate', 'ui:year', 'ui:quarter', 'ui:month',
       'ui:week', 'ui:days/ui:unit', 'ui:relevantForPerformance', 'ui:scheme', 'ui:calculationInformation'
     ])
   })
