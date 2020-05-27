@@ -23,6 +23,7 @@ export interface SEDP5000Props {
 type ActiveSeds = {[k: string]: boolean}
 
 interface SedSender {
+  date: string;
   country: string;
   countryLabel: string;
   institution: string;
@@ -105,9 +106,16 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     if (!sed) {
       return undefined
     }
+
+    let date = moment(sed.creationDate).format('DD.MM.YYYY')
+    if (sed.lastUpdate !== sed.creationDate) {
+      date += ' - ' + moment(sed.lastUpdate).format('DD.MM.YYYY')
+    }
+
     const sender: Participant | undefined = sed.participants.find((participant: Participant) => participant.role === 'Sender')
     if (sender) {
       return {
+        date: date,
         countryLabel: Ui.CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
         country: sender.organisation.countryCode,
         institution: sender.organisation.name,
@@ -185,7 +193,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                 onChange={() => changeActiveSed(sedId)}
                 label={(
                   <CheckboxLabel>
-                    <span>{t('buc:form-titleP5000')}</span>
+                    <span>{t('buc:form-dateP5000',{date: sender?.date})}</span>
                     <span className='ml-1 mr-1'>-</span>
                     {sender ? (
                       <div className='d-flex align-items-center'>
@@ -244,7 +252,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         compact
         columns={[
           { id: 'land', label: t('ui:country'), type: 'string' },
-          { id: 'acronym', label: t('ui:acronym'), type: 'string' },
+          { id: 'acronym', label: t('ui:_institution'), type: 'string' },
           { id: 'type', label: t('ui:type'), type: 'string' },
           {
             id: 'startdato',
@@ -289,7 +297,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             compact
             columns={[
               { id: 'land', label: t('ui:country'), type: 'string' },
-              { id: 'acronym', label: t('ui:acronym'), type: 'string' },
+              { id: 'acronym', label: t('ui:_institution'), type: 'string' },
               { id: 'type', label: t('ui:type'), type: 'string' },
               {
                 id: 'startdato',

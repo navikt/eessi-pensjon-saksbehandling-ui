@@ -77,7 +77,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     if (!buc.seds) {
       return undefined
     }
-    return buc.seds.filter(sedFilter).filter(sed => sed.type === 'P5000')
+    return buc.seds.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')
   }, [buc])
 
   const displayP5000table = useCallback(() => {

@@ -155,6 +155,7 @@
   "form-searchForStatus"              : "Filtrer på status",
   "form-sed"                          : "SED",
   "form-titleP5000"                   : "Perioder for P5000",
+  "form-dateP5000"                    : "Dato: {{date}}",
   "form-seeP5000s"                    : "Se oversikt",
   "form-P5000-warning"                : "Det finnes tilleggsperioder uten start- og sluttdato i denne P5000. Disse periodene finner du i P5000 som er lagret i dokumentoversikten.",
   "form-seeBucInRina"                 : "Se BUC-en i RINA",

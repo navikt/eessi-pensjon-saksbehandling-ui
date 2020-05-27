@@ -115,6 +115,7 @@
     "idNumber" : "Fødselsnummer",
     "images" : "Bilder",
     "inbox" : "Postboks",
+    "_institution": "Institusjon",
     "institution": "Mottakerinstitusjon",
     "institutions": "Institusjoner",
     "invite" : "Invitere",
