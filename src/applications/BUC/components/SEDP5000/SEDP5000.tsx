@@ -193,7 +193,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                 onChange={() => changeActiveSed(sedId)}
                 label={(
                   <CheckboxLabel>
-                    <span>{t('buc:form-dateP5000',{date: sender?.date})}</span>
+                    <span>{t('buc:form-dateP5000', { date: sender?.date })}</span>
                     <span className='ml-1 mr-1'>-</span>
                     {sender ? (
                       <div className='d-flex align-items-center'>
