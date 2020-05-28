@@ -107,15 +107,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
       return undefined
     }
 
-    let date = moment(sed.creationDate).format('DD.MM.YYYY')
-    if (sed.lastUpdate !== sed.creationDate) {
-      date += ' - ' + moment(sed.lastUpdate).format('DD.MM.YYYY')
-    }
-
     const sender: Participant | undefined = sed.participants.find((participant: Participant) => participant.role === 'Sender')
     if (sender) {
       return {
-        date: date,
+        date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
         countryLabel: Ui.CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
         country: sender.organisation.countryCode,
         institution: sender.organisation.name,
