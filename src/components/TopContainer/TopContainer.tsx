@@ -11,7 +11,6 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import SnowStorm from 'react-snowstorm'
 import { State } from 'declarations/reducers'
 import useErrorBoundary from 'use-error-boundary'
 import Error from 'pages/Error/Error'
@@ -36,7 +35,6 @@ export interface TopContainerSelector {
   isLoggingOut: boolean;
   footerOpen: boolean;
   modal: ModalContent | undefined;
-  snow: boolean;
   highContrast: boolean;
 }
 
@@ -52,7 +50,6 @@ const mapState = (state: State): TopContainerSelector => ({
   isLoggingOut: state.loading.isLoggingOut,
   footerOpen: state.ui.footerOpen,
   modal: state.ui.modal,
-  snow: state.ui.snow,
   highContrast: state.ui.highContrast
 })
 
@@ -61,7 +58,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 }: TopContainerProps): JSX.Element => {
   const {
     clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
-    isLoggingOut, footerOpen, modal, snow, highContrast
+    isLoggingOut, footerOpen, modal, highContrast
   } = useSelector(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -107,13 +104,11 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     <ErrorBoundary
       renderError={({ error }: any) => <Error type='internalError' error={error} />}
     >
-      {snow ? <SnowStorm /> : null}
       <Header
         className={classNames({ highContrast: highContrast })}
         username={username}
         gettingUserInfo={gettingUserInfo}
         isLoggingOut={isLoggingOut}
-        snow={snow}
       >
         {header ? (
           <Ui.Banner

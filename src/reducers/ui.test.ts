@@ -49,17 +49,6 @@ describe('reducers/ui', () => {
     })
   })
 
-  it('UI_SNOW_TOGGLE', () => {
-    expect(
-      uiReducer(initialUiState, {
-        type: types.UI_SNOW_TOGGLE
-      })
-    ).toEqual({
-      ...initialUiState,
-      snow: true
-    })
-  })
-
   it('UNKNOWN_ACTION', () => {
     expect(
       uiReducer(initialUiState, {

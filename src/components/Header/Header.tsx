@@ -1,5 +1,5 @@
 import { clearData, logout } from 'actions/app'
-import { toggleHighContrast, toggleSnow } from 'actions/ui'
+import { toggleHighContrast } from 'actions/ui'
 import classNames from 'classnames'
 import * as routes from 'constants/routes'
 import Ui from 'eessi-pensjon-ui'
@@ -18,13 +18,12 @@ export interface HeaderProps {
   gettingUserInfo?: boolean;
   header?: JSX.Element | string;
   isLoggingOut?: boolean;
-  snow?: boolean;
   username?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
   className, children, gettingUserInfo, header,
-  isLoggingOut, snow, username
+  isLoggingOut, username
 }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -42,12 +41,6 @@ const Header: React.FC<HeaderProps> = ({
     e.preventDefault()
     e.stopPropagation()
     dispatch(toggleHighContrast())
-  }
-
-  const onSnowClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-    dispatch(toggleSnow())
   }
 
   const handleUsernameSelectRequest = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -75,14 +68,6 @@ const Header: React.FC<HeaderProps> = ({
             onClick={onHighContrastClick}
           >
             {t('ui:highContrast')}
-          </Ui.Nav.Lenke>
-          <Ui.Nav.Lenke
-            id='c-topHeader__snow-link-id'
-            className='c-topHeader__snow-link c-topHeader__link ml-4 mt-1'
-            href='#snow'
-            onClick={onSnowClick}
-          >
-            {!snow ? 'la det snø!' : 'nok med snø!'}
           </Ui.Nav.Lenke>
         </div>
         <div className='user'>

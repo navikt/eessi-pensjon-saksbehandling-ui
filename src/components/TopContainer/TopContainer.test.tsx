@@ -35,7 +35,6 @@ const defaultSelector: TopContainerSelector = {
   isLoggingOut: false,
   footerOpen: false,
   modal: undefined,
-  snow: false,
   highContrast: false
 }
 

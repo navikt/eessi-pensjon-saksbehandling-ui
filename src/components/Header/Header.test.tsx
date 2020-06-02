@@ -1,5 +1,5 @@
 import { clearData, logout } from 'actions/app'
-import { toggleHighContrast, toggleSnow } from 'actions/ui'
+import { toggleHighContrast } from 'actions/ui'
 import * as routes from 'constants/routes'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
@@ -10,8 +10,7 @@ jest.mock('actions/app', () => ({
   logout: jest.fn()
 }))
 jest.mock('actions/ui', () => ({
-  toggleHighContrast: jest.fn(),
-  toggleSnow: jest.fn()
+  toggleHighContrast: jest.fn()
 }))
 
 const mockHistoryPush = jest.fn()
@@ -70,10 +69,5 @@ describe('components/Header', () => {
   it('Clicking highConstrast handled', () => {
     wrapper.find('a.c-topHeader__highcontrast-link').simulate('click')
     expect(toggleHighContrast).toHaveBeenCalled()
-  })
-
-  it('Clicking snow handled', () => {
-    wrapper.find('a.c-topHeader__snow-link').simulate('click')
-    expect(toggleSnow).toHaveBeenCalled()
   })
 })

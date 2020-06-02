@@ -10,8 +10,7 @@ export interface UiState {
   locale: AllowedLocaleString;
   modal: ModalContent | undefined,
   footerOpen: false,
-  highContrast: false,
-  snow: false
+  highContrast: false
 }
 
 export const initialUiState: UiState = {
@@ -19,8 +18,7 @@ export const initialUiState: UiState = {
   locale: i18n.language as AllowedLocaleString,
   modal: undefined,
   footerOpen: false,
-  highContrast: false,
-  snow: false
+  highContrast: false
 }
 
 const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithPayload) => {
@@ -51,13 +49,6 @@ const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithP
       return {
         ...state,
         highContrast: !state.highContrast
-      }
-
-    case types.UI_SNOW_TOGGLE :
-
-      return {
-        ...state,
-        snow: !state.snow
       }
 
     default:

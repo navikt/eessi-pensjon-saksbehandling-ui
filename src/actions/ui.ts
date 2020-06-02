@@ -31,6 +31,3 @@ export const toggleHighContrast = (): Action => ({
   type: types.UI_HIGHCONTRAST_TOGGLE
 })
 
-export const toggleSnow = (): Action => ({
-  type: types.UI_SNOW_TOGGLE
-})
