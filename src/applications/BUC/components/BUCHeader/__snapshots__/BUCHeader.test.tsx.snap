@@ -59,6 +59,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
       "sakType": null,
       "seds": Array [
         Object {
+          "allowsAttachments": true,
           "attachments": Array [
             Object {
               "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
@@ -149,6 +150,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818194896,
           "displayName": "Pension decision",
@@ -285,6 +287,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "3",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
           "displayName": "Forward Case",
@@ -352,6 +355,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818201591,
           "displayName": "Transfer of additional information",
@@ -419,6 +423,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
           "displayName": "Country specific information",
@@ -486,6 +491,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818176000,
           "displayName": "Request for Medical Information",
@@ -553,6 +559,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [
             Object {
               "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
@@ -665,6 +672,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818176000,
           "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
@@ -732,6 +740,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
           "displayName": "Notification of death",
@@ -799,6 +808,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818216066,
           "displayName": "Notification of Summary note",
@@ -866,6 +876,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818170586,
           "displayName": "Old age pension claim",
@@ -933,6 +944,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
           "displayName": "Add New Participant",
@@ -1000,6 +1012,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818188033,
           "displayName": "Insurance/residence periods",
@@ -1067,6 +1080,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571234189234,
           "displayName": "Insurance/residence periods",
@@ -1134,6 +1148,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818208620,
           "displayName": "Request for additional information",
@@ -1201,6 +1216,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
+          "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818174000,
           "displayName": "Reminder",

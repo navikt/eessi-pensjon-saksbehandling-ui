@@ -52,6 +52,7 @@ const defaultSelector: SEDStartSelector = {
   sakId: '123',
   sed: undefined,
   sedList: undefined,
+  sedsWithAttachments: {},
   p4000info: mockP4000info,
   vedtakId: undefined
 }

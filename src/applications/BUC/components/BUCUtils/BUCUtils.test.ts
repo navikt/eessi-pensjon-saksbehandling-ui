@@ -70,7 +70,8 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     lastVersion: {
       id: '1',
       date: 1
-    }
+    },
+    allowsAttachments: true
   }
 
   const mockBuc: Buc = {

@@ -13,7 +13,8 @@ import {
   Participants,
   RawInstitution,
   Sed,
-  SedContentMap
+  SedContentMap,
+  SedsWithAttachmentsMap
 } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
@@ -42,6 +43,7 @@ export interface BucState {
   rinaUrl: RinaUrl | undefined;
   sed: Sed | undefined,
   sedContent: SedContentMap;
+  sedsWithAttachments: SedsWithAttachmentsMap,
   sedList: Array<string> | undefined,
   subjectAreaList: Array<string> | undefined,
   tagList: Array<string> | undefined;
@@ -68,6 +70,7 @@ export const initialBucState: BucState = {
   sed: undefined,
   sedContent: {},
   sedList: undefined,
+  sedsWithAttachments: {},
   subjectAreaList: undefined,
   tagList: undefined
 }
@@ -148,8 +151,11 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       const bucs = _.keyBy((action as ActionWithPayload).payload, 'caseId') || {}
       const institutionNames = _.cloneDeep(state.institutionNames)
+      const avdodBucs: Bucs = {}
+      const sedsWithAttachments: SedsWithAttachmentsMap = {}
 
       Object.keys(bucs).forEach(bucId => {
+        // Cache institution names
         if (bucs[bucId].institusjon) {
           bucs[bucId].institusjon.forEach((inst: Institution) => {
             if (inst.institution && inst.name && !institutionNames[inst.institution]) {
@@ -157,23 +163,21 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
             }
           })
         }
-      })
 
-      // pick one:
-      // - Simulate lazy load while we do not have lazy load backend: to simulate no seds and institutions
-      /* Object.keys(bucs).forEach(bucId => {
-        bucs[bucId].institusjon = undefined
-        bucs[bucId].seds = undefined
-      }) */
+        // Cache seds allowing attachments
+        bucs[bucId].seds?.forEach((sed: Sed) => {
+          sedsWithAttachments[sed.type] = sed.allowsAttachments
+        })
 
-      // - Get all working for no lazy load
-      Object.keys(bucs).forEach(bucId => {
+        /* Lazy load: pick one:
+        * 1 - Simulate lazy load while we do not have lazy load backend: to simulate no seds and institutions
+        *   bucs[bucId].institusjon = undefined
+        *   bucs[bucId].seds = undefined
+        *
+        * 2- Get all working for no lazy load */
         bucs[bucId].deltakere = bucs[bucId].institusjon
-      })
 
-      // send P_BUC_02 bucs to avdodBucs
-      const avdodBucs: Bucs = {}
-      Object.keys(bucs).forEach(bucId => {
+        // send P_BUCBucs:_02 bucs to avdodBucs
         if (bucs[bucId].type === 'P_BUC_02') {
           avdodBucs[bucId] = _.cloneDeep(bucs[bucId])
           delete bucs[bucId]
@@ -184,7 +188,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         bucs: bucs,
         avdodBucs: avdodBucs,
-        institutionNames: institutionNames
+        institutionNames: institutionNames,
+        sedsWithAttachments: sedsWithAttachments
       }
     }
 

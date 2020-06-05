@@ -75,6 +75,7 @@ export interface Sed {
   version?: string | null;
   firstVersion: Version;
   lastVersion: Version;
+  allowsAttachments: boolean;
 }
 
 export type Seds = Array<Sed>;
@@ -163,6 +164,8 @@ export interface InstitutionListMap<T> {
 export interface InstitutionNames {
   [id: string]: string
 }
+
+export type SedsWithAttachmentsMap = {[k: string]: boolean}
 
 export interface Tag {
   value: string,
