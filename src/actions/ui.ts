@@ -30,4 +30,3 @@ export const toggleFooterOpen = (): Action => ({
 export const toggleHighContrast = (): Action => ({
   type: types.UI_HIGHCONTRAST_TOGGLE
 })
-

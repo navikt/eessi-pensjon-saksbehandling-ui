@@ -25,7 +25,7 @@ import {
   InstitutionListMap,
   Institutions,
   RawInstitution,
-  Sed,
+  Sed, SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
@@ -64,6 +64,7 @@ export interface SEDStartSelector {
   locale: AllowedLocaleString;
   sakId?: string;
   sed: Sed | undefined;
+  sedsWithAttachments: SedsWithAttachmentsMap;
   sedList: Array<string> | undefined;
   p4000info: P4000Info | undefined;
   vedtakId: string | undefined;
@@ -82,6 +83,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   sakId: state.app.params.sakId,
   sed: state.buc.sed,
   sedList: state.buc.sedList,
+  sedsWithAttachments: state.buc.sedsWithAttachments,
   p4000info: state.buc.p4000info,
   vedtakId: state.app.params.vedtakId
 })
@@ -91,7 +93,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachments, attachmentsError, avdodfnr, bucsInfoList, currentSed, countryList, institutionList, loading, locale,
-    sakId, sed, sedList, p4000info, vedtakId
+    sakId, sed, sedsWithAttachments, sedList, p4000info, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -118,7 +120,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_attachments, setAttachments] = useState<AttachedFiles>(initialAttachments)
   const [step, setStep] = useState<number>(initialStep)
   const [validation, setValidation] = useState<Validation>({})
-
   const [showButtons, setShowButtons] = useState<boolean>(true)
   const [sedSent, setSedSent] = useState<boolean>(false)
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
@@ -216,8 +217,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const sedCanHaveAttachments = (): boolean => {
-    const sedsWithoutAttachments = ['P5000', 'P7000', 'H070']
-    return _sed !== undefined && !_.includes(sedsWithoutAttachments, _sed)
+    return _sed !== undefined && sedsWithAttachments[_sed]
   }
 
   const convertInstitutionIDsToInstitutionObjects: Function = (): Institutions => {

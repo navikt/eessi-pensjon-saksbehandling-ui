@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/Header Renders 1'] = `
+exports[`components/Header Renders 1`] = `
 <Header
   username="testUser"
 >
@@ -125,21 +125,6 @@ exports['components/Header Renders 1'] = `
             ui:highContrast
           </a>
         </Lenke>
-        <Lenke
-          className="c-topHeader__snow-link c-topHeader__link ml-4 mt-1"
-          href="#snow"
-          id="c-topHeader__snow-link-id"
-          onClick={[Function]}
-        >
-          <a
-            className="lenke c-topHeader__snow-link c-topHeader__link ml-4 mt-1"
-            href="#snow"
-            id="c-topHeader__snow-link-id"
-            onClick={[Function]}
-          >
-            la det snø!
-          </a>
-        </Lenke>
       </div>
       <div
         className="user"
@@ -258,4 +243,4 @@ exports['components/Header Renders 1'] = `
     </div>
   </header>
 </Header>
-`
+`;

@@ -117,7 +117,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818175000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '10678159cd4142f890d56264bfdefd13',
@@ -250,7 +251,8 @@ const mockBuc = [
         lastVersion: {
           id: '3',
           date: 1571818294896
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
@@ -317,7 +319,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818175000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: 'ef2905700e6f410b9edd04023856d49b',
@@ -384,7 +387,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818201591
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '8c582ae21c8744aa8e697c8a5c84d84f',
@@ -451,7 +455,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818175000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '7c52d3b4006b489d89ee1af37caef6f6',
@@ -518,7 +523,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818176000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: 'dc4670bbd59d4c8ab3b41974a72bf11d',
@@ -627,7 +633,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818181793
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '34b286dc45ff4f6fa8c91a8aa698345d',
@@ -694,7 +701,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818176000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '6b626b56303e4bca9fd8e40d758a4044',
@@ -761,7 +769,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818175000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '619f742acee74769bcd449b13eb9cf54',
@@ -828,7 +837,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818216066
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '5d549c96e0ce40788a2eea2992c1f65f',
@@ -895,7 +905,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818170586
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: 'd1f436ac1402462e827ad70b616d9594',
@@ -962,7 +973,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818175000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '60578cf8bf9f45a7819a39987c6c8fd4',
@@ -1029,7 +1041,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818188033
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '50578cf8bf9f45a7819a39987c6c8fd4',
@@ -1096,7 +1109,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571547188033
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '51d9d9277ab847008bc88c1b31b34865',
@@ -1163,7 +1177,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818208620
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: 'fd55d46e6ab741838d3a8e1735d33f1b',
@@ -1230,7 +1245,8 @@ const mockBuc = [
         lastVersion: {
           id: '1',
           date: 1571818174000
-        }
+        },
+        allowsAttachments: true
       }
     ],
     error: null
@@ -1359,7 +1375,8 @@ const mockBuc = [
         lastVersion: {
           id: 'r',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: 'ff98ea9256244b908e19d4439db5bad3',
@@ -1425,7 +1442,8 @@ const mockBuc = [
         lastVersion: {
           id: '4',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '549bab7141c54cfcb14902e7e3b107b4',
@@ -1490,7 +1508,8 @@ const mockBuc = [
         lastVersion: {
           id: '4',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '1911923c542746ada10f7c922b46a271',
@@ -1555,7 +1574,8 @@ const mockBuc = [
         lastVersion: {
           id: '3',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '9ebb27b848c644ba8a8ba95772403618',
@@ -1620,7 +1640,8 @@ const mockBuc = [
         lastVersion: {
           id: '4',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '4ae14845e31d4d0db52acb692d9abe8e',
@@ -1685,7 +1706,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '5ef5fdea78e94911a873322d98589664',
@@ -1750,7 +1772,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '2cfa8cc7af2647c4ad89315a6d1b0ad7',
@@ -1815,7 +1838,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: 'af7f8476e55f4c53b501c41fd03a25be',
@@ -1880,7 +1904,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '4c10c2288a23442f85b511ecfaecb0f7',
@@ -1945,7 +1970,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '147065531dca429a90d47b5aa3b7cf2c',
@@ -2010,7 +2036,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '07cce7d3b2514676ba342caab580c573',
@@ -2075,7 +2102,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '7e2b28e4bc3b47e992fc06e5024bec3a',
@@ -2140,7 +2168,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: '7c60826b53cc431f9059d8b30e4a1f7d',
@@ -2205,7 +2234,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       },
       {
         id: 'c1069862321c419e8e3ca418f7372d64',
@@ -2270,7 +2300,8 @@ const mockBuc = [
         lastVersion: {
           id: '2',
           date: 1559080800000
-        }
+        },
+        allowsAttachments: true
       }
     ]
   },
@@ -2358,7 +2389,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393035000
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '0bb1ad15987741f1bbf45eba4f955e80',
       parentDocumentId: null,
@@ -2421,7 +2453,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393035000
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '06f698fa890b4046b736e2efe3b25074',
       parentDocumentId: null,
@@ -2484,7 +2517,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393062757
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '3b82e3d56f304ca0ac05c1ce626d9472',
       parentDocumentId: null,
@@ -2547,7 +2581,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393101000
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '52c08e4129da4120b9b982142c272a61',
       parentDocumentId: null,
@@ -2610,7 +2645,8 @@ const mockBuc = [
       lastVersion: {
         id: '2',
         date: 1558360875571
-      }
+      },
+      allowsAttachments: true
     }, {
       id: 'cac9db2726d54f2c9b51d1562b7b0a79',
       parentDocumentId: null,
@@ -2689,7 +2725,8 @@ const mockBuc = [
       lastVersion: {
         id: '2',
         date: 1558362934400
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '3fe845d1142742a5a7a28f339e5d5b30',
       parentDocumentId: null,
@@ -2752,7 +2789,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557392992767
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '268b8ed450bf4e8a99e6c0057d5ed857',
       parentDocumentId: null,
@@ -2815,7 +2853,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393034000
-      }
+      },
+      allowsAttachments: true
     }, {
       id: 'a8160dcb66c840a88ef331eed4b193be',
       parentDocumentId: '3fe845d1142742a5a7a28f339e5d5b30',
@@ -2878,7 +2917,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393034000
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '5d4e5b878a60433a919c833c146401cb',
       parentDocumentId: null,
@@ -2941,7 +2981,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393034000
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '836de1a761514b1eab50c88e507e9a1c',
       parentDocumentId: null,
@@ -3004,7 +3045,8 @@ const mockBuc = [
       lastVersion: {
         id: '1',
         date: 1557393035000
-      }
+      },
+      allowsAttachments: true
     }, {
       id: '2d305e9ac51f43cf9a4012679ea3036e',
       parentDocumentId: null,

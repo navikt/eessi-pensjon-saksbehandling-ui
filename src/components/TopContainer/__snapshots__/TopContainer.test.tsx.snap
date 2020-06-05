@@ -14,7 +14,6 @@ exports[`components/TopContainer Renders 1`] = `
         className=""
         gettingUserInfo={false}
         isLoggingOut={false}
-        snow={false}
         username="mockUsername"
       >
         <header
@@ -136,21 +135,6 @@ exports[`components/TopContainer Renders 1`] = `
                   onClick={[Function]}
                 >
                   ui:highContrast
-                </a>
-              </Lenke>
-              <Lenke
-                className="c-topHeader__snow-link c-topHeader__link ml-4 mt-1"
-                href="#snow"
-                id="c-topHeader__snow-link-id"
-                onClick={[Function]}
-              >
-                <a
-                  className="lenke c-topHeader__snow-link c-topHeader__link ml-4 mt-1"
-                  href="#snow"
-                  id="c-topHeader__snow-link-id"
-                  onClick={[Function]}
-                >
-                  la det snø!
                 </a>
               </Lenke>
             </div>
