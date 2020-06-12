@@ -1708,12 +1708,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   buc:form-caseNumberInRina: 
                   <Lenke
                     className="a-buc-c-bucheader__gotorina-link"
+                    data-amplitude="buc.list.buc.rinaUrl"
                     href="http://rinaurl.mock.com600891"
                     onClick={[Function]}
                     target="rinaWindow"
                   >
                     <a
                       className="lenke a-buc-c-bucheader__gotorina-link"
+                      data-amplitude="buc.list.buc.rinaUrl"
                       href="http://rinaurl.mock.com600891"
                       onClick={[Function]}
                       rel="noopener"
@@ -3017,12 +3019,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
         >
           <Lenke
             className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+            data-amplitude="app.buc.list.editbuc"
             href="#P_BUC_01"
             id="a-buc-c-bucheader__bucedit-link-id"
             onClick={[Function]}
           >
             <a
               className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+              data-amplitude="app.buc.list.editbuc"
               href="#P_BUC_01"
               id="a-buc-c-bucheader__bucedit-link-id"
               onClick={[Function]}

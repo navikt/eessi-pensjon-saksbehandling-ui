@@ -25,11 +25,11 @@
   },
   "private": true,
   "dependencies": {
-    "@sentry/browser": "^5.16.1",
+    "@sentry/browser": "^5.17.0",
     "amplitude-js": "^6.2.0",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
-    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.4.1",
+    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.4.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "history": "^4.10.1",
     "http-proxy-middleware": "^1.0.4",
@@ -43,7 +43,7 @@
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
-    "react-i18next": "^11.5.0",
+    "react-i18next": "^11.5.1",
     "react-loadable": "^5.5.0",
     "react-redux": "^7.2.0",
     "react-resize-detector": "^4.2.3",
@@ -60,10 +60,10 @@
     "@types/classnames": "^2.2.10",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/jest": "^25.2.3",
+    "@types/jest": "^26.0.0",
     "@types/lodash": "^4.14.155",
     "@types/mustache": "^4.0.1",
-    "@types/react": "^16.9.35",
+    "@types/react": "^16.9.36",
     "@types/react-dom": "^16.9.8",
     "@types/react-loadable": "^5.5.3",
     "@types/react-redux": "^7.1.9",
@@ -79,7 +79,7 @@
     "enzyme-to-json": "^3.5.0",
     "es6-promise": "^4.2.8",
     "identity-obj-proxy": "^3.0.0",
-    "less": "^3.11.2",
+    "less": "^3.11.3",
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.14.6",
     "mock-socket": "^9.0.3",
@@ -118,8 +118,13 @@
     "parserOptions": {
       "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "react-hooks"],
-    "extends": ["plugin:jsx-a11y/recommended"],
+    "plugins": [
+      "@typescript-eslint",
+      "react-hooks"
+    ],
+    "extends": [
+      "plugin:jsx-a11y/recommended"
+    ],
     "globals": [
       "Blob",
       "File",

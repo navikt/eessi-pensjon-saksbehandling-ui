@@ -3717,18 +3717,22 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
 >
   <div
     className="a-buc-p-buclist"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="a-buc-p-buclist__buttons mb-3"
     >
       <Knapp
         className="a-buc-p-buclist__newbuc-button"
+        data-amplitude="buc.list.newbuc"
         id="a-buc-p-buclist__newbuc-button-id"
         onClick={[Function]}
       >
         <KnappBase
           autoDisableVedSpinner={false}
           className="a-buc-p-buclist__newbuc-button"
+          data-amplitude="buc.list.newbuc"
           disabled={false}
           htmlType="submit"
           id="a-buc-p-buclist__newbuc-button-id"
@@ -3741,6 +3745,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         >
           <button
             className="knapp a-buc-p-buclist__newbuc-button knapp--standard"
+            data-amplitude="buc.list.newbuc"
             disabled={false}
             id="a-buc-p-buclist__newbuc-button-id"
             onClick={[Function]}
@@ -6978,12 +6983,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       <Lenke
                         className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                        data-amplitude="app.buc.list.editbuc"
                         href="#P_BUC_01"
                         id="a-buc-c-bucheader__bucedit-link-id"
                         onClick={[Function]}
                       >
                         <a
                           className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                          data-amplitude="app.buc.list.editbuc"
                           href="#P_BUC_01"
                           id="a-buc-c-bucheader__bucedit-link-id"
                           onClick={[Function]}
@@ -9759,12 +9766,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       <Lenke
                         className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                        data-amplitude="app.buc.list.editbuc"
                         href="#P_BUC_02"
                         id="a-buc-c-bucheader__bucedit-link-id"
                         onClick={[Function]}
                       >
                         <a
                           className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                          data-amplitude="app.buc.list.editbuc"
                           href="#P_BUC_02"
                           id="a-buc-c-bucheader__bucedit-link-id"
                           onClick={[Function]}
@@ -12954,12 +12963,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       <Lenke
                         className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                        data-amplitude="app.buc.list.editbuc"
                         href="#P_BUC_03"
                         id="a-buc-c-bucheader__bucedit-link-id"
                         onClick={[Function]}
                       >
                         <a
                           className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                          data-amplitude="app.buc.list.editbuc"
                           href="#P_BUC_03"
                           id="a-buc-c-bucheader__bucedit-link-id"
                           onClick={[Function]}
@@ -13767,12 +13778,14 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                     >
                       <Lenke
                         className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                        data-amplitude="app.buc.list.editbuc"
                         href="#P_BUC_06"
                         id="a-buc-c-bucheader__bucedit-link-id"
                         onClick={[Function]}
                       >
                         <a
                           className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                          data-amplitude="app.buc.list.editbuc"
                           href="#P_BUC_06"
                           id="a-buc-c-bucheader__bucedit-link-id"
                           onClick={[Function]}
