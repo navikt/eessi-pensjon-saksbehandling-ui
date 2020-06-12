@@ -198,14 +198,18 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
     >
       <Lenke
         className="a-buc-c-buclist__gotorina"
+        data-amplitude="buc.list.rinaurl"
         href="http://mock.url"
         id="a-buc-c-buclist__gotorina-link"
+        onClick={[Function]}
         target="rinaWindow"
       >
         <a
           className="lenke a-buc-c-buclist__gotorina"
+          data-amplitude="buc.list.rinaurl"
           href="http://mock.url"
           id="a-buc-c-buclist__gotorina-link"
+          onClick={[Function]}
           rel="noopener"
           target="rinaWindow"
         >

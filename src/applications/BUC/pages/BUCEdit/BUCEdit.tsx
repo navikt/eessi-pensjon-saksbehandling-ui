@@ -57,7 +57,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   useEffect(() => {
     standardLogger('buc.edit.entrance')
     standardLogger('buc.edit.seds.data', {
-      numberOfSeds: buc.seds ? buc.seds.length : 0
+      numberOfSeds: buc && buc.seds ? buc.seds.length : 0
     })
     return () => {
       timeLogger('buc.edit.view', loggedTime)

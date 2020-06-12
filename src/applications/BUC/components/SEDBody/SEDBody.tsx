@@ -83,7 +83,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     setSendingAttachments(true)
 
     standardLogger('buc.edit.attachments.data', {
-      numberOfJoarkAttachments: newFiles.joak.length
+      numberOfJoarkAttachments: newFiles.joark.length
     })
 
     if (_.isFunction(onAttachmentsSubmit)) {

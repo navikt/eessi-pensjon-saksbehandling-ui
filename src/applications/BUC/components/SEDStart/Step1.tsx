@@ -262,7 +262,7 @@ const Step1: React.FC<Step1Props> = ({
 
   const setFiles = (files: AttachedFiles) => {
     standardLogger('sed.new.attachments.data', {
-      numberOfJoarkAttachments: files.joak.length
+      numberOfJoarkAttachments: files.joark.length
     })
     setSeeAttachmentPanel(false)
     setAttachments(files)
