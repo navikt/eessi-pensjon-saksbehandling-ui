@@ -12,6 +12,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Person, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -71,6 +72,9 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
   const [_avdodBucs, setAvdodBucs] = useState<Bucs | undefined>(undefined)
 
+  const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
+  const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
+
   const combinedBucs = { ...avdodBucs, ...bucs }
 
   useEffect(() => {
@@ -81,6 +85,13 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       setMounted(true)
     }
   }, [dispatch, _mounted, rinaUrl])
+
+  useEffect(() => {
+    return () => {
+      timeDiffLogger('buc.mouseover', totalTimeWithMouseOver)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
@@ -117,6 +128,14 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [avdodBucs, _avdodBucs, dispatch])
 
+  const onMouseEnter = () => setMouseEnterDate(new Date())
+
+  const onMouseLeave = () => {
+    if (mouseEnterDate) {
+      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
+    }
+  }
+
   const _setMode = useCallback((mode) => {
     dispatch(setMode(mode))
     if (allowFullScreen) {
@@ -140,11 +159,16 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   if (!sakId || !aktoerId) {
     return (
-      <BUCEmpty
-        aktoerId={aktoerId}
-        onBUCNew={() => _setMode('bucnew')}
-        sakId={sakId}
-      />
+      <div
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <BUCEmpty
+          aktoerId={aktoerId}
+          onBUCNew={() => _setMode('bucnew')}
+          sakId={sakId}
+        />
+      </div>
     )
   }
 
@@ -153,7 +177,11 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }
 
   return (
-    <div className='a-buc-widget'>
+    <div
+      className='a-buc-widget'
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div className='a-buc-widget__header mb-3'>
         <BUCCrumbs
           bucs={combinedBucs}

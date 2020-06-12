@@ -80,24 +80,27 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
     const sender = getSedSender(sedId)
-    sedContent.pensjon?.medlemskap?.forEach((m: any, i: number) =>
-      res.push({
-        key: sedId + '-' + i,
-        land: sender!.countryLabel || '-',
-        acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
-        type: m.type || '-',
-        startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
-        sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
-        år: m.sum?.aar || '-',
-        kvartal: m.sum?.kvartal || '-',
-        måned: m.sum?.maaneder || '-',
-        uker: m.sum?.uker || '-',
-        dagerEnhet: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
-        relevantForYtelse: m.relevans || '-',
-        ordning: m.ordning || '-',
-        informasjonOmBeregning: m.beregning || '-'
+    const medlemskap = sedContent.pensjon?.medlemskap
+    if (medlemskap) {
+      medlemskap.forEach((m: any, i: number) => {
+        res.push({
+          key: sedId + '-' + i,
+          land: sender!.countryLabel || '-',
+          acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
+          type: m.type || '-',
+          startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
+          sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
+          år: m.sum?.aar || '-',
+          kvartal: m.sum?.kvartal || '-',
+          måned: m.sum?.maaneder || '-',
+          uker: m.sum?.uker || '-',
+          dagerEnhet: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
+          relevantForYtelse: m.relevans || '-',
+          ordning: m.ordning || '-',
+          informasjonOmBeregning: m.beregning || '-'
+        })
       })
-    )
+    }
     return res
   }
 
@@ -150,7 +153,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   }
 
   const prepareContent = () => {
-    standardLogger('P5000.print.clicked')
+    standardLogger('buc.edit.tools.P5000.print.button')
     setPrintDialogOpen(true)
   }
 
@@ -165,7 +168,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   }
 
   const itemsPerPageChanged = (e: any) => {
-    standardLogger('P5000.itemsPerPage', { value: e.target.value })
+    standardLogger('buc.edit.tools.P5000.itemsPerPage.select', { value: e.target.value })
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
@@ -241,7 +244,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         searchable
         selectable={false}
         sortable
-        onColumnSort={(sort: any) => setTableSort(sort)}
+        onColumnSort={(sort: any) => {
+          standardLogger('buc.edit.tools.P5000.sort', { sort: sort })
+          setTableSort(sort)
+        }}
         itemsPerPage={itemsPerPage}
         labels={labels}
         compact
@@ -329,7 +335,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           onBeforeGetContent={prepareContent}
           onAfterPrint={afterPrintOut}
           trigger={() =>
-            <Ui.Nav.Knapp disabled={printDialogOpen} spinner={printDialogOpen}>
+            <Ui.Nav.Knapp
+              disabled={printDialogOpen}
+              spinner={printDialogOpen}
+            >
               {t('ui:print')}
             </Ui.Nav.Knapp>}
           content={() => {

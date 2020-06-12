@@ -8,6 +8,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
@@ -103,8 +104,12 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             ? (
               <Ui.Nav.Flatknapp
                 mini
+                data-amplitude='buc.list.besvarSed'
                 className='a-buc-c-sedheader__actions-answer-button'
-                onClick={() => onSEDNew(buc, sed)}
+                onClick={(e: React.MouseEvent) => {
+                  buttonLogger(e)
+                  onSEDNew(buc, sed)
+                }}
               >
                 {t('buc:form-answerSED')}
               </Ui.Nav.Flatknapp>
