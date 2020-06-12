@@ -2638,6 +2638,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
         >
           <Hovedknapp
             className="a-buc-c-bucstart__forward-button"
+            data-amplitude="buc.new.create"
             disabled={true}
             id="a-buc-c-bucstart__forward-button-id"
             onClick={[Function]}
@@ -2645,6 +2646,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
             <KnappBase
               autoDisableVedSpinner={false}
               className="a-buc-c-bucstart__forward-button"
+              data-amplitude="buc.new.create"
               disabled={true}
               htmlType="submit"
               id="a-buc-c-bucstart__forward-button-id"
@@ -2657,6 +2659,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
             >
               <button
                 className="knapp a-buc-c-bucstart__forward-button knapp--hoved knapp--disabled"
+                data-amplitude="buc.new.create"
                 disabled={true}
                 id="a-buc-c-bucstart__forward-button-id"
                 onClick={[Function]}
@@ -2668,12 +2671,14 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
           </Hovedknapp>
           <Flatknapp
             className="a-buc-c-bucstart__cancel-button ml-2"
+            data-amplitude="buc.new.cancel"
             id="a-buc-c-bucstart__cancel-button-id"
             onClick={[Function]}
           >
             <KnappBase
               autoDisableVedSpinner={false}
               className="a-buc-c-bucstart__cancel-button ml-2"
+              data-amplitude="buc.new.cancel"
               disabled={false}
               htmlType="submit"
               id="a-buc-c-bucstart__cancel-button-id"
@@ -2686,6 +2691,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
             >
               <button
                 className="knapp a-buc-c-bucstart__cancel-button ml-2 knapp--flat"
+                data-amplitude="buc.new.cancel"
                 disabled={false}
                 id="a-buc-c-bucstart__cancel-button-id"
                 onClick={[Function]}

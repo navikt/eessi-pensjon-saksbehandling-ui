@@ -16,171 +16,176 @@ exports[`widgets/Overview/Overview Renders 1`] = `
     }
   }
 >
-  <ow
-    className="w-overview s-border"
-    collapseProps={
-      Object {
-        "id": "w-overview-id",
-      }
-    }
-    heading={
-      <PersonTitle
-        gettingPersonInfo={false}
-      />
-    }
-    onClick={[Function]}
-    open={true}
+  <div
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <div
-      className="c-expandingpanel ekspanderbartPanel w-overview s-border ekspanderbartPanel--apen"
-      style={Object {}}
+    <ow
+      className="w-overview s-border"
+      collapseProps={
+        Object {
+          "id": "w-overview-id",
+        }
+      }
+      heading={
+        <PersonTitle
+          gettingPersonInfo={false}
+        />
+      }
+      onClick={[Function]}
+      open={true}
     >
       <div
-        aria-controls="w-overview-id"
-        aria-expanded={true}
-        className="ekspanderbartPanel__hode"
-        onClick={[Function]}
+        className="c-expandingpanel ekspanderbartPanel w-overview s-border ekspanderbartPanel--apen"
+        style={Object {}}
       >
         <div
-          className="ekspanderbartPanel__flex-wrapper"
-        >
-          <PersonTitle
-            gettingPersonInfo={false}
-          >
-            <WaitingPanel
-              className="w-overview-personPanel__waiting"
-              message="ui:loading"
-            >
-              <div
-                className="c-waitingPanel text-center w-overview-personPanel__waiting"
-                style={Object {}}
-              >
-                <Spinner
-                  aria-label="Laster innhold"
-                  transparent={false}
-                  type="M"
-                >
-                  <Ikon
-                    aria-label="Laster innhold"
-                    className="spinner spinner--m"
-                    kind="spinner-negativ"
-                    size={32}
-                  >
-                    <svg
-                      aria-label="Laster innhold"
-                      className="spinner spinner--m"
-                      focusable="false"
-                      height={32}
-                      kind="spinner-negativ"
-                      preserveAspectRatio="xMidYMid"
-                      viewBox="0 0 50 50"
-                      width={32}
-                    >
-                      <title>
-                        Venter...
-                      </title>
-                      <circle
-                        cx="25"
-                        cy="25"
-                        fill="none"
-                        r="20"
-                        stroke="#eee"
-                        strokeWidth="5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      />
-                      <circle
-                        cx="25"
-                        cy="25"
-                        fill="none"
-                        r="20"
-                        stroke="#888"
-                        strokeDasharray="50 155"
-                        strokeLinecap="round"
-                        strokeWidth="5"
-                      />
-                    </svg>
-                  </Ikon>
-                </Spinner>
-                <Normaltekst
-                  className="c-waitingPanel__message ml-2"
-                >
-                  <n
-                    className="c-waitingPanel__message ml-2"
-                    type="normaltekst"
-                  >
-                    <p
-                      className="typo-normal c-waitingPanel__message ml-2"
-                    >
-                      ui:loading
-                    </p>
-                  </n>
-                </Normaltekst>
-              </div>
-            </WaitingPanel>
-          </PersonTitle>
-          <button
-            aria-expanded={true}
-            aria-label="open"
-            className="ekspanderbartPanel__knapp"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            type="button"
-          >
-            <span
-              className="ekspanderbartPanel__indikator"
-            />
-          </button>
-        </div>
-      </div>
-      <t
-        id="w-overview-id"
-        isOpened={true}
-        onRest={[Function]}
-      >
-        <n
-          checkTimeout={50}
-          id="w-overview-id"
-          initialStyle={
-            Object {
-              "height": "0px",
-              "overflow": "hidden",
-            }
-          }
-          isOpened={true}
-          onRest={[Function]}
-          onWork={[Function]}
-          theme={
-            Object {
-              "collapse": "ReactCollapse--collapse",
-              "content": "ReactCollapse--content",
-            }
-          }
+          aria-controls="w-overview-id"
+          aria-expanded={true}
+          className="ekspanderbartPanel__hode"
+          onClick={[Function]}
         >
           <div
-            className="ReactCollapse--collapse"
-            style={
+            className="ekspanderbartPanel__flex-wrapper"
+          >
+            <PersonTitle
+              gettingPersonInfo={false}
+            >
+              <WaitingPanel
+                className="w-overview-personPanel__waiting"
+                message="ui:loading"
+              >
+                <div
+                  className="c-waitingPanel text-center w-overview-personPanel__waiting"
+                  style={Object {}}
+                >
+                  <Spinner
+                    aria-label="Laster innhold"
+                    transparent={false}
+                    type="M"
+                  >
+                    <Ikon
+                      aria-label="Laster innhold"
+                      className="spinner spinner--m"
+                      kind="spinner-negativ"
+                      size={32}
+                    >
+                      <svg
+                        aria-label="Laster innhold"
+                        className="spinner spinner--m"
+                        focusable="false"
+                        height={32}
+                        kind="spinner-negativ"
+                        preserveAspectRatio="xMidYMid"
+                        viewBox="0 0 50 50"
+                        width={32}
+                      >
+                        <title>
+                          Venter...
+                        </title>
+                        <circle
+                          cx="25"
+                          cy="25"
+                          fill="none"
+                          r="20"
+                          stroke="#eee"
+                          strokeWidth="5"
+                          xmlns="http://www.w3.org/2000/svg"
+                        />
+                        <circle
+                          cx="25"
+                          cy="25"
+                          fill="none"
+                          r="20"
+                          stroke="#888"
+                          strokeDasharray="50 155"
+                          strokeLinecap="round"
+                          strokeWidth="5"
+                        />
+                      </svg>
+                    </Ikon>
+                  </Spinner>
+                  <Normaltekst
+                    className="c-waitingPanel__message ml-2"
+                  >
+                    <n
+                      className="c-waitingPanel__message ml-2"
+                      type="normaltekst"
+                    >
+                      <p
+                        className="typo-normal c-waitingPanel__message ml-2"
+                      >
+                        ui:loading
+                      </p>
+                    </n>
+                  </Normaltekst>
+                </div>
+              </WaitingPanel>
+            </PersonTitle>
+            <button
+              aria-expanded={true}
+              aria-label="open"
+              className="ekspanderbartPanel__knapp"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              type="button"
+            >
+              <span
+                className="ekspanderbartPanel__indikator"
+              />
+            </button>
+          </div>
+        </div>
+        <t
+          id="w-overview-id"
+          isOpened={true}
+          onRest={[Function]}
+        >
+          <n
+            checkTimeout={50}
+            id="w-overview-id"
+            initialStyle={
               Object {
-                "height": "auto",
-                "overflow": "initial",
+                "height": "0px",
+                "overflow": "hidden",
+              }
+            }
+            isOpened={true}
+            onRest={[Function]}
+            onWork={[Function]}
+            theme={
+              Object {
+                "collapse": "ReactCollapse--collapse",
+                "content": "ReactCollapse--content",
               }
             }
           >
             <div
-              className="ReactCollapse--content"
+              className="ReactCollapse--collapse"
+              style={
+                Object {
+                  "height": "auto",
+                  "overflow": "initial",
+                }
+              }
             >
-              <article
-                className="ekspanderbartPanel__innhold"
+              <div
+                className="ReactCollapse--content"
               >
-                <PersonPanel
-                  highContrast={false}
-                  locale="nb"
-                />
-              </article>
+                <article
+                  className="ekspanderbartPanel__innhold"
+                >
+                  <PersonPanel
+                    highContrast={false}
+                    locale="nb"
+                  />
+                </article>
+              </div>
             </div>
-          </div>
-        </n>
-      </t>
-    </div>
-  </ow>
+          </n>
+        </t>
+      </div>
+    </ow>
+  </div>
 </Overview>
 `;

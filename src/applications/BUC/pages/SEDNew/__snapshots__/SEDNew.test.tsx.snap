@@ -5,22 +5,27 @@ exports[`applications/BUC/widgets/SEDNew/SEDNew Renders 1`] = `
   bucs={Object {}}
   setMode={[MockFunction]}
 >
-  <Panel
-    border={false}
-    className="a-buc-p-sednew s-border"
+  <div
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <div
-      className="panel a-buc-p-sednew s-border"
+    <Panel
+      border={false}
+      className="a-buc-p-sednew s-border"
     >
-      <Component
-        bucs={Object {}}
-        setMode={[MockFunction]}
+      <div
+        className="panel a-buc-p-sednew s-border"
       >
-        <div
-          className="mock-sedstart"
-        />
-      </Component>
-    </div>
-  </Panel>
+        <Component
+          bucs={Object {}}
+          setMode={[MockFunction]}
+        >
+          <div
+            className="mock-sedstart"
+          />
+        </Component>
+      </div>
+    </Panel>
+  </div>
 </SEDNew>
 `;

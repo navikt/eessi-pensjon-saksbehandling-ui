@@ -3724,12 +3724,14 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
       className="a-buc-c-buccrumb"
     >
       <Lenke
+        data-amplitude="buc.crumbs"
         href="#"
         onClick={[Function]}
         title="buc:buccrumb-home"
       >
         <a
           className="lenke"
+          data-amplitude="buc.crumbs"
           href="#"
           onClick={[Function]}
           title="buc:buccrumb-home"

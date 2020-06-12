@@ -2304,12 +2304,14 @@ exports[`applications/BUC/components/SEDListHeader/SEDListHeader Renders 1`] = `
           </div>
           <Flatknapp
             className="a-buc-c-sedlistheader__actions-answer-button"
+            data-amplitude="buc.edit.besvarSed"
             mini={true}
             onClick={[Function]}
           >
             <KnappBase
               autoDisableVedSpinner={false}
               className="a-buc-c-sedlistheader__actions-answer-button"
+              data-amplitude="buc.edit.besvarSed"
               disabled={false}
               htmlType="submit"
               inaktivKlasseVedDisabled={false}
@@ -2321,6 +2323,7 @@ exports[`applications/BUC/components/SEDListHeader/SEDListHeader Renders 1`] = `
             >
               <button
                 className="knapp a-buc-c-sedlistheader__actions-answer-button knapp--flat knapp--mini"
+                data-amplitude="buc.edit.besvarSed"
                 disabled={false}
                 onClick={[Function]}
                 type="submit"
