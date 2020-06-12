@@ -35,6 +35,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Validation } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import { buttonLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -237,7 +238,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return institutions
   }
 
-  const onForwardButtonClick = () => {
+  const onForwardButtonClick = (e: React.MouseEvent) => {
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
       const payload: any = {
@@ -264,6 +265,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } else {
         dispatch(createSed(payload))
       }
+      buttonLogger(e, { payload: payload })
     }
   }
 

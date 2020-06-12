@@ -1,3 +1,4 @@
+import TopContainer from 'components/TopContainer/TopContainer'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { stageSelector } from 'setupTests'
@@ -45,7 +46,7 @@ describe('pages/IndexPage', () => {
   })
 
   it('IndexPage has proper HTML structure', () => {
-    expect(wrapper.exists('.p-indexPage')).toBeTruthy()
+    expect(wrapper.exists(TopContainer)).toBeTruthy()
     expect(wrapper.exists('.mock-c-dashboard')).toBeTruthy()
   })
 })

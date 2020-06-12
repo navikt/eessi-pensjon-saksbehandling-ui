@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
+import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,12 +18,20 @@ export type StatusList = Array<{label: string, value: string}>
 const SEDSearch = ({ className, onSearch, onStatusSearch, value }: SEDSearchProps) => {
   const [_query, setQuery] = useState<string | undefined>(value || '')
   const [_status, setStatus] = useState<StatusList>([])
+  const [timer, setTimer] = useState<any>()
   const { t } = useTranslation()
 
   const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (typeof onSearch === 'function') {
       setQuery(e.target.value)
       onSearch(e.target.value)
+
+      const _timer = setTimeout(() => {
+        standardLogger('buc.edit.filter.text.input')
+        clearTimeout(timer)
+        setTimer(undefined)
+      }, 1000)
+      setTimer(_timer)
     }
   }
 
@@ -30,6 +39,7 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, value }: SEDSearchProp
     if (typeof onStatusSearch === 'function') {
       onStatusSearch(statusList)
       setStatus(statusList)
+      standardLogger('buc.edit.filter.status.select')
     }
   }
 
