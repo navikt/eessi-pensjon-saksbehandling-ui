@@ -52,6 +52,10 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     wrapper = mount(<BUCList {...initialMockProps} />)
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()

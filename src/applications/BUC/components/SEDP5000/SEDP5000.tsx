@@ -342,7 +342,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
               {t('ui:print')}
             </Ui.Nav.Knapp>}
           content={() => {
-            console.log(componentRef.current)
             return componentRef.current
           }}
         />

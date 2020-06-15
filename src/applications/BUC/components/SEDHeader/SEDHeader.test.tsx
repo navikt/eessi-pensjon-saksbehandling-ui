@@ -29,6 +29,10 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     wrapper = mount(<SEDHeader {...initialMockProps} />)
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()

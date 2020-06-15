@@ -1,6 +1,7 @@
 ![](https://github.com/navikt/eessi-pensjon-saksbehandling-ui/workflows/Bygg%20og%20deploy%20Q2/badge.svg)
 ![](https://github.com/navikt/eessi-pensjon-saksbehandling-ui/workflows/Manuell%20deploy/badge.svg)
 
+
 EESSI Pensjon Saksbehandling UI
 ===============================
 
@@ -167,7 +168,6 @@ If you're on Mac and get a lot of warnings mentioning `gyp: No Xcode or CLT vers
 sudo rm -rf $(xcode-select -print-path)
 xcode-select --install
 ```
-
 
 ---
 
