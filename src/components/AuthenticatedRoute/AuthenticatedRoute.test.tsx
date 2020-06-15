@@ -35,8 +35,12 @@ describe('components/AuthenticatedRoute', () => {
     stageSelector(defaultSelector, {})
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('UseEffect: read status params', () => {
-    mount(
+    wrapper = mount(
       <Router history={createBrowserHistory()}>
         <AuthenticatedRoute {...initialMockProps} />
       </Router>)
@@ -46,7 +50,7 @@ describe('components/AuthenticatedRoute', () => {
   })
 
   it('UseEffect: ask for userInfo', () => {
-    mount(
+    wrapper = mount(
       <Router history={createBrowserHistory()}>
         <AuthenticatedRoute {...initialMockProps} />
       </Router>)
@@ -63,14 +67,14 @@ describe('components/AuthenticatedRoute', () => {
 
   it('UseEffect: redirect for login', () => {
     stageSelector(defaultSelector, { loggedIn: false })
-    mount(<AuthenticatedRoute {...initialMockProps} />)
+    wrapper = mount(<AuthenticatedRoute {...initialMockProps} />)
     expect(login).toBeCalled();
     (login as jest.Mock).mockRestore()
   })
 
   it('UseEffect: no need for login redirect', () => {
     stageSelector(defaultSelector, { loggedIn: true })
-    mount(
+    wrapper = mount(
       <Router history={createBrowserHistory()}>
         <AuthenticatedRoute {...initialMockProps} />
       </Router>)

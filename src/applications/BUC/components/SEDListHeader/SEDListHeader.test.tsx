@@ -30,6 +30,10 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
     wrapper = mount(<SEDListHeader {...initialMockProps} />)
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
