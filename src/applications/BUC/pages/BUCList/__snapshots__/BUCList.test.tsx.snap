@@ -808,6 +808,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             "version": "1",
           },
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393034000,
             "displayName": "Add New Participant",
@@ -875,6 +876,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             "version": "1",
           },
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393101000,
             "displayName": "Invalidate Sed",
@@ -942,6 +944,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             "version": "1",
           },
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393078000,
             "displayName": "Invalidate Sed",
@@ -1009,6 +1012,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             "version": "1",
           },
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393035000,
             "displayName": "Request for Medical Information",
@@ -1076,6 +1080,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             "version": "1",
           },
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393033000,
             "displayName": "Reminder",
@@ -1143,6 +1148,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             "version": "1",
           },
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393034000,
             "displayName": "Forward Case",
@@ -1210,6 +1216,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
             "version": "1",
           },
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393087051,
             "displayName": "Pension decision",
@@ -1305,6 +1312,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         "sakType": "",
         "seds": Array [
           Object {
+            "allowsAttachments": true,
             "attachments": Array [],
             "creationDate": 1557393035000,
             "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
@@ -10608,6 +10616,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "version": "1",
                 },
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393034000,
                   "displayName": "Add New Participant",
@@ -10675,6 +10684,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "version": "1",
                 },
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393101000,
                   "displayName": "Invalidate Sed",
@@ -10742,6 +10752,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "version": "1",
                 },
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393078000,
                   "displayName": "Invalidate Sed",
@@ -10809,6 +10820,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "version": "1",
                 },
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393035000,
                   "displayName": "Request for Medical Information",
@@ -10876,6 +10888,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "version": "1",
                 },
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393033000,
                   "displayName": "Reminder",
@@ -10943,6 +10956,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "version": "1",
                 },
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393034000,
                   "displayName": "Forward Case",
@@ -11010,6 +11024,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "version": "1",
                 },
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393087051,
                   "displayName": "Pension decision",
@@ -11911,6 +11926,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                       "version": "1",
                     },
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393034000,
                       "displayName": "Add New Participant",
@@ -11978,6 +11994,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                       "version": "1",
                     },
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393101000,
                       "displayName": "Invalidate Sed",
@@ -12045,6 +12062,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                       "version": "1",
                     },
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393078000,
                       "displayName": "Invalidate Sed",
@@ -12112,6 +12130,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                       "version": "1",
                     },
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393035000,
                       "displayName": "Request for Medical Information",
@@ -12179,6 +12198,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                       "version": "1",
                     },
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393033000,
                       "displayName": "Reminder",
@@ -12246,6 +12266,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                       "version": "1",
                     },
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393034000,
                       "displayName": "Forward Case",
@@ -12313,6 +12334,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                       "version": "1",
                     },
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393087051,
                       "displayName": "Pension decision",
@@ -13038,6 +13060,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
               "sakType": "",
               "seds": Array [
                 Object {
+                  "allowsAttachments": true,
                   "attachments": Array [],
                   "creationDate": 1557393035000,
                   "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
@@ -13165,6 +13188,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                   "sakType": "",
                   "seds": Array [
                     Object {
+                      "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1557393035000,
                       "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
