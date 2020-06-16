@@ -41,6 +41,10 @@ describe('applications/BUC/websocket/WebSocket', () => {
     wrapper = mount(<BucWebSocket {...initialMockProps} />)
   })
 
+  afterAll(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })

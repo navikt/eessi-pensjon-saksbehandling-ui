@@ -78,6 +78,10 @@ describe('applications/BUC/index', () => {
     stageSelector(defaultSelector, {})
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     stageSelector(defaultSelector, { mode: 'xxx' })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
