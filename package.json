@@ -16,7 +16,7 @@
     "start:js": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts start",
     "test": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test",
     "test:clear": "cross-env NODE_ENV=test react-scripts test --clearCache",
-    "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test --watchAll=false --forceExit --updateSnapshot src/components/SessionMonitor",
+    "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test --watchAll=false --forceExit --updateSnapshot src/components/Footer src/components/SessionMonitor",
     "test:coverage": "cross-env NODE_ENV=test react-scripts test --coverage  --watchAll=false"
   },
   "repository": {
