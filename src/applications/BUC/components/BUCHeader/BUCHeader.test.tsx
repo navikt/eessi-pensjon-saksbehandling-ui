@@ -25,6 +25,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   }
 
   beforeAll(() => {
+    console.log('BUCHeader')
     stageSelector(defaultSelector, {})
   })
 

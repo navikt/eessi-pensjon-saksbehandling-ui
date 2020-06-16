@@ -12,6 +12,7 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
   const initialMockProps: BUCFooterProps = {}
 
   beforeAll(() => {
+    console.log('BUCFooter')
     stageSelector(defaultSelector, {})
   })
 

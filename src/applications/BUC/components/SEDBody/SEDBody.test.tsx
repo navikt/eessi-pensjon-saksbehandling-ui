@@ -39,6 +39,7 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   }
 
   beforeAll(() => {
+    console.log('SEDBody')
     stageSelector(defaultSelector, {})
   })
 

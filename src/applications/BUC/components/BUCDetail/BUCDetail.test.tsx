@@ -22,6 +22,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   }
 
   beforeAll(() => {
+    console.log('BUCDetail')
     stageSelector(defaultSelector, {})
   })
 

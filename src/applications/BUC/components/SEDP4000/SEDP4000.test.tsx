@@ -26,6 +26,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
   }
 
   beforeAll(() => {
+    console.log('SEDP4000')
     stageSelector(defaultSelector, {})
   })
 

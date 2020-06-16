@@ -19,6 +19,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   }
 
   beforeAll(() => {
+    console.log('BUCEmpty')
     stageSelector(defaultSelector, {})
   })
 
