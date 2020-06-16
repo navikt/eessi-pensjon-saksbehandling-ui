@@ -29,6 +29,7 @@ describe('pages/IndexPage', () => {
   const initialMockProps: IndexPageProps = {}
 
   beforeAll(() => {
+    console.log('IndexPage')
     stageSelector(defaultSelector, {})
   })
 

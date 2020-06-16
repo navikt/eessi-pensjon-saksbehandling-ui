@@ -38,6 +38,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
   })
 
   beforeAll(() => {
+    console.log('WebSocket')
     wrapper = mount(<BucWebSocket {...initialMockProps} />)
   })
 

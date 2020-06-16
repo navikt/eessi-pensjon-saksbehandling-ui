@@ -45,6 +45,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   }
 
   beforeAll(() => {
+    console.log('BUCList')
     stageSelector(defaultSelector, {})
   })
 

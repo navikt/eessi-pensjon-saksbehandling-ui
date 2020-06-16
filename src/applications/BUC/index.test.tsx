@@ -75,6 +75,7 @@ describe('applications/BUC/index', () => {
   }
 
   beforeAll(() => {
+    console.log('index')
     stageSelector(defaultSelector, {})
   })
 

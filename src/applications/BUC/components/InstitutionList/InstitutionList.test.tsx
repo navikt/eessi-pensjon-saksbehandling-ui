@@ -23,6 +23,7 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
   }
 
   beforeAll(() => {
+    console.log('InstitutionList')
     stageSelector(defaultSelector, {})
   })
 

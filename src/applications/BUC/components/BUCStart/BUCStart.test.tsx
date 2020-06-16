@@ -46,6 +46,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   }
 
   beforeAll(() => {
+    console.log('BucStart')
     stageSelector(defaultSelector, {})
   })
 

@@ -20,6 +20,7 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
   }
 
   beforeAll(() => {
+    console.log('SEDList')
     stageSelector(defaultSelector, {})
   })
 

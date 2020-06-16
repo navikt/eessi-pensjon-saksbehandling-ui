@@ -22,6 +22,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   let wrapper: ReactWrapper
 
   beforeAll(() => {
+    console.log('SEDHeader')
     stageSelector(defaultSelector, {})
   })
 

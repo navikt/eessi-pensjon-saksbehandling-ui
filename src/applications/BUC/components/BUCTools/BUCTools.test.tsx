@@ -40,6 +40,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   }
 
   beforeAll(() => {
+    console.log('BUCTools')
     stageSelector(defaultSelector, {})
   })
 

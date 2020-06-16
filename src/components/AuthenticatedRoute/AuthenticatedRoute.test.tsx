@@ -32,6 +32,7 @@ describe('components/AuthenticatedRoute', () => {
   }
 
   beforeAll(() => {
+    console.log('AuthenticatedRoute')
     stageSelector(defaultSelector, {})
   })
 
