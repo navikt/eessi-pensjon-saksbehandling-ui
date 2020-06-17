@@ -3,9 +3,8 @@ import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
-import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import MonitorPNG from 'assets/images/artwork/dataskjerm.png'
@@ -37,10 +36,6 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
   const dispatch = useDispatch()
   const { rinaUrl }: BUCEmptySelector = useSelector<State, BUCEmptySelector>(mapState)
   const { t } = useTranslation()
-
-  useEffect(() => {
-    standardLogger('buc.empty.entrance')
-  }, [])
 
   const onAktoerIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidation(undefined)

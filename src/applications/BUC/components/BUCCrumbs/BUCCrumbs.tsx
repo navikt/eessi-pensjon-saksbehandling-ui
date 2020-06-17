@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { Bucs } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import Ui from 'eessi-pensjon-ui'
-import { linkLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -32,27 +31,22 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
 }: BUCCrumbsProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-
-  const goToHome = useCallback((e) => {
+  const goToHome = useCallback(() => {
     dispatch(resetSed())
     dispatch(resetBuc())
-    linkLogger(e, { mode: 'buclist' })
     setMode('buclist')
   }, [dispatch, setMode])
 
-  const goToEdit = useCallback((e) => {
+  const goToEdit = useCallback(() => {
     dispatch(resetSed())
-    linkLogger(e, { mode: 'bucedit' })
     setMode('bucedit')
   }, [dispatch, setMode])
 
-  const goToNewBUC = useCallback((e) => {
-    linkLogger(e, { mode: 'bucnew' })
+  const goToNewBUC = useCallback(() => {
     setMode('bucnew')
   }, [setMode])
 
-  const goToNewSED = useCallback((e) => {
-    linkLogger(e, { mode: 'sednew' })
+  const goToNewSED = useCallback(() => {
     setMode('sednew')
   }, [setMode])
 
@@ -96,16 +90,7 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
             <div className='a-buc-c-buccrumb'>
               {last && !showLastLink
                 ? t(buccrumb.label)
-                : (
-                  <Ui.Nav.Lenke
-                    href='#'
-                    data-amplitude='buc.crumbs'
-                    title={buccrumb.label}
-                    onClick={onBucCrumbClick}
-                  >
-                    {buccrumb.label}
-                  </Ui.Nav.Lenke>
-                )}
+                : <Ui.Nav.Lenke href='#' title={buccrumb.label} onClick={onBucCrumbClick}>{buccrumb.label}</Ui.Nav.Lenke>}
             </div>
           </React.Fragment>
         )

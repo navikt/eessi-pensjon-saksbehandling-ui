@@ -2,8 +2,8 @@ import { BUCMode } from 'applications/BUC'
 import TopContainer from 'components/TopContainer/TopContainer'
 import Ui from 'eessi-pensjon-ui'
 import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
-import { linkLogger, timeLogger } from 'metrics/loggers'
-import React, { useEffect, useState } from 'react'
+import { linkLogger } from 'metrics/loggers'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
@@ -125,44 +125,36 @@ const mapState = (state: State): IndexPageSelector => ({
   mode: state.buc.mode
 })
 
-const DivWithLinks = styled.div`
+export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
+  const { username, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { t } = useTranslation()
+
+  const DivWithLinks = styled.div`
      padding: 0.5rem 2rem;
      background-color: #E9E7E7;
      display: flex;
      flex-direction: row-reverse;
   `
-const SeparatorSpan = styled.span`
+  const SeparatorSpan = styled.span`
      padding: 0rem 0.5rem
   `
-export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
-  const { username, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
-  const { t } = useTranslation()
-  const [loggedTime] = useState<Date>(new Date())
-
-  useEffect(() => {
-    return () => {
-      timeLogger('view', loggedTime)
-    }
-  }, [loggedTime])
 
   return (
-    <TopContainer>
+    <TopContainer className='p-indexPage'>
       <DivWithLinks>
         <Ui.Nav.Lenke
           target='_blank'
-          data-amplitude='links.rettskilder'
+          data-amplitude='rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
           <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:lawsource')}
         </Ui.Nav.Lenke>
-        <SeparatorSpan>
-          •
-        </SeparatorSpan>
+        <SeparatorSpan>•</SeparatorSpan>
         <Ui.Nav.Lenke
           target='_blank'
-          data-amplitude='links.hjelpe'
+          data-amplitude='hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >

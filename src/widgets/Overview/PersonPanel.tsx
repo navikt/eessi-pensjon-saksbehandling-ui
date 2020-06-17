@@ -12,11 +12,7 @@ export interface PersonPanelProps {
   person: any;
 }
 
-const PersonPanel: React.FC<PersonPanelProps> = ({
-  highContrast,
-  locale,
-  person
-}: PersonPanelProps): JSX.Element | null => {
+const PersonPanel: React.FC<PersonPanelProps> = ({ highContrast, locale, person }: PersonPanelProps): JSX.Element | null => {
   const { t } = useTranslation()
 
   if (!person) {
@@ -56,11 +52,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     )
   }
 
-  const addAddressLine = (
-    address: Array<JSX.Element | Element | string>,
-    value: string | null, label: string,
-    separator: JSX.Element
-  ): Array<JSX.Element | Element | string> => {
+  const addAddressLine = (address: Array<JSX.Element | Element | string>, value: string | null, label: string, separator: JSX.Element): Array<JSX.Element | Element | string> => {
     if (value) {
       address.push(<span key={value} data-tip={label}>{value}</span>)
       address.push(separator)

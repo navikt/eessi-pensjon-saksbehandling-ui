@@ -12,10 +12,9 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
-import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import './BUCEdit.css'
@@ -48,31 +47,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const { bucsInfo, locale }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [loggedTime] = useState<Date>(new Date())
-  const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-  const buc: Buc = bucs[currentBuc!]
-  const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
-
-  useEffect(() => {
-    standardLogger('buc.edit.entrance')
-    standardLogger('buc.edit.seds.data', {
-      numberOfSeds: buc && buc.seds ? buc.seds.length : 0
-    })
-    return () => {
-      timeLogger('buc.edit.view', loggedTime)
-      timeDiffLogger('buc.edit.mouseover', totalTimeWithMouseOver)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedTime])
-
-  const onMouseEnter = () => setMouseEnterDate(new Date())
-
-  const onMouseLeave = () => {
-    if (mouseEnterDate) {
-      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
-    }
-  }
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -132,21 +106,16 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     return match
   }
 
+  const buc: Buc = bucs[currentBuc]
+  const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
+
   return (
-    <div
-      className='a-buc-p-bucedit'
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
+    <div className='a-buc-p-bucedit'>
       <div className='a-buc-p-bucedit__buttons mb-3'>
         <Ui.Nav.Knapp
-          amplitude='buc.edit.newsed'
           id='a-buc-p-bucedit__new-sed-button-id'
           className='a-buc-p-bucedit__new-sed-button'
-          onClick={(e: React.MouseEvent) => {
-            buttonLogger(e)
-            onSEDNew(buc, undefined)
-          }}
+          onClick={() => onSEDNew(buc, undefined)}
         >{t('buc:form-orderNewSED')}
         </Ui.Nav.Knapp>
       </div>

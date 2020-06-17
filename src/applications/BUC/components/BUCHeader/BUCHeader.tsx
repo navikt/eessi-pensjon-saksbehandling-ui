@@ -7,7 +7,6 @@ import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { FlagItems } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
-import { buttonLogger, linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
@@ -117,12 +116,10 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 <Ui.Nav.Normaltekst className='pr-2 text-nowrap'>
                   {t('buc:form-caseNumberInRina') + ': '}
                   <Ui.Nav.Lenke
-                    data-amplitude='buc.list.buc.rinaUrl'
                     className='a-buc-c-bucheader__gotorina-link'
                     href={rinaUrl + buc.caseId}
                     target='rinaWindow'
                     onClick={(e: MouseEvent) => {
-                      linkLogger(e)
                       e.stopPropagation()
                       window.open(rinaUrl + buc.caseId, 'rinaWindow')
                     }}
@@ -166,13 +163,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
           <Ui.Nav.Lenke
-            data-amplitude='app.buc.list.editbuc'
             id='a-buc-c-bucheader__bucedit-link-id'
             className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3'
-            onClick={(e: MouseEvent) => {
-              buttonLogger(e)
-              onBucHandle(buc, e)
-            }}
+            onClick={(e: MouseEvent) => onBucHandle(buc, e)}
             href={'#' + buc.type}
           >
             {t('ui:processing')}

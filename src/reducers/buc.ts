@@ -21,7 +21,6 @@ import { P4000Info } from 'declarations/period'
 import { RinaUrl } from 'declarations/types'
 import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
-import { standardLogger } from 'metrics/loggers'
 import { Action } from 'redux'
 
 export interface BucState {
@@ -166,12 +165,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         }
 
         // Cache seds allowing attachments
-        const seds = bucs[bucId].seds
-        if (seds) {
-          seds.forEach((sed: Sed) => {
-            sedsWithAttachments[sed.type] = sed.allowsAttachments
-          })
-        }
+        bucs[bucId].seds?.forEach((sed: Sed) => {
+          sedsWithAttachments[sed.type] = sed.allowsAttachments
+        })
 
         /* Lazy load: pick one:
         * 1 - Simulate lazy load while we do not have lazy load backend: to simulate no seds and institutions
@@ -198,7 +194,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     }
 
     case types.BUC_GET_BUCS_FAILURE:
-      standardLogger('buc.list.error')
       return {
         ...state,
         bucs: null
@@ -326,14 +321,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_CREATE_BUC_REQUEST:
-
-      return {
-        ...state,
-        rinaId: undefined
-      }
-
     case types.BUC_CREATE_BUC_FAILURE:
-      standardLogger('buc.new.create.failure')
+
       return {
         ...state,
         rinaId: undefined
@@ -346,8 +335,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const item = _.cloneDeep(state[key])
       item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
       newState[key] = item
-
-      standardLogger('buc.new.create.success')
 
       return Object.assign({}, newState, {
         currentBuc: (action as ActionWithPayload).payload.caseId,
@@ -440,15 +427,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         rinaUrl: (action as ActionWithPayload).payload.rinaUrl
       }
 
-    case types.BUC_CREATE_SED_FAILURE:
-
-      standardLogger('sed.new.create.failure')
-      return state
-
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS:
 
-      standardLogger('sed.new.create.success')
       return {
         ...state,
         sed: (action as ActionWithPayload).payload

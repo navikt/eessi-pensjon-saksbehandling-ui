@@ -1,4 +1,3 @@
-import TopContainer from 'components/TopContainer/TopContainer'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { stageSelector } from 'setupTests'

@@ -8,7 +8,7 @@ import { AllowedLocaleString, Features, Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
 import _ from 'lodash'
-import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
+import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -47,11 +47,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 }: BUCToolsProps): JSX.Element => {
   const { t } = useTranslation()
   const [comment, setComment] = useState<string | null | undefined >(bucInfo ? bucInfo.comment : '')
-  const [originalComment, setOriginalComment] = useState<string | null | undefined >(bucInfo ? bucInfo.comment : '')
   const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
-  const [timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
+  const [timeWithModal, setTimeWithModal] = useState<Date>(new Date())
   const [tags, setTags] = useState<Tags>(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
     value: tag,
     label: t('buc:' + tag)
@@ -82,7 +81,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }, [buc])
 
   const displayP5000table = useCallback(() => {
-    setTimeWithP5000Modal(new Date())
+    standardLogger('P5000.clicked')
+    setTimeWithModal(new Date())
     setModal({
       modalTitle: t('buc:P5000-title'),
       modalContent: <SEDP5000 seds={getP5000()!} sedContent={sedContent} locale={locale} />
@@ -108,7 +108,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     if (_.isFunction(onTagChange)) {
       onTagChange(tagsList)
     }
-    standardLogger('buc.edit.tools.tags.select', { tags: tagsList.map(t => t.label) })
+    standardLogger('tags', { tags: tagsList.map(t => t.label) })
     setTags(tagsList)
   }
 
@@ -117,10 +117,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onSaveButtonClick = (): void => {
-    if (originalComment !== comment) {
-      standardLogger('buc.edit.tools.comment.textarea', { comment: comment })
-      setOriginalComment(comment)
-    }
     dispatch(saveBucsInfo({
       bucsInfo: bucsInfo!,
       aktoerId: aktoerId,
@@ -131,9 +127,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onModalClose = () => {
-    if (timeWithP5000Modal) {
-      timeLogger('buc.edit.tools.P5000.time', timeWithP5000Modal)
-    }
+    const diffInSeconds = Math.ceil((new Date().getTime() - timeWithModal.getTime()) / 1000)
+    const diffInMinutes = Math.ceil(diffInSeconds / 60)
+    standardLogger('timeWithP5000', {
+      seconds: diffInSeconds,
+      minutes: diffInMinutes
+    })
     setModal(undefined)
   }
 
@@ -141,8 +140,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     return !_.isEmpty(getP5000())
   }
 
-  const onGettingP5000sClick = (e: React.MouseEvent) : void => {
-    buttonLogger(e)
+  const onGettingP5000sClick = () : void => {
     const p5000s = getP5000()
     if (p5000s) {
       setFetchingP5000(p5000s)
@@ -169,7 +167,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
           {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
           <Ui.Nav.Knapp
-            data-amplitude='buc.edit.tools.P5000.view'
             id='a-buc-c-buctools__p5000-button-id'
             className='a-buc-c-buctools__p5000-button mb-2'
             disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}

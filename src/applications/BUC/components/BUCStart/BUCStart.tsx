@@ -15,7 +15,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Option, Validation } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'metrics/loggers'
+import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -153,15 +153,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
     setValidation(newValidation)
   }
 
-  const onForwardButtonClick = (e: React.MouseEvent): void => {
-    buttonLogger(e)
+  const onForwardButtonClick: Function = (): void => {
     if (validateSubjectArea(_subjectArea) && _buc && validateBuc(_buc)) {
       dispatch(createBuc(_buc))
     }
   }
 
-  const onCancelButtonClick = (e: React.MouseEvent): void => {
-    buttonLogger(e)
+  const onCancelButtonClick: Function = (): void => {
     dispatch(resetBuc())
     setMode('buclist')
   }
@@ -180,7 +178,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onTagsChange: Function = (tagsList: Tags): void => {
     setTags(tagsList)
-    standardLogger('buc.new.tags.select', { tags: tagsList.map(t => t.label) })
+    standardLogger('tags', { tags: tagsList.map(t => t.label) })
     if (_.isFunction(onTagsChanged)) {
       onTagsChanged(tagsList)
     }
@@ -304,7 +302,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
       <Ui.Nav.Row className='mb-3'>
         <div className='a-buc-c-bucstart__buttons col-md-12'>
           <Ui.Nav.Hovedknapp
-            data-amplitude='buc.new.create'
             id='a-buc-c-bucstart__forward-button-id'
             className='a-buc-c-bucstart__forward-button'
             disabled={!allowedToForward()}
@@ -316,7 +313,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 : t('buc:form-createCaseinRINA')}
           </Ui.Nav.Hovedknapp>
           <Ui.Nav.Flatknapp
-            data-amplitude='buc.new.cancel'
             id='a-buc-c-bucstart__cancel-button-id'
             className='a-buc-c-bucstart__cancel-button ml-2'
             onClick={onCancelButtonClick}

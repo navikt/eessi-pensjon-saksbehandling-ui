@@ -10,7 +10,6 @@ import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
-import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -81,10 +80,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     }
     setAttachments(newFiles)
     setSendingAttachments(true)
-
-    standardLogger('buc.edit.attachments.data', {
-      numberOfJoarkAttachments: newFiles.joark.length
-    })
 
     if (_.isFunction(onAttachmentsSubmit)) {
       onAttachmentsSubmit(newFiles)

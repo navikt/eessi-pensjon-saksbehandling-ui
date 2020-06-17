@@ -6,7 +6,6 @@ import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import { Widget } from 'eessi-pensjon-ui/dist/declarations/Dashboard.d'
 import _ from 'lodash'
-import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -38,23 +37,9 @@ export interface OverviewProps {
   widget: Widget;
 }
 
-export const Overview: React.FC<OverviewProps> = ({
-  onUpdate,
-  skipMount = false,
-  widget
-}: OverviewProps): JSX.Element => {
+export const Overview: React.FC<OverviewProps> = ({ onUpdate, skipMount = false, widget }: OverviewProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(skipMount)
-  const { aktoerId, gettingPersonInfo, locale, person, highContrast }: OverviewSelector =
-    useSelector<State, OverviewSelector>(mapState)
-  const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-
-  useEffect(() => {
-    return () => {
-      timeDiffLogger('overview.mouseover', totalTimeWithMouseOver)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const { aktoerId, gettingPersonInfo, locale, person, highContrast }: OverviewSelector = useSelector<State, OverviewSelector>(mapState)
 
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -69,17 +54,8 @@ export const Overview: React.FC<OverviewProps> = ({
   const onExpandablePanelChange = (): void => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
-    standardLogger('overview.ekspandpanel.' + (newWidget.options.collapsed ? 'close' : 'open'))
     if (onUpdate) {
       onUpdate(newWidget)
-    }
-  }
-
-  const onMouseEnter = () => setMouseEnterDate(new Date())
-
-  const onMouseLeave = () => {
-    if (mouseEnterDate) {
-      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
     }
   }
 
@@ -92,29 +68,24 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   return (
-    <div
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <Ui.ExpandingPanel
-        collapseProps={{ id: 'w-overview-id' }}
-        className={classNames('w-overview', 's-border', { highContrast: highContrast })}
-        open={!widget.options.collapsed}
-        onClick={onExpandablePanelChange}
-        heading={(
-          <PersonTitle
-            gettingPersonInfo={gettingPersonInfo}
-            person={person}
-          />
-        )}
-      >
-        <PersonPanel
-          highContrast={highContrast}
-          locale={locale}
+    <Ui.ExpandingPanel
+      collapseProps={{ id: 'w-overview-id' }}
+      className={classNames('w-overview', 's-border', { highContrast: highContrast })}
+      open={!widget.options.collapsed}
+      onClick={onExpandablePanelChange}
+      heading={(
+        <PersonTitle
+          gettingPersonInfo={gettingPersonInfo}
           person={person}
         />
-      </Ui.ExpandingPanel>
-    </div>
+      )}
+    >
+      <PersonPanel
+        highContrast={highContrast}
+        locale={locale}
+        person={person}
+      />
+    </Ui.ExpandingPanel>
   )
 }
 

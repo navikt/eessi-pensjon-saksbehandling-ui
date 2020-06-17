@@ -1,9 +1,8 @@
 import { amplitudeLogger } from 'metrics/amplitude'
 
 export const linkLogger = (event: any, values?: object) => {
-  const target = event.target.tagName !== 'A' ? event.target.parentNode : event.target
-  const name = `${target.dataset.amplitude}.link`
-  const url = target?.href || 'undefined'
+  const name = `${event.target.dataset.amplitude}.link.clicked`
+  const url = event.target.href
   const data = values || {}
   amplitudeLogger(name, {
     ...data,
@@ -11,40 +10,13 @@ export const linkLogger = (event: any, values?: object) => {
   })
 }
 
-export const buttonLogger = (event: any, values?: object) => {
-  const name = `${event.target.dataset.amplitude}.button`
+export const clickLogger = (event: any, values?: object) => {
+  const name = `${event.target.dataset.amplitude}.clicked`
   const data = values || {}
   amplitudeLogger(name, data)
-}
-
-export const checkboxLogger = (event: any, values?: object) => {
-  const name = `${event.target.dataset.amplitude}.checkbox`
-  const data = values || {}
-  if (event.target.checked) {
-    amplitudeLogger(name, data)
-  }
-}
-
-export const radioLogger = (event: any, values?: object) => {
-  const name = `${event.target.dataset.amplitude}.radiobutton`
-  const data = values || {}
-  if (event.target.checked) {
-    amplitudeLogger(name, data)
-  }
 }
 
 export const standardLogger = (name: string, values?: object) => {
   const data = values || {}
   amplitudeLogger(name, data)
-}
-
-export const timeLogger = (name: string, loggedTime: Date) => {
-  timeDiffLogger(name, (new Date().getTime() - loggedTime.getTime()))
-}
-
-export const timeDiffLogger = (name: string, diff: number) => {
-  standardLogger(`${name}.time`, {
-    seconds: Math.ceil(diff / 1000),
-    minutes: Math.ceil(diff / 1000 / 60)
-  })
 }
