@@ -6,6 +6,7 @@ import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
+import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
@@ -83,10 +84,12 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
           <dd id='a-buc-c-bucdetail__props-caseId-id'>
             {rinaUrl ? (
               <Ui.Nav.Lenke
+                data-amplitude='buc.edit.detail.rinaurl'
                 id='a-buc-c-bucdetail__gotorina-link-id'
                 className='a-buc-c-bucdetail__gotorina-link'
                 href={rinaUrl + buc.caseId}
                 target='rinaWindow'
+                onClick={linkLogger}
               >
                 {buc.caseId}
               </Ui.Nav.Lenke>

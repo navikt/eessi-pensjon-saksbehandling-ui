@@ -11,6 +11,8 @@ const getApiKey = () => {
     : 'feb0ead20059b4be531bfa6e076906ab'
 }
 
+const debug = false
+
 const config = {
   apiEndpoint: 'amplitude.nav.no/collect',
   saveEvents: true,
@@ -31,6 +33,9 @@ export type AmplitudeLogger = (name: string, values?: object) => void;
 
 export const amplitudeLogger = (name: string, values?: object) => {
   const data = values || {}
-  const key = `eessi.pensjon.ui.fss.${name}`
+  const key = `#app.${name}`
+  if (debug) {
+    console.log('Amplitude:', key, data)
+  }
   amplitude.getInstance().logEvent(key, data)
 }
