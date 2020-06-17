@@ -75,7 +75,7 @@ export const SedPropType = PT.shape({
   version: PT.string,
   firstVersion: VersionPropType.isRequired,
   lastVersion: VersionPropType.isRequired,
-  allowsAttachments: PT.bool
+  allowsAttachments: PT.bool.isRequired
 })
 
 export const SedsPropType = PT.arrayOf(SedPropType.isRequired)
