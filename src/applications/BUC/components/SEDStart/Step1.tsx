@@ -11,6 +11,7 @@ import { AllowedLocaleStringPropType, LoadingPropType, ValidationPropType } from
 import Ui from 'eessi-pensjon-ui'
 import { Labels } from 'eessi-pensjon-ui/dist/declarations/types'
 import _ from 'lodash'
+import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -260,6 +261,9 @@ const Step1: React.FC<Step1Props> = ({
   }
 
   const setFiles = (files: AttachedFiles) => {
+    standardLogger('sed.new.attachments.data', {
+      numberOfJoarkAttachments: files.joark.length
+    })
     setSeeAttachmentPanel(false)
     setAttachments(files)
   }
