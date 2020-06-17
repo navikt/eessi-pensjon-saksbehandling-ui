@@ -28,6 +28,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -66,8 +67,30 @@ const BUCList: React.FC<BUCListProps> = ({
   const { bucsInfo, bucsInfoList, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const [loggedTime] = useState<Date>(new Date())
+  const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
+  const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
+  const [openBucs, setOpenBucs] = useState<{[k: string]: boolean}>({})
 
-  const onBUCNew = (): void => {
+  useEffect(() => {
+    standardLogger('buc.list.entrance')
+    return () => {
+      timeLogger('buc.list.view', loggedTime)
+      timeDiffLogger('buc.list.mouseover', totalTimeWithMouseOver)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedTime])
+
+  const onMouseEnter = () => setMouseEnterDate(new Date())
+
+  const onMouseLeave = () => {
+    if (mouseEnterDate) {
+      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
+    }
+  }
+
+  const onBUCNew = (e: React.MouseEvent): void => {
+    buttonLogger(e)
     setMode('bucnew')
   }
 
@@ -91,6 +114,18 @@ const BUCList: React.FC<BUCListProps> = ({
     if (_.isNil(bucs[bucId].seds)) {
       dispatch(fetchSingleBuc(bucId))
     }
+  }
+
+  const logPanelClick = (bucId: string) => {
+    const newOpenBucs = _.cloneDeep(openBucs)
+    if (!openBucs[bucId]) {
+      standardLogger('buc.list.buc.panel.open')
+      newOpenBucs[bucId] = true
+    } else {
+      standardLogger('buc.list.buc.panel.close')
+      newOpenBucs[bucId] = false
+    }
+    setOpenBucs(newOpenBucs)
   }
 
   useEffect(() => {
@@ -137,14 +172,23 @@ const BUCList: React.FC<BUCListProps> = ({
           dispatch(getInstitutionsListForBucAndCountry(country.buc, country.country))
         }
       })
+
+      standardLogger('buc.list.bucs.data', {
+        numberOfBucs: Object.keys(bucs).length
+      })
       setMounted(true)
     }
   }, [institutionList, bucs, dispatch, mounted])
 
   return (
-    <div className='a-buc-p-buclist'>
+    <div
+      className='a-buc-p-buclist'
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div className='a-buc-p-buclist__buttons mb-3'>
         <Ui.Nav.Knapp
+          data-amplitude='buc.list.newbuc'
           id='a-buc-p-buclist__newbuc-button-id'
           className='a-buc-p-buclist__newbuc-button'
           onClick={onBUCNew}
@@ -183,7 +227,10 @@ const BUCList: React.FC<BUCListProps> = ({
                 collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
                 className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
                 style={{ animationDelay: (0.2 * index) + 's' }}
-                onClick={() => onBucOpen(bucId)}
+                onClick={() => {
+                  logPanelClick(bucId)
+                  onBucOpen(bucId)
+                }}
                 heading={
                   <BUCHeader
                     buc={buc}
