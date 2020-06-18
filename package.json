@@ -16,7 +16,7 @@
     "start:js": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts start",
     "test": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test",
     "test:clear": "cross-env NODE_ENV=test react-scripts test --clearCache",
-    "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test --watchAll=false --forceExit --updateSnapshot  --testPathPattern=src --testPathIgnorePatterns=src/applications/BUC/components/SEDBody --testPathIgnorePatterns=src/components/JoarkBrowser/JoarkBrowser",
+    "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test --watchAll=false --forceExit --updateSnapshot",
     "test:coverage": "cross-env NODE_ENV=test react-scripts test --coverage  --watchAll=false"
   },
   "repository": {
@@ -29,7 +29,7 @@
     "amplitude-js": "^6.2.0",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
-    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.4.2",
+    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#2.4.3",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "history": "^5.0.0",
     "http-proxy-middleware": "^1.0.4",
@@ -86,7 +86,6 @@
     "mustache": "^4.0.1",
     "npm-run-all": "^4.1.5",
     "prop-types": "^15.7.2",
-    "react-axe": "^3.4.1",
     "react-scripts": "^3.4.1",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
