@@ -20,7 +20,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <ow
+    <iw
       className="w-overview s-border"
       collapseProps={
         Object {
@@ -185,7 +185,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
           </n>
         </t>
       </div>
-    </ow>
+    </iw>
   </div>
 </Overview>
 `;

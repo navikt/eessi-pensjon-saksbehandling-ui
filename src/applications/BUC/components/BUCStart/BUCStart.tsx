@@ -12,7 +12,7 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, Option, Validation } from 'declarations/types'
+import { AllowedLocaleString, Features, Loading, Option, Validation } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
@@ -34,6 +34,7 @@ export interface BUCStartSelector {
   bucList?: Array<string> | undefined;
   bucParam: string | undefined;
   currentBuc: string | undefined;
+  features: Features | undefined;
   locale: AllowedLocaleString;
   loading: Loading;
   sakId: string;
@@ -48,6 +49,7 @@ const mapState = (state: State): BUCStartSelector => ({
   bucsInfo: state.buc.bucsInfo,
   bucList: state.buc.bucList,
   currentBuc: state.buc.currentBuc,
+  features: state.app.features,
   loading: state.loading,
   locale: state.ui.locale,
   sakId: state.app.params.sakId,
@@ -63,7 +65,10 @@ const placeholders: {[k: string]: string} = {
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
-  const { avdodBucs, bucs, bucParam, bucsInfo, bucList, currentBuc, locale, loading, sakId, subjectAreaList, tagList }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
+  const {
+    avdodBucs, bucs, bucParam, bucsInfo, bucList, currentBuc, features,
+    locale, loading, sakId, subjectAreaList, tagList
+  }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
@@ -81,7 +86,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       dispatch(getSubjectAreaList())
     }
     if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId))
+      dispatch(getBucList(sakId, features))
     }
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())

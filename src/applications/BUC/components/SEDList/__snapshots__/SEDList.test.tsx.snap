@@ -3964,8 +3964,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__active col-auto"
+                    mini={false}
                     type="advarsel"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__active col-auto etikett--advarsel"
@@ -4030,8 +4030,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__first_active col-auto"
+                    mini={false}
                     type="info"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__first_active col-auto etikett--info"
@@ -4127,7 +4127,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -4394,7 +4394,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -4438,7 +4438,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -4705,7 +4705,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -4749,7 +4749,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -5016,7 +5016,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -5060,7 +5060,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -5327,7 +5327,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -6745,8 +6745,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__sent col-auto"
+                    mini={false}
                     type="suksess"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__sent col-auto etikett--suksess"
@@ -6846,7 +6846,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -7113,7 +7113,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -8531,8 +8531,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__new col-auto"
+                    mini={false}
                     type="fokus"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__new col-auto etikett--fokus"
@@ -8632,7 +8632,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -8899,7 +8899,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -10317,8 +10317,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__cancelled col-auto"
+                    mini={false}
                     type="advarsel"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__cancelled col-auto etikett--advarsel"
@@ -10418,7 +10418,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -10685,7 +10685,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -12103,8 +12103,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__received col-auto"
+                    mini={false}
                     type="info"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__received col-auto etikett--info"
@@ -12204,7 +12204,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -12471,7 +12471,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -13934,8 +13934,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__new col-auto"
+                    mini={false}
                     type="fokus"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__new col-auto etikett--fokus"
@@ -14035,7 +14035,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -14302,7 +14302,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -15765,8 +15765,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__new col-auto"
+                    mini={false}
                     type="fokus"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__new col-auto etikett--fokus"
@@ -15866,7 +15866,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -16133,7 +16133,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -17645,8 +17645,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__sent col-auto"
+                    mini={false}
                     type="suksess"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__sent col-auto etikett--suksess"
@@ -17746,7 +17746,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -18013,7 +18013,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>
@@ -19431,8 +19431,8 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                 >
                   <EtikettBase
                     className="a-buc-c-sedstatus a-buc-c-sedstatus__received col-auto"
+                    mini={false}
                     type="info"
-                    typo="normaltekst"
                   >
                     <div
                       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__received col-auto etikett--info"
@@ -19532,7 +19532,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                           ]
                         }
                       >
-                        <i
+                        <n
                           action={
                             Array [
                               "hover",
@@ -19799,7 +19799,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
                               style={Object {}}
                             />
                           </div>
-                        </i>
+                        </n>
                       </ForwardRef>
                     </Flag>
                     <Normaltekst>

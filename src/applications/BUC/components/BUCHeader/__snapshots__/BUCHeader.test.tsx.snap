@@ -1406,7 +1406,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                         ]
                       }
                     >
-                      <i
+                      <n
                         action={
                           Array [
                             "hover",
@@ -1673,7 +1673,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             style={Object {}}
                           />
                         </div>
-                      </i>
+                      </n>
                     </ForwardRef>
                   </Flag>
                   <Normaltekst>
@@ -1786,7 +1786,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <i
+                <n
                   action={
                     Array [
                       "hover",
@@ -2061,7 +2061,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </i>
+                </n>
               </ForwardRef>
             </Flag>
             <Flag
@@ -2090,7 +2090,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <i
+                <n
                   action={
                     Array [
                       "hover",
@@ -2365,7 +2365,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </i>
+                </n>
               </ForwardRef>
             </Flag>
             <Flag
@@ -2394,7 +2394,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <i
+                <n
                   action={
                     Array [
                       "hover",
@@ -2669,7 +2669,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </i>
+                </n>
               </ForwardRef>
             </Flag>
             <Flag
@@ -2698,7 +2698,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   ]
                 }
               >
-                <i
+                <n
                   action={
                     Array [
                       "hover",
@@ -2973,7 +2973,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       }
                     />
                   </div>
-                </i>
+                </n>
               </ForwardRef>
             </Flag>
           </FlagList>

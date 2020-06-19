@@ -17,7 +17,7 @@ export interface AppState {
 
 const initialFeatures = {
   P5000_VISIBLE: false,
-  P_BUC_02_VISIBLE: false
+  P_BUC_02_VISIBLE: true
 }
 
 export const initialAppState: AppState = {

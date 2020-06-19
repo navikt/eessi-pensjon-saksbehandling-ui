@@ -182,7 +182,8 @@ describe('actions/buc', () => {
 
   it('getBucList()', () => {
     const sakId = '123'
-    bucActions.getBucList(sakId)
+    const features = {}
+    bucActions.getBucList(sakId, features)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_LIST_REQUEST,

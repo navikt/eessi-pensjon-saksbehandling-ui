@@ -6,6 +6,7 @@ import * as urls from 'constants/urls'
 import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
+import { Features } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import { ActionWithPayload, ThunkResult } from 'eessi-pensjon-ui/dist/declarations/types'
@@ -153,10 +154,13 @@ export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> =
   })
 }
 
-export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (sakId: string): ThunkResult<ActionWithPayload> => {
+export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (sakId: string, features: Features): ThunkResult<ActionWithPayload> => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId }),
     expectedPayload: mockBucList,
+    context: {
+      features: features
+    },
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,
       success: types.BUC_GET_BUC_LIST_SUCCESS,

@@ -402,11 +402,33 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_BUC_LIST_SUCCESS', () => {
+  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_02 true', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_BUC_LIST_SUCCESS,
-        payload: ['mockPayload']
+        payload: ['mockPayload', 'P_BUC_02'],
+        context: {
+          feature: {
+            P_BUC_02_VISIBLE: true
+          }
+        }
+      })
+    ).toEqual({
+      ...initialBucState,
+      bucList: ['mockPayload', 'P_BUC_02']
+    })
+  })
+
+  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_02 false', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_GET_BUC_LIST_SUCCESS,
+        payload: ['mockPayload', 'P_BUC_02'],
+        context: {
+          feature: {
+            P_BUC_02_VISIBLE: false
+          }
+        }
       })
     ).toEqual({
       ...initialBucState,

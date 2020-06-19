@@ -42,11 +42,11 @@ describe('pages/IndexPage', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    // expect(wrapper).toMatchSnapshot()  // Until React.Tooltip has uuid
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('IndexPage has proper HTML structure', () => {
-    //expect(wrapper.exists(TopContainer)).toBeTruthy()
+    expect(wrapper.exists(TopContainer)).toBeTruthy()
     expect(wrapper.exists('.mock-c-dashboard')).toBeTruthy()
   })
 })

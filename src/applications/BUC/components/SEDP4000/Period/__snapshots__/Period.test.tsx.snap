@@ -202,7 +202,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                       ]
                     }
                   >
-                    <i
+                    <n
                       action={
                         Array [
                           "hover",
@@ -469,7 +469,7 @@ exports[`applications/BUC/components/SEDP4000/Period - view/confirm mode Renders
                           style={Object {}}
                         />
                       </div>
-                    </i>
+                    </n>
                   </ForwardRef>
                 </Flag>
                 <Normaltekst

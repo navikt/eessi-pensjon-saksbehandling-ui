@@ -3764,80 +3764,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         </KnappBase>
       </Knapp>
     </div>
-    <div
-      className="a-buc-c-bucheader p-0 w-100"
-      key="0"
-    >
-      <AlertStripe
-        className="w-100"
-        form="default"
-        size="1.5em"
-        type="advarsel"
-      >
-        <div
-          className="alertstripe w-100 alertstripe--advarsel"
-        >
-          <span
-            className="alertstripe__ikon"
-          >
-            <span
-              className="sr-only"
-            >
-              advarsel
-            </span>
-            <Ikon
-              kind="advarsel-sirkel-fyll"
-              size="1.5em"
-            >
-              <svg
-                focusable="false"
-                height="1.5em"
-                kind="advarsel-sirkel-fyll"
-                viewBox="0 0 24 24"
-                width="1.5em"
-              >
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                >
-                  <path
-                    d="M12.205-.004l-.214.002a12.225 12.225 0 0 0-8.517 3.659C1.179 5.977-.053 9.013.002 12.208c.115 6.613 5.296 11.793 11.795 11.793l.212-.002c6.726-.116 12.105-5.595 11.99-12.21C23.883 5.178 18.702-.003 12.204-.003z"
-                    fill="#FFA733"
-                    fillRule="nonzero"
-                  />
-                  <path
-                    d="M12.027 19H12A1.499 1.499 0 0 1 11.973 16L12 16a1.501 1.501 0 0 1 .027 3z"
-                    fill="#3E3832"
-                  />
-                  <path
-                    d="M12 5a1 1 0 0 1 1 1v7a1 1 0 0 1-2 0V6a1 1 0 0 1 1-1z"
-                    fill="#3E3832"
-                    fillRule="nonzero"
-                  />
-                </g>
-              </svg>
-            </Ikon>
-          </span>
-          <Normaltekst
-            className="alertstripe__tekst"
-            tag="div"
-          >
-            <n
-              className="alertstripe__tekst"
-              tag="div"
-              type="normaltekst"
-            >
-              <div
-                className="typo-normal alertstripe__tekst"
-              >
-                Rina serverfeil, kan også skyldes ugyldig input, {"status":"INTERNAL_SERVER_ERROR","timestamp":"23-10-2019 15:48:30","messages":["500 null","{\\"stack\\":\\"\\",\\"error_description\\":\\"The user with userName:[Z990638] is not authorised\\",\\"error\\":\\"Cannot get case\\"}"]}
-              </div>
-            </n>
-          </Normaltekst>
-        </div>
-      </AlertStripe>
-    </div>
-    <ow
+    <iw
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -5123,11 +5050,11 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         />
       }
       id="a-buc-p-buclist__buc-600891"
-      key="1"
+      key="0"
       onClick={[Function]}
       style={
         Object {
-          "animationDelay": "0.2s",
+          "animationDelay": "0s",
         }
       }
     >
@@ -5135,7 +5062,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         className="c-expandingpanel ekspanderbartPanel a-buc-p-buclist__buc mb-3 s-border ekspanderbartPanel--lukket"
         style={
           Object {
-            "animationDelay": "0.2s",
+            "animationDelay": "0s",
           }
         }
       >
@@ -6530,7 +6457,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <i
+                                  <n
                                     action={
                                       Array [
                                         "hover",
@@ -6797,7 +6724,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </i>
+                                  </n>
                                 </ForwardRef>
                               </Flag>
                               <Normaltekst>
@@ -7031,8 +6958,8 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
           onRest={[Function]}
         />
       </div>
-    </ow>
-    <ow
+    </iw>
+    <iw
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -8112,11 +8039,11 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         />
       }
       id="a-buc-p-buclist__buc-195440"
-      key="2"
+      key="1"
       onClick={[Function]}
       style={
         Object {
-          "animationDelay": "0.4s",
+          "animationDelay": "0.2s",
         }
       }
     >
@@ -8124,7 +8051,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
         className="c-expandingpanel ekspanderbartPanel a-buc-p-buclist__buc mb-3 s-border ekspanderbartPanel--lukket"
         style={
           Object {
-            "animationDelay": "0.4s",
+            "animationDelay": "0.2s",
           }
         }
       >
@@ -9313,7 +9240,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <i
+                                  <n
                                     action={
                                       Array [
                                         "hover",
@@ -9580,7 +9507,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </i>
+                                  </n>
                                 </ForwardRef>
                               </Flag>
                               <Normaltekst>
@@ -9814,8 +9741,825 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
           onRest={[Function]}
         />
       </div>
-    </ow>
-    <ow
+    </iw>
+    <iw
+      className="a-buc-p-buclist__buc mb-3 s-border"
+      collapseProps={
+        Object {
+          "id": "a-buc-p-buclist__buc-158124",
+        }
+      }
+      heading={
+        <BUCHeader
+          buc={
+            Object {
+              "aktoerId": "001122334455",
+              "caseId": "158124",
+              "creator": Object {
+                "country": "NO",
+                "institution": "NO:DEMO002",
+                "name": "DEMO002",
+              },
+              "institusjon": Array [
+                Object {
+                  "country": "NO",
+                  "institution": "NO:DEMO002",
+                  "name": "DEMO002",
+                },
+                Object {
+                  "country": "NO",
+                  "institution": "NO:DEMO001",
+                  "name": "DEMO001",
+                },
+              ],
+              "lastUpdate": 1558362934000,
+              "sakType": "",
+              "seds": Array [
+                Object {
+                  "allowsAttachments": true,
+                  "attachments": Array [],
+                  "creationDate": 1557393035000,
+                  "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
+                  "firstVersion": Object {
+                    "date": 1557393035000,
+                    "id": "1",
+                  },
+                  "id": "f2123ebf16dc4ddaaaf2420d0adb39c8",
+                  "lastUpdate": 1557393035000,
+                  "lastVersion": Object {
+                    "date": 1557393035000,
+                    "id": "1",
+                  },
+                  "parentDocumentId": null,
+                  "participants": Array [
+                    Object {
+                      "organisation": Object {
+                        "accessPoint": null,
+                        "acronym": "DEMO002",
+                        "activeSince": 1518476400000,
+                        "address": Object {
+                          "country": "NO",
+                          "postalCode": null,
+                          "region": null,
+                          "street": null,
+                          "town": null,
+                        },
+                        "assignedBUCs": null,
+                        "contactMethods": null,
+                        "countryCode": "NO",
+                        "id": "NO:DEMO002",
+                        "location": null,
+                        "name": "DEMO002",
+                        "registryNumber": null,
+                      },
+                      "role": "Sender",
+                      "selected": false,
+                    },
+                    Object {
+                      "organisation": Object {
+                        "accessPoint": null,
+                        "acronym": "DEMO001",
+                        "activeSince": 1518476400000,
+                        "address": Object {
+                          "country": "NO",
+                          "postalCode": null,
+                          "region": null,
+                          "street": null,
+                          "town": null,
+                        },
+                        "assignedBUCs": null,
+                        "contactMethods": null,
+                        "countryCode": "NO",
+                        "id": "NO:DEMO001",
+                        "location": null,
+                        "name": "DEMO001",
+                        "registryNumber": null,
+                      },
+                      "role": "Receiver",
+                      "selected": false,
+                    },
+                  ],
+                  "status": "sent",
+                  "type": "P10000",
+                  "version": "1",
+                },
+              ],
+              "startDate": 1557392989122,
+              "status": "open",
+              "type": "P_BUC_06",
+            }
+          }
+          bucInfo={Object {}}
+          onBUCEdit={[Function]}
+        />
+      }
+      id="a-buc-p-buclist__buc-158124"
+      key="2"
+      onClick={[Function]}
+      style={
+        Object {
+          "animationDelay": "0.4s",
+        }
+      }
+    >
+      <div
+        className="c-expandingpanel ekspanderbartPanel a-buc-p-buclist__buc mb-3 s-border ekspanderbartPanel--lukket"
+        style={
+          Object {
+            "animationDelay": "0.4s",
+          }
+        }
+      >
+        <div
+          aria-expanded={false}
+          className="ekspanderbartPanel__hode"
+          onClick={[Function]}
+        >
+          <div
+            className="ekspanderbartPanel__flex-wrapper"
+          >
+            <BUCHeader
+              buc={
+                Object {
+                  "aktoerId": "001122334455",
+                  "caseId": "158124",
+                  "creator": Object {
+                    "country": "NO",
+                    "institution": "NO:DEMO002",
+                    "name": "DEMO002",
+                  },
+                  "institusjon": Array [
+                    Object {
+                      "country": "NO",
+                      "institution": "NO:DEMO002",
+                      "name": "DEMO002",
+                    },
+                    Object {
+                      "country": "NO",
+                      "institution": "NO:DEMO001",
+                      "name": "DEMO001",
+                    },
+                  ],
+                  "lastUpdate": 1558362934000,
+                  "sakType": "",
+                  "seds": Array [
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1557393035000,
+                      "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
+                      "firstVersion": Object {
+                        "date": 1557393035000,
+                        "id": "1",
+                      },
+                      "id": "f2123ebf16dc4ddaaaf2420d0adb39c8",
+                      "lastUpdate": 1557393035000,
+                      "lastVersion": Object {
+                        "date": 1557393035000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "accessPoint": null,
+                            "acronym": "DEMO002",
+                            "activeSince": 1518476400000,
+                            "address": Object {
+                              "country": "NO",
+                              "postalCode": null,
+                              "region": null,
+                              "street": null,
+                              "town": null,
+                            },
+                            "assignedBUCs": null,
+                            "contactMethods": null,
+                            "countryCode": "NO",
+                            "id": "NO:DEMO002",
+                            "location": null,
+                            "name": "DEMO002",
+                            "registryNumber": null,
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "accessPoint": null,
+                            "acronym": "DEMO001",
+                            "activeSince": 1518476400000,
+                            "address": Object {
+                              "country": "NO",
+                              "postalCode": null,
+                              "region": null,
+                              "street": null,
+                              "town": null,
+                            },
+                            "assignedBUCs": null,
+                            "contactMethods": null,
+                            "countryCode": "NO",
+                            "id": "NO:DEMO001",
+                            "location": null,
+                            "name": "DEMO001",
+                            "registryNumber": null,
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "sent",
+                      "type": "P10000",
+                      "version": "1",
+                    },
+                  ],
+                  "startDate": 1557392989122,
+                  "status": "open",
+                  "type": "P_BUC_06",
+                }
+              }
+              bucInfo={Object {}}
+              onBUCEdit={[Function]}
+            >
+              <div
+                className="a-buc-c-bucheader p-0 w-100"
+                id="a-buc-c-bucheader__P_BUC_06-158124"
+              >
+                <Undertittel
+                  className="a-buc-c-bucheader__title pb-1 w-100"
+                >
+                  <n
+                    className="a-buc-c-bucheader__title pb-1 w-100"
+                    type="undertittel"
+                  >
+                    <h2
+                      className="typo-undertittel a-buc-c-bucheader__title pb-1 w-100"
+                    >
+                      P_BUC_06 - buc:buc-P_BUC_06
+                    </h2>
+                  </n>
+                </Undertittel>
+                <Row
+                  className="a-buc-c-bucheader__row no-gutters w-100"
+                >
+                  <div
+                    className="row a-buc-c-bucheader__row no-gutters w-100"
+                  >
+                    <div
+                      className="a-buc-c-bucheader__label col-sm-4"
+                    >
+                      <Normaltekst
+                        className="a-buc-c-bucheader__description"
+                        id="a-buc-c-bucheader__description-id"
+                      >
+                        <n
+                          className="a-buc-c-bucheader__description"
+                          id="a-buc-c-bucheader__description-id"
+                          type="normaltekst"
+                        >
+                          <p
+                            className="typo-normal a-buc-c-bucheader__description"
+                            id="a-buc-c-bucheader__description-id"
+                          >
+                            ui:created
+                            : 
+                            09.05.2019
+                          </p>
+                        </n>
+                      </Normaltekst>
+                      <div
+                        className="a-buc-c-bucheader__owner"
+                        id="a-buc-c-bucheader__owner-id"
+                      >
+                        <Normaltekst
+                          className="pr-2 text-nowrap"
+                        >
+                          <n
+                            className="pr-2 text-nowrap"
+                            type="normaltekst"
+                          >
+                            <p
+                              className="typo-normal pr-2 text-nowrap"
+                            >
+                              buc:form-caseOwner: 
+                            </p>
+                          </n>
+                        </Normaltekst>
+                        <InstitutionList
+                          className="a-buc-c-bucheader__owner-institutions"
+                          flagType="circle"
+                          institutions={
+                            Array [
+                              Object {
+                                "country": "NO",
+                                "institution": "NO:DEMO002",
+                                "name": "DEMO002",
+                              },
+                            ]
+                          }
+                          locale="nb"
+                          type="separated"
+                        >
+                          <div
+                            className="a-buc-c-institutionlist a-buc-c-bucheader__owner-institutions"
+                            key="NO"
+                          >
+                            <div
+                              className="a-buc-c-institutionlist__institution"
+                              key="DEMO002"
+                            >
+                              <Flag
+                                className="mr-2"
+                                country="NO"
+                                label="Norge"
+                                size="M"
+                                type="circle"
+                              >
+                                <ForwardRef
+                                  overlay={
+                                    <span>
+                                      Norge
+                                    </span>
+                                  }
+                                  placement="top"
+                                  trigger={
+                                    Array [
+                                      "hover",
+                                    ]
+                                  }
+                                >
+                                  <n
+                                    action={
+                                      Array [
+                                        "hover",
+                                      ]
+                                    }
+                                    afterPopupVisibleChange={[Function]}
+                                    autoDestroy={false}
+                                    blurDelay={0.15}
+                                    builtinPlacements={
+                                      Object {
+                                        "bottom": Object {
+                                          "offset": Array [
+                                            0,
+                                            4,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "tc",
+                                            "bc",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "bottomLeft": Object {
+                                          "offset": Array [
+                                            0,
+                                            4,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "tl",
+                                            "bl",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "bottomRight": Object {
+                                          "offset": Array [
+                                            0,
+                                            4,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "tr",
+                                            "br",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "left": Object {
+                                          "offset": Array [
+                                            -4,
+                                            0,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "cr",
+                                            "cl",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "leftBottom": Object {
+                                          "offset": Array [
+                                            -4,
+                                            0,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "br",
+                                            "bl",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "leftTop": Object {
+                                          "offset": Array [
+                                            -4,
+                                            0,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "tr",
+                                            "tl",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "right": Object {
+                                          "offset": Array [
+                                            4,
+                                            0,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "cl",
+                                            "cr",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "rightBottom": Object {
+                                          "offset": Array [
+                                            4,
+                                            0,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "bl",
+                                            "br",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "rightTop": Object {
+                                          "offset": Array [
+                                            4,
+                                            0,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "tl",
+                                            "tr",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "top": Object {
+                                          "offset": Array [
+                                            0,
+                                            -4,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "bc",
+                                            "tc",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "topLeft": Object {
+                                          "offset": Array [
+                                            0,
+                                            -4,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "bl",
+                                            "tl",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                        "topRight": Object {
+                                          "offset": Array [
+                                            0,
+                                            -4,
+                                          ],
+                                          "overflow": Object {
+                                            "adjustX": 1,
+                                            "adjustY": 1,
+                                          },
+                                          "points": Array [
+                                            "br",
+                                            "tr",
+                                          ],
+                                          "targetOffset": Array [
+                                            0,
+                                            0,
+                                          ],
+                                        },
+                                      }
+                                    }
+                                    defaultPopupVisible={false}
+                                    destroyPopupOnHide={false}
+                                    focusDelay={0}
+                                    getDocument={[Function]}
+                                    getPopupClassNameFromAlign={[Function]}
+                                    hideAction={Array []}
+                                    mask={false}
+                                    maskClosable={true}
+                                    mouseEnterDelay={0}
+                                    mouseLeaveDelay={0.1}
+                                    onPopupAlign={[Function]}
+                                    onPopupVisibleChange={[Function]}
+                                    overlay={
+                                      <span>
+                                        Norge
+                                      </span>
+                                    }
+                                    popup={[Function]}
+                                    popupAlign={Object {}}
+                                    popupClassName=""
+                                    popupPlacement="top"
+                                    popupStyle={Object {}}
+                                    prefixCls="rc-tooltip"
+                                    showAction={Array []}
+                                  >
+                                    <div
+                                      className="mr-2 c-flag size-M type-circle"
+                                      key="trigger"
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                      style={Object {}}
+                                    >
+                                      <img
+                                        alt="Norge"
+                                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3E %3Crect width='1100' height='800' fill='%23ef2b2d'/%3E %3Crect width='200' height='800' x='300' fill='%23fff'/%3E %3Crect width='1100' height='200' y='300' fill='%23fff'/%3E %3Crect width='100' height='800' x='350' fill='%23002868'/%3E %3Crect width='1100' height='100' y='350' fill='%23002868'/%3E %3C/svg%3E"
+                                        style={Object {}}
+                                      />
+                                    </div>
+                                  </n>
+                                </ForwardRef>
+                              </Flag>
+                              <Normaltekst>
+                                <n
+                                  type="normaltekst"
+                                >
+                                  <p
+                                    className="typo-normal"
+                                  >
+                                    DEMO002
+                                  </p>
+                                </n>
+                              </Normaltekst>
+                            </div>
+                          </div>
+                        </InstitutionList>
+                      </div>
+                      <div
+                        className="a-buc-c-bucheader__case"
+                        id="a-buc-c-bucheader__case-id"
+                      >
+                        <WaitingPanel
+                          size="S"
+                        >
+                          <div
+                            className="c-waitingPanel text-center"
+                            style={Object {}}
+                          >
+                            <Spinner
+                              aria-label="Laster innhold"
+                              transparent={false}
+                              type="S"
+                            >
+                              <Ikon
+                                aria-label="Laster innhold"
+                                className="spinner spinner--s"
+                                kind="spinner-negativ"
+                                size={32}
+                              >
+                                <svg
+                                  aria-label="Laster innhold"
+                                  className="spinner spinner--s"
+                                  focusable="false"
+                                  height={32}
+                                  kind="spinner-negativ"
+                                  preserveAspectRatio="xMidYMid"
+                                  viewBox="0 0 50 50"
+                                  width={32}
+                                >
+                                  <title>
+                                    Venter...
+                                  </title>
+                                  <circle
+                                    cx="25"
+                                    cy="25"
+                                    fill="none"
+                                    r="20"
+                                    stroke="#eee"
+                                    strokeWidth="5"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  />
+                                  <circle
+                                    cx="25"
+                                    cy="25"
+                                    fill="none"
+                                    r="20"
+                                    stroke="#888"
+                                    strokeDasharray="50 155"
+                                    strokeLinecap="round"
+                                    strokeWidth="5"
+                                  />
+                                </svg>
+                              </Ikon>
+                            </Spinner>
+                            <Normaltekst
+                              className="c-waitingPanel__message ml-2"
+                            >
+                              <n
+                                className="c-waitingPanel__message ml-2"
+                                type="normaltekst"
+                              >
+                                <p
+                                  className="typo-normal c-waitingPanel__message ml-2"
+                                >
+                                  Vennligst vent...
+                                </p>
+                              </n>
+                            </Normaltekst>
+                          </div>
+                        </WaitingPanel>
+                      </div>
+                    </div>
+                    <div
+                      className="a-buc-c-bucheader__icons col-sm-4"
+                    >
+                      <WaitingPanel
+                        message=""
+                        size="M"
+                      >
+                        <div
+                          className="c-waitingPanel text-center"
+                          style={Object {}}
+                        >
+                          <Spinner
+                            aria-label="Laster innhold"
+                            transparent={false}
+                            type="M"
+                          >
+                            <Ikon
+                              aria-label="Laster innhold"
+                              className="spinner spinner--m"
+                              kind="spinner-negativ"
+                              size={32}
+                            >
+                              <svg
+                                aria-label="Laster innhold"
+                                className="spinner spinner--m"
+                                focusable="false"
+                                height={32}
+                                kind="spinner-negativ"
+                                preserveAspectRatio="xMidYMid"
+                                viewBox="0 0 50 50"
+                                width={32}
+                              >
+                                <title>
+                                  Venter...
+                                </title>
+                                <circle
+                                  cx="25"
+                                  cy="25"
+                                  fill="none"
+                                  r="20"
+                                  stroke="#eee"
+                                  strokeWidth="5"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                />
+                                <circle
+                                  cx="25"
+                                  cy="25"
+                                  fill="none"
+                                  r="20"
+                                  stroke="#888"
+                                  strokeDasharray="50 155"
+                                  strokeLinecap="round"
+                                  strokeWidth="5"
+                                />
+                              </svg>
+                            </Ikon>
+                          </Spinner>
+                        </div>
+                      </WaitingPanel>
+                      <div
+                        className="a-buc-c-bucheader__icon-numberofseds"
+                        data-tip="buc:form-youhaveXseds"
+                      >
+                        1
+                      </div>
+                    </div>
+                    <div
+                      className="a-buc-c-bucheader__actions col-sm-4"
+                    >
+                      <Lenke
+                        className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                        data-amplitude="app.buc.list.editbuc"
+                        href="#P_BUC_06"
+                        id="a-buc-c-bucheader__bucedit-link-id"
+                        onClick={[Function]}
+                      >
+                        <a
+                          className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
+                          data-amplitude="app.buc.list.editbuc"
+                          href="#P_BUC_06"
+                          id="a-buc-c-bucheader__bucedit-link-id"
+                          onClick={[Function]}
+                        >
+                          ui:processing
+                        </a>
+                      </Lenke>
+                    </div>
+                  </div>
+                </Row>
+              </div>
+            </BUCHeader>
+            <button
+              aria-expanded={false}
+              aria-label="open"
+              className="ekspanderbartPanel__knapp"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              type="button"
+            >
+              <span
+                className="ekspanderbartPanel__indikator"
+              />
+            </button>
+          </div>
+        </div>
+        <t
+          id="a-buc-p-buclist__buc-158124"
+          isOpened={false}
+          onRest={[Function]}
+        />
+      </div>
+    </iw>
+    <iw
       className="a-buc-p-buclist__buc mb-3 s-border"
       collapseProps={
         Object {
@@ -12524,7 +13268,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                     ]
                                   }
                                 >
-                                  <i
+                                  <n
                                     action={
                                       Array [
                                         "hover",
@@ -12791,7 +13535,7 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
                                         style={Object {}}
                                       />
                                     </div>
-                                  </i>
+                                  </n>
                                 </ForwardRef>
                               </Flag>
                               <Normaltekst>
@@ -13025,824 +13769,80 @@ exports[`applications/BUC/widgets/BUCList/BUCList Renders 1`] = `
           onRest={[Function]}
         />
       </div>
-    </ow>
-    <ow
-      className="a-buc-p-buclist__buc mb-3 s-border"
-      collapseProps={
-        Object {
-          "id": "a-buc-p-buclist__buc-158124",
-        }
-      }
-      heading={
-        <BUCHeader
-          buc={
-            Object {
-              "aktoerId": "001122334455",
-              "caseId": "158124",
-              "creator": Object {
-                "country": "NO",
-                "institution": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "institusjon": Array [
-                Object {
-                  "country": "NO",
-                  "institution": "NO:DEMO002",
-                  "name": "DEMO002",
-                },
-                Object {
-                  "country": "NO",
-                  "institution": "NO:DEMO001",
-                  "name": "DEMO001",
-                },
-              ],
-              "lastUpdate": 1558362934000,
-              "sakType": "",
-              "seds": Array [
-                Object {
-                  "allowsAttachments": true,
-                  "attachments": Array [],
-                  "creationDate": 1557393035000,
-                  "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
-                  "firstVersion": Object {
-                    "date": 1557393035000,
-                    "id": "1",
-                  },
-                  "id": "f2123ebf16dc4ddaaaf2420d0adb39c8",
-                  "lastUpdate": 1557393035000,
-                  "lastVersion": Object {
-                    "date": 1557393035000,
-                    "id": "1",
-                  },
-                  "parentDocumentId": null,
-                  "participants": Array [
-                    Object {
-                      "organisation": Object {
-                        "accessPoint": null,
-                        "acronym": "DEMO002",
-                        "activeSince": 1518476400000,
-                        "address": Object {
-                          "country": "NO",
-                          "postalCode": null,
-                          "region": null,
-                          "street": null,
-                          "town": null,
-                        },
-                        "assignedBUCs": null,
-                        "contactMethods": null,
-                        "countryCode": "NO",
-                        "id": "NO:DEMO002",
-                        "location": null,
-                        "name": "DEMO002",
-                        "registryNumber": null,
-                      },
-                      "role": "Sender",
-                      "selected": false,
-                    },
-                    Object {
-                      "organisation": Object {
-                        "accessPoint": null,
-                        "acronym": "DEMO001",
-                        "activeSince": 1518476400000,
-                        "address": Object {
-                          "country": "NO",
-                          "postalCode": null,
-                          "region": null,
-                          "street": null,
-                          "town": null,
-                        },
-                        "assignedBUCs": null,
-                        "contactMethods": null,
-                        "countryCode": "NO",
-                        "id": "NO:DEMO001",
-                        "location": null,
-                        "name": "DEMO001",
-                        "registryNumber": null,
-                      },
-                      "role": "Receiver",
-                      "selected": false,
-                    },
-                  ],
-                  "status": "sent",
-                  "type": "P10000",
-                  "version": "1",
-                },
-              ],
-              "startDate": 1557392989122,
-              "status": "open",
-              "type": "P_BUC_06",
-            }
-          }
-          bucInfo={Object {}}
-          onBUCEdit={[Function]}
-        />
-      }
-      id="a-buc-p-buclist__buc-158124"
+    </iw>
+    <div
+      className="a-buc-c-bucheader p-0 w-100"
       key="4"
-      onClick={[Function]}
-      style={
-        Object {
-          "animationDelay": "0.8s",
-        }
-      }
     >
-      <div
-        className="c-expandingpanel ekspanderbartPanel a-buc-p-buclist__buc mb-3 s-border ekspanderbartPanel--lukket"
-        style={
-          Object {
-            "animationDelay": "0.8s",
-          }
-        }
+      <AlertStripe
+        className="w-100"
+        form="default"
+        size="1.5em"
+        type="advarsel"
       >
         <div
-          aria-expanded={false}
-          className="ekspanderbartPanel__hode"
-          onClick={[Function]}
+          className="alertstripe w-100 alertstripe--advarsel"
         >
-          <div
-            className="ekspanderbartPanel__flex-wrapper"
+          <span
+            className="alertstripe__ikon"
           >
-            <BUCHeader
-              buc={
-                Object {
-                  "aktoerId": "001122334455",
-                  "caseId": "158124",
-                  "creator": Object {
-                    "country": "NO",
-                    "institution": "NO:DEMO002",
-                    "name": "DEMO002",
-                  },
-                  "institusjon": Array [
-                    Object {
-                      "country": "NO",
-                      "institution": "NO:DEMO002",
-                      "name": "DEMO002",
-                    },
-                    Object {
-                      "country": "NO",
-                      "institution": "NO:DEMO001",
-                      "name": "DEMO001",
-                    },
-                  ],
-                  "lastUpdate": 1558362934000,
-                  "sakType": "",
-                  "seds": Array [
-                    Object {
-                      "allowsAttachments": true,
-                      "attachments": Array [],
-                      "creationDate": 1557393035000,
-                      "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
-                      "firstVersion": Object {
-                        "date": 1557393035000,
-                        "id": "1",
-                      },
-                      "id": "f2123ebf16dc4ddaaaf2420d0adb39c8",
-                      "lastUpdate": 1557393035000,
-                      "lastVersion": Object {
-                        "date": 1557393035000,
-                        "id": "1",
-                      },
-                      "parentDocumentId": null,
-                      "participants": Array [
-                        Object {
-                          "organisation": Object {
-                            "accessPoint": null,
-                            "acronym": "DEMO002",
-                            "activeSince": 1518476400000,
-                            "address": Object {
-                              "country": "NO",
-                              "postalCode": null,
-                              "region": null,
-                              "street": null,
-                              "town": null,
-                            },
-                            "assignedBUCs": null,
-                            "contactMethods": null,
-                            "countryCode": "NO",
-                            "id": "NO:DEMO002",
-                            "location": null,
-                            "name": "DEMO002",
-                            "registryNumber": null,
-                          },
-                          "role": "Sender",
-                          "selected": false,
-                        },
-                        Object {
-                          "organisation": Object {
-                            "accessPoint": null,
-                            "acronym": "DEMO001",
-                            "activeSince": 1518476400000,
-                            "address": Object {
-                              "country": "NO",
-                              "postalCode": null,
-                              "region": null,
-                              "street": null,
-                              "town": null,
-                            },
-                            "assignedBUCs": null,
-                            "contactMethods": null,
-                            "countryCode": "NO",
-                            "id": "NO:DEMO001",
-                            "location": null,
-                            "name": "DEMO001",
-                            "registryNumber": null,
-                          },
-                          "role": "Receiver",
-                          "selected": false,
-                        },
-                      ],
-                      "status": "sent",
-                      "type": "P10000",
-                      "version": "1",
-                    },
-                  ],
-                  "startDate": 1557392989122,
-                  "status": "open",
-                  "type": "P_BUC_06",
-                }
-              }
-              bucInfo={Object {}}
-              onBUCEdit={[Function]}
+            <span
+              className="sr-only"
+            >
+              advarsel
+            </span>
+            <Ikon
+              kind="advarsel-sirkel-fyll"
+              size="1.5em"
+            >
+              <svg
+                focusable="false"
+                height="1.5em"
+                kind="advarsel-sirkel-fyll"
+                viewBox="0 0 24 24"
+                width="1.5em"
+              >
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                >
+                  <path
+                    d="M12.205-.004l-.214.002a12.225 12.225 0 0 0-8.517 3.659C1.179 5.977-.053 9.013.002 12.208c.115 6.613 5.296 11.793 11.795 11.793l.212-.002c6.726-.116 12.105-5.595 11.99-12.21C23.883 5.178 18.702-.003 12.204-.003z"
+                    fill="#FFA733"
+                    fillRule="nonzero"
+                  />
+                  <path
+                    d="M12.027 19H12A1.499 1.499 0 0 1 11.973 16L12 16a1.501 1.501 0 0 1 .027 3z"
+                    fill="#3E3832"
+                  />
+                  <path
+                    d="M12 5a1 1 0 0 1 1 1v7a1 1 0 0 1-2 0V6a1 1 0 0 1 1-1z"
+                    fill="#3E3832"
+                    fillRule="nonzero"
+                  />
+                </g>
+              </svg>
+            </Ikon>
+          </span>
+          <Normaltekst
+            className="alertstripe__tekst"
+            tag="div"
+          >
+            <n
+              className="alertstripe__tekst"
+              tag="div"
+              type="normaltekst"
             >
               <div
-                className="a-buc-c-bucheader p-0 w-100"
-                id="a-buc-c-bucheader__P_BUC_06-158124"
+                className="typo-normal alertstripe__tekst"
               >
-                <Undertittel
-                  className="a-buc-c-bucheader__title pb-1 w-100"
-                >
-                  <n
-                    className="a-buc-c-bucheader__title pb-1 w-100"
-                    type="undertittel"
-                  >
-                    <h2
-                      className="typo-undertittel a-buc-c-bucheader__title pb-1 w-100"
-                    >
-                      P_BUC_06 - buc:buc-P_BUC_06
-                    </h2>
-                  </n>
-                </Undertittel>
-                <Row
-                  className="a-buc-c-bucheader__row no-gutters w-100"
-                >
-                  <div
-                    className="row a-buc-c-bucheader__row no-gutters w-100"
-                  >
-                    <div
-                      className="a-buc-c-bucheader__label col-sm-4"
-                    >
-                      <Normaltekst
-                        className="a-buc-c-bucheader__description"
-                        id="a-buc-c-bucheader__description-id"
-                      >
-                        <n
-                          className="a-buc-c-bucheader__description"
-                          id="a-buc-c-bucheader__description-id"
-                          type="normaltekst"
-                        >
-                          <p
-                            className="typo-normal a-buc-c-bucheader__description"
-                            id="a-buc-c-bucheader__description-id"
-                          >
-                            ui:created
-                            : 
-                            09.05.2019
-                          </p>
-                        </n>
-                      </Normaltekst>
-                      <div
-                        className="a-buc-c-bucheader__owner"
-                        id="a-buc-c-bucheader__owner-id"
-                      >
-                        <Normaltekst
-                          className="pr-2 text-nowrap"
-                        >
-                          <n
-                            className="pr-2 text-nowrap"
-                            type="normaltekst"
-                          >
-                            <p
-                              className="typo-normal pr-2 text-nowrap"
-                            >
-                              buc:form-caseOwner: 
-                            </p>
-                          </n>
-                        </Normaltekst>
-                        <InstitutionList
-                          className="a-buc-c-bucheader__owner-institutions"
-                          flagType="circle"
-                          institutions={
-                            Array [
-                              Object {
-                                "country": "NO",
-                                "institution": "NO:DEMO002",
-                                "name": "DEMO002",
-                              },
-                            ]
-                          }
-                          locale="nb"
-                          type="separated"
-                        >
-                          <div
-                            className="a-buc-c-institutionlist a-buc-c-bucheader__owner-institutions"
-                            key="NO"
-                          >
-                            <div
-                              className="a-buc-c-institutionlist__institution"
-                              key="DEMO002"
-                            >
-                              <Flag
-                                className="mr-2"
-                                country="NO"
-                                label="Norge"
-                                size="M"
-                                type="circle"
-                              >
-                                <ForwardRef
-                                  overlay={
-                                    <span>
-                                      Norge
-                                    </span>
-                                  }
-                                  placement="top"
-                                  trigger={
-                                    Array [
-                                      "hover",
-                                    ]
-                                  }
-                                >
-                                  <i
-                                    action={
-                                      Array [
-                                        "hover",
-                                      ]
-                                    }
-                                    afterPopupVisibleChange={[Function]}
-                                    autoDestroy={false}
-                                    blurDelay={0.15}
-                                    builtinPlacements={
-                                      Object {
-                                        "bottom": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tc",
-                                            "bc",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "bottomLeft": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tl",
-                                            "bl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "bottomRight": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tr",
-                                            "br",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "left": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "cr",
-                                            "cl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "leftBottom": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "br",
-                                            "bl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "leftTop": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tr",
-                                            "tl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "right": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "cl",
-                                            "cr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "rightBottom": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bl",
-                                            "br",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "rightTop": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tl",
-                                            "tr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "top": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bc",
-                                            "tc",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "topLeft": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bl",
-                                            "tl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "topRight": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "br",
-                                            "tr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                      }
-                                    }
-                                    defaultPopupVisible={false}
-                                    destroyPopupOnHide={false}
-                                    focusDelay={0}
-                                    getDocument={[Function]}
-                                    getPopupClassNameFromAlign={[Function]}
-                                    hideAction={Array []}
-                                    mask={false}
-                                    maskClosable={true}
-                                    mouseEnterDelay={0}
-                                    mouseLeaveDelay={0.1}
-                                    onPopupAlign={[Function]}
-                                    onPopupVisibleChange={[Function]}
-                                    overlay={
-                                      <span>
-                                        Norge
-                                      </span>
-                                    }
-                                    popup={[Function]}
-                                    popupAlign={Object {}}
-                                    popupClassName=""
-                                    popupPlacement="top"
-                                    popupStyle={Object {}}
-                                    prefixCls="rc-tooltip"
-                                    showAction={Array []}
-                                  >
-                                    <div
-                                      className="mr-2 c-flag size-M type-circle"
-                                      key="trigger"
-                                      onMouseEnter={[Function]}
-                                      onMouseLeave={[Function]}
-                                      style={Object {}}
-                                    >
-                                      <img
-                                        alt="Norge"
-                                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3E %3Crect width='1100' height='800' fill='%23ef2b2d'/%3E %3Crect width='200' height='800' x='300' fill='%23fff'/%3E %3Crect width='1100' height='200' y='300' fill='%23fff'/%3E %3Crect width='100' height='800' x='350' fill='%23002868'/%3E %3Crect width='1100' height='100' y='350' fill='%23002868'/%3E %3C/svg%3E"
-                                        style={Object {}}
-                                      />
-                                    </div>
-                                  </i>
-                                </ForwardRef>
-                              </Flag>
-                              <Normaltekst>
-                                <n
-                                  type="normaltekst"
-                                >
-                                  <p
-                                    className="typo-normal"
-                                  >
-                                    DEMO002
-                                  </p>
-                                </n>
-                              </Normaltekst>
-                            </div>
-                          </div>
-                        </InstitutionList>
-                      </div>
-                      <div
-                        className="a-buc-c-bucheader__case"
-                        id="a-buc-c-bucheader__case-id"
-                      >
-                        <WaitingPanel
-                          size="S"
-                        >
-                          <div
-                            className="c-waitingPanel text-center"
-                            style={Object {}}
-                          >
-                            <Spinner
-                              aria-label="Laster innhold"
-                              transparent={false}
-                              type="S"
-                            >
-                              <Ikon
-                                aria-label="Laster innhold"
-                                className="spinner spinner--s"
-                                kind="spinner-negativ"
-                                size={32}
-                              >
-                                <svg
-                                  aria-label="Laster innhold"
-                                  className="spinner spinner--s"
-                                  focusable="false"
-                                  height={32}
-                                  kind="spinner-negativ"
-                                  preserveAspectRatio="xMidYMid"
-                                  viewBox="0 0 50 50"
-                                  width={32}
-                                >
-                                  <title>
-                                    Venter...
-                                  </title>
-                                  <circle
-                                    cx="25"
-                                    cy="25"
-                                    fill="none"
-                                    r="20"
-                                    stroke="#eee"
-                                    strokeWidth="5"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  />
-                                  <circle
-                                    cx="25"
-                                    cy="25"
-                                    fill="none"
-                                    r="20"
-                                    stroke="#888"
-                                    strokeDasharray="50 155"
-                                    strokeLinecap="round"
-                                    strokeWidth="5"
-                                  />
-                                </svg>
-                              </Ikon>
-                            </Spinner>
-                            <Normaltekst
-                              className="c-waitingPanel__message ml-2"
-                            >
-                              <n
-                                className="c-waitingPanel__message ml-2"
-                                type="normaltekst"
-                              >
-                                <p
-                                  className="typo-normal c-waitingPanel__message ml-2"
-                                >
-                                  Vennligst vent...
-                                </p>
-                              </n>
-                            </Normaltekst>
-                          </div>
-                        </WaitingPanel>
-                      </div>
-                    </div>
-                    <div
-                      className="a-buc-c-bucheader__icons col-sm-4"
-                    >
-                      <WaitingPanel
-                        message=""
-                        size="M"
-                      >
-                        <div
-                          className="c-waitingPanel text-center"
-                          style={Object {}}
-                        >
-                          <Spinner
-                            aria-label="Laster innhold"
-                            transparent={false}
-                            type="M"
-                          >
-                            <Ikon
-                              aria-label="Laster innhold"
-                              className="spinner spinner--m"
-                              kind="spinner-negativ"
-                              size={32}
-                            >
-                              <svg
-                                aria-label="Laster innhold"
-                                className="spinner spinner--m"
-                                focusable="false"
-                                height={32}
-                                kind="spinner-negativ"
-                                preserveAspectRatio="xMidYMid"
-                                viewBox="0 0 50 50"
-                                width={32}
-                              >
-                                <title>
-                                  Venter...
-                                </title>
-                                <circle
-                                  cx="25"
-                                  cy="25"
-                                  fill="none"
-                                  r="20"
-                                  stroke="#eee"
-                                  strokeWidth="5"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                />
-                                <circle
-                                  cx="25"
-                                  cy="25"
-                                  fill="none"
-                                  r="20"
-                                  stroke="#888"
-                                  strokeDasharray="50 155"
-                                  strokeLinecap="round"
-                                  strokeWidth="5"
-                                />
-                              </svg>
-                            </Ikon>
-                          </Spinner>
-                        </div>
-                      </WaitingPanel>
-                      <div
-                        className="a-buc-c-bucheader__icon-numberofseds"
-                        data-tip="buc:form-youhaveXseds"
-                      >
-                        1
-                      </div>
-                    </div>
-                    <div
-                      className="a-buc-c-bucheader__actions col-sm-4"
-                    >
-                      <Lenke
-                        className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
-                        data-amplitude="app.buc.list.editbuc"
-                        href="#P_BUC_06"
-                        id="a-buc-c-bucheader__bucedit-link-id"
-                        onClick={[Function]}
-                      >
-                        <a
-                          className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
-                          data-amplitude="app.buc.list.editbuc"
-                          href="#P_BUC_06"
-                          id="a-buc-c-bucheader__bucedit-link-id"
-                          onClick={[Function]}
-                        >
-                          ui:processing
-                        </a>
-                      </Lenke>
-                    </div>
-                  </div>
-                </Row>
+                Rina serverfeil, kan også skyldes ugyldig input, {"status":"INTERNAL_SERVER_ERROR","timestamp":"23-10-2019 15:48:30","messages":["500 null","{\\"stack\\":\\"\\",\\"error_description\\":\\"The user with userName:[Z990638] is not authorised\\",\\"error\\":\\"Cannot get case\\"}"]}
               </div>
-            </BUCHeader>
-            <button
-              aria-expanded={false}
-              aria-label="open"
-              className="ekspanderbartPanel__knapp"
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              type="button"
-            >
-              <span
-                className="ekspanderbartPanel__indikator"
-              />
-            </button>
-          </div>
+            </n>
+          </Normaltekst>
         </div>
-        <t
-          id="a-buc-p-buclist__buc-158124"
-          isOpened={false}
-          onRest={[Function]}
-        />
-      </div>
-    </ow>
+      </AlertStripe>
+    </div>
     <Component
       className="w-100 mt-2 mb-2"
     >

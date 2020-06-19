@@ -43,7 +43,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
             ]
           }
         >
-          <i
+          <n
             action={
               Array [
                 "hover",
@@ -310,7 +310,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                 style={Object {}}
               />
             </div>
-          </i>
+          </n>
         </ForwardRef>
       </Flag>
       <Normaltekst>

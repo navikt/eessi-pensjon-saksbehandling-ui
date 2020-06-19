@@ -1179,7 +1179,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
       <div
         className="mt-4 mb-4 flex-fill"
       >
-        <tx
+        <ex
           aria-describedby="help-country"
           ariaLabel="ui:country"
           className="a-buc-c-sedstart__country-select"
@@ -2182,7 +2182,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                           }
                                         }
                                       >
-                                        <Ow
+                                        <Nw
                                           clearValue={[Function]}
                                           component={[Function]}
                                           cx={[Function]}
@@ -2493,7 +2493,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                               </ForwardRef>
                                             </Placeholder>
                                           </t>
-                                        </Ow>
+                                        </Nw>
                                       </Component>
                                       <Component
                                         aria-autocomplete="list"
@@ -3308,8 +3308,8 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                         onMouseDown={[Function]}
                                         onTouchEnd={[Function]}
                                       >
-                                        <DM>
-                                          <LM
+                                        <RM>
+                                          <OM
                                             size={20}
                                           >
                                             <ForwardRef
@@ -3339,8 +3339,8 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                                 />
                                               </svg>
                                             </ForwardRef>
-                                          </LM>
-                                        </DM>
+                                          </OM>
+                                        </RM>
                                       </div>
                                     </ForwardRef>
                                   </DropdownIndicator>
@@ -3356,12 +3356,12 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
               </a>
             </r>
           </div>
-        </tx>
+        </ex>
       </div>
       <div
         className="mt-4 mb-4 flex-fill"
       >
-        <tx
+        <ex
           aria-describedby="help-institution"
           ariaLabel="ui:institution"
           className="a-buc-c-sedstart__institution-select"
@@ -4364,7 +4364,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                           }
                                         }
                                       >
-                                        <Ow
+                                        <Nw
                                           clearValue={[Function]}
                                           component={[Function]}
                                           cx={[Function]}
@@ -4675,7 +4675,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                               </ForwardRef>
                                             </Placeholder>
                                           </t>
-                                        </Ow>
+                                        </Nw>
                                       </Component>
                                       <Component
                                         aria-autocomplete="list"
@@ -5490,8 +5490,8 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                         onMouseDown={[Function]}
                                         onTouchEnd={[Function]}
                                       >
-                                        <DM>
-                                          <LM
+                                        <RM>
+                                          <OM
                                             size={20}
                                           >
                                             <ForwardRef
@@ -5521,8 +5521,8 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                                                 />
                                               </svg>
                                             </ForwardRef>
-                                          </LM>
-                                        </DM>
+                                          </OM>
+                                        </RM>
                                       </div>
                                     </ForwardRef>
                                   </DropdownIndicator>
@@ -5538,7 +5538,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
               </a>
             </r>
           </div>
-        </tx>
+        </ex>
       </div>
       <Undertittel
         className="mb-2"

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/OverviewWidget Renders 1'] = `
+exports[`widgets/OverviewWidget Renders 1`] = `
 <OverviewWidget
   onFullFocus={[MockFunction]}
   onResize={
@@ -54,10 +54,9 @@ exports['widgets/OverviewWidget Renders 1'] = `
       refreshRate={1000}
       skipOnMount={false}
       targetDomEl={null}
+      targetRef={null}
     >
-      <ChildWrapper>
-        <div />
-      </ChildWrapper>
+      <div />
     </ResizeDetector>
     <Component
       onUpdate={[MockFunction]}
@@ -79,4 +78,4 @@ exports['widgets/OverviewWidget Renders 1'] = `
     </Component>
   </div>
 </OverviewWidget>
-`
+`;

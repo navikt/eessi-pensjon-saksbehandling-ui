@@ -77,6 +77,8 @@ export const initialBucState: BucState = {
 }
 
 const bucReducer = (state: BucState = initialBucState, action: Action | ActionWithPayload) => {
+  let excludedBucs
+
   switch (action.type) {
     case types.APP_CLEAR_DATA: {
       return initialBucState
@@ -296,9 +298,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
+      excludedBucs = ['P_BUC_05', 'P_BUC_10']
+      if (_.get((action as ActionWithPayload), 'context.feature.P_BUC_02_VISIBLE') === false) {
+        excludedBucs.push('P_BUC_02')
+      }
       return {
         ...state,
-        bucList: _.difference((action as ActionWithPayload).payload, ['P_BUC_05', 'P_BUC_10'])
+        bucList: _.difference((action as ActionWithPayload).payload, excludedBucs)
       }
 
     case types.BUC_GET_BUC_LIST_REQUEST:

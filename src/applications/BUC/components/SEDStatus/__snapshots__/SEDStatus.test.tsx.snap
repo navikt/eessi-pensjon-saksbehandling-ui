@@ -6,8 +6,8 @@ exports[`applications/BUC/components/SEDStatus/SEDStatus Renders 1`] = `
 >
   <EtikettBase
     className="a-buc-c-sedstatus a-buc-c-sedstatus__new"
+    mini={false}
     type="fokus"
-    typo="normaltekst"
   >
     <div
       className="etikett a-buc-c-sedstatus a-buc-c-sedstatus__new etikett--fokus"
