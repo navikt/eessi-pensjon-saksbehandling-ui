@@ -296,10 +296,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
-
       return {
         ...state,
-        bucList: _.difference((action as ActionWithPayload).payload, ['P_BUC_02', 'P_BUC_05', 'P_BUC_10'])
+        bucList: _.difference((action as ActionWithPayload).payload, ['P_BUC_05', 'P_BUC_10'])
       }
 
     case types.BUC_GET_BUC_LIST_REQUEST:
