@@ -172,7 +172,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     )
   }
 
-  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
+  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && _.isEmpty(avdodBucs) && mode !== 'bucnew') {
     _setMode('bucnew')
   }
 
