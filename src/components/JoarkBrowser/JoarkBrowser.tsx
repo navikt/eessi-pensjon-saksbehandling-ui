@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
+import TableSorter from 'tabell'
 import './JoarkBrowser.css'
 
 export interface JoarkBrowserSelector {
@@ -196,7 +197,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   return (
     <div className='c-joarkBrowser'>
       <Ui.Modal modal={modal} onModalClose={handleModalClose} />
-      <Ui.TableSorter
+      <TableSorter
         className={mode}
         items={items}
         context={context}

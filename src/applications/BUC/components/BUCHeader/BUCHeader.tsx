@@ -5,7 +5,7 @@ import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
-import { FlagItems } from 'eessi-pensjon-ui/dist/declarations/components'
+import { FlagList, FlagItems } from 'flagg-ikoner'
 import _ from 'lodash'
 import { buttonLogger, linkLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -136,7 +136,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         </div>
         <div className='a-buc-c-bucheader__icons col-sm-4'>
           {!_.isEmpty(flagItems) ? (
-            <Ui.FlagList
+            <FlagList
               animate
               locale={locale}
               type='circle'

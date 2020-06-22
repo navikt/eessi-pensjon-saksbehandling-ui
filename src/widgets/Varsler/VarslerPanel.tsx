@@ -1,8 +1,7 @@
 import { sendInvite } from 'actions/pinfo'
 import { getStorageFile, listStorageFiles } from 'actions/storage'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
 import Ui from 'eessi-pensjon-ui'
-import { Widget } from 'eessi-pensjon-ui/dist/declarations/Dashboard.d'
+import { Widget, WidgetPropType } from 'nav-dashboard'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -11,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import { ReactComponent as VeilederSVG } from 'assets/images/NavPensjonVeileder.svg'
+import TableSorter from 'tabell'
 import './VarslerPanel.css'
 
 const mapState = /* istanbul ignore next */ (state: State) => ({
@@ -231,7 +231,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
             />
           </div>
           {!_.isEmpty(items) ? (
-            <Ui.TableSorter
+            <TableSorter
               className='w-varslerPanel__table w-100 mt-2'
               items={items}
               searchable

@@ -5,6 +5,7 @@ import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
+import Flag from 'flagg-ikoner'
 import BucHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 
 const defaultSelector: BUCHeaderSelector = {
@@ -54,7 +55,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
       'buc:form-caseOwner: NAVAT07'
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions .c-flag')).toBeTruthy()
+    expect(wrapper.exists(Flag)).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('9')

@@ -37,7 +37,7 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
           />
         </div>
       </Input>
-      <ex
+      <Rv
         ariaLabel="buc:form-searchForStatus"
         className="a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1 w-50"
         hideSelectedOptions={false}
@@ -1310,7 +1310,7 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
                                         }
                                       }
                                     >
-                                      <Nw
+                                      <dv
                                         clearValue={[Function]}
                                         component={[Function]}
                                         cx={[Function]}
@@ -1693,7 +1693,7 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
                                             </ForwardRef>
                                           </Placeholder>
                                         </t>
-                                      </Nw>
+                                      </dv>
                                     </Component>
                                     <Component
                                       aria-autocomplete="list"
@@ -2650,8 +2650,8 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
                                       onMouseDown={[Function]}
                                       onTouchEnd={[Function]}
                                     >
-                                      <RM>
-                                        <OM
+                                      <Bm>
+                                        <Im
                                           size={20}
                                         >
                                           <ForwardRef
@@ -2681,8 +2681,8 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
                                               />
                                             </svg>
                                           </ForwardRef>
-                                        </OM>
-                                      </RM>
+                                        </Im>
+                                      </Bm>
                                     </div>
                                   </ForwardRef>
                                 </DropdownIndicator>
@@ -2698,7 +2698,7 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
             </a>
           </r>
         </div>
-      </ex>
+      </Rv>
     </div>
   </Panel>
 </SEDSearch>

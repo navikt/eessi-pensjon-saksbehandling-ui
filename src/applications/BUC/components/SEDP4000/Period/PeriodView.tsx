@@ -5,6 +5,7 @@ import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
+import Flag from 'flagg-ikoner'
 import { useTranslation } from 'react-i18next'
 import P4000Payload from '../P4000Payload'
 
@@ -35,7 +36,7 @@ const PeriodView: React.FC<PeriodViewProps> = ({
               <Ui.Nav.UndertekstBold className='pr-2'>
                 {t('buc:p4000-label-category-' + period.type)}
               </Ui.Nav.UndertekstBold>
-              <Ui.Flag label={period.country.label} country={period.country.value} size='M' />
+              <Flag label={period.country.label} country={period.country.value} size='M' />
               <Ui.Nav.Normaltekst className='pl-2'>{period.country.label}</Ui.Nav.Normaltekst>
             </div>
             <div className='a-buc-c-sedp4000-period__existingPeriod-dates'>

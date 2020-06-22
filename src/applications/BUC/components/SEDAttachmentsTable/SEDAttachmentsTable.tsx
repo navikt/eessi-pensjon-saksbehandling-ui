@@ -3,6 +3,7 @@ import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFile } from 'declarations/joark'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import TableSorter from 'tabell'
 import React from 'react'
 import './SEDAttachmentsTable.css'
 import { useTranslation } from 'react-i18next'
@@ -41,7 +42,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   }
 
   return (
-    <Ui.TableSorter
+    <TableSorter
       className='a-buc-c-sedattachmentstable'
       items={items}
       sortable={false}

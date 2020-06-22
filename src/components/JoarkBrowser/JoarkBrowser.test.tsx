@@ -5,6 +5,7 @@ import React from 'react'
 import mockJoark from 'mocks/joark/joarkRaw'
 import { stageSelector } from 'setupTests'
 import { JoarkBrowser, JoarkBrowserProps, JoarkBrowserSelector } from './JoarkBrowser'
+import TableSorter from 'tabell'
 import _ from 'lodash'
 
 jest.mock('actions/joark', () => ({
@@ -69,7 +70,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.c-joarkBrowser')).toBeTruthy()
-    expect(wrapper.exists('.c-tableSorter')).toBeTruthy()
+    expect(wrapper.exists(TableSorter)).toBeTruthy()
   })
 
   it('UseEffect: list Joark files ', () => {

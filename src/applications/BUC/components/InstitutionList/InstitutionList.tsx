@@ -6,6 +6,7 @@ import { AllowedLocaleStringPropType } from 'declarations/types.pt'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
+import Flag from 'flagg-ikoner'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -15,7 +16,7 @@ import './InstitutionList.css'
 export interface InstitutionListProps {
   className?: string;
   flag?: boolean;
-  flagType?: string;
+  flagType?: 'original' | 'circle';
   institutions: Institutions;
   locale: AllowedLocaleString;
   type?: string;
@@ -67,7 +68,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
           >
             {type === 'joined' ? (
               <div className='a-buc-c-institutionlist__institution'>
-                {flag ? <Ui.Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
+                {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
                 <Ui.Nav.Normaltekst>
                   {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}
                 </Ui.Nav.Normaltekst>
@@ -75,7 +76,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
             ) : null}
             {type === 'separated' ? institutionList[landkode].map((institutionId : string) => (
               <div className='a-buc-c-institutionlist__institution' key={institutionId}>
-                {flag ? <Ui.Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
+                {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
                 <Ui.Nav.Normaltekst>
                   {getLabel(landkode, institutionId)}
                 </Ui.Nav.Normaltekst>
@@ -91,7 +92,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
 InstitutionList.propTypes = {
   className: PT.string,
   flag: PT.bool,
-  flagType: PT.string,
+  flagType: PT.oneOf(['original', 'circle']),
   institutions: InstitutionsPropType.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
   type: PT.string

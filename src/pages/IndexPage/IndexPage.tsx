@@ -1,7 +1,7 @@
 import { BUCMode } from 'applications/BUC'
 import TopContainer from 'components/TopContainer/TopContainer'
 import Ui from 'eessi-pensjon-ui'
-import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
+import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
 import { linkLogger, timeLogger } from 'metrics/loggers'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -170,7 +170,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           {t('ui:help')}
         </Ui.Nav.Lenke>
       </DivWithLinks>
-      <Ui.Dashboard
+      <Dashboard
         id='eessi-pensjon-ui-fss'
         extraWidgets={extraWidgets}
         defaultWidgets={username === 'Z990706' ? defaultWidgetsWithVarsel : defaultWidgets}

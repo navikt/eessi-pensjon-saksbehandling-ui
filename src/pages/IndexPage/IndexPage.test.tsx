@@ -5,7 +5,8 @@ import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
 const defaultSelector: IndexPageSelector = {
-  username: 'mockUsername'
+  username: 'mockUsername',
+  mode: 'buclist'
 }
 
 jest.mock('components/TopContainer/TopContainer', () => {
@@ -16,13 +17,9 @@ jest.mock('components/TopContainer/TopContainer', () => {
   )
 })
 
-jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui').default
-  return {
-    ...Ui,
-    Dashboard: (props: any) => <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
-  }
-})
+jest.mock('nav-dashboard', () => (props: any) => (
+  <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
+))
 
 describe('pages/IndexPage', () => {
   let wrapper: ReactWrapper

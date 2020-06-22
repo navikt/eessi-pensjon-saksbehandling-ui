@@ -4,6 +4,7 @@ import { SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString } from 'declarations/types'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
+import Flag from 'flagg-ikoner'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -12,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import * as labels from './SEDP5000.labels'
 import WarningCircle from 'assets/images/WarningCircle'
+import TableSorter from 'tabell'
 import ReactToPrint from 'react-to-print'
 
 export interface SEDP5000Props {
@@ -55,7 +57,7 @@ export const CheckboxLabel = styled.div`
   align-items: flex-end;
   flex-wrap: wrap;
 `
-export const PrintableTableSorter = styled(Ui.TableSorter)`
+export const PrintableTableSorter = styled(TableSorter)`
   width: 100%;
   margin-top: 0.5rem;
   @media print {
@@ -195,7 +197,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                     <span className='ml-1 mr-1'>-</span>
                     {sender ? (
                       <div className='d-flex align-items-center'>
-                        <Ui.Flag
+                        <Flag
                           type='circle'
                           className='ml-1 mr-1'
                           size='S'
@@ -238,7 +240,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           </Ui.Nav.Select>
         </div>
       </SEDP5000Header>
-      <Ui.TableSorter
+      <TableSorter
         className='w-100 mt-2'
         items={items}
         searchable

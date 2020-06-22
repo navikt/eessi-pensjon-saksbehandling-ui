@@ -221,7 +221,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
               color="#0067C5"
               kind="outlink"
             >
-              <we
+              <Wt
                 className="mr-2"
                 color="#0067C5"
                 height={24}
@@ -257,7 +257,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                     />
                   </g>
                 </svg>
-              </we>
+              </Wt>
             </Icons>
             <span>
               ui:goToRina

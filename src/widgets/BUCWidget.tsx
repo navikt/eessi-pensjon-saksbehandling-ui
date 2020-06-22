@@ -1,6 +1,5 @@
 import Buc from 'applications/BUC/'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
-import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
+import { WidgetFC, WidgetProps, WidgetPropType } from 'nav-dashboard'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'

@@ -1,10 +1,11 @@
 import { Period } from 'declarations/period'
 import { PeriodPropType } from 'declarations/period.pt'
 import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components.d'
-import { Files } from 'eessi-pensjon-ui/dist/declarations/types.d'
 import React from 'react'
 import PT from 'prop-types'
 import Ui from 'eessi-pensjon-ui'
+import { Files } from 'forhandsvisningsfil'
+import FileUpload from 'filopplasting'
 import { useTranslation } from 'react-i18next'
 
 export interface PeriodAttachmentsProps {
@@ -15,7 +16,7 @@ export interface PeriodAttachmentsProps {
 }
 
 const PeriodAttachments: React.FC<PeriodAttachmentsProps> = ({
-  closeModal, openModal, period, setAttachments
+  period, setAttachments
 }: PeriodAttachmentsProps): JSX.Element => {
   const { t } = useTranslation()
   return (
@@ -30,16 +31,13 @@ const PeriodAttachments: React.FC<PeriodAttachmentsProps> = ({
         <Ui.Nav.Normaltekst className='optional mb-1'>{t('ui:optional')}</Ui.Nav.Normaltekst>
       </div>
       <div className='col-sm-12'>
-        <Ui.FileUpload
+        <FileUpload
           acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
           className='a-buc-c-sedp4000-period__vedlegg-fileupload p-4'
-          closeModal={closeModal}
           files={period.attachments || []}
-          id='a-buc-c-sedp4000-period__vedlegg-fileupload-id'
           maxFiles={10}
           maxFileSize={10 * 1024 * 1024}
           onFilesChanged={(newFiles: Files) => setAttachments(newFiles)}
-          openModal={openModal}
         />
       </div>
     </Ui.Nav.Row>

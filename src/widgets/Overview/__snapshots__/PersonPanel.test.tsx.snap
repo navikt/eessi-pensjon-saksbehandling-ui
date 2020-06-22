@@ -241,7 +241,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
             color="black"
             kind="nav-home"
           >
-            <Me
+            <Kt
               color="black"
               height={24}
               kind="nav-home"
@@ -281,7 +281,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                   />
                 </g>
               </svg>
-            </Me>
+            </Kt>
           </Icons>
         </div>
         <div
@@ -365,7 +365,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
             color="black"
             kind="calendar"
           >
-            <se
+            <Ot
               color="black"
               height={24}
               kind="calendar"
@@ -423,7 +423,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                   y2="7.5"
                 />
               </svg>
-            </se>
+            </Ot>
           </Icons>
         </div>
         <div
@@ -470,7 +470,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
             color="black"
             kind="nav-work"
           >
-            <ge
+            <Gt
               color="black"
               height={24}
               kind="nav-work"
@@ -500,7 +500,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                   />
                 </g>
               </svg>
-            </ge>
+            </Gt>
           </Icons>
         </div>
         <div
@@ -558,7 +558,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
             color="black"
             kind="address"
           >
-            <pe
+            <Tt
               color="black"
               height={24}
               kind="address"
@@ -586,7 +586,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                   fill="black"
                 />
               </svg>
-            </pe>
+            </Tt>
           </Icons>
         </div>
         <div
@@ -668,7 +668,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
             color="black"
             kind="calendar"
           >
-            <se
+            <Ot
               color="black"
               height={24}
               kind="calendar"
@@ -726,7 +726,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                   y2="7.5"
                 />
               </svg>
-            </se>
+            </Ot>
           </Icons>
         </div>
         <div
@@ -773,7 +773,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
             color="black"
             kind="nav-child"
           >
-            <be
+            <Ft
               color="black"
               height={24}
               kind="nav-child"
@@ -808,7 +808,7 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                   />
                 </g>
               </svg>
-            </be>
+            </Ft>
           </Icons>
         </div>
         <div

@@ -1,5 +1,4 @@
-import { WidgetPropType } from 'declarations/Dashboard.pt'
-import { WidgetFC, WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
+import { WidgetFC, WidgetProps, WidgetPropType } from 'nav-dashboard'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
