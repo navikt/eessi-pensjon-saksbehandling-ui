@@ -1,4 +1,4 @@
-import { WidgetFC, WidgetProps, WidgetPropType } from 'nav-dashboard'
+import { WidgetFC, WidgetProps } from 'nav-dashboard'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
@@ -43,7 +43,7 @@ VarslerWidget.properties = {
 VarslerWidget.propTypes = {
   onResize: PT.func.isRequired,
   onUpdate: PT.func.isRequired,
-  widget: WidgetPropType.isRequired
+  widget: PT.any.isRequired //WidgetPropType.isRequired
 }
 
 export default VarslerWidget

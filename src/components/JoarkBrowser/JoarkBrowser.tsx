@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
-import TableSorter from 'tabell'
+import TableSorter, { Items } from 'tabell'
 import './JoarkBrowser.css'
 
 export interface JoarkBrowserSelector {
@@ -163,7 +163,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     )
   }
 
-  let items
+  let items: Items = []
   if (mode === 'view') {
     items = list ? list.map((file) => {
       return {
@@ -183,7 +183,10 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       }
     }) : []
   } else {
-    items = files || []
+    items = files?.map((file) => ({
+      ...file,
+      key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat,
+    }))
   }
 
   const context = {

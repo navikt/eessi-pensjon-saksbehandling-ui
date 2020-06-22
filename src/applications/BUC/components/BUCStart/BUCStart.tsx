@@ -95,7 +95,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   useEffect(() => {
     if (!isBucCreated && currentBuc) {
-      const buc: Buc | null = bucs ? bucs[currentBuc] : avdodBucs ? avdodBucs[currentBuc] : null
+      const buc: Buc | null = bucs && bucs[currentBuc] ?
+        bucs[currentBuc] :
+        avdodBucs && avdodBucs[currentBuc] ?
+          avdodBucs[currentBuc]
+          : null
       if (buc) {
         dispatch(saveBucsInfo({
           bucsInfo: bucsInfo,

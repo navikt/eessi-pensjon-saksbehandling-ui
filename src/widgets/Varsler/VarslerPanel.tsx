@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import { ReactComponent as VeilederSVG } from 'assets/images/NavPensjonVeileder.svg'
-import TableSorter from 'tabell'
+import TableSorter, { Item } from 'tabell'
 import './VarslerPanel.css'
 
 const mapState = /* istanbul ignore next */ (state: State) => ({
@@ -243,7 +243,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
                   id: 'type',
                   label: t('ui:sentDocuments'),
                   type: 'object',
-                  needle: /* istanbul ignore next */ (it: string) => it.toLowerCase(),
+                  needle: /* istanbul ignore next */ (it: Item) => it.type.toLowerCase(),
                   renderCell: (item: any) => (
                     <div className='d-flex'>
                       <Ui.Icons className='mr-2' kind='nav-message-sent' />
