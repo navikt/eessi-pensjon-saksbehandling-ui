@@ -17,7 +17,9 @@
     "test": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test",
     "test:clear": "cross-env NODE_ENV=test react-scripts test --clearCache",
     "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test --watchAll=false --forceExit --updateSnapshot",
-    "test:coverage": "cross-env NODE_ENV=test react-scripts test --coverage  --watchAll=false"
+    "test:coverage": "cross-env NODE_ENV=test react-scripts test --coverage  --watchAll=false",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -57,7 +59,8 @@
     "sprintf-js": "^1.1.2",
     "styled-components": "^5.1.1",
     "tabell": "^1.0.2",
-    "use-error-boundary": "^1.2.3"
+    "use-error-boundary": "^1.2.3",
+    "snyk": "^1.347.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.10.3",
@@ -180,5 +183,6 @@
       "src/widgets/*.{ts,tsx}",
       "src/widgets/**/*.{ts,tsx}"
     ]
-  }
+  },
+  "snyk": true
 }
