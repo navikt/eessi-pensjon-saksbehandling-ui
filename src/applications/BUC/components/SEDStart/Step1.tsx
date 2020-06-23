@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux'
 
 export interface Step1Props {
   _attachments: AttachedFiles;
+  avdodfnr: number | undefined;
   buc: Buc;
   _countries: Array<string>;
   countryList: Array<string>;
@@ -35,6 +36,8 @@ export interface Step1Props {
   setInstitutions: (i: Array<string>) => void;
   sedList?: Array<string>;
   sedNeedsVedtakId: () => boolean;
+  sedNeedsAvdodfnr: () => boolean;
+  setAvdodfnr: (v: number) => void;
   setSed: (s: string) => void;
   setValidation: (v: Validation) => void;
   setVedtakId: (v: number) => void;
@@ -46,15 +49,16 @@ const placeholders: Labels = {
   sed: 'buc:form-chooseSed',
   institution: 'buc:form-chooseInstitution',
   country: 'buc:form-chooseCountry',
-  vedtakId: 'buc:form-noVedtakId'
+  vedtakId: 'buc:form-noVedtakId',
+  avdodfnr: 'buc:form-noAvdodfnr'
 }
 
 const countrySort = (a: Country, b: Country) => a.label.localeCompare(b.label)
 
 const Step1: React.FC<Step1Props> = ({
-  _attachments, buc, _countries, countryList = [], currentSed, _institutions, institutionList,
+  _attachments, avdodfnr, buc, _countries, countryList = [], currentSed, _institutions, institutionList,
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
-  sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, validation, vedtakId
+  sedList, sedNeedsVedtakId, sedNeedsAvdodfnr, setAvdodfnr, setSed, setValidation, setVedtakId, validation, vedtakId
 }: Step1Props): JSX.Element => {
   const countryData = Ui.CountryData.getCountryInstance(locale)
   const [mounted, setMounted] = useState<boolean>(false)
@@ -195,6 +199,16 @@ const Step1: React.FC<Step1Props> = ({
     }
   }
 
+  const validateAvdodfnr = (avdodfnr: number | undefined): boolean => {
+    if (sedNeedsAvdodfnr() && !_.isNumber(avdodfnr)) {
+      setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodfnr'))
+      return false
+    } else {
+      resetValidationState('avdodfnrFail')
+      return true
+    }
+  }
+
   const onSedChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const thisSed = e.target.value
     setSed(thisSed)
@@ -211,6 +225,15 @@ const Step1: React.FC<Step1Props> = ({
 
   const onCountriesChange = (countries: Array<Country>) => {
     fetchInstitutionsForSelectedCountries(countries)
+  }
+
+  const onAvdodfnrChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let avdodfnr: number
+    try {
+      avdodfnr = parseInt(e.target.value, 10)
+      validateAvdodfnr(avdodfnr)
+      setAvdodfnr(avdodfnr)
+    } catch (e) {}
   }
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -313,13 +336,27 @@ const Step1: React.FC<Step1Props> = ({
             <Ui.Nav.Input
               disabled
               id='a-buc-c-sedstart__vedtakid-input-id'
-              className='a-buc-c-sedstart__vedtakid-input  mt-4 mb-4'
+              className='a-buc-c-sedstart__vedtakid-input mt-4 mb-4'
               label={t('buc:form-vedtakId')}
               bredde='fullbredde'
               value={vedtakId || ''}
               onChange={onVedtakIdChange}
               placeholder={t(placeholders.vedtakId!)}
               feil={validation.vedtakFail ? t(validation.vedtakFail) : null}
+            />
+          </div>
+        ) : null}
+        {sedNeedsAvdodfnr() ? (
+          <div className='mb-3'>
+            <Ui.Nav.Input
+              id='a-buc-c-sedstart__fnr-input-id'
+              className='a-buc-c-sedstart__fnr-input mt-4 mb-4'
+              label={t('buc:form-fnr')}
+              bredde='fullbredde'
+              value={avdodfnr || ''}
+              onChange={onAvdodfnrChange}
+              placeholder={t(placeholders.fnr!)}
+              feil={validation.fnrFail ? t(validation.fnrFail) : null}
             />
           </div>
         ) : null}
@@ -398,6 +435,7 @@ const Step1: React.FC<Step1Props> = ({
 
 Step1.propTypes = {
   _attachments: AttachedFilesPropType.isRequired,
+  avdodfnr: PT.number,
   buc: BucPropType.isRequired,
   _countries: PT.arrayOf(PT.string.isRequired).isRequired,
   countryList: PT.arrayOf(PT.string.isRequired).isRequired,
@@ -409,11 +447,13 @@ Step1.propTypes = {
   locale: AllowedLocaleStringPropType.isRequired,
   _sed: PT.string,
   sedCanHaveAttachments: PT.func.isRequired,
+  sedList: PT.arrayOf(PT.string.isRequired),
+  sedNeedsAvdodfnr: PT.func.isRequired,
+  sedNeedsVedtakId: PT.func.isRequired,
   setAttachments: PT.func.isRequired,
   setCountries: PT.func.isRequired,
   setInstitutions: PT.func.isRequired,
-  sedList: PT.arrayOf(PT.string.isRequired),
-  sedNeedsVedtakId: PT.func.isRequired,
+  setAvdodfnr: PT.func.isRequired,
   setSed: PT.func.isRequired,
   setValidation: PT.func.isRequired,
   setVedtakId: PT.func.isRequired,

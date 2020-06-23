@@ -87,13 +87,15 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   sedsWithAttachments: state.buc.sedsWithAttachments,
   p4000info: state.buc.p4000info,
   vedtakId: state.app.params.vedtakId
+
 })
 
 export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined, initialStep = 0, setMode
 } : SEDStartProps): JSX.Element | null => {
   const {
-    attachments, attachmentsError, avdodfnr, bucsInfoList, currentSed, countryList, institutionList, loading, locale,
+    attachments, attachmentsError, avdodfnr, bucsInfoList, currentSed, countryList,
+    institutionList, loading, locale,
     sakId, sed, sedsWithAttachments, sedList, p4000info, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -114,6 +116,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       : []
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
+  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(avdodfnr ? parseInt(avdodfnr, 10) : undefined)
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_institutions, setInstitutions] = useState<Array<string>>(prefill('id'))
   const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
@@ -185,8 +188,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       dispatch(resetSed())
       dispatch(resetSedAttachments())
       dispatch(fetchBucs(aktoerId))
-      if (avdodfnr) {
-        dispatch(fetchBucs(avdodfnr))
+      if (_avdodfnr) {
+        dispatch(fetchBucs(_avdodfnr))
       }
       if (!_.isEmpty(bucsInfoList) &&
         bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
@@ -194,7 +197,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       setMode('bucedit')
     }
-  }, [aktoerId, attachmentsSent, avdodfnr, bucsInfoList, dispatch, sedSent, setMode])
+  }, [aktoerId, attachmentsSent, _avdodfnr, bucsInfoList, dispatch, sedSent, setMode])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -211,6 +214,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsVedtakId = (): boolean => {
     return _sed === 'P6000' || _sed === 'P7000'
+  }
+
+  const sedNeedsAvdodfnr = (): boolean => {
+    return _sed === 'P2100'
   }
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkFile): void => {
@@ -257,8 +264,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
-      if (avdodfnr) {
-        payload.avdodfnr = avdodfnr
+      if (sedNeedsAvdodfnr()) {
+        payload.avdodfnr = _avdodfnr
       }
       if (currentSed) {
         dispatch(createReplySed(payload, currentSed))
@@ -295,7 +302,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       return _sed && _.isEmpty(validation) &&
        (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
        !loading.creatingSed && !sendingAttachments &&
-       (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true)
+       (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true) &&
+       (sedNeedsAvdodfnr() ? _.isNumber(_avdodfnr) && !_.isNaN(_avdodfnr) : true)
     }
     return false
   }
@@ -311,9 +319,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           _institutions={_institutions} setInstitutions={setInstitutions} institutionList={institutionList!}
           _attachments={_attachments} setAttachments={setAttachments}
           validation={validation} setValidation={setValidation}
-          sedNeedsVedtakId={sedNeedsVedtakId}
           sedCanHaveAttachments={sedCanHaveAttachments}
+          sedNeedsAvdodfnr={sedNeedsAvdodfnr}
+          avdodfnr={_avdodfnr} setAvdodfnr={setAvdodfnr}
           vedtakId={_vedtakId} setVedtakId={setVedtakId}
+          sedNeedsVedtakId={sedNeedsVedtakId}
         />
       ) : null}
       {step === 1 ? (

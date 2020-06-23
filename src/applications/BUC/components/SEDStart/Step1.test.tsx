@@ -10,6 +10,7 @@ describe('applications/BUC/components/SEDStart/Step1', () => {
   const _mockBucs: Bucs = _.keyBy(mockBucs(), 'caseId')
   const initialMockProps: Step1Props = {
     _attachments: {},
+    avdodfnr: 123,
     buc: _mockBucs['195440'],
     _countries: [],
     countryList: [],
@@ -31,10 +32,12 @@ describe('applications/BUC/components/SEDStart/Step1', () => {
     setInstitutions: jest.fn(),
     sedList: ['P2000', 'P4000'],
     sedNeedsVedtakId: () => false,
+    sedNeedsAvdodfnr: () => false,
     sedCanHaveAttachments: () => true,
     setSed: jest.fn(),
     setValidation: jest.fn(),
     setVedtakId: jest.fn(),
+    setAvdodfnr: jest.fn(),
     validation: {},
     vedtakId: 123
   }

@@ -51,7 +51,7 @@ BUCWidget.propTypes = {
   onResize: PT.func.isRequired,
   onFullFocus: PT.func.isRequired,
   onRestoreFocus: PT.func.isRequired,
-  widget: PT.any.isRequired//WidgetPropType.isRequired
+  widget: PT.any.isRequired// WidgetPropType.isRequired
 }
 
 export default BUCWidget

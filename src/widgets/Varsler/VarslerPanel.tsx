@@ -267,7 +267,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
 VarslerPanel.propTypes = {
   initialFiles: PT.objectOf(VarslerPropType.isRequired),
   onUpdate: PT.func.isRequired,
-  widget: PT.any.isRequired //anyWidgetPropType.isRequired
+  widget: PT.any.isRequired // anyWidgetPropType.isRequired
 }
 
 export default VarslerPanel

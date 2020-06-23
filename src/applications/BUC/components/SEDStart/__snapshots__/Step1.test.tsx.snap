@@ -5,6 +5,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
   _attachments={Object {}}
   _countries={Array []}
   _institutions={Array []}
+  avdodfnr={123}
   buc={
     Object {
       "aktoerId": "1000070418092",
@@ -1086,8 +1087,10 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
       "P4000",
     ]
   }
+  sedNeedsAvdodfnr={[Function]}
   sedNeedsVedtakId={[Function]}
   setAttachments={[MockFunction]}
+  setAvdodfnr={[MockFunction]}
   setCountries={[MockFunction]}
   setInstitutions={[MockFunction]}
   setSed={[MockFunction]}
