@@ -178,6 +178,7 @@ export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: st
   return api.call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
+    cascadeFailureError: true,
     expectedPayload: mockCreateBuc(buc),
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
@@ -281,6 +282,7 @@ export const createSed = (payload: NewSedPayload): Function => {
       ...payload,
       id: '123456789'
     },
+    cascadeFailureError: true,
     method: 'POST',
     type: {
       request: types.BUC_CREATE_SED_REQUEST,
