@@ -3927,14 +3927,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
         >
           <Lenke
             className="a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
-            data-amplitude="app.buc.list.editbuc"
+            data-amplitude="buc.list.editbuc"
             href="#P_BUC_01"
             id="a-buc-c-bucheader__bucedit-link-id"
             onClick={[Function]}
           >
             <a
               className="lenke a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3"
-              data-amplitude="app.buc.list.editbuc"
+              data-amplitude="buc.list.editbuc"
               href="#P_BUC_01"
               id="a-buc-c-bucheader__bucedit-link-id"
               onClick={[Function]}

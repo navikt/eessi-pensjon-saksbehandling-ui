@@ -45,7 +45,7 @@ OverviewWidget.properties = {
 OverviewWidget.propTypes = {
   onResize: PT.func.isRequired,
   onUpdate: PT.func.isRequired,
-  widget: PT.any.isRequired //WidgetPropType.isRequired
+  widget: PT.any.isRequired // WidgetPropType.isRequired
 }
 
 export default OverviewWidget

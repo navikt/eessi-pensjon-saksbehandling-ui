@@ -95,10 +95,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   useEffect(() => {
     if (!isBucCreated && currentBuc) {
-      const buc: Buc | null = bucs && bucs[currentBuc] ?
-        bucs[currentBuc] :
-        avdodBucs && avdodBucs[currentBuc] ?
-          avdodBucs[currentBuc]
+      const buc: Buc | null = bucs && bucs[currentBuc]
+        ? bucs[currentBuc]
+        : avdodBucs && avdodBucs[currentBuc]
+          ? avdodBucs[currentBuc]
           : null
       if (buc) {
         dispatch(saveBucsInfo({
@@ -163,8 +163,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const onForwardButtonClick = (e: React.MouseEvent): void => {
-    buttonLogger(e)
     if (validateSubjectArea(_subjectArea) && _buc && validateBuc(_buc)) {
+      buttonLogger(e, {
+        subjectArea: _subjectArea,
+        buc: _buc
+      })
       dispatch(createBuc(_buc))
     }
   }

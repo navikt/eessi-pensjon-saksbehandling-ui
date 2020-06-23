@@ -166,7 +166,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
           <Ui.Nav.Lenke
-            data-amplitude='app.buc.list.editbuc'
+            data-amplitude='buc.list.editbuc'
             id='a-buc-c-bucheader__bucedit-link-id'
             className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3'
             onClick={(e: MouseEvent) => {

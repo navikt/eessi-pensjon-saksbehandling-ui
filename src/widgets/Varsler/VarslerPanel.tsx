@@ -1,7 +1,7 @@
 import { sendInvite } from 'actions/pinfo'
 import { getStorageFile, listStorageFiles } from 'actions/storage'
 import Ui from 'eessi-pensjon-ui'
-import { Widget, WidgetPropType } from 'nav-dashboard'
+import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -243,7 +243,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
                   id: 'type',
                   label: t('ui:sentDocuments'),
                   type: 'object',
-                  needle: /* istanbul ignore next */ (it: Item) => it.type.toLowerCase(),
+                  needle: /* istanbul ignore next */ (it: Item) => it.toLowerCase(),
                   renderCell: (item: any) => (
                     <div className='d-flex'>
                       <Ui.Icons className='mr-2' kind='nav-message-sent' />
@@ -267,7 +267,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
 VarslerPanel.propTypes = {
   initialFiles: PT.objectOf(VarslerPropType.isRequired),
   onUpdate: PT.func.isRequired,
-  widget: WidgetPropType.isRequired
+  widget: PT.any.isRequired //anyWidgetPropType.isRequired
 }
 
 export default VarslerPanel

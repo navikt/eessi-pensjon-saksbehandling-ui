@@ -265,19 +265,22 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } else {
         dispatch(createSed(payload))
       }
-      buttonLogger(e, { payload: payload })
+      buttonLogger(e, payload)
     }
   }
 
-  const onNextButtonClick = () => {
+  const onNextButtonClick = (e: React.MouseEvent) => {
+    buttonLogger(e)
     setStep(step + 1)
   }
 
-  const onBackButtonClick = () => {
+  const onBackButtonClick = (e: React.MouseEvent) => {
+    buttonLogger(e)
     setStep(step - 1)
   }
 
-  const onCancelButtonClick = () => {
+  const onCancelButtonClick = (e: React.MouseEvent) => {
+    buttonLogger(e)
     setSed(undefined)
     dispatch(resetSed())
     setMode('bucedit')
@@ -341,11 +344,18 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       {showButtons ? (
         <div className='col-md-12 mt-4'>
           <Ui.Nav.Hovedknapp
+            data-amplitude='sed.new.create'
             id='a-buc-c-sedstart__forward-button-id'
             className='a-buc-c-sedstart__forward-button'
             disabled={!allowedToForward()}
             spinner={loading.creatingSed || sendingAttachments}
-            onClick={createSedNeedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}
+            onClick={(e: React.MouseEvent) => {
+              if (createSedNeedsMoreSteps()) {
+                onNextButtonClick(e)
+              } else {
+                onForwardButtonClick(e)
+              }
+            }}
           >
             {loading.creatingSed ? t('buc:loading-creatingSED')
               : sendingAttachments ? t('buc:loading-sendingSEDattachments')
@@ -354,6 +364,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           </Ui.Nav.Hovedknapp>
           {step > 0 ? (
             <Ui.Nav.Flatknapp
+              data-amplitude='sed.new.back'
               id='a-buc-c-sedstart__back-button-id'
               className='a-buc-c-sedstart__back-button'
               onClick={onBackButtonClick}
@@ -361,6 +372,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             </Ui.Nav.Flatknapp>
           ) : null}
           <Ui.Nav.Flatknapp
+            data-amplitude='sed.new.cancel'
             id='a-buc-c-sedstart__cancel-button-id'
             className='a-buc-c-sedstart__cancel-button'
             onClick={onCancelButtonClick}

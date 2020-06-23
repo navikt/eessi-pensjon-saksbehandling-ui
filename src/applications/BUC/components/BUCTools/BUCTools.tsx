@@ -132,7 +132,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   const onModalClose = () => {
     if (timeWithP5000Modal) {
-      timeLogger('buc.edit.tools.P5000.time', timeWithP5000Modal)
+      timeLogger('buc.edit.tools.P5000', timeWithP5000Modal)
     }
     setModal(undefined)
   }

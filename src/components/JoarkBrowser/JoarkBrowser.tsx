@@ -185,7 +185,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   } else {
     items = files?.map((file) => ({
       ...file,
-      key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat,
+      key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat
     }))
   }
 

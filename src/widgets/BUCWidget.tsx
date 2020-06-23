@@ -1,5 +1,5 @@
 import Buc from 'applications/BUC/'
-import { WidgetFC, WidgetProps, WidgetPropType } from 'nav-dashboard'
+import { WidgetFC, WidgetProps } from 'nav-dashboard'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -51,7 +51,7 @@ BUCWidget.propTypes = {
   onResize: PT.func.isRequired,
   onFullFocus: PT.func.isRequired,
   onRestoreFocus: PT.func.isRequired,
-  widget: WidgetPropType.isRequired
+  widget: PT.any.isRequired//WidgetPropType.isRequired
 }
 
 export default BUCWidget
