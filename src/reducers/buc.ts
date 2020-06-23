@@ -349,15 +349,26 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       const newState = _.cloneDeep(state)
       const item = _.cloneDeep(state[key])
+      const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
+
       item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
       newState[key] = item
 
       standardLogger('buc.new.create.success')
 
+      // Cache seds allowing attachments
+      const seds = (action as ActionWithPayload).payload.seds
+      if (seds) {
+        seds.forEach((sed: Sed) => {
+          newSedsWithAttachments[sed.type] = sed.allowsAttachments
+        })
+      }
+
       return Object.assign({}, newState, {
         currentBuc: (action as ActionWithPayload).payload.caseId,
         sed: undefined,
-        attachments: {}
+        attachments: {},
+        sedsWithAttachments: newSedsWithAttachments
       })
     }
 
