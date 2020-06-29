@@ -8,7 +8,7 @@ exports[`pages/IndexPage Renders 1`] = `
     >
       <styled.div>
         <div
-          className="sc-fzoNJl gyMDef"
+          className="sc-fzqAbL jImamS"
         >
           <Lenke
             data-amplitude="links.rettskilder"
@@ -29,7 +29,7 @@ exports[`pages/IndexPage Renders 1`] = `
                 color="#0067C5"
                 kind="outlink"
               >
-                <Wt
+                <_default
                   className="mr-2"
                   color="#0067C5"
                   height={24}
@@ -65,14 +65,14 @@ exports[`pages/IndexPage Renders 1`] = `
                       />
                     </g>
                   </svg>
-                </Wt>
+                </_default>
               </Icons>
               ui:lawsource
             </a>
           </Lenke>
           <styled.span>
             <span
-              className="sc-fzoXWK ieyCeF"
+              className="sc-fzqMAW ffhUxI"
             >
               •
             </span>
@@ -96,7 +96,7 @@ exports[`pages/IndexPage Renders 1`] = `
                 color="#0067C5"
                 kind="outlink"
               >
-                <Wt
+                <_default
                   className="mr-2"
                   color="#0067C5"
                   height={24}
@@ -132,7 +132,7 @@ exports[`pages/IndexPage Renders 1`] = `
                       />
                     </g>
                   </svg>
-                </Wt>
+                </_default>
               </Icons>
               ui:help
             </a>

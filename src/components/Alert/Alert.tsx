@@ -29,12 +29,12 @@ export interface AlertProps {
   type?: AlertType;
 }
 
-/*const AlertErrorPropType = PT.shape({
+/* const AlertErrorPropType = PT.shape({
   status: PT.string,
   message: PT.string,
   error: PT.string,
   uuid: PT.string
-})*/
+}) */
 
 export const errorTypes: AlertStatusClasses = {
   OK: 'suksess',
@@ -74,17 +74,17 @@ export const Alert: React.FC<AlertProps> = ({
   }
 
   if (!_message) {
-    return <div/>
+    return <div />
   }
 
   if (!_.includes(['client', 'server'], type)) {
     console.error('Invalid alert type: ' + type)
-    return <div/>
+    return <div />
   }
 
   if (!_.includes(Object.keys(errorTypes), status)) {
     console.error('Invalid alert status: ' + status)
-    return <div/>
+    return <div />
   }
 
   if (!_.isEmpty(error)) {
@@ -105,7 +105,7 @@ export const Alert: React.FC<AlertProps> = ({
 
 Alert.propTypes = {
   className: PT.string,
-//  error: PT.oneOfType([AlertErrorPropType, PT.string]),
+  //  error: PT.oneOfType([AlertErrorPropType, PT.string]),
   fixed: PT.bool,
   message: PT.oneOfType([PT.string, PT.element]),
   onClose: PT.func,

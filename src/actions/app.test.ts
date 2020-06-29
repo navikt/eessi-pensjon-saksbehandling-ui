@@ -1,8 +1,8 @@
 import * as appActions from 'actions/app'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { call as originalCall } from 'js-fetch-api'
-import { ActionWithPayload } from 'js-fetch-api'
+import { call as originalCall, ActionWithPayload } from 'js-fetch-api'
+
 import { Action } from 'redux'
 
 jest.mock('js-fetch-api', () => ({

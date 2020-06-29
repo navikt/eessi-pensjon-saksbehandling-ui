@@ -307,7 +307,7 @@ exports[`components/TopContainer Renders 1`] = `
                   >
                     feil
                   </span>
-                  <Ikon
+                  <Icon
                     kind="feil-sirkel-fyll"
                     size="1.5em"
                   >
@@ -334,13 +334,13 @@ exports[`components/TopContainer Renders 1`] = `
                         />
                       </g>
                     </svg>
-                  </Ikon>
+                  </Icon>
                 </span>
                 <Normaltekst
                   className="alertstripe__tekst"
                   tag="div"
                 >
-                  <n
+                  <TypografiBase
                     className="alertstripe__tekst"
                     tag="div"
                     type="normaltekst"
@@ -409,7 +409,7 @@ exports[`components/TopContainer Renders 1`] = `
                         </FontAwesomeIcon>
                       </Icons>
                     </div>
-                  </n>
+                  </TypografiBase>
                 </Normaltekst>
               </div>
             </AlertStripe>
@@ -417,7 +417,9 @@ exports[`components/TopContainer Renders 1`] = `
           <Alert
             onClose={[Function]}
             type="server"
-          />
+          >
+            <div />
+          </Alert>
           <SessionMonitor>
             <div
               className="c-sessionMonitor"

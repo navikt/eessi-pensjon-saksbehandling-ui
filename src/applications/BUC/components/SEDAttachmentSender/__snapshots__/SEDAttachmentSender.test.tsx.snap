@@ -121,11 +121,11 @@ exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Ren
   <div
     className="a-buc-c-sedAttachmentSender mock-sedAttachmentSender"
   >
-    <h
+    <v
       now={16}
       status="inprogress"
     >
-      <be
+      <Le
         theme={
           Object {
             "black": "#000000",
@@ -319,8 +319,8 @@ exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Ren
             </styled.div>
           </div>
         </styled.div>
-      </be>
-    </h>
+      </Le>
+    </v>
   </div>
 </SEDAttachmentSender>
 `;

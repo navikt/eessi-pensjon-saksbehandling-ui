@@ -170,58 +170,58 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       }
     >
       <>
-      {features && features.P5000_VISIBLE ? (
+        {features && features.P5000_VISIBLE ? (
+          <div className='mb-3'>
+            <Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Undertittel>
+            {modal ? <Modal modal={modal} onModalClose={onModalClose} /> : null}
+            <Knapp
+              data-amplitude='buc.edit.tools.P5000.view'
+              id='a-buc-c-buctools__p5000-button-id'
+              className='a-buc-c-buctools__p5000-button mb-2'
+              disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
+              spinner={!_.isEmpty(fetchingP5000)}
+              onClick={onGettingP5000sClick}
+            >
+              {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+            </Knapp>
+          </div>
+        ) : null}
+        <div>
+          <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
+          <div className='mb-3'>
+            <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
+            <MultipleSelect
+              ariaLabel={t('buc:form-tagsForBUC')}
+              label={t('buc:form-tagsForBUC')}
+              id='a-buc-c-buctools__tags-select-id'
+              className='a-buc-c-buctools__tags-select'
+              placeholder={t('buc:form-tagPlaceholder')}
+              aria-describedby='help-tags'
+              values={tags || []}
+              hideSelectedOptions={false}
+              onSelect={onTagsChange}
+              options={allTags}
+            />
+          </div>
+        </div>
         <div className='mb-3'>
-          <Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Undertittel>
-          {modal ? <Modal modal={modal} onModalClose={onModalClose} /> : null}
+          <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
+          <Textarea
+            id='a-buc-c-buctools__comment-textarea-id'
+            className='a-buc-c-buctools__comment-textarea skjemaelement__input'
+            label=''
+            value={comment || ''}
+            onChange={onCommentChange}
+          />
           <Knapp
-            data-amplitude='buc.edit.tools.P5000.view'
-            id='a-buc-c-buctools__p5000-button-id'
-            className='a-buc-c-buctools__p5000-button mb-2'
-            disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
-            spinner={!_.isEmpty(fetchingP5000)}
-            onClick={onGettingP5000sClick}
+            id='a-buc-c-buctools__save-button-id'
+            className='a-buc-c-buctools__save-button mb-2'
+            disabled={loading.savingBucsInfo}
+            onClick={onSaveButtonClick}
           >
-            {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+            {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
           </Knapp>
         </div>
-      ) : null}
-      <div>
-        <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
-        <div className='mb-3'>
-          <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
-          <MultipleSelect
-            ariaLabel={t('buc:form-tagsForBUC')}
-            label={t('buc:form-tagsForBUC')}
-            id='a-buc-c-buctools__tags-select-id'
-            className='a-buc-c-buctools__tags-select'
-            placeholder={t('buc:form-tagPlaceholder')}
-            aria-describedby='help-tags'
-            values={tags || []}
-            hideSelectedOptions={false}
-            onSelect={onTagsChange}
-            options={allTags}
-          />
-        </div>
-      </div>
-      <div className='mb-3'>
-        <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
-        <Textarea
-          id='a-buc-c-buctools__comment-textarea-id'
-          className='a-buc-c-buctools__comment-textarea skjemaelement__input'
-          label=''
-          value={comment || ''}
-          onChange={onCommentChange}
-        />
-        <Knapp
-          id='a-buc-c-buctools__save-button-id'
-          className='a-buc-c-buctools__save-button mb-2'
-          disabled={loading.savingBucsInfo}
-          onClick={onSaveButtonClick}
-        >
-          {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
-        </Knapp>
-      </div>
       </>
     </ExpandingPanel>
   )
