@@ -1,4 +1,4 @@
-import { Labels } from 'eessi-pensjon-ui/dist/declarations/types.d'
+import { Labels } from 'declarations/types.d'
 
 export const dagerEnhet = {
   5: 'D/5 dager (5 dager i uken)',

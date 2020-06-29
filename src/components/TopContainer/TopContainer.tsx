@@ -1,11 +1,13 @@
 import { clientClear, clientError } from 'actions/alert'
 import { closeModal, toggleHighContrast } from 'actions/ui'
 import classNames from 'classnames'
+import Alert, { AlertStatus } from 'components/Alert/Alert'
+import Banner from 'components/Banner/Banner'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
+import Modal from 'components/Modal/Modal'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import Ui from 'eessi-pensjon-ui'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
@@ -24,7 +26,7 @@ export interface TopContainerProps {
 }
 
 export interface TopContainerSelector {
-  clientErrorStatus: string | undefined;
+  clientErrorStatus: AlertStatus | undefined;
   clientErrorMessage: string | undefined;
   serverErrorMessage: string | undefined;
   error: any | undefined;
@@ -76,9 +78,9 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     dispatch(toggleHighContrast())
   }
 
-  const getClientErrorMessage = (): string | null => {
+  const getClientErrorMessage = (): string | undefined => {
     if (!clientErrorMessage) {
-      return null
+      return undefined
     }
     const separatorIndex: number = clientErrorMessage.lastIndexOf('|')
     let message: string
@@ -111,26 +113,26 @@ export const TopContainer: React.FC<TopContainerProps> = ({
         isLoggingOut={isLoggingOut}
       >
         {header ? (
-          <Ui.Banner
+          <Banner
             header={header}
             onHighContrastClicked={handleHighContrastToggle}
             labelHighContrast={t('ui:highContrast')}
           />) : null}
-        <Ui.Alert
+        <Alert
           type='client'
           message={getClientErrorMessage()}
           status={clientErrorStatus}
           error={error}
           onClose={onClear}
         />
-        <Ui.Alert
+        <Alert
           type='server'
           message={getServerErrorMessage()}
           error={error}
           onClose={onClear}
         />
         {modal !== undefined ? (
-          <Ui.Modal
+          <Modal
             appElement={(document.getElementById('main') || document.body)}
             modal={modal}
             onModalClose={handleModalClose}

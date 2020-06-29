@@ -1,8 +1,7 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import * as api from 'eessi-pensjon-ui/dist/api'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { call, ActionWithPayload } from 'js-fetch-api'
+import { ModalContent } from 'declarations/components'
 import mockGetStorageFile from 'mocks/storage/getStorageFile'
 import mockListStorageFiles from 'mocks/storage/listStorageFiles'
 import { Action } from 'redux'
@@ -25,7 +24,7 @@ export const closeStorageModal = (): Action => ({
 })
 
 export const listStorageFiles = ({ userId, namespace }: StorageParams, context?: any): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     context: context || { notification: true },
@@ -39,7 +38,7 @@ export const listStorageFiles = ({ userId, namespace }: StorageParams, context?:
 }
 
 export const getStorageFile = ({ userId, namespace, file }: StorageParams, context?: any): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
     expectedPayload: mockGetStorageFile(namespace, file),
@@ -53,7 +52,7 @@ export const getStorageFile = ({ userId, namespace, file }: StorageParams, conte
 }
 
 export const getAttachmentFromStorage = ({ userId, namespace, file }: StorageParams): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
     type: {
@@ -65,7 +64,7 @@ export const getAttachmentFromStorage = ({ userId, namespace, file }: StoragePar
 }
 
 export const postStorageFile = ({ userId, namespace, file }: StorageParams, payload: any, context?: any): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
@@ -79,7 +78,7 @@ export const postStorageFile = ({ userId, namespace, file }: StorageParams, payl
 }
 
 export const deleteStorageFile = ({ userId, namespace, file }: StorageParams): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_DELETE_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'DELETE',
     type: {
@@ -91,7 +90,7 @@ export const deleteStorageFile = ({ userId, namespace, file }: StorageParams): F
 }
 
 export const deleteAllStorageFilesFromUser = ({ userId, namespace }: StorageParams): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_MULTIPLE_DELETE_URL, { userId: userId, namespace: namespace }),
     method: 'DELETE',
     type: {

@@ -10,7 +10,6 @@ import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -19,6 +18,10 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import './BUCEdit.css'
+import { Row } from 'nav-frontend-grid'
+import Knapp from 'nav-frontend-knapper'
+import { Normaltekst } from 'nav-frontend-typografi'
+import CountryData from 'land-verktoy'
 
 export interface BUCEditProps {
   aktoerId: string;
@@ -117,7 +120,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           const organizationId = it.organisation.id.toLowerCase()
           const organizationName = it.organisation.name.toLowerCase()
           const countryCode = it.organisation.countryCode.toLowerCase()
-          const countryName = Ui.CountryData.getCountryInstance(locale).findByValue(countryCode.toUpperCase()).label.toLowerCase()
+          const countryName = CountryData.getCountryInstance(locale).findByValue(countryCode.toUpperCase()).label.toLowerCase()
           const creationDate = moment(sed.creationDate).format('DD.MM.YYYY')
           const lastUpdate = moment(sed.lastUpdate).format('DD.MM.YYYY')
           const status = t('ui:' + sed.status).toLowerCase()
@@ -139,8 +142,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <div className='a-buc-p-bucedit__buttons mb-3'>
-        <Ui.Nav.Knapp
-          amplitude='buc.edit.newsed'
+        <Knapp
+          data-amplitude='buc.edit.newsed'
           id='a-buc-p-bucedit__new-sed-button-id'
           className='a-buc-p-bucedit__new-sed-button'
           onClick={(e: React.MouseEvent) => {
@@ -148,9 +151,9 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             onSEDNew(buc, undefined)
           }}
         >{t('buc:form-orderNewSED')}
-        </Ui.Nav.Knapp>
+        </Knapp>
       </div>
-      <Ui.Nav.Row>
+      <Row>
         <div className='col-md-8'>
           <SEDSearch
             className='mb-2'
@@ -179,7 +182,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             })
             : (
               <div className='mt-5 text-center'>
-                <Ui.Nav.Normaltekst>{t('buc:form-noSedsYet')}</Ui.Nav.Normaltekst>
+                <Normaltekst>{t('buc:form-noSedsYet')}</Normaltekst>
               </div>
             )}
         </div>
@@ -196,7 +199,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             bucInfo={bucInfo}
           />
         </div>
-      </Ui.Nav.Row>
+      </Row>
     </div>
   )
 }

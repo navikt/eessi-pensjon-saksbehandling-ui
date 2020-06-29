@@ -2,11 +2,13 @@ import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import classNames from 'classnames'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import Modal from 'components/Modal/Modal'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString, Features, Loading } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -14,6 +16,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
+import { Textarea } from 'nav-frontend-skjema'
+import Knapp from 'nav-frontend-knapper'
+import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import './BUCTools.css'
 
 export interface BUCToolsProps {
@@ -112,7 +117,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     setTags(tagsList)
   }
 
-  const onCommentChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const onCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setComment(e.target.value)
   }
 
@@ -153,22 +158,23 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   return (
-    <Ui.ExpandingPanel
+    <ExpandingPanel
       collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
       id='a-buc-c-buctools__panel-id'
       open
       className={classNames('a-buc-c-buctools', 's-border', className)}
       heading={
-        <Ui.Nav.Systemtittel className='a-buc-c-buctools__title'>
+        <Systemtittel className='a-buc-c-buctools__title'>
           {t('buc:form-BUCtools')}
-        </Ui.Nav.Systemtittel>
+        </Systemtittel>
       }
     >
+      <>
       {features && features.P5000_VISIBLE ? (
         <div className='mb-3'>
-          <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Ui.Nav.Undertittel>
-          {modal ? <Ui.Modal modal={modal} onModalClose={onModalClose} /> : null}
-          <Ui.Nav.Knapp
+          <Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Undertittel>
+          {modal ? <Modal modal={modal} onModalClose={onModalClose} /> : null}
+          <Knapp
             data-amplitude='buc.edit.tools.P5000.view'
             id='a-buc-c-buctools__p5000-button-id'
             className='a-buc-c-buctools__p5000-button mb-2'
@@ -177,14 +183,14 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             onClick={onGettingP5000sClick}
           >
             {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
-          </Ui.Nav.Knapp>
+          </Knapp>
         </div>
       ) : null}
       <div>
-        <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Ui.Nav.Undertittel>
+        <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
         <div className='mb-3'>
-          <Ui.Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Ui.Nav.Normaltekst>
-          <Ui.MultipleSelect
+          <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
+          <MultipleSelect
             ariaLabel={t('buc:form-tagsForBUC')}
             label={t('buc:form-tagsForBUC')}
             id='a-buc-c-buctools__tags-select-id'
@@ -199,24 +205,25 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         </div>
       </div>
       <div className='mb-3'>
-        <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Ui.Nav.Undertittel>
-        <Ui.Nav.Textarea
+        <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
+        <Textarea
           id='a-buc-c-buctools__comment-textarea-id'
           className='a-buc-c-buctools__comment-textarea skjemaelement__input'
           label=''
           value={comment || ''}
           onChange={onCommentChange}
         />
-        <Ui.Nav.Knapp
+        <Knapp
           id='a-buc-c-buctools__save-button-id'
           className='a-buc-c-buctools__save-button mb-2'
           disabled={loading.savingBucsInfo}
           onClick={onSaveButtonClick}
         >
           {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
-        </Ui.Nav.Knapp>
+        </Knapp>
       </div>
-    </Ui.ExpandingPanel>
+      </>
+    </ExpandingPanel>
   )
 }
 

@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/DatePicker Renders 1`] = `
+<DatePicker
+  ids={
+    Object {
+      "day": "mock-day-id",
+      "month": "mock-month-id",
+      "year": "mock-year-id",
+    }
+  }
+  onChange={[MockFunction]}
+>
+  <div
+    className="c-datePicker"
+    onBlur={[Function]}
+    onFocus={[Function]}
+  >
+    <div
+      className="row no-gutters pr-2"
+    >
+      <div
+        className="col pl-2 pr-1"
+      >
+        <Input
+          bredde="fullbredde"
+          className="DatePickerDayInput"
+          disabled={false}
+          feil={false}
+          id="mock-day-id"
+          label="Dag"
+          max="31"
+          min="1"
+          onChange={[Function]}
+          onInput={[Function]}
+          placeholder="DD"
+          type="number"
+          value=""
+        >
+          <div
+            className="skjemaelement DatePickerDayInput"
+          >
+            <Label
+              htmlFor="mock-day-id"
+            >
+              <label
+                className="skjemaelement__label"
+                htmlFor="mock-day-id"
+              >
+                Dag
+              </label>
+            </Label>
+            <input
+              aria-invalid={false}
+              className="skjemaelement__input input--fullbredde"
+              disabled={false}
+              id="mock-day-id"
+              max="31"
+              min="1"
+              onChange={[Function]}
+              onInput={[Function]}
+              placeholder="DD"
+              type="number"
+              value=""
+            />
+          </div>
+        </Input>
+      </div>
+      <div
+        className="col pl-1 pr-1"
+      >
+        <Input
+          bredde="fullbredde"
+          className="DatePickerMonthInput"
+          disabled={false}
+          feil={false}
+          id="mock-month-id"
+          label="Måned"
+          max="12"
+          min="1"
+          onChange={[Function]}
+          onInput={[Function]}
+          placeholder="MM"
+          type="number"
+          value=""
+        >
+          <div
+            className="skjemaelement DatePickerMonthInput"
+          >
+            <Label
+              htmlFor="mock-month-id"
+            >
+              <label
+                className="skjemaelement__label"
+                htmlFor="mock-month-id"
+              >
+                Måned
+              </label>
+            </Label>
+            <input
+              aria-invalid={false}
+              className="skjemaelement__input input--fullbredde"
+              disabled={false}
+              id="mock-month-id"
+              max="12"
+              min="1"
+              onChange={[Function]}
+              onInput={[Function]}
+              placeholder="MM"
+              type="number"
+              value=""
+            />
+          </div>
+        </Input>
+      </div>
+      <div
+        className="col col pl-1 pr-0"
+      >
+        <Input
+          bredde="fullbredde"
+          className="DatePickerYearInput"
+          disabled={false}
+          feil={false}
+          id="mock-year-id"
+          label="År"
+          min="1900"
+          onChange={[Function]}
+          onInput={[Function]}
+          placeholder="ÅÅÅÅ"
+          type="number"
+          value=""
+        >
+          <div
+            className="skjemaelement DatePickerYearInput"
+          >
+            <Label
+              htmlFor="mock-year-id"
+            >
+              <label
+                className="skjemaelement__label"
+                htmlFor="mock-year-id"
+              >
+                År
+              </label>
+            </Label>
+            <input
+              aria-invalid={false}
+              className="skjemaelement__input input--fullbredde"
+              disabled={false}
+              id="mock-year-id"
+              min="1900"
+              onChange={[Function]}
+              onInput={[Function]}
+              placeholder="ÅÅÅÅ"
+              type="number"
+              value=""
+            />
+          </div>
+        </Input>
+      </div>
+    </div>
+  </div>
+</DatePicker>
+`;

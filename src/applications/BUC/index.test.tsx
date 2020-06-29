@@ -13,16 +13,7 @@ jest.mock('applications/BUC/components/BUCCrumbs/BUCCrumbs', () =>
   ({ setMode }: { setMode: (e: string) => void }) => (
     <select className='mock-buccrumbs' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setMode(e.target.value)} />
   ))
-jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui').default
-  return {
-    ...Ui,
-    Nav: {
-      ...Ui.Nav,
-      Popover: ({ children }: any) => (<div className='mock-popover'>{children}</div>)
-    }
-  }
-})
+jest.mock('nav-frontend-popover', () => ({ children }: any) => (<div className='mock-popover'>{children}</div>))
 
 jest.mock('actions/buc', () => ({
   saveBucsInfo: jest.fn(),

@@ -1,7 +1,8 @@
 import { BUCMode } from 'applications/BUC'
+import Icons from 'components/Icons/Icons'
 import TopContainer from 'components/TopContainer/TopContainer'
-import Ui from 'eessi-pensjon-ui'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
+import Lenke from 'nav-frontend-lenker'
 import { linkLogger, timeLogger } from 'metrics/loggers'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -148,27 +149,27 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   return (
     <TopContainer>
       <DivWithLinks>
-        <Ui.Nav.Lenke
+        <Lenke
           target='_blank'
           data-amplitude='links.rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
-          <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
+          <Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:lawsource')}
-        </Ui.Nav.Lenke>
+        </Lenke>
         <SeparatorSpan>
           •
         </SeparatorSpan>
-        <Ui.Nav.Lenke
+        <Lenke
           target='_blank'
           data-amplitude='links.hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
-          <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
+          <Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:help')}
-        </Ui.Nav.Lenke>
+        </Lenke>
       </DivWithLinks>
       <Dashboard
         id='eessi-pensjon-ui-fss'

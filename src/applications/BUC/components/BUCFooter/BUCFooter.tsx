@@ -1,12 +1,13 @@
 import classNames from 'classnames'
+import Icons from 'components/Icons/Icons'
 import { RinaUrl } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import { linkLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
+import Lenke from 'nav-frontend-lenker'
 import './BUCFooter.css'
 
 export interface BUCFooterProps {
@@ -30,7 +31,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   }
   return (
     <div className={classNames('a-buc-c-footer', className)}>
-      <Ui.Nav.Lenke
+      <Lenke
         data-amplitude='buc.list.rinaurl'
         id='a-buc-c-buclist__gotorina-link'
         className='a-buc-c-buclist__gotorina'
@@ -39,10 +40,10 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
         onClick={linkLogger}
       >
         <div className='d-flex'>
-          <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
+          <Icons className='mr-2' color='#0067C5' kind='outlink' />
           <span>{t('ui:goToRina')}</span>
         </div>
-      </Ui.Nav.Lenke>
+      </Lenke>
     </div>
   )
 }

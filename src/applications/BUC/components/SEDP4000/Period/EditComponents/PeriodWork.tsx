@@ -1,11 +1,17 @@
 import { Period } from 'declarations/period'
-import { PeriodPropType } from 'declarations/period.pt'
+//import { PeriodPropType } from 'declarations/period.pt'
 import { AllowedLocaleString, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType, ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
-import Ui from 'eessi-pensjon-ui'
 import { useTranslation } from 'react-i18next'
+import { Row } from 'nav-frontend-grid'
+import { Input, Radio } from 'nav-frontend-skjema'
+import Panel from 'nav-frontend-paneler'
+import { Normaltekst, Undertittel, UndertekstBold } from 'nav-frontend-typografi'
+import Hjelpetekst from 'nav-frontend-hjelpetekst'
+import CountrySelect from 'landvelger'
+import { CountryFilter } from 'land-verktoy'
 
 export interface PeriodWorkProps {
   locale: AllowedLocaleString;
@@ -29,14 +35,13 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
   const { t } = useTranslation()
   return (
     <>
-      <Ui.Nav.Row>
+      <Row>
         <div className='col-sm-12'>
-          <Ui.Nav.Panel
+          <Panel
             id='a-buc-c-sedp4000-period__workType-radio-id'
             className='a-buc-c-sedp4000-period__workType-radio'
-            legend={t('buc:p4000-label-work-type')}
           >
-            <Ui.Nav.Radio
+            <Radio
               id='a-buc-c-sedp4000-period__workType-radio-option-01-id'
               label={t('buc:p4000-label-work-type-01')}
               name='period-workType'
@@ -44,7 +49,7 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
               checked={period.workType === '01'}
               onChange={setWorkType}
             />
-            <Ui.Nav.Radio
+            <Radio
               id='a-buc-c-sedp4000-period__workType-radio-option-02-id'
               label={t('buc:p4000-label-work-type-02')}
               name='period-workType'
@@ -52,18 +57,18 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
               checked={period.workType === '02'}
               onChange={setWorkType}
             />
-          </Ui.Nav.Panel>
+          </Panel>
         </div>
         <div className='col-sm-12'>
-          <Ui.Nav.Input
+          <Input
             id='a-buc-c-sedp4000-period__yrkesaktivitet-input-id'
             className='a-buc-c-sedp4000-period__yrkesaktivitet-input'
             label={
               <div className='a-buc-c-sedp4000-period__label'>
-                <Ui.Nav.UndertekstBold>{t('buc:p4000-label-work-activity')}</Ui.Nav.UndertekstBold>
-                <Ui.Nav.Hjelpetekst>
+                <UndertekstBold>{t('buc:p4000-label-work-activity')}</UndertekstBold>
+                <Hjelpetekst>
                   {t('buc:p4000-help-work-activity')}
-                </Ui.Nav.Hjelpetekst>
+                </Hjelpetekst>
               </div>
             }
             placeholder={t('ui:writeIn')}
@@ -73,15 +78,15 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
           />
         </div>
         <div className='col-sm-12'>
-          <Ui.Nav.Input
+          <Input
             id='a-buc-c-sedp4000-period__insuranceId-input-id'
             className='a-buc-c-sedp4000-period__insuranceId-input'
             label={
               <div className='a-buc-c-sedp4000-period__label'>
-                <Ui.Nav.UndertekstBold>{t('buc:p4000-label-insurance-id')}</Ui.Nav.UndertekstBold>
-                <Ui.Nav.Hjelpetekst>
+                <UndertekstBold>{t('buc:p4000-label-insurance-id')}</UndertekstBold>
+                <Hjelpetekst>
                   {t('buc:p4000-help-insurance-id')}
-                </Ui.Nav.Hjelpetekst>
+                </Hjelpetekst>
               </div>
             }
             placeholder={t('ui:writeIn')}
@@ -91,13 +96,13 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
           />
         </div>
         <div className='col-sm-12'>
-          <Ui.Nav.Input
+          <Input
             id='a-buc-c-sedp4000-period__arbeidgiversnavn-input-id'
             className='a-buc-c-sedp4000-period__arbeidgiversnavn-input'
             label={
               <div className='a-buc-c-sedp4000-period__label'>
-                <Ui.Nav.UndertekstBold>{t('buc:p4000-label-work-name')}</Ui.Nav.UndertekstBold>
-                <Ui.Nav.Normaltekst className='optional'>{t('ui:optional')}</Ui.Nav.Normaltekst>
+                <UndertekstBold>{t('buc:p4000-label-work-name')}</UndertekstBold>
+                <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
               </div>
             }
             placeholder={t('ui:writeIn')}
@@ -106,23 +111,23 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
             feil={localErrors.workName ? t(localErrors.workName) : null}
           />
         </div>
-      </Ui.Nav.Row>
-      <Ui.Nav.Row>
+      </Row>
+      <Row>
         <div className='col-sm-12'>
-          <Ui.Nav.Undertittel className='mt-5 mb-2'>
+          <Undertittel className='mt-5 mb-2'>
             {t('buc:p4000-label-work-address')}
-          </Ui.Nav.Undertittel>
+          </Undertittel>
         </div>
         <div className='col-sm-12'>
-          <Ui.Nav.Input
+          <Input
             id='a-buc-c-sedp4000-period__workStreet-input-id'
             className='a-buc-c-sedp4000-period__workStreet-input'
             label={
               <div className='a-buc-c-sedp4000-period__label'>
-                <Ui.Nav.UndertekstBold>{t('buc:p4000-label-work-street')}</Ui.Nav.UndertekstBold>
-                <Ui.Nav.Hjelpetekst>
+                <UndertekstBold>{t('buc:p4000-label-work-street')}</UndertekstBold>
+                <Hjelpetekst>
                   {t('buc:p4000-help-work-street')}
-                </Ui.Nav.Hjelpetekst>
+                </Hjelpetekst>
               </div>
             }
             value={period.workStreet || ''}
@@ -132,15 +137,15 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
           />
         </div>
         <div className='col-sm-12'>
-          <Ui.Nav.Input
+          <Input
             id='a-buc-c-sedp4000-period__workCity-input-id'
             className='a-buc-c-sedp4000-period__workCity-input'
             label={
               <div className='a-buc-c-sedp4000-period__label'>
-                <Ui.Nav.UndertekstBold>{t('buc:p4000-label-work-city')}</Ui.Nav.UndertekstBold>
-                <Ui.Nav.Hjelpetekst>
+                <UndertekstBold>{t('buc:p4000-label-work-city')}</UndertekstBold>
+                <Hjelpetekst>
                   {t('buc:p4000-help-work-city')}
-                </Ui.Nav.Hjelpetekst>
+                </Hjelpetekst>
               </div>
             }
             value={period.workCity || ''}
@@ -150,15 +155,15 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
           />
         </div>
         <div className='col-sm-6'>
-          <Ui.Nav.Input
+          <Input
             id='a-buc-c-sedp4000-period__workZipCode-input-id'
             className='a-buc-c-sedp4000-period__workZipCode-input'
             label={
               <div className='a-buc-c-sedp4000-period__label'>
-                <Ui.Nav.UndertekstBold>{t('buc:p4000-label-work-zipcode')}</Ui.Nav.UndertekstBold>
-                <Ui.Nav.Hjelpetekst>
+                <UndertekstBold>{t('buc:p4000-label-work-zipcode')}</UndertekstBold>
+                <Hjelpetekst>
                   {t('buc:p4000-help-work-zipcode')}
-                </Ui.Nav.Hjelpetekst>
+                </Hjelpetekst>
               </div>
             }
             value={period.workZipCode || ''}
@@ -168,15 +173,15 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
           />
         </div>
         <div className='col-sm-6'>
-          <Ui.Nav.Input
+          <Input
             id='a-buc-c-sedp4000-period__workRegion-input-id'
             className='a-buc-c-sedp4000-period__workRegion-input'
             label={
               <div className='a-buc-c-sedp4000-period__label'>
-                <Ui.Nav.UndertekstBold>{t('buc:p4000-label-work-region')}</Ui.Nav.UndertekstBold>
-                <Ui.Nav.Hjelpetekst>
+                <UndertekstBold>{t('buc:p4000-label-work-region')}</UndertekstBold>
+                <Hjelpetekst>
                   {t('buc:p4000-help-work-region')}
-                </Ui.Nav.Hjelpetekst>
+                </Hjelpetekst>
               </div>
             }
             value={period.workRegion || ''}
@@ -186,7 +191,7 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
           />
         </div>
         <div className='col-sm-8 mb-2'>
-          <Ui.CountrySelect
+          <CountrySelect
             ariaLabel={t('buc:p4000-label-country')}
             id='a-buc-c-sedp4000-period__land-select-id'
             className='a-buc-c-sedp4000-period__land-select'
@@ -196,13 +201,13 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
               </div>
             )}
             locale={locale}
-            includeList={Ui.CountryFilter.EEA}
+            includeList={CountryFilter.EEA}
             value={period.country || null}
             onOptionSelected={setCountry}
             error={localErrors.country ? t(localErrors.country) : undefined}
           />
         </div>
-      </Ui.Nav.Row>
+      </Row>
     </>
   )
 }
@@ -210,7 +215,7 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
 PeriodWork.propTypes = {
   locale: AllowedLocaleStringPropType.isRequired,
   localErrors: ValidationPropType.isRequired,
-  period: PeriodPropType.isRequired,
+//  period: PeriodPropType.isRequired,
   setCountry: PT.func.isRequired,
   setInsuranceId: PT.func.isRequired,
   setWorkActivity: PT.func.isRequired,

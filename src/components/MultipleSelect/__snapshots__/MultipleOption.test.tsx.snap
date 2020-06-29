@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/MultipleSelect/MultipleOption Renders 1`] = `
+<MultipleOption
+  clearValue={[MockFunction]}
+  cx={[MockFunction]}
+  data={
+    Object {
+      "label": "mockLabel",
+      "value": "mockValue",
+    }
+  }
+  getStyles={[MockFunction]}
+  getValue={[MockFunction]}
+  hasValue={false}
+  innerProps={
+    Object {
+      "onClick": [MockFunction],
+    }
+  }
+  innerRef={null}
+  isDisabled={false}
+  isFocused={false}
+  isMulti={true}
+  isSelected={false}
+  label=""
+  options={Array []}
+  selectOption={[MockFunction]}
+  selectProps={
+    Object {
+      "selectProps": Object {},
+    }
+  }
+  setValue={[MockFunction]}
+  type="option"
+>
+  <div
+    id="undefined-mockValue"
+  >
+    <div
+      className="c-multipleOption"
+      onClick={[Function]}
+    >
+      <Checkbox
+        checked={false}
+        className="c-multipleOption__checkbox"
+        id="c-multipleOption__checkbox-undefined-mockValue"
+        label="mockLabel"
+        onChange={[Function]}
+      >
+        <div
+          className="skjemaelement c-multipleOption__checkbox"
+        >
+          <input
+            aria-invalid={false}
+            checked={false}
+            className="skjemaelement__input checkboks"
+            id="c-multipleOption__checkbox-undefined-mockValue"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="skjemaelement__label"
+            htmlFor="c-multipleOption__checkbox-undefined-mockValue"
+          >
+            mockLabel
+          </label>
+        </div>
+      </Checkbox>
+    </div>
+  </div>
+</MultipleOption>
+`;

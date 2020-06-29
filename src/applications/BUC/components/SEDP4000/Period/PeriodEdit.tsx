@@ -13,10 +13,10 @@ import PeriodWork from 'applications/BUC/components/SEDP4000/Period/EditComponen
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 import classNames from 'classnames'
 import { Period, Periods } from 'declarations/period'
-import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
+// import { PeriodPropType, PeriodsPropType } from 'declarations/period.pt'
 import { AllowedLocaleString, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType, ValidationPropType } from 'declarations/types.pt'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 import PT from 'prop-types'
 import React from 'react'
 
@@ -166,8 +166,8 @@ PeriodEdit.propTypes = {
   localErrors: ValidationPropType.isRequired,
   mode: PT.string.isRequired,
   openModal: PT.func.isRequired,
-  period: PeriodPropType.isRequired,
-  periods: PeriodsPropType.isRequired,
+//  period: PeriodPropType.isRequired,
+//  periods: PeriodsPropType.isRequired,
   saveEditPeriod: PT.func.isRequired,
   saveNewPeriod: PT.func.isRequired,
   setAttachments: PT.func.isRequired,

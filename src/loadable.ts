@@ -1,10 +1,10 @@
 import Loadable from 'react-loadable'
-import Ui from 'eessi-pensjon-ui'
+import Spinner from 'nav-frontend-spinner'
 
 const MyLoadable = (opts: any) => {
   return Loadable({
     ...opts,
-    loading: Ui.WaitingPanel,
+    loading: Spinner,
     delay: 200,
     timeout: 10000
   })

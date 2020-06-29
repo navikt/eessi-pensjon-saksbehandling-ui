@@ -3,7 +3,7 @@ import { InstitutionListMap, InstitutionNames, Institutions } from 'declarations
 import { InstitutionsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString } from 'declarations/types'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
-import Ui from 'eessi-pensjon-ui'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import PT from 'prop-types'
 import Flag from 'flagg-ikoner'
@@ -11,6 +11,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
+import { Normaltekst } from 'nav-frontend-typografi'
 import './InstitutionList.css'
 
 export interface InstitutionListProps {
@@ -55,12 +56,12 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     <div
       className={classNames('a-buc-c-institutionlist', className)}
     >
-      <Ui.Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Ui.Nav.Normaltekst>
+      <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>
     </div>
   ) : (
     <>
       {Object.keys(institutionList).map(landkode => {
-        const country = Ui.CountryData.getCountryInstance(locale).findByValue(landkode)
+        const country = CountryData.getCountryInstance(locale).findByValue(landkode)
         return (
           <div
             className={classNames('a-buc-c-institutionlist', className)}
@@ -69,17 +70,17 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
             {type === 'joined' ? (
               <div className='a-buc-c-institutionlist__institution'>
                 {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
-                <Ui.Nav.Normaltekst>
+                <Normaltekst>
                   {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}
-                </Ui.Nav.Normaltekst>
+                </Normaltekst>
               </div>
             ) : null}
             {type === 'separated' ? institutionList[landkode].map((institutionId : string) => (
               <div className='a-buc-c-institutionlist__institution' key={institutionId}>
                 {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
-                <Ui.Nav.Normaltekst>
+                <Normaltekst>
                   {getLabel(landkode, institutionId)}
-                </Ui.Nav.Normaltekst>
+                </Normaltekst>
               </div>
             )) : null}
           </div>

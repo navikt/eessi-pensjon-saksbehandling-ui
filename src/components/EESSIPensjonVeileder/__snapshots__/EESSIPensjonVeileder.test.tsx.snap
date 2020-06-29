@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/EESSIPensjonVeileder Renders 1`] = `
+<EESSIPensjonVeileder>
+  <div
+    className="c-EESSIPensjonVeileder"
+  >
+    <img
+      alt="nav-smilende-veileder"
+      height={130}
+      src="navPensjonSmilendeOrangeVeileder.png"
+      width={130}
+    />
+  </div>
+</EESSIPensjonVeileder>
+`;

@@ -7,16 +7,18 @@ import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Person, RinaUrl } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { Input } from 'nav-frontend-skjema'
+import { Knapp } from 'nav-frontend-knapper'
 import './index.css'
 
 export interface BUCIndexProps {
@@ -154,7 +156,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [loading.gettingBUCs, mode, _setMode])
 
   if (!_mounted) {
-    return <Ui.WaitingPanel />
+    return <WaitingPanel />
   }
 
   if (!sakId || !aktoerId) {
@@ -198,11 +200,11 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         ? (
           _showAvdodfnr ? (
             <div className='d-flex flex-row align-items-end'>
-              <Ui.Nav.Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e: ChangeEvent<HTMLInputElement>) => setAvdodfnr(e.target.value)} />
-              <Ui.Nav.Knapp mini className='ml-2 mb-3' onClick={() => dispatch(setStatusParam('avdodfnr', _avdodfnr))}>{t('buc:form-avdodfnrButton')}</Ui.Nav.Knapp>
+              <Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e: ChangeEvent<HTMLInputElement>) => setAvdodfnr(e.target.value)} />
+              <Knapp mini className='ml-2 mb-3' onClick={() => dispatch(setStatusParam('avdodfnr', _avdodfnr))}>{t('buc:form-avdodfnrButton')}</Knapp>
             </div>
           ) : (
-            <Ui.Nav.Knapp mini onClick={() => setShowAvdodfnr(true)}>{t('buc:form-avdodfnr')}</Ui.Nav.Knapp>
+            <Knapp mini onClick={() => setShowAvdodfnr(true)}>{t('buc:form-avdodfnr')}</Knapp>
           )
         )
         : null}

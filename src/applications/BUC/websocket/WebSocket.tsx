@@ -2,13 +2,14 @@
 
 import { fetchSingleBuc } from 'actions/buc'
 import classNames from 'classnames'
+import Icons from 'components/Icons/Icons'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import Popover from 'nav-frontend-popover'
 import './WebSocket.css'
 
 export interface BucWebSocketProps {
@@ -135,7 +136,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
     }
   }
 
-  const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleClick = (e: React.MouseEvent<any>) => {
     if (!popoverOpen) {
       console.log(simpleLog.join('\n'))
     }
@@ -145,8 +146,8 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 
   return (
     <div className='a-buc-websocket' title={'websocket: ' + status}>
-      <Ui.Icons kind={getAnchor()} size={24} onClick={handleClick} />
-      <Ui.Nav.Popover ankerEl={popoverAnchor}>{log}</Ui.Nav.Popover>
+      <Icons kind={getAnchor()} size={24} onClick={handleClick} />
+      <Popover ankerEl={popoverAnchor}>{log}</Popover>
     </div>
   )
 }

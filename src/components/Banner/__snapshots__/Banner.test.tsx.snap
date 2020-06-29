@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Banner Renders 1`] = `
+<Banner
+  header={
+    <h1>
+      BANNER
+    </h1>
+  }
+  labelHighContrast="mockLabel"
+  onHighContrastClicked={[MockFunction]}
+>
+  <div
+    className="c-banner"
+    role="banner"
+  >
+    <Lenke
+      className="c-banner__highcontrast-link mt-1"
+      href="#highContrast"
+      id="c-banner__highcontrast-link-id"
+      onClick={[Function]}
+    >
+      <a
+        className="lenke c-banner__highcontrast-link mt-1"
+        href="#highContrast"
+        id="c-banner__highcontrast-link-id"
+        onClick={[Function]}
+      >
+        mockLabel
+      </a>
+    </Lenke>
+    <div
+      className="c-banner__title"
+    >
+      <h1>
+        BANNER
+      </h1>
+    </div>
+  </div>
+</Banner>
+`;

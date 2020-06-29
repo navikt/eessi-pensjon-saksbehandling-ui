@@ -1,8 +1,8 @@
+import Alert from 'components/Alert/Alert'
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import Flag from 'flagg-ikoner'
 import { standardLogger } from 'metrics/loggers'
@@ -12,9 +12,13 @@ import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import * as labels from './SEDP5000.labels'
-import WarningCircle from 'assets/images/WarningCircle'
+import WarningCircle from 'assets/icons/WarningCircle'
 import TableSorter from 'tabell'
 import ReactToPrint from 'react-to-print'
+import { Checkbox, Select } from 'nav-frontend-skjema'
+import Knapp from 'nav-frontend-knapper'
+import { Normaltekst } from 'nav-frontend-typografi'
+import CountryData from 'land-verktoy'
 
 export interface SEDP5000Props {
   locale: AllowedLocaleString;
@@ -116,7 +120,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     if (sender) {
       return {
         date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
-        countryLabel: Ui.CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
+        countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
         country: sender.organisation.countryCode,
         institution: sender.organisation.name,
         acronym: sender.organisation.acronym
@@ -185,7 +189,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           {Object.keys(activeSeds).map(sedId => {
             const sender: SedSender | undefined = getSedSender(sedId)
             return (
-              <Ui.Nav.Checkbox
+              <Checkbox
                 key={sedId}
                 id={'checkbox-' + sedId}
                 className='mb-2'
@@ -218,7 +222,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
         </SEDP5000Checkboxes>
         <div className='d-flex'>
           {warning ? (
-            <Ui.Alert
+            <Alert
               className='ml-4 mr-4'
               type='client'
               fixed={false}
@@ -226,7 +230,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
               message={t('buc:form-P5000-warning')}
             />
           ) : null}
-          <Ui.Nav.Select
+          <Select
             id='itemsPerPage'
             bredde='l'
             label={t('ui:itemsPerPage')}
@@ -237,7 +241,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             <option value='20'>20</option>
             <option value='25'>25</option>
             <option value='all'>{t('ui:all')}</option>
-          </Ui.Nav.Select>
+          </Select>
         </div>
       </SEDP5000Header>
       <TableSorter
@@ -262,7 +266,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             label: t('ui:startDate'),
             type: 'date',
             renderCell: (item: any, value: any) => (
-              <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+              <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
             )
           },
           {
@@ -270,7 +274,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             label: t('ui:endDate'),
             type: 'date',
             renderCell: (item: any, value: any) => (
-              <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+              <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
             )
           },
           { id: 'år', label: t('ui:year'), type: 'string' },
@@ -307,7 +311,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                 label: t('ui:startDate'),
                 type: 'date',
                 renderCell: (item: any, value: any) => (
-                  <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+                  <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
                 )
               },
               {
@@ -315,7 +319,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                 label: t('ui:endDate'),
                 type: 'date',
                 renderCell: (item: any, value: any) => (
-                  <Ui.Nav.Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Ui.Nav.Normaltekst>
+                  <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
                 )
               },
               { id: 'år', label: t('ui:year'), type: 'string' },
@@ -337,12 +341,12 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           onBeforeGetContent={prepareContent}
           onAfterPrint={afterPrintOut}
           trigger={() =>
-            <Ui.Nav.Knapp
+            <Knapp
               disabled={printDialogOpen}
               spinner={printDialogOpen}
             >
               {t('ui:print')}
-            </Ui.Nav.Knapp>}
+            </Knapp>}
           content={() => {
             return componentRef.current
           }}

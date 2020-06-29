@@ -7,9 +7,8 @@ import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
 import { Features } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
-import * as api from 'eessi-pensjon-ui/dist/api'
-import { ActionWithPayload, ThunkResult } from 'eessi-pensjon-ui/dist/declarations/types'
+import { CountryFilter } from 'land-verktoy'
+import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
 import _ from 'lodash'
 import { mockBuc, mockParticipants } from 'mocks/buc/buc'
 import mockBucList from 'mocks/buc/bucList'
@@ -66,7 +65,7 @@ export const setP4000Info: ActionCreator<ActionWithPayload> = (p4000: P4000Info)
 })
 
 export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: rinaCaseId }),
     expectedPayload: mockBuc(rinaCaseId),
     type: {
@@ -78,7 +77,7 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (ri
 }
 
 export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: rinaCaseId }),
     expectedPayload: /* istanbul ignore next */ mockParticipants(rinaCaseId),
     context: {
@@ -93,7 +92,7 @@ export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>>
 }
 
 export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
     expectedPayload: mockBucs,
@@ -106,7 +105,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerI
 }
 
 export const fetchAvdodBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
     expectedPayload: mockBucs,
@@ -119,7 +118,7 @@ export const fetchAvdodBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (ak
 }
 
 export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
     expectedPayload: mockBucsInfoList(aktoerId),
     type: {
@@ -131,7 +130,7 @@ export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload>> = 
 }
 
 export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (userId: string, namespace: string, file: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     expectedPayload: mockBucsInfo,
     type: {
@@ -143,7 +142,7 @@ export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (use
 }
 
 export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: urls.EUX_SUBJECT_AREA_URL,
     expectedPayload: mockSubjectAreaList,
     type: {
@@ -155,7 +154,7 @@ export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> =
 }
 
 export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (sakId: string, features: Features): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId }),
     expectedPayload: mockBucList,
     context: {
@@ -175,7 +174,7 @@ export const getTagList: ActionCreator<ActionWithPayload> = (): ActionWithPayloa
 })
 
 export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
     cascadeFailureError: true,
@@ -212,7 +211,7 @@ export const saveBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = ({
   if (comment) {
     newBucsInfo.bucs[bucId].comment = comment
   }
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO }),
     method: 'POST',
     payload: newBucsInfo,
@@ -226,12 +225,12 @@ export const saveBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = ({
 }
 
 export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload>> = (bucType: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: bucType }),
     context: {
       buc: bucType
     },
-    expectedPayload: Ui.CountryFilter.EESSI_READY,
+    expectedPayload: CountryFilter.EESSI_READY,
     type: {
       request: types.BUC_GET_COUNTRY_LIST_REQUEST,
       success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
@@ -242,7 +241,7 @@ export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload>> = (bu
 
 export const getSedList: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: {type: string, caseId: string}): ThunkResult<ActionWithPayload> => {
   const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
-  return api.call({
+  return call({
     url: url,
     expectedPayload: mockSedList,
     type: {
@@ -259,7 +258,7 @@ export const getInstitutionsListForBucAndCountry = (bucType: string, country: st
   if (_country.toUpperCase() === 'GB') {
     _country = 'UK'
   }
-  return api.call({
+  return call({
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: bucType, country: _country }),
     context: {
       buc: bucType,
@@ -275,7 +274,7 @@ export const getInstitutionsListForBucAndCountry = (bucType: string, country: st
 }
 
 export const createSed = (payload: NewSedPayload): Function => {
-  return api.call({
+  return call({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
     expectedPayload: {
@@ -293,7 +292,7 @@ export const createSed = (payload: NewSedPayload): Function => {
 }
 
 export const createReplySed = (payload: NewSedPayload, parentId: string): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: parentId }),
     payload: payload,
     expectedPayload: {
@@ -310,7 +309,7 @@ export const createReplySed = (payload: NewSedPayload, parentId: string): Functi
 }
 
 export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, context: JoarkFile): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',
     cascadeFailureError: true,
@@ -325,7 +324,7 @@ export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, contex
 }
 
 export const getSed = (caseId: string, sed: Sed): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.BUC_GET_SED_URL, { caseId: caseId, documentId: sed.id }),
     cascadeFailureError: true,
     context: sed,
@@ -339,7 +338,7 @@ export const getSed = (caseId: string, sed: Sed): Function => {
 }
 
 export const getRinaUrl = (): Function => {
-  return api.call({
+  return call({
     url: urls.EUX_RINA_URL,
     expectedPayload: mockRinaUrl,
     type: {
@@ -351,7 +350,7 @@ export const getRinaUrl = (): Function => {
 }
 
 export const listP4000 = (aktoerId: string): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO }),
     expectedPayload: mockP4000list(aktoerId),
     type: {
@@ -363,7 +362,7 @@ export const listP4000 = (aktoerId: string): Function => {
 }
 
 export const getP4000 = (file: string): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_GET_URL, { file: file }),
     expectedPayload: mockP4000info,
     type: {
@@ -375,7 +374,7 @@ export const getP4000 = (file: string): Function => {
 }
 
 export const saveP4000asSaksbehandler = (aktoerId: string, file: string): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO, file: 'PINFOSB.json' }),
     payload: file,
     expectedPayload: mockP4000info,

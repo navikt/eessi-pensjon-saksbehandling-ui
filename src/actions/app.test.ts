@@ -1,11 +1,11 @@
 import * as appActions from 'actions/app'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { call as originalCall } from 'js-fetch-api'
+import { ActionWithPayload } from 'js-fetch-api'
 import { Action } from 'redux'
 
-jest.mock('eessi-pensjon-ui/dist/api', () => ({
+jest.mock('js-fetch-api', () => ({
   call: jest.fn()
 }))
 const call: jest.Mock = originalCall as jest.Mock<typeof originalCall>

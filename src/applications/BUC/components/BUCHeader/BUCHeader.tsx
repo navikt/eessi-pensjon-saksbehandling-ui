@@ -1,10 +1,11 @@
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
+import Icons from 'components/Icons/Icons'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import { FlagList, FlagItems } from 'flagg-ikoner'
 import _ from 'lodash'
 import { buttonLogger, linkLogger } from 'metrics/loggers'
@@ -13,6 +14,9 @@ import PT from 'prop-types'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { Row } from 'nav-frontend-grid'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import Lenke from 'nav-frontend-lenker'
 import './BUCHeader.css'
 
 export interface BUCHeaderProps {
@@ -75,7 +79,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
       className='a-buc-c-bucheader p-0 w-100'
     >
-      <Ui.Nav.Undertittel
+      <Undertittel
         className='a-buc-c-bucheader__title pb-1 w-100'
       >
         {buc.type + ' - ' + getBucTypeLabel({
@@ -83,23 +87,23 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           locale: locale,
           type: buc.type!
         })}
-      </Ui.Nav.Undertittel>
-      <Ui.Nav.Row className='a-buc-c-bucheader__row no-gutters w-100'>
+      </Undertittel>
+      <Row className='a-buc-c-bucheader__row no-gutters w-100'>
         <div className='a-buc-c-bucheader__label col-sm-4'>
 
-          <Ui.Nav.Normaltekst
+          <Normaltekst
             id='a-buc-c-bucheader__description-id'
             className='a-buc-c-bucheader__description'
           >
             {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
-          </Ui.Nav.Normaltekst>
+          </Normaltekst>
           <div
             id='a-buc-c-bucheader__owner-id'
             className='a-buc-c-bucheader__owner'
           >
-            <Ui.Nav.Normaltekst className='pr-2 text-nowrap'>
+            <Normaltekst className='pr-2 text-nowrap'>
               {t('buc:form-caseOwner') + ': '}
-            </Ui.Nav.Normaltekst>
+            </Normaltekst>
             <InstitutionList
               className='a-buc-c-bucheader__owner-institutions'
               flagType='circle'
@@ -114,23 +118,23 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               className='a-buc-c-bucheader__case'
             >
               {rinaUrl ? (
-                <Ui.Nav.Normaltekst className='pr-2 text-nowrap'>
+                <Normaltekst className='pr-2 text-nowrap'>
                   {t('buc:form-caseNumberInRina') + ': '}
-                  <Ui.Nav.Lenke
+                  <Lenke
                     data-amplitude='buc.list.buc.rinaUrl'
                     className='a-buc-c-bucheader__gotorina-link'
                     href={rinaUrl + buc.caseId}
                     target='rinaWindow'
-                    onClick={(e: MouseEvent) => {
+                    onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                       linkLogger(e)
                       e.stopPropagation()
                       window.open(rinaUrl + buc.caseId, 'rinaWindow')
                     }}
                   >
                     {buc.caseId}
-                  </Ui.Nav.Lenke>
-                </Ui.Nav.Normaltekst>
-              ) : <Ui.WaitingPanel size='S' />}
+                  </Lenke>
+                </Normaltekst>
+              ) : <WaitingPanel size='S' />}
             </div>
           ) : null}
         </div>
@@ -145,7 +149,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               overflowLimit={5}
               wrapper={false}
             />
-          ) : <Ui.WaitingPanel message='' size='M' />}
+          ) : <WaitingPanel message='' size='M' />}
           {numberOfSeds ? (
             <div
               className='a-buc-c-bucheader__icon-numberofseds'
@@ -160,25 +164,25 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 className='a-buc-c-bucheader__icon-tags'
                 data-tip={bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}
               >
-                <Ui.Icons kind='problem' size={32} />
+                <Icons kind='problem' size={32} />
               </div>
             ) : null}
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
-          <Ui.Nav.Lenke
+          <Lenke
             data-amplitude='buc.list.editbuc'
             id='a-buc-c-bucheader__bucedit-link-id'
             className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3'
-            onClick={(e: MouseEvent) => {
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
               buttonLogger(e)
               onBucHandle(buc, e)
             }}
             href={'#' + buc.type}
           >
             {t('ui:processing')}
-          </Ui.Nav.Lenke>
+          </Lenke>
         </div>
-      </Ui.Nav.Row>
+      </Row>
     </div>
   )
 }

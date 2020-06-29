@@ -2,11 +2,11 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import classNames from 'classnames'
+import Icons from 'components/Icons/Icons'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -14,6 +14,9 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import Panel from 'nav-frontend-paneler'
+import { Element, Normaltekst } from 'nav-frontend-typografi'
+import { Flatknapp } from 'nav-frontend-knapper'
 import './SEDHeader.css'
 
 export interface SEDHeaderProps {
@@ -55,31 +58,31 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   })
 
   return (
-    <Ui.Nav.Panel
+    <Panel
       style={style}
       className={classNames('a-buc-c-sedheader', 'w-100', 'p-0', className)}
     >
       <div className={classNames('a-buc-c-sedheader__content pt-2 pb-2')}>
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__name col-4'>
-          <Ui.Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Ui.Nav.Element>
+          <Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Element>
         </div>
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__status col-3'>
           <div className='a-buc-c-sedheader__status-item'>
             <SEDStatus className='col-auto' status={sed.status} />
             <div className='pl-2'>
-              <Ui.Nav.Normaltekst className='a-buc-c-sedheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
+              <Normaltekst className='a-buc-c-sedheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
                 {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
-              </Ui.Nav.Normaltekst>
-              {sed.version ? <Ui.Nav.Normaltekst className='a-buc-c-sedheader__version'>{t('ui:version')}{': '}{sed.version || '-'}</Ui.Nav.Normaltekst> : null}
+              </Normaltekst>
+              {sed.version ? <Normaltekst className='a-buc-c-sedheader__version'>{t('ui:version')}{': '}{sed.version || '-'}</Normaltekst> : null}
             </div>
           </div>
           {sed.version !== '1' ? (
             <div className='a-buc-c-sedheader__status-item'>
               <SEDStatus className='col-auto' status={'first_' + sed.status} />
               <div className='pl-2'>
-                <Ui.Nav.Normaltekst className='a-buc-c-sedheader__firstSend' data-tip={t('ui:status-first')}>
+                <Normaltekst className='a-buc-c-sedheader__firstSend' data-tip={t('ui:status-first')}>
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                </Ui.Nav.Normaltekst>
+                </Normaltekst>
               </div>
             </div>
           ) : null}
@@ -97,12 +100,12 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               className='a-buc-c-sedheader__actions-attachments'
               data-tip={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}
             >
-              <Ui.Icons kind='paperclip' />
+              <Icons kind='paperclip' />
             </div>
           ) : null}
           {(!_.isEmpty(followUpSeds) && sed.status === 'received')
             ? (
-              <Ui.Nav.Flatknapp
+              <Flatknapp
                 mini
                 data-amplitude='buc.list.besvarSed'
                 className='a-buc-c-sedheader__actions-answer-button'
@@ -112,12 +115,12 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 }}
               >
                 {t('buc:form-answerSED')}
-              </Ui.Nav.Flatknapp>
+              </Flatknapp>
             )
             : null}
         </div>
       </div>
-    </Ui.Nav.Panel>
+    </Panel>
   )
 }
 

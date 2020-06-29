@@ -5,16 +5,7 @@ import { Server, WebSocket } from 'mock-socket'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 import BucWebSocket, { BucWebSocketProps } from './WebSocket'
-jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui').default
-  return {
-    ...Ui,
-    Nav: {
-      ...Ui.Nav,
-      Popover: ({ children }: any) => (<div className='mock-popover'>{children}</div>)
-    }
-  }
-})
+jest.mock('nav-frontend-popover', () => ({ children }: any) => (<div className='mock-popover'>{children}</div>))
 jest.mock('constants/urls', () => ({
   WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
 }))

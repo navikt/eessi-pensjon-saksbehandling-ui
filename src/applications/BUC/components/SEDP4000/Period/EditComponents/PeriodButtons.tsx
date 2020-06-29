@@ -1,7 +1,8 @@
-import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Row } from 'nav-frontend-grid'
+import Knapp, { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 
 export interface PeriodButtonsProps {
   cancelPeriodRequest: () => void;
@@ -15,35 +16,35 @@ const PeriodButtons: React.FC<PeriodButtonsProps> = ({
 }: PeriodButtonsProps): JSX.Element => {
   const {t} = useTranslation()
   return (
-    <Ui.Nav.Row>
+    <Row>
       <div className='mt-4 mb-4 col-sm-12'>
         {mode === 'edit' ? (
-          <Ui.Nav.Knapp
+          <Knapp
             className='a-buc-c-sedp4000-period__edit-button mb-2 mr-4 w-sm-100'
             id='a-buc-c-sedp4000-period__edit-button-id'
             onClick={saveEditPeriod}
           >
             {t('buc:p4000-button-saveEditPeriod')}
-          </Ui.Nav.Knapp>
+          </Knapp>
         ) : null}
         {mode === 'new' ? (
-          <Ui.Nav.Hovedknapp
+          <Hovedknapp
             className='a-buc-c-sedp4000-period__save-button mb-2 mr-4 w-sm-100'
             id='a-buc-c-sedp4000-period__save-button-id'
             onClick={saveNewPeriod}
           >
             {t('buc:p4000-button-saveNewPeriod')}
-          </Ui.Nav.Hovedknapp>
+          </Hovedknapp>
         ) : null}
-        <Ui.Nav.Flatknapp
+        <Flatknapp
           className='a-buc-c-sedp4000-period__cancel-button mb-2 w-sm-100'
           id='a-buc-c-sedp4000-period__cancel-button-id'
           onClick={cancelPeriodRequest}
         >
           {t('buc:p4000-button-cancelPeriod')}
-        </Ui.Nav.Flatknapp>
+        </Flatknapp>
       </div>
-    </Ui.Nav.Row>
+    </Row>
   )
 }
 

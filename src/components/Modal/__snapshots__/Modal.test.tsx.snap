@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Modal Renders 1`] = `
+<Modal
+  closeButton={true}
+  modal={
+    Object {
+      "modalButtons": Array [
+        Object {
+          "main": true,
+          "onClick": [MockFunction],
+          "text": "modalMainButtonText",
+        },
+        Object {
+          "onClick": [MockFunction],
+          "text": "modalOtherButtonText",
+        },
+      ],
+      "modalText": "mockModalText",
+      "modalTitle": "mockModalTitle",
+    }
+  }
+  onModalClose={[MockFunction]}
+>
+  <Modal
+    className="c-modal"
+    closeButton={false}
+    closeTimeoutMS={0}
+    contentLabel="contentLabel"
+    isOpen={true}
+    onRequestClose={[Function]}
+    shouldCloseOnOverlayClick={true}
+  >
+    <Modal
+      ariaHideApp={true}
+      bodyOpenClassName="ReactModal__Body--open"
+      className="modal c-modal"
+      closeTimeoutMS={0}
+      contentLabel="contentLabel"
+      isOpen={true}
+      onRequestClose={[Function]}
+      overlayClassName="modal__overlay"
+      parentSelector={[Function]}
+      portalClassName="ReactModalPortal"
+      role="dialog"
+      shouldCloseOnEsc={true}
+      shouldCloseOnOverlayClick={true}
+      shouldFocusAfterRender={true}
+      shouldReturnFocusAfterClose={true}
+    >
+      <Portal
+        containerInfo={
+          <div
+            class="ReactModalPortal"
+          >
+            <div
+              class="ReactModal__Overlay ReactModal__Overlay--after-open modal__overlay"
+            >
+              <div
+                aria-label="contentLabel"
+                class="ReactModal__Content ReactModal__Content--after-open modal c-modal"
+                role="dialog"
+                tabindex="-1"
+              >
+                <section>
+                  <div>
+                    <button
+                      class="lukknapp c-modal__close-button"
+                    >
+                      <span
+                        class="text-hide"
+                      />
+                    </button>
+                    <h2
+                      class="typo-undertittel m-3 c-modal__title"
+                    >
+                      mockModalTitle
+                    </h2>
+                    <div
+                      class="c-modal__text m-4 text-center"
+                    >
+                      mockModalText
+                    </div>
+                    <div
+                      class="c-modal__buttons text-center"
+                    >
+                      <button
+                        class="knapp c-modal__main-button mr-3 mb-3 knapp--hoved"
+                        id="c-modal__main-button-id"
+                        type="submit"
+                      >
+                        modalMainButtonText
+                      </button>
+                      <button
+                        class="knapp c-modal__other-button mr-3 mb-3 knapp--standard"
+                        id="c-modal__other-button-id"
+                        type="submit"
+                      >
+                        modalOtherButtonText
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        }
+      >
+        <ModalPortal
+          ariaHideApp={true}
+          bodyOpenClassName="ReactModal__Body--open"
+          className="modal c-modal"
+          closeTimeoutMS={0}
+          contentLabel="contentLabel"
+          defaultStyles={
+            Object {
+              "content": Object {
+                "WebkitOverflowScrolling": "touch",
+                "background": "#fff",
+                "border": "1px solid #ccc",
+                "borderRadius": "4px",
+                "bottom": "40px",
+                "left": "40px",
+                "outline": "none",
+                "overflow": "auto",
+                "padding": "20px",
+                "position": "absolute",
+                "right": "40px",
+                "top": "40px",
+              },
+              "overlay": Object {
+                "backgroundColor": "rgba(255, 255, 255, 0.75)",
+                "bottom": 0,
+                "left": 0,
+                "position": "fixed",
+                "right": 0,
+                "top": 0,
+              },
+            }
+          }
+          isOpen={true}
+          onRequestClose={[Function]}
+          overlayClassName="modal__overlay"
+          parentSelector={[Function]}
+          portalClassName="ReactModalPortal"
+          role="dialog"
+          shouldCloseOnEsc={true}
+          shouldCloseOnOverlayClick={true}
+          shouldFocusAfterRender={true}
+          shouldReturnFocusAfterClose={true}
+          style={
+            Object {
+              "content": Object {},
+              "overlay": Object {},
+            }
+          }
+        >
+          <div
+            className="ReactModal__Overlay ReactModal__Overlay--after-open modal__overlay"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            style={Object {}}
+          >
+            <div
+              aria-label="contentLabel"
+              className="ReactModal__Content ReactModal__Content--after-open modal c-modal"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onMouseUp={[Function]}
+              role="dialog"
+              style={Object {}}
+              tabIndex="-1"
+            >
+              <section>
+                <div>
+                  <Lukknapp
+                    bla={false}
+                    className="c-modal__close-button"
+                    hvit={false}
+                    onClick={[Function]}
+                    overstHjorne={false}
+                  >
+                    <button
+                      className="lukknapp c-modal__close-button"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="text-hide"
+                      />
+                    </button>
+                  </Lukknapp>
+                  <Undertittel
+                    className="m-3 c-modal__title"
+                  >
+                    <TypografiBase
+                      className="m-3 c-modal__title"
+                      type="undertittel"
+                    >
+                      <h2
+                        className="typo-undertittel m-3 c-modal__title"
+                      >
+                        mockModalTitle
+                      </h2>
+                    </TypografiBase>
+                  </Undertittel>
+                  <div
+                    className="c-modal__text m-4 text-center"
+                  >
+                    mockModalText
+                  </div>
+                  <div
+                    className="c-modal__buttons text-center"
+                  >
+                    <Hovedknapp
+                      className="c-modal__main-button mr-3 mb-3"
+                      disabled={false}
+                      id="c-modal__main-button-id"
+                      key="modalMainButtonText"
+                      onClick={[Function]}
+                    >
+                      <KnappBase
+                        autoDisableVedSpinner={false}
+                        className="c-modal__main-button mr-3 mb-3"
+                        disabled={false}
+                        htmlType="submit"
+                        id="c-modal__main-button-id"
+                        inaktivKlasseVedDisabled={false}
+                        kompakt={false}
+                        mini={false}
+                        onClick={[Function]}
+                        spinner={false}
+                        type="hoved"
+                      >
+                        <button
+                          className="knapp c-modal__main-button mr-3 mb-3 knapp--hoved"
+                          disabled={false}
+                          id="c-modal__main-button-id"
+                          onClick={[Function]}
+                          type="submit"
+                        >
+                          modalMainButtonText
+                        </button>
+                      </KnappBase>
+                    </Hovedknapp>
+                    <Knapp
+                      className="c-modal__other-button mr-3 mb-3"
+                      id="c-modal__other-button-id"
+                      key="modalOtherButtonText"
+                      onClick={[Function]}
+                    >
+                      <KnappBase
+                        autoDisableVedSpinner={false}
+                        className="c-modal__other-button mr-3 mb-3"
+                        disabled={false}
+                        htmlType="submit"
+                        id="c-modal__other-button-id"
+                        inaktivKlasseVedDisabled={false}
+                        kompakt={false}
+                        mini={false}
+                        onClick={[Function]}
+                        spinner={false}
+                        type="standard"
+                      >
+                        <button
+                          className="knapp c-modal__other-button mr-3 mb-3 knapp--standard"
+                          disabled={false}
+                          id="c-modal__other-button-id"
+                          onClick={[Function]}
+                          type="submit"
+                        >
+                          modalOtherButtonText
+                        </button>
+                      </KnappBase>
+                    </Knapp>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </ModalPortal>
+      </Portal>
+    </Modal>
+  </Modal>
+</Modal>
+`;

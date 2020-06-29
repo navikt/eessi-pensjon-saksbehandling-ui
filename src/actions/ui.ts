@@ -1,8 +1,8 @@
 import { AllowedLocaleString } from 'declarations/types'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'js-fetch-api'
 import { Action } from 'redux'
 
 export const changeLanguage = (language: AllowedLocaleString): ActionWithPayload<AllowedLocaleString> => {

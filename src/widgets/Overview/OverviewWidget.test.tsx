@@ -1,4 +1,4 @@
-import { WidgetProps } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
+import { WidgetProps } from 'nav-dashboard'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import OverviewWidget from './OverviewWidget'

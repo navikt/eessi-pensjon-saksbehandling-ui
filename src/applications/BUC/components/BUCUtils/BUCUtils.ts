@@ -1,5 +1,5 @@
 import { AllowedLocaleString, T } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
 import moment from 'moment'
@@ -19,7 +19,7 @@ export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): stri
     return ''
   }
   const country: string = re[1]
-  const countryLabel: any = Ui.CountryData.getCountryInstance(locale).findByValue(country)
+  const countryLabel: any = CountryData.getCountryInstance(locale).findByValue(country)
   return t('buc:buc-P3000_XX', { country: countryLabel.label })
 }
 

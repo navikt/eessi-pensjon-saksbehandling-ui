@@ -1,4 +1,4 @@
-import { Files } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Files } from 'forhandsvisningsfil'
 
 export interface PeriodDate {
   day: string;
@@ -15,7 +15,7 @@ export interface Period {
   id?: number | null,
   type: string;
   startDate: PeriodDate;
-  endDate?: PeriodDate | null;
+  endDate?: PeriodDate;
   dateType: string;
   uncertainDate: boolean;
   country: Country;
@@ -33,7 +33,7 @@ export interface Period {
   workRegion ?: string | null;
   childFirstName ?: string | null;
   childLastName ?: string | null;
-  childBirthDate ?: PeriodDate | null;
+  childBirthDate ?: PeriodDate;
   learnInstitution ?: string | null;
   payingInstitution ?: string | null;
   attachments ?: Files | null;

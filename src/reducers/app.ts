@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { Features, Params, Person } from 'declarations/types'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
 export interface AppState {
