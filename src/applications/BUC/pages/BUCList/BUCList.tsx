@@ -245,28 +245,28 @@ const BUCList: React.FC<BUCListProps> = ({
               >
                 <>
                   <div
-                  id='a-buc-p-buclist__seadheader-div-id'
-                  className='a-buc-p-buclist__sedheader pb-1'
-                >
-                  <div className='a-buc-p-buclist__sedheader-head col-4'>
-                    <Element>{t('buc:form-name')}</Element>
+                    id='a-buc-p-buclist__seadheader-div-id'
+                    className='a-buc-p-buclist__sedheader pb-1'
+                  >
+                    <div className='a-buc-p-buclist__sedheader-head col-4'>
+                      <Element>{t('buc:form-name')}</Element>
+                    </div>
+                    <div className='a-buc-p-buclist__sedheader_head col-3'>
+                      <Element>{t('buc:form-status')}</Element>
+                    </div>
+                    <div className='a-buc-p-buclist__sedheader-head col-3'>
+                      <Element>{t('buc:form-senderreceiver')}</Element>
+                    </div>
+                    <div className='a-buc-p-buclist__sedheader-head col-2' />
                   </div>
-                  <div className='a-buc-p-buclist__sedheader_head col-3'>
-                    <Element>{t('buc:form-status')}</Element>
-                  </div>
-                  <div className='a-buc-p-buclist__sedheader-head col-3'>
-                    <Element>{t('buc:form-senderreceiver')}</Element>
-                  </div>
-                  <div className='a-buc-p-buclist__sedheader-head col-2' />
-                </div>
-                {!_.isNil(buc.seds) ? (
-                  <SEDList
-                    seds={buc.seds}
-                    buc={buc}
-                    onSEDNew={onSEDNew}
-                  />
-                ) : <WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
-              </>
+                  {!_.isNil(buc.seds) ? (
+                    <SEDList
+                      seds={buc.seds}
+                      buc={buc}
+                      onSEDNew={onSEDNew}
+                    />
+                  ) : <WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
+                </>
               </ExpandingPanel>
             )
           }) : null}

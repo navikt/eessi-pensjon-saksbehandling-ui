@@ -203,7 +203,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const renderOptions = (options: Array<Option | string>, type: string): JSX.Element[] => {
+  const renderOptions = (options: Array<Option | string> | undefined, type: string): JSX.Element[] => {
     if (!options || Object.keys(options).length === 0) {
       options = [{
         value: placeholders[type],
@@ -279,7 +279,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             value={_subjectArea}
             onChange={onSubjectAreaChange}
           >
-            {subjectAreaList && renderOptions(subjectAreaList, 'subjectArea')}
+            {renderOptions(subjectAreaList, 'subjectArea')}
           </Select>
           <Select
             id='a-buc-c-bucstart__buc-select-id'

@@ -131,12 +131,12 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
     <div className={classNames('a-buc-c-sedAttachmentSender', className)}>
       <ProgressBar now={percentage} status={status}>
         <>
-        {status === 'inprogress' ? t('buc:loading-sendingXofY', {
-          current: current,
-          total: total
-        }) : null}
-        {status === 'done' ? t('buc:form-attachmentsSent') : null}
-        {status === 'error' ? t('buc:error-sendingAttachments') : null}
+          {status === 'inprogress' ? t('buc:loading-sendingXofY', {
+            current: current,
+            total: total
+          }) : null}
+          {status === 'done' ? t('buc:form-attachmentsSent') : null}
+          {status === 'error' ? t('buc:error-sendingAttachments') : null}
         </>
       </ProgressBar>
     </div>

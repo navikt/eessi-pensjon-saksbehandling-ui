@@ -85,10 +85,11 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   if (!aktoerId) {
-    let alertstripe = <Alertstripe type='advarsel' className='w-overview__alert w-100'>
-      {t('buc:validation-noAktoerId')}
-    </Alertstripe>
-    return alertstripe
+    return (
+      <Alertstripe type='advarsel' className='w-overview__alert w-100'>
+        {t('buc:validation-noAktoerId')}
+      </Alertstripe>
+    )
   }
 
   return (

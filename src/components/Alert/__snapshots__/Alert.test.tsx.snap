@@ -25,7 +25,7 @@ exports[`components/Alert/Alert Renders 1`] = `
         >
           suksess
         </span>
-        <Ikon
+        <Icon
           kind="ok-sirkel-fyll"
           size="1.5em"
         >
@@ -50,7 +50,7 @@ exports[`components/Alert/Alert Renders 1`] = `
               />
             </g>
           </svg>
-        </Ikon>
+        </Icon>
       </span>
       <Normaltekst
         className="alertstripe__tekst"

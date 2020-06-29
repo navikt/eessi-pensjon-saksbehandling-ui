@@ -1375,7 +1375,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
     <Undertittel
       className="mt-4 mb-4"
     >
-      <n
+      <TypografiBase
         className="mt-4 mb-4"
         type="undertittel"
       >
@@ -1384,7 +1384,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
         >
           ui:attachments
         </h2>
-      </n>
+      </TypografiBase>
     </Undertittel>
     <div
       className="mt-4 mb-4"
@@ -1694,7 +1694,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                               key="0"
                             >
                               <EtikettLiten>
-                                <n
+                                <TypografiBase
                                   type="etikettLiten"
                                 >
                                   <p
@@ -1702,7 +1702,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                                   >
                                     sed
                                   </p>
-                                </n>
+                                </TypografiBase>
                               </EtikettLiten>
                             </td>
                             <td
@@ -1786,89 +1786,80 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
       <div
         className="a-buc-c-sedattachments"
       >
-        <Knapp
+        <KnappBase
+          autoDisableVedSpinner={false}
           className="a-buc-c-sedattachments__enable-button"
+          disabled={false}
+          htmlType="submit"
           id="a-buc-c-sedattachments__enable-button-id"
-          label="buc:form-enableAttachments"
+          inaktivKlasseVedDisabled={false}
+          kompakt={false}
+          mini={false}
           onClick={[Function]}
+          spinner={false}
+          type="standard"
         >
-          <KnappBase
-            autoDisableVedSpinner={false}
-            className="a-buc-c-sedattachments__enable-button"
+          <button
+            className="knapp a-buc-c-sedattachments__enable-button knapp--standard"
             disabled={false}
-            htmlType="submit"
             id="a-buc-c-sedattachments__enable-button-id"
-            inaktivKlasseVedDisabled={false}
-            kompakt={false}
-            label="buc:form-enableAttachments"
-            mini={false}
             onClick={[Function]}
-            spinner={false}
-            type="standard"
+            type="submit"
           >
-            <button
-              className="knapp a-buc-c-sedattachments__enable-button knapp--standard"
-              disabled={false}
-              id="a-buc-c-sedattachments__enable-button-id"
-              label="buc:form-enableAttachments"
-              onClick={[Function]}
-              type="submit"
+            <div
+              className="d-flex"
             >
-              <div
-                className="d-flex"
+              <Icons
+                className="mr-2"
+                kind="tilsette"
               >
-                <Icons
+                <_default
                   className="mr-2"
+                  height={24}
                   kind="tilsette"
+                  width={24}
                 >
-                  <an
+                  <svg
                     className="mr-2"
                     height={24}
                     kind="tilsette"
+                    version="1.1"
+                    viewBox="0 0 24 24"
                     width={24}
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      className="mr-2"
-                      height={24}
-                      kind="tilsette"
-                      version="1.1"
-                      viewBox="0 0 24 24"
-                      width={24}
-                      xmlns="http://www.w3.org/2000/svg"
+                    <title>
+                      Tilsette
+                    </title>
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      stroke="none"
+                      strokeWidth="1"
                     >
-                      <title>
-                        Tilsette
-                      </title>
-                      <g
-                        fill="none"
-                        fillRule="evenodd"
-                        stroke="none"
-                        strokeWidth="1"
-                      >
-                        <path
-                          d="M20.146852,3.88403947 L20.146771,3.88395809 C17.976089,1.70435546 15.0928534,0.505997541 11.9994782,0.5 C5.67074719,0.5 0.512021923,5.64860101 0.500022608,11.9769766 C0.494020029,15.0501691 1.68354863,17.9384927 3.85210448,20.1159605 C6.02125562,22.2930255 8.90491868,23.494 11.9775643,23.5 C18.3251119,23.5 23.4879722,18.3534487 23.4999774,12.0209361 C23.5059792,8.94917357 22.3156837,6.06078388 20.146852,3.88403947 Z"
-                          stroke="#0067C5"
-                        />
-                        <path
-                          d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
-                          fill="#0067C5"
-                        />
-                        <path
-                          d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
-                          fill="#0067C5"
-                          transform="translate(12.000522, 12.000000) rotate(90.000000) translate(-12.000522, -12.000000) "
-                        />
-                      </g>
-                    </svg>
-                  </an>
-                </Icons>
-                <span>
-                  ui:addAttachments
-                </span>
-              </div>
-            </button>
-          </KnappBase>
-        </Knapp>
+                      <path
+                        d="M20.146852,3.88403947 L20.146771,3.88395809 C17.976089,1.70435546 15.0928534,0.505997541 11.9994782,0.5 C5.67074719,0.5 0.512021923,5.64860101 0.500022608,11.9769766 C0.494020029,15.0501691 1.68354863,17.9384927 3.85210448,20.1159605 C6.02125562,22.2930255 8.90491868,23.494 11.9775643,23.5 C18.3251119,23.5 23.4879722,18.3534487 23.4999774,12.0209361 C23.5059792,8.94917357 22.3156837,6.06078388 20.146852,3.88403947 Z"
+                        stroke="#0067C5"
+                      />
+                      <path
+                        d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
+                        fill="#0067C5"
+                      />
+                      <path
+                        d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
+                        fill="#0067C5"
+                        transform="translate(12.000522, 12.000000) rotate(90.000000) translate(-12.000522, -12.000000) "
+                      />
+                    </g>
+                  </svg>
+                </_default>
+              </Icons>
+              <span>
+                ui:addAttachments
+              </span>
+            </div>
+          </button>
+        </KnappBase>
       </div>
     </SEDAttachments>
   </div>

@@ -20,7 +20,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <Cf
+    <ExpandingPanel
       className="w-overview s-border"
       collapseProps={
         Object {
@@ -59,12 +59,12 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                   className="c-waitingPanel text-center w-overview-personPanel__waiting"
                   style={Object {}}
                 >
-                  <Spinner
+                  <NavFrontendSpinner
                     aria-label="Laster innhold"
                     transparent={false}
                     type="M"
                   >
-                    <Ikon
+                    <Icon
                       aria-label="Laster innhold"
                       className="spinner spinner--m"
                       kind="spinner-negativ"
@@ -103,12 +103,12 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                           strokeWidth="5"
                         />
                       </svg>
-                    </Ikon>
-                  </Spinner>
+                    </Icon>
+                  </NavFrontendSpinner>
                   <Normaltekst
                     className="c-waitingPanel__message ml-2"
                   >
-                    <n
+                    <TypografiBase
                       className="c-waitingPanel__message ml-2"
                       type="normaltekst"
                     >
@@ -117,7 +117,7 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                       >
                         ui:loading
                       </p>
-                    </n>
+                    </TypografiBase>
                   </Normaltekst>
                 </div>
               </WaitingPanel>
@@ -136,12 +136,12 @@ exports[`widgets/Overview/Overview Renders 1`] = `
             </button>
           </div>
         </div>
-        <t
+        <UnmountClosed
           id="w-overview-id"
           isOpened={true}
           onRest={[Function]}
         >
-          <n
+          <Collapse
             checkTimeout={50}
             id="w-overview-id"
             initialStyle={
@@ -182,10 +182,10 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                 </article>
               </div>
             </div>
-          </n>
-        </t>
+          </Collapse>
+        </UnmountClosed>
       </div>
-    </Cf>
+    </ExpandingPanel>
   </div>
 </Overview>
 `;

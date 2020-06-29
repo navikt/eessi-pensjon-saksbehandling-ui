@@ -1,5 +1,5 @@
 import { getUserInfo, login, setStatusParam } from 'actions/app'
-import Spinner from 'nav-frontend-spinner'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as routes from 'constants/routes'
 import * as constants from 'constants/constants'
 import { State } from 'declarations/reducers'
@@ -87,7 +87,7 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
   if (!mounted) {
     return (
       <div className='c-authenticatedRoute'>
-        <Spinner/>
+        <WaitingPanel />
       </div>
     )
   }
