@@ -11,6 +11,8 @@ import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUt
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as storage from 'constants/storage'
 import {
   Buc,
@@ -26,13 +28,15 @@ import {
 import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import Knapp from 'nav-frontend-knapper'
+import Alertstripe from 'nav-frontend-alertstriper'
+import { Element } from 'nav-frontend-typografi'
 import './BUCList.css'
 
 export interface BUCListProps {
@@ -187,18 +191,18 @@ const BUCList: React.FC<BUCListProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <div className='a-buc-p-buclist__buttons mb-3'>
-        <Ui.Nav.Knapp
+        <Knapp
           data-amplitude='buc.list.newbuc'
           id='a-buc-p-buclist__newbuc-button-id'
           className='a-buc-p-buclist__newbuc-button'
           onClick={onBUCNew}
         >
           {t('buc:form-createNewCase')}
-        </Ui.Nav.Knapp>
+        </Knapp>
       </div>
       {loading.gettingBUCs
         ? (
-          <Ui.WaitingPanel className='mt-5 a-buc-p-buclist__loading' size='XL' message={t('buc:loading-bucs')} />
+          <WaitingPanel className='mt-5 a-buc-p-buclist__loading' size='XL' message={t('buc:loading-bucs')} />
         ) : null}
       {bucs === null
         ? (
@@ -214,14 +218,14 @@ const BUCList: React.FC<BUCListProps> = ({
             if (buc.error) {
               return (
                 <div key={index} className='a-buc-c-bucheader p-0 w-100'>
-                  <Ui.Nav.AlertStripe type='advarsel' className='w-100'>{buc.error}</Ui.Nav.AlertStripe>
+                  <Alertstripe type='advarsel' className='w-100'>{buc.error}</Alertstripe>
                 </div>
               )
             }
             const bucId: string = buc.caseId!
             const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
             return (
-              <Ui.ExpandingPanel
+              <ExpandingPanel
                 id={'a-buc-p-buclist__buc-' + bucId}
                 key={index}
                 collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
@@ -239,18 +243,19 @@ const BUCList: React.FC<BUCListProps> = ({
                   />
                 }
               >
-                <div
+                <>
+                  <div
                   id='a-buc-p-buclist__seadheader-div-id'
                   className='a-buc-p-buclist__sedheader pb-1'
                 >
                   <div className='a-buc-p-buclist__sedheader-head col-4'>
-                    <Ui.Nav.Element>{t('buc:form-name')}</Ui.Nav.Element>
+                    <Element>{t('buc:form-name')}</Element>
                   </div>
                   <div className='a-buc-p-buclist__sedheader_head col-3'>
-                    <Ui.Nav.Element>{t('buc:form-status')}</Ui.Nav.Element>
+                    <Element>{t('buc:form-status')}</Element>
                   </div>
                   <div className='a-buc-p-buclist__sedheader-head col-3'>
-                    <Ui.Nav.Element>{t('buc:form-senderreceiver')}</Ui.Nav.Element>
+                    <Element>{t('buc:form-senderreceiver')}</Element>
                   </div>
                   <div className='a-buc-p-buclist__sedheader-head col-2' />
                 </div>
@@ -260,8 +265,9 @@ const BUCList: React.FC<BUCListProps> = ({
                     buc={buc}
                     onSEDNew={onSEDNew}
                   />
-                ) : <Ui.WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
-              </Ui.ExpandingPanel>
+                ) : <WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
+              </>
+              </ExpandingPanel>
             )
           }) : null}
       <BUCFooter className='w-100 mt-2 mb-2' />

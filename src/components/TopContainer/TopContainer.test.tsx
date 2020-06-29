@@ -1,6 +1,6 @@
 import { clientClear } from 'actions/alert'
 import { closeModal, toggleHighContrast } from 'actions/ui'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { TopContainer, TopContainerProps, TopContainerSelector } from './TopContainer'

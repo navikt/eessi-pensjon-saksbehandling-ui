@@ -33,7 +33,6 @@ import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Validation } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -42,6 +41,8 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import Step1 from './Step1'
 import Step2 from './Step2'
+import { Row } from 'nav-frontend-grid'
+import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 
 export interface SEDStartProps {
   aktoerId?: string;
@@ -309,7 +310,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   return (
-    <Ui.Nav.Row className='a-buc-c-sedstart'>
+    <Row className='a-buc-c-sedstart'>
       {step === 0 ? (
         <Step1
           loading={loading}
@@ -353,7 +354,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       ) : null}
       {showButtons ? (
         <div className='col-md-12 mt-4'>
-          <Ui.Nav.Hovedknapp
+          <Hovedknapp
             data-amplitude='sed.new.create'
             id='a-buc-c-sedstart__forward-button-id'
             className='a-buc-c-sedstart__forward-button'
@@ -371,26 +372,26 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               : sendingAttachments ? t('buc:loading-sendingSEDattachments')
                 : createSedNeedsMoreSteps() ? t('ui:next')
                   : t('buc:form-orderSED')}
-          </Ui.Nav.Hovedknapp>
+          </Hovedknapp>
           {step > 0 ? (
-            <Ui.Nav.Flatknapp
+            <Flatknapp
               data-amplitude='sed.new.back'
               id='a-buc-c-sedstart__back-button-id'
               className='a-buc-c-sedstart__back-button'
               onClick={onBackButtonClick}
             >{t('ui:back')}
-            </Ui.Nav.Flatknapp>
+            </Flatknapp>
           ) : null}
-          <Ui.Nav.Flatknapp
+          <Flatknapp
             data-amplitude='sed.new.cancel'
             id='a-buc-c-sedstart__cancel-button-id'
             className='a-buc-c-sedstart__cancel-button'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
-          </Ui.Nav.Flatknapp>
+          </Flatknapp>
         </div>
       ) : null}
-    </Ui.Nav.Row>
+    </Row>
   )
 }
 

@@ -1,11 +1,11 @@
-import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'js-fetch-api'
 import * as storageActions from 'actions/storage'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 const sprintf = require('sprintf-js').sprintf
-jest.mock('eessi-pensjon-ui/dist/api', () => ({
+jest.mock('js-fetch-api', () => ({
   call: jest.fn()
 }))
 const call = originalCall as jest.Mock<typeof originalCall>

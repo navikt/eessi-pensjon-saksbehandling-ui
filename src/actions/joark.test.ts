@@ -2,13 +2,13 @@ import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { JoarkFile } from 'declarations/joark'
-import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'js-fetch-api'
 import _ from 'lodash'
 import mockJoarkRaw from 'mocks/joark/joarkRaw'
 import mockJoarkPayload from 'mocks/joark/payload'
 
 const sprintf = require('sprintf-js').sprintf
-jest.mock('eessi-pensjon-ui/dist/api', () => ({
+jest.mock('js-fetch-api', () => ({
   call: jest.fn()
 }))
 const call = originalCall as jest.Mock<typeof originalCall>

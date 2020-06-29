@@ -19,7 +19,7 @@ import {
 import { JoarkFile } from 'declarations/joark'
 import { P4000Info } from 'declarations/period'
 import { RinaUrl } from 'declarations/types'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import { Action } from 'redux'

@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import * as api from 'eessi-pensjon-ui/dist/api'
+import { call } from 'js-fetch-api'
 const sprintf = require('sprintf-js').sprintf
 
 export interface InviteParams {
@@ -9,7 +9,7 @@ export interface InviteParams {
 }
 
 export const sendInvite = (params: InviteParams): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_VARSEL_URL, params),
     method: 'POST',
     payload: {},

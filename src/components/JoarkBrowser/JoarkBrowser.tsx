@@ -1,8 +1,9 @@
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
+import Icons from 'components/Icons/Icons'
+import Modal from 'components/Modal/Modal'
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
-import Ui from 'eessi-pensjon-ui'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -10,6 +11,9 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import TableSorter, { Items } from 'tabell'
+import Knapp from 'nav-frontend-knapper'
+import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
+import File from 'forhandsvisningsfil'
 import './JoarkBrowser.css'
 
 export interface JoarkBrowserSelector {
@@ -77,7 +81,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             style={{ cursor: 'pointer' }}
             onClick={handleModalClose}
           >
-            <Ui.File
+            <File
               file={previewFile}
               width={600}
               height={800}
@@ -134,7 +138,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         className='c-joarkbrowser__variant'
       >
         <div className='buttons'>
-          <Ui.Nav.Knapp
+          <Knapp
             data-tip={t('ui:preview')}
             kompakt
             disabled={previewing}
@@ -144,10 +148,10 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             className='c-tablesorter__preview-button mr-2 ml-2'
             onClick={() => onPreviewItem(item)}
           >
-            {spinner ? '' : <Ui.Icons kind='view' />}
-          </Ui.Nav.Knapp>
+            {spinner ? '' : <Icons kind='view' />}
+          </Knapp>
           {context.mode === 'confirm' ? (
-            <Ui.Nav.Knapp
+            <Knapp
               data-tip={t('ui:delete')}
               form='kompakt'
               id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
@@ -155,8 +159,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               className='c-tablesorter__delete-button mr-2 ml-2'
               onClick={() => onDeleteItem(context.files, item)}
             >
-              <Ui.Icons kind='trashcan' color='#0067C5' />
-            </Ui.Nav.Knapp>
+              <Icons kind='trashcan' color='#0067C5' />
+            </Knapp>
           ) : null}
         </div>
       </div>
@@ -199,7 +203,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   return (
     <div className='c-joarkBrowser'>
-      <Ui.Modal modal={modal} onModalClose={handleModalClose} />
+      <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
         className={mode}
         items={items}
@@ -217,7 +221,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             id: 'tema',
             label: t('ui:tema'),
             type: 'string',
-            renderCell: (item: any, value: any) => <Ui.Nav.EtikettLiten>{value}</Ui.Nav.EtikettLiten>
+            renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
           }, {
             id: 'date',
             label: t('ui:date'),
@@ -226,7 +230,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             id: 'label',
             label: t('ui:variant'),
             type: 'object',
-            renderCell: (item: any, value: any) => <Ui.Nav.Normaltekst>{value}</Ui.Nav.Normaltekst>
+            renderCell: (item: any, value: any) => <Normaltekst>{value}</Normaltekst>
           }, {
             id: 'buttons',
             label: '',

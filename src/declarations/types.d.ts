@@ -15,6 +15,8 @@ interface Option {
   value: string;
 }
 
+export type Labels = {[k in string]? : string}
+
 export interface Person {
   diskresjonskode: any;
   bostedsadresse: any;

@@ -1,15 +1,14 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { JoarkFile } from 'declarations/joark'
-import * as api from 'eessi-pensjon-ui/dist/api'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { call, ActionWithPayload } from 'js-fetch-api'
 import mockJoarkRaw from 'mocks/joark/joarkRaw'
 import mockJoarkPayload from 'mocks/joark/payload'
 
 const sprintf = require('sprintf-js').sprintf
 
 export const listJoarkFiles = (userId: string): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
     expectedPayload: mockJoarkRaw.mockdata,
     type: {
@@ -21,7 +20,7 @@ export const listJoarkFiles = (userId: string): Function => {
 }
 
 export const getPreviewJoarkFile = (item: JoarkFile): Function => {
-  return api.call({
+  return call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,

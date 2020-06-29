@@ -1,13 +1,15 @@
 import classNames from 'classnames'
+import Icons from 'components/Icons/Icons'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { PersonPropType } from 'declarations/types.pt'
 import { Person } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
 import PT from 'prop-types'
 import React from 'react'
 import './PersonTitle.css'
 import { useTranslation } from 'react-i18next'
+import { Systemtittel } from 'nav-frontend-typografi'
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean;
@@ -19,7 +21,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: 
   let deathDate: Date | Moment | undefined
   const { t } = useTranslation()
   if (!person || gettingPersonInfo) {
-    return <Ui.WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
+    return <WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
   }
 
   if (_.get(person, 'foedselsdato.foedselsdato')) {
@@ -46,14 +48,14 @@ const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: 
 
   return (
     <div className='w-overview-personPanel__title'>
-      <Ui.Icons
+      <Icons
         size={40}
         kind={kind}
         className={classNames('w-overview-personPanel__icon', { dead: !_.isNil(deathDate) })}
       />
-      <Ui.Nav.Systemtittel className='ml-2'>
+      <Systemtittel className='ml-2'>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
-      </Ui.Nav.Systemtittel>
+      </Systemtittel>
     </div>
   )
 }

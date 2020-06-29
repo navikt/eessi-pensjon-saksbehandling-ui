@@ -1,11 +1,10 @@
 import { getUserInfo, login, setStatusParam } from 'actions/app'
-import * as constants from 'constants/constants'
+import Spinner from 'nav-frontend-spinner'
 import * as routes from 'constants/routes'
+import * as constants from 'constants/constants'
 import { State } from 'declarations/reducers'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 import './AuthenticatedRoute.css'
@@ -28,9 +27,9 @@ const paramAliases: {[k: string]: string} = {
 type Params = {[k: string]: any}
 
 export interface AuthenticatedRouteSelector {
-  userRole: string | undefined;
-  loggedIn: boolean | undefined;
   allowed: boolean | undefined;
+  loggedIn: boolean | undefined;
+  userRole: string | undefined;
 }
 
 export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX.Element => {
@@ -40,7 +39,6 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
   const [requestingUserInfo, setRequestingUserInfo] = useState<boolean>(false)
   const [requestingLogin, setRequestingLogin] = useState<boolean>(false)
   const { allowed, loggedIn, userRole } = useSelector<State, AuthenticatedRouteSelector>(mapState)
-  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -89,7 +87,7 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
   if (!mounted) {
     return (
       <div className='c-authenticatedRoute'>
-        <Ui.WaitingPanel size='XL' essage={t('authenticating')} />
+        <Spinner/>
       </div>
     )
   }

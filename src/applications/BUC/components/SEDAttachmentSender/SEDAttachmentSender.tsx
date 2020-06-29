@@ -2,11 +2,11 @@ import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { JoarkFilesPropType } from 'declarations/joark.pt'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import ProgressBar, { ProgressBarStatus } from 'fremdriftslinje'
 
 export interface SEDAttachmentPayload {
   aktoerId: string;
@@ -24,7 +24,7 @@ export interface SEDAttachmentSenderProps {
   allAttachments: JoarkFiles;
   attachmentsError ?: boolean;
   className?: string;
-  initialStatus ?: string;
+  initialStatus ?: ProgressBarStatus;
   onFinished ?: () => void;
   payload: SEDAttachmentPayload;
   savedAttachments: JoarkFiles;
@@ -37,7 +37,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
 }: SEDAttachmentSenderProps): JSX.Element => {
   const [sendingAttachment, setSendingAttachment] = useState<boolean>(false)
   const [_storeAttachments, setStoreAttachments] = useState<JoarkFiles>(savedAttachments || [])
-  const [status, setStatus] = useState<string>(initialStatus)
+  const [status, setStatus] = useState<ProgressBarStatus>(initialStatus)
   const { t } = useTranslation()
   const handleFinished: Function = useCallback(() => {
     if (_.isFunction(onFinished)) {
@@ -129,14 +129,16 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
 
   return (
     <div className={classNames('a-buc-c-sedAttachmentSender', className)}>
-      <Ui.ProgressBar now={percentage} status={status}>
+      <ProgressBar now={percentage} status={status}>
+        <>
         {status === 'inprogress' ? t('buc:loading-sendingXofY', {
           current: current,
           total: total
         }) : null}
         {status === 'done' ? t('buc:form-attachmentsSent') : null}
         {status === 'error' ? t('buc:error-sendingAttachments') : null}
-      </Ui.ProgressBar>
+        </>
+      </ProgressBar>
     </div>
   )
 }
@@ -145,7 +147,7 @@ SEDAttachmentSender.propTypes = {
   allAttachments: JoarkFilesPropType.isRequired,
   attachmentsError: PT.bool,
   className: PT.string,
-  initialStatus: PT.string,
+  initialStatus: PT.oneOf(['todo', 'inprogress', 'done', 'error']),
   onFinished: PT.func,
   payload: PT.any,
   savedAttachments: JoarkFilesPropType.isRequired,

@@ -1,7 +1,7 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import classNames from 'classnames'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { Buc, Sed, Seds } from 'declarations/buc'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import React from 'react'
 import SEDBody from '../SEDBody/SEDBody'
@@ -48,7 +48,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           onSEDNew={onSEDNew}
         />
       ) : (
-        <Ui.ExpandingPanel
+        <ExpandingPanel
           style={style}
           className='mb-3 s-border'
           heading={
@@ -67,7 +67,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             canHaveAttachments={sedCanHaveAttachments(sed)}
             canShowProperties={sedCanShowProperties(sed)}
           />
-        </Ui.ExpandingPanel>
+        </ExpandingPanel>
       )}
     </div>
   )

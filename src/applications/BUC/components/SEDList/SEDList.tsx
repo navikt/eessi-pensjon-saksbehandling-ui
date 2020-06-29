@@ -2,11 +2,11 @@ import { sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUt
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedsPropType } from 'declarations/buc.pt'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Normaltekst } from 'nav-frontend-typografi'
 import './SEDList.css'
 
 export interface SEDListProps {
@@ -39,7 +39,7 @@ const SEDList: React.FC<SEDListProps> = ({
         }) : null}
       <div className='a-buc-c-sedlist__footer mt-2'>
         {!_.isEmpty(seds) && seds!.filter(sedFilter).length > maxSeds
-          ? <Ui.Nav.Normaltekst>{t('buc:form-lastNonEmpty5')}</Ui.Nav.Normaltekst> : null}
+          ? <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst> : null}
       </div>
     </div>
   )

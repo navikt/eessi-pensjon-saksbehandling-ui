@@ -1,9 +1,9 @@
 import { getPersonInfo } from 'actions/app'
 import classNames from 'classnames'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import './Overview.css'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
+import Alertstripe from 'nav-frontend-alertstriper'
 
 const mapState = (state: State): OverviewSelector => ({
   /* istanbul ignore next */
@@ -84,11 +85,10 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   if (!aktoerId) {
-    return (
-      <Ui.Nav.AlertStripe type='advarsel' className='w-overview__alert w-100'>
-        {t('buc:validation-noAktoerId')}
-      </Ui.Nav.AlertStripe>
-    )
+    let alertstripe = <Alertstripe type='advarsel' className='w-overview__alert w-100'>
+      {t('buc:validation-noAktoerId')}
+    </Alertstripe>
+    return alertstripe
   }
 
   return (
@@ -96,7 +96,7 @@ export const Overview: React.FC<OverviewProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Ui.ExpandingPanel
+      <ExpandingPanel
         collapseProps={{ id: 'w-overview-id' }}
         className={classNames('w-overview', 's-border', { highContrast: highContrast })}
         open={!widget.options.collapsed}
@@ -113,7 +113,7 @@ export const Overview: React.FC<OverviewProps> = ({
           locale={locale}
           person={person}
         />
-      </Ui.ExpandingPanel>
+      </ExpandingPanel>
     </div>
   )
 }

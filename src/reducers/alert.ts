@@ -1,10 +1,11 @@
 import * as types from 'constants/actionTypes'
-import { ActionWithPayload } from 'eessi-pensjon-ui/dist/declarations/types'
+import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
+import { AlertStatus } from 'components/Alert/Alert'
 
 export interface AlertState {
-  clientErrorStatus: string | undefined;
+  clientErrorStatus: AlertStatus | undefined;
   clientErrorMessage: string | undefined;
   serverErrorMessage: string | undefined;
   uuid: string | undefined;

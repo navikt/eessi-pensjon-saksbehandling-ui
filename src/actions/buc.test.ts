@@ -4,9 +4,9 @@ import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { Sed } from 'declarations/buc'
-import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'js-fetch-api'
 
-jest.mock('eessi-pensjon-ui/dist/api', () => ({
+jest.mock('js-fetch-api', () => ({
   call: jest.fn()
 }))
 const call = originalCall as jest.Mock<typeof originalCall>

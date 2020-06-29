@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/ExpandingPanel/ExpandingPanel Renders 1`] = `
+<ExpandingPanel
+  ariaTittel="mockAriaTittel"
+  border={true}
+  collapseProps={
+    Object {
+      "id": "mockId",
+    }
+  }
+  heading={
+    <h2>
+      heading
+    </h2>
+  }
+  onClick={[MockFunction]}
+  open={false}
+  renderContentWhenClosed={false}
+>
+  <div
+    className="c-expandingpanel ekspanderbartPanel ekspanderbartPanel--lukket ekspanderbartPanel--border"
+    style={Object {}}
+  >
+    <div
+      aria-expanded={false}
+      className="ekspanderbartPanel__hode"
+      onClick={[Function]}
+    >
+      <div
+        className="ekspanderbartPanel__flex-wrapper"
+      >
+        <h2>
+          heading
+        </h2>
+        <button
+          aria-expanded={false}
+          aria-label="open"
+          className="ekspanderbartPanel__knapp"
+          onClick={[MockFunction]}
+          onKeyDown={[Function]}
+          type="button"
+        >
+          <span
+            className="ekspanderbartPanel__indikator"
+          />
+        </button>
+      </div>
+    </div>
+    <UnmountClosed
+      id="mockId"
+      isOpened={false}
+      onRest={[Function]}
+    />
+  </div>
+</ExpandingPanel>
+`;

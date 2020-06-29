@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as uiActions from 'actions/ui'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components'
+import { ModalContent } from 'declarations/components'
 import i18n from 'i18n'
 jest.mock('i18n', () => ({
   changeLanguage: jest.fn()

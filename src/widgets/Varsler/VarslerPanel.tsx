@@ -1,6 +1,8 @@
 import { sendInvite } from 'actions/pinfo'
 import { getStorageFile, listStorageFiles } from 'actions/storage'
-import Ui from 'eessi-pensjon-ui'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import Icons from 'components/Icons/Icons'
+import RefreshButton from 'components/RefreshButton/RefreshButton'
 import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import moment from 'moment'
@@ -11,6 +13,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import { ReactComponent as VeilederSVG } from 'assets/images/NavPensjonVeileder.svg'
 import TableSorter, { Item } from 'tabell'
+import Panel from 'nav-frontend-paneler'
+import { Systemtittel } from 'nav-frontend-typografi'
+import Veileder from 'nav-frontend-veileder'
+import { Row } from 'nav-frontend-grid'
+import { Hovedknapp } from 'nav-frontend-knapper'
 import './VarslerPanel.css'
 
 const mapState = /* istanbul ignore next */ (state: State) => ({
@@ -151,17 +158,17 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
 
   if (mounted && !hasParams) {
     return (
-      <Ui.Nav.Panel className='w-varslerPanel s-border'>
-        <Ui.Nav.Systemtittel className='w-varslerPanel__noParams-title pb-3'>{t('ui:widget-overview-notifications')}</Ui.Nav.Systemtittel>
-        <Ui.Nav.Veileder
+      <Panel className='w-varslerPanel s-border'>
+        <Systemtittel className='w-varslerPanel__noParams-title pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
+        <Veileder
           tekst={t('pinfo:error-noParams')}
           posisjon='høyre'
           type='feilmelding'
           fargetema='feilmelding'
         >
           <VeilederSVG />
-        </Ui.Nav.Veileder>
-      </Ui.Nav.Panel>
+        </Veileder>
+      </Panel>
     )
   }
 
@@ -180,21 +187,21 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
     }) : []
 
   return (
-    <Ui.ExpandingPanel
+    <ExpandingPanel
       collapseProps={{ id: 'w-varslerPanel-id' }}
       className='w-varslerPanel s-border'
       open={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
-      heading={<Ui.Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Ui.Nav.Systemtittel>}
+      heading={<Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>}
     >
-      <Ui.Nav.Row>
+      <Row>
         <div className='col-md-4'>
           <div style={{ display: 'none' }}>
             <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
             <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
             <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
           </div>
-          <Ui.Nav.Veileder
+          <Veileder
             tekst={(
               <>
                 {!_.isEmpty(invite)
@@ -207,9 +214,9 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
             posisjon='bunn'
           >
             <VeilederSVG />
-          </Ui.Nav.Veileder>
+          </Veileder>
           <div className='text-center'>
-            <Ui.Nav.Hovedknapp
+            <Hovedknapp
               id='w-varslerPanel__invite-button-id'
               className='w-varslerPanel__invite-button mt-3'
               disabled={isInvitingPinfo}
@@ -217,13 +224,13 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
               onClick={onInviteButtonClick}
             >
               {isInvitingPinfo ? t('sending') : t('ui:widget-overview-sendNotification-button')}
-            </Ui.Nav.Hovedknapp>
+            </Hovedknapp>
           </div>
         </div>
         <div className='col-md-8'>
           <div className='w-varslerPanel__title'>
             <div />
-            <Ui.RefreshButton
+            <RefreshButton
               className='w-varslerPanel__refresh-button'
               labelRefresh={t('ui:refresh')}
               rotating={!isReady}
@@ -246,7 +253,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
                   needle: /* istanbul ignore next */ (it: Item) => it.toLowerCase(),
                   renderCell: (item: any) => (
                     <div className='d-flex'>
-                      <Ui.Icons className='mr-2' kind='nav-message-sent' />
+                      <Icons className='mr-2' kind='nav-message-sent' />
                       <label>{item.type}</label>
                     </div>
                   )
@@ -259,8 +266,8 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
             <div className='p-2 w-varslerPanel__noMessages font-italic'>{t('ui:widget-overview-sendNotification-noMessages')}</div>
           )}
         </div>
-      </Ui.Nav.Row>
-    </Ui.ExpandingPanel>
+      </Row>
+    </ExpandingPanel>
   )
 }
 

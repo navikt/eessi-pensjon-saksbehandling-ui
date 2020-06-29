@@ -1,10 +1,12 @@
 import classNames from 'classnames'
-import Ui from 'eessi-pensjon-ui'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './SEDSearch.css'
+import { Input } from 'nav-frontend-skjema'
+import Panel from 'nav-frontend-paneler'
 
 export interface SEDSearchProps {
   className ?: string;
@@ -58,11 +60,11 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, value }: SEDSearchProp
   }]
 
   return (
-    <Ui.Nav.Panel
+    <Panel
       id='a-buc-c-sedsearch__panel-id'
       className={classNames('a-buc-c-sedsearch', 'p-2', 's-border', className)}
     >
-      <Ui.Nav.Input
+      <Input
         id='a-buc-c-sedsearch__query-input-id'
         className='a-buc-c-sedsearch__query-input pl-1 pr-1 w-50'
         label=''
@@ -71,7 +73,7 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, value }: SEDSearchProp
         onChange={onQueryChange}
         placeholder={t('buc:form-filterSED')}
       />
-      <Ui.MultipleSelect
+      <MultipleSelect
         ariaLabel={t('buc:form-searchForStatus')}
         label=''
         id='a-buc-c-sedsearch__status-select-id'
@@ -82,7 +84,7 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, value }: SEDSearchProp
         onSelect={onStatusChange}
         options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}
       />
-    </Ui.Nav.Panel>
+    </Panel>
   )
 }
 

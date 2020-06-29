@@ -2,7 +2,6 @@ import { setStatusParam } from 'actions/app'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -13,6 +12,10 @@ import CupPNG from 'assets/images/artwork/kop.png'
 import MousePNG from 'assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'assets/images/artwork/saksstatus.png'
 import './BUCEmpty.css'
+import { Input } from 'nav-frontend-skjema'
+import { Undertittel } from 'nav-frontend-typografi'
+import { Hovedknapp } from 'nav-frontend-knapper'
+import Lenke from 'nav-frontend-lenker'
 
 export interface BUCEmptySelector {
   rinaUrl: RinaUrl | undefined
@@ -77,18 +80,18 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
           <img alt='' className='mouse' src={MousePNG} />
           <img alt='' className='map' src={MapPNG} />
         </div>
-        <Ui.Nav.Undertittel className='a-buc-p-bucempty__title mb-3'>
-          <Ui.Nav.Lenke
+        <Undertittel className='a-buc-p-bucempty__title mb-3'>
+          <Lenke
             id='a-buc-p-bucempty__newbuc-link-id'
             className='a-buc-p-bucempty__newbuc-link'
             href='#' onClick={onBUCNew}
           >
             {t('buc:form-empty-startANewCase')}
-          </Ui.Nav.Lenke>
-        </Ui.Nav.Undertittel>
+          </Lenke>
+        </Undertittel>
         {!aktoerId ? (
           <div className='a-buc-p-bucempty__form'>
-            <Ui.Nav.Input
+            <Input
               id='a-buc-p-bucempty__aktoerid-input-id'
               className='a-buc-p-bucempty__aktoerid-input'
               label={t('ui:aktoerId')}
@@ -97,18 +100,18 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               onChange={onAktoerIdChange}
               feil={validation || false}
             />
-            <Ui.Nav.Hovedknapp
+            <Hovedknapp
               id='a-buc-p-bucempty__aktoerid-button-id'
               className='a-buc-p-bucempty__aktoerid-button ml-3'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
-            </Ui.Nav.Hovedknapp>
+            </Hovedknapp>
           </div>
         ) : null}
         {!sakId ? (
           <div className='a-buc-p-bucempty__form'>
-            <Ui.Nav.Input
+            <Input
               id='a-buc-p-bucempty__sakid-input-id'
               className='a-buc-p-bucempty__sakid-input'
               label={t('buc:form-caseId')}
@@ -117,13 +120,13 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               onChange={onSakIdChange}
               feil={validation || false}
             />
-            <Ui.Nav.Hovedknapp
+            <Hovedknapp
               id='a-buc-p-bucempty__sakid-button-id'
               className='a-buc-p-bucempty__sakid-button ml-3'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}
-            </Ui.Nav.Hovedknapp>
+            </Hovedknapp>
           </div>
         ) : null}
       </div>

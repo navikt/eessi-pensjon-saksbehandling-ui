@@ -3,19 +3,24 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
+import Alert from 'components/Alert/Alert'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AttachedFiles, Buc, InstitutionListMap, RawInstitution, Sed } from 'declarations/buc'
 import { AttachedFilesPropType, BucPropType, InstitutionListMapPropType } from 'declarations/buc.pt'
 import { Country } from 'declarations/period'
 import { AllowedLocaleString, Loading, Option, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType, LoadingPropType, ValidationPropType } from 'declarations/types.pt'
-import Ui from 'eessi-pensjon-ui'
-import { Labels } from 'eessi-pensjon-ui/dist/declarations/types'
+import { Labels } from 'declarations/types'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import { Input, Select } from 'nav-frontend-skjema'
+import { Systemtittel, Undertittel } from 'nav-frontend-typografi'
+import CountryData from 'land-verktoy'
 
 export interface Step1Props {
   _attachments: AttachedFiles;
@@ -60,7 +65,7 @@ const Step1: React.FC<Step1Props> = ({
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, sedNeedsAvdodfnr, setAvdodfnr, setSed, setValidation, setVedtakId, validation, vedtakId
 }: Step1Props): JSX.Element => {
-  const countryData = Ui.CountryData.getCountryInstance(locale)
+  const countryData = CountryData.getCountryInstance(locale)
   const [mounted, setMounted] = useState<boolean>(false)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(false)
   const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort(countrySort) : [])
@@ -279,7 +284,7 @@ const Step1: React.FC<Step1Props> = ({
 
   const getSpinner = (text: string) => {
     return (
-      <Ui.WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} oneLine />
+      <WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} oneLine />
     )
   }
 
@@ -294,7 +299,7 @@ const Step1: React.FC<Step1Props> = ({
   return (
     <div className='a-buc-sedstart-step1 w-100'>
       <div className='col-md-12'>
-        <Ui.Nav.Systemtittel>{
+        <Systemtittel>{
           !currentSed
             ? t('buc:step-startSEDTitle', {
               buc: t(`buc:buc-${buc.type}`),
@@ -305,18 +310,18 @@ const Step1: React.FC<Step1Props> = ({
               sed: buc.seds!.find((sed: Sed) => sed.id === currentSed)!.type
             })
         }
-        </Ui.Nav.Systemtittel>
+        </Systemtittel>
         <hr />
       </div>
       {!vedtakId && _sed === 'P6000' ? (
         <div className='col-md-12'>
           <div className='d-flex flex-column align-items-center mt-4 mb-4'>
-            <Ui.Alert type='client' fixed={false} status='WARNING' message={t('buc:alert-noVedtakId')} />
+            <Alert type='client' fixed={false} status='WARNING' message={t('buc:alert-noVedtakId')} />
           </div>
         </div>
       ) : null}
       <div className={layout === 'row' ? 'col-md-6 pr-3' : 'col-md-12'}>
-        <Ui.Nav.Select
+        <Select
           className='a-buc-c-sedstart__sed-select flex-fill mt-4 mb-4'
           id='a-buc-c-sedstart__sed-select-id'
           disabled={loading.gettingSedList}
@@ -330,10 +335,10 @@ const Step1: React.FC<Step1Props> = ({
           {!loading.gettingSedList
             ? renderOptions(sedList, 'sed')
             : <option>{t('buc:loading-sed')}</option>}
-        </Ui.Nav.Select>
+        </Select>
         {sedNeedsVedtakId() ? (
           <div className='mb-3'>
-            <Ui.Nav.Input
+            <Input
               disabled
               id='a-buc-c-sedstart__vedtakid-input-id'
               className='a-buc-c-sedstart__vedtakid-input mt-4 mb-4'
@@ -348,7 +353,7 @@ const Step1: React.FC<Step1Props> = ({
         ) : null}
         {sedNeedsAvdodfnr() ? (
           <div className='mb-3'>
-            <Ui.Nav.Input
+            <Input
               id='a-buc-c-sedstart__fnr-input-id'
               className='a-buc-c-sedstart__fnr-input mt-4 mb-4'
               label={t('buc:form-fnr')}
@@ -364,7 +369,7 @@ const Step1: React.FC<Step1Props> = ({
           ? (
             <>
               <div className='mt-4 mb-4 flex-fill'>
-                <Ui.MultipleSelect
+                <MultipleSelect
                   ariaLabel={t('ui:country')}
                   label={t('ui:country')}
                   className='a-buc-c-sedstart__country-select'
@@ -380,7 +385,7 @@ const Step1: React.FC<Step1Props> = ({
                 />
               </div>
               <div className='mt-4 mb-4 flex-fill'>
-                <Ui.MultipleSelect
+                <MultipleSelect
                   ariaLabel={t('ui:institution')}
                   label={t('ui:institution')}
                   className='a-buc-c-sedstart__institution-select'
@@ -395,7 +400,7 @@ const Step1: React.FC<Step1Props> = ({
                   options={institutionObjectList}
                 />
               </div>
-              <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Ui.Nav.Undertittel>
+              <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
               <InstitutionList
                 institutions={_institutions.map(item => {
                   var [country, institution] = item.split(':')
@@ -411,16 +416,16 @@ const Step1: React.FC<Step1Props> = ({
           ) : null}
         {sedCanHaveAttachments() ? (
           <div className='mt-4'>
-            <Ui.Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Ui.Nav.Undertittel>
+            <Undertittel className='mb-2'>{t('ui:attachments')}</Undertittel>
             <SEDAttachmentsTable attachments={_attachments} />
           </div>
         ) : null}
       </div>
       {sedCanHaveAttachments() ? (
         <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
-          <Ui.Nav.Undertittel className='mb-3'>
+          <Undertittel className='mb-3'>
             {t('ui:attachments')}
-          </Ui.Nav.Undertittel>
+          </Undertittel>
           <SEDAttachments
             onSubmit={setFiles}
             files={_attachments}

@@ -3,11 +3,10 @@ import { Buc } from 'declarations/buc'
 import { BucPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
-import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
+import { Systemtittel } from 'nav-frontend-typografi'
 export interface Step2Props {
   aktoerId: string;
   buc: Buc;
@@ -25,11 +24,11 @@ const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {
   return (
     <>
       <div className='col-md-12'>
-        <Ui.Nav.Systemtittel>{t('buc:step-startSEDTitle', {
+        <Systemtittel>{t('buc:step-startSEDTitle', {
           buc: t(`buc:buc-${buc.type}`),
           sed: _sed || t('buc:form-newSed')
         })}
-        </Ui.Nav.Systemtittel>
+        </Systemtittel>
         <hr />
       </div>
       {_sed === 'P4000' ? (

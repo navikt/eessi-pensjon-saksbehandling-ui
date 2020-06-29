@@ -1,8 +1,8 @@
 import { clearData, logout } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import classNames from 'classnames'
+import Icons from 'components/Icons/Icons'
 import * as routes from 'constants/routes'
-import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -10,6 +10,10 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
+import Lenke from 'nav-frontend-lenker'
+import { Select } from 'nav-frontend-skjema'
+import Spinner from 'nav-frontend-spinner'
+import { Systemtittel } from 'nav-frontend-typografi'
 import './Header.css'
 
 export interface HeaderProps {
@@ -61,21 +65,21 @@ const Header: React.FC<HeaderProps> = ({
           <div className='tittel'><span>{t('app-headerTitle')}</span></div>
         </div>
         <div>
-          <Ui.Nav.Lenke
+          <Lenke
             id='c-topHeader__highcontrast-link-id'
             className='c-topHeader__highcontrast-link c-topHeader__link mt-1'
             href='#highContrast'
             onClick={onHighContrastClick}
           >
             {t('ui:highContrast')}
-          </Ui.Nav.Lenke>
+          </Lenke>
         </div>
         <div className='user'>
           {isLoggingOut
-            ? <Ui.Nav.Spinner type='XS' />
+            ? <Spinner type='XS' />
             : (
               <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
-                <Ui.Icons kind='user' />
+                <Icons kind='user' />
               </div>
             )}
           <div className='skillelinje' />
@@ -83,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({
             {gettingUserInfo ? t('buc:loading-gettingUserInfo')
               : username
                 ? (
-                  <Ui.Nav.Select
+                  <Select
                     id='username-select-id'
                     className='username-select'
                     label=''
@@ -94,11 +98,11 @@ const Header: React.FC<HeaderProps> = ({
                     <option value=''>{username}</option>
                     <option value='feedback'>{t('ui:giveFeedback')}</option>
                     <option value='logout'>{t('logout')}</option>
-                  </Ui.Nav.Select>
+                  </Select>
                 )
                 : (
                   <>
-                    <Ui.Icons kind='advarsel' size={16} />
+                    <Icons kind='advarsel' size={16} />
                     <span className='username-span'>{t('unknown')}</span>
                   </>
                 )}
@@ -108,9 +112,9 @@ const Header: React.FC<HeaderProps> = ({
       {header
         ? (
           _.isString(header) ? (
-            <Ui.Nav.Systemtittel className='m-4'>
+            <Systemtittel className='m-4'>
               {header}
-            </Ui.Nav.Systemtittel>
+            </Systemtittel>
           ) : header
         ) : null}
       {children}

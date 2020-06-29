@@ -10,16 +10,21 @@ import {
 } from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Features, Loading, Option, Validation } from 'declarations/types'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { Row } from 'nav-frontend-grid'
+import { Select } from 'nav-frontend-skjema'
+import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 
 export interface BUCStartProps {
   aktoerId: string;
@@ -126,7 +131,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }, [loading, currentBuc, hasBucInfoSaved, setMode])
 
-  const validateSubjectArea: Function = (subjectArea: string): boolean => {
+  const validateSubjectArea = (subjectArea: string): boolean => {
     if (!subjectArea || subjectArea === placeholders.subjectArea) {
       setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
       return false
@@ -136,7 +141,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const validateBuc: Function = (buc: string): boolean => {
+  const validateBuc = (buc: string): boolean => {
     if (!buc || buc === placeholders.buc) {
       setValidationState('bucFail', t('buc:validation-chooseBuc'))
       return false
@@ -146,13 +151,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const resetValidationState: Function = (_key: string): void => {
+  const resetValidationState = (_key: string): void => {
     setValidation(_.omitBy(validation, (value, key) => {
       return key === _key
     }))
   }
 
-  const hasNoValidationErrors: Function = (): boolean => {
+  const hasNoValidationErrors = (): boolean => {
     return _.find(validation, (it) => (it !== undefined)) === undefined
   }
 
@@ -178,19 +183,19 @@ const BUCStart: React.FC<BUCStartProps> = ({
     setMode('buclist')
   }
 
-  const onSubjectAreaChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onSubjectAreaChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const thisSubjectArea: string = e.target.value
     setSubjectArea(thisSubjectArea)
     validateSubjectArea(thisSubjectArea)
   }
 
-  const onBucChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onBucChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const thisBuc: string = e.target.value
     setBuc(thisBuc)
     validateBuc(thisBuc)
   }
 
-  const onTagsChange: Function = (tagsList: Tags): void => {
+  const onTagsChange = (tagsList: Tags): void => {
     setTags(tagsList)
     standardLogger('buc.new.tags.select', { tags: tagsList.map(t => t.label) })
     if (_.isFunction(onTagsChanged)) {
@@ -198,7 +203,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const renderOptions: Function = (options: Array<Option | string>, type: string): JSX.Element[] => {
+  const renderOptions = (options: Array<Option | string>, type: string): JSX.Element[] => {
     if (!options || Object.keys(options).length === 0) {
       options = [{
         value: placeholders[type],
@@ -225,7 +230,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }) : []
   }
 
-  const getOptionLabel: Function = (value: string): string => {
+  const getOptionLabel = (value: string): string => {
     let label: string = value
     const description: string = getBucTypeLabel({
       t: t,
@@ -238,8 +243,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return label
   }
 
-  const getSpinner: Function = (text:string): JSX.Element => {
-    return <Ui.WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} oneLine />
+  const getSpinner = (text:string): JSX.Element => {
+    return <WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} oneLine />
   }
 
   const tagObjectList: Tags = tagList ? tagList.map(tag => {
@@ -249,15 +254,19 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }) : []
 
-  const allowedToForward: Function = (): boolean => {
-    return _buc && _subjectArea && hasNoValidationErrors() && !loading.creatingBUC && !loading.savingBucsInfo
+  const allowedToForward = (): boolean => {
+    return _buc !== undefined &&
+      _subjectArea !== undefined &&
+      hasNoValidationErrors() &&
+      !loading.creatingBUC &&
+      !loading.savingBucsInfo
   }
 
   return (
     <div className='a-buc-c-bucstart'>
-      <Ui.Nav.Row className='mb-3'>
+      <Row className='mb-3'>
         <div className='col-md-6 pr-3'>
-          <Ui.Nav.Select
+          <Select
             id='a-buc-c-bucstart__subjectarea-select-id'
             className={classNames('a-buc-c-bucstart__subjectarea-select flex-fill', {
               grey: !_subjectArea || _subjectArea === placeholders.subjectArea
@@ -270,9 +279,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
             value={_subjectArea}
             onChange={onSubjectAreaChange}
           >
-            {renderOptions(subjectAreaList, 'subjectArea')}
-          </Ui.Nav.Select>
-          <Ui.Nav.Select
+            {subjectAreaList && renderOptions(subjectAreaList, 'subjectArea')}
+          </Select>
+          <Select
             id='a-buc-c-bucstart__buc-select-id'
             className={classNames('a-buc-c-bucstart__buc-select flex-fill', {
               grey: !_buc || _buc === placeholders.buc
@@ -285,15 +294,15 @@ const BUCStart: React.FC<BUCStartProps> = ({
             value={_buc || placeholders.buc}
             onChange={onBucChange}
           >
-            {renderOptions(bucList, 'buc')}
-          </Ui.Nav.Select>
+            {bucList && renderOptions(bucList, 'buc')}
+          </Select>
         </div>
         <div className='col-md-6 pl-3'>
           <div className='flex-fill'>
-            <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Ui.Nav.Undertittel>
+            <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
             <div className='mb-3'>
-              <Ui.Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Ui.Nav.Normaltekst>
-              <Ui.MultipleSelect
+              <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
+              <MultipleSelect
                 ariaLabel={t('buc:form-tagsForBUC')}
                 label={t('buc:form-tagsForBUC')}
                 id='a-buc-c-bucstart__tags-select-id'
@@ -312,10 +321,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
               : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
           </div>
         </div>
-      </Ui.Nav.Row>
-      <Ui.Nav.Row className='mb-3'>
+      </Row>
+      <Row className='mb-3'>
         <div className='a-buc-c-bucstart__buttons col-md-12'>
-          <Ui.Nav.Hovedknapp
+          <Hovedknapp
             data-amplitude='buc.new.create'
             id='a-buc-c-bucstart__forward-button-id'
             className='a-buc-c-bucstart__forward-button'
@@ -326,16 +335,16 @@ const BUCStart: React.FC<BUCStartProps> = ({
             {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
               : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
                 : t('buc:form-createCaseinRINA')}
-          </Ui.Nav.Hovedknapp>
-          <Ui.Nav.Flatknapp
+          </Hovedknapp>
+          <Flatknapp
             data-amplitude='buc.new.cancel'
             id='a-buc-c-bucstart__cancel-button-id'
             className='a-buc-c-bucstart__cancel-button ml-2'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
-          </Ui.Nav.Flatknapp>
+          </Flatknapp>
         </div>
-      </Ui.Nav.Row>
+      </Row>
     </div>
   )
 }

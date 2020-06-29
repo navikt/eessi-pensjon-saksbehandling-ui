@@ -9,16 +9,7 @@ import FileUpload from 'filopplasting'
 import mockP4000info from 'mocks/P4000/P4000info'
 import { openModal } from 'actions/ui'
 
-jest.mock('eessi-pensjon-ui', () => {
-  const Ui = jest.requireActual('eessi-pensjon-ui').default
-  return {
-    ...Ui,
-    Nav: {
-      ...Ui.Nav,
-      Hjelpetekst: ({ children }: any) => (<div className='mock-hjelpetekst'>{children}</div>)
-    }
-  }
-})
+jest.mock('nav-frontend-hjelpetekst', () => ({ children }: any) => (<div className='mock-hjelpetekst'>{children}</div>))
 
 jest.mock('actions/ui', () => ({
   openModal: jest.fn(),

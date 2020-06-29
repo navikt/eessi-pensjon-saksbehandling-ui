@@ -3,26 +3,27 @@ import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import { Bucs } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
-import Ui from 'eessi-pensjon-ui'
 import { linkLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import Lenke from 'nav-frontend-lenker'
+import Chevron from 'nav-frontend-chevron'
 import './BUCCrumbs.css'
 
 export interface BUCCrumbsProps {
-  bucs: Bucs;
-  className?: string;
-  currentBuc: string | undefined;
-  mode: BUCMode;
-  setMode: (mode: BUCMode) => void;
-  showLastLink ?: boolean;
+  bucs: Bucs
+  className?: string
+  currentBuc: string | undefined
+  mode: BUCMode
+  setMode: (mode: BUCMode) => void
+  showLastLink ?: boolean
 }
 
 export interface BUCCrumbLink {
-  label: string;
-  func: Function
+  label: string
+  func: (event: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
 type BUCCrumbLinks = Array<BUCCrumbLink>
@@ -89,22 +90,22 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
       {buccrumbs.map((buccrumb, i) => {
         const first: boolean = i === 0
         const last: boolean = (i === buccrumbs.length - 1)
-        const onBucCrumbClick: Function = buccrumb.func
+        const onBucCrumbClick = buccrumb.func
         return (
           <React.Fragment key={i}>
-            {!first ? <Ui.Nav.Chevron className='separator ml-1 mr-1' type='høyre' /> : null}
+            {!first ? <Chevron className='separator ml-1 mr-1' type='høyre' /> : null}
             <div className='a-buc-c-buccrumb'>
               {last && !showLastLink
                 ? t(buccrumb.label)
                 : (
-                  <Ui.Nav.Lenke
+                  <Lenke
                     href='#'
                     data-amplitude='buc.crumbs'
                     title={buccrumb.label}
                     onClick={onBucCrumbClick}
                   >
                     {buccrumb.label}
-                  </Ui.Nav.Lenke>
+                  </Lenke>
                 )}
             </div>
           </React.Fragment>

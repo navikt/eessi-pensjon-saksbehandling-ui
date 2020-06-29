@@ -1,11 +1,12 @@
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCStart, { BUCStartProps } from 'applications/BUC/components/BUCStart/BUCStart'
-import Ui from 'eessi-pensjon-ui'
 import { standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import './BUCNew.css'
 import { useTranslation } from 'react-i18next'
+import Panel from 'nav-frontend-paneler'
+import { Systemtittel } from 'nav-frontend-typografi'
 
 export interface BUCNewProps extends BUCStartProps {
   aktoerId: string;
@@ -39,11 +40,11 @@ const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Ui.Nav.Panel className='a-buc-p-bucnew s-border'>
-        <Ui.Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Ui.Nav.Systemtittel>
+      <Panel className='a-buc-p-bucnew s-border'>
+        <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
         <hr />
         <BUCStart aktoerId={aktoerId} setMode={setMode} />
-      </Ui.Nav.Panel>
+      </Panel>
       <BUCFooter className='w-100 mt-2 mb-2' />
     </div>
   )

@@ -1,9 +1,9 @@
 import { sendInvite, InviteParams } from 'actions/pinfo'
-import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'js-fetch-api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 const sprintf = require('sprintf-js').sprintf
-jest.mock('eessi-pensjon-ui/dist/api', () => ({
+jest.mock('js-fetch-api', () => ({
   call: jest.fn()
 }))
 const call = originalCall as jest.Mock<typeof originalCall>

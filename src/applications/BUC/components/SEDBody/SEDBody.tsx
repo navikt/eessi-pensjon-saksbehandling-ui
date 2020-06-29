@@ -8,13 +8,13 @@ import { AttachedFiles, Buc, BUCAttachments, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { Undertittel } from 'nav-frontend-typografi'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 export interface SEDBodyProps {
@@ -95,11 +95,11 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     <div className='a-buc-c-sedbody'>
       {canHaveAttachments ? (
         <>
-          <Ui.Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Ui.Nav.Undertittel>
+          <Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Undertittel>
           <div className='mt-4 mb-4'>
             {!sendingAttachments ? <SEDAttachmentsTable attachments={_attachments} /> : null}
           </div>
-          {seeAttachmentPanel ? <Ui.Nav.Undertittel className='mb-3 mt-3'>{t('ui:addAttachments')}</Ui.Nav.Undertittel> : null}
+          {seeAttachmentPanel ? <Undertittel className='mb-3 mt-3'>{t('ui:addAttachments')}</Undertittel> : null}
           <SEDAttachments
             files={_attachments}
             open={seeAttachmentPanel}

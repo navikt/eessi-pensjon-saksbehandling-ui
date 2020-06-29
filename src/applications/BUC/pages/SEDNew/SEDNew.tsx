@@ -1,7 +1,7 @@
 import SEDStart, { SEDStartProps } from 'applications/BUC/components/SEDStart/SEDStart'
-import Ui from 'eessi-pensjon-ui'
 import { standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import React, { useEffect, useState } from 'react'
+import Panel from 'nav-frontend-paneler'
 import './SEDNew.css'
 
 const SEDNew: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element => {
@@ -30,9 +30,9 @@ const SEDNew: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element => {
       onMouseLeave={onMouseLeave}
       onMouseEnter={onMouseEnter}
     >
-      <Ui.Nav.Panel className='a-buc-p-sednew s-border'>
+      <Panel className='a-buc-p-sednew s-border'>
         <SEDStart {...props} />
-      </Ui.Nav.Panel>
+      </Panel>
     </div>
   )
 }

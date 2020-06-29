@@ -1,12 +1,13 @@
 import { Period } from 'declarations/period'
-import { PeriodPropType } from 'declarations/period.pt'
-import { ModalContent } from 'eessi-pensjon-ui/dist/declarations/components.d'
+// import { PeriodPropType } from 'declarations/period.pt'
+import { ModalContent } from 'declarations/components.d'
 import React from 'react'
 import PT from 'prop-types'
-import Ui from 'eessi-pensjon-ui'
 import { Files } from 'forhandsvisningsfil'
 import FileUpload from 'filopplasting'
 import { useTranslation } from 'react-i18next'
+import { Row } from 'nav-frontend-grid'
+import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi'
 
 export interface PeriodAttachmentsProps {
   closeModal: () => void;
@@ -20,15 +21,15 @@ const PeriodAttachments: React.FC<PeriodAttachmentsProps> = ({
 }: PeriodAttachmentsProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Ui.Nav.Row>
+    <Row>
       <div className='col-sm-12'>
-        <Ui.Nav.Undertittel className='mt-5 mb-2'>
+        <Undertittel className='mt-5 mb-2'>
           {t('buc:p4000-attachment-title')}
-        </Ui.Nav.Undertittel>
-        <Ui.Nav.Undertekst>
+        </Undertittel>
+        <Undertekst>
           {t('buc:p4000-help-attachment')}
-        </Ui.Nav.Undertekst>
-        <Ui.Nav.Normaltekst className='optional mb-1'>{t('ui:optional')}</Ui.Nav.Normaltekst>
+        </Undertekst>
+        <Normaltekst className='optional mb-1'>{t('ui:optional')}</Normaltekst>
       </div>
       <div className='col-sm-12'>
         <FileUpload
@@ -40,14 +41,14 @@ const PeriodAttachments: React.FC<PeriodAttachmentsProps> = ({
           onFilesChanged={(newFiles: Files) => setAttachments(newFiles)}
         />
       </div>
-    </Ui.Nav.Row>
+    </Row>
   )
 }
 
 PeriodAttachments.propTypes = {
   closeModal: PT.func.isRequired,
   openModal: PT.func.isRequired,
-  period: PeriodPropType.isRequired,
+  //period: PeriodPropType.isRequired,
   setAttachments: PT.func.isRequired
 }
 

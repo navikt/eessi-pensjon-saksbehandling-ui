@@ -1,20 +1,24 @@
-import { Period, PeriodDate } from 'declarations/period'
-import { PeriodPropType } from 'declarations/period.pt'
+import DatePicker, { DateValues } from 'components/DatePicker/DatePicker'
+import { Period } from 'declarations/period'
+//import { PeriodPropType } from 'declarations/period.pt'
 import { Validation } from 'declarations/types'
 import { ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
-import Ui from 'eessi-pensjon-ui'
 import { useTranslation } from 'react-i18next'
+import { Row } from 'nav-frontend-grid'
+import { Checkbox, Select } from 'nav-frontend-skjema'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import Alertstripe from 'nav-frontend-alertstriper'
 
 export interface PeriodDateProps {
   blurEndDate: () => void;
   blurStartDate: () => void;
   localErrors: Validation;
   period: Period;
-  setDateType: (e: Event) => void;
-  setEndDate: (e: PeriodDate) => void;
-  setStartDate: (e: PeriodDate) => void;
+  setDateType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  setEndDate: (e: DateValues) => void;
+  setStartDate: (e: DateValues) => void;
   setUncertainDate: (e: React.ChangeEvent) => void;
 }
 
@@ -26,21 +30,21 @@ const PeriodDateFC: React.FC<PeriodDateProps> = ({
   return (
     <>
       {period.type === 'home' ? (
-        <Ui.Nav.AlertStripe
+        <Alertstripe
           className='a-buc-c-sedp4000-period__alert_home mt-4 mb-4'
           type='advarsel'
         >
           {t('buc:p4000-warning-home-period')}
-        </Ui.Nav.AlertStripe>) : null}
-      <Ui.Nav.Undertittel className='a-buc-c-sedp4000-period__subtitle mt-5 mb-2'>
+        </Alertstripe>) : null}
+      <Undertittel className='a-buc-c-sedp4000-period__subtitle mt-5 mb-2'>
         {t(`buc:p4000-title-${period.type}`)}
-      </Ui.Nav.Undertittel>
-      <Ui.Nav.Normaltekst className='a-buc-c-sedp4000-period__description mb-3'>
+      </Undertittel>
+      <Normaltekst className='a-buc-c-sedp4000-period__description mb-3'>
         {t('buc:p4000-help-date')}
-      </Ui.Nav.Normaltekst>
-      <Ui.Nav.Row>
+      </Normaltekst>
+      <Row>
         <div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
-          <Ui.Nav.Select
+          <Select
             className='a-buc-c-sedp4000-period__dateType-select flex-fill'
             id='a-buc-c-sedp4000-period__dateType-select-id'
             bredde='fullbredde'
@@ -51,13 +55,13 @@ const PeriodDateFC: React.FC<PeriodDateProps> = ({
             <option value='both'>{t('buc:p4000-label-closedPeriod')}</option>
             <option value='onlyStartDate01'>{t('buc:p4000-label-onlyStartDate01')}</option>
             <option value='onlyStartDate98'>{t('buc:p4000-label-onlyStartDate98')}</option>
-          </Ui.Nav.Select>
+          </Select>
         </div>
         <div className='a-buc-c-sedp4000-period__startDate col-sm-6 col-12 mb-2'>
           <label className='datepickerLabel skjemaelement__label'>
             {t('buc:p4000-label-start-date')}
           </label>
-          <Ui.DatePicker
+          <DatePicker
             onBlur={blurStartDate}
             id='a-buc-c-sedp4000-period__startdato-date'
             labels={{
@@ -85,7 +89,7 @@ const PeriodDateFC: React.FC<PeriodDateProps> = ({
           <label className='datepickerLabel skjemaelement__label'>
             {t('buc:p4000-label-end-date')}
           </label>
-          <Ui.DatePicker
+          <DatePicker
             onBlur={blurEndDate}
             disabled={period.dateType !== 'both'}
             id='a-buc-c-sedp4000-period_sluttdato-date'
@@ -111,7 +115,7 @@ const PeriodDateFC: React.FC<PeriodDateProps> = ({
           />
         </div>
         <div className='a-buc-c-sedp4000-period__uncertainDate col-sm-6 col-12 mb-2'>
-          <Ui.Nav.Checkbox
+          <Checkbox
             id='a-buc-c-sedp4000-period__uncertainDate-checkbox-id'
             className='a-buc-c-sedp4000-period__uncertainDate-checkbox'
             label={t('buc:p4000-label-uncertain-date')}
@@ -119,7 +123,7 @@ const PeriodDateFC: React.FC<PeriodDateProps> = ({
             onChange={setUncertainDate}
           />
         </div>
-      </Ui.Nav.Row>
+      </Row>
     </>
   )
 }
@@ -128,7 +132,7 @@ PeriodDateFC.propTypes = {
   blurEndDate: PT.func.isRequired,
   blurStartDate: PT.func.isRequired,
   localErrors: ValidationPropType.isRequired,
-  period: PeriodPropType.isRequired,
+  //period: PeriodPropType.isRequired,
   setDateType: PT.func.isRequired,
   setEndDate: PT.func.isRequired,
   setStartDate: PT.func.isRequired,

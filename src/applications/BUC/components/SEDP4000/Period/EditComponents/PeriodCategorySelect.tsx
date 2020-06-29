@@ -1,9 +1,11 @@
 import { Period } from 'declarations/period'
-import { PeriodPropType } from 'declarations/period.pt'
+//import { PeriodPropType } from 'declarations/period.pt'
 import React from 'react'
 import PT from 'prop-types'
-import Ui from 'eessi-pensjon-ui'
 import { useTranslation } from 'react-i18next'
+import { Row } from 'nav-frontend-grid'
+import { Select } from 'nav-frontend-skjema'
+import Hjelpetekst from 'nav-frontend-hjelpetekst'
 
 export interface PeriodCategorySelectProps  {
   mode: string;
@@ -16,20 +18,20 @@ const PeriodCategorySelect: React.FC<PeriodCategorySelectProps> = ({
 }: PeriodCategorySelectProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Ui.Nav.Row className={mode}>
+    <Row className={mode}>
       <div className='col-sm-8'>
-        <Ui.Nav.Hjelpetekst>
+        <Hjelpetekst>
           {t('buc:p4000-help-category')}
-        </Ui.Nav.Hjelpetekst>
+        </Hjelpetekst>
 
-        <Ui.Nav.Select
+        <Select
           id='a-buc-c-sedp4000-period__kategori-select'
           label={(
             <div className='d-flex'>
               <span>{t('buc:p4000-label-category')}</span>
-              <Ui.Nav.Hjelpetekst>
+              <Hjelpetekst>
                 {t('buc:p4000-help-category')}
-              </Ui.Nav.Hjelpetekst>
+              </Hjelpetekst>
             </div>
           )}
           onChange={setType}
@@ -46,15 +48,15 @@ const PeriodCategorySelect: React.FC<PeriodCategorySelectProps> = ({
           <option value='daily'>{t('buc:p4000-label-category-daily')}</option>
           <option value='sick'>{t('buc:p4000-label-category-sick')}</option>
           <option value='other'>{t('buc:p4000-label-category-other')}</option>
-        </Ui.Nav.Select>
+        </Select>
       </div>
-    </Ui.Nav.Row>
+    </Row>
   )
 }
 
 PeriodCategorySelect.propTypes = {
   mode: PT.string.isRequired,
-  period: PeriodPropType.isRequired,
+  //period: PeriodPropType.isRequired,
   setType: PT.func.isRequired
 }
 

@@ -1,7 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import * as api from 'eessi-pensjon-ui/dist/api'
-import { ActionWithPayload, ThunkResult } from 'eessi-pensjon-ui/dist/declarations/types'
+import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
 import { Action, ActionCreator } from 'redux'
 import mockPerson from 'mocks/app/person'
 import mockUser from 'mocks/app/user'
@@ -45,7 +44,7 @@ export const logout = (): Action => {
 }
 
 export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: urls.API_USERINFO_URL,
     cascadeFailureError: true,
     expectedPayload: mockUser,
@@ -59,7 +58,7 @@ export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (): Th
 }
 
 export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
-  return api.call({
+  return call({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
     expectedPayload: mockPerson,
     type: {

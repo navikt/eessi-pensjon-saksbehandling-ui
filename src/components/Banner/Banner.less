@@ -1,0 +1,33 @@
+@import '../../constants';
+
+.c-banner {
+
+  background-color: @pension-orange-alpha-80;
+  position: relative;
+
+  &__title {
+    margin: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem !important;
+  }
+
+  &__highcontrast-link {
+    position: absolute;
+    right: 1rem;
+    color: @black;
+    background-color: @white !important;
+    text-decoration: none;
+  }
+}
+
+.highContrast .c-banner {
+
+  background-color: @black !important;
+  color: @white;
+
+  &__highcontrast-link {
+    color: @white;
+  }
+}

@@ -3,7 +3,6 @@ import 'core-js/stable'
 import 'react-app-polyfill/ie11'
 import 'react-app-polyfill/ie9'
 import 'regenerator-runtime/runtime'
-
 import * as Sentry from 'metrics/sentry'
 import * as Amplitude from 'metrics/amplitude'
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
@@ -24,9 +23,7 @@ import thunk from 'redux-thunk'
 import { unregister } from 'registerServiceWorker'
 import i18n from './i18n'
 import * as reducers from './reducers'
-
-import 'eessi-pensjon-ui/dist/minibootstrap.css'
-import 'eessi-pensjon-ui/dist/nav.css'
+import 'minibootstrap.css'
 import 'index.css'
 import 'index_highContrast.css'
 

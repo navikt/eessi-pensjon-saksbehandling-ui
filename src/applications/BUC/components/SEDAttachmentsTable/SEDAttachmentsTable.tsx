@@ -1,12 +1,12 @@
 import { AttachedFiles, BUCAttachment } from 'declarations/buc'
 import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFile } from 'declarations/joark'
-import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import TableSorter from 'tabell'
 import React from 'react'
 import './SEDAttachmentsTable.css'
 import { useTranslation } from 'react-i18next'
+import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
 
 export interface SEDAttachmentsTableProps {
   attachments: AttachedFiles;
@@ -38,7 +38,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   })
 
   if (_.isEmpty(items)) {
-    return <Ui.Nav.Normaltekst>{t('buc:form-noAttachmentsYet')}</Ui.Nav.Normaltekst>
+    return <Normaltekst>{t('buc:form-noAttachmentsYet')}</Normaltekst>
   }
 
   return (
@@ -53,7 +53,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
           id: 'namespace',
           label: t('ui:type'),
           type: 'string',
-          renderCell: (item: any, value: any) => <Ui.Nav.EtikettLiten>{value}</Ui.Nav.EtikettLiten>
+          renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
         }, {
           id: 'title', label: t('ui:title'), type: 'string'
         }, {

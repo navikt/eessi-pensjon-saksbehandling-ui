@@ -1,10 +1,12 @@
 import classNames from 'classnames'
+import EESSIPensjonVeileder from 'components/EESSIPensjonVeileder/EESSIPensjonVeileder'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import TopContainer from 'components/TopContainer/TopContainer'
-import Ui from 'eessi-pensjon-ui'
 import { standardLogger, timeLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import './Error.css'
 
 export interface ErrorProps {
@@ -48,20 +50,20 @@ export const Error = ({ error, type }: ErrorProps) => {
     <TopContainer className={classNames('p-error')}>
       <div className='p-error__content'>
         <div className='EESSIPensjonVeileder'>
-          <Ui.EESSIPensjonVeileder
+          <EESSIPensjonVeileder
             mood='trist'
             id='EESSIPensjonVeileder'
           />
         </div>
-        <Ui.Nav.Undertittel className='title m-5'>
+        <Undertittel className='title m-5'>
           {title}
-        </Ui.Nav.Undertittel>
+        </Undertittel>
         <div
           className='description'
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {error && (
-          <Ui.ExpandingPanel
+          <ExpandingPanel
             id='p-error__content-error-id'
             onClick={() => standardLogger('errorPage.expandingPanel.open')}
             className={classNames('p-error__content-error', 's-border')}
@@ -72,14 +74,14 @@ export const Error = ({ error, type }: ErrorProps) => {
               className='error'
               dangerouslySetInnerHTML={{ __html: '<pre>' + error.stack + '</pre>' }}
             />
-          </Ui.ExpandingPanel>
+          </ExpandingPanel>
         )}
         {footer && (
           <>
             <div className='line' />
-            <Ui.Nav.Normaltekst className='mt-2 footer'>
+            <Normaltekst className='mt-2 footer'>
               {footer}
-            </Ui.Nav.Normaltekst>
+            </Normaltekst>
           </>
         )}
       </div>
