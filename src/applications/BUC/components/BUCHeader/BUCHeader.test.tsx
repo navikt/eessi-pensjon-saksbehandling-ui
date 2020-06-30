@@ -9,6 +9,7 @@ import Flag from 'flagg-ikoner'
 import BucHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 
 const defaultSelector: BUCHeaderSelector = {
+  highContrast: false,
   gettingBucDeltakere: false,
   institutionNames: {},
   locale: 'nb',

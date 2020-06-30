@@ -6,7 +6,6 @@ import PT from 'prop-types'
 import { Files } from 'forhandsvisningsfil'
 import FileUpload from 'filopplasting'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi'
 
 export interface PeriodAttachmentsProps {
@@ -21,7 +20,7 @@ const PeriodAttachments: React.FC<PeriodAttachmentsProps> = ({
 }: PeriodAttachmentsProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Row>
+    <div className='row'>
       <div className='col-sm-12'>
         <Undertittel className='mt-5 mb-2'>
           {t('buc:p4000-attachment-title')}
@@ -41,7 +40,7 @@ const PeriodAttachments: React.FC<PeriodAttachmentsProps> = ({
           onFilesChanged={(newFiles: Files) => setAttachments(newFiles)}
         />
       </div>
-    </Row>
+    </div>
   )
 }
 

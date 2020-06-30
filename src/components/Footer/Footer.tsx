@@ -1,23 +1,109 @@
 import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
 import classNames from 'classnames'
+import EtikettBase from 'nav-frontend-etiketter'
+import Knapp, { Hovedknapp } from 'nav-frontend-knapper'
+import Lukknapp from 'nav-frontend-lukknapp'
+import { Input, Select } from 'nav-frontend-skjema'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Input, Select } from 'nav-frontend-skjema'
-import Knapp, { Hovedknapp } from 'nav-frontend-knapper'
-import Lukknapp from 'nav-frontend-lukknapp'
-import EtikettBase from 'nav-frontend-etiketter'
-import './Footer.css'
+import styled, { ThemeProvider } from 'styled-components'
 
 export interface FooterProps {
-  className ?: string;
-  footerOpen: boolean;
+  className ?: string
+  highContrast: boolean
+  footerOpen: boolean
   params: {[k: string]: any}
 }
 
+const FooterDiv = styled.footer`
+  flex-shrink: 0;
+  background-color: ${({ theme }: any) => theme['main-background-other-color']};
+  padding: 0rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  transition: width 0.2s ease-out;
+  &.toggled {
+    height: 40px;
+  }
+  &:not(.toggled) {
+    height: 10px;
+  }
+`
+const ContentDiv = styled.div`
+  display: flex;
+  &.fullWidth {
+    width: 100%;
+  }
+  .footerButtonClosed {
+    width: 100%;
+    margin: 0px;
+    display: block;
+    padding: 0px;
+  }
+  .footerButtonClosed:hover {
+    cursor: pointer;
+    background-color: ${({theme}: any) => theme['main-background-other-color']};
+  }
+  .footerButtonOpen {
+    width: 1.2rem;
+    margin-right: 0.5rem;
+    display: inline-block;
+    padding-top: 0.6rem;
+    color: ${({theme}: any) => theme['main-font-color']};
+    text-align: center;
+  }
+  .footerButtonOpen:hover {
+    cursor: pointer;
+    background-color: ${({theme}: any) => theme['main-background-other-color']};
+  }
+`
+const FormDiv = styled.div`
+  transform: scale(0.7);
+  transform-origin: left top;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+`
+const FooterSelect = styled(Select)`
+  margin-right: 0.5rem;
+  margin-bottom: 0px;
+`
+const FooterInput = styled(Input)`
+  margin-right: 0.5rem;
+  margin-bottom: 0px;
+`
+const AddButton = styled(Knapp)`
+ padding: 0.5rem;
+`
+
+const ParamsDiv = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+
+  div {
+    margin-left: 0.25rem;
+  }
+`
+const ParamDiv = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  .etikett {
+    padding: 0.2rem !important;
+    white-space: nowrap;
+  }
+`
+const RemoveButton = styled(Lukknapp)`
+  transform: scale(0.5);
+`
+
 const Footer: React.FC<FooterProps> = ({
-  className, footerOpen, params = {}
+  className, footerOpen, highContrast, params = {}
 }: FooterProps): JSX.Element => {
   const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'avdodfnr', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const [paramName, setParamName] = useState<string |undefined>(undefined)
@@ -52,52 +138,64 @@ const Footer: React.FC<FooterProps> = ({
   }
 
   return (
-    <footer role='contentinfo' className={classNames('c-footer', className, { toggled: footerOpen })}>
-      <div className={classNames('contents', { fullWidth: !footerOpen })}>
-        <div
-          className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
-          onClick={_toggleFooterOpen}
-        >
-          {footerOpen ? '▼' : null}
-        </div>
-        {footerOpen
-          ? (
-            <div className='c-footer__form'>
-              <Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <FooterDiv role='contentinfo' className={classNames(className, { toggled: footerOpen })}>
+        <ContentDiv className={classNames('contents', { fullWidth: !footerOpen })}>
+          <div
+            className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
+            onClick={_toggleFooterOpen}
+          >
+            {footerOpen ? '▼' : null}
+          </div>
+          {footerOpen && (
+            <FormDiv>
+              <FooterSelect
+                date-testId='c-footer__select-id'
+                label=''
+                onChange={onSetParamName}>
                 <option value=''>--</option>
                 {validParams.map(param => {
                   return params[param] ? null : <option key={param} value={param}>{param}</option>
                 })}
-              </Select>
-              <Input
-                label='' id='c-footer__input-id' className='c-footer__input' value={paramValue || ''}
+              </FooterSelect>
+              <FooterInput
+                label=''
+                date-testId='c-footer__input-id'
+                value={paramValue || ''}
                 onChange={onSetParamValue}
               />
-              <Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Knapp>
-            </div>
-          ) : null}
-      </div>
-      {footerOpen ? (
-        <div className='c-footer__params'>
-          {validParams.map(param => {
-            return params[param] ? (
-              <div key={param} className='c-footer__param'>
-                <EtikettBase className='c-footer__param-string' type='info'>
-                  <b>{param}</b> {params[param]}
-                </EtikettBase>
-                <Lukknapp className='c-footer__remove-button' onClick={() => onUnsetParam(param)} />
-              </div>
-            ) : null
-          })}
-          <Hovedknapp
-            onClick={() => {
-            (footerOpen as any)!.f.f = 2
-            }}
-          >Do Not Click
-          </Hovedknapp>
-        </div>
-      ) : null}
-    </footer>
+              <AddButton
+                data-testId='c-footer__add-button-id'
+                onClick={onSetParam}>
+                &nbsp;+&nbsp;
+              </AddButton>
+            </FormDiv>
+          )}
+        </ContentDiv>
+        {footerOpen && (
+          <ParamsDiv>
+            {validParams.map(param => {
+              return params[param] && (
+                <ParamDiv key={param} >
+                  <EtikettBase className='c-footer__param-string' type='info'>
+                    <b>{param}</b> {params[param]}
+                  </EtikettBase>
+                  <RemoveButton
+                    onClick={() => onUnsetParam(param)}
+                  />
+                </ParamDiv>
+              )
+            })}
+            <Hovedknapp
+              onClick={() => {
+              (footerOpen as any)!.f.f = 2
+              }}
+            >Do Not Click
+            </Hovedknapp>
+          </ParamsDiv>
+        )}
+      </FooterDiv>
+    </ThemeProvider>
   )
 }
 

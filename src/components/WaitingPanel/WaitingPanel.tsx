@@ -1,9 +1,11 @@
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import Spinner from 'nav-frontend-spinner'
 import { Normaltekst } from 'nav-frontend-typografi'
 import './WaitingPanel.css'
+import styled from 'styled-components'
 
 export interface WaitingPanelProps {
   className?: string;
@@ -13,17 +15,33 @@ export interface WaitingPanelProps {
   oneLine?: boolean
 }
 
+const WaitingPanelDiv = styled.div`
+  text-align: center;
+  .oneLine {
+    display: inline-block;
+    vertical-align: top;
+  }
+`
+
 const WaitingPanel: React.FC<WaitingPanelProps> = ({
   className, size = 'M', style = {}, message = 'Vennligst vent...', oneLine = false
 }: WaitingPanelProps): JSX.Element | null => (
-  <div style={style} className={classNames('c-waitingPanel', 'text-center', className)}>
+  <WaitingPanelDiv
+    style={style}
+    className={className}
+  >
     <Spinner type={size} />
-    {message ? (
-      <Normaltekst className={classNames('c-waitingPanel__message', 'ml-2', { oneLine: oneLine })}>
-        {message}
-      </Normaltekst>
-    ) : null}
-  </div>
+    {message && (
+      <>
+        <HorizontalSeparatorDiv/>
+        <Normaltekst
+          className={classNames({ oneLine: oneLine })}
+        >
+          {message}
+        </Normaltekst>
+      </>
+    )}
+  </WaitingPanelDiv>
 )
 
 WaitingPanel.propTypes = {

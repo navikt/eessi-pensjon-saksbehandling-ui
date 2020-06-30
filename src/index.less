@@ -3,7 +3,6 @@
 @import 'nav-frontend-core/less/core';
 @import 'nav-frontend-ekspanderbartpanel-style/src/index';
 @import 'nav-frontend-etiketter-style/src/index';
-@import 'nav-frontend-grid-style/src/index';
 @import 'nav-frontend-hjelpetekst-style/src/hjelpetekst-style';
 @import 'nav-frontend-knapper-style/src/index';
 @import 'nav-frontend-lenkepanel-style/src/index';
@@ -19,63 +18,20 @@
 @import 'nav-frontend-typografi-style/src/fontimports';
 @import 'nav-frontend-veileder-style/src/index';
 
-@import './constants';
-@import './keyframes';
-
 html {
   height: 100%;
 }
 
-hr {
-  border-color: @navGra60;
-}
-
-.fieldset {
-  position: relative;
-  page-break-inside: avoid;
-  padding: 1rem;
-  background: white;
-
-  &.animate {
-    opacity: 0.01;
-    animation: fadeIn 0.3s forwards;
-  }
-  &.slideAnimate {
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: slideInFromLeft 0.3s forwards;
-  }
-}
-
-.skjemaelement__label {
-   font-weight: bold
-}
-
-.knapp--disabled {
-  cursor: unset;
-}
-
-.s-border {
-  border: 1px solid @navGra60;
-  border-radius: 4px;
-}
-
-@media(max-width: 576px) {
-    button.w-sm-100 {
-        width: 100% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-}
-
-
-li.stegindikator__steg {
-  z-index: 0;
+body {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
 }
 
 pre {
   font-family: 'Source Sans Pro', Arial, sans-serif;
-  color: @navGra80;
 }
 
 code.block {
@@ -90,14 +46,6 @@ dd {
 
 ol {
   list-style-type: decimal;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.italic {
-  font-style: italic;
 }
 
 .ekspanderbartPanel--apen .ReactCollapse--collapse {

@@ -3,7 +3,6 @@ import { Period } from 'declarations/period'
 import React from 'react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import { Normaltekst, UndertekstBold, Undertittel } from 'nav-frontend-typografi'
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Textarea } from 'nav-frontend-skjema'
@@ -16,7 +15,7 @@ export interface PeriodCommentProps {
 const PeriodComment: React.FC<PeriodCommentProps> = ({ period, setComment }: PeriodCommentProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Row>
+    <div className='row'>
       <div className='col-sm-12'>
         <Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-comment-info')}</Undertittel>
         <Textarea
@@ -39,7 +38,7 @@ const PeriodComment: React.FC<PeriodCommentProps> = ({ period, setComment }: Per
           maxLength={2300}
         />
       </div>
-    </Row>
+    </div>
   )
 }
 

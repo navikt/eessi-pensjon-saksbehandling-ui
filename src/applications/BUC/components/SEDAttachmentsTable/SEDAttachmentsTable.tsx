@@ -2,11 +2,11 @@ import { AttachedFiles, BUCAttachment } from 'declarations/buc'
 import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFile } from 'declarations/joark'
 import _ from 'lodash'
-import TableSorter from 'tabell'
-import React from 'react'
-import './SEDAttachmentsTable.css'
-import { useTranslation } from 'react-i18next'
 import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+import TableSorter from 'tabell'
 
 export interface SEDAttachmentsTableProps {
   attachments: AttachedFiles;
@@ -20,6 +20,12 @@ export interface SEDAttachmentsTableRow {
 
 export type SEDAttachmentsTableRows = Array<SEDAttachmentsTableRow>
 
+const SEDAttachmentsTableDiv = styled.div`
+  td {
+    padding: 0.5rem;
+  }
+`
+
 const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   attachments = {}
 }: SEDAttachmentsTableProps): JSX.Element => {
@@ -32,38 +38,45 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
         key: index1 + '_' + index2,
         namespace: namespace,
         title: (att as JoarkFile).tittel || (att as BUCAttachment).name +
-          ((att as JoarkFile).variant ? ' + ' + (att as JoarkFile).variant.variantformat + ' (' + (att as JoarkFile).variant.filnavn + ')' : '')
+          ((att as JoarkFile).variant ? ' + ' +
+            (att as JoarkFile).variant.variantformat +
+            ' (' + (att as JoarkFile).variant.filnavn + ')' : '')
       })
     })
   })
 
   if (_.isEmpty(items)) {
-    return <Normaltekst>{t('buc:form-noAttachmentsYet')}</Normaltekst>
+    return (
+      <Normaltekst>
+        {t('buc:form-noAttachmentsYet')}
+      </Normaltekst>
+    )
   }
 
   return (
-    <TableSorter
-      className='a-buc-c-sedattachmentstable'
-      items={items}
-      sortable={false}
-      searchable={false}
-      selectable={false}
-      columns={[
-        {
-          id: 'namespace',
-          label: t('ui:type'),
-          type: 'string',
-          renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
-        }, {
-          id: 'title', label: t('ui:title'), type: 'string'
-        }, {
-          id: 'buttons',
-          label: '',
-          type: 'object',
-          renderCell: () => (<div />)
-        }
-      ]}
-    />
+    <SEDAttachmentsTableDiv>
+      <TableSorter
+        items={items}
+        sortable={false}
+        searchable={false}
+        selectable={false}
+        columns={[
+          {
+            id: 'namespace',
+            label: t('ui:type'),
+            type: 'string',
+            renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
+          }, {
+            id: 'title', label: t('ui:title'), type: 'string'
+          }, {
+            id: 'buttons',
+            label: '',
+            type: 'object',
+            renderCell: () => (<div />)
+          }
+        ]}
+      />
+    </SEDAttachmentsTableDiv>
   )
 }
 

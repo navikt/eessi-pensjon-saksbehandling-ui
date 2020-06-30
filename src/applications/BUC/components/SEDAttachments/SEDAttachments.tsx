@@ -1,5 +1,5 @@
-import Icons from 'components/Icons/Icons'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
+import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import { AttachedFiles } from 'declarations/buc'
 import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFiles } from 'declarations/joark'
@@ -8,6 +8,9 @@ import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Knapp, { Hovedknapp } from 'nav-frontend-knapper'
+import TilsetteIcon from 'assets/icons/Tilsette'
+import { Normaltekst } from 'nav-frontend-typografi'
+import styled from 'styled-components'
 
 export interface SEDAttachmentsProps {
   disableButtons?: boolean;
@@ -18,6 +21,14 @@ export interface SEDAttachmentsProps {
   onOpen?: () => void;
   onSubmit?: (f: AttachedFiles) => void;
 }
+
+const SEDAttachmentsDiv = styled.div``
+const FlexDiv = styled.div`
+  display: flex;
+`
+const NormalText = styled(Normaltekst)`
+  margin-left: 0.5rem;
+`
 
 const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
   disableButtons = false, files, initialMode = 'view', open = false, onFilesChange, onOpen, onSubmit
@@ -48,17 +59,18 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
   }
 
   return (
-    <div className='a-buc-c-sedattachments'>
+    <SEDAttachmentsDiv data-testId='a-buc-c-sedattachments'>
       {!open ? (
         <Knapp
-          id='a-buc-c-sedattachments__enable-button-id'
-          className='a-buc-c-sedattachments__enable-button'
+          data-testId='a-buc-c-sedattachments__enable-button-id'
           onClick={onEnableAttachmentsButtonClicked}
         >
-          <div className='d-flex'>
-            <Icons className='mr-2' kind='tilsette' />
-            <span>{t('ui:addAttachments')}</span>
-          </div>
+          <FlexDiv>
+            <TilsetteIcon />
+            <NormalText>
+              {t('ui:addAttachments')}
+            </NormalText>
+          </FlexDiv>
         </Knapp>
       ) : (
         <>
@@ -67,41 +79,44 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
             mode={mode}
             onFilesChange={onLocalFileChange}
           />
-          <div className='mt-4'>
-            {mode === 'view' ? (
+          <VerticalSeparatorDiv data-size='1.5'/>
+          {mode === 'view' && (
+            <Hovedknapp
+              disabled={_.isEmpty(localFiles)}
+              id='a-buc-c-sedattachments__upload-button-id'
+              className='a-buc-c-sedattachments__upload-button'
+              onClick={() => setMode('confirm')}
+            >
+              {t('buc:form-addSelectedAttachments')}
+            </Hovedknapp>
+          )}
+          {mode === 'confirm' && (
+            <>
               <Hovedknapp
-                disabled={_.isEmpty(localFiles)}
-                id='a-buc-c-sedattachments__upload-button-id'
-                className='a-buc-c-sedattachments__upload-button'
-                onClick={() => setMode('confirm')}
+                disabled={_.isEmpty(localFiles) || disableButtons}
+                data-testId='a-buc-c-sedattachments__submit-button-id'
+                onClick={() => onSubmitJoarkFiles(localFiles)}
               >
-                {t('buc:form-addSelectedAttachments')}
-              </Hovedknapp>
-            ) : null}
-            {mode === 'confirm' ? (
-              <>
-                <Hovedknapp
-                  disabled={_.isEmpty(localFiles) || disableButtons}
-                  id='a-buc-c-sedattachments__submit-button-id'
-                  className='a-buc-c-sedattachments__submit-button mr-2'
-                  onClick={() => onSubmitJoarkFiles(localFiles)}
-                >
+                <NormalText>
                   {t('buc:form-submitSelectedAttachments')}
-                </Hovedknapp>
-                <Knapp
-                  disabled={disableButtons}
-                  id='a-buc-c-sedattachments__cancel-button-id'
-                  className='a-buc-c-sedattachments__cancel-button'
-                  onClick={() => setMode('view')}
-                >
+                </NormalText>
+              </Hovedknapp>
+              <HorizontalSeparatorDiv/>
+              <Knapp
+                disabled={disableButtons}
+                data-testId='a-buc-c-sedattachments__cancel-button-id'
+                className='a-buc-c-sedattachments__cancel-button'
+                onClick={() => setMode('view')}
+              >
+                <NormalText>
                   {t('buc:form-selectAgainAttachments')}
-                </Knapp>
-              </>
-            ) : null}
-          </div>
+                </NormalText>
+              </Knapp>
+            </>
+          )}
         </>
       )}
-    </div>
+    </SEDAttachmentsDiv>
   )
 }
 

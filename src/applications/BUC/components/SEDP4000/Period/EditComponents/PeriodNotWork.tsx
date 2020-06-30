@@ -5,7 +5,6 @@ import { AllowedLocaleStringPropType, ValidationPropType } from 'declarations/ty
 import React from 'react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import CountrySelect from 'landvelger'
 import { CountryFilter } from 'land-verktoy'
 
@@ -21,7 +20,7 @@ const PeriodNotWork: React.FC<PeriodNotWorkProps> = ({
 }: PeriodNotWorkProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Row>
+    <div className='row'>
       <div className='col-sm-8 mb-2'>
         <CountrySelect
           ariaLabel={t('buc:p4000-label-country')}
@@ -39,7 +38,7 @@ const PeriodNotWork: React.FC<PeriodNotWorkProps> = ({
           error={localErrors.country ? t(localErrors.country) : undefined}
         />
       </div>
-    </Row>
+    </div>
   )
 }
 

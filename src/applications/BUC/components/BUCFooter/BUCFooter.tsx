@@ -1,23 +1,33 @@
-import classNames from 'classnames'
-import Icons from 'components/Icons/Icons'
+import ExternalLink from 'assets/icons/line-version-logout'
+import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
+import Lenke from 'nav-frontend-lenker'
+import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
-import Lenke from 'nav-frontend-lenker'
-import './BUCFooter.css'
+import styled from 'styled-components'
 
 export interface BUCFooterProps {
-  className ?: string;
+  className ?: string
 }
 
 export interface BUCFooterSelector {
   rinaUrl: RinaUrl | undefined
 }
 
+const BUCFooterDiv = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`
+const NormalText = styled(Normaltekst)`
+  margin-left: 0.5rem;
+`
 const mapState = (state: State): BUCFooterSelector => ({
   rinaUrl: state.buc.rinaUrl
 })
@@ -30,7 +40,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
     return <div />
   }
   return (
-    <div className={classNames('a-buc-c-footer', className)}>
+    <BUCFooterDiv className={className}>
       <Lenke
         data-amplitude='buc.list.rinaurl'
         id='a-buc-c-buclist__gotorina-link'
@@ -40,11 +50,13 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
         onClick={linkLogger}
       >
         <div className='d-flex'>
-          <Icons className='mr-2' color='#0067C5' kind='outlink' />
-          <span>{t('ui:goToRina')}</span>
+          <ExternalLink color='#0067C5'/>
+          <NormalText>
+            {t('ui:goToRina')}
+          </NormalText>
         </div>
       </Lenke>
-    </div>
+    </BUCFooterDiv>
   )
 }
 

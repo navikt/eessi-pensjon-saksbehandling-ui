@@ -1,13 +1,13 @@
 import { getUserInfo, login, setStatusParam } from 'actions/app'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import * as routes from 'constants/routes'
 import * as constants from 'constants/constants'
+import * as routes from 'constants/routes'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
-import './AuthenticatedRoute.css'
+import styled from 'styled-components'
 
 const mapState = (state: State): AuthenticatedRouteSelector => ({
   /* istanbul ignore next */
@@ -31,6 +31,15 @@ export interface AuthenticatedRouteSelector {
   loggedIn: boolean | undefined;
   userRole: string | undefined;
 }
+
+const AuthenticatedRouteDiv = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+`
 
 export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX.Element => {
   const { location } = props
@@ -86,9 +95,9 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
 
   if (!mounted) {
     return (
-      <div className='c-authenticatedRoute'>
+      <AuthenticatedRouteDiv>
         <WaitingPanel />
-      </div>
+      </AuthenticatedRouteDiv>
     )
   }
 

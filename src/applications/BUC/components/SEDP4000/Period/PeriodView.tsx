@@ -8,7 +8,6 @@ import React from 'react'
 import Flag from 'flagg-ikoner'
 import { useTranslation } from 'react-i18next'
 import P4000Payload from '../P4000Payload'
-import { Row } from 'nav-frontend-grid'
 import Knapp from 'nav-frontend-knapper'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 
@@ -26,7 +25,7 @@ const PeriodView: React.FC<PeriodViewProps> = ({
 }: PeriodViewProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Row className={classNames('a-buc-c-sedp4000-period', mode)}>
+    <div className={classNames('a-buc-c-sedp4000-period', mode)}>
       <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
         <div id={'' + period.id} className='a-buc-c-sedp4000-period__existingPeriod'>
           <div className='a-buc-c-sedp4000-period__existingPeriod-icon mr-3 ml-3'>
@@ -111,7 +110,7 @@ const PeriodView: React.FC<PeriodViewProps> = ({
           </Knapp>
         </div>
       ) : null}
-    </Row>
+    </div>
   )
 }
 

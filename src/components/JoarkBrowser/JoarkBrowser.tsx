@@ -1,27 +1,28 @@
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
 import Icons from 'components/Icons/Icons'
 import Modal from 'components/Modal/Modal'
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { ModalContent } from 'declarations/components'
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
-import { ModalContent } from 'declarations/components'
+import { State } from 'declarations/reducers'
+import File from 'forhandsvisningsfil'
 import _ from 'lodash'
+import Knapp from 'nav-frontend-knapper'
+import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
+import styled from 'styled-components'
 import TableSorter, { Items } from 'tabell'
-import Knapp from 'nav-frontend-knapper'
-import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
-import File from 'forhandsvisningsfil'
-import './JoarkBrowser.css'
 
 export interface JoarkBrowserSelector {
-  aktoerId: string;
-  list: Array<JoarkFile> | undefined;
-  loadingJoarkList: boolean;
-  loadingJoarkPreviewFile: boolean;
-  previewFile: JoarkFileWithContent | undefined;
+  aktoerId: string
+  list: Array<JoarkFile> | undefined
+  loadingJoarkList: boolean
+  loadingJoarkPreviewFile: boolean
+  previewFile: JoarkFileWithContent | undefined
 }
 
 const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector => ({
@@ -33,11 +34,24 @@ const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector
 })
 
 export interface JoarkBrowserProps {
-  files: Array<JoarkFile | JoarkFileWithContent>;
-  mode: string;
-  onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void;
-  onPreviewFile?: (f: JoarkFileWithContent) => void;
+  files: Array<JoarkFile | JoarkFileWithContent>
+  mode: string
+  onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void
+  onPreviewFile?: (f: JoarkFileWithContent) => void
 }
+
+const VariantDiv = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.25rem;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const Buttons = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+`
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   files = [], mode = 'view', onFilesChange, onPreviewFile
@@ -133,37 +147,42 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     const previewing = context.loadingJoarkPreviewFile
     const spinner = previewing && _.isEqual(item, context.clickedPreviewFile)
     return (
-      <div
+      <VariantDiv
         key={item.label}
-        className='c-joarkbrowser__variant'
       >
-        <div className='buttons'>
-          <Knapp
-            data-tip={t('ui:preview')}
-            kompakt
-            disabled={previewing}
-            spinner={spinner}
-            id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
-          convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
-            className='c-tablesorter__preview-button mr-2 ml-2'
-            onClick={() => onPreviewItem(item)}
-          >
-            {spinner ? '' : <Icons kind='view' />}
-          </Knapp>
-          {context.mode === 'confirm' ? (
+        <Buttons>
+          <HorizontalSeparatorDiv/>
             <Knapp
-              data-tip={t('ui:delete')}
-              form='kompakt'
-              id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
+              data-tip={t('ui:preview')}
+              kompakt
+              disabled={previewing}
+              spinner={spinner}
+              id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
             convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
-              className='c-tablesorter__delete-button mr-2 ml-2'
-              onClick={() => onDeleteItem(context.files, item)}
+              className='c-tablesorter__preview-button'
+              onClick={() => onPreviewItem(item)}
             >
-              <Icons kind='trashcan' color='#0067C5' />
+              {spinner ? '' : <Icons kind='view' />}
             </Knapp>
-          ) : null}
-        </div>
-      </div>
+          <HorizontalSeparatorDiv/>
+          {context.mode === 'confirm' && (
+            <>
+              <HorizontalSeparatorDiv/>
+              <Knapp
+                data-tip={t('ui:delete')}
+                form='kompakt'
+                id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
+              convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
+                className='c-tablesorter__delete-button mr-2 ml-2'
+                onClick={() => onDeleteItem(context.files, item)}
+              >
+                <Icons kind='trashcan' color='#0067C5' />
+              </Knapp>
+              <HorizontalSeparatorDiv/>
+            </>
+          )}
+        </Buttons>
+      </VariantDiv>
     )
   }
 

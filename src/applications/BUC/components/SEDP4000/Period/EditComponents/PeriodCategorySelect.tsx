@@ -3,14 +3,13 @@ import { Period } from 'declarations/period'
 import React from 'react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import { Select } from 'nav-frontend-skjema'
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 
 export interface PeriodCategorySelectProps  {
-  mode: string;
-  period: Period;
-  setType: (e: React.ChangeEvent) => void;
+  mode: string
+  period: Period
+  setType: (e: React.ChangeEvent) => void
 }
 
 const PeriodCategorySelect: React.FC<PeriodCategorySelectProps> = ({
@@ -18,7 +17,7 @@ const PeriodCategorySelect: React.FC<PeriodCategorySelectProps> = ({
 }: PeriodCategorySelectProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Row className={mode}>
+    <div className={'row ' + mode}>
       <div className='col-sm-8'>
         <Hjelpetekst>
           {t('buc:p4000-help-category')}
@@ -50,7 +49,7 @@ const PeriodCategorySelect: React.FC<PeriodCategorySelectProps> = ({
           <option value='other'>{t('buc:p4000-label-category-other')}</option>
         </Select>
       </div>
-    </Row>
+    </div>
   )
 }
 

@@ -7,8 +7,8 @@ import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import CountryData from 'land-verktoy'
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi'
-import { Row } from 'nav-frontend-grid'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
+import styled from 'styled-components'
 
 export interface PersonPanelProps {
   highContrast: boolean;
@@ -16,6 +16,25 @@ export interface PersonPanelProps {
   person: any;
 }
 
+const PersonPanelDiv = styled.div``
+
+const HR = styled.hr`
+  margin: 1.5rem;
+  border-color:  ${({theme}: any) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60} !important;
+`
+const Content = styled.div`
+  margin: 1.5rem;
+  display: flex;
+`
+const Item = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+`
+const Element = styled.div`
+  display: flex;
+  align-items: baseline;
+`
 const PersonPanel: React.FC<PersonPanelProps> = ({
   highContrast,
   locale,
@@ -46,9 +65,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       _value = [t('ui:notRegistered')]
     }
     return (
-      <div
+      <Element
         id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
-        className='w-overview-personPanel__element'
       >
         <Undertekst className='mr-2'>
           <strong>{t(label)}</strong>:
@@ -56,7 +74,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
         <Normaltekst>
           {_value.map((val: any) => val)}
         </Normaltekst>
-      </div>
+      </Element>
     )
   }
 
@@ -122,42 +140,42 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     postadresse = addAddressLine(postadresse, getCountry(_.get(person, 'postadresse.ustrukturertAdresse.landkode.value')), t('ui:country'), <br key={6} />)
   }
   return (
-    <>
-      <Row className='w-overview-personPanel__content m-4'>
-        <div className='w-overview-personPanel__item col-md-4'>
+    <PersonPanelDiv>
+      <Content>
+        <Item>
           <div className='mr-2'>
             <Icons kind='nav-home' color={highContrast ? 'white' : 'black'} />
           </div>
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
-        </div>
-        <div className='w-overview-personPanel__item col-md-4'>
+        </Item>
+        <Item>
           <div className='mr-2'>
             <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:birthdate', birthDateString)}
-        </div>
-        <div className='w-overview-personPanel__item col-md-4'>
+        </Item>
+        <Item>
           <div className='mr-2'>
             <Icons kind='nav-work' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:nationality', nationality)}
-        </div>
-      </Row>
-      <hr className='m-4' />
-      <Row className='w-overview-personPanel__content m-4'>
-        <div className='w-overview-personPanel__item col-md-4'>
+        </Item>
+      </Content>
+      <HR/>
+      <Content>
+        <Item>
           <div className='mr-2'>
             <Icons kind='address' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:postadresse', postadresse)}
-        </div>
-        <div className='w-overview-personPanel__item col-md-4'>
+        </Item>
+        <Item>
           <div className='mr-2'>
             <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:deathdate', deathDateString)}
-        </div>
-        <div className='w-overview-personPanel__item col-md-4'>
+        </Item>
+        <Item>
           <div className='mr-2'>
             <Icons kind='nav-child' color={highContrast ? 'white' : 'black'} />
           </div>
@@ -166,9 +184,9 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
             (maritalStatus !== 'Null' && maritalStatus !== 'Ugif' && dateString
               ? ' (' + dateString + ')' : '')
           )}
-        </div>
-      </Row>
-    </>
+        </Item>
+      </Content>
+    </PersonPanelDiv>
   )
 }
 

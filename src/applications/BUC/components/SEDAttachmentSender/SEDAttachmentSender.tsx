@@ -1,12 +1,12 @@
-import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { JoarkFilesPropType } from 'declarations/joark.pt'
+import ProgressBar, { ProgressBarStatus } from 'fremdriftslinje'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ProgressBar, { ProgressBarStatus } from 'fremdriftslinje'
+import styled from 'styled-components'
 
 export interface SEDAttachmentPayload {
   aktoerId: string;
@@ -30,6 +30,8 @@ export interface SEDAttachmentSenderProps {
   savedAttachments: JoarkFiles;
   sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkFile) => void;
 }
+
+const SEDAttachmentSenderDiv = styled.div``
 
 const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   allAttachments, attachmentsError, className, initialStatus = 'inprogress',
@@ -128,7 +130,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   const percentage: number = (Math.floor((current * 100) / total))
 
   return (
-    <div className={classNames('a-buc-c-sedAttachmentSender', className)}>
+    <SEDAttachmentSenderDiv className={className}>
       <ProgressBar now={percentage} status={status}>
         <>
           {status === 'inprogress' ? t('buc:loading-sendingXofY', {
@@ -139,7 +141,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           {status === 'error' ? t('buc:error-sendingAttachments') : null}
         </>
       </ProgressBar>
-    </div>
+    </SEDAttachmentSenderDiv>
   )
 }
 

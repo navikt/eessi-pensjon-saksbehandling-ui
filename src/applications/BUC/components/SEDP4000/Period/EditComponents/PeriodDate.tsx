@@ -6,7 +6,6 @@ import { ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import { Checkbox, Select } from 'nav-frontend-skjema'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -42,7 +41,7 @@ const PeriodDateFC: React.FC<PeriodDateProps> = ({
       <Normaltekst className='a-buc-c-sedp4000-period__description mb-3'>
         {t('buc:p4000-help-date')}
       </Normaltekst>
-      <Row>
+      <div className='row'>
         <div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
           <Select
             className='a-buc-c-sedp4000-period__dateType-select flex-fill'
@@ -123,7 +122,7 @@ const PeriodDateFC: React.FC<PeriodDateProps> = ({
             onChange={setUncertainDate}
           />
         </div>
-      </Row>
+      </div>
     </>
   )
 }

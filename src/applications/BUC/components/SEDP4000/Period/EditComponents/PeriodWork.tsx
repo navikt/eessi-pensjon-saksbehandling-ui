@@ -5,7 +5,6 @@ import { AllowedLocaleStringPropType, ValidationPropType } from 'declarations/ty
 import React from 'react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import { Input, Radio } from 'nav-frontend-skjema'
 import Panel from 'nav-frontend-paneler'
 import { Normaltekst, Undertittel, UndertekstBold } from 'nav-frontend-typografi'
@@ -35,7 +34,7 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
   const { t } = useTranslation()
   return (
     <>
-      <Row>
+      <div className='row'>
         <div className='col-sm-12'>
           <Panel
             id='a-buc-c-sedp4000-period__workType-radio-id'
@@ -111,8 +110,8 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
             feil={localErrors.workName ? t(localErrors.workName) : null}
           />
         </div>
-      </Row>
-      <Row>
+      </div>
+      <div className='row'>
         <div className='col-sm-12'>
           <Undertittel className='mt-5 mb-2'>
             {t('buc:p4000-label-work-address')}
@@ -207,7 +206,7 @@ const PeriodWork: React.FC<PeriodWorkProps> = ({
             error={localErrors.country ? t(localErrors.country) : undefined}
           />
         </div>
-      </Row>
+      </div>
     </>
   )
 }

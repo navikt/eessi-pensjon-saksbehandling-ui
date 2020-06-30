@@ -8,10 +8,15 @@ jest.mock('applications/BUC/', () => () => (<div className='mock-a-buc' />))
 describe('widgets/BUCWidget', () => {
   let wrapper: ReactWrapper
   const initialMockProps: WidgetProps = {
+    labels: {},
+    onDelete: jest.fn(),
     onFullFocus: jest.fn(),
     onResize: jest.fn(),
     onRestoreFocus: jest.fn(),
+    setMode: jest.fn(),
     onUpdate: jest.fn(),
+    highContrast: false,
+    myWidgets: {},
     widget: {
       i: 'i',
       type: 'buc',

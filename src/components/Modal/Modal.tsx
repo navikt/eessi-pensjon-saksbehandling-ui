@@ -1,14 +1,13 @@
-import classNames from 'classnames'
 import { ModalContent } from 'declarations/components'
 import { ModalContentPropType } from 'declarations/components.pt'
 import _ from 'lodash'
-import NavModal from 'nav-frontend-modal'
 import Knapp, { Hovedknapp } from 'nav-frontend-knapper'
 import Lukknapp from 'nav-frontend-lukknapp'
+import NavModal from 'nav-frontend-modal'
 import { Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import './Modal.css'
+import styled from 'styled-components'
 
 export interface ModalProps {
   appElement?: Element;
@@ -18,6 +17,35 @@ export interface ModalProps {
   closeButtonLabel?: string;
   modal: ModalContent | undefined;
 }
+
+const ModalDiv = styled(NavModal)`
+  width: auto !important;
+  height: auto !important;
+`
+const CloseButton = styled(Lukknapp)`
+  position: absolute !important;
+  right: 0.5rem;
+  top: 0.5rem;
+  z-index: 999;
+`
+const Title = styled(Undertittel)`
+  text-align: center;
+`
+const ModalText = styled.div`
+  margin: 1.5rem;
+  text-align: text-center;
+`
+const ModalButtons = styled.div`
+  text-align: text-center;
+`
+const MainButton = styled(Hovedknapp)`
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+`
+const OtherButton = styled(Knapp)`
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+`
 
 export const Modal: React.FC<ModalProps> = ({
   appElement = document.body, className, onModalClose, closeButton = true, closeButtonLabel = '', modal
@@ -47,68 +75,65 @@ export const Modal: React.FC<ModalProps> = ({
   NavModal.setAppElement(appElement)
 
   return (
-    <NavModal
-      className={classNames('c-modal', className)}
+    <ModalDiv
+      className={className}
       isOpen={!_(_modal).isNil()}
       onRequestClose={closeModal}
       closeButton={false}
       contentLabel='contentLabel'
     >
-      {_modal ? (
+      {_modal && (
         <div>
-          {closeButton ? (
-            <Lukknapp
-              className='c-modal__close-button'
+          {closeButton && (
+            <CloseButton
               onClick={onCloseButtonClicked}
             >
               {closeButtonLabel}
-            </Lukknapp>
-          ) : null}
-          {_modal.modalTitle
-            ? (
-              <Undertittel className='m-3 c-modal__title'>{_modal.modalTitle}</Undertittel>
-            ) : null}
-          {_modal.modalContent || (
-            <div className='c-modal__text m-4 text-center'>
-              {_modal.modalText}
-            </div>
+            </CloseButton>
           )}
-          {_modal.modalButtons
-            ? (
-              <div className='c-modal__buttons text-center'>
-                {_modal.modalButtons.map(button => {
-                  const handleClick = _.isFunction(button.onClick) ? () => {
-                    button.onClick!()
-                    closeModal()
-                  } : closeModal
-                  return button.main
-                    ? (
-                      <Hovedknapp
-                        id='c-modal__main-button-id'
-                        disabled={button.disabled || false}
-                        className='c-modal__main-button mr-3 mb-3'
-                        key={button.text}
-                        onClick={handleClick}
-                      >
-                        {button.text}
-                      </Hovedknapp>
-                    )
-                    : (
-                      <Knapp
-                        id='c-modal__other-button-id'
-                        className='c-modal__other-button mr-3 mb-3'
-                        key={button.text}
-                        onClick={handleClick}
-                      >
-                        {button.text}
-                      </Knapp>
-                    )
-                })}
-              </div>
-            ) : null}
+          {_modal.modalTitle && (
+            <Title>
+              {_modal.modalTitle}
+            </Title>
+          )}
+          {_modal.modalContent || (
+            <ModalText>
+              {_modal.modalText}
+            </ModalText>
+          )}
+          {_modal.modalButtons && (
+            <ModalButtons>
+              {_modal.modalButtons.map(button => {
+                const handleClick = _.isFunction(button.onClick) ? () => {
+                  button.onClick!()
+                  closeModal()
+                } : closeModal
+                return button.main
+                  ? (
+                    <MainButton
+                      id='c-modal__main-button-id'
+                      disabled={button.disabled || false}
+                      key={button.text}
+                      onClick={handleClick}
+                    >
+                      {button.text}
+                    </MainButton>
+                  )
+                  : (
+                    <OtherButton
+                      id='c-modal__other-button-id'
+                      key={button.text}
+                      onClick={handleClick}
+                    >
+                      {button.text}
+                    </OtherButton>
+                  )
+              })}
+            </ModalButtons>
+          )}
         </div>
-      ) : null}
-    </NavModal>
+      )}
+    </ModalDiv>
   )
 }
 

@@ -7,6 +7,7 @@ import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
+import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
@@ -19,7 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Input } from 'nav-frontend-skjema'
 import { Knapp } from 'nav-frontend-knapper'
-import './index.css'
+import styled from 'styled-components'
 
 export interface BUCIndexProps {
   allowFullScreen: boolean;
@@ -61,6 +62,13 @@ const mapState = (state: State): BUCIndexSelector => ({
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType
 })
+
+const BUCIndexDiv = styled.div``
+const BUCIndexHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
 
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
@@ -179,12 +187,11 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }
 
   return (
-    <div
-      className='a-buc-widget'
+    <BUCIndexDiv
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className='a-buc-widget__header mb-3'>
+      <BUCIndexHeader>
         <BUCCrumbs
           bucs={combinedBucs}
           currentBuc={currentBuc}
@@ -195,7 +202,8 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           fnr={_.get(person, 'aktoer.ident.ident')}
           avdodfnr={avdodfnr}
         />
-      </div>
+      </BUCIndexHeader>
+      <VerticalSeparatorDiv/>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
           _showAvdodfnr ? (
@@ -212,7 +220,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc} setMode={_setMode} /> : null}
       {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} /> : null}
       {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc!} setMode={_setMode} /> : null}
-    </div>
+    </BUCIndexDiv>
   )
 }
 

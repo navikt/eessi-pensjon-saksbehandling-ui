@@ -10,10 +10,11 @@ import { useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import * as extraWidgets from 'widgets'
 import styled from 'styled-components'
+import ExternalLink from 'assets/icons/line-version-logout'
 import 'rc-tooltip/assets/bootstrap_white.css'
 
 export interface IndexPageProps {
-  username?: string;
+  username?: string
 }
 
 const defaultLayouts: LayoutTabs = [{
@@ -155,7 +156,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
-          <Icons className='mr-2' color='#0067C5' kind='outlink' />
+          <ExternalLink Icons className='mr-2' color='#0067C5'  />
           {t('ui:lawsource')}
         </Lenke>
         <SeparatorSpan>

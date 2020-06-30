@@ -6,6 +6,7 @@ import { stageSelector } from 'setupTests'
 import SEDHeader, { SEDHeaderProps, SEDHeaderSelector } from './SEDHeader'
 
 const defaultSelector: SEDHeaderSelector = {
+  highContrast: false,
   locale: 'nb'
 }
 

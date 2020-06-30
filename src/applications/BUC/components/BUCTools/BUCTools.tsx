@@ -1,25 +1,26 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
-import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import Modal from 'components/Modal/Modal'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString, Features, Loading } from 'declarations/types'
 import { ModalContent } from 'declarations/components'
+import { State } from 'declarations/reducers'
+import { AllowedLocaleString, Features, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
+import Knapp from 'nav-frontend-knapper'
+import { Textarea } from 'nav-frontend-skjema'
+import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
-import { Textarea } from 'nav-frontend-skjema'
-import Knapp from 'nav-frontend-knapper'
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import './BUCTools.css'
+import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface BUCToolsProps {
   aktoerId: string;
@@ -30,16 +31,18 @@ export interface BUCToolsProps {
 }
 
 export interface BUCToolsSelector {
-  features: Features;
-  loading: Loading;
-  locale: AllowedLocaleString;
-  bucsInfo?: BucsInfo | undefined;
-  sedContent: SedContentMap;
-  tagList?: Array<string> | undefined;
+  features: Features
+  highContrast: boolean
+  loading: Loading
+  locale: AllowedLocaleString
+  bucsInfo?: BucsInfo | undefined
+  sedContent: SedContentMap
+  tagList?: Array<string> | undefined
 }
 
 const mapState = (state: State): BUCToolsSelector => ({
   features: state.app.features,
+  highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
   bucsInfo: state.buc.bucsInfo,
@@ -47,6 +50,34 @@ const mapState = (state: State): BUCToolsSelector => ({
   sedContent: state.buc.sedContent
 })
 
+const slideInFromRight = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
+const BUCToolsPanel = styled(ExpandingPanel)`
+  opacity: 0;
+  transform: translateX(20px);
+  animation: ${slideInFromRight} 0.3s forwards;
+  background ${({theme}): any => theme['main-background-color']};
+  border: 1px solid ${({theme}): any => theme['main-disabled-color']};
+  border-radius: 4px;
+  .ekspanderbartPanel__hode {
+    background ${({theme}): any => theme['main-background-color']};
+  }
+`
+const P5000Div = styled.div`
+  margin-bottom: 1rem;
+`
+const TextArea = styled(Textarea)`
+  min-height: 150px;
+  width: 100%;
+`
 const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, onTagChange
 }: BUCToolsProps): JSX.Element => {
@@ -61,7 +92,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
-  const { features, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  const { features, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -158,72 +189,75 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   return (
-    <ExpandingPanel
-      collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
-      id='a-buc-c-buctools__panel-id'
-      open
-      className={classNames('a-buc-c-buctools', 's-border', className)}
-      heading={
-        <Systemtittel className='a-buc-c-buctools__title'>
-          {t('buc:form-BUCtools')}
-        </Systemtittel>
-      }
-    >
-      <>
-        {features && features.P5000_VISIBLE ? (
-          <div className='mb-3'>
-            <Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Undertittel>
-            {modal ? <Modal modal={modal} onModalClose={onModalClose} /> : null}
-            <Knapp
-              data-amplitude='buc.edit.tools.P5000.view'
-              id='a-buc-c-buctools__p5000-button-id'
-              className='a-buc-c-buctools__p5000-button mb-2'
-              disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
-              spinner={!_.isEmpty(fetchingP5000)}
-              onClick={onGettingP5000sClick}
-            >
-              {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
-            </Knapp>
-          </div>
-        ) : null}
-        <div>
-          <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
-          <div className='mb-3'>
-            <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
-            <MultipleSelect
-              ariaLabel={t('buc:form-tagsForBUC')}
-              label={t('buc:form-tagsForBUC')}
-              id='a-buc-c-buctools__tags-select-id'
-              className='a-buc-c-buctools__tags-select'
-              placeholder={t('buc:form-tagPlaceholder')}
-              aria-describedby='help-tags'
-              values={tags || []}
-              hideSelectedOptions={false}
-              onSelect={onTagsChange}
-              options={allTags}
-            />
-          </div>
-        </div>
-        <div className='mb-3'>
-          <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
-          <Textarea
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <BUCToolsPanel
+        collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
+        data-testId='a-buc-c-buctools__panel-id'
+        open
+        className={className}
+        heading={
+          <Systemtittel data-testId='a-buc-c-buctools__title'>
+            {t('buc:form-BUCtools')}
+          </Systemtittel>
+        }
+      >
+        <>
+          {features && features.P5000_VISIBLE && (
+            <P5000Div>
+              <Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Undertittel>
+              {modal ? <Modal modal={modal} onModalClose={onModalClose} /> : null}
+              <Knapp
+                data-amplitude='buc.edit.tools.P5000.view'
+                id='a-buc-c-buctools__p5000-button-id'
+                className='a-buc-c-buctools__p5000-button mb-2'
+                disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
+                spinner={!_.isEmpty(fetchingP5000)}
+                onClick={onGettingP5000sClick}
+              >
+                {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+              </Knapp>
+            </P5000Div>
+          )}
+          <Undertittel>
+            {t('buc:form-tagsForBUC')}
+          </Undertittel>
+          <VerticalSeparatorDiv data-size='0.5'/>
+          <Normaltekst>
+            {t('buc:form-tagsForBUC-description')}
+          </Normaltekst>
+          <MultipleSelect
+            ariaLabel={t('buc:form-tagsForBUC')}
+            label=''
+            data-testId='a-buc-c-buctools__tags-select-id'
+            placeholder={t('buc:form-tagPlaceholder')}
+            aria-describedby='help-tags'
+            values={tags || []}
+            hideSelectedOptions={false}
+            onSelect={onTagsChange}
+            options={allTags}
+          />
+          <VerticalSeparatorDiv data-size='1'/>
+          <Undertittel>
+            {t('buc:form-commentForBUC')}
+          </Undertittel>
+          <VerticalSeparatorDiv data-size='0.5'/>
+          <TextArea
             id='a-buc-c-buctools__comment-textarea-id'
-            className='a-buc-c-buctools__comment-textarea skjemaelement__input'
+            className='skjemaelement__input'
             label=''
             value={comment || ''}
             onChange={onCommentChange}
           />
           <Knapp
-            id='a-buc-c-buctools__save-button-id'
-            className='a-buc-c-buctools__save-button mb-2'
+            data-id='a-buc-c-buctools__save-button-id'
             disabled={loading.savingBucsInfo}
             onClick={onSaveButtonClick}
           >
             {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
           </Knapp>
-        </div>
-      </>
-    </ExpandingPanel>
+        </>
+      </BUCToolsPanel>
+    </ThemeProvider>
   )
 }
 

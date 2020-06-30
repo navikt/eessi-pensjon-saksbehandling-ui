@@ -1,38 +1,105 @@
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import Icons from 'components/Icons/Icons'
+import ProblemCircleIcon from 'assets/icons/report-problem-circle'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/types'
-import { FlagList, FlagItems } from 'flagg-ikoner'
+import { FlagItems, FlagList } from 'flagg-ikoner'
 import _ from 'lodash'
 import { buttonLogger, linkLogger } from 'metrics/loggers'
 import moment from 'moment'
+import Lenke from 'nav-frontend-lenker'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { Row } from 'nav-frontend-grid'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import Lenke from 'nav-frontend-lenker'
-import './BUCHeader.css'
+import styled, { ThemeProvider } from 'styled-components'
+
+export const BUCHeaderDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0rem;
+  width: 100%;
+  .alertstripe__tekst {
+    max-width: 100% !important;
+  }
+`
+const UnderTitle = styled(Undertittel)`
+  padding-bottom: 0.25rem;
+  width: 100%;
+`
+const FlexDiv = styled.div`
+  align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
+const LabelsDiv = styled.div``
+const IconsDiv = styled.div`
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`
+const ActionsDiv = styled.div`
+  display: flex;
+  justify-content:flex-end;
+  align-self: baseline;
+  padding: 0px;
+`
+const OwnerDiv = styled.div`
+  display: flex;
+  align-items: center;
+`
+const RowText = styled(Normaltekst)`
+  white-space: nowrap !important;
+  padding-right: 0.5rem;
+`
+const TagsDiv = styled.div`
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+`
+const NumberOfSedsDiv = styled.div`
+  border: 2px solid ${({theme}): any => theme['main-font-color']};
+  border-radius: 20px;
+  min-width: 32px;
+  min-height: 32px;
+  height: 32px;
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+`
+const RinaLink = styled(Lenke)`
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
+  margin-bottom: 0px !important;
+  color: ${({theme}): any => theme['main-interactive-color']} !important;
+`
 
 export interface BUCHeaderProps {
-  buc: Buc;
-  bucInfo?: BucInfo;
-  onBUCEdit: Function;
+  buc: Buc
+  bucInfo?: BucInfo
+  onBUCEdit: Function
 }
 
 export interface BUCHeaderSelector {
-  institutionNames: InstitutionNames;
-  locale: AllowedLocaleString;
-  rinaUrl: RinaUrl | undefined;
-  gettingBucDeltakere: boolean;
+  highContrast: boolean
+  institutionNames: InstitutionNames
+  locale: AllowedLocaleString
+  rinaUrl: RinaUrl | undefined
+  gettingBucDeltakere: boolean
 }
 
 const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector => ({
+  highContrast: state.ui.highContrast,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
   rinaUrl: state.buc.rinaUrl,
@@ -43,13 +110,15 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo, onBUCEdit
 }: BUCHeaderProps): JSX.Element => {
   const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
-  const { institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
+  const { highContrast, institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
-  const onBucHandle: Function = useCallback((buc, e) => {
+
+  const onBucEditClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    buttonLogger(e)
     e.preventDefault()
     e.stopPropagation()
     onBUCEdit(buc)
-  }, [onBUCEdit])
+  }, [buc, onBUCEdit])
 
   const generateFlagItems = (): FlagItems => {
     const institutionList: InstitutionListMap<string> = {}
@@ -74,116 +143,115 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
 
   const flagItems: FlagItems = _.isArray(buc.deltakere) ? generateFlagItems() : []
 
-  return (
-    <div
-      id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
-      className='a-buc-c-bucheader p-0 w-100'
-    >
-      <Undertittel
-        className='a-buc-c-bucheader__title pb-1 w-100'
-      >
-        {buc.type + ' - ' + getBucTypeLabel({
-          t: t,
-          locale: locale,
-          type: buc.type!
-        })}
-      </Undertittel>
-      <Row className='a-buc-c-bucheader__row no-gutters w-100'>
-        <div className='a-buc-c-bucheader__label col-sm-4'>
+  const onRinaLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    linkLogger(e)
+    e.stopPropagation()
+    if (rinaUrl && buc.caseId) {
+      window.open(rinaUrl + buc.caseId, 'rinaWindow')
+    }
+  }
 
-          <Normaltekst
-            id='a-buc-c-bucheader__description-id'
-            className='a-buc-c-bucheader__description'
+  return (
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <BUCHeaderDiv
+        data-testId='a-buc-c-header'
+        id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
+      >
+        <UnderTitle
+          data-testId='a-buc-c-header__title'
+        >
+          {buc.type + ' - ' + getBucTypeLabel({
+            t: t,
+            locale: locale,
+            type: buc.type!
+          })}
+        </UnderTitle>
+        <FlexDiv>
+          <LabelsDiv
+            data-testId='a-buc-c-header__labels'
           >
-            {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
-          </Normaltekst>
-          <div
-            id='a-buc-c-bucheader__owner-id'
-            className='a-buc-c-bucheader__owner'
-          >
-            <Normaltekst className='pr-2 text-nowrap'>
-              {t('buc:form-caseOwner') + ': '}
+            <Normaltekst>
+              {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
             </Normaltekst>
-            <InstitutionList
-              className='a-buc-c-bucheader__owner-institutions'
-              flagType='circle'
-              locale={locale}
-              type='separated'
-              institutions={[buc.creator!]}
-            />
-          </div>
-          {buc.caseId ? (
-            <div
-              id='a-buc-c-bucheader__case-id'
-              className='a-buc-c-bucheader__case'
+            <OwnerDiv
+              data-testId='a-buc-c-header__owner'
             >
-              {rinaUrl ? (
-                <Normaltekst className='pr-2 text-nowrap'>
-                  {t('buc:form-caseNumberInRina') + ': '}
-                  <Lenke
-                    data-amplitude='buc.list.buc.rinaUrl'
-                    className='a-buc-c-bucheader__gotorina-link'
-                    href={rinaUrl + buc.caseId}
-                    target='rinaWindow'
-                    onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                      linkLogger(e)
-                      e.stopPropagation()
-                      window.open(rinaUrl + buc.caseId, 'rinaWindow')
-                    }}
-                  >
-                    {buc.caseId}
-                  </Lenke>
-                </Normaltekst>
-              ) : <WaitingPanel size='S' />}
-            </div>
-          ) : null}
-        </div>
-        <div className='a-buc-c-bucheader__icons col-sm-4'>
-          {!_.isEmpty(flagItems) ? (
-            <FlagList
-              animate
-              locale={locale}
-              type='circle'
-              size='L'
-              items={flagItems}
-              overflowLimit={5}
-              wrapper={false}
-            />
-          ) : <WaitingPanel message='' size='M' />}
-          {numberOfSeds ? (
-            <div
-              className='a-buc-c-bucheader__icon-numberofseds'
-              data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
-            >
-              {numberOfSeds}
-            </div>
-          ) : null}
-          {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
-            ? (
+              <RowText>
+                {t('buc:form-caseOwner') + ': '}
+              </RowText>
+              <InstitutionList
+                data-testId='a-buc-c-bucheader__owner-institutions'
+                flagType='circle'
+                locale={locale}
+                type='separated'
+                institutions={[buc.creator!]}
+              />
+            </OwnerDiv>
+            {buc.caseId && (
               <div
-                className='a-buc-c-bucheader__icon-tags'
-                data-tip={bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}
+                data-testId='a-buc-c-bucheader__case'
               >
-                <Icons kind='problem' size={32} />
+                {rinaUrl ? (
+                  <RowText>
+                    {t('buc:form-caseNumberInRina') + ': '}
+                    <RinaLink
+                      data-amplitude='buc.list.buc.rinaUrl'
+                      data-testId='a-buc-c-bucheader__gotorina-link'
+                      href={rinaUrl + buc.caseId}
+                      target='rinaWindow'
+                      onClick={onRinaLinkClick}
+                    >
+                      {buc.caseId}
+                    </RinaLink>
+                  </RowText>
+                ) : <WaitingPanel size='S' />}
               </div>
+            )}
+          </LabelsDiv>
+          <IconsDiv data-testId='a-buc-c-bucheader__icons'>
+            {!_.isEmpty(flagItems) ? (
+              <FlagList
+                animate
+                locale={locale}
+                type='circle'
+                size='L'
+                items={flagItems}
+                overflowLimit={5}
+                wrapper={false}
+              />
+            ) : <WaitingPanel message='' size='M' />}
+            {numberOfSeds ? (
+              <NumberOfSedsDiv
+                data-testId='a-buc-c-bucheader__icon-numberofseds'
+                data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
+              >
+                {numberOfSeds}
+              </NumberOfSedsDiv>
             ) : null}
-        </div>
-        <div className='a-buc-c-bucheader__actions col-sm-4'>
-          <Lenke
-            data-amplitude='buc.list.editbuc'
-            id='a-buc-c-bucheader__bucedit-link-id'
-            className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3'
-            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-              buttonLogger(e)
-              onBucHandle(buc, e)
-            }}
-            href={'#' + buc.type}
-          >
-            {t('ui:processing')}
-          </Lenke>
-        </div>
-      </Row>
-    </div>
+            {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
+              ? (
+                <TagsDiv
+                  data-testId='a-buc-c-bucheader__icon-tags'
+                  data-tip={bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}
+                >
+                  <ProblemCircleIcon size={32} />
+                </TagsDiv>
+              ) : null}
+          </IconsDiv>
+          <ActionsDiv test-id='a-buc-c-bucheader__actions'>
+            <Lenke
+              data-amplitude='buc.list.editbuc'
+              id='a-buc-c-bucheader__bucedit-link-id'
+              className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3'
+              onClick={onBucEditClick}
+              href={'#' + buc.type}
+            >
+              {t('ui:processing')}
+            </Lenke>
+          </ActionsDiv>
+        </FlexDiv>
+      </BUCHeaderDiv>
+    </ThemeProvider>
   )
 }
 

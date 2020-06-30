@@ -10,8 +10,8 @@ import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
 import { BUCMode } from 'applications/BUC/index'
-import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as storage from 'constants/storage'
 import {
@@ -30,14 +30,15 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
+import Alertstripe from 'nav-frontend-alertstriper'
+import Knapp from 'nav-frontend-knapper'
+import { Element, Normaltekst } from 'nav-frontend-typografi'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import Knapp from 'nav-frontend-knapper'
-import Alertstripe from 'nav-frontend-alertstriper'
-import { Element } from 'nav-frontend-typografi'
-import './BUCList.css'
+import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface BUCListProps {
   aktoerId: string;
@@ -46,16 +47,18 @@ export interface BUCListProps {
 }
 
 export interface BUCListSelector {
-  bucsInfo: BucsInfo | undefined;
-  bucsInfoList: Array<string> | undefined;
-  institutionList: InstitutionListMap<RawInstitution> | undefined;
-  loading: Loading;
-  locale: AllowedLocaleString;
+  bucsInfo: BucsInfo | undefined
+  bucsInfoList: Array<string> | undefined
+  highContrast: boolean
+  institutionList: InstitutionListMap<RawInstitution> | undefined
+  loading: Loading
+  locale: AllowedLocaleString
 }
 
 const mapState = (state: State): BUCListSelector => ({
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
+  highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale
@@ -64,11 +67,55 @@ const mapState = (state: State): BUCListSelector => ({
 type Country = {country: string, buc: string}
 type CountryList = Array<Country>
 
+const slideInFromLeft = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
+
+const BUCListDiv = styled.div``
+const BUCListButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+`
+const FullWidthDiv = styled.div`
+  width: 100%;
+  padding: 0rem;
+`
+const BucExpandingPanel = styled(ExpandingPanel)`
+ transform: translateX(-20px);
+ opacity: 0;
+ animation: ${slideInFromLeft} 0.2s forwards;
+ border: 1px solid ${({ theme }: any) => theme.navGra40};
+ margin-bottom: 1rem;
+`
+const Flex4Div = styled.div`
+  flex: 4;
+`
+const Flex3Div = styled.div`
+  flex: 3;
+`
+const Flex2Div = styled.div`
+  flex: 2;
+`
+const SEDHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white: theme.navGra40};
+`
+
 const BUCList: React.FC<BUCListProps> = ({
   aktoerId, bucs, setMode
 }: BUCListProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
-  const { bucsInfo, bucsInfoList, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
+  const { bucsInfo, bucsInfoList, highContrast, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
@@ -185,93 +232,100 @@ const BUCList: React.FC<BUCListProps> = ({
   }, [institutionList, bucs, dispatch, mounted])
 
   return (
-    <div
-      className='a-buc-p-buclist'
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <div className='a-buc-p-buclist__buttons mb-3'>
-        <Knapp
-          data-amplitude='buc.list.newbuc'
-          id='a-buc-p-buclist__newbuc-button-id'
-          className='a-buc-p-buclist__newbuc-button'
-          onClick={onBUCNew}
-        >
-          {t('buc:form-createNewCase')}
-        </Knapp>
-      </div>
-      {loading.gettingBUCs
-        ? (
-          <WaitingPanel className='mt-5 a-buc-p-buclist__loading' size='XL' message={t('buc:loading-bucs')} />
-        ) : null}
-      {bucs === null
-        ? (
-          <div className='mt-5 a-buc-p-buclist__message'>
-            {t('buc:error-noBucs')}
-          </div>
-        ) : null}
-      {!loading.gettingBUCs && !_.isEmpty(bucs)
-        ? Object.keys(bucs).map(key => bucs[key])
-          .filter(bucFilter)
-          .sort(bucSorter)
-          .map((buc: Buc, index: number) => {
-            if (buc.error) {
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <BUCListDiv
+        className='a-buc-p-buclist'
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <BUCListButtons>
+          <Knapp
+            data-amplitude='buc.list.newbuc'
+            id='a-buc-p-buclist__newbuc-button-id'
+            className='a-buc-p-buclist__newbuc-button'
+            onClick={onBUCNew}
+          >
+            {t('buc:form-createNewCase')}
+          </Knapp>
+        </BUCListButtons>
+        <VerticalSeparatorDiv/>
+        {loading.gettingBUCs && (
+          <>
+            <VerticalSeparatorDiv data-size='2'/>
+            <WaitingPanel className='mt-5' size='XL' message={t('buc:loading-bucs')} />
+          </>
+        )}
+        {bucs === null && (
+          <>
+            <VerticalSeparatorDiv data-size='2'/>
+            <Normaltekst>
+              {t('buc:error-noBucs')}
+            </Normaltekst>
+          </>
+        )}
+        {!loading.gettingBUCs && !_.isEmpty(bucs)
+          ? Object.keys(bucs).map(key => bucs[key])
+            .filter(bucFilter)
+            .sort(bucSorter)
+            .map((buc: Buc, index: number) => {
+              if (buc.error) {
+                return (
+                  <FullWidthDiv key={index}>
+                    <Alertstripe type='advarsel' style={{width: '100%'}}>
+                      {buc.error}
+                    </Alertstripe>
+                  </FullWidthDiv>
+                )
+              }
+              const bucId: string = buc.caseId!
+              const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
               return (
-                <div key={index} className='a-buc-c-bucheader p-0 w-100'>
-                  <Alertstripe type='advarsel' className='w-100'>{buc.error}</Alertstripe>
-                </div>
-              )
-            }
-            const bucId: string = buc.caseId!
-            const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
-            return (
-              <ExpandingPanel
-                id={'a-buc-p-buclist__buc-' + bucId}
-                key={index}
-                collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
-                className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
-                style={{ animationDelay: (0.2 * index) + 's' }}
-                onClick={() => {
-                  logPanelClick(bucId)
-                  onBucOpen(bucId)
-                }}
-                heading={
-                  <BUCHeader
-                    buc={buc}
-                    bucInfo={bucInfo}
-                    onBUCEdit={onBUCEdit}
-                  />
-                }
-              >
-                <>
-                  <div
-                    id='a-buc-p-buclist__seadheader-div-id'
-                    className='a-buc-p-buclist__sedheader pb-1'
-                  >
-                    <div className='a-buc-p-buclist__sedheader-head col-4'>
-                      <Element>{t('buc:form-name')}</Element>
-                    </div>
-                    <div className='a-buc-p-buclist__sedheader_head col-3'>
-                      <Element>{t('buc:form-status')}</Element>
-                    </div>
-                    <div className='a-buc-p-buclist__sedheader-head col-3'>
-                      <Element>{t('buc:form-senderreceiver')}</Element>
-                    </div>
-                    <div className='a-buc-p-buclist__sedheader-head col-2' />
-                  </div>
-                  {!_.isNil(buc.seds) ? (
-                    <SEDList
-                      seds={buc.seds}
+
+                <BucExpandingPanel
+                  data-testId={'a-buc-p-buclist__buc-' + bucId}
+                  key={index}
+                  collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
+                  style={{ animationDelay: (0.2 * index) + 's' }}
+                  onClick={() => {
+                    logPanelClick(bucId)
+                    onBucOpen(bucId)
+                  }}
+                  heading={
+                    <BUCHeader
                       buc={buc}
-                      onSEDNew={onSEDNew}
+                      bucInfo={bucInfo}
+                      onBUCEdit={onBUCEdit}
                     />
-                  ) : <WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
-                </>
-              </ExpandingPanel>
-            )
-          }) : null}
-      <BUCFooter className='w-100 mt-2 mb-2' />
-    </div>
+                  }
+                >
+                  <>
+                    <SEDHeader data-testId='a-buc-p-buclist__seadheader-div-id'>
+                      <Flex4Div>
+                        <Element>{t('buc:form-name')}</Element>
+                      </Flex4Div>
+                      <Flex3Div>
+                        <Element>{t('buc:form-status')}</Element>
+                      </Flex3Div>
+                      <Flex3Div>
+                        <Element>{t('buc:form-senderreceiver')}</Element>
+                      </Flex3Div>
+                      <Flex2Div/>
+                    </SEDHeader>
+                    {!_.isNil(buc.seds) ? (
+                      <SEDList
+                        seds={buc.seds}
+                        buc={buc}
+                        onSEDNew={onSEDNew}
+                      />
+                    ) : <WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
+                    <VerticalSeparatorDiv data-size='0.25'/>
+                  </>
+                </BucExpandingPanel>
+              )
+            }) : null}
+        <BUCFooter/>
+      </BUCListDiv>
+    </ThemeProvider>
   )
 }
 
