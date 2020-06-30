@@ -12,13 +12,12 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from 'declarations/reducers'
 import { ReactComponent as VeilederSVG } from 'assets/images/NavPensjonVeileder.svg'
+import styled from 'styled-components'
 import TableSorter, { Item } from 'tabell'
 import Panel from 'nav-frontend-paneler'
 import { Systemtittel } from 'nav-frontend-typografi'
 import Veileder from 'nav-frontend-veileder'
-import { Row } from 'nav-frontend-grid'
 import { Hovedknapp } from 'nav-frontend-knapper'
-import './VarslerPanel.css'
 
 const mapState = /* istanbul ignore next */ (state: State) => ({
   aktoerId: state.app.params.aktoerId,
@@ -67,12 +66,35 @@ export interface VarslerPanelSelector {
 }
 
 export interface VarslerPanelProps {
+  highContrast: boolean;
   initialFiles?: Varslers;
   onUpdate?: (w: Widget) => void;
   widget: Widget;
 }
 
-export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, onUpdate, widget }: VarslerPanelProps) => {
+const WidgetPanel = styled(Panel)`
+  border: 1px solid ${({ theme }: any) => theme.navGra40};
+`
+const Title = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+const Table = styled(TableSorter)`
+  width: 100%;
+  margin-top: 0,.5rem;
+  tr, td {
+    padding: 0.5rem;
+  }
+`
+const NoMessage = styled.div`
+  padding: 0.5rem;
+  font-style: italic;
+  text-align: center;
+`
+
+export const VarslerPanel: React.FC<VarslerPanelProps> = ({
+  highContrast, initialFiles = {}, onUpdate, widget
+}: VarslerPanelProps) => {
   const { aktoerId, file, fileList, isInvitingPinfo, invite, person, sakId, sakType }: VarslerPanelSelector = useSelector<State, VarslerPanelSelector>(mapState)
   const [isReady, setIsReady] = useState(false)
   const [_fileList, setFileList] = useState<Array<string> | undefined | null>(undefined)
@@ -158,7 +180,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
 
   if (mounted && !hasParams) {
     return (
-      <Panel className='w-varslerPanel s-border'>
+      <WidgetPanel >
         <Systemtittel className='w-varslerPanel__noParams-title pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
         <Veileder
           tekst={t('pinfo:error-noParams')}
@@ -168,7 +190,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
         >
           <VeilederSVG />
         </Veileder>
-      </Panel>
+      </WidgetPanel>
     )
   }
 
@@ -191,10 +213,11 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
       collapseProps={{ id: 'w-varslerPanel-id' }}
       className='w-varslerPanel s-border'
       open={!widget.options.collapsed}
+      highContrast={highContrast}
       onClick={onExpandablePanelChange}
       heading={<Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>}
     >
-      <Row>
+      <div className='row'>
         <div className='col-md-4'>
           <div style={{ display: 'none' }}>
             <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
@@ -228,7 +251,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
           </div>
         </div>
         <div className='col-md-8'>
-          <div className='w-varslerPanel__title'>
+          <Title>
             <div />
             <RefreshButton
               className='w-varslerPanel__refresh-button'
@@ -236,10 +259,9 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
               rotating={!isReady}
               onRefreshClicked={onRefreshHandle}
             />
-          </div>
+          </Title>
           {!_.isEmpty(items) ? (
-            <TableSorter
-              className='w-varslerPanel__table w-100 mt-2'
+            <Table
               items={items}
               searchable
               selectable={false}
@@ -263,10 +285,12 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({ initialFiles = {}, o
               ]}
             />
           ) : (
-            <div className='p-2 w-varslerPanel__noMessages font-italic'>{t('ui:widget-overview-sendNotification-noMessages')}</div>
+            <NoMessage>
+              {t('ui:widget-overview-sendNotification-noMessages')}
+            </NoMessage>
           )}
         </div>
-      </Row>
+      </div>
     </ExpandingPanel>
   )
 }

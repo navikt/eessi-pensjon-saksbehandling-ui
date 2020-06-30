@@ -11,6 +11,7 @@ import {
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
@@ -21,30 +22,32 @@ import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row } from 'nav-frontend-grid'
 import { Select } from 'nav-frontend-skjema'
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { Normaltekst } from 'nav-frontend-typografi'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import styled, { ThemeProvider } from 'styled-components'
 
 export interface BUCStartProps {
-  aktoerId: string;
-  onTagsChanged?: (t: Tags) => void;
-  setMode: (mode: string) => void;
+  aktoerId: string
+  onTagsChanged?: (t: Tags) => void
+  setMode: (mode: string) => void
 }
 
 export interface BUCStartSelector {
-  bucs: Bucs | undefined,
-  avdodBucs: Bucs | undefined,
-  bucsInfo?: BucsInfo | undefined;
-  bucList?: Array<string> | undefined;
-  bucParam: string | undefined;
-  currentBuc: string | undefined;
-  features: Features | undefined;
-  locale: AllowedLocaleString;
-  loading: Loading;
-  sakId: string;
-  subjectAreaList?: Array<string> | undefined;
-  tagList?: Array<string> | undefined;
+  bucs: Bucs | undefined
+  avdodBucs: Bucs | undefined
+  bucsInfo?: BucsInfo | undefined
+  bucList?: Array<string> | undefined
+  bucParam: string | undefined
+  currentBuc: string | undefined
+  features: Features | undefined
+  highContrast: boolean
+  locale: AllowedLocaleString
+  loading: Loading
+  sakId: string
+  subjectAreaList?: Array<string> | undefined
+  tagList?: Array<string> | undefined
 }
 
 const mapState = (state: State): BUCStartSelector => ({
@@ -55,6 +58,7 @@ const mapState = (state: State): BUCStartSelector => ({
   bucList: state.buc.bucList,
   currentBuc: state.buc.currentBuc,
   features: state.app.features,
+  highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
   sakId: state.app.params.sakId,
@@ -67,12 +71,59 @@ const placeholders: {[k: string]: string} = {
   buc: 'buc:form-chooseBuc'
 }
 
+const MarginLeftDiv = styled.div`
+  margin-left: 0.5rem;
+`
+const FlexDiv = styled.div`
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`
+const LeftContentDiv = styled.div`
+  flex: 1;
+  margin-bottom: 1rem;
+  @media (min-width: 768px) {
+    padding-right: 1rem;
+  }
+  .grey select {
+    color: ${({theme}: any) => theme.navMorkGra} !important;
+    option {
+      color: ${({theme}: any) => theme['main-font-color']} !important;
+    }
+  }
+`
+const RightContentDiv = styled.div`
+  flex: 1;
+  margin-bottom: 1rem;
+  @media (min-width: 768px) {
+    padding-left: 1rem;
+  }
+  .grey select {
+    color: ${({theme}: any) => theme.navMorkGra} !important;
+    option {
+      color: ${({theme}: any) => theme['main-font-color']} !important;
+    }
+  }
+`
+const LoadingDiv = styled.div`
+  text-align: left;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+`
+const ButtonsDiv = styled.div`
+  margin-top: 1rem;
+  display: flex;
+`
+
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
   const {
     avdodBucs, bucs, bucParam, bucsInfo, bucList, currentBuc, features,
-    locale, loading, sakId, subjectAreaList, tagList
+    highContrast, locale, loading, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
@@ -244,7 +295,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const getSpinner = (text:string): JSX.Element => {
-    return <WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} oneLine />
+    return (
+      <MarginLeftDiv>
+        <WaitingPanel size='S' message={t(text)} oneLine />
+      </MarginLeftDiv>
+    )
   }
 
   const tagObjectList: Tags = tagList ? tagList.map(tag => {
@@ -263,71 +318,67 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   return (
-    <div className='a-buc-c-bucstart'>
-      <Row className='mb-3'>
-        <div className='col-md-6 pr-3'>
-          <Select
-            id='a-buc-c-bucstart__subjectarea-select-id'
-            className={classNames('a-buc-c-bucstart__subjectarea-select flex-fill', {
-              grey: !_subjectArea || _subjectArea === placeholders.subjectArea
-            })}
-            aria-describedby='help-subjectArea'
-            bredde='fullbredde'
-            placeholder={placeholders.subjectArea}
-            feil={validation.subjectAreaFail ? validation.subjectAreaFail : false}
-            label={t('buc:form-subjectArea')}
-            value={_subjectArea}
-            onChange={onSubjectAreaChange}
-          >
-            {renderOptions(subjectAreaList, 'subjectArea')}
-          </Select>
-          <Select
-            id='a-buc-c-bucstart__buc-select-id'
-            className={classNames('a-buc-c-bucstart__buc-select flex-fill', {
-              grey: !_buc || _buc === placeholders.buc
-            })}
-            aria-describedby='help-buc'
-            bredde='fullbredde'
-            placeholder={placeholders.buc}
-            feil={validation.bucFail ? validation.bucFail : false}
-            label={t('buc:form-buc')}
-            value={_buc || placeholders.buc}
-            onChange={onBucChange}
-          >
-            {bucList && renderOptions(bucList, 'buc')}
-          </Select>
-        </div>
-        <div className='col-md-6 pl-3'>
-          <div className='flex-fill'>
-            <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
-            <div className='mb-3'>
-              <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
-              <MultipleSelect
-                ariaLabel={t('buc:form-tagsForBUC')}
-                label={t('buc:form-tagsForBUC')}
-                id='a-buc-c-bucstart__tags-select-id'
-                className='a-buc-c-bucstart__tags-select flex-fill'
-                placeholder={t('buc:form-tagPlaceholder')}
-                aria-describedby='help-tags'
-                values={_tags}
-                hideSelectedOptions={false}
-                onSelect={onTagsChange}
-                options={tagObjectList}
-              />
-            </div>
-          </div>
-          <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
-            : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
-              : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
-          </div>
-        </div>
-      </Row>
-      <Row className='mb-3'>
-        <div className='a-buc-c-bucstart__buttons col-md-12'>
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <div data-testId='a-buc-c-bucstart'>
+        <FlexDiv>
+          <LeftContentDiv>
+            <Select
+              data-testId='a-buc-c-bucstart__subjectarea-select-id'
+              className={classNames({
+                grey: !_subjectArea || _subjectArea === placeholders.subjectArea
+              })}
+              aria-describedby='help-subjectArea'
+              bredde='fullbredde'
+              placeholder={placeholders.subjectArea}
+              feil={validation.subjectAreaFail ? validation.subjectAreaFail : false}
+              label={t('buc:form-subjectArea')}
+              value={_subjectArea}
+              onChange={onSubjectAreaChange}
+            >
+              {renderOptions(subjectAreaList, 'subjectArea')}
+            </Select>
+            <VerticalSeparatorDiv/>
+            <Select
+              id='a-buc-c-bucstart__buc-select-id'
+              className={classNames('a-buc-c-bucstart__buc-select', {
+                grey: !_buc || _buc === placeholders.buc
+              })}
+              aria-describedby='help-buc'
+              bredde='fullbredde'
+              placeholder={placeholders.buc}
+              feil={validation.bucFail ? validation.bucFail : false}
+              label={t('buc:form-buc')}
+              value={_buc || placeholders.buc}
+              onChange={onBucChange}
+            >
+              {bucList && renderOptions(bucList, 'buc')}
+            </Select>
+          </LeftContentDiv>
+
+          <RightContentDiv>
+            <VerticalSeparatorDiv data-size='2'/>
+            <MultipleSelect
+              ariaLabel={t('buc:form-tagsForBUC')}
+              label={t('buc:form-tagsForBUC')}
+              id='a-buc-c-bucstart__tags-select-id'
+              className='a-buc-c-bucstart__tags-select'
+              placeholder={t('buc:form-tagPlaceholder')}
+              aria-describedby='help-tags'
+              values={_tags}
+              hideSelectedOptions={false}
+              onSelect={onTagsChange}
+              options={tagObjectList}
+            />
+            <VerticalSeparatorDiv/>
+            <Normaltekst>
+              {t('buc:form-tagsForBUC-description')}
+            </Normaltekst>
+          </RightContentDiv>
+        </FlexDiv>
+        <ButtonsDiv data-testId='a-buc-c-bucstart__buttons'>
           <Hovedknapp
             data-amplitude='buc.new.create'
-            id='a-buc-c-bucstart__forward-button-id'
-            className='a-buc-c-bucstart__forward-button'
+            data-testId='a-buc-c-bucstart__forward-button'
             disabled={!allowedToForward()}
             spinner={loading.creatingBUC}
             onClick={onForwardButtonClick}
@@ -336,16 +387,21 @@ const BUCStart: React.FC<BUCStartProps> = ({
               : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
                 : t('buc:form-createCaseinRINA')}
           </Hovedknapp>
+          <HorizontalSeparatorDiv/>
           <Flatknapp
             data-amplitude='buc.new.cancel'
-            id='a-buc-c-bucstart__cancel-button-id'
-            className='a-buc-c-bucstart__cancel-button ml-2'
+            data-testId='a-buc-c-bucstart__cancel-button-id'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
           </Flatknapp>
-        </div>
-      </Row>
-    </div>
+        </ButtonsDiv>
+        <LoadingDiv data-testId='selectBoxMessage'>
+          {!loading ? null
+            : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
+              : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
+        </LoadingDiv>
+      </div>
+    </ThemeProvider>
   )
 }
 

@@ -10,11 +10,12 @@ import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
+import { Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Undertittel } from 'nav-frontend-typografi'
+import styled from 'styled-components'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 export interface SEDBodyProps {
@@ -39,6 +40,22 @@ const mapState = (state: State): SEDBodySelector => ({
   attachments: state.buc.attachments,
   attachmentsError: state.buc.attachmentsError
 })
+
+const SEDBodyDiv = styled.div``
+
+const Title = styled(Undertittel)`
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+`
+const MarginDiv = styled.div`
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+`
+const SEDAttachmentSenderDiv = styled.div`
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+   width: 100%;
+`
 
 const SEDBody: React.FC<SEDBodyProps> = ({
   aktoerId, buc, canHaveAttachments, initialAttachmentsSent = false, initialSeeAttachmentPanel = false,
@@ -92,14 +109,20 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   }
 
   return (
-    <div className='a-buc-c-sedbody'>
-      {canHaveAttachments ? (
+    <SEDBodyDiv>
+      {canHaveAttachments && (
         <>
-          <Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Undertittel>
-          <div className='mt-4 mb-4'>
-            {!sendingAttachments ? <SEDAttachmentsTable attachments={_attachments} /> : null}
-          </div>
-          {seeAttachmentPanel ? <Undertittel className='mb-3 mt-3'>{t('ui:addAttachments')}</Undertittel> : null}
+          <Title>
+            {t('ui:attachments')}
+          </Title>
+          <MarginDiv>
+            {!sendingAttachments && <SEDAttachmentsTable attachments={_attachments} />}
+          </MarginDiv>
+          {seeAttachmentPanel && (
+            <Title>
+              {t('ui:addAttachments')}
+            </Title>
+          )}
           <SEDAttachments
             files={_attachments}
             open={seeAttachmentPanel}
@@ -107,24 +130,25 @@ const SEDBody: React.FC<SEDBodyProps> = ({
             onSubmit={onAttachmentsSubmitted}
             disableButtons={sendingAttachments}
           />
-          {sendingAttachments || attachmentsSent ? (
-            <SEDAttachmentSender
-              className='mt-3 mb-3 w-100'
-              attachmentsError={attachmentsError}
-              sendAttachmentToSed={_sendAttachmentToSed}
-              payload={{
-                aktoerId: aktoerId,
-                rinaId: buc.caseId,
-                rinaDokumentId: sed.id
-              } as SEDAttachmentPayload}
-              allAttachments={_attachments.joark as JoarkFiles}
-              savedAttachments={attachments.joark as JoarkFiles}
-              onFinished={() => setAttachmentsSent(true)}
-            />
-          ) : null}
+          {(sendingAttachments || attachmentsSent) && (
+            <SEDAttachmentSenderDiv>
+              <SEDAttachmentSender
+                attachmentsError={attachmentsError}
+                sendAttachmentToSed={_sendAttachmentToSed}
+                payload={{
+                  aktoerId: aktoerId,
+                  rinaId: buc.caseId,
+                  rinaDokumentId: sed.id
+                } as SEDAttachmentPayload}
+                allAttachments={_attachments.joark as JoarkFiles}
+                savedAttachments={attachments.joark as JoarkFiles}
+                onFinished={() => setAttachmentsSent(true)}
+              />
+            </SEDAttachmentSenderDiv>
+          )}
         </>
-      ) : null}
-    </div>
+      )}
+    </SEDBodyDiv>
   )
 }
 

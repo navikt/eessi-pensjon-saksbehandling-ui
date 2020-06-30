@@ -10,7 +10,7 @@ import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Popover from 'nav-frontend-popover'
-import './WebSocket.css'
+import styled, { keyframes } from 'styled-components'
 
 export interface BucWebSocketProps {
   fnr: string | undefined;
@@ -27,6 +27,35 @@ interface EESSIPen {
   eessipen: any
 }
 interface WindowEESSIPen extends Window, EESSIPen {}
+
+const rotating = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
+const BUCWebsocketDiv = styled.div`
+  display: flex;
+  button {
+    width: 24px;
+    height: 24px;
+  }
+  .log {
+    font-size: 0.9rem;
+    display: block;
+  }
+  .info {
+    color: @white;
+  }
+  .error {
+    color: @redError;
+  }
+  .rotating {
+    animation: ${rotating} 2s linear infinite;
+  }
+`
 
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
   fnr, avdodfnr
@@ -145,10 +174,10 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   }
 
   return (
-    <div className='a-buc-websocket' title={'websocket: ' + status}>
+    <BUCWebsocketDiv title={'websocket: ' + status}>
       <Icons kind={getAnchor()} size={24} onClick={handleClick} />
       <Popover ankerEl={popoverAnchor}>{log}</Popover>
-    </div>
+    </BUCWebsocketDiv>
   )
 }
 

@@ -1,22 +1,21 @@
 import { clientClear, clientError } from 'actions/alert'
-import { closeModal, toggleHighContrast } from 'actions/ui'
-import classNames from 'classnames'
+import { closeModal } from 'actions/ui'
 import Alert, { AlertStatus } from 'components/Alert/Alert'
-import Banner from 'components/Banner/Banner'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import Modal from 'components/Modal/Modal'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
 import { ModalContent } from 'declarations/components'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import Error from 'pages/Error/Error'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
+import styled, { ThemeProvider } from 'styled-components'
 import useErrorBoundary from 'use-error-boundary'
-import Error from 'pages/Error/Error'
-import './TopContainer.css'
 
 export interface TopContainerProps {
   className?: string;
@@ -55,6 +54,15 @@ const mapState = (state: State): TopContainerSelector => ({
   highContrast: state.ui.highContrast
 })
 
+const Main = styled.main`
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: ${({theme}): any => theme['main-background-color']};
+  color: ${({theme}): any => theme['main-font-color']};
+`
+
 export const TopContainer: React.FC<TopContainerProps> = ({
   className, children, fluid = true, header
 }: TopContainerProps): JSX.Element => {
@@ -72,10 +80,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   const onClear = (): void => {
     dispatch(clientClear())
-  }
-
-  const handleHighContrastToggle = (): void => {
-    dispatch(toggleHighContrast())
   }
 
   const getClientErrorMessage = (): string | undefined => {
@@ -103,54 +107,53 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   }
 
   return (
-    <ErrorBoundary
-      renderError={({ error }: any) => <Error type='internalError' error={error} />}
-    >
-      <Header
-        className={classNames({ highContrast: highContrast })}
-        username={username}
-        gettingUserInfo={gettingUserInfo}
-        isLoggingOut={isLoggingOut}
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <ErrorBoundary
+        renderError={({ error }: any) => <Error type='internalError' error={error} />}
       >
-        {header ? (
-          <Banner
-            header={header}
-            onHighContrastClicked={handleHighContrastToggle}
-            labelHighContrast={t('ui:highContrast')}
-          />) : null}
-        <Alert
-          type='client'
-          message={getClientErrorMessage()}
-          status={clientErrorStatus}
-          error={error}
-          onClose={onClear}
-        />
-        <Alert
-          type='server'
-          message={getServerErrorMessage()}
-          error={error}
-          onClose={onClear}
-        />
-        {modal !== undefined ? (
-          <Modal
-            appElement={(document.getElementById('main') || document.body)}
-            modal={modal}
-            onModalClose={handleModalClose}
+        <Header
+          highContrast={highContrast}
+          username={username}
+          gettingUserInfo={gettingUserInfo}
+          isLoggingOut={isLoggingOut}
+        >
+          <Alert
+            type='client'
+            message={getClientErrorMessage()}
+            status={clientErrorStatus}
+            error={error}
+            onClose={onClear}
           />
-        ) : null}
-        <SessionMonitor
-          expirationTime={expirationTime!}
+          <Alert
+            type='server'
+            message={getServerErrorMessage()}
+            error={error}
+            onClose={onClear}
+          />
+          {modal !== undefined ? (
+            <Modal
+              appElement={(document.getElementById('main') || document.body)}
+              modal={modal}
+              onModalClose={handleModalClose}
+            />
+          ) : null}
+          <SessionMonitor
+            expirationTime={expirationTime!}
+          />
+        </Header>
+        <Main
+          id='main'
+          role='main'
+          className={className}>
+          {children}
+        </Main>
+        <Footer
+          highContrast={highContrast}
+          params={params}
+          footerOpen={footerOpen}
         />
-      </Header>
-      <main id='main' role='main' className={classNames(className, '_container', 'p-0', { 'container-fluid': fluid, highContrast: highContrast })}>
-        {children}
-      </main>
-      <Footer
-        className={classNames({ highContrast: highContrast })}
-        params={params}
-        footerOpen={footerOpen}
-      />
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </ThemeProvider>
   )
 }
 

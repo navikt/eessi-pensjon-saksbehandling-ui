@@ -1,10 +1,10 @@
-import React from 'react'
-import PT from 'prop-types'
+import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
 import classNames from 'classnames'
 import _ from 'lodash'
-import Icons from '../Icons/Icons'
 import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper'
-import './Alert.css'
+import PT from 'prop-types'
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
 
 export type AlertStatus = 'OK' | 'ERROR' | 'WARNING'
 
@@ -41,6 +41,46 @@ export const errorTypes: AlertStatusClasses = {
   ERROR: 'feil',
   WARNING: 'advarsel'
 }
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+const AlertDiv = styled(AlertStripe)`
+  opacity: 0;
+  animation: ${fadeIn} 0.5s forwards;
+  position: relative;
+
+  .alertstripe .alertstripe__tekst {
+     flex: auto !important; /* because IE11 */
+  }
+  .fixed {
+    position: fixed;
+    top: 0.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+  .closeIcon {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    cursor: pointer;
+  }
+  .type-server {
+    border-radius: 0px !important;
+    border: 0px !important;
+    .alertstripe__tekst {
+      display: flex !important;
+      justify-content: space-between;
+      max-width: none !important;
+    }
+  }
+`
 
 export const Alert: React.FC<AlertProps> = ({
   className, error, fixed, message, onClose, status = 'ERROR', type
@@ -93,13 +133,13 @@ export const Alert: React.FC<AlertProps> = ({
 
   const _fixed: boolean = _.isNil(fixed) ? type === 'client' : fixed
   return (
-    <AlertStripe
-      className={classNames('c-alert', 'c-alert__type-' + type, 'c-alert__status-' + status, className, { fixed: _fixed })}
+    <AlertDiv
+      className={classNames('type-' + type, 'status-' + status, className, { fixed: _fixed })}
       type={errorTypes[status]}
     >
       {_message}
-      {_(onClose).isFunction() ? <Icons className='closeIcon' kind='solidclose' onClick={onCloseIconClicked} /> : undefined}
-    </AlertStripe>
+      {_(onClose).isFunction() ? <FilledRemoveCircle onClick={onCloseIconClicked} /> : undefined}
+    </AlertDiv>
   )
 }
 

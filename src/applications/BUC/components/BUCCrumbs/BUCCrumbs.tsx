@@ -1,6 +1,5 @@
 import { resetBuc, resetSed } from 'actions/buc'
 import { BUCMode } from 'applications/BUC/index'
-import classNames from 'classnames'
 import { Bucs } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { linkLogger } from 'metrics/loggers'
@@ -10,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import Lenke from 'nav-frontend-lenker'
 import Chevron from 'nav-frontend-chevron'
-import './BUCCrumbs.css'
+import styled from 'styled-components'
 
 export interface BUCCrumbsProps {
   bucs: Bucs
@@ -26,7 +25,19 @@ export interface BUCCrumbLink {
   func: (event: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
-type BUCCrumbLinks = Array<BUCCrumbLink>
+export type BUCCrumbLinks = Array<BUCCrumbLink>
+
+const BUCCrumbsDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const SeparatorChevron = styled(Chevron)`
+ width: 16px !important;
+ margin-left: 0.25rem;
+ margin-right: 0.25rem;
+`
 
 const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   bucs, currentBuc, className, mode, setMode, showLastLink = false
@@ -94,14 +105,14 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   }
 
   return (
-    <div className={classNames('a-buc-c-buccrumbs', className)}>
+    <BUCCrumbsDiv className={className}>
       {buccrumbs.map((buccrumb, i) => {
         const first: boolean = i === 0
         const last: boolean = (i === buccrumbs.length - 1)
         const onBucCrumbClick = buccrumb.func
         return (
           <React.Fragment key={i}>
-            {!first ? <Chevron className='separator ml-1 mr-1' type='høyre' /> : null}
+            {!first && <SeparatorChevron type='høyre' />}
             <div className='a-buc-c-buccrumb'>
               {last && !showLastLink
                 ? t(buccrumb.label)
@@ -119,7 +130,7 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
           </React.Fragment>
         )
       })}
-    </div>
+    </BUCCrumbsDiv>
   )
 }
 

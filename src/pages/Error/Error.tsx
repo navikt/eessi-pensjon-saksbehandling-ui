@@ -1,24 +1,65 @@
-import classNames from 'classnames'
 import EESSIPensjonVeileder from 'components/EESSIPensjonVeileder/EESSIPensjonVeileder'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import TopContainer from 'components/TopContainer/TopContainer'
+import { State } from 'declarations/reducers'
 import { standardLogger, timeLogger } from 'metrics/loggers'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import './Error.css'
+import { useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 export interface ErrorProps {
-  error?: any;
-  type: string;
+  error?: any
+  type: string
 }
+
+const ContentDiv = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const Veilder = styled(EESSIPensjonVeileder)`
+  height: 110px;
+`
+const Title = styled(Undertittel)``
+
+const Description = styled.div`
+  width: 80%;
+  margin: 1rem;
+  text-align: center;
+`
+const ErrorPanel = styled(ExpandingPanel)`
+  min-width: 50%;
+  border-color: ${({ theme }: any) => theme['main-font-color']};
+`
+
+const Line = styled.div`
+   width: 60%;
+   margin: 1rem;
+   min-height: 0.25rem;
+   border-bottom: 1px solid ${({ theme }: any) => theme['navGra60']};
+`
+
+export interface ErrorSelector {
+  highContrast: boolean
+}
+
+const mapState = (state: State): ErrorSelector => ({
+  highContrast: state.ui.highContrast
+})
 
 export const Error = ({ error, type }: ErrorProps) => {
   let title, description, footer
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
   const [mounted, setMounted] = useState<boolean>(false)
+  const { highContrast } = useSelector<State, ErrorSelector>(mapState)
 
   useEffect(() => {
     if (!mounted) {
@@ -47,44 +88,42 @@ export const Error = ({ error, type }: ErrorProps) => {
   }
 
   return (
-    <TopContainer className={classNames('p-error')}>
-      <div className='p-error__content'>
-        <div className='EESSIPensjonVeileder'>
-          <EESSIPensjonVeileder
-            mood='trist'
-            id='EESSIPensjonVeileder'
-          />
-        </div>
-        <Undertittel className='title m-5'>
+    <TopContainer>
+      <ContentDiv>
+        <Veilder
+          mood='trist'
+          data-testId='EESSIPensjonVeileder'
+        />
+        <VerticalSeparatorDiv data-size='2'/>
+        <Title>
           {title}
-        </Undertittel>
-        <div
-          className='description'
+        </Title>
+        <Description
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {error && (
-          <ExpandingPanel
+          <ErrorPanel
+            highContrast={highContrast}
             id='p-error__content-error-id'
             onClick={() => standardLogger('errorPage.expandingPanel.open')}
-            className={classNames('p-error__content-error', 's-border')}
             heading={t('ui:error-header')}
-            style={{ minWidth: '50%' }}
           >
             <div
               className='error'
               dangerouslySetInnerHTML={{ __html: '<pre>' + error.stack + '</pre>' }}
             />
-          </ExpandingPanel>
+          </ErrorPanel>
         )}
         {footer && (
           <>
-            <div className='line' />
-            <Normaltekst className='mt-2 footer'>
+            <Line />
+            <VerticalSeparatorDiv/>
+            <Normaltekst>
               {footer}
             </Normaltekst>
           </>
         )}
-      </div>
+      </ContentDiv>
     </TopContainer>
   )
 }

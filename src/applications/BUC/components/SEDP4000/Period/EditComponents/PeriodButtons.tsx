@@ -1,7 +1,6 @@
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import Knapp, { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 
 export interface PeriodButtonsProps {
@@ -16,7 +15,7 @@ const PeriodButtons: React.FC<PeriodButtonsProps> = ({
 }: PeriodButtonsProps): JSX.Element => {
   const {t} = useTranslation()
   return (
-    <Row>
+    <div className='row'>
       <div className='mt-4 mb-4 col-sm-12'>
         {mode === 'edit' ? (
           <Knapp
@@ -44,7 +43,7 @@ const PeriodButtons: React.FC<PeriodButtonsProps> = ({
           {t('buc:p4000-button-cancelPeriod')}
         </Flatknapp>
       </div>
-    </Row>
+    </div>
   )
 }
 

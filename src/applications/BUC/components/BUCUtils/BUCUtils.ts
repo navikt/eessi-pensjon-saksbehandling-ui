@@ -5,8 +5,8 @@ import { Buc, Sed, ValidBuc } from 'declarations/buc'
 import moment from 'moment'
 
 interface getBucTypeLabelProps {
-  type: string;
-  locale: AllowedLocaleString;
+  type: string
+  locale: AllowedLocaleString
   t: T
 }
 

@@ -5,7 +5,6 @@ import { ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import { Input } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
 
@@ -20,7 +19,7 @@ const PeriodDailySick: React.FC<PeriodDailySickProps> = ({
 }: PeriodDailySickProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Row>
+    <div className='row'>
       <div className='col-sm-12'>
         <Input
           id='a-buc-c-sedp4000-period__betalende-institusjon-input-id'
@@ -38,7 +37,7 @@ const PeriodDailySick: React.FC<PeriodDailySickProps> = ({
           feil={localErrors.payingInstitution ? t(localErrors.payingInstitution) : null}
         />
       </div>
-    </Row>
+    </div>
   )
 }
 

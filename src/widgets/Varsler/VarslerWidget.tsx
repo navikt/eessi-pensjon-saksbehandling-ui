@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import VarslerPanel from 'widgets/Varsler/VarslerPanel'
 
-const VarslerWidget: WidgetFC<WidgetProps> = ({ onResize, onUpdate, widget }: WidgetProps): JSX.Element => {
+const VarslerWidget: WidgetFC<WidgetProps> = ({
+  highContrast, onResize, onUpdate, widget
+}: WidgetProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
@@ -15,13 +17,13 @@ const VarslerWidget: WidgetFC<WidgetProps> = ({ onResize, onUpdate, widget }: Wi
   }, [mounted, onResize])
 
   return (
-    <div className='w-VarslerWidget'>
+    <div data-testId='w-VarslerWidget'>
       <ReactResizeDetector
         handleWidth
         handleHeight
         onResize={onResize}
       />
-      <VarslerPanel onUpdate={onUpdate} widget={widget} />
+      <VarslerPanel highContrast={highContrast} onUpdate={onUpdate} widget={widget} />
     </div>
   )
 }

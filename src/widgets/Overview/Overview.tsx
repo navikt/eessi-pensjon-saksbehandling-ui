@@ -7,11 +7,13 @@ import { AllowedLocaleString } from 'declarations/types'
 import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import './Overview.css'
+import styled, { ThemeProvider } from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -26,20 +28,31 @@ const mapState = (state: State): OverviewSelector => ({
 })
 
 export interface OverviewSelector {
-  aktoerId: string;
-  gettingPersonInfo: boolean;
-  locale: AllowedLocaleString;
-  person: any;
-  highContrast: boolean;
+  aktoerId: string
+  gettingPersonInfo: boolean
+  locale: AllowedLocaleString
+  person: any
+  highContrast: boolean
 }
 
 export interface OverviewProps {
-  onUpdate?: (w: Widget) => void;
-  skipMount?: boolean;
-  widget: Widget;
+  onUpdate?: (w: Widget) => void
+  skipMount?: boolean
+  widget: Widget
 }
 
+export const OverviewPanel = styled(ExpandingPanel)`
+  border: 1px solid ${({ theme }: any) => theme.navGra40};
+  .ekspanderbartPanel {
+    background: ${({theme}: any) => theme['main-background-color']};
+  }
+  .ekspanderbartPanel__hode {
+    background:  ${({theme}: any) => theme['main-background-color']};
+  }
+`
+
 export const Overview: React.FC<OverviewProps> = ({
+  highContrast,
   onUpdate,
   skipMount = false,
   widget
@@ -93,29 +106,32 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   return (
-    <div
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <ExpandingPanel
-        collapseProps={{ id: 'w-overview-id' }}
-        className={classNames('w-overview', 's-border', { highContrast: highContrast })}
-        open={!widget.options.collapsed}
-        onClick={onExpandablePanelChange}
-        heading={(
-          <PersonTitle
-            gettingPersonInfo={gettingPersonInfo}
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <div
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <OverviewPanel
+          highContrast={highContrast}
+          collapseProps={{ id: 'w-overview-id' }}
+          className={classNames({ highContrast: highContrast })}
+          open={!widget.options.collapsed}
+          onClick={onExpandablePanelChange}
+          heading={(
+            <PersonTitle
+              gettingPersonInfo={gettingPersonInfo}
+              person={person}
+            />
+          )}
+        >
+          <PersonPanel
+            highContrast={highContrast}
+            locale={locale}
             person={person}
           />
-        )}
-      >
-        <PersonPanel
-          highContrast={highContrast}
-          locale={locale}
-          person={person}
-        />
-      </ExpandingPanel>
-    </div>
+        </OverviewPanel>
+      </div>
+    </ThemeProvider>
   )
 }
 

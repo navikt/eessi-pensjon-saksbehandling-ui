@@ -5,16 +5,15 @@ import { Validation } from 'declarations/types'
 import { ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
-import { Row } from 'nav-frontend-grid'
 import { useTranslation } from 'react-i18next'
 import { Input } from 'nav-frontend-skjema'
 import { Undertittel, UndertekstBold } from 'nav-frontend-typografi'
 
 export interface PeriodChildProps {
-  blurChildBirthDate: () => void;
-  localErrors: Validation;
-  period: Period;
-  setChildBirthDate: (e: DateValues) => void;
+  blurChildBirthDate: () => void
+  localErrors: Validation
+  period: Period
+  setChildBirthDate: (e: DateValues) => void
   setChildFirstName: (e: React.ChangeEvent) => void;
   setChildLastName: (e: React.ChangeEvent) => void;
 }
@@ -24,7 +23,7 @@ const PeriodChild: React.FC<PeriodChildProps> = ({
 }: PeriodChildProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <Row>
+    <div className='row'>
       <div className='col-sm-12'>
         <Undertittel className='mt-5 mb-2'>
           {t('buc:p4000-title-child-info')}
@@ -86,7 +85,7 @@ const PeriodChild: React.FC<PeriodChildProps> = ({
           error={localErrors.childBirthDate || localErrors.timeSpan ? t((localErrors.childBirthDate || localErrors.timeSpan)!) : undefined}
         />
       </div>
-    </Row>
+    </div>
   )
 }
 

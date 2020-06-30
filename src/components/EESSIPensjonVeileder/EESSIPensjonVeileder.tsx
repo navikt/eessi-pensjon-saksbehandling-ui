@@ -1,5 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
 import PT from 'prop-types'
 import SmilendeOrangeVeileder from './veileder/navPensjonSmilendeOrangeVeileder.png'
 import TristOrangeVeileder from './veileder/navPensjonTristOrangeVeileder.png'
@@ -11,12 +10,13 @@ export interface EESSIPensjonVeilederProps {
   className ?: string;
   mood?: Mood
 }
+
 const EESSIPensjonVeileder: React.FC<EESSIPensjonVeilederProps> = ({
   className, id, mood = 'smilende'
 }: EESSIPensjonVeilederProps): JSX.Element => (
   <div
     id={id}
-    className={classNames('c-EESSIPensjonVeileder', className)}
+    className={className}
   >
     <img
       width={130}

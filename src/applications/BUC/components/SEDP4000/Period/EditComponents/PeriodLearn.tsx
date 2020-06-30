@@ -5,7 +5,6 @@ import { ValidationPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { Row } from 'nav-frontend-grid'
 import { Input } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
@@ -21,7 +20,7 @@ const PeriodLearn: React.FC<PeriodLearnProps> = ({
 }: PeriodLearnProps): JSX.Element => {
 
   const {t} = useTranslation()
-  return (<Row className='period-learn'>
+  return (<div className='row period-learn'>
       <div className='col-sm-12'>
         <Input
           id='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input-id'
@@ -42,7 +41,7 @@ const PeriodLearn: React.FC<PeriodLearnProps> = ({
           feil={localErrors.learnInstitution ? t(localErrors.learnInstitution) : false}
         />
       </div>
-    </Row>
+    </div>
   )
 }
 

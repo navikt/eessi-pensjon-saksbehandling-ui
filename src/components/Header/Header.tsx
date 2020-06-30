@@ -1,9 +1,12 @@
 import { clearData, logout } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
-import classNames from 'classnames'
-import Icons from 'components/Icons/Icons'
+import * as icons from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import * as routes from 'constants/routes'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
+import AdvarselTrekant from 'assets/icons/advarsel-trekant'
 import React from 'react'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
@@ -14,19 +17,105 @@ import Lenke from 'nav-frontend-lenker'
 import { Select } from 'nav-frontend-skjema'
 import Spinner from 'nav-frontend-spinner'
 import { Systemtittel } from 'nav-frontend-typografi'
-import './Header.css'
+import styled, { ThemeProvider } from 'styled-components'
 
 export interface HeaderProps {
-  className ?: string;
-  children?: JSX.Element | Array<JSX.Element | null>;
-  gettingUserInfo?: boolean;
-  header?: JSX.Element | string;
-  isLoggingOut?: boolean;
-  username?: string;
+  className ?: string
+  children?: JSX.Element | Array<JSX.Element | null>
+  gettingUserInfo?: boolean
+  highContrast: boolean
+  header?: JSX.Element | string
+  isLoggingOut?: boolean
+  username?: string
 }
 
+/*
+.logo {
+    display: flex;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 15px;
+    width: 85px;
+  }
+ */
+const HeaderDiv = styled.header`
+  background-color: ${({theme}: any) => theme['@main-font-color']};
+  display: flex;
+  flex-direction: row;
+  height: 4rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+`
+const Skillelinje = styled.div`
+  border-left: 1px solid ${({theme}: any) => theme['@main-font-color']};
+  display: flex;
+  height: 30px;
+  width: 1px;
+`
+const BrandDiv = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+`
+
+const Title = styled.div`
+  color: ${({theme}: any) => theme['@main-font-color']};
+  display: flex;
+  font-size: 13pt;
+  padding-left: 15px;
+`
+
+const UserDiv = styled.div`
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+const SaksbehandlerUser = styled.div`
+   color: ${({theme}: any) => theme.navRod};
+`
+
+const NameDiv = styled.div`
+  margin: auto 0px;
+  padding: 0.3em;
+`
+
+const NameSelect = styled(Select)`
+  color: ${({theme}: any) => theme['@main-font-color']};
+  position: relative;
+  .selectContainer:before,
+  .selectContainer:after {
+    background: @white !important;
+  }
+  select {
+    background: transparent !important;
+  }
+  select:not(:hover) {
+    border-color: transparent !important;
+  }
+  select:hover {
+    border-color: ${({theme}: any) => theme['@main-font-color']} !important;
+  }
+  option {
+    padding: 0.5rem;
+  }
+  .skjemaelement__input {
+    color: ${({theme}: any) => theme['@main-background-color']};
+  }
+`
+const Link = styled(Lenke)`
+  color: ${({theme}: any) => theme['@main-background-color']};
+`
+const UsernameSpan = styled.span`
+  padding: 0.45rem;
+  padding-left: 0.5rem;
+  padding-right: 1.6rem;
+  color: ${({theme}: any) => theme['@main-font-color']}
+`
+
 const Header: React.FC<HeaderProps> = ({
-  className, children, gettingUserInfo, header,
+  className, children, gettingUserInfo, highContrast, header,
   isLoggingOut, username
 }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
@@ -55,41 +144,46 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <header role='banner'>
-      <div className={classNames(className, 'c-topHeader')}>
-        <div className='brand'>
-          <a href='#index' id='c-topHeader__logo-link' onClick={onLogoClick}>
+    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+      <HeaderDiv role='banner' className={className}>
+        <BrandDiv>
+          <a
+          href='#index'
+          data-testId='c-topHeader__logo-link'
+          onClick={onLogoClick}
+          >
             <NavLogoTransparent width='100' height='45' color='white' />
           </a>
-          <div className='skillelinje' />
-          <div className='tittel'><span>{t('app-headerTitle')}</span></div>
-        </div>
-        <div>
-          <Lenke
-            id='c-topHeader__highcontrast-link-id'
-            className='c-topHeader__highcontrast-link c-topHeader__link mt-1'
-            href='#highContrast'
-            onClick={onHighContrastClick}
-          >
-            {t('ui:highContrast')}
-          </Lenke>
-        </div>
-        <div className='user'>
+          <Skillelinje />
+          <Title>
+            <span>{t('app-headerTitle')}</span>
+          </Title>
+        </BrandDiv>
+        <Link
+          id='c-topHeader__highcontrast-link-id'
+          href='#highContrast'
+          onClick={onHighContrastClick}
+        >
+          {t('ui:highContrast')}
+        </Link>
+        <UserDiv>
           {isLoggingOut
             ? <Spinner type='XS' />
             : (
-              <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
-                <Icons kind='user' />
-              </div>
+              <>
+              <SaksbehandlerUser>
+                <FontAwesomeIcon icon={icons.faUser} />
+              </SaksbehandlerUser>
+              <HorizontalSeparatorDiv/>
+              </>
             )}
-          <div className='skillelinje' />
-          <div className='mr-4 ml-2 align-middle name'>
+          <Skillelinje />
+          <NameDiv>
             {gettingUserInfo ? t('buc:loading-gettingUserInfo')
               : username
                 ? (
-                  <Select
-                    id='username-select-id'
-                    className='username-select'
+                  <NameSelect
+                    data-testId='username-select-id'
                     label=''
                     value={username}
                     selected={username}
@@ -98,27 +192,29 @@ const Header: React.FC<HeaderProps> = ({
                     <option value=''>{username}</option>
                     <option value='feedback'>{t('ui:giveFeedback')}</option>
                     <option value='logout'>{t('logout')}</option>
-                  </Select>
+                  </NameSelect>
                 )
                 : (
                   <>
-                    <Icons kind='advarsel' size={16} />
-                    <span className='username-span'>{t('unknown')}</span>
+                    <AdvarselTrekant size={16} />
+                    <UsernameSpan>
+                      {t('unknown')}
+                    </UsernameSpan>
                   </>
                 )}
-          </div>
-        </div>
-      </div>
-      {header
-        ? (
+          </NameDiv>
+
+        </UserDiv>
+        {header && (
           _.isString(header) ? (
             <Systemtittel className='m-4'>
               {header}
             </Systemtittel>
           ) : header
-        ) : null}
-      {children}
-    </header>
+          )}
+        {children}
+      </HeaderDiv>
+    </ThemeProvider>
   )
 }
 

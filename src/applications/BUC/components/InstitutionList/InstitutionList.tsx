@@ -1,18 +1,17 @@
-import classNames from 'classnames'
 import { InstitutionListMap, InstitutionNames, Institutions } from 'declarations/buc'
 import { InstitutionsPropType } from 'declarations/buc.pt'
+import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
+import Flag from 'flagg-ikoner'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
+import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import Flag from 'flagg-ikoner'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
-import { Normaltekst } from 'nav-frontend-typografi'
-import './InstitutionList.css'
+import styled from 'styled-components'
 
 export interface InstitutionListProps {
   className?: string;
@@ -23,6 +22,18 @@ export interface InstitutionListProps {
   type?: string;
 }
 
+const InstitutionListDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const InstitutionDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+const InstitutionText = styled(Normaltekst)`
+  margin-left: 0.5rem;
+`
 const InstitutionList: React.FC<InstitutionListProps> = ({
   className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined'
 }: InstitutionListProps): JSX.Element => {
@@ -53,37 +64,53 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
   }
 
   return _.isEmpty(institutionList) ? (
-    <div
-      className={classNames('a-buc-c-institutionlist', className)}
+    <InstitutionListDiv
+      className={className}
     >
-      <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>
-    </div>
+      <Normaltekst>
+        {t('buc:form-noInstitutionYet')}
+      </Normaltekst>
+    </InstitutionListDiv>
   ) : (
     <>
       {Object.keys(institutionList).map(landkode => {
         const country = CountryData.getCountryInstance(locale).findByValue(landkode)
         return (
-          <div
-            className={classNames('a-buc-c-institutionlist', className)}
+          <InstitutionListDiv
+            className={className}
             key={landkode}
           >
-            {type === 'joined' ? (
-              <div className='a-buc-c-institutionlist__institution'>
-                {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
-                <Normaltekst>
+            {type === 'joined' && (
+              <InstitutionDiv>
+                {flag && (
+                  <Flag
+                  className='mr-2'
+                  label={country ? country.label : landkode}
+                  country={landkode}
+                  size='M'
+                  type={flagType} />
+                )}
+                <InstitutionText>
                   {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}
-                </Normaltekst>
-              </div>
-            ) : null}
-            {type === 'separated' ? institutionList[landkode].map((institutionId : string) => (
-              <div className='a-buc-c-institutionlist__institution' key={institutionId}>
-                {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
-                <Normaltekst>
+                </InstitutionText>
+              </InstitutionDiv>
+            )}
+            {type === 'separated' && institutionList[landkode].map((institutionId : string) => (
+              <InstitutionDiv key={institutionId}>
+                {flag && (
+                  <Flag
+                    label={country ? country.label : landkode}
+                    country={landkode}
+                    size='M'
+                    type={flagType}
+                  />
+                )}
+                <InstitutionText>
                   {getLabel(landkode, institutionId)}
-                </Normaltekst>
-              </div>
-            )) : null}
-          </div>
+                </InstitutionText>
+              </InstitutionDiv>
+            ))}
+          </InstitutionListDiv>
         )
       })}
     </>
