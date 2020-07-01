@@ -23,9 +23,7 @@ import thunk from 'redux-thunk'
 import { unregister } from 'registerServiceWorker'
 import i18n from './i18n'
 import * as reducers from './reducers'
-import 'minibootstrap.css'
 import 'index.css'
-import 'index_highContrast.css'
 
 // IE11
 if (Number && isFinite && !Number.isFinite) {

@@ -9,13 +9,13 @@ import styled from 'styled-components'
 import TableSorter from 'tabell'
 
 export interface SEDAttachmentsTableProps {
-  attachments: AttachedFiles;
+  attachments: AttachedFiles
 }
 
 export interface SEDAttachmentsTableRow {
-  key: string;
-  namespace: string;
-  title: string;
+  key: string
+  namespace: string
+  title: string
 }
 
 export type SEDAttachmentsTableRows = Array<SEDAttachmentsTableRow>

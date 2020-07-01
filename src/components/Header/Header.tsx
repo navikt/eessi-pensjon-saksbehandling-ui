@@ -29,17 +29,8 @@ export interface HeaderProps {
   username?: string
 }
 
-/*
-.logo {
-    display: flex;
-    height: auto;
-    padding-left: 20px;
-    padding-right: 15px;
-    width: 85px;
-  }
- */
 const HeaderDiv = styled.header`
-  background-color: ${({theme}: any) => theme['main-font-color']};
+  background-color: ${({theme}: any) => theme.navMorkGra};
   display: flex;
   flex-direction: row;
   height: 4rem;
@@ -48,7 +39,7 @@ const HeaderDiv = styled.header`
   flex-shrink: 0;
 `
 const Skillelinje = styled.div`
-  border-left: 1px solid ${({theme}: any) => theme['main-font-color']};
+  border-left: 1px solid ${({theme}: any) => theme.white};
   display: flex;
   height: 30px;
   width: 1px;
@@ -60,7 +51,7 @@ const BrandDiv = styled.div`
 `
 
 const Title = styled.div`
-  color: ${({theme}: any) => theme['main-font-color']};
+  color: ${({theme}: any) => theme.white};
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
@@ -101,11 +92,11 @@ const NameSelect = styled(Select)`
     padding: 0.5rem;
   }
   .skjemaelement__input {
-    color: ${({theme}: any) => theme['main-background-color']};
+    color: ${({theme}: any) => theme.white};
   }
 `
 const Link = styled(Lenke)`
-  color: ${({theme}: any) => theme['main-background-color']};
+  color: ${({theme}: any) => theme.white};
 `
 const UsernameSpan = styled.span`
   padding: 0.45rem;
@@ -203,7 +194,6 @@ const Header: React.FC<HeaderProps> = ({
                   </>
                 )}
           </NameDiv>
-
         </UserDiv>
         {header && (
           _.isString(header) ? (

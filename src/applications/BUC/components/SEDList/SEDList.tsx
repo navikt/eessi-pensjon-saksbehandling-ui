@@ -11,10 +11,10 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 export interface SEDListProps {
-  buc: Buc;
-  maxSeds ?: number;
-  onSEDNew: (buc: Buc, sed: Sed) => void;
-  seds?: Seds | null;
+  buc: Buc
+  maxSeds ?: number
+  onSEDNew: (buc: Buc, sed: Sed) => void
+  seds?: Seds | null
 }
 
 const SEDListDiv = styled.div``

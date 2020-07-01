@@ -2,7 +2,7 @@
 
 import { fetchSingleBuc } from 'actions/buc'
 import classNames from 'classnames'
-import Icons from 'components/Icons/Icons'
+import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import _ from 'lodash'
@@ -10,6 +10,8 @@ import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Popover from 'nav-frontend-popover'
+import LineCheckCircle from 'assets/icons/line-version-check-circle-2'
+import FilledNetworkConnecting from 'assets/icons/filled-version-network-connecting'
 import styled, { keyframes } from 'styled-components'
 
 export interface BucWebSocketProps {
@@ -153,17 +155,19 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   const getAnchor = () => {
     switch (status) {
       case CONNECTED:
-        return 'checkCircle'
+        return LineCheckCircle
       case NOTCONNECTED:
       case ERROR:
-        return 'removeCircle'
+        return FilledRemoveCircle
       case CONNECTING:
       case RECEIVING:
-        return 'connecting'
+        return FilledNetworkConnecting
       default:
-        return 'unknown'
+        return FilledNetworkConnecting
     }
   }
+
+  const Icon = getAnchor()
 
   const handleClick = (e: React.MouseEvent<any>) => {
     if (!popoverOpen) {
@@ -175,7 +179,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 
   return (
     <BUCWebsocketDiv title={'websocket: ' + status}>
-      <Icons kind={getAnchor()} size={24} onClick={handleClick} />
+      <Icon kind={getAnchor()} size={24} onClick={handleClick} />
       <Popover ankerEl={popoverAnchor}>{log}</Popover>
     </BUCWebsocketDiv>
   )

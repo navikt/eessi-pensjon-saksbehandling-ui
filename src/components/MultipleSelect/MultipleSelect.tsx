@@ -10,8 +10,8 @@ import Select, { ValueType } from 'react-select'
 import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
 import { SelectComponents } from 'react-select/src/components'
+import styled from 'styled-components'
 import MultipleOption from './MultipleOption'
-import './MultipleSelect.css'
 
 const animatedComponents: SelectComponents<any> = makeAnimated()
 
@@ -21,6 +21,7 @@ export interface MultipleSelectProps<T> {
   creatable ?: boolean;
   disabled ?: boolean;
   error ?: string;
+  highContrast?: boolean;
   hideSelectedOptions ?: boolean;
   id ?: string;
   isLoading?: boolean;
@@ -31,8 +32,105 @@ export interface MultipleSelectProps<T> {
   values?: Array<T>;
 }
 
+const MultipleSelectDiv = styled.div`
+
+
+  .multipleSelect__menu {
+    z-index: 500;
+  }
+
+  .multipleSelect__control {
+    border: 1px solid @navMorkGra;
+  }
+
+  .multipleSelect__indicator-separator {
+    background-color: @navMorkGra;
+  }
+
+  .c-multipleSelect-multipleValueRemove {
+     border: 1px solid @navMorkGra;
+     border-radius: 20px;
+     width: 24px;
+     height: 24px;
+     text-align: center;
+
+     &:hover {
+       background-color: @white;
+     }
+   }
+`
+
+/*
+
+.c-multipleSelect.skjemaelement__feilmelding {
+  .multipleSelect__control {
+    border: 1px solid @redError;
+  }
+}
+
+.highContrast .c-multipleSelect {
+
+  .multipleSelect__control {
+     border-width: 2px;
+     border-color: @white;
+  }
+
+  .multipleSelect__control {
+    background: black !important;
+  }
+
+  .c-multipleOption {
+
+    background: @black;
+
+    &.selected {
+       background: @navBla;
+       color: @black !important;
+       font-weight: bold;
+    }
+    &.focused {
+       background: @orangeFocus;
+       color: @black !important;
+       font-weight: bold;
+    }
+  }
+}
+
+
+.highContrast .c-multipleSelect {
+  &.skjemaelement__feilmelding {
+    .multipleSelect__control {
+      border-width: 2px;
+      border-color: @redError;
+    }
+  }
+
+  .multipleSelect__multi-value {
+    border: 1px solid @white;
+    background-color: @black;
+  }
+
+  .multipleSelect__multi-value__label {
+    color: @white;
+  }
+
+  .multipleSelect__group {
+    background-color: @black;
+  }
+}
+
+.c-multipleOption img,
+.c-multipleValue img {
+  width: 50px;
+  height: 30px;
+  margin-right: 0.7rem;
+}
+
+ */
+
 const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
-  ariaLabel, className, creatable = false, disabled = false, error, hideSelectedOptions = false,
+  ariaLabel, className, creatable = false, disabled = false, error,
+  highContrast = false, hideSelectedOptions = false,
   id, isLoading = false, label, onSelect, options = [], placeholder, values = []
 }: MultipleSelectProps<any>): JSX.Element => {
   const [_values, setValues] = useState<Array<any>>(values)
@@ -67,9 +165,9 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
   const inputId = id || guid()
 
   return (
-    <div
+    <MultipleSelectDiv
       id={id}
-      className={classNames('c-multipleSelect', className, { skjemaelement__feilmelding: error })}
+      className={classNames(className, { skjemaelement__feilmelding: error })}
     >
       <label className='skjemaelement__label' htmlFor={inputId}>{label}</label>
       <Component
@@ -85,6 +183,9 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
         closeMenuOnSelect={false}
         value={_values}
         options={options}
+        selectProps={{
+          highContrast: highContrast
+        }}
         components={{
           ...animatedComponents,
           Option: MultipleOption,
@@ -104,7 +205,7 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
           </div>
         )
         : null}
-    </div>
+    </MultipleSelectDiv>
   )
 }
 

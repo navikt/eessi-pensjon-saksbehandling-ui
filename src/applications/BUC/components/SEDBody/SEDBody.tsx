@@ -19,21 +19,21 @@ import styled from 'styled-components'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 export interface SEDBodyProps {
-  aktoerId: string;
-  buc: Buc;
-  canHaveAttachments: boolean;
-  canShowProperties: boolean;
-  initialAttachmentsSent?: boolean;
-  initialSeeAttachmentPanel?: boolean;
-  initialSendingAttachments?: boolean;
-  onAttachmentsSubmit?: (af: AttachedFiles) => void;
-  onAttachmentsPanelOpen?: (o: boolean) => void;
-  sed: Sed;
+  aktoerId: string
+  buc: Buc
+  canHaveAttachments: boolean
+  canShowProperties: boolean
+  initialAttachmentsSent?: boolean
+  initialSeeAttachmentPanel?: boolean
+  initialSendingAttachments?: boolean
+  onAttachmentsSubmit?: (af: AttachedFiles) => void
+  onAttachmentsPanelOpen?: (o: boolean) => void
+  sed: Sed
 }
 
 export interface SEDBodySelector {
-  attachments: AttachedFiles;
-  attachmentsError?: boolean;
+  attachments: AttachedFiles
+  attachmentsError?: boolean
 }
 
 const mapState = (state: State): SEDBodySelector => ({

@@ -4,27 +4,25 @@ import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
-import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
+import { Widget } from 'nav-dashboard'
+import Alertstripe from 'nav-frontend-alertstriper'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import './Overview.css'
 import styled, { ThemeProvider } from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
-import Alertstripe from 'nav-frontend-alertstriper'
 
 const mapState = (state: State): OverviewSelector => ({
   /* istanbul ignore next */
   aktoerId: state.app.params.aktoerId,
   gettingPersonInfo: state.loading.gettingPersonInfo,
   locale: state.ui.locale,
-  person: state.app.person,
-  highContrast: state.ui.highContrast
+  person: state.app.person
 })
 
 export interface OverviewSelector {
@@ -32,10 +30,10 @@ export interface OverviewSelector {
   gettingPersonInfo: boolean
   locale: AllowedLocaleString
   person: any
-  highContrast: boolean
 }
 
 export interface OverviewProps {
+  highContrast: boolean
   onUpdate?: (w: Widget) => void
   skipMount?: boolean
   widget: Widget
@@ -58,7 +56,7 @@ export const Overview: React.FC<OverviewProps> = ({
   widget
 }: OverviewProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(skipMount)
-  const { aktoerId, gettingPersonInfo, locale, person, highContrast }: OverviewSelector =
+  const { aktoerId, gettingPersonInfo, locale, person }: OverviewSelector =
     useSelector<State, OverviewSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)

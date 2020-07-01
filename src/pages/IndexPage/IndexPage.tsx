@@ -1,5 +1,5 @@
 import { BUCMode } from 'applications/BUC'
-import Icons from 'components/Icons/Icons'
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import TopContainer from 'components/TopContainer/TopContainer'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
 import Lenke from 'nav-frontend-lenker'
@@ -118,26 +118,32 @@ const defaultConfig = {
 const allowedWidgets = ['buc', 'varsler', 'overview']
 
 export interface IndexPageSelector {
-  username: string | undefined,
+  highContrast: boolean
   mode: BUCMode
+  username: string | undefined
 }
 
 const mapState = (state: State): IndexPageSelector => ({
-  username: state.app.username,
-  mode: state.buc.mode
+  highContrast: state.ui.highContrast,
+  mode: state.buc.mode,
+  username: state.app.username
 })
 
 const DivWithLinks = styled.div`
-     padding: 0.5rem 2rem;
-     background-color: #E9E7E7;
-     display: flex;
-     flex-direction: row-reverse;
-  `
+  padding: 0.5rem 2rem;
+  background-color: #E9E7E7;
+  display: flex;
+  flex-direction: row-reverse;
+`
 const SeparatorSpan = styled.span`
-     padding: 0rem 0.5rem
-  `
+  padding: 0rem 0.5rem
+`
+const Link = styled(Lenke)`
+  display: flex;
+  align-items: flex-end
+`
 export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
-  const { username, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { highContrast, username, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
 
@@ -150,27 +156,29 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   return (
     <TopContainer>
       <DivWithLinks>
-        <Lenke
+        <Link
           target='_blank'
           data-amplitude='links.rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
-          <ExternalLink Icons className='mr-2' color='#0067C5'  />
           {t('ui:lawsource')}
-        </Lenke>
+          <HorizontalSeparatorDiv data-size='0.5'/>
+          <ExternalLink color='#0067C5'/>
+        </Link>
         <SeparatorSpan>
           •
         </SeparatorSpan>
-        <Lenke
+        <Link
           target='_blank'
           data-amplitude='links.hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
         >
-          <Icons className='mr-2' color='#0067C5' kind='outlink' />
           {t('ui:help')}
-        </Lenke>
+          <HorizontalSeparatorDiv data-size='0.5'/>
+          <ExternalLink color='#0067C5'/>
+        </Link>
       </DivWithLinks>
       <Dashboard
         id='eessi-pensjon-ui-fss'
@@ -179,6 +187,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         defaultLayouts={username === 'Z990706' ? defaultLayoutsWithVarsel : defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
+        highContrast={highContrast}
       />
     </TopContainer>
   )

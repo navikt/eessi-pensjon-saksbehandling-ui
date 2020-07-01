@@ -15,7 +15,6 @@ import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
-import P4000Payload from 'applications/BUC/components/SEDP4000/P4000Payload'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
@@ -31,7 +30,6 @@ import {
 } from 'declarations/buc'
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
-import { P4000Info } from 'declarations/period'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Validation } from 'declarations/types'
 import _ from 'lodash'
@@ -69,7 +67,6 @@ export interface SEDStartSelector {
   sed: Sed | undefined;
   sedsWithAttachments: SedsWithAttachmentsMap;
   sedList: Array<string> | undefined;
-  p4000info: P4000Info | undefined;
   vedtakId: string | undefined;
 }
 
@@ -87,7 +84,6 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   sed: state.buc.sed,
   sedList: state.buc.sedList,
   sedsWithAttachments: state.buc.sedsWithAttachments,
-  p4000info: state.buc.p4000info,
   vedtakId: state.app.params.vedtakId
 
 })
@@ -107,7 +103,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const {
     attachments, attachmentsError, avdodfnr, bucsInfoList, currentSed, countryList,
     institutionList, loading, locale,
-    sakId, sed, sedsWithAttachments, sedList, p4000info, vedtakId
+    sakId, sed, sedsWithAttachments, sedList, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -268,10 +264,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         euxCaseId: buc.caseId
       }
 
-      if (_sed === 'P4000' && p4000info) {
-        const periods = new P4000Payload(p4000info.stayAbroad, t).generatePayload()
-        payload.periodeInfo = periods.periodeInfo
-      }
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
