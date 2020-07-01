@@ -354,7 +354,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
               {bucList && renderOptions(bucList, 'buc')}
             </Select>
           </LeftContentDiv>
-
           <RightContentDiv>
             <VerticalSeparatorDiv data-size='2'/>
             <MultipleSelect
