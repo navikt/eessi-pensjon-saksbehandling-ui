@@ -1,12 +1,12 @@
-import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 import { Buc } from 'declarations/buc'
 import { BucPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
+import { Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Systemtittel } from 'nav-frontend-typografi'
+
 export interface Step2Props {
   aktoerId: string;
   buc: Buc;
@@ -19,7 +19,7 @@ export interface Step2Props {
 }
 
 const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {
-  const { aktoerId, buc, locale, _sed, showButtons, setShowButtons } = props
+  const { buc, _sed } = props
   const { t } = useTranslation()
   return (
     <>
@@ -33,14 +33,7 @@ const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {
       </div>
       {_sed === 'P4000' ? (
         <>
-          <div className='col-md-8'>
-            <SEDP4000
-              aktoerId={aktoerId}
-              locale={locale}
-              showButtons={showButtons}
-              setShowButtons={setShowButtons}
-            />
-          </div>
+          <div className='col-md-8' />
           <div className='col-md-4' />
         </>
       ) : null}

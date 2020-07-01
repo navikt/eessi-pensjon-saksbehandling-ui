@@ -39,7 +39,7 @@ export interface HeaderProps {
   }
  */
 const HeaderDiv = styled.header`
-  background-color: ${({theme}: any) => theme['@main-font-color']};
+  background-color: ${({theme}: any) => theme['main-font-color']};
   display: flex;
   flex-direction: row;
   height: 4rem;
@@ -48,7 +48,7 @@ const HeaderDiv = styled.header`
   flex-shrink: 0;
 `
 const Skillelinje = styled.div`
-  border-left: 1px solid ${({theme}: any) => theme['@main-font-color']};
+  border-left: 1px solid ${({theme}: any) => theme['main-font-color']};
   display: flex;
   height: 30px;
   width: 1px;
@@ -60,7 +60,7 @@ const BrandDiv = styled.div`
 `
 
 const Title = styled.div`
-  color: ${({theme}: any) => theme['@main-font-color']};
+  color: ${({theme}: any) => theme['main-font-color']};
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
@@ -82,11 +82,11 @@ const NameDiv = styled.div`
 `
 
 const NameSelect = styled(Select)`
-  color: ${({theme}: any) => theme['@main-font-color']};
+  color: ${({theme}: any) => theme['main-font-color']};
   position: relative;
   .selectContainer:before,
   .selectContainer:after {
-    background: @white !important;
+    background: white !important;
   }
   select {
     background: transparent !important;
@@ -95,17 +95,17 @@ const NameSelect = styled(Select)`
     border-color: transparent !important;
   }
   select:hover {
-    border-color: ${({theme}: any) => theme['@main-font-color']} !important;
+    border-color: ${({theme}: any) => theme['main-font-color']} !important;
   }
   option {
     padding: 0.5rem;
   }
   .skjemaelement__input {
-    color: ${({theme}: any) => theme['@main-background-color']};
+    color: ${({theme}: any) => theme['main-background-color']};
   }
 `
 const Link = styled(Lenke)`
-  color: ${({theme}: any) => theme['@main-background-color']};
+  color: ${({theme}: any) => theme['main-background-color']};
 `
 const UsernameSpan = styled.span`
   padding: 0.45rem;

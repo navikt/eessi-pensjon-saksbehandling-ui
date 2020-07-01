@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { PersonPropType } from 'declarations/types.pt'
-import { Person } from 'declarations/types'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
 import PT from 'prop-types'
@@ -17,7 +16,7 @@ import styled from 'styled-components'
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
-  person?: Perso
+  person?: Person
 }
 
 const WaitingDiv = styled.div`
