@@ -1,10 +1,9 @@
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
-import React from 'react'
-import PT from 'prop-types'
 import classNames from 'classnames'
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import Spinner from 'nav-frontend-spinner'
 import { Normaltekst } from 'nav-frontend-typografi'
-import './WaitingPanel.css'
+import PT from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
 
 export interface WaitingPanelProps {

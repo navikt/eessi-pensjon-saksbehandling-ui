@@ -1,8 +1,9 @@
 import { sendInvite } from 'actions/pinfo'
 import { getStorageFile, listStorageFiles } from 'actions/storage'
+import LineMessageSent from 'assets/icons/line-version-expanded-email-send-3'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import Icons from 'components/Icons/Icons'
 import RefreshButton from 'components/RefreshButton/RefreshButton'
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import moment from 'moment'
@@ -275,7 +276,8 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
                   needle: /* istanbul ignore next */ (it: Item) => it.toLowerCase(),
                   renderCell: (item: any) => (
                     <div className='d-flex'>
-                      <Icons className='mr-2' kind='nav-message-sent' />
+                      <LineMessageSent />
+                      <HorizontalSeparatorDiv/>
                       <label>{item.type}</label>
                     </div>
                   )

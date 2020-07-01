@@ -1,4 +1,8 @@
-import Icons from 'components/Icons/Icons'
+import LineExpandedCalendar from 'assets/icons/line-version-expanded-calendar-3'
+import LineExpandedGlobe from 'assets/icons/line-version-expanded-globe-2'
+import LineHandbag from 'assets/icons/line-version-handbag-3'
+import LineHeartCircle from 'assets/icons/line-version-heart-circle'
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
@@ -8,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import CountryData from 'land-verktoy'
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
+import LineHome from 'assets/icons/line-version-home-3'
 import styled from 'styled-components'
 
 export interface PersonPanelProps {
@@ -143,42 +148,36 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     <PersonPanelDiv>
       <Content>
         <Item>
-          <div className='mr-2'>
-            <Icons kind='nav-home' color={highContrast ? 'white' : 'black'} />
-          </div>
+          <LineHome color={highContrast ? 'white' : 'black'} />
+          <HorizontalSeparatorDiv/>
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </Item>
         <Item>
-          <div className='mr-2'>
-            <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
-          </div>
+            <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+            <HorizontalSeparatorDiv/>
           {renderEntity('ui:birthdate', birthDateString)}
         </Item>
         <Item>
-          <div className='mr-2'>
-            <Icons kind='nav-work' color={highContrast ? 'white' : 'black'} />
-          </div>
+          <LineHandbag color={highContrast ? 'white' : 'black'} />
+          <HorizontalSeparatorDiv/>
           {renderEntity('ui:nationality', nationality)}
         </Item>
       </Content>
       <HR/>
       <Content>
         <Item>
-          <div className='mr-2'>
-            <Icons kind='address' color={highContrast ? 'white' : 'black'} />
-          </div>
+          <HorizontalSeparatorDiv/>
+          <LineExpandedGlobe color={highContrast ? 'white' : 'black'} />
           {renderEntity('ui:postadresse', postadresse)}
         </Item>
         <Item>
-          <div className='mr-2'>
-            <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
-          </div>
+          <HorizontalSeparatorDiv/>
+          <LineExpandedCalendar  color={highContrast ? 'white' : 'black'} />
           {renderEntity('ui:deathdate', deathDateString)}
         </Item>
         <Item>
-          <div className='mr-2'>
-            <Icons kind='nav-child' color={highContrast ? 'white' : 'black'} />
-          </div>
+          <HorizontalSeparatorDiv/>
+          <LineHeartCircle color={highContrast ? 'white' : 'black'} />
           {renderEntity('ui:marital-status',
             t('ui:widget-overview-maritalstatus-' + maritalStatus) +
             (maritalStatus !== 'Null' && maritalStatus !== 'Ugif' && dateString

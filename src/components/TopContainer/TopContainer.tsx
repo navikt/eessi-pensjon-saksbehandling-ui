@@ -116,31 +116,30 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           username={username}
           gettingUserInfo={gettingUserInfo}
           isLoggingOut={isLoggingOut}
-        >
-          <Alert
-            type='client'
-            message={getClientErrorMessage()}
-            status={clientErrorStatus}
-            error={error}
-            onClose={onClear}
+        />
+        <Alert
+          type='client'
+          message={getClientErrorMessage()}
+          status={clientErrorStatus}
+          error={error}
+          onClose={onClear}
+        />
+        <Alert
+          type='server'
+          message={getServerErrorMessage()}
+          error={error}
+          onClose={onClear}
+        />
+        {modal !== undefined ? (
+          <Modal
+            appElement={(document.getElementById('main') || document.body)}
+            modal={modal}
+            onModalClose={handleModalClose}
           />
-          <Alert
-            type='server'
-            message={getServerErrorMessage()}
-            error={error}
-            onClose={onClear}
-          />
-          {modal !== undefined ? (
-            <Modal
-              appElement={(document.getElementById('main') || document.body)}
-              modal={modal}
-              onModalClose={handleModalClose}
-            />
-          ) : null}
-          <SessionMonitor
-            expirationTime={expirationTime!}
-          />
-        </Header>
+        ) : null}
+        <SessionMonitor
+          expirationTime={expirationTime!}
+        />
         <Main
           id='main'
           role='main'

@@ -1,5 +1,7 @@
+import * as icons from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
-import Icons from 'components/Icons/Icons'
+import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { ModalContent } from 'declarations/components'
@@ -162,7 +164,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               className='c-tablesorter__preview-button'
               onClick={() => onPreviewItem(item)}
             >
-              {spinner ? '' : <Icons kind='view' />}
+              {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
             </Knapp>
           <HorizontalSeparatorDiv/>
           {context.mode === 'confirm' && (
@@ -176,7 +178,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
                 className='c-tablesorter__delete-button mr-2 ml-2'
                 onClick={() => onDeleteItem(context.files, item)}
               >
-                <Icons kind='trashcan' color='#0067C5' />
+                <Trashcan color='#0067C5' />
               </Knapp>
               <HorizontalSeparatorDiv/>
             </>
