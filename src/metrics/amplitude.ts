@@ -5,6 +5,11 @@ const isProduction = () => {
   return host === 'pensjon-utland.nais.adeo.no'
 }
 
+const isLocalhost = () => {
+  const host = window?.location?.hostname || ''
+  return host === 'localhost'
+}
+
 const getApiKey = () => {
   return isProduction()
     ? 'a9a60eb3e832909758c46016e1714d3e'
@@ -26,7 +31,9 @@ const config = {
 }
 
 export const init = () => {
-  amplitude.getInstance().init(getApiKey(), undefined, config)
+  if (!isLocalhost()) {
+    amplitude.getInstance().init(getApiKey(), undefined, config)
+  }
 }
 
 export type AmplitudeLogger = (name: string, values?: object) => void;
@@ -37,5 +44,7 @@ export const amplitudeLogger = (name: string, values?: object) => {
   if (debug) {
     console.log('Amplitude:', key, data)
   }
-  amplitude.getInstance().logEvent(key, data)
+  if (!isLocalhost()) {
+    amplitude.getInstance().logEvent(key, data)
+  }
 }

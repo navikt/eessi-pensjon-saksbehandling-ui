@@ -165,6 +165,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     _setMode('bucnew')
   }
 
+  console.log(mode)
   return (
     <BUCIndexDiv
       onMouseEnter={onMouseEnter}
@@ -183,10 +184,11 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         />
       </BUCIndexHeader>
       <VerticalSeparatorDiv />
-      {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={bucs!} setMode={_setMode} /> : null}
-      {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} /> : null}
-      {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} /> : null}
-      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} /> : null}
+      {mode === 'buclist' && <BUCList aktoerId={aktoerId} bucs={bucs!} setMode={_setMode} />}
+      {mode === 'bucedit' && <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} /> }
+      {mode === 'bucnew' && <BUCNew aktoerId={aktoerId} setMode={_setMode} /> }
+      {mode === 'sednew' && <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} />}
+      something
     </BUCIndexDiv>
   )
 }
