@@ -15,7 +15,12 @@ export interface WaitingPanelProps {
 }
 
 const WaitingPanelDiv = styled.div`
-  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  &.rowDirection {
+     flex-direction: row;
+  }
   .oneLine {
     display: inline-block;
     vertical-align: top;
@@ -27,7 +32,7 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
 }: WaitingPanelProps): JSX.Element | null => (
   <WaitingPanelDiv
     style={style}
-    className={className}
+    className={classNames({ rowDirection: oneLine })}
   >
     <Spinner type={size} />
     {message && (
