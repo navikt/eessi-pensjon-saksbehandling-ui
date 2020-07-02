@@ -84,11 +84,12 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
               <InstitutionDiv>
                 {flag && (
                   <Flag
-                  className='mr-2'
-                  label={country ? country.label : landkode}
-                  country={landkode}
-                  size='M'
-                  type={flagType} />
+                    className='mr-2'
+                    label={country ? country.label : landkode}
+                    country={landkode}
+                    size='M'
+                    type={flagType}
+                  />
                 )}
                 <InstitutionText>
                   {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}

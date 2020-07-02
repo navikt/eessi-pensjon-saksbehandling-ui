@@ -1369,28 +1369,398 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
     }
   }
 >
-  <div
-    className="a-buc-c-sedbody"
-  >
-    <Undertittel
-      className="mt-4 mb-4"
-    >
-      <TypografiBase
-        className="mt-4 mb-4"
-        type="undertittel"
-      >
-        <h2
-          className="typo-undertittel mt-4 mb-4"
-        >
-          ui:attachments
-        </h2>
-      </TypografiBase>
-    </Undertittel>
+  <styled.div>
     <div
-      className="mt-4 mb-4"
+      className="sc-fznyAO hdDwJr"
     >
-      <SEDAttachmentsTable
-        attachments={
+      <Styled(Undertittel)>
+        <Undertittel
+          className="sc-fznKkj cVhvrA"
+        >
+          <TypografiBase
+            className="sc-fznKkj cVhvrA"
+            type="undertittel"
+          >
+            <h2
+              className="typo-undertittel sc-fznKkj cVhvrA"
+            >
+              ui:attachments
+            </h2>
+          </TypografiBase>
+        </Undertittel>
+      </Styled(Undertittel)>
+      <styled.div>
+        <div
+          className="sc-fznZeY cjAkTU"
+        >
+          <SEDAttachmentsTable
+            attachments={
+              Object {
+                "joark": Array [],
+                "sed": Array [
+                  Object {
+                    "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
+                    "fileName": "balrog.png",
+                    "id": "58828e7ff57943779ab7b24c522b1a3f",
+                    "lastUpdate": Object {
+                      "chronology": Object {
+                        "calendarType": "iso8601",
+                        "id": "ISO",
+                      },
+                      "dayOfMonth": 20,
+                      "dayOfWeek": "MONDAY",
+                      "dayOfYear": 140,
+                      "era": "CE",
+                      "leapYear": false,
+                      "month": "MAY",
+                      "monthValue": 5,
+                      "year": 2019,
+                    },
+                    "medical": false,
+                    "mimeType": "image/png",
+                    "name": "balrog.png",
+                  },
+                ],
+              }
+            }
+          >
+            <styled.div>
+              <div
+                className="sc-Axmtr jvWcYL"
+              >
+                <ut
+                  columns={
+                    Array [
+                      Object {
+                        "id": "namespace",
+                        "label": "ui:type",
+                        "renderCell": [Function],
+                        "type": "string",
+                      },
+                      Object {
+                        "id": "title",
+                        "label": "ui:title",
+                        "type": "string",
+                      },
+                      Object {
+                        "id": "buttons",
+                        "label": "",
+                        "renderCell": [Function],
+                        "type": "object",
+                      },
+                    ]
+                  }
+                  items={
+                    Array [
+                      Object {
+                        "key": "0_0",
+                        "namespace": "sed",
+                        "title": "balrog.png",
+                      },
+                    ]
+                  }
+                  searchable={false}
+                  selectable={false}
+                  sortable={false}
+                >
+                  <ThemeProvider
+                    theme={
+                      Object {
+                        "black": "#000000",
+                        "border-radius-base": "4px",
+                        "border-radius-large": "6px",
+                        "border-radius-small": "2px",
+                        "container-desktop": "(940px + @grid-gutter-width)",
+                        "container-large-desktop": "(1140px + @grid-gutter-width)",
+                        "container-lg": "(1140px + @grid-gutter-width)",
+                        "container-md": "(940px + @grid-gutter-width)",
+                        "container-sm": "(720px + @grid-gutter-width)",
+                        "container-tablet": "(720px + @grid-gutter-width)",
+                        "fokusFarge": "mix(@navBla,#3E3832,40%)",
+                        "grayBackground": "#E9E7E7",
+                        "grayIcon": "#B7B1A9",
+                        "grayInactive": "#78706A",
+                        "grayModia": "#333333",
+                        "grid-columns": "12",
+                        "grid-float-breakpoint": "768px",
+                        "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+                        "grid-gutter-width": "16px",
+                        "line-height-large": "1.3333333",
+                        "line-height-small": "1.5",
+                        "main-background-color": "#FFFFFF",
+                        "main-background-other-color": "#E9E7E7",
+                        "main-disabled-color": "#B7B1A9",
+                        "main-error-color": "#BA3A26",
+                        "main-focus-color": "mix(@navBla,#3E3832,40%)",
+                        "main-font-color": "#3E3832",
+                        "main-hover-color": "#66CBEC",
+                        "main-interactive-color": "#0067C5",
+                        "main-success-color": "#06893A",
+                        "main-warning-color": "#FF9100",
+                        "navBla": "#0067C5",
+                        "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
+                        "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
+                        "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
+                        "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
+                        "navBlaLighten20": "mix(@navBla,#fff, 80%)",
+                        "navBlaLighten40": "mix(@navBla,#fff, 60%)",
+                        "navBlaLighten60": "mix(@navBla,#fff, 40%)",
+                        "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+                        "navDypBla": "#005B82",
+                        "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
+                        "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
+                        "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
+                        "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
+                        "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
+                        "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
+                        "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
+                        "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+                        "navGra20": "#C6C2BF",
+                        "navGra40": "#B7B1A9",
+                        "navGra60": "#78706A",
+                        "navGra80": "#59514B",
+                        "navGronn": "#06893A",
+                        "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
+                        "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
+                        "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
+                        "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
+                        "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
+                        "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
+                        "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
+                        "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+                        "navLilla": "#634689",
+                        "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
+                        "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
+                        "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
+                        "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
+                        "navLillaLighten20": "mix(@navLilla,#fff,80%)",
+                        "navLillaLighten40": "mix(@navLilla,#fff,60%)",
+                        "navLillaLighten60": "mix(@navLilla,#fff,40%)",
+                        "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+                        "navLimeGronn": "#A2AD00",
+                        "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
+                        "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
+                        "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
+                        "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
+                        "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
+                        "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
+                        "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
+                        "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+                        "navLysBla": "#66CBEC",
+                        "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
+                        "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
+                        "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
+                        "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
+                        "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
+                        "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
+                        "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
+                        "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+                        "navLysGra": "#E9E7E7",
+                        "navMorkGra": "#3E3832",
+                        "navOransje": "#FF9100",
+                        "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
+                        "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
+                        "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
+                        "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
+                        "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
+                        "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
+                        "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
+                        "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+                        "navRod": "#C30000",
+                        "navRodDarken20": "mix(@navRod,#3E3832,80%)",
+                        "navRodDarken40": "mix(@navRod,#3E3832,60%)",
+                        "navRodDarken60": "mix(@navRod,#3E3832,40%)",
+                        "navRodDarken80": "mix(@navRod,#3E3832,20%)",
+                        "navRodLighten20": "mix(@navRod,#fff,80%)",
+                        "navRodLighten40": "mix(@navRod,#fff,60%)",
+                        "navRodLighten60": "mix(@navRod,#fff,40%)",
+                        "navRodLighten80": "mix(@navRod,#fff,20%)",
+                        "orangeFocus": "#FFBD66",
+                        "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
+                        "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
+                        "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
+                        "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
+                        "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
+                        "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
+                        "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
+                        "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+                        "padding-base-horizontal": "12px",
+                        "padding-base-vertical": "6px",
+                        "padding-large-horizontal": "16px",
+                        "padding-large-vertical": "10px",
+                        "padding-small-horizontal": "10px",
+                        "padding-small-vertical": "5px",
+                        "padding-xs-horizontal": "5px",
+                        "padding-xs-vertical": "1px",
+                        "pension-orange": "rgb(255, 167, 51)",
+                        "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
+                        "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
+                        "pinkErrorBg": "#F3E3E3",
+                        "redError": "#BA3A26",
+                        "redErrorDarken20": "mix(@redError,#3E3832,80%)",
+                        "redErrorDarken40": "mix(@redError,#3E3832,60%)",
+                        "redErrorDarken60": "mix(@redError,#3E3832,40%)",
+                        "redErrorDarken80": "mix(@redError,#3E3832,20%)",
+                        "redErrorLighten20": "mix(@redError,#fff,80%)",
+                        "redErrorLighten40": "mix(@redError,#fff,60%)",
+                        "redErrorLighten60": "mix(@redError,#fff,40%)",
+                        "redErrorLighten80": "mix(@redError,#fff,20%)",
+                        "screen-desktop": "992px",
+                        "screen-lg": "1200px",
+                        "screen-lg-desktop": "1200px",
+                        "screen-lg-min": "1200px",
+                        "screen-md": "992px",
+                        "screen-md-max": "(@screen-lg-min - 1)",
+                        "screen-md-min": "992px",
+                        "screen-sm": "768px",
+                        "screen-sm-max": "(@screen-md-min - 1)",
+                        "screen-sm-min": "768px",
+                        "screen-tablet": "768px",
+                        "screen-xs-max": "(@screen-sm-min - 1)",
+                        "type": "theme",
+                        "white": "#FFFFFF",
+                      }
+                    }
+                  >
+                    <styled.div
+                      className="tabell"
+                    >
+                      <div
+                        className="sc-AxhCb iclKIK tabell"
+                      >
+                        <styled.div>
+                          <div
+                            className="sc-AxhUy hPxmXL"
+                          >
+                            <styled.table
+                              cellSpacing="0"
+                              className="c-tableSorter__table"
+                            >
+                              <table
+                                cellSpacing="0"
+                                className="sc-AxheI bWJbzc c-tableSorter__table"
+                              >
+                                <thead>
+                                  <tr
+                                    className="c-tableSorter__header"
+                                  >
+                                    <th
+                                      style={
+                                        Object {
+                                          "width": 1,
+                                        }
+                                      }
+                                    >
+                                      <div
+                                        style={
+                                          Object {
+                                            "alignItems": "center",
+                                            "display": "flex",
+                                          }
+                                        }
+                                      />
+                                    </th>
+                                    <th
+                                      aria-sort="none"
+                                      className="header "
+                                      key="namespace"
+                                      role="columnheader"
+                                    >
+                                      ui:type
+                                    </th>
+                                    <th
+                                      aria-sort="none"
+                                      className="header "
+                                      key="title"
+                                      role="columnheader"
+                                    >
+                                      ui:title
+                                    </th>
+                                    <th
+                                      aria-sort="none"
+                                      className="header"
+                                      key="buttons"
+                                      role="columnheader"
+                                    />
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    aria-selected={false}
+                                    className="slideAnimate"
+                                    key="0_0"
+                                    style={
+                                      Object {
+                                        "animationDelay": "0s",
+                                      }
+                                    }
+                                  >
+                                    <td />
+                                    <td
+                                      className=""
+                                      key="0"
+                                    >
+                                      <EtikettLiten>
+                                        <TypografiBase
+                                          type="etikettLiten"
+                                        >
+                                          <p
+                                            className="typo-etikett-liten"
+                                          >
+                                            sed
+                                          </p>
+                                        </TypografiBase>
+                                      </EtikettLiten>
+                                    </td>
+                                    <td
+                                      className=""
+                                      key="1"
+                                    >
+                                      <n>
+                                        <t
+                                          type="normaltekst"
+                                        >
+                                          <p
+                                            className="typo-normal"
+                                          >
+                                            <span>
+                                              balrog.png
+                                            </span>
+                                          </p>
+                                        </t>
+                                      </n>
+                                    </td>
+                                    <td
+                                      className=""
+                                      key="2"
+                                    >
+                                      <div />
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </styled.table>
+                            <y
+                              highContrast={false}
+                              initialPage={1}
+                              itemsPerPage={10}
+                              numberOfItems={1}
+                              onChange={[Function]}
+                            />
+                          </div>
+                        </styled.div>
+                      </div>
+                    </styled.div>
+                  </ThemeProvider>
+                </ut>
+              </div>
+            </styled.div>
+          </SEDAttachmentsTable>
+        </div>
+      </styled.div>
+      <SEDAttachments
+        disableButtons={false}
+        files={
           Object {
             "joark": Array [],
             "sed": Array [
@@ -1419,449 +1789,96 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
             ],
           }
         }
+        onOpen={[Function]}
+        onSubmit={[Function]}
+        open={false}
       >
-        <ut
-          className="a-buc-c-sedattachmentstable"
-          columns={
-            Array [
-              Object {
-                "id": "namespace",
-                "label": "ui:type",
-                "renderCell": [Function],
-                "type": "string",
-              },
-              Object {
-                "id": "title",
-                "label": "ui:title",
-                "type": "string",
-              },
-              Object {
-                "id": "buttons",
-                "label": "",
-                "renderCell": [Function],
-                "type": "object",
-              },
-            ]
-          }
-          items={
-            Array [
-              Object {
-                "key": "0_0",
-                "namespace": "sed",
-                "title": "balrog.png",
-              },
-            ]
-          }
-          searchable={false}
-          selectable={false}
-          sortable={false}
+        <styled.div
+          data-testId="a-buc-c-sedattachments"
         >
-          <ThemeProvider
-            theme={
-              Object {
-                "black": "#000000",
-                "border-radius-base": "4px",
-                "border-radius-large": "6px",
-                "border-radius-small": "2px",
-                "container-desktop": "(940px + @grid-gutter-width)",
-                "container-large-desktop": "(1140px + @grid-gutter-width)",
-                "container-lg": "(1140px + @grid-gutter-width)",
-                "container-md": "(940px + @grid-gutter-width)",
-                "container-sm": "(720px + @grid-gutter-width)",
-                "container-tablet": "(720px + @grid-gutter-width)",
-                "fokusFarge": "mix(@navBla,#3E3832,40%)",
-                "grayBackground": "#E9E7E7",
-                "grayIcon": "#B7B1A9",
-                "grayInactive": "#78706A",
-                "grayModia": "#333333",
-                "grid-columns": "12",
-                "grid-float-breakpoint": "768px",
-                "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                "grid-gutter-width": "16px",
-                "line-height-large": "1.3333333",
-                "line-height-small": "1.5",
-                "main-background-color": "#FFFFFF",
-                "main-background-other-color": "#E9E7E7",
-                "main-disabled-color": "#B7B1A9",
-                "main-error-color": "#BA3A26",
-                "main-focus-color": "mix(@navBla,#3E3832,40%)",
-                "main-font-color": "#3E3832",
-                "main-hover-color": "#66CBEC",
-                "main-interactive-color": "#0067C5",
-                "main-success-color": "#06893A",
-                "main-warning-color": "#FF9100",
-                "navBla": "#0067C5",
-                "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-                "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-                "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-                "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-                "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-                "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-                "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-                "navBlaLighten80": "mix(@navBla,#fff, 20%)",
-                "navDypBla": "#005B82",
-                "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-                "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-                "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-                "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-                "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-                "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-                "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-                "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
-                "navGra20": "#C6C2BF",
-                "navGra40": "#B7B1A9",
-                "navGra60": "#78706A",
-                "navGra80": "#59514B",
-                "navGronn": "#06893A",
-                "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-                "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-                "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-                "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-                "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-                "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-                "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-                "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
-                "navLilla": "#634689",
-                "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-                "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-                "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-                "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-                "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-                "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-                "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-                "navLillaLighten80": "mix(@navLilla,#fff,20%)",
-                "navLimeGronn": "#A2AD00",
-                "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-                "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-                "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-                "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-                "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-                "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-                "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-                "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
-                "navLysBla": "#66CBEC",
-                "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-                "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-                "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-                "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-                "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-                "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-                "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-                "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
-                "navLysGra": "#E9E7E7",
-                "navMorkGra": "#3E3832",
-                "navOransje": "#FF9100",
-                "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-                "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-                "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-                "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-                "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-                "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-                "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-                "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
-                "navRod": "#C30000",
-                "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-                "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-                "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-                "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-                "navRodLighten20": "mix(@navRod,#fff,80%)",
-                "navRodLighten40": "mix(@navRod,#fff,60%)",
-                "navRodLighten60": "mix(@navRod,#fff,40%)",
-                "navRodLighten80": "mix(@navRod,#fff,20%)",
-                "orangeFocus": "#FFBD66",
-                "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-                "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-                "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-                "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-                "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-                "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-                "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-                "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
-                "padding-base-horizontal": "12px",
-                "padding-base-vertical": "6px",
-                "padding-large-horizontal": "16px",
-                "padding-large-vertical": "10px",
-                "padding-small-horizontal": "10px",
-                "padding-small-vertical": "5px",
-                "padding-xs-horizontal": "5px",
-                "padding-xs-vertical": "1px",
-                "pension-orange": "rgb(255, 167, 51)",
-                "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-                "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
-                "pinkErrorBg": "#F3E3E3",
-                "redError": "#BA3A26",
-                "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-                "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-                "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-                "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-                "redErrorLighten20": "mix(@redError,#fff,80%)",
-                "redErrorLighten40": "mix(@redError,#fff,60%)",
-                "redErrorLighten60": "mix(@redError,#fff,40%)",
-                "redErrorLighten80": "mix(@redError,#fff,20%)",
-                "screen-desktop": "992px",
-                "screen-lg": "1200px",
-                "screen-lg-desktop": "1200px",
-                "screen-lg-min": "1200px",
-                "screen-md": "992px",
-                "screen-md-max": "(@screen-lg-min - 1)",
-                "screen-md-min": "992px",
-                "screen-sm": "768px",
-                "screen-sm-max": "(@screen-md-min - 1)",
-                "screen-sm-min": "768px",
-                "screen-tablet": "768px",
-                "screen-xs-max": "(@screen-sm-min - 1)",
-                "type": "theme",
-                "white": "#FFFFFF",
-              }
-            }
+          <div
+            className="sc-fzoLsD fqEnxe"
+            data-testId="a-buc-c-sedattachments"
           >
-            <styled.div
-              className="tabell a-buc-c-sedattachmentstable"
+            <KnappBase
+              autoDisableVedSpinner={false}
+              className={null}
+              data-testId="a-buc-c-sedattachments__enable-button-id"
+              disabled={false}
+              htmlType="submit"
+              inaktivKlasseVedDisabled={false}
+              kompakt={false}
+              mini={false}
+              onClick={[Function]}
+              spinner={false}
+              type="standard"
             >
-              <div
-                className="sc-AxiKw dnnAxe tabell a-buc-c-sedattachmentstable"
+              <button
+                className="knapp knapp--standard"
+                data-testId="a-buc-c-sedattachments__enable-button-id"
+                disabled={false}
+                onClick={[Function]}
+                type="submit"
               >
                 <styled.div>
                   <div
-                    className="sc-AxhCb jZxptO"
+                    className="sc-fzpans kLztrW"
                   >
-                    <styled.table
-                      cellSpacing="0"
-                      className="c-tableSorter__table"
-                    >
-                      <table
-                        cellSpacing="0"
-                        className="sc-AxgMl gcDAfa c-tableSorter__table"
+                    <_default>
+                      <svg
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <thead>
-                          <tr
-                            className="c-tableSorter__header"
+                        <title>
+                          Tilsette
+                        </title>
+                        <g
+                          fill="none"
+                          fillRule="evenodd"
+                          stroke="none"
+                          strokeWidth="1"
+                        >
+                          <path
+                            d="M20.146852,3.88403947 L20.146771,3.88395809 C17.976089,1.70435546 15.0928534,0.505997541 11.9994782,0.5 C5.67074719,0.5 0.512021923,5.64860101 0.500022608,11.9769766 C0.494020029,15.0501691 1.68354863,17.9384927 3.85210448,20.1159605 C6.02125562,22.2930255 8.90491868,23.494 11.9775643,23.5 C18.3251119,23.5 23.4879722,18.3534487 23.4999774,12.0209361 C23.5059792,8.94917357 22.3156837,6.06078388 20.146852,3.88403947 Z"
+                            stroke="#0067C5"
+                          />
+                          <path
+                            d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
+                            fill="#0067C5"
+                          />
+                          <path
+                            d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
+                            fill="#0067C5"
+                            transform="translate(12.000522, 12.000000) rotate(90.000000) translate(-12.000522, -12.000000) "
+                          />
+                        </g>
+                      </svg>
+                    </_default>
+                    <Styled(Normaltekst)>
+                      <Normaltekst
+                        className="sc-fzplWN mjOGP"
+                      >
+                        <TypografiBase
+                          className="sc-fzplWN mjOGP"
+                          type="normaltekst"
+                        >
+                          <p
+                            className="typo-normal sc-fzplWN mjOGP"
                           >
-                            <th
-                              style={
-                                Object {
-                                  "width": 1,
-                                }
-                              }
-                            >
-                              <div
-                                style={
-                                  Object {
-                                    "alignItems": "center",
-                                    "display": "flex",
-                                  }
-                                }
-                              />
-                            </th>
-                            <th
-                              aria-sort="none"
-                              className="header "
-                              key="namespace"
-                              role="columnheader"
-                            >
-                              ui:type
-                            </th>
-                            <th
-                              aria-sort="none"
-                              className="header "
-                              key="title"
-                              role="columnheader"
-                            >
-                              ui:title
-                            </th>
-                            <th
-                              aria-sort="none"
-                              className="header"
-                              key="buttons"
-                              role="columnheader"
-                            />
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr
-                            aria-selected={false}
-                            className="slideAnimate"
-                            key="0_0"
-                            style={
-                              Object {
-                                "animationDelay": "0s",
-                              }
-                            }
-                          >
-                            <td />
-                            <td
-                              className=""
-                              key="0"
-                            >
-                              <EtikettLiten>
-                                <TypografiBase
-                                  type="etikettLiten"
-                                >
-                                  <p
-                                    className="typo-etikett-liten"
-                                  >
-                                    sed
-                                  </p>
-                                </TypografiBase>
-                              </EtikettLiten>
-                            </td>
-                            <td
-                              className=""
-                              key="1"
-                            >
-                              <n>
-                                <t
-                                  type="normaltekst"
-                                >
-                                  <p
-                                    className="typo-normal"
-                                  >
-                                    <span>
-                                      balrog.png
-                                    </span>
-                                  </p>
-                                </t>
-                              </n>
-                            </td>
-                            <td
-                              className=""
-                              key="2"
-                            >
-                              <div />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </styled.table>
-                    <y
-                      highContrast={false}
-                      initialPage={1}
-                      itemsPerPage={10}
-                      numberOfItems={1}
-                      onChange={[Function]}
-                    />
+                            ui:addAttachments
+                          </p>
+                        </TypografiBase>
+                      </Normaltekst>
+                    </Styled(Normaltekst)>
                   </div>
                 </styled.div>
-              </div>
-            </styled.div>
-          </ThemeProvider>
-        </ut>
-      </SEDAttachmentsTable>
+              </button>
+            </KnappBase>
+          </div>
+        </styled.div>
+      </SEDAttachments>
     </div>
-    <SEDAttachments
-      disableButtons={false}
-      files={
-        Object {
-          "joark": Array [],
-          "sed": Array [
-            Object {
-              "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
-              "fileName": "balrog.png",
-              "id": "58828e7ff57943779ab7b24c522b1a3f",
-              "lastUpdate": Object {
-                "chronology": Object {
-                  "calendarType": "iso8601",
-                  "id": "ISO",
-                },
-                "dayOfMonth": 20,
-                "dayOfWeek": "MONDAY",
-                "dayOfYear": 140,
-                "era": "CE",
-                "leapYear": false,
-                "month": "MAY",
-                "monthValue": 5,
-                "year": 2019,
-              },
-              "medical": false,
-              "mimeType": "image/png",
-              "name": "balrog.png",
-            },
-          ],
-        }
-      }
-      onOpen={[Function]}
-      onSubmit={[Function]}
-      open={false}
-    >
-      <div
-        className="a-buc-c-sedattachments"
-      >
-        <KnappBase
-          autoDisableVedSpinner={false}
-          className="a-buc-c-sedattachments__enable-button"
-          disabled={false}
-          htmlType="submit"
-          id="a-buc-c-sedattachments__enable-button-id"
-          inaktivKlasseVedDisabled={false}
-          kompakt={false}
-          mini={false}
-          onClick={[Function]}
-          spinner={false}
-          type="standard"
-        >
-          <button
-            className="knapp a-buc-c-sedattachments__enable-button knapp--standard"
-            disabled={false}
-            id="a-buc-c-sedattachments__enable-button-id"
-            onClick={[Function]}
-            type="submit"
-          >
-            <div
-              className="d-flex"
-            >
-              <Icons
-                className="mr-2"
-                kind="tilsette"
-              >
-                <_default
-                  className="mr-2"
-                  height={24}
-                  kind="tilsette"
-                  width={24}
-                >
-                  <svg
-                    className="mr-2"
-                    height={24}
-                    kind="tilsette"
-                    version="1.1"
-                    viewBox="0 0 24 24"
-                    width={24}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title>
-                      Tilsette
-                    </title>
-                    <g
-                      fill="none"
-                      fillRule="evenodd"
-                      stroke="none"
-                      strokeWidth="1"
-                    >
-                      <path
-                        d="M20.146852,3.88403947 L20.146771,3.88395809 C17.976089,1.70435546 15.0928534,0.505997541 11.9994782,0.5 C5.67074719,0.5 0.512021923,5.64860101 0.500022608,11.9769766 C0.494020029,15.0501691 1.68354863,17.9384927 3.85210448,20.1159605 C6.02125562,22.2930255 8.90491868,23.494 11.9775643,23.5 C18.3251119,23.5 23.4879722,18.3534487 23.4999774,12.0209361 C23.5059792,8.94917357 22.3156837,6.06078388 20.146852,3.88403947 Z"
-                        stroke="#0067C5"
-                      />
-                      <path
-                        d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
-                        fill="#0067C5"
-                      />
-                      <path
-                        d="M18.2616513,12.5217391 L5.73939227,12.5217391 C5.45138031,12.5206957 5.21658796,12.288 5.21763148,12 C5.21763148,11.7130435 5.45138031,11.4782609 5.73939227,11.4782609 L18.2616513,11.4782609 C18.5486197,11.4782609 18.7844556,11.712 18.7834121,12 C18.7834121,12.288 18.5496632,12.5217391 18.2616513,12.5217391 Z"
-                        fill="#0067C5"
-                        transform="translate(12.000522, 12.000000) rotate(90.000000) translate(-12.000522, -12.000000) "
-                      />
-                    </g>
-                  </svg>
-                </_default>
-              </Icons>
-              <span>
-                ui:addAttachments
-              </span>
-            </div>
-          </button>
-        </KnappBase>
-      </div>
-    </SEDAttachments>
-  </div>
+  </styled.div>
 </SEDBody>
 `;

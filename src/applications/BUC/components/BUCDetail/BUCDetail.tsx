@@ -49,11 +49,11 @@ const BUCDetailPanel = styled(ExpandingPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
-  background ${({theme}): any => theme['main-background-color']};
-  border: 1px solid ${({theme}): any => theme['main-disabled-color']};
+  background ${({ theme }): any => theme['main-background-color']};
+  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
   border-radius: 4px;
   .ekspanderbartPanel__hode {
-    background ${({theme}): any => theme['main-background-color']};
+    background ${({ theme }): any => theme['main-background-color']};
   }
 `
 const Properties = styled.dl`
@@ -61,10 +61,10 @@ const Properties = styled.dl`
   flex-wrap: wrap;
   width: 100%;
   .odd {
-    background-color: ${({theme}): any => theme['main-background-other-color']};
+    background-color: ${({ theme }): any => theme['main-background-other-color']};
   }
 `
-const DT = styled.dt`
+const Dt = styled.dt`
   width: 50%;
   padding-bottom: .25rem;
   padding-top: .25rem;
@@ -72,7 +72,7 @@ const DT = styled.dt`
     margin-left: 0.5rem;
   }
 `
-const DD = styled.dd`
+const Dd = styled.dd`
   width: 50%;
   padding-bottom: .25rem;
   padding-top: .25rem;
@@ -86,110 +86,110 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   const { t } = useTranslation()
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCDetailPanel
-      id='a-buc-c-bucdetail__panel-id'
-      className={className}
-      open
-      heading={
-        <Systemtittel>
-          {buc.type + ' - ' + getBucTypeLabel({
-            type: buc.type!,
-            locale: locale,
-            t: t
-          })}
-        </Systemtittel>
-      }
-    >
-      <>
-        <Properties>
-          <DT className='odd'>
-            <Element>
-              {t('ui:status')}:
-            </Element>
-          </DT>
-          <DD className='odd' id='a-buc-c-bucdetail__props-status-id'>
-            <Normaltekst>
-              {t('ui:' + buc.status)}
-            </Normaltekst>
-          </DD>
-          <DT>
-            <Element>
-              {t('buc:form-caseOwner')}:
-            </Element>
-          </DT>
-          <DD id='a-buc-c-bucdetail__props-creator-id'>
+        id='a-buc-c-bucdetail__panel-id'
+        className={className}
+        open
+        heading={
+          <Systemtittel>
+            {buc.type + ' - ' + getBucTypeLabel({
+              type: buc.type!,
+              locale: locale,
+              t: t
+            })}
+          </Systemtittel>
+        }
+      >
+        <>
+          <Properties>
+            <Dt className='odd'>
+              <Element>
+                {t('ui:status')}:
+              </Element>
+            </Dt>
+            <Dd className='odd' id='a-buc-c-bucdetail__props-status-id'>
+              <Normaltekst>
+                {t('ui:' + buc.status)}
+              </Normaltekst>
+            </Dd>
+            <Dt>
+              <Element>
+                {t('buc:form-caseOwner')}:
+              </Element>
+            </Dt>
+            <Dd id='a-buc-c-bucdetail__props-creator-id'>
+              <InstitutionList
+                institutions={[buc.creator!]}
+                locale={locale}
+                type='joined'
+              />
+            </Dd>
+            <Dt className='odd'>
+              <Element>
+                {t('ui:created')}:
+              </Element>
+            </Dt>
+            <Dd className='odd' id='a-buc-c-bucdetail__props-startDate-id'>
+              <Normaltekst>
+                {moment(buc.startDate!).format('Dd.MM.YYYY')}
+              </Normaltekst>
+            </Dd>
+            <Dt>
+              <Element>
+                {t('buc:form-rinaCaseNumber')}:
+              </Element>
+            </Dt>
+            <Dd id='a-buc-c-bucdetail__props-caseId-id'>
+              {rinaUrl ? (
+                <Lenke
+                  data-amplitude='buc.edit.detail.rinaurl'
+                  id='a-buc-c-bucdetail__gotorina-link-id'
+                  className='a-buc-c-bucdetail__gotorina-link'
+                  href={rinaUrl + buc.caseId}
+                  target='rinaWindow'
+                  onClick={linkLogger}
+                >
+                  {buc.caseId}
+                </Lenke>
+              ) : <WaitingPanel size='S' />}
+            </Dd>
+            <Dt className='odd'>
+              <Element>
+                {t('ui:tags')}:
+              </Element>
+            </Dt>
+            <Dd className='odd' id='a-buc-c-bucdetail__props-tags-id'>
+              <Normaltekst>
+                {bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ') : ''}
+              </Normaltekst>
+            </Dd>
+            <Dt>
+              <Element>
+                {t('ui:comment')}:
+              </Element>
+            </Dt>
+            <Dd id='a-buc-c-bucdetail__props-comment-id'>
+              <Normaltekst>
+                {bucInfo && bucInfo.comment ? bucInfo.comment : ''}
+              </Normaltekst>
+            </Dd>
+          </Properties>
+          <Undertittel
+            id='a-buc-c-bucdetail__institutions-title-id'
+            className='a-buc-c-bucdetail__institutions-title mb-2'
+          >
+            {t('buc:form-involvedInstitutions')}:
+          </Undertittel>
+          <div className='a-buc-c-bucdetail__institutions'>
             <InstitutionList
-              institutions={[buc.creator!]}
+              institutions={(buc.institusjon as Institutions)}
               locale={locale}
               type='joined'
             />
-          </DD>
-          <DT className='odd'>
-            <Element>
-              {t('ui:created')}:
-            </Element>
-          </DT>
-          <DD className='odd' id='a-buc-c-bucdetail__props-startDate-id'>
-            <Normaltekst>
-              {moment(buc.startDate!).format('DD.MM.YYYY')}
-            </Normaltekst>
-          </DD>
-          <DT>
-            <Element>
-              {t('buc:form-rinaCaseNumber')}:
-            </Element>
-          </DT>
-          <DD id='a-buc-c-bucdetail__props-caseId-id'>
-            {rinaUrl ? (
-              <Lenke
-                data-amplitude='buc.edit.detail.rinaurl'
-                id='a-buc-c-bucdetail__gotorina-link-id'
-                className='a-buc-c-bucdetail__gotorina-link'
-                href={rinaUrl + buc.caseId}
-                target='rinaWindow'
-                onClick={linkLogger}
-              >
-                {buc.caseId}
-              </Lenke>
-            ) : <WaitingPanel size='S' />}
-          </DD>
-          <DT className='odd'>
-            <Element>
-              {t('ui:tags')}:
-            </Element>
-          </DT>
-          <DD className='odd' id='a-buc-c-bucdetail__props-tags-id'>
-            <Normaltekst>
-              {bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ') : ''}
-            </Normaltekst>
-          </DD>
-          <DT>
-            <Element>
-              {t('ui:comment')}:
-            </Element>
-          </DT>
-          <DD id='a-buc-c-bucdetail__props-comment-id'>
-            <Normaltekst>
-              {bucInfo && bucInfo.comment ? bucInfo.comment : ''}
-            </Normaltekst>
-          </DD>
-        </Properties>
-        <Undertittel
-          id='a-buc-c-bucdetail__institutions-title-id'
-          className='a-buc-c-bucdetail__institutions-title mb-2'
-        >
-          {t('buc:form-involvedInstitutions')}:
-        </Undertittel>
-        <div className='a-buc-c-bucdetail__institutions'>
-          <InstitutionList
-            institutions={(buc.institusjon as Institutions)}
-            locale={locale}
-            type='joined'
-          />
-        </div>
-      </>
-    </BUCDetailPanel>
+          </div>
+        </>
+      </BUCDetailPanel>
     </ThemeProvider>
   )
 }

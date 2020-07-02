@@ -1086,18 +1086,7 @@ exports[`applications/BUC/components/SEDStart/AttachmentStep2 Renders 1`] = `
   </div>
   <div
     className="col-md-8"
-  >
-    <Component
-      aktoerId="123"
-      locale="nb"
-      setShowButtons={[MockFunction]}
-      showButtons={true}
-    >
-      <div
-        className="mock-sedp4000"
-      />
-    </Component>
-  </div>
+  />
   <div
     className="col-md-4"
   />

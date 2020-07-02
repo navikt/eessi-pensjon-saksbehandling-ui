@@ -13,7 +13,6 @@ jest.mock('actions/app', () => ({
   setStatusParam: jest.fn()
 }))
 
-
 const defaultSelector: AuthenticatedRouteSelector = {
   userRole: undefined,
   loggedIn: undefined,

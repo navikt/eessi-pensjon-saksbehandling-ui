@@ -30,7 +30,7 @@ export interface HeaderProps {
 }
 
 const HeaderDiv = styled.header`
-  background-color: ${({theme}: any) => theme.navMorkGra};
+  background-color: ${({ theme }: any) => theme.navMorkGra};
   display: flex;
   flex-direction: row;
   height: 4rem;
@@ -39,7 +39,7 @@ const HeaderDiv = styled.header`
   flex-shrink: 0;
 `
 const Skillelinje = styled.div`
-  border-left: 1px solid ${({theme}: any) => theme.white};
+  border-left: 1px solid ${({ theme }: any) => theme.white};
   display: flex;
   height: 30px;
   width: 1px;
@@ -51,7 +51,7 @@ const BrandDiv = styled.div`
 `
 
 const Title = styled.div`
-  color: ${({theme}: any) => theme.white};
+  color: ${({ theme }: any) => theme.white};
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
@@ -64,7 +64,7 @@ const UserDiv = styled.div`
   align-items: center;
 `
 const SaksbehandlerUser = styled.div`
-   color: ${({theme}: any) => theme.navRod};
+   color: ${({ theme }: any) => theme.navRod};
 `
 
 const NameDiv = styled.div`
@@ -73,7 +73,7 @@ const NameDiv = styled.div`
 `
 
 const NameSelect = styled(Select)`
-  color: ${({theme}: any) => theme['main-font-color']};
+  color: ${({ theme }: any) => theme['main-font-color']};
   position: relative;
   .selectContainer:before,
   .selectContainer:after {
@@ -86,23 +86,23 @@ const NameSelect = styled(Select)`
     border-color: transparent !important;
   }
   select:hover {
-    border-color: ${({theme}: any) => theme['main-font-color']} !important;
+    border-color: ${({ theme }: any) => theme['main-font-color']} !important;
   }
   option {
     padding: 0.5rem;
   }
   .skjemaelement__input {
-    color: ${({theme}: any) => theme.white};
+    color: ${({ theme }: any) => theme.white};
   }
 `
 const Link = styled(Lenke)`
-  color: ${({theme}: any) => theme.white};
+  color: ${({ theme }: any) => theme.white};
 `
 const UsernameSpan = styled.span`
   padding: 0.45rem;
   padding-left: 0.5rem;
   padding-right: 1.6rem;
-  color: ${({theme}: any) => theme['@main-font-color']}
+  color: ${({ theme }: any) => theme['@main-font-color']}
 `
 
 const Header: React.FC<HeaderProps> = ({
@@ -135,13 +135,13 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <HeaderDiv role='banner' className={className}>
         <BrandDiv>
           <a
-          href='#index'
-          data-testId='c-topHeader__logo-link'
-          onClick={onLogoClick}
+            href='#index'
+            data-testId='c-topHeader__logo-link'
+            onClick={onLogoClick}
           >
             <NavLogoTransparent width='100' height='45' color='white' />
           </a>
@@ -162,10 +162,10 @@ const Header: React.FC<HeaderProps> = ({
             ? <Spinner type='XS' />
             : (
               <>
-              <SaksbehandlerUser>
-                <FontAwesomeIcon icon={icons.faUser} />
-              </SaksbehandlerUser>
-              <HorizontalSeparatorDiv/>
+                <SaksbehandlerUser>
+                  <FontAwesomeIcon icon={icons.faUser} />
+                </SaksbehandlerUser>
+                <HorizontalSeparatorDiv />
               </>
             )}
           <Skillelinje />
@@ -201,7 +201,7 @@ const Header: React.FC<HeaderProps> = ({
               {header}
             </Systemtittel>
           ) : header
-          )}
+        )}
         {children}
       </HeaderDiv>
     </ThemeProvider>

@@ -41,6 +41,7 @@ const BUCEmptyDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 2rem;
   background-color: ${({ theme }: any) => theme['main-background-color']};
 `
 const BUCEmptyArtwork = styled.div`
@@ -128,7 +129,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCEmptyDiv>
         <BUCEmptyArtwork>
           <img alt='' className='monitor' src={MonitorPNG} />
@@ -136,7 +137,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
           <img alt='' className='mouse' src={MousePNG} />
           <img alt='' className='map' src={MapPNG} />
         </BUCEmptyArtwork>
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         <Undertittel>
           <Lenke
             data-tedtIid='a-buc-p-bucempty__newbuc-link-id'
@@ -146,6 +147,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
             {t('buc:form-empty-startANewCase')}
           </Lenke>
         </Undertittel>
+        <VerticalSeparatorDiv />
         {!aktoerId && (
           <BUCEmptyForm>
             <Input
@@ -156,9 +158,9 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               onChange={onAktoerIdChange}
               feil={validation || false}
             />
+            <HorizontalSeparatorDiv />
             <Hovedknapp
-              id='a-buc-p-bucempty__aktoerid-button-id'
-              className='a-buc-p-bucempty__aktoerid-button ml-3'
+              data-testId='a-buc-p-bucempty__aktoerid-button-id'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
@@ -166,7 +168,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
           </BUCEmptyForm>
         )}
         {!sakId && (
-          <div className='a-buc-p-bucempty__form'>
+          <BUCEmptyForm>
             <Input
               data-testId='a-buc-p-bucempty__sakid-input-id'
               label={t('buc:form-caseId')}
@@ -175,17 +177,17 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               onChange={onSakIdChange}
               feil={validation || false}
             />
-            <HorizontalSeparatorDiv/>
+            <HorizontalSeparatorDiv />
             <Hovedknapp
               data-testId='a-buc-p-bucempty__sakid-button-id'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}
             </Hovedknapp>
-          </div>
+          </BUCEmptyForm>
         )}
       </BUCEmptyDiv>
-      {rinaUrl && (<BUCFooter/>)}
+      {rinaUrl && (<BUCFooter />)}
     </ThemeProvider>
   )
 }

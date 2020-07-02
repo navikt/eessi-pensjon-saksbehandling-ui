@@ -19,7 +19,7 @@ export interface SEDNewSelector {
 }
 
 const mapState = (state: State): SEDNewSelector => ({
-  highContrast: state.ui.highContrast,
+  highContrast: state.ui.highContrast
 })
 
 const SEDNew: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element => {

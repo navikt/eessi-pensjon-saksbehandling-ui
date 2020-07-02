@@ -153,23 +153,23 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         key={item.label}
       >
         <Buttons>
-          <HorizontalSeparatorDiv/>
-            <Knapp
-              data-tip={t('ui:preview')}
-              kompakt
-              disabled={previewing}
-              spinner={spinner}
-              id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
+          <HorizontalSeparatorDiv />
+          <Knapp
+            data-tip={t('ui:preview')}
+            kompakt
+            disabled={previewing}
+            spinner={spinner}
+            id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
             convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
-              className='c-tablesorter__preview-button'
-              onClick={() => onPreviewItem(item)}
-            >
-              {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
-            </Knapp>
-          <HorizontalSeparatorDiv/>
+            className='c-tablesorter__preview-button'
+            onClick={() => onPreviewItem(item)}
+          >
+            {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
+          </Knapp>
+          <HorizontalSeparatorDiv />
           {context.mode === 'confirm' && (
             <>
-              <HorizontalSeparatorDiv/>
+              <HorizontalSeparatorDiv />
               <Knapp
                 data-tip={t('ui:delete')}
                 form='kompakt'
@@ -180,7 +180,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               >
                 <Trashcan color='#0067C5' />
               </Knapp>
-              <HorizontalSeparatorDiv/>
+              <HorizontalSeparatorDiv />
             </>
           )}
         </Buttons>

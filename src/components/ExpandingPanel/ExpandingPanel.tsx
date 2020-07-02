@@ -5,7 +5,7 @@ import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { Collapse, UnmountClosed } from 'react-collapse'
-import styled, { ThemeProvider } from 'styled-components'
+import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface ExpandingPanelProps {
   ariaTittel?: string
@@ -22,10 +22,45 @@ export interface ExpandingPanelProps {
   style?: React.CSSProperties
 }
 
+const animationOpen = keyframes`
+  0% {
+    height: 0%;
+    max-height: 0;
+  }
+  100% {
+    max-height:150em;
+    height: 100%;
+  }
+`
+const animationClose = keyframes`
+  0% {
+    max-height: 150em;
+    height: 100%;
+  }
+  100% {
+    max-height: 0;
+    height: 0%;
+  }
+`
+
 const ExpandingPanelDiv = styled.div`
   background-color: ${({ theme }: any) => theme['main-background-color']};
   border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
   border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'white' : 'transparent'};
+  &.ekspanderbartPanel--apen .ReactCollapse--collapse {
+    will-change: max-height, height;
+    max-height: 150em;
+    animation: ${animationOpen} 250ms ease;
+  }
+  &.ekspanderbartPanel--lukket .ReactCollapse--collapse {
+    will-change: max-height, height;
+    max-height: 0;
+    animation: ${animationClose} 250ms ease;
+  }
+  .ekspanderbartPanel__knapp {
+    background: none;
+    border: none;
+  }
 `
 
 const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
@@ -70,11 +105,11 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
   const CollapseComponent: any = renderContentWhenClosed ? Collapse : UnmountClosed
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <ExpandingPanelDiv
         id={id}
         style={style}
-        className={classNames( 'ekspanderbartPanel', className, {
+        className={classNames('ekspanderbartPanel', className, {
           'ekspanderbartPanel--lukket': !_open,
           'ekspanderbartPanel--apen': _open,
           'ekspanderbartPanel--border': border

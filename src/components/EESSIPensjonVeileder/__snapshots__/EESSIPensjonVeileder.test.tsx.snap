@@ -2,9 +2,7 @@
 
 exports[`components/EESSIPensjonVeileder Renders 1`] = `
 <EESSIPensjonVeileder>
-  <div
-    className="c-EESSIPensjonVeileder"
-  >
+  <div>
     <img
       alt="nav-smilende-veileder"
       height={130}

@@ -5,7 +5,7 @@ import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttach
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import Alert from 'components/Alert/Alert'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AttachedFiles, Buc, InstitutionListMap, RawInstitution, Sed } from 'declarations/buc'
 import { AttachedFilesPropType, BucPropType, InstitutionListMapPropType } from 'declarations/buc.pt'
@@ -87,7 +87,7 @@ const Container = styled.div`
 
 const Step1: React.FC<Step1Props> = ({
   _attachments, avdodfnr, buc, _countries, countryList = [], currentSed, _institutions, institutionList,
-  layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
+  loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, sedNeedsAvdodfnr, setAvdodfnr, setSed, setValidation, setVedtakId, validation, vedtakId
 }: Step1Props): JSX.Element => {
   const countryData = CountryData.getCountryInstance(locale)
@@ -330,10 +330,9 @@ const Step1: React.FC<Step1Props> = ({
         }) : t('buc:step-replySEDTitle', {
           buc: t(`buc:buc-${buc.type}`),
           sed: buc.seds!.find((sed: Sed) => sed.id === currentSed)!.type
-        })
-      }
+        })}
       </Systemtittel>
-      <hr/>
+      <hr />
       {!vedtakId && _sed === 'P6000' && (
         <FullWidthDiv>
           <AlertDiv>
@@ -343,7 +342,7 @@ const Step1: React.FC<Step1Props> = ({
       )}
       <ResponsiveContainer>
         <Container>
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           <Select
             data-testId='a-buc-c-sedstart__sed-select-id'
             disabled={loading.gettingSedList}
@@ -358,10 +357,10 @@ const Step1: React.FC<Step1Props> = ({
               ? renderOptions(sedList, 'sed')
               : <option>{t('buc:loading-sed')}</option>}
           </Select>
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           {sedNeedsVedtakId() && (
             <>
-              <VerticalSeparatorDiv/>
+              <VerticalSeparatorDiv />
               <Input
                 disabled
                 data-testId='a-buc-c-sedstart__vedtakid-input-id'
@@ -372,12 +371,12 @@ const Step1: React.FC<Step1Props> = ({
                 placeholder={t(placeholders.vedtakId!)}
                 feil={validation.vedtakFail ? t(validation.vedtakFail) : null}
               />
-              <VerticalSeparatorDiv/>
+              <VerticalSeparatorDiv />
             </>
           )}
           {sedNeedsAvdodfnr() && (
             <>
-              <VerticalSeparatorDiv/>
+              <VerticalSeparatorDiv />
               <Input
                 id='a-buc-c-sedstart__fnr-input-id'
                 label={t('buc:form-fnr')}
@@ -387,82 +386,85 @@ const Step1: React.FC<Step1Props> = ({
                 placeholder={t(placeholders.fnr!)}
                 feil={validation.fnrFail ? t(validation.fnrFail) : null}
               />
-              <VerticalSeparatorDiv/>
+              <VerticalSeparatorDiv />
             </>
           )}
-        {!currentSed && (
-          <>
-            <VerticalSeparatorDiv/>
-            <MultipleSelect
-              ariaLabel={t('ui:country')}
-              label={t('ui:country')}
-              data-testId='a-buc-c-sedstart__country-select-id'
-              disabled={loading.gettingCountryList}
-              isLoading={loading.gettingCountryList}
-              placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t(placeholders.country!)}
-              aria-describedby='help-country'
-              values={countryValueList}
-              hideSelectedOptions={false}
-              onSelect={onCountriesChange}
-              options={countryObjectList}
-            />
-            <VerticalSeparatorDiv/>
-            <MultipleSelect
-              ariaLabel={t('ui:institution')}
-              label={t('ui:institution')}
-              data-testId='a-buc-c-sedstart__institution-select-id'
-              disabled={loading.gettingInstitutionList}
-              isLoading={loading.gettingInstitutionList}
-              placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution!)}
-              aria-describedby='help-institution'
-              values={institutionValueList}
-              onSelect={onInstitutionsChange}
-              hideSelectedOptions={false}
-              options={institutionObjectList}
-            />
-            <VerticalSeparatorDiv/>
-            <Undertittel>
-              {t('buc:form-chosenInstitutions')}
-            </Undertittel>
-            <VerticalSeparatorDiv/>
-            <InstitutionList
-              institutions={_institutions.map(item => {
-                var [country, institution] = item.split(':')
-                return {
-                  country: country,
-                  institution: institution
-                }
-              })}
-              locale={locale}
-              type='joined'
-            />
-          </>
-        )}
-        {sedCanHaveAttachments() && (
-          <>
-            <VerticalSeparatorDiv/>
+          {!currentSed && (
+            <>
+              <VerticalSeparatorDiv />
+              <MultipleSelect
+                ariaLabel={t('ui:country')}
+                label={t('ui:country')}
+                data-testId='a-buc-c-sedstart__country-select-id'
+                disabled={loading.gettingCountryList}
+                isLoading={loading.gettingCountryList}
+                placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t(placeholders.country!)}
+                aria-describedby='help-country'
+                values={countryValueList}
+                hideSelectedOptions={false}
+                onSelect={onCountriesChange}
+                options={countryObjectList}
+              />
+              <VerticalSeparatorDiv />
+              <MultipleSelect
+                ariaLabel={t('ui:institution')}
+                label={t('ui:institution')}
+                data-testId='a-buc-c-sedstart__institution-select-id'
+                disabled={loading.gettingInstitutionList}
+                isLoading={loading.gettingInstitutionList}
+                placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution!)}
+                aria-describedby='help-institution'
+                values={institutionValueList}
+                onSelect={onInstitutionsChange}
+                hideSelectedOptions={false}
+                options={institutionObjectList}
+              />
+              <VerticalSeparatorDiv />
+              <Undertittel>
+                {t('buc:form-chosenInstitutions')}
+              </Undertittel>
+              <VerticalSeparatorDiv />
+              <InstitutionList
+                institutions={_institutions.map(item => {
+                  var [country, institution] = item.split(':')
+                  return {
+                    country: country,
+                    institution: institution
+                  }
+                })}
+                locale={locale}
+                type='joined'
+              />
+            </>
+          )}
+          {sedCanHaveAttachments() && (
+            <>
+              <VerticalSeparatorDiv />
               <Undertittel className='mb-2'>
                 {t('ui:attachments')}
               </Undertittel>
-            <VerticalSeparatorDiv data-size='0.5'/>
-            <SEDAttachmentsTable attachments={_attachments} />
-          </>
-        )}
-      </Container>
-      {sedCanHaveAttachments() && (
-        <Container>
-          <Undertittel className='mb-3'>
-            {t('ui:attachments')}
-          </Undertittel>
-          <VerticalSeparatorDiv/>
-          <SEDAttachments
-            onSubmit={setFiles}
-            files={_attachments}
-            open={seeAttachmentPanel}
-            onOpen={() => setSeeAttachmentPanel(true)}
-          />
+              <VerticalSeparatorDiv data-size='0.5' />
+              <SEDAttachmentsTable attachments={_attachments} />
+            </>
+          )}
         </Container>
-      )}
+        <HorizontalSeparatorDiv />
+        <Container>
+          {sedCanHaveAttachments() && (
+            <>
+              <Undertittel className='mb-3'>
+                {t('ui:attachments')}
+              </Undertittel>
+              <VerticalSeparatorDiv />
+              <SEDAttachments
+                onSubmit={setFiles}
+                files={_attachments}
+                open={seeAttachmentPanel}
+                onOpen={() => setSeeAttachmentPanel(true)}
+              />
+            </>
+          )}
+        </Container>
       </ResponsiveContainer>
     </Step1Div>
   )

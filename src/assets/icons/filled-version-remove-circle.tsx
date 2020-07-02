@@ -6,6 +6,7 @@ export default (props: any) => (
     id='Filled_Version' enableBackground='new 0 0 24 24' version='1.1'
     preserveAspectRatio='xMidYMid meet'
     viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'
+    width={24} height={24}
     x='0px' y='0px' {...props}
   >
     <path

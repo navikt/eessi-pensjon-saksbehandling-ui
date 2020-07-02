@@ -1,4 +1,5 @@
 import Alert from 'components/Alert/Alert'
+import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
@@ -37,6 +38,7 @@ interface SedSender {
 }
 
 export const SEDP5000Container = styled.div`
+  margin-top: 1rem;
   min-height: 500px;
 `
 export const SEDP5000Header = styled.div`
@@ -73,7 +75,21 @@ export const PrintableTableSorter = styled(TableSorter)`
     }
   }
 `
-
+const FlexDiv = styled.div`
+  display: flex;
+`
+const SeparatorSpan = styled.span`
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+`
+const MarginDiv = styled.div`
+  margin-left: 1rem;
+  margin-right: 1rem;
+`
+const Sender = styled.div`
+  display: flex;
+  align-items: center;
+`
 const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props) => {
   const { t } = useTranslation()
   const { height } = useWindowDimensions()
@@ -189,47 +205,54 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
           {Object.keys(activeSeds).map(sedId => {
             const sender: SedSender | undefined = getSedSender(sedId)
             return (
-              <Checkbox
-                key={sedId}
-                id={'checkbox-' + sedId}
-                className='mb-2'
-                checked={activeSeds[sedId]}
-                onChange={() => changeActiveSed(sedId)}
-                label={(
-                  <CheckboxLabel>
-                    <span>{t('buc:form-dateP5000', { date: sender?.date })}</span>
-                    <span className='ml-1 mr-1'>-</span>
-                    {sender ? (
-                      <div className='d-flex align-items-center'>
-                        <Flag
-                          type='circle'
-                          className='ml-1 mr-1'
-                          size='S'
-                          country={sender?.country}
-                          label={sender?.countryLabel}
-                        />
-                        <span>{sender?.countryLabel}</span>
-                        <span className='ml-1 mr-1'>-</span>
-                        <span>{sender?.institution}</span>
-                      </div>
-                    ) : sedId}
-                    {emptyPeriodReport[sedId] ? <WarningCircle className='ml-2' /> : null}
-                  </CheckboxLabel>
-                )}
-              />
+              <>
+                <Checkbox
+                  key={sedId}
+                  data-testId={'checkbox-' + sedId}
+                  checked={activeSeds[sedId]}
+                  onChange={() => changeActiveSed(sedId)}
+                  label={(
+                    <CheckboxLabel>
+                      <span>{t('buc:form-dateP5000', { date: sender?.date })}</span>
+                      <SeparatorSpan>-</SeparatorSpan>
+                      {sender ? (
+                        <Sender>
+                          <Flag
+                            type='circle'
+                            size='S'
+                            country={sender?.country}
+                            label={sender?.countryLabel}
+                          />
+                          <span>{sender?.countryLabel}</span>
+                          <SeparatorSpan>-</SeparatorSpan>
+                          <span>{sender?.institution}</span>
+                        </Sender>
+                      ) : sedId}
+                      {emptyPeriodReport[sedId] && (
+                        <>
+                          <HorizontalSeparatorDiv data-size='0.5' />
+                          <WarningCircle />
+                        </>
+                      )}
+                    </CheckboxLabel>
+                  )}
+                />
+                <VerticalSeparatorDiv data-size='0.5' />
+              </>
             )
           })}
         </SEDP5000Checkboxes>
-        <div className='d-flex'>
-          {warning ? (
-            <Alert
-              className='ml-4 mr-4'
-              type='client'
-              fixed={false}
-              status='WARNING'
-              message={t('buc:form-P5000-warning')}
-            />
-          ) : null}
+        <FlexDiv>
+          {warning && (
+            <MarginDiv>
+              <Alert
+                type='client'
+                fixed={false}
+                status='WARNING'
+                message={t('buc:form-P5000-warning')}
+              />
+            </MarginDiv>
+          )}
           <Select
             id='itemsPerPage'
             bredde='l'
@@ -242,10 +265,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
             <option value='25'>25</option>
             <option value='all'>{t('ui:all')}</option>
           </Select>
-        </div>
+        </FlexDiv>
       </SEDP5000Header>
+      <VerticalSeparatorDiv data-size='0.5'>&nbsp;</VerticalSeparatorDiv>
       <TableSorter
-        className='w-100 mt-2'
         items={items}
         searchable
         selectable={false}

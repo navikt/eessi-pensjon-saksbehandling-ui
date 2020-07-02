@@ -2,6 +2,10 @@
 
 exports[`widgets/BUCWidget Renders 1`] = `
 <BUCWidget
+  highContrast={false}
+  labels={Object {}}
+  myWidgets={Object {}}
+  onDelete={[MockFunction]}
   onFullFocus={[MockFunction]}
   onResize={
     [MockFunction] {
@@ -18,6 +22,7 @@ exports[`widgets/BUCWidget Renders 1`] = `
   }
   onRestoreFocus={[MockFunction]}
   onUpdate={[MockFunction]}
+  setMode={[MockFunction]}
   widget={
     Object {
       "i": "i",

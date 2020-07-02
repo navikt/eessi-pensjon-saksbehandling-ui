@@ -43,7 +43,7 @@ const Line = styled.div`
    width: 60%;
    margin: 1rem;
    min-height: 0.25rem;
-   border-bottom: 1px solid ${({ theme }: any) => theme['navGra60']};
+   border-bottom: 1px solid ${({ theme }: any) => theme.navGra60};
 `
 
 export interface ErrorSelector {
@@ -94,7 +94,7 @@ export const Error = ({ error, type }: ErrorProps) => {
           mood='trist'
           data-testId='EESSIPensjonVeileder'
         />
-        <VerticalSeparatorDiv data-size='2'/>
+        <VerticalSeparatorDiv data-size='2' />
         <Title>
           {title}
         </Title>
@@ -117,7 +117,7 @@ export const Error = ({ error, type }: ErrorProps) => {
         {footer && (
           <>
             <Line />
-            <VerticalSeparatorDiv/>
+            <VerticalSeparatorDiv />
             <Normaltekst>
               {footer}
             </Normaltekst>

@@ -46,19 +46,19 @@ const ContentDiv = styled.div`
   }
   .footerButtonClosed:hover {
     cursor: pointer;
-    background-color: ${({theme}: any) => theme['main-background-other-color']};
+    background-color: ${({ theme }: any) => theme['main-background-other-color']};
   }
   .footerButtonOpen {
     width: 1.2rem;
     margin-right: 0.5rem;
     display: inline-block;
     padding-top: 0.6rem;
-    color: ${({theme}: any) => theme['main-font-color']};
+    color: ${({ theme }: any) => theme['main-font-color']};
     text-align: center;
   }
   .footerButtonOpen:hover {
     cursor: pointer;
-    background-color: ${({theme}: any) => theme['main-background-other-color']};
+    background-color: ${({ theme }: any) => theme['main-background-other-color']};
   }
 `
 const FormDiv = styled.div`
@@ -138,7 +138,7 @@ const Footer: React.FC<FooterProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <FooterDiv role='contentinfo' className={classNames(className, { toggled: footerOpen })}>
         <ContentDiv className={classNames('contents', { fullWidth: !footerOpen })}>
           <div
@@ -152,7 +152,8 @@ const Footer: React.FC<FooterProps> = ({
               <FooterSelect
                 date-testId='c-footer__select-id'
                 label=''
-                onChange={onSetParamName}>
+                onChange={onSetParamName}
+              >
                 <option value=''>--</option>
                 {validParams.map(param => {
                   return params[param] ? null : <option key={param} value={param}>{param}</option>
@@ -166,7 +167,8 @@ const Footer: React.FC<FooterProps> = ({
               />
               <AddButton
                 data-testId='c-footer__add-button-id'
-                onClick={onSetParam}>
+                onClick={onSetParam}
+              >
                 &nbsp;+&nbsp;
               </AddButton>
             </FormDiv>
@@ -176,7 +178,7 @@ const Footer: React.FC<FooterProps> = ({
           <ParamsDiv>
             {validParams.map(param => {
               return params[param] && (
-                <ParamDiv key={param} >
+                <ParamDiv key={param}>
                   <EtikettBase className='c-footer__param-string' type='info'>
                     <b>{param}</b> {params[param]}
                   </EtikettBase>

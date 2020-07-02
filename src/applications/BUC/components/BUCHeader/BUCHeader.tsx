@@ -1,6 +1,7 @@
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ProblemCircleIcon from 'assets/icons/report-problem-circle'
+import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
@@ -39,19 +40,23 @@ const FlexDiv = styled.div`
   display: flex;
   justify-content: space-between;
 `
-const LabelsDiv = styled.div``
+const LabelsDiv = styled.div`
+  flex: 1;
+`
 const IconsDiv = styled.div`
   margin: 0px;
   padding: 0px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex: 1;
 `
 const ActionsDiv = styled.div`
   display: flex;
   justify-content:flex-end;
   align-self: baseline;
   padding: 0px;
+  flex: 1;
 `
 const OwnerDiv = styled.div`
   display: flex;
@@ -67,7 +72,7 @@ const TagsDiv = styled.div`
   align-items: center;
 `
 const NumberOfSedsDiv = styled.div`
-  border: 2px solid ${({theme}): any => theme['main-font-color']};
+  border: 2px solid ${({ theme }): any => theme['main-font-color']};
   border-radius: 20px;
   min-width: 32px;
   min-height: 32px;
@@ -81,9 +86,11 @@ const NumberOfSedsDiv = styled.div`
 const RinaLink = styled(Lenke)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
   margin-bottom: 0px !important;
-  color: ${({theme}): any => theme['main-interactive-color']} !important;
+  color: ${({ theme }): any => theme['main-interactive-color']} !important;
 `
-
+const BucEditLink = styled(Lenke)`
+  text-decoration: none;
+`
 export interface BUCHeaderProps {
   buc: Buc
   bucInfo?: BucInfo
@@ -152,7 +159,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCHeaderDiv
         data-testId='a-buc-c-header'
         id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
@@ -239,15 +246,16 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               ) : null}
           </IconsDiv>
           <ActionsDiv test-id='a-buc-c-bucheader__actions'>
-            <Lenke
+            <BucEditLink
               data-amplitude='buc.list.editbuc'
-              id='a-buc-c-bucheader__bucedit-link-id'
-              className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3'
+              data-testId='a-buc-c-bucheader__bucedit-link-id'
+              className='knapp knapp--kompakt'
               onClick={onBucEditClick}
               href={'#' + buc.type}
             >
               {t('ui:processing')}
-            </Lenke>
+            </BucEditLink>
+            <HorizontalSeparatorDiv />
           </ActionsDiv>
         </FlexDiv>
       </BUCHeaderDiv>

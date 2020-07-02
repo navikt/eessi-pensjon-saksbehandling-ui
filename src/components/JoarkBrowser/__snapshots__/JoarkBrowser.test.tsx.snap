@@ -13,91 +13,98 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
     <Modal
       onModalClose={[Function]}
     >
-      <Modal
-        className="c-modal"
+      <Styled(ModalWrapper)
         closeButton={false}
-        closeTimeoutMS={0}
         contentLabel="contentLabel"
         isOpen={false}
         onRequestClose={[Function]}
-        shouldCloseOnOverlayClick={true}
       >
-        <t
-          ariaHideApp={true}
-          bodyOpenClassName="ReactModal__Body--open"
-          className="modal c-modal"
+        <ModalWrapper
+          className="sc-AxjAm hawIiK"
+          closeButton={false}
           closeTimeoutMS={0}
           contentLabel="contentLabel"
           isOpen={false}
           onRequestClose={[Function]}
-          overlayClassName="modal__overlay"
-          parentSelector={[Function]}
-          portalClassName="ReactModalPortal"
-          role="dialog"
-          shouldCloseOnEsc={true}
           shouldCloseOnOverlayClick={true}
-          shouldFocusAfterRender={true}
-          shouldReturnFocusAfterClose={true}
         >
-          <Portal
-            containerInfo={
-              <div
-                class="ReactModalPortal"
-              />
-            }
+          <Modal
+            ariaHideApp={true}
+            bodyOpenClassName="ReactModal__Body--open"
+            className="modal sc-AxjAm hawIiK"
+            closeTimeoutMS={0}
+            contentLabel="contentLabel"
+            isOpen={false}
+            onRequestClose={[Function]}
+            overlayClassName="modal__overlay"
+            parentSelector={[Function]}
+            portalClassName="ReactModalPortal"
+            role="dialog"
+            shouldCloseOnEsc={true}
+            shouldCloseOnOverlayClick={true}
+            shouldFocusAfterRender={true}
+            shouldReturnFocusAfterClose={true}
           >
-            <t
-              ariaHideApp={true}
-              bodyOpenClassName="ReactModal__Body--open"
-              className="modal c-modal"
-              closeTimeoutMS={0}
-              contentLabel="contentLabel"
-              defaultStyles={
-                Object {
-                  "content": Object {
-                    "WebkitOverflowScrolling": "touch",
-                    "background": "#fff",
-                    "border": "1px solid #ccc",
-                    "borderRadius": "4px",
-                    "bottom": "40px",
-                    "left": "40px",
-                    "outline": "none",
-                    "overflow": "auto",
-                    "padding": "20px",
-                    "position": "absolute",
-                    "right": "40px",
-                    "top": "40px",
-                  },
-                  "overlay": Object {
-                    "backgroundColor": "rgba(255, 255, 255, 0.75)",
-                    "bottom": 0,
-                    "left": 0,
-                    "position": "fixed",
-                    "right": 0,
-                    "top": 0,
-                  },
-                }
+            <Portal
+              containerInfo={
+                <div
+                  class="ReactModalPortal"
+                />
               }
-              isOpen={false}
-              onRequestClose={[Function]}
-              overlayClassName="modal__overlay"
-              parentSelector={[Function]}
-              portalClassName="ReactModalPortal"
-              role="dialog"
-              shouldCloseOnEsc={true}
-              shouldCloseOnOverlayClick={true}
-              shouldFocusAfterRender={true}
-              shouldReturnFocusAfterClose={true}
-              style={
-                Object {
-                  "content": Object {},
-                  "overlay": Object {},
+            >
+              <ModalPortal
+                ariaHideApp={true}
+                bodyOpenClassName="ReactModal__Body--open"
+                className="modal sc-AxjAm hawIiK"
+                closeTimeoutMS={0}
+                contentLabel="contentLabel"
+                defaultStyles={
+                  Object {
+                    "content": Object {
+                      "WebkitOverflowScrolling": "touch",
+                      "background": "#fff",
+                      "border": "1px solid #ccc",
+                      "borderRadius": "4px",
+                      "bottom": "40px",
+                      "left": "40px",
+                      "outline": "none",
+                      "overflow": "auto",
+                      "padding": "20px",
+                      "position": "absolute",
+                      "right": "40px",
+                      "top": "40px",
+                    },
+                    "overlay": Object {
+                      "backgroundColor": "rgba(255, 255, 255, 0.75)",
+                      "bottom": 0,
+                      "left": 0,
+                      "position": "fixed",
+                      "right": 0,
+                      "top": 0,
+                    },
+                  }
                 }
-              }
-            />
-          </Portal>
-        </t>
-      </Modal>
+                isOpen={false}
+                onRequestClose={[Function]}
+                overlayClassName="modal__overlay"
+                parentSelector={[Function]}
+                portalClassName="ReactModalPortal"
+                role="dialog"
+                shouldCloseOnEsc={true}
+                shouldCloseOnOverlayClick={true}
+                shouldFocusAfterRender={true}
+                shouldReturnFocusAfterClose={true}
+                style={
+                  Object {
+                    "content": Object {},
+                    "overlay": Object {},
+                  }
+                }
+              />
+            </Portal>
+          </Modal>
+        </ModalWrapper>
+      </Styled(ModalWrapper)>
     </Modal>
     <ut
       className="view"
@@ -1561,11 +1568,11 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
           className="tabell view"
         >
           <div
-            className="sc-AxiKw dnnAxe tabell view"
+            className="sc-fzpjYC ihRQCW tabell view"
           >
             <styled.div>
               <div
-                className="sc-AxhCb jZxptO"
+                className="sc-fznxsB cskFqV"
               >
                 <styled.table
                   cellSpacing="0"
@@ -1573,7 +1580,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                 >
                   <table
                     cellSpacing="0"
-                    className="sc-AxgMl gcDAfa c-tableSorter__table"
+                    className="sc-fznWqX hdFrrZ c-tableSorter__table"
                   >
                     <thead>
                       <tr
@@ -1804,7 +1811,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -1812,7 +1819,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 foo
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -1836,7 +1843,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -1844,53 +1851,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV (23534345.pdf)
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV (23534345.pdf)"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-1-4-ARKIV__23534345_pdf_"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-1-4-ARKIV__23534345_pdf_"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-1-4-ARKIV__23534345_pdf_"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-1-4-ARKIV__23534345_pdf_"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -1911,13 +1914,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -1926,11 +1928,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -1943,12 +1944,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -2012,7 +2018,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -2020,7 +2026,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 bar
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -2044,7 +2050,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -2052,53 +2058,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV (98734213487.pdf)
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV (98734213487.pdf)"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-2-5-ARKIV__98734213487_pdf_"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-2-5-ARKIV__98734213487_pdf_"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-2-5-ARKIV__98734213487_pdf_"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-2-5-ARKIV__98734213487_pdf_"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -2119,13 +2121,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -2134,11 +2135,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -2151,12 +2151,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -2220,7 +2225,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -2228,7 +2233,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 fuzz
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -2252,7 +2257,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -2260,53 +2265,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV (1078475197.pdf)
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV (1078475197.pdf)"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-3-6-ARKIV__1078475197_pdf_"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-3-6-ARKIV__1078475197_pdf_"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-3-6-ARKIV__1078475197_pdf_"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-3-6-ARKIV__1078475197_pdf_"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -2327,13 +2328,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -2342,11 +2342,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -2359,12 +2358,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -2428,7 +2432,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -2436,7 +2440,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 UFO
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -2460,7 +2464,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -2468,53 +2472,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 PRODUKSJON
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="PRODUKSJON"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-472209046-491399765-PRODUKSJON"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-472209046-491399765-PRODUKSJON"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-472209046-491399765-PRODUKSJON"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-472209046-491399765-PRODUKSJON"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -2535,13 +2535,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -2550,11 +2549,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -2567,12 +2565,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -2636,7 +2639,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -2644,7 +2647,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 UFO
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -2668,7 +2671,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -2676,53 +2679,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-472209027-491399774-ARKIV"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-472209027-491399774-ARKIV"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-472209027-491399774-ARKIV"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-472209027-491399774-ARKIV"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -2743,13 +2742,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -2758,11 +2756,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -2775,12 +2772,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -2844,7 +2846,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -2852,7 +2854,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 AAP
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -2876,7 +2878,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -2884,53 +2886,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-471560632-490223014-ARKIV"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-471560632-490223014-ARKIV"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-471560632-490223014-ARKIV"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-471560632-490223014-ARKIV"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -2951,13 +2949,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -2966,11 +2963,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -2983,12 +2979,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -3052,7 +3053,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -3060,7 +3061,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 OPP
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -3084,7 +3085,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -3092,53 +3093,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV (Spørsmål via nav.no)
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV (Spørsmål via nav.no)"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-471423183-489972337-ARKIV__Spørsmål_via_nav_no_"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-471423183-489972337-ARKIV__Spørsmål_via_nav_no_"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-471423183-489972337-ARKIV__Spørsmål_via_nav_no_"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-471423183-489972337-ARKIV__Spørsmål_via_nav_no_"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -3159,13 +3156,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -3174,11 +3170,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -3191,12 +3186,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -3260,7 +3260,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -3268,7 +3268,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 OPP
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -3292,7 +3292,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -3300,53 +3300,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV (Svar via nav.no)
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV (Svar via nav.no)"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-471408300-489952197-ARKIV__Svar_via_nav_no_"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-471408300-489952197-ARKIV__Svar_via_nav_no_"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-471408300-489952197-ARKIV__Svar_via_nav_no_"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-471408300-489952197-ARKIV__Svar_via_nav_no_"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -3367,13 +3363,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -3382,11 +3377,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -3399,12 +3393,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -3468,7 +3467,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -3476,7 +3475,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 OPP
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -3500,7 +3499,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -3508,53 +3507,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV (Spørsmål via nav.no)
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV (Spørsmål via nav.no)"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-471364195-489899563-ARKIV__Spørsmål_via_nav_no_"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-471364195-489899563-ARKIV__Spørsmål_via_nav_no_"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-471364195-489899563-ARKIV__Spørsmål_via_nav_no_"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-471364195-489899563-ARKIV__Spørsmål_via_nav_no_"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -3575,13 +3570,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -3590,11 +3584,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -3607,12 +3600,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                       <tr
@@ -3676,7 +3674,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="1"
                         >
                           <EtikettLiten>
-                            <n
+                            <TypografiBase
                               type="etikettLiten"
                             >
                               <p
@@ -3684,7 +3682,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 OPP
                               </p>
-                            </n>
+                            </TypografiBase>
                           </EtikettLiten>
                         </td>
                         <td
@@ -3708,7 +3706,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                           key="3"
                         >
                           <Normaltekst>
-                            <n
+                            <TypografiBase
                               type="normaltekst"
                             >
                               <p
@@ -3716,53 +3714,49 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                               >
                                 ARKIV (Svar via nav.no)
                               </p>
-                            </n>
+                            </TypografiBase>
                           </Normaltekst>
                         </td>
                         <td
                           className=""
                           key="4"
                         >
-                          <div
-                            className="c-joarkbrowser__variant"
+                          <styled.div
                             key="ARKIV (Svar via nav.no)"
                           >
                             <div
-                              className="buttons"
+                              className="sc-fzoiQi dCxKJo"
                             >
-                              <Knapp
-                                className="c-tablesorter__preview-button mr-2 ml-2"
-                                data-tip="ui:preview"
-                                disabled={false}
-                                id="c-tablesorter__preview-button-471229110-489751363-ARKIV__Svar_via_nav_no_"
-                                kompakt={true}
-                                onClick={[Function]}
-                                spinner={false}
-                              >
-                                <KnappBase
-                                  autoDisableVedSpinner={false}
-                                  className="c-tablesorter__preview-button mr-2 ml-2"
-                                  data-tip="ui:preview"
-                                  disabled={false}
-                                  htmlType="submit"
-                                  id="c-tablesorter__preview-button-471229110-489751363-ARKIV__Svar_via_nav_no_"
-                                  inaktivKlasseVedDisabled={false}
-                                  kompakt={true}
-                                  mini={false}
-                                  onClick={[Function]}
-                                  spinner={false}
-                                  type="standard"
+                              <styled.div>
+                                <div
+                                  className="sc-fzqARJ bdHoxu"
                                 >
-                                  <button
-                                    className="knapp c-tablesorter__preview-button mr-2 ml-2 knapp--standard knapp--kompakt"
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                  <KnappBase
+                                    autoDisableVedSpinner={false}
+                                    className="c-tablesorter__preview-button"
                                     data-tip="ui:preview"
                                     disabled={false}
+                                    htmlType="submit"
                                     id="c-tablesorter__preview-button-471229110-489751363-ARKIV__Svar_via_nav_no_"
+                                    inaktivKlasseVedDisabled={false}
+                                    kompakt={true}
+                                    mini={false}
                                     onClick={[Function]}
-                                    type="submit"
+                                    spinner={false}
+                                    type="standard"
                                   >
-                                    <Icons
-                                      kind="view"
+                                    <button
+                                      className="knapp c-tablesorter__preview-button knapp--standard knapp--kompakt"
+                                      data-tip="ui:preview"
+                                      disabled={false}
+                                      id="c-tablesorter__preview-button-471229110-489751363-ARKIV__Svar_via_nav_no_"
+                                      onClick={[Function]}
+                                      type="submit"
                                     >
                                       <FontAwesomeIcon
                                         border={false}
@@ -3783,13 +3777,12 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           }
                                         }
                                         inverse={false}
-                                        kind="view"
                                         listItem={false}
                                         mask={null}
                                         pull={null}
                                         pulse={false}
                                         rotation={null}
-                                        size="1x"
+                                        size={null}
                                         spin={false}
                                         swapOpacity={false}
                                         symbol={false}
@@ -3798,11 +3791,10 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                       >
                                         <svg
                                           aria-hidden="true"
-                                          className="svg-inline--fa fa-eye fa-w-18 fa-1x "
+                                          className="svg-inline--fa fa-eye fa-w-18 "
                                           data-icon="eye"
                                           data-prefix="fas"
                                           focusable="false"
-                                          kind="view"
                                           role="img"
                                           style={Object {}}
                                           viewBox="0 0 576 512"
@@ -3815,12 +3807,17 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                           />
                                         </svg>
                                       </FontAwesomeIcon>
-                                    </Icons>
-                                  </button>
-                                </KnappBase>
-                              </Knapp>
+                                    </button>
+                                  </KnappBase>
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxmLO iTatyo"
+                                    />
+                                  </styled.div>
+                                </div>
+                              </styled.div>
                             </div>
-                          </div>
+                          </styled.div>
                         </td>
                       </tr>
                     </tbody>
@@ -3837,7 +3834,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                     className=""
                   >
                     <div
-                      className="sc-AxjAm eZXXkv"
+                      className="sc-fzoLag iOXpPh"
                     >
                       <ThemeProvider
                         theme={
@@ -4006,14 +4003,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__prev-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__prev-button"
                               disabled={true}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__prev-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__prev-button"
                                 disabled={true}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4024,7 +4021,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__prev-button knapp--flat knapp--disabled knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__prev-button knapp--flat knapp--disabled knapp--kompakt"
                                   disabled={true}
                                   onClick={[Function]}
                                   type="submit"
@@ -4046,14 +4043,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={true}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={true}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4064,7 +4061,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--disabled knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--disabled knapp--kompakt"
                                   disabled={true}
                                   onClick={[Function]}
                                   type="submit"
@@ -4086,14 +4083,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4104,7 +4101,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4126,14 +4123,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4144,7 +4141,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4166,14 +4163,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4184,7 +4181,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4206,14 +4203,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4224,7 +4221,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4246,14 +4243,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4264,7 +4261,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4286,14 +4283,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4304,7 +4301,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4326,14 +4323,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4344,7 +4341,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4366,14 +4363,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__page-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__page-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__page-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4384,7 +4381,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__page-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__page-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"
@@ -4403,14 +4400,14 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                             onClick={[Function]}
                           >
                             <n
-                              className="sc-AxirZ cODrin c-pagination__next-button"
+                              className="sc-fzoXzr kpDBNQ c-pagination__next-button"
                               disabled={false}
                               kompakt={true}
                               onClick={[Function]}
                             >
                               <n
                                 autoDisableVedSpinner={false}
-                                className="sc-AxirZ cODrin c-pagination__next-button"
+                                className="sc-fzoXzr kpDBNQ c-pagination__next-button"
                                 disabled={false}
                                 htmlType="submit"
                                 inaktivKlasseVedDisabled={false}
@@ -4421,7 +4418,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Renders 1`] = `
                                 type="flat"
                               >
                                 <button
-                                  className="knapp sc-AxirZ cODrin c-pagination__next-button knapp--flat knapp--kompakt"
+                                  className="knapp sc-fzoXzr kpDBNQ c-pagination__next-button knapp--flat knapp--kompakt"
                                   disabled={false}
                                   onClick={[Function]}
                                   type="submit"

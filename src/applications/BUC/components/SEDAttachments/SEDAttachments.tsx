@@ -79,7 +79,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
             mode={mode}
             onFilesChange={onLocalFileChange}
           />
-          <VerticalSeparatorDiv data-size='1.5'/>
+          <VerticalSeparatorDiv data-size='1.5' />
           {mode === 'view' && (
             <Hovedknapp
               disabled={_.isEmpty(localFiles)}
@@ -101,7 +101,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
                   {t('buc:form-submitSelectedAttachments')}
                 </NormalText>
               </Hovedknapp>
-              <HorizontalSeparatorDiv/>
+              <HorizontalSeparatorDiv />
               <Knapp
                 disabled={disableButtons}
                 data-testId='a-buc-c-sedattachments__cancel-button-id'

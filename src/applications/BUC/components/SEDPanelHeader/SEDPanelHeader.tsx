@@ -7,7 +7,7 @@ import styled, { ThemeProvider } from 'styled-components'
 const SEDPanelHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 3px solid ${({theme}: any) => theme.navBla};
+  border-bottom: 3px solid ${({ theme }: any) => theme.navBla};
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 `
@@ -28,7 +28,7 @@ const SEDPanelHeader: React.FC<SEDPanelHeaderProps> = ({
 }: SEDPanelHeaderProps): JSX.Element => {
   const { t } = useTranslation()
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDPanelHeaderDiv>
         <Flex4Div>
           <Element>{t('buc:form-sed')}</Element>
