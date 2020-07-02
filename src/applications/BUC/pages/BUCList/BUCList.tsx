@@ -5,6 +5,7 @@ import {
   setCurrentBuc,
   setCurrentSed
 } from 'actions/buc'
+import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -41,9 +42,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface BUCListProps {
-  aktoerId: string;
-  bucs: Bucs;
-  setMode: (mode: BUCMode) => void;
+  aktoerId: string
+  bucs: Bucs
+  setMode: (mode: BUCMode) => void
 }
 
 export interface BUCListSelector {
@@ -79,11 +80,12 @@ const slideInFromLeft = keyframes`
 `
 
 const BUCListDiv = styled.div``
-const BUCListButtons = styled.div`
+const BUCListHeader = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  min-height: 40px;
 `
 const FullWidthDiv = styled.div`
   width: 100%;
@@ -238,7 +240,13 @@ const BUCList: React.FC<BUCListProps> = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <BUCListButtons>
+        <BUCListHeader>
+          <BUCCrumbs
+            bucs={bucs}
+            currentBuc={undefined}
+            mode='buclist'
+            setMode={setMode}
+          />
           <Knapp
             data-amplitude='buc.list.newbuc'
             id='a-buc-p-buclist__newbuc-button-id'
@@ -247,7 +255,7 @@ const BUCList: React.FC<BUCListProps> = ({
           >
             {t('buc:form-createNewCase')}
           </Knapp>
-        </BUCListButtons>
+        </BUCListHeader>
         <VerticalSeparatorDiv />
         {loading.gettingBUCs && (
           <>

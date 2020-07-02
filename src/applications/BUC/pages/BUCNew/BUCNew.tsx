@@ -1,5 +1,7 @@
+import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCStart, { BUCStartProps } from 'applications/BUC/components/BUCStart/BUCStart'
+import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Panel from 'nav-frontend-paneler'
@@ -28,6 +30,13 @@ const BUCNewDiv = styled(Panel)`
   padding: 2rem 5rem 2rem 5rem !important;
   border: 1px solid ${({ theme }: any) => theme.navGra40};
   background-color: ${({ theme }: any) => theme['main-background-color']};
+`
+const BUCNewHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px;
 `
 
 const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX.Element => {
@@ -59,6 +68,15 @@ const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
+        <BUCNewHeader>
+          <BUCCrumbs
+            bucs={undefined}
+            currentBuc={undefined}
+            mode='bucnew'
+            setMode={setMode}
+          />
+        </BUCNewHeader>
+        <VerticalSeparatorDiv />
         <BUCNewDiv>
           <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
           <hr />

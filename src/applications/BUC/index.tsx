@@ -6,18 +6,16 @@ import {
   getRinaUrl,
   setMode
 } from 'actions/buc'
-import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
-import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, Person, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, Loading, RinaUrl } from 'declarations/types'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -42,7 +40,6 @@ export interface BUCIndexSelector {
   loading: Loading
   locale: AllowedLocaleString
   mode: BUCMode
-  person: Person | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | undefined
   sakType: string | undefined
@@ -57,7 +54,6 @@ const mapState = (state: State): BUCIndexSelector => ({
   loading: state.loading,
   locale: state.ui.locale,
   mode: state.buc.mode,
-  person: state.app.person,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType,
@@ -65,16 +61,11 @@ const mapState = (state: State): BUCIndexSelector => ({
 })
 
 const BUCIndexDiv = styled.div``
-const BUCIndexHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
 
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, currentBuc, loading, mode, person, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, currentBuc, loading, mode, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
@@ -165,30 +156,16 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     _setMode('bucnew')
   }
 
-  console.log(mode)
   return (
     <BUCIndexDiv
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <BUCIndexHeader>
-        <BUCCrumbs
-          bucs={bucs}
-          currentBuc={currentBuc}
-          mode={mode}
-          setMode={_setMode}
-        />
-        <BUCWebSocket
-          fnr={_.get(person, 'aktoer.ident.ident')}
-          avdodfnr=''
-        />
-      </BUCIndexHeader>
       <VerticalSeparatorDiv />
       {mode === 'buclist' && <BUCList aktoerId={aktoerId} bucs={bucs!} setMode={_setMode} />}
       {mode === 'bucedit' && <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} /> }
       {mode === 'bucnew' && <BUCNew aktoerId={aktoerId} setMode={_setMode} /> }
       {mode === 'sednew' && <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} />}
-      something
     </BUCIndexDiv>
   )
 }
