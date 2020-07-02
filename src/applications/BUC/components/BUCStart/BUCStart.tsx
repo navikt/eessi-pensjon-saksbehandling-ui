@@ -36,7 +36,6 @@ export interface BUCStartProps {
 
 export interface BUCStartSelector {
   bucs: Bucs | undefined
-  avdodBucs: Bucs | undefined
   bucsInfo?: BucsInfo | undefined
   bucList?: Array<string> | undefined
   bucParam: string | undefined
@@ -51,7 +50,6 @@ export interface BUCStartSelector {
 }
 
 const mapState = (state: State): BUCStartSelector => ({
-  avdodBucs: state.buc.avdodBucs,
   bucs: state.buc.bucs,
   bucParam: state.app.params.buc,
   bucsInfo: state.buc.bucsInfo,
@@ -122,7 +120,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
   const {
-    avdodBucs, bucs, bucParam, bucsInfo, bucList, currentBuc, features,
+    bucs, bucParam, bucsInfo, bucList, currentBuc, features,
     highContrast, locale, loading, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
@@ -153,9 +151,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (!isBucCreated && currentBuc) {
       const buc: Buc | null = bucs && bucs[currentBuc]
         ? bucs[currentBuc]
-        : avdodBucs && avdodBucs[currentBuc]
-          ? avdodBucs[currentBuc]
-          : null
+        : null
       if (buc) {
         dispatch(saveBucsInfo({
           bucsInfo: bucsInfo,
@@ -170,7 +166,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         }))
       }
     }
-  }, [aktoerId, avdodBucs, bucs, bucsInfo, currentBuc, dispatch, isBucCreated, t, _tags])
+  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, isBucCreated, t, _tags])
 
   useEffect(() => {
     if (!hasBucInfoSaved && loading.savingBucsInfo) {

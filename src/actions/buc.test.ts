@@ -78,15 +78,6 @@ describe('actions/buc', () => {
     })
   })
 
-  it('setP4000Info()', () => {
-    const mockedP4000 = { person: {}, bank: {}, stayAbroad: [] }
-    const generatedResult = bucActions.setP4000Info(mockedP4000)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_P4000_INFO_SET,
-      payload: mockedP4000
-    })
-  })
-
   it('fetchSingleBuc()', () => {
     const mockRinaCaseId = '123'
     bucActions.fetchSingleBuc(mockRinaCaseId)
@@ -127,16 +118,18 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('fetchAvdodBucs()', () => {
+  it('fetchBucsWithVedtakId()', () => {
     const mockAktoerId = '123'
-    bucActions.fetchAvdodBucs(mockAktoerId)
+    const mockVedtakId = '456'
+    bucActions.fetchBucsWithVedtakId(mockAktoerId, mockVedtakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_AVDOD_BUCS_REQUEST,
-        success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
-        failure: types.BUC_GET_AVDOD_BUCS_FAILURE
+        request: types.BUC_GET_BUCS_REQUEST,
+        success: types.BUC_GET_BUCS_SUCCESS,
+        failure: types.BUC_GET_BUCS_FAILURE
       },
-      url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: mockAktoerId })
+      cascadeFailureError: true,
+      url: sprintf(urls.BUC_GET_BUCS_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
     }))
   })
 
@@ -419,48 +412,6 @@ describe('actions/buc', () => {
         failure: types.BUC_RINA_GET_URL_FAILURE
       },
       url: urls.EUX_RINA_URL
-    }))
-  })
-
-  it('listP4000()', () => {
-    const mockAktoerId = '123'
-    bucActions.listP4000(mockAktoerId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_P4000_LIST_REQUEST,
-        success: types.BUC_GET_P4000_LIST_SUCCESS,
-        failure: types.BUC_GET_P4000_LIST_FAILURE
-      },
-      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockAktoerId, namespace: storage.NAMESPACE_PINFO })
-    }))
-  })
-
-  it('getP4000()', () => {
-    const mockFile = 'file.json'
-    bucActions.getP4000(mockFile)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_P4000_INFO_REQUEST,
-        success: types.BUC_GET_P4000_INFO_SUCCESS,
-        failure: types.BUC_GET_P4000_INFO_FAILURE
-      },
-      url: sprintf(urls.API_STORAGE_GET_URL, { file: mockFile })
-    }))
-  })
-
-  it('saveP4000asSaksbehandler()', () => {
-    const mockAktoer = '1234567890'
-    const mockP4000info = 'mockP4000Info'
-    bucActions.saveP4000asSaksbehandler(mockAktoer, mockP4000info)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_SAVE_PINFOSB_REQUEST,
-        success: types.BUC_SAVE_PINFOSB_SUCCESS,
-        failure: types.BUC_SAVE_PINFOSB_FAILURE
-      },
-      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockAktoer, namespace: storage.NAMESPACE_PINFO, file: 'PINFOSB.json' }),
-      payload: mockP4000info,
-      context: { notification: false }
     }))
   })
 })

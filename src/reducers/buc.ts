@@ -2,7 +2,6 @@ import { BUCMode } from 'applications/BUC'
 import * as types from 'constants/actionTypes'
 import {
   AttachedFiles,
-  Buc,
   Bucs,
   BucsInfo,
   Institution,
@@ -17,7 +16,6 @@ import {
   SedsWithAttachmentsMap
 } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
-import { P4000Info } from 'declarations/period'
 import { RinaUrl } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
@@ -25,35 +23,31 @@ import { standardLogger } from 'metrics/loggers'
 import { Action } from 'redux'
 
 export interface BucState {
-  attachments: AttachedFiles;
-  attachmentsError: boolean;
-  avdodBucs: Bucs | undefined,
-  bucs: Bucs | undefined,
-  bucsInfoList: Array<string> | undefined;
-  bucsInfo: BucsInfo | undefined,
-  bucList: Array<string> | undefined;
-  countryList: Array<string> | undefined;
-  currentBuc: string | undefined;
-  currentSed: string | undefined,
-  institutionList: InstitutionListMap<RawInstitution> | undefined,
-  institutionNames: InstitutionNames;
-  mode: BUCMode;
-  p4000info: P4000Info | undefined,
-  p4000list: Array<string> | undefined,
-  rinaId: string | undefined;
-  rinaUrl: RinaUrl | undefined;
-  sed: Sed | undefined,
-  sedContent: SedContentMap;
-  sedsWithAttachments: SedsWithAttachmentsMap,
-  sedList: Array<string> | undefined,
-  subjectAreaList: Array<string> | undefined,
-  tagList: Array<string> | undefined;
+  attachments: AttachedFiles
+  attachmentsError: boolean
+  bucs: Bucs | undefined
+  bucsInfoList: Array<string> | undefined
+  bucsInfo: BucsInfo | undefined
+  bucList: Array<string> | undefined
+  countryList: Array<string> | undefined
+  currentBuc: string | undefined
+  currentSed: string | undefined
+  institutionList: InstitutionListMap<RawInstitution> | undefined
+  institutionNames: InstitutionNames
+  mode: BUCMode
+  rinaId: string | undefined
+  rinaUrl: RinaUrl | undefined
+  sed: Sed | undefined
+  sedContent: SedContentMap
+  sedsWithAttachments: SedsWithAttachmentsMap
+  sedList: Array<string> | undefined
+  subjectAreaList: Array<string> | undefined
+  tagList: Array<string> | undefined
 }
 
 export const initialBucState: BucState = {
   attachments: {},
   attachmentsError: false,
-  avdodBucs: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
   bucsInfo: undefined,
@@ -64,8 +58,6 @@ export const initialBucState: BucState = {
   institutionList: undefined,
   institutionNames: {},
   mode: 'buclist',
-  p4000info: undefined,
-  p4000list: undefined,
   rinaId: undefined,
   rinaUrl: undefined,
   sed: undefined,
@@ -138,13 +130,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
       if (!(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type) { return state }
-      const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
-      const newState = _.cloneDeep(state)
-      const bucs = _.cloneDeep(state[key])
+      const bucs = _.cloneDeep(state.bucs)
       bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
       bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
-      newState[key] = bucs
-      return newState
+      return {
+        ...state,
+        bucs: bucs
+      }
     }
 
     case types.BUC_GET_BUCS_SUCCESS: {
@@ -154,7 +146,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       const bucs = _.keyBy((action as ActionWithPayload).payload, 'caseId') || {}
       const institutionNames = _.cloneDeep(state.institutionNames)
-      const avdodBucs: Bucs = {}
       const sedsWithAttachments: SedsWithAttachmentsMap = {}
 
       Object.keys(bucs).forEach(bucId => {
@@ -182,18 +173,11 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         *
         * 2- Get all working for no lazy load */
         bucs[bucId].deltakere = bucs[bucId].institusjon
-
-        // send P_BUCBucs:_02 bucs to avdodBucs
-        if (bucs[bucId].type === 'P_BUC_02') {
-          avdodBucs[bucId] = _.cloneDeep(bucs[bucId])
-          delete bucs[bucId]
-        }
       })
 
       return {
         ...state,
         bucs: bucs,
-        avdodBucs: avdodBucs,
         institutionNames: institutionNames,
         sedsWithAttachments: sedsWithAttachments
       }
@@ -209,7 +193,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_PARTICIPANTS_SUCCESS: {
       const rinaCaseId = (action as ActionWithPayload).context.rinaCaseId
       const bucs = _.cloneDeep(state.bucs)
-      const avdodBucs = _.cloneDeep(state.avdodBucs)
 
       const deltakere: Institutions = (action as ActionWithPayload<Participants>).payload.map((participant: Participant) => ({
         country: participant.organisation.countryCode,
@@ -220,37 +203,12 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       if (bucs![rinaCaseId]) {
         bucs![rinaCaseId].deltakere = deltakere
       }
-      if (avdodBucs![rinaCaseId]) {
-        avdodBucs![rinaCaseId].deltakere = deltakere
-      }
+
       return {
         ...state,
-        bucs: bucs,
-        avdodBucs: avdodBucs
+        bucs: bucs
       }
     }
-
-    case types.BUC_GET_AVDOD_BUCS_SUCCESS: {
-      const bucReducer = (currentBucs: Bucs, newBuc: Buc) => {
-        currentBucs[newBuc.caseId as string] = newBuc
-        return currentBucs
-      }
-
-      if (!_.isArray((action as ActionWithPayload).payload)) {
-        return state
-      }
-
-      return {
-        ...state,
-        avdodBucs: (action as ActionWithPayload).payload.reduce(bucReducer, state.avdodBucs || {})
-      }
-    }
-
-    case types.BUC_GET_AVDOD_BUCS_FAILURE:
-      return {
-        ...state,
-        avdodBucs: null
-      }
 
     case types.BUC_GET_BUCSINFO_LIST_SUCCESS:
 
@@ -345,14 +303,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_CREATE_BUC_SUCCESS: {
-      const key = (action as ActionWithPayload).payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
-
-      const newState = _.cloneDeep(state)
-      const item = _.cloneDeep(state[key])
+      const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
-
-      item![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
-      newState[key] = item
+      bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
 
       standardLogger('buc.new.create.success')
 
@@ -364,12 +317,14 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         })
       }
 
-      return Object.assign({}, newState, {
+      return {
+        ...state,
         currentBuc: (action as ActionWithPayload).payload.caseId,
         sed: undefined,
+        bucs: bucs,
         attachments: {},
         sedsWithAttachments: newSedsWithAttachments
-      })
+      }
     }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
@@ -500,31 +455,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         attachmentsError: true
-      }
-
-    case types.BUC_GET_P4000_LIST_SUCCESS:
-      return {
-        ...state,
-        p4000list: (action as ActionWithPayload).payload
-      }
-
-    case types.BUC_GET_P4000_LIST_FAILURE:
-      return {
-        ...state,
-        p4000list: null
-      }
-
-    case types.BUC_GET_P4000_INFO_SUCCESS:
-    case types.BUC_P4000_INFO_SET:
-      return {
-        ...state,
-        p4000info: (action as ActionWithPayload).payload
-      }
-
-    case types.BUC_GET_P4000_INFO_FAILURE:
-      return {
-        ...state,
-        p4000info: null
       }
 
     case types.BUC_GET_SED_SUCCESS: {

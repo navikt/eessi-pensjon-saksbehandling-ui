@@ -102,14 +102,3 @@ export const PersonPropType = PT.any
 
 export const BankPropType = PT.object
 
-export const P4000InfoPropType = PT.shape({
-  person: PersonPropType.isRequired,
-  bank: BankPropType.isRequired,
-  stayAbroad: StayAbroadPropType.isRequired
-})
-
-export const P4000PayloadInfoPropType = PT.shape({
-  personInfo: PersonPropType.isRequired,
-  bankInfo: BankPropType.isRequired,
-  periodeInfo: PayloadPeriodsPropType.isRequired
-})

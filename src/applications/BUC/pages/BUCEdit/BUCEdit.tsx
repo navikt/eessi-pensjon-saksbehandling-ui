@@ -58,6 +58,10 @@ const ContentDiv = styled.div`
   flex: 3;
   margin-right: 1rem;
 `
+const NoSedsDiv = styled.div`
+  text-align: center;
+  margin-top: 2rem;
+`
 const BUCEditDiv = styled.div``
 
 const BUCEdit: React.FC<BUCEditProps> = ({
@@ -186,23 +190,25 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             .sort(sedSorter as (a: Sed, b: Sed) => number)
             .map((sed, index) => {
               return (
-                <SEDPanel
-                  className='mt-2'
-                  aktoerId={aktoerId!}
-                  highContrast={highContrast}
-                  style={{ animationDelay: (0.2 * index) + 's' }}
-                  buc={buc}
-                  key={index}
-                  sed={sed}
-                  followUpSeds={buc.seds!.filter(_seds => _seds.parentDocumentId === sed.id)}
-                  onSEDNew={() => onSEDNew(buc, sed)}
-                />
+                <>
+                  <VerticalSeparatorDiv data-size='0.5' />
+                  <SEDPanel
+                    aktoerId={aktoerId!}
+                    highContrast={highContrast}
+                    style={{ animationDelay: (0.2 * index) + 's' }}
+                    buc={buc}
+                    key={index}
+                    sed={sed}
+                    followUpSeds={buc.seds!.filter(_seds => _seds.parentDocumentId === sed.id)}
+                    onSEDNew={() => onSEDNew(buc, sed)}
+                  />
+                </>
               )
             })
             : (
-              <div className='mt-5 text-center'>
+              <NoSedsDiv>
                 <Normaltekst>{t('buc:form-noSedsYet')}</Normaltekst>
-              </div>
+              </NoSedsDiv>
             )}
         </ContentDiv>
         <WidgetDiv>

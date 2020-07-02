@@ -100,14 +100,3 @@ export interface Person {
 
 }
 
-export interface P4000Info {
-  person: Person,
-  bank: any,
-  stayAbroad: StayAbroad
-}
-
-export interface P4000PayloadInfo {
-  personInfo: any,
-  bankInfo: any,
-  periodeInfo: Array<PayloadPeriod>
-}

@@ -5,7 +5,6 @@ import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
-import { P4000Info } from 'declarations/period'
 import { Features } from 'declarations/types'
 import { CountryFilter } from 'land-verktoy'
 import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
@@ -17,8 +16,6 @@ import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockInstitutions from 'mocks/buc/institutions'
-import mockP4000info from 'mocks/P4000/P4000info'
-import mockP4000list from 'mocks/P4000/P4000list'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSed from 'mocks/buc/sed'
 import mockSedList from 'mocks/buc/sedList'
@@ -57,11 +54,6 @@ export const resetSed: ActionCreator<Action> = (): Action => ({
 
 export const resetSedAttachments: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_ATTACHMENTS_RESET
-})
-
-export const setP4000Info: ActionCreator<ActionWithPayload> = (p4000: P4000Info): ActionWithPayload<P4000Info> => ({
-  type: types.BUC_P4000_INFO_SET,
-  payload: p4000
 })
 
 export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
@@ -104,15 +96,17 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerI
   })
 }
 
-export const fetchAvdodBucs: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string): ThunkResult<ActionWithPayload> => {
+export const fetchBucsWithVedtakId: ActionCreator<ThunkResult<ActionWithPayload>> = (
+  aktoerId: string, vedtakId: string
+): ThunkResult<ActionWithPayload> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
+    url: sprintf(urls.BUC_GET_BUCS_WITH_VEDTAKID_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
     cascadeFailureError: true,
     expectedPayload: mockBucs,
     type: {
-      request: types.BUC_GET_AVDOD_BUCS_REQUEST,
-      success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
-      failure: types.BUC_GET_AVDOD_BUCS_FAILURE
+      request: types.BUC_GET_BUCS_REQUEST,
+      success: types.BUC_GET_BUCS_SUCCESS,
+      failure: types.BUC_GET_BUCS_FAILURE
     }
   })
 }
@@ -345,44 +339,6 @@ export const getRinaUrl = (): Function => {
       request: types.BUC_RINA_GET_URL_REQUEST,
       success: types.BUC_RINA_GET_URL_SUCCESS,
       failure: types.BUC_RINA_GET_URL_FAILURE
-    }
-  })
-}
-
-export const listP4000 = (aktoerId: string): Function => {
-  return call({
-    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO }),
-    expectedPayload: mockP4000list(aktoerId),
-    type: {
-      request: types.BUC_GET_P4000_LIST_REQUEST,
-      success: types.BUC_GET_P4000_LIST_SUCCESS,
-      failure: types.BUC_GET_P4000_LIST_FAILURE
-    }
-  })
-}
-
-export const getP4000 = (file: string): Function => {
-  return call({
-    url: sprintf(urls.API_STORAGE_GET_URL, { file: file }),
-    expectedPayload: mockP4000info,
-    type: {
-      request: types.BUC_GET_P4000_INFO_REQUEST,
-      success: types.BUC_GET_P4000_INFO_SUCCESS,
-      failure: types.BUC_GET_P4000_INFO_FAILURE
-    }
-  })
-}
-
-export const saveP4000asSaksbehandler = (aktoerId: string, file: string): Function => {
-  return call({
-    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO, file: 'PINFOSB.json' }),
-    payload: file,
-    expectedPayload: mockP4000info,
-    context: { notification: false },
-    type: {
-      request: types.BUC_SAVE_PINFOSB_REQUEST,
-      success: types.BUC_SAVE_PINFOSB_SUCCESS,
-      failure: types.BUC_SAVE_PINFOSB_FAILURE
     }
   })
 }

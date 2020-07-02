@@ -252,7 +252,7 @@ const BUCList: React.FC<BUCListProps> = ({
         {loading.gettingBUCs && (
           <>
             <VerticalSeparatorDiv data-size='2' />
-            <WaitingPanel className='mt-5' size='XL' message={t('buc:loading-bucs')} />
+            <WaitingPanel size='XL' message={t('buc:loading-bucs')} />
           </>
         )}
         {bucs === null && (

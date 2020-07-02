@@ -14,8 +14,6 @@ import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
-import mockP4000info from 'mocks/P4000/P4000info'
-import mockTargetP4000info from 'mocks/P4000/targetP4000info'
 import { stageSelector } from 'setupTests'
 import { SEDStart, SEDStartProps, SEDStartSelector } from './SEDStart'
 
@@ -36,7 +34,6 @@ jest.mock('actions/buc', () => ({
 const defaultSelector: SEDStartSelector = {
   attachments: { sed: [], joark: [] },
   attachmentsError: false,
-  avdodfnr: undefined,
   bucsInfoList: undefined,
   countryList: [],
   currentSed: undefined,
@@ -47,7 +44,6 @@ const defaultSelector: SEDStartSelector = {
   sed: undefined,
   sedList: undefined,
   sedsWithAttachments: {},
-  p4000info: mockP4000info,
   vedtakId: undefined
 }
 
@@ -142,27 +138,6 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)
     wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'mockSed' } })
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(false)
-  })
-
-  it('With SED P4000 we do not need more steps', () => {
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().render().text()).toEqual('buc:form-orderSED')
-    wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'P4000' } })
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().render().text()).toEqual('buc:form-orderSED')
-  })
-
-  it('With SED P4000 we get a proper submit', () => {
-    (createSed as jest.Mock).mockReset()
-    wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'P4000' } })
-    wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().simulate('click')
-    expect(createSed).toHaveBeenCalledWith({
-      aktoerId: '123',
-      buc: 'P_BUC_02',
-      euxCaseId: '195440',
-      institutions: [],
-      periodeInfo: mockTargetP4000info.trygdetid,
-      sed: 'P4000',
-      sakId: '123'
-    })
   })
 
   it('Has proper HTML structure', () => {

@@ -118,16 +118,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         clientErrorMessage = 'buc:alert-saveBucsInfoFailure'
         break
 
-      case types.BUC_GET_P4000_LIST_FAILURE:
-
-        clientErrorMessage = 'buc:alert-getP4000ListFailure'
-        break
-
-      case types.BUC_GET_P4000_INFO_FAILURE:
-
-        clientErrorMessage = 'buc:alert-getP4000InfoFailure'
-        break
-
       case types.JOARK_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-joarkListFailure'
