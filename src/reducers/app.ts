@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { Features, Params, Person } from 'declarations/types'
+import { FeatureToggles, Params, Person } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
@@ -12,12 +12,13 @@ export interface AppState {
   userRole: string | undefined,
   person: Person | undefined,
   params: Params;
-  features: Features;
+  featureToggles: FeatureToggles;
 }
 
-const initialFeatures = {
+const initialFeatureToggles = {
   P5000_VISIBLE: false,
-  P_BUC_02_VISIBLE: true
+  P_BUC_02_VISIBLE: true,
+  SED_PREFILL_INSTITUTIONS: false
 }
 
 export const initialAppState: AppState = {
@@ -29,7 +30,7 @@ export const initialAppState: AppState = {
   userRole: undefined,
   person: undefined,
   params: {},
-  features: initialFeatures
+  featureToggles: initialFeatureToggles
 }
 
 const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
@@ -62,8 +63,8 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         : new Date(new Date().setMinutes(now.getMinutes() + 60))
       return {
         ...state,
-        features: {
-          ...state.features,
+        featureToggles: {
+          ...state.featureToggles,
           ...(action.payload.features || {})
         },
         username: action.payload.subject,

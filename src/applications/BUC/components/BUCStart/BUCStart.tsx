@@ -15,7 +15,7 @@ import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledC
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Features, Loading, Option, Validation } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading, Option, Validation } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -40,7 +40,7 @@ export interface BUCStartSelector {
   bucList?: Array<string> | undefined
   bucParam: string | undefined
   currentBuc: string | undefined
-  features: Features | undefined
+  featureToggles: FeatureToggles | undefined
   highContrast: boolean
   locale: AllowedLocaleString
   loading: Loading
@@ -55,7 +55,7 @@ const mapState = (state: State): BUCStartSelector => ({
   bucsInfo: state.buc.bucsInfo,
   bucList: state.buc.bucList,
   currentBuc: state.buc.currentBuc,
-  features: state.app.features,
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
@@ -120,7 +120,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
   const {
-    bucs, bucParam, bucsInfo, bucList, currentBuc, features,
+    bucs, bucParam, bucsInfo, bucList, currentBuc, featureToggles,
     highContrast, locale, loading, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
@@ -140,12 +140,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
       dispatch(getSubjectAreaList())
     }
     if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId, features))
+      dispatch(getBucList(sakId, featureToggles))
     }
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
-  }, [bucList, dispatch, features, loading, sakId, subjectAreaList, tagList])
+  }, [bucList, dispatch, featureToggles, loading, sakId, subjectAreaList, tagList])
 
   useEffect(() => {
     if (!isBucCreated && currentBuc) {

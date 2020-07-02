@@ -30,7 +30,7 @@ import {
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, Validation } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading, Validation } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -58,6 +58,7 @@ export interface SEDStartSelector {
   bucsInfoList: Array<string> | undefined
   countryList: Array<string> | undefined
   currentSed: string | undefined
+  featureToggles: FeatureToggles
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
@@ -74,6 +75,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   bucsInfoList: state.buc.bucsInfoList,
   countryList: state.buc.countryList,
   currentSed: state.buc.currentSed,
+  featureToggles: state.app.featureToggles,
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
@@ -103,7 +105,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachments, attachmentsError, bucsInfoList, currentSed, countryList,
-    institutionList, loading, locale,
+    featureToggles, institutionList, loading, locale,
     sakId, sed, sedsWithAttachments, sedList, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -126,7 +128,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
   const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(undefined)
   const [_sed, setSed] = useState<string | undefined>(initialSed)
-  const [_institutions, setInstitutions] = useState<Array<string>>(prefill('id'))
+  const [_institutions, setInstitutions] = useState<Array<string>>(
+    featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
+  )
   const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
   const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
   const [_attachments, setAttachments] = useState<AttachedFiles>(initialAttachments)
