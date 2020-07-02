@@ -1,17 +1,12 @@
 import { BUCMode } from 'applications/BUC'
-import ExternalLink from 'assets/icons/line-version-logout'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import ContextBanner from 'components/ContextBanner/ContextBanner'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { State } from 'declarations/reducers'
-import { linkLogger, timeLogger } from 'metrics/loggers'
+import { timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
-import Lenke from 'nav-frontend-lenker'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
 import * as extraWidgets from 'widgets'
 
 export interface IndexPageProps {
@@ -130,29 +125,9 @@ const mapState = (state: State): IndexPageSelector => ({
   username: state.app.username
 })
 
-const DivWithLinks = styled.div`
-  padding: 0.5rem 2rem;
-  background-color: ${({ theme }: any) => theme['main-background-other-color']};
-  display: flex;
-  flex-direction: row-reverse;
-  *[href] {
-    color: ${({ theme }: any) => theme['main-interactive-color']} !important;
-  }
-  * svg {
-    fill: ${({ theme }: any) => theme['main-interactive-color']} !important;
-    stroke: ${({ theme }: any) => theme['main-interactive-color']} !important;
-  }
-`
-const SeparatorSpan = styled.span`
-  padding: 0rem 0.5rem
-`
-const Link = styled(Lenke)`
-  display: flex;
-  align-items: flex-end
-`
 export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   const { highContrast, username, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
-  const { t } = useTranslation()
+
   const [loggedTime] = useState<Date>(new Date())
 
   useEffect(() => {
@@ -161,35 +136,12 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
     }
   }, [loggedTime])
 
-  const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <TopContainer>
-        <DivWithLinks>
-          <Link
-            target='_blank'
-            data-amplitude='links.rettskilder'
-            href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
-            onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
-          >
-            {t('ui:lawsource')}
-            <HorizontalSeparatorDiv data-size='0.5' />
-            <ExternalLink color={linkColor} />
-          </Link>
-          <SeparatorSpan>
-            •
-          </SeparatorSpan>
-          <Link
-            target='_blank'
-            data-amplitude='links.hjelpe'
-            href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
-            onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
-          >
-            {t('ui:help')}
-            <HorizontalSeparatorDiv data-size='0.5' />
-            <ExternalLink color={linkColor} />
-          </Link>
-        </DivWithLinks>
+        <ContextBanner
+          mode={mode}
+          highContrast={highContrast}
+        />
         <Dashboard
           id='eessi-pensjon-ui-fss'
           configurable={false}
@@ -201,7 +153,6 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           highContrast={highContrast}
         />
       </TopContainer>
-    </ThemeProvider>
   )
 }
 
