@@ -56,6 +56,7 @@ const WidgetDiv = styled.div`
 `
 const ContentDiv = styled.div`
   flex: 3;
+  margin-right: 1rem;
 `
 const BUCEditDiv = styled.div``
 
@@ -168,7 +169,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         >{t('buc:form-orderNewSED')}
         </Knapp>
       </BUCEditButtons>
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <FlexDiv>
         <ContentDiv>
           <SEDSearch
@@ -178,7 +179,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
           />
-          <SEDPanelHeader highContrast={highContrast}/>
+          <SEDPanelHeader highContrast={highContrast} />
           {!_.isNil(buc.seds) ? buc.seds
             .filter(sedFilter)
             .filter(sedSearchFilter)
@@ -209,13 +210,13 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             buc={buc}
             bucInfo={bucInfo}
           />
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           <BUCTools
             aktoerId={aktoerId!}
             buc={buc}
             bucInfo={bucInfo}
           />
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
         </WidgetDiv>
       </FlexDiv>
     </BUCEditDiv>

@@ -23,9 +23,9 @@ export interface PersonPanelProps {
 
 const PersonPanelDiv = styled.div``
 
-const HR = styled.hr`
+const Hr = styled.hr`
   margin: 1.5rem;
-  border-color:  ${({theme}: any) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60} !important;
+  border-color:  ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60} !important;
 `
 const Content = styled.div`
   margin: 1.5rem;
@@ -149,35 +149,35 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       <Content>
         <Item>
           <LineHome color={highContrast ? 'white' : 'black'} />
-          <HorizontalSeparatorDiv/>
+          <HorizontalSeparatorDiv />
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </Item>
         <Item>
-            <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
-            <HorizontalSeparatorDiv/>
+          <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+          <HorizontalSeparatorDiv />
           {renderEntity('ui:birthdate', birthDateString)}
         </Item>
         <Item>
           <LineHandbag color={highContrast ? 'white' : 'black'} />
-          <HorizontalSeparatorDiv/>
+          <HorizontalSeparatorDiv />
           {renderEntity('ui:nationality', nationality)}
         </Item>
       </Content>
-      <HR/>
+      <Hr />
       <Content>
         <Item>
-          <HorizontalSeparatorDiv/>
           <LineExpandedGlobe color={highContrast ? 'white' : 'black'} />
+          <HorizontalSeparatorDiv />
           {renderEntity('ui:postadresse', postadresse)}
         </Item>
         <Item>
-          <HorizontalSeparatorDiv/>
-          <LineExpandedCalendar  color={highContrast ? 'white' : 'black'} />
+          <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+          <HorizontalSeparatorDiv />
           {renderEntity('ui:deathdate', deathDateString)}
         </Item>
         <Item>
-          <HorizontalSeparatorDiv/>
           <LineHeartCircle color={highContrast ? 'white' : 'black'} />
+          <HorizontalSeparatorDiv />
           {renderEntity('ui:marital-status',
             t('ui:widget-overview-maritalstatus-' + maritalStatus) +
             (maritalStatus !== 'Null' && maritalStatus !== 'Ugif' && dateString

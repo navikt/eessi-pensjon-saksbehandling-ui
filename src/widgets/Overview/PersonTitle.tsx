@@ -73,8 +73,9 @@ const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: 
         alt={kind}
         width={40}
         src={src}
-        className={classNames({ dead: !_.isNil(deathDate) })}/>
-      <HorizontalSeparatorDiv/>
+        className={classNames({ dead: !_.isNil(deathDate) })}
+      />
+      <HorizontalSeparatorDiv />
       <Systemtittel>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
       </Systemtittel>

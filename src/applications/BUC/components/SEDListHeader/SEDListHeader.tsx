@@ -18,7 +18,7 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface SEDListHeaderProps {
   buc: Buc;
@@ -39,15 +39,25 @@ const mapState = (state: State): SEDListSelector => ({
   locale: state.ui.locale
 })
 
+const slideInFromLeft = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
 const SEDListHeaderPanel = styled(Panel)`
   width: 100%;
   padding: 0rem;
   transform: translateX(-20px);
   opacity: 0;
-  animation: slideInFromLeft 0.2s forwards;
-  border-bottom: ${({theme}: any) => theme.type === 'themeHighContrast' ?
-  `2px solid $theme['main-disabled-color']` :
-  `1px solid $theme['navGra60']`};
+  animation: ${slideInFromLeft} 0.2s forwards;
+  border-bottom: ${({ theme }: any) => theme.type === 'themeHighContrast'
+  ? '2px solid $theme[\'main-disabled-color\']'
+  : '1px solid $theme[\'navGra60\']'};
 `
 const SEDListHeaderContent = styled.div`
   padding-top: 0.5rem;
@@ -56,21 +66,13 @@ const SEDListHeaderContent = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 `
-const SEDListNameDiv = styled.div`
+const SEDListStatusDiv = styled.div`
   display: flex;
   flex: 4;
   flex-direction: column;
   justify-content: center;
 `
-const SEDListStatusDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex: 3;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-`
-const SEDListStatusItemDiv= styled.div`
+const SEDListStatusItemDiv = styled.div`
   display: flex;
   align-items: flex-start;
   margin-bottom: 0.5rem;
@@ -78,9 +80,9 @@ const SEDListStatusItemDiv= styled.div`
 `
 const SEDListInstitutionsDiv = styled.div`
   flex: 3;
-  flex-direction: row;
+  flex-direction: column;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -88,6 +90,11 @@ const SEDListActionsDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+`
+const SEDVersion = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `
 const SEDListAttachmentsDiv = styled.div``
 
@@ -117,30 +124,29 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
   })
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDListHeaderPanel
         style={style}
         className={className}
       >
         <SEDListHeaderContent>
-          <SEDListNameDiv>
-            <Element>
-             {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
-            </Element>
-          </SEDListNameDiv>
           <SEDListStatusDiv>
+            <Element>
+              {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
+            </Element>
             <SEDListStatusItemDiv>
               <SEDStatus
                 highContrast={highContrast}
                 status={sed.status}
               />
-              <HorizontalSeparatorDiv date-size='0.5'/>
-              <Normaltekst
-                 data-testId='a-buc-c-sedlistheader__lastUpdate'
-                 data-tip={t('ui:lastUpdate')}
-              >
+              <HorizontalSeparatorDiv date-size='0.5' />
+              <SEDVersion>
+                <Normaltekst
+                  data-testId='a-buc-c-sedlistheader__lastUpdate'
+                  data-tip={t('ui:lastUpdate')}
+                >
                   {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
-              </Normaltekst>
+                </Normaltekst>
                 {sed.version && (
                   <Normaltekst
                     data-testId='a-buc-c-sedlistheader__version'
@@ -148,17 +154,20 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
                     {t('ui:version')}{': '}{sed.version || '-'}
                   </Normaltekst>
                 )}
+              </SEDVersion>
             </SEDListStatusItemDiv>
             {sed.version !== '1' && (
               <SEDListStatusItemDiv>
                 <SEDStatus highContrast={highContrast} status={'first_' + sed.status} />
-                <HorizontalSeparatorDiv date-size='0.5'/>
-                <Normaltekst
-                  data-testId='a-buc-c-sedlistheader__firstSend'
-                  data-tip={t('ui:status-first')}
-                >
-                  {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                </Normaltekst>
+                <HorizontalSeparatorDiv date-size='0.5' />
+                <SEDVersion>
+                  <Normaltekst
+                    data-testId='a-buc-c-sedlistheader__firstSend'
+                    data-tip={t('ui:status-first')}
+                  >
+                    {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                  </Normaltekst>
+                </SEDVersion>
               </SEDListStatusItemDiv>
             )}
           </SEDListStatusDiv>
@@ -168,7 +177,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
               type='separated'
               institutions={institutionSenderList}
             />
-         </SEDListInstitutionsDiv>
+          </SEDListInstitutionsDiv>
           <SEDListInstitutionsDiv>
             <InstitutionList
               locale={locale}
@@ -183,22 +192,22 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
                 data-tip={t('buc:form-youHaveXAttachmentsInSed',
                   { attachments: sed.attachments.length })}
               >
-                <FilledPaperClipIcon/>
+                <FilledPaperClipIcon />
               </SEDListAttachmentsDiv>
             )}
-          {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
-            <Flatknapp
-              mini
-              data-amplitude='buc.edit.besvarSed'
-              data-testId='a-buc-c-sedlistheader__actions-answer-button'
-              onClick={(e: React.MouseEvent) => {
-                buttonLogger(e)
-                onSEDNew(buc, sed)
-              }}
-            >
-              {t('buc:form-answerSED')}
-            </Flatknapp>
-          )}
+            {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
+              <Flatknapp
+                mini
+                data-amplitude='buc.edit.besvarSed'
+                data-testId='a-buc-c-sedlistheader__actions-answer-button'
+                onClick={(e: React.MouseEvent) => {
+                  buttonLogger(e)
+                  onSEDNew(buc, sed)
+                }}
+              >
+                {t('buc:form-answerSED')}
+              </Flatknapp>
+            )}
           </SEDListActionsDiv>
         </SEDListHeaderContent>
       </SEDListHeaderPanel>

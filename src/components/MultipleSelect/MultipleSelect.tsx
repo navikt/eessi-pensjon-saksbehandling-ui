@@ -4,13 +4,14 @@ import MultipleValueRemove from 'components/MultipleSelect/MultipleValueRemove'
 import _ from 'lodash'
 import { Feilmelding } from 'nav-frontend-typografi'
 import { guid } from 'nav-frontend-js-utils'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import Select, { ValueType } from 'react-select'
 import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
 import { SelectComponents } from 'react-select/src/components'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import MultipleOption from './MultipleOption'
 
 const animatedComponents: SelectComponents<any> = makeAnimated()
@@ -33,91 +34,39 @@ export interface MultipleSelectProps<T> {
 }
 
 const MultipleSelectDiv = styled.div`
-
-
-  .multipleSelect__menu {
+ .multipleSelect__multi-value {
+    border-radius: 20px;
+    border: 1px solid ${({ theme } : any) => theme.navMorkGra};
+    padding: 0.25rem;
+ }
+ .multipleSelect__multi-value__remove {
+    border-radius: 20px;
+    margin-left: 0.25rem;
+    padding: 0px;
+    text-align: center;
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+ }
+ .multipleSelect__menu {
     z-index: 500;
   }
-
   .multipleSelect__control {
-    border: 1px solid @navMorkGra;
+    border: 1px solid ${({ theme } : any) => theme.navMorkGra};
   }
 
   .multipleSelect__indicator-separator {
-    background-color: @navMorkGra;
+    background-color: ${({ theme } : any) => theme.navMorkGra};
   }
-
-  .c-multipleSelect-multipleValueRemove {
-     border: 1px solid @navMorkGra;
-     border-radius: 20px;
-     width: 24px;
-     height: 24px;
-     text-align: center;
-
-     &:hover {
-       background-color: @white;
-     }
-   }
+  .skjemaelement__feilmelding {
+    .multipleSelect__control {
+      border: 1px solid ${({ theme } : any) => theme.redError};
+    }
+  }
 `
 
 /*
-
-.c-multipleSelect.skjemaelement__feilmelding {
-  .multipleSelect__control {
-    border: 1px solid @redError;
-  }
-}
-
-.highContrast .c-multipleSelect {
-
-  .multipleSelect__control {
-     border-width: 2px;
-     border-color: @white;
-  }
-
-  .multipleSelect__control {
-    background: black !important;
-  }
-
-  .c-multipleOption {
-
-    background: @black;
-
-    &.selected {
-       background: @navBla;
-       color: @black !important;
-       font-weight: bold;
-    }
-    &.focused {
-       background: @orangeFocus;
-       color: @black !important;
-       font-weight: bold;
-    }
-  }
-}
-
-
-.highContrast .c-multipleSelect {
-  &.skjemaelement__feilmelding {
-    .multipleSelect__control {
-      border-width: 2px;
-      border-color: @redError;
-    }
-  }
-
-  .multipleSelect__multi-value {
-    border: 1px solid @white;
-    background-color: @black;
-  }
-
-  .multipleSelect__multi-value__label {
-    color: @white;
-  }
-
-  .multipleSelect__group {
-    background-color: @black;
-  }
-}
 
 .c-multipleOption img,
 .c-multipleValue img {
@@ -165,47 +114,49 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
   const inputId = id || guid()
 
   return (
-    <MultipleSelectDiv
-      id={id}
-      className={classNames(className, { skjemaelement__feilmelding: error })}
-    >
-      <label className='skjemaelement__label' htmlFor={inputId}>{label}</label>
-      <Component
-        id={id ? id + '-select' : null}
-        className='multipleSelect'
-        classNamePrefix='multipleSelect'
-        placeholder={placeholder}
-        aria-label={ariaLabel}
-        disabled={disabled}
-        isMulti
-        isLoading={isLoading}
-        animatedComponents
-        closeMenuOnSelect={false}
-        value={_values}
-        options={options}
-        selectProps={{
-          highContrast: highContrast
-        }}
-        components={{
-          ...animatedComponents,
-          Option: MultipleOption,
-          MultiValueRemove: MultipleValueRemove,
-          MultiValueLabel: MultipleValueLabel
-        }}
-        onChange={onSelectChange}
-        hideSelectedOptions={hideSelectedOptions || false}
-        styles={selectStyle()}
-        tabSelectsValue={false}
-      />
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+      <MultipleSelectDiv
+        id={id}
+        className={classNames(className, { skjemaelement__feilmelding: error })}
+      >
+        <label className='skjemaelement__label' htmlFor={inputId}>{label}</label>
+        <Component
+          id={id ? id + '-select' : null}
+          className='multipleSelect'
+          classNamePrefix='multipleSelect'
+          placeholder={placeholder}
+          aria-label={ariaLabel}
+          disabled={disabled}
+          isMulti
+          isLoading={isLoading}
+          animatedComponents
+          closeMenuOnSelect={false}
+          value={_values}
+          options={options}
+          selectProps={{
+            highContrast: highContrast
+          }}
+          components={{
+            ...animatedComponents,
+            Option: MultipleOption,
+            MultiValueRemove: MultipleValueRemove,
+            MultiValueLabel: MultipleValueLabel
+          }}
+          onChange={onSelectChange}
+          hideSelectedOptions={hideSelectedOptions || false}
+          styles={selectStyle()}
+          tabSelectsValue={false}
+        />
 
-      {error
-        ? (
-          <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
-            <Feilmelding>{error}</Feilmelding>
-          </div>
-        )
-        : null}
-    </MultipleSelectDiv>
+        {error
+          ? (
+            <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
+              <Feilmelding>{error}</Feilmelding>
+            </div>
+          )
+          : null}
+      </MultipleSelectDiv>
+    </ThemeProvider>
   )
 }
 

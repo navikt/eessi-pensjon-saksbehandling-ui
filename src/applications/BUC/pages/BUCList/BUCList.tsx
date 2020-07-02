@@ -108,7 +108,7 @@ const Flex2Div = styled.div`
 const SEDHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white: theme.navGra40};
+  border-bottom: 2px solid ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra40};
 `
 
 const BUCList: React.FC<BUCListProps> = ({
@@ -232,7 +232,7 @@ const BUCList: React.FC<BUCListProps> = ({
   }, [institutionList, bucs, dispatch, mounted])
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCListDiv
         className='a-buc-p-buclist'
         onMouseEnter={onMouseEnter}
@@ -248,16 +248,16 @@ const BUCList: React.FC<BUCListProps> = ({
             {t('buc:form-createNewCase')}
           </Knapp>
         </BUCListButtons>
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         {loading.gettingBUCs && (
           <>
-            <VerticalSeparatorDiv data-size='2'/>
+            <VerticalSeparatorDiv data-size='2' />
             <WaitingPanel className='mt-5' size='XL' message={t('buc:loading-bucs')} />
           </>
         )}
         {bucs === null && (
           <>
-            <VerticalSeparatorDiv data-size='2'/>
+            <VerticalSeparatorDiv data-size='2' />
             <Normaltekst>
               {t('buc:error-noBucs')}
             </Normaltekst>
@@ -271,7 +271,7 @@ const BUCList: React.FC<BUCListProps> = ({
               if (buc.error) {
                 return (
                   <FullWidthDiv key={index}>
-                    <Alertstripe type='advarsel' style={{width: '100%'}}>
+                    <Alertstripe type='advarsel' style={{ width: '100%' }}>
                       {buc.error}
                     </Alertstripe>
                   </FullWidthDiv>
@@ -309,7 +309,7 @@ const BUCList: React.FC<BUCListProps> = ({
                       <Flex3Div>
                         <Element>{t('buc:form-senderreceiver')}</Element>
                       </Flex3Div>
-                      <Flex2Div/>
+                      <Flex2Div />
                     </SEDHeader>
                     {!_.isNil(buc.seds) ? (
                       <SEDList
@@ -318,12 +318,12 @@ const BUCList: React.FC<BUCListProps> = ({
                         onSEDNew={onSEDNew}
                       />
                     ) : <WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
-                    <VerticalSeparatorDiv data-size='0.25'/>
+                    <VerticalSeparatorDiv data-size='0.25' />
                   </>
                 </BucExpandingPanel>
               )
             }) : null}
-        <BUCFooter/>
+        <BUCFooter />
       </BUCListDiv>
     </ThemeProvider>
   )

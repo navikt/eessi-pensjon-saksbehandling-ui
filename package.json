@@ -25,7 +25,7 @@
   },
   "private": true,
   "dependencies": {
-    "@sentry/browser": "^5.18.1",
+    "@sentry/browser": "^5.19.0",
     "amplitude-js": "^7.1.0",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
@@ -36,7 +36,7 @@
     "fremdriftslinje": "^1.0.1",
     "history": "^5.0.0",
     "http-proxy-middleware": "^1.0.4",
-    "i18next": "^19.5.1",
+    "i18next": "^19.5.2",
     "i18next-browser-languagedetector": "^5.0.0",
     "i18next-xhr-backend": "^3.2.2",
     "js-fetch-api": "^1.0.0",
@@ -45,7 +45,7 @@
     "lodash": "^4.17.15",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.27.0",
-    "nav-dashboard": "1.0.2",
+    "nav-dashboard": "1.0.3",
     "nav-frontend-alertstriper": "^3.0.18",
     "nav-frontend-alertstriper-style": "^2.0.16",
     "nav-frontend-chevron": "^1.0.10",
@@ -100,7 +100,7 @@
     "use-error-boundary": "^1.2.3"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.10.3",
+    "@babel/runtime": "^7.10.4",
     "@types/amplitude-js": "^5.11.0",
     "@types/classnames": "^2.2.10",
     "@types/enzyme": "^3.10.5",
@@ -118,8 +118,8 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/react-select": "^3.0.13",
     "@types/styled-components": "^5.1.0",
-    "@typescript-eslint/eslint-plugin": "^3.4.0",
-    "@typescript-eslint/parser": "^3.4.0",
+    "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "@typescript-eslint/parser": "^3.5.0",
     "cross-env": "^7.0.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -139,7 +139,7 @@
     "redux-thunk": "^2.3.0",
     "standardx": "^5.0.0",
     "ts-jest": "^26.1.1",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   },
   "resolutions": {
     "yargs-parser": "18.1.2"

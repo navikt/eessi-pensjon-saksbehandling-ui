@@ -6,7 +6,7 @@ export default (props: any) => (
     id='Layer_1' version='1.1'
     preserveAspectRatio='xMidYMid meet'
     viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px'
-    width={props.width} height={props.height}
+    width={props.width || 24} height={props.height || 24}
   >
     <path fill='none' d='M4.5,2.5h-4v21h23v-21h-4' stroke={props.color || '#3e3832'} />
     <rect x='4.5' y='0.5' fill='none' width='3' height='4' stroke={props.color || '#3e3832'} />

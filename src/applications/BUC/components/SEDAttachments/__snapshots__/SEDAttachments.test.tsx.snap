@@ -9,22 +9,31 @@ exports[`applications/BUC/components/SEDAttachments/SEDAttachments Renders 1`] =
   onSubmit={[MockFunction]}
   open={true}
 >
-  <div
-    className="a-buc-c-sedattachments"
+  <styled.div
+    data-testId="a-buc-c-sedattachments"
   >
-    <Component
-      files={Array []}
-      mode="view"
-      onFilesChange={[Function]}
-    >
-      <div
-        className="mock-joarkbrowser"
-        onClick={[Function]}
-      />
-    </Component>
     <div
-      className="mt-4"
+      className="sc-AxiKw bOTXee"
+      data-testId="a-buc-c-sedattachments"
     >
+      <Component
+        files={Array []}
+        mode="view"
+        onFilesChange={[Function]}
+      >
+        <div
+          className="mock-joarkbrowser"
+          onClick={[Function]}
+        />
+      </Component>
+      <styled.div
+        data-size="1.5"
+      >
+        <div
+          className="sc-AxjAm fIaKoH"
+          data-size="1.5"
+        />
+      </styled.div>
       <Hovedknapp
         className="a-buc-c-sedattachments__upload-button"
         disabled={true}
@@ -56,6 +65,6 @@ exports[`applications/BUC/components/SEDAttachments/SEDAttachments Renders 1`] =
         </KnappBase>
       </Hovedknapp>
     </div>
-  </div>
+  </styled.div>
 </SEDAttachments>
 `;

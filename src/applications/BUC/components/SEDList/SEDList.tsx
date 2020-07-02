@@ -45,7 +45,7 @@ const SEDList: React.FC<SEDListProps> = ({
             />
           )
         })}
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <SEDFooter>
         {!_.isEmpty(seds) &&
         seds!.filter(sedFilter).length > maxSeds && (

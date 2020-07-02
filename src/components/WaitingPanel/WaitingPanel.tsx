@@ -32,7 +32,7 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
     <Spinner type={size} />
     {message && (
       <>
-        <HorizontalSeparatorDiv/>
+        <HorizontalSeparatorDiv />
         <Normaltekst
           className={classNames({ oneLine: oneLine })}
         >

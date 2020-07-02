@@ -4,10 +4,6 @@ import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
 import Step2, { Step2Props } from './Step2'
 
-jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => {
-  return () => { return <div className='mock-sedp4000' /> }
-})
-
 describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
   let wrapper: ReactWrapper
   const _mockBucs = _.keyBy(mockBucs(), 'caseId')

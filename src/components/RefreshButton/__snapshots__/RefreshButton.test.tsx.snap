@@ -6,17 +6,15 @@ exports[`components/RefreshButton Renders 1`] = `
   onRefreshClicked={[MockFunction]}
   rotating={false}
 >
-  <div
-    className="c-refreshbutton"
-  >
-    <a
-      className="lenke"
-      href="#refresh"
-      onClick={[Function]}
-      title="mockLabelRefresh"
+  <styled.div>
+    <div
+      className="sc-AxjAm bqtyzC"
     >
-      <Icons
-        kind="refresh"
+      <a
+        className="lenke"
+        href="#refresh"
+        onClick={[Function]}
+        title="mockLabelRefresh"
       >
         <FontAwesomeIcon
           border={false}
@@ -37,13 +35,12 @@ exports[`components/RefreshButton Renders 1`] = `
             }
           }
           inverse={false}
-          kind="refresh"
           listItem={false}
           mask={null}
           pull={null}
           pulse={false}
           rotation={null}
-          size="1x"
+          size={null}
           spin={false}
           swapOpacity={false}
           symbol={false}
@@ -52,11 +49,10 @@ exports[`components/RefreshButton Renders 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-sync-alt fa-w-16 fa-1x "
+            className="svg-inline--fa fa-sync-alt fa-w-16 "
             data-icon="sync-alt"
             data-prefix="fas"
             focusable="false"
-            kind="refresh"
             role="img"
             style={Object {}}
             viewBox="0 0 512 512"
@@ -69,8 +65,8 @@ exports[`components/RefreshButton Renders 1`] = `
             />
           </svg>
         </FontAwesomeIcon>
-      </Icons>
-    </a>
-  </div>
+      </a>
+    </div>
+  </styled.div>
 </RefreshButton>
 `;

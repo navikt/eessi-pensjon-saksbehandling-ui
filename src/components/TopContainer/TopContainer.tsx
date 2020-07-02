@@ -59,12 +59,12 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: ${({theme}): any => theme['main-background-color']};
-  color: ${({theme}): any => theme['main-font-color']};
+  background-color: ${({ theme }): any => theme['main-background-color']};
+  color: ${({ theme }): any => theme['main-font-color']};
 `
 
 export const TopContainer: React.FC<TopContainerProps> = ({
-  className, children, fluid = true, header
+  className, children
 }: TopContainerProps): JSX.Element => {
   const {
     clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
@@ -107,7 +107,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <ErrorBoundary
         renderError={({ error }: any) => <Error type='internalError' error={error} />}
       >
@@ -143,7 +143,8 @@ export const TopContainer: React.FC<TopContainerProps> = ({
         <Main
           id='main'
           role='main'
-          className={className}>
+          className={className}
+        >
           {children}
         </Main>
         <Footer
@@ -158,9 +159,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
 TopContainer.propTypes = {
   className: PT.string,
-  children: PT.any,
-  fluid: PT.bool,
-  header: PT.any
+  children: PT.any
 }
 
 export default TopContainer

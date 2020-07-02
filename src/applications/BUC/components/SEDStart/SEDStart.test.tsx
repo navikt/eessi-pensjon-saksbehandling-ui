@@ -19,12 +19,6 @@ import mockTargetP4000info from 'mocks/P4000/targetP4000info'
 import { stageSelector } from 'setupTests'
 import { SEDStart, SEDStartProps, SEDStartSelector } from './SEDStart'
 
-jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => ({ children }: {children: JSX.Element}) => (
-  <div className='mock-sedP4000'>
-    {children}
-  </div>
-))
-
 jest.mock('actions/buc', () => ({
   createSed: jest.fn(),
   fetchBucs: jest.fn(),

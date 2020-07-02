@@ -37,20 +37,20 @@ const SEDPanelDiv = styled.div`
   animation: ${slideInFromLeft} 0.2s forwards;
 
   .ekspanderbartPanel {
-    background: ${({theme}: any) => theme['main-background-color']};
+    background: ${({ theme }: any) => theme['main-background-color']};
   }
   .ekspanderbartPanel__hode {
-    background:  ${({theme}: any) => theme['main-background-color']};
+    background:  ${({ theme }: any) => theme['main-background-color']};
   }
 `
 const Border = styled.div`
   margin-bottom: 1rem;
-  border: 1px solid ${({theme}): any => theme['main-disabled-color']};
+  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
   border-radius: 4px;
 `
 const PaddedDiv = styled.div`
   padding: 1rem;
-  background: ${({theme}: any) => theme['main-background-color']};
+  background: ${({ theme }: any) => theme['main-background-color']};
 `
 const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId, buc, className, followUpSeds, highContrast, onSEDNew, sed, style
@@ -68,7 +68,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDPanelDiv className={className}>
         {!sedHasOption(sed) ? (
           <Border>

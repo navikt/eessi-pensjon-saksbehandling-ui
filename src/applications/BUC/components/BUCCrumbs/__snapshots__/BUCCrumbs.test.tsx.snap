@@ -3725,29 +3725,31 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
   setMode={[MockFunction]}
   showLastLink={true}
 >
-  <div
-    className="a-buc-c-buccrumbs"
-  >
+  <styled.div>
     <div
-      className="a-buc-c-buccrumb"
+      className="sc-AxjAm fUWBhh"
     >
-      <Lenke
-        data-amplitude="buc.crumbs"
-        href="#"
-        onClick={[Function]}
-        title="buc:buccrumb-home"
+      <div
+        className="a-buc-c-buccrumb"
       >
-        <a
-          className="lenke"
+        <Lenke
           data-amplitude="buc.crumbs"
           href="#"
           onClick={[Function]}
           title="buc:buccrumb-home"
         >
-          buc:buccrumb-home
-        </a>
-      </Lenke>
+          <a
+            className="lenke"
+            data-amplitude="buc.crumbs"
+            href="#"
+            onClick={[Function]}
+            title="buc:buccrumb-home"
+          >
+            buc:buccrumb-home
+          </a>
+        </Lenke>
+      </div>
     </div>
-  </div>
+  </styled.div>
 </BUCCrumbs>
 `;

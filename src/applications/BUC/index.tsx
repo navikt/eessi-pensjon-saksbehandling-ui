@@ -1,4 +1,3 @@
-import { setStatusParam } from 'actions/app'
 import { fetchAvdodBucs, fetchBucParticipants, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -15,11 +14,8 @@ import { AllowedLocaleString, Loading, Person, RinaUrl } from 'declarations/type
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Input } from 'nav-frontend-skjema'
-import { Knapp } from 'nav-frontend-knapper'
 import styled from 'styled-components'
 
 export interface BUCIndexProps {
@@ -73,12 +69,9 @@ const BUCIndexHeader = styled.div`
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, person, rinaUrl, sakId, sakType }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
-  const { t } = useTranslation()
+  const { aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, person, rinaUrl, sakId }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
-  const [_avdodfnr, setAvdodfnr] = useState<string | undefined>(avdodfnr)
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
-  const [_showAvdodfnr, setShowAvdodfnr] = useState<boolean>(false)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
   const [_avdodBucs, setAvdodBucs] = useState<Bucs | undefined>(undefined)
 
@@ -203,19 +196,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           avdodfnr={avdodfnr}
         />
       </BUCIndexHeader>
-      <VerticalSeparatorDiv/>
-      {sakType === 'Gjenlevendeytelse' && !avdodfnr
-        ? (
-          _showAvdodfnr ? (
-            <div className='d-flex flex-row align-items-end'>
-              <Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e: ChangeEvent<HTMLInputElement>) => setAvdodfnr(e.target.value)} />
-              <Knapp mini className='ml-2 mb-3' onClick={() => dispatch(setStatusParam('avdodfnr', _avdodfnr))}>{t('buc:form-avdodfnrButton')}</Knapp>
-            </div>
-          ) : (
-            <Knapp mini onClick={() => setShowAvdodfnr(true)}>{t('buc:form-avdodfnr')}</Knapp>
-          )
-        )
-        : null}
+      <VerticalSeparatorDiv />
       {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} /> : null}
       {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc} setMode={_setMode} /> : null}
       {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} /> : null}

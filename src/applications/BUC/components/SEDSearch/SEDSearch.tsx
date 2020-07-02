@@ -22,8 +22,8 @@ const SEDSearchPanel = styled(Panel)`
   display: flex !important;
   align-items: flex-start;
   padding: 0.5rem;
-  border: 1px solid ${({theme}): any => theme['main-disabled-color']};
-  background: ${({theme}: any) => theme['main-background-color']};
+  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
+  background: ${({ theme }: any) => theme['main-background-color']};
   .ekspanderbartPanel__hode {
     padding: 0.25rem;
   }
@@ -41,7 +41,7 @@ const SearchInput = styled(Input)`
     display: none;
   }
   .skjemaelement__input {
-    background: ${({theme}: any) => theme['main-background-color']};
+    background: ${({ theme }: any) => theme['main-background-color']};
   }
 `
 const SearchSelect = styled(MultipleSelect)`
@@ -95,7 +95,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
   }]
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDSearchPanel
         data-testId='a-buc-c-sedsearch__panel-id'
         className={className}

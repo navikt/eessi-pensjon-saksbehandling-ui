@@ -3,7 +3,7 @@ import { getStorageFile, listStorageFiles } from 'actions/storage'
 import LineMessageSent from 'assets/icons/line-version-expanded-email-send-3'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import RefreshButton from 'components/RefreshButton/RefreshButton'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import moment from 'moment'
@@ -91,6 +91,9 @@ const NoMessage = styled.div`
   padding: 0.5rem;
   font-style: italic;
   text-align: center;
+`
+const FlexDiv = styled.div`
+  display: flex;
 `
 
 export const VarslerPanel: React.FC<VarslerPanelProps> = ({
@@ -181,7 +184,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
 
   if (mounted && !hasParams) {
     return (
-      <WidgetPanel >
+      <WidgetPanel>
         <Systemtittel className='w-varslerPanel__noParams-title pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
         <Veileder
           tekst={t('pinfo:error-noParams')}
@@ -240,9 +243,10 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
             <VeilederSVG />
           </Veileder>
           <div className='text-center'>
+            <VerticalSeparatorDiv />
             <Hovedknapp
               id='w-varslerPanel__invite-button-id'
-              className='w-varslerPanel__invite-button mt-3'
+              className='w-varslerPanel__invite-button'
               disabled={isInvitingPinfo}
               spinner={isInvitingPinfo}
               onClick={onInviteButtonClick}
@@ -275,11 +279,11 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
                   type: 'object',
                   needle: /* istanbul ignore next */ (it: Item) => it.toLowerCase(),
                   renderCell: (item: any) => (
-                    <div className='d-flex'>
+                    <FlexDiv>
                       <LineMessageSent />
-                      <HorizontalSeparatorDiv/>
+                      <HorizontalSeparatorDiv />
                       <label>{item.type}</label>
-                    </div>
+                    </FlexDiv>
                   )
                 },
                 { id: 'sender', label: t('ui:sender'), type: 'string' },

@@ -42,10 +42,10 @@ export interface OverviewProps {
 export const OverviewPanel = styled(ExpandingPanel)`
   border: 1px solid ${({ theme }: any) => theme.navGra40};
   .ekspanderbartPanel {
-    background: ${({theme}: any) => theme['main-background-color']};
+    background: ${({ theme }: any) => theme['main-background-color']};
   }
   .ekspanderbartPanel__hode {
-    background:  ${({theme}: any) => theme['main-background-color']};
+    background:  ${({ theme }: any) => theme['main-background-color']};
   }
 `
 
@@ -104,7 +104,7 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <div
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}

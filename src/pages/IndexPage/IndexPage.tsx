@@ -1,17 +1,18 @@
 import { BUCMode } from 'applications/BUC'
+import ExternalLink from 'assets/icons/line-version-logout'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import TopContainer from 'components/TopContainer/TopContainer'
+import { State } from 'declarations/reducers'
+import { linkLogger, timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
 import Lenke from 'nav-frontend-lenker'
-import { linkLogger, timeLogger } from 'metrics/loggers'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import 'rc-tooltip/assets/bootstrap_white.css'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { State } from 'declarations/reducers'
+import styled, { ThemeProvider } from 'styled-components'
 import * as extraWidgets from 'widgets'
-import styled from 'styled-components'
-import ExternalLink from 'assets/icons/line-version-logout'
-import 'rc-tooltip/assets/bootstrap_white.css'
 
 export interface IndexPageProps {
   username?: string
@@ -131,9 +132,16 @@ const mapState = (state: State): IndexPageSelector => ({
 
 const DivWithLinks = styled.div`
   padding: 0.5rem 2rem;
-  background-color: #E9E7E7;
+  background-color: ${({ theme }: any) => theme['main-background-other-color']};
   display: flex;
   flex-direction: row-reverse;
+  *[href] {
+    color: ${({ theme }: any) => theme['main-interactive-color']} !important;
+  }
+  * svg {
+    fill: ${({ theme }: any) => theme['main-interactive-color']} !important;
+    stroke: ${({ theme }: any) => theme['main-interactive-color']} !important;
+  }
 `
 const SeparatorSpan = styled.span`
   padding: 0rem 0.5rem
@@ -153,43 +161,47 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
     }
   }, [loggedTime])
 
+  const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
   return (
-    <TopContainer>
-      <DivWithLinks>
-        <Link
-          target='_blank'
-          data-amplitude='links.rettskilder'
-          href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
-          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
-        >
-          {t('ui:lawsource')}
-          <HorizontalSeparatorDiv data-size='0.5'/>
-          <ExternalLink color='#0067C5'/>
-        </Link>
-        <SeparatorSpan>
-          •
-        </SeparatorSpan>
-        <Link
-          target='_blank'
-          data-amplitude='links.hjelpe'
-          href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
-          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
-        >
-          {t('ui:help')}
-          <HorizontalSeparatorDiv data-size='0.5'/>
-          <ExternalLink color='#0067C5'/>
-        </Link>
-      </DivWithLinks>
-      <Dashboard
-        id='eessi-pensjon-ui-fss'
-        extraWidgets={extraWidgets}
-        defaultWidgets={username === 'Z990706' ? defaultWidgetsWithVarsel : defaultWidgets}
-        defaultLayouts={username === 'Z990706' ? defaultLayoutsWithVarsel : defaultLayouts}
-        defaultConfig={defaultConfig}
-        allowedWidgets={allowedWidgets}
-        highContrast={highContrast}
-      />
-    </TopContainer>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+      <TopContainer>
+        <DivWithLinks>
+          <Link
+            target='_blank'
+            data-amplitude='links.rettskilder'
+            href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
+            onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
+          >
+            {t('ui:lawsource')}
+            <HorizontalSeparatorDiv data-size='0.5' />
+            <ExternalLink color={linkColor} />
+          </Link>
+          <SeparatorSpan>
+            •
+          </SeparatorSpan>
+          <Link
+            target='_blank'
+            data-amplitude='links.hjelpe'
+            href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
+            onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
+          >
+            {t('ui:help')}
+            <HorizontalSeparatorDiv data-size='0.5' />
+            <ExternalLink color={linkColor} />
+          </Link>
+        </DivWithLinks>
+        <Dashboard
+          id='eessi-pensjon-ui-fss'
+          configurable={false}
+          extraWidgets={extraWidgets}
+          defaultWidgets={username === 'Z990706' ? defaultWidgetsWithVarsel : defaultWidgets}
+          defaultLayouts={username === 'Z990706' ? defaultLayoutsWithVarsel : defaultLayouts}
+          defaultConfig={defaultConfig}
+          allowedWidgets={allowedWidgets}
+          highContrast={highContrast}
+        />
+      </TopContainer>
+    </ThemeProvider>
   )
 }
 

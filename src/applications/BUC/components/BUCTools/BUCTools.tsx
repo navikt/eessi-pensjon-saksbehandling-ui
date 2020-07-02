@@ -64,11 +64,11 @@ const BUCToolsPanel = styled(ExpandingPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
-  background ${({theme}): any => theme['main-background-color']};
-  border: 1px solid ${({theme}): any => theme['main-disabled-color']};
+  background ${({ theme }): any => theme['main-background-color']};
+  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
   border-radius: 4px;
   .ekspanderbartPanel__hode {
-    background ${({theme}): any => theme['main-background-color']};
+    background ${({ theme }): any => theme['main-background-color']};
   }
 `
 const P5000Div = styled.div`
@@ -144,7 +144,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     if (_.isFunction(onTagChange)) {
       onTagChange(tagsList)
     }
-    standardLogger('buc.edit.tools.tags.select', { tags: tagsList.map(t => t.label) })
+    standardLogger('buc.edit.tools.tags.select', { tags: tagsList?.map(t => t.label) || [] })
     setTags(tagsList)
   }
 
@@ -189,7 +189,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCToolsPanel
         collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
         data-testId='a-buc-c-buctools__panel-id'
@@ -221,7 +221,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           <Undertittel>
             {t('buc:form-tagsForBUC')}
           </Undertittel>
-          <VerticalSeparatorDiv data-size='0.5'/>
+          <VerticalSeparatorDiv data-size='0.5' />
           <Normaltekst>
             {t('buc:form-tagsForBUC-description')}
           </Normaltekst>
@@ -236,11 +236,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             onSelect={onTagsChange}
             options={allTags}
           />
-          <VerticalSeparatorDiv data-size='1'/>
+          <VerticalSeparatorDiv data-size='1' />
           <Undertittel>
             {t('buc:form-commentForBUC')}
           </Undertittel>
-          <VerticalSeparatorDiv data-size='0.5'/>
+          <VerticalSeparatorDiv data-size='0.5' />
           <TextArea
             id='a-buc-c-buctools__comment-textarea-id'
             className='skjemaelement__input'

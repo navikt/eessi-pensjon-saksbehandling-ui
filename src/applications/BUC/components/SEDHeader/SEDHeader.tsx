@@ -18,7 +18,7 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface SEDHeaderProps {
   buc: Buc;
@@ -39,15 +39,25 @@ const mapState = (state: State): SEDHeaderSelector => ({
   locale: state.ui.locale
 })
 
+const slideInFromLeft = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
 const SEDHeaderPanel = styled(Panel)`
   width: 100%;
   padding: 0rem;
   transform: translateX(-20px);
   opacity: 0;
-  animation: slideInFromLeft 0.2s forwards;
-  border-bottom: ${({theme}: any) => theme.type === 'themeHighContrast' ?
-  `2px solid $theme['main-disabled-color']` :
-  `1px solid $theme['navGra60']`};
+  animation: ${slideInFromLeft} 0.2s forwards;
+  border-bottom: ${({ theme }: any) => theme.type === 'themeHighContrast'
+  ? '2px solid $theme[\'main-disabled-color\']'
+  : '1px solid $theme[\'navGra60\']'};
 `
 const SEDHeaderContent = styled.div`
   padding-top: 0.5rem;
@@ -70,7 +80,7 @@ const SEDStatusDiv = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
 `
-const SEDStatusItemDiv= styled.div`
+const SEDStatusItemDiv = styled.div`
   display: flex;
   align-items: flex-start;
   margin-bottom: 0.5rem;
@@ -80,7 +90,8 @@ const SEDInstitutionsDiv = styled.div`
   flex: 3;
   flex-direction: row;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
 `
 const SEDActionsDiv = styled.div`
   flex: 2;
@@ -88,6 +99,11 @@ const SEDActionsDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+`
+const SEDVersion = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `
 const SEDAttachmentsDiv = styled.div``
 
@@ -113,7 +129,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   })
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDHeaderPanel
         style={style}
         className={className}
@@ -127,25 +143,27 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           <SEDStatusDiv>
             <SEDStatusItemDiv>
               <SEDStatus highContrast={highContrast} status={sed.status} />
-              <HorizontalSeparatorDiv date-size='0.5'/>
-              <Normaltekst
-                data-testId='a-buc-c-sedheader__lastUpdate'
-                data-tip={t('ui:lastUpdate')}
-              >
-                {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
-              </Normaltekst>
-              {sed.version && (
+              <HorizontalSeparatorDiv date-size='0.5' />
+              <SEDVersion>
                 <Normaltekst
-                  data-testId='a-buc-c-sedheader__version'
+                  data-testId='a-buc-c-sedheader__lastUpdate'
+                  data-tip={t('ui:lastUpdate')}
                 >
-                  {t('ui:version')}{': '}{sed.version || '-'}
+                  {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
                 </Normaltekst>
-              )}
+                {sed.version && (
+                  <Normaltekst
+                    data-testId='a-buc-c-sedheader__version'
+                  >
+                    {t('ui:version')}{': '}{sed.version || '-'}
+                  </Normaltekst>
+                )}
+              </SEDVersion>
             </SEDStatusItemDiv>
             {sed.version !== '1' && (
               <SEDStatusItemDiv>
                 <SEDStatus highContrast={highContrast} status={'first_' + sed.status} />
-                <HorizontalSeparatorDiv date-size='0.5'/>
+                <HorizontalSeparatorDiv date-size='0.5' />
                 <Normaltekst
                   data-id='a-buc-c-sedheader__firstSend'
                   data-tip={t('ui:status-first')}

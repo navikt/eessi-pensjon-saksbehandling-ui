@@ -15,7 +15,6 @@ import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
-import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
 import {
@@ -90,12 +89,17 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
 
 const SEDStartDiv = styled.div`
   display: flex;
+  flex-direction: column;
 `
-const SEDAttachmentDiv = styled.div`
-  margin-left: 1rem;
-  width: 50%;
+const Container = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
 `
-
+const ButtonsDiv = styled.div`
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+`
 
 export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined, initialStep = 0, setMode
@@ -313,34 +317,36 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   return (
     <SEDStartDiv>
-      {step === 0 ? (
-        <Step1
-          loading={loading}
-          locale={locale!}
-          _sed={_sed} setSed={setSed} currentSed={currentSed} sedList={sedList} buc={buc}
-          _countries={_countries} setCountries={setCountries} countryList={countryList!}
-          _institutions={_institutions} setInstitutions={setInstitutions} institutionList={institutionList!}
-          _attachments={_attachments} setAttachments={setAttachments}
-          validation={validation} setValidation={setValidation}
-          sedCanHaveAttachments={sedCanHaveAttachments}
-          sedNeedsAvdodfnr={sedNeedsAvdodfnr}
-          avdodfnr={_avdodfnr} setAvdodfnr={setAvdodfnr}
-          vedtakId={_vedtakId} setVedtakId={setVedtakId}
-          sedNeedsVedtakId={sedNeedsVedtakId}
-        />
-      ) : null}
-      {step === 1 && (
-        <Step2
-          locale={locale!}
-          aktoerId={aktoerId!}
-          _sed={_sed!}
-          buc={buc}
-          showButtons={showButtons} setShowButtons={setShowButtons}
-          validation={validation} setValidation={setValidation}
-        />
-      )}
-      {(sendingAttachments || attachmentsSent) && (
-        <SEDAttachmentDiv>
+      <Container className='container'>
+        {step === 0 ? (
+          <Step1
+            loading={loading}
+            locale={locale!}
+            _sed={_sed} setSed={setSed} currentSed={currentSed} sedList={sedList} buc={buc}
+            _countries={_countries} setCountries={setCountries} countryList={countryList!}
+            _institutions={_institutions} setInstitutions={setInstitutions} institutionList={institutionList!}
+            _attachments={_attachments} setAttachments={setAttachments}
+            validation={validation} setValidation={setValidation}
+            sedCanHaveAttachments={sedCanHaveAttachments}
+            sedNeedsAvdodfnr={sedNeedsAvdodfnr}
+            avdodfnr={_avdodfnr} setAvdodfnr={setAvdodfnr}
+            vedtakId={_vedtakId} setVedtakId={setVedtakId}
+            sedNeedsVedtakId={sedNeedsVedtakId}
+          />
+        ) : null}
+        {step === 1 && (
+          <Step2
+            locale={locale!}
+            aktoerId={aktoerId!}
+            _sed={_sed!}
+            buc={buc}
+            showButtons={showButtons} setShowButtons={setShowButtons}
+            validation={validation} setValidation={setValidation}
+          />
+        )}
+      </Container>
+      <Container>
+        {(sendingAttachments || attachmentsSent) && (
           <SEDAttachmentSender
             attachmentsError={attachmentsError}
             sendAttachmentToSed={_sendAttachmentToSed}
@@ -353,44 +359,45 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             savedAttachments={attachments.joark as JoarkFiles}
             onFinished={() => setAttachmentsSent(true)}
           />
-        </SEDAttachmentDiv>
-      )}
+        )}
+      </Container>
       {showButtons && (
-        <>
-          <VerticalSeparatorDiv/>
-          <Hovedknapp
-            data-amplitude='sed.new.create'
-            data-testId='a-buc-c-sedstart__forward-button-id'
-            disabled={!allowedToForward()}
-            spinner={loading.creatingSed || sendingAttachments}
-            onClick={(e: React.MouseEvent) => {
-              if (createSedNeedsMoreSteps()) {
-                onNextButtonClick(e)
-              } else {
-                onForwardButtonClick(e)
-              }
-            }}
-          >
-            {loading.creatingSed ? t('buc:loading-creatingSED')
-              : sendingAttachments ? t('buc:loading-sendingSEDattachments')
-                : createSedNeedsMoreSteps() ? t('ui:next')
-                  : t('buc:form-orderSED')}
-          </Hovedknapp>
-          {step > 0 && (
+        <Container>
+          <ButtonsDiv>
+            <Hovedknapp
+              data-amplitude='sed.new.create'
+              data-testId='a-buc-c-sedstart__forward-button-id'
+              disabled={!allowedToForward()}
+              spinner={loading.creatingSed || sendingAttachments}
+              onClick={(e: React.MouseEvent) => {
+                if (createSedNeedsMoreSteps()) {
+                  onNextButtonClick(e)
+                } else {
+                  onForwardButtonClick(e)
+                }
+              }}
+            >
+              {loading.creatingSed ? t('buc:loading-creatingSED')
+                : sendingAttachments ? t('buc:loading-sendingSEDattachments')
+                  : createSedNeedsMoreSteps() ? t('ui:next')
+                    : t('buc:form-orderSED')}
+            </Hovedknapp>
+            {step > 0 && (
+              <Flatknapp
+                data-amplitude='sed.new.back'
+                data-testId='a-buc-c-sedstart__back-button-id'
+                onClick={onBackButtonClick}
+              >{t('ui:back')}
+              </Flatknapp>
+            )}
             <Flatknapp
-              data-amplitude='sed.new.back'
-              data-testId='a-buc-c-sedstart__back-button-id'
-              onClick={onBackButtonClick}
-            >{t('ui:back')}
+              data-amplitude='sed.new.cancel'
+              data-testId='a-buc-c-sedstart__cancel-button-id'
+              onClick={onCancelButtonClick}
+            >{t('ui:cancel')}
             </Flatknapp>
-          )}
-          <Flatknapp
-            data-amplitude='sed.new.cancel'
-            data-testId='a-buc-c-sedstart__cancel-button-id'
-            onClick={onCancelButtonClick}
-          >{t('ui:cancel')}
-          </Flatknapp>
-        </>
+          </ButtonsDiv>
+        </Container>
       )}
     </SEDStartDiv>
   )

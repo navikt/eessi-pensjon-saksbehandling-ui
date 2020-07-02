@@ -16,7 +16,7 @@ export interface BUCNewSelector {
 }
 
 const mapState = (state: State): BUCNewSelector => ({
-  highContrast: state.ui.highContrast,
+  highContrast: state.ui.highContrast
 })
 
 export interface BUCNewProps extends BUCStartProps {
@@ -64,7 +64,7 @@ const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX
           <hr />
           <BUCStart aktoerId={aktoerId} setMode={setMode} />
         </BUCNewDiv>
-        <BUCFooter/>
+        <BUCFooter />
       </div>
     </ThemeProvider>
   )

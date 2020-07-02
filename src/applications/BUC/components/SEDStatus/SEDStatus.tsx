@@ -32,8 +32,8 @@ const Etikett = styled(EtikettBase)`
   text-transform: capitalize;
   font-size: 12px;
   min-width: 70px;
-  color: ${({theme}: any) => theme['main-background-color']};
-  font-weight: ${({theme}: any) => theme.type === 'themeHighContrast' ? 'bold' : 'normal'};
+  color: ${({ theme }: any) => theme['main-font-color']};
+  font-weight: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'bold' : 'normal'};
   &.received {
     background-color: @navBlaLighten60 !important;
   }
@@ -54,7 +54,7 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
   const tagType: StatusType =
     Object.prototype.hasOwnProperty.call(statusList, status) ? (statusList[status] as StatusType)! : (statusList.unknown as StatusType)!
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <Etikett className={classNames(status, className)} type={tagType}>
         {t('buc:status-' + status)}
       </Etikett>

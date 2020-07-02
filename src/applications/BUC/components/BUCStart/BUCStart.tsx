@@ -89,9 +89,9 @@ const LeftContentDiv = styled.div`
     padding-right: 1rem;
   }
   .grey select {
-    color: ${({theme}: any) => theme.navMorkGra} !important;
+    color: ${({ theme }: any) => theme.navMorkGra} !important;
     option {
-      color: ${({theme}: any) => theme['main-font-color']} !important;
+      color: ${({ theme }: any) => theme['main-font-color']} !important;
     }
   }
 `
@@ -102,9 +102,9 @@ const RightContentDiv = styled.div`
     padding-left: 1rem;
   }
   .grey select {
-    color: ${({theme}: any) => theme.navMorkGra} !important;
+    color: ${({ theme }: any) => theme.navMorkGra} !important;
     option {
-      color: ${({theme}: any) => theme['main-font-color']} !important;
+      color: ${({ theme }: any) => theme['main-font-color']} !important;
     }
   }
 `
@@ -248,7 +248,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onTagsChange = (tagsList: Tags): void => {
     setTags(tagsList)
-    standardLogger('buc.new.tags.select', { tags: tagsList.map(t => t.label) })
+    standardLogger('buc.new.tags.select', { tags: tagsList?.map(t => t.label) || [] })
     if (_.isFunction(onTagsChanged)) {
       onTagsChanged(tagsList)
     }
@@ -318,7 +318,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast: theme}>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <div data-testId='a-buc-c-bucstart'>
         <FlexDiv>
           <LeftContentDiv>
@@ -337,7 +337,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             >
               {renderOptions(subjectAreaList, 'subjectArea')}
             </Select>
-            <VerticalSeparatorDiv/>
+            <VerticalSeparatorDiv />
             <Select
               id='a-buc-c-bucstart__buc-select-id'
               className={classNames('a-buc-c-bucstart__buc-select', {
@@ -355,7 +355,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             </Select>
           </LeftContentDiv>
           <RightContentDiv>
-            <VerticalSeparatorDiv data-size='2'/>
+            <VerticalSeparatorDiv data-size='2' />
             <MultipleSelect
               ariaLabel={t('buc:form-tagsForBUC')}
               label={t('buc:form-tagsForBUC')}
@@ -368,7 +368,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               onSelect={onTagsChange}
               options={tagObjectList}
             />
-            <VerticalSeparatorDiv/>
+            <VerticalSeparatorDiv />
             <Normaltekst>
               {t('buc:form-tagsForBUC-description')}
             </Normaltekst>
@@ -386,7 +386,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
                 : t('buc:form-createCaseinRINA')}
           </Hovedknapp>
-          <HorizontalSeparatorDiv/>
+          <HorizontalSeparatorDiv />
           <Flatknapp
             data-amplitude='buc.new.cancel'
             data-testId='a-buc-c-bucstart__cancel-button-id'
