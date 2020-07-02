@@ -73,10 +73,12 @@ export const Overview: React.FC<OverviewProps> = ({
 
   useEffect(() => {
     if (!mounted && aktoerId) {
-      dispatch(getPersonInfo(aktoerId))
+      if (!person) {
+        dispatch(getPersonInfo(aktoerId))
+      }
       setMounted(true)
     }
-  }, [mounted, dispatch, aktoerId])
+  }, [mounted, dispatch, aktoerId, person])
 
   const onExpandablePanelChange = (): void => {
     const newWidget = _.cloneDeep(widget)

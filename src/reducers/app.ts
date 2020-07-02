@@ -16,7 +16,7 @@ export interface AppState {
 }
 
 const initialFeatureToggles = {
-  P5000_VISIBLE: false,
+  P5000_VISIBLE: true,
   P_BUC_02_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false
 }

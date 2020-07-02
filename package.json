@@ -36,7 +36,7 @@
     "fremdriftslinje": "^1.0.1",
     "history": "^5.0.0",
     "http-proxy-middleware": "^1.0.4",
-    "i18next": "^19.5.2",
+    "i18next": "^19.5.3",
     "i18next-browser-languagedetector": "^5.0.0",
     "i18next-xhr-backend": "^3.2.2",
     "js-fetch-api": "^1.0.0",
@@ -96,7 +96,7 @@
     "redux": "^4.0.5",
     "sprintf-js": "^1.1.2",
     "styled-components": "^5.1.1",
-    "tabell": "^1.0.2",
+    "tabell": "^1.0.3",
     "use-error-boundary": "^1.2.3"
   },
   "devDependencies": {
@@ -116,7 +116,7 @@
     "@types/react-resize-detector": "^4.2.0",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.5",
-    "@types/react-select": "^3.0.13",
+    "@types/react-select": "^3.0.14",
     "@types/styled-components": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
     "@typescript-eslint/parser": "^3.5.0",
