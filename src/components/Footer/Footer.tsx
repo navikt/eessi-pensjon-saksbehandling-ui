@@ -1,6 +1,9 @@
 import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
+import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import classNames from 'classnames'
+import { Person } from 'declarations/types'
+import _ from 'lodash'
 import EtikettBase from 'nav-frontend-etiketter'
 import Knapp, { Hovedknapp } from 'nav-frontend-knapper'
 import Lukknapp from 'nav-frontend-lukknapp'
@@ -16,6 +19,7 @@ export interface FooterProps {
   highContrast: boolean
   footerOpen: boolean
   params: {[k: string]: any}
+  person: Person | undefined
 }
 
 const FooterDiv = styled.footer`
@@ -103,7 +107,7 @@ const RemoveButton = styled(Lukknapp)`
 `
 
 const Footer: React.FC<FooterProps> = ({
-  className, footerOpen, highContrast, params = {}
+  className, footerOpen, highContrast, params, person
 }: FooterProps): JSX.Element => {
   const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const [paramName, setParamName] = useState<string |undefined>(undefined)
@@ -188,6 +192,10 @@ const Footer: React.FC<FooterProps> = ({
                 </ParamDiv>
               )
             })}
+            <BUCWebSocket
+              fnr={_.get(person, 'aktoer.ident.ident')}
+              avdodfnr=''
+            />
             <Hovedknapp
               onClick={() => {
               (footerOpen as any)!.f.f = 2

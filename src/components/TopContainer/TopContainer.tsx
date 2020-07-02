@@ -7,6 +7,7 @@ import Modal from 'components/Modal/Modal'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
+import { Person } from 'declarations/types'
 import _ from 'lodash'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import Error from 'pages/Error/Error'
@@ -18,25 +19,26 @@ import styled, { ThemeProvider } from 'styled-components'
 import useErrorBoundary from 'use-error-boundary'
 
 export interface TopContainerProps {
-  className?: string;
-  children?: JSX.Element | Array<JSX.Element | null>;
-  fluid?: boolean;
-  header?: string | JSX.Element;
+  className?: string
+  children?: JSX.Element | Array<JSX.Element | null>
+  fluid?: boolean
+  header?: string | JSX.Element
 }
 
 export interface TopContainerSelector {
-  clientErrorStatus: AlertStatus | undefined;
-  clientErrorMessage: string | undefined;
-  serverErrorMessage: string | undefined;
-  error: any | undefined;
-  expirationTime: Date | undefined;
-  params: {[k: string] : string};
-  username: string | undefined;
-  gettingUserInfo: boolean;
-  isLoggingOut: boolean;
-  footerOpen: boolean;
-  modal: ModalContent | undefined;
-  highContrast: boolean;
+  clientErrorStatus: AlertStatus | undefined
+  clientErrorMessage: string | undefined
+  serverErrorMessage: string | undefined
+  error: any | undefined
+  expirationTime: Date | undefined
+  params: {[k: string] : string}
+  person: Person | undefined
+  username: string | undefined
+  gettingUserInfo: boolean
+  isLoggingOut: boolean
+  footerOpen: boolean
+  modal: ModalContent | undefined
+  highContrast: boolean
 }
 
 const mapState = (state: State): TopContainerSelector => ({
@@ -44,11 +46,15 @@ const mapState = (state: State): TopContainerSelector => ({
   clientErrorMessage: state.alert.clientErrorMessage,
   serverErrorMessage: state.alert.serverErrorMessage,
   error: state.alert.error,
+
   expirationTime: state.app.expirationTime,
   params: state.app.params,
+  person: state.app.person,
   username: state.app.username,
+
   gettingUserInfo: state.loading.gettingUserInfo,
   isLoggingOut: state.loading.isLoggingOut,
+
   footerOpen: state.ui.footerOpen,
   modal: state.ui.modal,
   highContrast: state.ui.highContrast
@@ -67,7 +73,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   className, children
 }: TopContainerProps): JSX.Element => {
   const {
-    clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
+    clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, person, username, gettingUserInfo,
     isLoggingOut, footerOpen, modal, highContrast
   } = useSelector(mapState)
   const dispatch = useDispatch()
@@ -151,6 +157,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           highContrast={highContrast}
           params={params}
           footerOpen={footerOpen}
+          person={person}
         />
       </ErrorBoundary>
     </ThemeProvider>

@@ -1,5 +1,6 @@
 import { clientError } from 'actions/alert'
 import { setCurrentSed } from 'actions/buc'
+import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -44,9 +45,12 @@ const mapState = (state: State): BUCEditSelector => ({
   locale: state.ui.locale
 })
 
-const BUCEditButtons = styled.div`
+const BUCEditHeader = styled.div`
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px;
 `
 const FlexDiv = styled.div`
   display: flex;
@@ -158,11 +162,17 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   return (
     <BUCEditDiv
-      className='a-buc-p-bucedit'
+      data-testId='a-buc-p-bucedit'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <BUCEditButtons>
+      <BUCEditHeader>
+        <BUCCrumbs
+          bucs={bucs}
+          currentBuc={currentBuc}
+          mode='bucedit'
+          setMode={setMode}
+        />
         <Knapp
           data-amplitude='buc.edit.newsed'
           data-testId='a-buc-p-bucedit__new-sed-button-id'
@@ -172,7 +182,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           }}
         >{t('buc:form-orderNewSED')}
         </Knapp>
-      </BUCEditButtons>
+      </BUCEditHeader>
       <VerticalSeparatorDiv />
       <FlexDiv>
         <ContentDiv>
