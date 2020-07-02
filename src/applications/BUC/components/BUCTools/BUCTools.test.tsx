@@ -23,7 +23,7 @@ const defaultSelector = {
     '60578cf8bf9f45a7819a39987c6c8fd4': mockSedP50001,
     '50578cf8bf9f45a7819a39987c6c8fd4': mockSedP50002
   },
-  features: {
+  featureToggles: {
     P5000_VISIBLE: true,
     P_BUC_02_VISIBLE: true
   }

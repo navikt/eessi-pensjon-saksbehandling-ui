@@ -9,7 +9,7 @@ import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'dec
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Features, Loading } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import Knapp from 'nav-frontend-knapper'
@@ -31,7 +31,7 @@ export interface BUCToolsProps {
 }
 
 export interface BUCToolsSelector {
-  features: Features
+  featureToggles: FeatureToggles
   highContrast: boolean
   loading: Loading
   locale: AllowedLocaleString
@@ -41,7 +41,7 @@ export interface BUCToolsSelector {
 }
 
 const mapState = (state: State): BUCToolsSelector => ({
-  features: state.app.features,
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
@@ -92,7 +92,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
-  const { features, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  const { featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -202,7 +202,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         }
       >
         <>
-          {features && features.P5000_VISIBLE && (
+          {featureToggles && featureToggles.P5000_VISIBLE && (
             <P5000Div>
               <Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Undertittel>
               {modal ? <Modal modal={modal} onModalClose={onModalClose} /> : null}
