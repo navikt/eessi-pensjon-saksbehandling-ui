@@ -33,10 +33,10 @@ const Title = styled(Undertittel)`
 `
 const ModalText = styled.div`
   margin: 1.5rem;
-  text-align: text-center;
+  text-align: center;
 `
 const ModalButtons = styled.div`
-  text-align: text-center;
+  text-align: center;
 `
 const MainButton = styled(Hovedknapp)`
   margin-right: 1rem;
