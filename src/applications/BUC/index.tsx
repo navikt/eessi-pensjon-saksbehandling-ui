@@ -1,4 +1,11 @@
-import { fetchAvdodBucs, fetchBucParticipants, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
+import {
+  fetchBucParticipants,
+  fetchBucs,
+  fetchBucsInfoList,
+  fetchBucsWithVedtakId,
+  getRinaUrl,
+  setMode
+} from 'actions/buc'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
@@ -28,25 +35,22 @@ export interface BUCIndexProps {
 export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew'
 
 export interface BUCIndexSelector {
-  aktoerId: string | undefined;
-  avdodfnr: string | undefined;
-  avdodBucs: Bucs | undefined;
-  bucs: Bucs | undefined;
-  bucsInfo: BucsInfo | undefined;
-  currentBuc: string | undefined;
-  loading: Loading;
-  locale: AllowedLocaleString;
-  mode: BUCMode;
-  person: Person | undefined;
-  rinaUrl: RinaUrl | undefined;
-  sakId: string | undefined;
+  aktoerId: string | undefined
+  bucs: Bucs | undefined
+  bucsInfo: BucsInfo | undefined
+  currentBuc: string | undefined
+  loading: Loading
+  locale: AllowedLocaleString
+  mode: BUCMode
+  person: Person | undefined
+  rinaUrl: RinaUrl | undefined
+  sakId: string | undefined
   sakType: string | undefined
+  vedtakId: string | undefined
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
   aktoerId: state.app.params.aktoerId,
-  avdodfnr: state.app.params.avdodfnr,
-  avdodBucs: state.buc.avdodBucs,
   bucs: state.buc.bucs,
   bucsInfo: state.buc.bucsInfo,
   currentBuc: state.buc.currentBuc,
@@ -56,7 +60,8 @@ const mapState = (state: State): BUCIndexSelector => ({
   person: state.app.person,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
-  sakType: state.app.params.sakType
+  sakType: state.app.params.sakType,
+  vedtakId: state.app.params.vedtakId
 })
 
 const BUCIndexDiv = styled.div``
@@ -69,16 +74,14 @@ const BUCIndexHeader = styled.div`
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, person, rinaUrl, sakId }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
+  const { aktoerId, bucs, currentBuc, loading, mode, person, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
+    useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
-  const [_avdodBucs, setAvdodBucs] = useState<Bucs | undefined>(undefined)
 
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-
-  const combinedBucs = { ...avdodBucs, ...bucs }
 
   useEffect(() => {
     if (!_mounted) {
@@ -98,16 +101,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
-      dispatch(fetchBucs(aktoerId))
+      dispatch(vedtakId ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
-  }, [aktoerId, bucs, dispatch, loading.gettingBUCs, sakId])
-
-  useEffect(() => {
-    if (avdodfnr && sakId && avdodBucs === undefined && !loading.gettingAvdodBUCs) {
-      dispatch(fetchAvdodBucs(avdodfnr))
-    }
-  }, [avdodBucs, avdodfnr, dispatch, loading.gettingAvdodBUCs, sakId])
+  }, [aktoerId, bucs, dispatch, loading.gettingBUCs, sakId, vedtakId])
 
   useEffect(() => {
     if (bucs && !_bucs) {
@@ -119,17 +116,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       setBucs(bucs)
     }
   }, [bucs, _bucs, dispatch])
-
-  useEffect(() => {
-    if (avdodBucs && !_avdodBucs) {
-      Object.keys(avdodBucs).forEach(bucId => {
-        if (avdodBucs[bucId].type && _.isNil(avdodBucs[bucId].institusjon)) {
-          dispatch(fetchBucParticipants(bucId))
-        }
-      })
-      setAvdodBucs(avdodBucs)
-    }
-  }, [avdodBucs, _avdodBucs, dispatch])
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
@@ -175,7 +161,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     )
   }
 
-  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && _.isEmpty(avdodBucs) && mode !== 'bucnew') {
+  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
     _setMode('bucnew')
   }
 
@@ -186,21 +172,21 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     >
       <BUCIndexHeader>
         <BUCCrumbs
-          bucs={combinedBucs}
+          bucs={bucs}
           currentBuc={currentBuc}
           mode={mode}
           setMode={_setMode}
         />
         <BUCWebSocket
           fnr={_.get(person, 'aktoer.ident.ident')}
-          avdodfnr={avdodfnr}
+          avdodfnr=''
         />
       </BUCIndexHeader>
       <VerticalSeparatorDiv />
-      {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={combinedBucs} setMode={_setMode} /> : null}
-      {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc} setMode={_setMode} /> : null}
+      {mode === 'buclist' ? <BUCList aktoerId={aktoerId} bucs={bucs!} setMode={_setMode} /> : null}
+      {mode === 'bucedit' ? <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} /> : null}
       {mode === 'bucnew' ? <BUCNew aktoerId={aktoerId} setMode={_setMode} /> : null}
-      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={combinedBucs} currentBuc={currentBuc!} setMode={_setMode} /> : null}
+      {mode === 'sednew' ? <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} /> : null}
     </BUCIndexDiv>
   )
 }

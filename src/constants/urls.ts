@@ -9,7 +9,6 @@ const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
 const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FRONTEND_API_URL + '/eux'
-const PDF_URL = FRONTEND_API_URL + '/pdf'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 
@@ -21,9 +20,6 @@ export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
-
-// SubmitController
-export const API_SUBMISSION_RESUBMIT_URL = API_URL + '/submission/resubmit'
 
 // VarselController
 export const API_VARSEL_URL = API_URL + '/varsel/%(sakId)s/%(aktoerId)s'
@@ -45,6 +41,7 @@ export const PERSON_URL = PER_URL + '/%(aktoerId)s'
 
 // BucController
 export const BUC_GET_BUCS_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
+export const BUC_GET_BUCS_WITH_VEDTAKID_URL = BUC_URL + '/detaljer/%(aktoerId)s/vedtak/%(vedtakId)s'
 export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs/%(sakId)s'
@@ -55,9 +52,6 @@ export const BUC_CREATE_SED_URL = SED_URL + '/add'
 export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(documentId)s'
-
-// PdfController
-export const PDF_GENERATE_URL = PDF_URL + '/generate'
 
 // Login
 export const LOGIN_URL = FRONTEND_API_URL + '/login'

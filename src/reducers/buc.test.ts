@@ -142,29 +142,6 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_SINGLE_BUC_SUCCESS: P_BUC_02', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        avdodBucs: {}
-      }, {
-        type: types.BUC_GET_SINGLE_BUC_SUCCESS,
-        payload: {
-          caseId: '123',
-          type: 'P_BUC_02'
-        }
-      })
-    ).toEqual({
-      ...initialBucState,
-      avdodBucs: {
-        123: {
-          caseId: '123',
-          type: 'P_BUC_02'
-        }
-      }
-    })
-  })
-
   it('BUC_GET_BUCS_SUCCESS with bad payload', () => {
     expect(
       bucReducer(initialBucState, {
@@ -194,7 +171,6 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       bucs: { 123456: mockBuc },
-      avdodBucs: {},
       institutionNames: {
         'NO:NAVAT07': 'NAV ACCEPTANCE TEST 07'
       }
@@ -221,8 +197,7 @@ describe('reducers/buc', () => {
     const mockCaseId = mockBucs()[0].caseId
     const newState = bucReducer({
       ...initialBucState,
-      bucs: _.keyBy(mockBucs(), 'caseId'),
-      avdodBucs: {}
+      bucs: _.keyBy(mockBucs(), 'caseId')
     }, {
       type: types.BUC_GET_PARTICIPANTS_SUCCESS,
       context: {
@@ -239,45 +214,6 @@ describe('reducers/buc', () => {
     expect(newState.bucs![mockCaseId].deltakere).toEqual([
       { country: 'AA', institution: 'ID', name: 'NAME' }
     ])
-  })
-
-  it('BUC_GET_AVDOD_BUCS_SUCCESS with bad payload', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_AVDOD_BUCS_SUCCESS,
-        payload: null
-      })
-    ).toEqual({
-      ...initialBucState
-    })
-  })
-
-  it('BUC_GET_AVDOD_BUCS_SUCCESS', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_AVDOD_BUCS_SUCCESS,
-        payload: [{ caseId: 'mockPayload' }]
-      })
-    ).toEqual({
-      ...initialBucState,
-      avdodBucs: { mockPayload: { caseId: 'mockPayload' } }
-    })
-  })
-
-  it('BUC_GET_AVDOD_BUCS_FAILURE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        avdodBucs: {
-          123: mockBuc
-        }
-      }, {
-        type: types.BUC_GET_AVDOD_BUCS_FAILURE
-      })
-    ).toEqual({
-      ...initialBucState,
-      avdodBucs: null
-    })
   })
 
   it('BUC_GET_BUCSINFO_LIST_SUCCESS', () => {
@@ -818,74 +754,6 @@ describe('reducers/buc', () => {
           datoOpprettet: new Date(2020, 1, 1)
         }]
       }
-    })
-  })
-
-  it('BUC_GET_P4000_LIST_SUCCESS', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_P4000_LIST_SUCCESS,
-        payload: 'something'
-      })
-    ).toEqual({
-      ...initialBucState,
-      p4000list: 'something'
-    })
-  })
-
-  it('BUC_GET_P4000_LIST_FAILURE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        p4000list: ['something']
-      }, {
-        type: types.BUC_GET_P4000_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialBucState,
-      p4000list: null
-    })
-  })
-
-  it('BUC_GET_P4000_INFO_SUCCESS', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_P4000_INFO_SUCCESS,
-        payload: 'something'
-      })
-    ).toEqual({
-      ...initialBucState,
-      p4000info: 'something'
-    })
-  })
-
-  it('BUC_P4000_INFO_SET', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_P4000_INFO_SET,
-        payload: 'something'
-      })
-    ).toEqual({
-      ...initialBucState,
-      p4000info: 'something'
-    })
-  })
-
-  it('BUC_GET_P4000_INFO_FAILURE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        p4000info: {
-          person: {},
-          bank: {},
-          stayAbroad: []
-        }
-      }, {
-        type: types.BUC_GET_P4000_INFO_FAILURE
-      })
-    ).toEqual({
-      ...initialBucState,
-      p4000info: null
     })
   })
 

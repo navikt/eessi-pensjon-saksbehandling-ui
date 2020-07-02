@@ -2,7 +2,7 @@ import {
   createReplySed,
   createSed,
   fetchBucs,
-  fetchBucsInfo,
+  fetchBucsInfo, fetchBucsWithVedtakId,
   getCountryList,
   getSedList,
   resetSed,
@@ -43,36 +43,34 @@ import Step2 from './Step2'
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 
 export interface SEDStartProps {
-  aktoerId?: string;
-  bucs: Bucs;
-  currentBuc: string;
-  initialAttachments ?: AttachedFiles;
-  initialSed ?: string | undefined;
-  initialStep ?: number;
-  setMode: (s: string) => void;
+  aktoerId?: string
+  bucs: Bucs
+  currentBuc: string
+  initialAttachments ?: AttachedFiles
+  initialSed ?: string | undefined
+  initialStep ?: number
+  setMode: (s: string) => void
 }
 
 export interface SEDStartSelector {
-  attachments: AttachedFiles;
-  attachmentsError: boolean;
-  avdodfnr: string | undefined;
-  bucsInfoList: Array<string> | undefined;
-  countryList: Array<string> | undefined;
-  currentSed: string | undefined;
-  institutionList: InstitutionListMap<RawInstitution> | undefined;
-  loading: Loading;
-  locale: AllowedLocaleString;
-  sakId?: string;
-  sed: Sed | undefined;
-  sedsWithAttachments: SedsWithAttachmentsMap;
-  sedList: Array<string> | undefined;
-  vedtakId: string | undefined;
+  attachments: AttachedFiles
+  attachmentsError: boolean
+  bucsInfoList: Array<string> | undefined
+  countryList: Array<string> | undefined
+  currentSed: string | undefined
+  institutionList: InstitutionListMap<RawInstitution> | undefined
+  loading: Loading
+  locale: AllowedLocaleString
+  sakId?: string
+  sed: Sed | undefined
+  sedsWithAttachments: SedsWithAttachmentsMap
+  sedList: Array<string> | undefined
+  vedtakId: string | undefined
 }
 
 const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
   attachments: state.buc.attachments,
   attachmentsError: state.buc.attachmentsError,
-  avdodfnr: state.app.params.avdodfnr,
   bucsInfoList: state.buc.bucsInfoList,
   countryList: state.buc.countryList,
   currentSed: state.buc.currentSed,
@@ -84,7 +82,6 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   sedList: state.buc.sedList,
   sedsWithAttachments: state.buc.sedsWithAttachments,
   vedtakId: state.app.params.vedtakId
-
 })
 
 const SEDStartDiv = styled.div`
@@ -105,7 +102,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined, initialStep = 0, setMode
 } : SEDStartProps): JSX.Element | null => {
   const {
-    attachments, attachmentsError, avdodfnr, bucsInfoList, currentSed, countryList,
+    attachments, attachmentsError, bucsInfoList, currentSed, countryList,
     institutionList, loading, locale,
     sakId, sed, sedsWithAttachments, sedList, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
@@ -127,7 +124,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       : []
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
-  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(avdodfnr ? parseInt(avdodfnr, 10) : undefined)
+  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(undefined)
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_institutions, setInstitutions] = useState<Array<string>>(prefill('id'))
   const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
@@ -198,17 +195,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setSed(undefined)
       dispatch(resetSed())
       dispatch(resetSedAttachments())
-      dispatch(fetchBucs(aktoerId))
-      if (_avdodfnr) {
-        dispatch(fetchBucs(_avdodfnr))
-      }
+      dispatch(vedtakId ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
       if (!_.isEmpty(bucsInfoList) &&
         bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
         dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
       }
       setMode('bucedit')
     }
-  }, [aktoerId, attachmentsSent, _avdodfnr, bucsInfoList, dispatch, sedSent, setMode])
+  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, sedSent, setMode, vedtakId])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -301,7 +295,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const createSedNeedsMoreSteps = () => {
-    return false // _sed === 'P4000'
+    return false
   }
 
   const allowedToForward = () => {

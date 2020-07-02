@@ -1,4 +1,4 @@
-import { fetchAvdodBucs, fetchBucParticipants, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
+import { fetchBucParticipants, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
 import { BUCIndex, BUCIndexProps, BUCIndexSelector } from 'applications/BUC/index'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
@@ -18,7 +18,6 @@ jest.mock('nav-frontend-popover', () => ({ children }: any) => (<div className='
 jest.mock('actions/buc', () => ({
   saveBucsInfo: jest.fn(),
   getRinaUrl: jest.fn(),
-  fetchAvdodBucs: jest.fn(),
   fetchBucs: jest.fn(),
   fetchBucParticipants: jest.fn(),
   fetchBucsInfoList: jest.fn(),
@@ -29,19 +28,12 @@ jest.mock('actions/buc', () => ({
 }))
 
 const _mockBucs = _.keyBy(mockBucs(), 'caseId')
-const mockAvdodBucs = {} as any
 Object.keys(_mockBucs).forEach(bucId => {
   delete _mockBucs[bucId].institusjon
-  if (_mockBucs[bucId].type === 'P_BUC_02') {
-    mockAvdodBucs[bucId] = _.cloneDeep(_mockBucs[bucId])
-    delete _mockBucs[bucId]
-  }
 })
 
 const defaultSelector: BUCIndexSelector = {
   aktoerId: '123',
-  avdodfnr: undefined,
-  avdodBucs: mockAvdodBucs,
   bucs: _mockBucs,
   bucsInfo: mockBucsInfo,
   currentBuc: '195440',
@@ -89,30 +81,26 @@ describe('applications/BUC/index', () => {
     expect(getRinaUrl).toHaveBeenCalledWith()
   })
 
-  it('UseEffect: fetchBucs, fetchBucsInfo, fetchAvdodBucs', () => {
+  it('UseEffect: fetchBucs, fetchBucsInfo', () => {
     (fetchBucs as jest.Mock).mockReset();
-    (fetchBucsInfoList as jest.Mock).mockReset();
-    (fetchAvdodBucs as jest.Mock).mockReset()
+    (fetchBucsInfoList as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      avdodfnr: '567',
       sakId: '123',
       aktoerId: '123',
       bucs: undefined,
-      mode: 'xxx',
-      avdodBucs: undefined
+      mode: 'xxx'
     })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(fetchBucs).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
-    expect(fetchAvdodBucs).toHaveBeenCalled()
   })
 
-  it('UseEffect: when getting bucs/avdodBucs list, get participants', () => {
+  it('UseEffect: when getting bucs list, get participants', () => {
     (fetchBucParticipants as jest.Mock).mockReset()
     stageSelector(defaultSelector, {})
     wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
     // -1 as there is one ErrorBuc in mockBucs
-    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs()).length - 1 + Object.keys(mockAvdodBucs).length - 1)
+    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs()).length - 1)
   })
 
   it('UseEffect: when getting BUCs, set mode to buclist', () => {

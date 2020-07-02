@@ -214,30 +214,6 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_P4000_LIST_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_GET_P4000_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-getP4000ListFailure'
-    })
-  })
-
-  it('BUC_GET_P4000_INFO_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_GET_P4000_INFO_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-getP4000InfoFailure'
-    })
-  })
-
   it('JOARK_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {

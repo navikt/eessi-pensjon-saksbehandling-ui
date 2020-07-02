@@ -88,18 +88,6 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_BUCS_FAILURE, 'gettingBUCs')
   })
 
-  it('BUC_GET_AVDOD_BUCS_REQUEST', () => {
-    simulateRequest(types.BUC_GET_AVDOD_BUCS_REQUEST, 'gettingAvdodBUCs')
-  })
-
-  it('BUC_GET_AVDOD_BUCS_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_AVDOD_BUCS_SUCCESS, 'gettingAvdodBUCs')
-  })
-
-  it('BUC_GET_AVDOD_BUCS_FAILURE', () => {
-    simulateFailure(types.BUC_GET_AVDOD_BUCS_FAILURE, 'gettingAvdodBUCs')
-  })
-
   it('BUC_GET_BUCSINFO_REQUEST', () => {
     simulateRequest(types.BUC_GET_BUCSINFO_REQUEST, 'gettingBUCinfo')
   })
@@ -218,30 +206,6 @@ describe('reducers/loading', () => {
 
   it('BUC_RINA_GET_URL_FAILURE', () => {
     simulateFailure(types.BUC_RINA_GET_URL_FAILURE, 'rinaUrl')
-  })
-
-  it('BUC_GET_P4000_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_P4000_LIST_REQUEST, 'loadingP4000list')
-  })
-
-  it('BUC_GET_P4000_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_P4000_LIST_SUCCESS, 'loadingP4000list')
-  })
-
-  it('BUC_GET_P4000_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_P4000_LIST_FAILURE, 'loadingP4000list')
-  })
-
-  it('BUC_GET_P4000_INFO_REQUEST', () => {
-    simulateRequest(types.BUC_GET_P4000_INFO_REQUEST, 'loadingP4000info')
-  })
-
-  it('BUC_GET_P4000_INFO_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_P4000_INFO_SUCCESS, 'loadingP4000info')
-  })
-
-  it('BUC_GET_P4000_INFO_FAILURE', () => {
-    simulateFailure(types.BUC_GET_P4000_INFO_FAILURE, 'loadingP4000info')
   })
 
   it('JOARK_LIST_REQUEST', () => {

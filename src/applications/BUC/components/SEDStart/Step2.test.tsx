@@ -31,7 +31,4 @@ describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.mock-sedp4000')).toBeTruthy()
-  })
 })

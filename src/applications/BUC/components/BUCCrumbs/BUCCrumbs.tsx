@@ -12,7 +12,7 @@ import Chevron from 'nav-frontend-chevron'
 import styled from 'styled-components'
 
 export interface BUCCrumbsProps {
-  bucs: Bucs
+  bucs?: Bucs
   className?: string
   currentBuc: string | undefined
   mode: BUCMode
@@ -83,7 +83,7 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   if (mode === 'bucedit' || mode === 'sednew') {
     if (currentBuc !== undefined) {
       buccrumbs.push({
-        label: t(`buc:buc-${bucs[currentBuc].type}`),
+        label: t(`buc:buc-${bucs ? bucs[currentBuc].type : ''}`),
         func: goToEdit
       })
     }

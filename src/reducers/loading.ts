@@ -13,7 +13,6 @@ export const initialLoadingState: LoadingState = {
   generatingPDF: false,
   gettingBUCs: false,
   gettingBucDeltakere: false,
-  gettingAvdodBUCs: false,
   gettingBucList: false,
   gettingBUCinfo: false,
   gettingCountryList: false,
@@ -29,8 +28,6 @@ export const initialLoadingState: LoadingState = {
   isSendingPinfo: false,
   loadingJoarkList: false,
   loadingJoarkPreviewFile: false,
-  loadingP4000list: false,
-  loadingP4000info: false,
   loadingStorageFile: false,
   loadingStorageFileList: false,
   rinaUrl: false,
@@ -110,20 +107,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingBUCs: false
-      }
-
-    case types.BUC_GET_AVDOD_BUCS_REQUEST:
-
-      return {
-        ...state,
-        gettingAvdodBUCs: true
-      }
-
-    case types.BUC_GET_AVDOD_BUCS_SUCCESS:
-    case types.BUC_GET_AVDOD_BUCS_FAILURE:
-      return {
-        ...state,
-        gettingAvdodBUCs: false
       }
 
     case types.BUC_GET_PARTICIPANTS_REQUEST:
@@ -291,35 +274,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         rinaUrl: false
       }
 
-    case types.BUC_GET_P4000_LIST_REQUEST:
-
-      return {
-        ...state,
-        loadingP4000list: true
-      }
-
-    case types.BUC_GET_P4000_LIST_SUCCESS:
-    case types.BUC_GET_P4000_LIST_FAILURE:
-
-      return {
-        ...state,
-        loadingP4000list: false
-      }
-
-    case types.BUC_GET_P4000_INFO_REQUEST:
-
-      return {
-        ...state,
-        loadingP4000info: true
-      }
-
-    case types.BUC_GET_P4000_INFO_SUCCESS:
-    case types.BUC_GET_P4000_INFO_FAILURE:
-
-      return {
-        ...state,
-        loadingP4000info: false
-      }
       // JOARK
 
     case types.JOARK_LIST_REQUEST:
