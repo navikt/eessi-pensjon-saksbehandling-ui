@@ -1,0 +1,190 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.16.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - eessi-pensjon-ui > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > forhandsvisningsfil > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > land-verktoy > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > react-resize-detector > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > paginering > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > react-color > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > forhandsvisningsfil > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > land-verktoy > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > land-verktoy > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > react-resize-detector > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > paginering > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > react-color > reactcss > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > forhandsvisningsfil > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > paginering > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > forhandsvisningsfil > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > paginering > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > land-verktoy > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > forhandsvisningsfil > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > paginering > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > forhandsvisningsfil > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > paginering > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > forhandsvisningsfil > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > paginering > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > forhandsvisningsfil > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > paginering > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > forhandsvisningsfil > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > paginering > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > react-select > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > forhandsvisningsfil > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > paginering > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > forhandsvisningsfil > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > paginering > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > react-select > @emotion/core > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > react-select > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > react-select > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > forhandsvisningsfil > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > paginering > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > forhandsvisningsfil > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > flagg-ikoner > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > nav-dashboard > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > paginering > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > fremdriftslinje > react-select > @emotion/core > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > react-select > @emotion/core > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > filopplasting > forhandsvisningsfil > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > landvelger > flagg-ikoner > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
+    - eessi-pensjon-ui > tabell > paginering > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-03T13:58:06.140Z'
