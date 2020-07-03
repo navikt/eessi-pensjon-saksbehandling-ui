@@ -34,6 +34,8 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   const { t } = useTranslation()
 
   const goToHome = useCallback((e) => {
+    e.preventDefault()
+    e.stopPropagation()
     dispatch(resetSed())
     dispatch(resetBuc())
     linkLogger(e, { mode: 'buclist' })
@@ -41,17 +43,23 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
   }, [dispatch, setMode])
 
   const goToEdit = useCallback((e) => {
+    e.preventDefault()
+    e.stopPropagation()
     dispatch(resetSed())
     linkLogger(e, { mode: 'bucedit' })
     setMode('bucedit')
   }, [dispatch, setMode])
 
   const goToNewBUC = useCallback((e) => {
+    e.preventDefault()
+    e.stopPropagation()
     linkLogger(e, { mode: 'bucnew' })
     setMode('bucnew')
   }, [setMode])
 
   const goToNewSED = useCallback((e) => {
+    e.preventDefault()
+    e.stopPropagation()
     linkLogger(e, { mode: 'sednew' })
     setMode('sednew')
   }, [setMode])
