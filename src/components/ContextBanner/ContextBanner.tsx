@@ -1,6 +1,7 @@
 import ExternalLink from 'assets/icons/line-version-logout'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
+import { FeatureToggles } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
 import Lenke from 'nav-frontend-lenker'
 import { EtikettLiten } from 'nav-frontend-typografi'
@@ -60,13 +61,15 @@ interface ContextBannerSelector {
   kravId?: string;
   sakType?: string;
   vedtakId?: string;
+  featureToggles: FeatureToggles
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
   aktoerId: state.app.params.aktoerId,
   kravId: state.app.params.kravId,
   sakType: state.app.params.sakType,
-  vedtakId: state.app.params.vedtakId
+  vedtakId: state.app.params.vedtakId,
+  featureToggles: state.app.featureToggles
 })
 
 const ContextBanner: React.FC<ContextBannerProps> = ({
@@ -75,17 +78,20 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 
   const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
   const { t } = useTranslation()
-  const { vedtakId, aktoerId, kravId, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
+  const { featureToggles, vedtakId, aktoerId, kravId, sakType }: ContextBannerSelector =
+    useSelector<State, ContextBannerSelector>(mapState)
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <Content>
-        <Context>
-          {aktoerId && <Tag><strong>aktoerId</strong>: {aktoerId}</Tag>}
-          {kravId && <Tag><strong>kravId</strong>: {kravId}</Tag>}
-          {sakType && <Tag><strong>sakType</strong>: {sakType}</Tag>}
-          {vedtakId && <Tag><strong>vedtakId</strong>: {vedtakId}</Tag>}
-        </Context>
+        {featureToggles.v2_ENABLED ? (
+          <Context>
+            {aktoerId && <Tag><strong>aktoerId</strong>: {aktoerId}</Tag>}
+            {kravId && <Tag><strong>kravId</strong>: {kravId}</Tag>}
+            {sakType && <Tag><strong>sakType</strong>: {sakType}</Tag>}
+            {vedtakId && <Tag><strong>vedtakId</strong>: {vedtakId}</Tag>}
+          </Context>
+          ) : <div/>}
         <DivWithLinks>
           <Link
             target='_blank'

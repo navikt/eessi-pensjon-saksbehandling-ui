@@ -227,23 +227,22 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 wrapper={false}
               />
             ) : <WaitingPanel message='' size='M' />}
-            {numberOfSeds ? (
+            {numberOfSeds && (
               <NumberOfSedsDiv
                 data-testId='a-buc-c-bucheader__icon-numberofseds'
                 data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
               >
                 {numberOfSeds}
               </NumberOfSedsDiv>
-            ) : null}
-            {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
-              ? (
-                <TagsDiv
-                  data-testId='a-buc-c-bucheader__icon-tags'
-                  data-tip={bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}
-                >
-                  <ProblemCircleIcon size={32} />
-                </TagsDiv>
-              ) : null}
+            )}
+            {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 && (
+              <TagsDiv
+                data-testId='a-buc-c-bucheader__icon-tags'
+                data-tip={bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}
+              >
+                <ProblemCircleIcon size={32} />
+              </TagsDiv>
+            )}
           </IconsDiv>
           <ActionsDiv test-id='a-buc-c-bucheader__actions'>
             <BucEditLink

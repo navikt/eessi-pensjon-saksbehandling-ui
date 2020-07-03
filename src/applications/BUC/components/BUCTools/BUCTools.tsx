@@ -204,8 +204,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         <>
           {featureToggles && featureToggles.P5000_VISIBLE && (
             <P5000Div>
-              <Undertittel className='mb-2'>{t('buc:form-titleP5000')}</Undertittel>
-              {modal ? <Modal modal={modal} onModalClose={onModalClose} /> : null}
+              <Undertittel>
+                {t('buc:form-titleP5000')}
+              </Undertittel>
+              <VerticalSeparatorDiv data-size='0.5'/>
+              {modal && <Modal modal={modal} onModalClose={onModalClose} />}
               <Knapp
                 data-amplitude='buc.edit.tools.P5000.view'
                 id='a-buc-c-buctools__p5000-button-id'

@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { Person } from 'declarations/types'
 import _ from 'lodash'
 import EtikettBase from 'nav-frontend-etiketter'
-import Knapp, { Hovedknapp } from 'nav-frontend-knapper'
+import Knapp from 'nav-frontend-knapper'
 import Lukknapp from 'nav-frontend-lukknapp'
 import { Input, Select } from 'nav-frontend-skjema'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -196,12 +196,6 @@ const Footer: React.FC<FooterProps> = ({
               fnr={_.get(person, 'aktoer.ident.ident')}
               avdodfnr=''
             />
-            <Hovedknapp
-              onClick={() => {
-              (footerOpen as any)!.f.f = 2
-              }}
-            >Do Not Click
-            </Hovedknapp>
           </ParamsDiv>
         )}
       </FooterDiv>

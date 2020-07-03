@@ -144,7 +144,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         />
         <Dashboard
           id='eessi-pensjon-ui-fss'
-          configurable={false}
+          configurable={true}
           extraWidgets={extraWidgets}
           defaultWidgets={username === 'Z990706' ? defaultWidgetsWithVarsel : defaultWidgets}
           defaultLayouts={username === 'Z990706' ? defaultLayoutsWithVarsel : defaultLayouts}

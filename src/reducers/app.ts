@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { FeatureToggles, Params, Person } from 'declarations/types'
+import { Feature, FeatureToggles, Params, Person } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
@@ -15,10 +15,11 @@ export interface AppState {
   featureToggles: FeatureToggles;
 }
 
-const initialFeatureToggles = {
+const initialFeatureToggles: FeatureToggles = {
   P5000_VISIBLE: true,
   P_BUC_02_VISIBLE: true,
-  SED_PREFILL_INSTITUTIONS: false
+  SED_PREFILL_INSTITUTIONS: false,
+  v2_ENABLED: false
 }
 
 export const initialAppState: AppState = {
@@ -34,16 +35,20 @@ export const initialAppState: AppState = {
 }
 
 const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
-  let newParams
+  let newParams, newFeatureToggles
   switch (action.type) {
     case types.APP_PARAM_SET:
-
       newParams = _.cloneDeep(state.params)
-      newParams[action.payload.key] = action.payload.value
-
+      newFeatureToggles = _.cloneDeep(state.featureToggles)
+      if (action.payload.key.startsWith('ft.')) {
+        newFeatureToggles[action.payload.key.replace('ft.', '') as Feature] = (action.payload.value === 'true')
+      } else {
+        newParams[action.payload.key] = action.payload.value
+      }
       return {
         ...state,
-        params: newParams
+        params: newParams,
+        featureToggles: newFeatureToggles
       }
 
     case types.APP_PARAM_UNSET:
