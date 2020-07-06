@@ -1,7 +1,7 @@
 import ExternalLink from 'assets/icons/line-version-logout'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
-import { FeatureToggles } from 'declarations/types'
+import { FeatureToggles, PesysContext } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
 import Lenke from 'nav-frontend-lenker'
 import { EtikettLiten } from 'nav-frontend-typografi'
@@ -57,18 +57,12 @@ const Tag = styled(EtikettLiten)`
 `
 
 interface ContextBannerSelector {
-  aktoerId?: string;
-  kravId?: string;
-  sakType?: string;
-  vedtakId?: string;
+  pesysContext?: PesysContext;
   featureToggles: FeatureToggles
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
-  aktoerId: state.app.params.aktoerId,
-  kravId: state.app.params.kravId,
-  sakType: state.app.params.sakType,
-  vedtakId: state.app.params.vedtakId,
+  pesysContext: state.app.pesysContext,
   featureToggles: state.app.featureToggles
 })
 
@@ -78,7 +72,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 
   const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
   const { t } = useTranslation()
-  const { featureToggles, vedtakId, aktoerId, kravId, sakType }: ContextBannerSelector =
+  const { featureToggles, pesysContext }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
 
   return (
@@ -86,10 +80,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
       <Content>
         {featureToggles.v2_ENABLED ? (
           <Context>
-            {aktoerId && <Tag><strong>aktoerId</strong>: {aktoerId}</Tag>}
-            {kravId && <Tag><strong>kravId</strong>: {kravId}</Tag>}
-            {sakType && <Tag><strong>sakType</strong>: {sakType}</Tag>}
-            {vedtakId && <Tag><strong>vedtakId</strong>: {vedtakId}</Tag>}
+            <Tag><strong>{pesysContext}</strong></Tag>
           </Context>
           ) : <div/>}
         <DivWithLinks>

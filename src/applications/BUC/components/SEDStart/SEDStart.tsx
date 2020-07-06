@@ -30,7 +30,7 @@ import {
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading, Validation } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, Validation } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -62,6 +62,7 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
+  pesysContext: PesysContext
   sakId?: string
   sed: Sed | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
@@ -79,6 +80,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
+  pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   sed: state.buc.sed,
   sedList: state.buc.sedList,
@@ -105,7 +107,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachments, attachmentsError, bucsInfoList, currentSed, countryList,
-    featureToggles, institutionList, loading, locale,
+    featureToggles, institutionList, loading, locale, pesysContext,
     sakId, sed, sedsWithAttachments, sedList, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -199,7 +201,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setSed(undefined)
       dispatch(resetSed())
       dispatch(resetSedAttachments())
-      dispatch(vedtakId ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
+      dispatch(pesysContext === 'vedtakskontekst' ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
       if (!_.isEmpty(bucsInfoList) &&
         bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
         dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))

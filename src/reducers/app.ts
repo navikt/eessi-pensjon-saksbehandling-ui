@@ -7,6 +7,7 @@ export interface AppState {
   loggedIn: boolean | undefined;
   loggedTime: Date | undefined;
   allowed: boolean;
+  pesysContext: PesysContext;
   expirationTime: Date | undefined;
   username: string | undefined
   userRole: string | undefined,
@@ -45,10 +46,20 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       } else {
         newParams[action.payload.key] = action.payload.value
       }
+
+      let newContext = 'brukeroversikt'
+      if (newParams.kravId) {
+        newContext = 'kravkontekst'
+      }
+      if (newParams.vedtakId) {
+        newContext = 'vedtakskontekst'
+      }
+
       return {
         ...state,
         params: newParams,
-        featureToggles: newFeatureToggles
+        featureToggles: newFeatureToggles,
+        pesysContext: newContext
       }
 
     case types.APP_PARAM_UNSET:

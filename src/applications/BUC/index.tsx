@@ -15,7 +15,7 @@ import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, Loading, PesysContext, RinaUrl } from 'declarations/types'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -40,6 +40,7 @@ export interface BUCIndexSelector {
   loading: Loading
   locale: AllowedLocaleString
   mode: BUCMode
+  pesysContext: PesysContext
   rinaUrl: RinaUrl | undefined
   sakId: string | undefined
   sakType: string | undefined
@@ -54,6 +55,7 @@ const mapState = (state: State): BUCIndexSelector => ({
   loading: state.loading,
   locale: state.ui.locale,
   mode: state.buc.mode,
+  pesysContext: state.app.pesysContext,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType,
@@ -65,7 +67,7 @@ const BUCIndexDiv = styled.div``
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, currentBuc, loading, mode, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, currentBuc, loading, mode, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
@@ -92,7 +94,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
-      dispatch(vedtakId ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
+      dispatch(pesysContext === 'vedtakskontekst' ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
   }, [aktoerId, bucs, dispatch, loading.gettingBUCs, sakId, vedtakId])

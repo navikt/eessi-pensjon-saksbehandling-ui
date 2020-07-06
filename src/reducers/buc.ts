@@ -260,6 +260,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       if (_.get((action as ActionWithPayload), 'context.feature.P_BUC_02_VISIBLE') === false) {
         excludedBucs.push('P_BUC_02')
       }
+      if ((action as ActionWithPayload).context && (action as ActionWithPayload).context.pesysContext !== 'vedtakskontekst') {
+        excludedBucs.push('P_BUC_02')
+      }
       return {
         ...state,
         bucList: _.difference((action as ActionWithPayload).payload, excludedBucs)

@@ -15,7 +15,7 @@ import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledC
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading, Option, Validation } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext, Validation } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -44,6 +44,7 @@ export interface BUCStartSelector {
   highContrast: boolean
   locale: AllowedLocaleString
   loading: Loading
+  pesysContext: PesysContext
   sakId: string
   subjectAreaList?: Array<string> | undefined
   tagList?: Array<string> | undefined
@@ -59,6 +60,7 @@ const mapState = (state: State): BUCStartSelector => ({
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
+  pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   subjectAreaList: state.buc.subjectAreaList,
   tagList: state.buc.tagList
@@ -121,7 +123,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucs, bucParam, bucsInfo, bucList, currentBuc, featureToggles,
-    highContrast, locale, loading, sakId, subjectAreaList, tagList
+    highContrast, locale, loading, pesysContext, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
@@ -140,7 +142,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       dispatch(getSubjectAreaList())
     }
     if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId, featureToggles))
+      dispatch(getBucList(sakId, featureToggles, pesysContext))
     }
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
