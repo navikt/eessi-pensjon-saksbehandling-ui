@@ -174,6 +174,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           setMode={setMode}
         />
         <Knapp
+          disabled={buc.readOnly === true}
           data-amplitude='buc.edit.newsed'
           data-testId='a-buc-p-bucedit__new-sed-button-id'
           onClick={(e: React.MouseEvent) => {

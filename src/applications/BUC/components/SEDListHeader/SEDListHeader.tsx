@@ -198,6 +198,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
             {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
               <Flatknapp
                 mini
+                disabled={buc.readOnly === true}
                 data-amplitude='buc.edit.besvarSed'
                 data-testId='a-buc-c-sedlistheader__actions-answer-button'
                 onClick={(e: React.MouseEvent) => {

@@ -21,7 +21,7 @@
   "alert-saveBucsInfoFailure"     : "Feil ved lagring av BUC informasjon",
   "alert-savedData"               : "Lagret sak",
   "alert-noVedtakId"              : "Bestille P6000: gå til skjermbilde Vedtakshistorikk og klikk på Jordkloden-ikonet på det aktuelle vedtaket",
-
+  "alert-readOnlyBuc"             : "BUC er kun til les",
   "attachments-step0" : "Velg vedlegg",
   "attachments-step1" : "Rediger vedlegg",
   "attachments-step2" : "Bekreft",

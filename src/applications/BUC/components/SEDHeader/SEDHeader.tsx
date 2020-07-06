@@ -195,6 +195,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 mini
                 data-amplitude='buc.list.besvarSed'
                 data-testId='a-buc-c-sedheader__actions-answer-button'
+                disabled={buc.readOnly === true}
                 onClick={(e: React.MouseEvent) => {
                   buttonLogger(e)
                   onSEDNew(buc, sed)

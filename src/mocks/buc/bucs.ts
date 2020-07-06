@@ -3,6 +3,7 @@ import _ from 'lodash'
 const mockBuc = [
   {
     type: 'P_BUC_01',
+    readOnly: false,
     caseId: '600891',
     creator: {
       country: 'NO',
@@ -1253,6 +1254,7 @@ const mockBuc = [
   },
   {
     type: 'P_BUC_02',
+    readOnly: false,
     creator: {
       country: 'NO',
       institution: 'NO:NAVAT07',
@@ -2307,6 +2309,7 @@ const mockBuc = [
   },
   {
     type: 'P_BUC_03',
+    readOnly: true,
     creator: {
       country: 'NO',
       institution: 'NO:DEMO002',
@@ -3499,6 +3502,7 @@ const mockBuc = [
   },
   {
     type: 'P_BUC_06',
+    readOnly: false,
     creator: {
       country: 'NO',
       institution: 'NO:DEMO002',
@@ -3587,6 +3591,7 @@ const mockBuc = [
   },
   {
     type: 'X_BUC_XX',
+    readOnly: false,
     caseId: '362453',
     description: 'This BUC should not be shown as it is not in the list of allowed bucs',
     creator: {
@@ -3603,6 +3608,7 @@ const mockBuc = [
   },
   {
     type: '',
+    readOnly: true,
     caseId: '',
     creator: null,
     sakType: null,

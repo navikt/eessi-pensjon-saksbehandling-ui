@@ -8,6 +8,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
+import AlertStripe from 'nav-frontend-alertstriper'
 import Lenke from 'nav-frontend-lenker'
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -102,6 +103,11 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
         }
       >
         <>
+          {buc.readOnly && (
+            <AlertStripe type='advarsel'>
+              {t('buc:alert-readOnlyBuc')}
+            </AlertStripe>
+          )}
           <Properties>
             <Dt className='odd'>
               <Element>

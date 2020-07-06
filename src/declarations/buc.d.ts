@@ -94,6 +94,7 @@ export type Institutions = Array<Institution>
 
 export interface ErrorBuc {
   caseId: string | null;
+  readOnly ?: any;
   creator: null;
   error: string;
   institusjon: null | undefined;
@@ -108,6 +109,7 @@ export interface ErrorBuc {
 
 export interface ValidBuc {
   aktoerId?: string | null;
+  readOnly?: boolean;
   caseId: string;
   creator: Institution;
   description?: string | null | undefined;
