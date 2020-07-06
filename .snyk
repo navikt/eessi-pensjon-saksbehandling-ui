@@ -1,0 +1,66 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.16.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - land-verktoy > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > land-verktoy > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > land-verktoy > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > styled-components > @babel/traverse > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > styled-components > babel-plugin-styled-components > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > styled-components > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - react-select > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > styled-components > babel-plugin-styled-components > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - react-select > @emotion/core > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > react-select > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > react-select > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > styled-components > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - fremdriftslinje > react-select > @emotion/core > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > react-select > @emotion/core > @emotion/css > babel-plugin-emotion > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
+    - landvelger > flagg-ikoner > styled-components > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-06T07:51:05.854Z'
