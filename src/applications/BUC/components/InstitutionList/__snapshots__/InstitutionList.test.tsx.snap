@@ -30,7 +30,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
             className="mr-2"
             country="NO"
             label="Norge"
-            size="M"
+            size="S"
             type="circle"
           >
             <wt
@@ -461,14 +461,14 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                   showAction={Array []}
                 >
                   <styled.div
-                    className="mr-2 size-M type-circle"
+                    className="mr-2 size-S type-circle"
                     key="trigger"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
                     style={Object {}}
                   >
                     <div
-                      className="sc-AxjAm bcMPWx mr-2 size-M type-circle"
+                      className="sc-AxjAm bcMPWx mr-2 size-S type-circle"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       style={Object {}}

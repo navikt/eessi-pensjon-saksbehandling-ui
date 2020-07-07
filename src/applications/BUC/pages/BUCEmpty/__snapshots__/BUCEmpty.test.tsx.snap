@@ -243,11 +243,11 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                 className="skjemaelement"
               >
                 <Label
-                  htmlFor="588002253-21777-6214-17913-5837220464588"
+                  htmlFor="58495341-13379-4861-8101-135470421416513"
                 >
                   <label
                     className="skjemaelement__label"
-                    htmlFor="588002253-21777-6214-17913-5837220464588"
+                    htmlFor="58495341-13379-4861-8101-135470421416513"
                   >
                     ui:aktoerId
                   </label>
@@ -256,7 +256,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                   aria-invalid={false}
                   className="skjemaelement__input input--fullbredde"
                   data-testId="a-buc-p-bucempty__aktoerid-input-id"
-                  id="588002253-21777-6214-17913-5837220464588"
+                  id="58495341-13379-4861-8101-135470421416513"
                   onChange={[Function]}
                   type="text"
                   value=""
@@ -314,11 +314,11 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                 className="skjemaelement"
               >
                 <Label
-                  htmlFor="163783244-5384-7540-21336-82752600026595"
+                  htmlFor="218309975-20898-18301-7156-15796068016826"
                 >
                   <label
                     className="skjemaelement__label"
-                    htmlFor="163783244-5384-7540-21336-82752600026595"
+                    htmlFor="218309975-20898-18301-7156-15796068016826"
                   >
                     buc:form-caseId
                   </label>
@@ -327,7 +327,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                   aria-invalid={false}
                   className="skjemaelement__input input--fullbredde"
                   data-testId="a-buc-p-bucempty__sakid-input-id"
-                  id="163783244-5384-7540-21336-82752600026595"
+                  id="218309975-20898-18301-7156-15796068016826"
                   onChange={[Function]}
                   type="text"
                   value=""

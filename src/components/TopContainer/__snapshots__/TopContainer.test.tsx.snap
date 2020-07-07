@@ -568,7 +568,7 @@ exports[`components/TopContainer Renders 1`] = `
                                   className="skjemaelement__input"
                                   data-testId="username-select-id"
                                   disabled={false}
-                                  id="195601133-20253-1582-20809-990118663034"
+                                  id="062340915-02326-07499-8204-93780510928148"
                                   onChange={[Function]}
                                   selected="mockUsername"
                                   value="mockUsername"
@@ -900,10 +900,10 @@ exports[`components/TopContainer Renders 1`] = `
                 role="contentinfo"
               >
                 <styled.div
-                  className="contents fullWidth"
+                  className="fullWidth"
                 >
                   <div
-                    className="sc-AxhCb jOhdjM contents fullWidth"
+                    className="sc-AxhCb hAWIOm fullWidth"
                   >
                     <div
                       className="footerButtonClosed"

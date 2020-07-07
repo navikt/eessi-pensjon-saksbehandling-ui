@@ -204,7 +204,7 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
                       aria-invalid={false}
                       className="skjemaelement__input input--fullbredde"
                       data-testId="a-buc-c-sedsearch__query-input-id"
-                      id="190890025-7951-02140-0213-47541231223628"
+                      id="39172596-21098-7531-5228-182681886880"
                       onChange={[Function]}
                       placeholder="buc:form-filterSED"
                       type="text"
@@ -445,7 +445,7 @@ exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
                       >
                         <label
                           className="skjemaelement__label"
-                          htmlFor="720809146-0807-9932-5853-047452026602038"
+                          htmlFor="085958350-12362-2888-17589-2366443853294"
                         />
                         <StateManager
                           animatedComponents={true}

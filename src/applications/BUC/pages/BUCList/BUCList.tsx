@@ -10,8 +10,9 @@ import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
-import { BUCMode } from 'applications/BUC/index'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { LenkepanelBase } from 'nav-frontend-lenkepanel'
+import { BUCMode } from 'applications/BUC/index'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as storage from 'constants/storage'
@@ -28,7 +29,7 @@ import {
 } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -50,6 +51,7 @@ export interface BUCListProps {
 export interface BUCListSelector {
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
+  featureToggles: FeatureToggles
   highContrast: boolean
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
@@ -59,6 +61,7 @@ export interface BUCListSelector {
 const mapState = (state: State): BUCListSelector => ({
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   loading: state.loading,
@@ -91,11 +94,17 @@ const FullWidthDiv = styled.div`
   width: 100%;
   padding: 0rem;
 `
-const BucExpandingPanel = styled(ExpandingPanel)`
+const BucLenkePanel = styled(LenkepanelBase)`
  transform: translateX(-20px);
  opacity: 0;
  animation: ${slideInFromLeft} 0.2s forwards;
+ margin-bottom: 1rem;
+`
+const BucExpandingPanel = styled(ExpandingPanel)`
+ transform: translateX(-20px);
  border: 1px solid ${({ theme }: any) => theme.navGra40};
+ opacity: 0;
+ animation: ${slideInFromLeft} 0.2s forwards;
  margin-bottom: 1rem;
 `
 const Flex4Div = styled.div`
@@ -105,7 +114,7 @@ const Flex3Div = styled.div`
   flex: 3;
 `
 const Flex2Div = styled.div`
-  flex: 2;
+ flex: 2;
 `
 const SEDHeader = styled.div`
   display: flex;
@@ -117,13 +126,12 @@ const BUCList: React.FC<BUCListProps> = ({
   aktoerId, bucs, setMode
 }: BUCListProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
-  const { bucsInfo, bucsInfoList, highContrast, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
+  const { bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-  const [openBucs, setOpenBucs] = useState<{[k: string]: boolean}>({})
 
   useEffect(() => {
     standardLogger('buc.list.entrance')
@@ -153,32 +161,20 @@ const BUCList: React.FC<BUCListProps> = ({
     setMode('sednew')
   }
 
+  const onBucOpen = (bucId: string) => {
+    getSeds(bucId)
+  }
+
   const onBUCEdit = (buc: Buc) => {
     getSeds(buc.caseId!)
     dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit')
   }
 
-  const onBucOpen = (bucId: string) => {
-    getSeds(bucId)
-  }
-
   const getSeds = (bucId: string) => {
     if (_.isNil(bucs[bucId].seds)) {
       dispatch(fetchSingleBuc(bucId))
     }
-  }
-
-  const logPanelClick = (bucId: string) => {
-    const newOpenBucs = _.cloneDeep(openBucs)
-    if (!openBucs[bucId]) {
-      standardLogger('buc.list.buc.panel.open')
-      newOpenBucs[bucId] = true
-    } else {
-      standardLogger('buc.list.buc.panel.close')
-      newOpenBucs[bucId] = false
-    }
-    setOpenBucs(newOpenBucs)
   }
 
   useEffect(() => {
@@ -287,24 +283,33 @@ const BUCList: React.FC<BUCListProps> = ({
               }
               const bucId: string = buc.caseId!
               const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
-              return (
-
-                <BucExpandingPanel
+              return featureToggles.v2_ENABLED === true ? (
+               <BucLenkePanel
+                  href='#'
+                  border
                   data-testId={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
-                  collapseProps={{ id: 'a-buc-p-buclist__buc-' + bucId }}
                   style={{ animationDelay: (0.2 * index) + 's' }}
-                  onClick={() => {
-                    logPanelClick(bucId)
-                    onBucOpen(bucId)
-                  }}
-                  heading={
+                  onClick={() => onBUCEdit(buc)}>
                     <BUCHeader
                       buc={buc}
                       bucInfo={bucInfo}
                       onBUCEdit={onBUCEdit}
                     />
-                  }
+                </BucLenkePanel>
+              ) : (
+                <BucExpandingPanel
+                  data-testId={'a-buc-p-buclist__buc-' + bucId}
+                  key={index}
+                  style={{ animationDelay: (0.2 * index) + 's' }}
+                  onClick={() => onBucOpen(bucId)}
+                  heading={(
+                    <BUCHeader
+                      buc={buc}
+                      bucInfo={bucInfo}
+                      onBUCEdit={onBUCEdit}
+                    />
+                  )}
                 >
                   <>
                     <SEDHeader data-testId='a-buc-p-buclist__seadheader-div-id'>
@@ -315,7 +320,7 @@ const BUCList: React.FC<BUCListProps> = ({
                         <Element>{t('buc:form-status')}</Element>
                       </Flex3Div>
                       <Flex3Div>
-                        <Element>{t('buc:form-senderreceiver')}</Element>
+                       <Element>{t('buc:form-senderreceiver')}</Element>
                       </Flex3Div>
                       <Flex2Div />
                     </SEDHeader>

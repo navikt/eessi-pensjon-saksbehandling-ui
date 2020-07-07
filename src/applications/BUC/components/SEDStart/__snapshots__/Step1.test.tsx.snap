@@ -1143,11 +1143,11 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                   className="skjemaelement"
                 >
                   <Label
-                    htmlFor="2628620426-13715-3017-2428-13841029109043"
+                    htmlFor="157007405-14913-4954-4155-1522775794753"
                   >
                     <label
                       className="skjemaelement__label"
-                      htmlFor="2628620426-13715-3017-2428-13841029109043"
+                      htmlFor="157007405-14913-4954-4155-1522775794753"
                     >
                       buc:form-sed
                     </label>
@@ -1161,7 +1161,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                       className="skjemaelement__input"
                       data-testId="a-buc-c-sedstart__sed-select-id"
                       disabled={false}
-                      id="2628620426-13715-3017-2428-13841029109043"
+                      id="157007405-14913-4954-4155-1522775794753"
                       onChange={[Function]}
                       value="buc:form-chooseSed"
                     >
@@ -1375,7 +1375,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                     >
                       <label
                         className="skjemaelement__label"
-                        htmlFor="019425416-6449-03504-26778-1695350452398"
+                        htmlFor="2638307718-00405-27588-08458-5210989730030"
                       >
                         ui:country
                       </label>
@@ -3794,7 +3794,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                     >
                       <label
                         className="skjemaelement__label"
-                        htmlFor="479828892-5592-28135-24964-8986183322066"
+                        htmlFor="12056415-6424-09905-9770-2284592691442"
                       >
                         ui:institution
                       </label>
