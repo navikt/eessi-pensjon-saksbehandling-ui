@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Select } from 'nav-frontend-skjema'
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 import { Normaltekst } from 'nav-frontend-typografi'
+import ReactSelect from 'react-select'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -123,7 +124,6 @@ const ButtonsDiv = styled.div`
   margin-top: 1rem;
   display: flex;
 `
-
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onBucCreated, onBucCancelled, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
@@ -161,9 +161,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (bucList === undefined && !loading.gettingBucList) {
       dispatch(getBucList(sakId, featureToggles, pesysContext))
     }
-    if (bucList !== undefined && bucList.length > 0 && !loading.gettingBucList && _buc === undefined) {
-      setBuc(bucList[0])
-    }
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
@@ -198,7 +195,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       setHasBucInfoSaved(false)
       onBucCreated()
     }
-  }, [loading, currentBuc, hasBucInfoSaved, setMode])
+  }, [loading, currentBuc, hasBucInfoSaved, onBucCreated, setMode])
 
   const validateSubjectArea = (subjectArea: string): boolean => {
     if (!subjectArea || subjectArea === placeholders.subjectArea) {
@@ -258,8 +255,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
     validateSubjectArea(thisSubjectArea)
   }
 
-  const onBucChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const thisBuc: string = e.target.value
+  const onBucChange = (e: any): void => {
+    const thisBuc: string = e.value
     setBuc(thisBuc)
     validateBuc(thisBuc)
   }
@@ -285,6 +282,24 @@ const BUCStart: React.FC<BUCStartProps> = ({
       return <option value={value} key={value}>{getOptionLabel(label)}</option>
     }) : []
   }
+
+  const renderOptionsForReactSelect = (options: Array<Option | string> | undefined, type: string) => {
+    return options ? options.map((el: Option | string) => {
+      let label: string, value: string
+      if (typeof el === 'string') {
+        value = el
+        label = el
+      } else {
+        value = (el.value || el.navn)!
+        label = (el.label || el.navn)!
+      }
+      return {
+        label: getOptionLabel(label),
+        value: value
+      }
+    }) : []
+  }
+
 
   const getOptionLabel = (value: string): string => {
     let label: string = value
@@ -344,21 +359,28 @@ const BUCStart: React.FC<BUCStartProps> = ({
               {renderOptions(subjectAreaList, 'subjectArea')}
             </Select>
             <VerticalSeparatorDiv />
-            <Select
-              id='a-buc-c-bucstart__buc-select-id'
-              className={classNames('a-buc-c-bucstart__buc-select', {
-                grey: !_buc || _buc === placeholders.buc
-              })}
-              aria-describedby='help-buc'
-              bredde='fullbredde'
-              placeholder={placeholders.buc}
-              feil={validation.bucFail ? validation.bucFail : false}
-              label={t('buc:form-buc')}
-              value={_buc || placeholders.buc}
-              onChange={onBucChange}
-            >
-              {bucList && renderOptions(bucList, 'buc')}
-            </Select>
+            <>
+              <label className='skjemaelement__label'>
+                {t('buc:form-buc')}
+              </label>
+              <ReactSelect
+                data-testid='a-buc-c-bucstart__buc-select-id'
+                className={classNames('a-buc-c-bucstart__buc-select', {
+                  grey: !_buc || _buc === placeholders.buc
+                })}
+                isSearchable={true}
+                placeholder={t(placeholders.buc)}
+                onChange={(e: any) => onBucChange(e)}
+                options={renderOptionsForReactSelect(bucList, 'buc')}
+                styles={{
+                  control: (styles: any) => ({
+                    ...styles,
+                    borderColor: '1px solid ' + theme.navGra60
+                  })
+                }}
+              />
+              {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
+            </>
           </LeftContentDiv>
           <RightContentDiv>
             <VerticalSeparatorDiv data-size='2' />
