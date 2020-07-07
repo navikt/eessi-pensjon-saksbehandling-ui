@@ -5,10 +5,11 @@ exports[`components/WaitingPanel Renders 1`] = `
   message=""
 >
   <styled.div
+    className=""
     style={Object {}}
   >
     <div
-      className="sc-AxiKw KBFsN"
+      className="sc-AxiKw cfsNNJ"
       style={Object {}}
     >
       <NavFrontendSpinner

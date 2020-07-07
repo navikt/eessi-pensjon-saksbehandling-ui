@@ -83,12 +83,12 @@ exports[`components/Modal Renders 1`] = `
                         mockModalTitle
                       </h2>
                       <div
-                        class="sc-AxhCb eKClpE"
+                        class="sc-AxhCb bLPoto"
                       >
                         mockModalText
                       </div>
                       <div
-                        class="sc-AxhUy gKsWfU"
+                        class="sc-AxhUy fNfuCs"
                       >
                         <button
                           class="knapp sc-AxgMl jjlIhM knapp--hoved"
@@ -218,14 +218,14 @@ exports[`components/Modal Renders 1`] = `
                     </Styled(Undertittel)>
                     <styled.div>
                       <div
-                        className="sc-AxhCb eKClpE"
+                        className="sc-AxhCb bLPoto"
                       >
                         mockModalText
                       </div>
                     </styled.div>
                     <styled.div>
                       <div
-                        className="sc-AxhUy gKsWfU"
+                        className="sc-AxhUy fNfuCs"
                       >
                         <Styled(Hovedknapp)
                           disabled={false}

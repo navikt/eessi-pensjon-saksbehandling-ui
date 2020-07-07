@@ -35,9 +35,9 @@ exports[`applications/BUC/components/SEDAttachments/SEDAttachments Renders 1`] =
 >
   <styled.div>
     <div
-      className="sc-AxheI kAYqDE"
+      className="sc-AxmLO bXximy"
     >
-      <ut
+      <ct
         columns={
           Array [
             Object {
@@ -406,19 +406,25 @@ exports[`applications/BUC/components/SEDAttachments/SEDAttachments Renders 1`] =
                       </tbody>
                     </table>
                   </styled.table>
-                  <y
-                    highContrast={false}
-                    initialPage={1}
-                    itemsPerPage={10}
-                    numberOfItems={2}
-                    onChange={[Function]}
-                  />
+                  <styled.div>
+                    <div
+                      className="sc-AxheI fzKHgI"
+                    >
+                      <y
+                        highContrast={false}
+                        initialPage={1}
+                        itemsPerPage={10}
+                        numberOfItems={2}
+                        onChange={[Function]}
+                      />
+                    </div>
+                  </styled.div>
                 </div>
               </styled.div>
             </div>
           </styled.div>
         </ThemeProvider>
-      </ut>
+      </ct>
     </div>
   </styled.div>
 </SEDAttachmentsTable>

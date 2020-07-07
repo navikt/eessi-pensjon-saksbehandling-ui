@@ -155,9 +155,7 @@ export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (
     expectedPayload: mockBucList,
     context: {
       featureToggles: featureToggles,
-      context: {
-        pesysContext: pesysContext
-      }
+      pesysContext: pesysContext
     },
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,

@@ -70,6 +70,7 @@
     "dateFormat" : "DD.MM.ÅÅÅÅ",
     "days" : "Dager",
     "deathdate": "Dødsdato",
+    "deceased": "Avdød",
     "delete" : "Slett",
     "deleteAndLeave" : "Slett og lukk",
     "deleted" : "Slettet",

@@ -30,5 +30,4 @@ describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
-
 })

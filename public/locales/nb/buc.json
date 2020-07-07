@@ -15,6 +15,7 @@
   "alert-noBucsInfo"              : "Ingen informasjon om BUC",
   "alert-noBucsInfoList"          : "Ingen informasjon om BUCer",
   "alert-noCountryList"           : "Ingen landliste funnet",
+  "alert-noDeceased"              : "Ingen avdød på vedtak, derfor du kan ikke opprett P_BUC_02",
   "alert-noInstitutionList"       : "Ingen mottagerliste",
   "alert-noSedList"               : "Ingen SED liste",
   "alert-noSubjectAreaList"       : "Ingen fagområde liste",

@@ -34,6 +34,7 @@ exports[`applications/BUC/components/SEDListHeader/SEDListHeader Renders 1`] = `
         },
       ],
       "lastUpdate": 1571818216000,
+      "readOnly": false,
       "sakType": null,
       "seds": Array [
         Object {
@@ -2999,6 +3000,7 @@ exports[`applications/BUC/components/SEDListHeader/SEDListHeader Renders 1`] = `
                   <Flatknapp
                     data-amplitude="buc.edit.besvarSed"
                     data-testId="a-buc-c-sedlistheader__actions-answer-button"
+                    disabled={false}
                     mini={true}
                     onClick={[Function]}
                   >

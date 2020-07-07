@@ -35,6 +35,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
         },
       ],
       "lastUpdate": 1571818216000,
+      "readOnly": false,
       "sakType": null,
       "seds": Array [
         Object {
@@ -1371,18 +1372,18 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
 >
   <styled.div>
     <div
-      className="sc-fznyAO hdDwJr"
+      className="sc-fznZeY fLrtke"
     >
       <Styled(Undertittel)>
         <Undertittel
-          className="sc-fznKkj cVhvrA"
+          className="sc-fzokOt hqHXHb"
         >
           <TypografiBase
-            className="sc-fznKkj cVhvrA"
+            className="sc-fzokOt hqHXHb"
             type="undertittel"
           >
             <h2
-              className="typo-undertittel sc-fznKkj cVhvrA"
+              className="typo-undertittel sc-fzokOt hqHXHb"
             >
               ui:attachments
             </h2>
@@ -1391,7 +1392,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
       </Styled(Undertittel)>
       <styled.div>
         <div
-          className="sc-fznZeY cjAkTU"
+          className="sc-fzqBZW dxQlbG"
         >
           <SEDAttachmentsTable
             attachments={
@@ -1426,9 +1427,9 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
           >
             <styled.div>
               <div
-                className="sc-Axmtr jvWcYL"
+                className="sc-fzozJi gGxgiv"
               >
-                <ut
+                <ct
                   columns={
                     Array [
                       Object {
@@ -1740,19 +1741,25 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                                 </tbody>
                               </table>
                             </styled.table>
-                            <y
-                              highContrast={false}
-                              initialPage={1}
-                              itemsPerPage={10}
-                              numberOfItems={1}
-                              onChange={[Function]}
-                            />
+                            <styled.div>
+                              <div
+                                className="sc-Axmtr evdzQn"
+                              >
+                                <y
+                                  highContrast={false}
+                                  initialPage={1}
+                                  itemsPerPage={10}
+                                  numberOfItems={1}
+                                  onChange={[Function]}
+                                />
+                              </div>
+                            </styled.div>
                           </div>
                         </styled.div>
                       </div>
                     </styled.div>
                   </ThemeProvider>
-                </ut>
+                </ct>
               </div>
             </styled.div>
           </SEDAttachmentsTable>
@@ -1797,7 +1804,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
           data-testId="a-buc-c-sedattachments"
         >
           <div
-            className="sc-fzoLsD fqEnxe"
+            className="sc-fzplWN kfkaqr"
             data-testId="a-buc-c-sedattachments"
           >
             <KnappBase
@@ -1822,7 +1829,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
               >
                 <styled.div>
                   <div
-                    className="sc-fzpans kLztrW"
+                    className="sc-fznyAO buKZiX"
                   >
                     <_default>
                       <svg
@@ -1857,14 +1864,14 @@ exports[`applications/BUC/components/SEDBody/SEDBody Renders 1`] = `
                     </_default>
                     <Styled(Normaltekst)>
                       <Normaltekst
-                        className="sc-fzplWN mjOGP"
+                        className="sc-fznKkj BPJDu"
                       >
                         <TypografiBase
-                          className="sc-fzplWN mjOGP"
+                          className="sc-fznKkj BPJDu"
                           type="normaltekst"
                         >
                           <p
-                            className="typo-normal sc-fzplWN mjOGP"
+                            className="typo-normal sc-fznKkj BPJDu"
                           >
                             ui:addAttachments
                           </p>

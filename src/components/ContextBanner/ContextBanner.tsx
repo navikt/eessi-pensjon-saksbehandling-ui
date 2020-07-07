@@ -69,7 +69,6 @@ const mapState = (state: State): ContextBannerSelector => ({
 const ContextBanner: React.FC<ContextBannerProps> = ({
   highContrast, mode
 }: ContextBannerProps): JSX.Element => {
-
   const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
   const { t } = useTranslation()
   const { featureToggles, pesysContext }: ContextBannerSelector =
@@ -82,7 +81,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           <Context>
             <Tag><strong>{pesysContext}</strong></Tag>
           </Context>
-          ) : <div/>}
+        ) : <div />}
         <DivWithLinks>
           <Link
             target='_blank'
@@ -109,7 +108,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           </Link>
         </DivWithLinks>
       </Content>
-      <Separator/>
+      <Separator />
     </ThemeProvider>
   )
 }

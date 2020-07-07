@@ -408,7 +408,7 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
                       >
                         <styled.div>
                           <div
-                            className="sc-fzpans ieMfoU"
+                            className="sc-fznyAO fLvARN"
                           >
                             <div />
                             <RefreshButton
@@ -486,7 +486,7 @@ exports[`widgets/Varsler/VarslerPanel Renders 1`] = `
                         </styled.div>
                         <styled.div>
                           <div
-                            className="sc-fznyAO dWhTnv"
+                            className="sc-fznZeY jcsAVm"
                           >
                             ui:widget-overview-sendNotification-noMessages
                           </div>

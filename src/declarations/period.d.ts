@@ -99,4 +99,3 @@ export type StayAbroad = Array<Period>
 export interface Person {
 
 }
-

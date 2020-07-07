@@ -3,6 +3,7 @@ import * as urls from 'constants/urls'
 import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
 import { Action, ActionCreator } from 'redux'
 import mockPerson from 'mocks/app/person'
+import mockPersonAvdod from 'mocks/app/personAvdod'
 import mockUser from 'mocks/app/user'
 
 const sprintf = require('sprintf-js').sprintf
@@ -65,6 +66,18 @@ export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (akt
       request: types.APP_PERSONINFO_REQUEST,
       success: types.APP_PERSONINFO_SUCCESS,
       failure: types.APP_PERSONINFO_FAILURE
+    }
+  })
+}
+
+export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string, vedtakId: string): ThunkResult<ActionWithPayload> => {
+  return call({
+    url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
+    expectedPayload: mockPersonAvdod,
+    type: {
+      request: types.APP_PERSONINFO_AVDOD_REQUEST,
+      success: types.APP_PERSONINFO_AVDOD_SUCCESS,
+      failure: types.APP_PERSONINFO_AVDOD_FAILURE
     }
   })
 }

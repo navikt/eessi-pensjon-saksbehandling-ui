@@ -7,11 +7,12 @@ export interface AppState {
   loggedIn: boolean | undefined
   loggedTime: Date | undefined
   allowed: boolean
-  pesysContext: PesysContext
+  pesysContext: PesysContext | undefined
   expirationTime: Date | undefined
   username: string | undefined
   userRole: string | undefined
   person: Person | undefined
+  personAvdod: any
   params: Params
   featureToggles: FeatureToggles
 }
@@ -31,13 +32,14 @@ export const initialAppState: AppState = {
   username: undefined,
   userRole: undefined,
   person: undefined,
+  personAvdod: undefined,
   pesysContext: undefined,
   params: {},
   featureToggles: initialFeatureToggles
 }
 
 const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
-  let newParams, newFeatureToggles
+  let newParams, newFeatureToggles, newContext
   switch (action.type) {
     case types.APP_PARAM_SET:
       newParams = _.cloneDeep(state.params)
@@ -48,7 +50,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         newParams[action.payload.key] = action.payload.value
       }
 
-      let newContext = 'brukeroversikt'
+      newContext = 'brukeroversikt'
       if (newParams.kravId) {
         newContext = 'kravkontekst'
       }
@@ -113,6 +115,13 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       return {
         ...state,
         person: action.payload.person
+      }
+
+    case types.APP_PERSONINFO_AVDOD_SUCCESS:
+
+      return {
+        ...state,
+        personAvdod: action.payload
       }
 
     case types.APP_LOGOUT_SUCCESS: {

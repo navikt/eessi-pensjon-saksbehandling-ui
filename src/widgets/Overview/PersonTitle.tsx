@@ -17,11 +17,14 @@ import styled from 'styled-components'
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
   person?: Person
+  personAvdod: any
 }
 
 const WaitingDiv = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
+  justify-content: center;
 `
 const Title = styled.div`
   display: flex;
@@ -30,7 +33,9 @@ const Title = styled.div`
     filter: grayscale(100%)
   }
 `
-const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: PersonTitleProps): JSX.Element => {
+const PersonTitle: React.FC<PersonTitleProps> = ({
+  gettingPersonInfo, person, personAvdod
+}: PersonTitleProps): JSX.Element => {
   let birthDate: Date | Moment | undefined
   let deathDate: Date | Moment | undefined
   const { t } = useTranslation()
@@ -78,6 +83,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({ gettingPersonInfo, person }: 
       <HorizontalSeparatorDiv />
       <Systemtittel>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
+        {personAvdod !== undefined ? ' - ' + t('ui:deceased') + ': ' + personAvdod.length : ''}
       </Systemtittel>
     </Title>
   )

@@ -18,6 +18,7 @@ import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext, Validation } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
+import AlertStripe from 'nav-frontend-alertstriper'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -44,7 +45,8 @@ export interface BUCStartSelector {
   highContrast: boolean
   locale: AllowedLocaleString
   loading: Loading
-  pesysContext: PesysContext
+  personAvdod: any
+  pesysContext: PesysContext | undefined
   sakId: string
   subjectAreaList?: Array<string> | undefined
   tagList?: Array<string> | undefined
@@ -60,6 +62,7 @@ const mapState = (state: State): BUCStartSelector => ({
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
+  personAvdod: state.app.personAvdod,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   subjectAreaList: state.buc.subjectAreaList,
@@ -123,11 +126,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucs, bucParam, bucsInfo, bucList, currentBuc, featureToggles,
-    highContrast, locale, loading, pesysContext, sakId, subjectAreaList, tagList
+    highContrast, locale, loading, personAvdod, pesysContext, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
+  const [showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
   const [validation, setValidation] = useState<Validation>({
     subjectAreaFail: undefined,
     bucFail: undefined
@@ -136,6 +140,16 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState<boolean>(false)
   const { t } = useTranslation()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (_buc === 'P_BUC_02' && featureToggles?.v2_ENABLED === true && pesysContext === 'vedtakskontekst' && personAvdod && personAvdod.length === 0) {
+      if (!showWarningBuc) {
+        setShowWarningBuc(true)
+      }
+    } else {
+      setShowWarningBuc(false)
+    }
+  }, [_buc, featureToggles, showWarningBuc, pesysContext, personAvdod])
 
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
@@ -311,6 +325,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return _buc !== undefined &&
       _subjectArea !== undefined &&
       hasNoValidationErrors() &&
+      !showWarningBuc &&
       !loading.creatingBUC &&
       !loading.savingBucsInfo
   }
@@ -372,6 +387,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
             </Normaltekst>
           </RightContentDiv>
         </FlexDiv>
+        {showWarningBuc && (
+          <AlertStripe type='advarsel'>
+            <Normaltekst>
+              {t('buc:alert-noDeceased')}
+            </Normaltekst>
+          </AlertStripe>
+        )}
         <ButtonsDiv data-testId='a-buc-c-bucstart__buttons'>
           <Hovedknapp
             data-amplitude='buc.new.create'

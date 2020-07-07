@@ -100,6 +100,20 @@ describe('actions/app', () => {
     }))
   })
 
+  it('getPersonAvdfodInfo()', () => {
+    const mockAktoerId: string = '123'
+    const mockVedtakId: string = '456'
+    appActions.getPersonAvdodInfo(mockAktoerId, mockVedtakId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.APP_PERSONINFO_AVDOD_REQUEST,
+        success: types.APP_PERSONINFO_AVDOD_SUCCESS,
+        failure: types.APP_PERSONINFO_AVDOD_FAILURE
+      },
+      url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
+    }))
+  })
+
   it('clearData()', () => {
     const generatedResult: Action = appActions.clearData()
     expect(generatedResult).toMatchObject({

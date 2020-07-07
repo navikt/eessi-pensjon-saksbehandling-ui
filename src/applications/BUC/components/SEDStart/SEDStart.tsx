@@ -62,7 +62,7 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
-  pesysContext: PesysContext
+  pesysContext: PesysContext | undefined,
   sakId?: string
   sed: Sed | undefined
   sedsWithAttachments: SedsWithAttachmentsMap

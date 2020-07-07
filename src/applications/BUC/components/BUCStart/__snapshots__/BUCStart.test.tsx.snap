@@ -192,11 +192,11 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                   className="skjemaelement"
                 >
                   <Label
-                    htmlFor="002902366-23104-9901-9450-737932827449"
+                    htmlFor="013726346-9231-15269-9002-025832833806445"
                   >
                     <label
                       className="skjemaelement__label"
-                      htmlFor="002902366-23104-9901-9450-737932827449"
+                      htmlFor="013726346-9231-15269-9002-025832833806445"
                     >
                       buc:form-subjectArea
                     </label>
@@ -210,7 +210,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId
                       className="skjemaelement__input"
                       data-testId="a-buc-c-bucstart__subjectarea-select-id"
                       disabled={false}
-                      id="002902366-23104-9901-9450-737932827449"
+                      id="013726346-9231-15269-9002-025832833806445"
                       onChange={[Function]}
                       placeholder="buc:form-chooseSubjectArea"
                       value="Pensjon"

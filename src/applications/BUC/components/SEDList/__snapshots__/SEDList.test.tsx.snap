@@ -34,6 +34,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
         },
       ],
       "lastUpdate": 1571818216000,
+      "readOnly": false,
       "sakType": null,
       "seds": Array [
         Object {
@@ -2536,6 +2537,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -6625,6 +6627,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -8945,6 +8948,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -11265,6 +11269,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -13585,6 +13590,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -15905,6 +15911,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -18312,6 +18319,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -20632,6 +20640,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {
@@ -23046,6 +23055,7 @@ exports[`applications/BUC/components/SEDList/SEDList Renders 1`] = `
               },
             ],
             "lastUpdate": 1571818216000,
+            "readOnly": false,
             "sakType": null,
             "seds": Array [
               Object {

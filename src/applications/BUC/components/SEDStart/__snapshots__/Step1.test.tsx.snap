@@ -42,6 +42,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
         },
       ],
       "lastUpdate": 1571731814000,
+      "readOnly": false,
       "sakType": "",
       "seds": Array [
         Object {
@@ -1101,7 +1102,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
 >
   <styled.div>
     <div
-      className="sc-fzoYkl gROISg"
+      className="sc-fznzOf cozsKk"
     >
       <Systemtittel>
         <TypografiBase
@@ -1117,11 +1118,11 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
       <hr />
       <styled.div>
         <div
-          className="sc-fznMnq kGVXrn"
+          className="sc-fzomME kMtxxl"
         >
           <styled.div>
             <div
-              className="sc-fzoant geRjFl"
+              className="sc-fzqAbL jYVepH"
             >
               <styled.div>
                 <div
@@ -1142,11 +1143,11 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                   className="skjemaelement"
                 >
                   <Label
-                    htmlFor="89881660-4385-3456-3970-25667267259450"
+                    htmlFor="2628620426-13715-3017-2428-13841029109043"
                   >
                     <label
                       className="skjemaelement__label"
-                      htmlFor="89881660-4385-3456-3970-25667267259450"
+                      htmlFor="2628620426-13715-3017-2428-13841029109043"
                     >
                       buc:form-sed
                     </label>
@@ -1160,7 +1161,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                       className="skjemaelement__input"
                       data-testId="a-buc-c-sedstart__sed-select-id"
                       disabled={false}
-                      id="89881660-4385-3456-3970-25667267259450"
+                      id="2628620426-13715-3017-2428-13841029109043"
                       onChange={[Function]}
                       value="buc:form-chooseSed"
                     >
@@ -1370,11 +1371,11 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                     className=""
                   >
                     <div
-                      className="sc-fzoxKX dxuCLk"
+                      className="sc-fzoYkl hgdKrh"
                     >
                       <label
                         className="skjemaelement__label"
-                        htmlFor="044310690-0299-4550-3910-1741214772952"
+                        htmlFor="019425416-6449-03504-26778-1695350452398"
                       >
                         ui:country
                       </label>
@@ -3789,11 +3790,11 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                     className=""
                   >
                     <div
-                      className="sc-fzoxKX dxuCLk"
+                      className="sc-fzoYkl hgdKrh"
                     >
                       <label
                         className="skjemaelement__label"
-                        htmlFor="0764630163-23469-9691-1081-1509733792731"
+                        htmlFor="479828892-5592-28135-24964-8986183322066"
                       >
                         ui:institution
                       </label>
@@ -6124,7 +6125,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
           </styled.div>
           <styled.div>
             <div
-              className="sc-fzoant geRjFl"
+              className="sc-fzqAbL jYVepH"
             >
               <Undertittel
                 className="mb-3"
@@ -6155,7 +6156,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                   data-testId="a-buc-c-sedattachments"
                 >
                   <div
-                    className="sc-fzoXWK cylrVd"
+                    className="sc-fznxKY gfAcsO"
                     data-testId="a-buc-c-sedattachments"
                   >
                     <KnappBase
@@ -6180,7 +6181,7 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                       >
                         <styled.div>
                           <div
-                            className="sc-fzpmMD kGLgCC"
+                            className="sc-fznMAR iKwQaO"
                           >
                             <_default>
                               <svg
@@ -6215,14 +6216,14 @@ exports[`applications/BUC/components/SEDStart/Step1 Renders 1`] = `
                             </_default>
                             <Styled(Normaltekst)>
                               <Normaltekst
-                                className="sc-fznxKY hhzXEG"
+                                className="sc-fznWOq bznDcZ"
                               >
                                 <TypografiBase
-                                  className="sc-fznxKY hhzXEG"
+                                  className="sc-fznWOq bznDcZ"
                                   type="normaltekst"
                                 >
                                   <p
-                                    className="typo-normal sc-fznxKY hhzXEG"
+                                    className="typo-normal sc-fznWOq bznDcZ"
                                   >
                                     ui:addAttachments
                                   </p>

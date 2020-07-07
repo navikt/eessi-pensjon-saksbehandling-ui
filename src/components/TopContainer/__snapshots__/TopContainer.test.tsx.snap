@@ -338,12 +338,12 @@ exports[`components/TopContainer Renders 1`] = `
               role="banner"
             >
               <header
-                className="sc-fzplWN lmWpAy"
+                className="sc-fznyAO bILJPi"
                 role="banner"
               >
                 <styled.div>
                   <div
-                    className="sc-fznKkj cBRLme"
+                    className="sc-fznZeY egeLKi"
                   >
                     <a
                       data-testId="c-topHeader__logo-link"
@@ -432,12 +432,12 @@ exports[`components/TopContainer Renders 1`] = `
                     </a>
                     <styled.div>
                       <div
-                        className="sc-fznyAO dLaxlZ"
+                        className="sc-fznKkj iGzsSY"
                       />
                     </styled.div>
                     <styled.div>
                       <div
-                        className="sc-fznZeY gbJxbS"
+                        className="sc-fzokOt fqHjkV"
                       >
                         <span>
                           app-headerTitle
@@ -452,13 +452,13 @@ exports[`components/TopContainer Renders 1`] = `
                   onClick={[Function]}
                 >
                   <Lenke
-                    className="sc-fzoLag bMAiIf"
+                    className="sc-fzoXzr jgvNDd"
                     href="#highContrast"
                     id="c-topHeader__highcontrast-link-id"
                     onClick={[Function]}
                   >
                     <a
-                      className="lenke sc-fzoLag bMAiIf"
+                      className="lenke sc-fzoXzr jgvNDd"
                       href="#highContrast"
                       id="c-topHeader__highcontrast-link-id"
                       onClick={[Function]}
@@ -469,11 +469,11 @@ exports[`components/TopContainer Renders 1`] = `
                 </Styled(Lenke)>
                 <styled.div>
                   <div
-                    className="sc-fzokOt eEiMah"
+                    className="sc-fzqBZW jSnlVk"
                   >
                     <styled.div>
                       <div
-                        className="sc-fzqBZW hHkHFQ"
+                        className="sc-fzqNJr hQyBox"
                       >
                         <FontAwesomeIcon
                           border={false}
@@ -528,17 +528,17 @@ exports[`components/TopContainer Renders 1`] = `
                     </styled.div>
                     <styled.div>
                       <div
-                        className="sc-fzpans gPGSYr"
+                        className="sc-fzplWN gvgUpe"
                       />
                     </styled.div>
                     <styled.div>
                       <div
-                        className="sc-fznyAO dLaxlZ"
+                        className="sc-fznKkj iGzsSY"
                       />
                     </styled.div>
                     <styled.div>
                       <div
-                        className="sc-fzqNJr fjiYiK"
+                        className="sc-fzoyAV dheuY"
                       >
                         <Styled(Select)
                           data-testId="username-select-id"
@@ -549,7 +549,7 @@ exports[`components/TopContainer Renders 1`] = `
                         >
                           <Select
                             bredde="fullbredde"
-                            className="sc-fzoyAV bMWGgA"
+                            className="sc-fzoLag cpWieM"
                             data-testId="username-select-id"
                             disabled={false}
                             label=""
@@ -558,7 +558,7 @@ exports[`components/TopContainer Renders 1`] = `
                             value="mockUsername"
                           >
                             <div
-                              className="skjemaelement sc-fzoyAV bMWGgA"
+                              className="skjemaelement sc-fzoLag cpWieM"
                             >
                               <div
                                 className="selectContainer input--fullbredde"
@@ -568,7 +568,7 @@ exports[`components/TopContainer Renders 1`] = `
                                   className="skjemaelement__input"
                                   data-testId="username-select-id"
                                   disabled={false}
-                                  id="095404661-10577-8204-08810-6218812428931"
+                                  id="195601133-20253-1582-20809-990118663034"
                                   onChange={[Function]}
                                   selected="mockUsername"
                                   value="mockUsername"
@@ -718,7 +718,7 @@ exports[`components/TopContainer Renders 1`] = `
           role="main"
         >
           <main
-            className="sc-fzolEj iFrcOv"
+            className="sc-fzqBkg htTbTs"
             id="main"
             role="main"
           >
@@ -896,14 +896,14 @@ exports[`components/TopContainer Renders 1`] = `
               role="contentinfo"
             >
               <footer
-                className="sc-AxirZ glrpyk"
+                className="sc-AxiKw dBtXk"
                 role="contentinfo"
               >
                 <styled.div
                   className="contents fullWidth"
                 >
                   <div
-                    className="sc-AxiKw fLiHHY contents fullWidth"
+                    className="sc-AxhCb jOhdjM contents fullWidth"
                   >
                     <div
                       className="footerButtonClosed"

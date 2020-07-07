@@ -207,7 +207,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               <Undertittel>
                 {t('buc:form-titleP5000')}
               </Undertittel>
-              <VerticalSeparatorDiv data-size='0.5'/>
+              <VerticalSeparatorDiv data-size='0.5' />
               {modal && <Modal modal={modal} onModalClose={onModalClose} />}
               <Knapp
                 data-amplitude='buc.edit.tools.P5000.view'

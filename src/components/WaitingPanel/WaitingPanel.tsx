@@ -32,7 +32,7 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
 }: WaitingPanelProps): JSX.Element | null => (
   <WaitingPanelDiv
     style={style}
-    className={classNames({ rowDirection: oneLine })}
+    className={classNames(className, { rowDirection: oneLine })}
   >
     <Spinner type={size} />
     {message && (

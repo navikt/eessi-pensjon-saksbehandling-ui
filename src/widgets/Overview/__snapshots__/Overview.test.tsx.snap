@@ -390,16 +390,17 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                     >
                       <styled.div>
                         <div
-                          className="sc-fzozJi wjHre"
+                          className="sc-fzozJi jUoGSR"
                         >
                           <WaitingPanel
                             message="ui:loading"
                           >
                             <styled.div
+                              className=""
                               style={Object {}}
                             >
                               <div
-                                className="sc-AxmLO exeTSK"
+                                className="sc-AxmLO cvfsMS"
                                 style={Object {}}
                               >
                                 <NavFrontendSpinner
@@ -497,8 +498,8 @@ exports[`widgets/Overview/Overview Renders 1`] = `
                     id="w-overview-id"
                     initialStyle={
                       Object {
-                        "height": "0px",
-                        "overflow": "hidden",
+                        "height": "auto",
+                        "overflow": "initial",
                       }
                     }
                     isOpened={true}

@@ -40,6 +40,7 @@ exports[`applications/BUC/components/SEDStart/AttachmentStep2 Renders 1`] = `
         },
       ],
       "lastUpdate": 1571731814000,
+      "readOnly": false,
       "sakType": "",
       "seds": Array [
         Object {

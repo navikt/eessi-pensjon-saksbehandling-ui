@@ -257,11 +257,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
       excludedBucs = ['P_BUC_05', 'P_BUC_10']
-      if (_.get((action as ActionWithPayload), 'context.feature.P_BUC_02_VISIBLE') === false) {
+      if (_.get((action as ActionWithPayload), 'context.featureToggles.P_BUC_02_VISIBLE') === false) {
         excludedBucs.push('P_BUC_02')
       }
-      if ((action as ActionWithPayload).context && (action as ActionWithPayload).context.pesysContext !== 'vedtakskontekst') {
-        excludedBucs.push('P_BUC_02')
+      if (_.get((action as ActionWithPayload), 'context.featureToggles.v2_ENABLED') === true) {
+        if (_.get((action as ActionWithPayload), 'context.pesysContext') !== 'vedtakskontekst') {
+          excludedBucs.push('P_BUC_02')
+        }
       }
       return {
         ...state,

@@ -40,7 +40,7 @@ export interface BUCIndexSelector {
   loading: Loading
   locale: AllowedLocaleString
   mode: BUCMode
-  pesysContext: PesysContext
+  pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | undefined
   sakType: string | undefined
@@ -165,8 +165,8 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     >
       <VerticalSeparatorDiv />
       {mode === 'buclist' && <BUCList aktoerId={aktoerId} bucs={bucs!} setMode={_setMode} />}
-      {mode === 'bucedit' && <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} /> }
-      {mode === 'bucnew' && <BUCNew aktoerId={aktoerId} setMode={_setMode} /> }
+      {mode === 'bucedit' && <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} />}
+      {mode === 'bucnew' && <BUCNew aktoerId={aktoerId} setMode={_setMode} />}
       {mode === 'sednew' && <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} />}
     </BUCIndexDiv>
   )

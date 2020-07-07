@@ -10,6 +10,7 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
         "error": "Rina serverfeil, kan også skyldes ugyldig input, {\\"status\\":\\"INTERNAL_SERVER_ERROR\\",\\"timestamp\\":\\"23-10-2019 15:48:30\\",\\"messages\\":[\\"500 null\\",\\"{\\\\\\"stack\\\\\\":\\\\\\"\\\\\\",\\\\\\"error_description\\\\\\":\\\\\\"The user with userName:[Z990638] is not authorised\\\\\\",\\\\\\"error\\\\\\":\\\\\\"Cannot get case\\\\\\"}\\"]}",
         "institusjon": null,
         "lastUpdate": null,
+        "readOnly": true,
         "sakType": null,
         "seds": null,
         "startDate": null,
@@ -37,6 +38,7 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
           },
         ],
         "lastUpdate": 1558362934000,
+        "readOnly": true,
         "sakType": "",
         "seds": Array [
           Object {
@@ -1308,6 +1310,7 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
           },
         ],
         "lastUpdate": 1558362934000,
+        "readOnly": false,
         "sakType": "",
         "seds": Array [
           Object {
@@ -1418,6 +1421,7 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
           },
         ],
         "lastUpdate": 1571731814000,
+        "readOnly": false,
         "sakType": "",
         "seds": Array [
           Object {
@@ -2449,6 +2453,7 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
         "description": "This BUC should not be shown as it is not in the list of allowed bucs",
         "institusjon": Array [],
         "lastUpdate": 1571818216000,
+        "readOnly": false,
         "sakType": null,
         "seds": Array [],
         "startDate": 1571818162145,
@@ -2486,6 +2491,7 @@ exports[`applications/BUC/components/BUCCrumbs/BUCCrumbs Renders 1`] = `
           },
         ],
         "lastUpdate": 1571818216000,
+        "readOnly": false,
         "sakType": null,
         "seds": Array [
           Object {

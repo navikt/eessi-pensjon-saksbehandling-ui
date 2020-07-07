@@ -18,6 +18,7 @@ export const initialLoadingState: LoadingState = {
   gettingCountryList: false,
   gettingInstitutionList: false,
   gettingPersonInfo: false,
+  gettingPersonAvdodInfo: false,
   gettingSedList: false,
   gettingSubjectAreaList: false,
   gettingTagList: false,
@@ -71,6 +72,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingPersonInfo: false
+      }
+
+    case types.APP_PERSONINFO_AVDOD_REQUEST:
+
+      return {
+        ...state,
+        gettingPersonAvdodInfo: true
+      }
+
+    case types.APP_PERSONINFO_AVDOD_SUCCESS:
+    case types.APP_PERSONINFO_AVDOD_FAILURE:
+
+      return {
+        ...state,
+        gettingPersonAvdodInfo: false
       }
 
     case types.APP_LOGIN_REQUEST: {

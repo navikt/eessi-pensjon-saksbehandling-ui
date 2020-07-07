@@ -13,6 +13,7 @@ describe('reducers/app', () => {
       })
     ).toEqual({
       ...initialAppState,
+      pesysContext: 'brukeroversikt',
       params: {
         mockKey: 'mockValue'
       }

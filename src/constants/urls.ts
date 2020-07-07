@@ -38,6 +38,7 @@ export const API_JOARK_ATTACHMENT_URL = SAF_URL + '/vedlegg/%(aktoerId)s/%(rinaI
 
 // PersonController
 export const PERSON_URL = PER_URL + '/%(aktoerId)s'
+export const PERSON_AVDOD_URL = PER_URL + '/%(aktoerId)s/vedtakId/%(vedtakId)s'
 
 // BucController
 export const BUC_GET_BUCS_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
