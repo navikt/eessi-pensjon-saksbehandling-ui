@@ -161,6 +161,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (bucList === undefined && !loading.gettingBucList) {
       dispatch(getBucList(sakId, featureToggles, pesysContext))
     }
+    if (bucList !== undefined && bucList.length > 0 && !loading.gettingBucList && _buc === undefined) {
+      setBuc(bucList[0])
+    }
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
@@ -270,19 +273,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const renderOptions = (options: Array<Option | string> | undefined, type: string): JSX.Element[] => {
-    if (!options || Object.keys(options).length === 0) {
-      options = [{
-        value: placeholders[type],
-        label: t(placeholders[type])
-      }]
-    }
-    if (!_.has(options[0], 'value') || (options[0] as Option).value !== placeholders[type]) {
-      options.unshift({
-        value: placeholders[type],
-        label: t(placeholders[type])
-      })
-    }
-
     return options ? options.map((el: Option | string) => {
       let label: string, value: string
       if (typeof el === 'string') {

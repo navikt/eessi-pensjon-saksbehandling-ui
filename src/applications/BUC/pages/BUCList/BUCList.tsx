@@ -314,7 +314,7 @@ const BUCList: React.FC<BUCListProps> = ({
             <BUCStart
               aktoerId={aktoerId} setMode={setMode} onBucCreated={() => {
                 setStartBuc(false)
-              //                setMode('sednew')
+                setMode('sednew')
               }}
               onBucCancelled={() => setStartBuc(false)}
             />
