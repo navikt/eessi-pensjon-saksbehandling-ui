@@ -73,16 +73,17 @@ const TagsDiv = styled.div`
   align-items: center;
 `
 const NumberOfSedsDiv = styled.div`
-  border: 2px solid ${({ theme }): any => theme['main-font-color']};
-  border-radius: 20px;
-  min-width: 32px;
-  min-height: 32px;
-  height: 32px;
+  border: 3px solid ${({ theme }): any => theme['main-font-color']};
+  border-radius: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  height: 50px;
   margin: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  font-size: 1.5rem;
 `
 const RinaLink = styled(Lenke)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
@@ -222,7 +223,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 animate
                 locale={locale}
                 type='circle'
-                size='L'
+                size='XL'
                 items={flagItems}
                 overflowLimit={5}
                 wrapper={false}
@@ -244,7 +245,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
               )}>
                 <TagsDiv data-testId='a-buc-c-bucheader__icon-tags'>
-                  <ProblemCircleIcon width={32} height={32}/>
+                  <ProblemCircleIcon width={50} height={50}/>
                 </TagsDiv>
               </Tooltip>
             )}

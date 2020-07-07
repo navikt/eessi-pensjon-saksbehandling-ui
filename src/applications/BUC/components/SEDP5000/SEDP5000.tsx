@@ -219,7 +219,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
                         <Sender>
                           <Flag
                             type='circle'
-                            size='S'
+                            size='XS'
                             country={sender?.country}
                             label={sender?.countryLabel}
                           />

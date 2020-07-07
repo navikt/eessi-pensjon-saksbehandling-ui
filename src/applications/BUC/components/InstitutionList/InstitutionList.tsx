@@ -87,7 +87,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                     className='mr-2'
                     label={country ? country.label : landkode}
                     country={landkode}
-                    size='M'
+                    size='S'
                     type={flagType}
                   />
                 )}
@@ -102,7 +102,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                   <Flag
                     label={country ? country.label : landkode}
                     country={landkode}
-                    size='M'
+                    size='S'
                     type={flagType}
                   />
                 )}
