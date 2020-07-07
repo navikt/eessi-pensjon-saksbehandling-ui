@@ -1,5 +1,5 @@
 import { fetchBucParticipants, fetchBucs, fetchBucsInfoList, getRinaUrl, setMode } from 'actions/buc'
-import { BUCIndex, BUCIndexProps, BUCIndexSelector } from 'applications/BUC/index'
+import { BUCIndex, BUCIndexProps, BUCIndexSelector, BUCMode } from 'applications/BUC/index'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
@@ -41,7 +41,7 @@ const defaultSelector: BUCIndexSelector = {
     gettingBUCs: false
   },
   locale: 'nb',
-  mode: 'buclist',
+  mode: 'buclist' as BUCMode,
   person: undefined,
   rinaUrl: undefined,
   sakId: '456',

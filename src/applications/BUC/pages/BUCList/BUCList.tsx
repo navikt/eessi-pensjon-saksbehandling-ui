@@ -8,8 +8,10 @@ import {
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
+import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
+import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { BUCMode } from 'applications/BUC/index'
@@ -34,7 +36,8 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import Knapp from 'nav-frontend-knapper'
-import { Element, Normaltekst } from 'nav-frontend-typografi'
+import Panel from 'nav-frontend-paneler'
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -102,7 +105,7 @@ const BucLenkePanel = styled(LenkepanelBase)`
 `
 const BucExpandingPanel = styled(ExpandingPanel)`
  transform: translateX(-20px);
- border: 1px solid ${({ theme }: any) => theme.navGra40};
+ border: 1px solid ${({ theme }: any) => theme.navGra60};
  opacity: 0;
  animation: ${slideInFromLeft} 0.2s forwards;
  margin-bottom: 1rem;
@@ -121,6 +124,46 @@ const SEDHeader = styled.div`
   justify-content: space-between;
   border-bottom: 2px solid ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra40};
 `
+const BUCNewDiv = styled(Panel)`
+  padding: 2rem 5rem 2rem 5rem !important;
+  border: 1px solid ${({ theme }: any) => theme.navGra60};
+  background-color: ${({ theme }: any) => theme['main-background-color']};
+`
+const animationOpen = keyframes`
+  0% {
+    height: 0%;
+    max-height: 0;
+  }
+  100% {
+    max-height:150em;
+    height: 100%;
+  }
+`
+const animationClose = keyframes`
+  0% {
+    max-height: 150em;
+    height: 100%;
+  }
+  100% {
+    max-height: 0;
+    height: 0%;
+  }
+`
+const BUCStartDiv = styled.div`
+  max-height: 0;
+  height: 0%;
+  overflow: hidden;
+  &.close {
+    will-change: max-height, height;
+    max-height: 0;
+    animation: ${animationClose} 400ms ease;
+  }
+  &.open {
+    will-change: max-height, height;
+    max-height: 40em;
+    animation: ${animationOpen} 400ms ease;
+  }
+`
 
 const BUCList: React.FC<BUCListProps> = ({
   aktoerId, bucs, setMode
@@ -130,6 +173,7 @@ const BUCList: React.FC<BUCListProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
+  const [startBuc, setStartBuc] = useState<boolean | undefined>(undefined)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
@@ -152,7 +196,11 @@ const BUCList: React.FC<BUCListProps> = ({
 
   const onBUCNew = (e: React.MouseEvent): void => {
     buttonLogger(e)
-    setMode('bucnew')
+    if (featureToggles.v2_ENABLED === true) {
+      setStartBuc(true)
+    } else {
+      setMode('bucnew')
+    }
   }
 
   const onSEDNew = (buc: Buc, sed: Sed): void => {
@@ -243,16 +291,36 @@ const BUCList: React.FC<BUCListProps> = ({
             mode='buclist'
             setMode={setMode}
           />
-          <Knapp
-            data-amplitude='buc.list.newbuc'
-            id='a-buc-p-buclist__newbuc-button-id'
-            className='a-buc-p-buclist__newbuc-button'
-            onClick={onBUCNew}
-          >
-            {t('buc:form-createNewCase')}
-          </Knapp>
+          {!startBuc && (
+            <Knapp
+              data-amplitude='buc.list.newbuc'
+              id='a-buc-p-buclist__newbuc-button-id'
+              className='a-buc-p-buclist__newbuc-button'
+              onClick={onBUCNew}
+            >
+              {t('buc:form-createNewCase')}
+            </Knapp>
+          )}
         </BUCListHeader>
         <VerticalSeparatorDiv />
+        <BUCStartDiv className={classNames({
+          open: startBuc === true,
+          close: startBuc === false
+        })}
+        >
+          <BUCNewDiv>
+            <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
+            <hr />
+            <BUCStart
+              aktoerId={aktoerId} setMode={setMode} onBucCreated={() => {
+                setStartBuc(false)
+              //                setMode('sednew')
+              }}
+              onBucCancelled={() => setStartBuc(false)}
+            />
+          </BUCNewDiv>
+          <VerticalSeparatorDiv />
+        </BUCStartDiv>
         {loading.gettingBUCs && (
           <>
             <VerticalSeparatorDiv data-size='2' />
@@ -284,18 +352,19 @@ const BUCList: React.FC<BUCListProps> = ({
               const bucId: string = buc.caseId!
               const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
               return featureToggles.v2_ENABLED === true ? (
-               <BucLenkePanel
+                <BucLenkePanel
                   href='#'
                   border
                   data-testId={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
                   style={{ animationDelay: (0.2 * index) + 's' }}
-                  onClick={() => onBUCEdit(buc)}>
-                    <BUCHeader
-                      buc={buc}
-                      bucInfo={bucInfo}
-                      onBUCEdit={onBUCEdit}
-                    />
+                  onClick={() => onBUCEdit(buc)}
+                >
+                  <BUCHeader
+                    buc={buc}
+                    bucInfo={bucInfo}
+                    onBUCEdit={onBUCEdit}
+                  />
                 </BucLenkePanel>
               ) : (
                 <BucExpandingPanel
@@ -320,7 +389,7 @@ const BUCList: React.FC<BUCListProps> = ({
                         <Element>{t('buc:form-status')}</Element>
                       </Flex3Div>
                       <Flex3Div>
-                       <Element>{t('buc:form-senderreceiver')}</Element>
+                        <Element>{t('buc:form-senderreceiver')}</Element>
                       </Flex3Div>
                       <Flex2Div />
                     </SEDHeader>

@@ -1,3 +1,4 @@
+import { BUCMode } from 'applications/BUC/index'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'
@@ -9,7 +10,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   const initialMockProps: BUCCrumbsProps = {
     bucs: _.keyBy(mockBucs(), 'caseId'),
     currentBuc: '195440',
-    mode: 'buclist',
+    mode: 'buclist' as BUCMode,
     showLastLink: true,
     setMode: jest.fn()
   }

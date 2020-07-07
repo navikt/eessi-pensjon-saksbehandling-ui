@@ -1,6 +1,7 @@
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
-import BUCStart, { BUCStartProps } from 'applications/BUC/components/BUCStart/BUCStart'
+import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
+import { BUCMode } from 'applications/BUC/index'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
@@ -21,9 +22,9 @@ const mapState = (state: State): BUCNewSelector => ({
   highContrast: state.ui.highContrast
 })
 
-export interface BUCNewProps extends BUCStartProps {
+export interface BUCNewProps {
   aktoerId: string;
-  setMode: (s: string) => void;
+  setMode: (mode: BUCMode) => void;
 }
 
 const BUCNewDiv = styled(Panel)`
@@ -80,7 +81,12 @@ const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX
         <BUCNewDiv>
           <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
           <hr />
-          <BUCStart aktoerId={aktoerId} setMode={setMode} />
+          <BUCStart
+            aktoerId={aktoerId}
+            setMode={setMode}
+            onBucCreated={() => setMode('sednew')}
+            onBucCancelled={() => setMode('buclist')}
+          />
         </BUCNewDiv>
         <BUCFooter />
       </div>

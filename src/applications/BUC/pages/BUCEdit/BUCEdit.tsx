@@ -7,6 +7,7 @@ import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/componen
 import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
+import { BUCMode } from 'applications/BUC/index'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
@@ -30,7 +31,7 @@ export interface BUCEditProps {
   currentBuc?: string | undefined
   initialSearch ?: string
   initialStatusSearch ?: Tags
-  setMode: (s: string) => void
+  setMode: (mode: BUCMode) => void
 }
 
 export interface BUCEditSelector {

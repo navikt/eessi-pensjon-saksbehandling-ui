@@ -57,7 +57,7 @@ export const initialBucState: BucState = {
   currentSed: undefined,
   institutionList: undefined,
   institutionNames: {},
-  mode: 'buclist',
+  mode: 'buclist' as BUCMode,
   rinaId: undefined,
   rinaUrl: undefined,
   sed: undefined,
@@ -80,7 +80,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       return {
         ...state,
-        mode: (action as ActionWithPayload).payload
+        mode: ((action as ActionWithPayload).payload as BUCMode)
       }
 
     case types.BUC_CURRENTBUC_SET:

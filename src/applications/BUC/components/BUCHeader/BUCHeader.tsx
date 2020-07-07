@@ -233,9 +233,11 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               />
             ) : <WaitingPanel message='' size='M' />}
             {numberOfSeds && (
-              <Tooltip placement='top' trigger={['hover']} overlay={(
-                <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
-              )}>
+              <Tooltip
+                placement='top' trigger={['hover']} overlay={(
+                  <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
+                )}
+              >
                 <NumberOfSedsDiv
                   data-testId='a-buc-c-bucheader__icon-numberofseds'
                 >
@@ -244,11 +246,13 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               </Tooltip>
             )}
             {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 && (
-              <Tooltip placement='top' trigger={['hover']} overlay={(
-                <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
-              )}>
+              <Tooltip
+                placement='top' trigger={['hover']} overlay={(
+                  <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
+                )}
+              >
                 <TagsDiv data-testId='a-buc-c-bucheader__icon-tags'>
-                  <ProblemCircleIcon width={50} height={50}/>
+                  <ProblemCircleIcon width={50} height={50} />
                 </TagsDiv>
               </Tooltip>
             )}

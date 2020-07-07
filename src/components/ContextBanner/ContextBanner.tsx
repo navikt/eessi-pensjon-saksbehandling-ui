@@ -1,3 +1,4 @@
+import { BUCMode } from 'applications/BUC'
 import ExternalLink from 'assets/icons/line-version-logout'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
@@ -13,7 +14,7 @@ import styled, { ThemeProvider } from 'styled-components'
 
 interface ContextBannerProps {
   highContrast: boolean
-  mode: string
+  mode: BUCMode
 }
 const DivWithLinks = styled.div`
   padding: 0.5rem 2rem;

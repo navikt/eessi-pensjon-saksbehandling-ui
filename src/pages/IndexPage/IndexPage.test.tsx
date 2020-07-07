@@ -1,3 +1,4 @@
+import { BUCMode } from 'applications/BUC'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
@@ -6,7 +7,7 @@ import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
 const defaultSelector: IndexPageSelector = {
   username: 'mockUsername',
-  mode: 'buclist'
+  mode: 'buclist' as BUCMode
 }
 
 jest.mock('components/TopContainer/TopContainer', () => {

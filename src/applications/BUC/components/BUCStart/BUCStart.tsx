@@ -9,6 +9,7 @@ import {
   SaveBucsInfoProps
 } from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
@@ -31,8 +32,10 @@ import styled, { ThemeProvider } from 'styled-components'
 
 export interface BUCStartProps {
   aktoerId: string
+  onBucCreated: () => void
+  onBucCancelled: () => void
   onTagsChanged?: (t: Tags) => void
-  setMode: (mode: string) => void
+  setMode: (mode: BUCMode) => void
 }
 
 export interface BUCStartSelector {
@@ -122,7 +125,7 @@ const ButtonsDiv = styled.div`
 `
 
 const BUCStart: React.FC<BUCStartProps> = ({
-  aktoerId, onTagsChanged, setMode
+  aktoerId, onBucCreated, onBucCancelled, onTagsChanged, setMode
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucs, bucParam, bucsInfo, bucList, currentBuc, featureToggles,
@@ -189,8 +192,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
       setHasBucInfoSaved(true)
     }
     if (hasBucInfoSaved && !loading.savingBucsInfo && currentBuc) {
-      setMode('sednew')
       setHasBucInfoSaved(false)
+      onBucCreated()
     }
   }, [loading, currentBuc, hasBucInfoSaved, setMode])
 
@@ -243,7 +246,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const onCancelButtonClick = (e: React.MouseEvent): void => {
     buttonLogger(e)
     dispatch(resetBuc())
-    setMode('buclist')
+    onBucCancelled()
   }
 
   const onSubjectAreaChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -426,6 +429,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
 BUCStart.propTypes = {
   aktoerId: PT.string.isRequired,
+  onBucCreated: PT.func.isRequired,
+  onBucCancelled: PT.func.isRequired,
   onTagsChanged: PT.func
 }
 

@@ -186,10 +186,16 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
           </SEDListInstitutionsDiv>
           <SEDListActionsDiv>
             {!_.isEmpty(sed.attachments) && (
-              <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('buc:form-youHaveXAttachmentsInSed',
-                { attachments: sed.attachments.length })}</span>}>
+              <Tooltip
+                placement='top' trigger={['hover']} overlay={(
+                  <span>{t('buc:form-youHaveXAttachmentsInSed',
+                  { attachments: sed.attachments.length })}
+                  </span>
+                )}
+              >
                 <SEDListAttachmentsDiv
-                  data-testid='a-buc-c-sedlistheader__actions-attachments'>
+                  data-testid='a-buc-c-sedlistheader__actions-attachments'
+                >
                   <FilledPaperClipIcon />
                 </SEDListAttachmentsDiv>
               </Tooltip>

@@ -145,7 +145,7 @@ const Footer: React.FC<FooterProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <FooterDiv role='contentinfo' className={classNames(className, { toggled: footerOpen })}>
-        <ContentDiv className={classNames( { fullWidth: !footerOpen })}>
+        <ContentDiv className={classNames({ fullWidth: !footerOpen })}>
           <div
             className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
             onClick={_toggleFooterOpen}

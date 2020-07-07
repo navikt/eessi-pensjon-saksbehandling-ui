@@ -181,8 +181,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </SEDInstitutionsDiv>
           <SEDActionsDiv>
             {!_.isEmpty(sed.attachments) && (
-              <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('buc:form-youHaveXAttachmentsInSed',
-                { attachments: sed.attachments.length })}</span>}>
+              <Tooltip
+                placement='top' trigger={['hover']} overlay={(
+                  <span>{t('buc:form-youHaveXAttachmentsInSed',
+                    { attachments: sed.attachments.length })}
+                  </span>
+                )}
+              >
                 <SEDAttachmentsDiv
                   data-testId='a-buc-c-sedheader__actions-attachments'
                 >
