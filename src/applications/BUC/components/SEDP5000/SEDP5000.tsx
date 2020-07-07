@@ -1,7 +1,7 @@
 import Alert from 'components/Alert/Alert'
 import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
-import { SedContent, SedContentMap, Seds } from 'declarations/buc'
+import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString } from 'declarations/types'
 import _ from 'lodash'
@@ -102,7 +102,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
     const res: Array<any> = []
     const sender = getSedSender(sedId)
-
     const medlemskap = sedContent.pensjon?.medlemskap
     if (medlemskap) {
       medlemskap.forEach((m: any, i: number) => {
@@ -132,15 +131,18 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
     if (!sed) {
       return undefined
     }
-    return {
-      date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
-      countryLabel: CountryData.getCountryInstance(locale).findByValue(sedContent[sedId].nav.eessisak[0].land).label,
-      country: sedContent[sedId].nav.eessisak[0].land,
-      institution: sedContent[sedId].nav.eessisak[0].institusjonsnavn,
-      acronym: sedContent[sedId].nav.eessisak[0].institusjonsid.indexOf(':') > 0 ?
-        sedContent[sedId].nav.eessisak[0].institusjonsid.split(':')[1] :
-        sedContent[sedId].nav.eessisak[0].institusjonsid
+
+    const sender: Participant | undefined = sed.participants.find((participant: Participant) => participant.role === 'Sender')
+    if (sender) {
+      return {
+        date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
+        countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
+        country: sender.organisation.countryCode,
+        institution: sender.organisation.name,
+        acronym: sender.organisation.acronym
+      }
     }
+    return undefined
   }
 
   const getItems = () => {
