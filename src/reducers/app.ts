@@ -1,19 +1,19 @@
 import * as types from 'constants/actionTypes'
-import { Feature, FeatureToggles, Params, Person } from 'declarations/types'
+import { Feature, FeatureToggles, Params, PesysContext, Person } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
 export interface AppState {
-  loggedIn: boolean | undefined;
-  loggedTime: Date | undefined;
-  allowed: boolean;
-  pesysContext: PesysContext;
-  expirationTime: Date | undefined;
+  loggedIn: boolean | undefined
+  loggedTime: Date | undefined
+  allowed: boolean
+  pesysContext: PesysContext
+  expirationTime: Date | undefined
   username: string | undefined
-  userRole: string | undefined,
-  person: Person | undefined,
-  params: Params;
-  featureToggles: FeatureToggles;
+  userRole: string | undefined
+  person: Person | undefined
+  params: Params
+  featureToggles: FeatureToggles
 }
 
 const initialFeatureToggles: FeatureToggles = {
@@ -31,6 +31,7 @@ export const initialAppState: AppState = {
   username: undefined,
   userRole: undefined,
   person: undefined,
+  pesysContext: undefined,
   params: {},
   featureToggles: initialFeatureToggles
 }
