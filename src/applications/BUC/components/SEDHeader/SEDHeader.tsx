@@ -6,7 +6,7 @@ import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -31,11 +31,13 @@ export interface SEDHeaderProps {
 }
 
 export interface SEDHeaderSelector {
+  featureToggles: FeatureToggles
   highContrast: boolean
   locale: AllowedLocaleString
 }
 
 const mapState = (state: State): SEDHeaderSelector => ({
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   locale: state.ui.locale
 })
@@ -121,7 +123,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         country: participant.organisation.countryCode,
         institution: participant.organisation.name
       })) : []
-  const { highContrast, locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
+  const { featureToggles, highContrast, locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
   const { t } = useTranslation()
   const sedLabel: string = getBucTypeLabel({
     t: t,
@@ -160,7 +162,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 )}
               </SEDVersion>
             </SEDStatusItemDiv>
-            {sed.version !== '1' && (
+            {sed.version !== '1' && featureToggles.v2_ENABLED !== true && (
               <SEDStatusItemDiv>
                 <SEDStatus highContrast={highContrast} status={'first_' + sed.status} />
                 <HorizontalSeparatorDiv date-size='0.5' />
