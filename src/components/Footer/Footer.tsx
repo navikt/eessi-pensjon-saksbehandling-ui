@@ -47,6 +47,7 @@ const ContentDiv = styled.div`
     margin: 0px;
     display: block;
     padding: 0px;
+    background-color: lightgray;
   }
   .footerButtonClosed:hover {
     cursor: pointer;
@@ -144,7 +145,7 @@ const Footer: React.FC<FooterProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <FooterDiv role='contentinfo' className={classNames(className, { toggled: footerOpen })}>
-        <ContentDiv className={classNames('contents', { fullWidth: !footerOpen })}>
+        <ContentDiv className={classNames( { fullWidth: !footerOpen })}>
           <div
             className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
             onClick={_toggleFooterOpen}

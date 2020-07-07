@@ -13,6 +13,7 @@ import CountryData from 'land-verktoy'
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import LineHome from 'assets/icons/line-version-home-3'
+import Tooltip from 'rc-tooltip'
 import styled from 'styled-components'
 
 export interface PersonPanelProps {
@@ -89,7 +90,11 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     separator: JSX.Element
   ): Array<JSX.Element | Element | string> => {
     if (value) {
-      address.push(<span key={value} data-tip={label}>{value}</span>)
+      address.push((
+        <Tooltip placement='top' trigger={['hover']} overlay={<span>{label}</span>}>
+          <span key={value}>{value}</span>
+        </Tooltip>
+      ))
       address.push(separator)
     }
     return address

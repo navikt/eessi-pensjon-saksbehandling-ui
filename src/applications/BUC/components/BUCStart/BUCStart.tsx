@@ -161,7 +161,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
-  }, [bucList, dispatch, featureToggles, loading, sakId, subjectAreaList, tagList])
+  }, [bucList, dispatch, featureToggles, loading, pesysContext, sakId, subjectAreaList, tagList])
 
   useEffect(() => {
     if (!isBucCreated && currentBuc) {

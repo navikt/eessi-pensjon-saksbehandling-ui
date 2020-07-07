@@ -97,7 +97,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       dispatch(pesysContext === 'vedtakskontekst' ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
-  }, [aktoerId, bucs, dispatch, loading.gettingBUCs, sakId, vedtakId])
+  }, [aktoerId, bucs, dispatch, loading.gettingBUCs, pesysContext, sakId, vedtakId])
 
   useEffect(() => {
     if (bucs && !_bucs) {

@@ -18,6 +18,7 @@ import PT from 'prop-types'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import Tooltip from 'rc-tooltip'
 import styled, { ThemeProvider } from 'styled-components'
 
 export const BUCHeaderDiv = styled.div`
@@ -228,20 +229,24 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               />
             ) : <WaitingPanel message='' size='M' />}
             {numberOfSeds && (
-              <NumberOfSedsDiv
-                data-testId='a-buc-c-bucheader__icon-numberofseds'
-                data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
-              >
-                {numberOfSeds}
-              </NumberOfSedsDiv>
+              <Tooltip placement='top' trigger={['hover']} overlay={(
+                <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
+              )}>
+                <NumberOfSedsDiv
+                  data-testId='a-buc-c-bucheader__icon-numberofseds'
+                >
+                  {numberOfSeds}
+                </NumberOfSedsDiv>
+              </Tooltip>
             )}
             {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 && (
-              <TagsDiv
-                data-testId='a-buc-c-bucheader__icon-tags'
-                data-tip={bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}
-              >
-                <ProblemCircleIcon size={32} />
-              </TagsDiv>
+              <Tooltip placement='top' trigger={['hover']} overlay={(
+                <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
+              )}>
+                <TagsDiv data-testId='a-buc-c-bucheader__icon-tags'>
+                  <ProblemCircleIcon width={32} height={32}/>
+                </TagsDiv>
+              </Tooltip>
             )}
           </IconsDiv>
           <ActionsDiv test-id='a-buc-c-bucheader__actions'>

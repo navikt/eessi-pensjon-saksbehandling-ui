@@ -208,7 +208,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       setMode('bucedit')
     }
-  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, sedSent, setMode, vedtakId])
+  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, pesysContext, sedSent, setMode, vedtakId])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null

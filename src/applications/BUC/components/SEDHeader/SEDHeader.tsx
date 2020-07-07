@@ -18,6 +18,7 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import Tooltip from 'rc-tooltip'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface SEDHeaderProps {
@@ -147,7 +148,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <SEDVersion>
                 <Normaltekst
                   data-testId='a-buc-c-sedheader__lastUpdate'
-                  data-tip={t('ui:lastUpdate')}
                 >
                   {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
                 </Normaltekst>
@@ -166,7 +166,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 <HorizontalSeparatorDiv date-size='0.5' />
                 <Normaltekst
                   data-id='a-buc-c-sedheader__firstSend'
-                  data-tip={t('ui:status-first')}
                 >
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
                 </Normaltekst>
@@ -182,13 +181,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </SEDInstitutionsDiv>
           <SEDActionsDiv>
             {!_.isEmpty(sed.attachments) && (
-              <SEDAttachmentsDiv
-                data-testId='a-buc-c-sedheader__actions-attachments'
-                data-tip={t('buc:form-youHaveXAttachmentsInSed',
-                  { attachments: sed.attachments.length })}
-              >
-                <FilledPaperClipIcon />
-              </SEDAttachmentsDiv>
+              <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('buc:form-youHaveXAttachmentsInSed',
+                { attachments: sed.attachments.length })}</span>}>
+                <SEDAttachmentsDiv
+                  data-testId='a-buc-c-sedheader__actions-attachments'
+                >
+                  <FilledPaperClipIcon />
+                </SEDAttachmentsDiv>
+              </Tooltip>
             )}
             {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
               <Flatknapp

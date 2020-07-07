@@ -70,9 +70,18 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       newParams = _.cloneDeep(state.params)
       delete newParams[action.payload.key]
 
+      newContext = 'brukeroversikt'
+      if (newParams.kravId) {
+        newContext = 'kravkontekst'
+      }
+      if (newParams.vedtakId) {
+        newContext = 'vedtakskontekst'
+      }
+
       return {
         ...state,
-        params: newParams
+        params: newParams,
+        pesysContext: newContext
       }
 
     case types.APP_USERINFO_SUCCESS: {
