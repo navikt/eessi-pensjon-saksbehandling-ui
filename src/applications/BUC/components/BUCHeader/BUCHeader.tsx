@@ -6,7 +6,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, RinaUrl } from 'declarations/types'
 import { FlagItems, FlagList } from 'flagg-ikoner'
 import _ from 'lodash'
 import { buttonLogger, linkLogger } from 'metrics/loggers'
@@ -50,7 +50,7 @@ const IconsDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex: 1;
+  flex: ${(props: any) => props['data-v2enabled'] === true ? '2' : '1'};
 `
 const ActionsDiv = styled.div`
   display: flex;
@@ -100,6 +100,7 @@ export interface BUCHeaderProps {
 }
 
 export interface BUCHeaderSelector {
+  featureToggles: FeatureToggles
   highContrast: boolean
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
@@ -108,6 +109,7 @@ export interface BUCHeaderSelector {
 }
 
 const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector => ({
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
@@ -119,7 +121,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo, onBUCEdit
 }: BUCHeaderProps): JSX.Element => {
   const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
-  const { highContrast, institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
+  const { featureToggles, highContrast, institutionNames, locale, rinaUrl }: BUCHeaderSelector =
+    useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
 
   const onBucEditClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -217,7 +220,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               </div>
             )}
           </LabelsDiv>
-          <IconsDiv data-testId='a-buc-c-bucheader__icons'>
+          <IconsDiv data-testId='a-buc-c-bucheader__icons' data-v2enabled={featureToggles.v2_ENABLED}>
             {!_.isEmpty(flagItems) ? (
               <FlagList
                 animate
@@ -250,18 +253,20 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               </Tooltip>
             )}
           </IconsDiv>
-          <ActionsDiv test-id='a-buc-c-bucheader__actions'>
-            <BucEditLink
-              data-amplitude='buc.list.editbuc'
-              data-testId='a-buc-c-bucheader__bucedit-link-id'
-              className='knapp knapp--kompakt'
-              onClick={onBucEditClick}
-              href={'#' + buc.type}
-            >
-              {t('ui:processing')}
-            </BucEditLink>
-            <HorizontalSeparatorDiv />
-          </ActionsDiv>
+          {featureToggles.v2_ENABLED !== true && (
+            <ActionsDiv test-id='a-buc-c-bucheader__actions'>
+              <BucEditLink
+                data-amplitude='buc.list.editbuc'
+                data-testId='a-buc-c-bucheader__bucedit-link-id'
+                className='knapp knapp--kompakt'
+                onClick={onBucEditClick}
+                href={'#' + buc.type}
+              >
+                {t('ui:processing')}
+              </BucEditLink>
+              <HorizontalSeparatorDiv />
+            </ActionsDiv>
+          )}
         </FlexDiv>
       </BUCHeaderDiv>
     </ThemeProvider>
