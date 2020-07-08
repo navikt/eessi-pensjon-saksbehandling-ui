@@ -3,7 +3,7 @@ import {
   fetchBucs,
   fetchBucsInfoList,
   fetchBucsWithVedtakId,
-  getRinaUrl,
+  getRinaUrl, setCurrentBuc,
   setMode
 } from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -133,9 +133,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (featureToggles.v2_ENABLED !== true && loading.gettingBUCs && mode !== 'buclist') {
+      dispatch(setCurrentBuc(undefined))
       _setMode('buclist')
     }
-  }, [featureToggles, loading.gettingBUCs, mode, _setMode])
+  }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
 
   if (!_mounted) {
     return <WaitingPanel />

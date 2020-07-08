@@ -160,6 +160,9 @@ const Step1: React.FC<Step1Props> = ({
 
   const fetchInstitutionsForSelectedCountries = useCallback(
     (countries: Array<Country>) => {
+      if (!buc) {
+        return
+      }
       const newCountries: Array<string> = countries ? countries.map(item => {
         return item.value
       }) : []
@@ -180,7 +183,7 @@ const Step1: React.FC<Step1Props> = ({
       })
       setCountries(newCountries)
       validateCountries(newCountries)
-    }, [_countries, dispatch, _institutions, buc.type, setCountries, setInstitutions, validateCountries])
+    }, [_countries, dispatch, _institutions, buc, setCountries, setInstitutions, validateCountries])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
@@ -189,7 +192,7 @@ const Step1: React.FC<Step1Props> = ({
   }, [sedList, _sed, setSed])
 
   useEffect(() => {
-    if (!mounted && !_.isEmpty(_countries)) {
+    if (!mounted && buc && buc.type !== null && !_.isEmpty(_countries)) {
       _countries.forEach(country => {
         if (!institutionList || !Object.keys(institutionList).includes(country)) {
           dispatch(getInstitutionsListForBucAndCountry(buc.type!, country))
@@ -197,7 +200,7 @@ const Step1: React.FC<Step1Props> = ({
       })
       setMounted(true)
     }
-  }, [mounted, buc.type, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
+  }, [mounted, buc, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
 
   const validateSed = (sed: string): boolean => {
     if (!sed || sed === placeholders.sed) {
@@ -325,10 +328,10 @@ const Step1: React.FC<Step1Props> = ({
     <Step1Div>
       <Systemtittel>
         {!currentSed ? t('buc:step-startSEDTitle', {
-          buc: t(`buc:buc-${buc.type}`),
+          buc: t(`buc:buc-${buc?.type}`),
           sed: _sed === placeholders.sed ? t('buc:form-newSed') : _sed || t('buc:form-newSed')
         }) : t('buc:step-replySEDTitle', {
-          buc: t(`buc:buc-${buc.type}`),
+          buc: t(`buc:buc-${buc?.type}`),
           sed: buc.seds!.find((sed: Sed) => sed.id === currentSed)!.type
         })}
       </Systemtittel>
