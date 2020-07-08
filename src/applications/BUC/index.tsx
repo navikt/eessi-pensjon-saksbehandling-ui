@@ -15,7 +15,7 @@ import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, PesysContext, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, RinaUrl } from 'declarations/types'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -37,6 +37,7 @@ export interface BUCIndexSelector {
   bucs: Bucs | undefined
   bucsInfo: BucsInfo | undefined
   currentBuc: string | undefined
+  featureToggles: FeatureToggles
   loading: Loading
   locale: AllowedLocaleString
   mode: BUCMode
@@ -52,6 +53,7 @@ const mapState = (state: State): BUCIndexSelector => ({
   bucs: state.buc.bucs,
   bucsInfo: state.buc.bucsInfo,
   currentBuc: state.buc.currentBuc,
+  featureToggles: state.app.featureToggles,
   loading: state.loading,
   locale: state.ui.locale,
   mode: state.buc.mode,
@@ -67,7 +69,7 @@ const BUCIndexDiv = styled.div``
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, currentBuc, loading, mode, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, currentBuc, featureToggles, loading, mode, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
@@ -130,10 +132,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [allowFullScreen, dispatch, onFullFocus, onRestoreFocus])
 
   useEffect(() => {
-    if (loading.gettingBUCs && mode !== 'buclist') {
+    if (featureToggles.v2_ENABLED !== true && loading.gettingBUCs && mode !== 'buclist') {
       _setMode('buclist')
     }
-  }, [loading.gettingBUCs, mode, _setMode])
+  }, [featureToggles, loading.gettingBUCs, mode, _setMode])
 
   if (!_mounted) {
     return <WaitingPanel />
@@ -167,7 +169,12 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       {mode === 'buclist' && <BUCList aktoerId={aktoerId} bucs={bucs!} setMode={_setMode} />}
       {mode === 'bucedit' && <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} />}
       {mode === 'bucnew' && <BUCNew aktoerId={aktoerId} setMode={_setMode} />}
-      {mode === 'sednew' && <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} />}
+      {mode === 'sednew' && featureToggles.v2_ENABLED !== true && (
+        <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} />
+      )}
+      {mode === 'sednew' && featureToggles.v2_ENABLED === true && (
+        <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} initialSedNew={true}/>
+      )}
     </BUCIndexDiv>
   )
 }

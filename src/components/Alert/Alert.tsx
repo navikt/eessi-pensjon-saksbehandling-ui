@@ -58,20 +58,14 @@ const AlertDiv = styled(AlertStripe)`
   .alertstripe .alertstripe__tekst {
      flex: auto !important; /* because IE11 */
   }
-  .fixed {
+  &.fixed {
     position: fixed;
     top: 0.25rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
   }
-  .closeIcon {
-    position: absolute;
-    top: 0.25rem;
-    right: 0.25rem;
-    cursor: pointer;
-  }
-  .type-server {
+  &.type-server {
     border-radius: 0px !important;
     border: 0px !important;
     .alertstripe__tekst {
@@ -81,7 +75,12 @@ const AlertDiv = styled(AlertStripe)`
     }
   }
 `
-
+const CloseIcon = styled(FilledRemoveCircle)`
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  cursor: pointer;
+`
 export const Alert: React.FC<AlertProps> = ({
   className, error, fixed, message, onClose, status = 'ERROR', type
 }: AlertProps): JSX.Element => {
@@ -98,9 +97,6 @@ export const Alert: React.FC<AlertProps> = ({
     if (_.isString(error)) {
       return error
     }
-    /* if (error.status) {
-      errorMessage.push(error.status)
-    } */
     if (error.message) {
       errorMessage.push(error.message)
     }
@@ -138,7 +134,7 @@ export const Alert: React.FC<AlertProps> = ({
       type={errorTypes[status]}
     >
       {_message}
-      {_(onClose).isFunction() ? <FilledRemoveCircle onClick={onCloseIconClicked} /> : undefined}
+      {onClose && <CloseIcon onClick={onCloseIconClicked} />}
     </AlertDiv>
   )
 }

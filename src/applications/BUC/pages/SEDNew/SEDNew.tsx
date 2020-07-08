@@ -1,7 +1,9 @@
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import SEDStart, { SEDStartProps } from 'applications/BUC/components/SEDStart/SEDStart'
+import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
+import { BUCMode } from 'applications/BUC/index'
 import { BUCNewSelector } from 'applications/BUC/pages/BUCNew/BUCNew'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
+import { AttachedFiles, Bucs } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Panel from 'nav-frontend-paneler'
@@ -31,7 +33,17 @@ const mapState = (state: State): SEDNewSelector => ({
   highContrast: state.ui.highContrast
 })
 
-const SEDNew: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element => {
+export interface SEDNewProps {
+  aktoerId?: string
+  bucs: Bucs
+  currentBuc: string
+  initialAttachments ?: AttachedFiles
+  initialSed ?: string | undefined
+  initialStep ?: number
+  setMode: (mode: BUCMode) => void
+}
+
+const SEDNew: React.FC<SEDNewProps> = (props: SEDNewProps): JSX.Element => {
   const [loggedTime] = useState<Date>(new Date())
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
@@ -70,7 +82,11 @@ const SEDNew: React.FC<SEDStartProps> = (props: SEDStartProps): JSX.Element => {
         </SEDNewHeader>
         <VerticalSeparatorDiv />
         <SEDNewDiv>
-          <SEDStart {...props} />
+          <SEDStart
+            {...props}
+            onSedCreated={() => setMode('bucedit')}
+            onSedCancelled={() => setMode('bucedit')}
+          />
         </SEDNewDiv>
       </div>
     </ThemeProvider>

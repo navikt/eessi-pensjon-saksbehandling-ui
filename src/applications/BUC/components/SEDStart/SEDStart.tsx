@@ -15,6 +15,7 @@ import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import { BUCMode } from 'applications/BUC/index'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
 import {
@@ -49,7 +50,9 @@ export interface SEDStartProps {
   initialAttachments ?: AttachedFiles
   initialSed ?: string | undefined
   initialStep ?: number
-  setMode: (s: string) => void
+  onSedCreated: () => void
+  onSedCancelled: () => void
+  setMode: (mode: BUCMode) => void
 }
 
 export interface SEDStartSelector {
@@ -103,7 +106,8 @@ const ButtonsDiv = styled.div`
 `
 
 export const SEDStart: React.FC<SEDStartProps> = ({
-  aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined, initialStep = 0, setMode
+  aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined, initialStep = 0,
+  onSedCreated, onSedCancelled, setMode
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachments, attachmentsError, bucsInfoList, currentSed, countryList,
@@ -198,17 +202,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       /* istanbul ignore next */ if (!IS_TEST) {
         console.log('SEDStart: Attachments sent, cleaning up')
       }
-      setSed(undefined)
-      dispatch(resetSed())
-      dispatch(resetSedAttachments())
       dispatch(pesysContext === 'vedtakskontekst' ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
       if (!_.isEmpty(bucsInfoList) &&
         bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
         dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
       }
-      setMode('bucedit')
+      dispatch(resetSed())
+      setSed(undefined)
+      dispatch(resetSedAttachments())
+      onSedCreated()
     }
-  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, pesysContext, sedSent, setMode, vedtakId])
+  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, pesysContext, onSedCreated, sedSent, setMode, vedtakId])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -297,7 +301,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     buttonLogger(e)
     setSed(undefined)
     dispatch(resetSed())
-    setMode('bucedit')
+    onSedCancelled()
   }
 
   const createSedNeedsMoreSteps = () => {
@@ -346,7 +350,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         )}
       </Container>
       <Container>
-        {(sendingAttachments || attachmentsSent) && (
+        {(sendingAttachments || attachmentsSent) && sed && (
           <SEDAttachmentSender
             attachmentsError={attachmentsError}
             sendAttachmentToSed={_sendAttachmentToSed}
@@ -407,6 +411,8 @@ SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
   initialAttachments: AttachedFilesPropType,
+  onSedCreated: PT.func.isRequired,
+  onSedCancelled: PT.func.isRequired,
   setMode: PT.func.isRequired
 }
 

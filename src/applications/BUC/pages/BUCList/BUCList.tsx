@@ -199,14 +199,14 @@ const BUCList: React.FC<BUCListProps> = ({
     if (featureToggles.v2_ENABLED === true) {
       setStartBuc(true)
     } else {
-      setMode('bucnew')
+      setMode('bucnew' as BUCMode)
     }
   }
 
   const onSEDNew = (buc: Buc, sed: Sed): void => {
     dispatch(setCurrentBuc(buc ? buc.caseId! : undefined))
     dispatch(setCurrentSed(sed ? sed.id : undefined))
-    setMode('sednew')
+    setMode('sednew' as BUCMode)
   }
 
   const onBucOpen = (bucId: string) => {
@@ -216,7 +216,7 @@ const BUCList: React.FC<BUCListProps> = ({
   const onBUCEdit = (buc: Buc) => {
     getSeds(buc.caseId!)
     dispatch(setCurrentBuc(buc.caseId!))
-    setMode('bucedit')
+    setMode('bucedit' as BUCMode)
   }
 
   const getSeds = (bucId: string) => {

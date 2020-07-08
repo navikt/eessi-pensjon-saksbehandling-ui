@@ -7,41 +7,47 @@ import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/componen
 import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
+import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
+import classNames from 'classnames'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Knapp from 'nav-frontend-knapper'
+import Panel from 'nav-frontend-paneler'
 import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export interface BUCEditProps {
   aktoerId: string
   bucs: Bucs
   currentBuc?: string | undefined
   initialSearch ?: string
+  initialSedNew ?: boolean
   initialStatusSearch ?: Tags
   setMode: (mode: BUCMode) => void
 }
 
 export interface BUCEditSelector {
   bucsInfo?: BucsInfo
+  featureToggles: FeatureToggles
   highContrast: boolean
   locale: AllowedLocaleString
 }
 
 const mapState = (state: State): BUCEditSelector => ({
   bucsInfo: state.buc.bucsInfo,
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   locale: state.ui.locale
 })
@@ -69,18 +75,59 @@ const NoSedsDiv = styled.div`
 `
 const BUCEditDiv = styled.div``
 
+const SEDNewDiv = styled(Panel)`
+  padding: 2rem 5rem 2rem 5rem !important;
+  border: 1px solid ${({ theme }: any) => theme.navGra60};
+  background-color: ${({ theme }: any) => theme['main-background-color']};
+`
+const animationOpen = keyframes`
+  0% {
+    height: 0%;
+    max-height: 0;
+  }
+  100% {
+    max-height:150em;
+    height: 100%;
+  }
+`
+const animationClose = keyframes`
+  0% {
+    max-height: 150em;
+    height: 100%;
+  }
+  100% {
+    max-height: 0;
+    height: 0%;
+  }
+`
+const SEDStartDiv = styled.div`
+  max-height: 0;
+  height: 0%;
+  overflow: hidden;
+  &.close {
+    will-change: max-height, height;
+    max-height: 0;
+    animation: ${animationClose} 400ms ease;
+  }
+  &.open {
+    will-change: max-height, height;
+    max-height: 40em;
+    animation: ${animationOpen} 400ms ease;
+  }
+`
 const BUCEdit: React.FC<BUCEditProps> = ({
-  aktoerId, bucs, currentBuc, initialSearch, initialStatusSearch, setMode
+  aktoerId, bucs, currentBuc, initialSearch, initialSedNew, initialStatusSearch, setMode
 }: BUCEditProps): JSX.Element | null => {
   const [search, setSearch] = useState<string | undefined>(initialSearch)
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
-  const { bucsInfo, highContrast, locale }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
+  const { bucsInfo, featureToggles, highContrast, locale }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const buc: Buc = bucs[currentBuc!]
+  const [startSed, setStartSed] = useState<boolean | undefined>(initialSedNew)
   const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
 
   useEffect(() => {
@@ -119,7 +166,11 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       }))
     } else {
       dispatch(setCurrentSed(sed ? sed.id : undefined))
-      setMode('sednew')
+      if (featureToggles.v2_ENABLED === true) {
+        setStartSed(true)
+      } else {
+        setMode('sednew' as BUCMode)
+      }
     }
   }
 
@@ -174,23 +225,39 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           mode='bucedit'
           setMode={setMode}
         />
-        <Knapp
-          disabled={buc.readOnly === true}
-          data-amplitude='buc.edit.newsed'
-          data-testId='a-buc-p-bucedit__new-sed-button-id'
-          onClick={(e: React.MouseEvent) => {
-            buttonLogger(e)
-            onSEDNew(buc, undefined)
-          }}
-        >{t('buc:form-orderNewSED')}
-        </Knapp>
+        {!startSed && (
+          <Knapp
+            disabled={buc.readOnly === true}
+            data-amplitude='buc.edit.newsed'
+            data-testId='a-buc-p-bucedit__new-sed-button-id'
+            onClick={(e: React.MouseEvent) => {
+              buttonLogger(e)
+              onSEDNew(buc, undefined)
+            }}
+          >{t('buc:form-orderNewSED')}
+          </Knapp>
+        )}
       </BUCEditHeader>
       <VerticalSeparatorDiv />
+      <SEDStartDiv className={classNames({
+        open: startSed === true,
+        close: startSed === false
+      })}
+      >
+        <SEDNewDiv>
+          <SEDStart
+            aktoerId={aktoerId} bucs={bucs} currentBuc={currentBuc} setMode={setMode} onSedCreated={() => {
+            setStartSed(false)
+          }}
+            onSedCancelled={() => setStartSed(false)}
+          />
+        </SEDNewDiv>
+        <VerticalSeparatorDiv />
+      </SEDStartDiv>
       <FlexDiv>
         <ContentDiv>
           <SEDSearch
             highContrast={highContrast}
-            className='mb-2'
             value={search}
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
@@ -219,7 +286,9 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             })
             : (
               <NoSedsDiv>
-                <Normaltekst>{t('buc:form-noSedsYet')}</Normaltekst>
+                <Normaltekst>
+                  {t('buc:form-noSedsYet')}
+                </Normaltekst>
               </NoSedsDiv>
             )}
         </ContentDiv>
