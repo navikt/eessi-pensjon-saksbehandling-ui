@@ -10,7 +10,6 @@ import {
 } from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { BUCMode } from 'applications/BUC/index'
-import classNames from 'classnames'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
@@ -24,10 +23,9 @@ import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Select } from 'nav-frontend-skjema'
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 import { Normaltekst } from 'nav-frontend-typografi'
-import ReactSelect from 'react-select'
+import Select from 'react-select'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -95,24 +93,12 @@ const LeftContentDiv = styled.div`
   @media (min-width: 768px) {
     padding-right: 1rem;
   }
-  .grey select {
-    color: ${({ theme }: any) => theme.navMorkGra} !important;
-    option {
-      color: ${({ theme }: any) => theme['main-font-color']} !important;
-    }
-  }
 `
 const RightContentDiv = styled.div`
   flex: 1;
   margin-bottom: 1rem;
   @media (min-width: 768px) {
     padding-left: 1rem;
-  }
-  .grey select {
-    color: ${({ theme }: any) => theme.navMorkGra} !important;
-    option {
-      color: ${({ theme }: any) => theme['main-font-color']} !important;
-    }
   }
 `
 const LoadingDiv = styled.div`
@@ -250,8 +236,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
     onBucCancelled()
   }
 
-  const onSubjectAreaChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const thisSubjectArea: string = e.target.value
+  const onSubjectAreaChange = (e: any): void => {
+    const thisSubjectArea: string = e.value
     setSubjectArea(thisSubjectArea)
     validateSubjectArea(thisSubjectArea)
   }
@@ -270,21 +256,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined): JSX.Element[] => {
-    return options ? options.map((el: Option | string) => {
-      let label: string, value: string
-      if (typeof el === 'string') {
-        value = el
-        label = el
-      } else {
-        value = (el.value || el.navn)!
-        label = (el.label || el.navn)!
-      }
-      return <option value={value} key={value}>{getOptionLabel(label)}</option>
-    }) : []
-  }
-
-  const renderOptionsForReactSelect = (options: Array<Option | string> | undefined) => {
+  const renderOptions = (options: Array<Option | string> | undefined) => {
     return options ? options.map((el: Option | string) => {
       let label: string, value: string
       if (typeof el === 'string') {
@@ -344,35 +316,37 @@ const BUCStart: React.FC<BUCStartProps> = ({
         <FlexDiv>
           <LeftContentDiv>
             <VerticalSeparatorDiv data-size='2' />
-            <Select
-              data-testId='a-buc-c-bucstart__subjectarea-select-id'
-              className={classNames({
-                grey: !_subjectArea || _subjectArea === placeholders.subjectArea
-              })}
-              aria-describedby='help-subjectArea'
-              bredde='fullbredde'
-              placeholder={placeholders.subjectArea}
-              feil={validation.subjectAreaFail ? validation.subjectAreaFail : false}
-              label={t('buc:form-subjectArea')}
-              value={_subjectArea}
-              onChange={onSubjectAreaChange}
-            >
-              {renderOptions(subjectAreaList)}
-            </Select>
+            <>
+              <label className='skjemaelement__label'>
+                {t('buc:form-subjectArea')}
+              </label>
+              <Select
+                data-testId='a-buc-c-bucstart__subjectarea-select-id'
+                isSearchable
+                placeholder={t(placeholders.subjectArea)}
+                defaultValue={{label: _subjectArea, value: _subjectArea}}
+                onChange={onSubjectAreaChange}
+                options={renderOptions(subjectAreaList)}
+                styles={{
+                  control: (styles: any) => ({
+                    ...styles,
+                    borderColor: '1px solid ' + theme.navGra60
+                  })
+                }}
+              />
+              {validation.subjectAreaFail && <Normaltekst>{t(validation.subjectAreaFail)}</Normaltekst>}
+            </>
             <VerticalSeparatorDiv />
             <>
               <label className='skjemaelement__label'>
                 {t('buc:form-buc')}
               </label>
-              <ReactSelect
+              <Select
                 data-testid='a-buc-c-bucstart__buc-select-id'
-                className={classNames('a-buc-c-bucstart__buc-select', {
-                  grey: !_buc || _buc === placeholders.buc
-                })}
                 isSearchable
                 placeholder={t(placeholders.buc)}
-                onChange={(e: any) => onBucChange(e)}
-                options={renderOptionsForReactSelect(bucList)}
+                onChange={onBucChange}
+                options={renderOptions(bucList)}
                 styles={{
                   control: (styles: any) => ({
                     ...styles,

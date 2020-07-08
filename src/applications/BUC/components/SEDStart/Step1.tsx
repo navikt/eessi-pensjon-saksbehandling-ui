@@ -13,10 +13,12 @@ import { Country } from 'declarations/period'
 import { AllowedLocaleString, Labels, Loading, Option, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType, LoadingPropType, ValidationPropType } from 'declarations/types.pt'
 import CountryData from 'land-verktoy'
+import Select from 'react-select'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import { Input, Select } from 'nav-frontend-skjema'
-import { Systemtittel } from 'nav-frontend-typografi'
+import { Input } from 'nav-frontend-skjema'
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import { theme } from "nav-styled-component-theme"
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -242,8 +244,8 @@ const Step1: React.FC<Step1Props> = ({
     }
   }
 
-  const onSedChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const thisSed = e.target.value
+  const onSedChange = (e: any) => {
+    const thisSed = e.value
     setSed(thisSed)
     validateSed(thisSed)
   }
@@ -278,13 +280,8 @@ const Step1: React.FC<Step1Props> = ({
     } catch (e) {}
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined, type: string): Array<JSX.Element> => {
-    const _options: Array<Option | string> = _.concat([{
-      value: placeholders[type]!,
-      label: t(placeholders[type]!)
-    }], options || [])
-
-    return _options.map((el: Option | string) => {
+  const renderOptions = (options: Array<Option | string> | undefined) => {
+    return options ? options.map((el: Option | string) => {
       let label, value
       if (typeof el === 'string') {
         label = el
@@ -293,8 +290,11 @@ const Step1: React.FC<Step1Props> = ({
         value = el.value || el.navn
         label = el.label || el.navn
       }
-      return <option value={value} key={value}>{getOptionLabel(label!)}</option>
-    })
+      return {
+        label: getOptionLabel(label!),
+        value: value
+      }
+    }) : []
   }
 
   const getOptionLabel = (value: string) => {
@@ -346,20 +346,26 @@ const Step1: React.FC<Step1Props> = ({
       <ResponsiveContainer>
         <Container>
           <VerticalSeparatorDiv data-size='2' />
-          <Select
-            data-testId='a-buc-c-sedstart__sed-select-id'
-            disabled={loading.gettingSedList}
-            aria-describedby='help-sed'
-            bredde='fullbredde'
-            feil={validation.sedFail ? validation.sedFail : null}
-            label={t('buc:form-sed')}
-            value={_sed || placeholders.sed}
-            onChange={onSedChange}
-          >
-            {!loading.gettingSedList
-              ? renderOptions(sedList, 'sed')
-              : <option>{t('buc:loading-sed')}</option>}
-          </Select>
+          <>
+            <label className='skjemaelement__label'>
+              {t('buc:form-sed')}
+            </label>
+            <Select
+              data-testId='a-buc-c-sedstart__sed-select-id'
+              disabled={loading.gettingSedList}
+              isSearchable
+              onChange={onSedChange}
+              options={renderOptions(sedList)}
+              styles={{
+                control: (styles: any) => ({
+                  ...styles,
+                  borderColor: '1px solid ' + theme.navGra60
+                })
+              }}
+            />
+
+            {validation.sedFail && <Normaltekst>{t(validation.sedFail)}</Normaltekst>}
+          </>
           <VerticalSeparatorDiv />
           {sedNeedsVedtakId() && (
             <>
