@@ -51,7 +51,7 @@ const BUCDetailPanel = styled(ExpandingPanel)`
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
   background ${({ theme }): any => theme['main-background-color']};
-  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
+  border: 1px solid ${({ theme }): any => theme.navGra60};
   border-radius: 4px;
   .ekspanderbartPanel__hode {
     background ${({ theme }): any => theme['main-background-color']};
@@ -79,7 +79,12 @@ const Dd = styled.dd`
   padding-top: .25rem;
   margin-bottom: 0;
 `
-
+const PaddedDiv = styled.div`
+  padding: 0.5rem;
+  & > div {
+   margin-bottom: 0.35rem;
+  }
+`
 const BUCDetail: React.FC<BUCDetailProps> = ({
   buc, bucInfo, className
 }: BUCDetailProps): JSX.Element => {
@@ -188,11 +193,13 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
             {t('buc:form-involvedInstitutions')}:
           </Undertittel>
           <div className='a-buc-c-bucdetail__institutions'>
-            <InstitutionList
-              institutions={(buc.institusjon as Institutions)}
-              locale={locale}
-              type='joined'
-            />
+            <PaddedDiv>
+              <InstitutionList
+                institutions={(buc.institusjon as Institutions)}
+                locale={locale}
+                type='joined'
+              />
+            </PaddedDiv>
           </div>
         </>
       </BUCDetailPanel>

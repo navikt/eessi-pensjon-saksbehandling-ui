@@ -229,6 +229,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         className={mode}
         items={items}
         context={context}
+        compact={true}
         searchable={mode === 'view'}
         selectable={mode === 'view'}
         sortable

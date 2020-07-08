@@ -343,6 +343,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       <div data-testId='a-buc-c-bucstart'>
         <FlexDiv>
           <LeftContentDiv>
+            <VerticalSeparatorDiv data-size='2' />
             <Select
               data-testId='a-buc-c-bucstart__subjectarea-select-id'
               className={classNames({

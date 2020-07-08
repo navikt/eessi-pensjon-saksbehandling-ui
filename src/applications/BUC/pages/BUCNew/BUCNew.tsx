@@ -29,7 +29,7 @@ export interface BUCNewProps {
 
 const BUCNewDiv = styled(Panel)`
   padding: 2rem 5rem 2rem 5rem !important;
-  border: 1px solid ${({ theme }: any) => theme.navGra40};
+  border: 1px solid ${({ theme }: any) => theme.navGra60};
   background-color: ${({ theme }: any) => theme['main-background-color']};
 `
 const BUCNewHeader = styled.div`

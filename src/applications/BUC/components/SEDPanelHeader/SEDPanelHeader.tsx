@@ -8,8 +8,10 @@ const SEDPanelHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 3px solid ${({ theme }: any) => theme.navBla};
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 `
 const Flex4Div = styled.div`
   flex: 4;

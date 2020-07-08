@@ -22,7 +22,7 @@ const SEDSearchPanel = styled(Panel)`
   display: flex !important;
   align-items: flex-start;
   padding: 0.5rem;
-  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
+  border: 1px solid ${({ theme }): any => theme.navGra60};
   background: ${({ theme }: any) => theme['main-background-color']};
   .ekspanderbartPanel__hode {
     padding: 0.25rem;

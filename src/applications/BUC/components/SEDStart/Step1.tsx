@@ -16,7 +16,7 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import { Input, Select } from 'nav-frontend-skjema'
-import { Systemtittel, Undertittel } from 'nav-frontend-typografi'
+import { Systemtittel, UndertekstBold, Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -439,10 +439,10 @@ const Step1: React.FC<Step1Props> = ({
           )}
           {sedCanHaveAttachments() && (
             <>
-              <VerticalSeparatorDiv />
-              <Undertittel className='mb-2'>
+              <VerticalSeparatorDiv data-size='2'/>
+              <UndertekstBold>
                 {t('ui:attachments')}
-              </Undertittel>
+              </UndertekstBold>
               <VerticalSeparatorDiv data-size='0.5' />
               <SEDAttachmentsTable attachments={_attachments} />
             </>

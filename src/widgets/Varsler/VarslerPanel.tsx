@@ -74,7 +74,7 @@ export interface VarslerPanelProps {
 }
 
 const WidgetPanel = styled(Panel)`
-  border: 1px solid ${({ theme }: any) => theme.navGra40};
+  border: 1px solid ${({ theme }: any) => theme.navGra60};
 `
 const Title = styled.div`
   display: flex;

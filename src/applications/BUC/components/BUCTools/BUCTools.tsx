@@ -65,7 +65,7 @@ const BUCToolsPanel = styled(ExpandingPanel)`
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
   background ${({ theme }): any => theme['main-background-color']};
-  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
+  border: 1px solid ${({ theme }): any => theme.navGra60};
   border-radius: 4px;
   .ekspanderbartPanel__hode {
     background ${({ theme }): any => theme['main-background-color']};

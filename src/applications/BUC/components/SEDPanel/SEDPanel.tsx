@@ -45,7 +45,7 @@ const SEDPanelDiv = styled.div`
 `
 const Border = styled.div`
   margin-bottom: 1rem;
-  border: 1px solid ${({ theme }): any => theme['main-disabled-color']};
+  border: 1px solid ${({ theme }): any => theme.navGra60};
   border-radius: 4px;
 `
 const PaddedDiv = styled.div`

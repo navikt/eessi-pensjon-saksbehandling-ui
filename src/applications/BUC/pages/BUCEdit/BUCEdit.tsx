@@ -78,7 +78,7 @@ const NoSedsDiv = styled.div`
 const BUCEditDiv = styled.div``
 
 const SEDNewDiv = styled(Panel)`
-  padding: 2rem 5rem 2rem 5rem !important;
+  padding: 2rem !important;
   border: 1px solid ${({ theme }: any) => theme.navGra60};
   background-color: ${({ theme }: any) => theme['main-background-color']};
 `
