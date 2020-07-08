@@ -109,12 +109,12 @@ const SEDStartDiv = styled.div`
   &.close {
     will-change: max-height, height;
     max-height: 0;
-    animation: ${animationClose} 400ms ease;
+    animation: ${animationClose} 700ms ease;
   }
   &.open {
     will-change: max-height, height;
-    max-height: 40em;
-    animation: ${animationOpen} 400ms ease;
+    max-height: 150em;
+    animation: ${animationOpen} 700ms ease;
   }
 `
 const Link = styled(Lenke)`
@@ -226,12 +226,14 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     >
       <BUCEditHeader>
         {featureToggles.v2_ENABLED === true ? (
-          <Link href="#" onClick={() => {
-            dispatch(setCurrentBuc(undefined))
-            setMode('buclist')
-          }}>
-            <VenstreChevron/>
-            <HorizontalSeparatorDiv data-size='0.25'/>
+          <Link
+            href='#' onClick={() => {
+              dispatch(setCurrentBuc(undefined))
+              setMode('buclist')
+            }}
+          >
+            <VenstreChevron />
+            <HorizontalSeparatorDiv data-size='0.25' />
             <span>
               {t('ui:back')}
             </span>
@@ -266,8 +268,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         <SEDNewDiv>
           <SEDStart
             aktoerId={aktoerId} bucs={bucs} currentBuc={currentBuc} setMode={setMode} onSedCreated={() => {
-            setStartSed(false)
-          }}
+              setStartSed(false)
+            }}
             onSedCancelled={() => setStartSed(false)}
           />
         </SEDNewDiv>

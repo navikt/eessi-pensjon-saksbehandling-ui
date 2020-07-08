@@ -145,7 +145,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (_buc === 'P_BUC_02' && featureToggles?.v2_ENABLED === true && pesysContext === 'vedtakskontekst' && personAvdod && personAvdod.length === 0) {
+    if (_buc === 'P_BUC_02' && featureToggles && featureToggles.v2_ENABLED === true &&
+      pesysContext === 'vedtakskontekst' && personAvdod && personAvdod.length === 0) {
       if (!showWarningBuc) {
         setShowWarningBuc(true)
       }
@@ -269,7 +270,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined, type: string): JSX.Element[] => {
+  const renderOptions = (options: Array<Option | string> | undefined): JSX.Element[] => {
     return options ? options.map((el: Option | string) => {
       let label: string, value: string
       if (typeof el === 'string') {
@@ -283,7 +284,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }) : []
   }
 
-  const renderOptionsForReactSelect = (options: Array<Option | string> | undefined, type: string) => {
+  const renderOptionsForReactSelect = (options: Array<Option | string> | undefined) => {
     return options ? options.map((el: Option | string) => {
       let label: string, value: string
       if (typeof el === 'string') {
@@ -299,7 +300,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
       }
     }) : []
   }
-
 
   const getOptionLabel = (value: string): string => {
     let label: string = value
@@ -357,7 +357,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               value={_subjectArea}
               onChange={onSubjectAreaChange}
             >
-              {renderOptions(subjectAreaList, 'subjectArea')}
+              {renderOptions(subjectAreaList)}
             </Select>
             <VerticalSeparatorDiv />
             <>
@@ -369,10 +369,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 className={classNames('a-buc-c-bucstart__buc-select', {
                   grey: !_buc || _buc === placeholders.buc
                 })}
-                isSearchable={true}
+                isSearchable
                 placeholder={t(placeholders.buc)}
                 onChange={(e: any) => onBucChange(e)}
-                options={renderOptionsForReactSelect(bucList, 'buc')}
+                options={renderOptionsForReactSelect(bucList)}
                 styles={{
                   control: (styles: any) => ({
                     ...styles,

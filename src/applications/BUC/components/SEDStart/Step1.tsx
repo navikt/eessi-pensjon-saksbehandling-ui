@@ -16,7 +16,7 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import { Input, Select } from 'nav-frontend-skjema'
-import { Systemtittel, UndertekstBold, Undertittel } from 'nav-frontend-typografi'
+import { Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -342,7 +342,7 @@ const Step1: React.FC<Step1Props> = ({
       )}
       <ResponsiveContainer>
         <Container>
-          <VerticalSeparatorDiv />
+          <VerticalSeparatorDiv data-size='2' />
           <Select
             data-testId='a-buc-c-sedstart__sed-select-id'
             disabled={loading.gettingSedList}
@@ -419,10 +419,10 @@ const Step1: React.FC<Step1Props> = ({
                 hideSelectedOptions={false}
                 options={institutionObjectList}
               />
-              <VerticalSeparatorDiv />
-              <Undertittel>
+              <VerticalSeparatorDiv data-size='2' />
+              <label className='skjemaelement__label'>
                 {t('buc:form-chosenInstitutions')}
-              </Undertittel>
+              </label>
               <VerticalSeparatorDiv />
               <InstitutionList
                 institutions={_institutions.map(item => {
@@ -439,10 +439,10 @@ const Step1: React.FC<Step1Props> = ({
           )}
           {sedCanHaveAttachments() && (
             <>
-              <VerticalSeparatorDiv data-size='2'/>
-              <UndertekstBold>
+              <VerticalSeparatorDiv />
+              <label className='skjemaelement__label'>
                 {t('ui:attachments')}
-              </UndertekstBold>
+              </label>
               <VerticalSeparatorDiv data-size='0.5' />
               <SEDAttachmentsTable attachments={_attachments} />
             </>
@@ -452,9 +452,10 @@ const Step1: React.FC<Step1Props> = ({
         <Container>
           {sedCanHaveAttachments() && (
             <>
-              <Undertittel className='mb-3'>
+              <VerticalSeparatorDiv data-size='2' />
+              <label className='skjemaelement__label'>
                 {t('ui:attachments')}
-              </Undertittel>
+              </label>
               <VerticalSeparatorDiv />
               <SEDAttachments
                 onSubmit={setFiles}

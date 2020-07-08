@@ -9,6 +9,7 @@ import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'dec
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
+import Tabs from 'nav-frontend-tabs'
 import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
@@ -78,6 +79,10 @@ const TextArea = styled(Textarea)`
   min-height: 150px;
   width: 100%;
 `
+const PaddedTabContent = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`
 const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, onTagChange
 }: BUCToolsProps): JSX.Element => {
@@ -92,6 +97,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     value: tag,
     label: t('buc:' + tag)
   })) : [])
+  const [activeTab, setActiveTab] = useState<number>(0)
   const { featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
 
@@ -188,6 +194,17 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
+  let tabs = featureToggles && featureToggles.P5000_VISIBLE ? [{
+    label: t('buc:form-labelP5000'),
+    key: 'P5000'
+  }] : []
+  tabs = tabs.concat([{
+    label: t('buc:form-tagsForBUC'),
+    key: 'tags'
+  }, {
+    label: t('buc:form-commentForBUC'),
+    key: 'comments'
+  }])
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCToolsPanel
@@ -202,62 +219,72 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         }
       >
         <>
-          {featureToggles && featureToggles.P5000_VISIBLE && (
-            <P5000Div>
-              <Undertittel>
-                {t('buc:form-titleP5000')}
-              </Undertittel>
-              <VerticalSeparatorDiv data-size='0.5' />
-              {modal && <Modal modal={modal} onModalClose={onModalClose} />}
-              <Knapp
-                data-amplitude='buc.edit.tools.P5000.view'
-                id='a-buc-c-buctools__p5000-button-id'
-                className='a-buc-c-buctools__p5000-button mb-2'
-                disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
-                spinner={!_.isEmpty(fetchingP5000)}
-                onClick={onGettingP5000sClick}
-              >
-                {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
-              </Knapp>
-            </P5000Div>
-          )}
-          <Undertittel>
-            {t('buc:form-tagsForBUC')}
-          </Undertittel>
-          <VerticalSeparatorDiv data-size='0.5' />
-          <Normaltekst>
-            {t('buc:form-tagsForBUC-description')}
-          </Normaltekst>
-          <MultipleSelect
-            ariaLabel={t('buc:form-tagsForBUC')}
-            label=''
-            data-testId='a-buc-c-buctools__tags-select-id'
-            placeholder={t('buc:form-tagPlaceholder')}
-            aria-describedby='help-tags'
-            values={tags || []}
-            hideSelectedOptions={false}
-            onSelect={onTagsChange}
-            options={allTags}
-          />
-          <VerticalSeparatorDiv data-size='1' />
-          <Undertittel>
-            {t('buc:form-commentForBUC')}
-          </Undertittel>
-          <VerticalSeparatorDiv data-size='0.5' />
-          <TextArea
-            id='a-buc-c-buctools__comment-textarea-id'
-            className='skjemaelement__input'
-            label=''
-            value={comment || ''}
-            onChange={onCommentChange}
-          />
-          <Knapp
-            data-id='a-buc-c-buctools__save-button-id'
-            disabled={loading.savingBucsInfo}
-            onClick={onSaveButtonClick}
-          >
-            {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
-          </Knapp>
+          <Tabs tabs={tabs} onChange={(e, i) => { setActiveTab(i) }} />
+          <PaddedTabContent>
+            {featureToggles && featureToggles.P5000_VISIBLE && tabs[activeTab].key === 'P5000' && (
+              <P5000Div>
+                <Undertittel>
+                  {t('buc:form-titleP5000')}
+                </Undertittel>
+                <VerticalSeparatorDiv data-size='0.5' />
+                {modal && <Modal modal={modal} onModalClose={onModalClose} />}
+                <Knapp
+                  data-amplitude='buc.edit.tools.P5000.view'
+                  id='a-buc-c-buctools__p5000-button-id'
+                  className='a-buc-c-buctools__p5000-button mb-2'
+                  disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
+                  spinner={!_.isEmpty(fetchingP5000)}
+                  onClick={onGettingP5000sClick}
+                >
+                  {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+                </Knapp>
+              </P5000Div>
+            )}
+            {tabs[activeTab].key === 'tags' && (
+              <>
+                <Undertittel>
+                  {t('buc:form-tagsForBUC')}
+                </Undertittel>
+                <VerticalSeparatorDiv data-size='0.5' />
+                <Normaltekst>
+                  {t('buc:form-tagsForBUC-description')}
+                </Normaltekst>
+                <MultipleSelect
+                  ariaLabel={t('buc:form-tagsForBUC')}
+                  label=''
+                  data-testId='a-buc-c-buctools__tags-select-id'
+                  placeholder={t('buc:form-tagPlaceholder')}
+                  aria-describedby='help-tags'
+                  values={tags || []}
+                  hideSelectedOptions={false}
+                  onSelect={onTagsChange}
+                  options={allTags}
+                />
+              </>
+            )}
+            {tabs[activeTab].key === 'comments' && (
+              <>
+                <Undertittel>
+                  {t('buc:form-commentForBUC')}
+                </Undertittel>
+                <VerticalSeparatorDiv data-size='0.5' />
+                <TextArea
+                  id='a-buc-c-buctools__comment-textarea-id'
+                  className='skjemaelement__input'
+                  label=''
+                  value={comment || ''}
+                  onChange={onCommentChange}
+                />
+                <Knapp
+                  data-id='a-buc-c-buctools__save-button-id'
+                  disabled={loading.savingBucsInfo}
+                  onClick={onSaveButtonClick}
+                >
+                  {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
+                </Knapp>
+              </>
+            )}
+          </PaddedTabContent>
         </>
       </BUCToolsPanel>
     </ThemeProvider>

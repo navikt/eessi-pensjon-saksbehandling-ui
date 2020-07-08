@@ -173,7 +173,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} />
       )}
       {mode === 'sednew' && featureToggles.v2_ENABLED === true && (
-        <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} initialSedNew={true}/>
+        <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} initialSedNew />
       )}
     </BUCIndexDiv>
   )

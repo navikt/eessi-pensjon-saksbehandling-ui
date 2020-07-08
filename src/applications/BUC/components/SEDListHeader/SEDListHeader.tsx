@@ -191,7 +191,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
               <Tooltip
                 placement='top' trigger={['hover']} overlay={(
                   <span>{t('buc:form-youHaveXAttachmentsInSed',
-                  { attachments: sed.attachments.length })}
+                    { attachments: sed.attachments.length })}
                   </span>
                 )}
               >

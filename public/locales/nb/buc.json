@@ -149,6 +149,7 @@
   "form-notifyUser"                   : "Varsle bruker",
   "form-orderNewSED"                  : "Bestill ny SED",
   "form-orderSED"                     : "Bestill SED",
+  "form-labelP5000"                   : "P5000",
   "form-senderreceiver"               : "Mottaker/avsender",
   "form-sender"                       : "Avsender",
   "form-receiver"                     : "Mottakere",
