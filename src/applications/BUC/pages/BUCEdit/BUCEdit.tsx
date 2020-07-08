@@ -1,5 +1,5 @@
 import { clientError } from 'actions/alert'
-import { setCurrentSed } from 'actions/buc'
+import { setCurrentBuc, setCurrentSed } from 'actions/buc'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
@@ -10,7 +10,7 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
-import { VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -19,7 +19,9 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
+import { VenstreChevron } from 'nav-frontend-chevron'
 import Knapp from 'nav-frontend-knapper'
+import Lenke from 'nav-frontend-lenker'
 import Panel from 'nav-frontend-paneler'
 import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
@@ -114,6 +116,10 @@ const SEDStartDiv = styled.div`
     max-height: 40em;
     animation: ${animationOpen} 400ms ease;
   }
+`
+const Link = styled(Lenke)`
+  display: flex;
+  align-items: center;
 `
 const BUCEdit: React.FC<BUCEditProps> = ({
   aktoerId, bucs, currentBuc, initialSearch, initialSedNew, initialStatusSearch, setMode
@@ -219,12 +225,25 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <BUCEditHeader>
-        <BUCCrumbs
-          bucs={bucs}
-          currentBuc={currentBuc}
-          mode='bucedit'
-          setMode={setMode}
-        />
+        {featureToggles.v2_ENABLED === true ? (
+          <Link href="#" onClick={() => {
+            dispatch(setCurrentBuc(undefined))
+            setMode('buclist')
+          }}>
+            <VenstreChevron/>
+            <HorizontalSeparatorDiv data-size='0.25'/>
+            <span>
+              {t('ui:back')}
+            </span>
+          </Link>
+        ) : (
+          <BUCCrumbs
+            bucs={bucs}
+            currentBuc={currentBuc}
+            mode='bucedit'
+            setMode={setMode}
+          />
+        )}
         {!startSed && (
           <Knapp
             disabled={buc.readOnly === true}

@@ -37,7 +37,7 @@ import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metric
 import Alertstripe from 'nav-frontend-alertstriper'
 import Knapp from 'nav-frontend-knapper'
 import Panel from 'nav-frontend-paneler'
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -285,12 +285,18 @@ const BUCList: React.FC<BUCListProps> = ({
         onMouseLeave={onMouseLeave}
       >
         <BUCListHeader>
-          <BUCCrumbs
-            bucs={bucs}
-            currentBuc={undefined}
-            mode='buclist'
-            setMode={setMode}
-          />
+          {featureToggles.v2_ENABLED === true ? (
+            <Undertittel>
+              {t('buc:form-buclist')}
+            </Undertittel>
+          ) : (
+            <BUCCrumbs
+              bucs={bucs}
+              currentBuc={undefined}
+              mode='buclist'
+              setMode={setMode}
+            />
+          )}
           {!startBuc && (
             <Knapp
               data-amplitude='buc.list.newbuc'

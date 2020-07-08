@@ -171,6 +171,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       >
         <UnderTitle
           data-testId='a-buc-c-header__title'
+          className='lenkepanel__heading'
         >
           {buc.type + ' - ' + getBucTypeLabel({
             t: t,
