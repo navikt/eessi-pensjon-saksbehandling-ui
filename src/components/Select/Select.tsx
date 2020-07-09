@@ -20,6 +20,10 @@ const Select = (props: any) => {
           ...styles,
           color: _theme['main-font-color']
         }),
+        menu: (styles: any) => ({
+          ...styles,
+          zIndex: 500
+        }),
         menuList: (styles: any) => ({
           ...styles,
           borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',

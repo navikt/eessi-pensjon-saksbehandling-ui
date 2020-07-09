@@ -52,7 +52,7 @@ export const OverviewPanel = styled(ExpandingPanel)`
   border-style: solid;
   border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
   border-radius: 5px;
-  * {
+  span, strong, p {
    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
   .ekspanderbartPanel {

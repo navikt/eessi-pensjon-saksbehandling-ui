@@ -356,6 +356,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <RightContentDiv>
             <VerticalSeparatorDiv data-size='2' />
             <MultipleSelect
+              highContrast={highContrast}
               ariaLabel={t('buc:form-tagsForBUC')}
               label={t('buc:form-tagsForBUC')}
               id='a-buc-c-bucstart__tags-select-id'

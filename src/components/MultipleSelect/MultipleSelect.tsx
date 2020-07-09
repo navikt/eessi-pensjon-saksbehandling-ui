@@ -34,28 +34,6 @@ export interface MultipleSelectProps<T> {
 }
 
 const MultipleSelectDiv = styled.div`
- .multipleSelect__multi-value {
-    border-radius: 20px;
-    border: 1px solid ${({ theme } : any) => theme.navMorkGra};
-    padding: 0.25rem;
- }
- .multipleSelect__multi-value__remove {
-    border-radius: 20px;
-    margin-left: 0.25rem;
-    padding: 0px;
-    text-align: center;
-    &:hover {
-      color: white;
-      cursor: pointer;
-    }
- }
- .multipleSelect__menu {
-    z-index: 500;
-  }
-  .multipleSelect__control {
-    border: 1px solid ${({ theme } : any) => theme.navMorkGra};
-  }
-
   .multipleSelect__indicator-separator {
     background-color: ${({ theme } : any) => theme.navMorkGra};
   }
@@ -66,23 +44,13 @@ const MultipleSelectDiv = styled.div`
   }
 `
 
-/*
-
-.c-multipleOption img,
-.c-multipleValue img {
-  width: 50px;
-  height: 30px;
-  margin-right: 0.7rem;
-}
-
- */
-
 const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
   ariaLabel, className, creatable = false, disabled = false, error,
   highContrast = false, hideSelectedOptions = false,
   id, isLoading = false, label, onSelect, options = [], placeholder, values = []
 }: MultipleSelectProps<any>): JSX.Element => {
   const [_values, setValues] = useState<Array<any>>(values)
+  const _theme = highContrast ? themeHighContrast : theme
 
   const onSelectChange = (e: Array<any>) => {
     if (_.isFunction(onSelect)) {
@@ -91,30 +59,11 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
     setValues(e)
   }
 
-  const selectStyle = () => ({
-    container: (styles: any, state: any) => ({
-      ...styles,
-      backgroundColor: error ? '#BA3A26' : '#fff',
-      borderRadius: 4,
-      borderColor: error ? '1 px solid #ba3a26' : '20px solid #b7b1a9',
-      boxShadow: state.isFocused ? '0 0 0 3px #FFBD66' : (error ? '0 0 0 1px #BA3A26' : '')
-    }),
-    control: (styles: any) => ({
-      ...styles,
-      borderColor: error ? '#ba3a26' : '#b7b1a9',
-      backgroundColor: '#fff',
-      ':hover': {
-        borderColor: '#0067c5',
-        transition: 'border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946)'
-      }
-    })
-  })
-
   const Component: typeof React.Component = creatable ? CreatableSelect : Select
   const inputId = id || guid()
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <ThemeProvider theme={_theme}>
       <MultipleSelectDiv
         id={id}
         className={classNames(className, { skjemaelement__feilmelding: error })}
@@ -134,7 +83,7 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
           value={_values}
           options={options}
           selectProps={{
-            highContrast: highContrast
+            theme: _theme
           }}
           components={{
             ...animatedComponents,
@@ -144,17 +93,66 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
           }}
           onChange={onSelectChange}
           hideSelectedOptions={hideSelectedOptions || false}
-          styles={selectStyle()}
+          styles={{
+            control: (styles: any) => ({
+              ...styles,
+              borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
+              borderColor:  _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderStyle: 'solid',
+              color: _theme['main-font-color'],
+              backgroundColor: _theme['main-background-color']
+            }),
+            multiValue: (styles: any) => ({
+              ...styles,
+              borderRadius: '20px',
+              borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
+              borderColor:  _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderStyle: 'solid',
+              padding: '0.25rem',
+              backgroundColor: _theme['main-background-other-color'],
+              color: _theme['main-font-color'],
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }),
+            singleValue: (styles: any) => ({
+              ...styles,
+              color: _theme['main-font-color']
+            }),
+            menu: (styles: any) => ({
+              ...styles,
+              zIndex: 500
+            }),
+            menuList: (styles: any) => ({
+              ...styles,
+              borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
+              borderColor:  _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderStyle: 'solid',
+              backgroundColor: _theme['main-background-color']
+            }),
+            option: (styles: any, { data, isFocused, isSelected }: any) => ({
+              ...styles,
+              padding: '0.5rem',
+              color: isFocused ?
+                _theme['main-background-color'] :
+                isSelected ?
+                  _theme['main-background-color'] :
+                  _theme['main-font-color'],
+              backgroundColor: isFocused ?
+                _theme['main-focus-color'] :
+                isSelected ?
+                  _theme['main-interactive-color'] :
+                  _theme['main-background-color']
+            })
+          }}
           tabSelectsValue={false}
         />
 
-        {error
-          ? (
-            <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
-              <Feilmelding>{error}</Feilmelding>
-            </div>
-          )
-          : null}
+        {error && (
+          <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
+            <Feilmelding>{error}</Feilmelding>
+          </div>
+        )}
       </MultipleSelectDiv>
     </ThemeProvider>
   )

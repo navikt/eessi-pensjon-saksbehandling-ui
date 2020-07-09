@@ -36,6 +36,8 @@ const Item = styled.div`
   flex: 1;
   display: flex;
   align-items: flex-start;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 `
 const Element = styled.div`
   display: flex;
