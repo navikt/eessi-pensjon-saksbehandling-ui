@@ -10,6 +10,7 @@ import TableSorter from 'tabell'
 
 export interface SEDAttachmentsTableProps {
   attachments: AttachedFiles
+  highContrast: boolean
 }
 
 export interface SEDAttachmentsTableRow {
@@ -27,7 +28,7 @@ const SEDAttachmentsTableDiv = styled.div`
 `
 
 const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
-  attachments = {}
+  attachments = {}, highContrast
 }: SEDAttachmentsTableProps): JSX.Element => {
   const items: SEDAttachmentsTableRows = []
   const { t } = useTranslation()
@@ -56,6 +57,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   return (
     <SEDAttachmentsTableDiv>
       <TableSorter
+        highContrast={highContrast}
         items={items}
         sortable={false}
         searchable={false}

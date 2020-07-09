@@ -79,7 +79,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
         <Undertekst>
           <strong>{t(label)}</strong>:
         </Undertekst>
-        <HorizontalSeparatorDiv/>
+        <HorizontalSeparatorDiv />
         <Normaltekst>
           {_value.map((val: any) => val)}
         </Normaltekst>
@@ -132,10 +132,10 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   const zipCode = _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value')
 
   if (_.get(person, 'bostedsadresse.strukturertAdresse')) {
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <HorizontalSeparatorDiv key={0}/>)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <HorizontalSeparatorDiv key={0} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br key={1} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br key={2} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <HorizontalSeparatorDiv key={3}/>)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <HorizontalSeparatorDiv key={3} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={4} />)
     bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <HorizontalSeparatorDiv key={5} />)
     if (zipCode) {

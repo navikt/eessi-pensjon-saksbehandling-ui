@@ -11,5 +11,4 @@ const MultipleValueLabel = (props: any) => (
   </components.MultiValueLabel>
 )
 
-
 export default MultipleValueLabel

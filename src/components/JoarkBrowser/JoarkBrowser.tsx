@@ -3,14 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
 import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { ModalContent } from 'declarations/components'
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
 import _ from 'lodash'
-import Knapp from 'nav-frontend-knapper'
 import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -21,6 +20,7 @@ import TableSorter, { Items } from 'tabell'
 
 export interface JoarkBrowserSelector {
   aktoerId: string
+  highContrast: boolean
   list: Array<JoarkFile> | undefined
   loadingJoarkList: boolean
   loadingJoarkPreviewFile: boolean
@@ -29,6 +29,7 @@ export interface JoarkBrowserSelector {
 
 const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector => ({
   aktoerId: state.app.params.aktoerId,
+  highContrast: state.ui.highContrast,
   list: state.joark.list,
   loadingJoarkList: state.loading.loadingJoarkList,
   loadingJoarkPreviewFile: state.loading.loadingJoarkPreviewFile,
@@ -58,7 +59,8 @@ const Buttons = styled.div`
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   files = [], mode = 'view', onFilesChange, onPreviewFile
 }: JoarkBrowserProps): JSX.Element => {
-  const { aktoerId, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector = useSelector<State, JoarkBrowserSelector>(mapState)
+  const { aktoerId, highContrast, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector =
+    useSelector<State, JoarkBrowserSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(undefined)
@@ -154,7 +156,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       >
         <Buttons>
           <HorizontalSeparatorDiv />
-          <Knapp
+          <HighContrastKnapp
             data-tip={t('ui:preview')}
             kompakt
             disabled={previewing}
@@ -165,12 +167,12 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             onClick={() => onPreviewItem(item)}
           >
             {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
-          </Knapp>
+          </HighContrastKnapp>
           <HorizontalSeparatorDiv />
           {context.mode === 'confirm' && (
             <>
               <HorizontalSeparatorDiv />
-              <Knapp
+              <HighContrastKnapp
                 data-tip={t('ui:delete')}
                 form='kompakt'
                 id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
@@ -179,7 +181,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
                 onClick={() => onDeleteItem(context.files, item)}
               >
                 <Trashcan color='#0067C5' />
-              </Knapp>
+              </HighContrastKnapp>
               <HorizontalSeparatorDiv />
             </>
           )}
@@ -226,6 +228,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     <div className='c-joarkBrowser'>
       <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
+        highContrast={highContrast}
         className={mode}
         items={items}
         context={context}

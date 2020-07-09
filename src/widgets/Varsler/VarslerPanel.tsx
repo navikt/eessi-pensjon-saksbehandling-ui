@@ -3,7 +3,7 @@ import { getStorageFile, listStorageFiles } from 'actions/storage'
 import LineMessageSent from 'assets/icons/line-version-expanded-email-send-3'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import RefreshButton from 'components/RefreshButton/RefreshButton'
-import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastHovedknapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import { Widget } from 'nav-dashboard'
 import _ from 'lodash'
 import moment from 'moment'
@@ -18,7 +18,6 @@ import TableSorter, { Item } from 'tabell'
 import Panel from 'nav-frontend-paneler'
 import { Systemtittel } from 'nav-frontend-typografi'
 import Veileder from 'nav-frontend-veileder'
-import { Hovedknapp } from 'nav-frontend-knapper'
 
 const mapState = /* istanbul ignore next */ (state: State) => ({
   aktoerId: state.app.params.aktoerId,
@@ -244,15 +243,14 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
           </Veileder>
           <div className='text-center'>
             <VerticalSeparatorDiv />
-            <Hovedknapp
-              id='w-varslerPanel__invite-button-id'
-              className='w-varslerPanel__invite-button'
+            <HighContrastHovedknapp
+              data-testid='w-varslerPanel__invite-button-id'
               disabled={isInvitingPinfo}
               spinner={isInvitingPinfo}
               onClick={onInviteButtonClick}
             >
               {isInvitingPinfo ? t('sending') : t('ui:widget-overview-sendNotification-button')}
-            </Hovedknapp>
+            </HighContrastHovedknapp>
           </div>
         </div>
         <div className='col-md-8'>

@@ -1,5 +1,6 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { HighContrastPanel } from 'components/StyledComponents'
 import { Buc, Sed, Seds } from 'declarations/buc'
 import _ from 'lodash'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -31,27 +32,25 @@ const slideInFromLeft = keyframes`
     transform: translateX(0);
   }
 `
-const SEDPanelDiv = styled.div`
+const SEDPanelPanel = styled(HighContrastPanel)`
   transform: translateX(-20px);
   opacity: 0;
+  padding: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
-
-  .ekspanderbartPanel {
-    background: ${({ theme }: any) => theme['main-background-color']};
-  }
-  .ekspanderbartPanel__hode {
-    background:  ${({ theme }: any) => theme['main-background-color']};
-  }
-`
-const Border = styled.div`
   margin-bottom: 1rem;
-  border: 1px solid ${({ theme }): any => theme.navGra60};
-  border-radius: 4px;
+  span, p {
+    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+  }
 `
 const PaddedDiv = styled.div`
   padding: 1rem;
   background: ${({ theme }: any) => theme['main-background-color']};
 `
+const CustomExpandingPanel = styled(ExpandingPanel)`
+  border: none;
+`
+
 const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId, buc, className, followUpSeds, highContrast, onSEDNew, sed, style
 }: SEDPanelProps): JSX.Element => {
@@ -69,44 +68,41 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <SEDPanelDiv className={className}>
+      <SEDPanelPanel className={className}>
         {!sedHasOption(sed) ? (
-          <Border>
-            <PaddedDiv>
+          <PaddedDiv>
+            <SEDListHeader
+              followUpSeds={followUpSeds}
+              sed={sed}
+              style={style}
+              buc={buc}
+              onSEDNew={onSEDNew}
+            />
+          </PaddedDiv>
+        ) : (
+          <CustomExpandingPanel
+            style={style}
+            highContrast={highContrast}
+            heading={
               <SEDListHeader
                 followUpSeds={followUpSeds}
                 sed={sed}
-                style={style}
                 buc={buc}
                 onSEDNew={onSEDNew}
               />
-            </PaddedDiv>
-          </Border>
-        ) : (
-          <Border>
-            <ExpandingPanel
-              style={style}
+            }
+          >
+            <SEDBody
+              aktoerId={aktoerId}
+              buc={buc}
               highContrast={highContrast}
-              heading={
-                <SEDListHeader
-                  followUpSeds={followUpSeds}
-                  sed={sed}
-                  buc={buc}
-                  onSEDNew={onSEDNew}
-                />
-              }
-            >
-              <SEDBody
-                aktoerId={aktoerId}
-                buc={buc}
-                sed={sed}
-                canHaveAttachments={sedCanHaveAttachments(sed)}
-                canShowProperties={sedCanShowProperties(sed)}
-              />
-            </ExpandingPanel>
-          </Border>
+              sed={sed}
+              canHaveAttachments={sedCanHaveAttachments(sed)}
+              canShowProperties={sedCanShowProperties(sed)}
+            />
+          </CustomExpandingPanel>
         )}
-      </SEDPanelDiv>
+      </SEDPanelPanel>
     </ThemeProvider>
   )
 }

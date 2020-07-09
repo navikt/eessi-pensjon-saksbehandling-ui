@@ -1,11 +1,10 @@
 import { BUCMode } from 'applications/BUC'
 import ExternalLink from 'assets/icons/line-version-logout'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { FeatureToggles, PesysContext } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
-import Lenke from 'nav-frontend-lenker'
 import { EtikettLiten } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import React from 'react'
@@ -17,21 +16,9 @@ const DivWithLinks = styled.div`
   padding: 0.5rem 2rem;
   display: flex;
   flex-direction: row-reverse;
-  *[href] {
-    color: ${({ theme }: any) => theme['main-interactive-color']} !important;
-  }
-  * svg {
-    fill: ${({ theme }: any) => theme['main-interactive-color']} !important;
-    stroke: ${({ theme }: any) => theme['main-interactive-color']} !important;
-  }
 `
 const SeparatorSpan = styled.span`
   padding: 0rem 0.5rem
-`
-const Link = styled(Lenke)`
-  display: flex;
-  align-items: flex-end;
-  font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
 `
 const Content = styled.div`
   display: flex;
@@ -50,6 +37,7 @@ const Context = styled.div`
  align-items: center;
  * {
    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+   line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
  }
 `
 const Tag = styled(EtikettLiten)`
@@ -88,12 +76,12 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
       <Content>
         {featureToggles.v2_ENABLED ? (
           <Context>
-            <HoyreChevron/>
+            <HoyreChevron />
             <Tag>
               <span>{t('ui:youComeFrom')}</span>
               <strong>{pesysContext}</strong>.
             </Tag>
-            { sakType && (
+            {sakType && (
               <Tag>
                 <span>{t('buc:form-caseType')}: </span>
                 <strong>{sakType}</strong>
@@ -102,7 +90,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           </Context>
         ) : <div />}
         <DivWithLinks>
-          <Link
+          <HighContrastLink
             target='_blank'
             data-amplitude='links.rettskilder'
             href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
@@ -111,11 +99,11 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             {t('ui:lawsource')}
             <HorizontalSeparatorDiv data-size='0.5' />
             <ExternalLink color={linkColor} />
-          </Link>
+          </HighContrastLink>
           <SeparatorSpan>
             •
           </SeparatorSpan>
-          <Link
+          <HighContrastLink
             target='_blank'
             data-amplitude='links.hjelpe'
             href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
@@ -124,7 +112,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             {t('ui:help')}
             <HorizontalSeparatorDiv data-size='0.5' />
             <ExternalLink color={linkColor} />
-          </Link>
+          </HighContrastLink>
         </DivWithLinks>
       </Content>
       <Separator />

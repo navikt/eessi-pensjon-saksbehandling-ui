@@ -1,6 +1,7 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { HighContrastLink } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institutions } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
@@ -9,7 +10,6 @@ import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import AlertStripe from 'nav-frontend-alertstriper'
-import Lenke from 'nav-frontend-lenker'
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -50,11 +50,9 @@ const BUCDetailPanel = styled(ExpandingPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
-  background ${({ theme }): any => theme['main-background-color']};
-  border: 1px solid ${({ theme }): any => theme.navGra60};
-  border-radius: 4px;
-  .ekspanderbartPanel__hode {
-    background ${({ theme }): any => theme['main-background-color']};
+  p {
+    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
 `
 const Properties = styled.dl`
@@ -94,7 +92,8 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCDetailPanel
-        id='a-buc-c-bucdetail__panel-id'
+        highContrast={highContrast}
+        data-testid='a-buc-c-bucdetail__panel-id'
         className={className}
         open
         heading={
@@ -153,16 +152,15 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
             </Dt>
             <Dd id='a-buc-c-bucdetail__props-caseId-id'>
               {rinaUrl ? (
-                <Lenke
+                <HighContrastLink
                   data-amplitude='buc.edit.detail.rinaurl'
-                  id='a-buc-c-bucdetail__gotorina-link-id'
-                  className='a-buc-c-bucdetail__gotorina-link'
+                  data-testid='a-buc-c-bucdetail__gotorina-link-id'
                   href={rinaUrl + buc.caseId}
                   target='rinaWindow'
                   onClick={linkLogger}
                 >
                   {buc.caseId}
-                </Lenke>
+                </HighContrastLink>
               ) : <WaitingPanel size='S' />}
             </Dd>
             <Dt className='odd'>

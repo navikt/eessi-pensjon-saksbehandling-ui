@@ -97,7 +97,7 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
             control: (styles: any) => ({
               ...styles,
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-              borderColor:  _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
               borderStyle: 'solid',
               color: _theme['main-font-color'],
               backgroundColor: _theme['main-background-color']
@@ -106,7 +106,7 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
               ...styles,
               borderRadius: '20px',
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-              borderColor:  _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
               borderStyle: 'solid',
               padding: '0.25rem',
               backgroundColor: _theme['main-background-other-color'],
@@ -126,23 +126,23 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
             menuList: (styles: any) => ({
               ...styles,
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-              borderColor:  _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
               borderStyle: 'solid',
               backgroundColor: _theme['main-background-color']
             }),
-            option: (styles: any, { data, isFocused, isSelected }: any) => ({
+            option: (styles: any, { isFocused, isSelected }: any) => ({
               ...styles,
               padding: '0.5rem',
-              color: isFocused ?
-                _theme['main-background-color'] :
-                isSelected ?
-                  _theme['main-background-color'] :
-                  _theme['main-font-color'],
-              backgroundColor: isFocused ?
-                _theme['main-focus-color'] :
-                isSelected ?
-                  _theme['main-interactive-color'] :
-                  _theme['main-background-color']
+              color: isFocused
+                ? _theme['main-background-color']
+                : isSelected
+                  ? _theme['main-background-color']
+                  : _theme['main-font-color'],
+              backgroundColor: isFocused
+                ? _theme['main-focus-color']
+                : isSelected
+                  ? _theme['main-interactive-color']
+                  : _theme['main-background-color']
             })
           }}
           tabSelectsValue={false}

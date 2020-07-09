@@ -32,7 +32,7 @@ const Etikett = styled(EtikettBase)`
   text-transform: capitalize;
   font-size: 12px;
   min-width: 70px;
-  color: ${({ theme }: any) => theme['main-font-color']};
+  color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
   font-weight: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'bold' : 'normal'};
   &.received {
     background-color: @navBlaLighten60 !important;

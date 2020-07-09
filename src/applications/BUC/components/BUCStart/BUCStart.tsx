@@ -11,7 +11,12 @@ import {
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { BUCMode } from 'applications/BUC/index'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import {
+  HighContrastFlatknapp,
+  HighContrastHovedknapp,
+  HorizontalSeparatorDiv,
+  VerticalSeparatorDiv
+} from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
@@ -23,7 +28,6 @@ import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 import { Normaltekst } from 'nav-frontend-typografi'
 import Select from 'components/Select/Select'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -325,7 +329,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 data-testid='a-buc-c-bucstart__subjectarea-select-id'
                 isSearchable
                 placeholder={t(placeholders.subjectArea)}
-                defaultValue={{label: _subjectArea, value: _subjectArea}}
+                defaultValue={{ label: _subjectArea, value: _subjectArea }}
                 onChange={onSubjectAreaChange}
                 options={renderOptions(subjectAreaList)}
               />
@@ -382,7 +386,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </AlertStripe>
         )}
         <ButtonsDiv data-testId='a-buc-c-bucstart__buttons'>
-          <Hovedknapp
+          <HighContrastHovedknapp
             data-amplitude='buc.new.create'
             data-testId='a-buc-c-bucstart__forward-button'
             disabled={!allowedToForward()}
@@ -392,14 +396,14 @@ const BUCStart: React.FC<BUCStartProps> = ({
             {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
               : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
                 : t('buc:form-createCaseinRINA')}
-          </Hovedknapp>
+          </HighContrastHovedknapp>
           <HorizontalSeparatorDiv />
-          <Flatknapp
+          <HighContrastFlatknapp
             data-amplitude='buc.new.cancel'
             data-testId='a-buc-c-bucstart__cancel-button-id'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
-          </Flatknapp>
+          </HighContrastFlatknapp>
         </ButtonsDiv>
         <LoadingDiv data-testId='selectBoxMessage'>
           {!loading ? null

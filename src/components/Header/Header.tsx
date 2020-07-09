@@ -50,6 +50,7 @@ const BrandDiv = styled.div`
   flex-direction: row;
   * {
    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+   line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
 `
 

@@ -1,5 +1,10 @@
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import {
+  HighContrastHovedknapp,
+  HighContrastKnapp,
+  HorizontalSeparatorDiv,
+  VerticalSeparatorDiv
+} from 'components/StyledComponents'
 import { AttachedFiles } from 'declarations/buc'
 import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFiles } from 'declarations/joark'
@@ -7,7 +12,6 @@ import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Knapp, { Hovedknapp } from 'nav-frontend-knapper'
 import TilsetteIcon from 'assets/icons/Tilsette'
 import { Normaltekst } from 'nav-frontend-typografi'
 import styled from 'styled-components'
@@ -61,7 +65,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
   return (
     <SEDAttachmentsDiv data-testId='a-buc-c-sedattachments'>
       {!open ? (
-        <Knapp
+        <HighContrastKnapp
           data-testId='a-buc-c-sedattachments__enable-button-id'
           onClick={onEnableAttachmentsButtonClicked}
         >
@@ -71,7 +75,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
               {t('ui:addAttachments')}
             </NormalText>
           </FlexDiv>
-        </Knapp>
+        </HighContrastKnapp>
       ) : (
         <>
           <JoarkBrowser
@@ -81,18 +85,18 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
           />
           <VerticalSeparatorDiv data-size='1.5' />
           {mode === 'view' && (
-            <Hovedknapp
+            <HighContrastHovedknapp
               disabled={_.isEmpty(localFiles)}
               id='a-buc-c-sedattachments__upload-button-id'
               className='a-buc-c-sedattachments__upload-button'
               onClick={() => setMode('confirm')}
             >
               {t('buc:form-addSelectedAttachments')}
-            </Hovedknapp>
+            </HighContrastHovedknapp>
           )}
           {mode === 'confirm' && (
             <>
-              <Hovedknapp
+              <HighContrastHovedknapp
                 disabled={_.isEmpty(localFiles) || disableButtons}
                 data-testId='a-buc-c-sedattachments__submit-button-id'
                 onClick={() => onSubmitJoarkFiles(localFiles)}
@@ -100,9 +104,9 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
                 <NormalText>
                   {t('buc:form-submitSelectedAttachments')}
                 </NormalText>
-              </Hovedknapp>
+              </HighContrastHovedknapp>
               <HorizontalSeparatorDiv />
-              <Knapp
+              <HighContrastKnapp
                 disabled={disableButtons}
                 data-testId='a-buc-c-sedattachments__cancel-button-id'
                 className='a-buc-c-sedattachments__cancel-button'
@@ -111,7 +115,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
                 <NormalText>
                   {t('buc:form-selectAgainAttachments')}
                 </NormalText>
-              </Knapp>
+              </HighContrastKnapp>
             </>
           )}
         </>

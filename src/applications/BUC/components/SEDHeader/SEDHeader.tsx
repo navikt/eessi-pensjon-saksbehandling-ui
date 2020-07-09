@@ -2,7 +2,7 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastFlatknapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -10,7 +10,6 @@ import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { Flatknapp } from 'nav-frontend-knapper'
 import Panel from 'nav-frontend-paneler'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -198,7 +197,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </Tooltip>
             )}
             {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
-              <Flatknapp
+              <HighContrastFlatknapp
                 mini
                 data-amplitude='buc.list.besvarSed'
                 data-testId='a-buc-c-sedheader__actions-answer-button'
@@ -209,7 +208,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 }}
               >
                 {t('buc:form-answerSED')}
-              </Flatknapp>
+              </HighContrastFlatknapp>
             )}
           </SEDActionsDiv>
         </SEDHeaderContent>

@@ -6,7 +6,7 @@ import { Checkbox } from 'nav-frontend-skjema'
 export type MultipleOptionProps = OptionProps<any>
 
 const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProps): JSX.Element => {
-  const {data, selectProps, innerProps, isSelected, getStyles} = props
+  const { data, selectProps, innerProps, isSelected, getStyles } = props
   const id: string = selectProps.id + '-' + data.value
   return (
     <div

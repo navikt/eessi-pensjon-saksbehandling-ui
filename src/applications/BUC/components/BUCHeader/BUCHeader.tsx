@@ -27,9 +27,6 @@ export const BUCHeaderDiv = styled.div`
   align-items: center;
   padding: 0rem;
   width: 100%;
-  .alertstripe__tekst {
-    max-width: 100% !important;
-  }
 `
 const UnderTitle = styled(Undertittel)`
   padding-bottom: 0.25rem;

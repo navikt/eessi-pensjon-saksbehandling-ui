@@ -5,7 +5,7 @@ import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttach
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import Alert from 'components/Alert/Alert'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastInput, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AttachedFiles, Buc, InstitutionListMap, RawInstitution, Sed } from 'declarations/buc'
 import { AttachedFilesPropType, BucPropType, InstitutionListMapPropType } from 'declarations/buc.pt'
@@ -13,12 +13,11 @@ import { Country } from 'declarations/period'
 import { AllowedLocaleString, Labels, Loading, Option, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType, LoadingPropType, ValidationPropType } from 'declarations/types.pt'
 import CountryData from 'land-verktoy'
-import Select from 'react-select'
+import Select from 'components/Select/Select'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import { Input } from 'nav-frontend-skjema'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
-import { theme } from "nav-styled-component-theme"
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -32,6 +31,7 @@ export interface Step1Props {
   _countries: Array<string>
   countryList: Array<string>
   currentSed ?: string | undefined
+  highContrast: boolean
   _institutions: Array<string>
   institutionList: InstitutionListMap<RawInstitution>
   layout? : string
@@ -88,7 +88,7 @@ const Container = styled.div`
 `
 
 const Step1: React.FC<Step1Props> = ({
-  _attachments, avdodfnr, buc, _countries, countryList = [], currentSed, _institutions, institutionList,
+  _attachments, avdodfnr, buc, _countries, countryList = [], currentSed, highContrast, _institutions, institutionList,
   loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, sedNeedsAvdodfnr, setAvdodfnr, setSed, setValidation, setVedtakId, validation, vedtakId
 }: Step1Props): JSX.Element => {
@@ -351,17 +351,12 @@ const Step1: React.FC<Step1Props> = ({
               {t('buc:form-sed')}
             </label>
             <Select
-              data-testId='a-buc-c-sedstart__sed-select-id'
+              highContrast={highContrast}
+              data-testid='a-buc-c-sedstart__sed-select-id'
               disabled={loading.gettingSedList}
               isSearchable
               onChange={onSedChange}
               options={renderOptions(sedList)}
-              styles={{
-                control: (styles: any) => ({
-                  ...styles,
-                  borderColor: '1px solid ' + theme.navGra60
-                })
-              }}
             />
 
             {validation.sedFail && <Normaltekst>{t(validation.sedFail)}</Normaltekst>}
@@ -386,7 +381,7 @@ const Step1: React.FC<Step1Props> = ({
           {sedNeedsAvdodfnr() && (
             <>
               <VerticalSeparatorDiv />
-              <Input
+              <HighContrastInput
                 id='a-buc-c-sedstart__fnr-input-id'
                 label={t('buc:form-fnr')}
                 bredde='fullbredde'
@@ -402,6 +397,7 @@ const Step1: React.FC<Step1Props> = ({
             <>
               <VerticalSeparatorDiv />
               <MultipleSelect
+                highContrast={highContrast}
                 ariaLabel={t('ui:country')}
                 label={t('ui:country')}
                 data-testId='a-buc-c-sedstart__country-select-id'
@@ -416,6 +412,7 @@ const Step1: React.FC<Step1Props> = ({
               />
               <VerticalSeparatorDiv />
               <MultipleSelect
+                highContrast={highContrast}
                 ariaLabel={t('ui:institution')}
                 label={t('ui:institution')}
                 data-testId='a-buc-c-sedstart__institution-select-id'
@@ -453,7 +450,7 @@ const Step1: React.FC<Step1Props> = ({
                 {t('ui:attachments')}
               </label>
               <VerticalSeparatorDiv data-size='0.5' />
-              <SEDAttachmentsTable attachments={_attachments} />
+              <SEDAttachmentsTable highContrast={highContrast} attachments={_attachments} />
             </>
           )}
         </Container>

@@ -2,9 +2,13 @@ import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import Modal from 'components/Modal/Modal'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { VerticalSeparatorDiv } from 'components/StyledComponents'
+import {
+  HighContrastKnapp,
+  HighContrastModal,
+  HighContrastTextArea,
+  VerticalSeparatorDiv
+} from 'components/StyledComponents'
 import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
@@ -13,8 +17,6 @@ import Tabs from 'nav-frontend-tabs'
 import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
-import Knapp from 'nav-frontend-knapper'
-import { Textarea } from 'nav-frontend-skjema'
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -65,23 +67,33 @@ const BUCToolsPanel = styled(ExpandingPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
-  background ${({ theme }): any => theme['main-background-color']};
-  border: 1px solid ${({ theme }): any => theme.navGra60};
-  border-radius: 4px;
-  .ekspanderbartPanel__hode {
-    background ${({ theme }): any => theme['main-background-color']};
-  }
 `
 const P5000Div = styled.div`
   margin-bottom: 1rem;
 `
-const TextArea = styled(Textarea)`
+const TextArea = styled(HighContrastTextArea)`
   min-height: 150px;
   width: 100%;
 `
 const PaddedTabContent = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
+`
+const HighContrastTabs = styled(Tabs)`
+  .nav-frontend-tabs__tab-inner--aktiv {
+    color: ${({ theme }: any) => theme['main-font-color']};
+    background: ${({ theme }: any) => theme['main-background-color']};
+    border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra20};
+    border-bottom-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-bottom-style: solid;
+    border-bottom-color: white;
+  }
+  .nav-frontend-tabs__tab-inner {
+    color: ${({ theme }: any) => theme['main-interactive-color']};
+    background: none;
+  }
 `
 const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, onTagChange
@@ -127,7 +139,14 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     setTimeWithP5000Modal(new Date())
     setModal({
       modalTitle: t('buc:P5000-title'),
-      modalContent: <SEDP5000 seds={getP5000()!} sedContent={sedContent} locale={locale} />
+      modalContent: (
+        <SEDP5000
+          highContrast={highContrast}
+          seds={getP5000()!}
+          sedContent={sedContent}
+          locale={locale}
+        />
+      )
     })
   }, [setModal, getP5000, locale, sedContent, t])
 
@@ -208,6 +227,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCToolsPanel
+        highContrast={highContrast}
         collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
         data-testId='a-buc-c-buctools__panel-id'
         open
@@ -219,7 +239,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         }
       >
         <>
-          <Tabs tabs={tabs} onChange={(e, i) => { setActiveTab(i) }} />
+          <HighContrastTabs
+            tabs={tabs}
+            onChange={(e, i) => { setActiveTab(i) }}
+          />
           <PaddedTabContent>
             {featureToggles && featureToggles.P5000_VISIBLE && tabs[activeTab].key === 'P5000' && (
               <P5000Div>
@@ -227,8 +250,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   {t('buc:form-titleP5000')}
                 </Undertittel>
                 <VerticalSeparatorDiv data-size='0.5' />
-                {modal && <Modal modal={modal} onModalClose={onModalClose} />}
-                <Knapp
+                {modal && <HighContrastModal modal={modal} onModalClose={onModalClose} />}
+                <HighContrastKnapp
                   data-amplitude='buc.edit.tools.P5000.view'
                   id='a-buc-c-buctools__p5000-button-id'
                   className='a-buc-c-buctools__p5000-button mb-2'
@@ -237,7 +260,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   onClick={onGettingP5000sClick}
                 >
                   {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
-                </Knapp>
+                </HighContrastKnapp>
               </P5000Div>
             )}
             {tabs[activeTab].key === 'tags' && (
@@ -250,6 +273,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   {t('buc:form-tagsForBUC-description')}
                 </Normaltekst>
                 <MultipleSelect
+                  highContrast={highContrast}
                   ariaLabel={t('buc:form-tagsForBUC')}
                   label=''
                   data-testId='a-buc-c-buctools__tags-select-id'
@@ -275,13 +299,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   value={comment || ''}
                   onChange={onCommentChange}
                 />
-                <Knapp
+                <HighContrastKnapp
                   data-id='a-buc-c-buctools__save-button-id'
                   disabled={loading.savingBucsInfo}
                   onClick={onSaveButtonClick}
                 >
                   {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
-                </Knapp>
+                </HighContrastKnapp>
               </>
             )}
           </PaddedTabContent>

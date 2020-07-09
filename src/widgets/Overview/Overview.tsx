@@ -54,6 +54,7 @@ export const OverviewPanel = styled(ExpandingPanel)`
   border-radius: 5px;
   span, strong, p {
    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+   line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
   .ekspanderbartPanel {
     background: ${({ theme }: any) => theme['main-background-color']};

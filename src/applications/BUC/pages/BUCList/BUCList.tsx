@@ -91,22 +91,48 @@ const BUCListHeader = styled.div`
   align-items: center;
   min-height: 40px;
 `
-const FullWidthDiv = styled.div`
+const BadBucDiv = styled.div`
   width: 100%;
   padding: 0rem;
+  .alertstripe--advarsel {
+    border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    border-color: ${({ theme }: any) => theme.navOransjeDarken20};
+    background-color: ${({ theme }: any) => theme.navOransjeLighten80};
+    color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
+    div {
+      font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+      line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    }
+  }
+  .alertstripe__tekst {
+    max-width: 100% !important;
+  }
 `
 const BucLenkePanel = styled(LenkepanelBase)`
- transform: translateX(-20px);
- opacity: 0;
- animation: ${slideInFromLeft} 0.2s forwards;
- margin-bottom: 1rem;
+  transform: translateX(-20px);
+  opacity: 0;
+  animation: ${slideInFromLeft} 0.2s forwards;
+  margin-bottom: 1rem;
+  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
+  border-style: solid;
+  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  background-color: ${({ theme }: any) => theme['main-background-color']};
+  color: ${({ theme }: any) => theme['main-font-color']};
+  span, strong, p {
+    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+  }
+  &:hover .lenkepanel__heading {
+    color: ${({ theme }: any) => theme['main-interactive-color']};
+  }
 `
 const BucExpandingPanel = styled(ExpandingPanel)`
- transform: translateX(-20px);
- border: 1px solid ${({ theme }: any) => theme.navGra60};
- opacity: 0;
- animation: ${slideInFromLeft} 0.2s forwards;
- margin-bottom: 1rem;
+  transform: translateX(-20px);
+  border: 1px solid ${({ theme }: any) => theme.navGra60};
+  opacity: 0;
+  animation: ${slideInFromLeft} 0.2s forwards;
+  margin-bottom: 1rem;
 `
 const Flex4Div = styled.div`
   flex: 4;
@@ -115,7 +141,7 @@ const Flex3Div = styled.div`
   flex: 3;
 `
 const Flex2Div = styled.div`
- flex: 2;
+  flex: 2;
 `
 const SEDHeader = styled.div`
   display: flex;
@@ -125,7 +151,6 @@ const SEDHeader = styled.div`
 const BUCNewDiv = styled(HighContrastPanel)`
   padding: 2rem !important;
 `
-
 const animationOpen = keyframes`
   0% {
     height: 0%;
@@ -344,11 +369,11 @@ const BUCList: React.FC<BUCListProps> = ({
             .map((buc: Buc, index: number) => {
               if (buc.error) {
                 return (
-                  <FullWidthDiv key={index}>
-                    <Alertstripe type='advarsel' style={{ width: '100%' }}>
+                  <BadBucDiv key={index}>
+                    <Alertstripe type='advarsel'>
                       {buc.error}
                     </Alertstripe>
-                  </FullWidthDiv>
+                  </BadBucDiv>
                 )
               }
               const bucId: string = buc.caseId!

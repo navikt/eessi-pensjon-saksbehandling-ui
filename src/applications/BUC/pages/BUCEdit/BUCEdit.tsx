@@ -10,7 +10,12 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
-import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import {
+  HighContrastKnapp,
+  HighContrastLink, HighContrastPanel,
+  HorizontalSeparatorDiv,
+  VerticalSeparatorDiv
+} from 'components/StyledComponents'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -20,9 +25,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { VenstreChevron } from 'nav-frontend-chevron'
-import Knapp from 'nav-frontend-knapper'
-import Lenke from 'nav-frontend-lenker'
-import Panel from 'nav-frontend-paneler'
 import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -77,10 +79,8 @@ const NoSedsDiv = styled.div`
 `
 const BUCEditDiv = styled.div``
 
-const SEDNewDiv = styled(Panel)`
+const SEDNewDiv = styled(HighContrastPanel)`
   padding: 2rem !important;
-  border: 1px solid ${({ theme }: any) => theme.navGra60};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
 `
 const animationOpen = keyframes`
   0% {
@@ -116,10 +116,6 @@ const SEDStartDiv = styled.div`
     max-height: 150em;
     animation: ${animationOpen} 700ms ease;
   }
-`
-const Link = styled(Lenke)`
-  display: flex;
-  align-items: center;
 `
 const BUCEdit: React.FC<BUCEditProps> = ({
   aktoerId, bucs, currentBuc, initialSearch, initialSedNew, initialStatusSearch, setMode
@@ -226,7 +222,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     >
       <BUCEditHeader>
         {featureToggles.v2_ENABLED === true ? (
-          <Link
+          <HighContrastLink
             href='#' onClick={() => {
               dispatch(setCurrentBuc(undefined))
               setMode('buclist')
@@ -237,7 +233,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             <span>
               {t('ui:back')}
             </span>
-          </Link>
+          </HighContrastLink>
         ) : (
           <BUCCrumbs
             bucs={bucs}
@@ -247,7 +243,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           />
         )}
         {!startSed && (
-          <Knapp
+          <HighContrastKnapp
             disabled={buc.readOnly === true}
             data-amplitude='buc.edit.newsed'
             data-testId='a-buc-p-bucedit__new-sed-button-id'
@@ -256,7 +252,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               onSEDNew(buc, undefined)
             }}
           >{t('buc:form-orderNewSED')}
-          </Knapp>
+          </HighContrastKnapp>
         )}
       </BUCEditHeader>
       <VerticalSeparatorDiv />

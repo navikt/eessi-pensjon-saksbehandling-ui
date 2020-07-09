@@ -1,6 +1,6 @@
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import { HighContrastPanel } from 'components/StyledComponents'
 import { standardLogger } from 'metrics/loggers'
-import Panel from 'nav-frontend-paneler'
 import { Input } from 'nav-frontend-skjema'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -18,12 +18,10 @@ export interface SEDSearchProps {
 
 export type StatusList = Array<{label: string, value: string}>
 
-const SEDSearchPanel = styled(Panel)`
+const SEDSearchPanel = styled(HighContrastPanel)`
   display: flex !important;
   align-items: flex-start;
   padding: 0.5rem;
-  border: 1px solid ${({ theme }): any => theme.navGra60};
-  background: ${({ theme }: any) => theme['main-background-color']};
   .ekspanderbartPanel__hode {
     padding: 0.25rem;
   }
@@ -41,6 +39,9 @@ const SearchInput = styled(Input)`
     display: none;
   }
   .skjemaelement__input {
+    border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
     background: ${({ theme }: any) => theme['main-background-color']};
   }
 `
@@ -112,6 +113,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
         </PaddedDiv>
         <PaddedDiv>
           <SearchSelect
+            highContrast={highContrast}
             ariaLabel={t('buc:form-searchForStatus')}
             label=''
             data-testId='a-buc-c-sedsearch__status-select-id'

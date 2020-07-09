@@ -23,6 +23,7 @@ export interface SEDBodyProps {
   buc: Buc
   canHaveAttachments: boolean
   canShowProperties: boolean
+  highContrast: boolean
   initialAttachmentsSent?: boolean
   initialSeeAttachmentPanel?: boolean
   initialSendingAttachments?: boolean
@@ -58,7 +59,7 @@ const SEDAttachmentSenderDiv = styled.div`
 `
 
 const SEDBody: React.FC<SEDBodyProps> = ({
-  aktoerId, buc, canHaveAttachments, initialAttachmentsSent = false, initialSeeAttachmentPanel = false,
+  aktoerId, buc, canHaveAttachments, initialAttachmentsSent = false, highContrast, initialSeeAttachmentPanel = false,
   initialSendingAttachments = false, onAttachmentsSubmit, onAttachmentsPanelOpen, sed
 }: SEDBodyProps): JSX.Element => {
   const { t } = useTranslation()
@@ -116,7 +117,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
             {t('ui:attachments')}
           </Title>
           <MarginDiv>
-            {!sendingAttachments && <SEDAttachmentsTable attachments={_attachments} />}
+            {!sendingAttachments && <SEDAttachmentsTable attachments={_attachments} highContrast={highContrast} />}
           </MarginDiv>
           {seeAttachmentPanel && (
             <Title>

@@ -2,7 +2,7 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -10,8 +10,6 @@ import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { Flatknapp } from 'nav-frontend-knapper'
-import Panel from 'nav-frontend-paneler'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -52,15 +50,13 @@ const slideInFromLeft = keyframes`
     transform: translateX(0);
   }
 `
-const SEDListHeaderPanel = styled(Panel)`
+const SEDListHeaderPanel = styled(HighContrastPanel)`
   width: 100%;
   padding: 0rem;
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
-  border-bottom: ${({ theme }: any) => theme.type === 'themeHighContrast'
-  ? '2px solid $theme[\'main-disabled-color\']'
-  : '1px solid $theme[\'navGra60\']'};
+  border: none;
 `
 const SEDListHeaderContent = styled.div`
   padding-top: 0.5rem;
@@ -203,7 +199,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
               </Tooltip>
             )}
             {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
-              <Flatknapp
+              <HighContrastFlatknapp
                 mini
                 disabled={buc.readOnly === true}
                 data-amplitude='buc.edit.besvarSed'
@@ -214,7 +210,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
                 }}
               >
                 {t('buc:form-answerSED')}
-              </Flatknapp>
+              </HighContrastFlatknapp>
             )}
           </SEDListActionsDiv>
         </SEDListHeaderContent>

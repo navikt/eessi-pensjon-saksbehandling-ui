@@ -4,11 +4,10 @@ import MonitorPNG from 'assets/images/artwork/dataskjerm.png'
 import CupPNG from 'assets/images/artwork/kop.png'
 import MousePNG from 'assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'assets/images/artwork/saksstatus.png'
-import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastHovedknapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import { standardLogger } from 'metrics/loggers'
-import { Hovedknapp } from 'nav-frontend-knapper'
 import Lenke from 'nav-frontend-lenker'
 import { Input } from 'nav-frontend-skjema'
 import { Undertittel } from 'nav-frontend-typografi'
@@ -159,12 +158,12 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               feil={validation || false}
             />
             <HorizontalSeparatorDiv />
-            <Hovedknapp
+            <HighContrastHovedknapp
               data-testId='a-buc-p-bucempty__aktoerid-button-id'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
-            </Hovedknapp>
+            </HighContrastHovedknapp>
           </BUCEmptyForm>
         )}
         {!sakId && (
@@ -178,12 +177,12 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               feil={validation || false}
             />
             <HorizontalSeparatorDiv />
-            <Hovedknapp
+            <HighContrastHovedknapp
               data-testId='a-buc-p-bucempty__sakid-button-id'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}
-            </Hovedknapp>
+            </HighContrastHovedknapp>
           </BUCEmptyForm>
         )}
       </BUCEmptyDiv>

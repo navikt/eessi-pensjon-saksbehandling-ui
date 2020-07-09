@@ -1,9 +1,8 @@
 import ExternalLink from 'assets/icons/line-version-logout'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
-import Lenke from 'nav-frontend-lenker'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
@@ -27,10 +26,7 @@ const BUCFooterDiv = styled.div`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 `
-const Link = styled(Lenke)`
-  display: flex;
-  align-items: flex-end
-`
+
 const mapState = (state: State): BUCFooterSelector => ({
   highContrast: state.ui.highContrast,
   rinaUrl: state.buc.rinaUrl
@@ -48,10 +44,9 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCFooterDiv className={className}>
-        <Link
+        <HighContrastLink
           data-amplitude='buc.list.rinaurl'
-          id='a-buc-c-buclist__gotorina-link'
-          className='a-buc-c-buclist__gotorina'
+          data-testid='a-buc-c-buclist__gotorina-link'
           href={rinaUrl}
           target='rinaWindow'
           onClick={linkLogger}
@@ -59,7 +54,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
           {t('ui:goToRina')}
           <HorizontalSeparatorDiv data-size='0.5' />
           <ExternalLink color={linkColor} />
-        </Link>
+        </HighContrastLink>
       </BUCFooterDiv>
     </ThemeProvider>
   )

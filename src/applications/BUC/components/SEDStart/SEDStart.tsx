@@ -16,6 +16,7 @@ import SEDAttachmentSender, {
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import { BUCMode } from 'applications/BUC/index'
+import { HighContrastFlatknapp, HighContrastHovedknapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
 import {
@@ -41,7 +42,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 
 export interface SEDStartProps {
   aktoerId?: string
@@ -62,6 +62,7 @@ export interface SEDStartSelector {
   countryList: Array<string> | undefined
   currentSed: string | undefined
   featureToggles: FeatureToggles
+  highContrast: boolean
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
@@ -80,6 +81,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   countryList: state.buc.countryList,
   currentSed: state.buc.currentSed,
   featureToggles: state.app.featureToggles,
+  highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
@@ -111,7 +113,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachments, attachmentsError, bucsInfoList, currentSed, countryList,
-    featureToggles, institutionList, loading, locale, pesysContext,
+    featureToggles, highContrast, institutionList, loading, locale, pesysContext,
     sakId, sed, sedsWithAttachments, sedList, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -326,6 +328,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <Step1
             loading={loading}
             locale={locale!}
+            highContrast={highContrast}
             _sed={_sed} setSed={setSed} currentSed={currentSed} sedList={sedList} buc={buc}
             _countries={_countries} setCountries={setCountries} countryList={countryList!}
             _institutions={_institutions} setInstitutions={setInstitutions} institutionList={institutionList!}
@@ -368,7 +371,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       {showButtons && (
         <Container>
           <ButtonsDiv>
-            <Hovedknapp
+            <HighContrastHovedknapp
               data-amplitude='sed.new.create'
               data-testId='a-buc-c-sedstart__forward-button-id'
               disabled={!allowedToForward()}
@@ -385,21 +388,23 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 : sendingAttachments ? t('buc:loading-sendingSEDattachments')
                   : createSedNeedsMoreSteps() ? t('ui:next')
                     : t('buc:form-orderSED')}
-            </Hovedknapp>
+            </HighContrastHovedknapp>
             {step > 0 && (
-              <Flatknapp
+              <HighContrastFlatknapp
                 data-amplitude='sed.new.back'
                 data-testId='a-buc-c-sedstart__back-button-id'
                 onClick={onBackButtonClick}
               >{t('ui:back')}
-              </Flatknapp>
+              </HighContrastFlatknapp>
             )}
-            <Flatknapp
+            <HorizontalSeparatorDiv />
+            <HighContrastFlatknapp
               data-amplitude='sed.new.cancel'
               data-testId='a-buc-c-sedstart__cancel-button-id'
               onClick={onCancelButtonClick}
-            >{t('ui:cancel')}
-            </Flatknapp>
+            >
+              {t('ui:cancel')}
+            </HighContrastFlatknapp>
           </ButtonsDiv>
         </Container>
       )}

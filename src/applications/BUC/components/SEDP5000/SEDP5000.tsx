@@ -1,5 +1,5 @@
 import Alert from 'components/Alert/Alert'
-import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
@@ -8,33 +8,34 @@ import _ from 'lodash'
 import Flag from 'flagg-ikoner'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import * as labels from './SEDP5000.labels'
 import WarningCircle from 'assets/icons/WarningCircle'
 import TableSorter from 'tabell'
 import ReactToPrint from 'react-to-print'
 import { Checkbox, Select } from 'nav-frontend-skjema'
-import Knapp from 'nav-frontend-knapper'
 import { Normaltekst } from 'nav-frontend-typografi'
 import CountryData from 'land-verktoy'
 
 export interface SEDP5000Props {
-  locale: AllowedLocaleString;
-  seds: Seds;
-  sedContent: SedContentMap;
+  highContrast: boolean
+  locale: AllowedLocaleString
+  seds: Seds
+  sedContent: SedContentMap
 }
 
 type ActiveSeds = {[k: string]: boolean}
 
 interface SedSender {
-  date: string;
-  country: string;
-  countryLabel: string;
-  institution: string;
-  acronym: string;
+  date: string
+  country: string
+  countryLabel: string
+  institution: string
+  acronym: string
 }
 
 export const SEDP5000Container = styled.div`
@@ -90,7 +91,13 @@ const Sender = styled.div`
   display: flex;
   align-items: center;
 `
-const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP5000Props) => {
+const CustomSelect = styled(Select)`
+  select {
+    color: ${({ theme }: any) => theme['main-font-color']};
+    background-color: ${({ theme }: any) => theme['main-background-color']};
+  }
+`
+const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedContent }: SEDP5000Props) => {
   const { t } = useTranslation()
   const { height } = useWindowDimensions()
   const [itemsPerPage, setItemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
@@ -199,183 +206,186 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ locale, seds, sedContent }: SEDP500
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
   return (
-    <SEDP5000Container>
-      <SEDP5000Header>
-        <SEDP5000Checkboxes>
-          {Object.keys(activeSeds).map(sedId => {
-            const sender: SedSender | undefined = getSedSender(sedId)
-            return (
-              <>
-                <Checkbox
-                  key={sedId}
-                  data-testId={'checkbox-' + sedId}
-                  checked={activeSeds[sedId]}
-                  onChange={() => changeActiveSed(sedId)}
-                  label={(
-                    <CheckboxLabel>
-                      <span>{t('buc:form-dateP5000', { date: sender?.date })}</span>
-                      <SeparatorSpan>-</SeparatorSpan>
-                      {sender ? (
-                        <Sender>
-                          <Flag
-                            type='circle'
-                            size='XS'
-                            country={sender?.country}
-                            label={sender?.countryLabel}
-                          />
-                          <span>{sender?.countryLabel}</span>
-                          <SeparatorSpan>-</SeparatorSpan>
-                          <span>{sender?.institution}</span>
-                        </Sender>
-                      ) : sedId}
-                      {emptyPeriodReport[sedId] && (
-                        <>
-                          <HorizontalSeparatorDiv data-size='0.5' />
-                          <WarningCircle />
-                        </>
-                      )}
-                    </CheckboxLabel>
-                  )}
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+      <SEDP5000Container>
+        <SEDP5000Header>
+          <SEDP5000Checkboxes>
+            {Object.keys(activeSeds).map(sedId => {
+              const sender: SedSender | undefined = getSedSender(sedId)
+              return (
+                <>
+                  <Checkbox
+                    key={sedId}
+                    data-testId={'checkbox-' + sedId}
+                    checked={activeSeds[sedId]}
+                    onChange={() => changeActiveSed(sedId)}
+                    label={(
+                      <CheckboxLabel>
+                        <span>{t('buc:form-dateP5000', { date: sender?.date })}</span>
+                        <SeparatorSpan>-</SeparatorSpan>
+                        {sender ? (
+                          <Sender>
+                            <Flag
+                              type='circle'
+                              size='XS'
+                              country={sender?.country}
+                              label={sender?.countryLabel}
+                            />
+                            <span>{sender?.countryLabel}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
+                            <span>{sender?.institution}</span>
+                          </Sender>
+                        ) : sedId}
+                        {emptyPeriodReport[sedId] && (
+                          <>
+                            <HorizontalSeparatorDiv data-size='0.5' />
+                            <WarningCircle />
+                          </>
+                        )}
+                      </CheckboxLabel>
+                    )}
+                  />
+                  <VerticalSeparatorDiv data-size='0.5' />
+                </>
+              )
+            })}
+          </SEDP5000Checkboxes>
+          <FlexDiv>
+            {warning && (
+              <MarginDiv>
+                <Alert
+                  type='client'
+                  fixed={false}
+                  status='WARNING'
+                  message={t('buc:form-P5000-warning')}
                 />
-                <VerticalSeparatorDiv data-size='0.5' />
-              </>
-            )
-          })}
-        </SEDP5000Checkboxes>
-        <FlexDiv>
-          {warning && (
-            <MarginDiv>
-              <Alert
-                type='client'
-                fixed={false}
-                status='WARNING'
-                message={t('buc:form-P5000-warning')}
-              />
-            </MarginDiv>
-          )}
-          <Select
-            id='itemsPerPage'
-            bredde='l'
-            label={t('ui:itemsPerPage')}
-            value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
-            onChange={itemsPerPageChanged}
-          >
-            <option value='15'>15</option>
-            <option value='20'>20</option>
-            <option value='25'>25</option>
-            <option value='all'>{t('ui:all')}</option>
-          </Select>
-        </FlexDiv>
-      </SEDP5000Header>
-      <VerticalSeparatorDiv data-size='0.5'>&nbsp;</VerticalSeparatorDiv>
-      <TableSorter
-        items={items}
-        searchable
-        selectable={false}
-        sortable
-        onColumnSort={(sort: any) => {
-          standardLogger('buc.edit.tools.P5000.sort', { sort: sort })
-          setTableSort(sort)
-        }}
-        itemsPerPage={itemsPerPage}
-        labels={labels}
-        compact
-        columns={[
-          { id: 'land', label: t('ui:country'), type: 'string' },
-          { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-          { id: 'type', label: t('ui:type'), type: 'string' },
-          {
-            id: 'startdato',
-            label: t('ui:startDate'),
-            type: 'date',
-            renderCell: (item: any, value: any) => (
-              <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-            )
-          },
-          {
-            id: 'sluttdato',
-            label: t('ui:endDate'),
-            type: 'date',
-            renderCell: (item: any, value: any) => (
-              <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-            )
-          },
-          { id: 'år', label: t('ui:year'), type: 'string' },
-          { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
-          { id: 'måned', label: t('ui:month'), type: 'string' },
-          { id: 'uker', label: t('ui:week'), type: 'string' },
-          { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-          { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
-          { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-          { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
-        ]}
-      />
-      <HiddenDiv>
-        <div ref={componentRef} id='printJS-form'>
-          <PrintableTableSorter
-            // important to it re-renders when sorting changes
-            key={JSON.stringify(tableSort)}
-            className='print-version'
-            items={items}
-            animatable={false}
-            searchable={false}
-            selectable={false}
-            sortable
-            sort={tableSort}
-            itemsPerPage={9999}
-            labels={labels}
-            compact
-            columns={[
-              { id: 'land', label: t('ui:country'), type: 'string' },
-              { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-              { id: 'type', label: t('ui:type'), type: 'string' },
-              {
-                id: 'startdato',
-                label: t('ui:startDate'),
-                type: 'date',
-                renderCell: (item: any, value: any) => (
-                  <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-                )
-              },
-              {
-                id: 'sluttdato',
-                label: t('ui:endDate'),
-                type: 'date',
-                renderCell: (item: any, value: any) => (
-                  <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-                )
-              },
-              { id: 'år', label: t('ui:year'), type: 'string' },
-              { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
-              { id: 'måned', label: t('ui:month'), type: 'string' },
-              { id: 'uker', label: t('ui:week'), type: 'string' },
-              { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-              { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
-              { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-              { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
-            ]}
-          />
-        </div>
-      </HiddenDiv>
-      <ButtonsDiv>
-        <ReactToPrint
-          documentTitle='P5000'
-          onBeforePrint={beforePrintOut}
-          onBeforeGetContent={prepareContent}
-          onAfterPrint={afterPrintOut}
-          trigger={() =>
-            <Knapp
-              disabled={printDialogOpen}
-              spinner={printDialogOpen}
+              </MarginDiv>
+            )}
+            <CustomSelect
+              id='itemsPerPage'
+              bredde='l'
+              label={t('ui:itemsPerPage')}
+              value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+              onChange={itemsPerPageChanged}
             >
-              {t('ui:print')}
-            </Knapp>}
-          content={() => {
-            return componentRef.current
+              <option value='15'>15</option>
+              <option value='20'>20</option>
+              <option value='25'>25</option>
+              <option value='all'>{t('ui:all')}</option>
+            </CustomSelect>
+          </FlexDiv>
+        </SEDP5000Header>
+        <VerticalSeparatorDiv data-size='0.5'>&nbsp;</VerticalSeparatorDiv>
+        <TableSorter
+          highContrast={highContrast}
+          items={items}
+          searchable
+          selectable={false}
+          sortable
+          onColumnSort={(sort: any) => {
+            standardLogger('buc.edit.tools.P5000.sort', { sort: sort })
+            setTableSort(sort)
           }}
+          itemsPerPage={itemsPerPage}
+          labels={labels}
+          compact
+          columns={[
+            { id: 'land', label: t('ui:country'), type: 'string' },
+            { id: 'acronym', label: t('ui:_institution'), type: 'string' },
+            { id: 'type', label: t('ui:type'), type: 'string' },
+            {
+              id: 'startdato',
+              label: t('ui:startDate'),
+              type: 'date',
+              renderCell: (item: any, value: any) => (
+                <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+              )
+            },
+            {
+              id: 'sluttdato',
+              label: t('ui:endDate'),
+              type: 'date',
+              renderCell: (item: any, value: any) => (
+                <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+              )
+            },
+            { id: 'år', label: t('ui:year'), type: 'string' },
+            { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
+            { id: 'måned', label: t('ui:month'), type: 'string' },
+            { id: 'uker', label: t('ui:week'), type: 'string' },
+            { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
+            { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
+            { id: 'ordning', label: t('ui:scheme'), type: 'string' },
+            { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
+          ]}
         />
-      </ButtonsDiv>
-    </SEDP5000Container>
+        <HiddenDiv>
+          <div ref={componentRef} id='printJS-form'>
+            <PrintableTableSorter
+              // important to it re-renders when sorting changes
+              key={JSON.stringify(tableSort)}
+              className='print-version'
+              items={items}
+              animatable={false}
+              searchable={false}
+              selectable={false}
+              sortable
+              sort={tableSort}
+              itemsPerPage={9999}
+              labels={labels}
+              compact
+              columns={[
+                { id: 'land', label: t('ui:country'), type: 'string' },
+                { id: 'acronym', label: t('ui:_institution'), type: 'string' },
+                { id: 'type', label: t('ui:type'), type: 'string' },
+                {
+                  id: 'startdato',
+                  label: t('ui:startDate'),
+                  type: 'date',
+                  renderCell: (item: any, value: any) => (
+                    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+                  )
+                },
+                {
+                  id: 'sluttdato',
+                  label: t('ui:endDate'),
+                  type: 'date',
+                  renderCell: (item: any, value: any) => (
+                    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+                  )
+                },
+                { id: 'år', label: t('ui:year'), type: 'string' },
+                { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
+                { id: 'måned', label: t('ui:month'), type: 'string' },
+                { id: 'uker', label: t('ui:week'), type: 'string' },
+                { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
+                { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
+                { id: 'ordning', label: t('ui:scheme'), type: 'string' },
+                { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
+              ]}
+            />
+          </div>
+        </HiddenDiv>
+        <ButtonsDiv>
+          <ReactToPrint
+            documentTitle='P5000'
+            onBeforePrint={beforePrintOut}
+            onBeforeGetContent={prepareContent}
+            onAfterPrint={afterPrintOut}
+            trigger={() =>
+              <HighContrastKnapp
+                disabled={printDialogOpen}
+                spinner={printDialogOpen}
+              >
+                {t('ui:print')}
+              </HighContrastKnapp>}
+            content={() => {
+              return componentRef.current
+            }}
+          />
+        </ButtonsDiv>
+      </SEDP5000Container>
+    </ThemeProvider>
   )
 }
 
