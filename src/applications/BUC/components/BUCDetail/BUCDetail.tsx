@@ -143,7 +143,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
             </Dt>
             <Dd className='odd' id='a-buc-c-bucdetail__props-startDate-id'>
               <Normaltekst>
-                {moment(buc.startDate!).format('Dd.MM.YYYY')}
+                {moment(buc.startDate!).format('DD.MM.YYYY')}
               </Normaltekst>
             </Dd>
             <Dt>

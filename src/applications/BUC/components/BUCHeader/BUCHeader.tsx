@@ -229,7 +229,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 type='circle'
                 size='XL'
                 items={flagItems}
-                overflowLimit={5}
+                overflowLimit={8}
                 wrapper={false}
               />
             ) : <WaitingPanel message='' size='M' />}

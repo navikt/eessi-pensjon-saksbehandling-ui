@@ -48,8 +48,13 @@ export interface OverviewProps {
 }
 
 export const OverviewPanel = styled(ExpandingPanel)`
-  border: 1px solid ${({ theme }: any) => theme.navGra60};
+  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-style: solid;
+  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
   border-radius: 5px;
+  * {
+   font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+  }
   .ekspanderbartPanel {
     background: ${({ theme }: any) => theme['main-background-color']};
   }

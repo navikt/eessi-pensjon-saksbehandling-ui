@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 import { Normaltekst } from 'nav-frontend-typografi'
-import Select from 'react-select'
+import Select from 'components/Select/Select'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -321,18 +321,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 {t('buc:form-subjectArea')}
               </label>
               <Select
-                data-testId='a-buc-c-bucstart__subjectarea-select-id'
+                highContrast={highContrast}
+                data-testid='a-buc-c-bucstart__subjectarea-select-id'
                 isSearchable
                 placeholder={t(placeholders.subjectArea)}
                 defaultValue={{label: _subjectArea, value: _subjectArea}}
                 onChange={onSubjectAreaChange}
                 options={renderOptions(subjectAreaList)}
-                styles={{
-                  control: (styles: any) => ({
-                    ...styles,
-                    borderColor: '1px solid ' + theme.navGra60
-                  })
-                }}
               />
               {validation.subjectAreaFail && <Normaltekst>{t(validation.subjectAreaFail)}</Normaltekst>}
             </>
@@ -342,6 +337,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 {t('buc:form-buc')}
               </label>
               <Select
+                highContrast={highContrast}
                 data-testid='a-buc-c-bucstart__buc-select-id'
                 isSearchable
                 placeholder={t(placeholders.buc)}

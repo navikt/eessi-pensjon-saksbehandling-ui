@@ -4,6 +4,7 @@ import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { FeatureToggles, PesysContext } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
+import { HoyreChevron } from 'nav-frontend-chevron'
 import Lenke from 'nav-frontend-lenker'
 import { EtikettLiten } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -12,10 +13,6 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
 
-interface ContextBannerProps {
-  highContrast: boolean
-  mode: BUCMode
-}
 const DivWithLinks = styled.div`
   padding: 0.5rem 2rem;
   display: flex;
@@ -34,6 +31,7 @@ const SeparatorSpan = styled.span`
 const Link = styled(Lenke)`
   display: flex;
   align-items: flex-end;
+  font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
 `
 const Content = styled.div`
   display: flex;
@@ -49,22 +47,32 @@ const Separator = styled.div`
 const Context = styled.div`
  padding: 0.5rem 2rem;
  display: flex;
+ align-items: center;
+ * {
+   font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+ }
 `
 const Tag = styled(EtikettLiten)`
- border: 1px solid grey;
  padding: 0rem 0.5rem;
  margin-left: 0.25rem;
  margin-right: 0.25rem;
 `
 
+interface ContextBannerProps {
+  highContrast: boolean
+  mode: BUCMode
+}
+
 interface ContextBannerSelector {
-  pesysContext?: PesysContext;
   featureToggles: FeatureToggles
+  pesysContext?: PesysContext
+  sakType?: string
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
+  featureToggles: state.app.featureToggles,
   pesysContext: state.app.pesysContext,
-  featureToggles: state.app.featureToggles
+  sakType: state.app.params.sakType
 })
 
 const ContextBanner: React.FC<ContextBannerProps> = ({
@@ -72,7 +80,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 }: ContextBannerProps): JSX.Element => {
   const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
   const { t } = useTranslation()
-  const { featureToggles, pesysContext }: ContextBannerSelector =
+  const { featureToggles, pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
 
   return (
@@ -80,7 +88,17 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
       <Content>
         {featureToggles.v2_ENABLED ? (
           <Context>
-            <Tag><strong>{pesysContext}</strong></Tag>
+            <HoyreChevron/>
+            <Tag>
+              <span>{t('ui:youComeFrom')}</span>
+              <strong>{pesysContext}</strong>.
+            </Tag>
+            { sakType && (
+              <Tag>
+                <span>{t('buc:form-caseType')}: </span>
+                <strong>{sakType}</strong>
+              </Tag>
+            )}
           </Context>
         ) : <div />}
         <DivWithLinks>

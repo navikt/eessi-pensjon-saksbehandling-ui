@@ -48,6 +48,9 @@ const BrandDiv = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
+  * {
+   font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+  }
 `
 
 const Title = styled.div`
@@ -64,7 +67,7 @@ const UserDiv = styled.div`
   align-items: center;
 `
 const SaksbehandlerUser = styled.div`
-   color: ${({ theme }: any) => theme.navRod};
+   color: white;
 `
 
 const NameDiv = styled.div`
@@ -80,6 +83,7 @@ const NameSelect = styled(Select)`
     background: white !important;
   }
   select {
+    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
     background: transparent !important;
   }
   select:not(:hover) {
@@ -96,12 +100,13 @@ const NameSelect = styled(Select)`
   }
 `
 const Link = styled(Lenke)`
+  font-size: 1.5rem;
   color: ${({ theme }: any) => theme.white};
 `
 const UsernameSpan = styled.span`
   padding: 0.45rem;
   padding-left: 0.5rem;
-  padding-right: 1.6rem;
+  padding-right: 1.6rem
   color: ${({ theme }: any) => theme['@main-font-color']}
 `
 

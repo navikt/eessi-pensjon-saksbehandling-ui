@@ -15,7 +15,7 @@ import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { BUCMode } from 'applications/BUC/index'
-import { VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastKnapp, HighContrastPanel, VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as storage from 'constants/storage'
 import {
@@ -35,8 +35,6 @@ import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
-import Knapp from 'nav-frontend-knapper'
-import Panel from 'nav-frontend-paneler'
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -124,11 +122,10 @@ const SEDHeader = styled.div`
   justify-content: space-between;
   border-bottom: 2px solid ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra40};
 `
-const BUCNewDiv = styled(Panel)`
+const BUCNewDiv = styled(HighContrastPanel)`
   padding: 2rem !important;
-  border: 1px solid ${({ theme }: any) => theme.navGra60};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
 `
+
 const animationOpen = keyframes`
   0% {
     height: 0%;
@@ -298,14 +295,13 @@ const BUCList: React.FC<BUCListProps> = ({
             />
           )}
           {!startBuc && (
-            <Knapp
+            <HighContrastKnapp
               data-amplitude='buc.list.newbuc'
-              id='a-buc-p-buclist__newbuc-button-id'
-              className='a-buc-p-buclist__newbuc-button'
+              data-testid='a-buc-p-buclist__newbuc-button-id'
               onClick={onBUCNew}
             >
               {t('buc:form-createNewCase')}
-            </Knapp>
+            </HighContrastKnapp>
           )}
         </BUCListHeader>
         <VerticalSeparatorDiv />

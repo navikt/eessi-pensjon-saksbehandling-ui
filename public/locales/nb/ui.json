@@ -231,6 +231,7 @@
     "writeIn" : "Skriv inn",
     "year" : "År",
     "yes" : "Ja",
+    "youComeFrom": "Du kommer fra ",
 
     "session-expire-title" : "Du vil snart bli logget ut",
     "session-expire-text" : "Husk å lagre opplysningene. Hvis du ønsker å fortsette, må du logge inn igjen.  Du blir logget ut om {{minutes}} minutter",

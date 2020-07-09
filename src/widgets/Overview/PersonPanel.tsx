@@ -74,9 +74,10 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       <Element
         id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
       >
-        <Undertekst className='mr-2'>
+        <Undertekst>
           <strong>{t(label)}</strong>:
         </Undertekst>
+        <HorizontalSeparatorDiv/>
         <Normaltekst>
           {_value.map((val: any) => val)}
         </Normaltekst>
@@ -129,12 +130,12 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   const zipCode = _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value')
 
   if (_.get(person, 'bostedsadresse.strukturertAdresse')) {
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <span key={0} className='mr-2' />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <HorizontalSeparatorDiv key={0}/>)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br key={1} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br key={2} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <span key={3} className='mr-2' />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <HorizontalSeparatorDiv key={3}/>)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={4} />)
-    bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <span className='mr-2' key={5} />)
+    bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <HorizontalSeparatorDiv key={5} />)
     if (zipCode) {
       bostedsadresse = addAddressLine(bostedsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={6} />)
     }
@@ -145,7 +146,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje2'), t('ui:adresse'), <br key={1} />)
     postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje3'), t('ui:adresse'), <br key={2} />)
     postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje4'), t('ui:adresse'), <br key={3} />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.postnr'), t('ui:postnummer'), <span key={4} className='mr-2' />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.postnr'), t('ui:postnummer'), <HorizontalSeparatorDiv key={4} />)
     postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.poststed'), t('ui:poststed'), <br key={5} />)
     postadresse = addAddressLine(postadresse, getCountry(_.get(person, 'postadresse.ustrukturertAdresse.landkode.value')), t('ui:country'), <br key={6} />)
   }
