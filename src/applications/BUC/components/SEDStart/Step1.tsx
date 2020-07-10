@@ -464,6 +464,7 @@ const Step1: React.FC<Step1Props> = ({
               </label>
               <VerticalSeparatorDiv />
               <SEDAttachments
+                highContrast={highContrast}
                 onSubmit={setFiles}
                 files={_attachments}
                 open={seeAttachmentPanel}

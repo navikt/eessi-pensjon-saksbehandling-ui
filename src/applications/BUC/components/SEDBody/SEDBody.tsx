@@ -126,6 +126,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
           )}
           <SEDAttachments
             files={_attachments}
+            highContrast={highContrast}
             open={seeAttachmentPanel}
             onOpen={onAttachmentsPanelOpened}
             onSubmit={onAttachmentsSubmitted}

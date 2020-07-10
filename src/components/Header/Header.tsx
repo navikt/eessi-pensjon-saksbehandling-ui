@@ -153,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({
           </a>
           <Skillelinje />
           <Title>
-            <span>{t('app-headerTitle')}</span>
+            <span>{t('ui:app-headerTitle')}</span>
           </Title>
         </BrandDiv>
         <Link
@@ -188,14 +188,14 @@ const Header: React.FC<HeaderProps> = ({
                   >
                     <option value=''>{username}</option>
                     <option value='feedback'>{t('ui:giveFeedback')}</option>
-                    <option value='logout'>{t('logout')}</option>
+                    <option value='logout'>{t('ui:logout')}</option>
                   </NameSelect>
                 )
                 : (
                   <>
                     <AdvarselTrekant size={16} />
                     <UsernameSpan>
-                      {t('unknown')}
+                      {t('ui:unknown')}
                     </UsernameSpan>
                   </>
                 )}

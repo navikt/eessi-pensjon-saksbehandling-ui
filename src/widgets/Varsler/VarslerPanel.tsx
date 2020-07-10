@@ -249,7 +249,7 @@ export const VarslerPanel: React.FC<VarslerPanelProps> = ({
               spinner={isInvitingPinfo}
               onClick={onInviteButtonClick}
             >
-              {isInvitingPinfo ? t('sending') : t('ui:widget-overview-sendNotification-button')}
+              {isInvitingPinfo ? t('ui:sending') : t('ui:widget-overview-sendNotification-button')}
             </HighContrastHovedknapp>
           </div>
         </div>
