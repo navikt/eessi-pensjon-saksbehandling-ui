@@ -1,7 +1,6 @@
 import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
-import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
 import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { ModalContent } from 'declarations/components'
@@ -16,7 +15,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import TableSorter, { Items } from 'tabell'
+import TableSorter from 'tabell'
 
 export interface JoarkBrowserSelector {
   aktoerId: string
@@ -38,7 +37,6 @@ const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector
 
 export interface JoarkBrowserProps {
   files: Array<JoarkFile | JoarkFileWithContent>
-  mode: string
   onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void
   onPreviewFile?: (f: JoarkFileWithContent) => void
 }
@@ -57,7 +55,7 @@ const Buttons = styled.div`
 `
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
-  files = [], mode = 'view', onFilesChange, onPreviewFile
+  files = [], onFilesChange, onPreviewFile
 }: JoarkBrowserProps): JSX.Element => {
   const { aktoerId, highContrast, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector =
     useSelector<State, JoarkBrowserSelector>(mapState)
@@ -134,11 +132,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const onDeleteItem = (files: Array<JoarkFile>, item: JoarkFile): void => {
-    const newFiles: Array<JoarkFile> = _.filter(files, (file: JoarkFile) => !equalFiles(file, item))
-    onFilesChange(newFiles)
-  }
-
   const onSelectedItemChange = (items: Array<any>): void => {
     onFilesChange(items.filter(item => item.selected))
   }
@@ -169,56 +162,31 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
           </HighContrastKnapp>
           <HorizontalSeparatorDiv />
-          {context.mode === 'confirm' && (
-            <>
-              <HorizontalSeparatorDiv />
-              <HighContrastKnapp
-                data-tip={t('ui:delete')}
-                form='kompakt'
-                id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
-              convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
-                className='c-tablesorter__delete-button mr-2 ml-2'
-                onClick={() => onDeleteItem(context.files, item)}
-              >
-                <Trashcan color='#0067C5' />
-              </HighContrastKnapp>
-              <HorizontalSeparatorDiv />
-            </>
-          )}
         </Buttons>
       </VariantDiv>
     )
   }
 
-  let items: Items = []
-  if (mode === 'view') {
-    items = list ? list.map((file) => {
-      return {
-        key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat,
-        name: file.tittel || '-',
-        tema: file.tema,
-        date: file.datoOpprettet,
-        label: file.variant.variantformat + (file.variant.filnavn ? ' (' + file.variant.filnavn + ')' : ''),
-        variant: file.variant,
+  let items = list ? list.map((file) => {
+    return {
+      key: file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat,
+      name: file.tittel || '-',
+      tema: file.tema,
+      date: file.datoOpprettet,
+      label: file.variant.variantformat + (file.variant.filnavn ? ' (' + file.variant.filnavn + ')' : ''),
+      variant: file.variant,
+      dokumentInfoId: file.dokumentInfoId,
+      journalpostId: file.journalpostId,
+      selected: _.find(files, {
         dokumentInfoId: file.dokumentInfoId,
         journalpostId: file.journalpostId,
-        selected: _.find(files, {
-          dokumentInfoId: file.dokumentInfoId,
-          journalpostId: file.journalpostId,
-          variant: file.variant
-        }) !== undefined
-      }
-    }) : []
-  } else {
-    items = files?.map((file) => ({
-      ...file,
-      key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat
-    }))
-  }
+        variant: file.variant
+      }) !== undefined
+    }
+  }) : []
 
   const context = {
     files: files,
-    mode: mode,
     loadingJoarkPreviewFile: loadingJoarkPreviewFile,
     previewFile: _previewFile,
     clickedPreviewFile: clickedPreviewFile
@@ -229,12 +197,11 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
         highContrast={highContrast}
-        className={mode}
         items={items}
         context={context}
         compact
-        searchable={mode === 'view'}
-        selectable={mode === 'view'}
+        searchable={true}
+        selectable={true}
         sortable
         loading={loadingJoarkList}
         columns={[

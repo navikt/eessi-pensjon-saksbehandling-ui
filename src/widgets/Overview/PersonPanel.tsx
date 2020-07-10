@@ -17,9 +17,9 @@ import Tooltip from 'rc-tooltip'
 import styled from 'styled-components'
 
 export interface PersonPanelProps {
-  highContrast: boolean;
-  locale: string;
-  person: any;
+  highContrast: boolean
+  locale: string
+  person: any
 }
 
 const PersonPanelDiv = styled.div``

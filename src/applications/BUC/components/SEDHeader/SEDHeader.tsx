@@ -21,12 +21,12 @@ import Tooltip from 'rc-tooltip'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface SEDHeaderProps {
-  buc: Buc;
-  className ?: string;
-  followUpSeds: Seds;
-  onSEDNew: (buc: Buc, sed: Sed) => void;
-  sed: Sed;
-  style?: React.CSSProperties;
+  buc: Buc
+  className ?: string
+  followUpSeds: Seds
+  onSEDNew: (buc: Buc, sed: Sed) => void
+  sed: Sed
+  style?: React.CSSProperties
 }
 
 export interface SEDHeaderSelector {

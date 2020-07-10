@@ -8,9 +8,9 @@ import EtikettBase from 'nav-frontend-etiketter'
 import styled, { ThemeProvider } from 'styled-components'
 
 export interface SEDStatusProps {
-  className ?: string;
-  highContrast: boolean;
-  status: string;
+  className ?: string
+  highContrast: boolean
+  status: string
 }
 
 const statusList: Labels = {

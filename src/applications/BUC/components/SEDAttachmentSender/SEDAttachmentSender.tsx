@@ -9,26 +9,26 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 export interface SEDAttachmentPayload {
-  aktoerId: string;
-  rinaId: string;
-  rinaDokumentId: string;
+  aktoerId: string
+  rinaId: string
+  rinaDokumentId: string
 }
 
 export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
-  journalpostId: string;
-  dokumentInfoId: string;
-  variantformat: string;
+  journalpostId: string
+  dokumentInfoId: string
+  variantformat: string
 }
 
 export interface SEDAttachmentSenderProps {
-  allAttachments: JoarkFiles;
-  attachmentsError ?: boolean;
-  className?: string;
-  initialStatus ?: ProgressBarStatus;
-  onFinished ?: () => void;
-  payload: SEDAttachmentPayload;
-  savedAttachments: JoarkFiles;
-  sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkFile) => void;
+  allAttachments: JoarkFiles
+  attachmentsError ?: boolean
+  className?: string
+  initialStatus ?: ProgressBarStatus
+  onFinished ?: () => void
+  payload: SEDAttachmentPayload
+  savedAttachments: JoarkFiles
+  sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkFile) => void
 }
 
 const SEDAttachmentSenderDiv = styled.div``

@@ -5,11 +5,11 @@ import { Action } from 'redux'
 import { AlertStatus } from 'components/Alert/Alert'
 
 export interface AlertState {
-  clientErrorStatus: AlertStatus | undefined;
-  clientErrorMessage: string | undefined;
-  serverErrorMessage: string | undefined;
-  uuid: string | undefined;
-  error: any |undefined;
+  clientErrorStatus: AlertStatus | undefined
+  clientErrorMessage: string | undefined
+  serverErrorMessage: string | undefined
+  uuid: string | undefined
+  error: any |undefined
 }
 
 export const initialAlertState: AlertState = {

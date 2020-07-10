@@ -1,5 +1,4 @@
 import { JoarkFilesPropType } from 'declarations/joark.pt'
-import { PeriodPropType } from 'declarations/period.pt'
 import PT from 'prop-types'
 
 export const DatePropType = PT.shape({
@@ -136,7 +135,7 @@ export const NewSedPayloadPropType = PT.shape({
   institutions: PT.arrayOf(InstitutionPropType.isRequired).isRequired,
   aktoerId: PT.string.isRequired,
   euxCaseId: PT.string.isRequired,
-  periodeInfo: PT.arrayOf(PeriodPropType),
+  periodeInfo: PT.any,
   vedtakId: PT.string,
   avdodfnr: PT.string
 })

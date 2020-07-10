@@ -8,12 +8,12 @@ import { StorageState } from 'reducers/storage'
 import { UiState } from 'reducers/ui'
 
 export interface State {
-  alert: AlertState,
-  app: AppState,
-  buc: BucState,
-  joark: JoarkState,
-  loading: LoadingState,
-  pinfo: PInfoState,
-  storage: StorageState,
+  alert: AlertState
+  app: AppState
+  buc: BucState
+  joark: JoarkState
+  loading: LoadingState
+  pinfo: PInfoState
+  storage: StorageState
   ui: UiState
 }

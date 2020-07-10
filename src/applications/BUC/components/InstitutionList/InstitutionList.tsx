@@ -14,12 +14,12 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 export interface InstitutionListProps {
-  className?: string;
-  flag?: boolean;
-  flagType?: 'original' | 'circle';
-  institutions: Institutions;
-  locale: AllowedLocaleString;
-  type?: string;
+  className?: string
+  flag?: boolean
+  flagType?: 'original' | 'circle'
+  institutions: Institutions
+  locale: AllowedLocaleString
+  type?: string
 }
 
 const InstitutionListDiv = styled.div`

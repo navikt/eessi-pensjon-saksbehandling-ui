@@ -17,20 +17,20 @@ import MultipleOption from './MultipleOption'
 const animatedComponents: SelectComponents<any> = makeAnimated()
 
 export interface MultipleSelectProps<T> {
-  ariaLabel ?: string;
-  className ?: string;
-  creatable ?: boolean;
-  disabled ?: boolean;
-  error ?: string;
-  highContrast?: boolean;
-  hideSelectedOptions ?: boolean;
-  id ?: string;
-  isLoading?: boolean;
-  label: string | JSX.Element;
-  onSelect?: (e: ValueType<any>) => void;
-  options?: Array<T>;
-  placeholder?: JSX.Element | string;
-  values?: Array<T>;
+  ariaLabel ?: string
+  className ?: string
+  creatable ?: boolean
+  disabled ?: boolean
+  error ?: string
+  highContrast?: boolean
+  hideSelectedOptions ?: boolean
+  id ?: string
+  isLoading?: boolean
+  label: string | JSX.Element
+  onSelect?: (e: ValueType<any>) => void
+  options?: Array<T>
+  placeholder?: JSX.Element | string
+  values?: Array<T>
 }
 
 const MultipleSelectDiv = styled.div`

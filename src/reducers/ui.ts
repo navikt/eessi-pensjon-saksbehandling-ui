@@ -6,10 +6,10 @@ import { Action } from 'redux'
 import i18n from '../i18n'
 
 export interface UiState {
-  language: AllowedLocaleString;
-  locale: AllowedLocaleString;
-  modal: ModalContent | undefined,
-  footerOpen: false,
+  language: AllowedLocaleString
+  locale: AllowedLocaleString
+  modal: ModalContent | undefined
+  footerOpen: false
   highContrast: false
 }
 

@@ -17,37 +17,42 @@ export type Params = {[k: string] : string}
 export type FeatureToggles = {[key in Feature]: boolean}
 
 interface Option {
+  label: string
+  navn?: string
+  value: string
+}
+
+export interface Country {
   label: string;
-  navn?: string;
   value: string;
 }
 
 export type Labels = {[k in string]? : string}
 
 export interface Person {
-  diskresjonskode: any;
-  bostedsadresse: any;
-  sivilstand: any;
-  statsborgerskap: any;
-  harFraRolleI: any;
-  aktoer: any;
-  kjoenn: any;
-  personnavn: any;
-  personstatus: any;
-  postadresse: any;
-  foedselsdato: any;
-  doedsdato: any;
-  foedested: any;
-  gjeldendePostadressetype: any;
-  geografiskTilknytning: any;
-  midlertidigPostadresse: any;
-  vergeListe: any;
-  kontaktinformasjon: any;
-  bankkonto: any;
-  tilrettelagtKommunikasjon: any;
-  sikkerhetstiltak: any;
-  maalform: any;
-  endringstidspunkt: any;
-  endretAv: any;
-  endringstype: any;
+  diskresjonskode: any
+  bostedsadresse: any
+  sivilstand: any
+  statsborgerskap: any
+  harFraRolleI: any
+  aktoer: any
+  kjoenn: any
+  personnavn: any
+  personstatus: any
+  postadresse: any
+  foedselsdato: any
+  doedsdato: any
+  foedested: any
+  gjeldendePostadressetype: any
+  geografiskTilknytning: any
+  midlertidigPostadresse: any
+  vergeListe: any
+  kontaktinformasjon: any
+  bankkonto: any
+  tilrettelagtKommunikasjon: any
+  sikkerhetstiltak: an
+  maalform: any
+  endringstidspunkt: any
+  endretAv: an
+  endringstype: any
 }

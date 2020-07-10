@@ -31,9 +31,9 @@ const mapState = /* istanbul ignore next */ (state: State) => ({
 })
 
 export interface Varsler {
-  tittel: string;
-  fulltnavn: string;
-  timestamp: string;
+  tittel: string
+  fulltnavn: string
+  timestamp: string
 }
 
 export type Varslers = {[k: string]: Varsler}
@@ -45,8 +45,8 @@ export const VarslerPropType = PT.shape({
 })
 
 interface Invite {
-  status: string;
-  message: string;
+  status: string
+  message: string
 }
 
 export const InvitePropType = PT.shape({
@@ -55,21 +55,21 @@ export const InvitePropType = PT.shape({
 })
 
 export interface VarslerPanelSelector {
-  aktoerId: string;
-  fileList: Array<string> | undefined;
-  file: any;
-  invite: Invite | undefined;
-  isInvitingPinfo: boolean;
-  sakId: string;
-  sakType: string | undefined;
-  person: any;
+  aktoerId: string
+  fileList: Array<string> | undefined
+  file: any
+  invite: Invite | undefined
+  isInvitingPinfo: boolean
+  sakId: string
+  sakType: string | undefined
+  person: any
 }
 
 export interface VarslerPanelProps {
-  highContrast: boolean;
-  initialFiles?: Varslers;
-  onUpdate?: (w: Widget) => void;
-  widget: Widget;
+  highContrast: boolean
+  initialFiles?: Varslers
+  onUpdate?: (w: Widget) => void
+  widget: Widget
 }
 
 const WidgetPanel = styled(Panel)`

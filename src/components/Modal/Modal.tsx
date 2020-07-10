@@ -10,12 +10,12 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 export interface ModalProps {
-  appElement?: Element;
-  className?: string;
-  onModalClose?: () => void;
-  closeButton?: boolean;
-  closeButtonLabel?: string;
-  modal: ModalContent | undefined;
+  appElement?: Element
+  className?: string
+  onModalClose?: () => void
+  closeButton?: boolean
+  closeButtonLabel?: string
+  modal: ModalContent | undefined
 }
 
 const ModalDiv = styled(NavModal)`

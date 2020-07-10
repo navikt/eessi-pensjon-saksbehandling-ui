@@ -12,7 +12,6 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SEDAttachmentsProps = {
     files: {},
-    initialMode: 'view',
     onFilesChange: jest.fn(),
     open: true,
     onOpen: jest.fn(),
@@ -46,7 +45,7 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
 
   it('onSubmit triggered', () => {
     (initialMockProps.onOpen as jest.Mock).mockReset()
-    wrapper = mount(<SEDAttachments {...initialMockProps} initialMode='confirm' files={{ joark: [(mockJoarkReduced[0] as JoarkFile)] }} />)
+    wrapper = mount(<SEDAttachments {...initialMockProps} files={{ joark: [(mockJoarkReduced[0] as JoarkFile)] }} />)
     // @ts-ignore
     wrapper.find('button.a-buc-c-sedattachments__submit-button').props().onClick()
     expect(initialMockProps.onSubmit).toHaveBeenCalledWith({ joark: [(mockJoarkReduced[0] as JoarkFile)] })

@@ -3,8 +3,8 @@ import { Action } from 'redux'
 
 export interface PinfoState {
   invite: {
-    message: string;
-    status: string;
+    message: string
+    status: string
   } | undefined
 }
 

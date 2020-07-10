@@ -26,11 +26,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface BUCToolsProps {
-  aktoerId: string;
-  buc: Buc;
-  bucInfo: BucInfo;
-  className?: string;
-  onTagChange ?: (tagList: Tags) => void;
+  aktoerId: string
+  buc: Buc
+  bucInfo: BucInfo
+  className?: string
+  onTagChange ?: (tagList: Tags) => void
 }
 
 export interface BUCToolsSelector {

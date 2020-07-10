@@ -9,9 +9,9 @@ import { Action } from 'redux'
 const sprintf = require('sprintf-js').sprintf
 
 interface StorageParams {
-  userId: string;
-  namespace: string;
-  file?: string;
+  userId: string
+  namespace: string
+  file?: string
 }
 
 export const openStorageModal = (modal: ModalContent): ActionWithPayload<ModalContent> => ({

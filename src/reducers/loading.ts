@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { Action } from 'redux'
 
 export interface LoadingState {
-  [k: string]: boolean;
+  [k: string]: boolean
 }
 
 export const initialLoadingState: LoadingState = {

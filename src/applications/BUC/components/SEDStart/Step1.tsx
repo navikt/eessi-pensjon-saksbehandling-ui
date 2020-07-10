@@ -9,7 +9,7 @@ import { HighContrastInput, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AttachedFiles, Buc, InstitutionListMap, RawInstitution, Sed } from 'declarations/buc'
 import { AttachedFilesPropType, BucPropType, InstitutionListMapPropType } from 'declarations/buc.pt'
-import { Country } from 'declarations/period'
+import { Country } from 'declarations/types'
 import { AllowedLocaleString, Labels, Loading, Option, Validation } from 'declarations/types'
 import { AllowedLocaleStringPropType, LoadingPropType, ValidationPropType } from 'declarations/types.pt'
 import CountryData from 'land-verktoy'
@@ -464,6 +464,7 @@ const Step1: React.FC<Step1Props> = ({
               </label>
               <VerticalSeparatorDiv />
               <SEDAttachments
+                disableButtons={false}
                 highContrast={highContrast}
                 onSubmit={setFiles}
                 files={_attachments}

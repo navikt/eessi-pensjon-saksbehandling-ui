@@ -20,12 +20,12 @@ import Tooltip from 'rc-tooltip'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface SEDListHeaderProps {
-  buc: Buc;
-  className ?: string;
-  onSEDNew: (buc: Buc, sed: Sed) => void;
-  sed: Sed;
-  style?: React.CSSProperties;
-  followUpSeds: Seds;
+  buc: Buc
+  className ?: string
+  onSEDNew: (buc: Buc, sed: Sed) => void
+  sed: Sed
+  style?: React.CSSProperties
+  followUpSeds: Seds
 }
 
 export interface SEDListSelector {

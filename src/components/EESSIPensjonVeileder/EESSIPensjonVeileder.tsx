@@ -6,8 +6,8 @@ import TristOrangeVeileder from './veileder/navPensjonTristOrangeVeileder.png'
 export type Mood = 'smilende' |'trist'
 
 export interface EESSIPensjonVeilederProps {
-  id ?: string;
-  className ?: string;
+  id ?: string
+  className ?: string
   mood?: Mood
 }
 

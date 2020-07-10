@@ -29,9 +29,9 @@ const mapState = (state: State): BUCEmptySelector => ({
 })
 
 export interface BUCEmptyProps {
-  aktoerId?: string;
-  onBUCNew: () => void;
-  sakId?: string;
+  aktoerId?: string
+  onBUCNew: () => void
+  sakId?: string
 }
 
 const BUCEmptyDiv = styled.div`

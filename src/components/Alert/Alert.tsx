@@ -13,20 +13,20 @@ type AlertStatusClasses = {[status in AlertStatus]: AlertStripeType}
 type AlertType = 'client' | 'server'
 
 interface AlertError {
-  status?: AlertStatus | undefined;
-  message ?: JSX.Element | string;
-  error?: string | undefined;
-  uuid ?: string | undefined;
+  status?: AlertStatus | undefined
+  message ?: JSX.Element | string
+  error?: string | undefined
+  uuid ?: string | undefined
 }
 
 export interface AlertProps {
-  className ?: string;
-  error?: AlertError | string;
-  fixed?: boolean;
-  message?: JSX.Element | string;
-  onClose?: () => void;
-  status?: AlertStatus;
-  type?: AlertType;
+  className ?: string
+  error?: AlertError | string
+  fixed?: boolean
+  message?: JSX.Element | string
+  onClose?: () => void
+  status?: AlertStatus
+  type?: AlertType
 }
 
 /* const AlertErrorPropType = PT.shape({

@@ -4,8 +4,8 @@ import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
 export interface JoarkState {
-  list: Array<JoarkFile> | undefined;
-  previewFile: JoarkFileWithContent | undefined;
+  list: Array<JoarkFile> | undefined
+  previewFile: JoarkFileWithContent | undefined
 }
 
 export const initialJoarkState: JoarkState = {

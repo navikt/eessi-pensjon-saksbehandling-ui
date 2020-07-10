@@ -7,9 +7,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 export interface WaitingPanelProps {
-  className?: string;
-  size?: 'XXS'| 'XS' | 'S'| 'M' | 'L'| 'XL'| 'XXL' | 'XXXL';
-  style?: React.CSSProperties;
+  className?: string
+  size?: 'XXS'| 'XS' | 'S'| 'M' | 'L'| 'XL'| 'XXL' | 'XXXL'
+  style?: React.CSSProperties
   message?: string,
   oneLine?: boolean
 }

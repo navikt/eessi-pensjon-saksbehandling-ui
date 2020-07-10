@@ -8,14 +8,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 export interface Step2Props {
-  aktoerId: string;
-  buc: Buc;
-  locale: AllowedLocaleString;
-  _sed: string;
-  showButtons: boolean;
-  setShowButtons: (b: boolean) => void;
-  validation: Validation;
-  setValidation: (v: Validation) => void;
+  aktoerId: string
+  buc: Buc
+  locale: AllowedLocaleString
+  _sed: string
+  showButtons: boolean
+  setShowButtons: (b: boolean) => void
+  validation: Validation
+  setValidation: (v: Validation) => void
 }
 
 const Step2: React.FC<Step2Props> = (props: Step2Props): JSX.Element => {

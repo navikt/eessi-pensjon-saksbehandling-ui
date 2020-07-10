@@ -11,9 +11,9 @@ export const initialSentryState: SentryState = {
 }
 
 export interface ApiRejectedAction extends Action {
-  error: any;
-  originalPayload: any;
-  context: any;
+  error: any
+  originalPayload: any
+  context: any
 }
 
 const pinfoReducer = (state: SentryState = initialSentryState, action: ApiRejectedAction) => {

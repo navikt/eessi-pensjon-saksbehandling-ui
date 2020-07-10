@@ -15,8 +15,8 @@ import FilledNetworkConnecting from 'assets/icons/filled-version-network-connect
 import styled, { keyframes } from 'styled-components'
 
 export interface BucWebSocketProps {
-  fnr: string | undefined;
-  avdodfnr: string | undefined;
+  fnr: string | undefined
+  avdodfnr: string | undefined
 }
 
 const NOTCONNECTED = 'NOTCONNECTED'

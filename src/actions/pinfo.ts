@@ -4,8 +4,8 @@ import { call } from 'js-fetch-api'
 const sprintf = require('sprintf-js').sprintf
 
 export interface InviteParams {
-  aktoerId: string;
-  sakId: string;
+  aktoerId: string
+  sakId: string
 }
 
 export const sendInvite = (params: InviteParams): Function => {
