@@ -71,6 +71,7 @@ const SEDHeaderContent = styled.div`
 const SEDNameDiv = styled.div`
   display: flex;
   flex: 4;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
 `
@@ -78,6 +79,7 @@ const SEDStatusDiv = styled.div`
   display: flex;
   flex-direction: row;
   flex: 3;
+  width: 100%;
   align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -90,6 +92,7 @@ const SEDStatusItemDiv = styled.div`
 `
 const SEDInstitutionsDiv = styled.div`
   flex: 3;
+  width: 100%;
   flex-direction: row;
   display: flex;
   align-items: flex-start;
@@ -97,6 +100,7 @@ const SEDInstitutionsDiv = styled.div`
 `
 const SEDActionsDiv = styled.div`
   flex: 2;
+  width: 100%;
   flex-direction: row;
   display: flex;
   align-items: center;

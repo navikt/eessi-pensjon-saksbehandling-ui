@@ -1,7 +1,8 @@
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import {
+  HighContrastFlatknapp,
   HighContrastHovedknapp,
-  HighContrastKnapp,
+  HighContrastKnapp, HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import { AttachedFiles } from 'declarations/buc'
@@ -86,6 +87,15 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
             >
               {t('buc:form-submitSelectedAttachments')}
             </HighContrastHovedknapp>
+            <HorizontalSeparatorDiv/>
+            <HighContrastFlatknapp
+              disabled={disableButtons}
+              data-testid='a-buc-c-sedattachments__cancel-button-id'
+              onClick={() => onSubmitJoarkFiles(localFiles)}
+            >
+              {t('buc:form-cancelSelectedAttachments')}
+            </HighContrastFlatknapp>
+
           </>
         )}
       </SEDAttachmentsDiv>

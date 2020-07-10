@@ -102,6 +102,7 @@
   "form-attachmentsSent"              : "Vedlegg sendt",
   "form-buc"                          : "BUC",
   "form-buclist"                      : "BUC Oversikt",
+  "form-cancelSelectedAttachments"    : "Avbryt",
   "form-caseId"                       : "Sak ID",
   "form-caseNumberInRina"             : "Saksnummer i Rina",
   "form-caseOwner"                    : "Sakseier",

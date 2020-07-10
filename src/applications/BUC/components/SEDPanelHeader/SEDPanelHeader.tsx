@@ -15,12 +15,15 @@ const SEDPanelHeaderDiv = styled.div`
 `
 const Flex4Div = styled.div`
   flex: 4;
+  width: 100%;
 `
 const Flex3Div = styled.div`
   flex: 3;
+  width: 100%;
 `
 const Flex2Div = styled.div`
   flex: 2;
+  width: 100%;
 `
 export interface SEDPanelHeaderProps {
   highContrast: boolean

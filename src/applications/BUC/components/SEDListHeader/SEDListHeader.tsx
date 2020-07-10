@@ -68,6 +68,7 @@ const SEDListHeaderContent = styled.div`
 const SEDListStatusDiv = styled.div`
   display: flex;
   flex: 4;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
 `
@@ -79,12 +80,14 @@ const SEDListStatusItemDiv = styled.div`
 `
 const SEDListInstitutionsDiv = styled.div`
   flex: 3;
+  width: 100%;
   flex-direction: column;
   display: flex;
   align-items: flex-start;
 `
 const SEDListActionsDiv = styled.div`
   flex: 2;
+  width: 100%;
   flex-direction: row;
   display: flex;
   align-items: center;
