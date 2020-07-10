@@ -148,7 +148,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         />
       )
     })
-  }, [setModal, getP5000, locale, sedContent, t])
+  }, [highContrast, setModal, getP5000, locale, sedContent, t])
 
   useEffect(() => {
     if (!_.isEmpty(fetchingP5000)) {
