@@ -3,7 +3,6 @@ import mann from 'assets/icons/icon-mann.png'
 import ukjent from 'assets/icons/icon-ukjent.png'
 import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Person } from 'declarations/types'
 import { PersonPropType } from 'declarations/types.pt'
 import _ from 'lodash'
@@ -13,6 +12,7 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import PersonLoading from 'widgets/Overview/PersonLoading'
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
@@ -20,12 +20,6 @@ export interface PersonTitleProps {
   personAvdod: any
 }
 
-const WaitingDiv = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-`
 const Title = styled.div`
   display: flex;
   align-items: center;
@@ -41,9 +35,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   const { t } = useTranslation()
   if (!person || gettingPersonInfo) {
     return (
-      <WaitingDiv>
-        <WaitingPanel message={t('ui:loading')} />
-      </WaitingDiv>
+      <PersonLoading/>
     )
   }
 

@@ -8,6 +8,7 @@ import {
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
+import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
@@ -353,8 +354,9 @@ const BUCList: React.FC<BUCListProps> = ({
         </BUCStartDiv>
         {loading.gettingBUCs && (
           <>
-            <VerticalSeparatorDiv data-size='2' />
-            <WaitingPanel size='XL' message={t('buc:loading-bucs')} />
+            <BUCLoading />
+            <BUCLoading />
+            <BUCLoading />
           </>
         )}
         {bucs === null && (

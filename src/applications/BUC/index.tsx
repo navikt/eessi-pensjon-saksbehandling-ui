@@ -12,7 +12,6 @@ import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, RinaUrl } from 'declarations/types'
@@ -139,7 +138,9 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
 
   if (!_mounted) {
-    return <WaitingPanel />
+    return <>
+        Waiting
+      </>
   }
 
   if (!sakId || !aktoerId) {
