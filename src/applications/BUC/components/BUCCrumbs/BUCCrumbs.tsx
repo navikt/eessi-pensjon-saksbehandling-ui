@@ -16,7 +16,7 @@ export interface BUCCrumbsProps {
   className?: string
   currentBuc: string | undefined
   mode: BUCMode
-  setMode: (mode: BUCMode) => void
+  setMode: (mode: BUCMode, s: string, callback?: any) => void
   showLastLink ?: boolean
 }
 
@@ -51,7 +51,7 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
     dispatch(resetSed())
     dispatch(resetBuc())
     linkLogger(e, { mode: 'buclist' })
-    setMode('buclist')
+    setMode('buclist', 'none')
   }, [dispatch, setMode])
 
   const goToEdit = useCallback((e) => {
@@ -59,21 +59,21 @@ const BUCCrumbs: React.FC<BUCCrumbsProps> = ({
     e.stopPropagation()
     dispatch(resetSed())
     linkLogger(e, { mode: 'bucedit' })
-    setMode('bucedit')
+    setMode('bucedit', 'none')
   }, [dispatch, setMode])
 
   const goToNewBUC = useCallback((e) => {
     e.preventDefault()
     e.stopPropagation()
     linkLogger(e, { mode: 'bucnew' })
-    setMode('bucnew')
+    setMode('bucnew', 'none')
   }, [setMode])
 
   const goToNewSED = useCallback((e) => {
     e.preventDefault()
     e.stopPropagation()
     linkLogger(e, { mode: 'sednew' })
-    setMode('sednew')
+    setMode('sednew', 'none')
   }, [setMode])
 
   const buccrumbs: BUCCrumbLinks = [{

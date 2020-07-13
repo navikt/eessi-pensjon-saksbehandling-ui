@@ -3,7 +3,8 @@ import {
   fetchBucs,
   fetchBucsInfoList,
   fetchBucsWithVedtakId,
-  getRinaUrl, setCurrentBuc,
+  getRinaUrl,
+  setCurrentBuc,
   setMode
 } from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -11,16 +12,101 @@ import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
+import classNames from 'classnames'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, RinaUrl } from 'declarations/types'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const transition = 1000;
+
+const ContainerDiv = styled.div`
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  &.shrink {
+    transform: scale(0.96);
+    transform-origin: center center;
+    transition: transform 0.3s ease-in;
+  }
+  &:not(.shrink) {
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.3s ease-out;
+  }
+`;
+const WindowDiv = styled.div`
+  width: 200%;
+  display: flex;
+  overflow: hidden;
+`;
+const fadeIn = keyframes`
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 1; }
+`;
+const fadeOut = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+`;
+const AnimatableDiv = styled.div`
+  flex: 1;
+  background: inherit;
+  &.animate {
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+  &.left {
+    transform: translateX(0%);
+  }
+  &.right {
+    transform: translateX(20%);
+  }
+  &.alt_left {
+    transform: translateX(-120%);
+  }
+  &.alt_right {
+    transform: translateX(-100%);
+  }
+
+  &.A_going_to_left {
+    transform: translateX(-120%);
+    animation: ${fadeOut} ${transition}ms forwards;
+    transition: transform ${transition}ms ease-in-out;
+  }
+  &.A_going_to_right {
+    animation: ${fadeIn} ${transition}ms forwards;
+    transition: transform ${transition}ms ease-in-out;
+    transform: translateX(0%);
+  }
+  &.B_going_to_left {
+    animation: ${fadeIn} ${transition}ms forwards;
+    transition: transform ${transition}ms ease-in-out;
+    transform: translateX(-100%);
+  }
+  &.B_going_to_right {
+    animation: ${fadeOut} ${transition}ms forwards;
+    transition: transform ${transition}ms ease-in-out;
+    transform: translateX(20%);
+  }
+`;
+
+const WaitingPanelDiv = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+`
 
 export interface BUCIndexProps {
   allowFullScreen: boolean;
@@ -63,19 +149,129 @@ const mapState = (state: State): BUCIndexSelector => ({
   vedtakId: state.app.params.vedtakId
 })
 
+export enum Slide {
+  LEFT,
+  RIGHT,
+  ALT_LEFT,
+  ALT_RIGHT,
+  A_GOING_TO_LEFT,
+  A_GOING_TO_RIGHT,
+  B_GOING_TO_LEFT,
+  B_GOING_TO_RIGHT
+}
+
 const BUCIndexDiv = styled.div``
 
 export const BUCIndex: React.FC<BUCIndexProps> = ({
   allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, currentBuc, featureToggles, loading, mode, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, featureToggles, loading, mode, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
-
+  const [ positionA, setPositionA ] = useState<Slide>(Slide.LEFT)
+  const [ positionB, setPositionB ] = useState<Slide>(Slide.RIGHT)
+  const [ contentA, setContentA ] = useState<any>(null)
+  const [ contentB, setContentB ] = useState<any>(null)
+  const [ animating, setAnimating ] = useState<boolean>(false)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
+  const containerA = useRef(null)
+  const containerB = useRef(null)
+
+  const onMouseEnter = () => setMouseEnterDate(new Date())
+
+  const onMouseLeave = () => {
+    if (mouseEnterDate) {
+      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
+    }
+  }
+
+  const _setContentA = (children: any) => {
+    setContentA(
+      <div ref={containerA}>
+        {children}
+      </div>
+    )
+  }
+
+  const _setContentB = (children: any) => {
+    setContentB(
+      <div ref={containerB}>
+        {children}
+      </div>
+    )
+  }
+
+  const _setMode = (newMode: BUCMode, from: string, callback?: any) => {
+    console.log('_setMode', from, ' to ', newMode, transition)
+    if (newMode === 'buclist' || newMode === 'bucnew') {
+      if (newMode === 'bucnew') {
+        _setContentA(<BUCList setMode={_setMode} initialBucNew/>)
+      }
+      if (newMode === 'buclist') {
+        _setContentA(<BUCList setMode={_setMode}/>)
+      }
+      if (!from || from === 'none') {
+        setPositionA(Slide.LEFT)
+        setPositionB(Slide.RIGHT)
+        if (callback) {
+          callback()
+        }
+      }
+      if (from === 'back') {
+        setPositionA(Slide.A_GOING_TO_RIGHT)
+        setPositionB(Slide.B_GOING_TO_RIGHT)
+        setAnimating(true)
+        setTimeout(() => {
+          setPositionA(Slide.LEFT)
+          setPositionB(Slide.RIGHT)
+          setAnimating(false)
+          if (callback) {
+            callback()
+          }
+        }, transition)
+      }
+    }
+    if (newMode === 'bucedit' || newMode === 'sednew') {
+      if (newMode === 'bucedit') {
+        _setContentB(<BUCEdit setMode={_setMode}/>)
+      }
+      if (newMode === 'sednew') {
+        _setContentB(<BUCEdit setMode={_setMode} initialSedNew/>)
+      }
+      if (!from || from === 'none') {
+        setPositionA(Slide.ALT_LEFT)
+        setPositionB(Slide.ALT_RIGHT)
+        if (callback) {
+          callback()
+        }
+      }
+      if (from === 'forward') {
+        setPositionA(Slide.A_GOING_TO_LEFT)
+        setPositionB(Slide.B_GOING_TO_LEFT)
+        setAnimating(true)
+        setTimeout(() => {
+          setPositionA(Slide.ALT_LEFT)
+          setPositionB(Slide.ALT_RIGHT)
+          setAnimating(false)
+          if (callback) {
+            callback()
+          }
+        }, transition)
+      }
+    }
+
+    if (allowFullScreen) {
+      if (newMode === 'bucnew' || newMode === 'sednew') {
+        onFullFocus()
+      } else {
+        onRestoreFocus()
+      }
+    }
+    dispatch(setMode(newMode))
+  }
 
   useEffect(() => {
     if (!_mounted) {
@@ -83,8 +279,9 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         dispatch(getRinaUrl())
       }
       setMounted(true)
+      _setMode('buclist', 'none')
     }
-  }, [dispatch, _mounted, rinaUrl])
+  }, [dispatch, aktoerId, _mounted, rinaUrl, _setMode])
 
   useEffect(() => {
     return () => {
@@ -111,71 +308,89 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [bucs, _bucs, dispatch])
 
-  const onMouseEnter = () => setMouseEnterDate(new Date())
-
-  const onMouseLeave = () => {
-    if (mouseEnterDate) {
-      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
-    }
-  }
-
-  const _setMode = useCallback((mode) => {
-    dispatch(setMode(mode))
-    if (allowFullScreen) {
-      if (mode === 'bucnew' || mode === 'sednew') {
-        onFullFocus()
-      } else {
-        onRestoreFocus()
-      }
-    }
-  }, [allowFullScreen, dispatch, onFullFocus, onRestoreFocus])
 
   useEffect(() => {
     if (featureToggles.v2_ENABLED !== true && loading.gettingBUCs && mode !== 'buclist') {
-      dispatch(setCurrentBuc(undefined))
-      _setMode('buclist')
+      _setMode('buclist', 'none', () =>  dispatch(setCurrentBuc(undefined)))
     }
   }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
 
+  const WaitingDiv = (
+    <WaitingPanelDiv>
+      <WaitingPanel />
+    </WaitingPanelDiv>
+  )
+
+  const EmptyBuc = (
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <BUCEmpty
+        aktoerId={aktoerId}
+        sakId={sakId}
+      />
+    </div>
+  )
+
   if (!_mounted) {
-    return <>
-        Waiting
-      </>
+    console.log('Setting waitingDiv')
+    if (contentA === null) {
+      setContentA(WaitingDiv)
+    }
+    return WaitingDiv
   }
 
   if (!sakId || !aktoerId) {
-    return (
-      <div
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
-        <BUCEmpty
-          aktoerId={aktoerId}
-          onBUCNew={() => _setMode('bucnew')}
-          sakId={sakId}
-        />
-      </div>
-    )
+    console.log('Setting bucEmpty')
+    setContentA(EmptyBuc)
+    return EmptyBuc
   }
 
-  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
-    _setMode('bucnew')
+  if (featureToggles.v2_ENABLED !== true && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
+    console.log('Setting setmode bucnew ')
+    _setMode('bucnew', 'none')
   }
+
+  const cls = (position: any) => ({
+    animate: ![Slide.LEFT, Slide.RIGHT, Slide.ALT_LEFT, Slide.ALT_RIGHT].includes(position),
+    A_going_to_left: Slide.A_GOING_TO_LEFT === position,
+    A_going_to_right: Slide.A_GOING_TO_RIGHT === position,
+    B_going_to_left: Slide.B_GOING_TO_LEFT === position,
+    B_going_to_right: Slide.B_GOING_TO_RIGHT === position,
+    alt_left: Slide.ALT_LEFT === position,
+    alt_right: Slide.ALT_RIGHT === position,
+    right: Slide.RIGHT === position,
+    left: Slide.LEFT === position
+  })
 
   return (
     <BUCIndexDiv
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <VerticalSeparatorDiv />
-      {mode === 'buclist' && <BUCList aktoerId={aktoerId} bucs={bucs!} setMode={_setMode} />}
-      {mode === 'bucedit' && <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={_setMode} />}
-      {mode === 'bucnew' && <BUCNew aktoerId={aktoerId} setMode={_setMode} />}
-      {mode === 'sednew' && featureToggles.v2_ENABLED !== true && (
-        <SEDNew aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} />
-      )}
-      {mode === 'sednew' && featureToggles.v2_ENABLED === true && (
-        <BUCEdit aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc!} setMode={_setMode} initialSedNew />
+      {featureToggles.v2_ENABLED !== true ? (
+        <>
+          <VerticalSeparatorDiv />
+          {mode === 'buclist' && <BUCList setMode={_setMode} />}
+          {mode === 'bucedit' && <BUCEdit setMode={_setMode} />}
+          {mode === 'bucnew' && <BUCNew setMode={_setMode} />}
+          {mode === 'sednew' && <SEDNew setMode={_setMode} />}
+        </>
+      ) : (
+        <>
+          <VerticalSeparatorDiv />
+          <ContainerDiv className={classNames({ shrink: animating })}>
+            <WindowDiv>
+              <AnimatableDiv className={classNames(cls(positionA))}>
+                {contentA}
+              </AnimatableDiv>
+              <AnimatableDiv className={classNames(cls(positionB))}>
+                {contentB}
+              </AnimatableDiv>
+            </WindowDiv>
+          </ContainerDiv>
+        </>
       )}
     </BUCIndexDiv>
   )

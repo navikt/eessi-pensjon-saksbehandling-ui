@@ -6,16 +6,14 @@ import MousePNG from 'assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'assets/images/artwork/saksstatus.png'
 import {
   HighContrastHovedknapp,
-  HighContrastKnapp,
   HighContrastInput,
-  HighContrastLink,
+  HighContrastKnapp,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import { standardLogger } from 'metrics/loggers'
-import { Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -35,7 +33,6 @@ const mapState = (state: State): BUCEmptySelector => ({
 
 export interface BUCEmptyProps {
   aktoerId?: string
-  onBUCNew: () => void
   sakId?: string
 }
 
@@ -96,7 +93,7 @@ const BUCEmptyForm = styled.div`
 `
 
 const BUCEmpty: React.FC<BUCEmptyProps> = ({
-  aktoerId, onBUCNew, sakId
+  aktoerId, sakId
 }: BUCEmptyProps): JSX.Element => {
   const [_sakId, setSakId] = useState<string | undefined>(sakId)
   const [_aktoerId, setAktoerId] = useState<string | undefined>(aktoerId)
@@ -145,16 +142,6 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
           <img alt='' className='map' src={MapPNG} />
         </BUCEmptyArtwork>
         <VerticalSeparatorDiv />
-        <Undertittel>
-          <HighContrastLink
-            data-testid='a-buc-p-bucempty__newbuc-link-id'
-            href='#'
-            onClick={onBUCNew}
-          >
-            {t('buc:form-empty-startANewCase')}
-          </HighContrastLink>
-        </Undertittel>
-        <VerticalSeparatorDiv />
         {!aktoerId && (
           <BUCEmptyForm>
             <HighContrastInput
@@ -201,7 +188,6 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
 
 BUCEmpty.propTypes = {
   aktoerId: PT.string,
-  onBUCNew: PT.func.isRequired,
   sakId: PT.string
 }
 

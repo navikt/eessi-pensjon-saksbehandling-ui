@@ -38,7 +38,7 @@ export interface BUCStartProps {
   onBucCreated: () => void
   onBucCancelled: () => void
   onTagsChanged?: (t: Tags) => void
-  setMode: (mode: BUCMode) => void
+  setMode: (mode: BUCMode, s: string, callback?: any) => void
 }
 
 export interface BUCStartSelector {

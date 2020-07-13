@@ -1,7 +1,6 @@
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
-import { BUCNewSelector } from 'applications/BUC/pages/BUCNew/BUCNew'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import { AttachedFiles, Bucs } from 'declarations/buc'
 import { State } from 'declarations/reducers'
@@ -26,29 +25,32 @@ const SEDNewHeader = styled.div`
 `
 
 export interface SEDNewSelector {
+  aktoerId: string
   highContrast: boolean
+  bucs: Bucs | undefined
+  currentBuc: string | undefined
 }
 
 const mapState = (state: State): SEDNewSelector => ({
-  highContrast: state.ui.highContrast
+  aktoerId: state.app.params.aktoerId,
+  highContrast: state.ui.highContrast,
+  bucs: state.buc.bucs,
+  currentBuc: state.buc.currentBuc
 })
 
 export interface SEDNewProps {
-  aktoerId?: string
-  bucs: Bucs
-  currentBuc: string
   initialAttachments ?: AttachedFiles
   initialSed ?: string | undefined
   initialStep ?: number
-  setMode: (mode: BUCMode) => void
+  setMode: (mode: BUCMode, s: string, callback?: any) => void
 }
 
 const SEDNew: React.FC<SEDNewProps> = (props: SEDNewProps): JSX.Element => {
   const [loggedTime] = useState<Date>(new Date())
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-  const { highContrast } = useSelector<State, BUCNewSelector>(mapState)
-  const { setMode, currentBuc, bucs } = props
+  const { aktoerId, currentBuc, bucs, highContrast } = useSelector<State, SEDNewSelector>(mapState)
+  const { setMode } = props
 
   useEffect(() => {
     standardLogger('sed.new.entrance')
@@ -83,9 +85,12 @@ const SEDNew: React.FC<SEDNewProps> = (props: SEDNewProps): JSX.Element => {
         <VerticalSeparatorDiv />
         <SEDNewDiv>
           <SEDStart
-            {...props}
-            onSedCreated={() => setMode('bucedit')}
-            onSedCancelled={() => setMode('bucedit')}
+            aktoerId={aktoerId}
+            bucs={bucs!}
+            currentBuc={currentBuc!}
+            setMode={setMode}
+            onSedCreated={() => setMode('bucedit', 'none')}
+            onSedCancelled={() => setMode('bucedit', 'none')}
           />
         </SEDNewDiv>
       </div>

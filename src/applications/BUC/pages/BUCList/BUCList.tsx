@@ -30,7 +30,6 @@ import {
   RawInstitution,
   Sed
 } from 'declarations/buc'
-import { BucsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
 import _ from 'lodash'
@@ -45,12 +44,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface BUCListProps {
-  aktoerId: string
-  bucs: Bucs
-  setMode: (mode: BUCMode) => void
+  initialBucNew?: boolean
+  setMode: (mode: BUCMode, s: string, callback?: any) => void
 }
 
 export interface BUCListSelector {
+  aktoerId: string
+  bucs: Bucs | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
   featureToggles: FeatureToggles
@@ -61,6 +61,8 @@ export interface BUCListSelector {
 }
 
 const mapState = (state: State): BUCListSelector => ({
+  aktoerId: state.app.params.aktoerId,
+  bucs: state.buc.bucs,
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
   featureToggles: state.app.featureToggles,
@@ -191,15 +193,13 @@ const BUCStartDiv = styled.div`
   }
 `
 
-const BUCList: React.FC<BUCListProps> = ({
-  aktoerId, bucs, setMode
-}: BUCListProps): JSX.Element => {
+const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: BUCListProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
-  const { bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
+  const { aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
-  const [startBuc, setStartBuc] = useState<boolean | undefined>(undefined)
+  const [startBuc, setStartBuc] = useState<boolean | undefined>(initialBucNew)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
@@ -225,14 +225,14 @@ const BUCList: React.FC<BUCListProps> = ({
     if (featureToggles.v2_ENABLED === true) {
       setStartBuc(true)
     } else {
-      setMode('bucnew' as BUCMode)
+      setMode('bucnew' as BUCMode, 'none')
     }
   }
 
   const onSEDNew = (buc: Buc, sed: Sed): void => {
     dispatch(setCurrentBuc(buc ? buc.caseId! : undefined))
     dispatch(setCurrentSed(sed ? sed.id : undefined))
-    setMode('sednew' as BUCMode)
+    setMode('sednew' as BUCMode, 'forward')
   }
 
   const onBucOpen = (bucId: string) => {
@@ -242,11 +242,11 @@ const BUCList: React.FC<BUCListProps> = ({
   const onBUCEdit = (buc: Buc) => {
     getSeds(buc.caseId!)
     dispatch(setCurrentBuc(buc.caseId!))
-    setMode('bucedit' as BUCMode)
+    setMode('bucedit' as BUCMode, 'forward')
   }
 
   const getSeds = (bucId: string) => {
-    if (_.isNil(bucs[bucId].seds)) {
+    if (bucs && _.isNil(bucs[bucId].seds)) {
       dispatch(fetchSingleBuc(bucId))
     }
   }
@@ -261,7 +261,7 @@ const BUCList: React.FC<BUCListProps> = ({
   useEffect(() => {
     if (!mounted && !_.isEmpty(bucs)) {
       const listOfCountries: CountryList = []
-      Object.keys(bucs).forEach(key => {
+      bucs && Object.keys(bucs).forEach(key => {
         const buc: Buc = bucs[key]
         if (_.isArray(buc.institusjon)) {
           buc.institusjon.forEach((it: Institution) => {
@@ -297,7 +297,7 @@ const BUCList: React.FC<BUCListProps> = ({
       })
 
       standardLogger('buc.list.bucs.data', {
-        numberOfBucs: Object.keys(bucs).length
+        numberOfBucs: bucs ? Object.keys(bucs).length : 0
       })
       setMounted(true)
     }
@@ -345,7 +345,7 @@ const BUCList: React.FC<BUCListProps> = ({
             <BUCStart
               aktoerId={aktoerId} setMode={setMode} onBucCreated={() => {
                 setStartBuc(false)
-                setMode('sednew')
+                setMode('sednew', 'forward')
               }}
               onBucCancelled={() => setStartBuc(false)}
             />
@@ -367,7 +367,7 @@ const BUCList: React.FC<BUCListProps> = ({
             </Normaltekst>
           </>
         )}
-        {!loading.gettingBUCs && !_.isEmpty(bucs)
+        {!loading.gettingBUCs && bucs && !_.isEmpty(bucs)
           ? Object.keys(bucs).map(key => bucs[key])
             .filter(bucFilter)
             .sort(bucSorter)
@@ -390,7 +390,11 @@ const BUCList: React.FC<BUCListProps> = ({
                   data-testid={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
                   style={{ animationDelay: (0.2 * index) + 's' }}
-                  onClick={() => onBUCEdit(buc)}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    onBUCEdit(buc)
+                  }}
                 >
                   <BUCHeader
                     buc={buc}
@@ -444,8 +448,6 @@ const BUCList: React.FC<BUCListProps> = ({
 }
 
 BUCList.propTypes = {
-  aktoerId: PT.string.isRequired,
-  bucs: BucsPropType.isRequired,
   setMode: PT.func.isRequired
 }
 

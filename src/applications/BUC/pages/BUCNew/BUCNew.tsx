@@ -15,16 +15,17 @@ import { useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
 
 export interface BUCNewSelector {
+  aktoerId: string
   highContrast: boolean
 }
 
 const mapState = (state: State): BUCNewSelector => ({
+  aktoerId: state.app.params.aktoerId,
   highContrast: state.ui.highContrast
 })
 
 export interface BUCNewProps {
-  aktoerId: string;
-  setMode: (mode: BUCMode) => void;
+  setMode: (mode: BUCMode, s: string, callback?: any) => void;
 }
 
 const BUCNewDiv = styled(Panel)`
@@ -40,12 +41,12 @@ const BUCNewHeader = styled.div`
   min-height: 40px;
 `
 
-const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX.Element => {
+const BUCNew: React.FC<BUCNewProps> = ({ setMode } : BUCNewProps): JSX.Element => {
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-  const { highContrast } = useSelector<State, BUCNewSelector>(mapState)
+  const { aktoerId, highContrast } = useSelector<State, BUCNewSelector>(mapState)
 
   useEffect(() => {
     standardLogger('buc.new.entrance')
@@ -84,8 +85,8 @@ const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX
           <BUCStart
             aktoerId={aktoerId}
             setMode={setMode}
-            onBucCreated={() => setMode('sednew')}
-            onBucCancelled={() => setMode('buclist')}
+            onBucCreated={() => setMode('sednew', 'forward')}
+            onBucCancelled={() => setMode('buclist', 'none')}
           />
         </BUCNewDiv>
         <BUCFooter />
@@ -95,7 +96,6 @@ const BUCNew: React.FC<BUCNewProps> = ({ aktoerId, setMode } : BUCNewProps): JSX
 }
 
 BUCNew.propTypes = {
-  aktoerId: PT.string.isRequired,
   setMode: PT.func.isRequired
 }
 export default BUCNew

@@ -52,7 +52,7 @@ export interface SEDStartProps {
   initialStep ?: number
   onSedCreated: () => void
   onSedCancelled: () => void
-  setMode: (mode: BUCMode) => void
+  setMode: (mode: BUCMode, s: string, callback?: any) => void
 }
 
 export interface SEDStartSelector {

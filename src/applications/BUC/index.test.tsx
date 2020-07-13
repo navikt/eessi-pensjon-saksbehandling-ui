@@ -10,7 +10,7 @@ import { stageSelector } from 'setupTests'
 jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => () => (<div className='a-buc-sednew' />))
 jest.mock('applications/BUC/components/BUCDetail/BUCDetail', () => () => (<div className='a-buc-bucdetail' />))
 jest.mock('applications/BUC/components/BUCCrumbs/BUCCrumbs', () =>
-  ({ setMode }: { setMode: (e: string) => void }) => (
+  ({ setMode }: { setMode: (e: BUCMode, s: string, callback?: any) => void }) => (
     <select className='mock-buccrumbs' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setMode(e.target.value)} />
   ))
 jest.mock('nav-frontend-popover', () => ({ children }: any) => (<div className='mock-popover'>{children}</div>))
