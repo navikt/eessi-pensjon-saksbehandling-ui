@@ -46,6 +46,7 @@
     "error-internalError-description" : "Vennligst rapporter feilen i Porten slik at vi kan rette den. Kopier innholdet i detaljert feilmelding under og lim det inn i saken i Porten.",
     "error-internalError-footer" : "",
     "error-header": "Detaljert feilmelding",
+    "firstVersion": "Først versjon",
     "gatenavn": "Gatenavn",
     "gatenummer": "Gatenummer",
     "giveFeedback" : "Gi tilbakemelding",

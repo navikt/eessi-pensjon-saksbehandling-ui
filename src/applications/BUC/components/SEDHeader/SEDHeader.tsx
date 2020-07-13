@@ -6,7 +6,7 @@ import { HighContrastFlatknapp, HorizontalSeparatorDiv } from 'components/Styled
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -30,13 +30,11 @@ export interface SEDHeaderProps {
 }
 
 export interface SEDHeaderSelector {
-  featureToggles: FeatureToggles
   highContrast: boolean
   locale: AllowedLocaleString
 }
 
 const mapState = (state: State): SEDHeaderSelector => ({
-  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   locale: state.ui.locale
 })
@@ -126,7 +124,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         country: participant.organisation.countryCode,
         institution: participant.organisation.name
       })) : []
-  const { featureToggles, highContrast, locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
+  const { highContrast, locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
   const { t } = useTranslation()
   const sedLabel: string = getBucTypeLabel({
     t: t,
@@ -148,34 +146,32 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </SEDNameDiv>
           <SEDStatusDiv>
             <SEDStatusItemDiv>
-              <SEDStatus highContrast={highContrast} status={sed.status} />
-              <HorizontalSeparatorDiv date-size='0.5' />
-              <SEDVersion>
-                <Normaltekst
-                  data-testid='a-buc-c-sedheader__lastUpdate'
-                >
-                  {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
-                </Normaltekst>
-                {sed.version && (
-                  <Normaltekst
-                    data-testid='a-buc-c-sedheader__version'
-                  >
-                    {t('ui:version')}{': '}{sed.version || '-'}
-                  </Normaltekst>
-                )}
-              </SEDVersion>
-            </SEDStatusItemDiv>
-            {sed.version !== '1' && featureToggles.v2_ENABLED !== true && (
-              <SEDStatusItemDiv>
-                <SEDStatus highContrast={highContrast} status={'first_' + sed.status} />
-                <HorizontalSeparatorDiv date-size='0.5' />
-                <Normaltekst
-                  data-testid='a-buc-c-sedheader__firstSend'
-                >
+              <Tooltip
+                placement='top' trigger={[sed.version !== '1' ? 'hover': 'none']} overlay={(
+                <Normaltekst>
+                  {t('ui:firstVersion')}
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
                 </Normaltekst>
-              </SEDStatusItemDiv>
-            )}
+              )}
+              >
+                <SEDStatus highContrast={highContrast} status={sed.status} />
+              </Tooltip>
+              <HorizontalSeparatorDiv date-size='0.5' />
+                <SEDVersion>
+                  <Normaltekst
+                    data-testid='a-buc-c-sedheader__lastUpdate'
+                  >
+                    {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
+                  </Normaltekst>
+                  {sed.version && (
+                    <Normaltekst
+                      data-testid='a-buc-c-sedheader__version'
+                    >
+                      {t('ui:version')}{': '}{sed.version || '-'}
+                    </Normaltekst>
+                  )}
+                </SEDVersion>
+            </SEDStatusItemDiv>
           </SEDStatusDiv>
           <SEDInstitutionsDiv>
             <InstitutionList

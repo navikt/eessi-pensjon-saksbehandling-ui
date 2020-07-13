@@ -6,7 +6,7 @@ import { HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -29,13 +29,11 @@ export interface SEDListHeaderProps {
 }
 
 export interface SEDListSelector {
-  featureToggles: FeatureToggles
   highContrast: boolean
   locale: AllowedLocaleString
 }
 
 const mapState = (state: State): SEDListSelector => ({
-  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   locale: state.ui.locale
 })
@@ -103,7 +101,7 @@ const SEDListAttachmentsDiv = styled.div``
 const SEDListHeader: React.FC<SEDListHeaderProps> = ({
   buc, className, followUpSeds, onSEDNew, sed, style
 }: SEDListHeaderProps): JSX.Element => {
-  const { featureToggles, highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const institutionSenderList: Institutions = sed.participants ? sed.participants
     .filter((participant: Participant) => participant.role === 'Sender')
@@ -137,10 +135,19 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
               {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
             </Element>
             <SEDListStatusItemDiv>
-              <SEDStatus
+              <Tooltip
+                placement='top' trigger={[sed.version !== '1' ? 'hover': 'none']} overlay={(
+                <Normaltekst>
+                  {t('ui:firstVersion')}
+                  {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                </Normaltekst>
+              )}
+              >
+                <SEDStatus
                 highContrast={highContrast}
                 status={sed.status}
               />
+              </Tooltip>
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>
                 <Normaltekst
@@ -157,19 +164,6 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
                 )}
               </SEDVersion>
             </SEDListStatusItemDiv>
-            {sed.version !== '1' && featureToggles.v2_ENABLED !== true && (
-              <SEDListStatusItemDiv>
-                <SEDStatus highContrast={highContrast} status={'first_' + sed.status} />
-                <HorizontalSeparatorDiv date-size='0.5' />
-                <SEDVersion>
-                  <Normaltekst
-                    data-testid='a-buc-c-sedlistheader__firstSend'
-                  >
-                    {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                  </Normaltekst>
-                </SEDVersion>
-              </SEDListStatusItemDiv>
-            )}
           </SEDListStatusDiv>
           <SEDListInstitutionsDiv>
             <InstitutionList
