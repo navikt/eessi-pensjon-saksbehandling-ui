@@ -400,7 +400,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <HorizontalSeparatorDiv />
             <HighContrastFlatknapp
               data-amplitude='sed.new.cancel'
-              data-testId='a-buc-c-sedstart__cancel-button-id'
+              data-testid='a-buc-c-sedstart__cancel-button-id'
               onClick={onCancelButtonClick}
             >
               {t('ui:cancel')}

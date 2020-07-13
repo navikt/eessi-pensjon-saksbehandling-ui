@@ -367,7 +367,7 @@ const Step1: React.FC<Step1Props> = ({
               <VerticalSeparatorDiv />
               <Input
                 disabled
-                data-testId='a-buc-c-sedstart__vedtakid-input-id'
+                data-testid='a-buc-c-sedstart__vedtakid-input-id'
                 label={t('buc:form-vedtakId')}
                 bredde='fullbredde'
                 value={vedtakId || ''}
@@ -400,7 +400,7 @@ const Step1: React.FC<Step1Props> = ({
                 highContrast={highContrast}
                 ariaLabel={t('ui:country')}
                 label={t('ui:country')}
-                data-testId='a-buc-c-sedstart__country-select-id'
+                data-testid='a-buc-c-sedstart__country-select-id'
                 disabled={loading.gettingCountryList}
                 isLoading={loading.gettingCountryList}
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t(placeholders.country!)}
@@ -415,7 +415,7 @@ const Step1: React.FC<Step1Props> = ({
                 highContrast={highContrast}
                 ariaLabel={t('ui:institution')}
                 label={t('ui:institution')}
-                data-testId='a-buc-c-sedstart__institution-select-id'
+                data-testid='a-buc-c-sedstart__institution-select-id'
                 disabled={loading.gettingInstitutionList}
                 isLoading={loading.gettingInstitutionList}
                 placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution!)}

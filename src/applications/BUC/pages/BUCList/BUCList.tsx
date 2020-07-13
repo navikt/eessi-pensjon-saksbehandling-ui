@@ -385,7 +385,7 @@ const BUCList: React.FC<BUCListProps> = ({
                 <BucLenkePanel
                   href='#'
                   border
-                  data-testId={'a-buc-p-buclist__buc-' + bucId}
+                  data-testid={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   onClick={() => onBUCEdit(buc)}
@@ -398,7 +398,7 @@ const BUCList: React.FC<BUCListProps> = ({
                 </BucLenkePanel>
               ) : (
                 <BucExpandingPanel
-                  data-testId={'a-buc-p-buclist__buc-' + bucId}
+                  data-testid={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   onClick={() => onBucOpen(bucId)}
@@ -411,7 +411,7 @@ const BUCList: React.FC<BUCListProps> = ({
                   )}
                 >
                   <>
-                    <SEDHeader data-testId='a-buc-p-buclist__seadheader-div-id'>
+                    <SEDHeader data-testid='a-buc-p-buclist__seadheader-div-id'>
                       <Flex4Div>
                         <Element>{t('buc:form-name')}</Element>
                       </Flex4Div>

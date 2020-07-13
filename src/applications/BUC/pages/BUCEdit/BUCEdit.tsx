@@ -216,7 +216,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   return (
     <BUCEditDiv
-      data-testId='a-buc-p-bucedit'
+      data-testid='a-buc-p-bucedit'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -246,7 +246,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           <HighContrastKnapp
             disabled={buc.readOnly === true}
             data-amplitude='buc.edit.newsed'
-            data-testId='a-buc-p-bucedit__new-sed-button-id'
+            data-testid='a-buc-p-bucedit__new-sed-button-id'
             onClick={(e: React.MouseEvent) => {
               buttonLogger(e)
               onSEDNew(buc, undefined)

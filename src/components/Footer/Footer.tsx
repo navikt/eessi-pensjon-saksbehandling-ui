@@ -2,6 +2,7 @@ import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import classNames from 'classnames'
+import { HighContrastKnapp } from 'components/StyledComponents'
 import { Person } from 'declarations/types'
 import _ from 'lodash'
 import EtikettBase from 'nav-frontend-etiketter'
@@ -11,7 +12,8 @@ import { Input, Select } from 'nav-frontend-skjema'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Store } from 'redux'
 import styled, { ThemeProvider } from 'styled-components'
 
 export interface FooterProps {
@@ -113,6 +115,7 @@ const Footer: React.FC<FooterProps> = ({
   const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const [paramName, setParamName] = useState<string |undefined>(undefined)
   const [paramValue, setParamValue] = useState<string |undefined>(undefined)
+  const store = useSelector<Store, Store>(state => state)
   const dispatch = useDispatch()
   const onUnsetParam = (key: string) => {
     dispatch(unsetStatusParam(key))
@@ -138,6 +141,17 @@ const Footer: React.FC<FooterProps> = ({
     }
   }
 
+  const dumpStore = () => {
+    let element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+      encodeURIComponent(JSON.stringify(store, null, 2)))
+    element.setAttribute('download', 'store.txt')
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+  }
+
   const _toggleFooterOpen = () => {
     dispatch(toggleFooterOpen())
   }
@@ -155,7 +169,7 @@ const Footer: React.FC<FooterProps> = ({
           {footerOpen && (
             <FormDiv>
               <FooterSelect
-                date-testId='c-footer__select-id'
+                date-testid='c-footer__select-id'
                 label=''
                 onChange={onSetParamName}
               >
@@ -166,16 +180,19 @@ const Footer: React.FC<FooterProps> = ({
               </FooterSelect>
               <FooterInput
                 label=''
-                date-testId='c-footer__input-id'
+                date-testid='c-footer__input-id'
                 value={paramValue || ''}
                 onChange={onSetParamValue}
               />
               <AddButton
-                data-testId='c-footer__add-button-id'
+                data-testid='c-footer__add-button-id'
                 onClick={onSetParam}
               >
                 &nbsp;+&nbsp;
               </AddButton>
+              <HighContrastKnapp onClick={dumpStore}>
+                Dump store
+              </HighContrastKnapp>
             </FormDiv>
           )}
         </ContentDiv>
