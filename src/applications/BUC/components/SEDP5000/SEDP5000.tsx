@@ -216,7 +216,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
                 <>
                   <Checkbox
                     key={sedId}
-                    data-testId={'checkbox-' + sedId}
+                    data-testid={'checkbox-' + sedId}
                     checked={activeSeds[sedId]}
                     onChange={() => changeActiveSed(sedId)}
                     label={(

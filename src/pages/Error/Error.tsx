@@ -92,7 +92,7 @@ export const Error = ({ error, type }: ErrorProps) => {
       <ContentDiv>
         <Veilder
           mood='trist'
-          data-testId='EESSIPensjonVeileder'
+          data-testid='EESSIPensjonVeileder'
         />
         <VerticalSeparatorDiv data-size='2' />
         <Title>

@@ -4,12 +4,17 @@ import MonitorPNG from 'assets/images/artwork/dataskjerm.png'
 import CupPNG from 'assets/images/artwork/kop.png'
 import MousePNG from 'assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'assets/images/artwork/saksstatus.png'
-import { HighContrastHovedknapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import {
+  HighContrastHovedknapp,
+  HighContrastKnapp,
+  HighContrastInput,
+  HighContrastLink,
+  HorizontalSeparatorDiv,
+  VerticalSeparatorDiv
+} from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import { standardLogger } from 'metrics/loggers'
-import Lenke from 'nav-frontend-lenker'
-import { Input } from 'nav-frontend-skjema'
 import { Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -36,7 +41,10 @@ export interface BUCEmptyProps {
 
 const BUCEmptyDiv = styled.div`
   display: flex;
-  border: 1px solid ${({ theme }: any) => theme['main-font-color']};
+  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra40};
+  border-style: solid;
+  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-radius: 4px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -138,18 +146,18 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         </BUCEmptyArtwork>
         <VerticalSeparatorDiv />
         <Undertittel>
-          <Lenke
-            data-tedtIid='a-buc-p-bucempty__newbuc-link-id'
+          <HighContrastLink
+            data-testid='a-buc-p-bucempty__newbuc-link-id'
             href='#'
             onClick={onBUCNew}
           >
             {t('buc:form-empty-startANewCase')}
-          </Lenke>
+          </HighContrastLink>
         </Undertittel>
         <VerticalSeparatorDiv />
         {!aktoerId && (
           <BUCEmptyForm>
-            <Input
+            <HighContrastInput
               data-testId='a-buc-p-bucempty__aktoerid-input-id'
               label={t('ui:aktoerId')}
               value={_aktoerId || ''}
@@ -168,7 +176,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         )}
         {!sakId && (
           <BUCEmptyForm>
-            <Input
+            <HighContrastInput
               data-testId='a-buc-p-bucempty__sakid-input-id'
               label={t('buc:form-caseId')}
               value={_sakId || ''}
@@ -177,12 +185,12 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
               feil={validation || false}
             />
             <HorizontalSeparatorDiv />
-            <HighContrastHovedknapp
+            <HighContrastKnapp
               data-testId='a-buc-p-bucempty__sakid-button-id'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}
-            </HighContrastHovedknapp>
+            </HighContrastKnapp>
           </BUCEmptyForm>
         )}
       </BUCEmptyDiv>

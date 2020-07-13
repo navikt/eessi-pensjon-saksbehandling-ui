@@ -373,7 +373,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <ButtonsDiv>
             <HighContrastHovedknapp
               data-amplitude='sed.new.create'
-              data-testId='a-buc-c-sedstart__forward-button-id'
+              data-testid='a-buc-c-sedstart__forward-button-id'
               disabled={!allowedToForward()}
               spinner={loading.creatingSed || sendingAttachments}
               onClick={(e: React.MouseEvent) => {
@@ -392,7 +392,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             {step > 0 && (
               <HighContrastFlatknapp
                 data-amplitude='sed.new.back'
-                data-testId='a-buc-c-sedstart__back-button-id'
+                data-testid='a-buc-c-sedstart__back-button-id'
                 onClick={onBackButtonClick}
               >{t('ui:back')}
               </HighContrastFlatknapp>

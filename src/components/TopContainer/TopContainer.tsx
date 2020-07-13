@@ -61,7 +61,7 @@ const mapState = (state: State): TopContainerSelector => ({
 })
 
 const Main = styled.main`
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   padding: 0;

@@ -229,11 +229,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       <BUCToolsPanel
         highContrast={highContrast}
         collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
-        data-testId='a-buc-c-buctools__panel-id'
+        data-testid='a-buc-c-buctools__panel-id'
         open
         className={className}
         heading={
-          <Systemtittel data-testId='a-buc-c-buctools__title'>
+          <Systemtittel data-testid='a-buc-c-buctools__title'>
             {t('buc:form-BUCtools')}
           </Systemtittel>
         }
@@ -276,7 +276,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   highContrast={highContrast}
                   ariaLabel={t('buc:form-tagsForBUC')}
                   label=''
-                  data-testId='a-buc-c-buctools__tags-select-id'
+                  data-testid='a-buc-c-buctools__tags-select-id'
                   placeholder={t('buc:form-tagPlaceholder')}
                   aria-describedby='help-tags'
                   values={tags || []}

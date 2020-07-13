@@ -152,13 +152,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>
                 <Normaltekst
-                  data-testId='a-buc-c-sedheader__lastUpdate'
+                  data-testid='a-buc-c-sedheader__lastUpdate'
                 >
                   {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
                 </Normaltekst>
                 {sed.version && (
                   <Normaltekst
-                    data-testId='a-buc-c-sedheader__version'
+                    data-testid='a-buc-c-sedheader__version'
                   >
                     {t('ui:version')}{': '}{sed.version || '-'}
                   </Normaltekst>
@@ -170,7 +170,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 <SEDStatus highContrast={highContrast} status={'first_' + sed.status} />
                 <HorizontalSeparatorDiv date-size='0.5' />
                 <Normaltekst
-                  data-id='a-buc-c-sedheader__firstSend'
+                  data-testid='a-buc-c-sedheader__firstSend'
                 >
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
                 </Normaltekst>
@@ -194,7 +194,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 )}
               >
                 <SEDAttachmentsDiv
-                  data-testId='a-buc-c-sedheader__actions-attachments'
+                  data-testid='a-buc-c-sedheader__actions-attachments'
                 >
                   <FilledPaperClipIcon />
                 </SEDAttachmentsDiv>
@@ -204,7 +204,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <HighContrastFlatknapp
                 mini
                 data-amplitude='buc.list.besvarSed'
-                data-testId='a-buc-c-sedheader__actions-answer-button'
+                data-testid='a-buc-c-sedheader__actions-answer-button'
                 disabled={buc.readOnly === true}
                 onClick={(e: React.MouseEvent) => {
                   buttonLogger(e)

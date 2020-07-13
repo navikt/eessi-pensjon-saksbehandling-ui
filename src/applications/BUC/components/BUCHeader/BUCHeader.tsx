@@ -163,11 +163,11 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCHeaderDiv
-        data-testId='a-buc-c-header'
+        data-testid='a-buc-c-header'
         id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
       >
         <UnderTitle
-          data-testId='a-buc-c-header__title'
+          data-testid='a-buc-c-header__title'
           className='lenkepanel__heading'
         >
           {buc.type + ' - ' + getBucTypeLabel({
@@ -178,19 +178,19 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         </UnderTitle>
         <FlexDiv>
           <LabelsDiv
-            data-testId='a-buc-c-header__labels'
+            data-testid='a-buc-c-header__labels'
           >
             <Normaltekst>
               {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
             </Normaltekst>
             <OwnerDiv
-              data-testId='a-buc-c-header__owner'
+              data-testid='a-buc-c-header__owner'
             >
               <RowText>
                 {t('buc:form-caseOwner') + ': '}
               </RowText>
               <InstitutionList
-                data-testId='a-buc-c-bucheader__owner-institutions'
+                data-testid='a-buc-c-bucheader__owner-institutions'
                 flagType='circle'
                 locale={locale}
                 type='separated'
@@ -199,14 +199,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             </OwnerDiv>
             {buc.caseId && (
               <div
-                data-testId='a-buc-c-bucheader__case'
+                data-testid='a-buc-c-bucheader__case'
               >
                 {rinaUrl ? (
                   <RowText>
                     {t('buc:form-caseNumberInRina') + ': '}
                     <RinaLink
                       data-amplitude='buc.list.buc.rinaUrl'
-                      data-testId='a-buc-c-bucheader__gotorina-link'
+                      data-testid='a-buc-c-bucheader__gotorina-link'
                       href={rinaUrl + buc.caseId}
                       target='rinaWindow'
                       onClick={onRinaLinkClick}
@@ -218,7 +218,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               </div>
             )}
           </LabelsDiv>
-          <IconsDiv data-testId='a-buc-c-bucheader__icons' data-v2enabled={featureToggles.v2_ENABLED}>
+          <IconsDiv data-testid='a-buc-c-bucheader__icons' data-v2enabled={featureToggles.v2_ENABLED}>
             {!_.isEmpty(flagItems) ? (
               <FlagList
                 animate
@@ -237,7 +237,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 )}
               >
                 <NumberOfSedsDiv
-                  data-testId='a-buc-c-bucheader__icon-numberofseds'
+                  data-testid='a-buc-c-bucheader__icon-numberofseds'
                 >
                   {numberOfSeds}
                 </NumberOfSedsDiv>
@@ -249,7 +249,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
                 )}
               >
-                <TagsDiv data-testId='a-buc-c-bucheader__icon-tags'>
+                <TagsDiv data-testid='a-buc-c-bucheader__icon-tags'>
                   <ProblemCircleIcon width={50} height={50} />
                 </TagsDiv>
               </Tooltip>
@@ -259,7 +259,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             <ActionsDiv test-id='a-buc-c-bucheader__actions'>
               <BucEditLink
                 data-amplitude='buc.list.editbuc'
-                data-testId='a-buc-c-bucheader__bucedit-link-id'
+                data-testid='a-buc-c-bucheader__bucedit-link-id'
                 className='knapp knapp--kompakt'
                 onClick={onBucEditClick}
                 href={'#' + buc.type}

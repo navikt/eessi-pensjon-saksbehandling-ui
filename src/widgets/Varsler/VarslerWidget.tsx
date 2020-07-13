@@ -17,7 +17,7 @@ const VarslerWidget: WidgetFC<WidgetProps> = ({
   }, [mounted, onResize])
 
   return (
-    <div data-testId='w-VarslerWidget'>
+    <div data-testid='w-VarslerWidget'>
       <ReactResizeDetector
         handleWidth
         handleHeight

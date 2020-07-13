@@ -146,7 +146,7 @@ const Header: React.FC<HeaderProps> = ({
         <BrandDiv>
           <a
             href='#index'
-            data-testId='c-topHeader__logo-link'
+            data-testid='c-topHeader__logo-link'
             onClick={onLogoClick}
           >
             <NavLogoTransparent width='100' height='45' color='white' />
@@ -180,7 +180,7 @@ const Header: React.FC<HeaderProps> = ({
               : username
                 ? (
                   <NameSelect
-                    data-testId='username-select-id'
+                    data-testid='username-select-id'
                     label=''
                     value={username}
                     selected={username}

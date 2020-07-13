@@ -316,7 +316,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <div data-testId='a-buc-c-bucstart'>
+      <div data-testid='a-buc-c-bucstart'>
         <FlexDiv>
           <LeftContentDiv>
             <VerticalSeparatorDiv data-size='2' />
@@ -385,10 +385,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
             </Normaltekst>
           </AlertStripe>
         )}
-        <ButtonsDiv data-testId='a-buc-c-bucstart__buttons'>
+        <ButtonsDiv data-testid='a-buc-c-bucstart__buttons'>
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
-            data-testId='a-buc-c-bucstart__forward-button'
+            data-testid='a-buc-c-bucstart__forward-button'
             disabled={!allowedToForward()}
             spinner={loading.creatingBUC}
             onClick={onForwardButtonClick}
@@ -400,12 +400,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <HorizontalSeparatorDiv />
           <HighContrastFlatknapp
             data-amplitude='buc.new.cancel'
-            data-testId='a-buc-c-bucstart__cancel-button-id'
+            data-testid='a-buc-c-bucstart__cancel-button-id'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
           </HighContrastFlatknapp>
         </ButtonsDiv>
-        <LoadingDiv data-testId='selectBoxMessage'>
+        <LoadingDiv data-testid='selectBoxMessage'>
           {!loading ? null
             : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
               : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}

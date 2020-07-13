@@ -60,10 +60,10 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <SEDAttachmentsDiv data-testId='a-buc-c-sedattachments'>
+      <SEDAttachmentsDiv data-testid='a-buc-c-sedattachments'>
         {!open ? (
           <HighContrastKnapp
-            data-testId='a-buc-c-sedattachments__enable-button-id'
+            data-testid='a-buc-c-sedattachments__enable-button-id'
             onClick={onEnableAttachmentsButtonClicked}
           >
             <FlexDiv>
