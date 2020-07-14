@@ -43,6 +43,11 @@ export const HighContrastFlatknapp = styled(Flatknapp)`
     color: ${({ theme }: any) => theme['main-interactive-color']};
     border-color: ${({ theme }: any) => theme['main-interactive-color']};
   }
+   &:disabled {
+    background-color: ${({ theme }: any) => theme['main-disabled-color']};
+    color: ${({ theme }: any) => theme['main-text-color']};
+    border: none;
+  }
 `
 export const HighContrastPanel = styled(Panel)`
   border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
