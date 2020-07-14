@@ -1,4 +1,5 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
+import classNames from 'classnames'
 import { HighContrastExpandingPanel, HighContrastPanel } from 'components/StyledComponents'
 import { Buc, Sed, Seds } from 'declarations/buc'
 import _ from 'lodash'
@@ -13,6 +14,7 @@ export interface SEDPanelProps {
   className ?: string
   followUpSeds: Seds
   highContrast: boolean
+  newSed: boolean
   onSEDNew: (buc: Buc, sed: Sed) => void
   sed: Sed
   style: React.CSSProperties
@@ -41,6 +43,9 @@ const SEDPanelPanel = styled(HighContrastPanel)`
     font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
     line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
+  &.new > div, &.new > div > div {
+    background: lightgoldenrodyellow;
+  }
 `
 const PaddedDiv = styled.div`
   padding: 1rem;
@@ -51,7 +56,7 @@ const CustomExpandingPanel = styled(HighContrastExpandingPanel)`
 `
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
-  aktoerId, buc, className, followUpSeds, highContrast, onSEDNew, sed, style
+  aktoerId, buc, className, followUpSeds, highContrast, newSed, onSEDNew, sed, style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
@@ -67,7 +72,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <SEDPanelPanel className={className}>
+      <SEDPanelPanel className={classNames(className, {new: newSed})}>
         {!sedHasOption(sed) ? (
           <PaddedDiv>
             <SEDListHeader

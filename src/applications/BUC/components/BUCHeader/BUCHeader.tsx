@@ -1,6 +1,7 @@
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ProblemCircleIcon from 'assets/icons/report-problem-circle'
+import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
@@ -27,6 +28,9 @@ export const BUCHeaderDiv = styled.div`
   align-items: center;
   padding: 0rem;
   width: 100%;
+  &.new > div, &.new > div > div {
+    background: lightgoldenrodyellow;
+  }
 `
 const UnderTitle = styled(Undertittel)`
   padding-bottom: 0.25rem;
@@ -93,6 +97,7 @@ const BucEditLink = styled(Lenke)`
 export interface BUCHeaderProps {
   buc: Buc
   bucInfo?: BucInfo
+  newBuc: boolean
   onBUCEdit: Function
 }
 
@@ -115,7 +120,7 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
 })
 
 const BUCHeader: React.FC<BUCHeaderProps> = ({
-  buc, bucInfo, onBUCEdit
+  buc, bucInfo, newBuc, onBUCEdit
 }: BUCHeaderProps): JSX.Element => {
   const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
   const { featureToggles, highContrast, institutionNames, locale, rinaUrl }: BUCHeaderSelector =
@@ -163,8 +168,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCHeaderDiv
-        data-testid='a-buc-c-header'
-        id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
+        data-testid={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
+        className={classNames({new: newBuc})}
       >
         <UnderTitle
           data-testid='a-buc-c-header__title'

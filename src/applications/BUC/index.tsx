@@ -189,6 +189,18 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     </WaitingPanelDiv>
   )
 
+  const EmptyBuc = (
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <BUCEmpty
+        aktoerId={aktoerId}
+        sakId={sakId}
+      />
+    </div>
+  )
+
   const _setMode = useCallback((newMode: BUCMode, from: string, callback?: any) => {
     if (animating) {
       return
@@ -274,9 +286,13 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       }
       setContentA(WaitingDiv)
       setMounted(true)
-      _setMode('buclist', 'none')
+      if (!aktoerId || !sakId) {
+        setContentA(EmptyBuc)
+      } else {
+        _setMode('buclist', 'none')
+      }
     }
-  }, [dispatch, aktoerId, _mounted, rinaUrl, _setMode, WaitingDiv])
+  }, [dispatch, aktoerId, EmptyBuc, _mounted, rinaUrl, sakId, _setMode, WaitingDiv])
 
   useEffect(() => {
     return () => {
@@ -310,25 +326,11 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
 
-
-  const EmptyBuc = (
-    <div
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <BUCEmpty
-        aktoerId={aktoerId}
-        sakId={sakId}
-      />
-    </div>
-  )
-
   if (!_mounted) {
     return WaitingDiv
   }
 
   if (!sakId || !aktoerId) {
-    setContentA(EmptyBuc)
     return EmptyBuc
   }
 

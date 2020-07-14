@@ -1,8 +1,6 @@
 import {
   createReplySed,
   createSed,
-  fetchBucs,
-  fetchBucsInfo, fetchBucsWithVedtakId,
   getCountryList,
   getSedList,
   resetSed,
@@ -18,7 +16,6 @@ import SEDAttachmentSender, {
 import { BUCMode } from 'applications/BUC/index'
 import { HighContrastFlatknapp, HighContrastHovedknapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { IS_TEST } from 'constants/environment'
-import * as storage from 'constants/storage'
 import {
   AttachedFiles,
   Buc,
@@ -200,14 +197,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     // cleanup after attachments sent
-    if (aktoerId && sedSent && attachmentsSent) {
+    if (sed && aktoerId && sedSent && attachmentsSent) {
       /* istanbul ignore next */ if (!IS_TEST) {
         console.log('SEDStart: Attachments sent, cleaning up')
-      }
-      dispatch(pesysContext === 'vedtakskontekst' ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
-      if (!_.isEmpty(bucsInfoList) &&
-        bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
-        dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
       }
       dispatch(resetSed())
       setSed(undefined)

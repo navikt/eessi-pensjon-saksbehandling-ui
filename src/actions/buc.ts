@@ -15,6 +15,7 @@ import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockCreateBuc from 'mocks/buc/createBuc'
+import mockCreateSed from 'mocks/buc/createSed'
 import mockInstitutions from 'mocks/buc/institutions'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSed from 'mocks/buc/sed'
@@ -270,14 +271,11 @@ export const getInstitutionsListForBucAndCountry = (bucType: string, country: st
   })
 }
 
-export const createSed = (payload: NewSedPayload): Function => {
+export const createSed = (sed: NewSedPayload): Function => {
   return call({
     url: urls.BUC_CREATE_SED_URL,
-    payload: payload,
-    expectedPayload: {
-      ...payload,
-      id: '123456789'
-    },
+    payload: sed,
+    expectedPayload: mockCreateSed(sed),
     cascadeFailureError: true,
     method: 'POST',
     type: {

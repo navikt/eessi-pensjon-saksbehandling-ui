@@ -61,6 +61,7 @@ export interface BUCListSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
+  newlyCreatedBuc: Buc | undefined
 }
 
 const mapState = (state: State): BUCListSelector => ({
@@ -72,7 +73,8 @@ const mapState = (state: State): BUCListSelector => ({
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   loading: state.loading,
-  locale: state.ui.locale
+  locale: state.ui.locale,
+  newlyCreatedBuc: state.buc.newlyCreatedBuc
 })
 
 type Country = {country: string, buc: string}
@@ -120,12 +122,18 @@ const BucLenkePanel = styled(HighContrastLenkepanelBase)`
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
   margin-bottom: 1rem;
+  &.new {
+    background: lightgoldenrodyellow;
+  }
 `
 const BucExpandingPanel = styled(HighContrastExpandingPanel)`
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
   margin-bottom: 1rem;
+  &.new {
+    background: lightgoldenrodyellow;
+  }
 `
 const Flex4Div = styled.div`
   flex: 4;
@@ -185,7 +193,8 @@ const BUCStartDiv = styled.div`
 
 const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: BUCListProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
-  const { aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading } = useSelector<State, BUCListSelector>(mapState)
+  const { aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading, newlyCreatedBuc }
+    = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
@@ -379,6 +388,7 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
                   border
                   data-testid={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
+                  className={classNames({new : (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false})}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   onClick={(e) => {
                     e.preventDefault()
@@ -388,6 +398,7 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
                 >
                   <BUCHeader
                     buc={buc}
+                    newBuc={(newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false}
                     bucInfo={bucInfo}
                     onBUCEdit={onBUCEdit}
                   />
@@ -396,11 +407,13 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
                 <BucExpandingPanel
                   data-testid={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
+                  className={classNames({new : (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false})}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   onClick={() => onBucOpen(bucId)}
                   heading={(
                     <BUCHeader
                       buc={buc}
+                      newBuc={(newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false}
                       bucInfo={bucInfo}
                       onBUCEdit={onBUCEdit}
                     />

@@ -45,7 +45,9 @@ export interface BUCEditSelector {
   bucsInfo?: BucsInfo
   featureToggles: FeatureToggles
   highContrast: boolean
-  locale: AllowedLocaleString
+  locale: AllowedLocaleString,
+  newlyCreatedSed: Sed | undefined,
+  newlyCreatedSedTime: Date | undefined
 }
 
 const mapState = (state: State): BUCEditSelector => ({
@@ -55,7 +57,9 @@ const mapState = (state: State): BUCEditSelector => ({
   bucsInfo: state.buc.bucsInfo,
   featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
-  locale: state.ui.locale
+  locale: state.ui.locale,
+  newlyCreatedSed: state.buc.newlyCreatedSed,
+  newlyCreatedSedTime: state.buc.newlyCreatedSedTime
 })
 
 const BUCEditHeader = styled.div`
@@ -124,7 +128,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 }: BUCEditProps): JSX.Element | null => {
   const [search, setSearch] = useState<string | undefined>(initialSearch)
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
-  const { aktoerId, bucs, currentBuc, bucsInfo, featureToggles, highContrast, locale }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
+  const { aktoerId, bucs, currentBuc, bucsInfo, featureToggles, highContrast, locale,
+  newlyCreatedSed, newlyCreatedSedTime}: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
@@ -267,7 +272,11 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         <SEDNewDiv>
           <SEDStart
             aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={setMode} onSedCreated={() => {
-              setStartSed(false)
+              if (featureToggles.v2_ENABLED === true) {
+                setStartSed(false)
+              } else {
+                setMode('bucedit' as BUCMode, 'back')
+              }
             }}
             onSedCancelled={() => setStartSed(false)}
           />
@@ -298,6 +307,11 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     buc={buc!}
                     key={index}
                     sed={sed}
+                    newSed={(
+                      newlyCreatedSed && newlyCreatedSedTime &&
+                      newlyCreatedSed.id === sed.id &&
+                      ((new Date().getTime() - newlyCreatedSedTime?.getTime()) < 5 * 60 * 1000)
+                    ) || false}
                     followUpSeds={buc!.seds!.filter(_seds => _seds.parentDocumentId === sed.id)}
                     onSEDNew={() => onSEDNew(buc!, sed)}
                   />

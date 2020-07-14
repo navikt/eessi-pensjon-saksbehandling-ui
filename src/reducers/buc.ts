@@ -2,6 +2,7 @@ import { BUCMode } from 'applications/BUC'
 import * as types from 'constants/actionTypes'
 import {
   AttachedFiles,
+  Buc,
   Bucs,
   BucsInfo,
   Institution,
@@ -35,6 +36,9 @@ export interface BucState {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   institutionNames: InstitutionNames
   mode: BUCMode
+  newlyCreatedBuc: Buc | undefined
+  newlyCreatedSed: Sed | undefined
+  newlyCreatedSedTime: Date | undefined
   rinaId: string | undefined
   rinaUrl: RinaUrl | undefined
   sed: Sed | undefined
@@ -58,6 +62,9 @@ export const initialBucState: BucState = {
   institutionList: undefined,
   institutionNames: {},
   mode: 'buclist' as BUCMode,
+  newlyCreatedBuc: undefined,
+  newlyCreatedSed: undefined,
+  newlyCreatedSedTime: undefined,
   rinaId: undefined,
   rinaUrl: undefined,
   sed: undefined,
@@ -84,8 +91,10 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_CURRENTBUC_SET:
+      const isNewlyCreatedBuc = state.newlyCreatedBuc && state.newlyCreatedBuc.caseId === (action as ActionWithPayload).payload
       return {
         ...state,
+        newlyCreatedBuc: isNewlyCreatedBuc ? undefined: state.newlyCreatedBuc,
         currentBuc: (action as ActionWithPayload).payload
       }
 
@@ -327,6 +336,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         currentBuc: (action as ActionWithPayload).payload.caseId,
         sed: undefined,
         bucs: bucs,
+        newlyCreatedBuc: (action as ActionWithPayload).payload,
         attachments: {},
         sedsWithAttachments: newSedsWithAttachments
       }
@@ -424,10 +434,19 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS:
 
+      const newSed = (action as ActionWithPayload).payload
+      const bucs = _.cloneDeep(state.bucs)
+      if (bucs) {
+        bucs[state.currentBuc!].seds!.push(newSed)
+      }
+
       standardLogger('sed.new.create.success')
       return {
         ...state,
-        sed: (action as ActionWithPayload).payload
+        newlyCreatedSed: newSed,
+        newlyCreatedSedTime: new Date(),
+        sed: newSed,
+        bucs: bucs
       }
 
     case types.BUC_SEND_ATTACHMENT_SUCCESS: {
