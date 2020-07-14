@@ -1,6 +1,5 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import { HighContrastPanel } from 'components/StyledComponents'
+import { HighContrastExpandingPanel, HighContrastPanel } from 'components/StyledComponents'
 import { Buc, Sed, Seds } from 'declarations/buc'
 import _ from 'lodash'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -47,7 +46,7 @@ const PaddedDiv = styled.div`
   padding: 1rem;
   background: ${({ theme }: any) => theme['main-background-color']};
 `
-const CustomExpandingPanel = styled(ExpandingPanel)`
+const CustomExpandingPanel = styled(HighContrastExpandingPanel)`
   border: none;
 `
 

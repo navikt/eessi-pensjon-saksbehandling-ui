@@ -1,9 +1,9 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import {
+  HighContrastExpandingPanel,
   HighContrastKnapp,
   HighContrastModal,
   HighContrastTextArea,
@@ -13,10 +13,10 @@ import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'dec
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
-import Tabs from 'nav-frontend-tabs'
 import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
+import Tabs from 'nav-frontend-tabs'
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -63,7 +63,7 @@ const slideInFromRight = keyframes`
     transform: translateX(0);
   }
 `
-const BUCToolsPanel = styled(ExpandingPanel)`
+const BUCToolsPanel = styled(HighContrastExpandingPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;

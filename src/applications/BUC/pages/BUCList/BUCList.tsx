@@ -12,11 +12,14 @@ import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
-import classNames from 'classnames'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { BUCMode } from 'applications/BUC/index'
-import { HighContrastKnapp, HighContrastPanel, VerticalSeparatorDiv } from 'components/StyledComponents'
+import classNames from 'classnames'
+import {
+  HighContrastExpandingPanel,
+  HighContrastKnapp, HighContrastLenkepanelBase,
+  HighContrastPanel,
+  VerticalSeparatorDiv
+} from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as storage from 'constants/storage'
 import {
@@ -112,27 +115,14 @@ const BadBucDiv = styled.div`
     max-width: 100% !important;
   }
 `
-const BucLenkePanel = styled(LenkepanelBase)`
+const BucLenkePanel = styled(HighContrastLenkepanelBase)`
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
   margin-bottom: 1rem;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
-  border-style: solid;
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
-  color: ${({ theme }: any) => theme['main-font-color']};
-  span, strong, p {
-    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-  }
-  &:hover .lenkepanel__heading {
-    color: ${({ theme }: any) => theme['main-interactive-color']};
-  }
 `
-const BucExpandingPanel = styled(ExpandingPanel)`
+const BucExpandingPanel = styled(HighContrastExpandingPanel)`
   transform: translateX(-20px);
-  border: 1px solid ${({ theme }: any) => theme.navGra60};
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
   margin-bottom: 1rem;

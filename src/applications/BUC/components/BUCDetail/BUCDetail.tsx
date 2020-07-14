@@ -1,7 +1,6 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import { HighContrastLink } from 'components/StyledComponents'
+import { HighContrastExpandingPanel, HighContrastLink } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institutions } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
@@ -46,14 +45,10 @@ const slideInFromRight = keyframes`
     transform: translateX(0);
   }
 `
-const BUCDetailPanel = styled(ExpandingPanel)`
+const BUCDetailPanel = styled(HighContrastExpandingPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
-  p {
-    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-  }
 `
 const Properties = styled.dl`
   display: flex;

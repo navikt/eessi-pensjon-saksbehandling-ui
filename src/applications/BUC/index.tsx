@@ -256,8 +256,8 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setContentB(<BUCEdit setMode={_setMode} initialSedNew/>)
       }
     }
-
-   /* if (allowFullScreen) {
+    /*
+    if (allowFullScreen) {
       if (newMode === 'bucnew' || newMode === 'sednew') {
         onFullFocus()
       } else {

@@ -1,6 +1,6 @@
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
 import classNames from 'classnames'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { HighContrastExpandingPanel } from 'components/StyledComponents'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/types'
@@ -13,7 +13,7 @@ import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
 
@@ -46,23 +46,6 @@ export interface OverviewProps {
   skipMount?: boolean
   widget: Widget
 }
-
-export const OverviewPanel = styled(ExpandingPanel)`
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  border-style: solid;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
-  border-radius: 5px;
-  span, strong, p {
-   font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-   line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-  }
-  .ekspanderbartPanel {
-    background: ${({ theme }: any) => theme['main-background-color']};
-  }
-  .ekspanderbartPanel__hode {
-    background:  ${({ theme }: any) => theme['main-background-color']};
-  }
-`
 
 export const Overview: React.FC<OverviewProps> = ({
   highContrast,
@@ -129,7 +112,7 @@ export const Overview: React.FC<OverviewProps> = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <OverviewPanel
+        <HighContrastExpandingPanel
           highContrast={highContrast}
           collapseProps={{ id: 'w-overview-id' }}
           className={classNames({ highContrast: highContrast })}
@@ -148,7 +131,7 @@ export const Overview: React.FC<OverviewProps> = ({
             locale={locale}
             person={person}
           />
-        </OverviewPanel>
+        </HighContrastExpandingPanel>
       </div>
     </ThemeProvider>
   )

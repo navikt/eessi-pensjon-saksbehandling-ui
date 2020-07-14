@@ -44,11 +44,6 @@ const animationClose = keyframes`
 `
 
 const ExpandingPanelDiv = styled.div`
-  border-radius: 4px;
-  background-color: ${({ theme }: any) => theme['main-background-color']};
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  border-style: solid;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60};
   &.ekspanderbartPanel--apen .ReactCollapse--collapse {
     will-change: max-height, height;
     max-height: 150em;
@@ -58,19 +53,6 @@ const ExpandingPanelDiv = styled.div`
     will-change: max-height, height;
     max-height: 0;
     animation: ${animationClose} 250ms ease;
-  }
-  .ekspanderbartPanel__knapp {
-    background: none;
-    border: none;
-  }
-  &.ekspanderbartPanel {
-    background-color: ${({ theme }: any) => theme['main-background-color']};
-  }
-  .ekspanderbartPanel__hode {
-    background-color:  ${({ theme }: any) => theme['main-background-color']};
-  }
-  .ekspanderbartPanel__indikator {
-    color:  ${({ theme }: any) => theme['main-font-color']};
   }
 `
 
