@@ -21,11 +21,11 @@ import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, RinaUrl } f
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
-const transition = 1000;
+const transition = 1000
 
 const ContainerDiv = styled.div`
   width: 100%;
@@ -63,6 +63,7 @@ const AnimatableDiv = styled.div`
   &.animate {
     will-change: transform, opacity;
     pointer-events: none;
+    transition: transform ${transition}ms ease-in-out;
   }
   &.left {
     transform: translateX(0%);
@@ -80,21 +81,17 @@ const AnimatableDiv = styled.div`
   &.A_going_to_left {
     transform: translateX(-120%);
     animation: ${fadeOut} ${transition}ms forwards;
-    transition: transform ${transition}ms ease-in-out;
   }
   &.A_going_to_right {
     animation: ${fadeIn} ${transition}ms forwards;
-    transition: transform ${transition}ms ease-in-out;
     transform: translateX(0%);
   }
   &.B_going_to_left {
     animation: ${fadeIn} ${transition}ms forwards;
-    transition: transform ${transition}ms ease-in-out;
     transform: translateX(-100%);
   }
   &.B_going_to_right {
     animation: ${fadeOut} ${transition}ms forwards;
-    transition: transform ${transition}ms ease-in-out;
     transform: translateX(20%);
   }
 `;
@@ -177,8 +174,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   const [ animating, setAnimating ] = useState<boolean>(false)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-  const containerA = useRef(null)
-  const containerB = useRef(null)
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
@@ -188,43 +183,32 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }
 
-  const _setContentA = (children: any) => {
-    setContentA(
-      <div ref={containerA}>
-        {children}
-      </div>
-    )
-  }
+  const WaitingDiv = (
+    <WaitingPanelDiv>
+      <WaitingPanel />
+    </WaitingPanelDiv>
+  )
 
-  const _setContentB = (children: any) => {
-    setContentB(
-      <div ref={containerB}>
-        {children}
-      </div>
-    )
-  }
-
-  const _setMode = (newMode: BUCMode, from: string, callback?: any) => {
-    console.log('_setMode', from, ' to ', newMode, transition)
+  const _setMode = useCallback((newMode: BUCMode, from: string, callback?: any) => {
+    if (animating) {
+      return
+    }
+    console.log("_setMode")
     if (newMode === 'buclist' || newMode === 'bucnew') {
-      if (newMode === 'bucnew') {
-        _setContentA(<BUCList setMode={_setMode} initialBucNew/>)
-      }
-      if (newMode === 'buclist') {
-        _setContentA(<BUCList setMode={_setMode}/>)
-      }
       if (!from || from === 'none') {
         setPositionA(Slide.LEFT)
         setPositionB(Slide.RIGHT)
         if (callback) {
           callback()
         }
+        //setOnTransitionA(() => {})
       }
       if (from === 'back') {
         setPositionA(Slide.A_GOING_TO_RIGHT)
         setPositionB(Slide.B_GOING_TO_RIGHT)
         setAnimating(true)
-        setTimeout(() => {
+        setTimeout((e: any) => {
+          console.log("Transition end", e)
           setPositionA(Slide.LEFT)
           setPositionB(Slide.RIGHT)
           setAnimating(false)
@@ -233,26 +217,30 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           }
         }, transition)
       }
+
+      if (newMode === 'bucnew') {
+        setContentA(<BUCList setMode={_setMode} initialBucNew/>)
+      }
+      if (newMode === 'buclist') {
+        setContentA(<BUCList setMode={_setMode}/>)
+
+      }
     }
     if (newMode === 'bucedit' || newMode === 'sednew') {
-      if (newMode === 'bucedit') {
-        _setContentB(<BUCEdit setMode={_setMode}/>)
-      }
-      if (newMode === 'sednew') {
-        _setContentB(<BUCEdit setMode={_setMode} initialSedNew/>)
-      }
       if (!from || from === 'none') {
         setPositionA(Slide.ALT_LEFT)
         setPositionB(Slide.ALT_RIGHT)
         if (callback) {
           callback()
         }
+        //setOnTransitionB(() => {})
       }
       if (from === 'forward') {
         setPositionA(Slide.A_GOING_TO_LEFT)
         setPositionB(Slide.B_GOING_TO_LEFT)
         setAnimating(true)
-        setTimeout(() => {
+        setTimeout((e: any) => {
+          console.log("Transition end", e)
           setPositionA(Slide.ALT_LEFT)
           setPositionB(Slide.ALT_RIGHT)
           setAnimating(false)
@@ -261,27 +249,34 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           }
         }, transition)
       }
+      if (newMode === 'bucedit') {
+        setContentB(<BUCEdit setMode={_setMode}/>)
+      }
+      if (newMode === 'sednew') {
+        setContentB(<BUCEdit setMode={_setMode} initialSedNew/>)
+      }
     }
 
-    if (allowFullScreen) {
+   /* if (allowFullScreen) {
       if (newMode === 'bucnew' || newMode === 'sednew') {
         onFullFocus()
       } else {
         onRestoreFocus()
       }
-    }
+    }*/
     dispatch(setMode(newMode))
-  }
+  }, [animating, allowFullScreen, dispatch, onFullFocus, onRestoreFocus])
 
   useEffect(() => {
     if (!_mounted) {
       if (!rinaUrl) {
         dispatch(getRinaUrl())
       }
+      setContentA(WaitingDiv)
       setMounted(true)
       _setMode('buclist', 'none')
     }
-  }, [dispatch, aktoerId, _mounted, rinaUrl, _setMode])
+  }, [dispatch, aktoerId, _mounted, rinaUrl, _setMode, WaitingDiv])
 
   useEffect(() => {
     return () => {
@@ -315,11 +310,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
 
-  const WaitingDiv = (
-    <WaitingPanelDiv>
-      <WaitingPanel />
-    </WaitingPanelDiv>
-  )
 
   const EmptyBuc = (
     <div
@@ -334,21 +324,15 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   )
 
   if (!_mounted) {
-    console.log('Setting waitingDiv')
-    if (contentA === null) {
-      setContentA(WaitingDiv)
-    }
     return WaitingDiv
   }
 
   if (!sakId || !aktoerId) {
-    console.log('Setting bucEmpty')
     setContentA(EmptyBuc)
     return EmptyBuc
   }
 
   if (featureToggles.v2_ENABLED !== true && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
-    console.log('Setting setmode bucnew ')
     _setMode('bucnew', 'none')
   }
 
@@ -366,6 +350,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   return (
     <BUCIndexDiv
+      key='bucIndexDiv'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -382,10 +367,14 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           <VerticalSeparatorDiv />
           <ContainerDiv className={classNames({ shrink: animating })}>
             <WindowDiv>
-              <AnimatableDiv className={classNames(cls(positionA))}>
+              <AnimatableDiv
+                key='a'
+                className={classNames(cls(positionA))}>
                 {contentA}
               </AnimatableDiv>
-              <AnimatableDiv className={classNames(cls(positionB))}>
+              <AnimatableDiv
+                key='b'
+                className={classNames(cls(positionB))}>
                 {contentB}
               </AnimatableDiv>
             </WindowDiv>

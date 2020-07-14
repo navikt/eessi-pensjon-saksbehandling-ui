@@ -65,7 +65,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: ${({ theme }): any => theme['main-background-color']};
+  background-color: ${({ theme }): any => theme['main-background--other-color']};
   color: ${({ theme }): any => theme['main-font-color']};
 `
 

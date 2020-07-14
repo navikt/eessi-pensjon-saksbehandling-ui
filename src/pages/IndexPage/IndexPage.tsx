@@ -7,6 +7,7 @@ import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
 import * as extraWidgets from 'widgets'
 
 export interface IndexPageProps {
@@ -119,6 +120,13 @@ export interface IndexPageSelector {
   username: string | undefined
 }
 
+const CustomDashboard = styled(Dashboard)`
+   max-width: 1200px;
+   flex: 1 1 auto;
+   position: relative;
+   margin: 0 auto;
+   width: 100%;
+`
 const mapState = (state: State): IndexPageSelector => ({
   highContrast: state.ui.highContrast,
   mode: state.buc.mode,
@@ -142,7 +150,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         mode={mode}
         highContrast={highContrast}
       />
-      <Dashboard
+      <CustomDashboard
         id='eessi-pensjon-ui-fss'
         configurable
         extraWidgets={extraWidgets}
