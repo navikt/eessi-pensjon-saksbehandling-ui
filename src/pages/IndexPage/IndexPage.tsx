@@ -121,7 +121,7 @@ export interface IndexPageSelector {
 }
 
 const CustomDashboard = styled(Dashboard)`
-   max-width: 1200px;
+   max-width: 1440px;
    flex: 1 1 auto;
    position: relative;
    margin: 0 auto;

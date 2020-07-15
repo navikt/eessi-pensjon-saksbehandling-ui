@@ -3,11 +3,11 @@ import ExternalLink from 'assets/icons/line-version-logout'
 import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
 import { FeatureToggles, PesysContext } from 'declarations/types'
-import { linkLogger } from 'metrics/loggers'
+import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { EtikettLiten } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
@@ -71,6 +71,12 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   const { featureToggles, pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
 
+  useEffect(() => {
+    standardLogger('context', {
+      pesys: pesysContext,
+      sakType: sakType
+    })
+  }, [])
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <Content>

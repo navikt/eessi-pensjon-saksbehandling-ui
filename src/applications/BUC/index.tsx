@@ -77,7 +77,6 @@ const AnimatableDiv = styled.div`
   &.alt_right {
     transform: translateX(-100%);
   }
-
   &.A_going_to_left {
     transform: translateX(-120%);
     animation: ${fadeOut} ${transition}ms forwards;
@@ -94,7 +93,7 @@ const AnimatableDiv = styled.div`
     animation: ${fadeOut} ${transition}ms forwards;
     transform: translateX(20%);
   }
-`;
+`
 
 const WaitingPanelDiv = styled.div`
   flex: 1;
@@ -106,10 +105,10 @@ const WaitingPanelDiv = styled.div`
 `
 
 export interface BUCIndexProps {
-  allowFullScreen: boolean;
-  onFullFocus: () => void;
-  onRestoreFocus: () => void;
-  waitForMount?: boolean;
+  allowFullScreen: boolean
+  onFullFocus: () => void
+  onRestoreFocus: () => void
+  waitForMount?: boolean
 }
 
 export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew'
@@ -205,7 +204,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     if (animating) {
       return
     }
-    console.log("_setMode")
     if (newMode === 'buclist' || newMode === 'bucnew') {
       if (!from || from === 'none') {
         setPositionA(Slide.LEFT)
@@ -319,12 +317,15 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [bucs, _bucs, dispatch])
 
-
   useEffect(() => {
     if (featureToggles.v2_ENABLED !== true && loading.gettingBUCs && mode !== 'buclist') {
       _setMode('buclist', 'none', () =>  dispatch(setCurrentBuc(undefined)))
     }
   }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
+
+  if (featureToggles.v2_ENABLED !== true && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
+    _setMode('bucnew', 'none')
+  }
 
   if (!_mounted) {
     return WaitingDiv
@@ -334,11 +335,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     return EmptyBuc
   }
 
-  if (featureToggles.v2_ENABLED !== true && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
-    _setMode('bucnew', 'none')
-  }
-
-  const cls = (position: any) => ({
+  const cls = (position: Slide) => ({
     animate: ![Slide.LEFT, Slide.RIGHT, Slide.ALT_LEFT, Slide.ALT_RIGHT].includes(position),
     A_going_to_left: Slide.A_GOING_TO_LEFT === position,
     A_going_to_right: Slide.A_GOING_TO_RIGHT === position,
@@ -356,9 +353,9 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
+       <VerticalSeparatorDiv />
       {featureToggles.v2_ENABLED !== true ? (
         <>
-          <VerticalSeparatorDiv />
           {mode === 'buclist' && <BUCList setMode={_setMode} />}
           {mode === 'bucedit' && <BUCEdit setMode={_setMode} />}
           {mode === 'bucnew' && <BUCNew setMode={_setMode} />}
@@ -366,16 +363,15 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         </>
       ) : (
         <>
-          <VerticalSeparatorDiv />
           <ContainerDiv className={classNames({ shrink: animating })}>
             <WindowDiv>
               <AnimatableDiv
-                key='a'
+                key='animatableDivA'
                 className={classNames(cls(positionA))}>
                 {contentA}
               </AnimatableDiv>
               <AnimatableDiv
-                key='b'
+                key='animatableDivB'
                 className={classNames(cls(positionB))}>
                 {contentB}
               </AnimatableDiv>

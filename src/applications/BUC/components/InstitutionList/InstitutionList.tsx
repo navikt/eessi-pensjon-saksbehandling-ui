@@ -84,7 +84,6 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
               <InstitutionDiv>
                 {flag && (
                   <Flag
-                    className='mr-2'
                     label={country ? country.label : landkode}
                     country={landkode}
                     size='S'

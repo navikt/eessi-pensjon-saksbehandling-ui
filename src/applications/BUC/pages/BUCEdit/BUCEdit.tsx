@@ -74,6 +74,7 @@ const FlexDiv = styled.div`
 `
 const WidgetDiv = styled.div`
   flex: 2;
+  max-width: 400px;
 `
 const ContentDiv = styled.div`
   flex: 3;

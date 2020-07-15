@@ -72,7 +72,7 @@ const Dd = styled.dd`
   padding-top: .25rem;
   margin-bottom: 0;
 `
-const PaddedDiv = styled.div`
+const InstitutionListDiv = styled.div`
   padding: 0.5rem;
   & > div {
    margin-bottom: 0.35rem;
@@ -186,13 +186,13 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
             {t('buc:form-involvedInstitutions')}:
           </Undertittel>
           <div className='a-buc-c-bucdetail__institutions'>
-            <PaddedDiv>
+            <InstitutionListDiv>
               <InstitutionList
                 institutions={(buc.institusjon as Institutions)}
                 locale={locale}
                 type='joined'
               />
-            </PaddedDiv>
+            </InstitutionListDiv>
           </div>
         </>
       </BUCDetailPanel>

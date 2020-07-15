@@ -86,7 +86,11 @@ const ResponsiveContainer = styled.div`
 const Container = styled.div`
   flex: 1;
 `
-
+const InstitutionsDiv = styled.div`
+  & > div {
+   margin-bottom: 0.35rem;
+  }
+`
 const Step1: React.FC<Step1Props> = ({
   _attachments, avdodfnr, buc, _countries, countryList = [], currentSed, highContrast, _institutions, institutionList,
   loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
@@ -430,17 +434,19 @@ const Step1: React.FC<Step1Props> = ({
                 {t('buc:form-chosenInstitutions')}
               </label>
               <VerticalSeparatorDiv />
-              <InstitutionList
-                institutions={_institutions.map(item => {
-                  var [country, institution] = item.split(':')
-                  return {
-                    country: country,
-                    institution: institution
-                  }
-                })}
-                locale={locale}
-                type='joined'
-              />
+              <InstitutionsDiv>
+                <InstitutionList
+                  institutions={_institutions.map(item => {
+                    var [country, institution] = item.split(':')
+                    return {
+                      country: country,
+                      institution: institution
+                    }
+                  })}
+                  locale={locale}
+                  type='joined'
+                />
+              </InstitutionsDiv>
             </>
           )}
           {sedCanHaveAttachments() && (

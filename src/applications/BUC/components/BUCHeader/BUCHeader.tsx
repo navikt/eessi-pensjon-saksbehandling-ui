@@ -224,7 +224,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             )}
           </LabelsDiv>
           <IconsDiv data-testid='a-buc-c-bucheader__icons' data-v2enabled={featureToggles.v2_ENABLED}>
-            {!_.isEmpty(flagItems) ? (
+            {!_.isEmpty(flagItems) && (
               <FlagList
                 animate
                 locale={locale}
@@ -234,7 +234,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 overflowLimit={8}
                 wrapper={false}
               />
-            ) : <WaitingPanel message='' size='M' />}
+            )}
             {numberOfSeds && (
               <Tooltip
                 placement='top' trigger={['hover']} overlay={(
