@@ -169,7 +169,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCHeaderDiv
         data-testid={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
-        className={classNames({new: newBuc})}
+        className={classNames({ new: newBuc })}
       >
         <UnderTitle
           data-testid='a-buc-c-header__title'

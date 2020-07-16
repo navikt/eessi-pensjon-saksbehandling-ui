@@ -350,7 +350,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         </Row>
         {showWarningBuc && (
           <>
-            <VerticalSeparatorDiv/>
+            <VerticalSeparatorDiv />
             <AlertStripe type='advarsel'>
               <Normaltekst>
                 {t('buc:alert-noDeceased')}
@@ -358,7 +358,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             </AlertStripe>
           </>
         )}
-        <VerticalSeparatorDiv data-size='2'/>
+        <VerticalSeparatorDiv data-size='2' />
         <div data-testid='a-buc-c-bucstart__buttons'>
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
@@ -379,7 +379,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           >{t('ui:cancel')}
           </HighContrastFlatknapp>
         </div>
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         <LoadingDiv data-testid='selectBoxMessage'>
           {!loading ? null
             : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')

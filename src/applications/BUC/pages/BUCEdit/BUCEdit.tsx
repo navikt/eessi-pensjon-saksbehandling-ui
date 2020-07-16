@@ -129,8 +129,10 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 }: BUCEditProps): JSX.Element | null => {
   const [search, setSearch] = useState<string | undefined>(initialSearch)
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
-  const { aktoerId, bucs, currentBuc, bucsInfo, featureToggles, highContrast, locale,
-  newlyCreatedSed, newlyCreatedSedTime}: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
+  const {
+    aktoerId, bucs, currentBuc, bucsInfo, featureToggles, highContrast, locale,
+    newlyCreatedSed, newlyCreatedSedTime
+  }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())

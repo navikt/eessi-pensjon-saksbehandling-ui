@@ -142,7 +142,7 @@ const Footer: React.FC<FooterProps> = ({
   }
 
   const dumpStore = () => {
-    let element = document.createElement('a')
+    const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(store, null, 2)))
     element.setAttribute('download', 'store.txt')
     element.style.display = 'none'

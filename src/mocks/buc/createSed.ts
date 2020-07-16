@@ -7,65 +7,67 @@ export default (sed: NewSedPayload) => {
     allowsAttachments: true,
     attachments: [],
     creationDate: now,
-    displayName: "Transfer of additional information",
+    displayName: 'Transfer of additional information',
     firstVersion: {
-      date: "2020-01-29T13:10:51.000+0000",
-      id: "1"}
-    ,
+      date: '2020-01-29T13:10:51.000+0000',
+      id: '1'
+    },
     id: md5('' + now),
     lastUpdate: now,
     lastVersion: {
-      date: "2020-01-29T13:10:51.000+0000",
-      id: "1"
+      date: '2020-01-29T13:10:51.000+0000',
+      id: '1'
     },
     parentDocumentId: null,
     participants: [{
       organisation: {
         address: {
-          country: "NO",
-          town: null, street:
+          country: 'NO',
+          town: null,
+          street:
             null,
           postalCode: null,
           region: null
         },
         accessPoint: null,
-        acronym: "NAV ACCT 07",
-        activeSince: "2018-08-26T22:00:00.000+0000",
+        acronym: 'NAV ACCT 07',
+        activeSince: '2018-08-26T22:00:00.000+0000',
         assignedBUCs: null,
         contactMethods: null,
-        countryCode: "NO",
-        id: "NO:NAVAT07",
+        countryCode: 'NO',
+        id: 'NO:NAVAT07',
         location: null,
-        name: "NAV ACCEPTANCE TEST 07",
+        name: 'NAV ACCEPTANCE TEST 07',
         registryNumber: null
       },
-      role: "Sender",
+      role: 'Sender',
       selected: false
     }, {
       organisation: {
         address: {
-          country: "NO",
-          town: null, street:
+          country: 'NO',
+          town: null,
+          street:
             null,
           postalCode: null,
           region: null
         },
         accessPoint: null,
-        acronym: "NAV ACCT 08",
-        activeSince: "2018-08-26T22:00:00.000+0000",
+        acronym: 'NAV ACCT 08',
+        activeSince: '2018-08-26T22:00:00.000+0000',
         assignedBUCs: null,
         contactMethods: null,
-        countryCode: "NO",
-        id: "NO:NAVAT08",
+        countryCode: 'NO',
+        id: 'NO:NAVAT08',
         location: null,
-        name: "NAV ACCEPTANCE TEST 08",
+        name: 'NAV ACCEPTANCE TEST 08',
         registryNumber: null
       },
-      role: "Receiver",
+      role: 'Receiver',
       selected: false
     }],
-    status: "draft",
+    status: 'draft',
     type: sed.sed,
-    version: "1"
+    version: '1'
   }
 }

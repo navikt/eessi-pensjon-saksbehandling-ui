@@ -41,22 +41,22 @@ const ContainerDiv = styled.div`
     transform-origin: center center;
     transition: transform 0.3s ease-out;
   }
-`;
+`
 const WindowDiv = styled.div`
   width: 200%;
   display: flex;
   overflow: hidden;
-`;
+`
 const fadeIn = keyframes`
   0% { opacity: 0; }
   50% { opacity: 1; }
   100% { opacity: 1; }
-`;
+`
 const fadeOut = keyframes`
   0% { opacity: 1; }
   50% { opacity: 1; }
   100% { opacity: 0; }
-`;
+`
 const AnimatableDiv = styled.div`
   flex: 1;
   background: inherit;
@@ -159,18 +159,19 @@ export enum Slide {
 const BUCIndexDiv = styled.div``
 
 export const BUCIndex: React.FC<BUCIndexProps> = ({
-  allowFullScreen, onFullFocus, onRestoreFocus, waitForMount = true
+//  allowFullScreen, onFullFocus, onRestoreFocus,
+  waitForMount = true
 }: BUCIndexProps): JSX.Element => {
   const { aktoerId, bucs, featureToggles, loading, mode, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
-  const [ positionA, setPositionA ] = useState<Slide>(Slide.LEFT)
-  const [ positionB, setPositionB ] = useState<Slide>(Slide.RIGHT)
-  const [ contentA, setContentA ] = useState<any>(null)
-  const [ contentB, setContentB ] = useState<any>(null)
-  const [ animating, setAnimating ] = useState<boolean>(false)
+  const [positionA, setPositionA] = useState<Slide>(Slide.LEFT)
+  const [positionB, setPositionB] = useState<Slide>(Slide.RIGHT)
+  const [contentA, setContentA] = useState<any>(null)
+  const [contentB, setContentB] = useState<any>(null)
+  const [animating, setAnimating] = useState<boolean>(false)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
@@ -211,14 +212,14 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         if (callback) {
           callback()
         }
-        //setOnTransitionA(() => {})
+        // setOnTransitionA(() => {})
       }
       if (from === 'back') {
         setPositionA(Slide.A_GOING_TO_RIGHT)
         setPositionB(Slide.B_GOING_TO_RIGHT)
         setAnimating(true)
         setTimeout((e: any) => {
-          console.log("Transition end", e)
+          console.log('Transition end', e)
           setPositionA(Slide.LEFT)
           setPositionB(Slide.RIGHT)
           setAnimating(false)
@@ -229,11 +230,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       }
 
       if (newMode === 'bucnew') {
-        setContentA(<BUCList setMode={_setMode} initialBucNew/>)
+        setContentA(<BUCList setMode={_setMode} initialBucNew />)
       }
       if (newMode === 'buclist') {
-        setContentA(<BUCList setMode={_setMode}/>)
-
+        setContentA(<BUCList setMode={_setMode} />)
       }
     }
     if (newMode === 'bucedit' || newMode === 'sednew') {
@@ -243,14 +243,14 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         if (callback) {
           callback()
         }
-        //setOnTransitionB(() => {})
+        // setOnTransitionB(() => {})
       }
       if (from === 'forward') {
         setPositionA(Slide.A_GOING_TO_LEFT)
         setPositionB(Slide.B_GOING_TO_LEFT)
         setAnimating(true)
         setTimeout((e: any) => {
-          console.log("Transition end", e)
+          console.log('Transition end', e)
           setPositionA(Slide.ALT_LEFT)
           setPositionB(Slide.ALT_RIGHT)
           setAnimating(false)
@@ -260,10 +260,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         }, transition)
       }
       if (newMode === 'bucedit') {
-        setContentB(<BUCEdit setMode={_setMode}/>)
+        setContentB(<BUCEdit setMode={_setMode} />)
       }
       if (newMode === 'sednew') {
-        setContentB(<BUCEdit setMode={_setMode} initialSedNew/>)
+        setContentB(<BUCEdit setMode={_setMode} initialSedNew />)
       }
     }
     /*
@@ -273,7 +273,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       } else {
         onRestoreFocus()
       }
-    }*/
+    } */
     dispatch(setMode(newMode))
   }, [animating, dispatch])//, allowFullScreen, onFullFocus, onRestoreFocus])
 
@@ -286,7 +286,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       setMounted(true)
       if (!aktoerId || !sakId) {
         setContentA(EmptyBuc)
-      } else {
+      } else {
         _setMode('buclist', 'none')
       }
     }
@@ -319,7 +319,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (featureToggles.v2_ENABLED !== true && loading.gettingBUCs && mode !== 'buclist') {
-      _setMode('buclist', 'none', () =>  dispatch(setCurrentBuc(undefined)))
+      _setMode('buclist', 'none', () => dispatch(setCurrentBuc(undefined)))
     }
   }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
 
@@ -353,7 +353,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-       <VerticalSeparatorDiv />
+      <VerticalSeparatorDiv />
       {featureToggles.v2_ENABLED !== true ? (
         <>
           {mode === 'buclist' && <BUCList setMode={_setMode} />}
@@ -367,12 +367,14 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
             <WindowDiv>
               <AnimatableDiv
                 key='animatableDivA'
-                className={classNames(cls(positionA))}>
+                className={classNames(cls(positionA))}
+              >
                 {contentA}
               </AnimatableDiv>
               <AnimatableDiv
                 key='animatableDivB'
-                className={classNames(cls(positionB))}>
+                className={classNames(cls(positionB))}
+              >
                 {contentB}
               </AnimatableDiv>
             </WindowDiv>

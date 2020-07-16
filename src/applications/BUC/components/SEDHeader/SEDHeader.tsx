@@ -150,30 +150,30 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           <SEDStatusDiv>
             <SEDStatusItemDiv>
               <Tooltip
-                placement='top' trigger={[sed.version !== '1' ? 'hover': 'none']} overlay={(
-                <Normaltekst>
-                  {t('ui:firstVersion')}
-                  {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                </Normaltekst>
-              )}
+                placement='top' trigger={[sed.version !== '1' ? 'hover' : 'none']} overlay={(
+                  <Normaltekst>
+                    {t('ui:firstVersion')}
+                    {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                  </Normaltekst>
+                )}
               >
                 <SEDStatus highContrast={highContrast} status={sed.status} />
               </Tooltip>
               <HorizontalSeparatorDiv date-size='0.5' />
-                <SEDVersion>
+              <SEDVersion>
+                <Normaltekst
+                  data-testid='a-buc-c-sedheader__lastUpdate'
+                >
+                  {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
+                </Normaltekst>
+                {sed.version && (
                   <Normaltekst
-                    data-testid='a-buc-c-sedheader__lastUpdate'
+                    data-testid='a-buc-c-sedheader__version'
                   >
-                    {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
+                    {t('ui:version')}{': '}{sed.version || '-'}
                   </Normaltekst>
-                  {sed.version && (
-                    <Normaltekst
-                      data-testid='a-buc-c-sedheader__version'
-                    >
-                      {t('ui:version')}{': '}{sed.version || '-'}
-                    </Normaltekst>
-                  )}
-                </SEDVersion>
+                )}
+              </SEDVersion>
             </SEDStatusItemDiv>
           </SEDStatusDiv>
           <SEDInstitutionsDiv>

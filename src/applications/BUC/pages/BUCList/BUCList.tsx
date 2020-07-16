@@ -191,10 +191,10 @@ const BUCStartDiv = styled.div`
   }
 `
 
-const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: BUCListProps): JSX.Element => {
+const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }: BUCListProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
-  const { aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading, newlyCreatedBuc }
-    = useSelector<State, BUCListSelector>(mapState)
+  const { aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading, newlyCreatedBuc } =
+    useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
@@ -229,8 +229,7 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
   }
 
   const onSEDNew = (buc: Buc, sed: Sed): void => {
-    if (buc)
-    dispatch(setCurrentBuc(buc ? buc.caseId! : undefined))
+    if (buc) { dispatch(setCurrentBuc(buc ? buc.caseId! : undefined)) }
     dispatch(setCurrentSed(sed ? sed.id : undefined))
     setMode('sednew' as BUCMode, 'forward')
   }
@@ -393,7 +392,7 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
                   border
                   data-testid={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
-                  className={classNames({new : (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false})}
+                  className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   onClick={(e) => {
                     e.preventDefault()
@@ -412,7 +411,7 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
                 <BucExpandingPanel
                   data-testid={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
-                  className={classNames({new : (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false})}
+                  className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   onClick={() => onBucOpen(bucId)}
                   heading={(

@@ -15,5 +15,4 @@ const PlaceholderImage = styled.div`
   background-image: linear-gradient(45deg, hsla(90, 90%, 90%, .15) 25%, transparent 0, transparent 50%, hsla(90, 90%, 90%, .15) 0, hsla(90, 90%, 90%, .15) 75%, transparent 0, transparent);
 `
 
-export default (props: any) => (<PlaceholderImage {...props}/>)
-
+export default (props: any) => (<PlaceholderImage {...props} />)

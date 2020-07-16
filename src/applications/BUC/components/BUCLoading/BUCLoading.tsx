@@ -58,21 +58,21 @@ export const FlagLoading = styled(LoadingImage)`
 const flagLoader = () => {
   return Array(Math.ceil(Math.random() * 4))
     .fill(0)
-    .map(() => <FlagLoading/>)
+    .map((i) => <FlagLoading key={i} />)
 }
 
 const BUCLoading = () => {
   return (
     <BucPanel>
       <BUCHeaderDiv>
-        <TitleText width={Math.round(Math.random() * 10 + 60)}/>
+        <TitleText width={Math.round(Math.random() * 10 + 60)} />
         <FlexDiv>
           <LabelsDiv>
-            <ContentText width={Math.round(Math.random() * 10 + 60)}/>
-            <ContentText width={Math.round(Math.random() * 10 + 60)}/>
-            <ContentText width={Math.round(Math.random() * 10 + 60)}/>
+            <ContentText width={Math.round(Math.random() * 10 + 60)} />
+            <ContentText width={Math.round(Math.random() * 10 + 60)} />
+            <ContentText width={Math.round(Math.random() * 10 + 60)} />
           </LabelsDiv>
-          <HorizontalSeparatorDiv/>
+          <HorizontalSeparatorDiv />
           <IconsDiv>
             {flagLoader()}
           </IconsDiv>

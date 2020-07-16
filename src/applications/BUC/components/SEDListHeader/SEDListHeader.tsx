@@ -139,17 +139,17 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
             </Element>
             <SEDListStatusItemDiv>
               <Tooltip
-                placement='top' trigger={[sed.version !== '1' ? 'hover': 'none']} overlay={(
-                <Normaltekst>
-                  {t('ui:firstVersion')}
-                  {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                </Normaltekst>
-              )}
+                placement='top' trigger={[sed.version !== '1' ? 'hover' : 'none']} overlay={(
+                  <Normaltekst>
+                    {t('ui:firstVersion')}
+                    {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                  </Normaltekst>
+                )}
               >
                 <SEDStatus
-                highContrast={highContrast}
-                status={sed.status}
-              />
+                  highContrast={highContrast}
+                  status={sed.status}
+                />
               </Tooltip>
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>

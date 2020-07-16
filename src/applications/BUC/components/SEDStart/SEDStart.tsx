@@ -266,7 +266,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       validateCountries(newCountries)
     }, [_countries, dispatch, _institutions, buc, setCountries, setInstitutions, validateCountries])
 
-
   useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
       dispatch(getCountryList(buc.type))
@@ -701,7 +700,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             )}
           </Column>
           <Column>
-            <VerticalSeparatorDiv data-size='1.5'/>
+            <VerticalSeparatorDiv data-size='1.5' />
             <HighContrastHovedknapp
               data-amplitude='sed.new.create'
               data-testid='a-buc-c-sedstart__forward-button-id'
@@ -714,7 +713,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 : sendingAttachments ? t('buc:loading-sendingSEDattachments')
                   : t('buc:form-orderSED')}
             </HighContrastHovedknapp>
-            <HorizontalSeparatorDiv/>
+            <HorizontalSeparatorDiv />
             <HighContrastFlatknapp
               data-amplitude='sed.new.cancel'
               data-testid='a-buc-c-sedstart__cancel-button-id'
@@ -722,7 +721,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             >
               {t('ui:cancel')}
             </HighContrastFlatknapp>
-            <VerticalSeparatorDiv data-size='1.5'/>
+            <VerticalSeparatorDiv data-size='1.5' />
           </Column>
         </Column>
         <HorizontalSeparatorDiv />

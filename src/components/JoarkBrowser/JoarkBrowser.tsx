@@ -167,7 +167,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     )
   }
 
-  let items = list ? list.map((file) => {
+  const items = list ? list.map((file) => {
     return {
       key: file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat,
       name: file.tittel || '-',
@@ -200,8 +200,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         items={items}
         context={context}
         compact
-        searchable={true}
-        selectable={true}
+        searchable
+        selectable
         sortable
         loading={loadingJoarkList}
         columns={[

@@ -17,9 +17,9 @@ const PlaceholderText = styled(LoadingText)`
 const PersonLoading = () => {
   return (
     <Title>
-      <LoadingImage/>
+      <LoadingImage />
       <HorizontalSeparatorDiv />
-      <PlaceholderText/>
+      <PlaceholderText />
     </Title>
   )
 }

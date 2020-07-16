@@ -76,8 +76,6 @@ export const initialBucState: BucState = {
 }
 
 const bucReducer = (state: BucState = initialBucState, action: Action | ActionWithPayload) => {
-  let excludedBucs
-
   switch (action.type) {
     case types.APP_CLEAR_DATA: {
       return initialBucState
@@ -90,13 +88,14 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         mode: ((action as ActionWithPayload).payload as BUCMode)
       }
 
-    case types.BUC_CURRENTBUC_SET:
+    case types.BUC_CURRENTBUC_SET: {
       const isNewlyCreatedBuc = state.newlyCreatedBuc && state.newlyCreatedBuc.caseId === (action as ActionWithPayload).payload
       return {
         ...state,
-        newlyCreatedBuc: isNewlyCreatedBuc ? undefined: state.newlyCreatedBuc,
+        newlyCreatedBuc: isNewlyCreatedBuc ? undefined : state.newlyCreatedBuc,
         currentBuc: (action as ActionWithPayload).payload
       }
+    }
 
     case types.BUC_CURRENTSED_SET:
 
@@ -265,7 +264,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
-      excludedBucs = ['P_BUC_05', 'P_BUC_10']
+    {
+      const excludedBucs = ['P_BUC_05', 'P_BUC_10']
       if (_.get((action as ActionWithPayload), 'context.featureToggles.P_BUC_02_VISIBLE') === false) {
         excludedBucs.push('P_BUC_02')
       }
@@ -278,6 +278,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         bucList: _.difference((action as ActionWithPayload).payload, excludedBucs)
       }
+    }
 
     case types.BUC_GET_BUC_LIST_REQUEST:
     case types.BUC_GET_BUC_LIST_FAILURE:
@@ -432,8 +433,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return state
 
     case types.BUC_CREATE_SED_SUCCESS:
-    case types.BUC_CREATE_REPLY_SED_SUCCESS:
-
+    case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const newSed = (action as ActionWithPayload).payload
       const bucs = _.cloneDeep(state.bucs)
       if (bucs) {
@@ -448,6 +448,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         sed: newSed,
         bucs: bucs
       }
+    }
 
     case types.BUC_SEND_ATTACHMENT_SUCCESS: {
       const existingAttachments: AttachedFiles = _.cloneDeep(state.attachments)

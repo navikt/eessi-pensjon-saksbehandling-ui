@@ -72,7 +72,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <SEDPanelPanel className={classNames(className, {new: newSed})}>
+      <SEDPanelPanel className={classNames(className, { new: newSed })}>
         {!sedHasOption(sed) ? (
           <PaddedDiv>
             <SEDListHeader

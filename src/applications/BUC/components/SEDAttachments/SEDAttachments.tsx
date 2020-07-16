@@ -67,7 +67,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
             onClick={onEnableAttachmentsButtonClicked}
           >
             <FlexDiv>
-              <TilsetteIcon/>
+              <TilsetteIcon />
               <NormalText>
                 {t('ui:addAttachments')}
               </NormalText>
@@ -87,7 +87,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
             >
               {t('buc:form-submitSelectedAttachments')}
             </HighContrastHovedknapp>
-            <HorizontalSeparatorDiv/>
+            <HorizontalSeparatorDiv />
             <HighContrastFlatknapp
               disabled={disableButtons}
               data-testid='a-buc-c-sedattachments__cancel-button-id'

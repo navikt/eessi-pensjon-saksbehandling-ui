@@ -35,7 +35,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   const { t } = useTranslation()
   if (!person || gettingPersonInfo) {
     return (
-      <PersonLoading/>
+      <PersonLoading />
     )
   }
 
