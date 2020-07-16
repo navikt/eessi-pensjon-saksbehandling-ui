@@ -7,7 +7,7 @@ import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { EtikettLiten } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
@@ -67,16 +67,21 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   highContrast, mode
 }: ContextBannerProps): JSX.Element => {
   const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
+  const [mounted, setMounted] = useState<boolean>(false)
   const { t } = useTranslation()
   const { featureToggles, pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
 
   useEffect(() => {
-    standardLogger('context', {
-      pesys: pesysContext,
-      sakType: sakType
-    })
-  }, [])
+    if (!mounted) {
+      standardLogger('context', {
+        pesys: pesysContext,
+        sakType: sakType
+      })
+      setMounted(true)
+    }
+  }, [mounted, pesysContext, sakType])
+
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <Content>

@@ -1,20 +1,33 @@
 import {
   createReplySed,
   createSed,
-  getCountryList,
+  getCountryList, getInstitutionsListForBucAndCountry,
   getSedList,
   resetSed,
   resetSedAttachments,
   sendAttachmentToSed,
   setSedList
 } from 'actions/buc'
-import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
+import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import { BUCMode } from 'applications/BUC/index'
-import { HighContrastFlatknapp, HighContrastHovedknapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import Alert from 'components/Alert/Alert'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import Select from 'components/Select/Select'
+import {
+  Column,
+  HighContrastFlatknapp,
+  HighContrastHovedknapp, HighContrastInput,
+  HorizontalSeparatorDiv, Row,
+  VerticalSeparatorDiv
+} from 'components/StyledComponents'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { IS_TEST } from 'constants/environment'
 import {
   AttachedFiles,
@@ -29,24 +42,53 @@ import {
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, Validation } from 'declarations/types'
+import {
+  AllowedLocaleString,
+  Country,
+  FeatureToggles,
+  Loading,
+  Option,
+  PesysContext,
+  Validation
+} from 'declarations/types'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
-import { buttonLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger } from 'metrics/loggers'
+import { Input } from 'nav-frontend-skjema'
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import Step1 from './Step1'
-import Step2 from './Step2'
 
+const SEDStartDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const countrySort = (a: Country, b: Country) => a.label.localeCompare(b.label)
+
+const FullWidthDiv = styled.div`
+  width: 100%;
+`
+const AlertDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+`
+const InstitutionsDiv = styled.div`
+  & > div {
+   margin-bottom: 0.35rem;
+  }
+`
 export interface SEDStartProps {
   aktoerId?: string
   bucs: Bucs
   currentBuc: string
   initialAttachments ?: AttachedFiles
   initialSed ?: string | undefined
-  initialStep ?: number
   onSedCreated: () => void
   onSedCancelled: () => void
   setMode: (mode: BUCMode, s: string, callback?: any) => void
@@ -90,22 +132,8 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   vedtakId: state.app.params.vedtakId
 })
 
-const SEDStartDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-`
-const ButtonsDiv = styled.div`
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-`
-
 export const SEDStart: React.FC<SEDStartProps> = ({
-  aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined, initialStep = 0,
+  aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined,
   onSedCreated, onSedCancelled, setMode
 } : SEDStartProps): JSX.Element | null => {
   const {
@@ -131,6 +159,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       : []
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
+
   const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(undefined)
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_institutions, setInstitutions] = useState<Array<string>>(
@@ -139,14 +168,104 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
   const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
   const [_attachments, setAttachments] = useState<AttachedFiles>(initialAttachments)
-  const [step, setStep] = useState<number>(initialStep)
   const [validation, setValidation] = useState<Validation>({})
-  const [showButtons, setShowButtons] = useState<boolean>(true)
   const [sedSent, setSedSent] = useState<boolean>(false)
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
-  const [mounted, setMounted] = useState<boolean>(false)
   const buc: Buc = _.cloneDeep(bucs[currentBuc!])
+  const countryData = CountryData.getCountryInstance(locale)
+  const [mounted, setMounted] = useState<boolean>(false)
+  const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(false)
+  const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort(countrySort) : [])
+  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort(countrySort) : []
+  const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
+  const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
+
+  if (institutionList) {
+    Object.keys(institutionList).forEach((landkode: string) => {
+      if (_.includes(_countries, landkode)) {
+        const label = countryData.findByValue(landkode)
+        institutionObjectList.push({
+          label: label.label,
+          options: institutionList[landkode].filter(notHostInstitution).map((institution: RawInstitution) => {
+            return {
+              label: institution.navn,
+              value: institution.id
+            }
+          })
+        })
+      }
+    })
+  }
+
+  let institutionValueList: Array<Option> = []
+  if (institutionList && _institutions) {
+    institutionValueList = _institutions.map(item => {
+      const [country, institution] = item.split(':')
+      const found = _.find(institutionList[country], { id: item })
+      if (found) {
+        return {
+          label: found.navn,
+          value: found.id
+        }
+      } else {
+        return {
+          label: item,
+          value: institution
+        }
+      }
+    })
+  }
+
+  const resetValidationState = useCallback((_key: string): void => {
+    setValidation(_.omitBy(validation, (value, key) => {
+      return key === _key
+    }))
+  }, [setValidation, validation])
+
+  const setValidationState = useCallback((key: string, value: string): void => {
+    const newValidation = _.cloneDeep(validation)
+    newValidation[key] = value
+    setValidation(newValidation)
+  }, [setValidation, validation])
+
+  const validateCountries = useCallback((country: Array<string>): boolean => {
+    if (_.isEmpty(country)) {
+      setValidationState('countryFail', t('buc:validation-chooseCountry'))
+      return false
+    } else {
+      resetValidationState('countryFail')
+      return true
+    }
+  }, [resetValidationState, setValidationState, t])
+
+  const fetchInstitutionsForSelectedCountries = useCallback(
+    (countries: Array<Country>) => {
+      if (!buc) {
+        return
+      }
+      const newCountries: Array<string> = countries ? countries.map(item => {
+        return item.value
+      }) : []
+
+      const oldCountriesList = _.cloneDeep(_countries)
+      const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
+      const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
+
+      addedCountries.map(country => {
+        return dispatch(getInstitutionsListForBucAndCountry(buc.type!, country))
+      })
+      removedCountries.forEach(country => {
+        const newInstitutions = _institutions.filter(item => {
+          const [_country] = item.split(':')
+          return country !== _country
+        })
+        setInstitutions(newInstitutions)
+      })
+      setCountries(newCountries)
+      validateCountries(newCountries)
+    }, [_countries, dispatch, _institutions, buc, setCountries, setInstitutions, validateCountries])
+
 
   useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
@@ -206,10 +325,143 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       dispatch(resetSedAttachments())
       onSedCreated()
     }
-  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, pesysContext, onSedCreated, sedSent, setMode, vedtakId])
+  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, pesysContext, onSedCreated, sedSent, sed, setMode, vedtakId])
 
-  if (_.isEmpty(bucs) || !currentBuc) {
-    return null
+  useEffect(() => {
+    if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
+      setSed(sedList[0])
+    }
+  }, [sedList, _sed, setSed])
+
+  useEffect(() => {
+    if (!mounted && buc && buc.type !== null && !_.isEmpty(_countries)) {
+      _countries.forEach(country => {
+        if (!institutionList || !Object.keys(institutionList).includes(country)) {
+          dispatch(getInstitutionsListForBucAndCountry(buc.type!, country))
+        }
+      })
+      setMounted(true)
+    }
+  }, [mounted, buc, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
+
+  const validateSed = (sed: string): boolean => {
+    if (!sed) {
+      setValidationState('sedFail', t('buc:validation-chooseSed'))
+      return false
+    } else {
+      resetValidationState('sedFail')
+      return true
+    }
+  }
+
+  const validateInstitutions = (institutions: Array<string>): boolean => {
+    if (_.isEmpty(institutions)) {
+      setValidationState('institutionFail', t('buc:validation-chooseInstitution'))
+      return false
+    } else {
+      resetValidationState('institutionFail')
+      return true
+    }
+  }
+
+  const validateVedtakId = (vedtakId: number | undefined): boolean => {
+    if (sedNeedsVedtakId() && !_.isNumber(vedtakId)) {
+      setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
+      return false
+    } else {
+      resetValidationState('vedtakFail')
+      return true
+    }
+  }
+
+  const validateAvdodfnr = (avdodfnr: number | undefined): boolean => {
+    if (sedNeedsAvdodfnr() && !_.isNumber(avdodfnr)) {
+      setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodfnr'))
+      return false
+    } else {
+      resetValidationState('avdodfnrFail')
+      return true
+    }
+  }
+
+  const onSedChange = (e: any) => {
+    const thisSed = e.value
+    setSed(thisSed)
+    validateSed(thisSed)
+  }
+
+  const onInstitutionsChange = (institutions: Array<Option>) => {
+    const newInstitutions = institutions ? institutions.map(institution => {
+      return institution.value
+    }) : []
+    validateInstitutions(newInstitutions)
+    setInstitutions(newInstitutions)
+  }
+
+  const onCountriesChange = (countries: Array<Country>) => {
+    fetchInstitutionsForSelectedCountries(countries)
+  }
+
+  const onAvdodfnrChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let avdodfnr: number
+    try {
+      avdodfnr = parseInt(e.target.value, 10)
+      validateAvdodfnr(avdodfnr)
+      setAvdodfnr(avdodfnr)
+    } catch (e) {}
+  }
+
+  const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let vedtakId: number
+    try {
+      vedtakId = parseInt(e.target.value, 10)
+      validateVedtakId(vedtakId)
+      setVedtakId(vedtakId)
+    } catch (e) {}
+  }
+
+  const renderOptions = (options: Array<Option | string> | undefined) => {
+    return options ? options.map((el: Option | string) => {
+      let label, value
+      if (typeof el === 'string') {
+        label = el
+        value = el
+      } else {
+        value = el.value || el.navn
+        label = el.label || el.navn
+      }
+      return {
+        label: getOptionLabel(label!),
+        value: value
+      }
+    }) : []
+  }
+
+  const getOptionLabel = (value: string) => {
+    let label = value
+    const description = getBucTypeLabel({
+      t: t,
+      locale: locale,
+      type: value
+    })
+    if (description !== 'buc-' + value) {
+      label += ' - ' + description
+    }
+    return label
+  }
+
+  const getSpinner = (text: string) => {
+    return (
+      <WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} oneLine />
+    )
+  }
+
+  const setFiles = (files: AttachedFiles) => {
+    standardLogger('sed.new.attachments.data', {
+      numberOfJoarkAttachments: files.joark.length
+    })
+    setSeeAttachmentPanel(false)
+    setAttachments(files)
   }
 
   const bucHasSedsWithAtLeastOneInstitution: Function = (): boolean => {
@@ -281,16 +533,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }
 
-  const onNextButtonClick = (e: React.MouseEvent) => {
-    buttonLogger(e)
-    setStep(step + 1)
-  }
-
-  const onBackButtonClick = (e: React.MouseEvent) => {
-    buttonLogger(e)
-    setStep(step - 1)
-  }
-
   const onCancelButtonClick = (e: React.MouseEvent) => {
     buttonLogger(e)
     setSed(undefined)
@@ -298,98 +540,181 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     onSedCancelled()
   }
 
-  const createSedNeedsMoreSteps = () => {
-    return false
+  const allowedToForward = () => {
+    return _sed && _.isEmpty(validation) &&
+     (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
+     !loading.creatingSed && !sendingAttachments &&
+     (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true) &&
+     (sedNeedsAvdodfnr() ? _.isNumber(_avdodfnr) && !_.isNaN(_avdodfnr) : true)
   }
 
-  const allowedToForward = () => {
-    if (step === 0) {
-      return _sed && _.isEmpty(validation) &&
-       (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
-       !loading.creatingSed && !sendingAttachments &&
-       (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true) &&
-       (sedNeedsAvdodfnr() ? _.isNumber(_avdodfnr) && !_.isNaN(_avdodfnr) : true)
-    }
-    return false
+  if (_.isEmpty(bucs) || !currentBuc) {
+    return null
   }
 
   return (
     <SEDStartDiv>
-      <Container className='container'>
-        {step === 0 ? (
-          <Step1
-            loading={loading}
-            locale={locale!}
-            highContrast={highContrast}
-            _sed={_sed} setSed={setSed} currentSed={currentSed} sedList={sedList} buc={buc}
-            _countries={_countries} setCountries={setCountries} countryList={countryList!}
-            _institutions={_institutions} setInstitutions={setInstitutions} institutionList={institutionList!}
-            _attachments={_attachments} setAttachments={setAttachments}
-            validation={validation} setValidation={setValidation}
-            sedCanHaveAttachments={sedCanHaveAttachments}
-            sedNeedsAvdodfnr={sedNeedsAvdodfnr}
-            avdodfnr={_avdodfnr} setAvdodfnr={setAvdodfnr}
-            vedtakId={_vedtakId} setVedtakId={setVedtakId}
-            sedNeedsVedtakId={sedNeedsVedtakId}
-          />
-        ) : null}
-        {step === 1 && (
-          <Step2
-            locale={locale!}
-            aktoerId={aktoerId!}
-            _sed={_sed!}
-            buc={buc}
-            showButtons={showButtons} setShowButtons={setShowButtons}
-            validation={validation} setValidation={setValidation}
-          />
-        )}
-      </Container>
-      <Container>
-        {(sendingAttachments || attachmentsSent) && sed && (
-          <SEDAttachmentSender
-            attachmentsError={attachmentsError}
-            sendAttachmentToSed={_sendAttachmentToSed}
-            payload={{
-              aktoerId: aktoerId,
-              rinaId: buc.caseId,
-              rinaDokumentId: sed!.id
-            } as SEDAttachmentPayload}
-            allAttachments={_attachments.joark as JoarkFiles}
-            savedAttachments={attachments.joark as JoarkFiles}
-            onFinished={() => setAttachmentsSent(true)}
-          />
-        )}
-      </Container>
-      {showButtons && (
-        <Container>
-          <ButtonsDiv>
+      <Systemtittel>
+        {!currentSed ? t('buc:step-startSEDTitle', {
+          buc: t(`buc:buc-${buc?.type}`),
+          sed: _sed || t('buc:form-newSed')
+        }) : t('buc:step-replySEDTitle', {
+          buc: t(`buc:buc-${buc?.type}`),
+          sed: buc.seds!.find((sed: Sed) => sed.id === currentSed)!.type
+        })}
+      </Systemtittel>
+      <hr />
+      {!vedtakId && _sed === 'P6000' && (
+        <FullWidthDiv>
+          <AlertDiv>
+            <Alert type='client' fixed={false} status='WARNING' message={t('buc:alert-noVedtakId')} />
+          </AlertDiv>
+        </FullWidthDiv>
+      )}
+      <Row>
+        <Column>
+          <VerticalSeparatorDiv data-size='2' />
+          <>
+            <label className='skjemaelement__label'>
+              {t('buc:form-sed')}
+            </label>
+            <Select
+              highContrast={highContrast}
+              data-testid='a-buc-c-sedstart__sed-select-id'
+              disabled={loading.gettingSedList}
+              isSearchable
+              placeholder={t('buc:form-chooseSed')}
+              onChange={onSedChange}
+              options={renderOptions(sedList)}
+            />
+
+            {validation.sedFail && <Normaltekst>{t(validation.sedFail)}</Normaltekst>}
+          </>
+          <VerticalSeparatorDiv />
+          {sedNeedsVedtakId() && (
+            <>
+              <VerticalSeparatorDiv />
+              <Input
+                disabled
+                data-testid='a-buc-c-sedstart__vedtakid-input-id'
+                label={t('buc:form-vedtakId')}
+                bredde='fullbredde'
+                value={vedtakId || ''}
+                onChange={onVedtakIdChange}
+                placeholder={t('buc:form-noVedtakId')}
+                feil={validation.vedtakFail ? t(validation.vedtakFail) : null}
+              />
+              <VerticalSeparatorDiv />
+            </>
+          )}
+          {sedNeedsAvdodfnr() && (
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastInput
+                id='a-buc-c-sedstart__fnr-input-id'
+                label={t('buc:form-fnr')}
+                bredde='fullbredde'
+                value={_avdodfnr || ''}
+                onChange={onAvdodfnrChange}
+                placeholder={t('buc:form-noAvdodfnr')}
+                feil={validation.fnrFail ? t(validation.fnrFail) : null}
+              />
+              <VerticalSeparatorDiv />
+            </>
+          )}
+          {!currentSed && (
+            <>
+              <VerticalSeparatorDiv />
+              <MultipleSelect
+                highContrast={highContrast}
+                ariaLabel={t('ui:country')}
+                label={t('ui:country')}
+                data-testid='a-buc-c-sedstart__country-select-id'
+                disabled={loading.gettingCountryList}
+                isLoading={loading.gettingCountryList}
+                placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
+                aria-describedby='help-country'
+                values={countryValueList}
+                hideSelectedOptions={false}
+                onSelect={onCountriesChange}
+                options={countryObjectList}
+              />
+              <VerticalSeparatorDiv />
+              <MultipleSelect
+                highContrast={highContrast}
+                ariaLabel={t('ui:institution')}
+                label={t('ui:institution')}
+                data-testid='a-buc-c-sedstart__institution-select-id'
+                disabled={loading.gettingInstitutionList}
+                isLoading={loading.gettingInstitutionList}
+                placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t('buc:form-chooseInstitution')}
+                aria-describedby='help-institution'
+                values={institutionValueList}
+                onSelect={onInstitutionsChange}
+                hideSelectedOptions={false}
+                options={institutionObjectList}
+              />
+              <VerticalSeparatorDiv data-size='2' />
+              <label className='skjemaelement__label'>
+                {t('buc:form-chosenInstitutions')}
+              </label>
+              <VerticalSeparatorDiv />
+              <InstitutionsDiv>
+                <InstitutionList
+                  institutions={_institutions.map(item => {
+                    var [country, institution] = item.split(':')
+                    return {
+                      country: country,
+                      institution: institution
+                    }
+                  })}
+                  locale={locale}
+                  type='joined'
+                />
+              </InstitutionsDiv>
+            </>
+          )}
+          {sedCanHaveAttachments() && (
+            <>
+              <VerticalSeparatorDiv />
+              <label className='skjemaelement__label'>
+                {t('ui:attachments')}
+              </label>
+              <VerticalSeparatorDiv data-size='0.5' />
+              <SEDAttachmentsTable highContrast={highContrast} attachments={_attachments} />
+            </>
+          )}
+          <Column>
+            {(sendingAttachments || attachmentsSent) && sed && (
+              <SEDAttachmentSender
+                attachmentsError={attachmentsError}
+                sendAttachmentToSed={_sendAttachmentToSed}
+                payload={{
+                  aktoerId: aktoerId,
+                  rinaId: buc.caseId,
+                  rinaDokumentId: sed!.id
+                } as SEDAttachmentPayload}
+                allAttachments={_attachments.joark as JoarkFiles}
+                savedAttachments={attachments.joark as JoarkFiles}
+                onFinished={() => setAttachmentsSent(true)}
+              />
+            )}
+          </Column>
+          <Column>
+            <VerticalSeparatorDiv data-size='1.5'/>
             <HighContrastHovedknapp
               data-amplitude='sed.new.create'
               data-testid='a-buc-c-sedstart__forward-button-id'
               disabled={!allowedToForward()}
               spinner={loading.creatingSed || sendingAttachments}
-              onClick={(e: React.MouseEvent) => {
-                if (createSedNeedsMoreSteps()) {
-                  onNextButtonClick(e)
-                } else {
-                  onForwardButtonClick(e)
-                }
-              }}
+              onClick={onForwardButtonClick}
+
             >
               {loading.creatingSed ? t('buc:loading-creatingSED')
                 : sendingAttachments ? t('buc:loading-sendingSEDattachments')
-                  : createSedNeedsMoreSteps() ? t('ui:next')
-                    : t('buc:form-orderSED')}
+                  : t('buc:form-orderSED')}
             </HighContrastHovedknapp>
-            {step > 0 && (
-              <HighContrastFlatknapp
-                data-amplitude='sed.new.back'
-                data-testid='a-buc-c-sedstart__back-button-id'
-                onClick={onBackButtonClick}
-              >{t('ui:back')}
-              </HighContrastFlatknapp>
-            )}
-            <HorizontalSeparatorDiv />
+            <HorizontalSeparatorDiv/>
             <HighContrastFlatknapp
               data-amplitude='sed.new.cancel'
               data-testid='a-buc-c-sedstart__cancel-button-id'
@@ -397,9 +722,30 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             >
               {t('ui:cancel')}
             </HighContrastFlatknapp>
-          </ButtonsDiv>
-        </Container>
-      )}
+            <VerticalSeparatorDiv data-size='1.5'/>
+          </Column>
+        </Column>
+        <HorizontalSeparatorDiv />
+        <Column>
+          {sedCanHaveAttachments() && (
+            <>
+              <VerticalSeparatorDiv data-size='2' />
+              <label className='skjemaelement__label'>
+                {t('ui:attachments')}
+              </label>
+              <VerticalSeparatorDiv />
+              <SEDAttachments
+                disableButtons={false}
+                highContrast={highContrast}
+                onSubmit={setFiles}
+                files={_attachments}
+                open={seeAttachmentPanel}
+                onOpen={() => setSeeAttachmentPanel(true)}
+              />
+            </>
+          )}
+        </Column>
+      </Row>
     </SEDStartDiv>
   )
 }

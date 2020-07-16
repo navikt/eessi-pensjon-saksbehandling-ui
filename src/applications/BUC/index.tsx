@@ -275,7 +275,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       }
     }*/
     dispatch(setMode(newMode))
-  }, [animating, allowFullScreen, dispatch, onFullFocus, onRestoreFocus])
+  }, [animating, dispatch])//, allowFullScreen, onFullFocus, onRestoreFocus])
 
   useEffect(() => {
     if (!_mounted) {

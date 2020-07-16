@@ -12,9 +12,10 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { BUCMode } from 'applications/BUC/index'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import {
+  Column,
   HighContrastFlatknapp,
   HighContrastHovedknapp,
-  HorizontalSeparatorDiv,
+  HorizontalSeparatorDiv, Row,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
@@ -75,44 +76,13 @@ const mapState = (state: State): BUCStartSelector => ({
   tagList: state.buc.tagList
 })
 
-const placeholders: {[k: string]: string} = {
-  subjectArea: 'buc:form-chooseSubjectArea',
-  buc: 'buc:form-chooseBuc'
-}
-
 const MarginLeftDiv = styled.div`
   margin-left: 0.5rem;
-`
-const FlexDiv = styled.div`
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
-`
-const LeftContentDiv = styled.div`
-  flex: 1;
-  margin-bottom: 1rem;
-  @media (min-width: 768px) {
-    padding-right: 1rem;
-  }
-`
-const RightContentDiv = styled.div`
-  flex: 1;
-  margin-bottom: 1rem;
-  @media (min-width: 768px) {
-    padding-left: 1rem;
-  }
 `
 const LoadingDiv = styled.div`
   text-align: left;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-`
-const ButtonsDiv = styled.div`
-  margin-top: 1rem;
-  display: flex;
 `
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onBucCreated, onBucCancelled, onTagsChanged, setMode
@@ -189,7 +159,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [loading, currentBuc, hasBucInfoSaved, onBucCreated, setMode])
 
   const validateSubjectArea = (subjectArea: string): boolean => {
-    if (!subjectArea || subjectArea === placeholders.subjectArea) {
+    if (!subjectArea) {
       setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
       return false
     } else {
@@ -199,7 +169,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const validateBuc = (buc: string): boolean => {
-    if (!buc || buc === placeholders.buc) {
+    if (!buc) {
       setValidationState('bucFail', t('buc:validation-chooseBuc'))
       return false
     } else {
@@ -317,8 +287,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <div data-testid='a-buc-c-bucstart'>
-        <FlexDiv>
-          <LeftContentDiv>
+        <Row>
+          <Column>
             <VerticalSeparatorDiv data-size='2' />
             <>
               <label className='skjemaelement__label'>
@@ -328,7 +298,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 highContrast={highContrast}
                 data-testid='a-buc-c-bucstart__subjectarea-select-id'
                 isSearchable
-                placeholder={t(placeholders.subjectArea)}
+                placeholder={t('buc:form-chooseSubjectArea')}
                 defaultValue={{ label: _subjectArea, value: _subjectArea }}
                 onChange={onSubjectAreaChange}
                 options={renderOptions(subjectAreaList)}
@@ -344,7 +314,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 highContrast={highContrast}
                 data-testid='a-buc-c-bucstart__buc-select-id'
                 isSearchable
-                placeholder={t(placeholders.buc)}
+                placeholder={t('buc:form-chooseBuc')}
                 onChange={onBucChange}
                 options={renderOptions(bucList)}
                 styles={{
@@ -356,8 +326,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
               />
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
-          </LeftContentDiv>
-          <RightContentDiv>
+          </Column>
+          <Column>
             <VerticalSeparatorDiv data-size='2' />
             <MultipleSelect
               highContrast={highContrast}
@@ -376,16 +346,20 @@ const BUCStart: React.FC<BUCStartProps> = ({
             <Normaltekst>
               {t('buc:form-tagsForBUC-description')}
             </Normaltekst>
-          </RightContentDiv>
-        </FlexDiv>
+          </Column>
+        </Row>
         {showWarningBuc && (
-          <AlertStripe type='advarsel'>
-            <Normaltekst>
-              {t('buc:alert-noDeceased')}
-            </Normaltekst>
-          </AlertStripe>
+          <>
+            <VerticalSeparatorDiv/>
+            <AlertStripe type='advarsel'>
+              <Normaltekst>
+                {t('buc:alert-noDeceased')}
+              </Normaltekst>
+            </AlertStripe>
+          </>
         )}
-        <ButtonsDiv data-testid='a-buc-c-bucstart__buttons'>
+        <VerticalSeparatorDiv data-size='2'/>
+        <div data-testid='a-buc-c-bucstart__buttons'>
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
             data-testid='a-buc-c-bucstart__forward-button'
@@ -404,7 +378,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
           </HighContrastFlatknapp>
-        </ButtonsDiv>
+        </div>
+        <VerticalSeparatorDiv/>
         <LoadingDiv data-testid='selectBoxMessage'>
           {!loading ? null
             : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')

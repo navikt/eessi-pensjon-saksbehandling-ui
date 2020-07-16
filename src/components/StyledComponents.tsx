@@ -7,6 +7,21 @@ import { Input, Textarea } from 'nav-frontend-skjema'
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import styled from 'styled-components'
 
+export const Row = styled.div`
+  display: flex;
+  width: 100%;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`
+export const Column = styled.div`
+  flex: 1;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+`
 export const VerticalSeparatorDiv = styled.div`
   margin-bottom: ${(props: any) => props['data-size'] || 1}rem;
 `

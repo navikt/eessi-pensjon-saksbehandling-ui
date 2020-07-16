@@ -84,10 +84,30 @@ const slideInFromLeft = keyframes`
   0% {
     opacity: 0;
     transform: translateX(-20px);
-}
+  }
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+`
+const animationOpen = keyframes`
+  0% {
+    height: 0%;
+    max-height: 0;
+  }
+  100% {
+    max-height: 150em;
+    height: 100%;
+  }
+`
+const animationClose = keyframes`
+  0% {
+    max-height: 150em;
+    height: 100%;
+  }
+  100% {
+    max-height: 0;
+    height: 0%;
   }
 `
 
@@ -155,26 +175,6 @@ const SEDHeader = styled.div`
 const BUCNewDiv = styled(HighContrastPanel)`
   padding: 2rem !important;
 `
-const animationOpen = keyframes`
-  0% {
-    height: 0%;
-    max-height: 0;
-  }
-  100% {
-    max-height:150em;
-    height: 100%;
-  }
-`
-const animationClose = keyframes`
-  0% {
-    max-height: 150em;
-    height: 100%;
-  }
-  100% {
-    max-height: 0;
-    height: 0%;
-  }
-`
 const BUCStartDiv = styled.div`
   max-height: 0;
   height: 0%;
@@ -198,7 +198,7 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
-  const [startBuc, setStartBuc] = useState<boolean | undefined>(initialBucNew)
+  const [newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
@@ -222,13 +222,14 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
   const onBUCNew = (e: React.MouseEvent): void => {
     buttonLogger(e)
     if (featureToggles.v2_ENABLED === true) {
-      setStartBuc(true)
+      setNewBucPanelOpen(true)
     } else {
       setMode('bucnew' as BUCMode, 'none')
     }
   }
 
   const onSEDNew = (buc: Buc, sed: Sed): void => {
+    if (buc)
     dispatch(setCurrentBuc(buc ? buc.caseId! : undefined))
     dispatch(setCurrentSed(sed ? sed.id : undefined))
     setMode('sednew' as BUCMode, 'forward')
@@ -322,7 +323,7 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
               setMode={setMode}
             />
           )}
-          {!startBuc && (
+          {!newBucPanelOpen && (
             <HighContrastKnapp
               data-amplitude='buc.list.newbuc'
               data-testid='a-buc-p-buclist__newbuc-button-id'
@@ -334,19 +335,23 @@ const BUCList: React.FC<BUCListProps> = ({setMode, initialBucNew = undefined}: B
         </BUCListHeader>
         <VerticalSeparatorDiv />
         <BUCStartDiv className={classNames({
-          open: startBuc === true,
-          close: startBuc === false
+          open: newBucPanelOpen === true,
+          close: newBucPanelOpen === false
         })}
         >
           <BUCNewDiv>
-            <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
+            <Systemtittel>
+              {t('buc:step-startBUCTitle')}
+            </Systemtittel>
             <hr />
             <BUCStart
-              aktoerId={aktoerId} setMode={setMode} onBucCreated={() => {
-                setStartBuc(false)
+              aktoerId={aktoerId}
+              setMode={setMode}
+              onBucCreated={() => {
+                setNewBucPanelOpen(false)
                 setMode('sednew', 'forward')
               }}
-              onBucCancelled={() => setStartBuc(false)}
+              onBucCancelled={() => setNewBucPanelOpen(false)}
             />
           </BUCNewDiv>
           <VerticalSeparatorDiv />
