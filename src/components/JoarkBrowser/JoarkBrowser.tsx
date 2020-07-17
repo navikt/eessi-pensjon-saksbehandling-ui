@@ -152,6 +152,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           <HighContrastKnapp
             data-tip={t('ui:preview')}
             kompakt
+            mini
             disabled={previewing}
             spinner={spinner}
             id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
@@ -168,8 +169,13 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }
 
   const items = list ? list.map((file) => {
+    const selected = _.find(files, {
+      dokumentInfoId: file.dokumentInfoId,
+      journalpostId: file.journalpostId,
+      variant: file.variant
+    }) !== undefined
     return {
-      key: file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat,
+      key: file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat + '-' + selected,
       name: file.tittel || '-',
       tema: file.tema,
       date: file.datoOpprettet,
@@ -177,11 +183,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       variant: file.variant,
       dokumentInfoId: file.dokumentInfoId,
       journalpostId: file.journalpostId,
-      selected: _.find(files, {
-        dokumentInfoId: file.dokumentInfoId,
-        journalpostId: file.journalpostId,
-        variant: file.variant
-      }) !== undefined
+      selected: selected
     }
   }) : []
 

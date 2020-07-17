@@ -1,34 +1,32 @@
+import Trashcan from 'assets/icons/Trashcan'
+import { HighContrastKnapp } from 'components/StyledComponents'
 import { AttachedFiles, BUCAttachment } from 'declarations/buc'
 import { AttachedFilesPropType } from 'declarations/buc.pt'
-import { JoarkFile } from 'declarations/joark'
+import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import _ from 'lodash'
 import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
-import TableSorter from 'tabell'
+import TableSorter, { Item } from 'tabell'
 
 export interface SEDAttachmentsTableProps {
   attachments: AttachedFiles
-  highContrast: boolean
+  highContrast: boolean,
+  onJoarkAttachmentsChanged ?: (joarkFiles: any) => void
 }
 
-export interface SEDAttachmentsTableRow {
-  key: string
+export interface SEDAttachmentsTableRow<T> extends Item {
+  value: T
   namespace: string
   title: string
 }
 
-export type SEDAttachmentsTableRows = Array<SEDAttachmentsTableRow>
+export type SEDAttachmentsTableRows = Array<SEDAttachmentsTableRow<JoarkFile | BUCAttachment>>
 
-const SEDAttachmentsTableDiv = styled.div`
-  td {
-    padding: 0.5rem;
-  }
-`
 
 const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
-  attachments = {}, highContrast
+  attachments = {}, highContrast = false, onJoarkAttachmentsChanged
 }: SEDAttachmentsTableProps): JSX.Element => {
   const items: SEDAttachmentsTableRows = []
   const { t } = useTranslation()
@@ -36,7 +34,8 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   Object.keys(attachments).forEach((namespace, index1) => {
     attachments[namespace].forEach((att: JoarkFile | BUCAttachment, index2: number) => {
       items.push({
-        key: index1 + '_' + index2,
+        key: (att as JoarkFile).dokumentInfoId ? (att as JoarkFile).dokumentInfoId :  index1 + '_' + index2,
+        value: att,
         namespace: namespace,
         title: (att as JoarkFile).tittel || (att as BUCAttachment).name +
           ((att as JoarkFile).variant ? ' + ' +
@@ -45,6 +44,15 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
       })
     })
   })
+
+  const handleDelete = (itemToDelete: SEDAttachmentsTableRow<JoarkFile>, itemsOnTable: JoarkFiles) => {
+     const newJoarkAttachments: JoarkFiles = _.reject(itemsOnTable, (att: JoarkFile) => {
+       return itemToDelete.value.dokumentInfoId === att.dokumentInfoId
+     })
+     if (onJoarkAttachmentsChanged) {
+       onJoarkAttachmentsChanged(newJoarkAttachments)
+     }
+  }
 
   if (_.isEmpty(items)) {
     return (
@@ -55,30 +63,46 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   }
 
   return (
-    <SEDAttachmentsTableDiv>
-      <TableSorter
-        highContrast={highContrast}
-        items={items}
-        sortable={false}
-        searchable={false}
-        selectable={false}
-        columns={[
-          {
-            id: 'namespace',
-            label: t('ui:type'),
-            type: 'string',
-            renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
-          }, {
-            id: 'title', label: t('ui:title'), type: 'string'
-          }, {
-            id: 'buttons',
-            label: '',
-            type: 'object',
-            renderCell: () => (<div />)
-          }
-        ]}
-      />
-    </SEDAttachmentsTableDiv>
+    <TableSorter
+      highContrast={highContrast}
+      items={items}
+      compact={true}
+      sortable={false}
+      searchable={false}
+      selectable={false}
+      context={{joarkAttachments: attachments.joark}}
+      columns={[
+        {
+          id: 'namespace',
+          label: t('ui:type'),
+          type: 'string',
+          renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
+        }, {
+          id: 'title', label: t('ui:title'), type: 'string'
+        }, {
+          id: 'buttons',
+          label: '',
+          type: 'object',
+          renderCell: (item: any, value: any, context: any) => (
+            <>
+            {item.namespace === 'joark' ? (
+              <HighContrastKnapp
+                kompakt
+                mini
+                onClick={(e: any) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  handleDelete(item, context.joarkAttachments)
+                }}
+              >
+                <Trashcan color={highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']}/>
+              </HighContrastKnapp>
+              ) : <div/>}
+            </>
+          )
+        }
+      ]}
+    />
   )
 }
 

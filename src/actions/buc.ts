@@ -4,7 +4,7 @@ import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
-import { JoarkFile } from 'declarations/joark'
+import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { FeatureToggles, PesysContext } from 'declarations/types'
 import { CountryFilter } from 'land-verktoy'
 import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
@@ -68,6 +68,15 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (ri
     }
   })
 }
+
+export const createSavingAttachmentJob: ActionCreator<ActionWithPayload> = (joarkFiles: JoarkFiles): ActionWithPayload<JoarkFiles> => ({
+  type: types.BUC_SAVINGATTACHMENTJOB_SET,
+  payload: joarkFiles
+})
+
+export const resetSavingAttachmentJob: ActionCreator<Action> = (): Action => ({
+  type: types.BUC_SAVINGATTACHMENTJOB_RESET
+})
 
 export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload>> = (rinaCaseId: string): ThunkResult<ActionWithPayload> => {
   return call({
@@ -303,13 +312,16 @@ export const createReplySed = (payload: NewSedPayload, parentId: string): Functi
   })
 }
 
-export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, context: JoarkFile): Function => {
+export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, joarkFile: JoarkFile): Function => {
   return call({
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',
     cascadeFailureError: true,
-    expectedPayload: context,
-    context: context,
+    expectedPayload: joarkFile,
+    context: {
+      params: params,
+      joarkFile: joarkFile
+    },
     type: {
       request: types.BUC_SEND_ATTACHMENT_REQUEST,
       success: types.BUC_SEND_ATTACHMENT_SUCCESS,

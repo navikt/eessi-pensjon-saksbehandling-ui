@@ -1,8 +1,8 @@
 import { BUCMode } from 'applications/BUC'
 import * as types from 'constants/actionTypes'
 import {
-  AttachedFiles,
   Buc,
+  BUCAttachment,
   Bucs,
   BucsInfo,
   Institution,
@@ -12,6 +12,7 @@ import {
   Participant,
   Participants,
   RawInstitution,
+  SavingAttachmentsJob,
   Sed,
   SedContentMap,
   SedsWithAttachmentsMap
@@ -20,11 +21,11 @@ import { JoarkFile } from 'declarations/joark'
 import { RinaUrl } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
+import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { Action } from 'redux'
 
 export interface BucState {
-  attachments: AttachedFiles
   attachmentsError: boolean
   bucs: Bucs | undefined
   bucsInfoList: Array<string> | undefined
@@ -41,6 +42,7 @@ export interface BucState {
   newlyCreatedSedTime: Date | undefined
   rinaId: string | undefined
   rinaUrl: RinaUrl | undefined
+  savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
   sedContent: SedContentMap
   sedsWithAttachments: SedsWithAttachmentsMap
@@ -50,7 +52,6 @@ export interface BucState {
 }
 
 export const initialBucState: BucState = {
-  attachments: {},
   attachmentsError: false,
   bucs: undefined,
   bucsInfoList: undefined,
@@ -67,6 +68,7 @@ export const initialBucState: BucState = {
   newlyCreatedSedTime: undefined,
   rinaId: undefined,
   rinaUrl: undefined,
+  savingAttachmentsJob: undefined,
   sed: undefined,
   sedContent: {},
   sedList: undefined,
@@ -123,7 +125,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_SED_ATTACHMENTS_RESET: {
       return {
         ...state,
-        attachments: {}
+        savingAttachmentsJob: undefined
       }
     }
 
@@ -132,7 +134,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         currentBuc: undefined,
         sed: undefined,
-        attachments: {},
+        savingAttachmentsJob: undefined,
         sedContent: {}
       }
 
@@ -338,7 +340,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         sed: undefined,
         bucs: bucs,
         newlyCreatedBuc: (action as ActionWithPayload).payload,
-        attachments: {},
+        savingAttachmentsJob: undefined,
         sedsWithAttachments: newSedsWithAttachments
       }
     }
@@ -450,30 +452,75 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
     }
 
-    case types.BUC_SEND_ATTACHMENT_SUCCESS: {
-      const existingAttachments: AttachedFiles = _.cloneDeep(state.attachments)
-      const newAttachment: JoarkFile = (action as ActionWithPayload).context
-      const found = _.find(existingAttachments.joark, {
-        dokumentInfoId: newAttachment.dokumentInfoId,
-        journalpostId: newAttachment.journalpostId,
-        variant: newAttachment.variant
-      })
-      if (!found) {
-        if (!existingAttachments.joark) {
-          existingAttachments.joark = []
-        }
-        (existingAttachments.joark as Array<JoarkFile>).push(newAttachment as JoarkFile)
-      }
+    case types.BUC_SAVINGATTACHMENTJOB_SET:
+
       return {
         ...state,
-        attachments: existingAttachments
+        savingAttachmentsJob: {
+          total: (action as ActionWithPayload).payload,
+          remaining: (action as ActionWithPayload).payload,
+          saving: undefined,
+          saved: []
+        }
+      }
+
+    case types.BUC_SAVINGATTACHMENTJOB_RESET:
+
+      return {
+        ...state,
+        savingAttachmentsJob: undefined
+      }
+
+    case types.BUC_SEND_ATTACHMENT_SUCCESS: {
+
+      const newlySavedJoarkFile: JoarkFile = (action as ActionWithPayload).context.joarkFile
+      const newBucs = _.cloneDeep(state.bucs)
+      const newSeds  = _.cloneDeep(state.bucs![(action as ActionWithPayload).context.params.rinaId].seds)
+      let newRemaining = _.reject(state.savingAttachmentsJob!.remaining, (joarkFile: JoarkFile) => {
+        return joarkFile.dokumentInfoId === newlySavedJoarkFile.dokumentInfoId &&
+        joarkFile.journalpostId === newlySavedJoarkFile.journalpostId &&
+        joarkFile.variant === newlySavedJoarkFile.variant
+      })
+      let newSaved = state.savingAttachmentsJob?.saved.concat(newlySavedJoarkFile)
+
+      newSeds!.forEach(sed => {
+        if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {
+          const newBucAttachment: BUCAttachment = {
+            id: md5('id' + new Date().getTime()),
+            name: (action as ActionWithPayload).context.joarkFile.name || '-',
+            fileName: (action as ActionWithPayload).context.joarkFile.variant.filnavn || '',
+            mimeType: '',
+            documentId: md5('documentId' + new Date().getTime()),
+            lastUpdate: {},
+            medical: false
+          }
+          sed.attachments.push(newBucAttachment)
+        }
+      })
+      newBucs![(action as ActionWithPayload).context.params.rinaId].seds = newSeds
+
+      return {
+        ...state,
+        bucs: newBucs,
+        savingAttachmentsJob: {
+          ...state.savingAttachmentsJob,
+          saving: undefined,
+          saved: newSaved,
+          remaining: newRemaining
+        }
       }
     }
 
     case types.BUC_SEND_ATTACHMENT_REQUEST:
       return {
         ...state,
-        attachmentsError: false
+        attachmentsError: false,
+        savingAttachmentsJob: {
+          ...state.savingAttachmentsJob,
+          saving: {
+            foo: 'bar'
+          }
+        }
       }
 
     case types.BUC_SEND_ATTACHMENT_FAILURE:

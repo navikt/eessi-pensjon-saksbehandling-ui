@@ -1,11 +1,13 @@
 import { IS_TEST } from 'constants/environment'
-import { JoarkFile, JoarkFiles } from 'declarations/joark'
-import { JoarkFilesPropType } from 'declarations/joark.pt'
+import { SavingAttachmentsJob } from 'declarations/buc'
+import { JoarkFile } from 'declarations/joark'
+import { State } from 'declarations/reducers'
 import ProgressBar, { ProgressBarStatus } from 'fremdriftslinje'
 import _ from 'lodash'
 import PT from 'prop-types'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 export interface SEDAttachmentPayload {
@@ -21,99 +23,85 @@ export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
 }
 
 export interface SEDAttachmentSenderProps {
-  allAttachments: JoarkFiles
   attachmentsError ?: boolean
   className?: string
   initialStatus ?: ProgressBarStatus
-  onFinished ?: () => void
+  onSaved: (savingAttachmentsJob: SavingAttachmentsJob) => void
+  onFinished : () => void
   payload: SEDAttachmentPayload
-  savedAttachments: JoarkFiles
   sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkFile) => void
 }
+
+export interface SEDAttachmentSelector {
+  savingAttachmentsJob: SavingAttachmentsJob | undefined
+}
+
+const mapState = (state: State): SEDAttachmentSelector => ({
+  savingAttachmentsJob: state.buc.savingAttachmentsJob
+})
 
 const SEDAttachmentSenderDiv = styled.div``
 
 const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
-  allAttachments, attachmentsError, className, initialStatus = 'inprogress',
-  payload, onFinished, savedAttachments, sendAttachmentToSed
+  attachmentsError, className, initialStatus = 'inprogress',
+  payload, onSaved, onFinished, sendAttachmentToSed
 }: SEDAttachmentSenderProps): JSX.Element => {
-  const [sendingAttachment, setSendingAttachment] = useState<boolean>(false)
-  const [_storeAttachments, setStoreAttachments] = useState<JoarkFiles>(savedAttachments || [])
   const [status, setStatus] = useState<ProgressBarStatus>(initialStatus)
+  const { savingAttachmentsJob }: SEDAttachmentSelector = useSelector<State, SEDAttachmentSelector>(mapState)
   const { t } = useTranslation()
-  const handleFinished: Function = useCallback(() => {
-    if (_.isFunction(onFinished)) {
-      onFinished()
-    }
-  }, [onFinished])
 
   useEffect(() => {
-    // all attachments are sent - conclude
-    if (allAttachments && _storeAttachments && allAttachments.length === _storeAttachments.length) {
-      /* istanbul ignore next */
-      if (!IS_TEST) {
-        console.log('SEDAttachmentSender: allAttachments (' + allAttachments.length +
-          ') same as _storeAttachments (' + _storeAttachments.length + ')')
-      }
-      setStatus('done')
-      handleFinished()
-    }
-  }, [_storeAttachments, allAttachments, handleFinished])
 
-  useEffect(() => {
-    if (!sendingAttachment && !_.isNil(allAttachments)) {
-      /* istanbul ignore next */
-      if (!IS_TEST) {
-        console.log('SEDAttachmentSender: Picking a new unsent attachment')
-      }
-      const unsentAttachments: JoarkFiles = allAttachments.filter(a => {
-        return !_.find(_storeAttachments, b => {
-          return a.dokumentInfoId === b.dokumentInfoId &&
-            a.journalpostId === b.journalpostId &&
-            a.variant.variantformat === b.variant.variantformat
-        })
-      })
-
-      // all sent, mark sending attachments as done
-      if (_.isEmpty(unsentAttachments)) {
-        /* istanbul ignore next */
-        if (!IS_TEST) {
-          console.log('SEDAttachmentSender: No more unsent attachment')
+    if (savingAttachmentsJob) {
+      // all attachments are sent - conclude
+      if (savingAttachmentsJob.remaining.length === 0) {
+        if (!savingAttachmentsJob.saving) {
+          /* istanbul ignore next */
+          if (!IS_TEST) {
+            console.log('Concluding.' +
+              ' Total (' + savingAttachmentsJob.total.length +
+              ') saved (' + savingAttachmentsJob.saved.length + ') ' +
+              ' saving (' + !!savingAttachmentsJob.saving +
+              ') remaining (' + savingAttachmentsJob.remaining.length + ')')
+          }
+          onSaved(savingAttachmentsJob)
+          setStatus('done')
+          onFinished()
         }
-        handleFinished()
-        return
-      }
-
-      const unsentAttachment: JoarkFile | undefined = _.first(unsentAttachments)
-      if (unsentAttachment) {
-        const params: SEDAttachmentPayloadWithFile = {
-          ...payload,
-          journalpostId: unsentAttachment.journalpostId,
-          dokumentInfoId: unsentAttachment.dokumentInfoId,
-          variantformat: unsentAttachment.variant.variantformat
+      // still are attachments to send,
+      } else {
+        // one attachment was saved. continue
+        if (!savingAttachmentsJob.saving) {
+          /* istanbul ignore next */
+          if (!IS_TEST) {
+            console.log('Saved.' +
+              ' Total (' + savingAttachmentsJob.total.length +
+              ') saved (' + savingAttachmentsJob.saved.length + ') ' +
+              ' saving (' + !!savingAttachmentsJob.saving +
+              ') remaining (' + savingAttachmentsJob.remaining.length + ')')
+          }
+          const unsentAttachment: JoarkFile = _.first(savingAttachmentsJob.remaining)!
+          const params: SEDAttachmentPayloadWithFile = {
+            ...payload,
+            journalpostId: unsentAttachment.journalpostId,
+            dokumentInfoId: unsentAttachment.dokumentInfoId,
+            variantformat: unsentAttachment.variant.variantformat
+          }
+          sendAttachmentToSed(params, unsentAttachment)
+        } else {
+          /* istanbul ignore next */
+          if (!IS_TEST) {
+            console.log('Saving.' +
+              ' Total (' + savingAttachmentsJob.total.length +
+              ') saved (' + savingAttachmentsJob.saved.length + ') ' +
+              ' saving (' + !!savingAttachmentsJob.saving +
+              ') remaining (' + savingAttachmentsJob.remaining.length + ')')
+          }
+          onSaved(savingAttachmentsJob)
         }
-        /* istanbul ignore next */
-        if (!IS_TEST) {
-          console.log('Sending unsent attachment ' + (_storeAttachments.length + 1) + ' of ' + allAttachments.length + ': ' +
-            unsentAttachment.journalpostId + '/' + unsentAttachment.dokumentInfoId + '/' + unsentAttachment.variant.variantformat)
-        }
-        sendAttachmentToSed(params, unsentAttachment)
-        setSendingAttachment(true)
       }
     }
-  }, [sendAttachmentToSed, _storeAttachments, allAttachments, handleFinished, payload, sendingAttachment])
-
-  useEffect(() => {
-    // handle if we have a newly sent attachment
-    if (sendingAttachment && _storeAttachments && savedAttachments && _storeAttachments.length !== savedAttachments.length) {
-      /* istanbul ignore next */
-      if (!IS_TEST) {
-        console.log('SEDAttachmentSender: Attachment ' + (savedAttachments.length) + ' of ' + allAttachments.length + ' sent')
-      }
-      setStoreAttachments(savedAttachments)
-      setSendingAttachment(false)
-    }
-  }, [allAttachments, savedAttachments, sendingAttachment, _storeAttachments])
+  }, [onSaved, onFinished, payload, sendAttachmentToSed, savingAttachmentsJob])
 
   useEffect(() => {
     if (attachmentsError) {
@@ -121,12 +109,12 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
     }
   }, [attachmentsError, setStatus])
 
-  if (_.isNil(_storeAttachments) || _.isNil(allAttachments)) {
+  if (!savingAttachmentsJob) {
     return <div />
   }
 
-  const current: number = (_storeAttachments.length === allAttachments.length ? _storeAttachments.length : _storeAttachments.length + 1)
-  const total: number = allAttachments.length
+  const current: number = (savingAttachmentsJob.saved.length + (savingAttachmentsJob.saving ? 1 : 0))
+  const total: number = savingAttachmentsJob.total.length
   const percentage: number = (Math.floor((current * 100) / total))
 
   return (
@@ -146,13 +134,12 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
 }
 
 SEDAttachmentSender.propTypes = {
-  allAttachments: JoarkFilesPropType.isRequired,
   attachmentsError: PT.bool,
   className: PT.string,
   initialStatus: PT.oneOf(['todo', 'inprogress', 'done', 'error']),
-  onFinished: PT.func,
+  onFinished: PT.func.isRequired,
+  onSaved: PT.func.isRequired,
   payload: PT.any,
-  savedAttachments: JoarkFilesPropType.isRequired,
   sendAttachmentToSed: PT.func.isRequired
 }
 

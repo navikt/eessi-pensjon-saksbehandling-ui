@@ -1,7 +1,8 @@
 import {
   createReplySed,
   createSed,
-  getCountryList, getInstitutionsListForBucAndCountry,
+  getCountryList,
+  getInstitutionsListForBucAndCountry,
   getSedList,
   resetSed,
   resetSedAttachments,
@@ -23,8 +24,10 @@ import Select from 'components/Select/Select'
 import {
   Column,
   HighContrastFlatknapp,
-  HighContrastHovedknapp, HighContrastInput,
-  HorizontalSeparatorDiv, Row,
+  HighContrastHovedknapp,
+  HighContrastInput,
+  HorizontalSeparatorDiv,
+  Row,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
@@ -36,7 +39,9 @@ import {
   InstitutionListMap,
   Institutions,
   RawInstitution,
-  Sed, SedsWithAttachmentsMap,
+  SavingAttachmentsJob,
+  Sed,
+  SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
@@ -95,7 +100,6 @@ export interface SEDStartProps {
 }
 
 export interface SEDStartSelector {
-  attachments: AttachedFiles
   attachmentsError: boolean
   bucsInfoList: Array<string> | undefined
   countryList: Array<string> | undefined
@@ -107,6 +111,7 @@ export interface SEDStartSelector {
   locale: AllowedLocaleString
   pesysContext: PesysContext | undefined,
   sakId?: string
+  savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
@@ -114,7 +119,6 @@ export interface SEDStartSelector {
 }
 
 const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
-  attachments: state.buc.attachments,
   attachmentsError: state.buc.attachmentsError,
   bucsInfoList: state.buc.bucsInfoList,
   countryList: state.buc.countryList,
@@ -126,6 +130,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   locale: state.ui.locale,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
+  savingAttachmentsJob: state.buc.savingAttachmentsJob,
   sed: state.buc.sed,
   sedList: state.buc.sedList,
   sedsWithAttachments: state.buc.sedsWithAttachments,
@@ -137,7 +142,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   onSedCreated, onSedCancelled, setMode
 } : SEDStartProps): JSX.Element | null => {
   const {
-    attachments, attachmentsError, bucsInfoList, currentSed, countryList,
+    attachmentsError, bucsInfoList, currentSed, countryList,
     featureToggles, highContrast, institutionList, loading, locale, pesysContext,
     sakId, sed, sedsWithAttachments, sedList, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
@@ -455,12 +460,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     )
   }
 
-  const setFiles = (files: AttachedFiles) => {
+  const setFiles = (joarkFiles: JoarkFiles) => {
     standardLogger('sed.new.attachments.data', {
-      numberOfJoarkAttachments: files.joark.length
+      numberOfJoarkAttachments: joarkFiles.length
     })
     setSeeAttachmentPanel(false)
-    setAttachments(files)
+    setAttachments({
+      ..._attachments,
+      joark: joarkFiles
+    })
   }
 
   const bucHasSedsWithAtLeastOneInstitution: Function = (): boolean => {
@@ -693,8 +701,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   rinaId: buc.caseId,
                   rinaDokumentId: sed!.id
                 } as SEDAttachmentPayload}
-                allAttachments={_attachments.joark as JoarkFiles}
-                savedAttachments={attachments.joark as JoarkFiles}
+                onSaved={() => {}}
                 onFinished={() => setAttachmentsSent(true)}
               />
             )}
@@ -734,12 +741,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               </label>
               <VerticalSeparatorDiv />
               <SEDAttachments
-                disableButtons={false}
                 highContrast={highContrast}
-                onSubmit={setFiles}
+                onFilesChange={setFiles}
                 files={_attachments}
                 open={seeAttachmentPanel}
                 onOpen={() => setSeeAttachmentPanel(true)}
+                onClose={() => setSeeAttachmentPanel(false)}
               />
             </>
           )}

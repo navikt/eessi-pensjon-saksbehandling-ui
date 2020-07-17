@@ -1,4 +1,4 @@
-import { JoarkFiles } from 'declarations/joark'
+import { JoarkFile, JoarkFiles } from 'declarations/joark'
 
 export interface Date {
   year: number
@@ -21,7 +21,7 @@ export interface BUCAttachment {
   fileName: string
   mimeType: string
   documentId: string
-  lastUpdate: number | Date
+  lastUpdate:  any
   medical: boolean
 }
 
@@ -177,3 +177,10 @@ export interface Tag {
 export type Tags = Array<Tag>
 
 export type AttachedFiles = { [namespace: string]: JoarkFiles | BUCAttachments }
+
+export interface SavingAttachmentsJob {
+  total: JoarkFiles
+  saved: JoarkFiles
+  saving: JoarkFile | undefined
+  remaining: JoarkFiles
+}
