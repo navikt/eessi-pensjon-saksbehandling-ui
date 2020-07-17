@@ -99,7 +99,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       ...sedAttachments,
       joark: joarkFiles
     }
-    console.log('newFiles Joark', sed.id, newFiles)
     setSedAttachments(newFiles)
   }
 
@@ -200,7 +199,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
           {attachmentsTableVisible && (
             <>
               <JoarkBrowser
-                sed={sed}
+                id={sed.id}
                 files={sedAttachments.joark as JoarkFiles}
                 onFilesChange={onJoarkAttachmentsChanged}
               />

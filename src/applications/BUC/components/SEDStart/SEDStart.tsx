@@ -1,5 +1,6 @@
 import {
   createReplySed,
+  createSavingAttachmentJob,
   createSed,
   getCountryList,
   getInstitutionsListForBucAndCountry,
@@ -11,7 +12,6 @@ import {
 } from 'actions/buc'
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
@@ -19,13 +19,14 @@ import SEDAttachmentSender, {
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import { BUCMode } from 'applications/BUC/index'
 import Alert from 'components/Alert/Alert'
+import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
   Column,
   HighContrastFlatknapp,
   HighContrastHovedknapp,
-  HighContrastInput,
+  HighContrastInput, HighContrastKnapp,
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
@@ -34,7 +35,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { IS_TEST } from 'constants/environment'
 import {
   AttachedFiles,
-  Buc,
+  Buc, BUCAttachments,
   Bucs,
   InstitutionListMap,
   Institutions,
@@ -88,6 +89,12 @@ const InstitutionsDiv = styled.div`
    margin-bottom: 0.35rem;
   }
 `
+const SEDAttachmentSenderDiv = styled.div`
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+   width: 100%;
+`
+
 export interface SEDStartProps {
   aktoerId?: string
   bucs: Bucs
@@ -138,14 +145,19 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
 })
 
 export const SEDStart: React.FC<SEDStartProps> = ({
-  aktoerId, bucs, currentBuc, initialAttachments = {}, initialSed = undefined,
-  onSedCreated, onSedCancelled, setMode
+  aktoerId, bucs, currentBuc, initialAttachments = {
+    sed: [] as BUCAttachments,
+    joark: [] as JoarkFiles
+  },
+  initialSed = undefined,
+  onSedCreated, onSedCancelled
 } : SEDStartProps): JSX.Element | null => {
   const {
-    attachmentsError, bucsInfoList, currentSed, countryList,
-    featureToggles, highContrast, institutionList, loading, locale, pesysContext,
+    attachmentsError, currentSed, countryList,
+    featureToggles, highContrast, institutionList, loading, locale,
     sakId, sed, sedsWithAttachments, sedList, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
+
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -166,25 +178,25 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(undefined)
-  const [_sed, setSed] = useState<string | undefined>(initialSed)
+  const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
+  const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
+  const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
+  const buc: Buc = _.cloneDeep(bucs[currentBuc!])
+  const countryData = CountryData.getCountryInstance(locale)
+  const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort(countrySort) : [])
+  const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
+  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort(countrySort) : []
   const [_institutions, setInstitutions] = useState<Array<string>>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
-  const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
-  const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
-  const [_attachments, setAttachments] = useState<AttachedFiles>(initialAttachments)
-  const [validation, setValidation] = useState<Validation>({})
-  const [sedSent, setSedSent] = useState<boolean>(false)
-  const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
-  const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
-  const buc: Buc = _.cloneDeep(bucs[currentBuc!])
-  const countryData = CountryData.getCountryInstance(locale)
-  const [mounted, setMounted] = useState<boolean>(false)
-  const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(false)
-  const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort(countrySort) : [])
-  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort(countrySort) : []
-  const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
   const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
+  const [mounted, setMounted] = useState<boolean>(false)
+  const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
+  const [_sed, setSed] = useState<string | undefined>(initialSed)
+  const [sedAttachments, setSedAttachments] = useState<AttachedFiles>(initialAttachments)
+  const [sedSent, setSedSent] = useState<boolean>(false)
+  const [validation, setValidation] = useState<Validation>({})
+  const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
 
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
@@ -270,83 +282,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setCountries(newCountries)
       validateCountries(newCountries)
     }, [_countries, dispatch, _institutions, buc, setCountries, setInstitutions, validateCountries])
-
-  useEffect(() => {
-    if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
-      dispatch(getCountryList(buc.type))
-    }
-  }, [countryList, dispatch, loading, buc])
-
-  useEffect(() => {
-    if (!mounted) {
-      if (!currentSed) {
-        dispatch(getSedList(buc as ValidBuc))
-      } else {
-        dispatch(setSedList(
-          bucs[currentBuc].seds!
-            .filter(sed => sed.parentDocumentId === currentSed)
-            .map(sed => sed.type)
-        ))
-      }
-      setMounted(true)
-    }
-  }, [mounted, buc, bucs, currentBuc, currentSed, dispatch])
-
-  useEffect(() => {
-    // mark sed as sent
-    if (sed && !sedSent) {
-      setSedSent(true)
-    }
-  }, [sed, sedSent])
-
-  useEffect(() => {
-    // if sed is sent, we can start sending attachments
-    if (sedSent && !attachmentsSent) {
-      // no attachments to send - conclude
-      if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark)) {
-        /* istanbul ignore next */ if (!IS_TEST) {
-          console.log('SEDStart: No attachments to send, concluding')
-        }
-        setAttachmentsSent(true)
-        return
-      }
-      // mark state as sending attachments
-      setSendingAttachments(true)
-      /* istanbul ignore next */ if (!IS_TEST) {
-        console.log('SEDStart: Marking setSendingAttachments as true')
-      }
-    }
-  }, [_attachments, attachmentsSent, sedSent])
-
-  useEffect(() => {
-    // cleanup after attachments sent
-    if (sed && aktoerId && sedSent && attachmentsSent) {
-      /* istanbul ignore next */ if (!IS_TEST) {
-        console.log('SEDStart: Attachments sent, cleaning up')
-      }
-      dispatch(resetSed())
-      setSed(undefined)
-      dispatch(resetSedAttachments())
-      onSedCreated()
-    }
-  }, [aktoerId, attachmentsSent, bucsInfoList, dispatch, pesysContext, onSedCreated, sedSent, sed, setMode, vedtakId])
-
-  useEffect(() => {
-    if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
-      setSed(sedList[0])
-    }
-  }, [sedList, _sed, setSed])
-
-  useEffect(() => {
-    if (!mounted && buc && buc.type !== null && !_.isEmpty(_countries)) {
-      _countries.forEach(country => {
-        if (!institutionList || !Object.keys(institutionList).includes(country)) {
-          dispatch(getInstitutionsListForBucAndCountry(buc.type!, country))
-        }
-      })
-      setMounted(true)
-    }
-  }, [mounted, buc, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
 
   const validateSed = (sed: string): boolean => {
     if (!sed) {
@@ -460,13 +395,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     )
   }
 
-  const setFiles = (joarkFiles: JoarkFiles) => {
-    standardLogger('sed.new.attachments.data', {
-      numberOfJoarkAttachments: joarkFiles.length
-    })
-    setSeeAttachmentPanel(false)
-    setAttachments({
-      ..._attachments,
+  const onJoarkAttachmentsChanged = (joarkFiles: JoarkFiles) => {
+    setSedAttachments({
+      ...sedAttachments,
       joark: joarkFiles
     })
   }
@@ -544,16 +475,97 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     buttonLogger(e)
     setSed(undefined)
     dispatch(resetSed())
+    setSed(undefined)
+    setInstitutions([])
+    setCountries([])
     onSedCancelled()
   }
 
   const allowedToForward = () => {
     return _sed && _.isEmpty(validation) &&
-     (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
-     !loading.creatingSed && !sendingAttachments &&
-     (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true) &&
-     (sedNeedsAvdodfnr() ? _.isNumber(_avdodfnr) && !_.isNaN(_avdodfnr) : true)
+      (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
+      !loading.creatingSed && !sendingAttachments &&
+      (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true) &&
+      (sedNeedsAvdodfnr() ? _.isNumber(_avdodfnr) && !_.isNaN(_avdodfnr) : true)
   }
+
+  const onFinished = () => {
+    dispatch(resetSed())
+    dispatch(resetSedAttachments())
+    setSendingAttachments(false)
+    setSed(undefined)
+    setInstitutions([])
+    setCountries([])
+    onSedCreated()
+  }
+
+  useEffect(() => {
+    if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
+      dispatch(getCountryList(buc.type))
+    }
+  }, [countryList, dispatch, loading, buc])
+
+  useEffect(() => {
+    if (!mounted) {
+      if (!currentSed) {
+        dispatch(getSedList(buc as ValidBuc))
+      } else {
+        dispatch(setSedList(
+          bucs[currentBuc].seds!
+            .filter(sed => sed.parentDocumentId === currentSed)
+            .map(sed => sed.type)
+        ))
+      }
+      setMounted(true)
+    }
+  }, [mounted, buc, bucs, currentBuc, currentSed, dispatch])
+
+  useEffect(() => {
+    // mark sed as sent
+    if (sed && !sedSent) {
+      setSedSent(true)
+    }
+  }, [sed, sedSent])
+
+  useEffect(() => {
+    // if sed is sent, we can start sending attachments
+    if (sedSent && !sendingAttachments && !attachmentsSent) {
+      // no attachments to send - conclude
+      if (_.isEmpty(sedAttachments.joark)) {
+        /* istanbul ignore next */
+        if (!IS_TEST) {
+          console.log('SEDStart: No attachments to send, concluding')
+        }
+        onFinished()
+      } else {
+        // start a savingAttachmentsJob
+        setSendingAttachments(true)
+        setAttachmentsTableVisible(false)
+        standardLogger('sed.new.attachments.data', {
+          numberOfJoarkAttachments: sedAttachments.joark.length
+        })
+        const joarksToUpload: JoarkFiles = _.cloneDeep(sedAttachments.joark as JoarkFiles)
+        dispatch(createSavingAttachmentJob(joarksToUpload))
+      }
+    }
+  }, [sedAttachments, attachmentsSent, sedSent])
+
+  useEffect(() => {
+    if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
+      setSed(sedList[0])
+    }
+  }, [sedList, _sed, setSed])
+
+  useEffect(() => {
+    if (!mounted && buc && buc.type !== null && !_.isEmpty(_countries)) {
+      _countries.forEach(country => {
+        if (!institutionList || !Object.keys(institutionList).includes(country)) {
+          dispatch(getInstitutionsListForBucAndCountry(buc.type!, country))
+        }
+      })
+      setMounted(true)
+    }
+  }, [mounted, buc, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -688,22 +700,34 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 {t('ui:attachments')}
               </label>
               <VerticalSeparatorDiv data-size='0.5' />
-              <SEDAttachmentsTable highContrast={highContrast} attachments={_attachments} />
+              <SEDAttachmentsTable
+                highContrast={highContrast}
+                attachments={sedAttachments}
+                onJoarkAttachmentsChanged={onJoarkAttachmentsChanged}
+              />
             </>
           )}
           <Column>
             {(sendingAttachments || attachmentsSent) && sed && (
-              <SEDAttachmentSender
-                attachmentsError={attachmentsError}
-                sendAttachmentToSed={_sendAttachmentToSed}
-                payload={{
-                  aktoerId: aktoerId,
-                  rinaId: buc.caseId,
-                  rinaDokumentId: sed!.id
-                } as SEDAttachmentPayload}
-                onSaved={() => {}}
-                onFinished={() => setAttachmentsSent(true)}
-              />
+              <SEDAttachmentSenderDiv>
+                <>
+                <SEDAttachmentSender
+                  attachmentsError={attachmentsError}
+                  sendAttachmentToSed={_sendAttachmentToSed}
+                  payload={{
+                    aktoerId: aktoerId,
+                    rinaId: buc.caseId,
+                    rinaDokumentId: sed!.id
+                  } as SEDAttachmentPayload}
+                  onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
+                  onFinished={() => {
+                    setAttachmentsSent(true)
+                    onFinished()
+                  }}
+                />
+                  <VerticalSeparatorDiv/>
+                </>
+              </SEDAttachmentSenderDiv>
             )}
           </Column>
           <Column>
@@ -740,14 +764,23 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 {t('ui:attachments')}
               </label>
               <VerticalSeparatorDiv />
-              <SEDAttachments
-                highContrast={highContrast}
-                onFilesChange={setFiles}
-                files={_attachments}
-                open={seeAttachmentPanel}
-                onOpen={() => setSeeAttachmentPanel(true)}
-                onClose={() => setSeeAttachmentPanel(false)}
-              />
+              <HighContrastKnapp
+                onClick={() => setAttachmentsTableVisible(!attachmentsTableVisible)}
+              >
+                {t(attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
+              </HighContrastKnapp>
+              <VerticalSeparatorDiv />
+              {attachmentsTableVisible && (
+                <>
+                  <JoarkBrowser
+                    id='newSed'
+                    files={sedAttachments.joark as JoarkFiles}
+                    onFilesChange={onJoarkAttachmentsChanged}
+                  />
+                  <VerticalSeparatorDiv data-size='1.5' />
+                </>
+              )}
+
             </>
           )}
         </Column>
@@ -761,8 +794,7 @@ SEDStart.propTypes = {
   bucs: BucsPropType.isRequired,
   initialAttachments: AttachedFilesPropType,
   onSedCreated: PT.func.isRequired,
-  onSedCancelled: PT.func.isRequired,
-  setMode: PT.func.isRequired
+  onSedCancelled: PT.func.isRequired
 }
 
 export default SEDStart
