@@ -145,7 +145,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         onBucCreated()
       }
     }
-  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, t, _tags])
+  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
 
   const validateSubjectArea = (subjectArea: string): boolean => {
     if (!subjectArea) {

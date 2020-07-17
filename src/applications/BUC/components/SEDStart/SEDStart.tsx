@@ -489,7 +489,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       (sedNeedsAvdodfnr() ? _.isNumber(_avdodfnr) && !_.isNaN(_avdodfnr) : true)
   }
 
-  const onFinished = () => {
+  const onFinished = useCallback(() => {
     dispatch(resetSed())
     dispatch(resetSedAttachments())
     setSendingAttachments(false)
@@ -497,7 +497,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setInstitutions([])
     setCountries([])
     onSedCreated()
-  }
+  }, [dispatch, onSedCreated])
 
   useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
@@ -548,7 +548,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         dispatch(createSavingAttachmentJob(joarksToUpload))
       }
     }
-  }, [sedAttachments, attachmentsSent, sedSent])
+  }, [dispatch, onFinished, sendingAttachments, sedAttachments, attachmentsSent, sedSent])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
