@@ -26,11 +26,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
 const transition = 1000
+const timeout = 1100
 
 const ContainerDiv = styled.div`
   width: 100%;
   display: block;
   overflow: hidden;
+  will-change: transform;
   &.shrink {
     transform: scale(0.96);
     transform-origin: center center;
@@ -218,15 +220,15 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setPositionA(Slide.A_GOING_TO_RIGHT)
         setPositionB(Slide.B_GOING_TO_RIGHT)
         setAnimating(true)
-        setTimeout((e: any) => {
-          console.log('Transition end', e)
+        setTimeout(() => {
+          console.log('Timeout end')
           setPositionA(Slide.LEFT)
           setPositionB(Slide.RIGHT)
           setAnimating(false)
           if (callback) {
             callback()
           }
-        }, transition)
+        }, timeout)
       }
 
       if (newMode === 'bucnew') {
@@ -249,15 +251,15 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setPositionA(Slide.A_GOING_TO_LEFT)
         setPositionB(Slide.B_GOING_TO_LEFT)
         setAnimating(true)
-        setTimeout((e: any) => {
-          console.log('Transition end', e)
+        setTimeout(() => {
+          console.log('Timeout end')
           setPositionA(Slide.ALT_LEFT)
           setPositionB(Slide.ALT_RIGHT)
           setAnimating(false)
           if (callback) {
             callback()
           }
-        }, transition)
+        }, timeout)
       }
       if (newMode === 'bucedit') {
         setContentB(<BUCEdit setMode={_setMode} />)
@@ -366,12 +368,14 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           <ContainerDiv className={classNames({ shrink: animating })}>
             <WindowDiv>
               <AnimatableDiv
+                onTransitionEnd={() => console.log('transition end')}
                 key='animatableDivA'
                 className={classNames(cls(positionA))}
               >
                 {contentA}
               </AnimatableDiv>
               <AnimatableDiv
+                onTransitionEnd={() => console.log('transition end')}
                 key='animatableDivB'
                 className={classNames(cls(positionB))}
               >

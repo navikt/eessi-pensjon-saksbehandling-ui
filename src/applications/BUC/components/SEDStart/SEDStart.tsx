@@ -711,21 +711,21 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             {(sendingAttachments || attachmentsSent) && sed && (
               <SEDAttachmentSenderDiv>
                 <>
-                <SEDAttachmentSender
-                  attachmentsError={attachmentsError}
-                  sendAttachmentToSed={_sendAttachmentToSed}
-                  payload={{
-                    aktoerId: aktoerId,
-                    rinaId: buc.caseId,
-                    rinaDokumentId: sed!.id
-                  } as SEDAttachmentPayload}
-                  onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
-                  onFinished={() => {
-                    setAttachmentsSent(true)
-                    onFinished()
-                  }}
-                />
-                  <VerticalSeparatorDiv/>
+                  <SEDAttachmentSender
+                    attachmentsError={attachmentsError}
+                    sendAttachmentToSed={_sendAttachmentToSed}
+                    payload={{
+                      aktoerId: aktoerId,
+                      rinaId: buc.caseId,
+                      rinaDokumentId: sed!.id
+                    } as SEDAttachmentPayload}
+                    onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
+                    onFinished={() => {
+                      setAttachmentsSent(true)
+                      onFinished()
+                    }}
+                  />
+                  <VerticalSeparatorDiv />
                 </>
               </SEDAttachmentSenderDiv>
             )}

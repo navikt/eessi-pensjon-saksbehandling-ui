@@ -21,7 +21,7 @@ export interface BUCAttachment {
   fileName: string
   mimeType: string
   documentId: string
-  lastUpdate:  any
+  lastUpdate: any
   medical: boolean
 }
 

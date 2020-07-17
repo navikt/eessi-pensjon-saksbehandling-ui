@@ -201,7 +201,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:
-
+      console.log('0')
       return {
         ...state,
         savingBucsInfo: true

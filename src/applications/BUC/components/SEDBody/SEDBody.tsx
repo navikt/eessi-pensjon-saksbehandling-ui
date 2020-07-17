@@ -132,33 +132,33 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     <SEDBodyDiv>
       {canHaveAttachments && (
         <>
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           <Undertittel>
             {t('ui:attachments')}
           </Undertittel>
-          <VerticalSeparatorDiv data-size='2'/>
-            {sedAttachments && (sedAttachments.sed || sedAttachments.joark) && (
-              <SEDAttachmentsTable
-                attachments={sedAttachments}
-                highContrast={highContrast}
-                onJoarkAttachmentsChanged={onJoarkAttachmentsChanged}
-              />
-            )}
-            <>
-              <VerticalSeparatorDiv/>
-              {!attachmentsSent ?
-                sedAttachments.joark.length > 0 && (
-                  <HighContrastHovedknapp
-                    disabled={sendingAttachments}
-                    spinner={sendingAttachments}
-                    onClick={onAttachmentsSubmitted}
-                  >
-                    {sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
-                  </HighContrastHovedknapp>
-                )
+          <VerticalSeparatorDiv data-size='2' />
+          {sedAttachments && (sedAttachments.sed || sedAttachments.joark) && (
+            <SEDAttachmentsTable
+              attachments={sedAttachments}
+              highContrast={highContrast}
+              onJoarkAttachmentsChanged={onJoarkAttachmentsChanged}
+            />
+          )}
+          <>
+            <VerticalSeparatorDiv />
+            {!attachmentsSent
+              ? sedAttachments.joark.length > 0 && (
+                <HighContrastHovedknapp
+                  disabled={sendingAttachments}
+                  spinner={sendingAttachments}
+                  onClick={onAttachmentsSubmitted}
+                >
+                  {sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
+                </HighContrastHovedknapp>
+              )
               : (
                 <HighContrastKnapp
-                  onClick= {() => {
+                  onClick={() => {
                     setAttachmentsSent(false)
                     dispatch(resetSavingAttachmentJob())
                   }}
@@ -166,8 +166,8 @@ const SEDBody: React.FC<SEDBodyProps> = ({
                   {t('ui:ok')}
                 </HighContrastKnapp>
               )}
-            </>
-          <VerticalSeparatorDiv/>
+          </>
+          <VerticalSeparatorDiv />
           {(sendingAttachments || attachmentsSent) ? (
             <SEDAttachmentSenderDiv>
               <>
@@ -182,18 +182,18 @@ const SEDBody: React.FC<SEDBodyProps> = ({
                   onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
                   onFinished={() => setAttachmentsSent(true)}
                 />
-                <VerticalSeparatorDiv/>
+                <VerticalSeparatorDiv />
               </>
             </SEDAttachmentSenderDiv>
           ) : (
             <>
-             <HighContrastKnapp
+              <HighContrastKnapp
                 data-testid='a-buc-c-sedattachments-button-id'
-                onClick={() => !attachmentsTableVisible ? onAttachmentsPanelOpen() :  onAttachmentsPanelClose()}
+                onClick={() => !attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
               >
                 {t(attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-             </HighContrastKnapp>
-             <VerticalSeparatorDiv/>
+              </HighContrastKnapp>
+              <VerticalSeparatorDiv />
             </>
           )}
           {attachmentsTableVisible && (

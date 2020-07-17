@@ -1,4 +1,3 @@
-import { clientError } from 'actions/alert'
 import {
   createBuc,
   getBucList,
@@ -52,6 +51,7 @@ export interface BUCStartSelector {
   highContrast: boolean
   locale: AllowedLocaleString
   loading: Loading
+  newlyCreatedBuc: Buc | undefined
   personAvdod: any
   pesysContext: PesysContext | undefined
   sakId: string
@@ -69,6 +69,7 @@ const mapState = (state: State): BUCStartSelector => ({
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
+  newlyCreatedBuc: state.buc.newlyCreatedBuc,
   personAvdod: state.app.personAvdod,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
@@ -85,11 +86,12 @@ const LoadingDiv = styled.div`
   margin-bottom: 0.5rem;
 `
 const BUCStart: React.FC<BUCStartProps> = ({
-  aktoerId, onBucCreated, onBucCancelled, onTagsChanged, setMode
+  aktoerId, onBucCreated, onBucCancelled, onTagsChanged
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucs, bucParam, bucsInfo, bucList, currentBuc, featureToggles,
-    highContrast, locale, loading, personAvdod, pesysContext, sakId, subjectAreaList, tagList
+    highContrast, locale, loading, newlyCreatedBuc,
+    personAvdod, pesysContext, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
@@ -99,8 +101,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     subjectAreaFail: undefined,
     bucFail: undefined
   })
-  const [isBucCreated, setIsBucCreated] = useState<boolean>(false)
-  const [hasBucInfoSaved, setHasBucInfoSaved] = useState<boolean>(false)
+  const [isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -128,35 +129,23 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [bucList, dispatch, featureToggles, loading, pesysContext, sakId, subjectAreaList, tagList])
 
   useEffect(() => {
-    if (!isBucCreated && currentBuc) {
-      const buc: Buc | null = bucs && bucs[currentBuc]
-        ? bucs[currentBuc]
-        : null
-      if (buc) {
+    if (isCreatingBuc && newlyCreatedBuc) {
+      if (!loading.savingBucsInfo) {
+        const buc: Buc = bucs![currentBuc!]
         dispatch(saveBucsInfo({
           bucsInfo: bucsInfo,
           aktoerId: aktoerId,
           tags: _tags.map(t => t.value),
           buc: buc
         } as SaveBucsInfoProps))
-        setIsBucCreated(true)
       } else {
-        dispatch(clientError({
-          error: t('buc:error-noBuc')
-        }))
+        setBuc(undefined)
+        setTags([])
+        setIsCreatingBuc(false)
+        onBucCreated()
       }
     }
-  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, isBucCreated, t, _tags])
-
-  useEffect(() => {
-    if (!hasBucInfoSaved && loading.savingBucsInfo) {
-      setHasBucInfoSaved(true)
-    }
-    if (hasBucInfoSaved && !loading.savingBucsInfo && currentBuc) {
-      setHasBucInfoSaved(false)
-      onBucCreated()
-    }
-  }, [loading, currentBuc, hasBucInfoSaved, onBucCreated, setMode])
+  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, t, _tags])
 
   const validateSubjectArea = (subjectArea: string): boolean => {
     if (!subjectArea) {
@@ -200,6 +189,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         subjectArea: _subjectArea,
         buc: _buc
       })
+      setIsCreatingBuc(true)
       dispatch(createBuc(_buc))
     }
   }

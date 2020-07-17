@@ -1,4 +1,3 @@
-import { JoarkFiles } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSender'
@@ -9,8 +8,8 @@ describe('applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', 
     attachmentsError: false,
     className: 'mock-sedAttachmentSender',
     initialStatus: 'inprogress',
+    onSaved: jest.fn(),
     onFinished: jest.fn(),
-    savingAttachmentsJob: undefined,
     payload: {
       aktoerId: '123',
       rinaId: '456',

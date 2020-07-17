@@ -24,7 +24,6 @@ export interface SEDAttachmentsTableRow<T> extends Item {
 
 export type SEDAttachmentsTableRows = Array<SEDAttachmentsTableRow<JoarkFile | BUCAttachment>>
 
-
 const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   attachments = {}, highContrast = false, onJoarkAttachmentsChanged
 }: SEDAttachmentsTableProps): JSX.Element => {
@@ -34,7 +33,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   Object.keys(attachments).forEach((namespace, index1) => {
     attachments[namespace].forEach((att: JoarkFile | BUCAttachment, index2: number) => {
       items.push({
-        key: (att as JoarkFile).dokumentInfoId ? (att as JoarkFile).dokumentInfoId :  index1 + '_' + index2,
+        key: (att as JoarkFile).dokumentInfoId ? (att as JoarkFile).dokumentInfoId : index1 + '_' + index2,
         value: att,
         namespace: namespace,
         title: (att as JoarkFile).tittel || (att as BUCAttachment).name +
@@ -46,12 +45,12 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   })
 
   const handleDelete = (itemToDelete: SEDAttachmentsTableRow<JoarkFile>, itemsOnTable: JoarkFiles) => {
-     const newJoarkAttachments: JoarkFiles = _.reject(itemsOnTable, (att: JoarkFile) => {
-       return itemToDelete.value.dokumentInfoId === att.dokumentInfoId
-     })
-     if (onJoarkAttachmentsChanged) {
-       onJoarkAttachmentsChanged(newJoarkAttachments)
-     }
+    const newJoarkAttachments: JoarkFiles = _.reject(itemsOnTable, (att: JoarkFile) => {
+      return itemToDelete.value.dokumentInfoId === att.dokumentInfoId
+    })
+    if (onJoarkAttachmentsChanged) {
+      onJoarkAttachmentsChanged(newJoarkAttachments)
+    }
   }
 
   if (_.isEmpty(items)) {
@@ -66,11 +65,11 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
     <TableSorter
       highContrast={highContrast}
       items={items}
-      compact={true}
+      compact
       sortable={false}
       searchable={false}
       selectable={false}
-      context={{joarkAttachments: attachments.joark}}
+      context={{ joarkAttachments: attachments.joark }}
       columns={[
         {
           id: 'namespace',
@@ -85,19 +84,19 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
           type: 'object',
           renderCell: (item: any, value: any, context: any) => (
             <>
-            {item.namespace === 'joark' ? (
-              <HighContrastKnapp
-                kompakt
-                mini
-                onClick={(e: any) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  handleDelete(item, context.joarkAttachments)
-                }}
-              >
-                <Trashcan color={highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']}/>
-              </HighContrastKnapp>
-              ) : <div/>}
+              {item.namespace === 'joark' ? (
+                <HighContrastKnapp
+                  kompakt
+                  mini
+                  onClick={(e: any) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    handleDelete(item, context.joarkAttachments)
+                  }}
+                >
+                  <Trashcan color={highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']} />
+                </HighContrastKnapp>
+              ) : <div />}
             </>
           )
         }

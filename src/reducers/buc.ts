@@ -472,16 +472,15 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_SEND_ATTACHMENT_SUCCESS: {
-
       const newlySavedJoarkFile: JoarkFile = (action as ActionWithPayload).context.joarkFile
       const newBucs = _.cloneDeep(state.bucs)
-      const newSeds  = _.cloneDeep(state.bucs![(action as ActionWithPayload).context.params.rinaId].seds)
-      let newRemaining = _.reject(state.savingAttachmentsJob!.remaining, (joarkFile: JoarkFile) => {
+      const newSeds = _.cloneDeep(state.bucs![(action as ActionWithPayload).context.params.rinaId].seds)
+      const newRemaining = _.reject(state.savingAttachmentsJob!.remaining, (joarkFile: JoarkFile) => {
         return joarkFile.dokumentInfoId === newlySavedJoarkFile.dokumentInfoId &&
         joarkFile.journalpostId === newlySavedJoarkFile.journalpostId &&
         joarkFile.variant === newlySavedJoarkFile.variant
       })
-      let newSaved = state.savingAttachmentsJob?.saved.concat(newlySavedJoarkFile)
+      const newSaved = state.savingAttachmentsJob?.saved.concat(newlySavedJoarkFile)
 
       newSeds!.forEach(sed => {
         if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {

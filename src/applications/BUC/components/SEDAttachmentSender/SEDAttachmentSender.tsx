@@ -51,7 +51,6 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   const { t } = useTranslation()
 
   useEffect(() => {
-
     if (savingAttachmentsJob) {
       // all attachments are sent - conclude
       if (savingAttachmentsJob.remaining.length === 0) {
