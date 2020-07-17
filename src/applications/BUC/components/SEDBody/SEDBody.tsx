@@ -90,8 +90,8 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       ...sedAttachments,
       sed: sedFiles
     }
-    console.log('newFiles Sed', newFiles)
     setSedAttachments(newFiles)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setSedAttachments])
 
   const onJoarkAttachmentsChanged = (joarkFiles: JoarkFiles) => {
@@ -99,7 +99,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       ...sedAttachments,
       joark: joarkFiles
     }
-    console.log('newFiles Joark', newFiles)
+    console.log('newFiles Joark', sed.id, newFiles)
     setSedAttachments(newFiles)
   }
 
@@ -200,6 +200,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
           {attachmentsTableVisible && (
             <>
               <JoarkBrowser
+                sed={sed}
                 files={sedAttachments.joark as JoarkFiles}
                 onFilesChange={onJoarkAttachmentsChanged}
               />

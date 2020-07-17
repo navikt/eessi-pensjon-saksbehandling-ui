@@ -36,6 +36,7 @@ const SEDAttachments: React.FC<SEDAttachmentsProps> = ({
       {open && (
         <>
           <JoarkBrowser
+            sed={undefined}
             files={files && files.joark ? files.joark as JoarkFiles : []}
             onFilesChange={onFilesChange}
           />

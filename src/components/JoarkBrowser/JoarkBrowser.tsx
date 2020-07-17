@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
 import Modal from 'components/Modal/Modal'
 import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { Sed } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
@@ -39,6 +40,7 @@ export interface JoarkBrowserProps {
   files: Array<JoarkFile | JoarkFileWithContent>
   onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void
   onPreviewFile?: (f: JoarkFileWithContent) => void
+  sed: Sed | undefined
 }
 
 const VariantDiv = styled.div`
@@ -55,7 +57,7 @@ const Buttons = styled.div`
 `
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
-  files = [], onFilesChange, onPreviewFile
+  files = [], onFilesChange, onPreviewFile, sed
 }: JoarkBrowserProps): JSX.Element => {
   const { aktoerId, highContrast, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector =
     useSelector<State, JoarkBrowserSelector>(mapState)
@@ -194,10 +196,12 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     clickedPreviewFile: clickedPreviewFile
   }
 
+  console.log('rendering ', sed?.id)
   return (
     <div className='c-joarkBrowser'>
       <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
+        id={'table-' + sed?.id}
         highContrast={highContrast}
         items={items}
         context={context}
