@@ -85,6 +85,11 @@ const LoadingDiv = styled.div`
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 `
+const AlertStripeDiv = styled.div`
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+`
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onBucCreated, onBucCancelled, onTagsChanged
 }: BUCStartProps): JSX.Element | null => {
@@ -95,6 +100,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
+  const [_avdod, setAvdod] = useState<string | undefined>(undefined)
   const [_tags, setTags] = useState<Tags>([])
   const [showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
   const [validation, setValidation] = useState<Validation>({
@@ -200,16 +206,21 @@ const BUCStart: React.FC<BUCStartProps> = ({
     onBucCancelled()
   }
 
-  const onSubjectAreaChange = (e: any): void => {
+  const onSubjectAreaChange = (e: any) => {
     const thisSubjectArea: string = e.value
     setSubjectArea(thisSubjectArea)
     validateSubjectArea(thisSubjectArea)
   }
 
-  const onBucChange = (e: any): void => {
+  const onBucChange = (e: any) => {
     const thisBuc: string = e.value
     setBuc(thisBuc)
     validateBuc(thisBuc)
+  }
+
+  const onAvdodChange = (e: any) => {
+    const thisAvdod: string = e.value
+    setAvdod(thisAvdod)
   }
 
   const onTagsChange = (tagsList: Tags): void => {
@@ -218,6 +229,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (_.isFunction(onTagsChanged)) {
       onTagsChanged(tagsList)
     }
+  }
+
+  const renderAvdodOptions = (options: any) => {
+    return options?.map((el: any) => ({
+      label: el.fnr,
+      value: el.fnr
+    })) || []
   }
 
   const renderOptions = (options: Array<Option | string> | undefined) => {
@@ -268,6 +286,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const allowedToForward = (): boolean => {
     return _buc !== undefined &&
       _subjectArea !== undefined &&
+      (_avdod !== undefined && _buc === 'P_BUC_02') &&
       hasNoValidationErrors() &&
       !showWarningBuc &&
       !loading.creatingBUC &&
@@ -316,6 +335,29 @@ const BUCStart: React.FC<BUCStartProps> = ({
               />
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
+            <VerticalSeparatorDiv />
+            {_buc === 'P_BUC_02' && personAvdod?.length > 0 && (
+              <>
+                <label className='skjemaelement__label'>
+                  {t('buc:form-avdod')}
+                </label>
+                <Select
+                  highContrast={highContrast}
+                  data-testid='a-buc-c-bucstart__avdod-select-id'
+                  isSearchable
+                  placeholder={t('buc:form-chooseAvdod')}
+                  onChange={onAvdodChange}
+                  options={renderAvdodOptions(personAvdod)}
+                  styles={{
+                    control: (styles: any) => ({
+                      ...styles,
+                      borderColor: '1px solid ' + theme.navGra60
+                    })
+                  }}
+                />
+                {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
+              </>
+            )}
           </Column>
           <Column>
             <VerticalSeparatorDiv data-size='2' />
@@ -341,11 +383,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
         {showWarningBuc && (
           <>
             <VerticalSeparatorDiv />
-            <AlertStripe type='advarsel'>
-              <Normaltekst>
-                {t('buc:alert-noDeceased')}
-              </Normaltekst>
-            </AlertStripe>
+            <AlertStripeDiv>
+              <AlertStripe type='advarsel'>
+                <Normaltekst>
+                  {t('buc:alert-noDeceased')}
+                </Normaltekst>
+              </AlertStripe>
+            </AlertStripeDiv>
           </>
         )}
         <VerticalSeparatorDiv data-size='2' />

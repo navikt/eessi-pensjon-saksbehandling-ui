@@ -94,6 +94,7 @@
   "error-sendingAttachments" : "Feil å sende vedlegg",
   "error-uniqueSed"          : "Det er allerede sendt en {{sed}} i denne BUC-en. Det er ikke lov å opprette flere SED-er i denne BUC-en.",
 
+  "form-avdod"                        : "Avdød",
   "form-BUCtools"                     : "Verktøy",
   "form-P5000-warning"                : "Det finnes tilleggsperioder uten start- og sluttdato i denne P5000. Disse periodene finner du i P5000 som er lagret i dokumentoversikten.",
   "form-actions"                      : "Aksjoner",
@@ -107,6 +108,7 @@
   "form-caseNumberInRina"             : "Saksnummer i Rina",
   "form-caseOwner"                    : "Sakseier",
   "form-caseType"                     : "Saktype",
+  "form-chooseAvdod"                  : "Velg avdød",
   "form-chooseBuc"                    : "Velg BUC",
   "form-chooseCountry"                : "Velg land",
   "form-chooseInstitution"            : "Velg mottagerinstitusjon",
