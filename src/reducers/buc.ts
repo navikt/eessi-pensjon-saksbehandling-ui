@@ -436,7 +436,20 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
-      const newSed = (action as ActionWithPayload).payload
+      const now = new Date()
+      const newSed: Sed = (action as ActionWithPayload).payload
+      newSed.creationDate = now.getTime()
+      newSed.displayName = ''
+      newSed.firstVersion = {
+        date: now.getTime(),
+        id: '1'
+      }
+      newSed.type = (action as ActionWithPayload).context.sed.sed
+      newSed.attachments = []
+      newSed.participants = []
+      newSed.status = 'new'
+      newSed.version = '1'
+
       const bucs = _.cloneDeep(state.bucs)
       if (bucs) {
         bucs[state.currentBuc!].seds!.push(newSed)

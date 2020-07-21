@@ -492,6 +492,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const onFinished = useCallback(() => {
     dispatch(resetSed())
     dispatch(resetSedAttachments())
+    setSedSent(false)
     setSendingAttachments(false)
     setSed(undefined)
     setInstitutions([])
@@ -521,13 +522,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [mounted, buc, bucs, currentBuc, currentSed, dispatch])
 
   useEffect(() => {
-    // mark sed as sent
     if (sed && !sedSent) {
       setSedSent(true)
     }
-  }, [sed, sedSent])
-
-  useEffect(() => {
     // if sed is sent, we can start sending attachments
     if (sedSent && !sendingAttachments && !attachmentsSent) {
       // no attachments to send - conclude
@@ -548,7 +545,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         dispatch(createSavingAttachmentJob(joarksToUpload))
       }
     }
-  }, [dispatch, onFinished, sendingAttachments, sedAttachments, attachmentsSent, sedSent])
+  }, [dispatch, onFinished, sendingAttachments, sedAttachments, attachmentsSent, sed, sedSent])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {

@@ -166,7 +166,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
 
     case types.BUC_CREATE_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdSed|' + ((action as ActionWithPayload).payload.type || (action as ActionWithPayload).payload.sed)
+      clientErrorMessage = 'buc:alert-createdSed|' + ((action as ActionWithPayload).context.sed.sed)
       break
 
     case types.STORAGE_GET_SUCCESS:

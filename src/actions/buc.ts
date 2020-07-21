@@ -284,7 +284,10 @@ export const createSed = (sed: NewSedPayload): Function => {
   return call({
     url: urls.BUC_CREATE_SED_URL,
     payload: sed,
-    expectedPayload: mockCreateSed(sed),
+    context: {
+      sed: sed
+    },
+    expectedPayload: mockCreateSed(),
     cascadeFailureError: true,
     method: 'POST',
     type: {
