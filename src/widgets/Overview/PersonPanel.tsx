@@ -2,7 +2,7 @@ import LineExpandedCalendar from 'assets/icons/line-version-expanded-calendar-3'
 import LineExpandedGlobe from 'assets/icons/line-version-expanded-globe-2'
 import LineHandbag from 'assets/icons/line-version-handbag-3'
 import LineHeartCircle from 'assets/icons/line-version-heart-circle'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { Column, HorizontalSeparatorDiv, Row } from 'components/StyledComponents'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
 import React from 'react'
 import PT from 'prop-types'
@@ -28,16 +28,14 @@ const Hr = styled.hr`
   margin: 1.5rem;
   border-color:  ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60} !important;
 `
-const Content = styled.div`
+const MarginRow = styled(Row)`
   margin: 1.5rem;
   display: flex;
 `
-const Item = styled.div`
-  flex: 1;
+const MarginColumn = styled(Column)`
   display: flex;
   align-items: flex-start;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 `
 const Element = styled.div`
   display: flex;
@@ -154,36 +152,36 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   }
   return (
     <PersonPanelDiv>
-      <Content>
-        <Item>
+      <MarginRow>
+        <MarginColumn>
           <LineHome color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
-        </Item>
-        <Item>
+        </MarginColumn>
+        <MarginColumn>
           <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:birthdate', birthDateString)}
-        </Item>
-        <Item>
+        </MarginColumn>
+        <MarginColumn>
           <LineHandbag color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:nationality', nationality)}
-        </Item>
-      </Content>
+        </MarginColumn>
+      </MarginRow>
       <Hr />
-      <Content>
-        <Item>
+      <MarginRow>
+        <MarginColumn>
           <LineExpandedGlobe color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:postadresse', postadresse)}
-        </Item>
-        <Item>
+        </MarginColumn>
+        <MarginColumn>
           <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:deathdate', deathDateString)}
-        </Item>
-        <Item>
+        </MarginColumn>
+        <MarginColumn>
           <LineHeartCircle color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:marital-status',
@@ -191,8 +189,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
             (maritalStatus !== 'Null' && maritalStatus !== 'Ugif' && dateString
               ? ' (' + dateString + ')' : '')
           )}
-        </Item>
-      </Content>
+        </MarginColumn>
+      </MarginRow>
     </PersonPanelDiv>
   )
 }

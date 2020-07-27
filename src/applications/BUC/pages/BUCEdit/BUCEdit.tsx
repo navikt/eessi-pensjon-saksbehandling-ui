@@ -11,9 +11,10 @@ import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import {
+  Column,
   HighContrastKnapp,
   HighContrastLink, HighContrastPanel,
-  HorizontalSeparatorDiv,
+  HorizontalSeparatorDiv, Row,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
@@ -69,16 +70,12 @@ const BUCEditHeader = styled.div`
   align-items: center;
   min-height: 40px;
 `
-const FlexDiv = styled.div`
-  display: flex;
-`
-const WidgetDiv = styled.div`
-  flex: 2;
+const WidgetDiv = styled(Column)`
+  flex: 1;
   max-width: 400px;
 `
-const ContentDiv = styled.div`
+const ContentDiv = styled(Column)`
   flex: 3;
-  margin-right: 1rem;
 `
 const NoSedsDiv = styled.div`
   text-align: center;
@@ -286,7 +283,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         </SEDNewDiv>
         <VerticalSeparatorDiv />
       </SEDStartDiv>
-      <FlexDiv>
+      <Row>
         <ContentDiv>
           <SEDSearch
             highContrast={highContrast}
@@ -342,7 +339,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           />
           <VerticalSeparatorDiv />
         </WidgetDiv>
-      </FlexDiv>
+      </Row>
     </BUCEditDiv>
   )
 }

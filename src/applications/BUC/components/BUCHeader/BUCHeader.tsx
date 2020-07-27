@@ -2,7 +2,7 @@ import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ProblemCircleIcon from 'assets/icons/report-problem-circle'
 import classNames from 'classnames'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { Column, HorizontalSeparatorDiv, Row } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
@@ -16,16 +16,17 @@ import Lenke from 'nav-frontend-lenker'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Tooltip from 'rc-tooltip'
+import ReactResizeDetector from 'react-resize-detector'
 import styled, { ThemeProvider } from 'styled-components'
 
 export const BUCHeaderDiv = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 0rem;
   width: 100%;
   &.new > div, &.new > div > div {
@@ -36,16 +37,18 @@ const UnderTitle = styled(Undertittel)`
   padding-bottom: 0.25rem;
   width: 100%;
 `
-const FlexDiv = styled.div`
-  align-items: center;
+const FlexRow = styled(Row)`
   width: 100%;
-  display: flex;
+  @media (min-width: 768px) {
+   align-items: center;
+  }
+  align-items: flex-start;
   justify-content: space-between;
 `
-const LabelsDiv = styled.div`
+const LabelsDiv = styled(Column)`
   flex: 1;
 `
-const IconsDiv = styled.div`
+const IconsDiv = styled(Column)`
   margin: 0px;
   padding: 0px;
   display: flex;
@@ -53,7 +56,7 @@ const IconsDiv = styled.div`
   justify-content: flex-start;
   flex: ${(props: any) => props['data-v2enabled'] === true ? '2' : '1'};
 `
-const ActionsDiv = styled.div`
+const ActionsDiv = styled(Column)`
   display: flex;
   justify-content:flex-end;
   align-self: baseline;
@@ -74,16 +77,18 @@ const TagsDiv = styled.div`
   align-items: center;
 `
 const NumberOfSedsDiv = styled.div`
-  border: 3px solid ${({ theme }): any => theme['main-font-color']};
+  border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px};
+  border-style: solid;
+  border-color: ${({ theme }): any => theme['main-font-color']};
   border-radius: 50px;
-  min-width: 50px;
-  min-height: 50px;
-  height: 50px;
+  min-width: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
+  min-height: ${(props: any) =>(props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
+  height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
   margin: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
+  font-weight: ${(props: any) => props['data-icon-size'] === 'XL' ? 'bold' : 'normal'};
   font-size: 1.5rem;
 `
 const RinaLink = styled(Lenke)`
@@ -126,7 +131,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const { featureToggles, highContrast, institutionNames, locale, rinaUrl }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
-
+  const [flagSize, setFlagSize ] = useState<string>('XL')
   const onBucEditClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     buttonLogger(e)
     e.preventDefault()
@@ -165,23 +170,43 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     }
   }
 
+  const onResize = (width: number) => {
+    if (width > 768) {
+      if (flagSize !== 'XL') {
+        setFlagSize('XL')
+      }
+    } else {
+      if (flagSize === 'XL') {
+        setFlagSize('M')
+      }
+    }
+  }
+
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+      <ReactResizeDetector
+        handleWidth
+        onResize={onResize}
+      />
       <BUCHeaderDiv
         data-testid={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
         className={classNames({ new: newBuc })}
       >
-        <UnderTitle
-          data-testid='a-buc-c-header__title'
-          className='lenkepanel__heading'
-        >
-          {buc.type + ' - ' + getBucTypeLabel({
-            t: t,
-            locale: locale,
-            type: buc.type!
-          })}
-        </UnderTitle>
-        <FlexDiv>
+        <Row>
+          <Column>
+            <UnderTitle
+              data-testid='a-buc-c-header__title'
+              className='lenkepanel__heading'
+            >
+              {buc.type + ' - ' + getBucTypeLabel({
+                t: t,
+                locale: locale,
+                type: buc.type!
+              })}
+            </UnderTitle>
+          </Column>
+        </Row>
+        <FlexRow>
           <LabelsDiv
             data-testid='a-buc-c-header__labels'
           >
@@ -223,13 +248,16 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               </div>
             )}
           </LabelsDiv>
-          <IconsDiv data-testid='a-buc-c-bucheader__icons' data-v2enabled={featureToggles.v2_ENABLED}>
+          <IconsDiv
+            data-testid='a-buc-c-bucheader__icons'
+            data-v2enabled={featureToggles.v2_ENABLED}
+          >
             {!_.isEmpty(flagItems) && (
               <FlagList
                 animate
                 locale={locale}
                 type='circle'
-                size='XL'
+                size={flagSize}
                 items={flagItems}
                 overflowLimit={8}
                 wrapper={false}
@@ -243,6 +271,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               >
                 <NumberOfSedsDiv
                   data-testid='a-buc-c-bucheader__icon-numberofseds'
+                  data-icon-size={flagSize}
                 >
                   {numberOfSeds}
                 </NumberOfSedsDiv>
@@ -255,7 +284,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 )}
               >
                 <TagsDiv data-testid='a-buc-c-bucheader__icon-tags'>
-                  <ProblemCircleIcon width={50} height={50} />
+                  <ProblemCircleIcon width={flagSize === 'XL' ? 50 : 32} height={flagSize === 'XL' ? 50 : 32} />
                 </TagsDiv>
               </Tooltip>
             )}
@@ -274,7 +303,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               <HorizontalSeparatorDiv />
             </ActionsDiv>
           )}
-        </FlexDiv>
+        </FlexRow>
       </BUCHeaderDiv>
     </ThemeProvider>
   )

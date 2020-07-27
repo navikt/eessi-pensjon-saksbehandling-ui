@@ -286,7 +286,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const allowedToForward = (): boolean => {
     return _buc !== undefined &&
       _subjectArea !== undefined &&
-      (_avdod !== undefined && _buc === 'P_BUC_02') &&
+      (_buc !== 'P_BUC_02' || (_avdod !== undefined && _buc === 'P_BUC_02')) &&
       hasNoValidationErrors() &&
       !showWarningBuc &&
       !loading.creatingBUC &&

@@ -27,10 +27,6 @@ const Content = styled.div`
   justify-content: space-between;
   background-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'black' : 'lightgrey'};
 `
-const Separator = styled.div`
-  padding-bottom: 1rem;
-  background-color: ${({ theme }: any) => theme['main-background-other-color']};
-`
 const Context = styled.div`
  padding: 0.5rem 2rem;
  display: flex;
@@ -126,7 +122,6 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           </HighContrastLink>
         </DivWithLinks>
       </Content>
-      <Separator />
     </ThemeProvider>
   )
 }
