@@ -265,7 +265,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
           const buc: Buc = bucs[key]
           if (_.isArray(buc.institusjon)) {
             buc.institusjon.forEach((it: Institution) => {
-              if (!_.find(listOfCountries, {country: it.country})) {
+              if (!_.find(listOfCountries, { country: it.country })) {
                 listOfCountries.push({
                   country: it.country,
                   buc: buc.type!
@@ -278,7 +278,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
               if (_.isArray(sed.participants)) {
                 sed.participants.forEach((participant: Participant) => {
                   const country = participant.organisation.countryCode
-                  if (!_.find(listOfCountries, {country: country})) {
+                  if (!_.find(listOfCountries, { country: country })) {
                     listOfCountries.push({
                       country: country,
                       buc: buc.type!
@@ -374,9 +374,8 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
             </Normaltekst>
           </>
         )}
-        {!loading.gettingBUCs && !_.isNil(bucs) &&
-          (!_.isEmpty(bucs) ?
-             Object.keys(bucs).map(key => bucs[key])
+        {!loading.gettingBUCs && !_.isNil(bucs) && (!_.isEmpty(bucs)
+          ? Object.keys(bucs).map(key => bucs[key])
             .filter(bucFilter)
             .sort(bucSorter)
             .map((buc: Buc, index: number) => {
@@ -453,14 +452,14 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
                 </BucExpandingPanel>
               )
             }) : (
-              <>
-                <VerticalSeparatorDiv data-size='2' />
-                <Normaltekst>
-                  {t('buc:error-noBucs')}
-                </Normaltekst>
-              </>
-            )
-          )}
+            <>
+              <VerticalSeparatorDiv data-size='2' />
+              <Normaltekst>
+                {t('buc:form-noBUCsFound')}
+              </Normaltekst>
+            </>
+          )
+        )}
         <BUCFooter />
       </BUCListDiv>
     </ThemeProvider>

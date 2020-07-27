@@ -129,6 +129,7 @@ export type Buc = ValidBuc | ErrorBuc
 export type Bucs = {[caseId: string]: Buc}
 
 export interface BucInfo {
+  avdod ?: string
   tags?: Array<string> | null
   comment?: string | null
 }

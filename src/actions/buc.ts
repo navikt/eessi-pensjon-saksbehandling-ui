@@ -180,9 +180,11 @@ export const getTagList: ActionCreator<ActionWithPayload> = (): ActionWithPayloa
   payload: tagsList
 })
 
-export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: string): ThunkResult<ActionWithPayload> => {
+export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: string, avdod: string): ThunkResult<ActionWithPayload> => {
   return call({
-    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
+    url: avdod
+      ? sprintf(urls.BUC_CREATE_BUC_WITH_AVDOD_URL, { buc: buc, avdod: avdod })
+      : sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
     cascadeFailureError: true,
     expectedPayload: mockCreateBuc(buc),
@@ -195,17 +197,18 @@ export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: st
 }
 
 export interface SaveBucsInfoProps {
-  aktoerId: string;
+  aktoerId: string
+  avdod ?: string
   buc: {
-    caseId: string;
+    caseId: string
   };
-  bucsInfo: BucsInfo;
-  comment?: string;
-  tags?: Array<string>;
+  bucsInfo: BucsInfo
+  comment?: string
+  tags?: Array<string>
 }
 
 export const saveBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = ({
-  aktoerId, buc, bucsInfo = { bucs: {} }, comment, tags
+  aktoerId, avdod, buc, bucsInfo = { bucs: {} }, comment, tags
 }: SaveBucsInfoProps): ThunkResult<ActionWithPayload> => {
   const newBucsInfo = _.cloneDeep(bucsInfo)
   const newTags = tags || [] // ? tags.map(tag => tag.value) : []
@@ -217,6 +220,9 @@ export const saveBucsInfo: ActionCreator<ThunkResult<ActionWithPayload>> = ({
   }
   if (comment) {
     newBucsInfo.bucs[bucId].comment = comment
+  }
+  if (avdod) {
+    newBucsInfo.bucs[bucId].avdod = avdod
   }
   return call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO }),

@@ -36,7 +36,7 @@ import { IS_TEST } from 'constants/environment'
 import {
   AttachedFiles,
   Buc, BUCAttachments,
-  Bucs,
+  Bucs, BucsInfo,
   InstitutionListMap,
   Institutions,
   RawInstitution,
@@ -54,7 +54,6 @@ import {
   FeatureToggles,
   Loading,
   Option,
-  PesysContext,
   Validation
 } from 'declarations/types'
 import CountryData from 'land-verktoy'
@@ -108,7 +107,7 @@ export interface SEDStartProps {
 
 export interface SEDStartSelector {
   attachmentsError: boolean
-  bucsInfoList: Array<string> | undefined
+  bucsInfo: BucsInfo | undefined
   countryList: Array<string> | undefined
   currentSed: string | undefined
   featureToggles: FeatureToggles
@@ -116,7 +115,6 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
-  pesysContext: PesysContext | undefined,
   sakId?: string
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
@@ -127,7 +125,7 @@ export interface SEDStartSelector {
 
 const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
   attachmentsError: state.buc.attachmentsError,
-  bucsInfoList: state.buc.bucsInfoList,
+  bucsInfo: state.buc.bucsInfo,
   countryList: state.buc.countryList,
   currentSed: state.buc.currentSed,
   featureToggles: state.app.featureToggles,
@@ -135,7 +133,6 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
-  pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   savingAttachmentsJob: state.buc.savingAttachmentsJob,
   sed: state.buc.sed,
@@ -153,9 +150,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   onSedCreated, onSedCancelled
 } : SEDStartProps): JSX.Element | null => {
   const {
-    attachmentsError, currentSed, countryList,
-    featureToggles, highContrast, institutionList, loading, locale,
-    sakId, sed, sedsWithAttachments, sedList, vedtakId
+    attachmentsError, bucsInfo, countryList, currentSed, featureToggles, highContrast, institutionList,
+    loading, locale, sakId, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
 
   const { t } = useTranslation()
@@ -177,7 +173,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
 
-  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(undefined)
+  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(
+    bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod
+      ? parseInt(bucsInfo.bucs[currentBuc!].avdod!, 10) : undefined)
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)

@@ -137,8 +137,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
       if (!loading.savingBucsInfo) {
         const buc: Buc = bucs![currentBuc!]
         dispatch(saveBucsInfo({
-          bucsInfo: bucsInfo,
           aktoerId: aktoerId,
+          avdod: _avdod,
+          bucsInfo: bucsInfo,
           tags: _tags.map(t => t.value),
           buc: buc
         } as SaveBucsInfoProps))
@@ -149,7 +150,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         onBucCreated()
       }
     }
-  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
+  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
 
   const validateSubjectArea = (subjectArea: string): boolean => {
     if (!subjectArea) {
@@ -191,10 +192,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (validateSubjectArea(_subjectArea) && _buc && validateBuc(_buc)) {
       buttonLogger(e, {
         subjectArea: _subjectArea,
-        buc: _buc
+        buc: _buc,
+        avdod: _avdod
       })
       setIsCreatingBuc(true)
-      dispatch(createBuc(_buc))
+      dispatch(createBuc(_buc, _avdod))
     }
   }
 
