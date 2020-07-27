@@ -231,8 +231,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const renderAvdodOptions = (options: any) => {
     return options?.map((el: any) => ({
-      label: el.fulltNavn + ' (' + el.fnd + ')',
-      value: el.fnd
+      label: el.fulltNavn + ' (' + el.fnr + ')',
+      value: el.fnr
     })) || []
   }
 
