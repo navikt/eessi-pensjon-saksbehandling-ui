@@ -2,7 +2,7 @@ import { BUCMode } from 'applications/BUC'
 import ExternalLink from 'assets/icons/line-version-logout'
 import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
-import { FeatureToggles, PesysContext } from 'declarations/types'
+import { PesysContext } from 'declarations/types'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { EtikettLiten } from 'nav-frontend-typografi'
@@ -48,13 +48,11 @@ interface ContextBannerProps {
 }
 
 interface ContextBannerSelector {
-  featureToggles: FeatureToggles
   pesysContext?: PesysContext
   sakType?: string
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
-  featureToggles: state.app.featureToggles,
   pesysContext: state.app.pesysContext,
   sakType: state.app.params.sakType
 })
@@ -65,7 +63,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
   const [mounted, setMounted] = useState<boolean>(false)
   const { t } = useTranslation()
-  const { featureToggles, pesysContext, sakType }: ContextBannerSelector =
+  const { pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
 
   useEffect(() => {
@@ -81,21 +79,19 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <Content>
-        {featureToggles.v2_ENABLED ? (
-          <Context>
-            <HoyreChevron />
+        <Context>
+          <HoyreChevron />
+          <Tag>
+            <span>{t('ui:youComeFrom')}</span>
+            <strong>{pesysContext}</strong>.
+          </Tag>
+          {sakType && (
             <Tag>
-              <span>{t('ui:youComeFrom')}</span>
-              <strong>{pesysContext}</strong>.
+              <span>{t('buc:form-caseType')}: </span>
+              <strong>{sakType}</strong>
             </Tag>
-            {sakType && (
-              <Tag>
-                <span>{t('buc:form-caseType')}: </span>
-                <strong>{sakType}</strong>
-              </Tag>
-            )}
-          </Context>
-        ) : <div />}
+          )}
+        </Context>
         <DivWithLinks>
           <HighContrastLink
             target='_blank'

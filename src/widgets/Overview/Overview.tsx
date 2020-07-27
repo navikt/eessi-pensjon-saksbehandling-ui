@@ -1,6 +1,7 @@
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
 import classNames from 'classnames'
 import { HighContrastExpandingPanel } from 'components/StyledComponents'
+import * as constants from 'constants/constants'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/types'
@@ -73,7 +74,7 @@ export const Overview: React.FC<OverviewProps> = ({
     if (!mounted && aktoerId && pesysContext) {
       if (!person) {
         dispatch(getPersonInfo(aktoerId))
-        if (featureToggles.v2_ENABLED === true && pesysContext === 'vedtakskontekst') {
+        if (pesysContext === constants.VEDTAKSKONTEKST) {
           dispatch(getPersonAvdodInfo(aktoerId, vedtakId))
         }
       }

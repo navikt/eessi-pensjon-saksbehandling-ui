@@ -18,6 +18,7 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import * as constants from 'constants/constants'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext, Validation } from 'declarations/types'
@@ -113,7 +114,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   useEffect(() => {
     if (_buc === 'P_BUC_02' && featureToggles && featureToggles.v2_ENABLED === true &&
-      pesysContext === 'vedtakskontekst' && personAvdod && personAvdod.length === 0) {
+      pesysContext === constants.VEDTAKSKONTEKST && personAvdod && personAvdod.length === 0) {
       if (!showWarningBuc) {
         setShowWarningBuc(true)
       }

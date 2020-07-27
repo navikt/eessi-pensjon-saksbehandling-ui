@@ -1,3 +1,4 @@
+import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import { Feature, FeatureToggles, Params, PesysContext, Person } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
@@ -50,12 +51,12 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         newParams[action.payload.key] = action.payload.value
       }
 
-      newContext = 'brukeroversikt'
+      newContext = constants.BRUKEROVERSIKT
       if (newParams.kravId) {
-        newContext = 'kravkontekst'
+        newContext = constants.KRAVKONTEKST
       }
       if (newParams.vedtakId) {
-        newContext = 'vedtakskontekst'
+        newContext = constants.VEDTAKSKONTEKST
       }
 
       return {
@@ -70,12 +71,12 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       newParams = _.cloneDeep(state.params)
       delete newParams[action.payload.key]
 
-      newContext = 'brukeroversikt'
+      newContext = constants.BRUKEROVERSIKT
       if (newParams.kravId) {
-        newContext = 'kravkontekst'
+        newContext = constants.KRAVKONTEKST
       }
       if (newParams.vedtakId) {
-        newContext = 'vedtakskontekst'
+        newContext = constants.VEDTAKSKONTEKST
       }
 
       return {

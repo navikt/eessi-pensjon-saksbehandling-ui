@@ -1,3 +1,4 @@
+import * as constants from 'constants/constants'
 
 export type AllowedLocaleString = 'en' | 'nb'
 
@@ -8,7 +9,7 @@ export type Feature = 'P5000_VISIBLE' // See P5000 button
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
   | 'v2_ENABLED' // v2 new features
 
-export type PesysContext = 'brukeroversikt' | 'kravkontekst' | 'vedtakskontekst'
+export type PesysContext = constants.BRUKEROVERSIKT | constants.KRAVKONTEKST | constants.VEDTAKSKONTEKST
 
 export type RinaUrl = string
 export type Loading = {[key: string]: boolean}

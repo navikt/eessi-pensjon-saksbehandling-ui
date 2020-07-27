@@ -1,5 +1,6 @@
 import { BUCMode } from 'applications/BUC'
 import * as types from 'constants/actionTypes'
+import * as constants from 'constants/constants'
 import {
   Buc,
   BUCAttachment,
@@ -272,7 +273,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         excludedBucs.push('P_BUC_02')
       }
       if (_.get((action as ActionWithPayload), 'context.featureToggles.v2_ENABLED') === true) {
-        if (_.get((action as ActionWithPayload), 'context.pesysContext') !== 'vedtakskontekst') {
+        if (_.get((action as ActionWithPayload), 'context.pesysContext') !== constants.VEDTAKSKONTEKST) {
           excludedBucs.push('P_BUC_02')
         }
       }

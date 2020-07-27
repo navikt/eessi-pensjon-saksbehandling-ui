@@ -15,6 +15,7 @@ import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import classNames from 'classnames'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import * as constants from 'constants/constants'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, RinaUrl } from 'declarations/types'
@@ -303,7 +304,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
-      dispatch(pesysContext === 'vedtakskontekst' ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
+      dispatch(pesysContext === constants.VEDTAKSKONTEKST ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
   }, [aktoerId, bucs, dispatch, loading.gettingBUCs, pesysContext, sakId, vedtakId])

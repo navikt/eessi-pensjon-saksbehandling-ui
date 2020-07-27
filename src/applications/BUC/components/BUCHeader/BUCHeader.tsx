@@ -82,7 +82,7 @@ const NumberOfSedsDiv = styled.div`
   border-color: ${({ theme }): any => theme['main-font-color']};
   border-radius: 50px;
   min-width: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
-  min-height: ${(props: any) =>(props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
+  min-height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
   height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
   margin: 1rem;
   display: flex;
@@ -131,7 +131,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const { featureToggles, highContrast, institutionNames, locale, rinaUrl }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
-  const [flagSize, setFlagSize ] = useState<string>('XL')
+  const [flagSize, setFlagSize] = useState<string>('XL')
   const onBucEditClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     buttonLogger(e)
     e.preventDefault()

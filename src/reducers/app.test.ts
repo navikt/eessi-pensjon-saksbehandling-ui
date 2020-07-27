@@ -1,3 +1,4 @@
+import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import appReducer, { initialAppState } from './app'
 
@@ -13,7 +14,7 @@ describe('reducers/app', () => {
       })
     ).toEqual({
       ...initialAppState,
-      pesysContext: 'brukeroversikt',
+      pesysContext: constants.BRUKEROVERSIKT,
       params: {
         mockKey: 'mockValue'
       }
