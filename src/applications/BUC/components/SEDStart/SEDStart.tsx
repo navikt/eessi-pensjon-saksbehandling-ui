@@ -499,6 +499,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [dispatch, onSedCreated])
 
   useEffect(() => {
+    if (!_avdodfnr && bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod) {
+      setAvdodfnr(parseInt(bucsInfo.bucs[currentBuc!].avdod!, 10))
+    }
+  }, [bucsInfo, _avdodfnr, currentBuc])
+
+  useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
       dispatch(getCountryList(buc.type))
     }
@@ -628,7 +634,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 id='a-buc-c-sedstart__fnr-input-id'
                 label={t('buc:form-fnr')}
                 bredde='fullbredde'
-                value={_avdodfnr || ''}
+                value={'' + _avdodfnr || ''}
                 onChange={onAvdodfnrChange}
                 placeholder={t('buc:form-noAvdodfnr')}
                 feil={validation.fnrFail ? t(validation.fnrFail) : null}

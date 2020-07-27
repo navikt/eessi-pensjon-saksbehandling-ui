@@ -130,82 +130,79 @@ const SEDBody: React.FC<SEDBodyProps> = ({
 
   return (
     <SEDBodyDiv>
+      <VerticalSeparatorDiv />
+      <Undertittel>
+        {t('ui:attachments')}
+      </Undertittel>
+      <VerticalSeparatorDiv data-size='2' />
+      {sedAttachments && (sedAttachments.sed || sedAttachments.joark) && (
+        <SEDAttachmentsTable
+          attachments={sedAttachments}
+          highContrast={highContrast}
+          onJoarkAttachmentsChanged={onJoarkAttachmentsChanged}
+        />
+      )}
+      <>
+        <VerticalSeparatorDiv />
+        {!attachmentsSent
+          ? sedAttachments.joark.length > 0 && (
+            <HighContrastHovedknapp
+              disabled={sendingAttachments}
+              spinner={sendingAttachments}
+              onClick={onAttachmentsSubmitted}
+            >
+              {sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
+            </HighContrastHovedknapp>
+          )
+          : (
+            <HighContrastKnapp
+              onClick={() => {
+                setAttachmentsSent(false)
+                dispatch(resetSavingAttachmentJob())
+              }}
+            >
+              {t('ui:ok')}
+            </HighContrastKnapp>
+          )}
+      </>
+      <VerticalSeparatorDiv />
       {canHaveAttachments && (
-        <>
-          <VerticalSeparatorDiv />
-          <Undertittel>
-            {t('ui:attachments')}
-          </Undertittel>
-          <VerticalSeparatorDiv data-size='2' />
-          {sedAttachments && (sedAttachments.sed || sedAttachments.joark) && (
-            <SEDAttachmentsTable
-              attachments={sedAttachments}
-              highContrast={highContrast}
-              onJoarkAttachmentsChanged={onJoarkAttachmentsChanged}
-            />
-          )}
+        (sendingAttachments || attachmentsSent) ? (
+        <SEDAttachmentSenderDiv>
           <>
+            <SEDAttachmentSender
+              attachmentsError={attachmentsError}
+              sendAttachmentToSed={_sendAttachmentToSed}
+              payload={{
+                aktoerId: aktoerId,
+                rinaId: buc.caseId,
+                rinaDokumentId: sed.id
+              } as SEDAttachmentPayload}
+              onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
+              onFinished={() => setAttachmentsSent(true)}
+            />
             <VerticalSeparatorDiv />
-            {!attachmentsSent
-              ? sedAttachments.joark.length > 0 && (
-                <HighContrastHovedknapp
-                  disabled={sendingAttachments}
-                  spinner={sendingAttachments}
-                  onClick={onAttachmentsSubmitted}
-                >
-                  {sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
-                </HighContrastHovedknapp>
-              )
-              : (
-                <HighContrastKnapp
-                  onClick={() => {
-                    setAttachmentsSent(false)
-                    dispatch(resetSavingAttachmentJob())
-                  }}
-                >
-                  {t('ui:ok')}
-                </HighContrastKnapp>
-              )}
           </>
+        </SEDAttachmentSenderDiv>
+      ) : (
+        <>
+          <HighContrastKnapp
+            data-testid='a-buc-c-sedattachments-button-id'
+            onClick={() => !attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
+          >
+            {t(attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
+          </HighContrastKnapp>
           <VerticalSeparatorDiv />
-          {(sendingAttachments || attachmentsSent) ? (
-            <SEDAttachmentSenderDiv>
-              <>
-                <SEDAttachmentSender
-                  attachmentsError={attachmentsError}
-                  sendAttachmentToSed={_sendAttachmentToSed}
-                  payload={{
-                    aktoerId: aktoerId,
-                    rinaId: buc.caseId,
-                    rinaDokumentId: sed.id
-                  } as SEDAttachmentPayload}
-                  onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
-                  onFinished={() => setAttachmentsSent(true)}
-                />
-                <VerticalSeparatorDiv />
-              </>
-            </SEDAttachmentSenderDiv>
-          ) : (
-            <>
-              <HighContrastKnapp
-                data-testid='a-buc-c-sedattachments-button-id'
-                onClick={() => !attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
-              >
-                {t(attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-              </HighContrastKnapp>
-              <VerticalSeparatorDiv />
-            </>
-          )}
-          {attachmentsTableVisible && (
-            <>
-              <JoarkBrowser
-                id={sed.id}
-                files={sedAttachments.joark as JoarkFiles}
-                onFilesChange={onJoarkAttachmentsChanged}
-              />
-              <VerticalSeparatorDiv data-size='1.5' />
-            </>
-          )}
+        </>
+      ))}
+      {attachmentsTableVisible && (
+        <>
+          <JoarkBrowser
+            id={sed.id}
+            files={sedAttachments.joark as JoarkFiles}
+            onFilesChange={onJoarkAttachmentsChanged}
+          />
+          <VerticalSeparatorDiv data-size='1.5' />
         </>
       )}
     </SEDBodyDiv>

@@ -59,16 +59,18 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId, buc, className, followUpSeds, highContrast, newSed, onSEDNew, sed, style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
-    return sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
+    return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
   }
 
   const sedCanShowProperties = (sed: Sed): boolean => {
-    return _.includes(sedWithProperties, sed.type)
+    return _.includes(sedWithProperties, sed.type) || !_.isEmpty(sed.attachments)
   }
 
   const sedHasOption = (sed: Sed): boolean => {
     return sedCanHaveAttachments(sed) || sedCanShowProperties(sed)
   }
+
+  console.log(sedCanHaveAttachments(sed))
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>

@@ -77,6 +77,7 @@ export const HighContrastInput = styled(Input)`
     border-radius: 4px;
     border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
     background-color: ${({ theme }: any) => theme['main-background-color']};
+    color:  ${({ theme }: any) => theme['main-font-color']};
   }
 `
 export const HighContrastLink = styled(Lenke)`
