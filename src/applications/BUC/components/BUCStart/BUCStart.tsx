@@ -21,7 +21,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext, Validation } from 'declarations/types'
+import { AllowedLocaleString, Loading, Option, PesysContext, Validation } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
@@ -48,7 +48,6 @@ export interface BUCStartSelector {
   bucList?: Array<string> | undefined
   bucParam: string | undefined
   currentBuc: string | undefined
-  featureToggles: FeatureToggles | undefined
   highContrast: boolean
   locale: AllowedLocaleString
   loading: Loading
@@ -66,7 +65,6 @@ const mapState = (state: State): BUCStartSelector => ({
   bucsInfo: state.buc.bucsInfo,
   bucList: state.buc.bucList,
   currentBuc: state.buc.currentBuc,
-  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
@@ -95,7 +93,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onBucCreated, onBucCancelled, onTagsChanged
 }: BUCStartProps): JSX.Element | null => {
   const {
-    bucs, bucParam, bucsInfo, bucList, currentBuc, featureToggles,
+    bucs, bucParam, bucsInfo, bucList, currentBuc,
     highContrast, locale, loading, newlyCreatedBuc,
     personAvdod, pesysContext, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
@@ -113,27 +111,26 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (_buc === 'P_BUC_02' && featureToggles && featureToggles.v2_ENABLED === true &&
-      pesysContext === constants.VEDTAKSKONTEKST && personAvdod && personAvdod.length === 0) {
+    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdod && personAvdod.length === 0) {
       if (!showWarningBuc) {
         setShowWarningBuc(true)
       }
     } else {
       setShowWarningBuc(false)
     }
-  }, [_buc, featureToggles, showWarningBuc, pesysContext, personAvdod])
+  }, [_buc, showWarningBuc, pesysContext, personAvdod])
 
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
       dispatch(getSubjectAreaList())
     }
     if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId, featureToggles, pesysContext))
+      dispatch(getBucList(sakId, pesysContext))
     }
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
-  }, [bucList, dispatch, featureToggles, loading, pesysContext, sakId, subjectAreaList, tagList])
+  }, [bucList, dispatch, loading, pesysContext, sakId, subjectAreaList, tagList])
 
   useEffect(() => {
     if (isCreatingBuc && newlyCreatedBuc) {
@@ -234,8 +231,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const renderAvdodOptions = (options: any) => {
     return options?.map((el: any) => ({
-      label: el.fnr,
-      value: el.fnr
+      label: el.fulltNavn + ' (' + el.fnd + ')',
+      value: el.fnd
     })) || []
   }
 
