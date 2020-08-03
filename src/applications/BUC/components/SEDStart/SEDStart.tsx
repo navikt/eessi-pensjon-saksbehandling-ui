@@ -57,6 +57,7 @@ import {
   Validation
 } from 'declarations/types'
 import CountryData from 'land-verktoy'
+import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import { Input } from 'nav-frontend-skjema'
@@ -645,7 +646,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {!currentSed && (
             <>
               <VerticalSeparatorDiv />
-              <MultipleSelect
+              <CountrySelect
+                isMulti
                 highContrast={highContrast}
                 ariaLabel={t('ui:country')}
                 label={t('ui:country')}
@@ -654,9 +656,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 isLoading={loading.gettingCountryList}
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
                 aria-describedby='help-country'
-                values={countryValueList}
+                value={countryValueList}
                 hideSelectedOptions={false}
-                onSelect={onCountriesChange}
+                onOptionSelected={onCountriesChange}
                 options={countryObjectList}
               />
               <VerticalSeparatorDiv />

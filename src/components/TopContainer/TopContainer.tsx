@@ -9,7 +9,7 @@ import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import { Person } from 'declarations/types'
 import _ from 'lodash'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import Error from 'pages/Error/Error'
 import PT from 'prop-types'
 import React from 'react'
@@ -65,8 +65,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: ${({ theme }): any => theme['main-background-other-color']};
-  color: ${({ theme }): any => theme['main-font-color']};
+  background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
 `
 
 export const TopContainer: React.FC<TopContainerProps> = ({

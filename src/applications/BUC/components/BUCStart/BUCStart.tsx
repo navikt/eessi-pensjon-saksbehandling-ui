@@ -192,11 +192,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (validateSubjectArea(_subjectArea) && _buc && validateBuc(_buc)) {
       buttonLogger(e, {
         subjectArea: _subjectArea,
-        buc: _buc,
-        avdod: _avdod
+        buc: _buc
       })
       setIsCreatingBuc(true)
-      dispatch(createBuc(_buc, _avdod))
+      dispatch(createBuc(_buc))
     }
   }
 

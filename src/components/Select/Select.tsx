@@ -1,4 +1,4 @@
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import React from 'react'
 import ReactSelect from 'react-select'
 
@@ -11,14 +11,14 @@ const Select = (props: any) => {
         control: (styles: any) => ({
           ...styles,
           borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-          borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+          borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
           borderStyle: 'solid',
-          color: _theme['main-font-color'],
-          backgroundColor: _theme['main-background-color']
+          color: _theme[themeKeys.MAIN_FONT_COLOR],
+          backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
         }),
         singleValue: (styles: any) => ({
           ...styles,
-          color: _theme['main-font-color']
+          color: _theme[themeKeys.MAIN_FONT_COLOR]
         }),
         menu: (styles: any) => ({
           ...styles,
@@ -29,20 +29,20 @@ const Select = (props: any) => {
           borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
           borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
           borderStyle: 'solid',
-          backgroundColor: _theme['main-background-color']
+          backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
         }),
         option: (styles: any, { isFocused, isSelected }) => ({
           ...styles,
           color: isFocused
-            ? _theme['main-background-color']
+            ? _theme[themeKeys.INVERTED_FONT_COLOR]
             : isSelected
-              ? _theme['main-background-color']
-              : _theme['main-font-color'],
+              ? _theme[themeKeys.INVERTED_FONT_COLOR]
+              : _theme[themeKeys.MAIN_FONT_COLOR],
           backgroundColor: isFocused
-            ? _theme['main-focus-color']
+            ? _theme[themeKeys.MAIN_FOCUS_COLOR]
             : isSelected
-              ? _theme['main-interactive-color']
-              : _theme['main-background-color']
+              ? _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
+              : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
         })
       }}
     />

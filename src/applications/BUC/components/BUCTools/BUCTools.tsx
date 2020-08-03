@@ -18,7 +18,7 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import Tabs from 'nav-frontend-tabs'
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -81,17 +81,17 @@ const PaddedTabContent = styled.div`
 `
 const HighContrastTabs = styled(Tabs)`
   .nav-frontend-tabs__tab-inner--aktiv {
-    color: ${({ theme }: any) => theme['main-font-color']};
-    background: ${({ theme }: any) => theme['main-background-color']};
-    border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+    background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
     border-style: solid;
-    border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra20};
-    border-bottom-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_BBORDER_COLOR]};
+    border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
     border-bottom-style: solid;
     border-bottom-color: white;
   }
   .nav-frontend-tabs__tab-inner {
-    color: ${({ theme }: any) => theme['main-interactive-color']};
+    color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     background: none;
   }
 `

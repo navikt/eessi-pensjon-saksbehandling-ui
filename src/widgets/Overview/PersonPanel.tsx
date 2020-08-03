@@ -15,6 +15,7 @@ import PostalCodes from 'components/PostalCodes/PostalCodes'
 import LineHome from 'assets/icons/line-version-home-3'
 import Tooltip from 'rc-tooltip'
 import styled from 'styled-components'
+import { themeKeys } from 'nav-styled-component-theme'
 
 export interface PersonPanelProps {
   highContrast: boolean
@@ -26,7 +27,7 @@ const PersonPanelDiv = styled.div``
 
 const Hr = styled.hr`
   margin: 1.5rem;
-  border-color:  ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60} !important;
+  border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]} !important;
 `
 const MarginRow = styled(Row)`
   margin: 1.5rem;

@@ -2,7 +2,7 @@ import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { HighContrastPanel } from 'components/StyledComponents'
 import { standardLogger } from 'metrics/loggers'
 import { Input } from 'nav-frontend-skjema'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -39,10 +39,10 @@ const SearchInput = styled(Input)`
     display: none;
   }
   .skjemaelement__input {
-    border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
     border-style: solid;
-    border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
-    background: ${({ theme }: any) => theme['main-background-color']};
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
+    background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   }
 `
 const SearchSelect = styled(MultipleSelect)`

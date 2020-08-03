@@ -6,7 +6,7 @@ import { PesysContext } from 'declarations/types'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { EtikettLiten } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -25,15 +25,15 @@ const Content = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'black' : 'lightgrey'};
+  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'lightgrey'};
 `
 const Context = styled.div`
  padding: 0.5rem 2rem;
  display: flex;
  align-items: center;
  * {
-   font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-   line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+   font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+   line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
  }
 `
 const Tag = styled(EtikettLiten)`
@@ -60,7 +60,8 @@ const mapState = (state: State): ContextBannerSelector => ({
 const ContextBanner: React.FC<ContextBannerProps> = ({
   highContrast, mode
 }: ContextBannerProps): JSX.Element => {
-  const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
+  const _theme = highContrast ? themeHighContrast : theme
+  const linkColor = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
   const [mounted, setMounted] = useState<boolean>(false)
   const { t } = useTranslation()
   const { pesysContext, sakType }: ContextBannerSelector =

@@ -180,11 +180,9 @@ export const getTagList: ActionCreator<ActionWithPayload> = (): ActionWithPayloa
   payload: tagsList
 })
 
-export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: string, avdod: string): ThunkResult<ActionWithPayload> => {
+export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: string): ThunkResult<ActionWithPayload> => {
   return call({
-    url: avdod
-      ? sprintf(urls.BUC_CREATE_BUC_WITH_AVDOD_URL, { buc: buc, avdod: avdod })
-      : sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
+    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
     cascadeFailureError: true,
     expectedPayload: mockCreateBuc(buc),

@@ -4,26 +4,27 @@ import LoadingText from 'components/Loading/LoadingText'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import Panel from 'nav-frontend-paneler'
 import React from 'react'
+import { themeKeys } from 'nav-styled-component-theme'
 import styled from 'styled-components'
 
 const BucPanel = styled(Panel)`
   margin-bottom: 1rem;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
+  border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
   border-style: solid;
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
-  color: ${({ theme }: any) => theme['main-font-color']};
+  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
 `
 const TitleText = styled(LoadingText)`
    min-height: 30px;
    margin-bottom: 0.5rem;
-   width: ${(props: any) => ((props.width || 50) + '%')};
+   width: ${(props) => ((props.width || 50) + '%')};
    align-self: flex-start;
 `
 export const ContentText = styled(LoadingText)`
   min-height: 15px;
   margin-bottom: 0.5rem;
-  width: ${(props: any) => ((props.width || 50) + '%')};
+  width: ${(props) => ((props.width || 50) + '%')};
 `
 const FlexDiv = styled.div`
   align-items: center;

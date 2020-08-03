@@ -168,33 +168,33 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       <VerticalSeparatorDiv />
       {canHaveAttachments && (
         (sendingAttachments || attachmentsSent) ? (
-        <SEDAttachmentSenderDiv>
+          <SEDAttachmentSenderDiv>
+            <>
+              <SEDAttachmentSender
+                attachmentsError={attachmentsError}
+                sendAttachmentToSed={_sendAttachmentToSed}
+                payload={{
+                  aktoerId: aktoerId,
+                  rinaId: buc.caseId,
+                  rinaDokumentId: sed.id
+                } as SEDAttachmentPayload}
+                onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
+                onFinished={() => setAttachmentsSent(true)}
+              />
+              <VerticalSeparatorDiv />
+            </>
+          </SEDAttachmentSenderDiv>
+        ) : (
           <>
-            <SEDAttachmentSender
-              attachmentsError={attachmentsError}
-              sendAttachmentToSed={_sendAttachmentToSed}
-              payload={{
-                aktoerId: aktoerId,
-                rinaId: buc.caseId,
-                rinaDokumentId: sed.id
-              } as SEDAttachmentPayload}
-              onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
-              onFinished={() => setAttachmentsSent(true)}
-            />
+            <HighContrastKnapp
+              data-testid='a-buc-c-sedattachments-button-id'
+              onClick={() => !attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
+            >
+              {t(attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
+            </HighContrastKnapp>
             <VerticalSeparatorDiv />
           </>
-        </SEDAttachmentSenderDiv>
-      ) : (
-        <>
-          <HighContrastKnapp
-            data-testid='a-buc-c-sedattachments-button-id'
-            onClick={() => !attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
-          >
-            {t(attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-          </HighContrastKnapp>
-          <VerticalSeparatorDiv />
-        </>
-      ))}
+        ))}
       {attachmentsTableVisible && (
         <>
           <JoarkBrowser

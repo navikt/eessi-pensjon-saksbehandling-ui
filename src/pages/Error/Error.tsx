@@ -41,7 +41,7 @@ const Line = styled.div`
    width: 60%;
    margin: 1rem;
    min-height: 0.25rem;
-   border-bottom: 1px solid ${({ theme }: any) => theme.navGra60};
+   border-bottom: 1px solid ${({ theme }) => theme.navGra60};
 `
 
 export interface ErrorSelector {

@@ -4,7 +4,7 @@ import MultipleValueRemove from 'components/MultipleSelect/MultipleValueRemove'
 import _ from 'lodash'
 import { Feilmelding } from 'nav-frontend-typografi'
 import { guid } from 'nav-frontend-js-utils'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import Select, { ValueType } from 'react-select'
@@ -35,11 +35,11 @@ export interface MultipleSelectProps<T> {
 
 const MultipleSelectDiv = styled.div`
   .multipleSelect__indicator-separator {
-    background-color: ${({ theme } : any) => theme.navMorkGra};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
   }
   .skjemaelement__feilmelding {
     .multipleSelect__control {
-      border: 1px solid ${({ theme } : any) => theme.redError};
+      border: 1px solid ${({ theme }) => theme.redError};
     }
   }
 `
@@ -97,27 +97,27 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
             control: (styles: any) => ({
               ...styles,
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-              borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
               borderStyle: 'solid',
-              color: _theme['main-font-color'],
-              backgroundColor: _theme['main-background-color']
+              color: _theme[themeKeys.MAIN_FONT_COLOR],
+              backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
             }),
             multiValue: (styles: any) => ({
               ...styles,
               borderRadius: '20px',
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-              borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
               borderStyle: 'solid',
               padding: '0.25rem',
-              backgroundColor: _theme['main-background-other-color'],
-              color: _theme['main-font-color'],
+              backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR],
+              color: _theme[themeKeys.MAIN_FONT_COLOR],
               alignItems: 'center',
               flexDirection: 'row',
               justifyContent: 'center'
             }),
             singleValue: (styles: any) => ({
               ...styles,
-              color: _theme['main-font-color']
+              color: _theme[themeKeys.MAIN_FONT_COLOR]
             }),
             menu: (styles: any) => ({
               ...styles,
@@ -126,23 +126,23 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
             menuList: (styles: any) => ({
               ...styles,
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-              borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+              borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
               borderStyle: 'solid',
-              backgroundColor: _theme['main-background-color']
+              backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
             }),
             option: (styles: any, { isFocused, isSelected }: any) => ({
               ...styles,
               padding: '0.5rem',
               color: isFocused
-                ? _theme['main-background-color']
+                ? _theme[themeKeys.INVERTED_FONT_COLOR]
                 : isSelected
-                  ? _theme['main-background-color']
-                  : _theme['main-font-color'],
+                  ? _theme[themeKeys.INVERTED_FONT_COLOR]
+                  : _theme[themeKeys.MAIN_FONT_COLOR],
               backgroundColor: isFocused
-                ? _theme['main-focus-color']
+                ? _theme[themeKeys.MAIN_FOCUS_COLOR]
                 : isSelected
-                  ? _theme['main-interactive-color']
-                  : _theme['main-background-color']
+                  ? _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
+                  : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
             })
           }}
           tabSelectsValue={false}

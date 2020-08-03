@@ -9,7 +9,7 @@ import EtikettBase from 'nav-frontend-etiketter'
 import Knapp from 'nav-frontend-knapper'
 import Lukknapp from 'nav-frontend-lukknapp'
 import { Input, Select } from 'nav-frontend-skjema'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,7 +26,7 @@ export interface FooterProps {
 
 const FooterDiv = styled.footer`
   flex-shrink: 0;
-  background-color: ${({ theme }: any) => theme['main-background-other-color']};
+  background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   padding: 0rem;
   display: flex;
   flex-direction: row;
@@ -53,19 +53,19 @@ const ContentDiv = styled.div`
   }
   .footerButtonClosed:hover {
     cursor: pointer;
-    background-color: ${({ theme }: any) => theme['main-background-other-color']};
+    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   }
   .footerButtonOpen {
     width: 1.2rem;
     margin-right: 0.5rem;
     display: inline-block;
     padding-top: 0.6rem;
-    color: ${({ theme }: any) => theme['main-font-color']};
+    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
     text-align: center;
   }
   .footerButtonOpen:hover {
     cursor: pointer;
-    background-color: ${({ theme }: any) => theme['main-background-other-color']};
+    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   }
 `
 const FormDiv = styled.div`

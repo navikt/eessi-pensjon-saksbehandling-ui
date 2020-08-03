@@ -39,7 +39,7 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -123,14 +123,14 @@ const BadBucDiv = styled.div`
   width: 100%;
   padding: 0rem;
   .alertstripe--advarsel {
-    border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
     border-style: solid;
-    border-color: ${({ theme }: any) => theme.navOransjeDarken20};
-    background-color: ${({ theme }: any) => theme.navOransjeLighten80};
-    color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
+    border-color: ${({ theme }) => theme.navOransjeDarken20};
+    background-color: ${({ theme }) => theme.navOransjeLighten80};
+    color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
     div {
-      font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-      line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+      font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+      line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
     }
   }
   .alertstripe__tekst {
@@ -144,6 +144,12 @@ const BucLenkePanel = styled(HighContrastLenkepanelBase)`
   margin-bottom: 1rem;
   &.new {
     background: lightgoldenrodyellow;
+  }
+  &:hover {
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]};
   }
 `
 const BucExpandingPanel = styled(HighContrastExpandingPanel)`
@@ -170,7 +176,7 @@ const Flex2Div = styled.div`
 const SEDHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra40};
+  border-bottom: 2px solid ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
 `
 const BUCNewDiv = styled(HighContrastPanel)`
   padding: 2rem !important;
@@ -452,11 +458,11 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
                 </BucExpandingPanel>
               )
             }) : (
-            <>
+              <>
               <VerticalSeparatorDiv data-size='2' />
               <Normaltekst>
-                {t('buc:form-noBUCsFound')}
-              </Normaltekst>
+                  {t('buc:form-noBUCsFound')}
+                </Normaltekst>
             </>
           )
         )}

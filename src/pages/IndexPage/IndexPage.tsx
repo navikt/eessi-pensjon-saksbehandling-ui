@@ -126,6 +126,7 @@ const CustomDashboard = styled(Dashboard)`
    position: relative;
    margin: 0 auto;
    width: 100%;
+   padding: 0rem 1rem;
 `
 const mapState = (state: State): IndexPageSelector => ({
   highContrast: state.ui.highContrast,

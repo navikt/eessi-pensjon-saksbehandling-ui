@@ -4,7 +4,7 @@ import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
 import * as routes from 'constants/routes'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import AdvarselTrekant from 'assets/icons/advarsel-trekant'
 import React from 'react'
@@ -30,7 +30,7 @@ export interface HeaderProps {
 }
 
 const HeaderDiv = styled.header`
-  background-color: ${({ theme }: any) => theme.navMorkGra};
+  background-color: ${({ theme }) => theme.navMorkGra};
   display: flex;
   flex-direction: row;
   height: 4rem;
@@ -39,7 +39,7 @@ const HeaderDiv = styled.header`
   flex-shrink: 0;
 `
 const Skillelinje = styled.div`
-  border-left: 1px solid ${({ theme }: any) => theme.white};
+  border-left: 1px solid ${({ theme }) => theme.white};
   display: flex;
   height: 30px;
   width: 1px;
@@ -49,13 +49,13 @@ const BrandDiv = styled.div`
   display: flex;
   flex-direction: row;
   * {
-   font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-   line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+   font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+   line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
 `
 
 const Title = styled.div`
-  color: ${({ theme }: any) => theme.white};
+  color: ${({ theme }) => theme.white};
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
@@ -77,38 +77,38 @@ const NameDiv = styled.div`
 `
 
 const NameSelect = styled(Select)`
-  color: ${({ theme }: any) => theme['main-font-color']};
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
   position: relative;
   .selectContainer:before,
   .selectContainer:after {
     background: white !important;
   }
   select {
-    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
     background: transparent !important;
   }
   select:not(:hover) {
     border-color: transparent !important;
   }
   select:hover {
-    border-color: ${({ theme }: any) => theme['main-font-color']} !important;
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]} !important;
   }
   option {
     padding: 0.5rem;
   }
   .skjemaelement__input {
-    color: ${({ theme }: any) => theme.white};
+    color: ${({ theme }) => theme.white};
   }
 `
 const Link = styled(Lenke)`
   font-size: 1.5rem;
-  color: ${({ theme }: any) => theme.white};
+  color: ${({ theme }) => theme.white};
 `
 const UsernameSpan = styled.span`
   padding: 0.45rem;
   padding-left: 0.5rem;
   padding-right: 1.6rem
-  color: ${({ theme }: any) => theme['@main-font-color']}
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
 `
 
 const Header: React.FC<HeaderProps> = ({

@@ -3,7 +3,7 @@ import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledCompo
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -36,7 +36,8 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
 }: BUCFooterProps): JSX.Element => {
   const { t } = useTranslation()
   const { highContrast, rinaUrl }: BUCFooterSelector = useSelector<State, BUCFooterSelector>(mapState)
-  const linkColor = highContrast ? themeHighContrast['main-interactive-color'] : theme['main-interactive-color']
+  const _theme = highContrast ? themeHighContrast : theme
+  const linkColor = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
 
   if (!rinaUrl) {
     return <div />

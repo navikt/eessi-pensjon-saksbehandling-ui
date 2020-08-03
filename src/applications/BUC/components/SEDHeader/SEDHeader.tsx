@@ -12,7 +12,7 @@ import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Panel from 'nav-frontend-paneler'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -55,9 +55,9 @@ const SEDHeaderPanel = styled(Panel)`
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
-  border-bottom: ${({ theme }: any) => theme.type === 'themeHighContrast'
-  ? '2px solid $theme[\'main-disabled-color\']'
-  : '1px solid $theme[\'navGra60\']'};
+  border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-bottom-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
+  border-bottom-style: solid;
 `
 const SEDHeaderContent = styled.div`
   padding-top: 0.5rem;

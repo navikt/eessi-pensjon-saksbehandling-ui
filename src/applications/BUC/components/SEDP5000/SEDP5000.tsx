@@ -8,7 +8,7 @@ import _ from 'lodash'
 import Flag from 'flagg-ikoner'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -93,8 +93,8 @@ const Sender = styled.div`
 `
 const CustomSelect = styled(Select)`
   select {
-    color: ${({ theme }: any) => theme['main-font-color']};
-    background-color: ${({ theme }: any) => theme['main-background-color']};
+    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   }
 `
 const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedContent }: SEDP5000Props) => {

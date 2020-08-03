@@ -14,7 +14,7 @@ import { buttonLogger, linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Lenke from 'nav-frontend-lenker'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -79,7 +79,7 @@ const TagsDiv = styled.div`
 const NumberOfSedsDiv = styled.div`
   border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px};
   border-style: solid;
-  border-color: ${({ theme }): any => theme['main-font-color']};
+  border-color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
   border-radius: 50px;
   min-width: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
   min-height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
@@ -94,7 +94,7 @@ const NumberOfSedsDiv = styled.div`
 const RinaLink = styled(Lenke)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
   margin-bottom: 0px !important;
-  color: ${({ theme }): any => theme['main-interactive-color']} !important;
+  color: ${({ theme }): any => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
 `
 const BucEditLink = styled(Lenke)`
   text-decoration: none;

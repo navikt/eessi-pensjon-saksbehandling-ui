@@ -6,15 +6,15 @@ import { AttachedFiles, Bucs } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Panel from 'nav-frontend-paneler'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
 
 const SEDNewDiv = styled(Panel)`
   padding: 2rem 5rem 2rem 5rem !important;
-  border: 1px solid ${({ theme }: any) => theme.navGra60};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
+  border: 1px solid ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
 const SEDNewHeader = styled.div`
   display: flex;

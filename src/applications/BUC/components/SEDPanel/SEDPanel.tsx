@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { HighContrastExpandingPanel, HighContrastPanel } from 'components/StyledComponents'
 import { Buc, Sed, Seds } from 'declarations/buc'
 import _ from 'lodash'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import React from 'react'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
@@ -40,8 +40,8 @@ const SEDPanelPanel = styled(HighContrastPanel)`
   animation: ${slideInFromLeft} 0.2s forwards;
   margin-bottom: 1rem;
   span, p {
-    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
   &.new > div, &.new > div > div {
     background: lightgoldenrodyellow;
@@ -49,10 +49,17 @@ const SEDPanelPanel = styled(HighContrastPanel)`
 `
 const PaddedDiv = styled.div`
   padding: 1rem;
-  background: ${({ theme }: any) => theme['main-background-color']};
+  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
+  background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
 const CustomExpandingPanel = styled(HighContrastExpandingPanel)`
   border: none;
+  .ekspanderbartPanel__hode:hover {
+    background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
+    .panel {
+      background: transparent;
+    }
+  }
 `
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
@@ -69,8 +76,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   const sedHasOption = (sed: Sed): boolean => {
     return sedCanHaveAttachments(sed) || sedCanShowProperties(sed)
   }
-
-  console.log(sedCanHaveAttachments(sed))
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>

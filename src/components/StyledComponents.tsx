@@ -5,6 +5,7 @@ import Lenke from 'nav-frontend-lenker'
 import Panel from 'nav-frontend-paneler'
 import { Input, Textarea } from 'nav-frontend-skjema'
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
+import { themeKeys } from 'nav-styled-component-theme'
 import styled from 'styled-components'
 
 export const Row = styled.div`
@@ -29,115 +30,118 @@ export const HorizontalSeparatorDiv = styled.div`
   margin-left: ${(props: any) => props['data-size'] || 1}rem;
 `
 export const HighContrastKnapp = styled(Knapp)`
-  background-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.black : 'inherit'};
-  color: ${({ theme }: any) => theme['main-interactive-color']};
-  border-color: ${({ theme }: any) => theme['main-interactive-color']};
+  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : 'inherit'};
+  color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+  border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   &:hover:not(:disabled) {
-    background-color: ${({ theme }: any) => theme['main-interactive-color']};
-    color: ${({ theme }: any) => theme['main-background-color']};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   }
 `
 export const HighContrastHovedknapp = styled(Hovedknapp)`
-  background-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.black : 'inherit'};
-  color: ${({ theme }: any) => theme['main-interactive-color']};
-  border-color: ${({ theme }: any) => theme['main-interactive-color']};
+  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : 'inherit'};
+  color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+  border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   &:hover:not(:disabled) {
-    background-color: ${({ theme }: any) => theme['main-interactive-color']};
-    border-color: ${({ theme }: any) => theme['main-interactive-color']};
-    color: ${({ theme }: any) => theme['main-background-color']};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   }
   &:disabled {
-    background-color: ${({ theme }: any) => theme['main-disabled-color']};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_DISABLED_COLOR]};
   }
 `
 export const HighContrastFlatknapp = styled(Flatknapp)`
-  color: ${({ theme }: any) => theme['main-interactive-color']};
+  color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   background-color: transparent;
   &:hover:not(:disabled) {
-    color: ${({ theme }: any) => theme['main-interactive-color']};
-    border-color: ${({ theme }: any) => theme['main-interactive-color']};
+    color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   }
    &:disabled {
-    background-color: ${({ theme }: any) => theme['main-disabled-color']};
-    color: ${({ theme }: any) => theme['main-text-color']};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_DISABLED_COLOR]};
+    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
     border: none;
   }
 `
 export const HighContrastPanel = styled(Panel)`
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
   border-style: solid;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
-  border-radius: 4px;
+  border-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
 `
 export const HighContrastInput = styled(Input)`
   input {
-    border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
     border-style: solid;
-    border-radius: 4px;
-    border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
-    background-color: ${({ theme }: any) => theme['main-background-color']};
-    color:  ${({ theme }: any) => theme['main-font-color']};
+    border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
+    border-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    color:  ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
   }
 `
 export const HighContrastLink = styled(Lenke)`
   display: flex;
   align-items: center;
-  font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-  line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-  color: ${({ theme }: any) => theme['main-interactive-color']} !important;
+  font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+  line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+  color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
   svg {
-    fill: ${({ theme }: any) => theme['main-interactive-color']} !important;
-    stroke: ${({ theme }: any) => theme['main-interactive-color']} !important;
+    fill: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
+    stroke: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
   }
 `
 export const HighContrastTextArea = styled(Textarea)`
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
   border-style: solid;
-  border-radius: 4px;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
+  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
+  border-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
 export const HighContrastModal = styled(Modal)`
-  color: ${({ theme }: any) => theme['main-font-color']};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
 export const HighContrastExpandingPanel = styled(ExpandingPanel)`
-  border-radius: 4px;
-  background-color: ${({ theme }: any) => theme['main-background-color']};
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
   border-style: solid;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60};
+  border-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60};
   .ekspanderbartPanel__knapp {
     background: none;
     border: none;
   }
   &.ekspanderbartPanel {
-    background-color: ${({ theme }: any) => theme['main-background-color']};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   }
   .ekspanderbartPanel__hode {
-    background-color:  ${({ theme }: any) => theme['main-background-color']};
+    background-color:  ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    &:hover {
+      background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.navOransjeDarken80 : theme.navLysBlaLighten80} !important;
+    }
   }
   .ekspanderbartPanel__indikator {
-    color:  ${({ theme }: any) => theme['main-font-color']};
+    color:  ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
   }
   p {
-    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
 `
 export const HighContrastLenkepanelBase = styled(LenkepanelBase)`
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
+  border-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
   border-style: solid;
-  border-radius: 4px;
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  background-color: ${({ theme }: any) => theme['main-background-color']};
-  color: ${({ theme }: any) => theme['main-font-color']};
+  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
+  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
   span, strong, p {
-    font-size: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    line-height: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
   &:hover .lenkepanel__heading {
-    color: ${({ theme }: any) => theme['main-interactive-color']};
+    color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   }
 `

@@ -18,6 +18,7 @@ import TableSorter, { Item } from 'tabell'
 import Panel from 'nav-frontend-paneler'
 import { Systemtittel } from 'nav-frontend-typografi'
 import Veileder from 'nav-frontend-veileder'
+import { themeKeys } from 'nav-styled-component-theme'
 
 const mapState = /* istanbul ignore next */ (state: State) => ({
   aktoerId: state.app.params.aktoerId,
@@ -73,7 +74,7 @@ export interface VarslerPanelProps {
 }
 
 const WidgetPanel = styled(Panel)`
-  border: 1px solid ${({ theme }: any) => theme.navGra60};
+  border: 1px solid ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
 `
 const Title = styled.div`
   display: flex;

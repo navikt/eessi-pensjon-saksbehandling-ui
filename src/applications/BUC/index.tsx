@@ -66,6 +66,9 @@ const AnimatableDiv = styled.div`
   &.animate {
     will-change: transform, opacity;
     pointer-events: none;
+    * {
+      pointer-events: none;
+    }
     transition: transform ${transition}ms ease-in-out;
   }
   &.left {
@@ -369,14 +372,12 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           <ContainerDiv className={classNames({ shrink: animating })}>
             <WindowDiv>
               <AnimatableDiv
-                onTransitionEnd={() => console.log('transition end')}
                 key='animatableDivA'
                 className={classNames(cls(positionA))}
               >
                 {contentA}
               </AnimatableDiv>
               <AnimatableDiv
-                onTransitionEnd={() => console.log('transition end')}
                 key='animatableDivB'
                 className={classNames(cls(positionB))}
               >

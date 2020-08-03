@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { Labels } from 'declarations/types'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,22 +28,22 @@ const statusList: Labels = {
 type StatusType = 'suksess' | 'info' | 'advarsel' | 'fokus'
 
 const Etikett = styled(EtikettBase)`
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
   text-transform: capitalize;
   font-size: 12px;
   min-width: 70px;
-  color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
-  font-weight: ${({ theme }: any) => theme.type === 'themeHighContrast' ? 'bold' : 'normal'};
+  color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
+  font-weight: ${({ theme }) => theme.type === 'themeHighContrast' ? 'bold' : 'normal'};
   &.received {
-    background-color: @navBlaLighten60 !important;
+    background-color: ${({ theme }) => theme[themeKeys.NAVBLALIGHTEN60]} !important;
   }
   &.active {
-    background-color: @navLillaLighten60 !important;
+    background-color: ${({ theme }) => theme[themeKeys.NAVLILLALIGHTEN60]} !important;
   }
   &.first_sent,
   &.first_received,
   &.first_cancelled {
-    background-color: @navGra40 !important;
+    background-color:  ${({ theme }) => theme[themeKeys.NAVGRA40]} !important;
   }
 `
 

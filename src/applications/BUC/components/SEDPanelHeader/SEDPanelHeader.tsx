@@ -7,7 +7,7 @@ import styled, { ThemeProvider } from 'styled-components'
 const SEDPanelHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 3px solid ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navBla};
+  border-bottom: 3px solid ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navBla};
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   padding-left: 1rem;

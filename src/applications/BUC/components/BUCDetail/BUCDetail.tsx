@@ -10,7 +10,7 @@ import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import AlertStripe from 'nav-frontend-alertstriper'
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -55,7 +55,7 @@ const Properties = styled.dl`
   flex-wrap: wrap;
   width: 100%;
   .odd {
-    background-color: ${({ theme }): any => theme['main-background-other-color']};
+    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   }
 `
 const Dt = styled.dt`

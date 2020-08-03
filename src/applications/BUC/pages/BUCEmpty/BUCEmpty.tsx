@@ -14,7 +14,7 @@ import {
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/types'
 import { standardLogger } from 'metrics/loggers'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -38,15 +38,15 @@ export interface BUCEmptyProps {
 
 const BUCEmptyDiv = styled.div`
   display: flex;
-  border-color: ${({ theme }: any) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra40};
+  border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
   border-style: solid;
-  border-width: ${({ theme }: any) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  border-radius: 4px;
+  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 2rem;
-  background-color: ${({ theme }: any) => theme['main-background-color']};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
 const BUCEmptyArtwork = styled.div`
   position: relative;
