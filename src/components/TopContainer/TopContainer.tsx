@@ -9,7 +9,7 @@ import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import { Person } from 'declarations/types'
 import _ from 'lodash'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import Error from 'pages/Error/Error'
 import PT from 'prop-types'
 import React from 'react'
@@ -73,7 +73,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   className, children
 }: TopContainerProps): JSX.Element => {
   const {
-    clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, person, username, gettingUserInfo,
+    clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
     isLoggingOut, footerOpen, modal, highContrast
   } = useSelector(mapState)
   const dispatch = useDispatch()
@@ -157,7 +157,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           highContrast={highContrast}
           params={params}
           footerOpen={footerOpen}
-          person={person}
         />
       </ErrorBoundary>
     </ThemeProvider>

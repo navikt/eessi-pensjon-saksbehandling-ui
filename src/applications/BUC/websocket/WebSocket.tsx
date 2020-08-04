@@ -9,7 +9,7 @@ import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import Popover from 'nav-frontend-popover'
+import Popover, { PopoverOrientering } from 'nav-frontend-popover'
 import LineCheckCircle from 'assets/icons/line-version-check-circle-2'
 import FilledNetworkConnecting from 'assets/icons/filled-version-network-connecting'
 import styled, { keyframes } from 'styled-components'
@@ -180,7 +180,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   return (
     <BUCWebsocketDiv title={'websocket: ' + status}>
       <Icon kind={getAnchor()} size={24} onClick={handleClick} />
-      <Popover ankerEl={popoverAnchor}>{log}</Popover>
+      <Popover orientering={PopoverOrientering.Under} ankerEl={popoverAnchor}>{log}</Popover>
     </BUCWebsocketDiv>
   )
 }

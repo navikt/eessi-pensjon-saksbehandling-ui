@@ -2,7 +2,9 @@ import { BUCMode } from 'applications/BUC'
 import ExternalLink from 'assets/icons/line-version-logout'
 import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
-import { PesysContext } from 'declarations/types'
+import { Person, PesysContext } from 'declarations/types'
+import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
+import _ from 'lodash'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { EtikettLiten } from 'nav-frontend-typografi'
@@ -48,11 +50,13 @@ interface ContextBannerProps {
 }
 
 interface ContextBannerSelector {
+  person: Person | undefined
   pesysContext?: PesysContext
   sakType?: string
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
+  person: state.app.person,
   pesysContext: state.app.pesysContext,
   sakType: state.app.params.sakType
 })
@@ -64,7 +68,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   const linkColor = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
   const [mounted, setMounted] = useState<boolean>(false)
   const { t } = useTranslation()
-  const { pesysContext, sakType }: ContextBannerSelector =
+  const { person, pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
 
   useEffect(() => {
@@ -81,6 +85,10 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <Content>
         <Context>
+          <BUCWebSocket
+            fnr={_.get(person, 'aktoer.ident.ident')}
+            avdodfnr=''
+          />
           <HoyreChevron />
           <Tag>
             <span>{t('ui:youComeFrom')}</span>
