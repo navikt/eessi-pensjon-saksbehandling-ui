@@ -14,7 +14,7 @@ spec:
     - name: ZONE
       value: fss
     - name: PUBLIC_WEBSOCKETURL
-      value: https://eessi-pensjon-frontend-ui-fss.nais.adeo.no/
+      value: https://eessi-pensjon-frontend-api-fss.nais.adeo.no/
   image: {{ image }}
   ingresses:
     - https://eessi-pensjon-frontend-ui-fss.nais.adeo.no

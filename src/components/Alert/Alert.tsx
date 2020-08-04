@@ -64,6 +64,7 @@ const AlertDiv = styled(AlertStripe)`
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    min-width: 400px;
   }
   &.type-server {
     border-radius: 0px !important;

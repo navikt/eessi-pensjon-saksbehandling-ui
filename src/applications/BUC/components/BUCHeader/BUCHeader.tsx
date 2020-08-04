@@ -99,6 +99,9 @@ const RinaLink = styled(Lenke)`
 const BucEditLink = styled(Lenke)`
   text-decoration: none;
 `
+const FullWidthRow = styled(Row)`
+  width: 100%;
+`
 export interface BUCHeaderProps {
   buc: Buc
   bucInfo?: BucInfo
@@ -192,7 +195,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         data-testid={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
         className={classNames({ new: newBuc })}
       >
-        <Row>
+        <FullWidthRow>
           <Column>
             <UnderTitle
               data-testid='a-buc-c-header__title'
@@ -205,7 +208,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               })}
             </UnderTitle>
           </Column>
-        </Row>
+        </FullWidthRow>
         <FlexRow>
           <LabelsDiv
             data-testid='a-buc-c-header__labels'
