@@ -174,9 +174,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
 
-  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<number | undefined>(
+  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<string | undefined>(
     bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod
-      ? parseInt(bucsInfo.bucs[currentBuc!].avdod!, 10) : undefined)
+      ? bucsInfo.bucs[currentBuc!].avdod! : undefined)
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
@@ -195,7 +195,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [sedAttachments, setSedAttachments] = useState<AttachedFiles>(initialAttachments)
   const [sedSent, setSedSent] = useState<boolean>(false)
   const [validation, setValidation] = useState<Validation>({})
-  const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
+  const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<string | undefined>(vedtakId)
 
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
@@ -302,24 +302,30 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }
 
-  const validateVedtakId = (vedtakId: number | undefined): boolean => {
-    if (sedNeedsVedtakId() && !_.isNumber(vedtakId)) {
+  const validateVedtakId = (vedtakId: string | undefined): boolean => {
+    if (sedNeedsVedtakId() && !vedtakId) {
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
       return false
-    } else {
-      resetValidationState('vedtakFail')
-      return true
     }
+    if (sedNeedsVedtakId() &&  !isNumber(vedtakId!)) {
+      setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
+      return false
+    }
+    resetValidationState('vedtakFail')
+    return true
   }
 
-  const validateAvdodfnr = (avdodfnr: number | undefined): boolean => {
-    if (sedNeedsAvdodfnr() && !_.isNumber(avdodfnr)) {
+  const validateAvdodfnr = (avdodfnr: string | undefined): boolean => {
+    if (sedNeedsAvdodfnr && !avdodfnr) {
       setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodfnr'))
       return false
-    } else {
-      resetValidationState('avdodfnrFail')
-      return true
     }
+    if (sedNeedsAvdodfnr() && !isNumber(avdodfnr!)) {
+      setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodfnr'))
+      return false
+    }
+    resetValidationState('avdodfnrFail')
+    return true
   }
 
   const onSedChange = (e: any) => {
@@ -341,21 +347,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const onAvdodfnrChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let avdodfnr: number
-    try {
-      avdodfnr = parseInt(e.target.value, 10)
-      validateAvdodfnr(avdodfnr)
-      setAvdodfnr(avdodfnr)
-    } catch (e) {}
+    const avdodfnr = e.target.value
+    validateAvdodfnr(avdodfnr)
+    setAvdodfnr(avdodfnr)
   }
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let vedtakId: number
-    try {
-      vedtakId = parseInt(e.target.value, 10)
-      validateVedtakId(vedtakId)
-      setVedtakId(vedtakId)
-    } catch (e) {}
+    const vedtakId = e.target.value
+    validateVedtakId(vedtakId)
+    setVedtakId(vedtakId)
   }
 
   const renderOptions = (options: Array<Option | string> | undefined) => {
@@ -480,12 +480,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     onSedCancelled()
   }
 
+  const isNumber = (s: string) => {
+    return s.match(/^\d+$/g) !== null
+  }
+
   const allowedToForward = () => {
     return _sed && _.isEmpty(validation) &&
       (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
       !loading.creatingSed && !sendingAttachments &&
-      (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true) &&
-      (sedNeedsAvdodfnr() ? _.isNumber(_avdodfnr) && !_.isNaN(_avdodfnr) : true)
+      (sedNeedsVedtakId() ? _vedtakId && isNumber(_vedtakId) : true) &&
+      (sedNeedsAvdodfnr() ? _avdodfnr && isNumber(_avdodfnr) : true)
   }
 
   const onFinished = useCallback(() => {
@@ -501,7 +505,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (!_avdodfnr && bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod) {
-      setAvdodfnr(parseInt(bucsInfo.bucs[currentBuc!].avdod!, 10))
+      setAvdodfnr(bucsInfo.bucs[currentBuc!].avdod!)
     }
   }, [bucsInfo, _avdodfnr, currentBuc])
 

@@ -29,8 +29,8 @@ export const BUCHeaderDiv = styled.div`
   align-items: flex-start;
   padding: 0rem;
   width: 100%;
-  &.new > div, &.new > div > div {
-    background: lightgoldenrodyellow;
+  &.new .ekspanderbartPanel__hode {
+    background: ${({theme}) => theme.type === 'themeHighContrast' ? '' : 'lightgoldenrodyellow'};
   }
 `
 const UnderTitle = styled(Undertittel)`
