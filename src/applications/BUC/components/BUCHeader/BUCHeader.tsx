@@ -30,7 +30,9 @@ export const BUCHeaderDiv = styled.div`
   padding: 0rem;
   width: 100%;
   &.new .ekspanderbartPanel__hode {
-    background: ${({theme}) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+    background: ${({ theme }) => theme.type === 'themeHighContrast'
+    ? theme[themeKeys.NAVLIMEGRONNDARKEN80]
+    : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
 `
 const UnderTitle = styled(Undertittel)`

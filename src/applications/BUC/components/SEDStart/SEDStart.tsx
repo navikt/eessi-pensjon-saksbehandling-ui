@@ -26,7 +26,8 @@ import {
   Column,
   HighContrastFlatknapp,
   HighContrastHovedknapp,
-  HighContrastInput, HighContrastKnapp,
+  HighContrastInput,
+  HighContrastKnapp,
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
@@ -35,8 +36,10 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { IS_TEST } from 'constants/environment'
 import {
   AttachedFiles,
-  Buc, BUCAttachments,
-  Bucs, BucsInfo,
+  Buc,
+  BUCAttachments,
+  Bucs,
+  BucsInfo,
   InstitutionListMap,
   Institutions,
   RawInstitution,
@@ -48,19 +51,11 @@ import {
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import {
-  AllowedLocaleString,
-  Country,
-  FeatureToggles,
-  Loading,
-  Option,
-  Validation
-} from 'declarations/types'
+import { AllowedLocaleString, Country, FeatureToggles, Loading, Option, Validation } from 'declarations/types'
 import CountryData from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import { Input } from 'nav-frontend-skjema'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -94,7 +89,10 @@ const SEDAttachmentSenderDiv = styled.div`
    margin-bottom: 1rem;
    width: 100%;
 `
-
+const FlexDiv = styled.div`
+  display: flex;
+  align-items: baseline;
+`
 export interface SEDStartProps {
   aktoerId?: string
   bucs: Bucs
@@ -307,24 +305,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
       return false
     }
-    if (sedNeedsVedtakId() &&  !isNumber(vedtakId!)) {
+    if (sedNeedsVedtakId() && !isNumber(vedtakId!)) {
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
       return false
     }
     resetValidationState('vedtakFail')
-    return true
-  }
-
-  const validateAvdodfnr = (avdodfnr: string | undefined): boolean => {
-    if (sedNeedsAvdodfnr && !avdodfnr) {
-      setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodfnr'))
-      return false
-    }
-    if (sedNeedsAvdodfnr() && !isNumber(avdodfnr!)) {
-      setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodfnr'))
-      return false
-    }
-    resetValidationState('avdodfnrFail')
     return true
   }
 
@@ -344,12 +329,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const onCountriesChange = (countries: Array<Country>) => {
     fetchInstitutionsForSelectedCountries(countries)
-  }
-
-  const onAvdodfnrChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const avdodfnr = e.target.value
-    validateAvdodfnr(avdodfnr)
-    setAvdodfnr(avdodfnr)
   }
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -619,7 +598,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {sedNeedsVedtakId() && (
             <>
               <VerticalSeparatorDiv />
-              <Input
+              <HighContrastInput
                 disabled
                 data-testid='a-buc-c-sedstart__vedtakid-input-id'
                 label={t('buc:form-vedtakId')}
@@ -635,15 +614,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {sedNeedsAvdodfnr() && (
             <>
               <VerticalSeparatorDiv />
-              <HighContrastInput
-                id='a-buc-c-sedstart__fnr-input-id'
-                label={t('buc:form-fnr')}
-                bredde='fullbredde'
-                value={'' + _avdodfnr || ''}
-                onChange={onAvdodfnrChange}
-                placeholder={t('buc:form-noAvdodfnr')}
-                feil={validation.fnrFail ? t(validation.fnrFail) : null}
-              />
+              <FlexDiv>
+                <label className='skjemaelement__label'>
+                  {t('buc:form-fnr')}:
+                </label>
+                <HorizontalSeparatorDiv data-size='0.3' />
+                <span>
+                  {_avdodfnr}
+                </span>
+              </FlexDiv>
               <VerticalSeparatorDiv />
             </>
           )}

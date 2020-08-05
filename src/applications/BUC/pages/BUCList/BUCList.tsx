@@ -143,7 +143,7 @@ const BucLenkePanel = styled(HighContrastLenkepanelBase)`
   animation: ${slideInFromLeft} 0.2s forwards;
   margin-bottom: 1rem;
   &.new {
-    background: ${({theme}) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
   &:hover {
     border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
@@ -158,7 +158,7 @@ const BucExpandingPanel = styled(HighContrastExpandingPanel)`
   animation: ${slideInFromLeft} 0.2s forwards;
   margin-bottom: 1rem;
   &.new {
-    background: ${({theme}) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
 `
 const Flex4Div = styled.div`

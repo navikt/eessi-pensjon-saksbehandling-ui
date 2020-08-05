@@ -44,7 +44,7 @@ const SEDPanelPanel = styled(HighContrastPanel)`
     line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
   &.new > div, &.new > div > div {
-    background: ${({theme}) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
 `
 const PaddedDiv = styled.div`
