@@ -26,23 +26,24 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
-const transition = 1000
-const timeout = 1100
+const transition = 0
+const timeout = 1
+const zoomOutTransition = 0
 
 const ContainerDiv = styled.div`
   width: 100%;
   display: block;
   overflow: hidden;
   will-change: transform;
-  &.shrink {
+  &.donotshrink {
     transform: scale(0.96);
     transform-origin: center center;
-    transition: transform 0.3s ease-in;
+    transition: transform ${zoomOutTransition}s ease-in;
   }
-  &:not(.shrink) {
+  &:not(.donotshrink) {
     transform: scale(1);
     transform-origin: center center;
-    transition: transform 0.3s ease-out;
+    transition: transform ${zoomOutTransition}s ease-out;
   }
 `
 const WindowDiv = styled.div`
