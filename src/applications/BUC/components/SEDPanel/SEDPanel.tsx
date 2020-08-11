@@ -43,7 +43,7 @@ const SEDPanelPanel = styled(HighContrastPanel)`
     font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
     line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
-  &.new > div, &.new > div > div {
+  &.new div:not(.etikett) {
     background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
 `

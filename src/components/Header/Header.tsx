@@ -1,4 +1,4 @@
-import { clearData, logout } from 'actions/app'
+import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
 import Lenke from 'nav-frontend-lenker'
-import { Select } from 'nav-frontend-skjema'
 import Spinner from 'nav-frontend-spinner'
 import { Systemtittel } from 'nav-frontend-typografi'
 import styled, { ThemeProvider } from 'styled-components'
@@ -53,14 +52,12 @@ const BrandDiv = styled.div`
    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
 `
-
 const Title = styled.div`
   color: ${({ theme }) => theme.white};
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
 `
-
 const UserDiv = styled.div`
   align-items: flex-end;
   display: flex;
@@ -70,35 +67,9 @@ const UserDiv = styled.div`
 const SaksbehandlerUser = styled.div`
    color: white;
 `
-
 const NameDiv = styled.div`
   margin: auto 0px;
   padding: 0.3em;
-`
-
-const NameSelect = styled(Select)`
-  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-  position: relative;
-  .selectContainer:before,
-  .selectContainer:after {
-    background: white !important;
-  }
-  select {
-    font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    background: transparent !important;
-  }
-  select:not(:hover) {
-    border-color: transparent !important;
-  }
-  select:hover {
-    border-color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]} !important;
-  }
-  option {
-    padding: 0.5rem;
-  }
-  .skjemaelement__input {
-    color: ${({ theme }) => theme.white};
-  }
 `
 const Link = styled(Lenke)`
   font-size: 1.5rem;
@@ -131,13 +102,6 @@ const Header: React.FC<HeaderProps> = ({
     e.preventDefault()
     e.stopPropagation()
     dispatch(toggleHighContrast())
-  }
-
-  const handleUsernameSelectRequest = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === 'logout') {
-      dispatch(clearData())
-      dispatch(logout())
-    }
   }
 
   return (
@@ -176,29 +140,16 @@ const Header: React.FC<HeaderProps> = ({
             )}
           <Skillelinje />
           <NameDiv>
-            {gettingUserInfo ? t('buc:loading-gettingUserInfo')
-              : username
-                ? (
-                  <NameSelect
-                    data-testid='username-select-id'
-                    label=''
-                    value={username}
-                    selected={username}
-                    onChange={handleUsernameSelectRequest}
-                  >
-                    <option value=''>{username}</option>
-                    <option value='feedback'>{t('ui:giveFeedback')}</option>
-                    <option value='logout'>{t('ui:logout')}</option>
-                  </NameSelect>
-                )
-                : (
-                  <>
-                    <AdvarselTrekant size={16} />
-                    <UsernameSpan>
-                      {t('ui:unknown')}
-                    </UsernameSpan>
-                  </>
-                )}
+            {gettingUserInfo ? t('buc:loading-gettingUserInfo') : (
+              username ? username : (
+                <>
+                  <AdvarselTrekant size={16} />
+                  <UsernameSpan>
+                    {t('ui:unknown')}
+                  </UsernameSpan>
+                </>
+              )
+            )}
           </NameDiv>
         </UserDiv>
         {header && (
