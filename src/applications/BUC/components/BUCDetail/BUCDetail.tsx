@@ -158,26 +158,6 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 </HighContrastLink>
               ) : <WaitingPanel size='S' />}
             </Dd>
-            <Dt className='odd'>
-              <Element>
-                {t('ui:tags')}:
-              </Element>
-            </Dt>
-            <Dd className='odd' id='a-buc-c-bucdetail__props-tags-id'>
-              <Normaltekst>
-                {bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ') : ''}
-              </Normaltekst>
-            </Dd>
-            <Dt>
-              <Element>
-                {t('ui:comment')}:
-              </Element>
-            </Dt>
-            <Dd id='a-buc-c-bucdetail__props-comment-id'>
-              <Normaltekst>
-                {bucInfo && bucInfo.comment ? bucInfo.comment : ''}
-              </Normaltekst>
-            </Dd>
           </Properties>
           <Undertittel
             id='a-buc-c-bucdetail__institutions-title-id'

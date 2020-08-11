@@ -3,13 +3,12 @@ import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import {
-  HighContrastExpandingPanel,
   HighContrastKnapp,
-  HighContrastModal,
+  HighContrastModal, HighContrastPanel,
   HighContrastTextArea,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
-import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tags, ValidBuc } from 'declarations/buc'
+import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tag, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
@@ -17,7 +16,7 @@ import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import Tabs from 'nav-frontend-tabs'
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -63,7 +62,7 @@ const slideInFromRight = keyframes`
     transform: translateX(0);
   }
 `
-const BUCToolsPanel = styled(HighContrastExpandingPanel)`
+const BUCToolsPanel = styled(HighContrastPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
@@ -218,7 +217,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     key: 'P5000'
   }] : []
   tabs = tabs.concat([{
-    label: t('buc:form-tagsForBUC'),
+    label: t('ui:tags'),
     key: 'tags'
   }, {
     label: t('buc:form-commentForBUC'),
@@ -227,16 +226,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCToolsPanel
-        highContrast={highContrast}
-        collapseProps={{ id: 'a-buc-c-buctools__panel-id' }}
         data-testid='a-buc-c-buctools__panel-id'
-        open
         className={className}
-        heading={
-          <Systemtittel data-testid='a-buc-c-buctools__title'>
-            {t('buc:form-BUCtools')}
-          </Systemtittel>
-        }
       >
         <>
           <HighContrastTabs
@@ -265,9 +256,21 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             )}
             {tabs[activeTab].key === 'tags' && (
               <>
-                <Undertittel>
-                  {t('buc:form-tagsForBUC')}
-                </Undertittel>
+                <VerticalSeparatorDiv data-size='0.5' />
+                { tags && !_.isEmpty(tags) && (
+                  <>
+                    <dt>
+                      <Element>
+                        {t('buc:form-tagsForBUC')}:
+                      </Element>
+                    </dt>
+                    <dd>
+                      <Normaltekst>
+                        {tags.map((tag: Tag) => tag.label).join(', ')}
+                      </Normaltekst>
+                    </dd>
+                  </>
+                )}
                 <VerticalSeparatorDiv data-size='0.5' />
                 <Normaltekst>
                   {t('buc:form-tagsForBUC-description')}
@@ -288,9 +291,17 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             )}
             {tabs[activeTab].key === 'comments' && (
               <>
-                <Undertittel>
-                  {t('buc:form-commentForBUC')}
-                </Undertittel>
+                <VerticalSeparatorDiv data-size='0.5' />
+                <dt>
+                  <Element>
+                    {t('ui:comment')}:
+                  </Element>
+                </dt>
+                <dd>
+                  <Normaltekst>
+                    {originalComment || t('ui:noCommentsYet')}
+                  </Normaltekst>
+                </dd>
                 <VerticalSeparatorDiv data-size='0.5' />
                 <TextArea
                   id='a-buc-c-buctools__comment-textarea-id'
@@ -308,6 +319,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 </HighContrastKnapp>
               </>
             )}
+
           </PaddedTabContent>
         </>
       </BUCToolsPanel>

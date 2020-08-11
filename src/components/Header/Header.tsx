@@ -73,13 +73,13 @@ const NameDiv = styled.div`
 `
 const Link = styled(Lenke)`
   font-size: 1.5rem;
-  color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme[themeKeys.WHITE]};
 `
 const UsernameSpan = styled.span`
   padding: 0.45rem;
   padding-left: 0.5rem;
-  padding-right: 1.6rem
-  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+  padding-right: 1.6rem;
+  color: ${({ theme }) => theme[themeKeys.WHITE]};
 `
 
 const Header: React.FC<HeaderProps> = ({
@@ -141,7 +141,11 @@ const Header: React.FC<HeaderProps> = ({
           <Skillelinje />
           <NameDiv>
             {gettingUserInfo ? t('buc:loading-gettingUserInfo') : (
-              username ? username : (
+              username ? (
+                <UsernameSpan>
+                  {username}
+                </UsernameSpan>
+              ) : (
                 <>
                   <AdvarselTrekant size={16} />
                   <UsernameSpan>
