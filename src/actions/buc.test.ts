@@ -3,7 +3,7 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { Sed } from 'declarations/buc'
+import { Buc, Sed } from 'declarations/buc'
 import { call as originalCall } from 'js-fetch-api'
 
 jest.mock('js-fetch-api', () => ({
@@ -313,6 +313,9 @@ describe('actions/buc', () => {
   })
 
   it('createSed()', () => {
+    const mockBuc = {
+
+    } as Buc
     const mockedPayload = {
       sakId: '123',
       buc: 'P_BUC_01',
@@ -321,7 +324,7 @@ describe('actions/buc', () => {
       aktoerId: '123',
       euxCaseId: '456'
     }
-    bucActions.createSed(mockedPayload)
+    bucActions.createSed(mockBuc, mockedPayload)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_CREATE_SED_REQUEST,

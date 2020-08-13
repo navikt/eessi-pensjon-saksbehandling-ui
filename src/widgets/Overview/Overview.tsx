@@ -2,6 +2,7 @@ import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
 import classNames from 'classnames'
 import { HighContrastExpandingPanel } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
+import { PersonAvdods } from 'declarations/buc'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/types'
@@ -25,7 +26,7 @@ const mapState = (state: State): OverviewSelector => ({
   gettingPersonInfo: state.loading.gettingPersonInfo,
   locale: state.ui.locale,
   person: state.app.person,
-  personAvdod: state.app.personAvdod,
+  personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   vedtakId: state.app.params.vedtakId
 })
@@ -36,7 +37,7 @@ export interface OverviewSelector {
   gettingPersonInfo: boolean
   locale: AllowedLocaleString
   person: any,
-  personAvdod: any,
+  personAvdods: PersonAvdods | undefined,
   pesysContext: PesysContext | undefined,
   vedtakId: string
 }
@@ -55,7 +56,7 @@ export const Overview: React.FC<OverviewProps> = ({
   widget
 }: OverviewProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(skipMount)
-  const { aktoerId, featureToggles, gettingPersonInfo, locale, person, personAvdod, pesysContext, vedtakId }: OverviewSelector =
+  const { aktoerId, featureToggles, gettingPersonInfo, locale, person, personAvdods, pesysContext, vedtakId }: OverviewSelector =
     useSelector<State, OverviewSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
@@ -123,7 +124,7 @@ export const Overview: React.FC<OverviewProps> = ({
             <PersonTitle
               gettingPersonInfo={gettingPersonInfo}
               person={person}
-              personAvdod={personAvdod}
+              personAvdods={personAvdods}
             />
           )}
         >

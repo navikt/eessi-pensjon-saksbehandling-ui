@@ -180,6 +180,7 @@
   "status-new"            : "Utkast",
   "status-received"       : "Mottatt",
   "status-sent"           : "Sendt",
+  "status-open"           : "Åpen",
   "status-unknown"        : "Ukjent",
 
   "step-startBUCTitle"          : "Start ny BUC",

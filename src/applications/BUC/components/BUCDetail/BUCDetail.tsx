@@ -114,7 +114,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
             </Dt>
             <Dd className='odd' id='a-buc-c-bucdetail__props-status-id'>
               <Normaltekst>
-                {t('ui:' + buc.status)}
+                {t('buc:status-' + buc.status)}
               </Normaltekst>
             </Dd>
             <Dt>

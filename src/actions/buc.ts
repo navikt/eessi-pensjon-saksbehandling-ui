@@ -3,7 +3,7 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
+import { Buc, BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { FeatureToggles, PesysContext } from 'declarations/types'
 import { CountryFilter } from 'land-verktoy'
@@ -284,11 +284,12 @@ export const getInstitutionsListForBucAndCountry = (bucType: string, country: st
   })
 }
 
-export const createSed = (sed: NewSedPayload): Function => {
+export const createSed = (buc: Buc, sed: NewSedPayload): Function => {
   return call({
     url: urls.BUC_CREATE_SED_URL,
     payload: sed,
     context: {
+      buc: buc,
       sed: sed
     },
     expectedPayload: mockCreateSed(),
@@ -302,14 +303,16 @@ export const createSed = (sed: NewSedPayload): Function => {
   })
 }
 
-export const createReplySed = (payload: NewSedPayload, parentId: string): Function => {
+export const createReplySed = (buc: Buc, sed: NewSedPayload, parentId: string): Function => {
   return call({
     url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: parentId }),
-    payload: payload,
-    expectedPayload: {
-      ...payload,
-      id: '123456789'
+    payload: sed,
+    context: {
+      buc: buc,
+      sed: sed
     },
+    expectedPayload: mockCreateSed(),
+    cascadeFailureError: true,
     method: 'POST',
     type: {
       request: types.BUC_CREATE_REPLY_SED_REQUEST,

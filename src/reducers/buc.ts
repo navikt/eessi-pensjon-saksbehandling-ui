@@ -447,7 +447,57 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
       newSed.type = (action as ActionWithPayload).context.sed.sed
       newSed.attachments = []
-      newSed.participants = []
+
+      const sender = (action as ActionWithPayload).context.buc.creator
+      let participants = (action as ActionWithPayload).context.sed.institutions.map((inst: any) => {
+        return {
+          role: 'Receiver',
+          organisation: {
+            address: {
+              country: inst.country,
+              town: null,
+              street: null,
+              postalCode: null,
+              region: null
+            },
+            registryNumber: null,
+            acronym: inst.institution,
+            countryCode: inst.country,
+            contactMethods: null,
+            name: inst.name,
+            location: null,
+            assignedBUCs: null,
+            id: inst.institution,
+            accessPoint: null
+          },
+          selected: true
+        }
+      })
+
+      participants.push({
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: sender.country,
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          registryNumber: null,
+          acronym: sender.institution.split(':')[1],
+          countryCode: sender.country,
+          contactMethods: null,
+          name: state.institutionNames[sender.institution],
+          location: null,
+          assignedBUCs: null,
+          id: sender.institution,
+          accessPoint: null
+        },
+        selected: true
+      })
+
+      newSed.participants = participants
       newSed.status = 'new'
       newSed.version = '1'
 

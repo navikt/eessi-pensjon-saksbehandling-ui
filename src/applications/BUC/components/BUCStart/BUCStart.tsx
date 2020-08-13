@@ -19,7 +19,7 @@ import {
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
+import { Buc, Bucs, BucsInfo, PersonAvdods, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, Option, PesysContext, Validation } from 'declarations/types'
 import _ from 'lodash'
@@ -52,7 +52,7 @@ export interface BUCStartSelector {
   locale: AllowedLocaleString
   loading: Loading
   newlyCreatedBuc: Buc | undefined
-  personAvdod: any
+  personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string
   subjectAreaList?: Array<string> | undefined
@@ -69,7 +69,7 @@ const mapState = (state: State): BUCStartSelector => ({
   loading: state.loading,
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
-  personAvdod: state.app.personAvdod,
+  personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   subjectAreaList: state.buc.subjectAreaList,
@@ -89,13 +89,16 @@ const AlertStripeDiv = styled.div`
     width: 50%;
   }
 `
+const FlexDiv = styled.div`
+  display: flex;
+`
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onBucCreated, onBucCancelled, onTagsChanged
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucs, bucParam, bucsInfo, bucList, currentBuc,
     highContrast, locale, loading, newlyCreatedBuc,
-    personAvdod, pesysContext, sakId, subjectAreaList, tagList
+    personAvdods, pesysContext, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
@@ -111,14 +114,17 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdod && personAvdod.length === 0) {
-      if (!showWarningBuc) {
+    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods) {
+      if (personAvdods.length === 1 && !_avdod) {
+        setAvdod(personAvdods[0].fnr)
+      }
+      if (personAvdods.length === 0 && !showWarningBuc) {
         setShowWarningBuc(true)
       }
     } else {
       setShowWarningBuc(false)
     }
-  }, [_buc, showWarningBuc, pesysContext, personAvdod])
+  }, [_buc, showWarningBuc, pesysContext, personAvdods])
 
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
@@ -335,28 +341,43 @@ const BUCStart: React.FC<BUCStartProps> = ({
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
             <VerticalSeparatorDiv />
-            {_buc === 'P_BUC_02' && personAvdod?.length > 0 && (
+            {_buc === 'P_BUC_02' && (
               <>
-                <label className='skjemaelement__label'>
-                  {t('buc:form-avdod')}
-                </label>
-                <Select
-                  highContrast={highContrast}
-                  data-testid='a-buc-c-bucstart__avdod-select-id'
-                  isSearchable
-                  placeholder={t('buc:form-chooseAvdod')}
-                  onChange={onAvdodChange}
-                  options={renderAvdodOptions(personAvdod)}
-                  styles={{
-                    control: (styles: any) => ({
-                      ...styles,
-                      borderColor: '1px solid ' + theme.navGra60
-                    })
-                  }}
-                />
-                {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
-              </>
-            )}
+              {personAvdods && personAvdods.length > 1 && (
+                <>
+                  <label className='skjemaelement__label'>
+                    {t('buc:form-avdod')}
+                  </label>
+                  <Select
+                    highContrast={highContrast}
+                    data-testid='a-buc-c-bucstart__avdod-select-id'
+                    isSearchable
+                    placeholder={t('buc:form-chooseAvdod')}
+                    onChange={onAvdodChange}
+                    options={renderAvdodOptions(personAvdods)}
+                    styles={{
+                      control: (styles: any) => ({
+                        ...styles,
+                        borderColor: '1px solid ' + theme.navGra60
+                      })
+                    }}
+                  />
+                  {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
+                </>
+              )}
+              {personAvdods && personAvdods.length === 1 && (
+                <FlexDiv>
+                  <label className='skjemaelement__label'>
+                    {t('buc:form-avdod')}
+                  </label>
+                  :
+                  <Normaltekst>
+                    {_avdod}
+                  </Normaltekst>
+                </FlexDiv>
+              )}
+            </>
+          )}
           </Column>
           <Column>
             <VerticalSeparatorDiv data-size='2' />

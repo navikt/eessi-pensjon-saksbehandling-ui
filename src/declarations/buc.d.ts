@@ -191,3 +191,14 @@ export interface SavingAttachmentsJob {
   saving: JoarkFile | undefined
   remaining: JoarkFiles
 }
+
+export type PersonAvdods = Array<PersonAvdod>
+
+export interface PersonAvdod {
+  fnr: string
+  aktoerId: string
+  fulltNavn: string
+  fornavn: string
+  mellomnavn: string | null
+  etternavn: string
+}

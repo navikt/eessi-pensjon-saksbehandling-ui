@@ -41,7 +41,7 @@ import {
   Bucs,
   BucsInfo,
   InstitutionListMap,
-  Institutions,
+  Institutions, PersonAvdod, PersonAvdods,
   RawInstitution,
   SavingAttachmentsJob,
   Sed,
@@ -114,6 +114,7 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
+  personAvdods: PersonAvdods | undefined
   sakId?: string
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
@@ -132,6 +133,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
+  personAvdods: state.app.personAvdods,
   sakId: state.app.params.sakId,
   savingAttachmentsJob: state.buc.savingAttachmentsJob,
   sed: state.buc.sed,
@@ -150,7 +152,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachmentsError, bucsInfo, countryList, currentSed, featureToggles, highContrast, institutionList,
-    loading, locale, sakId, sed, sedList, sedsWithAttachments, vedtakId
+    loading, locale, personAvdods, sakId, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
 
   const { t } = useTranslation()
@@ -172,9 +174,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
 
-  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<string | undefined>(
-    bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod
-      ? bucsInfo.bucs[currentBuc!].avdod! : undefined)
+  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<string | undefined>(undefined)
+  const [_avdod, setAvdod] = /* istanbul ignore next */ useState<PersonAvdod | undefined>(undefined)
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
@@ -441,9 +442,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.avdodfnr = _avdodfnr
       }
       if (currentSed) {
-        dispatch(createReplySed(payload, currentSed))
+        dispatch(createReplySed(buc, payload, currentSed))
       } else {
-        dispatch(createSed(payload))
+        dispatch(createSed(buc, payload))
       }
       buttonLogger(e, payload)
     }
@@ -484,7 +485,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (!_avdodfnr && bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod) {
-      setAvdodfnr(bucsInfo.bucs[currentBuc!].avdod!)
+      const fnr = bucsInfo.bucs[currentBuc!].avdod!
+      setAvdodfnr(fnr)
+      setAvdod(_.find(personAvdods, (p => p.fnr === fnr)))
     }
   }, [bucsInfo, _avdodfnr, currentBuc])
 
@@ -616,11 +619,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <FlexDiv>
                 <label className='skjemaelement__label'>
-                  {t('buc:form-fnr')}:
+                  {t('buc:form-avdod')}:
                 </label>
                 <HorizontalSeparatorDiv data-size='0.3' />
                 <span>
-                  {_avdodfnr}
+                  {_avdod?.fornavn +
+                  (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
+                  (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
+                  (' (' + _avdod?.fnr + ')')
+                  }
                 </span>
               </FlexDiv>
               <VerticalSeparatorDiv />

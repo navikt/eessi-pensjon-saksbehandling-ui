@@ -3,6 +3,7 @@ import mann from 'assets/icons/icon-mann.png'
 import ukjent from 'assets/icons/icon-ukjent.png'
 import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { PersonAvdods } from 'declarations/buc'
 import { Person } from 'declarations/types'
 import { PersonPropType } from 'declarations/types.pt'
 import _ from 'lodash'
@@ -17,7 +18,7 @@ import PersonLoading from 'widgets/Overview/PersonLoading'
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
   person?: Person
-  personAvdod: any
+  personAvdods: PersonAvdods | undefined
 }
 
 const Title = styled.div`
@@ -28,7 +29,7 @@ const Title = styled.div`
   }
 `
 const PersonTitle: React.FC<PersonTitleProps> = ({
-  gettingPersonInfo, person, personAvdod
+  gettingPersonInfo, person, personAvdods
 }: PersonTitleProps): JSX.Element => {
   let birthDate: Date | Moment | undefined
   let deathDate: Date | Moment | undefined
@@ -75,7 +76,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
       <HorizontalSeparatorDiv />
       <Systemtittel>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
-        {personAvdod !== undefined ? ' - ' + t('ui:deceased') + ': ' + personAvdod.length : ''}
+        {personAvdods !== undefined ? ' - ' + t('ui:deceased') + ': ' + personAvdods.length : ''}
       </Systemtittel>
     </Title>
   )

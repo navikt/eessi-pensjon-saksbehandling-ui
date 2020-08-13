@@ -1,5 +1,6 @@
 import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
+import { PersonAvdods } from 'declarations/buc'
 import { Feature, FeatureToggles, Params, PesysContext, Person } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
@@ -13,7 +14,7 @@ export interface AppState {
   username: string | undefined
   userRole: string | undefined
   person: Person | undefined
-  personAvdod: any
+  personAvdods: PersonAvdods | undefined
   params: Params
   featureToggles: FeatureToggles
 }
@@ -33,7 +34,7 @@ export const initialAppState: AppState = {
   username: undefined,
   userRole: undefined,
   person: undefined,
-  personAvdod: undefined,
+  personAvdods: undefined,
   pesysContext: undefined,
   params: {},
   featureToggles: initialFeatureToggles
@@ -131,7 +132,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
 
       return {
         ...state,
-        personAvdod: action.payload
+        personAvdods: action.payload
       }
 
     case types.APP_LOGOUT_SUCCESS: {
