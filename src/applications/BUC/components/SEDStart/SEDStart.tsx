@@ -489,7 +489,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setAvdodfnr(fnr)
       setAvdod(_.find(personAvdods, (p => p.fnr === fnr)))
     }
-  }, [bucsInfo, _avdodfnr, currentBuc])
+  }, [bucsInfo, _avdodfnr, currentBuc, personAvdods])
 
   useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {

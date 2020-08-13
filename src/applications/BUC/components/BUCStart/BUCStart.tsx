@@ -124,7 +124,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     } else {
       setShowWarningBuc(false)
     }
-  }, [_buc, showWarningBuc, pesysContext, personAvdods])
+  }, [_buc, _avdod, showWarningBuc, pesysContext, personAvdods])
 
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
