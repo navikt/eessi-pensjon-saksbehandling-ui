@@ -2,8 +2,8 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import { HighContrastExpandingPanel, HighContrastLink } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { Buc, BucInfo, Institutions } from 'declarations/buc'
-import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
+import { Buc, Institutions } from 'declarations/buc'
+import { BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import { linkLogger } from 'metrics/loggers'
@@ -19,7 +19,6 @@ import styled, { keyframes, ThemeProvider } from 'styled-components'
 
 export interface BUCDetailProps {
   buc: Buc
-  bucInfo?: BucInfo
   className ?: string
 }
 
@@ -79,7 +78,7 @@ const InstitutionListDiv = styled.div`
   }
 `
 const BUCDetail: React.FC<BUCDetailProps> = ({
-  buc, bucInfo, className
+  buc, className
 }: BUCDetailProps): JSX.Element => {
   const { highContrast, locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
   const { t } = useTranslation()
@@ -182,7 +181,6 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
 
 BUCDetail.propTypes = {
   buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType,
   className: PT.string
 }
 

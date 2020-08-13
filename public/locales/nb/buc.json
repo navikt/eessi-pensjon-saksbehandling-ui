@@ -95,6 +95,7 @@
   "error-uniqueSed"          : "Det er allerede sendt en {{sed}} i denne BUC-en. Det er ikke lov å opprette flere SED-er i denne BUC-en.",
 
   "form-avdod"                        : "Avdød",
+  "form-areYouSureDeleteComment"      : "Er du sikker på at du vil slette kommentaren?",
   "form-BUCtools"                     : "Verktøy",
   "form-P5000-warning"                : "Det finnes tilleggsperioder uten start- og sluttdato i denne P5000. Disse periodene finner du i P5000 som er lagret i dokumentoversikten.",
   "form-actions"                      : "Aksjoner",

@@ -329,7 +329,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         <WidgetDiv>
           <BUCDetail
             buc={buc!}
-            bucInfo={bucInfo}
           />
           <VerticalSeparatorDiv />
           <BUCTools

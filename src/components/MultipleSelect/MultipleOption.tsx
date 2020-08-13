@@ -13,7 +13,7 @@ const OptionCheckbox = styled(Checkbox)`
    }
    label {
       &:hover {
-       color: ${({theme}) => theme[themeKeys.INVERTED_FONT_COLOR]} !important;
+       color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]} !important;
      }
    }
 `

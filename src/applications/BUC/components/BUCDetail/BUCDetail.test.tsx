@@ -46,8 +46,6 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('#a-buc-c-bucdetail__props-creator-id').render().text()).toEqual('NAVAT07')
     expect(wrapper.find('#a-buc-c-bucdetail__props-startDate-id').render().text()).toEqual(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
     expect(wrapper.find('#a-buc-c-bucdetail__props-status-id').render().text()).toEqual('ui:' + buc.status)
-    expect(wrapper.find('#a-buc-c-bucdetail__props-tags-id').render().text()).toEqual('buc:tag-vip')
-    expect(wrapper.find('#a-buc-c-bucdetail__props-comment-id').render().text()).toEqual(bucInfo.comment)
     expect(wrapper.exists('.a-buc-c-bucdetail__institutions')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucdetail__institutions').hostNodes().render().text()).toEqual(['NAVAT07', 'DEMO001', 'DEMO001', 'DEMO001'].join(''))
   })

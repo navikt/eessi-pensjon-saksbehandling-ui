@@ -1,23 +1,25 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
+import Trashcan from 'assets/icons/Trashcan'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import {
   HighContrastKnapp,
-  HighContrastModal, HighContrastPanel,
+  HighContrastModal,
+  HighContrastPanel,
   HighContrastTextArea,
-  VerticalSeparatorDiv
+  VerticalSeparatorDiv,
+  HighContrastTabs
 } from 'components/StyledComponents'
-import { Buc, BucInfo, BucsInfo, SedContentMap, Seds, Tag, Tags, ValidBuc } from 'declarations/buc'
+import { Buc, BucInfo, BucsInfo, Comment, Comments, SedContentMap, Seds, Tag, Tags, ValidBuc } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
-import Tabs from 'nav-frontend-tabs'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -78,28 +80,25 @@ const PaddedTabContent = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
 `
-const HighContrastTabs = styled(Tabs)`
-  .nav-frontend-tabs__tab-inner--aktiv {
-    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-    background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
-    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-    border-style: solid;
-    border-color: ${({ theme }) => theme[themeKeys.MAIN_BBORDER_COLOR]};
-    border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-    border-bottom-style: solid;
-    border-bottom-color: white;
-  }
-  .nav-frontend-tabs__tab-inner {
-    color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
-    background: none;
-  }
+const CommentDiv = styled.div`
+  border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-bottom-style: solid;
+  border-bottom-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
 `
+const RemoveComment = styled.div`
+  cursor: pointer;
+`
+
 const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, onTagChange
 }: BUCToolsProps): JSX.Element => {
   const { t } = useTranslation()
-  const [comment, setComment] = useState<string | null | undefined >(bucInfo ? bucInfo.comment : '')
-  const [originalComment, setOriginalComment] = useState<string | null | undefined >(bucInfo ? bucInfo.comment : '')
+  const [comment, setComment] = useState< string | null | undefined >('')
+  const [originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
   const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
@@ -110,6 +109,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   })) : [])
   const [activeTab, setActiveTab] = useState<number>(0)
   const { featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
+  const _theme = highContrast ? themeHighContrast : theme
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -177,17 +177,45 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onSaveButtonClick = (): void => {
-    if (originalComment !== comment) {
-      standardLogger('buc.edit.tools.comment.textarea', { comment: comment })
-      setOriginalComment(comment)
+    standardLogger('buc.edit.tools.comment.textarea', { comment: comment })
+
+    let newOriginalComments: string | Comments = originalComments ? _.cloneDeep(originalComments) : []
+    if (_.isString(newOriginalComments)) {
+      newOriginalComments = [{ value: newOriginalComments }]
     }
+
+    const newComment: Comment = {
+      value: comment!
+    }
+    if (comment) {
+      newOriginalComments!.push(newComment)
+      setOriginalComments(newOriginalComments)
+      setComment('')
+    }
+
     dispatch(saveBucsInfo({
       bucsInfo: bucsInfo!,
       aktoerId: aktoerId,
       tags: tags.map(tag => tag.value),
-      comment: comment,
+      comment: newOriginalComments,
       buc: buc as ValidBuc
     }))
+  }
+
+  const onDeleteComment = (i: number): void => {
+    if (window.confirm(t('buc:form-areYouSureDeleteComment'))) {
+      const newOriginalComments: Comments = _.cloneDeep(originalComments) as Comments
+      newOriginalComments.splice(i, 1)
+      setOriginalComments(newOriginalComments)
+
+      dispatch(saveBucsInfo({
+        bucsInfo: bucsInfo!,
+        aktoerId: aktoerId,
+        tags: tags.map(tag => tag.value),
+        comment: newOriginalComments,
+        buc: buc as ValidBuc
+      }))
+    }
   }
 
   const onModalClose = () => {
@@ -223,8 +251,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     label: t('buc:form-commentForBUC'),
     key: 'comments'
   }])
+
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <ThemeProvider theme={_theme}>
       <BUCToolsPanel
         data-testid='a-buc-c-buctools__panel-id'
         className={className}
@@ -232,7 +261,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         <>
           <HighContrastTabs
             tabs={tabs}
-            onChange={(e, i) => { setActiveTab(i) }}
+            onChange={(e: any, i: number) => { setActiveTab(i) }}
           />
           <PaddedTabContent>
             {featureToggles && featureToggles.P5000_VISIBLE && tabs[activeTab].key === 'P5000' && (
@@ -257,7 +286,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             {tabs[activeTab].key === 'tags' && (
               <>
                 <VerticalSeparatorDiv data-size='0.5' />
-                { tags && !_.isEmpty(tags) && (
+                {tags && !_.isEmpty(tags) && (
                   <>
                     <dt>
                       <Element>
@@ -292,16 +321,28 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             {tabs[activeTab].key === 'comments' && (
               <>
                 <VerticalSeparatorDiv data-size='0.5' />
-                <dt>
-                  <Element>
-                    {t('ui:comment')}:
-                  </Element>
-                </dt>
-                <dd>
+                <Element>
+                  {t('ui:comment')}
+                </Element>
+
+                {originalComments ? (originalComments as Comments).map((comment, i) => (
+                  <CommentDiv key={i}>
+                    <Normaltekst>
+                      {comment.value}
+                    </Normaltekst>
+                    <RemoveComment>
+                      <Trashcan
+                        width={20}
+                        color={_theme[themeKeys.MAIN_INTERACTIVE_COLOR]}
+                        onClick={() => onDeleteComment(i)}
+                      />
+                    </RemoveComment>
+                  </CommentDiv>
+                )) : (
                   <Normaltekst>
-                    {originalComment || t('ui:noCommentsYet')}
+                    {t('ui:noCommentsYet')}
                   </Normaltekst>
-                </dd>
+                )}
                 <VerticalSeparatorDiv data-size='0.5' />
                 <TextArea
                   id='a-buc-c-buctools__comment-textarea-id'
@@ -313,9 +354,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 <HighContrastKnapp
                   data-id='a-buc-c-buctools__save-button-id'
                   disabled={loading.savingBucsInfo}
+                  spinner={loading.savingBucsInfo}
                   onClick={onSaveButtonClick}
                 >
-                  {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
+                  {loading.savingBucsInfo ? t('ui:saving') : t('ui:add')}
                 </HighContrastKnapp>
               </>
             )}

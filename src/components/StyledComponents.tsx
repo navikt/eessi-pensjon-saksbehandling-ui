@@ -6,6 +6,7 @@ import Panel from 'nav-frontend-paneler'
 import { Input, Textarea } from 'nav-frontend-skjema'
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { themeKeys } from 'nav-styled-component-theme'
+import Tabs from 'nav-frontend-tabs'
 import styled from 'styled-components'
 
 export const Row = styled.div`
@@ -90,6 +91,22 @@ export const HighContrastLink = styled(Lenke)`
   svg {
     fill: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
     stroke: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
+  }
+`
+export const HighContrastTabs = styled(Tabs)`
+  .nav-frontend-tabs__tab-inner--aktiv {
+    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+    background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_BBORDER_COLOR]};
+    border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-bottom-style: solid;
+    border-bottom-color: white;
+  }
+  .nav-frontend-tabs__tab-inner {
+    color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    background: none;
   }
 `
 export const HighContrastTextArea = styled(Textarea)`

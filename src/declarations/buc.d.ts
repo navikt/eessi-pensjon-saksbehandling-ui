@@ -128,10 +128,16 @@ export type Buc = ValidBuc | ErrorBuc
 
 export type Bucs = {[caseId: string]: Buc}
 
+export interface Comment {
+  value: string
+}
+
+export type Comments = Array<Comment>
+
 export interface BucInfo {
   avdod ?: string
   tags?: Array<string> | null
-  comment?: string | null
+  comment?: Comments | string | null
 }
 
 export interface BucsInfo {
