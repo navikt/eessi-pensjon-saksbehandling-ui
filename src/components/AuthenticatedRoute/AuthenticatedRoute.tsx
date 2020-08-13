@@ -32,7 +32,7 @@ export interface AuthenticatedRouteSelector {
   userRole: string | undefined;
 }
 
-const AuthenticatedRouteDiv = styled.div`
+const RouteDiv = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -95,9 +95,9 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
 
   if (!mounted) {
     return (
-      <AuthenticatedRouteDiv>
+      <RouteDiv>
         <WaitingPanel />
-      </AuthenticatedRouteDiv>
+      </RouteDiv>
     )
   }
 

@@ -487,7 +487,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!_avdodfnr && bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod) {
       const fnr = bucsInfo.bucs[currentBuc!].avdod!
       setAvdodfnr(fnr)
-      setAvdod(_.find(personAvdods, (p => p.fnr === fnr)))
+      setAvdod(_.find(personAvdods, p => p.fnr === fnr))
     }
   }, [bucsInfo, _avdodfnr, currentBuc, personAvdods])
 
@@ -626,8 +626,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   {_avdod?.fornavn +
                   (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
                   (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
-                  (' (' + _avdod?.fnr + ')')
-                  }
+                  (' (' + _avdod?.fnr + ')')}
                 </span>
               </FlexDiv>
               <VerticalSeparatorDiv />

@@ -449,7 +449,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       newSed.attachments = []
 
       const sender = (action as ActionWithPayload).context.buc.creator
-      let participants = (action as ActionWithPayload).context.sed.institutions.map((inst: any) => {
+      const participants = (action as ActionWithPayload).context.sed.institutions.map((inst: any) => {
         return {
           role: 'Receiver',
           organisation: {

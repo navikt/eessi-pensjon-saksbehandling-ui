@@ -343,41 +343,41 @@ const BUCStart: React.FC<BUCStartProps> = ({
             <VerticalSeparatorDiv />
             {_buc === 'P_BUC_02' && (
               <>
-              {personAvdods && personAvdods.length > 1 && (
-                <>
-                  <label className='skjemaelement__label'>
-                    {t('buc:form-avdod')}
-                  </label>
-                  <Select
-                    highContrast={highContrast}
-                    data-testid='a-buc-c-bucstart__avdod-select-id'
-                    isSearchable
-                    placeholder={t('buc:form-chooseAvdod')}
-                    onChange={onAvdodChange}
-                    options={renderAvdodOptions(personAvdods)}
-                    styles={{
-                      control: (styles: any) => ({
-                        ...styles,
-                        borderColor: '1px solid ' + theme.navGra60
-                      })
-                    }}
-                  />
-                  {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
-                </>
-              )}
-              {personAvdods && personAvdods.length === 1 && (
-                <FlexDiv>
-                  <label className='skjemaelement__label'>
-                    {t('buc:form-avdod')}
-                  </label>
-                  :
-                  <Normaltekst>
-                    {_avdod}
-                  </Normaltekst>
-                </FlexDiv>
-              )}
-            </>
-          )}
+                {personAvdods && personAvdods.length > 1 && (
+                  <>
+                    <label className='skjemaelement__label'>
+                      {t('buc:form-avdod')}
+                    </label>
+                    <Select
+                      highContrast={highContrast}
+                      data-testid='a-buc-c-bucstart__avdod-select-id'
+                      isSearchable
+                      placeholder={t('buc:form-chooseAvdod')}
+                      onChange={onAvdodChange}
+                      options={renderAvdodOptions(personAvdods)}
+                      styles={{
+                        control: (styles: any) => ({
+                          ...styles,
+                          borderColor: '1px solid ' + theme.navGra60
+                        })
+                      }}
+                    />
+                    {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
+                  </>
+                )}
+                {personAvdods && personAvdods.length === 1 && (
+                  <FlexDiv>
+                    <label className='skjemaelement__label'>
+                      {t('buc:form-avdod')}
+                    </label>
+                    :
+                    <Normaltekst>
+                      {_avdod}
+                    </Normaltekst>
+                  </FlexDiv>
+                )}
+              </>
+            )}
           </Column>
           <Column>
             <VerticalSeparatorDiv data-size='2' />
