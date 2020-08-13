@@ -20,6 +20,10 @@ const Select = (props: any) => {
           ...styles,
           color: _theme[themeKeys.MAIN_FONT_COLOR]
         }),
+        indicatorSeparator: (styles: any) => ({
+          ...styles,
+          backgroundColor: _theme[themeKeys.MAIN_BORDER_COLOR]
+        }),
         menu: (styles: any) => ({
           ...styles,
           zIndex: 500

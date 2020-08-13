@@ -34,9 +34,6 @@ export interface MultipleSelectProps<T> {
 }
 
 const MultipleSelectDiv = styled.div`
-  .multipleSelect__indicator-separator {
-    background-color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-  }
   .skjemaelement__feilmelding {
     .multipleSelect__control {
       border: 1px solid ${({ theme }) => theme.redError};
@@ -118,6 +115,10 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
             singleValue: (styles: any) => ({
               ...styles,
               color: _theme[themeKeys.MAIN_FONT_COLOR]
+            }),
+            indicatorSeparator: (styles: any) => ({
+              ...styles,
+              backgroundColor: _theme[themeKeys.MAIN_BORDER_COLOR]
             }),
             menu: (styles: any) => ({
               ...styles,

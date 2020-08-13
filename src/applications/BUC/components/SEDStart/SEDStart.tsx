@@ -203,7 +203,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           label: label.label,
           options: institutionList[landkode].filter(notHostInstitution).map((institution: RawInstitution) => {
             return {
-              label: institution.navn,
+              label: institution.akronym + ' - ' + institution.navn,
               value: institution.id
             }
           })
