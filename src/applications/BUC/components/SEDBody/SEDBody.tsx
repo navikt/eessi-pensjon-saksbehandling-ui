@@ -126,6 +126,10 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       setAttachmentsTableVisible(false)
       dispatch(resetSedAttachments())
     }
+    if (!sendingAttachments && attachmentsSent) {
+      setAttachmentsSent(false)
+      dispatch(resetSavingAttachmentJob())
+    }
   }, [attachmentsSent, dispatch, sendingAttachments])
 
   useEffect(() => {
@@ -148,26 +152,15 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       )}
       <>
         <VerticalSeparatorDiv />
-        {!attachmentsSent
-          ? sedAttachments.joark.length > 0 && (
-            <HighContrastHovedknapp
-              disabled={sendingAttachments}
-              spinner={sendingAttachments}
-              onClick={onAttachmentsSubmitted}
-            >
-              {sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
-            </HighContrastHovedknapp>
-          )
-          : (
-            <HighContrastKnapp
-              onClick={() => {
-                setAttachmentsSent(false)
-                dispatch(resetSavingAttachmentJob())
-              }}
-            >
-              {t('ui:ok')}
-            </HighContrastKnapp>
-          )}
+        {!attachmentsSent && sedAttachments.joark.length > 0 && (
+          <HighContrastHovedknapp
+            disabled={sendingAttachments}
+            spinner={sendingAttachments}
+            onClick={onAttachmentsSubmitted}
+          >
+            {sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
+          </HighContrastHovedknapp>
+        )}
       </>
       <VerticalSeparatorDiv />
       {canHaveAttachments && (
