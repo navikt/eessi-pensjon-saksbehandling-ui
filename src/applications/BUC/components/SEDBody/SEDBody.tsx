@@ -102,6 +102,10 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     setSedAttachments(newFiles)
   }
 
+  const onAttachmentsChanged = (files: AttachedFiles) => {
+    setSedAttachments(files)
+  }
+
   const onAttachmentsSubmitted = () => {
     setSendingAttachments(true)
     setAttachmentsTableVisible(false)
@@ -139,7 +143,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         <SEDAttachmentsTable
           attachments={sedAttachments}
           highContrast={highContrast}
-          onJoarkAttachmentsChanged={onJoarkAttachmentsChanged}
+          onAttachmentsChanged={onAttachmentsChanged}
         />
       )}
       <>

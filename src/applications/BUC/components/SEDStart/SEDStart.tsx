@@ -381,6 +381,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
   }
 
+  const onAttachmentsChanged = (files: AttachedFiles) => {
+    setSedAttachments(files)
+  }
+
   const bucHasSedsWithAtLeastOneInstitution: Function = (): boolean => {
     if (buc.seds) {
       return _(buc.seds).find(sed => {
@@ -695,7 +699,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <SEDAttachmentsTable
                 highContrast={highContrast}
                 attachments={sedAttachments}
-                onJoarkAttachmentsChanged={onJoarkAttachmentsChanged}
+                onAttachmentsChanged={onAttachmentsChanged}
               />
             </>
           )}

@@ -13,7 +13,7 @@ import TableSorter, { Item } from 'tabell'
 export interface SEDAttachmentsTableProps {
   attachments: AttachedFiles
   highContrast: boolean,
-  onJoarkAttachmentsChanged ?: (joarkFiles: any) => void
+  onAttachmentsChanged ?: (files: any) => void
 }
 
 export interface SEDAttachmentsTableRow<T> extends Item {
@@ -25,7 +25,7 @@ export interface SEDAttachmentsTableRow<T> extends Item {
 export type SEDAttachmentsTableRows = Array<SEDAttachmentsTableRow<JoarkFile | BUCAttachment>>
 
 const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
-  attachments = {}, highContrast = false, onJoarkAttachmentsChanged
+  attachments = {}, highContrast = false, onAttachmentsChanged
 }: SEDAttachmentsTableProps): JSX.Element => {
   const items: SEDAttachmentsTableRows = []
   const { t } = useTranslation()
@@ -44,12 +44,16 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
     })
   })
 
-  const handleDelete = (itemToDelete: SEDAttachmentsTableRow<JoarkFile>, itemsOnTable: JoarkFiles) => {
-    const newJoarkAttachments: JoarkFiles = _.reject(itemsOnTable, (att: JoarkFile) => {
+  const handleDelete = (itemToDelete: SEDAttachmentsTableRow<JoarkFile>, contextAttachments: AttachedFiles) => {
+
+    const newJoarkAttachments: JoarkFiles = _.reject(contextAttachments.joark as JoarkFiles, (att: JoarkFile) => {
       return itemToDelete.value.dokumentInfoId === att.dokumentInfoId
     })
-    if (onJoarkAttachmentsChanged) {
-      onJoarkAttachmentsChanged(newJoarkAttachments)
+    if (onAttachmentsChanged) {
+      onAttachmentsChanged({
+        ...contextAttachments,
+        joark: newJoarkAttachments
+      })
     }
   }
 
@@ -69,7 +73,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
       sortable={false}
       searchable={false}
       selectable={false}
-      context={{ joarkAttachments: attachments.joark }}
+      context={{ attachments: attachments }}
       columns={[
         {
           id: 'namespace',
@@ -91,7 +95,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
                   onClick={(e: any) => {
                     e.preventDefault()
                     e.stopPropagation()
-                    handleDelete(item, context.joarkAttachments)
+                    handleDelete(item, context.attachments)
                   }}
                 >
                   <Trashcan color={_theme[themeKeys.MAIN_INTERACTIVE_COLOR]} />
