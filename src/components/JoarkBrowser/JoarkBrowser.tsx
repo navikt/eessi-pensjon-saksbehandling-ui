@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
 import Modal from 'components/Modal/Modal'
 import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { BUCAttachments } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import { JoarkFile, JoarkFileWithContent } from 'declarations/joark'
 import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
@@ -36,6 +37,7 @@ const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector
 })
 
 export interface JoarkBrowserProps {
+  disabledFiles: BUCAttachments
   files: Array<JoarkFile | JoarkFileWithContent>
   onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void
   onPreviewFile?: (f: JoarkFileWithContent) => void
@@ -56,7 +58,7 @@ const Buttons = styled.div`
 `
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
-  files = [], onFilesChange, onPreviewFile, id
+  disabledFiles = [], files = [], onFilesChange, onPreviewFile, id
 }: JoarkBrowserProps): JSX.Element => {
   const { aktoerId, highContrast, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector =
     useSelector<State, JoarkBrowserSelector>(mapState)
@@ -175,6 +177,9 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       journalpostId: file.journalpostId,
       variant: file.variant
     }) !== undefined
+    const disabled = _.find(disabledFiles, {
+      fileName: file.variant.filnavn
+    }) !== undefined
     return {
       key: file.journalpostId + '-' + file.dokumentInfoId + '-' + file.variant.variantformat + '-' + selected,
       name: file.tittel || '-',
@@ -184,7 +189,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       variant: file.variant,
       dokumentInfoId: file.dokumentInfoId,
       journalpostId: file.journalpostId,
-      selected: selected
+      selected: selected,
+      disabled: disabled
     }
   }) : []
 

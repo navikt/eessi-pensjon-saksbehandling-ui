@@ -45,7 +45,6 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
   })
 
   const handleDelete = (itemToDelete: SEDAttachmentsTableRow<JoarkFile>, contextAttachments: AttachedFiles) => {
-
     const newJoarkAttachments: JoarkFiles = _.reject(contextAttachments.joark as JoarkFiles, (att: JoarkFile) => {
       return itemToDelete.value.dokumentInfoId === att.dokumentInfoId
     })

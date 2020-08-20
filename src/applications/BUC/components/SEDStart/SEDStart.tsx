@@ -770,6 +770,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 <>
                   <JoarkBrowser
                     id='newSed'
+                    disabledFiles={sedAttachments.sed as BUCAttachments}
                     files={sedAttachments.joark as JoarkFiles}
                     onFilesChange={onJoarkAttachmentsChanged}
                   />

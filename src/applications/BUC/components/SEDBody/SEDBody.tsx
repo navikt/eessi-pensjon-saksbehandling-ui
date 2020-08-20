@@ -203,6 +203,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         <>
           <JoarkBrowser
             id={sed.id}
+            disabledFiles={sedAttachments.sed as BUCAttachments}
             files={sedAttachments.joark as JoarkFiles}
             onFilesChange={onJoarkAttachmentsChanged}
           />
