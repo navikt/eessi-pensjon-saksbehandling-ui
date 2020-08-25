@@ -27,6 +27,7 @@ export interface MultipleSelectProps<T> {
   id ?: string
   isLoading?: boolean
   label: string | JSX.Element
+  menuPortalTarget ?: any,
   onSelect?: (e: ValueType<any>) => void
   options?: Array<T>
   placeholder?: JSX.Element | string
@@ -44,7 +45,7 @@ const MultipleSelectDiv = styled.div`
 const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
   ariaLabel, className, creatable = false, disabled = false, error,
   highContrast = false, hideSelectedOptions = false,
-  id, isLoading = false, label, onSelect, options = [], placeholder, values = []
+  id, isLoading = false, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
 }: MultipleSelectProps<any>): JSX.Element => {
   const [_values, setValues] = useState<Array<any>>(values)
   const _theme = highContrast ? themeHighContrast : theme
@@ -75,6 +76,7 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
           disabled={disabled}
           isMulti
           isLoading={isLoading}
+          menuPortalTarget={menuPortalTarget || document.body}
           animatedComponents
           closeMenuOnSelect={false}
           value={_values}

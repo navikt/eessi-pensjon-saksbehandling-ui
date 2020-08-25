@@ -350,6 +350,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                     </label>
                     <Select
                       highContrast={highContrast}
+                      menuPortalTarget={document.body}
                       data-testid='a-buc-c-bucstart__avdod-select-id'
                       isSearchable
                       placeholder={t('buc:form-chooseAvdod')}
@@ -382,6 +383,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <Column>
             <VerticalSeparatorDiv data-size='2' />
             <MultipleSelect
+              menuPortalTarget={document.body}
               highContrast={highContrast}
               ariaLabel={t('buc:form-tagsForBUC')}
               label={t('buc:form-tagsForBUC')}
