@@ -651,6 +651,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 aria-describedby='help-country'
                 value={countryValueList}
                 hideSelectedOptions={false}
+                closeMenuOnSelect={false}
                 onOptionSelected={onCountriesChange}
                 options={countryObjectList}
               />
