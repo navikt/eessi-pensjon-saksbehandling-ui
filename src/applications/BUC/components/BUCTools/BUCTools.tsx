@@ -136,7 +136,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         label: t('buc:' + tag)
       })))
     }
-  }, [tags, bucInfo])
+  }, [bucInfo, t, tags])
 
   const getP5000 = useCallback(() => {
     if (!buc.seds) {
