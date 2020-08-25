@@ -96,6 +96,7 @@ const RemoveComment = styled.div`
 const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, onTagChange
 }: BUCToolsProps): JSX.Element => {
+
   const { t } = useTranslation()
   const [comment, setComment] = useState< string | null | undefined >('')
   const [originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
@@ -103,10 +104,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
   const [timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
-  const [tags, setTags] = useState<Tags>(bucInfo && bucInfo.tags ? bucInfo.tags.map((tag: string) => ({
-    value: tag,
-    label: t('buc:' + tag)
-  })) : [])
+  const [tags, setTags] = useState<Tags | undefined>(undefined)
+
+
   const [activeTab, setActiveTab] = useState<number>(0)
   const { featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const _theme = highContrast ? themeHighContrast : theme
@@ -126,6 +126,17 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       })))
     }
   }, [t, allTags, tagList])
+
+  useEffect(() => {
+    console.log(bucInfo, tags)
+    if (bucInfo && bucInfo.tags && tags === undefined) {
+      console.log('sdfv')
+      setTags(bucInfo.tags.map((tag: string) => ({
+        value: tag,
+        label: t('buc:' + tag)
+      })))
+    }
+  }, [tags, bucInfo])
 
   const getP5000 = useCallback(() => {
     if (!buc.seds) {
@@ -196,7 +207,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     dispatch(saveBucsInfo({
       bucsInfo: bucsInfo!,
       aktoerId: aktoerId,
-      tags: tags.map(tag => tag.value),
+      tags: tags ? tags.map(tag => tag.value) : [],
       comment: newOriginalComments,
       buc: buc as ValidBuc
     }))
@@ -211,7 +222,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
         aktoerId: aktoerId,
-        tags: tags.map(tag => tag.value),
+        tags: tags ? tags.map(tag => tag.value) : [],
         comment: newOriginalComments,
         buc: buc as ValidBuc
       }))
@@ -286,6 +297,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             {tabs[activeTab].key === 'tags' && (
               <>
                 <VerticalSeparatorDiv data-size='0.5' />
+                <Normaltekst>
+                  {t('buc:form-tagsForBUC-description')}
+                </Normaltekst>
+                <VerticalSeparatorDiv data-size='0.5' />
                 {tags && !_.isEmpty(tags) && (
                   <>
                     <dt>
@@ -301,9 +316,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   </>
                 )}
                 <VerticalSeparatorDiv data-size='0.5' />
-                <Normaltekst>
-                  {t('buc:form-tagsForBUC-description')}
-                </Normaltekst>
                 <MultipleSelect
                   highContrast={highContrast}
                   ariaLabel={t('buc:form-tagsForBUC')}
