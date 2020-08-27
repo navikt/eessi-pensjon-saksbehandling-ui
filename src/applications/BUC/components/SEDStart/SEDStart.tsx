@@ -12,6 +12,7 @@ import {
 } from 'actions/buc'
 import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
+import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
@@ -19,7 +20,6 @@ import SEDAttachmentSender, {
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import { BUCMode } from 'applications/BUC/index'
 import Alert from 'components/Alert/Alert'
-import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
@@ -690,43 +690,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               </InstitutionsDiv>
             </>
           )}
-          {sedCanHaveAttachments() && (
-            <>
-              <VerticalSeparatorDiv />
-              <label className='skjemaelement__label'>
-                {t('ui:attachments')}
-              </label>
-              <VerticalSeparatorDiv data-size='0.5' />
-              <SEDAttachmentsTable
-                highContrast={highContrast}
-                attachments={sedAttachments}
-                onAttachmentsChanged={onAttachmentsChanged}
-              />
-            </>
-          )}
-          <Column>
-            {(sendingAttachments || attachmentsSent) && sed && (
-              <SEDAttachmentSenderDiv>
-                <>
-                  <SEDAttachmentSender
-                    attachmentsError={attachmentsError}
-                    sendAttachmentToSed={_sendAttachmentToSed}
-                    payload={{
-                      aktoerId: aktoerId,
-                      rinaId: buc.caseId,
-                      rinaDokumentId: sed!.id
-                    } as SEDAttachmentPayload}
-                    onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
-                    onFinished={() => {
-                      setAttachmentsSent(true)
-                      onFinished()
-                    }}
-                  />
-                  <VerticalSeparatorDiv />
-                </>
-              </SEDAttachmentSenderDiv>
-            )}
-          </Column>
           <Column>
             <VerticalSeparatorDiv data-size='1.5' />
             <HighContrastHovedknapp
@@ -768,19 +731,47 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               </HighContrastKnapp>
               <VerticalSeparatorDiv />
               {attachmentsTableVisible && (
-                <>
-                  <JoarkBrowser
-                    id='newSed'
-                    disabledFiles={sedAttachments.sed as BUCAttachments}
-                    files={sedAttachments.joark as JoarkFiles}
-                    onFilesChange={onJoarkAttachmentsChanged}
-                  />
-                  <VerticalSeparatorDiv data-size='1.5' />
-                </>
+                <SEDAttachmentModal
+                  sedAttachments={sedAttachments}
+                  onModalClose={() => setAttachmentsTableVisible(false)}
+                  onFinishedSelection={onJoarkAttachmentsChanged}
+                />
               )}
-
             </>
           )}
+          {sedCanHaveAttachments() && (
+            <>
+              <VerticalSeparatorDiv />
+              <SEDAttachmentsTable
+                highContrast={highContrast}
+                attachments={sedAttachments}
+                onAttachmentsChanged={onAttachmentsChanged}
+              />
+            </>
+          )}
+          <Column>
+            {(sendingAttachments || attachmentsSent) && sed && (
+              <SEDAttachmentSenderDiv>
+                <>
+                  <SEDAttachmentSender
+                    attachmentsError={attachmentsError}
+                    sendAttachmentToSed={_sendAttachmentToSed}
+                    payload={{
+                      aktoerId: aktoerId,
+                      rinaId: buc.caseId,
+                      rinaDokumentId: sed!.id
+                    } as SEDAttachmentPayload}
+                    onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
+                    onFinished={() => {
+                      setAttachmentsSent(true)
+                      onFinished()
+                    }}
+                  />
+                  <VerticalSeparatorDiv />
+                </>
+              </SEDAttachmentSenderDiv>
+            )}
+          </Column>
         </Column>
       </Row>
     </SEDStartDiv>

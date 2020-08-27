@@ -123,6 +123,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         sedContent: {}
       }
 
+    case types.BUC_NEWSED_RESET:
+      return {
+        ...state,
+        newlyCreatedSed: undefined,
+        newlyCreatedSedTime: undefined
+      }
+
     case types.BUC_SED_ATTACHMENTS_RESET: {
       return {
         ...state,

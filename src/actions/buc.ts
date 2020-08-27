@@ -53,6 +53,10 @@ export const resetSed: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_RESET
 })
 
+export const resetNewSed: ActionCreator<Action> = (): Action => ({
+  type: types.BUC_NEWSED_RESET
+})
+
 export const resetSedAttachments: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_ATTACHMENTS_RESET
 })

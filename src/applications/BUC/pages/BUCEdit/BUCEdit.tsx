@@ -1,5 +1,5 @@
 import { clientError } from 'actions/alert'
-import { setCurrentBuc, setCurrentSed } from 'actions/buc'
+import { resetNewSed, setCurrentBuc, setCurrentSed } from 'actions/buc'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
@@ -233,6 +233,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             href='#' onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
+              dispatch(resetNewSed())
               setMode('buclist', 'back', () => dispatch(setCurrentBuc(undefined)))
             }}
           >

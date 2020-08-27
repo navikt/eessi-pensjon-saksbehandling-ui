@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export interface SEDAttachmentModalProps {
-  sed: Sed
+  sed?: Sed
   sedAttachments: AttachedFiles
   onModalClose: () => void
   onFinishedSelection: (jf: JoarkFiles) => void
@@ -35,7 +35,7 @@ const SEDAttachmentModal = ({
         modalContent: (
           <>
             <JoarkBrowser
-              id={sed.id}
+              id={sed ? sed.id : 'newsed'}
               disabledFiles={sedAttachments.sed as BUCAttachments}
               files={files}
               onFilesChange={onFilesChange}
