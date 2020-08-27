@@ -209,6 +209,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         highContrast={highContrast}
         items={items}
         context={context}
+        itemsPerPage={30}
         compact
         searchable
         selectable

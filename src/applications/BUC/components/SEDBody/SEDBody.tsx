@@ -4,12 +4,12 @@ import {
   resetSedAttachments,
   sendAttachmentToSed
 } from 'actions/buc'
+import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import { HighContrastHovedknapp, HighContrastKnapp, VerticalSeparatorDiv } from 'components/StyledComponents'
 import { AttachedFiles, Buc, BUCAttachments, SavingAttachmentsJob, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
@@ -193,15 +193,12 @@ const SEDBody: React.FC<SEDBodyProps> = ({
           </>
         ))}
       {attachmentsTableVisible && (
-        <>
-          <JoarkBrowser
-            id={sed.id}
-            disabledFiles={sedAttachments.sed as BUCAttachments}
-            files={sedAttachments.joark as JoarkFiles}
-            onFilesChange={onJoarkAttachmentsChanged}
-          />
-          <VerticalSeparatorDiv data-size='1.5' />
-        </>
+        <SEDAttachmentModal
+          sed={sed}
+          sedAttachments={sedAttachments}
+          onModalClose={onAttachmentsPanelClose}
+          onFinishedSelection={onJoarkAttachmentsChanged}
+        />
       )}
     </SEDBodyDiv>
   )

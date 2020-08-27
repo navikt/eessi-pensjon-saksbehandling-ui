@@ -96,7 +96,6 @@ const RemoveComment = styled.div`
 const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, onTagChange
 }: BUCToolsProps): JSX.Element => {
-
   const { t } = useTranslation()
   const [comment, setComment] = useState< string | null | undefined >('')
   const [originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
@@ -105,7 +104,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
   const [timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
   const [tags, setTags] = useState<Tags | undefined>(undefined)
-
 
   const [activeTab, setActiveTab] = useState<number>(0)
   const { featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
@@ -128,9 +126,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }, [t, allTags, tagList])
 
   useEffect(() => {
-    console.log(bucInfo, tags)
     if (bucInfo && bucInfo.tags && tags === undefined) {
-      console.log('sdfv')
       setTags(bucInfo.tags.map((tag: string) => ({
         value: tag,
         label: t('buc:' + tag)

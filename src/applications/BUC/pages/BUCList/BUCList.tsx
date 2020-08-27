@@ -457,12 +457,13 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
                   </>
                 </BucExpandingPanel>
               )
-            }) : (
-              <>
+            })
+          : (
+            <>
               <VerticalSeparatorDiv data-size='2' />
               <Normaltekst>
-                  {t('buc:form-noBUCsFound')}
-                </Normaltekst>
+                {t('buc:form-noBUCsFound')}
+              </Normaltekst>
             </>
           )
         )}
