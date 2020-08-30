@@ -2,25 +2,29 @@ import LineExpandedCalendar from 'assets/icons/line-version-expanded-calendar-3'
 import LineExpandedGlobe from 'assets/icons/line-version-expanded-globe-2'
 import LineHandbag from 'assets/icons/line-version-handbag-3'
 import LineHeartCircle from 'assets/icons/line-version-heart-circle'
+import LineHome from 'assets/icons/line-version-home-3'
+import PersonIcon from 'assets/icons/line-version-person-2'
+import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { Column, HorizontalSeparatorDiv, Row } from 'components/StyledComponents'
+import { PersonAvdods } from 'declarations/buc'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
-import React from 'react'
-import PT from 'prop-types'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-import { useTranslation } from 'react-i18next'
-import CountryData from 'land-verktoy'
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi'
-import PostalCodes from 'components/PostalCodes/PostalCodes'
-import LineHome from 'assets/icons/line-version-home-3'
-import Tooltip from 'rc-tooltip'
-import styled from 'styled-components'
 import { themeKeys } from 'nav-styled-component-theme'
+import PT from 'prop-types'
+import Tooltip from 'rc-tooltip'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+
 
 export interface PersonPanelProps {
   highContrast: boolean
   locale: string
   person: any
+  personAvdods: PersonAvdods | undefined
 }
 
 const PersonPanelDiv = styled.div``
@@ -42,10 +46,12 @@ const Element = styled.div`
   display: flex;
   align-items: baseline;
 `
+
 const PersonPanel: React.FC<PersonPanelProps> = ({
   highContrast,
   locale,
-  person
+  person,
+  personAvdods
 }: PersonPanelProps): JSX.Element | null => {
   const { t } = useTranslation()
 
@@ -192,6 +198,22 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
           )}
         </MarginColumn>
       </MarginRow>
+      {personAvdods && (
+        <MarginRow>
+          {personAvdods.map(avdod => (
+            <MarginColumn>
+              <PersonIcon color={highContrast ? 'white' : 'black'} />
+              <HorizontalSeparatorDiv />
+              {renderEntity('ui:deceased',
+                avdod?.fornavn +
+              (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+              (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+              (' (' + avdod?.fnr + ')')
+              )}
+            </MarginColumn>
+          ))}
+        </MarginRow>
+      )}
     </PersonPanelDiv>
   )
 }

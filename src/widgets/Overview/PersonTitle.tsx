@@ -3,7 +3,6 @@ import mann from 'assets/icons/icon-mann.png'
 import ukjent from 'assets/icons/icon-ukjent.png'
 import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from 'components/StyledComponents'
-import { PersonAvdods } from 'declarations/buc'
 import { Person } from 'declarations/types'
 import { PersonPropType } from 'declarations/types.pt'
 import _ from 'lodash'
@@ -11,14 +10,12 @@ import moment, { Moment } from 'moment'
 import { Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import PersonLoading from 'widgets/Overview/PersonLoading'
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
   person?: Person
-  personAvdods: PersonAvdods | undefined
 }
 
 const Title = styled.div`
@@ -29,11 +26,10 @@ const Title = styled.div`
   }
 `
 const PersonTitle: React.FC<PersonTitleProps> = ({
-  gettingPersonInfo, person, personAvdods
+  gettingPersonInfo, person
 }: PersonTitleProps): JSX.Element => {
   let birthDate: Date | Moment | undefined
   let deathDate: Date | Moment | undefined
-  const { t } = useTranslation()
   if (!person || gettingPersonInfo) {
     return (
       <PersonLoading />
@@ -76,7 +72,6 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
       <HorizontalSeparatorDiv />
       <Systemtittel>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
-        {personAvdods !== undefined ? ' - ' + t('ui:deceased') + ': ' + personAvdods.length : ''}
       </Systemtittel>
     </Title>
   )

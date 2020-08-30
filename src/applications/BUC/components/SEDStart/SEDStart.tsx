@@ -33,13 +33,13 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import * as constants from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
 import {
   AttachedFiles,
   Buc,
   BUCAttachments,
   Bucs,
-  BucsInfo,
   InstitutionListMap,
   Institutions, PersonAvdod, PersonAvdods,
   RawInstitution,
@@ -51,7 +51,14 @@ import {
 import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Country, FeatureToggles, Loading, Option, Validation } from 'declarations/types'
+import {
+  AllowedLocaleString,
+  Country, FeatureToggles,
+  Loading,
+  Option,
+  PesysContext,
+  Validation
+} from 'declarations/types'
 import CountryData from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'
@@ -89,10 +96,7 @@ const SEDAttachmentSenderDiv = styled.div`
    margin-bottom: 1rem;
    width: 100%;
 `
-const FlexDiv = styled.div`
-  display: flex;
-  align-items: baseline;
-`
+
 export interface SEDStartProps {
   aktoerId?: string
   bucs: Bucs
@@ -106,7 +110,6 @@ export interface SEDStartProps {
 
 export interface SEDStartSelector {
   attachmentsError: boolean
-  bucsInfo: BucsInfo | undefined
   countryList: Array<string> | undefined
   currentSed: string | undefined
   featureToggles: FeatureToggles
@@ -115,6 +118,7 @@ export interface SEDStartSelector {
   loading: Loading
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
+  pesysContext: PesysContext | undefined
   sakId?: string
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
@@ -125,7 +129,6 @@ export interface SEDStartSelector {
 
 const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
   attachmentsError: state.buc.attachmentsError,
-  bucsInfo: state.buc.bucsInfo,
   countryList: state.buc.countryList,
   currentSed: state.buc.currentSed,
   featureToggles: state.app.featureToggles,
@@ -134,6 +137,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   loading: state.loading,
   locale: state.ui.locale,
   personAvdods: state.app.personAvdods,
+  pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   savingAttachmentsJob: state.buc.savingAttachmentsJob,
   sed: state.buc.sed,
@@ -151,8 +155,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   onSedCreated, onSedCancelled
 } : SEDStartProps): JSX.Element | null => {
   const {
-    attachmentsError, bucsInfo, countryList, currentSed, featureToggles, highContrast, institutionList,
-    loading, locale, personAvdods, sakId, sed, sedList, sedsWithAttachments, vedtakId
+    attachmentsError, countryList, currentSed, featureToggles, highContrast, institutionList,
+    loading, locale, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
 
   const { t } = useTranslation()
@@ -174,7 +178,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
 
-  const [_avdodfnr, setAvdodfnr] = /* istanbul ignore next */ useState<string | undefined>(undefined)
   const [_avdod, setAvdod] = /* istanbul ignore next */ useState<PersonAvdod | undefined>(undefined)
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
@@ -314,6 +317,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return true
   }
 
+  const onAvdodChange = (e: any) => {
+    const thisAvdod: PersonAvdod | undefined = _.find(personAvdods, (p) => p.fnr === e.value)
+    setAvdod(thisAvdod)
+  }
+  const renderAvdodOptions = (options: any) => {
+    return options?.map((el: any) => ({
+      label: el.fulltNavn + ' (' + el.fnr + ')',
+      value: el.fnr
+    })) || []
+  }
+
   const onSedChange = (e: any) => {
     const thisSed = e.value
     setSed(thisSed)
@@ -398,7 +412,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return _sed === 'P6000' || _sed === 'P7000'
   }
 
-  const sedNeedsAvdodfnr = (): boolean => {
+  const sedNeedsAvdod = (): boolean => {
     return _sed === 'P2100'
   }
 
@@ -442,8 +456,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
-      if (sedNeedsAvdodfnr()) {
-        payload.avdodfnr = _avdodfnr
+      if (sedNeedsAvdod()) {
+        payload.avdodfnr = _avdod?.fnr
       }
       if (currentSed) {
         dispatch(createReplySed(buc, payload, currentSed))
@@ -473,7 +487,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
       !loading.creatingSed && !sendingAttachments &&
       (sedNeedsVedtakId() ? _vedtakId && isNumber(_vedtakId) : true) &&
-      (sedNeedsAvdodfnr() ? _avdodfnr && isNumber(_avdodfnr) : true)
+      (sedNeedsAvdod() ? !!_avdod : true)
   }
 
   const onFinished = useCallback(() => {
@@ -486,14 +500,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setCountries([])
     onSedCreated()
   }, [dispatch, onSedCreated])
-
-  useEffect(() => {
-    if (!_avdodfnr && bucsInfo && bucsInfo.bucs && bucsInfo.bucs[currentBuc!] && bucsInfo.bucs[currentBuc!].avdod) {
-      const fnr = bucsInfo.bucs[currentBuc!].avdod!
-      setAvdodfnr(fnr)
-      setAvdod(_.find(personAvdods, p => p.fnr === fnr))
-    }
-  }, [bucsInfo, _avdodfnr, currentBuc, personAvdods])
 
   useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
@@ -559,6 +565,18 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }, [mounted, buc, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
 
+  useEffect(() => {
+    if (buc.type === 'P_BUC_02' &&
+      pesysContext === constants.VEDTAKSKONTEKST &&
+      personAvdods &&
+      personAvdods.length === 1 &&
+      !_avdod
+    ) {
+      setAvdod(personAvdods[0])
+    }
+  }, [buc, _avdod, pesysContext, personAvdods])
+
+
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
   }
@@ -618,22 +636,39 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
             </>
           )}
-          {sedNeedsAvdodfnr() && (
+          {buc.type === 'P_BUC_02' && personAvdods && (
             <>
-              <VerticalSeparatorDiv />
-              <FlexDiv>
-                <label className='skjemaelement__label'>
-                  {t('buc:form-avdod')}:
-                </label>
-                <HorizontalSeparatorDiv data-size='0.3' />
-                <span>
+              {_sed && _sed === 'P2100' && personAvdods.length > 1 && (
+                <>
+                  <label className='skjemaelement__label'>
+                    {t('buc:form-avdod')}
+                  </label>
+                  <Select
+                    highContrast={highContrast}
+                    menuPortalTarget={document.body}
+                    data-testid='a-buc-c-bucstart__avdod-select-id'
+                    isSearchable
+                    placeholder={t('buc:form-chooseAvdod')}
+                    onChange={onAvdodChange}
+                    options={renderAvdodOptions(personAvdods)}
+                  />
+                  {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
+                </>
+              )}
+              {personAvdods.length === 1 && (
+                <>
+                  <label className='skjemaelement__label'>
+                    {t('buc:form-avdod')}
+                  </label>
+                  :
+                  <Normaltekst>
                   {_avdod?.fornavn +
                   (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
                   (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
                   (' (' + _avdod?.fnr + ')')}
-                </span>
-              </FlexDiv>
-              <VerticalSeparatorDiv />
+                  </Normaltekst>
+                </>
+              )}
             </>
           )}
           {!currentSed && (

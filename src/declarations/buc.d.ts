@@ -92,6 +92,18 @@ export interface Institution {
 
 export type Institutions = Array<Institution>
 
+export interface Gjenlevende {
+  fnr: string
+}
+
+export interface Avdod {
+  fnr: string
+}
+export interface BUCSubject {
+  gjenlevende: Gjenlevende
+  advod: Avdod
+}
+
 export interface ErrorBuc {
   caseId: string | null
   readOnly ?: any
@@ -121,6 +133,7 @@ export interface ValidBuc {
   seds: Seds
   status: string
   startDate: number
+  subject?: BUCSubject
   type: string
 }
 

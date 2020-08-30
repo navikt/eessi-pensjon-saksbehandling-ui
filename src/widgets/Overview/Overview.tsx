@@ -124,7 +124,6 @@ export const Overview: React.FC<OverviewProps> = ({
             <PersonTitle
               gettingPersonInfo={gettingPersonInfo}
               person={person}
-              personAvdods={personAvdods}
             />
           )}
         >
@@ -132,6 +131,7 @@ export const Overview: React.FC<OverviewProps> = ({
             highContrast={highContrast}
             locale={locale}
             person={person}
+            personAvdods={personAvdods}
           />
         </HighContrastExpandingPanel>
       </div>

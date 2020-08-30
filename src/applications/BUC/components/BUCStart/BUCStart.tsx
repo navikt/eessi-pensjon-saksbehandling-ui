@@ -89,9 +89,6 @@ const AlertStripeDiv = styled.div`
     width: 50%;
   }
 `
-const FlexDiv = styled.div`
-  display: flex;
-`
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onBucCreated, onBucCancelled, onTagsChanged
 }: BUCStartProps): JSX.Element | null => {
@@ -102,29 +99,25 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
-  const [_avdod, setAvdod] = useState<string | undefined>(undefined)
   const [_tags, setTags] = useState<Tags>([])
-  const [showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
   const [validation, setValidation] = useState<Validation>({
     subjectAreaFail: undefined,
     bucFail: undefined
   })
+  const [showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
   const [isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods) {
-      if (personAvdods.length === 1 && !_avdod) {
-        setAvdod(personAvdods[0].fnr)
-      }
       if (personAvdods.length === 0 && !showWarningBuc) {
         setShowWarningBuc(true)
       }
     } else {
       setShowWarningBuc(false)
     }
-  }, [_buc, _avdod, showWarningBuc, pesysContext, personAvdods])
+  }, [_buc, showWarningBuc, pesysContext, personAvdods])
 
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
@@ -144,7 +137,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
         const buc: Buc = bucs![currentBuc!]
         dispatch(saveBucsInfo({
           aktoerId: aktoerId,
-          avdod: _avdod,
           bucsInfo: bucsInfo,
           tags: _tags.map(t => t.value),
           buc: buc
@@ -156,7 +148,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         onBucCreated()
       }
     }
-  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
+  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
 
   const validateSubjectArea = (subjectArea: string): boolean => {
     if (!subjectArea) {
@@ -223,10 +215,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
     validateBuc(thisBuc)
   }
 
-  const onAvdodChange = (e: any) => {
-    const thisAvdod: string = e.value
-    setAvdod(thisAvdod)
-  }
 
   const onTagsChange = (tagsList: Tags): void => {
     setTags(tagsList)
@@ -234,13 +222,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (_.isFunction(onTagsChanged)) {
       onTagsChanged(tagsList)
     }
-  }
-
-  const renderAvdodOptions = (options: any) => {
-    return options?.map((el: any) => ({
-      label: el.fulltNavn + ' (' + el.fnr + ')',
-      value: el.fnr
-    })) || []
   }
 
   const renderOptions = (options: Array<Option | string> | undefined) => {
@@ -291,9 +272,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const allowedToForward = (): boolean => {
     return _buc !== undefined &&
       _subjectArea !== undefined &&
-      (_buc !== 'P_BUC_02' || (_avdod !== undefined && _buc === 'P_BUC_02')) &&
+      (_buc !== 'P_BUC_02' || (_buc === 'P_BUC_02' && !showWarningBuc)) &&
       hasNoValidationErrors() &&
-      !showWarningBuc &&
       !loading.creatingBUC &&
       !loading.savingBucsInfo
   }
@@ -331,54 +311,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 placeholder={t('buc:form-chooseBuc')}
                 onChange={onBucChange}
                 options={renderOptions(bucList)}
-                styles={{
-                  control: (styles: any) => ({
-                    ...styles,
-                    borderColor: '1px solid ' + theme.navGra60
-                  })
-                }}
               />
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
-            <VerticalSeparatorDiv />
-            {_buc === 'P_BUC_02' && (
-              <>
-                {personAvdods && personAvdods.length > 1 && (
-                  <>
-                    <label className='skjemaelement__label'>
-                      {t('buc:form-avdod')}
-                    </label>
-                    <Select
-                      highContrast={highContrast}
-                      menuPortalTarget={document.body}
-                      data-testid='a-buc-c-bucstart__avdod-select-id'
-                      isSearchable
-                      placeholder={t('buc:form-chooseAvdod')}
-                      onChange={onAvdodChange}
-                      options={renderAvdodOptions(personAvdods)}
-                      styles={{
-                        control: (styles: any) => ({
-                          ...styles,
-                          borderColor: '1px solid ' + theme.navGra60
-                        })
-                      }}
-                    />
-                    {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
-                  </>
-                )}
-                {personAvdods && personAvdods.length === 1 && (
-                  <FlexDiv>
-                    <label className='skjemaelement__label'>
-                      {t('buc:form-avdod')}
-                    </label>
-                    :
-                    <Normaltekst>
-                      {_avdod}
-                    </Normaltekst>
-                  </FlexDiv>
-                )}
-              </>
-            )}
           </Column>
           <Column>
             <VerticalSeparatorDiv data-size='2' />

@@ -1266,6 +1266,14 @@ const mockBuc = [
     status: 'open',
     startDate: 1571731760978,
     lastUpdate: 1571731814000,
+    subject: {
+      gjenlevende: {
+        fnr: '12345678903'
+      },
+      avdod: {
+        fnr: '12345678901'
+      }
+    },
     institusjon: [
       {
         country: 'NO',
