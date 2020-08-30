@@ -4,7 +4,15 @@ import ProblemCircleIcon from 'assets/icons/report-problem-circle'
 import classNames from 'classnames'
 import { Column, HorizontalSeparatorDiv, Row } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
+import {
+  Buc,
+  BucInfo,
+  Institution,
+  InstitutionListMap,
+  InstitutionNames, PersonAvdod,
+  PersonAvdods,
+  ValidBuc
+} from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, RinaUrl } from 'declarations/types'
@@ -116,6 +124,7 @@ export interface BUCHeaderSelector {
   highContrast: boolean
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
+  personAvdods: PersonAvdods | undefined
   rinaUrl: RinaUrl | undefined
   gettingBucDeltakere: boolean
 }
@@ -125,6 +134,7 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
   highContrast: state.ui.highContrast,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
+  personAvdods: state.app.personAvdods,
   rinaUrl: state.buc.rinaUrl,
   gettingBucDeltakere: state.loading.gettingBucDeltakere
 })
@@ -133,7 +143,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo, newBuc, onBUCEdit
 }: BUCHeaderProps): JSX.Element => {
   const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
-  const { featureToggles, highContrast, institutionNames, locale, rinaUrl }: BUCHeaderSelector =
+  const { featureToggles, highContrast, institutionNames, locale, personAvdods, rinaUrl }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const [flagSize, setFlagSize] = useState<string>('XL')
@@ -174,6 +184,15 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       window.open(rinaUrl + buc.caseId, 'rinaWindow')
     }
   }
+
+  const renderAvdod = (avdod: PersonAvdod | undefined) => (
+    <Normaltekst>
+      {avdod?.fornavn +
+      (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+      (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+      (' (' + avdod?.fnr + ')')}
+    </Normaltekst>
+  )
 
   const onResize = (width: number) => {
     if (width > 768) {
@@ -232,6 +251,18 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 institutions={[buc.creator!]}
               />
             </OwnerDiv>
+            {buc.type === 'P_BUC_02' && (buc as ValidBuc).subject && (
+              <OwnerDiv
+                data-testid='a-buc-c-bucheader__avdod'
+              >
+                <RowText>
+                  {t('ui:deceased') + ': '}
+                </RowText>
+                {renderAvdod(_.find(personAvdods, (p =>
+                  p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
+                )))}
+              </OwnerDiv>
+            )}
             {buc.caseId && (
               <div
                 data-testid='a-buc-c-bucheader__case'

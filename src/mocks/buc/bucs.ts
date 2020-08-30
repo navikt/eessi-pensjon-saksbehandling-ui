@@ -1268,10 +1268,10 @@ const mockBuc = [
     lastUpdate: 1571731814000,
     subject: {
       gjenlevende: {
-        fnr: '12345678903'
+        fnr: '12345678901'
       },
       avdod: {
-        fnr: '12345678901'
+        fnr: '12345678902'
       }
     },
     institusjon: [

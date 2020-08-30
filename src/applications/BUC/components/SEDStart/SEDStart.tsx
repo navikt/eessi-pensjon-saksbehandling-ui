@@ -96,6 +96,9 @@ const SEDAttachmentSenderDiv = styled.div`
    margin-bottom: 1rem;
    width: 100%;
 `
+const FlexDiv = styled.div`
+   display: flex;
+`
 
 export interface SEDStartProps {
   aktoerId?: string
@@ -459,6 +462,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsAvdod()) {
         payload.avdodfnr = _avdod?.fnr
       }
+      if (buc.type === 'P_BUC_02') {
+        payload.subject = (buc as ValidBuc).subject
+      }
       if (currentSed) {
         dispatch(createReplySed(buc, payload, currentSed))
       } else {
@@ -656,18 +662,18 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 </>
               )}
               {personAvdods.length === 1 && (
-                <>
+                <FlexDiv>
                   <label className='skjemaelement__label'>
-                    {t('buc:form-avdod')}
+                    {t('buc:form-avdod')}:
                   </label>
-                  :
+                  <HorizontalSeparatorDiv/>
                   <Normaltekst>
                   {_avdod?.fornavn +
                   (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
                   (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
                   (' (' + _avdod?.fnr + ')')}
                   </Normaltekst>
-                </>
+                </FlexDiv>
               )}
             </>
           )}

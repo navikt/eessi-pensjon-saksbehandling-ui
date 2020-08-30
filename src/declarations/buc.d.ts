@@ -101,7 +101,7 @@ export interface Avdod {
 }
 export interface BUCSubject {
   gjenlevende: Gjenlevende
-  advod: Avdod
+  avdod: Avdod
 }
 
 export interface ErrorBuc {

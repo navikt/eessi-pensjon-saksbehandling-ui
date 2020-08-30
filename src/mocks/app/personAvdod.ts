@@ -6,7 +6,7 @@ export default () => {
   }
   if (whichOne === 1) {
     return [{
-      fnr: '12345678901',
+      fnr: '12345678902',
       aktoerId: '2865434801175',
       fulltNavn: 'BLYANT FRODIG',
       fornavn: 'FRODIG',
