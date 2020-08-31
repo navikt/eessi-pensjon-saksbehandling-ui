@@ -185,14 +185,26 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     }
   }
 
-  const renderAvdod = (avdod: PersonAvdod | undefined) => (
-    <Normaltekst>
-      {avdod?.fornavn +
-      (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-      (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-      (' (' + avdod?.fnr + ')')}
-    </Normaltekst>
-  )
+  const renderAvdod = (avdod: PersonAvdod | undefined) => {
+    if (!avdod) {
+      return null
+    }
+    return (
+      <OwnerDiv
+        data-testid='a-buc-c-bucheader__avdod'
+      >
+        <RowText>
+          {t('ui:deceased') + ': '}
+        </RowText>
+        <Normaltekst>
+          {avdod?.fornavn +
+          (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+          (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+          (' (' + avdod?.fnr + ')')}
+        </Normaltekst>
+      </OwnerDiv>
+    )
+  }
 
   const onResize = (width: number) => {
     if (width > 768) {
@@ -251,18 +263,10 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 institutions={[buc.creator!]}
               />
             </OwnerDiv>
-            {buc.type === 'P_BUC_02' && (buc as ValidBuc).subject && (
-              <OwnerDiv
-                data-testid='a-buc-c-bucheader__avdod'
-              >
-                <RowText>
-                  {t('ui:deceased') + ': '}
-                </RowText>
-                {renderAvdod(_.find(personAvdods, (p =>
-                  p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
-                )))}
-              </OwnerDiv>
-            )}
+            {buc.type === 'P_BUC_02' && (buc as ValidBuc).subject &&
+              renderAvdod(_.find(personAvdods, p =>
+                p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
+              ))}
             {buc.caseId && (
               <div
                 data-testid='a-buc-c-bucheader__case'

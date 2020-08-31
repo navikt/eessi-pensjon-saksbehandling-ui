@@ -5,7 +5,7 @@ import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { Buc, BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
-import { FeatureToggles, PesysContext } from 'declarations/types'
+import { FeatureToggles, Person, PesysContext } from 'declarations/types'
 import { CountryFilter } from 'land-verktoy'
 import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
 import _ from 'lodash'
@@ -288,13 +288,14 @@ export const getInstitutionsListForBucAndCountry = (bucType: string, country: st
   })
 }
 
-export const createSed = (buc: Buc, sed: NewSedPayload): Function => {
+export const createSed = (buc: Buc, payload: NewSedPayload, person: Person): Function => {
   return call({
     url: urls.BUC_CREATE_SED_URL,
-    payload: sed,
+    payload: payload,
     context: {
       buc: buc,
-      sed: sed
+      sed: payload,
+      person: person
     },
     expectedPayload: mockCreateSed(),
     cascadeFailureError: true,
@@ -307,13 +308,14 @@ export const createSed = (buc: Buc, sed: NewSedPayload): Function => {
   })
 }
 
-export const createReplySed = (buc: Buc, sed: NewSedPayload, parentId: string): Function => {
+export const createReplySed = (buc: Buc, payload: NewSedPayload, person: Person, parentId: string): Function => {
   return call({
     url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: parentId }),
-    payload: sed,
+    payload: payload,
     context: {
       buc: buc,
-      sed: sed
+      sed: payload,
+      person: person
     },
     expectedPayload: mockCreateSed(),
     cascadeFailureError: true,

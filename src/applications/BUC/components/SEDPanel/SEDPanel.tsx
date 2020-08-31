@@ -44,8 +44,8 @@ const SEDPanelPanel = styled(HighContrastPanel)`
     line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
   &.new div:not(.etikett) {
-    background: ${({ theme }) => theme.type === 'themeHighContrast' ?
-  theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+    background: ${({ theme }) => theme.type === 'themeHighContrast'
+  ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
   &.new:hover .ekspanderbartPanel__hode,
   &.new:hover .ekspanderbartPanel__hode div:not(.etikett) {

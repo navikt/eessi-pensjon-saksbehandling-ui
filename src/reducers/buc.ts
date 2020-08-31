@@ -6,6 +6,7 @@ import {
   BUCAttachment,
   Bucs,
   BucsInfo,
+  BUCSubject,
   Institution,
   InstitutionListMap,
   InstitutionNames,
@@ -16,7 +17,8 @@ import {
   SavingAttachmentsJob,
   Sed,
   SedContentMap,
-  SedsWithAttachmentsMap
+  SedsWithAttachmentsMap,
+  ValidBuc
 } from 'declarations/buc'
 import { JoarkFile } from 'declarations/joark'
 import { RinaUrl } from 'declarations/types'
@@ -444,19 +446,23 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
+      const context: any = (action as ActionWithPayload).context
+      const payload = (action as ActionWithPayload).payload
       const now = new Date()
-      const newSed: Sed = (action as ActionWithPayload).payload
+      const newSed: Sed = {} as Sed
+
+      newSed.id = payload.id
       newSed.creationDate = now.getTime()
       newSed.displayName = ''
       newSed.firstVersion = {
         date: now.getTime(),
         id: '1'
       }
-      newSed.type = (action as ActionWithPayload).context.sed.sed
+      newSed.type = context.sed.sed
       newSed.attachments = []
 
-      const sender = (action as ActionWithPayload).context.buc.creator
-      const participants = (action as ActionWithPayload).context.sed.institutions.map((inst: any) => {
+      const sender = context.buc.creator
+      const participants = context.sed.institutions.map((inst: any) => {
         return {
           role: 'Receiver',
           organisation: {
@@ -513,6 +519,17 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         bucs[state.currentBuc!].seds!.push(newSed)
       }
 
+      if (bucs && newSed.type === 'P2100') {
+        const newSubject: BUCSubject = {
+          gjenlevende: {
+            fnr: context.person.aktoer.ident.ident
+          },
+          avdod: {
+            fnr: context.sed.avdodfnr!
+          }
+        };
+        (bucs[state.currentBuc!] as ValidBuc).subject = newSubject
+      }
       standardLogger('sed.new.create.success')
       return {
         ...state,

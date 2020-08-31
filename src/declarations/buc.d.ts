@@ -65,7 +65,7 @@ export interface Version {
 export interface Sed {
   id: string
   parentDocumentId?: string | null
-  type: strin
+  type: string
   status: string
   creationDate: number
   lastUpdate: number
@@ -169,6 +169,7 @@ export interface NewSedPayload {
   periodeInfo?: Array<Period>
   vedtakId?: string
   avdodfnr?: string
+  subject ?: BUCSubject
 }
 
 export interface RawInstitution {

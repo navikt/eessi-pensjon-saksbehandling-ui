@@ -41,7 +41,9 @@ import {
   BUCAttachments,
   Bucs,
   InstitutionListMap,
-  Institutions, PersonAvdod, PersonAvdods,
+  Institutions, NewSedPayload,
+  PersonAvdod,
+  PersonAvdods,
   RawInstitution,
   SavingAttachmentsJob,
   Sed,
@@ -53,9 +55,11 @@ import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import {
   AllowedLocaleString,
-  Country, FeatureToggles,
+  Country,
+  FeatureToggles,
   Loading,
   Option,
+  Person,
   PesysContext,
   Validation
 } from 'declarations/types'
@@ -120,6 +124,7 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
+  person: Person | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId?: string
@@ -139,6 +144,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
+  person: state.app.person,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
@@ -159,7 +165,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachmentsError, countryList, currentSed, featureToggles, highContrast, institutionList,
-    loading, locale, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
+    loading, locale, person, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
 
   const { t } = useTranslation()
@@ -447,13 +453,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const onForwardButtonClick = (e: React.MouseEvent) => {
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
-      const payload: any = {
-        sakId: sakId,
-        buc: buc.type,
-        sed: _sed,
+      const payload: NewSedPayload = {
+        sakId: sakId!,
+        buc: buc.type!,
+        sed: _sed!,
         institutions: institutions,
-        aktoerId: aktoerId,
-        euxCaseId: buc.caseId
+        aktoerId: aktoerId!,
+        euxCaseId: buc.caseId!
       }
 
       if (sedNeedsVedtakId()) {
@@ -466,9 +472,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.subject = (buc as ValidBuc).subject
       }
       if (currentSed) {
-        dispatch(createReplySed(buc, payload, currentSed))
+        dispatch(createReplySed(buc, payload, person!, currentSed))
       } else {
-        dispatch(createSed(buc, payload))
+        dispatch(createSed(buc, payload, person!))
       }
       buttonLogger(e, payload)
     }
@@ -582,7 +588,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }, [buc, _avdod, pesysContext, personAvdods])
 
-
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
   }
@@ -666,9 +671,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   <label className='skjemaelement__label'>
                     {t('buc:form-avdod')}:
                   </label>
-                  <HorizontalSeparatorDiv/>
+                  <HorizontalSeparatorDiv />
                   <Normaltekst>
-                  {_avdod?.fornavn +
+                    {_avdod?.fornavn +
                   (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
                   (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
                   (' (' + _avdod?.fnr + ')')}

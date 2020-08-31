@@ -215,7 +215,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
     validateBuc(thisBuc)
   }
 
-
   const onTagsChange = (tagsList: Tags): void => {
     setTags(tagsList)
     standardLogger('buc.new.tags.select', { tags: tagsList?.map(t => t.label) || [] })

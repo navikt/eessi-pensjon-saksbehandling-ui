@@ -19,7 +19,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-
 export interface PersonPanelProps {
   highContrast: boolean
   locale: string
@@ -201,7 +200,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       {personAvdods && (
         <MarginRow>
           {personAvdods.map(avdod => (
-            <MarginColumn>
+            <MarginColumn key={avdod?.fnr}>
               <PersonIcon color={highContrast ? 'white' : 'black'} />
               <HorizontalSeparatorDiv />
               {renderEntity('ui:deceased',
