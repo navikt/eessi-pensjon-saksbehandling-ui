@@ -160,16 +160,17 @@ export interface BucsInfo {
 }
 
 export interface NewSedPayload {
-  sakId: string
-  buc: string
-  sed: string
-  institutions: Institutions
   aktoerId: string
-  euxCaseId: string
-  periodeInfo?: Array<Period>
-  vedtakId?: string
   avdodfnr?: string
-  subject ?: BUCSubject
+  buc: string
+  euxCaseId: string
+  institutions: Institutions
+  kravDato?: string
+  periodeInfo?: Array<Period>
+  sakId: string
+  sed: string
+  subject?: BUCSubject
+  vedtakId?: string
 }
 
 export interface RawInstitution {

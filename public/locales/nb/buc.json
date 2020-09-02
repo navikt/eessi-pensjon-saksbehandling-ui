@@ -124,6 +124,8 @@
   "form-filterSED"                    : "Filtrer SED på navn, mottaker",
   "form-fnr"                          : "Fødselsnummer",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
+  "form-kravDato"                     : "Krav dato",
+  "form-kravDatoPlaceholder"          : "ÅÅÅÅ-MM-DD",
   "form-labelP5000"                   : "P5000",
   "form-lastNonEmpty5"                : "Viser kun de fem siste SED-ene som er utvekslet",
   "form-name"                         : "Navn på SED",
@@ -208,6 +210,7 @@
   "tag-inntektsavkortetGrunnytelse" : "Inntektsavkortet grunnytelse",
   "tag-avvikendeMedlemskap"         : "Avvikende medlemskap",
 
+  "validation-badKravDato"          : "Ugyldig krav dato, vennligst bruk ÅÅÅÅ-MM-DD",
   "validation-chooseAvdodfnr"       : "Velg avdød fnr",
   "validation-chooseBuc"            : "Velg en BUC",
   "validation-chooseCountry"        : "Velg et land",

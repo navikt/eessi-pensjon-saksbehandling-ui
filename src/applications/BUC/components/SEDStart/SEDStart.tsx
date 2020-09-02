@@ -200,6 +200,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
   const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
+  const [kravDato, setKravDato] = useState<string>('')
   const [mounted, setMounted] = useState<boolean>(false)
   const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
@@ -292,6 +293,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setCountries(newCountries)
       validateCountries(newCountries)
     }, [_countries, dispatch, _institutions, buc, setCountries, setInstitutions, validateCountries])
+
+  const validateKravDato = (): boolean => {
+    if (!kravDato) {
+      return true
+    }
+    if (!kravDato.match(/\d{4}-\d{2}-\d{2}/)) {
+      setValidationState('kravDato', t('buc:validation-badKravDato'))
+      return false
+    } else {
+      resetValidationState('kravDato')
+      return true
+    }
+  }
 
   const validateSed = (sed: string): boolean => {
     if (!sed) {
@@ -450,6 +464,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return institutions
   }
 
+  const resetSedForm = () => {
+    setSed(undefined)
+    dispatch(resetSed())
+    setSed(undefined)
+    setInstitutions([])
+    setCountries([])
+    setKravDato('')
+  }
+
   const onForwardButtonClick = (e: React.MouseEvent) => {
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
@@ -461,7 +484,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         aktoerId: aktoerId!,
         euxCaseId: buc.caseId!
       }
-
+      if (kravDato) {
+        payload.kravDato = kravDato
+      }
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
@@ -476,17 +501,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } else {
         dispatch(createSed(buc, payload, person!))
       }
+      resetSedForm()
       buttonLogger(e, payload)
     }
   }
 
+  const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    resetValidationState('kravDato')
+    setKravDato(e.target.value)
+  }
+
   const onCancelButtonClick = (e: React.MouseEvent) => {
     buttonLogger(e)
-    setSed(undefined)
-    dispatch(resetSed())
-    setSed(undefined)
-    setInstitutions([])
-    setCountries([])
+    resetSedForm()
     onSedCancelled()
   }
 
@@ -630,6 +657,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
             {validation.sedFail && <Normaltekst>{t(validation.sedFail)}</Normaltekst>}
           </>
+          <VerticalSeparatorDiv />
+          <HighContrastInput
+            data-testid='a-buc-c-sedstart__vedtakid-kravdato-id'
+            label={t('buc:form-kravDato')}
+            bredde='fullbredde'
+            value={kravDato || ''}
+            onChange={onKravDatoChange}
+            onBlur={validateKravDato}
+            placeholder={t('buc:form-kravDatoPlaceholder')}
+            feil={validation.kravDato ? t(validation.kravDato) : null}
+          />
           <VerticalSeparatorDiv />
           {sedNeedsVedtakId() && (
             <>
