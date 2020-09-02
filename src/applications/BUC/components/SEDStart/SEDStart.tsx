@@ -299,7 +299,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!kravDato) {
       return true
     }
-    if (!kravDato.match(/\d{4}-\d{2}-\d{2}/)) {
+    if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       setValidationState('kravDato', t('buc:validation-badKravDato'))
       return false
     } else {

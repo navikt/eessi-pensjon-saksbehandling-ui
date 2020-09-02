@@ -125,7 +125,7 @@
   "form-fnr"                          : "Fødselsnummer",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
   "form-kravDato"                     : "Krav dato",
-  "form-kravDatoPlaceholder"          : "ÅÅÅÅ-MM-DD",
+  "form-kravDatoPlaceholder"          : "DD-MM-ÅÅÅÅ",
   "form-labelP5000"                   : "P5000",
   "form-lastNonEmpty5"                : "Viser kun de fem siste SED-ene som er utvekslet",
   "form-name"                         : "Navn på SED",
