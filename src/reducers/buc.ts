@@ -281,10 +281,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       if (_.get((action as ActionWithPayload), 'context.featureToggles.P_BUC_02_VISIBLE') === false) {
         excludedBucs.push('P_BUC_02')
       }
-      if (_.get((action as ActionWithPayload), 'context.featureToggles.v2_ENABLED') === true) {
-        if (_.get((action as ActionWithPayload), 'context.pesysContext') !== constants.VEDTAKSKONTEKST) {
-          excludedBucs.push('P_BUC_02')
-        }
+      if (_.get((action as ActionWithPayload), 'context.pesysContext') !== constants.VEDTAKSKONTEKST) {
+        excludedBucs.push('P_BUC_02')
       }
       return {
         ...state,
