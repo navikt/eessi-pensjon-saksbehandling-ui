@@ -2,7 +2,11 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
-import { HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import {
+  HighContrastFlatknapp,
+  HighContrastPanel,
+  HorizontalSeparatorDiv
+} from 'components/StyledComponents'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -75,6 +79,7 @@ const SEDListStatusItemDiv = styled.div`
   align-items: flex-start;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
+  margin-top: 0.5rem;
 `
 const SEDListInstitutionsDiv = styled.div`
   flex: 3;

@@ -43,12 +43,13 @@ const SEDPanelPanel = styled(HighContrastPanel)`
     font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
     line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
-  &.new > div {
+  &.new > div,
+  &.new .ekspanderbartPanel__hode,
+  &.new .ekspanderbartPanel__hode div:not(.etikett) {
     background: ${({ theme }) => theme.type === 'themeHighContrast'
   ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
-  &.new:hover .ekspanderbartPanel__hode,
-  &.new:hover .ekspanderbartPanel__hode > div {
+  &.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
     background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
   }
 `

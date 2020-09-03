@@ -39,6 +39,7 @@ const Etikett = styled(EtikettBase)`
   }
   &.active {
     background-color: ${({ theme }) => theme[themeKeys.NAVLILLALIGHTEN60]} !important;
+    border-color: ${({ theme }) => theme[themeKeys.NAVLILLA]} !important;
   }
   &.first_sent,
   &.first_received,
