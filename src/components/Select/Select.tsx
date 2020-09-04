@@ -7,6 +7,7 @@ const Select = (props: any) => {
   return (
     <ReactSelect
       {...props}
+      isOptionDisabled={(option: any) => option.isDisabled}
       styles={{
         control: (styles: any) => ({
           ...styles,
@@ -35,13 +36,15 @@ const Select = (props: any) => {
           borderStyle: 'solid',
           backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
         }),
-        option: (styles: any, { isFocused, isSelected }) => ({
+        option: (styles: any, { isDisabled, isFocused, isSelected }) => ({
           ...styles,
           color: isFocused
             ? _theme[themeKeys.INVERTED_FONT_COLOR]
             : isSelected
               ? _theme[themeKeys.INVERTED_FONT_COLOR]
-              : _theme[themeKeys.MAIN_FONT_COLOR],
+              : isDisabled ?
+                _theme[themeKeys.MAIN_DISABLED_COLOR]
+                : _theme[themeKeys.MAIN_FONT_COLOR],
           backgroundColor: isFocused
             ? _theme[themeKeys.MAIN_FOCUS_COLOR]
             : isSelected

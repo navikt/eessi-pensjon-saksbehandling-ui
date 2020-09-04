@@ -10,11 +10,13 @@ import {
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { BUCMode } from 'applications/BUC/index'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import Select from 'components/Select/Select'
 import {
   Column,
   HighContrastFlatknapp,
   HighContrastHovedknapp,
-  HorizontalSeparatorDiv, Row,
+  HorizontalSeparatorDiv,
+  Row,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
@@ -25,13 +27,12 @@ import { AllowedLocaleString, Loading, Option, PesysContext, Validation } from '
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
+import { Normaltekst } from 'nav-frontend-typografi'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Normaltekst } from 'nav-frontend-typografi'
-import Select from 'components/Select/Select'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import styled, { ThemeProvider } from 'styled-components'
 
 export interface BUCStartProps {
@@ -223,7 +224,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined) => {
+  const renderOptions = (options: Array<Option | string> | undefined): Array<any> => {
     return options ? options.map((el: Option | string) => {
       let label: string, value: string
       if (typeof el === 'string') {
@@ -238,6 +239,18 @@ const BUCStart: React.FC<BUCStartProps> = ({
         value: value
       }
     }) : []
+  }
+
+  const filterPbuc02 = (options: Array<any>) => {
+    return options.map(option => {
+      if (option.value === 'P_BUC_02') {
+        if (pesysContext === constants.VEDTAKSKONTEKST && personAvdods?.length === 0) {
+          option.isDisabled = true
+          option.label += ' (' + t('buc:form-noAvdod') + ')'
+        }
+      }
+      return option
+    })
   }
 
   const getOptionLabel = (value: string): string => {
@@ -309,7 +322,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 isSearchable
                 placeholder={t('buc:form-chooseBuc')}
                 onChange={onBucChange}
-                options={renderOptions(bucList)}
+                options={filterPbuc02(renderOptions(bucList))}
               />
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>

@@ -2316,6 +2316,123 @@ const mockBuc = [
     ]
   },
   {
+    type: 'P_BUC_02',
+    readOnly: false,
+    creator: {
+      country: 'SE',
+      institution: 'SE:DEMO001',
+      name: 'Swedish Demo Institution 001'
+    },
+    caseId: '195441',
+    sakType: '',
+    aktoerId: '1000070418092',
+    status: 'open',
+    startDate: 1571731760978,
+    lastUpdate: 1571731814000,
+    subject: {
+      gjenlevende: {
+        fnr: '12345678901'
+      },
+      avdod: {
+        fnr: '12345678902'
+      }
+    },
+    institusjon: [
+      {
+        country: 'IE',
+        institution: 'IE:DEMO001'
+      },
+      {
+        country: 'US',
+        institution: 'US:DEMO001'
+      },
+      {
+        country: 'IT',
+        institution: 'IT:DEMO001'
+      },
+      {
+        country: 'DE',
+        institution: 'DE:DEMO001'
+      },
+      {
+        country: 'SL',
+        institution: 'SL:DEMO001'
+      },
+      {
+        country: 'ZA',
+        institution: 'ZA:DEMO001'
+      }
+    ],
+    seds: [
+      {
+        id: '90149c52a98044b599c3bf5d48537783',
+        type: 'P2100',
+        status: 'received',
+        creationDate: 1559117379454,
+        lastUpdate: 1559080800000,
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              address: {
+                country: 'SE',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: 1518476400000,
+              registryNumber: null,
+              acronym: '12348',
+              countryCode: 'SE',
+              contactMethods: null,
+              name: 'Swedish institution demo 01',
+              location: null,
+              assignedBUCs: null,
+              id: 'SE:DEMO001',
+              accessPoint: null
+            },
+            selected: true
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: 1508450400000,
+              registryNumber: null,
+              acronym: '12347',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAV07',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAV07',
+              accessPoint: null
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '5',
+        firstVersion: {
+          id: '1',
+          date: 1559117379454
+        },
+        lastVersion: {
+          id: 'r',
+          date: 1559080800000
+        },
+        allowsAttachments: true
+      }
+    ]
+  },
+  {
     type: 'P_BUC_03',
     readOnly: true,
     creator: {

@@ -132,6 +132,7 @@
   "form-newSed"                       : "ny SED",
   "form-noBUCsFound"                  : "Ingen BUC-er funnet, vennligst start ny BUC",
   "form-noAttachmentsYet"             : "Ingen vedlegg ennå",
+  "form-noAvdod"                      : "Ingen avdød",
   "form-noAvdodfnr"                   : "Ingen Avdød fnr",
   "form-noInstitutionYet"             : "Ingen mottakerinstitusjoner ennå",
   "form-noSedsYet"                    : "Ingen SED-er ennå",
