@@ -667,18 +667,21 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
             {validation.sedFail && <Normaltekst>{t(validation.sedFail)}</Normaltekst>}
           </>
-          <VerticalSeparatorDiv />
-          <HighContrastInput
-            data-testid='a-buc-c-sedstart__vedtakid-kravdato-id'
-            label={t('buc:form-kravDato')}
-            bredde='fullbredde'
-            value={kravDato || ''}
-            onChange={onKravDatoChange}
-            onBlur={validateKravDato}
-            placeholder={t('buc:form-kravDatoPlaceholder')}
-            feil={validation.kravDato ? t(validation.kravDato) : null}
-          />
-          <VerticalSeparatorDiv />
+          {buc.type === 'P_BUC_02' && (
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastInput
+                data-testid='a-buc-c-sedstart__vedtakid-kravdato-id'
+                label={t('buc:form-kravDato') + ' (' + t('ui:optional') +')'}
+                bredde='fullbredde'
+                value={kravDato || ''}
+                onChange={onKravDatoChange}
+                onBlur={validateKravDato}
+                placeholder={t('buc:form-kravDatoPlaceholder')}
+                feil={validation.kravDato ? t(validation.kravDato) : null}
+              />
+            </>
+            )}
           {sedNeedsVedtakId() && (
             <>
               <VerticalSeparatorDiv />
