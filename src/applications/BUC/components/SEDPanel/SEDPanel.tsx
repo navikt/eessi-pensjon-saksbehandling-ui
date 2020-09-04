@@ -45,6 +45,7 @@ const SEDPanelPanel = styled(HighContrastPanel)`
   }
   &.new > div,
   &.new .ekspanderbartPanel__hode,
+  &.new .panel,
   &.new .ekspanderbartPanel__hode div:not(.etikett) {
     background: ${({ theme }) => theme.type === 'themeHighContrast'
   ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};

@@ -26,24 +26,24 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
-const transition = 0
-const timeout = 1
-const zoomOutTransition = 0
+const transition = 1000
+const timeout = 1001
+const zoomOutTransition = 100
 
 const ContainerDiv = styled.div`
   width: 100%;
   display: block;
   overflow: hidden;
   will-change: transform;
-  &.donotshrink {
-    transform: scale(0.96);
+  &.shrink {
+    transform: scale(0.98);
     transform-origin: center center;
-    transition: transform ${zoomOutTransition}s ease-in;
+    transition: transform ${zoomOutTransition}ms ease-in;
   }
-  &:not(.donotshrink) {
+  &:not(.shrink) {
     transform: scale(1);
     transform-origin: center center;
-    transition: transform ${zoomOutTransition}s ease-out;
+    transition: transform ${zoomOutTransition}ms ease-out;
   }
 `
 const WindowDiv = styled.div`
@@ -219,7 +219,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         if (callback) {
           callback()
         }
-        // setOnTransitionA(() => {})
       }
       if (from === 'back') {
         setPositionA(Slide.A_GOING_TO_RIGHT)
@@ -250,7 +249,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         if (callback) {
           callback()
         }
-        // setOnTransitionB(() => {})
       }
       if (from === 'forward') {
         setPositionA(Slide.A_GOING_TO_LEFT)
@@ -267,10 +265,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         }, timeout)
       }
       if (newMode === 'bucedit') {
-        setContentB(<BUCEdit setMode={_setMode} />)
+        setContentB(<BUCEdit key={new Date().getTime()} setMode={_setMode} initialSedNew='none'/>)
       }
       if (newMode === 'sednew') {
-        setContentB(<BUCEdit setMode={_setMode} initialSedNew />)
+        setContentB(<BUCEdit key={new Date().getTime()} setMode={_setMode} initialSedNew='open' />)
       }
     }
     /*

@@ -34,7 +34,7 @@ import styled, { keyframes } from 'styled-components'
 
 export interface BUCEditProps {
   initialSearch ?: string
-  initialSedNew ?: boolean
+  initialSedNew ?: 'none' | 'open' | 'close'
   initialStatusSearch ?: Tags
   setMode: (mode: BUCMode, s: string, callback?: any) => void
 }
@@ -122,7 +122,7 @@ const SEDStartDiv = styled.div`
   }
 `
 const BUCEdit: React.FC<BUCEditProps> = ({
-  initialSearch, initialSedNew = undefined, initialStatusSearch, setMode
+  initialSearch, initialSedNew = 'none', initialStatusSearch, setMode
 }: BUCEditProps): JSX.Element | null => {
   const [search, setSearch] = useState<string | undefined>(initialSearch)
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
@@ -136,7 +136,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const buc: Buc | undefined = bucs ? bucs[currentBuc!] : undefined
-  const [startSed, setStartSed] = useState<boolean | undefined>(initialSedNew)
+  const [startSed, setStartSed] = useState<string>(initialSedNew)
   const bucInfo: BucInfo = buc && bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
 
   useEffect(() => {
@@ -150,6 +150,12 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedTime])
+
+  useEffect(() => {
+   // if (initialSedNew !== startSed) {
+      setStartSed(initialSedNew)
+   // }
+  }, [initialSedNew])
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
@@ -176,7 +182,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     } else {
       dispatch(setCurrentSed(sed ? sed.id : undefined))
       if (featureToggles.v2_ENABLED === true) {
-        setStartSed(true)
+        setStartSed('open')
       } else {
         setMode('sednew' as BUCMode, 'none')
       }
@@ -251,7 +257,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             setMode={setMode}
           />
         )}
-        {!startSed && (
+        {startSed !== 'open' && (
           <HighContrastKnapp
             disabled={buc!.readOnly === true}
             data-amplitude='buc.edit.newsed'
@@ -266,20 +272,20 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       </BUCEditHeader>
       <VerticalSeparatorDiv />
       <SEDStartDiv className={classNames({
-        open: startSed === true,
-        close: startSed === false
+        open: startSed === 'open',
+        close: startSed === 'close'
       })}
       >
         <SEDNewDiv>
           <SEDStart
             aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={setMode} onSedCreated={() => {
               if (featureToggles.v2_ENABLED === true) {
-                setStartSed(false)
+                setStartSed('close')
               } else {
                 setMode('bucedit' as BUCMode, 'back')
               }
             }}
-            onSedCancelled={() => setStartSed(false)}
+            onSedCancelled={() => setStartSed('close')}
           />
         </SEDNewDiv>
         <VerticalSeparatorDiv />

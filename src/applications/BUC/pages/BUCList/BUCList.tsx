@@ -21,6 +21,7 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import * as constants from 'constants/constants'
 import * as storage from 'constants/storage'
 import {
   Buc,
@@ -29,12 +30,12 @@ import {
   BucsInfo,
   Institution,
   InstitutionListMap,
-  Participant,
+  Participant, PersonAvdods,
   RawInstitution,
   Sed
 } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading, PesysContext } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -62,6 +63,8 @@ export interface BUCListSelector {
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
+  personAvdods: PersonAvdods | undefined
+  pesysContext: PesysContext | undefined
 }
 
 const mapState = (state: State): BUCListSelector => ({
@@ -74,7 +77,9 @@ const mapState = (state: State): BUCListSelector => ({
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
-  newlyCreatedBuc: state.buc.newlyCreatedBuc
+  newlyCreatedBuc: state.buc.newlyCreatedBuc,
+  personAvdods: state.app.personAvdods,
+  pesysContext: state.app.pesysContext
 })
 
 type Country = {country: string, buc: string}
@@ -199,8 +204,10 @@ const BUCStartDiv = styled.div`
 
 const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }: BUCListProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
-  const { aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading, newlyCreatedBuc } =
-    useSelector<State, BUCListSelector>(mapState)
+  const {
+    aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading,
+    newlyCreatedBuc, personAvdods, pesysContext
+  } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
@@ -256,6 +263,15 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
     }
   }
 
+  const pbuc02filter = (buc: Buc): boolean => {
+    if (buc.type === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods?.length === 0) {
+     return false
+    }
+    if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && buc?.creator?.country === 'NO') {
+      return false
+    }
+    return true
+  }
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !loading.gettingBUCinfo && loading.savingBucsInfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
@@ -383,6 +399,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
         {!loading.gettingBUCs && !_.isNil(bucs) && (!_.isEmpty(bucs)
           ? Object.keys(bucs).map(key => bucs[key])
             .filter(bucFilter)
+            .filter(pbuc02filter)
             .sort(bucSorter)
             .map((buc: Buc, index: number) => {
               if (buc.error) {

@@ -345,6 +345,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     const thisAvdod: PersonAvdod | undefined = _.find(personAvdods, (p) => p.fnr === e.value)
     setAvdod(thisAvdod)
   }
+
+  const onAvdodFnrChange = (e: any) => {
+    setAvdod({
+      fnr: e.target.value
+    } as PersonAvdod)
+  }
+
   const renderAvdodOptions = (options: any) => {
     return options?.map((el: any) => ({
       label: el.fulltNavn + ' (' + el.fnr + ')',
@@ -437,7 +444,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const sedNeedsAvdod = (): boolean => {
-    return _sed === 'P2100'
+    return _sed === 'P2100' || (
+      buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && buc?.creator?.country !== 'NO'
+    )
   }
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkFile): void => {
@@ -720,6 +729,21 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 </FlexDiv>
               )}
             </>
+          )}
+          {buc.type === 'P_BUC_02' &&
+            !personAvdods &&
+            pesysContext !== constants.VEDTAKSKONTEKST &&
+            buc?.creator?.country !== 'NO' && (
+              <>
+                <VerticalSeparatorDiv />
+                <HighContrastInput
+                  label={t('buc:form-avdod')}
+                  data-testid='a-buc-c-bucstart__avdod-input-id'
+                  placeholder={t('buc:form-chooseAvdod')}
+                  onChange={onAvdodFnrChange}
+                />
+                {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
+              </>
           )}
           {!currentSed && (
             <>
