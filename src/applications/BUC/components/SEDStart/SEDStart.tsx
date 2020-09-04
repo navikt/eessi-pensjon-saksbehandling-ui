@@ -733,7 +733,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {buc.type === 'P_BUC_02' &&
             !personAvdods &&
             pesysContext !== constants.VEDTAKSKONTEKST &&
-            buc?.creator?.country !== 'NO' && (
+            buc?.creator?.country !== 'NO' &&
+            (
               <>
                 <VerticalSeparatorDiv />
                 <HighContrastInput
@@ -744,7 +745,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 />
                 {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
               </>
-          )}
+            )}
           {!currentSed && (
             <>
               <VerticalSeparatorDiv />

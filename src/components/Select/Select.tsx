@@ -42,8 +42,8 @@ const Select = (props: any) => {
             ? _theme[themeKeys.INVERTED_FONT_COLOR]
             : isSelected
               ? _theme[themeKeys.INVERTED_FONT_COLOR]
-              : isDisabled ?
-                _theme[themeKeys.MAIN_DISABLED_COLOR]
+              : isDisabled
+                ? _theme[themeKeys.MAIN_DISABLED_COLOR]
                 : _theme[themeKeys.MAIN_FONT_COLOR],
           backgroundColor: isFocused
             ? _theme[themeKeys.MAIN_FOCUS_COLOR]

@@ -17,7 +17,7 @@ export type Validation = {[key: string]: string | null | undefined}
 export type Params = {[k: string] : string}
 export type FeatureToggles = {[key in Feature]: boolean}
 
-interface Option {
+export interface Option {
   label: string
   navn?: string
   value: string
@@ -51,9 +51,9 @@ export interface Person {
   kontaktinformasjon: any
   bankkonto: any
   tilrettelagtKommunikasjon: any
-  sikkerhetstiltak: an
+  sikkerhetstiltak: any
   maalform: any
   endringstidspunkt: any
-  endretAv: an
+  endretAv: any
   endringstype: any
 }

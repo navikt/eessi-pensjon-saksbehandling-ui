@@ -152,9 +152,9 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   }, [loggedTime])
 
   useEffect(() => {
-   // if (initialSedNew !== startSed) {
-      setStartSed(initialSedNew)
-   // }
+    // if (initialSedNew !== startSed) {
+    setStartSed(initialSedNew)
+    // }
   }, [initialSedNew])
 
   const onMouseEnter = () => setMouseEnterDate(new Date())

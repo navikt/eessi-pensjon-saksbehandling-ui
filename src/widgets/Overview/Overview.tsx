@@ -19,6 +19,17 @@ import { ThemeProvider } from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
 
+export interface OverviewSelector {
+  aktoerId: string
+  featureToggles: FeatureToggles
+  gettingPersonInfo: boolean
+  locale: AllowedLocaleString
+  person: any,
+  personAvdods: PersonAvdods | undefined,
+  pesysContext: PesysContext | undefined,
+  vedtakId: string
+}
+
 const mapState = (state: State): OverviewSelector => ({
   /* istanbul ignore next */
   aktoerId: state.app.params.aktoerId,
@@ -30,17 +41,6 @@ const mapState = (state: State): OverviewSelector => ({
   pesysContext: state.app.pesysContext,
   vedtakId: state.app.params.vedtakId
 })
-
-export interface OverviewSelector {
-  aktoerId: string
-  featureToggles: FeatureToggles
-  gettingPersonInfo: boolean
-  locale: AllowedLocaleString
-  person: any,
-  personAvdods: PersonAvdods | undefined,
-  pesysContext: PesysContext | undefined,
-  vedtakId: string
-}
 
 export interface OverviewProps {
   highContrast: boolean

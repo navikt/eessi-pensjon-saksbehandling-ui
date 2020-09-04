@@ -9,6 +9,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 import styled from 'styled-components'
 
+export interface AuthenticatedRouteSelector {
+  allowed: boolean | undefined;
+  loggedIn: boolean | undefined;
+  userRole: string | undefined;
+}
+
 const mapState = (state: State): AuthenticatedRouteSelector => ({
   /* istanbul ignore next */
   userRole: state.app.userRole,
@@ -25,12 +31,6 @@ const paramAliases: {[k: string]: string} = {
 }
 
 type Params = {[k: string]: any}
-
-export interface AuthenticatedRouteSelector {
-  allowed: boolean | undefined;
-  loggedIn: boolean | undefined;
-  userRole: string | undefined;
-}
 
 const RouteDiv = styled.div`
   flex: 1;

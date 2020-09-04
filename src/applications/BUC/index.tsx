@@ -265,7 +265,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         }, timeout)
       }
       if (newMode === 'bucedit') {
-        setContentB(<BUCEdit key={new Date().getTime()} setMode={_setMode} initialSedNew='none'/>)
+        setContentB(<BUCEdit key={new Date().getTime()} setMode={_setMode} initialSedNew='none' />)
       }
       if (newMode === 'sednew') {
         setContentB(<BUCEdit key={new Date().getTime()} setMode={_setMode} initialSedNew='open' />)

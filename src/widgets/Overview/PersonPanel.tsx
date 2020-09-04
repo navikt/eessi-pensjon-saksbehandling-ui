@@ -63,8 +63,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   let deathDateString
   let nationality
   let maritalStatus
-  let bostedsadresse: Array<JSX.Element | Element | string> = []
-  let postadresse: Array<JSX.Element | Element | string> = []
+  let bostedsadresse: Array<JSX.Element | string> = []
+  let postadresse: Array<JSX.Element | string> = []
 
   const renderEntity = (label: string, value: any): JSX.Element => {
     let _value
@@ -92,10 +92,10 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   }
 
   const addAddressLine = (
-    address: Array<JSX.Element | Element | string>,
+    address: Array<JSX.Element | string>,
     value: string | null, label: string,
     separator: JSX.Element
-  ): Array<JSX.Element | Element | string> => {
+  ): Array<JSX.Element | string> => {
     if (value) {
       address.push((
         <Tooltip placement='top' trigger={['hover']} overlay={<span>{label}</span>}>

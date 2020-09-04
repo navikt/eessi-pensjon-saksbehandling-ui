@@ -135,7 +135,6 @@ export const NewSedPayloadPropType = PT.shape({
   institutions: PT.arrayOf(InstitutionPropType.isRequired).isRequired,
   aktoerId: PT.string.isRequired,
   euxCaseId: PT.string.isRequired,
-  periodeInfo: PT.any,
   vedtakId: PT.string,
   avdodfnr: PT.string
 })

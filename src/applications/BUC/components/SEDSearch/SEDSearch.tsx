@@ -8,6 +8,8 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { ThemeProvider } from 'styled-components'
 
+export type StatusList = Array<{label: string, value: string}>
+
 export interface SEDSearchProps {
   className ?: string
   highContrast: boolean
@@ -15,8 +17,6 @@ export interface SEDSearchProps {
   onStatusSearch: (sl: StatusList) => void
   value: string | undefined
 }
-
-export type StatusList = Array<{label: string, value: string}>
 
 const SEDSearchPanel = styled(HighContrastPanel)`
   display: flex !important;

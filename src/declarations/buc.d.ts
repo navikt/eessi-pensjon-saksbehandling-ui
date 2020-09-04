@@ -85,7 +85,7 @@ export type SedContent = any
 export type SedContentMap = {[k: string]: SedContent}
 
 export interface Institution {
-  country: strin
+  country: string
   institution: string
   name?: string | null
 }
@@ -166,7 +166,6 @@ export interface NewSedPayload {
   euxCaseId: string
   institutions: Institutions
   kravDato?: string
-  periodeInfo?: Array<Period>
   sakId: string
   sed: string
   subject?: BUCSubject
@@ -207,8 +206,6 @@ export interface SavingAttachmentsJob {
   remaining: JoarkFiles
 }
 
-export type PersonAvdods = Array<PersonAvdod>
-
 export interface PersonAvdod {
   fnr: string
   aktoerId: string
@@ -217,3 +214,5 @@ export interface PersonAvdod {
   mellomnavn: string | null
   etternavn: string
 }
+
+export type PersonAvdods = Array<PersonAvdod>
