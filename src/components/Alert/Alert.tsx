@@ -8,7 +8,7 @@ import styled, { keyframes } from 'styled-components'
 
 export type AlertStatus = 'OK' | 'ERROR' | 'WARNING'
 
-type AlertStatusClasses = {[status in AlertStatus]: AlertStripeType}
+export type AlertStatusClasses = {[status in AlertStatus]: AlertStripeType}
 
 type AlertType = 'client' | 'server'
 
