@@ -16,7 +16,7 @@ export interface ApiRejectedAction extends Action {
   context: any
 }
 
-const pinfoReducer = (state: SentryState = initialSentryState, action: ApiRejectedAction) => {
+const sentryReducer = (state: SentryState = initialSentryState, action: ApiRejectedAction) => {
   switch (action.type) {
     case types.API_CALL_REJECTED:
 
@@ -40,4 +40,4 @@ const pinfoReducer = (state: SentryState = initialSentryState, action: ApiReject
   }
 }
 
-export default pinfoReducer
+export default sentryReducer

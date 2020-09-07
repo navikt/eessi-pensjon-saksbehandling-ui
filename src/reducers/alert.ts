@@ -128,21 +128,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         clientErrorMessage = 'buc:alert-joarkPreviewFailure'
         break
 
-      case types.STORAGE_LIST_FAILURE:
-
-        clientErrorMessage = 'ui:listFailure'
-        break
-
-      case types.STORAGE_GET_FAILURE:
-
-        clientErrorMessage = 'ui:loadFailure'
-        break
-
-      case types.PINFO_SEND_FAILURE:
-
-        clientErrorMessage = 'pinfo:alert-sendFailure'
-        break
-
       default:
 
         clientErrorMessage = 'ui:error'
@@ -167,23 +152,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     case types.BUC_CREATE_SED_SUCCESS:
 
       clientErrorMessage = 'buc:alert-createdSed|' + ((action as ActionWithPayload).context.sed.sed)
-      break
-
-    case types.STORAGE_GET_SUCCESS:
-      if ((action as ActionWithPayload).context && (action as ActionWithPayload).context.notification) {
-        clientErrorMessage = 'ui:loadSuccess'
-      }
-      break
-
-    case types.STORAGE_POST_SUCCESS:
-      if ((action as ActionWithPayload).context && (action as ActionWithPayload).context.notification) {
-        clientErrorMessage = 'ui:saveSuccess'
-      }
-      break
-
-    case types.PINFO_SEND_SUCCESS:
-
-      clientErrorMessage = 'pinfo:alert-sendSuccess'
       break
 
     default:

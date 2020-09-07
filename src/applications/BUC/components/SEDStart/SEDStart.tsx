@@ -681,7 +681,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 feil={validation.kravDato ? t(validation.kravDato) : null}
               />
             </>
-            )}
+          )}
           {sedNeedsVedtakId() && (
             <>
               <VerticalSeparatorDiv />

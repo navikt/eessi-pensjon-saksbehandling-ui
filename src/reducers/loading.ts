@@ -9,7 +9,6 @@ export interface LoadingState {
 export const initialLoadingState: LoadingState = {
   creatingBUC: false,
   creatingSed: false,
-  deletingStorageFile: false,
   generatingPDF: false,
   gettingBUCs: false,
   gettingBucDeltakere: false,
@@ -26,14 +25,10 @@ export const initialLoadingState: LoadingState = {
   isInvitingPinfo: false,
   isLoggingIn: false,
   isLoggingOut: false,
-  isSendingPinfo: false,
   loadingJoarkList: false,
   loadingJoarkPreviewFile: false,
-  loadingStorageFile: false,
-  loadingStorageFileList: false,
   rinaUrl: false,
-  savingBucsInfo: false,
-  savingStorageFile: false
+  savingBucsInfo: false
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: Action) => {
@@ -320,96 +315,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         loadingJoarkPreviewFile: false
-      }
-
-    case types.STORAGE_LIST_REQUEST:
-
-      return {
-        ...state,
-        loadingStorageFileList: true
-      }
-
-    case types.STORAGE_LIST_SUCCESS:
-    case types.STORAGE_LIST_FAILURE:
-
-      return {
-        ...state,
-        loadingStorageFileList: false
-      }
-
-    case types.STORAGE_GET_REQUEST:
-
-      return {
-        ...state,
-        loadingStorageFile: true
-      }
-
-    case types.STORAGE_GET_SUCCESS:
-    case types.STORAGE_GET_FAILURE:
-
-      return {
-        ...state,
-        loadingStorageFile: false
-      }
-
-    case types.STORAGE_POST_REQUEST:
-
-      return {
-        ...state,
-        savingStorageFile: true
-      }
-
-    case types.STORAGE_POST_SUCCESS:
-    case types.STORAGE_POST_FAILURE:
-
-      return {
-        ...state,
-        savingStorageFile: false
-      }
-
-    case types.STORAGE_DELETE_REQUEST:
-
-      return {
-        ...state,
-        deletingStorageFile: true
-      }
-
-    case types.STORAGE_DELETE_SUCCESS:
-    case types.STORAGE_DELETE_FAILURE:
-
-      return {
-        ...state,
-        deletingStorageFile: false
-      }
-
-    case types.PINFO_SEND_SUCCESS:
-    case types.PINFO_SEND_FAILURE:
-
-      return {
-        ...state,
-        isSendingPinfo: false
-      }
-
-    case types.PINFO_SEND_REQUEST:
-
-      return {
-        ...state,
-        isSendingPinfo: true
-      }
-
-    case types.PINFO_INVITE_SUCCESS:
-    case types.PINFO_INVITE_FAILURE:
-
-      return {
-        ...state,
-        isInvitingPinfo: false
-      }
-
-    case types.PINFO_INVITE_REQUEST:
-
-      return {
-        ...state,
-        isInvitingPinfo: true
       }
 
     default:

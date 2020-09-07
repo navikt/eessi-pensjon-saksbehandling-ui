@@ -238,42 +238,6 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('STORAGE_LIST_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.STORAGE_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'ui:listFailure'
-    })
-  })
-
-  it('STORAGE_GET_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.STORAGE_GET_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'ui:loadFailure'
-    })
-  })
-
-  it('PINFO_SEND_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.PINFO_SEND_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'pinfo:alert-sendFailure'
-    })
-  })
-
   it('SOMETHING/FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
@@ -313,44 +277,6 @@ describe('reducers/alert', () => {
       ...initialAlertState,
       clientErrorStatus: 'OK',
       clientErrorMessage: 'buc:alert-createdSed|mockType'
-    })
-  })
-
-  it('STORAGE_GET_SUCCESS', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.STORAGE_GET_SUCCESS,
-        context: { notification: true }
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'OK',
-      clientErrorMessage: 'ui:loadSuccess'
-    })
-  })
-
-  it('STORAGE_POST_SUCCESS', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.STORAGE_POST_SUCCESS,
-        context: { notification: true }
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'OK',
-      clientErrorMessage: 'ui:saveSuccess'
-    })
-  })
-
-  it('PINFO_SEND_SUCCESS', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.PINFO_SEND_SUCCESS
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'OK',
-      clientErrorMessage: 'pinfo:alert-sendSuccess'
     })
   })
 

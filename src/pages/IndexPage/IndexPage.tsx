@@ -32,28 +32,6 @@ const defaultLayouts: LayoutTabs = [{
   }
 }]
 
-const defaultLayoutsWithVarsel: LayoutTabs = [{
-  label: 'default',
-  body: {
-    lg: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 },
-      { i: 'w-3-varsler', x: 0, y: 8, w: 12, h: 2, minW: 6, maxW: 12, minH: 2, maxH: 999 }
-    ],
-    md: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 },
-      { i: 'w-3-varsler', x: 0, y: 8, w: 3, h: 2, minW: 2, maxW: 3, minH: 2, maxH: 999 }
-
-    ],
-    sm: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 },
-      { i: 'w-3-varsler', x: 0, y: 8, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 }
-    ]
-  }
-}]
-
 const defaultWidgets: Widgets = [{
   i: 'w-1-overview',
   type: 'overview',
@@ -70,36 +48,6 @@ const defaultWidgets: Widgets = [{
   options: {
     allowFullScreen: true
   }
-}, {
-  i: 'w-3-varsler',
-  type: 'varsler',
-  title: 'Varsler widget',
-  visible: true,
-  options: {}
-}]
-
-const defaultWidgetsWithVarsel: Widgets = [{
-  i: 'w-1-overview',
-  type: 'overview',
-  title: 'Overview widget',
-  visible: true,
-  options: {
-    collapsed: true
-  }
-}, {
-  i: 'w-2-buc',
-  type: 'buc',
-  title: 'BUC widget',
-  visible: true,
-  options: {
-    allowFullScreen: false
-  }
-}, {
-  i: 'w-3-varsler',
-  type: 'varsler',
-  title: 'Varsler widget',
-  visible: true,
-  options: {}
 }]
 
 const defaultConfig = {
@@ -112,7 +60,7 @@ const defaultConfig = {
   version: 1
 }
 
-const allowedWidgets = ['buc', 'varsler', 'overview']
+const allowedWidgets = ['buc', 'overview']
 
 export interface IndexPageSelector {
   highContrast: boolean
@@ -135,7 +83,7 @@ const mapState = (state: State): IndexPageSelector => ({
 })
 
 export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
-  const { highContrast, username, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { highContrast, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
 
   const [loggedTime] = useState<Date>(new Date())
 
@@ -144,8 +92,6 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
       timeLogger('view', loggedTime)
     }
   }, [loggedTime])
-
-
 
   return (
     <TopContainer>
@@ -157,8 +103,8 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         id='eessi-pensjon-ui-fss'
         configurable
         extraWidgets={extraWidgets}
-        defaultWidgets={(username === 'Z990706' || username === 'Z992366') ? defaultWidgetsWithVarsel : defaultWidgets}
-        defaultLayouts={(username === 'Z990706' || username === 'Z992366') ? defaultLayoutsWithVarsel : defaultLayouts}
+        defaultWidgets={defaultWidgets}
+        defaultLayouts={defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
         highContrast={highContrast}

@@ -21,9 +21,6 @@ export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
 
-// VarselController
-export const API_VARSEL_URL = API_URL + '/varsel/%(sakId)s/%(aktoerId)s'
-
 // StorageController
 export const API_STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespace)s'
 export const API_STORAGE_GET_URL = API_URL + '/storage/get/%(userId)s___%(namespace)s___%(file)s'
