@@ -736,7 +736,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {buc.type === 'P_BUC_02' &&
             !personAvdods &&
             pesysContext !== constants.VEDTAKSKONTEKST &&
-            buc?.creator?.country !== 'NO' &&
+            (buc?.creator?.country !== 'NO' ||
+              (buc?.creator?.country === 'NO' && buc?.creator?.institution === 'NO:NAVAT08')) &&
             (
               <>
                 <VerticalSeparatorDiv />
