@@ -672,7 +672,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <HighContrastInput
                 data-testid='a-buc-c-sedstart__vedtakid-kravdato-id'
-                label={t('buc:form-kravDato') + ' (' + t('ui:optional') +')'}
+                label={t('buc:form-kravDato')}
                 bredde='fullbredde'
                 value={kravDato || ''}
                 onChange={onKravDatoChange}
