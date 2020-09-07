@@ -267,7 +267,10 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
     if (buc.type === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods?.length === 0) {
       return false
     }
-    if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && buc?.creator?.country === 'NO') {
+    if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && (
+      // 'NO:NAVAT08' in test environment should be read as a foreign institution
+      buc?.creator?.country === 'NO' || (buc?.creator?.institution === 'NO:NAVAT08')
+    )) {
       return false
     }
     return true
