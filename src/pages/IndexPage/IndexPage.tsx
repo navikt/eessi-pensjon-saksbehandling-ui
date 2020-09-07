@@ -145,6 +145,8 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
     }
   }, [loggedTime])
 
+
+
   return (
     <TopContainer>
       <ContextBanner
@@ -155,8 +157,8 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         id='eessi-pensjon-ui-fss'
         configurable
         extraWidgets={extraWidgets}
-        defaultWidgets={username === 'Z990706' ? defaultWidgetsWithVarsel : defaultWidgets}
-        defaultLayouts={username === 'Z990706' ? defaultLayoutsWithVarsel : defaultLayouts}
+        defaultWidgets={(username === 'Z990706' || username === 'Z992366') ? defaultWidgetsWithVarsel : defaultWidgets}
+        defaultLayouts={(username === 'Z990706' || username === 'Z992366') ? defaultLayoutsWithVarsel : defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
         highContrast={highContrast}
