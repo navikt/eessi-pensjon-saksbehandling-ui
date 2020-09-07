@@ -210,6 +210,24 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<string | undefined>(vedtakId)
 
+  // this is input
+  const needsAvdodFnr = (): boolean => (
+    buc.type === 'P_BUC_02' &&
+    !personAvdods &&
+    pesysContext !== constants.VEDTAKSKONTEKST &&
+    (buc?.creator?.country !== 'NO' ||
+      (buc?.creator?.country === 'NO' && buc?.creator?.institution === 'NO:NAVAT08'))
+  )
+
+  // this is select
+  const needsAvdod = (): boolean => (
+    _sed === 'P2100' || (
+      buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST &&
+       (buc?.creator?.country !== 'NO' ||
+           (buc?.creator?.country === 'NO' && buc?.creator?.institution === 'NO:NAVAT08'))
+    )
+  )
+
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
       if (_.includes(_countries, landkode)) {
@@ -308,12 +326,32 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }
 
-  const validateSed = (sed: string): boolean => {
+  const validateSed = (sed: string | undefined): boolean => {
     if (!sed) {
       setValidationState('sedFail', t('buc:validation-chooseSed'))
       return false
     } else {
       resetValidationState('sedFail')
+      return true
+    }
+  }
+
+  const validateAvdod = (_avdod: PersonAvdod | undefined): boolean => {
+    if (!_avdod) {
+      setValidationState('avdodFail', t('buc:validation-chooseAvdod'))
+      return false
+    } else {
+      resetValidationState('avdodFail')
+      return true
+    }
+  }
+
+  const validateAvdodFnr = (_avdod: PersonAvdod | undefined): boolean => {
+    if (!_avdod) {
+      setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodFnr'))
+      return false
+    } else {
+      resetValidationState('avdodfnrFail')
       return true
     }
   }
@@ -329,11 +367,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const validateVedtakId = (vedtakId: string | undefined): boolean => {
-    if (sedNeedsVedtakId() && !vedtakId) {
+    if (!vedtakId) {
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
       return false
     }
-    if (sedNeedsVedtakId() && !isNumber(vedtakId!)) {
+    if (!isNumber(vedtakId!)) {
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
       return false
     }
@@ -443,12 +481,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return _sed === 'P6000' || _sed === 'P7000'
   }
 
-  const sedNeedsAvdod = (): boolean => {
-    return _sed === 'P2100' || (
-      buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && buc?.creator?.country !== 'NO'
-    )
-  }
-
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkFile): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))
   }
@@ -483,7 +515,28 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setKravDato('')
   }
 
+  const performValidation = () => {
+    validateSed(_sed)
+    if (!bucHasSedsWithAtLeastOneInstitution()) {
+      validateInstitutions(_institutions)
+      validateCountries(_countries)
+    }
+    if (sedNeedsVedtakId()) {
+      validateVedtakId(_vedtakId)
+    }
+    if (buc.type === 'P_BUC_02') {
+      validateKravDato()
+    }
+    if (needsAvdod()) {
+      validateAvdod(_avdod)
+    }
+    if (needsAvdodFnr()) {
+      validateAvdodFnr(_avdod)
+    }
+  }
+
   const onForwardButtonClick = (e: React.MouseEvent) => {
+    performValidation()
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
       const payload: NewSedPayload = {
@@ -500,7 +553,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
-      if (sedNeedsAvdod()) {
+      if (needsAvdod() || needsAvdodFnr()) {
         payload.avdodfnr = _avdod?.fnr
       }
       if (buc.type === 'P_BUC_02') {
@@ -529,14 +582,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const isNumber = (s: string) => {
     return s.match(/^\d+$/g) !== null
-  }
-
-  const allowedToForward = () => {
-    return _sed && _.isEmpty(validation) &&
-      (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
-      !loading.creatingSed && !sendingAttachments &&
-      (sedNeedsVedtakId() ? _vedtakId && isNumber(_vedtakId) : true) &&
-      (sedNeedsAvdod() ? !!_avdod : true)
   }
 
   const onFinished = useCallback(() => {
@@ -733,21 +778,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               )}
             </>
           )}
-          {buc.type === 'P_BUC_02' &&
-            !personAvdods &&
-            pesysContext !== constants.VEDTAKSKONTEKST &&
-            (buc?.creator?.country !== 'NO' ||
-              (buc?.creator?.country === 'NO' && buc?.creator?.institution === 'NO:NAVAT08')) &&
-            (
+          {needsAvdodFnr() && (
               <>
                 <VerticalSeparatorDiv />
                 <HighContrastInput
                   label={t('buc:form-avdod')}
                   data-testid='a-buc-c-bucstart__avdod-input-id'
-                  placeholder={t('buc:form-chooseAvdod')}
+                  placeholder={t('buc:form-chooseAvdodFnr')}
                   onChange={onAvdodFnrChange}
                 />
-                {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
+                {validation.avdodfnrFail && <Normaltekst>{t(validation.avdodfnrFail)}</Normaltekst>}
               </>
             )}
           {!currentSed && (
@@ -809,7 +849,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <HighContrastHovedknapp
               data-amplitude='sed.new.create'
               data-testid='a-buc-c-sedstart__forward-button-id'
-              disabled={!allowedToForward()}
+              disabled={loading.creatingSed || sendingAttachments}
               spinner={loading.creatingSed || sendingAttachments}
               onClick={onForwardButtonClick}
 

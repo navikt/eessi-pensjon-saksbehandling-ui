@@ -22,7 +22,6 @@ export const initialLoadingState: LoadingState = {
   gettingSubjectAreaList: false,
   gettingTagList: false,
   gettingUserInfo: false,
-  isInvitingPinfo: false,
   isLoggingIn: false,
   isLoggingOut: false,
   loadingJoarkList: false,

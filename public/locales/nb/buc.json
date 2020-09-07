@@ -212,6 +212,7 @@
   "tag-avvikendeMedlemskap"         : "Avvikende medlemskap",
 
   "validation-badKravDato"          : "Ugyldig krav dato, vennligst bruk DD-MM-ÅÅÅÅ",
+  "validation-chooseAvdod"          : "Velg avdød",
   "validation-chooseAvdodfnr"       : "Velg avdød fnr",
   "validation-chooseBuc"            : "Velg en BUC",
   "validation-chooseCountry"        : "Velg et land",
