@@ -454,6 +454,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
       newSed.type = context.sed.sed
       newSed.attachments = []
+      newSed.allowsAttachments = state.sedsWithAttachments[newSed.type] || false
 
       const sender = context.buc.creator
       const participants = context.sed.institutions.map((inst: any) => {
