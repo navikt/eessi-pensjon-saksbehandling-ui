@@ -194,8 +194,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const buc: Buc = _.cloneDeep(bucs[currentBuc!])
   const countryData = CountryData.getCountryInstance(locale)
-  const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort(countrySort) : [])
+  const countryObjectList = countryList ? countryData.filterByValueOnArray(countryList).sort(countrySort) : []
   const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
+  console.log(countryObjectList)
   const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort(countrySort) : []
   const [_institutions, setInstitutions] = useState<Array<string>>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
@@ -815,6 +816,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 closeMenuOnSelect={false}
                 onOptionSelected={onCountriesChange}
                 options={countryObjectList}
+                includeList={countryList}
                 error={validation.countryFail ? t(validation.countryFail) : null}
               />
               <VerticalSeparatorDiv />
