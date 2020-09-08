@@ -1,3 +1,4 @@
+import React from 'react'
 import LineExpandedCalendar from 'assets/icons/line-version-expanded-calendar-3'
 import LineExpandedGlobe from 'assets/icons/line-version-expanded-globe-2'
 import LineHandbag from 'assets/icons/line-version-handbag-3'
@@ -15,7 +16,6 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi'
 import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -197,20 +197,31 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
           )}
         </MarginColumn>
       </MarginRow>
-      {personAvdods && (
+      {personAvdods && personAvdods.length > 0 && (
         <MarginRow>
-          {personAvdods.map(avdod => (
-            <MarginColumn key={avdod?.fnr}>
-              <PersonIcon color={highContrast ? 'white' : 'black'} />
-              <HorizontalSeparatorDiv />
-              {renderEntity('ui:deceased',
-                avdod?.fornavn +
-              (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-              (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-              (' (' + avdod?.fnr + ')')
-              )}
-            </MarginColumn>
-          ))}
+          <MarginColumn>
+            <PersonIcon color={highContrast ? 'white' : 'black'} />
+            <HorizontalSeparatorDiv />
+            <Undertekst>
+              <strong>{t('ui:deceased')}</strong>:
+            </Undertekst>
+            <div>
+              {personAvdods.map(avdod => (
+                <Element
+                  key={avdod?.fnr}
+                  id='w-overview-personPanel__element-deceased'
+                >
+                  <HorizontalSeparatorDiv />
+                  <Normaltekst>
+                    {avdod?.fornavn +
+                    (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                    (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                    (' (' + avdod?.fnr + ')')}
+                  </Normaltekst>
+                </Element>
+              ))}
+            </div>
+          </MarginColumn>
         </MarginRow>
       )}
     </PersonPanelDiv>

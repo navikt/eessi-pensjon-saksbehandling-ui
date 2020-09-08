@@ -1,10 +1,10 @@
+import React from 'react'
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import classNames from 'classnames'
 import { HighContrastExpandingPanel, HighContrastPanel } from 'components/StyledComponents'
 import { Buc, Sed, Seds } from 'declarations/buc'
 import _ from 'lodash'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
-import React from 'react'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
 

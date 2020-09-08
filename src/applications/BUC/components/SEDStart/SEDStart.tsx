@@ -1,3 +1,4 @@
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   createReplySed,
   createSavingAttachmentJob,
@@ -19,6 +20,7 @@ import SEDAttachmentSender, {
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import { BUCMode } from 'applications/BUC/index'
+import PersonIcon from 'assets/icons/line-version-person-2'
 import Alert from 'components/Alert/Alert'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
@@ -70,7 +72,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -567,7 +568,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } else {
         dispatch(createSed(buc, payload, person!))
       }
-      resetSedForm()
       buttonLogger(e, payload)
     }
   }
@@ -588,6 +588,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const onFinished = useCallback(() => {
+    resetSedForm()
     dispatch(resetSed())
     dispatch(resetSedAttachments())
     setSedSent(false)
@@ -714,7 +715,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               placeholder={t('buc:form-chooseSed')}
               onChange={onSedChange}
               options={sedOptions}
-              value={_.find(sedOptions, ((f: any) => f.value === _sed)) || null}
+              value={_.find(sedOptions, (f: any) => f.value === _sed) || null}
               feil={validation.sedFail ? t(validation.sedFail) : null}
             />
           </>
@@ -746,13 +747,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 placeholder={t('buc:form-noVedtakId')}
                 feil={validation.vedtakFail ? t(validation.vedtakFail) : null}
               />
-              <VerticalSeparatorDiv />
             </>
           )}
           {buc.type === 'P_BUC_02' && personAvdods && (
             <>
               {_sed && _sed === 'P2100' && personAvdods.length > 1 && (
                 <>
+                  <VerticalSeparatorDiv />
                   <label className='skjemaelement__label'>
                     {t('buc:form-avdod')}
                   </label>
@@ -764,39 +765,44 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     placeholder={t('buc:form-chooseAvdod')}
                     onChange={onAvdodChange}
                     options={avdodOptions}
-                    value={_.find(avdodOptions, ((f: any) => f.value === _avdod?.fnr)) || null}
+                    value={_.find(avdodOptions, (f: any) => f.value === _avdod?.fnr) || null}
                     feil={validation.avdodFail ? t(validation.avdodFail) : null}
                   />
                 </>
               )}
               {personAvdods.length === 1 && (
-                <FlexDiv>
-                  <label className='skjemaelement__label'>
-                    {t('buc:form-avdod')}:
-                  </label>
-                  <HorizontalSeparatorDiv />
-                  <Normaltekst>
-                    {_avdod?.fornavn +
-                  (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
-                  (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
-                  (' (' + _avdod?.fnr + ')')}
-                  </Normaltekst>
-                </FlexDiv>
+                <>
+                  <VerticalSeparatorDiv />
+                  <FlexDiv>
+                    <PersonIcon color={highContrast ? 'white' : 'black'} />
+                    <HorizontalSeparatorDiv />
+                    <label className='skjemaelement__label'>
+                      {t('buc:form-avdod')}:
+                    </label>
+                    <HorizontalSeparatorDiv />
+                    <Normaltekst>
+                      {_avdod?.fornavn +
+                    (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
+                    (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
+                    (' (' + _avdod?.fnr + ')')}
+                    </Normaltekst>
+                  </FlexDiv>
+                </>
               )}
             </>
           )}
           {needsAvdodFnr() && (
-              <>
-                <VerticalSeparatorDiv />
-                <HighContrastInput
-                  label={t('buc:form-avdod')}
-                  data-testid='a-buc-c-bucstart__avdod-input-id'
-                  placeholder={t('buc:form-chooseAvdodFnr')}
-                  onChange={onAvdodFnrChange}
-                  feil={validation.avdodfnrFail ? t(validation.avdodfnrFail) : null}
-                />
-              </>
-            )}
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastInput
+                label={t('buc:form-avdod')}
+                data-testid='a-buc-c-bucstart__avdod-input-id'
+                placeholder={t('buc:form-chooseAvdodFnr')}
+                onChange={onAvdodFnrChange}
+                feil={validation.avdodfnrFail ? t(validation.avdodfnrFail) : null}
+              />
+            </>
+          )}
           {!currentSed && (
             <>
               <VerticalSeparatorDiv />
