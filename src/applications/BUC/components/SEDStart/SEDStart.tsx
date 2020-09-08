@@ -516,28 +516,31 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const performValidation = () => {
-    validateSed(_sed)
+    let valid = true
+    valid = valid && validateSed(_sed)
     if (!bucHasSedsWithAtLeastOneInstitution()) {
-      validateInstitutions(_institutions)
-      validateCountries(_countries)
+      valid = valid &&
+        validateInstitutions(_institutions) &&
+        validateCountries(_countries)
     }
     if (sedNeedsVedtakId()) {
-      validateVedtakId(_vedtakId)
+      valid = valid && validateVedtakId(_vedtakId)
     }
     if (buc.type === 'P_BUC_02') {
-      validateKravDato()
+      valid = valid && validateKravDato()
     }
     if (needsAvdod()) {
-      validateAvdod(_avdod)
+      valid = valid && validateAvdod(_avdod)
     }
     if (needsAvdodFnr()) {
-      validateAvdodFnr(_avdod)
+      valid = valid && validateAvdodFnr(_avdod)
     }
+    return valid
   }
 
   const onForwardButtonClick = (e: React.MouseEvent) => {
-    performValidation()
-    if (_.isEmpty(validation)) {
+    const valid = performValidation()
+    if (valid) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
       const payload: NewSedPayload = {
         sakId: sakId!,
@@ -594,6 +597,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setCountries([])
     onSedCreated()
   }, [dispatch, onSedCreated])
+
+  const sedOptions = renderOptions(sedList)
+  const avdodOptions = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
@@ -707,10 +713,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               isSearchable
               placeholder={t('buc:form-chooseSed')}
               onChange={onSedChange}
-              options={renderOptions(sedList)}
+              options={sedOptions}
+              value={_.find(sedOptions, ((f: any) => f.value === _sed)) || null}
+              feil={validation.sedFail ? t(validation.sedFail) : null}
             />
-
-            {validation.sedFail && <Normaltekst>{t(validation.sedFail)}</Normaltekst>}
           </>
           {buc.type === 'P_BUC_02' && (
             <>
@@ -757,9 +763,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     isSearchable
                     placeholder={t('buc:form-chooseAvdod')}
                     onChange={onAvdodChange}
-                    options={renderAvdodOptions(personAvdods)}
+                    options={avdodOptions}
+                    value={_.find(avdodOptions, ((f: any) => f.value === _avdod?.fnr)) || null}
+                    feil={validation.avdodFail ? t(validation.avdodFail) : null}
                   />
-                  {validation.avdodFail && <Normaltekst>{t(validation.avdodFail)}</Normaltekst>}
                 </>
               )}
               {personAvdods.length === 1 && (
@@ -786,8 +793,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   data-testid='a-buc-c-bucstart__avdod-input-id'
                   placeholder={t('buc:form-chooseAvdodFnr')}
                   onChange={onAvdodFnrChange}
+                  feil={validation.avdodfnrFail ? t(validation.avdodfnrFail) : null}
                 />
-                {validation.avdodfnrFail && <Normaltekst>{t(validation.avdodfnrFail)}</Normaltekst>}
               </>
             )}
           {!currentSed && (
@@ -808,6 +815,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 closeMenuOnSelect={false}
                 onOptionSelected={onCountriesChange}
                 options={countryObjectList}
+                error={validation.countryFail ? t(validation.countryFail) : null}
               />
               <VerticalSeparatorDiv />
               <MultipleSelect
@@ -823,6 +831,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 onSelect={onInstitutionsChange}
                 hideSelectedOptions={false}
                 options={institutionObjectList}
+                error={validation.institutionFail ? t(validation.institutionFail) : undefined}
               />
               <VerticalSeparatorDiv data-size='2' />
               <label className='skjemaelement__label'>

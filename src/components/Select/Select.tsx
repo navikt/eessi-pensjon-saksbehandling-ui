@@ -1,18 +1,22 @@
+import { Feilmelding } from 'nav-frontend-typografi'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import classNames from 'classnames'
 import React from 'react'
 import ReactSelect from 'react-select'
 
 const Select = (props: any) => {
   const _theme = props.highContrast ? themeHighContrast : theme
   return (
-    <ReactSelect
+    <>
+      <ReactSelect
       {...props}
+      className={classNames({ skjemaelement__feilmelding: !!props.feil })}
       isOptionDisabled={(option: any) => option.isDisabled}
       styles={{
         control: (styles: any) => ({
           ...styles,
-          borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-          borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
+          borderWidth: props.feil ? '2px' : _theme.type === 'themeHighContrast' ? '2px' : '1px',
+          borderColor: props.feil ?  _theme[themeKeys.REDERROR]: _theme[themeKeys.MAIN_BORDER_COLOR],
           borderStyle: 'solid',
           color: _theme[themeKeys.MAIN_FONT_COLOR],
           backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
@@ -53,6 +57,12 @@ const Select = (props: any) => {
         })
       }}
     />
+      {props.feil && (
+        <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
+          <Feilmelding>{props.feil}</Feilmelding>
+        </div>
+      )}
+    </>
   )
 }
 
