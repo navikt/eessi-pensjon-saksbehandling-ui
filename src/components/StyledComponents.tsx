@@ -40,15 +40,16 @@ export const HighContrastKnapp = styled(Knapp)`
   }
 `
 export const HighContrastHovedknapp = styled(Hovedknapp)`
-  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : 'inherit'};
-  color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+  color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
   border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   &:hover:not(:disabled) {
     background-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
-    color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
   }
   &:disabled {
+    color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
     background-color: ${({ theme }) => theme[themeKeys.MAIN_DISABLED_COLOR]};
   }
 `

@@ -196,7 +196,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const countryData = CountryData.getCountryInstance(locale)
   const countryObjectList = countryList ? countryData.filterByValueOnArray(countryList).sort(countrySort) : []
   const [_countries, setCountries] = useState<Array<string>>(prefill('countryCode'))
-  console.log(countryObjectList)
   const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort(countrySort) : []
   const [_institutions, setInstitutions] = useState<Array<string>>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
