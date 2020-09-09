@@ -9,7 +9,6 @@ const Select = (props: any) => {
   return (
     <>
       <ReactSelect
-        {...props}
         className={classNames({ skjemaelement__feilmelding: !!props.feil })}
         isOptionDisabled={(option: any) => option.isDisabled}
         styles={{
@@ -56,6 +55,7 @@ const Select = (props: any) => {
                 : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
           })
         }}
+        {...props}
       />
       {props.feil && (
         <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>

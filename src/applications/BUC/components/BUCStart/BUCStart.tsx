@@ -318,6 +318,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               </label>
               <Select
                 highContrast={highContrast}
+                menuPortalTarget={document.body}
                 data-testid='a-buc-c-bucstart__buc-select-id'
                 isSearchable
                 placeholder={t('buc:form-chooseBuc')}
@@ -333,7 +334,17 @@ const BUCStart: React.FC<BUCStartProps> = ({
               menuPortalTarget={document.body}
               highContrast={highContrast}
               ariaLabel={t('buc:form-tagsForBUC')}
-              label={t('buc:form-tagsForBUC')}
+              label={(
+                <>
+                  <label className='skjemaelement__label'>
+                    {t('buc:form-tagsForBUC')}
+                  </label>
+                  <VerticalSeparatorDiv />
+                  <Normaltekst>
+                    {t('buc:form-tagsForBUC-description')}
+                  </Normaltekst>
+                </>
+              )}
               id='a-buc-c-bucstart__tags-select-id'
               className='a-buc-c-bucstart__tags-select'
               placeholder={t('buc:form-tagPlaceholder')}
@@ -343,10 +354,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
               onSelect={onTagsChange}
               options={tagObjectList}
             />
-            <VerticalSeparatorDiv />
-            <Normaltekst>
-              {t('buc:form-tagsForBUC-description')}
-            </Normaltekst>
           </Column>
         </Row>
         {showWarningBuc && (
