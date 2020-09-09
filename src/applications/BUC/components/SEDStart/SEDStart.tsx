@@ -507,14 +507,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return institutions
   }
 
-  const resetSedForm = () => {
+  const resetSedForm = useCallback(() => {
     setSed(undefined)
     dispatch(resetSed())
     setSed(undefined)
     setInstitutions([])
     setCountries([])
     setKravDato('')
-  }
+  }, [dispatch])
 
   const performValidation = () => {
     let valid = true
