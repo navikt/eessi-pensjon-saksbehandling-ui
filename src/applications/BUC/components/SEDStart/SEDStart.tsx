@@ -597,7 +597,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setInstitutions([])
     setCountries([])
     onSedCreated()
-  }, [dispatch, onSedCreated])
+  }, [dispatch, resetSedForm, onSedCreated])
 
   const sedOptions = renderOptions(sedList)
   const avdodOptions = renderAvdodOptions(personAvdods)
