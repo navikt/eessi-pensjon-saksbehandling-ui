@@ -71,6 +71,12 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   const { person, pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
 
+  // Internet Explorer 6-11
+  // @ts-ignore
+  const isIE = /*@cc_on!@*/false || !!document.documentMode
+  // Edge 20+
+  const isEdge = !isIE && !!window.StyleMedia;
+
   useEffect(() => {
     if (!mounted) {
       standardLogger('context', {
@@ -101,6 +107,15 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             </Tag>
           )}
         </Context>
+        {!(isIE || isEdge) && (
+          <div>
+            <HighContrastLink
+              target='_blank'
+              href='https://navno.sharepoint.com/sites/fag-og-ytelser-fagsystemer/SitePages/Ta-i-bruk-PESYS-Chrome!.aspx'>
+              {t('ui:tryChrome')}
+            </HighContrastLink>
+          </div>
+        )}
         <DivWithLinks>
           <HighContrastLink
             target='_blank'
