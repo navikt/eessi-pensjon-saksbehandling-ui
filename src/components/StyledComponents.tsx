@@ -37,6 +37,12 @@ export const HighContrastKnapp = styled(Knapp)`
   &:hover:not(:disabled) {
     background-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    svg path {
+      stroke: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
+    }
+  }
+  svg path {
+    stroke: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   }
 `
 export const HighContrastHovedknapp = styled(Hovedknapp)`
@@ -47,10 +53,16 @@ export const HighContrastHovedknapp = styled(Hovedknapp)`
     background-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
+    svg path {
+      stroke: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
+    }
   }
   &:disabled {
     color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
     background-color: ${({ theme }) => theme[themeKeys.MAIN_DISABLED_COLOR]};
+  }
+  svg path {
+    stroke: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   }
 `
 export const HighContrastFlatknapp = styled(Flatknapp)`
@@ -59,11 +71,17 @@ export const HighContrastFlatknapp = styled(Flatknapp)`
   &:hover:not(:disabled) {
     color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    svg path {
+      stroke: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
+    }
   }
    &:disabled {
     background-color: ${({ theme }) => theme[themeKeys.MAIN_DISABLED_COLOR]};
     color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
     border: none;
+  }
+  svg path {
+    stroke: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   }
 `
 export const HighContrastPanel = styled(Panel)`
@@ -94,6 +112,7 @@ export const HighContrastLink = styled(Lenke)`
     stroke: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
   }
 `
+
 export const HighContrastTabs = styled(Tabs)`
   .nav-frontend-tabs__tab-inner--aktiv {
     color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};

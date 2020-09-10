@@ -328,6 +328,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
           </Column>
+          <HorizontalSeparatorDiv data-size='2' />
           <Column>
             <VerticalSeparatorDiv data-size='2' />
             <MultipleSelect
