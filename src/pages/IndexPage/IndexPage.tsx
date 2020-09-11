@@ -1,5 +1,6 @@
 import { BUCMode } from 'applications/BUC'
 import ContextBanner from 'components/ContextBanner/ContextBanner'
+import IEAlert from 'components/IEAlert/IEAlert'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { State } from 'declarations/reducers'
 import { timeLogger } from 'metrics/loggers'
@@ -95,6 +96,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
 
   return (
     <TopContainer>
+      <IEAlert highContrast={highContrast} />
       <ContextBanner
         mode={mode}
         highContrast={highContrast}
