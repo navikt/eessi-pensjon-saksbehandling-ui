@@ -819,6 +819,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 value={countryValueList}
                 hideSelectedOptions={false}
                 closeMenuOnSelect={false}
+                flagType='circle'
                 onOptionSelected={onCountriesChange}
                 options={countryObjectList}
                 includeList={countryList}
