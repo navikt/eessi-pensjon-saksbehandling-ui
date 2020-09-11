@@ -126,6 +126,7 @@
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
   "form-kravDato"                     : "Krav dato",
   "form-kravDatoPlaceholder"          : "DD-MM-ÅÅÅÅ",
+  "form-invalidContext"               : "Ikke i vedtakskontekst",
   "form-labelP5000"                   : "P5000",
   "form-lastNonEmpty5"                : "Viser kun de fem siste SED-ene som er utvekslet",
   "form-name"                         : "Navn på SED",

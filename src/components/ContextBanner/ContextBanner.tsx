@@ -73,9 +73,9 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 
   // Internet Explorer 6-11
   // @ts-ignore
-  const isIE = /*@cc_on!@*/false || !!document.documentMode
+  const isIE = /* @cc_on!@ */false || !!document.documentMode
   // Edge 20+
-  const isEdge = !isIE && !!window.StyleMedia;
+  const isEdge = !isIE && !!window.StyleMedia
 
   useEffect(() => {
     if (!mounted) {
@@ -111,7 +111,8 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           <div>
             <HighContrastLink
               target='_blank'
-              href='https://navno.sharepoint.com/sites/fag-og-ytelser-fagsystemer/SitePages/Ta-i-bruk-PESYS-Chrome!.aspx'>
+              href='https://navno.sharepoint.com/sites/fag-og-ytelser-fagsystemer/SitePages/Ta-i-bruk-PESYS-Chrome!.aspx'
+            >
               {t('ui:tryChrome')}
             </HighContrastLink>
           </div>

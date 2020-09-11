@@ -530,10 +530,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (buc.type === 'P_BUC_02') {
       valid = valid && validateKravDato()
     }
-    if (needsAvdod()) {
+    if (needsAvdod()) {
       valid = valid && validateAvdod(_avdod)
     }
-    if (needsAvdodFnr()) {
+    if (needsAvdodFnr()) {
       valid = valid && validateAvdodFnr(_avdod)
     }
     return valid

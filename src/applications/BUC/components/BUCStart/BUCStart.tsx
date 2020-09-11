@@ -248,6 +248,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
           option.isDisabled = true
           option.label += ' (' + t('buc:form-noAvdod') + ')'
         }
+        if (pesysContext !== constants.VEDTAKSKONTEKST) {
+          option.isDisabled = true
+          option.label += ' (' + t('buc:form-invalidContext') + ')'
+        }
       }
       return option
     })

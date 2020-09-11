@@ -5,7 +5,7 @@ import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import _ from 'lodash'
 import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
-//import { theme, themeHighContrast } from 'nav-styled-component-theme'
+// import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import TableSorter, { Item } from 'tabell'
@@ -29,7 +29,7 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
 }: SEDAttachmentsTableProps): JSX.Element => {
   const items: SEDAttachmentsTableRows = []
   const { t } = useTranslation()
-  //const _theme = highContrast ? themeHighContrast : theme
+  // const _theme = highContrast ? themeHighContrast : theme
   Object.keys(attachments).forEach((namespace, index1) => {
     attachments[namespace].forEach((att: JoarkFile | BUCAttachment, index2: number) => {
       items.push({
