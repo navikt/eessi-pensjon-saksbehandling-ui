@@ -11,24 +11,27 @@ export default () => {
       fulltNavn: 'BLYANT FRODIG',
       fornavn: 'FRODIG',
       mellomnavn: null,
-      etternavn: 'BLYANT'
+      etternavn: 'BLYANT',
+      relasjon: 'REPA'
     }]
   }
   if (whichOne === 2) {
     return [{
       fnr: '12345678902',
       aktoerId: '2865434801175',
-      fulltNavn: 'BLYANT FRODIG',
+      fulltNavn: 'BLYANT FRODIG MOR',
       fornavn: 'FRODIG',
-      mellomnavn: null,
-      etternavn: 'BLYANT'
+      mellomnavn: 'BLYANT',
+      etternavn: 'MOR',
+      relasjon: 'MOR'
     }, {
       fnr: '12345678903',
       aktoerId: '2865434801175',
-      fulltNavn: 'BLYANT FRODIG',
+      fulltNavn: 'BLYANT FRODIG FAR',
       fornavn: 'FRODIG',
-      mellomnavn: null,
-      etternavn: 'BLYANT'
+      mellomnavn: 'BLYANT',
+      etternavn: 'FAR',
+      relasjon: 'FAR'
     }]
   }
   return undefined

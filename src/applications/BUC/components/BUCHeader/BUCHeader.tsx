@@ -200,7 +200,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           {avdod?.fornavn +
           (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
           (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-          (' (' + avdod?.fnr + ')')}
+          ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
         </Normaltekst>
       </OwnerDiv>
     )

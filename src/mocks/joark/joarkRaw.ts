@@ -3,7 +3,7 @@ const mockdata = {
     dokumentoversiktBruker: {
       journalposter: [{
         journalpostId: '1',
-        tittel: 'blue.pdf',
+        tittel: 'Color PDFs',
         tema: 'foo',
         datoOpprettet: '2018-12-27T14:42:24',
         dokumenter: [{
@@ -11,18 +11,12 @@ const mockdata = {
           tittel: 'blue.pdf',
           dokumentvarianter: [{
             variantformat: 'ARKIV',
-            filnavn: '23534345.pdf'
+            filnavn: 'blue-arkiv.pdf'
           }, {
             variantformat: 'DUMMY',
-            filnavn: '908745345.pdf'
+            filnavn: 'blue-dummy.pdf'
           }]
-        }]
-      }, {
-        journalpostId: '2',
-        tittel: 'red.pdf',
-        tema: 'bar',
-        datoOpprettet: '2018-12-17T14:42:24',
-        dokumenter: [{
+        }, {
           dokumentInfoId: '5',
           tittel: 'red.pdf',
           dokumentvarianter: [{
@@ -32,13 +26,7 @@ const mockdata = {
             variantformat: 'DUMMY',
             filnavn: '998424576.pdf'
           }]
-        }]
-      }, {
-        journalpostId: '3',
-        tittel: 'yellow.pdf',
-        tema: 'fuzz',
-        datoOpprettet: '2018-12-07T14:42:24',
-        dokumenter: [{
+        }, {
           dokumentInfoId: '6',
           tittel: 'yellow.pdf',
           dokumentvarianter: [{

@@ -175,6 +175,14 @@
 
   "P5000-title"                 : "Perioder for P5000",
 
+  "relasjon-EKTE"  : "Ektefelle til",
+  "relasjon-BARN"  : "Barn av",
+  "relasjon-SAMB"  : "Samboer med",
+  "relasjon-ANNEN" : "Annen person",
+  "relasjon-REPA"  : "Registrert partner med",
+  "relasjon-MOR"   : "Mor av",
+  "relasjon-FAR"   : "Far av",
+
   "status-active"         : "Under oppdatering",
   "status-cancelled"      : "Ugyldiggjort",
   "status-first_new"      : "Tidligere utkast",

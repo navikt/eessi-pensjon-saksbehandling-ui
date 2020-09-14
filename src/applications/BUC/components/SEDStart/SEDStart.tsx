@@ -784,7 +784,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                       {_avdod?.fornavn +
                     (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
                     (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
-                    (' (' + _avdod?.fnr + ')')}
+                      ' - ' + _avdod?.fnr + ' (' + t('buc:relasjon-' + _avdod?.relasjon) + ')'}
                     </Normaltekst>
                   </FlexDiv>
                 </>

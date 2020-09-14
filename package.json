@@ -45,7 +45,7 @@
     "lodash": "^4.17.20",
     "lodash.throttle": "^4.1.1",
     "md5": "^2.3.0",
-    "moment": "^2.27.0",
+    "moment": "^2.28.0",
     "nav-dashboard": "^1.0.9",
     "nav-frontend-alertstriper": "^3.0.23",
     "nav-frontend-alertstriper-style": "^2.0.17",
@@ -84,7 +84,7 @@
     "nav-frontend-veileder-style": "^2.0.15",
     "nav-frontend-veilederpanel": "^0.1.29",
     "nav-frontend-veilederpanel-style": "^0.0.29",
-    "print-js": "^1.1.1",
+    "print-js": "^1.2.0",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-collapse": "^5.0.1",
@@ -99,7 +99,7 @@
     "redux": "^4.0.5",
     "sprintf-js": "^1.1.2",
     "styled-components": "^5.2.0",
-    "tabell": "^1.0.9",
+    "tabell": "^1.1.0",
     "use-error-boundary": "^1.2.4"
   },
   "devDependencies": {

@@ -207,12 +207,13 @@ export interface SavingAttachmentsJob {
 }
 
 export interface PersonAvdod {
-  fnr: string
   aktoerId: string
-  fulltNavn: string
-  fornavn: string
-  mellomnavn: string | null
   etternavn: string
+  fnr: string
+  fornavn: string
+  fulltNavn: string
+  mellomnavn: string | null
+  relasjon: string
 }
 
 export type PersonAvdods = Array<PersonAvdod>
