@@ -92,11 +92,7 @@ const AlertDiv = styled.div`
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 `
-const InstitutionsDiv = styled.div`
-  & > div {
-   margin-bottom: 0.35rem;
-  }
-`
+const InstitutionsDiv = styled.div``
 const SEDAttachmentSenderDiv = styled.div`
    margin-top: 1rem;
    margin-bottom: 1rem;

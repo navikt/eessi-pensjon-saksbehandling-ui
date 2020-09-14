@@ -87,9 +87,6 @@ const SEDListInstitutionsDiv = styled.div`
   flex-direction: column;
   display: flex;
   align-items: flex-start;
-  & > div {
-   margin-bottom: 0.35rem;
-  }
 `
 const SEDListActionsDiv = styled.div`
   flex: 2;

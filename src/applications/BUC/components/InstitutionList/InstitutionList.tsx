@@ -31,6 +31,7 @@ const InstitutionDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 0.35rem;
 `
 const InstitutionText = styled(Normaltekst)`
   margin-left: 0.5rem;

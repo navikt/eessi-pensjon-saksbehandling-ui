@@ -73,9 +73,6 @@ const Dd = styled.dd`
 `
 const InstitutionListDiv = styled.div`
   padding: 0.5rem;
-  & > div {
-   margin-bottom: 0.35rem;
-  }
 `
 const BUCDetail: React.FC<BUCDetailProps> = ({
   buc, className
@@ -169,7 +166,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
               <InstitutionList
                 institutions={(buc.institusjon as Institutions)}
                 locale={locale}
-                type='joined'
+                type='separated'
               />
             </InstitutionListDiv>
           </div>
