@@ -441,79 +441,12 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const context: any = (action as ActionWithPayload).context
-      const payload = (action as ActionWithPayload).payload
-      const now = new Date()
-      const newSed: Sed = {} as Sed
-
-      newSed.id = payload.id
-      newSed.creationDate = now.getTime()
-      newSed.displayName = ''
-      newSed.firstVersion = {
-        date: now.getTime(),
-        id: '1'
-      }
-      newSed.type = context.sed.sed
-      newSed.attachments = []
-      newSed.allowsAttachments = state.sedsWithAttachments[newSed.type] || false
-
-      const sender = context.buc.creator
-      const participants = context.sed.institutions.map((inst: any) => {
-        return {
-          role: 'Receiver',
-          organisation: {
-            address: {
-              country: inst.country,
-              town: null,
-              street: null,
-              postalCode: null,
-              region: null
-            },
-            registryNumber: null,
-            acronym: inst.institution,
-            countryCode: inst.country,
-            contactMethods: null,
-            name: inst.name,
-            location: null,
-            assignedBUCs: null,
-            id: inst.institution,
-            accessPoint: null
-          },
-          selected: true
-        }
-      })
-
-      participants.push({
-        role: 'Sender',
-        organisation: {
-          address: {
-            country: sender.country,
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          registryNumber: null,
-          acronym: sender.institution.split(':')[1],
-          countryCode: sender.country,
-          contactMethods: null,
-          name: state.institutionNames[sender.institution],
-          location: null,
-          assignedBUCs: null,
-          id: sender.institution,
-          accessPoint: null
-        },
-        selected: true
-      })
-
-      newSed.participants = participants
+      const newSed: Sed = (action as ActionWithPayload).payload as Sed
       newSed.status = 'new'
-      newSed.version = '1'
-
       const bucs = _.cloneDeep(state.bucs)
       if (bucs) {
         bucs[state.currentBuc!].seds!.push(newSed)
       }
-
       if (bucs && newSed.type === 'P2100') {
         const newSubject: BUCSubject = {
           gjenlevende: {

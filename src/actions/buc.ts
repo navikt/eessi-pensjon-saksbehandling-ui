@@ -297,7 +297,7 @@ export const createSed = (buc: Buc, payload: NewSedPayload, person: Person): Fun
       sed: payload,
       person: person
     },
-    expectedPayload: mockCreateSed(),
+    expectedPayload: mockCreateSed(payload),
     cascadeFailureError: true,
     method: 'POST',
     type: {
@@ -317,7 +317,7 @@ export const createReplySed = (buc: Buc, payload: NewSedPayload, person: Person,
       sed: payload,
       person: person
     },
-    expectedPayload: mockCreateSed(),
+    expectedPayload: mockCreateSed(payload),
     cascadeFailureError: true,
     method: 'POST',
     type: {
