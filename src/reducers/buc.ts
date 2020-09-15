@@ -326,36 +326,36 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
-      bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
 
-      if (((action as ActionWithPayload).payload as ValidBuc).type === 'P2100') {
-        const newSubject: BUCSubject = {
+      if (newBuc.type === 'P_BUC_02') {
+        newBuc.subject = {
           gjenlevende: {
             fnr: (action as ActionWithPayload).context.person.aktoer.ident.ident
           },
           avdod: {
             fnr: (action as ActionWithPayload).context.avdod.fnr!
           }
-        };
-        (bucs![state.currentBuc!] as ValidBuc).subject = newSubject
+        } as BUCSubject
       }
 
       standardLogger('buc.new.create.success')
 
       // Cache seds allowing attachments
-      const seds = (action as ActionWithPayload).payload.seds
-      if (seds) {
-        seds.forEach((sed: Sed) => {
+      if (newBuc.seds) {
+        newBuc.seds.forEach((sed: Sed) => {
           newSedsWithAttachments[sed.type] = sed.allowsAttachments
         })
       }
 
+      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
+
       return {
         ...state,
-        currentBuc: (action as ActionWithPayload).payload.caseId,
+        currentBuc: newBuc.caseId,
         sed: undefined,
         bucs: bucs,
-        newlyCreatedBuc: (action as ActionWithPayload).payload,
+        newlyCreatedBuc: newBuc,
         savingAttachmentsJob: undefined,
         sedsWithAttachments: newSedsWithAttachments
       }
