@@ -11,7 +11,7 @@
   "alert-noBucsInfo"              : "Ingen informasjon om BUC",
   "alert-noBucsInfoList"          : "Ingen informasjon om BUCer",
   "alert-noCountryList"           : "Ingen landliste funnet",
-  "alert-noDeceased"              : "Det finnes ingen informasjon om avdød i vedtaket. For å bestille P_BUC_02 må du velge et vedtak med gjenlevenderett",
+  "alert-noDeceased"              : "Det finnes ingen informasjon om avdød i vedtaket. For å bestille P_BUC_02 må du velge et vedtak med gjenlevenderett.",
   "alert-noInstitutionList"       : "Ingen mottagerliste",
   "alert-noSedList"               : "Ingen SED liste",
   "alert-noSubjectAreaList"       : "Ingen fagområde liste",

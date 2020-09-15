@@ -87,11 +87,6 @@ const LoadingDiv = styled.div`
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 `
-const AlertStripeDiv = styled.div`
-  @media (min-width: 768px) {
-    width: 50%;
-  }
-`
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId, onBucCreated, onBucCancelled, onTagsChanged
 }: BUCStartProps): JSX.Element | null => {
@@ -211,22 +206,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
         value: value
       }
     }) : []
-  }
-
-  const filterPbuc02 = (options: Array<any>) => {
-    return options.map(option => {
-      if (option.value === 'P_BUC_02') {
-        if (pesysContext === constants.VEDTAKSKONTEKST && personAvdods?.length === 0) {
-          option.isDisabled = true
-          option.label += ' (' + t('buc:form-noAvdod') + ')'
-        }
-        if (pesysContext !== constants.VEDTAKSKONTEKST) {
-          option.isDisabled = true
-          option.label += ' (' + t('buc:form-invalidContext') + ')'
-        }
-      }
-      return option
-    })
   }
 
   const getOptionLabel = (value: string): string => {
@@ -356,11 +335,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 isSearchable
                 placeholder={t('buc:form-chooseBuc')}
                 onChange={onBucChange}
-                options={filterPbuc02(renderOptions(bucList))}
+                options={renderOptions(bucList)}
               />
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
-            {personAvdods && personAvdods.length >= 1 && (
+            {_buc === 'P_BUC_02' && personAvdods && personAvdods.length >= 1 && (
               <>
                 <VerticalSeparatorDiv />
                 <label className='skjemaelement__label'>
@@ -411,14 +390,18 @@ const BUCStart: React.FC<BUCStartProps> = ({
         </Row>
         {showWarningBuc && (
           <>
-            <VerticalSeparatorDiv />
-            <AlertStripeDiv>
-              <AlertStripe type='advarsel'>
-                <Normaltekst>
-                  {t('buc:alert-noDeceased')}
-                </Normaltekst>
-              </AlertStripe>
-            </AlertStripeDiv>
+            <VerticalSeparatorDiv data-size='2' />
+            <Row>
+              <Column>
+                <AlertStripe type='advarsel'>
+                  <Normaltekst>
+                    {t('buc:alert-noDeceased')}
+                  </Normaltekst>
+                </AlertStripe>
+              </Column>
+              <HorizontalSeparatorDiv data-size='2' />
+              <Column />
+            </Row>
           </>
         )}
         <VerticalSeparatorDiv data-size='2' />
