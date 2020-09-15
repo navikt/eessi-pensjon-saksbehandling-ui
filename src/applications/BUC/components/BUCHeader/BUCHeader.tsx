@@ -9,7 +9,7 @@ import {
   BucInfo,
   Institution,
   InstitutionListMap,
-  InstitutionNames, PersonAvdod,
+  InstitutionNames,
   PersonAvdods,
   ValidBuc
 } from 'declarations/buc'
@@ -22,12 +22,12 @@ import { buttonLogger, linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Lenke from 'nav-frontend-lenker'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import Tooltip from 'rc-tooltip'
 import ReactResizeDetector from 'react-resize-detector'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -73,9 +73,10 @@ const ActionsDiv = styled(Column)`
   padding: 0px;
   flex: 1;
 `
-const OwnerDiv = styled.div`
+const PropertyDiv = styled.div`
   display: flex;
   align-items: center;
+  margin: 0.2rem 0rem;
 `
 const RowText = styled(Normaltekst)`
   white-space: nowrap !important;
@@ -185,24 +186,31 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     }
   }
 
-  const renderAvdod = (avdod: PersonAvdod | undefined) => {
-    if (!avdod) {
-      return null
-    }
+  const renderAvdod = () => {
+    const avdod = _.find(personAvdods, p =>
+      p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
+    )
+
     return (
-      <OwnerDiv
+      <PropertyDiv
         data-testid='a-buc-c-bucheader__avdod'
       >
         <RowText>
           {t('ui:deceased') + ': '}
         </RowText>
-        <Normaltekst>
-          {avdod?.fornavn +
-          (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-          (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-          ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
-        </Normaltekst>
-      </OwnerDiv>
+        { avdod ? (
+          <Normaltekst>
+            {avdod?.fornavn +
+            (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+            (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+            ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
+          </Normaltekst>
+          ) : (
+          <Normaltekst>
+            (buc as ValidBuc)?.subject?.avdod?.fnr
+          </Normaltekst>
+          )}
+      </PropertyDiv>
     )
   }
 
@@ -246,29 +254,29 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           <LabelsDiv
             data-testid='a-buc-c-header__labels'
           >
-            <Normaltekst>
+            <PropertyDiv>
+              <Normaltekst>
               {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
             </Normaltekst>
-            <OwnerDiv
+
+            </PropertyDiv>
+            <PropertyDiv
               data-testid='a-buc-c-header__owner'
             >
               <RowText>
                 {t('buc:form-caseOwner') + ': '}
               </RowText>
               <InstitutionList
+                className='noMargin'
                 data-testid='a-buc-c-bucheader__owner-institutions'
                 flagType='circle'
                 locale={locale}
                 type='separated'
                 institutions={[buc.creator!]}
               />
-            </OwnerDiv>
-            {buc.type === 'P_BUC_02' && (buc as ValidBuc).subject &&
-              renderAvdod(_.find(personAvdods, p =>
-                p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
-              ))}
+            </PropertyDiv>
             {buc.caseId && (
-              <div
+              <PropertyDiv
                 data-testid='a-buc-c-bucheader__case'
               >
                 {rinaUrl ? (
@@ -285,8 +293,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                     </RinaLink>
                   </RowText>
                 ) : <WaitingPanel size='S' />}
-              </div>
+              </PropertyDiv>
             )}
+            {buc.type === 'P_BUC_02' && (buc as ValidBuc).subject && renderAvdod()}
           </LabelsDiv>
           <IconsDiv
             data-testid='a-buc-c-bucheader__icons'
@@ -305,7 +314,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             )}
             {numberOfSeds && (
               <Tooltip
-                placement='top' trigger={['hover']} overlay={(
+                placement='top'
+                trigger={['hover']}
+                overlay={(
                   <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
                 )}
               >
@@ -324,7 +335,10 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 )}
               >
                 <TagsDiv data-testid='a-buc-c-bucheader__icon-tags'>
-                  <ProblemCircleIcon width={flagSize === 'XL' ? 50 : 32} height={flagSize === 'XL' ? 50 : 32} />
+                  <ProblemCircleIcon
+                    width={flagSize === 'XL' ? 50 : 32}
+                    height={flagSize === 'XL' ? 50 : 32}
+                  />
                 </TagsDiv>
               </Tooltip>
             )}

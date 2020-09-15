@@ -31,7 +31,9 @@ const InstitutionDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 0.35rem;
+  &:not(.noMargin) {
+     margin-bottom: 0.35rem;
+  }
 `
 const InstitutionText = styled(Normaltekst)`
   margin-left: 0.5rem;
@@ -83,7 +85,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
             key={landkode}
           >
             {type === 'joined' && (
-              <InstitutionDiv>
+              <InstitutionDiv className={className}>
                 {flag && (
                   <Flag
                     label={country ? country.label : landkode}
@@ -98,7 +100,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
               </InstitutionDiv>
             )}
             {type === 'separated' && institutionList[landkode].map((institutionId : string) => (
-              <InstitutionDiv key={institutionId}>
+              <InstitutionDiv key={institutionId} className={className}>
                 {flag && (
                   <Flag
                     label={country ? country.label : landkode}
