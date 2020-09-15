@@ -22,9 +22,9 @@ import {
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { Buc, Bucs, BucsInfo, PersonAvdods, Tags } from 'declarations/buc'
+import { Buc, Bucs, BucsInfo, PersonAvdod, PersonAvdods, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, Option, PesysContext, Validation } from 'declarations/types'
+import { AllowedLocaleString, Loading, Option, Person, PesysContext, Validation } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
@@ -53,6 +53,7 @@ export interface BUCStartSelector {
   locale: AllowedLocaleString
   loading: Loading
   newlyCreatedBuc: Buc | undefined
+  person: Person | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string
@@ -70,6 +71,7 @@ const mapState = (state: State): BUCStartSelector => ({
   loading: state.loading,
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
+  person: state.app.person,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
@@ -95,9 +97,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucs, bucParam, bucsInfo, bucList, currentBuc,
-    highContrast, locale, loading, newlyCreatedBuc,
+    highContrast, locale, loading, newlyCreatedBuc, person,
     personAvdods, pesysContext, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
+  const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
@@ -119,37 +122,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
       setShowWarningBuc(false)
     }
   }, [_buc, showWarningBuc, pesysContext, personAvdods])
-
-  useEffect(() => {
-    if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
-      dispatch(getSubjectAreaList())
-    }
-    if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId, pesysContext))
-    }
-    if (tagList === undefined && !loading.gettingTagList) {
-      dispatch(getTagList())
-    }
-  }, [bucList, dispatch, loading, pesysContext, sakId, subjectAreaList, tagList])
-
-  useEffect(() => {
-    if (isCreatingBuc && newlyCreatedBuc) {
-      if (!loading.savingBucsInfo) {
-        const buc: Buc = bucs![currentBuc!]
-        dispatch(saveBucsInfo({
-          aktoerId: aktoerId,
-          bucsInfo: bucsInfo,
-          tags: _tags.map(t => t.value),
-          buc: buc
-        } as SaveBucsInfoProps))
-      } else {
-        setBuc(undefined)
-        setTags([])
-        setIsCreatingBuc(false)
-        onBucCreated()
-      }
-    }
-  }, [aktoerId, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
 
   const validateSubjectArea = (subjectArea: string): boolean => {
     if (!subjectArea) {
@@ -194,7 +166,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         buc: _buc
       })
       setIsCreatingBuc(true)
-      dispatch(createBuc(_buc))
+      dispatch(createBuc(_buc, person, _avdod))
     }
   }
 
@@ -294,6 +266,63 @@ const BUCStart: React.FC<BUCStartProps> = ({
       !loading.savingBucsInfo
   }
 
+  const onAvdodChange = (e: any) => {
+    const thisAvdod: PersonAvdod | undefined = _.find(personAvdods, (p) => p.fnr === e.value)
+    setAvdod(thisAvdod)
+  }
+
+  const renderAvdodOptions = (options: any) => {
+    return options?.map((el: any) => ({
+      label: el.fulltNavn + ' (' + el.fnr + ')',
+      value: el.fnr
+    })) || []
+  }
+
+  const avdodOptions = renderAvdodOptions(personAvdods)
+
+  useEffect(() => {
+    if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
+      dispatch(getSubjectAreaList())
+    }
+    if (bucList === undefined && !loading.gettingBucList) {
+      dispatch(getBucList(sakId, pesysContext))
+    }
+    if (tagList === undefined && !loading.gettingTagList) {
+      dispatch(getTagList())
+    }
+  }, [bucList, dispatch, loading, pesysContext, sakId, subjectAreaList, tagList])
+
+  useEffect(() => {
+    if (_buc === 'P_BUC_02' &&
+      pesysContext === constants.VEDTAKSKONTEKST &&
+      personAvdods &&
+      personAvdods.length === 1 &&
+      !_avdod
+    ) {
+      setAvdod(personAvdods[0])
+    }
+  }, [_buc, _avdod, pesysContext, personAvdods])
+
+  useEffect(() => {
+    if (isCreatingBuc && newlyCreatedBuc) {
+      if (!loading.savingBucsInfo) {
+        const buc: Buc = bucs![currentBuc!]
+        dispatch(saveBucsInfo({
+          aktoerId: aktoerId,
+          bucsInfo: bucsInfo,
+          tags: _tags.map(t => t.value),
+          buc: buc,
+          avdod: _avdod
+        } as SaveBucsInfoProps))
+      } else {
+        setBuc(undefined)
+        setTags([])
+        setIsCreatingBuc(false)
+        onBucCreated()
+      }
+    }
+  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
+
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <div data-testid='a-buc-c-bucstart'>
@@ -331,6 +360,25 @@ const BUCStart: React.FC<BUCStartProps> = ({
               />
               {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
+            {personAvdods && personAvdods.length >= 1 && (
+              <>
+                <VerticalSeparatorDiv />
+                <label className='skjemaelement__label'>
+                  {t('buc:form-avdod')}
+                </label>
+                <Select
+                  highContrast={highContrast}
+                  menuPortalTarget={document.body}
+                  data-testid='a-buc-c-bucstart__avdod-select-id'
+                  isSearchable
+                  placeholder={t('buc:form-chooseAvdod')}
+                  onChange={onAvdodChange}
+                  options={avdodOptions}
+                  value={_.find(avdodOptions, (f: any) => f.value === _avdod?.fnr) || null}
+                  feil={validation.avdodFail ? t(validation.avdodFail) : null}
+                />
+              </>
+            )}
           </Column>
           <HorizontalSeparatorDiv data-size='2' />
           <Column>

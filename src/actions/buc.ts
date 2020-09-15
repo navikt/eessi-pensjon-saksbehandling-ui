@@ -3,7 +3,7 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { Buc, BucsInfo, NewSedPayload, Sed } from 'declarations/buc'
+import { Buc, BucsInfo, NewSedPayload, PersonAvdod, Sed } from 'declarations/buc'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import { FeatureToggles, Person, PesysContext } from 'declarations/types'
 import { CountryFilter } from 'land-verktoy'
@@ -184,19 +184,24 @@ export const getTagList: ActionCreator<ActionWithPayload> = (): ActionWithPayloa
   payload: tagsList
 })
 
-export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (buc: string): ThunkResult<ActionWithPayload> => {
-  return call({
-    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
-    method: 'POST',
-    cascadeFailureError: true,
-    expectedPayload: mockCreateBuc(buc),
-    type: {
-      request: types.BUC_CREATE_BUC_REQUEST,
-      success: types.BUC_CREATE_BUC_SUCCESS,
-      failure: types.BUC_CREATE_BUC_FAILURE
-    }
-  })
-}
+export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> =
+  (buc: string, person: Person, avdod: PersonAvdod): ThunkResult<ActionWithPayload> => {
+    return call({
+      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
+      method: 'POST',
+      context: {
+        avdod: avdod,
+        person: person
+      },
+      cascadeFailureError: true,
+      expectedPayload: mockCreateBuc(buc),
+      type: {
+        request: types.BUC_CREATE_BUC_REQUEST,
+        success: types.BUC_CREATE_BUC_SUCCESS,
+        failure: types.BUC_CREATE_BUC_FAILURE
+      }
+    })
+  }
 
 export interface SaveBucsInfoProps {
   aktoerId: string

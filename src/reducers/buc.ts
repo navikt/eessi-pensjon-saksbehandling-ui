@@ -328,6 +328,18 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
       bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
 
+      if (((action as ActionWithPayload).payload as ValidBuc).type === 'P2100') {
+        const newSubject: BUCSubject = {
+          gjenlevende: {
+            fnr: (action as ActionWithPayload).context.person.aktoer.ident.ident
+          },
+          avdod: {
+            fnr: (action as ActionWithPayload).context.avdod.fnr!
+          }
+        };
+        (bucs![state.currentBuc!] as ValidBuc).subject = newSubject
+      }
+
       standardLogger('buc.new.create.success')
 
       // Cache seds allowing attachments
@@ -440,23 +452,11 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
-      const context: any = (action as ActionWithPayload).context
       const newSed: Sed = (action as ActionWithPayload).payload as Sed
       newSed.status = 'new'
       const bucs = _.cloneDeep(state.bucs)
       if (bucs) {
         bucs[state.currentBuc!].seds!.push(newSed)
-      }
-      if (bucs && newSed.type === 'P2100') {
-        const newSubject: BUCSubject = {
-          gjenlevende: {
-            fnr: context.person.aktoer.ident.ident
-          },
-          avdod: {
-            fnr: context.sed.avdodfnr!
-          }
-        };
-        (bucs[state.currentBuc!] as ValidBuc).subject = newSubject
       }
       standardLogger('sed.new.create.success')
       return {

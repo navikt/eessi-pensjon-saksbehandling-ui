@@ -23,7 +23,8 @@ const initialFeatureToggles: FeatureToggles = {
   P5000_VISIBLE: true,
   P_BUC_02_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
-  v2_ENABLED: false
+  v2_ENABLED: false,
+  NR_AVDOD: 0
 }
 
 export const initialAppState: AppState = {
@@ -47,7 +48,8 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       newParams = _.cloneDeep(state.params)
       newFeatureToggles = _.cloneDeep(state.featureToggles)
       if (action.payload.key.startsWith('ft.')) {
-        newFeatureToggles[action.payload.key.replace('ft.', '') as Feature] = (action.payload.value === 'true')
+        newFeatureToggles[action.payload.key.replace('ft.', '') as Feature] =
+          (action.payload.value.match(/^\d+$/) ? parseInt(action.payload.value) : action.payload.value === 'true')
       } else {
         newParams[action.payload.key] = action.payload.value
       }

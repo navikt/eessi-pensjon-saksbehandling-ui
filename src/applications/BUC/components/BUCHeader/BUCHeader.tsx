@@ -198,18 +198,18 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         <RowText>
           {t('ui:deceased') + ': '}
         </RowText>
-        { avdod ? (
+        {avdod ? (
           <Normaltekst>
             {avdod?.fornavn +
             (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
             (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
             ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
           </Normaltekst>
-          ) : (
+        ) : (
           <Normaltekst>
             (buc as ValidBuc)?.subject?.avdod?.fnr
           </Normaltekst>
-          )}
+        )}
       </PropertyDiv>
     )
   }
@@ -256,8 +256,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           >
             <PropertyDiv>
               <Normaltekst>
-              {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
-            </Normaltekst>
+                {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
+              </Normaltekst>
 
             </PropertyDiv>
             <PropertyDiv

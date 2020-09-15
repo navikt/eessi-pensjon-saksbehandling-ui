@@ -76,7 +76,7 @@ export const Overview: React.FC<OverviewProps> = ({
       if (!person) {
         dispatch(getPersonInfo(aktoerId))
         if (pesysContext === constants.VEDTAKSKONTEKST) {
-          dispatch(getPersonAvdodInfo(aktoerId, vedtakId))
+          dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD))
         }
       }
       setMounted(true)

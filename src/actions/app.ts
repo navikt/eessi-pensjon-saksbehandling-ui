@@ -70,17 +70,18 @@ export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (akt
   })
 }
 
-export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload>> = (aktoerId: string, vedtakId: string): ThunkResult<ActionWithPayload> => {
-  return call({
-    url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
-    expectedPayload: mockPersonAvdod,
-    type: {
-      request: types.APP_PERSONINFO_AVDOD_REQUEST,
-      success: types.APP_PERSONINFO_AVDOD_SUCCESS,
-      failure: types.APP_PERSONINFO_AVDOD_FAILURE
-    }
-  })
-}
+export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload>> =
+  (aktoerId: string, vedtakId: string, nrAvdod: number | undefined): ThunkResult<ActionWithPayload> => {
+    return call({
+      url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
+      expectedPayload: mockPersonAvdod(nrAvdod),
+      type: {
+        request: types.APP_PERSONINFO_AVDOD_REQUEST,
+        success: types.APP_PERSONINFO_AVDOD_SUCCESS,
+        failure: types.APP_PERSONINFO_AVDOD_FAILURE
+      }
+    })
+  }
 
 export const clearData = (): Action => ({
   type: types.APP_CLEAR_DATA

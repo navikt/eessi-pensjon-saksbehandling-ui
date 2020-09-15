@@ -376,22 +376,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return true
   }
 
-  const onAvdodChange = (e: any) => {
-    const thisAvdod: PersonAvdod | undefined = _.find(personAvdods, (p) => p.fnr === e.value)
-    setAvdod(thisAvdod)
-  }
-
   const onAvdodFnrChange = (e: any) => {
     setAvdod({
       fnr: e.target.value
     } as PersonAvdod)
-  }
-
-  const renderAvdodOptions = (options: any) => {
-    return options?.map((el: any) => ({
-      label: el.fulltNavn + ' (' + el.fnr + ')',
-      value: el.fnr
-    })) || []
   }
 
   const onSedChange = (e: any) => {
@@ -596,7 +584,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [dispatch, resetSedForm, onSedCreated])
 
   const sedOptions = renderOptions(sedList)
-  const avdodOptions = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
     if (_.isEmpty(countryList) && buc && buc.type && !loading.gettingCountryList) {
@@ -661,17 +648,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setMounted(true)
     }
   }, [mounted, buc, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
-
-  useEffect(() => {
-    if (buc.type === 'P_BUC_02' &&
-      pesysContext === constants.VEDTAKSKONTEKST &&
-      personAvdods &&
-      personAvdods.length === 1 &&
-      !_avdod
-    ) {
-      setAvdod(personAvdods[0])
-    }
-  }, [buc, _avdod, pesysContext, personAvdods])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -747,25 +723,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           )}
           {buc.type === 'P_BUC_02' && personAvdods && (
             <>
-              {_sed && _sed === 'P2100' && personAvdods.length > 1 && (
-                <>
-                  <VerticalSeparatorDiv />
-                  <label className='skjemaelement__label'>
-                    {t('buc:form-avdod')}
-                  </label>
-                  <Select
-                    highContrast={highContrast}
-                    menuPortalTarget={document.body}
-                    data-testid='a-buc-c-bucstart__avdod-select-id'
-                    isSearchable
-                    placeholder={t('buc:form-chooseAvdod')}
-                    onChange={onAvdodChange}
-                    options={avdodOptions}
-                    value={_.find(avdodOptions, (f: any) => f.value === _avdod?.fnr) || null}
-                    feil={validation.avdodFail ? t(validation.avdodFail) : null}
-                  />
-                </>
-              )}
+
               {personAvdods.length === 1 && (
                 <>
                   <VerticalSeparatorDiv />

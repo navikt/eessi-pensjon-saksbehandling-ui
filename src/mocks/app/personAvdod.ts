@@ -1,6 +1,13 @@
-export default () => {
-  const x = Math.random()
-  const whichOne = Math.floor(x * 3)
+export default (nrAvdod: number | undefined) => {
+  let whichOne = 0
+  if (nrAvdod !== undefined) {
+    whichOne = nrAvdod
+    if (whichOne > 2) {
+      whichOne = 2
+    }
+  } else {
+    whichOne = Math.floor(Math.random() * 3)
+  }
   if (whichOne === 0) {
     return []
   }
