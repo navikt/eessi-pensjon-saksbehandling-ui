@@ -5,7 +5,6 @@ import { AttachedFilesPropType } from 'declarations/buc.pt'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
 import _ from 'lodash'
 import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
-// import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import TableSorter, { Item } from 'tabell'
@@ -29,17 +28,16 @@ const SEDAttachmentsTable: React.FC<SEDAttachmentsTableProps> = ({
 }: SEDAttachmentsTableProps): JSX.Element => {
   const items: SEDAttachmentsTableRows = []
   const { t } = useTranslation()
-  // const _theme = highContrast ? themeHighContrast : theme
   Object.keys(attachments).forEach((namespace, index1) => {
     attachments[namespace].forEach((att: JoarkFile | BUCAttachment, index2: number) => {
       items.push({
-        key: (att as JoarkFile).dokumentInfoId ? (att as JoarkFile).dokumentInfoId : index1 + '_' + index2,
+        key: (att as JoarkFile).dokumentInfoId ? 'id-' + (att as JoarkFile).dokumentInfoId : 'id-' + index1 + '_' + index2,
         value: att,
         namespace: namespace,
-        title: (att as JoarkFile).tittel || (att as BUCAttachment).name +
+        title: (att as JoarkFile).title || (att as BUCAttachment).name +
           ((att as JoarkFile).variant ? ' + ' +
-            (att as JoarkFile).variant.variantformat +
-            ' (' + (att as JoarkFile).variant.filnavn + ')' : '')
+            (att as JoarkFile).variant!.variantformat +
+            ' (' + (att as JoarkFile).variant!.filnavn + ')' : '')
       })
     })
   })

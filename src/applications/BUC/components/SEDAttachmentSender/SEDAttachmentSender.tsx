@@ -17,8 +17,8 @@ export interface SEDAttachmentPayload {
 }
 
 export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
-  journalpostId: string
-  dokumentInfoId: string
+  journalpostId: string | undefined
+  dokumentInfoId: string | undefined
   variantformat: string
 }
 
@@ -84,7 +84,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
             ...payload,
             journalpostId: unsentAttachment.journalpostId,
             dokumentInfoId: unsentAttachment.dokumentInfoId,
-            variantformat: unsentAttachment.variant.variantformat
+            variantformat: unsentAttachment.variant!.variantformat
           }
           sendAttachmentToSed(params, unsentAttachment)
         } else {

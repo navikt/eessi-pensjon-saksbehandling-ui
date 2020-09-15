@@ -1,10 +1,9 @@
 import * as types from 'constants/actionTypes'
-import { JoarkDoc, JoarkFile, JoarkFileVariant, JoarkFileWithContent, JoarkPoster } from 'declarations/joark'
+import { JoarkFileWithContent, JoarkPoster } from 'declarations/joark'
 import { ActionWithPayload } from 'js-fetch-api'
-import _ from 'lodash'
 
 export interface JoarkState {
-  list: Array<JoarkFile> | undefined
+  list: Array<JoarkPoster> | undefined
   previewFile: JoarkFileWithContent | undefined
 }
 
@@ -15,37 +14,10 @@ export const initialJoarkState: JoarkState = {
 
 const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithPayload) => {
   switch (action.type) {
-    case types.JOARK_LIST_SUCCESS: {
-      const documents: Array<JoarkFile> = []
-      action.payload.data.dokumentoversiktBruker.journalposter.forEach((post: JoarkPoster) => {
-        post.dokumenter.forEach((doc: JoarkDoc) => {
-          let variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'SLADDET')
-          if (!variant) {
-            variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'ARKIV')
-          }
-          if (!variant) {
-            if (!_.isEmpty(doc.dokumentvarianter)) {
-              variant = doc.dokumentvarianter[0]
-            } else {
-              return
-            }
-          }
-          documents.push({
-            tilleggsopplysninger: post.tilleggsopplysninger,
-            journalpostId: post.journalpostId,
-            tittel: doc.tittel,
-            tema: post.tema,
-            dokumentInfoId: doc.dokumentInfoId,
-            datoOpprettet: new Date(Date.parse(post.datoOpprettet)),
-            variant: variant!
-          })
-        })
-      })
-
-      return {
-        ...state,
-        list: documents
-      }
+    case types.JOARK_LIST_SUCCESS:
+    return {
+      ...state,
+      list: action.payload.data.dokumentoversiktBruker.journalposter
     }
 
     case types.JOARK_PREVIEW_SET:
@@ -58,13 +30,7 @@ const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithP
       return {
         ...state,
         previewFile: {
-          journalpostId: action.context.journalpostId,
-          tilleggsopplysninger: action.context.tilleggsopplysninger,
-          tittel: action.context.tittel,
-          tema: action.context.tema,
-          dokumentInfoId: action.context.dokumentInfoId,
-          datoOpprettet: action.context.datoOpprettet,
-          variant: action.context.variant,
+          ...action.context,
           name: action.payload.fileName,
           size: action.payload.filInnhold.length,
           mimetype: action.payload.contentType,

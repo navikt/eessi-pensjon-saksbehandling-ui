@@ -22,12 +22,11 @@ export const JoarkPosterPropType = PT.shape({
 
 export const JoarkFilePropType = PT.shape({
   journalpostId: PT.string.isRequired,
-  tittel: PT.string.isRequired,
-  tema: PT.string.isRequired,
-  datoOpprettet: PT.instanceOf(Date).isRequired,
   dokumentInfoId: PT.string.isRequired,
-  tilleggsopplysninger: PT.arrayOf(PT.string),
-  variant: JoarkFileVariantPropType.isRequired
+  variant: JoarkFileVariantPropType.isRequired,
+  title: PT.string.isRequired,
+  tema: PT.string.isRequired,
+  date: PT.instanceOf(Date).isRequired
 })
 
 export const JoarkFilesPropType = PT.arrayOf(JoarkFilePropType.isRequired)
@@ -37,13 +36,13 @@ const ContentPropType = PT.shape({
 })
 
 export const JoarkFileWithContentPropType = PT.shape({
-  journalpostId: PT.string.isRequired,
-  tittel: PT.string.isRequired,
-  tema: PT.string.isRequired,
-  datoOpprettet: PT.instanceOf(Date).isRequired,
   dokumentInfoId: PT.string.isRequired,
-  tilleggsopplysninger: PT.arrayOf(PT.string).isRequired,
+  journalpostId: PT.string.isRequired,
   variant: JoarkFileVariantPropType.isRequired,
+  title: PT.string.isRequired,
+  tema: PT.string.isRequired,
+  date: PT.instanceOf(Date).isRequired,
+
   content: ContentPropType.isRequired,
   name: PT.string.isRequired,
   size: PT.number.isRequired,

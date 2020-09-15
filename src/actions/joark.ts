@@ -24,7 +24,7 @@ export const getPreviewJoarkFile = (item: JoarkFile): Function => {
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
-      variantformat: item.variant.variantformat
+      variantformat: item.variant?.variantformat
     }),
     expectedPayload: mockJoarkPayload(item.journalpostId),
     context: item,

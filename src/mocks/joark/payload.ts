@@ -9,7 +9,7 @@ interface JoarkPayload {
   filInnhold: string
 }
 
-export default (journalpostId: string): JoarkPayload | undefined => {
+export default (journalpostId: string | undefined): JoarkPayload | undefined => {
   if (urls.HOST === 'localhost' && !IS_TEST) {
     const item = _.find(mockJoarkRaw.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: journalpostId })
     const tittel: /* istanbul ignore next */ string = item ? item.tittel : 'red.pdf'
