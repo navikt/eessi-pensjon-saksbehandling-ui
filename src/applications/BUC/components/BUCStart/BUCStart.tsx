@@ -283,24 +283,26 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [_buc, _avdod, pesysContext, personAvdods])
 
   useEffect(() => {
-    if (isCreatingBuc && newlyCreatedBuc) {
-      if (!loading.savingBucsInfo) {
-        const buc: Buc = bucs![currentBuc!]
-        dispatch(saveBucsInfo({
-          aktoerId: aktoerId,
-          bucsInfo: bucsInfo,
-          tags: _tags.map(t => t.value),
-          buc: buc,
-          avdod: _avdod
-        } as SaveBucsInfoProps))
-      } else {
-        setBuc(undefined)
-        setTags([])
-        setIsCreatingBuc(false)
-        onBucCreated()
-      }
+    if (isCreatingBuc && newlyCreatedBuc && !loading.savingBucsInfo) {
+      const buc: Buc = bucs![currentBuc!]
+      dispatch(saveBucsInfo({
+        aktoerId: aktoerId,
+        bucsInfo: bucsInfo,
+        tags: _tags.map(t => t.value),
+        buc: buc,
+        avdod: _avdod
+      } as SaveBucsInfoProps))
     }
-  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, onBucCreated, t, _tags])
+  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, loading.savingBucsInfo, _tags])
+
+  useEffect(() => {
+    if (isCreatingBuc && newlyCreatedBuc && loading.savingBucsInfo && bucsInfo !== undefined) {
+      setBuc(undefined)
+      setTags([])
+      setIsCreatingBuc(false)
+      onBucCreated()
+    }
+  }, [bucsInfo, isCreatingBuc, loading.savingBucsInfo, newlyCreatedBuc, onBucCreated])
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>

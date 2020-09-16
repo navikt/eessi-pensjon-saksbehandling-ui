@@ -180,10 +180,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         .filter(sedFilter)
         .map((sed: Sed) => {
           return sed.participants
-            .filter(p => p.role === 'Sender')
-            .map(p => {
-              return _.get(p.organisation, prop)
-            })
+            ? sed.participants.filter(p => p.role === 'Sender')
+              .map(p => {
+                return _.get(p.organisation, prop)
+              })
+            : []
         })
       : []
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates

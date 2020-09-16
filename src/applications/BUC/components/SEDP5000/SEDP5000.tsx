@@ -139,7 +139,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
       return undefined
     }
 
-    const sender: Participant | undefined = sed.participants.find((participant: Participant) => participant.role === 'Sender')
+    const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
     if (sender) {
       return {
         date: moment(sed.lastUpdate).format('DD.MM.YYYY'),

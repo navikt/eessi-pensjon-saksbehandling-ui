@@ -372,7 +372,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       return {
         ...state,
-        bucsInfo: (action as ActionWithPayload).context
+        bucsInfo: undefined
       }
 
     case types.BUC_GET_COUNTRY_LIST_SUCCESS:
@@ -454,6 +454,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const newSed: Sed = (action as ActionWithPayload).payload as Sed
       newSed.status = 'new'
+      if (!newSed.participants) {
+        newSed.participants = []
+      }
       const bucs = _.cloneDeep(state.bucs)
       if (bucs) {
         bucs[state.currentBuc!].seds!.push(newSed)
