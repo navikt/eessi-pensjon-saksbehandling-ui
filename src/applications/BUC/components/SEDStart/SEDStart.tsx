@@ -154,16 +154,20 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
 })
 
 export const SEDStart: React.FC<SEDStartProps> = ({
-  aktoerId, bucs, currentBuc, initialAttachments = {
+  aktoerId,
+  bucs,
+  currentBuc,
+  initialAttachments = {
     sed: [] as BUCAttachments,
     joark: [] as JoarkFiles
   },
   initialSed = undefined,
-  onSedCreated, onSedCancelled
+  onSedCreated,
+  onSedCancelled
 } : SEDStartProps): JSX.Element | null => {
   const {
-    attachmentsError, countryList, currentSed, featureToggles, highContrast, institutionList,
-    loading, locale, person, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
+    attachmentsError, countryList, currentSed, featureToggles, highContrast, institutionList, loading,
+    locale, person, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
 
   const { t } = useTranslation()
@@ -185,8 +189,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
 
-  const [_avdod, setAvdod] = /* istanbul ignore next */ useState<PersonAvdod | undefined>(undefined)
-  const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
+  const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const buc: Buc = _.cloneDeep(bucs[currentBuc!])
@@ -204,25 +207,20 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [sedAttachments, setSedAttachments] = useState<AttachedFiles>(initialAttachments)
   const [sedSent, setSedSent] = useState<boolean>(false)
+  const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
   const [validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = /* istanbul ignore next */ useState<string | undefined>(vedtakId)
 
-  // this is input
-  const needsAvdodFnr = (): boolean => (
+  const needsAvdod = (): boolean => (
+    buc.type === 'P_BUC_02'
+  )
+
+  const needsAvdodFnrInput = (): boolean => (
     buc.type === 'P_BUC_02' &&
     !personAvdods &&
     pesysContext !== constants.VEDTAKSKONTEKST &&
     (buc?.creator?.country !== 'NO' ||
       (buc?.creator?.country === 'NO' && buc?.creator?.institution === 'NO:NAVAT08'))
-  )
-
-  // this is select
-  const needsAvdod = (): boolean => (
-    _sed === 'P2100' || (
-      buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST &&
-       (buc?.creator?.country !== 'NO' ||
-           (buc?.creator?.country === 'NO' && buc?.creator?.institution === 'NO:NAVAT08'))
-    )
   )
 
   if (institutionList) {
@@ -329,16 +327,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       return false
     } else {
       resetValidationState('sedFail')
-      return true
-    }
-  }
-
-  const validateAvdod = (_avdod: PersonAvdod | undefined): boolean => {
-    if (!_avdod) {
-      setValidationState('avdodFail', t('buc:validation-chooseAvdod'))
-      return false
-    } else {
-      resetValidationState('avdodFail')
       return true
     }
   }
@@ -514,10 +502,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (buc.type === 'P_BUC_02') {
       valid = valid && validateKravDato()
     }
-    if (needsAvdod()) {
-      valid = valid && validateAvdod(_avdod)
-    }
-    if (needsAvdodFnr()) {
+    if (needsAvdodFnrInput()) {
       valid = valid && validateAvdodFnr(_avdod)
     }
     return valid
@@ -541,7 +526,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
-      if (needsAvdod() || needsAvdodFnr()) {
+      if (needsAvdod()) {
         payload.avdodfnr = _avdod?.fnr
       }
       if (buc.type === 'P_BUC_02') {
@@ -745,7 +730,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               )}
             </>
           )}
-          {needsAvdodFnr() && (
+          {needsAvdodFnrInput() && (
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
