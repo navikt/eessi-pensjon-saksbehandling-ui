@@ -190,7 +190,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
   }
 
-  const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
+  const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const buc: Buc = _.cloneDeep(bucs[currentBuc!])
@@ -201,7 +201,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_institutions, setInstitutions] = useState<Array<string>>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
-  const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
+  const institutionObjectList: Array<{ label: string, options: Array<Option> }> = []
   const [kravDato, setKravDato] = useState<string>('')
   const [mounted, setMounted] = useState<boolean>(false)
   const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
@@ -216,13 +216,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     buc.type === 'P_BUC_02'
   )
 
-  const needsAvdodFnrInput = (): boolean => (
-    buc.type === 'P_BUC_02' &&
-    !personAvdods &&
+  const needsAvdodFnrInput = (): boolean => {
+    return buc.type === 'P_BUC_02' &&
+    (!personAvdods || _.isEmpty(personAvdods)) &&
     pesysContext !== constants.VEDTAKSKONTEKST &&
     (buc?.creator?.country !== 'NO' ||
       (buc?.creator?.country === 'NO' && buc?.creator?.institution === 'NO:NAVAT08'))
-  )
+  }
 
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
@@ -332,7 +332,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }
 
-  const validateAvdodFnr = (_avdod: PersonAvdod | undefined): boolean => {
+  const validateAvdodFnr = (_avdod: PersonAvdod | null | undefined): boolean => {
     if (!_avdod) {
       setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodFnr'))
       return false
@@ -632,6 +632,18 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }, [mounted, buc, dispatch, fetchInstitutionsForSelectedCountries, institutionList, _countries])
 
+  useEffect(() => {
+    if (buc.type === 'P_BUC_02' && (buc as ValidBuc).subject && _avdod === undefined) {
+      let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
+        p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
+      )
+      if (avdod === undefined) {
+        avdod = null
+      }
+      setAvdod(avdod)
+    }
+  }, [_avdod, buc, personAvdods])
+
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
   }
@@ -732,7 +744,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
-                label={t('buc:form-avdod')}
+                label={t('buc:form-avdodfnr')}
                 data-testid='a-buc-c-bucstart__avdod-input-id'
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}

@@ -207,7 +207,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           </Normaltekst>
         ) : (
           <Normaltekst>
-            (buc as ValidBuc)?.subject?.avdod?.fnr
+            {(buc as ValidBuc)?.subject?.avdod?.fnr}
           </Normaltekst>
         )}
       </PropertyDiv>
