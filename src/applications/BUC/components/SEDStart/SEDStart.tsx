@@ -530,9 +530,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (needsAvdod()) {
         payload.avdodfnr = _avdod?.fnr
       }
-      if (buc.type === 'P_BUC_02') {
-        payload.subject = (buc as ValidBuc).subject
-      }
       if (currentSed) {
         dispatch(createReplySed(buc, payload, person!, currentSed))
       } else {
