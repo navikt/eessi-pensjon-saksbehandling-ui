@@ -178,11 +178,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const onForwardButtonClick = (e: React.MouseEvent): void => {
-    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods) {
-      if (personAvdods.length === 0 && !showWarningBuc) {
-        setShowWarningBuc(true)
-        return
-      }
+    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
+      setShowWarningBuc(true)
+      return
     }
     setShowWarningBuc(false)
     const valid: boolean = performValidation()
