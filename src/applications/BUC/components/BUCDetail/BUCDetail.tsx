@@ -2,10 +2,11 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import { HighContrastExpandingPanel, HighContrastLink } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { Buc, Institutions } from 'declarations/buc'
+import { Buc, Institutions, PersonAvdods, ValidBuc } from 'declarations/buc'
 import { BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/types'
+import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import AlertStripe from 'nav-frontend-alertstriper'
@@ -20,6 +21,7 @@ import styled, { keyframes, ThemeProvider } from 'styled-components'
 export interface BUCDetailProps {
   buc: Buc
   className ?: string
+  personAvdods: PersonAvdods | undefined
 }
 
 export interface BUCDetailSelector {
@@ -75,11 +77,14 @@ const InstitutionListDiv = styled.div`
   padding: 0.5rem;
 `
 const BUCDetail: React.FC<BUCDetailProps> = ({
-  buc, className
+  buc, className, personAvdods
 }: BUCDetailProps): JSX.Element => {
   const { highContrast, locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
   const { t } = useTranslation()
 
+  const avdod = _.find(personAvdods, p =>
+    p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
+  )
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCDetailPanel
@@ -154,6 +159,29 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 </HighContrastLink>
               ) : <WaitingPanel size='S' />}
             </Dd>
+            {buc.type === 'P_BUC_02' && (
+              <>
+                <Dt className='odd'>
+                  <Element>
+                    {t('buc:form-avdod')}:
+                  </Element>
+                </Dt>
+                <Dd className='odd' id='a-buc-c-bucdetail__props-avdod-id'>
+                  {avdod ? (
+                    <Normaltekst>
+                      {avdod?.fornavn +
+                    (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                    (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                    ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
+                    </Normaltekst>
+                  ) : (
+                    <Normaltekst>
+                      {(buc as ValidBuc)?.subject?.avdod?.fnr}
+                    </Normaltekst>
+                  )}
+                </Dd>
+              </>
+            )}
           </Properties>
           <Undertittel
             id='a-buc-c-bucdetail__institutions-title-id'

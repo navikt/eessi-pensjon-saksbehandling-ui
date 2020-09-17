@@ -17,7 +17,7 @@ import {
   HorizontalSeparatorDiv, Row,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
-import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
+import { Buc, BucInfo, Bucs, BucsInfo, PersonAvdods, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
 import CountryData from 'land-verktoy'
@@ -49,6 +49,7 @@ export interface BUCEditSelector {
   locale: AllowedLocaleString,
   newlyCreatedSed: Sed | undefined,
   newlyCreatedSedTime: Date | undefined
+  personAvdods: PersonAvdods | undefined
 }
 
 const mapState = (state: State): BUCEditSelector => ({
@@ -60,7 +61,8 @@ const mapState = (state: State): BUCEditSelector => ({
   highContrast: state.ui.highContrast,
   locale: state.ui.locale,
   newlyCreatedSed: state.buc.newlyCreatedSed,
-  newlyCreatedSedTime: state.buc.newlyCreatedSedTime
+  newlyCreatedSedTime: state.buc.newlyCreatedSedTime,
+  personAvdods: state.app.personAvdods
 })
 
 const BUCEditHeader = styled.div`
@@ -128,7 +130,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
   const {
     aktoerId, bucs, currentBuc, bucsInfo, featureToggles, highContrast, locale,
-    newlyCreatedSed, newlyCreatedSedTime
+    newlyCreatedSed, newlyCreatedSedTime, personAvdods
   }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -336,6 +338,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         <WidgetDiv>
           <BUCDetail
             buc={buc!}
+            personAvdods={personAvdods}
           />
           <VerticalSeparatorDiv />
           <BUCTools
