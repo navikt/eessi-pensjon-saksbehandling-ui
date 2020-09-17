@@ -1,3 +1,4 @@
+import { countrySorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { InstitutionListMap, InstitutionNames, Institutions } from 'declarations/buc'
 import { InstitutionsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -77,7 +78,9 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     </InstitutionListDiv>
   ) : (
     <>
-      {Object.keys(institutionList).map(landkode => {
+      {Object.keys(institutionList)
+        .sort(countrySorter(locale) as (a: string, b: string) => number)
+        .map(landkode => {
         const country = CountryData.getCountryInstance(locale).findByValue(landkode)
         return (
           <InstitutionListDiv

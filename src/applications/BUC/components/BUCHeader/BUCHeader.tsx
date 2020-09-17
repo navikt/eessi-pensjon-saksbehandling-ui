@@ -1,4 +1,4 @@
-import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { countrySorter, getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ProblemCircleIcon from 'assets/icons/report-problem-circle'
 import classNames from 'classnames'
@@ -165,7 +165,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       }
     })
 
-    return Object.keys(institutionList).map(landkode => ({
+    return Object.keys(institutionList)
+      .sort(countrySorter(locale) as (a: string, b: string) => number)
+      .map(landkode => ({
       country: landkode,
       label: institutionList[landkode].map((institutionId) => {
         return institutionNames &&

@@ -1,5 +1,5 @@
 import { AllowedLocaleString, T } from 'declarations/types'
-import CountryData from 'land-verktoy'
+import CountryData, { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
 import moment from 'moment'
@@ -51,4 +51,15 @@ export const bucFilter = (buc: Buc): boolean => {
       buc.type.startsWith('P_BUC') || _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
     ) : true
   )
+}
+
+export const countrySorter = (locale: string) => {
+  return (a: string, b: string): number => {
+    const countryInstance: any = CountryData.getCountryInstance(locale)
+    const labelA = countryInstance.findByValue(a)
+    const labelB = countryInstance.findByValue(b)
+    if (CountryFilter.SCANDINAVIA.indexOf(b.toUpperCase()) - CountryFilter.SCANDINAVIA.indexOf(a.toUpperCase()) > 0) return 1
+    if (CountryFilter.SCANDINAVIA.indexOf(b.toUpperCase()) - CountryFilter.SCANDINAVIA.indexOf(a.toUpperCase()) < 0) return -1
+    return labelA.label.localeCompare(labelB.label)
+  }
 }

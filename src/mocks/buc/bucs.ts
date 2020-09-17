@@ -2355,8 +2355,8 @@ const mockBuc = [
         institution: 'DE:DEMO001'
       },
       {
-        country: 'SL',
-        institution: 'SL:DEMO001'
+        country: 'SE',
+        institution: 'SE:DEMO001'
       },
       {
         country: 'ZA',
