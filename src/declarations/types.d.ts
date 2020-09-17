@@ -1,4 +1,5 @@
 import * as constants from 'constants/constants'
+import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 
 export type AllowedLocaleString = 'en' | 'nb'
 
@@ -15,7 +16,7 @@ export type PesysContext = constants.BRUKEROVERSIKT | constants.KRAVKONTEKST | c
 
 export type RinaUrl = string
 export type Loading = {[key: string]: boolean}
-export type Validation = {[key: string]: string | null | undefined}
+export type Validation = {[key: string]: FeiloppsummeringFeil}
 export type Params = {[k: string] : string}
 export type FeatureToggles = {[key in Feature]: boolean | number}
 

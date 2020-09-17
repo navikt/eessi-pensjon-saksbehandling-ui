@@ -63,12 +63,11 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
   return (
     <ThemeProvider theme={_theme}>
       <MultipleSelectDiv
-        id={id}
         className={classNames(className, { skjemaelement__feilmelding: error })}
       >
         <label className='skjemaelement__label' htmlFor={inputId}>{label}</label>
         <Component
-          id={id ? id + '-select' : null}
+          inputId={id || null}
           className='multipleSelect'
           classNamePrefix='multipleSelect'
           placeholder={placeholder}

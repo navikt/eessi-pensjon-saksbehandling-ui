@@ -124,6 +124,7 @@
   "form-createNewCase"                : "Start ny BUC",
   "form-dateP5000"                    : "Dato: {{date}}",
   "form-empty-startANewCase"          : "Start en ny behandling for å komme i gang!",
+  "form-feiloppsummering"             : "For å gå videre må du rette opp følgende:",
   "form-filterSED"                    : "Filtrer SED på navn, mottaker",
   "form-fnr"                          : "Fødselsnummer",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
@@ -232,6 +233,7 @@
   "validation-chooseSed"            : "Velg en SED",
   "validation-chooseSubjectArea"    : "Velg et fagområde",
   "validation-chooseVedtakId"       : "Velg en vedtak ID",
+  "validation-invalidVedtakId"      : "Ugyldig vedtak ID",
   "validation-noAktoerId"           : "Ingen aktørId",
   "validation-noSakId"              : "Ingen sakId"
 }

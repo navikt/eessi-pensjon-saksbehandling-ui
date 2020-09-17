@@ -1,3 +1,4 @@
+import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import React, { useEffect, useState } from 'react'
 import {
   createBuc,
@@ -24,7 +25,14 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { Buc, Bucs, BucsInfo, PersonAvdod, PersonAvdods, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, Option, Person, PesysContext, Validation } from 'declarations/types'
+import {
+  AllowedLocaleString,
+  Loading,
+  Option,
+  Person,
+  PesysContext,
+  Validation
+} from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
@@ -99,43 +107,16 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
-  const [validation, setValidation] = useState<Validation>({
-    subjectAreaFail: undefined,
-    bucFail: undefined
-  })
+  const [validation, setValidation] = useState<Validation>({})
   const [showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
   const [isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods) {
-      if (personAvdods.length === 0 && !showWarningBuc) {
-        setShowWarningBuc(true)
-      }
-    } else {
-      setShowWarningBuc(false)
-    }
-  }, [_buc, showWarningBuc, pesysContext, personAvdods])
-
-  const validateSubjectArea = (subjectArea: string): boolean => {
-    if (!subjectArea) {
-      setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
-      return false
-    } else {
-      resetValidationState('subjectAreaFail')
-      return true
-    }
-  }
-
-  const validateBuc = (buc: string): boolean => {
-    if (!buc) {
-      setValidationState('bucFail', t('buc:validation-chooseBuc'))
-      return false
-    } else {
-      resetValidationState('bucFail')
-      return true
-    }
+  const setValidationState: Function = (key: string, value: any) => {
+    const newValidation = _.cloneDeep(validation)
+    newValidation[key] = value
+    setValidation(newValidation)
   }
 
   const resetValidationState = (_key: string): void => {
@@ -144,18 +125,68 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }))
   }
 
+  const validateSubjectArea = (subjectArea: string): boolean => {
+    if (!subjectArea) {
+      setValidationState('subjectArea', {
+        skjemaelementId: 'a-buc-c-bucstart__subjectarea-select-id',
+        feilmelding: t('buc:validation-chooseSubjectArea')
+      } as FeiloppsummeringFeil)
+      return false
+    } else {
+      resetValidationState('subjectArea')
+      return true
+    }
+  }
+
+  const validateBuc = (buc: string | undefined): boolean => {
+    if (!buc) {
+      setValidationState('buc', {
+        skjemaelementId: 'a-buc-c-bucstart__buc-select-id',
+        feilmelding: t('buc:validation-chooseBuc')
+      } as FeiloppsummeringFeil)
+      return false
+    } else {
+      resetValidationState('buc')
+      return true
+    }
+  }
+
+  const validateAvdod = (avdod: PersonAvdod | undefined): boolean => {
+    if (!avdod) {
+      setValidationState('avdod', {
+        skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
+        feilmelding: t('buc:validation-chooseAvdod')
+      } as FeiloppsummeringFeil)
+      return false
+    } else {
+      resetValidationState('avdod')
+      return true
+    }
+  }
+
   const hasNoValidationErrors = (): boolean => {
     return _.find(validation, (it) => (it !== undefined)) === undefined
   }
 
-  const setValidationState: Function = (key: string, value: string) => {
-    const newValidation = _.cloneDeep(validation)
-    newValidation[key] = value
-    setValidation(newValidation)
+  const performValidation = () :boolean => {
+    let valid = validateSubjectArea(_subjectArea)
+    valid = valid && validateBuc(_buc)
+    if (_buc === 'P_BUC_02' && personAvdods && personAvdods.length >= 1) {
+      valid = valid && validateAvdod(_avdod)
+    }
+    return valid
   }
 
   const onForwardButtonClick = (e: React.MouseEvent): void => {
-    if (validateSubjectArea(_subjectArea) && _buc && validateBuc(_buc)) {
+    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods) {
+      if (personAvdods.length === 0 && !showWarningBuc) {
+        setShowWarningBuc(true)
+        return
+      }
+    }
+    setShowWarningBuc(false)
+    const valid: boolean = performValidation()
+    if (valid) {
       buttonLogger(e, {
         subjectArea: _subjectArea,
         buc: _buc
@@ -236,15 +267,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }) : []
 
-  const allowedToForward = (): boolean => {
-    return _buc !== undefined &&
-      _subjectArea !== undefined &&
-      (_buc !== 'P_BUC_02' || (_buc === 'P_BUC_02' && !showWarningBuc)) &&
-      hasNoValidationErrors() &&
-      !loading.creatingBUC &&
-      !loading.savingBucsInfo
-  }
-
   const onAvdodChange = (e: any) => {
     const thisAvdod: PersonAvdod | undefined = _.find(personAvdods, (p) => p.fnr === e.value)
     setAvdod(thisAvdod)
@@ -314,14 +336,15 @@ const BUCStart: React.FC<BUCStartProps> = ({
               </label>
               <Select
                 highContrast={highContrast}
+                id='a-buc-c-bucstart__subjectarea-select-id'
                 data-testid='a-buc-c-bucstart__subjectarea-select-id'
                 isSearchable
                 placeholder={t('buc:form-chooseSubjectArea')}
                 defaultValue={{ label: _subjectArea, value: _subjectArea }}
                 onChange={onSubjectAreaChange}
                 options={renderOptions(subjectAreaList)}
+                feil={validation.subjectArea ? t(validation.subjectArea.feilmelding) : null}
               />
-              {validation.subjectAreaFail && <Normaltekst>{t(validation.subjectAreaFail)}</Normaltekst>}
             </>
             <VerticalSeparatorDiv />
             <>
@@ -330,14 +353,15 @@ const BUCStart: React.FC<BUCStartProps> = ({
               </label>
               <Select
                 highContrast={highContrast}
-                menuPortalTarget={document.body}
+                id='a-buc-c-bucstart__buc-select-id'
                 data-testid='a-buc-c-bucstart__buc-select-id'
+                menuPortalTarget={document.body}
                 isSearchable
                 placeholder={t('buc:form-chooseBuc')}
                 onChange={onBucChange}
                 options={renderOptions(bucList)}
+                feil={validation.buc ? t(validation.buc.feilmelding) : null}
               />
-              {validation.bucFail && <Normaltekst>{t(validation.bucFail)}</Normaltekst>}
             </>
             {_buc === 'P_BUC_02' && personAvdods && personAvdods.length >= 1 && (
               <>
@@ -354,7 +378,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   onChange={onAvdodChange}
                   options={avdodOptions}
                   value={_.find(avdodOptions, (f: any) => f.value === _avdod?.fnr) || null}
-                  feil={validation.avdodFail ? t(validation.avdodFail) : null}
+                  feil={validation.avdod ? t(validation.avdod.feilmelding) : null}
                 />
               </>
             )}
@@ -409,7 +433,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
             data-testid='a-buc-c-bucstart__forward-button'
-            disabled={!allowedToForward()}
+            disabled={loading.creatingBUC}
             spinner={loading.creatingBUC}
             onClick={onForwardButtonClick}
           >
@@ -431,6 +455,21 @@ const BUCStart: React.FC<BUCStartProps> = ({
             : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
               : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
         </LoadingDiv>
+        {!hasNoValidationErrors() && (
+          <>
+            <VerticalSeparatorDiv data-size='2' />
+            <Row>
+              <Column>
+                <Feiloppsummering
+                  tittel={t('buc:form-feiloppsummering')}
+                  feil={Object.values(validation)}
+                />
+              </Column>
+              <HorizontalSeparatorDiv data-size='2' />
+              <Column />
+            </Row>
+          </>
+        )}
       </div>
     </ThemeProvider>
   )

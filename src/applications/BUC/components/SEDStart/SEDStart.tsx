@@ -1,3 +1,4 @@
+import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
   createReplySed,
@@ -216,6 +217,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     buc.type === 'P_BUC_02'
   )
 
+  const hasNoValidationErrors = (): boolean => {
+    return _.find(validation, (it) => (it !== undefined)) === undefined
+  }
+
   const needsAvdodFnrInput = (): boolean => {
     return buc.type === 'P_BUC_02' &&
     (!personAvdods || _.isEmpty(personAvdods)) &&
@@ -266,7 +271,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }))
   }, [setValidation, validation])
 
-  const setValidationState = useCallback((key: string, value: string): void => {
+  const setValidationState = useCallback((key: string, value: any): void => {
     const newValidation = _.cloneDeep(validation)
     newValidation[key] = value
     setValidation(newValidation)
@@ -274,13 +279,90 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const validateCountries = useCallback((country: Array<string>): boolean => {
     if (_.isEmpty(country)) {
-      setValidationState('countryFail', t('buc:validation-chooseCountry'))
+      setValidationState('country', {
+        feilmelding: t('buc:validation-chooseCountry'),
+        skjemaelementId: 'a-buc-c-sedstart__country-select-id'
+      } as FeiloppsummeringFeil)
       return false
     } else {
-      resetValidationState('countryFail')
+      resetValidationState('country')
       return true
     }
   }, [resetValidationState, setValidationState, t])
+
+  const validateKravDato = (): boolean => {
+    if (!kravDato) {
+      return true
+    }
+    if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
+      setValidationState('kravDato', {
+        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id',
+        feilmelding: t('buc:validation-badKravDato')
+      } as FeiloppsummeringFeil)
+      return false
+    } else {
+      resetValidationState('kravDato')
+      return true
+    }
+  }
+
+  const validateSed = (sed: string | undefined): boolean => {
+    if (!sed) {
+      setValidationState('sed', {
+        skjemaelementId: 'a-buc-c-sedstart__sed-select-id',
+        feilmelding: t('buc:validation-chooseSed')
+      } as FeiloppsummeringFeil)
+      return false
+    } else {
+      resetValidationState('sed')
+      return true
+    }
+  }
+
+  const validateAvdodFnr = (_avdod: PersonAvdod | null | undefined): boolean => {
+    if (!_avdod) {
+      setValidationState('avdodfnr', {
+        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
+        feilmelding: t('buc:validation-chooseAvdodFnr')
+      } as FeiloppsummeringFeil)
+      return false
+    } else {
+      resetValidationState('avdodfnr')
+      return true
+    }
+  }
+
+  const validateInstitutions = (institutions: Array<string>): boolean => {
+    if (_.isEmpty(institutions)) {
+      setValidationState('institution', {
+        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
+        feilmelding: t('buc:validation-chooseInstitution')
+      } as FeiloppsummeringFeil)
+      return false
+    } else {
+      resetValidationState('institution')
+      return true
+    }
+  }
+
+  const validateVedtakId = (vedtakId: string | undefined): boolean => {
+    if (!vedtakId) {
+      setValidationState('vedtak', {
+        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id',
+        feilmelding: t('buc:validation-chooseVedtakId')
+      } as FeiloppsummeringFeil)
+      return false
+    }
+    if (!isNumber(vedtakId!)) {
+      setValidationState('vedtak', {
+        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id',
+        feilmelding: t('buc:validation-invalidVedtakId')
+      } as FeiloppsummeringFeil)
+      return false
+    }
+    resetValidationState('vedtak')
+    return true
+  }
 
   const fetchInstitutionsForSelectedCountries = useCallback(
     (countries: Array<Country>) => {
@@ -309,62 +391,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       validateCountries(newCountries)
     }, [_countries, dispatch, _institutions, buc, setCountries, setInstitutions, validateCountries])
 
-  const validateKravDato = (): boolean => {
-    if (!kravDato) {
-      return true
-    }
-    if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
-      setValidationState('kravDato', t('buc:validation-badKravDato'))
-      return false
-    } else {
-      resetValidationState('kravDato')
-      return true
-    }
-  }
-
-  const validateSed = (sed: string | undefined): boolean => {
-    if (!sed) {
-      setValidationState('sedFail', t('buc:validation-chooseSed'))
-      return false
-    } else {
-      resetValidationState('sedFail')
-      return true
-    }
-  }
-
-  const validateAvdodFnr = (_avdod: PersonAvdod | null | undefined): boolean => {
-    if (!_avdod) {
-      setValidationState('avdodfnrFail', t('buc:validation-chooseAvdodFnr'))
-      return false
-    } else {
-      resetValidationState('avdodfnrFail')
-      return true
-    }
-  }
-
-  const validateInstitutions = (institutions: Array<string>): boolean => {
-    if (_.isEmpty(institutions)) {
-      setValidationState('institutionFail', t('buc:validation-chooseInstitution'))
-      return false
-    } else {
-      resetValidationState('institutionFail')
-      return true
-    }
-  }
-
-  const validateVedtakId = (vedtakId: string | undefined): boolean => {
-    if (!vedtakId) {
-      setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
-      return false
-    }
-    if (!isNumber(vedtakId!)) {
-      setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
-      return false
-    }
-    resetValidationState('vedtakFail')
-    return true
-  }
-
   const onAvdodFnrChange = (e: any) => {
     setAvdod({
       fnr: e.target.value
@@ -374,14 +400,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const onSedChange = (e: any) => {
     const thisSed = e.value
     setSed(thisSed)
-    validateSed(thisSed)
   }
 
   const onInstitutionsChange = (institutions: Array<Option>) => {
     const newInstitutions = institutions ? institutions.map(institution => {
       return institution.value
     }) : []
-    validateInstitutions(newInstitutions)
     setInstitutions(newInstitutions)
   }
 
@@ -391,7 +415,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const vedtakId = e.target.value
-    validateVedtakId(vedtakId)
     setVedtakId(vedtakId)
   }
 
@@ -680,27 +703,29 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <Select
               highContrast={highContrast}
               data-testid='a-buc-c-sedstart__sed-select-id'
+              id='a-buc-c-sedstart__sed-select-id'
               disabled={loading.gettingSedList}
               isSearchable
               placeholder={t('buc:form-chooseSed')}
               onChange={onSedChange}
               options={sedOptions}
               value={_.find(sedOptions, (f: any) => f.value === _sed) || null}
-              feil={validation.sedFail ? t(validation.sedFail) : null}
+              feil={validation.sed ? t(validation.sed.feilmelding) : null}
             />
           </>
           {buc.type === 'P_BUC_02' && (
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
-                data-testid='a-buc-c-sedstart__vedtakid-kravdato-id'
+                data-testid='a-buc-c-sedstart__kravdato-input-id'
+                id='a-buc-c-sedstart__kravdato-input-id'
                 label={t('buc:form-kravDato')}
                 bredde='fullbredde'
                 value={kravDato || ''}
                 onChange={onKravDatoChange}
                 onBlur={validateKravDato}
                 placeholder={t('buc:form-kravDatoPlaceholder')}
-                feil={validation.kravDato ? t(validation.kravDato) : null}
+                feil={validation.kravDato ? t(validation.kravDato.feilmelding) : null}
               />
             </>
           )}
@@ -710,12 +735,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <HighContrastInput
                 disabled
                 data-testid='a-buc-c-sedstart__vedtakid-input-id'
+                id='a-buc-c-sedstart__vedtakid-input-id'
                 label={t('buc:form-vedtakId')}
                 bredde='fullbredde'
                 value={vedtakId || ''}
                 onChange={onVedtakIdChange}
                 placeholder={t('buc:form-noVedtakId')}
-                feil={validation.vedtakFail ? t(validation.vedtakFail) : null}
+                feil={validation.vedtak ? t(validation.vedtak.feilmelding) : null}
               />
             </>
           )}
@@ -751,7 +777,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 data-testid='a-buc-c-bucstart__avdod-input-id'
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
-                feil={validation.avdodfnrFail ? t(validation.avdodfnrFail) : null}
+                feil={validation.avdodfnr ? t(validation.avdodfnr.feilmelding) : null}
               />
             </>
           )}
@@ -764,6 +790,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 ariaLabel={t('ui:country')}
                 label={t('ui:country')}
                 data-testid='a-buc-c-sedstart__country-select-id'
+                id='a-buc-c-sedstart__country-select-id'
                 disabled={loading.gettingCountryList}
                 isLoading={loading.gettingCountryList}
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
@@ -775,7 +802,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 onOptionSelected={onCountriesChange}
                 options={countryObjectList}
                 includeList={countryList}
-                error={validation.countryFail ? t(validation.countryFail) : null}
+                error={validation.country ? t(validation.country.feilmelding) : null}
               />
               <VerticalSeparatorDiv />
               <MultipleSelect
@@ -791,7 +818,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 onSelect={onInstitutionsChange}
                 hideSelectedOptions={false}
                 options={institutionObjectList}
-                error={validation.institutionFail ? t(validation.institutionFail) : undefined}
+                error={validation.institution ? t(validation.institution.feilmelding) : undefined}
               />
               <VerticalSeparatorDiv data-size='2' />
               <label className='skjemaelement__label'>
@@ -897,6 +924,21 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           </Column>
         </Column>
       </Row>
+      {!hasNoValidationErrors() && (
+        <>
+          <VerticalSeparatorDiv data-size='2' />
+          <Row>
+            <Column>
+              <Feiloppsummering
+                tittel={t('buc:form-feiloppsummering')}
+                feil={Object.values(validation)}
+              />
+            </Column>
+            <HorizontalSeparatorDiv data-size='2' />
+            <Column />
+          </Row>
+        </>
+      )}
     </SEDStartDiv>
   )
 }

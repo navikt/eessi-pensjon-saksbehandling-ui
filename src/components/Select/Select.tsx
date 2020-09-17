@@ -9,6 +9,7 @@ const Select = (props: any) => {
   return (
     <>
       <ReactSelect
+        inputId={props.id}
         className={classNames({ skjemaelement__feilmelding: !!props.feil })}
         isOptionDisabled={(option: any) => option.isDisabled}
         styles={{

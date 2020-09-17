@@ -5,7 +5,7 @@ import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { Buc, BucsInfo, NewSedPayload, PersonAvdod, Sed } from 'declarations/buc'
 import { JoarkFile, JoarkFiles } from 'declarations/joark'
-import { FeatureToggles, Person, PesysContext } from 'declarations/types'
+import { Person, PesysContext } from 'declarations/types'
 import { CountryFilter } from 'land-verktoy'
 import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
 import _ from 'lodash'
@@ -162,13 +162,12 @@ export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload>> =
 }
 
 export const getBucList: ActionCreator<ThunkResult<ActionWithPayload>> = (
-  sakId: string, featureToggles: FeatureToggles, pesysContext: PesysContext
+  sakId: string, pesysContext: PesysContext
 ): ThunkResult<ActionWithPayload> => {
   return call({
     url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId }),
     expectedPayload: mockBucList,
     context: {
-      featureToggles: featureToggles,
       pesysContext: pesysContext
     },
     type: {
