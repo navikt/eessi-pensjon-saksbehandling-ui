@@ -1,4 +1,5 @@
 import { BUCMode } from 'applications/BUC'
+import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import {
   Buc,
@@ -278,6 +279,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     {
       const excludedBucs = ['P_BUC_05', 'P_BUC_10']
       if (_.get((action as ActionWithPayload), 'context.featureToggles.P_BUC_02_VISIBLE') === false) {
+        excludedBucs.push('P_BUC_02')
+      }
+      if (_.get((action as ActionWithPayload), 'context.pesysContext') !== VEDTAKSKONTEKST) {
         excludedBucs.push('P_BUC_02')
       }
       return {
