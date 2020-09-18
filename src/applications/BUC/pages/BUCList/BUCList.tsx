@@ -277,7 +277,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
     return true
   }
   useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !loading.gettingBUCinfo && loading.savingBucsInfo &&
+    if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !loading.gettingBUCinfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
     }

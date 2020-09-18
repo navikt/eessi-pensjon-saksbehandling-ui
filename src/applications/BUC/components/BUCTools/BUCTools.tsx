@@ -177,13 +177,20 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
     standardLogger('buc.edit.tools.tags.select', { tags: tagsList?.map(t => t.label) || [] })
     setTags(tagsList)
+    dispatch(saveBucsInfo({
+      bucsInfo: bucsInfo!,
+      aktoerId: aktoerId,
+      tags: tagsList ? tagsList.map(tag => tag.value) : [],
+      comment: originalComments,
+      buc: buc as ValidBuc
+    }))
   }
 
   const onCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setComment(e.target.value)
   }
 
-  const onSaveButtonClick = (): void => {
+  const onSaveCommentClick = (): void => {
     standardLogger('buc.edit.tools.comment.textarea', { comment: comment })
 
     let newOriginalComments: string | Comments = originalComments ? _.cloneDeep(originalComments) : []
@@ -363,7 +370,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   data-id='a-buc-c-buctools__save-button-id'
                   disabled={loading.savingBucsInfo}
                   spinner={loading.savingBucsInfo}
-                  onClick={onSaveButtonClick}
+                  onClick={onSaveCommentClick}
                 >
                   {loading.savingBucsInfo ? t('ui:saving') : t('ui:add')}
                 </HighContrastKnapp>

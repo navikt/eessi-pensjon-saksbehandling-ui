@@ -374,10 +374,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_SAVE_BUCSINFO_REQUEST:
     case types.BUC_SAVE_BUCSINFO_FAILURE:
 
-      return {
-        ...state,
-        bucsInfo: undefined
-      }
+      return state
 
     case types.BUC_GET_COUNTRY_LIST_SUCCESS:
 

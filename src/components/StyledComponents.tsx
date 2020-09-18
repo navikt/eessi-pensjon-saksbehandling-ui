@@ -46,6 +46,7 @@ export const HighContrastKnapp = styled(Knapp)`
   }
 `
 export const HighContrastHovedknapp = styled(Hovedknapp)`
+  align-items: baseline;
   background-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]};
   border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};

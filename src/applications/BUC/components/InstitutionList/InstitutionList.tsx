@@ -81,45 +81,45 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
       {Object.keys(institutionList)
         .sort(countrySorter(locale) as (a: string, b: string) => number)
         .map(landkode => {
-        const country = CountryData.getCountryInstance(locale).findByValue(landkode)
-        return (
-          <InstitutionListDiv
-            className={className}
-            key={landkode}
-          >
-            {type === 'joined' && (
-              <InstitutionDiv className={className}>
-                {flag && (
-                  <Flag
-                    label={country ? country.label : landkode}
-                    country={landkode}
-                    size='S'
-                    type={flagType}
-                  />
-                )}
-                <InstitutionText>
-                  {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}
-                </InstitutionText>
-              </InstitutionDiv>
-            )}
-            {type === 'separated' && institutionList[landkode].map((institutionId : string) => (
-              <InstitutionDiv key={institutionId} className={className}>
-                {flag && (
-                  <Flag
-                    label={country ? country.label : landkode}
-                    country={landkode}
-                    size='S'
-                    type={flagType}
-                  />
-                )}
-                <InstitutionText>
-                  {getLabel(landkode, institutionId)}
-                </InstitutionText>
-              </InstitutionDiv>
-            ))}
-          </InstitutionListDiv>
-        )
-      })}
+          const country = CountryData.getCountryInstance(locale).findByValue(landkode)
+          return (
+            <InstitutionListDiv
+              className={className}
+              key={landkode}
+            >
+              {type === 'joined' && (
+                <InstitutionDiv className={className}>
+                  {flag && (
+                    <Flag
+                      label={country ? country.label : landkode}
+                      country={landkode}
+                      size='S'
+                      type={flagType}
+                    />
+                  )}
+                  <InstitutionText>
+                    {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}
+                  </InstitutionText>
+                </InstitutionDiv>
+              )}
+              {type === 'separated' && institutionList[landkode].map((institutionId : string) => (
+                <InstitutionDiv key={institutionId} className={className}>
+                  {flag && (
+                    <Flag
+                      label={country ? country.label : landkode}
+                      country={landkode}
+                      size='S'
+                      type={flagType}
+                    />
+                  )}
+                  <InstitutionText>
+                    {getLabel(landkode, institutionId)}
+                  </InstitutionText>
+                </InstitutionDiv>
+              ))}
+            </InstitutionListDiv>
+          )
+        })}
     </>
   )
 }

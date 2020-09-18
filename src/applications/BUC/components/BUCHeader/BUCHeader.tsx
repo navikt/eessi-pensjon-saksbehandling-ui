@@ -168,14 +168,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     return Object.keys(institutionList)
       .sort(countrySorter(locale) as (a: string, b: string) => number)
       .map(landkode => ({
-      country: landkode,
-      label: institutionList[landkode].map((institutionId) => {
-        return institutionNames &&
+        country: landkode,
+        label: institutionList[landkode].map((institutionId) => {
+          return institutionNames &&
         Object.prototype.hasOwnProperty.call(institutionNames, institutionId)
-          ? institutionNames[institutionId]
-          : institutionId
-      }).join(', ')
-    }))
+            ? institutionNames[institutionId]
+            : institutionId
+        }).join(', ')
+      }))
   }
 
   const flagItems: FlagItems = _.isArray(buc.deltakere) ? generateFlagItems() : []

@@ -110,6 +110,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [validation, setValidation] = useState<Validation>({})
   const [showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
   const [isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
+  const [isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(false)
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -303,24 +304,28 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [_buc, _avdod, pesysContext, personAvdods])
 
   useEffect(() => {
-    if (isCreatingBuc && newlyCreatedBuc) {
-      if (!loading.savingBucsInfo) {
-        const buc: Buc = bucs![currentBuc!]
-        dispatch(saveBucsInfo({
-          aktoerId: aktoerId,
-          bucsInfo: bucsInfo,
-          tags: _tags.map(t => t.value),
-          buc: buc,
-          avdod: _avdod
-        } as SaveBucsInfoProps))
-      } else {
-        setBuc(undefined)
-        setTags([])
-        setIsCreatingBuc(false)
-        onBucCreated()
-      }
+    if (isCreatingBuc && newlyCreatedBuc && !isCreatingBucInfo) {
+      const buc: Buc = bucs![currentBuc!]
+      dispatch(saveBucsInfo({
+        aktoerId: aktoerId,
+        bucsInfo: bucsInfo,
+        tags: _tags.map(t => t.value),
+        buc: buc,
+        avdod: _avdod
+      } as SaveBucsInfoProps))
+      setIsCreatingBucInfo(true)
     }
-  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo, _tags])
+  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, isCreatingBucInfo, newlyCreatedBuc, _tags])
+
+  useEffect(() => {
+    if (isCreatingBucInfo && newlyCreatedBuc && !loading.savingBucsInfo) {
+      setBuc(undefined)
+      setTags([])
+      setIsCreatingBucInfo(false)
+      setIsCreatingBuc(false)
+      onBucCreated()
+    }
+  }, [isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
@@ -431,8 +436,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
             data-testid='a-buc-c-bucstart__forward-button'
-            disabled={loading.creatingBUC}
-            spinner={loading.creatingBUC}
+            disabled={isCreatingBuc}
+            spinner={isCreatingBuc}
             onClick={onForwardButtonClick}
           >
             {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
