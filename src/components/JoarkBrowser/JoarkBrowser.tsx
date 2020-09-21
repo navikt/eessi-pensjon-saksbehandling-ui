@@ -66,7 +66,6 @@ const Buttons = styled.div`
   flex-wrap: nowrap;
 `
 
-
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   disabledFiles = [], files = [], onFilesChange, onPreviewFile, id
 }: JoarkBrowserProps): JSX.Element => {
@@ -74,7 +73,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     useSelector<State, JoarkBrowserSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent |undefined>(undefined)
+  const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent | undefined>(undefined)
   const [clickedPreviewFile, setClickedPreviewFile] = useState<any>(undefined)
   const [mounted, setMounted] = useState<boolean>(false)
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
@@ -103,6 +102,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     setClickedPreviewFile(clickedItem)
     const foundFile = _.find(files, (file) => (equalFiles(file, clickedItem) && (file as JoarkFileWithContent).content !== undefined))
     if (!foundFile) {
+      console.log(clickedItem)
       dispatch(getPreviewJoarkFile(clickedItem))
     } else {
       dispatch(setPreviewJoarkFile(foundFile))
@@ -118,7 +118,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }
 
   const renderButtonsCell = (item: any, value: any, context: any) => {
-    if (item.hasChildren) {
+    if (item.hasSubrows) {
       return <div />
     }
     const previewing = context.loadingJoarkPreviewFile
@@ -149,18 +149,14 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }
 
   useEffect(() => {
-
     const getItems = () => {
-
-      let items: Array<JoarkTableItem> = []
+      const items: Array<JoarkTableItem> = []
 
       if (list) {
         list.forEach((post: JoarkPoster) => {
-
           let multipleDocuments: boolean = false
 
           if (post.dokumenter.length > 1) {
-
             multipleDocuments = true
             items.push({
               key: 'joark-file-group-' + post.journalpostId,
@@ -178,7 +174,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           }
 
           post.dokumenter.forEach((doc: JoarkDoc) => {
-
             let variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'SLADDET')
             if (!variant) {
               variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'ARKIV')
@@ -229,7 +224,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     if (!_.isEmpty(list) && _items === undefined) {
       setItems(getItems())
     }
-  },[disabledFiles, files, list, _items])
+  }, [disabledFiles, files, list, _items])
 
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
@@ -239,7 +234,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }, [aktoerId, dispatch, list, loadingJoarkList, mounted])
 
   useEffect(() => {
-    const _onPreviewFile = (previewFile: JoarkFileWithContent | undefined) => {
+    if (!equalFiles(previewFile, _previewFile)) {
+      setPreviewFile(previewFile)
       if (!previewFile) {
         return setModal(undefined)
       }
@@ -264,10 +260,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       if (_.isFunction(onPreviewFile)) {
         onPreviewFile(previewFile)
       }
-    }
-    if (!equalFiles(previewFile, _previewFile)) {
-      setPreviewFile(previewFile)
-      _onPreviewFile(previewFile)
     }
   }, [handleModalClose, onPreviewFile, previewFile, _previewFile])
 

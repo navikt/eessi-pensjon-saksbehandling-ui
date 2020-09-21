@@ -15,10 +15,10 @@ export const initialJoarkState: JoarkState = {
 const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithPayload) => {
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
-    return {
-      ...state,
-      list: action.payload.data.dokumentoversiktBruker.journalposter
-    }
+      return {
+        ...state,
+        list: action.payload.data.dokumentoversiktBruker.journalposter
+      }
 
     case types.JOARK_PREVIEW_SET:
       return {

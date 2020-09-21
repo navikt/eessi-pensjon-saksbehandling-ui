@@ -14,7 +14,7 @@ jest.mock('actions/joark', () => ({
 }))
 
 const files: Array<JoarkFile> = []
-mockJoark.mockdata.data.dokumentoversiktBruker.journalposter.forEach((post: JoarkPoster) => {
+mockJoark.data.dokumentoversiktBruker.journalposter.forEach((post: JoarkPoster) => {
   post.dokumenter.forEach((doc: JoarkDoc) => {
     if (!_.isEmpty(doc.dokumentvarianter)) {
       files.push({

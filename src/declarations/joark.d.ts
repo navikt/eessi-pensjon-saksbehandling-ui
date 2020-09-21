@@ -18,28 +18,6 @@ export interface JoarkPoster {
   dokumenter: Array<JoarkDoc>
 }
 
-/*
-export interface JoarkFile {
-  journalpostId: string | undefined
-  tittel: string | null | undefined
-  tema: string
-  datoOpprettet: Date
-  dokumentInfoId: string | undefined
-  tilleggsopplysninger?: Array<any> | null
-  variant: JoarkFileVariant | undefined
-  hasChildren: boolean
-  parentKey?: string | null
-}
-*/
-
-export interface JoarkFileGroup {
-  journalpostId: string
-  title: string
-  tema: string
-  date: string
-  hasChildren: boolean
-}
-
 export interface JoarkFile {
   journalpostId: string
   dokumentInfoId: string
@@ -61,4 +39,10 @@ export interface JoarkFileWithContent extends JoarkFile {
   name: string
   size: number
   mimetype: string
+}
+
+export interface JoarkPayload {
+  fileName: string | undefined
+  contentType: string
+  filInnhold: string
 }

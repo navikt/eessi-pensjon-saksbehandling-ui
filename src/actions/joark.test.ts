@@ -84,7 +84,7 @@ describe('actions/joark', () => {
     })
     const mockJournalpostId = '1'
     const newMockJoarkPayload = require('mocks/joark/payload').default
-    const expectedItem = _.find(mockJoarkRaw.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
+    const expectedItem = _.find(mockJoarkRaw.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
     const generatedResult = newMockJoarkPayload(mockJournalpostId)
     const tittel = expectedItem ? expectedItem.tittel : ''
     expect(generatedResult).toMatchObject({

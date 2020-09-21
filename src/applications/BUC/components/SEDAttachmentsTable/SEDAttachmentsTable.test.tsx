@@ -1,14 +1,34 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import mockJoarkReduced from 'mocks/joark/joarkReduced'
 import SEDAttachmentsTable, { SEDAttachmentsTableProps } from './SEDAttachmentsTable'
 
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SEDAttachmentsTableProps = {
+    highContrast: false,
     attachments: {
-      joark: [mockJoarkReduced[0]],
-      sed: [mockJoarkReduced[2]]
+      joark: [{
+        journalpostId: '1',
+        title: 'blue.pdf',
+        tema: 'foo',
+        date: new Date(Date.parse('2018-12-27T14:42:24')),
+        dokumentInfoId: '4',
+        variant: {
+          variantformat: 'ARKIV',
+          filnavn: '23534345.pdf'
+        }
+      }],
+      sed: [{
+        journalpostId: '2',
+        title: 'red.pdf',
+        tema: 'bar',
+        date: new Date(Date.parse('2018-12-17T14:42:24')),
+        dokumentInfoId: '5',
+        variant: {
+          variantformat: 'ARKIV',
+          filnavn: '98734213487.pdf'
+        }
+      }]
     }
   }
 

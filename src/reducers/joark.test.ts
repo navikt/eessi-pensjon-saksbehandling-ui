@@ -72,9 +72,9 @@ describe('reducers/joark', () => {
   it('JOARK_LIST_SUCCESS with mockJoarkRaw', () => {
     const generatedState = joarkReducer(initialJoarkState, {
       type: types.JOARK_LIST_SUCCESS,
-      payload: mockJoarkRaw.mockdata
+      payload: mockJoarkRaw
     })
-    const expectedResponseSize = mockJoarkRaw.mockdata.data.dokumentoversiktBruker.journalposter.map((post: JoarkPoster) => {
+    const expectedResponseSize = mockJoarkRaw.data.dokumentoversiktBruker.journalposter.map((post: JoarkPoster) => {
       return post.dokumenter.map((doc: JoarkDoc) => {
         return !_.isEmpty(doc.dokumentvarianter) ? doc.dokumentvarianter[0] : undefined
       })
