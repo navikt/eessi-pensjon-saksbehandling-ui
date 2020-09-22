@@ -557,6 +557,12 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
     }
 
+    case types.BUC_NEWLYCREATEDBUC_RESET: {
+      return {
+        ...state,
+        newlyCreatedBuc: undefined
+      }
+    }
     default:
       return state
   }

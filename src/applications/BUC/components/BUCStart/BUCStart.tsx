@@ -179,6 +179,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const onForwardButtonClick = (e: React.MouseEvent): void => {
+    dispatch(cleanNewlyCreatedBuc())
     if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
       setShowWarningBuc(true)
       return

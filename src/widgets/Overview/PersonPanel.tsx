@@ -183,11 +183,6 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
           {renderEntity('ui:postadresse', postadresse)}
         </MarginColumn>
         <MarginColumn>
-          <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
-          <HorizontalSeparatorDiv />
-          {renderEntity('ui:deathdate', deathDateString)}
-        </MarginColumn>
-        <MarginColumn>
           <LineHeartCircle color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:marital-status',
@@ -196,7 +191,11 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
               ? ' (' + dateString + ')' : '')
           )}
         </MarginColumn>
+        <MarginColumn/>
       </MarginRow>
+      {((personAvdods && personAvdods.length > 0) || deathDateString) && (
+        <Hr />
+      )}
       {personAvdods && personAvdods.length > 0 && (
         <MarginRow>
           <MarginColumn>
@@ -222,6 +221,14 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
               ))}
             </div>
           </MarginColumn>
+          {deathDateString ? (
+            <MarginColumn>
+            <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+            <HorizontalSeparatorDiv />
+            {renderEntity('ui:deathdate', deathDateString)}
+          </MarginColumn>
+          ) : <MarginColumn/>}
+          <MarginColumn/>
         </MarginRow>
       )}
     </PersonPanelDiv>

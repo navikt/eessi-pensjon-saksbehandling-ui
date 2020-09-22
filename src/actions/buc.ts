@@ -183,6 +183,10 @@ export const getTagList: ActionCreator<ActionWithPayload> = (): ActionWithPayloa
   payload: tagsList
 })
 
+export const cleanNewlyCreatedBuc: ActionCreator<Action> = (): Action => ({
+  type: types.BUC_NEWLYCREATEDBUC_RESET,
+})
+
 export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> =
   (buc: string, person: Person, avdod: PersonAvdod): ThunkResult<ActionWithPayload> => {
     return call({
