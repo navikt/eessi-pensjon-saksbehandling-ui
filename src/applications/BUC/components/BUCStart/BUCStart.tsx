@@ -1,6 +1,7 @@
 import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import React, { useEffect, useState } from 'react'
 import {
+  cleanNewlyCreatedBuc,
   createBuc,
   getBucList,
   getSubjectAreaList,
