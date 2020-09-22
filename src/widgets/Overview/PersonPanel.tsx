@@ -191,45 +191,49 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
               ? ' (' + dateString + ')' : '')
           )}
         </MarginColumn>
-        <MarginColumn/>
+        <MarginColumn />
       </MarginRow>
       {((personAvdods && personAvdods.length > 0) || deathDateString) && (
-        <Hr />
-      )}
-      {personAvdods && personAvdods.length > 0 && (
-        <MarginRow>
-          <MarginColumn>
-            <PersonIcon color={highContrast ? 'white' : 'black'} />
-            <HorizontalSeparatorDiv />
-            <Undertekst>
-              <strong>{t('ui:deceased')}</strong>:
-            </Undertekst>
-            <div>
-              {personAvdods.map(avdod => (
-                <Element
-                  key={avdod?.fnr}
-                  id='w-overview-personPanel__element-deceased'
-                >
-                  <HorizontalSeparatorDiv />
-                  <Normaltekst>
-                    {avdod?.fornavn +
-                    (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                    (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                    ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
-                  </Normaltekst>
-                </Element>
-              ))}
-            </div>
-          </MarginColumn>
-          {deathDateString ? (
-            <MarginColumn>
-            <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
-            <HorizontalSeparatorDiv />
-            {renderEntity('ui:deathdate', deathDateString)}
-          </MarginColumn>
-          ) : <MarginColumn/>}
-          <MarginColumn/>
-        </MarginRow>
+        <>
+          <Hr />
+          <MarginRow>
+            {personAvdods && personAvdods.length > 0 && (
+              <MarginColumn>
+                <PersonIcon color={highContrast ? 'white' : 'black'} />
+                <HorizontalSeparatorDiv />
+                <Undertekst>
+                  <strong>{t('ui:deceased')}</strong>:
+                </Undertekst>
+                <div>
+                  {personAvdods.map(avdod => (
+                    <Element
+                      key={avdod?.fnr}
+                      id='w-overview-personPanel__element-deceased'
+                    >
+                      <HorizontalSeparatorDiv />
+                      <Normaltekst>
+                        {avdod?.fornavn +
+                      (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                      (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                      ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
+                      </Normaltekst>
+                    </Element>
+                  ))}
+                </div>
+              </MarginColumn>
+            )}
+            {deathDateString ? (
+              <MarginColumn>
+                <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+                <HorizontalSeparatorDiv />
+                {renderEntity('ui:deathdate', deathDateString)}
+              </MarginColumn>
+            ) : (
+              <MarginColumn />
+            )}
+            <MarginColumn />
+          </MarginRow>
+        </>
       )}
     </PersonPanelDiv>
   )

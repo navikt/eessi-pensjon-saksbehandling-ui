@@ -184,7 +184,7 @@ export const getTagList: ActionCreator<ActionWithPayload> = (): ActionWithPayloa
 })
 
 export const cleanNewlyCreatedBuc: ActionCreator<Action> = (): Action => ({
-  type: types.BUC_NEWLYCREATEDBUC_RESET,
+  type: types.BUC_NEWLYCREATEDBUC_RESET
 })
 
 export const createBuc: ActionCreator<ThunkResult<ActionWithPayload>> =
