@@ -2,25 +2,21 @@ import {
   fetchBucsInfo,
   fetchSingleBuc,
   getInstitutionsListForBucAndCountry,
-  setCurrentBuc,
-  setCurrentSed
+  setCurrentBuc
 } from 'actions/buc'
-import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDList from 'applications/BUC/components/SEDList/SEDList'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import {
-  HighContrastExpandingPanel,
-  HighContrastKnapp, HighContrastLenkepanelBase,
+  HighContrastKnapp,
+  HighContrastLenkepanelBase,
   HighContrastPanel,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import * as storage from 'constants/storage'
 import {
@@ -35,11 +31,11 @@ import {
   Sed
 } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading, PesysContext } from 'declarations/types'
+import { AllowedLocaleString, Loading, PesysContext } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
-import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
+import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -57,7 +53,6 @@ export interface BUCListSelector {
   bucs: Bucs | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
-  featureToggles: FeatureToggles
   highContrast: boolean
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
@@ -72,7 +67,6 @@ const mapState = (state: State): BUCListSelector => ({
   bucs: state.buc.bucs,
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
-  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   loading: state.loading,
@@ -157,32 +151,6 @@ const BucLenkePanel = styled(HighContrastLenkepanelBase)`
     background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]};
   }
 `
-const BucExpandingPanel = styled(HighContrastExpandingPanel)`
-  transform: translateX(-20px);
-  opacity: 0;
-  animation: ${slideInFromLeft} 0.2s forwards;
-  margin-bottom: 1rem;
-  &.new {
-    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
-  }
-`
-const Flex4Div = styled.div`
-  flex: 4;
-  width: 100%;
-`
-const Flex3Div = styled.div`
-  flex: 3;
-  width: 100%;
-`
-const Flex2Div = styled.div`
-  flex: 2;
-  width: 100%;
-`
-const SEDHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 2px solid ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
-`
 const BUCNewDiv = styled(HighContrastPanel)`
   padding: 2rem !important;
 `
@@ -205,7 +173,7 @@ const BUCStartDiv = styled.div`
 const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }: BUCListProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
   const {
-    aktoerId, bucs, bucsInfo, bucsInfoList, featureToggles, highContrast, institutionList, loading,
+    aktoerId, bucs, bucsInfo, bucsInfoList, highContrast, institutionList, loading,
     newlyCreatedBuc, personAvdods, pesysContext
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
@@ -234,21 +202,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
 
   const onBUCNew = (e: React.MouseEvent): void => {
     buttonLogger(e)
-    if (featureToggles.v2_ENABLED === true) {
-      setNewBucPanelOpen(true)
-    } else {
-      setMode('bucnew' as BUCMode, 'none')
-    }
-  }
-
-  const onSEDNew = (buc: Buc, sed: Sed): void => {
-    if (buc) { dispatch(setCurrentBuc(buc ? buc.caseId! : undefined)) }
-    dispatch(setCurrentSed(sed ? sed.id : undefined))
-    setMode('sednew' as BUCMode, 'forward')
-  }
-
-  const onBucOpen = (bucId: string) => {
-    getSeds(bucId)
+    setNewBucPanelOpen(true)
   }
 
   const onBUCEdit = (buc: Buc) => {
@@ -340,18 +294,9 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
         onMouseLeave={onMouseLeave}
       >
         <BUCListHeader>
-          {featureToggles.v2_ENABLED === true ? (
-            <Undertittel>
-              {t('buc:form-buclist')}
-            </Undertittel>
-          ) : (
-            <BUCCrumbs
-              bucs={bucs}
-              currentBuc={undefined}
-              mode='buclist'
-              setMode={setMode}
-            />
-          )}
+          <Undertittel>
+            {t('buc:form-buclist')}
+          </Undertittel>
           {!newBucPanelOpen && (
             <HighContrastKnapp
               data-amplitude='buc.list.newbuc'
@@ -417,7 +362,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
               }
               const bucId: string = buc.caseId!
               const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
-              return featureToggles.v2_ENABLED === true ? (
+              return (
                 <BucLenkePanel
                   href='#'
                   border
@@ -435,48 +380,8 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
                     buc={buc}
                     newBuc={(newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false}
                     bucInfo={bucInfo}
-                    onBUCEdit={onBUCEdit}
                   />
                 </BucLenkePanel>
-              ) : (
-                <BucExpandingPanel
-                  data-testid={'a-buc-p-buclist__buc-' + bucId}
-                  key={index}
-                  className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
-                  style={{ animationDelay: (0.2 * index) + 's' }}
-                  onClick={() => onBucOpen(bucId)}
-                  heading={(
-                    <BUCHeader
-                      buc={buc}
-                      newBuc={(newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false}
-                      bucInfo={bucInfo}
-                      onBUCEdit={onBUCEdit}
-                    />
-                  )}
-                >
-                  <>
-                    <SEDHeader data-testid='a-buc-p-buclist__seadheader-div-id'>
-                      <Flex4Div>
-                        <Element>{t('buc:form-name')}</Element>
-                      </Flex4Div>
-                      <Flex3Div>
-                        <Element>{t('buc:form-status')}</Element>
-                      </Flex3Div>
-                      <Flex3Div>
-                        <Element>{t('buc:form-senderreceiver')}</Element>
-                      </Flex3Div>
-                      <Flex2Div />
-                    </SEDHeader>
-                    {!_.isNil(buc.seds) ? (
-                      <SEDList
-                        seds={buc.seds}
-                        buc={buc}
-                        onSEDNew={onSEDNew}
-                      />
-                    ) : <WaitingPanel message={t('buc:loading-gettingSEDs')} size='L' />}
-                    <VerticalSeparatorDiv data-size='0.25' />
-                  </>
-                </BucExpandingPanel>
               )
             })
           : (

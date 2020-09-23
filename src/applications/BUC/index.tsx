@@ -4,21 +4,18 @@ import {
   fetchBucsInfoList,
   fetchBucsWithVedtakId,
   getRinaUrl,
-  setCurrentBuc,
   setMode
 } from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
-import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
-import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import classNames from 'classnames'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { Bucs, BucsInfo } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, Loading, PesysContext, RinaUrl } from 'declarations/types'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
@@ -125,10 +122,8 @@ export interface BUCIndexSelector {
   bucs: Bucs | undefined
   bucsInfo: BucsInfo | undefined
   currentBuc: string | undefined
-  featureToggles: FeatureToggles
   loading: Loading
   locale: AllowedLocaleString
-  mode: BUCMode
   pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | undefined
@@ -141,10 +136,8 @@ const mapState = (state: State): BUCIndexSelector => ({
   bucs: state.buc.bucs,
   bucsInfo: state.buc.bucsInfo,
   currentBuc: state.buc.currentBuc,
-  featureToggles: state.app.featureToggles,
   loading: state.loading,
   locale: state.ui.locale,
-  mode: state.buc.mode,
   pesysContext: state.app.pesysContext,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
@@ -169,7 +162,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
   waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, featureToggles, loading, mode, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, loading, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
@@ -322,16 +315,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
   }, [bucs, _bucs, dispatch])
 
-  useEffect(() => {
-    if (featureToggles.v2_ENABLED !== true && loading.gettingBUCs && mode !== 'buclist') {
-      _setMode('buclist', 'none', () => dispatch(setCurrentBuc(undefined)))
-    }
-  }, [dispatch, featureToggles, loading.gettingBUCs, mode, _setMode])
-
-  if (featureToggles.v2_ENABLED !== true && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs) && mode !== 'bucnew') {
-    _setMode('bucnew', 'none')
-  }
-
   if (!_mounted) {
     return WaitingDiv
   }
@@ -359,33 +342,22 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <VerticalSeparatorDiv />
-      {featureToggles.v2_ENABLED !== true ? (
-        <>
-          {mode === 'buclist' && <BUCList setMode={_setMode} />}
-          {mode === 'bucedit' && <BUCEdit setMode={_setMode} />}
-          {mode === 'bucnew' && <BUCNew setMode={_setMode} />}
-          {mode === 'sednew' && <SEDNew setMode={_setMode} />}
-        </>
-      ) : (
-        <>
-          <ContainerDiv className={classNames({ shrink: animating })}>
-            <WindowDiv>
-              <AnimatableDiv
-                key='animatableDivA'
-                className={classNames(cls(positionA))}
-              >
-                {contentA}
-              </AnimatableDiv>
-              <AnimatableDiv
-                key='animatableDivB'
-                className={classNames(cls(positionB))}
-              >
-                {contentB}
-              </AnimatableDiv>
-            </WindowDiv>
-          </ContainerDiv>
-        </>
-      )}
+      <ContainerDiv className={classNames({ shrink: animating })}>
+        <WindowDiv>
+          <AnimatableDiv
+            key='animatableDivA'
+            className={classNames(cls(positionA))}
+          >
+            {contentA}
+          </AnimatableDiv>
+          <AnimatableDiv
+            key='animatableDivB'
+            className={classNames(cls(positionB))}
+          >
+            {contentB}
+          </AnimatableDiv>
+        </WindowDiv>
+      </ContainerDiv>
     </BUCIndexDiv>
   )
 }

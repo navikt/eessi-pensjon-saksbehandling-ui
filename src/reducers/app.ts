@@ -23,7 +23,6 @@ const initialFeatureToggles: FeatureToggles = {
   P5000_VISIBLE: true,
   P_BUC_02_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
-  v2_ENABLED: false,
   NR_AVDOD: 0
 }
 

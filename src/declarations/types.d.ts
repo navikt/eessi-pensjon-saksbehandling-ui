@@ -9,7 +9,6 @@ export type Feature =
     'P5000_VISIBLE' // See P5000 button
   | 'P_BUC_02_VISIBLE' // See P_BUC_02 in new BUCs
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
-  | 'v2_ENABLED' // v2 new features
   | 'NR_AVDOD' // for mock purposes
 
 export type PesysContext = constants.BRUKEROVERSIKT | constants.KRAVKONTEKST | constants.VEDTAKSKONTEKST

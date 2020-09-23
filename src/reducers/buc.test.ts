@@ -15,18 +15,6 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
-  it('BUC_MODE_SET', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_MODE_SET,
-        payload: 'mockPayload'
-      })
-    ).toEqual({
-      ...initialBucState,
-      mode: 'mockPayload'
-    })
-  })
-
   it('BUC_CURRENTBUC_SET', () => {
     expect(
       bucReducer(initialBucState, {

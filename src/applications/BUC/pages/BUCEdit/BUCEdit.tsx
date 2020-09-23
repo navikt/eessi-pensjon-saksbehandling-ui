@@ -1,6 +1,5 @@
 import { clientError } from 'actions/alert'
 import { resetNewSed, setCurrentBuc, setCurrentSed } from 'actions/buc'
-import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -19,7 +18,7 @@ import {
 } from 'components/StyledComponents'
 import { Buc, BucInfo, Bucs, BucsInfo, PersonAvdods, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/types'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
@@ -44,7 +43,6 @@ export interface BUCEditSelector {
   bucs: Bucs | undefined
   currentBuc?: string | undefined
   bucsInfo?: BucsInfo
-  featureToggles: FeatureToggles
   highContrast: boolean
   locale: AllowedLocaleString,
   newlyCreatedSed: Sed | undefined,
@@ -57,7 +55,6 @@ const mapState = (state: State): BUCEditSelector => ({
   bucs: state.buc.bucs,
   currentBuc: state.buc.currentBuc,
   bucsInfo: state.buc.bucsInfo,
-  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   locale: state.ui.locale,
   newlyCreatedSed: state.buc.newlyCreatedSed,
@@ -129,7 +126,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [search, setSearch] = useState<string | undefined>(initialSearch)
   const [statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
   const {
-    aktoerId, bucs, currentBuc, bucsInfo, featureToggles, highContrast, locale,
+    aktoerId, bucs, currentBuc, bucsInfo, highContrast, locale,
     newlyCreatedSed, newlyCreatedSedTime, personAvdods
   }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
@@ -183,11 +180,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       }))
     } else {
       dispatch(setCurrentSed(sed ? sed.id : undefined))
-      if (featureToggles.v2_ENABLED === true) {
-        setStartSed('open')
-      } else {
-        setMode('sednew' as BUCMode, 'none')
-      }
+      setStartSed('open')
     }
   }
 
@@ -236,29 +229,20 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <BUCEditHeader>
-        {featureToggles.v2_ENABLED === true ? (
-          <HighContrastLink
-            href='#' onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              dispatch(resetNewSed())
-              setMode('buclist', 'back', () => dispatch(setCurrentBuc(undefined)))
-            }}
-          >
-            <VenstreChevron />
-            <HorizontalSeparatorDiv data-size='0.25' />
-            <span>
-              {t('ui:back')}
-            </span>
-          </HighContrastLink>
-        ) : (
-          <BUCCrumbs
-            bucs={bucs}
-            currentBuc={currentBuc}
-            mode='bucedit'
-            setMode={setMode}
-          />
-        )}
+        <HighContrastLink
+          href='#' onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            dispatch(resetNewSed())
+            setMode('buclist', 'back', () => dispatch(setCurrentBuc(undefined)))
+          }}
+        >
+          <VenstreChevron />
+          <HorizontalSeparatorDiv data-size='0.25' />
+          <span>
+            {t('ui:back')}
+          </span>
+        </HighContrastLink>
         {startSed !== 'open' && (
           <HighContrastKnapp
             disabled={buc!.readOnly === true}
@@ -281,11 +265,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         <SEDNewDiv>
           <SEDStart
             aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={setMode} onSedCreated={() => {
-              if (featureToggles.v2_ENABLED === true) {
-                setStartSed('close')
-              } else {
-                setMode('bucedit' as BUCMode, 'back')
-              }
+              setStartSed('close')
             }}
             onSedCancelled={() => setStartSed('close')}
           />

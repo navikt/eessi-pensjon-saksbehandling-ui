@@ -2,7 +2,7 @@ import { countrySorter, getBucTypeLabel, sedFilter } from 'applications/BUC/comp
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ProblemCircleIcon from 'assets/icons/report-problem-circle'
 import classNames from 'classnames'
-import { Column, HorizontalSeparatorDiv, Row } from 'components/StyledComponents'
+import { Column, Row } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import {
   Buc,
@@ -15,17 +15,16 @@ import {
 } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, RinaUrl } from 'declarations/types'
 import { FlagItems, FlagList } from 'flagg-ikoner'
 import _ from 'lodash'
-import { buttonLogger, linkLogger } from 'metrics/loggers'
+import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Lenke from 'nav-frontend-lenker'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
-import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
@@ -64,14 +63,7 @@ const IconsDiv = styled(Column)`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex: ${(props: any) => props['data-v2enabled'] === true ? '2' : '1'};
-`
-const ActionsDiv = styled(Column)`
-  display: flex;
-  justify-content:flex-end;
-  align-self: baseline;
-  padding: 0px;
-  flex: 1;
+  flex: 2;
 `
 const PropertyDiv = styled.div`
   display: flex;
@@ -107,9 +99,7 @@ const RinaLink = styled(Lenke)`
   margin-bottom: 0px !important;
   color: ${({ theme }): any => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
 `
-const BucEditLink = styled(Lenke)`
-  text-decoration: none;
-`
+
 const FullWidthRow = styled(Row)`
   width: 100%;
 `
@@ -117,11 +107,9 @@ export interface BUCHeaderProps {
   buc: Buc
   bucInfo?: BucInfo
   newBuc: boolean
-  onBUCEdit: Function
 }
 
 export interface BUCHeaderSelector {
-  featureToggles: FeatureToggles
   highContrast: boolean
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
@@ -131,7 +119,6 @@ export interface BUCHeaderSelector {
 }
 
 const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector => ({
-  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
@@ -141,19 +128,13 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
 })
 
 const BUCHeader: React.FC<BUCHeaderProps> = ({
-  buc, bucInfo, newBuc, onBUCEdit
+  buc, bucInfo, newBuc
 }: BUCHeaderProps): JSX.Element => {
   const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
-  const { featureToggles, highContrast, institutionNames, locale, personAvdods, rinaUrl }: BUCHeaderSelector =
+  const { highContrast, institutionNames, locale, personAvdods, rinaUrl }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const [flagSize, setFlagSize] = useState<string>('XL')
-  const onBucEditClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
-    buttonLogger(e)
-    e.preventDefault()
-    e.stopPropagation()
-    onBUCEdit(buc)
-  }, [buc, onBUCEdit])
 
   const generateFlagItems = (): FlagItems => {
     const institutionList: InstitutionListMap<string> = {}
@@ -301,7 +282,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           </LabelsDiv>
           <IconsDiv
             data-testid='a-buc-c-bucheader__icons'
-            data-v2enabled={featureToggles.v2_ENABLED}
           >
             {!_.isEmpty(flagItems) && (
               <FlagList
@@ -345,20 +325,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               </Tooltip>
             )}
           </IconsDiv>
-          {featureToggles.v2_ENABLED !== true && (
-            <ActionsDiv test-id='a-buc-c-bucheader__actions'>
-              <BucEditLink
-                data-amplitude='buc.list.editbuc'
-                data-testid='a-buc-c-bucheader__bucedit-link-id'
-                className='knapp knapp--kompakt'
-                onClick={onBucEditClick}
-                href={'#' + buc.type}
-              >
-                {t('ui:processing')}
-              </BucEditLink>
-              <HorizontalSeparatorDiv />
-            </ActionsDiv>
-          )}
         </FlexRow>
       </BUCHeaderDiv>
     </ThemeProvider>
@@ -367,8 +333,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
 
 BUCHeader.propTypes = {
   buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType,
-  onBUCEdit: PT.func.isRequired
+  bucInfo: BucInfoPropType
 }
 
 export default BUCHeader

@@ -461,12 +461,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
   }
 
-  const resetJoarkAttachments = () => {
+  const resetJoarkAttachments = useCallback(() => {
     setSedAttachments({
       ...sedAttachments,
       joark: []
     })
-  }
+  }, [sedAttachments])
 
   const onAttachmentsChanged = (files: AttachedFiles) => {
     setSedAttachments(files)
@@ -489,9 +489,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     dispatch(sendAttachmentToSed(params, unsentAttachment))
   }
 
-  const sedCanHaveAttachments = (): boolean => {
+  const sedCanHaveAttachments = useCallback((): boolean => {
     return _sed !== undefined && sedsWithAttachments[_sed]
-  }
+  }, [_sed, sedsWithAttachments])
 
   const convertInstitutionIDsToInstitutionObjects: Function = (): Institutions => {
     const institutions = [] as Institutions
