@@ -258,11 +258,15 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         highContrast={highContrast}
         items={_items}
         context={context}
+        labels={{
+          type: t('ui:attachments').toLowerCase()
+        }}
         itemsPerPage={30}
         compact
         searchable
         selectable
         sortable
+        summary
         loading={loadingJoarkList}
         columns={[
           {
