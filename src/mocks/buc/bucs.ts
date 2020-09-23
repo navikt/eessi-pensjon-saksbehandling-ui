@@ -1043,7 +1043,7 @@ const mockBuc = [
           id: '1',
           date: 1571818188033
         },
-        allowsAttachments: true
+        allowsAttachments: false
       },
       {
         id: '50578cf8bf9f45a7819a39987c6c8fd4',
@@ -1111,7 +1111,7 @@ const mockBuc = [
           id: '1',
           date: 1571547188033
         },
-        allowsAttachments: true
+        allowsAttachments: false
       },
       {
         id: '51d9d9277ab847008bc88c1b31b34865',
@@ -1585,7 +1585,7 @@ const mockBuc = [
           id: '3',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: false
       },
       {
         id: '9ebb27b848c644ba8a8ba95772403618',
@@ -2774,7 +2774,7 @@ const mockBuc = [
         id: '2',
         date: 1558360875571
       },
-      allowsAttachments: true
+      allowsAttachments: false
     }, {
       id: 'cac9db2726d54f2c9b51d1562b7b0a79',
       parentDocumentId: null,

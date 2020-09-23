@@ -461,6 +461,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
   }
 
+  const resetJoarkAttachments = () => {
+    setSedAttachments({
+      ...sedAttachments,
+      joark: []
+    })
+  }
+
   const onAttachmentsChanged = (files: AttachedFiles) => {
     setSedAttachments(files)
   }
@@ -584,13 +591,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     resetSedForm()
     dispatch(resetSed())
     dispatch(resetSedAttachments())
+    resetJoarkAttachments()
     setSedSent(false)
+    if (attachmentsSent) {
+      setAttachmentsSent(false)
+    }
     setSendingAttachments(false)
     setSed(undefined)
     setInstitutions([])
     setCountries([])
     onSedCreated()
-  }, [dispatch, resetSedForm, onSedCreated])
+  }, [attachmentsSent, dispatch, resetJoarkAttachments, resetSedForm, onSedCreated])
 
   const sedOptions = renderOptions(sedList)
 
@@ -621,25 +632,32 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
     // if sed is sent, we can start sending attachments
     if (sedSent && !sendingAttachments && !attachmentsSent) {
-      // no attachments to send - conclude
+      // we may have now a chosen sed which does not allow vedlegg, but maybe previously the sb chose some vedlegg
+      // using another selected sed, so check before createing a savingAttachmentJob
+      if (!sedCanHaveAttachments()) {
+        onFinished()
+        return
+      }
+
       if (_.isEmpty(sedAttachments.joark)) {
         /* istanbul ignore next */
         if (!IS_TEST) {
           console.log('SEDStart: No attachments to send, concluding')
         }
         onFinished()
-      } else {
-        // start a savingAttachmentsJob
-        setSendingAttachments(true)
-        setAttachmentsTableVisible(false)
-        standardLogger('sed.new.attachments.data', {
-          numberOfJoarkAttachments: sedAttachments.joark.length
-        })
-        const joarksToUpload: JoarkFiles = _.cloneDeep(sedAttachments.joark as JoarkFiles)
-        dispatch(createSavingAttachmentJob(joarksToUpload))
+        return
       }
+
+      // attachments to send -> start a savingAttachmentsJob
+      setSendingAttachments(true)
+      setAttachmentsTableVisible(false)
+      standardLogger('sed.new.attachments.data', {
+        numberOfJoarkAttachments: sedAttachments.joark.length
+      })
+      const joarksToUpload: JoarkFiles = _.cloneDeep(sedAttachments.joark as JoarkFiles)
+      dispatch(createSavingAttachmentJob(joarksToUpload))
     }
-  }, [dispatch, onFinished, sendingAttachments, sedAttachments, attachmentsSent, sed, sedSent])
+  }, [dispatch, onFinished, sendingAttachments, sedAttachments, sedCanHaveAttachments, attachmentsSent, sed, sedSent])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
@@ -912,10 +930,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                       rinaDokumentId: sed!.id
                     } as SEDAttachmentPayload}
                     onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
-                    onFinished={() => {
-                      setAttachmentsSent(true)
-                      onFinished()
-                    }}
+                    onFinished={onFinished}
                   />
                   <VerticalSeparatorDiv />
                 </>
