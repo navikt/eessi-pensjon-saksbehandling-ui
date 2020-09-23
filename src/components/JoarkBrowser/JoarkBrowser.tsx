@@ -2,7 +2,7 @@ import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
 import Modal from 'components/Modal/Modal'
-import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastKnapp } from 'components/StyledComponents'
 import { BUCAttachments } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import {
@@ -16,7 +16,7 @@ import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/jo
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
 import _ from 'lodash'
-import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi'
+import { EtikettLiten } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -53,16 +53,12 @@ export interface JoarkTableItem extends Item {
 
 }
 
-const VariantDiv = styled.div`
+const ButtonsDiv = styled.div`
   display: flex;
   align-items: flex-start;
   padding-top: 0.25rem;
   justify-content: space-between;
   align-items: center;
-`
-
-const Buttons = styled.div`
-  display: flex;
   flex-wrap: nowrap;
 `
 
@@ -113,10 +109,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     onFilesChange(items.filter(item => item.selected))
   }
 
-  const convertSomeNonAlphanumericCharactersToUnderscore = (text: string) => {
-    return text.replace(/[ .\-\\(\\)]/g, '_')
-  }
-
   const renderButtonsCell = (item: any, value: any, context: any) => {
     if (item.hasSubrows) {
       return <div />
@@ -124,27 +116,20 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     const previewing = context.loadingJoarkPreviewFile
     const spinner = previewing && _.isEqual(item, context.clickedPreviewFile)
     return (
-      <VariantDiv
-        key={item.label}
-      >
-        <Buttons>
-          <HorizontalSeparatorDiv />
-          <HighContrastKnapp
-            data-tip={t('ui:preview')}
-            kompakt
-            mini
-            disabled={previewing}
-            spinner={spinner}
-            id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
-            convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
-            className='c-tablesorter__preview-button'
-            onClick={() => onPreviewItem(item)}
-          >
-            {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
-          </HighContrastKnapp>
-          <HorizontalSeparatorDiv />
-        </Buttons>
-      </VariantDiv>
+      <ButtonsDiv>
+        <HighContrastKnapp
+          data-tip={t('ui:preview')}
+          kompakt
+          mini
+          disabled={previewing}
+          spinner={spinner}
+          id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+          className='c-tablesorter__preview-button'
+          onClick={() => onPreviewItem(item)}
+        >
+          {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
+        </HighContrastKnapp>
+      </ButtonsDiv>
     )
   }
 
@@ -166,7 +151,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               title: post.tittel,
               tema: post.tema,
               date: new Date(Date.parse(post.datoOpprettet)),
-              label: post.tittel,
 
               disabled: false,
               hasSubrows: true
@@ -205,7 +189,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               title: doc.tittel || '-',
               tema: post.tema,
               date: new Date(Date.parse(post.datoOpprettet)),
-              label: variant?.variantformat + (variant?.filnavn ? ' (' + variant?.filnavn + ')' : ''),
 
               selected: selected,
               disabled: disabled,
@@ -283,23 +266,18 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         loading={loadingJoarkList}
         columns={[
           {
-            id: 'title',
-            label: t('ui:title'),
-            type: 'string'
-          }, {
             id: 'tema',
             label: t('ui:tema'),
             type: 'string',
             renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
           }, {
+            id: 'title',
+            label: t('ui:title'),
+            type: 'string'
+          }, {
             id: 'date',
             label: t('ui:date'),
             type: 'date'
-          }, {
-            id: 'label',
-            label: t('ui:variant'),
-            type: 'object',
-            renderCell: (item: any, value: any) => <Normaltekst>{value}</Normaltekst>
           }, {
             id: 'buttons',
             label: '',

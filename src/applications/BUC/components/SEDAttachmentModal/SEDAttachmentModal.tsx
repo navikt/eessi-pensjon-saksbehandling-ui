@@ -1,10 +1,10 @@
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import Modal from 'components/Modal/Modal'
-import { HighContrastKnapp } from 'components/StyledComponents'
 import { AttachedFiles, BUCAttachments, Sed } from 'declarations/buc'
 import { JoarkFiles } from 'declarations/joark'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import Document from 'assets/icons/document'
 
 export interface SEDAttachmentModalProps {
   sed?: Sed
@@ -28,25 +28,31 @@ const SEDAttachmentModal = ({
     onModalClose()
   }
 
+  const onButtonCancel = () => {
+    onModalClose()
+  }
+
   return (
     <Modal
+      icon={<Document />}
       modal={{
         closeButton: true,
         modalContent: (
-          <>
-            <JoarkBrowser
-              id={sed ? sed.id : 'newsed'}
-              disabledFiles={sedAttachments.sed as BUCAttachments}
-              files={files}
-              onFilesChange={onFilesChange}
-            />
-            <HighContrastKnapp
-              onClick={onButtonClick}
-            >
-              {t('ui:add')}
-            </HighContrastKnapp>
-          </>
-        )
+          <JoarkBrowser
+            id={sed ? sed.id : 'newsed'}
+            disabledFiles={sedAttachments.sed as BUCAttachments}
+            files={files}
+            onFilesChange={onFilesChange}
+          />
+        ),
+        modalButtons: [{
+          main: true,
+          text: t('buc:form-addSelectedAttachments'),
+          onClick: onButtonClick
+        }, {
+          text: t('ui:cancel'),
+          onClick: onButtonCancel
+        }]
       }}
       onModalClose={onModalClose}
     />

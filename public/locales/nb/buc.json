@@ -95,6 +95,7 @@
   "error-sendingAttachments" : "Feil å sende vedlegg",
   "error-uniqueSed"          : "Det er allerede sendt en {{sed}} i denne BUC-en. Det er ikke lov å opprette flere SED-er i denne BUC-en.",
 
+  "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-avdod"                        : "Avdød",
   "form-avdodfnr"                     : "Avdøds fnr",
   "form-areYouSureDeleteComment"      : "Er du sikker på at du vil slette kommentaren?",

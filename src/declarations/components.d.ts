@@ -2,6 +2,7 @@ export interface ModalButton {
   onClick?: () => void
   disabled ?: boolean
   main?: boolean
+  flat?: boolean
   text: string
 }
 
