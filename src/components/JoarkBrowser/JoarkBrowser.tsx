@@ -258,6 +258,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         ...existingItem,
         key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
         type: existingItem.type,
+        visible: true,
         disabled: false,
         hasSubrows: false
       } as JoarkBrowserItem)
