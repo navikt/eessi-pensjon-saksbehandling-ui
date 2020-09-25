@@ -252,6 +252,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   const getItemsForViewMode = (list: Array<JoarkPoster>, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
     const items: JoarkBrowserItems = []
+    // TODO: enrich existingItems with info from Joark
     existingItems.forEach((existingItem: JoarkBrowserItem, index: number) => {
       items.push({
         ...existingItem,
@@ -266,7 +267,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   useEffect(() => {
     if (!_.isEmpty(list) && _items === undefined) {
-      let items: JoarkBrowserItems | undefined
+      let items: JoarkBrowserItems = []
       if (mode === 'select') {
         items = getItemsForSelectMode(list!, existingItems)
       }
@@ -276,6 +277,19 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       setItems(items)
     }
   }, [list, existingItems, _items, mode])
+
+  useEffect(() => {
+    if (!_.isEmpty(list)) {
+      let items: JoarkBrowserItems = []
+      if (mode === 'select') {
+        items = getItemsForSelectMode(list!, existingItems)
+      }
+      if (mode === 'view') {
+        items = getItemsForViewMode(list!, existingItems)
+      }
+      setItems(items)
+    }
+  }, [existingItems, list, mode])
 
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {

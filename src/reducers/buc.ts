@@ -506,11 +506,15 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {
           const newSedAttachment: SEDAttachment = {
             id: md5('id' + new Date().getTime()),
-            name: (action as ActionWithPayload).context.joarkFile.name || '-',
-            fileName: (action as ActionWithPayload).context.joarkFile.variant.filnavn || '',
+            name: (action as ActionWithPayload).context.joarkBrowserItem.title || '-',
+            fileName: (action as ActionWithPayload).context.joarkBrowserItem.variant.filnavn || '',
             mimeType: '',
             documentId: md5('documentId' + new Date().getTime()),
-            lastUpdate: {},
+            lastUpdate: {
+              year: (action as ActionWithPayload).context.joarkBrowserItem.date.getFullYear(),
+              dayOfMonth: (action as ActionWithPayload).context.joarkBrowserItem.date.dayOfMonth,
+              monthValue: (action as ActionWithPayload).context.joarkBrowserItem.date.monthValue
+            },
             medical: false
           }
           sed.attachments.push(newSedAttachment)

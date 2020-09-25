@@ -4,6 +4,7 @@ import { JoarkBrowserItem } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import ProgressBar, { ProgressBarStatus } from 'fremdriftslinje'
 import PT from 'prop-types'
+import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -65,39 +66,44 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           onSaved(savingAttachmentsJob)
           setStatus('done')
           onFinished()
+          return
         }
+        return
       // still are attachments to send,
-      } else {
-        // one attachment was saved. continue
-        if (!savingAttachmentsJob.saving) {
-          /* istanbul ignore next */
-          if (!IS_TEST) {
-            console.log('Saved.' +
-              ' Total (' + savingAttachmentsJob.total.length +
-              ') saved (' + savingAttachmentsJob.saved.length + ') ' +
-              ' saving (' + !!savingAttachmentsJob.saving +
-              ') remaining (' + savingAttachmentsJob.remaining.length + ')')
-          }
-          const unsentAttachment: JoarkBrowserItem = savingAttachmentsJob.remaining[0]
-          const params: SEDAttachmentPayloadWithFile = {
-            ...payload,
-            journalpostId: unsentAttachment.journalpostId,
-            dokumentInfoId: unsentAttachment.dokumentInfoId,
-            variantformat: unsentAttachment.variant!.variantformat
-          }
-          sendAttachmentToSed(params, unsentAttachment)
-        } else {
-          /* istanbul ignore next */
-          if (!IS_TEST) {
-            console.log('Saving.' +
-              ' Total (' + savingAttachmentsJob.total.length +
-              ') saved (' + savingAttachmentsJob.saved.length + ') ' +
-              ' saving (' + !!savingAttachmentsJob.saving +
-              ') remaining (' + savingAttachmentsJob.remaining.length + ')')
-          }
-          onSaved(savingAttachmentsJob)
-        }
       }
+
+      // one attachment was just saved. Pick another one to save
+      if (!savingAttachmentsJob.saving) {
+        /* istanbul ignore next */
+        if (!IS_TEST) {
+          console.log('Saved.' +
+            ' Total (' + savingAttachmentsJob.total.length +
+            ') saved (' + savingAttachmentsJob.saved.length + ') ' +
+            ' saving (' + !!savingAttachmentsJob.saving +
+            ') remaining (' + savingAttachmentsJob.remaining.length + ')')
+        }
+        onSaved(savingAttachmentsJob)
+        const unsentAttachment: JoarkBrowserItem = _.first(savingAttachmentsJob.remaining)!
+        const params: SEDAttachmentPayloadWithFile = {
+          ...payload,
+          journalpostId: unsentAttachment.journalpostId,
+          dokumentInfoId: unsentAttachment.dokumentInfoId,
+          variantformat: unsentAttachment.variant!.variantformat
+        }
+        sendAttachmentToSed(params, unsentAttachment)
+        return
+      }
+
+      // one attachment will be saved now. Display as such.
+      /* istanbul ignore next */
+      if (!IS_TEST) {
+        console.log('Saving.' +
+          ' Total (' + savingAttachmentsJob.total.length +
+          ') saved (' + savingAttachmentsJob.saved.length + ') ' +
+          ' saving (' + !!savingAttachmentsJob.saving +
+          ') remaining (' + savingAttachmentsJob.remaining.length + ')')
+      }
+
     }
   }, [onSaved, onFinished, payload, sendAttachmentToSed, savingAttachmentsJob])
 
