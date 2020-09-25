@@ -1,3 +1,5 @@
+import { JoarkBrowserType } from 'components/JoarkBrowser/JoarkBrowser'
+import { Item } from 'tabell'
 
 export interface JoarkFileVariant {
   variantformat: string
@@ -18,7 +20,11 @@ export interface JoarkPoster {
   dokumenter: Array<JoarkDoc>
 }
 
+export type JoarkType = 'joark'
+
 export interface JoarkFile {
+  type: JoarkType
+
   journalpostId: string
   dokumentInfoId: string
   variant: JoarkFileVariant | undefined
@@ -34,7 +40,7 @@ interface Content {
   base64: string
 }
 
-export interface JoarkFileWithContent extends JoarkFile {
+export interface JoarkBrowserItemWithContent extends JoarkBrowserItem {
   content: Content
   name: string
   size: number
@@ -46,3 +52,18 @@ export interface JoarkPayload {
   contentType: string
   filInnhold: string
 }
+
+export interface JoarkBrowserItem extends Item {
+  hasSubrows: boolean
+  type: JoarkBrowserType
+
+  journalpostId: string
+  dokumentInfoId: string | undefined
+  variant: JoarkFileVariant | undefined
+
+  title: string
+  tema: string | undefined
+  date: Date
+}
+
+export type JoarkBrowserItems = Array<JoarkBrowserItem>

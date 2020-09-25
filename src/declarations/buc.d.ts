@@ -1,4 +1,5 @@
-import { JoarkFile, JoarkFiles } from 'declarations/joark'
+import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
+import { JoarkBrowserItems, JoarkFile, JoarkBrowserItemWithContent } from 'declarations/joark'
 
 export interface Date {
   year: number
@@ -15,7 +16,9 @@ export interface Date {
   monthValue: number
 }
 
-export interface BUCAttachment {
+export type SedType = 'sed'
+
+export interface SEDAttachment {
   id: string
   name: string
   fileName: string
@@ -25,7 +28,7 @@ export interface BUCAttachment {
   medical: boolean
 }
 
-export type BUCAttachments = Array<BUCAttachment>
+export type SEDAttachments = Array<SEDAttachment>
 
 export interface Address {
   country: string
@@ -71,7 +74,7 @@ export interface Sed {
   lastUpdate: number
   displayName?: string | null
   participants: Participants
-  attachments: Array<BUCAttachment>
+  attachments: Array<SEDAttachment>
   version?: string | null
   firstVersion: Version
   lastVersion: Version
@@ -197,13 +200,15 @@ export interface Tag {
 
 export type Tags = Array<Tag>
 
-export type AttachedFiles = { [namespace: string]: JoarkFiles | BUCAttachments }
+export type SEDFile = JoarkFile | SEDAttachment
+
+export type SEDFiles = Array<SEDFile>
 
 export interface SavingAttachmentsJob {
-  total: JoarkFiles
-  saved: JoarkFiles
-  saving: JoarkFile | undefined
-  remaining: JoarkFiles
+  total: JoarkBrowserItems
+  saved: JoarkBrowserItems
+  saving: JoarkBrowserItem | undefined
+  remaining: JoarkBrowserItems
 }
 
 export interface PersonAvdod {

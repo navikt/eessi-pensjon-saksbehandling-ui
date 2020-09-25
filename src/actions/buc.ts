@@ -4,7 +4,7 @@ import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { Buc, BucsInfo, NewSedPayload, PersonAvdod, Sed } from 'declarations/buc'
-import { JoarkFile, JoarkFiles } from 'declarations/joark'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { Person, PesysContext } from 'declarations/types'
 import { CountryFilter } from 'land-verktoy'
 import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
@@ -73,9 +73,9 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload>> = (ri
   })
 }
 
-export const createSavingAttachmentJob: ActionCreator<ActionWithPayload> = (joarkFiles: JoarkFiles): ActionWithPayload<JoarkFiles> => ({
+export const createSavingAttachmentJob: ActionCreator<ActionWithPayload> = (joarkBrowserItems: JoarkBrowserItems): ActionWithPayload<JoarkBrowserItems> => ({
   type: types.BUC_SAVINGATTACHMENTJOB_SET,
-  payload: joarkFiles
+  payload: joarkBrowserItems
 })
 
 export const resetSavingAttachmentJob: ActionCreator<Action> = (): Action => ({
@@ -336,15 +336,15 @@ export const createReplySed = (buc: Buc, payload: NewSedPayload, person: Person,
   })
 }
 
-export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, joarkFile: JoarkFile): Function => {
+export const sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, joarkBrowserItem: JoarkBrowserItem): Function => {
   return call({
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',
     cascadeFailureError: true,
-    expectedPayload: joarkFile,
+    expectedPayload: joarkBrowserItem,
     context: {
       params: params,
-      joarkFile: joarkFile
+      joarkBrowserItem: joarkBrowserItem
     },
     type: {
       request: types.BUC_SEND_ATTACHMENT_REQUEST,

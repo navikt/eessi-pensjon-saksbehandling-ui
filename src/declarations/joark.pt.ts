@@ -1,3 +1,4 @@
+import { JoarkBrowserType } from 'components/JoarkBrowser/JoarkBrowser'
 import PT from 'prop-types'
 
 export const JoarkFileVariantPropType = PT.shape({
@@ -35,7 +36,7 @@ const ContentPropType = PT.shape({
   base64: PT.string.isRequired
 })
 
-export const JoarkFileWithContentPropType = PT.shape({
+export const JoarkBrowserItemWithContentPropType = PT.shape({
   dokumentInfoId: PT.string.isRequired,
   journalpostId: PT.string.isRequired,
   variant: JoarkFileVariantPropType.isRequired,
@@ -47,4 +48,20 @@ export const JoarkFileWithContentPropType = PT.shape({
   name: PT.string.isRequired,
   size: PT.number.isRequired,
   mimetype: PT.string.isRequired
+})
+
+export const JoarkBrowserItemFileType = PT.shape({
+  key: PT.string.isRequired,
+  hasSubrows: PT.bool.isRequired,
+  type: PT.oneOf<JoarkBrowserType>(['sed', 'joark']).isRequired,
+  journalpostId: PT.string.isRequired,
+  dokumentInfoId: PT.string.isRequired,
+  variant: JoarkFileVariantPropType.isRequired,
+  title: PT.string.isRequired,
+  tema: PT.string.isRequired,
+  date: PT.instanceOf(Date).isRequired,
+  selected: PT.bool.isRequired,
+  disabled: PT.bool.isRequired,
+  visible: PT.bool.isRequired,
+  openSubrows: PT.bool.isRequired
 })

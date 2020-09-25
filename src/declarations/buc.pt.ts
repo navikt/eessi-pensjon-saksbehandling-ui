@@ -1,4 +1,4 @@
-import { JoarkFilesPropType } from 'declarations/joark.pt'
+import { JoarkFilePropType } from 'declarations/joark.pt'
 import PT from 'prop-types'
 
 export const DatePropType = PT.shape({
@@ -16,7 +16,7 @@ export const DatePropType = PT.shape({
   monthValue: PT.number.isRequired
 })
 
-export const BUCAttachmentPropType = PT.shape({
+export const SEDAttachmentPropType = PT.shape({
   id: PT.string.isRequired,
   name: PT.string.isRequired,
   fileName: PT.string.isRequired,
@@ -26,7 +26,7 @@ export const BUCAttachmentPropType = PT.shape({
   medical: PT.bool.isRequired
 })
 
-export const BUCAttachmentsPropType = PT.arrayOf(BUCAttachmentPropType.isRequired)
+export const SEDAttachmentsPropType = PT.arrayOf(SEDAttachmentPropType.isRequired)
 
 export const AddressPropType = PT.shape({
   country: PT.string.isRequired,
@@ -70,7 +70,7 @@ export const SedPropType = PT.shape({
   lastUpdate: PT.number.isRequired,
   displayName: PT.string,
   participants: PT.arrayOf(ParticipantPropType.isRequired).isRequired,
-  attachments: PT.arrayOf(BUCAttachmentPropType.isRequired).isRequired,
+  attachments: PT.arrayOf(SEDAttachmentPropType.isRequired).isRequired,
   version: PT.string,
   firstVersion: VersionPropType.isRequired,
   lastVersion: VersionPropType.isRequired,
@@ -158,4 +158,4 @@ export const TagPropType = PT.shape({
 
 export const TagsPropType = PT.arrayOf(TagPropType.isRequired)
 
-export const AttachedFilesPropType = PT.objectOf(PT.oneOfType([JoarkFilesPropType, BUCAttachmentsPropType]).isRequired)
+export const SEDFilesPropType = PT.arrayOf(PT.oneOfType([JoarkFilePropType, SEDAttachmentPropType]).isRequired)

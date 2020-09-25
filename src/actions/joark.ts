@@ -1,6 +1,6 @@
+import { JoarkBrowserItem, JoarkBrowserItemWithContent } from 'declarations/joark.d'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { JoarkFile } from 'declarations/joark'
 import { call, ActionWithPayload } from 'js-fetch-api'
 import mockJoarkRaw from 'mocks/joark/joarkRaw'
 import mockJoarkPreviewFile from 'mocks/joark/previewFile'
@@ -19,7 +19,7 @@ export const listJoarkFiles = (userId: string): Function => {
   })
 }
 
-export const getPreviewJoarkFile = (item: JoarkFile): Function => {
+export const getPreviewJoarkFile = (item: JoarkBrowserItem): Function => {
   return call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
@@ -36,7 +36,7 @@ export const getPreviewJoarkFile = (item: JoarkFile): Function => {
   })
 }
 
-export const setPreviewJoarkFile = (item: JoarkFile | undefined): ActionWithPayload<JoarkFile | undefined> => ({
+export const setPreviewJoarkFile = (item:JoarkBrowserItemWithContent | undefined): ActionWithPayload<JoarkBrowserItemWithContent | undefined> => ({
   type: types.JOARK_PREVIEW_SET,
   payload: item
 })

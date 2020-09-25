@@ -1,10 +1,10 @@
 import * as types from 'constants/actionTypes'
-import { JoarkFileWithContent, JoarkPoster } from 'declarations/joark'
+import { JoarkBrowserItemWithContent, JoarkPoster } from 'declarations/joark'
 import { ActionWithPayload } from 'js-fetch-api'
 
 export interface JoarkState {
   list: Array<JoarkPoster> | undefined
-  previewFile: JoarkFileWithContent | undefined
+  previewFile: JoarkBrowserItemWithContent | undefined
 }
 
 export const initialJoarkState: JoarkState = {
@@ -37,7 +37,7 @@ const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithP
           content: {
             base64: action.payload.filInnhold
           }
-        } as JoarkFileWithContent
+        } as JoarkBrowserItemWithContent
       }
 
     default:

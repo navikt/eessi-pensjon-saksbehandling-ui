@@ -3,7 +3,7 @@ import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import {
   Buc,
-  BUCAttachment,
+  SEDAttachment,
   Bucs,
   BucsInfo,
   BUCSubject,
@@ -20,7 +20,7 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
-import { JoarkFile } from 'declarations/joark'
+import { JoarkBrowserItem } from 'declarations/joark'
 import { RinaUrl } from 'declarations/types'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
@@ -492,19 +492,19 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_SEND_ATTACHMENT_SUCCESS: {
-      const newlySavedJoarkFile: JoarkFile = (action as ActionWithPayload).context.joarkFile
+      const newlySavedJoarkBrowserItem: JoarkBrowserItem = (action as ActionWithPayload).context.joarkBrowserItem
       const newBucs = _.cloneDeep(state.bucs)
       const newSeds = _.cloneDeep(state.bucs![(action as ActionWithPayload).context.params.rinaId].seds)
-      const newRemaining = _.reject(state.savingAttachmentsJob!.remaining, (joarkFile: JoarkFile) => {
-        return joarkFile.dokumentInfoId === newlySavedJoarkFile.dokumentInfoId &&
-        joarkFile.journalpostId === newlySavedJoarkFile.journalpostId &&
-        joarkFile.variant === newlySavedJoarkFile.variant
+      const newRemaining = _.reject(state.savingAttachmentsJob!.remaining, (item: JoarkBrowserItem) => {
+        return item.dokumentInfoId === newlySavedJoarkBrowserItem.dokumentInfoId &&
+          item.journalpostId === newlySavedJoarkBrowserItem.journalpostId &&
+          item.variant === newlySavedJoarkBrowserItem.variant
       })
-      const newSaved = state.savingAttachmentsJob?.saved.concat(newlySavedJoarkFile)
+      const newSaved = state.savingAttachmentsJob?.saved.concat(newlySavedJoarkBrowserItem)
 
       newSeds!.forEach(sed => {
         if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {
-          const newBucAttachment: BUCAttachment = {
+          const newSedAttachment: SEDAttachment = {
             id: md5('id' + new Date().getTime()),
             name: (action as ActionWithPayload).context.joarkFile.name || '-',
             fileName: (action as ActionWithPayload).context.joarkFile.variant.filnavn || '',
@@ -513,7 +513,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
             lastUpdate: {},
             medical: false
           }
-          sed.attachments.push(newBucAttachment)
+          sed.attachments.push(newSedAttachment)
         }
       })
       newBucs![(action as ActionWithPayload).context.params.rinaId].seds = newSeds

@@ -1,9 +1,8 @@
 import { IS_TEST } from 'constants/environment'
 import { SavingAttachmentsJob } from 'declarations/buc'
-import { JoarkFile } from 'declarations/joark'
+import { JoarkBrowserItem } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import ProgressBar, { ProgressBarStatus } from 'fremdriftslinje'
-import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -29,7 +28,7 @@ export interface SEDAttachmentSenderProps {
   onSaved: (savingAttachmentsJob: SavingAttachmentsJob) => void
   onFinished : () => void
   payload: SEDAttachmentPayload
-  sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkFile) => void
+  sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkBrowserItem) => void
 }
 
 export interface SEDAttachmentSelector {
@@ -79,7 +78,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
               ' saving (' + !!savingAttachmentsJob.saving +
               ') remaining (' + savingAttachmentsJob.remaining.length + ')')
           }
-          const unsentAttachment: JoarkFile = _.first(savingAttachmentsJob.remaining)!
+          const unsentAttachment: JoarkBrowserItem = savingAttachmentsJob.remaining[0]
           const params: SEDAttachmentPayloadWithFile = {
             ...payload,
             journalpostId: unsentAttachment.journalpostId,

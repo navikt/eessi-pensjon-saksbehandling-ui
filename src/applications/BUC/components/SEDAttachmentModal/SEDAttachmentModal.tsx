@@ -1,34 +1,33 @@
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import Modal from 'components/Modal/Modal'
-import { AttachedFiles, BUCAttachments, Sed } from 'declarations/buc'
-import { JoarkFiles } from 'declarations/joark'
+import { JoarkBrowserItems } from 'declarations/joark'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Document from 'assets/icons/document'
 
 export interface SEDAttachmentModalProps {
-  sed?: Sed
-  sedAttachments: AttachedFiles
   onModalClose: () => void
-  onFinishedSelection: (jf: JoarkFiles) => void
+  onFinishedSelection: (jbi: JoarkBrowserItems) => void
+  sedAttachments: JoarkBrowserItems
+  tableId: string
 }
 
 const SEDAttachmentModal = ({
-  sed, onFinishedSelection, sedAttachments, onModalClose
+  onFinishedSelection, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps) => {
-  const [files, setFiles] = useState<JoarkFiles>(sedAttachments.joark as JoarkFiles)
+  const [_items, setItems] = useState<JoarkBrowserItems>(sedAttachments)
   const { t } = useTranslation()
 
-  const onFilesChange = (jf: JoarkFiles) => {
-    setFiles(jf)
+  const onRowSelectChange = (items: JoarkBrowserItems) => {
+    setItems(items)
   }
 
-  const onButtonClick = () => {
-    onFinishedSelection(files)
+  const onAddAttachmentsButtonClick = () => {
+    onFinishedSelection(_items)
     onModalClose()
   }
 
-  const onButtonCancel = () => {
+  const onCancelButtonClick = () => {
     onModalClose()
   }
 
@@ -39,19 +38,19 @@ const SEDAttachmentModal = ({
         closeButton: true,
         modalContent: (
           <JoarkBrowser
-            id={sed ? sed.id : 'newsed'}
-            disabledFiles={sedAttachments.sed as BUCAttachments}
-            files={files}
-            onFilesChange={onFilesChange}
+            mode='select'
+            tableId={tableId}
+            existingItems={sedAttachments}
+            onRowSelectChange={onRowSelectChange}
           />
         ),
         modalButtons: [{
           main: true,
           text: t('buc:form-addSelectedAttachments'),
-          onClick: onButtonClick
+          onClick: onAddAttachmentsButtonClick
         }, {
           text: t('ui:cancel'),
-          onClick: onButtonCancel
+          onClick: onCancelButtonClick
         }]
       }}
       onModalClose={onModalClose}

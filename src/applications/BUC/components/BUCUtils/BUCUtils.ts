@@ -1,4 +1,5 @@
-import { AllowedLocaleString, T } from 'declarations/types'
+import { JoarkBrowserItem } from 'declarations/joark.d'
+import { AllowedLocaleString, T } from 'declarations/types.d'
 import CountryData, { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
@@ -39,6 +40,12 @@ export const sedSorter = (a: Sed, b: Sed): number => {
   if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) > 0) return 1
   if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) < 0) return -1
   return mainCompare > 0 ? 1 : -1
+}
+
+export const sedAttachmentSorter = (a: JoarkBrowserItem, b: JoarkBrowserItem): number => {
+  if (b.type === 'joark' && a.type === 'sed') return 1
+  if (b.type === 'sed' && a.type === 'joark') return -1
+  return b.key.localeCompare(a.key)
 }
 
 export const sedFilter = (sed: Sed): boolean => {

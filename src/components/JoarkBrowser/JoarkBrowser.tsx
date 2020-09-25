@@ -1,18 +1,20 @@
 import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
+import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
 import { HighContrastKnapp } from 'components/StyledComponents'
-import { BUCAttachments } from 'declarations/buc'
+import { SedType } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import {
+  JoarkBrowserItem,
+  JoarkBrowserItems, JoarkBrowserItemWithContent,
   JoarkDoc,
-  JoarkFile,
   JoarkFileVariant,
-  JoarkFileWithContent,
-  JoarkPoster
+  JoarkPoster,
+  JoarkType
 } from 'declarations/joark'
-import { JoarkFilePropType, JoarkFileWithContentPropType } from 'declarations/joark.pt'
+import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
 import _ from 'lodash'
@@ -26,16 +28,17 @@ import TableSorter, { Item } from 'tabell'
 
 export interface JoarkBrowserSelector {
   aktoerId: string
-  highContrast: boolean
   list: Array<JoarkPoster> | undefined
   loadingJoarkList: boolean
   loadingJoarkPreviewFile: boolean
-  previewFile: JoarkFileWithContent | undefined
+  previewFile: JoarkBrowserItemWithContent | undefined
 }
+
+export type JoarkBrowserMode = 'select' | 'view'
+export type JoarkBrowserType = SedType | JoarkType
 
 const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector => ({
   aktoerId: state.app.params.aktoerId,
-  highContrast: state.ui.highContrast,
   list: state.joark.list,
   loadingJoarkList: state.loading.loadingJoarkList,
   loadingJoarkPreviewFile: state.loading.loadingJoarkPreviewFile,
@@ -43,14 +46,21 @@ const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector
 })
 
 export interface JoarkBrowserProps {
-  disabledFiles: BUCAttachments
-  files: Array<JoarkFile | JoarkFileWithContent>
-  onFilesChange: (f: Array<JoarkFile | JoarkFileWithContent>) => void
-  onPreviewFile?: (f: JoarkFileWithContent) => void
-  id: string
+  existingItems: JoarkBrowserItems
+  highContrast?: boolean
+  onRowSelectChange?: (f: JoarkBrowserItems) => void
+  onPreviewFile?: (f: JoarkBrowserItemWithContent) => void
+  onRowViewDelete?: (f: JoarkBrowserItems) => void
+  mode: JoarkBrowserMode
+  tableId: string
 }
-export interface JoarkTableItem extends Item {
 
+export interface JoarkBrowserContext {
+  existingItems: JoarkBrowserItems
+  loadingJoarkPreviewFile: boolean
+  previewFile: JoarkBrowserItemWithContent | undefined
+  clickedPreviewItem: JoarkBrowserItem | undefined,
+  mode: JoarkBrowserMode
 }
 
 const ButtonsDiv = styled.div`
@@ -63,28 +73,42 @@ const ButtonsDiv = styled.div`
 `
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
-  disabledFiles = [], files = [], onFilesChange, onPreviewFile, id
+  existingItems = [],
+  highContrast = false,
+  mode,
+  onRowSelectChange = () => {},
+  onRowViewDelete = () => {},
+  onPreviewFile,
+  tableId
 }: JoarkBrowserProps): JSX.Element => {
-  const { aktoerId, highContrast, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile }: JoarkBrowserSelector =
-    useSelector<State, JoarkBrowserSelector>(mapState)
+  const {
+    aktoerId, list, loadingJoarkList, loadingJoarkPreviewFile, previewFile
+  }: JoarkBrowserSelector = useSelector<State, JoarkBrowserSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [_previewFile, setPreviewFile] = useState<JoarkFileWithContent | undefined>(undefined)
-  const [clickedPreviewFile, setClickedPreviewFile] = useState<any>(undefined)
+  const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
+  const [clickedPreviewItem, setClickedPreviewItem] = useState<JoarkBrowserItem | undefined>(undefined)
   const [mounted, setMounted] = useState<boolean>(false)
   const [modal, setModal] = useState<ModalContent | undefined>(undefined)
-  const [_items, setItems] = useState<Array<JoarkTableItem> | undefined>(undefined)
+  const [_items, setItems] = useState<JoarkBrowserItems | undefined>(undefined)
 
-  const context = {
-    files: files,
+  const context: JoarkBrowserContext = {
+    existingItems: existingItems,
     loadingJoarkPreviewFile: loadingJoarkPreviewFile,
     previewFile: _previewFile,
-    clickedPreviewFile: clickedPreviewFile
+    clickedPreviewItem: clickedPreviewItem,
+    mode: mode
   }
 
-  const equalFiles: Function = (a: JoarkFile, b: JoarkFile): boolean => {
+  const equalFiles: Function = (a: JoarkBrowserItem, b: JoarkBrowserItem): boolean => {
     if (!a && !b) { return true }
     if ((!a && b) || (a && !b)) { return false }
+
+    if (
+      (!(a as any).journalpostId && (b as any).journalpostId) ||
+      ((a as any).journalpostId && !(b as any).journalpostId)) {
+      return false
+    }
     return a.journalpostId === b.journalpostId &&
       a.dokumentInfoId === b.dokumentInfoId &&
       _.isEqual(a.variant, b.variant)
@@ -94,120 +118,164 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     dispatch(setPreviewJoarkFile(undefined))
   }, [dispatch])
 
-  const onPreviewItem = (clickedItem: any): void => {
-    setClickedPreviewFile(clickedItem)
-    const foundFile = _.find(files, (file) => (equalFiles(file, clickedItem) && (file as JoarkFileWithContent).content !== undefined))
-    if (!foundFile) {
-      console.log(clickedItem)
-      dispatch(getPreviewJoarkFile(clickedItem))
-    } else {
-      dispatch(setPreviewJoarkFile(foundFile))
+  const onPreviewItem = (clickedItem: JoarkBrowserItem): void => {
+    setClickedPreviewItem(clickedItem)
+    dispatch(getPreviewJoarkFile(clickedItem))
+  }
+
+  const handleDelete = (itemToDelete: JoarkBrowserItem, contextFiles: JoarkBrowserItems) => {
+    const newExistingItems: JoarkBrowserItems = _.reject(contextFiles, (item: JoarkBrowserItem) => {
+      return itemToDelete.journalpostId === item.journalpostId &&
+        itemToDelete.dokumentInfoId === item.dokumentInfoId
+    })
+    if (_.isFunction(onRowViewDelete)) {
+      onRowViewDelete(newExistingItems)
     }
   }
 
-  const onSelectedItemChange = (items: Array<any>): void => {
-    onFilesChange(items.filter(item => item.selected))
-  }
-
-  const renderButtonsCell = (item: any, value: any, context: any) => {
+  const renderButtonsCell = (item: Item, value: any, context: JoarkBrowserContext) => {
     if (item.hasSubrows) {
       return <div />
     }
     const previewing = context.loadingJoarkPreviewFile
-    const spinner = previewing && _.isEqual(item, context.clickedPreviewFile)
+    const spinner = previewing && _.isEqual(item as JoarkBrowserItem, context.clickedPreviewItem)
     return (
       <ButtonsDiv>
-        <HighContrastKnapp
-          data-tip={t('ui:preview')}
-          kompakt
-          mini
-          disabled={previewing}
-          spinner={spinner}
-          id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
-          className='c-tablesorter__preview-button'
-          onClick={() => onPreviewItem(item)}
-        >
-          {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
-        </HighContrastKnapp>
+        {item.journalpostId && item.dokumentInfoId && (
+          <HighContrastKnapp
+            data-tip={t('ui:preview')}
+            kompakt
+            mini
+            disabled={previewing}
+            spinner={spinner}
+            id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+            className='c-tablesorter__preview-button'
+            onClick={() => onPreviewItem(item as JoarkBrowserItem)}
+          >
+            {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
+          </HighContrastKnapp>
+        )}
+
+        {mode === 'view' && item.type === 'joark' && (
+          <HighContrastKnapp
+            kompakt
+            mini
+            onClick={(e: any) => {
+              e.preventDefault()
+              e.stopPropagation()
+              handleDelete(item as JoarkBrowserItem, context.existingItems)
+            }}
+          >
+            <Trashcan />
+          </HighContrastKnapp>
+        )}
       </ButtonsDiv>
     )
   }
 
-  useEffect(() => {
-    const getItems = () => {
-      const items: Array<JoarkTableItem> = []
+  const getItemsForSelectMode = (list: Array<JoarkPoster>, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
+    const items: JoarkBrowserItems = []
+    const disabledItems: JoarkBrowserItems = _.filter(existingItems,
+      (item: JoarkBrowserItem) => item.type === 'sed')
+    const selectedItems: JoarkBrowserItems = _.filter(existingItems,
+      (item: JoarkBrowserItem) => item.type === 'joark')
 
-      if (list) {
-        list.forEach((post: JoarkPoster) => {
-          let multipleDocuments: boolean = false
+    list.forEach((post: JoarkPoster) => {
+      let multipleDocuments: boolean = false
 
-          if (post.dokumenter.length > 1) {
-            multipleDocuments = true
-            items.push({
-              key: 'joark-file-group-' + post.journalpostId,
+      if (post.dokumenter.length > 1) {
+        multipleDocuments = true
+        items.push({
+          key: 'joark-group-' + post.journalpostId,
+          type: 'joark',
 
-              journalpostId: post.journalpostId,
+          journalpostId: post.journalpostId,
+          dokumentInfoId: undefined,
+          variant: undefined,
 
-              title: post.tittel,
-              tema: post.tema,
-              date: new Date(Date.parse(post.datoOpprettet)),
+          title: post.tittel,
+          tema: post.tema,
+          date: new Date(Date.parse(post.datoOpprettet)),
 
-              disabled: false,
-              hasSubrows: true
-            } as JoarkTableItem)
-          }
-
-          post.dokumenter.forEach((doc: JoarkDoc) => {
-            let variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'SLADDET')
-            if (!variant) {
-              variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'ARKIV')
-            }
-            if (!variant) {
-              if (!_.isEmpty(doc.dokumentvarianter)) {
-                variant = doc.dokumentvarianter[0]
-              } else {
-                return
-              }
-            }
-
-            const selected = _.find(files, {
-              dokumentInfoId: doc.dokumentInfoId,
-              variant: variant
-            }) !== undefined
-
-            const disabled = _.find(disabledFiles, {
-              fileName: variant?.filnavn
-            }) !== undefined
-
-            const item: JoarkTableItem = {
-              key: post.journalpostId + '-' + doc.dokumentInfoId + '-' + variant?.variantformat + '-' + selected,
-
-              journalpostId: post.journalpostId,
-              dokumentInfoId: doc.dokumentInfoId,
-              variant: variant!,
-
-              title: doc.tittel || '-',
-              tema: post.tema,
-              date: new Date(Date.parse(post.datoOpprettet)),
-
-              selected: selected,
-              disabled: disabled,
-              hasSubrows: false
-            }
-            if (multipleDocuments) {
-              item.parentKey = 'joark-file-group-' + post.journalpostId
-            }
-            items.push(item)
-          })
-        })
+          disabled: false,
+          hasSubrows: true
+        } as JoarkBrowserItem)
       }
-      return items
-    }
 
+      post.dokumenter.forEach((doc: JoarkDoc) => {
+        let variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'SLADDET')
+        if (!variant) {
+          variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'ARKIV')
+        }
+        if (!variant) {
+          if (!_.isEmpty(doc.dokumentvarianter)) {
+            variant = doc.dokumentvarianter[0]
+          } else {
+            return
+          }
+        }
+
+        const selected = _.find(selectedItems, {
+          dokumentInfoId: doc.dokumentInfoId,
+          variant: variant
+        }) !== undefined
+
+        const disabled = _.find(disabledItems, {
+          dokumentInfoId: doc.dokumentInfoId
+        }) !== undefined
+
+        const item: JoarkBrowserItem = {
+          key: post.journalpostId + '-' + doc.dokumentInfoId + '-' + variant?.variantformat + '-' + selected,
+          type: 'joark',
+
+          journalpostId: post.journalpostId,
+          dokumentInfoId: doc.dokumentInfoId,
+          variant: variant!,
+
+          title: doc.tittel || '-',
+          tema: post.tema,
+          date: new Date(Date.parse(post.datoOpprettet)),
+
+          selected: selected,
+          disabled: disabled,
+          hasSubrows: false
+        }
+        if (multipleDocuments) {
+          item.parentKey = 'joark-group-' + post.journalpostId
+        }
+        items.push(item)
+      })
+    })
+
+    return items
+  }
+
+  const getItemsForViewMode = (list: Array<JoarkPoster>, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
+    const items: JoarkBrowserItems = []
+    existingItems.forEach((existingItem: JoarkBrowserItem, index: number) => {
+      items.push({
+        ...existingItem,
+        key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
+        type: existingItem.type,
+        disabled: false,
+        hasSubrows: false
+      } as JoarkBrowserItem)
+    })
+    return items
+  }
+
+  useEffect(() => {
     if (!_.isEmpty(list) && _items === undefined) {
-      setItems(getItems())
+      let items: JoarkBrowserItems | undefined
+      if (mode === 'select') {
+        items = getItemsForSelectMode(list!, existingItems)
+      }
+      if (mode === 'view') {
+        items = getItemsForViewMode(list!, existingItems)
+      }
+      setItems(items)
     }
-  }, [disabledFiles, files, list, _items])
+  }, [list, existingItems, _items, mode])
 
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
@@ -254,7 +322,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     <div className='c-joarkBrowser'>
       <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
-        id={'table-' + id}
+        id={'joarkbrowser-' + tableId}
         highContrast={highContrast}
         items={_items}
         context={context}
@@ -263,9 +331,9 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         }}
         itemsPerPage={30}
         compact
-        searchable
-        selectable
-        sortable
+        searchable={mode === 'select'}
+        selectable={mode === 'select'}
+        sortable={mode === 'select'}
         summary
         loading={loadingJoarkList}
         columns={[
@@ -289,16 +357,19 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             renderCell: renderButtonsCell
           }
         ]}
-        onRowSelectChange={onSelectedItemChange}
+        onRowSelectChange={onRowSelectChange}
       />
     </div>
   )
 }
 
 JoarkBrowser.propTypes = {
-  files: PT.arrayOf(PT.oneOfType([JoarkFilePropType, JoarkFileWithContentPropType]).isRequired).isRequired,
-  onFilesChange: PT.func.isRequired,
-  onPreviewFile: PT.func
+  existingItems: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
+  onRowSelectChange: PT.func,
+  onPreviewFile: PT.func,
+  onRowViewDelete: PT.func,
+  mode: PT.oneOf<JoarkBrowserMode>(['select', 'view']).isRequired,
+  tableId: PT.string.isRequired
 }
 
 export default JoarkBrowser

@@ -1,5 +1,3 @@
-import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
-import React, { useCallback, useEffect, useState } from 'react'
 import {
   createReplySed,
   createSavingAttachmentJob,
@@ -12,17 +10,17 @@ import {
   sendAttachmentToSed,
   setSedList
 } from 'actions/buc'
-import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { getBucTypeLabel, sedAttachmentSorter, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
-import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import { BUCMode } from 'applications/BUC/index'
 import PersonIcon from 'assets/icons/line-version-person-2'
 import Alert from 'components/Alert/Alert'
+import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
@@ -39,9 +37,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
 import {
-  AttachedFiles,
   Buc,
-  BUCAttachments,
   Bucs,
   InstitutionListMap,
   Institutions,
@@ -54,8 +50,9 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
-import { AttachedFilesPropType, BucsPropType } from 'declarations/buc.pt'
-import { JoarkFile, JoarkFiles } from 'declarations/joark'
+import { BucsPropType } from 'declarations/buc.pt'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
+import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import {
   AllowedLocaleString,
@@ -71,8 +68,10 @@ import CountryData from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
+import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -107,7 +106,7 @@ export interface SEDStartProps {
   aktoerId?: string
   bucs: Bucs
   currentBuc: string
-  initialAttachments ?: AttachedFiles
+  initialAttachments ?: JoarkBrowserItems
   initialSed ?: string | undefined
   onSedCreated: () => void
   onSedCancelled: () => void
@@ -158,10 +157,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId,
   bucs,
   currentBuc,
-  initialAttachments = {
-    sed: [] as BUCAttachments,
-    joark: [] as JoarkFiles
-  },
+  initialAttachments = [],
   initialSed = undefined,
   onSedCreated,
   onSedCancelled
@@ -207,7 +203,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [mounted, setMounted] = useState<boolean>(false)
   const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
-  const [sedAttachments, setSedAttachments] = useState<AttachedFiles>(initialAttachments)
+  const [sedAttachments, setSedAttachments] = useState<JoarkBrowserItems>(initialAttachments)
   const [sedSent, setSedSent] = useState<boolean>(false)
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(false)
   const [validation, setValidation] = useState<Validation>({})
@@ -454,25 +450,23 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     )
   }
 
-  const onJoarkAttachmentsChanged = (joarkFiles: JoarkFiles) => {
-    setSedAttachments({
-      ...sedAttachments,
-      joark: joarkFiles
-    })
+  const onJoarkAttachmentsChanged = (jbi: JoarkBrowserItems) => {
+    const sedOriginalAttachments = _.filter(sedAttachments, (att) => att.type !== 'joark')
+    const newAttachments = sedOriginalAttachments.concat(jbi).sort(sedAttachmentSorter)
+    setSedAttachments(newAttachments)
   }
 
   const resetJoarkAttachments = useCallback(() => {
-    setSedAttachments({
-      ...sedAttachments,
-      joark: []
-    })
+    const newAttachments = _.filter(sedAttachments, (att) => att.type !== 'joark')
+      .sort(sedAttachmentSorter)
+    setSedAttachments(newAttachments)
   }, [sedAttachments])
 
-  const onAttachmentsChanged = (files: AttachedFiles) => {
-    setSedAttachments(files)
+  const onRowViewDelete = (newAttachments: JoarkBrowserItems) => {
+    setSedAttachments(newAttachments)
   }
 
-  const bucHasSedsWithAtLeastOneInstitution: Function = (): boolean => {
+  const bucHasSedsWithAtLeastOneInstitution = (): boolean => {
     if (buc.seds) {
       return _(buc.seds).find(sed => {
         return _.isArray(sed.participants) && !_.isEmpty(sed.participants)
@@ -485,7 +479,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return _sed === 'P6000' || _sed === 'P7000'
   }
 
-  const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkFile): void => {
+  const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))
   }
 
@@ -639,7 +633,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         return
       }
 
-      if (_.isEmpty(sedAttachments.joark)) {
+      const joarksToUpload: JoarkBrowserItems =
+        _.filter(sedAttachments, (att) => att.type === 'joark')
+
+      if (_.isEmpty(joarksToUpload)) {
         /* istanbul ignore next */
         if (!IS_TEST) {
           console.log('SEDStart: No attachments to send, concluding')
@@ -652,9 +649,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setSendingAttachments(true)
       setAttachmentsTableVisible(false)
       standardLogger('sed.new.attachments.data', {
-        numberOfJoarkAttachments: sedAttachments.joark.length
+        numberOfJoarkAttachments: joarksToUpload.length
       })
-      const joarksToUpload: JoarkFiles = _.cloneDeep(sedAttachments.joark as JoarkFiles)
       dispatch(createSavingAttachmentJob(joarksToUpload))
     }
   }, [dispatch, onFinished, sendingAttachments, sedAttachments, sedCanHaveAttachments, attachmentsSent, sed, sedSent])
@@ -900,23 +896,27 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               {attachmentsTableVisible && (
                 <SEDAttachmentModal
+                  tableId='newsed-modal'
                   sedAttachments={sedAttachments}
                   onModalClose={() => setAttachmentsTableVisible(false)}
                   onFinishedSelection={onJoarkAttachmentsChanged}
                 />
               )}
+              {!_.isEmpty(sedAttachments) && (
+                <>
+                  <VerticalSeparatorDiv />
+                  <JoarkBrowser
+                    tableId='newsed-view'
+                    mode='view'
+                    highContrast={highContrast}
+                    existingItems={sedAttachments}
+                    onRowViewDelete={onRowViewDelete}
+                  />
+                </>
+              )}
             </>
           )}
-          {sedCanHaveAttachments() && (
-            <>
-              <VerticalSeparatorDiv />
-              <SEDAttachmentsTable
-                highContrast={highContrast}
-                attachments={sedAttachments}
-                onAttachmentsChanged={onAttachmentsChanged}
-              />
-            </>
-          )}
+
           <Column>
             {(sendingAttachments || attachmentsSent) && sed && (
               <SEDAttachmentSenderDiv>
@@ -961,7 +961,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
-  initialAttachments: AttachedFilesPropType,
+  initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
   onSedCreated: PT.func.isRequired,
   onSedCancelled: PT.func.isRequired
 }

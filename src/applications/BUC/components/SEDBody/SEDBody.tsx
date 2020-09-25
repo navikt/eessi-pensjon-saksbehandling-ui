@@ -4,16 +4,17 @@ import {
   resetSedAttachments,
   sendAttachmentToSed
 } from 'actions/buc'
+import { sedAttachmentSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender, {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile
 } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
-import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
+import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import { HighContrastHovedknapp, HighContrastKnapp, VerticalSeparatorDiv } from 'components/StyledComponents'
-import { AttachedFiles, Buc, BUCAttachments, SavingAttachmentsJob, Sed } from 'declarations/buc'
+import { Buc, SEDAttachment, SEDAttachments, SavingAttachmentsJob, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
-import { JoarkFile, JoarkFiles } from 'declarations/joark'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
@@ -33,7 +34,7 @@ export interface SEDBodyProps {
   initialAttachmentsSent?: boolean
   initialSeeAttachmentPanel?: boolean
   initialSendingAttachments?: boolean
-  onAttachmentsSubmit?: (jf: JoarkFiles) => void
+  onAttachmentsSubmit?: (jbi: JoarkBrowserItems) => void
   onAttachmentsPanelOpen?: (o: boolean) => void
   sed: Sed
 }
@@ -61,18 +62,40 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
+  const convertSedAttachmentsToJoarkBrowserItems = (sedAttachments: SEDAttachments): JoarkBrowserItems | undefined => {
+    if (!sedAttachments) {
+      return undefined
+    }
+    return sedAttachments.map((att: SEDAttachment) => {
+      return {
+        key: att.id,
+        type: 'sed',
+        title: att.name,
+        date: att.lastUpdate,
+        hasSubrows: false,
+        disabled: false,
+        dokumentInfoId: att.documentId,
+        journalpostId: '',
+        openSubrows: false,
+        tema: undefined,
+        variant: undefined,
+        visible: true,
+        selected: false
+      } as JoarkBrowserItem
+    })
+  }
+
   // initially, joark is empty
-  const [sedAttachments, setSedAttachments] = useState<AttachedFiles>({
-    sed: sed.attachments || [] as BUCAttachments,
-    joark: [] as JoarkFiles
-  })
+  const [items, setItems] = useState<JoarkBrowserItems>(
+    convertSedAttachmentsToJoarkBrowserItems(sed.attachments) || []
+  )
 
   const [sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [attachmentsSent, setAttachmentsSent] = useState<boolean>(initialAttachmentsSent)
   const [attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(initialSeeAttachmentPanel)
   const { attachmentsError }: SEDBodySelector = useSelector<State, SEDBodySelector>(mapState)
 
-  const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkFile): void => {
+  const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))
   }
 
@@ -85,37 +108,33 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     setAttachmentsSent(false)
   }
 
-  const onSedAttachmentsChanged = useCallback((sedFiles: BUCAttachments) => {
-    const newFiles: AttachedFiles = {
-      ...sedAttachments,
-      sed: sedFiles
-    }
-    setSedAttachments(newFiles)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setSedAttachments])
-
-  const onJoarkAttachmentsChanged = (joarkFiles: JoarkFiles) => {
-    const newFiles: AttachedFiles = {
-      ...sedAttachments,
-      joark: joarkFiles
-    }
-    setSedAttachments(newFiles)
+  const onRowViewDelete = (newItems: JoarkBrowserItems) => {
+    setItems(newItems)
   }
 
-  const onAttachmentsChanged = (files: AttachedFiles) => {
-    setSedAttachments(files)
+  const onSedAttachmentsChanged = useCallback((sedAttachments: SEDAttachments) => {
+    setItems(convertSedAttachmentsToJoarkBrowserItems(sedAttachments) || [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setItems])
+
+  const onJoarkAttachmentsChanged = (jbi: JoarkBrowserItems) => {
+    const sedOriginalAttachments = _.filter(items, (att) => att.type !== 'joark')
+    const newAttachments = sedOriginalAttachments.concat(jbi).sort(sedAttachmentSorter)
+    setItems(newAttachments)
   }
 
   const onAttachmentsSubmitted = () => {
     setSendingAttachments(true)
     setAttachmentsTableVisible(false)
+
+    const joarkItemsToUpload: JoarkBrowserItems = _.filter(items, f => f.type === 'joark')
     standardLogger('buc.edit.attachments.data', {
-      numberOfJoarkAttachments: sedAttachments.joark.length
+      numberOfJoarkAttachments: joarkItemsToUpload.length
     })
-    const joarksToUpload: JoarkFiles = _.cloneDeep(sedAttachments.joark as JoarkFiles)
-    dispatch(createSavingAttachmentJob(joarksToUpload))
+
+    dispatch(createSavingAttachmentJob(joarkItemsToUpload))
     if (_.isFunction(onAttachmentsSubmit)) {
-      onAttachmentsSubmit(joarksToUpload)
+      onAttachmentsSubmit(joarkItemsToUpload)
     }
   }
 
@@ -143,16 +162,18 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         {t('ui:attachments')}
       </Undertittel>
       <VerticalSeparatorDiv data-size='2' />
-      {sedAttachments && (sedAttachments.sed || sedAttachments.joark) && (
-        <SEDAttachmentsTable
-          attachments={sedAttachments}
+      {items && (
+        <JoarkBrowser
+          tableId={'viewsed-' + sed.id}
+          mode='view'
           highContrast={highContrast}
-          onAttachmentsChanged={onAttachmentsChanged}
+          existingItems={items}
+          onRowViewDelete={onRowViewDelete}
         />
       )}
       <>
         <VerticalSeparatorDiv />
-        {!attachmentsSent && sedAttachments.joark.length > 0 && (
+        {!attachmentsSent && _.find(items, (item) => item.type === 'joark') !== undefined && (
           <HighContrastHovedknapp
             disabled={sendingAttachments}
             spinner={sendingAttachments}
@@ -194,8 +215,8 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         ))}
       {attachmentsTableVisible && (
         <SEDAttachmentModal
-          sed={sed}
-          sedAttachments={sedAttachments}
+          tableId={'sedview' + sed.id + '-modal'}
+          sedAttachments={items}
           onModalClose={onAttachmentsPanelClose}
           onFinishedSelection={onJoarkAttachmentsChanged}
         />

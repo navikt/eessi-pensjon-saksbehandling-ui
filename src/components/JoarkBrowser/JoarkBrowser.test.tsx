@@ -1,4 +1,5 @@
 import { getPreviewJoarkFile, listJoarkFiles } from 'actions/joark'
+import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
 import { JoarkDoc, JoarkFile, JoarkPoster } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
@@ -13,22 +14,7 @@ jest.mock('actions/joark', () => ({
   listJoarkFiles: jest.fn()
 }))
 
-const files: Array<JoarkFile> = []
-mockJoark.data.dokumentoversiktBruker.journalposter.forEach((post: JoarkPoster) => {
-  post.dokumenter.forEach((doc: JoarkDoc) => {
-    if (!_.isEmpty(doc.dokumentvarianter)) {
-      files.push({
-        tilleggsopplysninger: post.tilleggsopplysninger,
-        journalpostId: post.journalpostId,
-        tittel: doc.tittel,
-        tema: post.tema,
-        dokumentInfoId: doc.dokumentInfoId,
-        datoOpprettet: new Date(Date.parse(post.datoOpprettet)),
-        variant: doc.dokumentvarianter[0]
-      })
-    }
-  })
-})
+const files: Array<JoarkPoster> = _.cloneDeep(mockJoark.data.dokumentoversiktBruker.journalposter)
 
 const defaultSelector: JoarkBrowserSelector = {
   aktoerId: '123',
@@ -42,7 +28,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   let wrapper: ReactWrapper
 
   const initialMockProps: JoarkBrowserProps = {
-    files: [],
+
     onFilesChange: jest.fn(),
     mode: 'view',
     onPreviewFile: jest.fn()
