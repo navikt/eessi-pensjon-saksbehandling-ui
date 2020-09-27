@@ -8,12 +8,14 @@ import { SedType } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import {
   JoarkBrowserItem,
-  JoarkBrowserItems, JoarkBrowserItemWithContent,
+  JoarkBrowserItems,
+  JoarkBrowserItemWithContent,
   JoarkDoc,
   JoarkFileVariant,
   JoarkPoster,
   JoarkType
 } from 'declarations/joark'
+import TableSorter, { Context } from 'tabell'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
@@ -24,7 +26,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import TableSorter, { Item } from 'tabell'
 
 export interface JoarkBrowserSelector {
   aktoerId: string
@@ -55,7 +56,7 @@ export interface JoarkBrowserProps {
   tableId: string
 }
 
-export interface JoarkBrowserContext {
+export interface JoarkBrowserContext extends Context {
   existingItems: JoarkBrowserItems
   loadingJoarkPreviewFile: boolean
   previewFile: JoarkBrowserItemWithContent | undefined
@@ -133,7 +134,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const renderButtonsCell = (item: Item, value: any, context: JoarkBrowserContext) => {
+  const renderButtonsCell = (item: JoarkBrowserItem, value: any, context: JoarkBrowserContext) => {
     if (item.hasSubrows) {
       return <div />
     }
@@ -173,6 +174,19 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     )
   }
 
+  const getVariantFromJoarkDoc = (doc: JoarkDoc): JoarkFileVariant | undefined => {
+    let variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'SLADDET')
+    if (!variant) {
+      variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'ARKIV')
+    }
+    if (!variant) {
+      if (!_.isEmpty(doc.dokumentvarianter)) {
+        variant = doc.dokumentvarianter[0]
+      }
+    }
+    return variant
+  }
+
   const getItemsForSelectMode = (list: Array<JoarkPoster>, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
     const items: JoarkBrowserItems = []
     const disabledItems: JoarkBrowserItems = _.filter(existingItems,
@@ -203,17 +217,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       }
 
       post.dokumenter.forEach((doc: JoarkDoc) => {
-        let variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'SLADDET')
-        if (!variant) {
-          variant = _.find(doc.dokumentvarianter, (v: JoarkFileVariant) => v.variantformat === 'ARKIV')
-        }
-        if (!variant) {
-          if (!_.isEmpty(doc.dokumentvarianter)) {
-            variant = doc.dokumentvarianter[0]
-          } else {
-            return
-          }
-        }
+        const variant = getVariantFromJoarkDoc(doc)
 
         const selected = _.find(selectedItems, {
           dokumentInfoId: doc.dokumentInfoId,
@@ -254,6 +258,28 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     const items: JoarkBrowserItems = []
     // TODO: enrich existingItems with info from Joark
     existingItems.forEach((existingItem: JoarkBrowserItem, index: number) => {
+      const match = existingItem.title.match(/^(\d+)_ARKIV\.pdf$/)
+      if (match) {
+        const id = match[1]
+        let journalpostDoc: JoarkDoc | undefined
+        for (var jp of list) {
+          for (var doc of jp.dokumenter) {
+            if (doc.dokumentInfoId === id) {
+              journalpostDoc = doc
+              if (doc.tittel) {
+                existingItem.title = doc.tittel
+                existingItem.dokumentInfoId = doc.dokumentInfoId
+                existingItem.journalpostId = jp.journalpostId
+                existingItem.variant = getVariantFromJoarkDoc(doc)
+              }
+              break
+            }
+          }
+          if (journalpostDoc) {
+            break
+          }
+        }
+      }
       items.push({
         ...existingItem,
         key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
@@ -266,21 +292,10 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     return items
   }
 
-  useEffect(() => {
-    if (!_.isEmpty(list) && _items === undefined) {
-      let items: JoarkBrowserItems = []
-      if (mode === 'select') {
-        items = getItemsForSelectMode(list!, existingItems)
-      }
-      if (mode === 'view') {
-        items = getItemsForViewMode(list!, existingItems)
-      }
-      setItems(items)
-    }
-  }, [list, existingItems, _items, mode])
-
+  // this will update when we get updated existingItems
   useEffect(() => {
     if (!_.isEmpty(list)) {
+      console.log('preparing joarkBrowser')
       let items: JoarkBrowserItems = []
       if (mode === 'select') {
         items = getItemsForSelectMode(list!, existingItems)
@@ -290,6 +305,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       }
       setItems(items)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [existingItems, list, mode])
 
   useEffect(() => {
@@ -337,6 +353,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     <div className='c-joarkBrowser'>
       <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
+        <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
         highContrast={highContrast}
         items={_items}

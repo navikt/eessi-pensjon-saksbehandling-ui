@@ -103,7 +103,6 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           ' saving (' + !!savingAttachmentsJob.saving +
           ') remaining (' + savingAttachmentsJob.remaining.length + ')')
       }
-
     }
   }, [onSaved, onFinished, payload, sendAttachmentToSed, savingAttachmentsJob])
 

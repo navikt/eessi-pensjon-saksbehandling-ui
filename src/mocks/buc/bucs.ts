@@ -606,9 +606,9 @@ const mockBuc = [
           medical: false
         }, {
           id: '58828e7ff57943779ab7b24c522b1a3d',
-          name: 'balrog2.png',
-          fileName: 'balrog2.png',
-          mimeType: 'image/png',
+          name: '491399765_ARKIV.pdf',
+          fileName: '491399765_ARKIV.pdf',
+          mimeType: 'application/pdf',
           documentId: 'cac9db2726d54f2c9b51d1562b7b0a7a',
           lastUpdate: {
             year: 2019,
