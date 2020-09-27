@@ -1,6 +1,5 @@
 import { getPreviewJoarkFile, listJoarkFiles } from 'actions/joark'
-import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
-import { JoarkDoc, JoarkFile, JoarkPoster } from 'declarations/joark'
+import { JoarkPoster } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import mockJoark from 'mocks/joark/joarkRaw'

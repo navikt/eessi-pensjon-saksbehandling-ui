@@ -7,6 +7,7 @@ import { HighContrastKnapp } from 'components/StyledComponents'
 import { SedType } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import {
+  JoarkBrowserContext,
   JoarkBrowserItem,
   JoarkBrowserItems,
   JoarkBrowserItemWithContent,
@@ -15,7 +16,7 @@ import {
   JoarkPoster,
   JoarkType
 } from 'declarations/joark'
-import TableSorter, { Context } from 'tabell'
+import TableSorter from 'tabell'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
@@ -54,14 +55,6 @@ export interface JoarkBrowserProps {
   onRowViewDelete?: (f: JoarkBrowserItems) => void
   mode: JoarkBrowserMode
   tableId: string
-}
-
-export interface JoarkBrowserContext extends Context {
-  existingItems: JoarkBrowserItems
-  loadingJoarkPreviewFile: boolean
-  previewFile: JoarkBrowserItemWithContent | undefined
-  clickedPreviewItem: JoarkBrowserItem | undefined,
-  mode: JoarkBrowserMode
 }
 
 const ButtonsDiv = styled.div`
@@ -256,7 +249,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   const getItemsForViewMode = (list: Array<JoarkPoster>, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
     const items: JoarkBrowserItems = []
-    // TODO: enrich existingItems with info from Joark
     existingItems.forEach((existingItem: JoarkBrowserItem, index: number) => {
       const match = existingItem.title.match(/^(\d+)_ARKIV\.pdf$/)
       if (match) {
@@ -271,6 +263,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
                 existingItem.dokumentInfoId = doc.dokumentInfoId
                 existingItem.journalpostId = jp.journalpostId
                 existingItem.variant = getVariantFromJoarkDoc(doc)
+                existingItem.tema = jp.tema
               }
               break
             }
@@ -284,6 +277,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         ...existingItem,
         key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
         type: existingItem.type,
+        title: (existingItem.type === 'sed' ? '✓ ' : ' ') + existingItem.title,
         visible: true,
         disabled: false,
         hasSubrows: false

@@ -1,5 +1,5 @@
-import { JoarkBrowserType } from 'components/JoarkBrowser/JoarkBrowser'
-import { Item } from 'tabell'
+import { JoarkBrowserMode, JoarkBrowserType } from 'components/JoarkBrowser/JoarkBrowser'
+import { Context, Item } from 'tabell'
 
 export interface JoarkFileVariant {
   variantformat: string
@@ -67,3 +67,11 @@ export interface JoarkBrowserItem extends Item {
 }
 
 export type JoarkBrowserItems = Array<JoarkBrowserItem>
+
+export interface JoarkBrowserContext extends Context {
+  existingItems: JoarkBrowserItems
+  loadingJoarkPreviewFile: boolean
+  previewFile: JoarkBrowserItemWithContent | undefined
+  clickedPreviewItem: JoarkBrowserItem | undefined,
+  mode: JoarkBrowserMode
+}

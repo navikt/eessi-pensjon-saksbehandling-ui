@@ -1,5 +1,5 @@
 import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
-import { JoarkBrowserItems, JoarkFile, JoarkBrowserItemWithContent } from 'declarations/joark'
+import { JoarkBrowserItems, JoarkFile } from 'declarations/joark'
 
 export interface Date {
   year: number

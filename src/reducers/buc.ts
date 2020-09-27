@@ -504,16 +504,18 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       newSeds!.forEach(sed => {
         if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {
+          const name = (action as ActionWithPayload).context.joarkBrowserItem.dokumentInfoId + '_' +
+            (action as ActionWithPayload).context.joarkBrowserItem.variant.variantformat + '.pdf'
           const newSedAttachment: SEDAttachment = {
             id: md5('id' + new Date().getTime()),
-            name: (action as ActionWithPayload).context.joarkBrowserItem.title || '-',
-            fileName: (action as ActionWithPayload).context.joarkBrowserItem.variant.filnavn || '',
-            mimeType: '',
+            name: name,
+            fileName: name,
+            mimeType: 'application/pdf',
             documentId: md5('documentId' + new Date().getTime()),
             lastUpdate: {
               year: (action as ActionWithPayload).context.joarkBrowserItem.date.getFullYear(),
-              dayOfMonth: (action as ActionWithPayload).context.joarkBrowserItem.date.dayOfMonth,
-              monthValue: (action as ActionWithPayload).context.joarkBrowserItem.date.monthValue
+              dayOfMonth: (action as ActionWithPayload).context.joarkBrowserItem.date.getDate(),
+              monthValue: (action as ActionWithPayload).context.joarkBrowserItem.date.getMonth() + 1
             },
             medical: false
           }

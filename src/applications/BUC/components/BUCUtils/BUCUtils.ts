@@ -43,8 +43,8 @@ export const sedSorter = (a: Sed, b: Sed): number => {
 }
 
 export const sedAttachmentSorter = (a: JoarkBrowserItem, b: JoarkBrowserItem): number => {
-  if (b.type === 'joark' && a.type === 'sed') return 1
-  if (b.type === 'sed' && a.type === 'joark') return -1
+  if (b.type === 'joark' && a.type === 'sed') return -1
+  if (b.type === 'sed' && a.type === 'joark') return 1
   return b.key.localeCompare(a.key)
 }
 
