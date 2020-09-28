@@ -4,7 +4,7 @@ import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'action
 import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
 import { HighContrastKnapp } from 'components/StyledComponents'
-import { SedType } from 'declarations/buc'
+import { SedNewType, SedType } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import {
   JoarkBrowserContext,
@@ -37,7 +37,7 @@ export interface JoarkBrowserSelector {
 }
 
 export type JoarkBrowserMode = 'select' | 'view'
-export type JoarkBrowserType = SedType | JoarkType
+export type JoarkBrowserType = SedType | SedNewType | JoarkType
 
 const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector => ({
   aktoerId: state.app.params.aktoerId,
@@ -180,7 +180,11 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     return variant
   }
 
-  const getItemsForSelectMode = (list: Array<JoarkPoster>, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
+  const getItemsForSelectMode = (list: Array<JoarkPoster> | undefined, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
+    if (!list) {
+      return []
+    }
+
     const items: JoarkBrowserItems = []
     const disabledItems: JoarkBrowserItems = _.filter(existingItems,
       (item: JoarkBrowserItem) => item.type === 'sed')
@@ -247,11 +251,11 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     return items
   }
 
-  const getItemsForViewMode = (list: Array<JoarkPoster>, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
+  const getItemsForViewMode = (list: Array<JoarkPoster> | undefined, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
     const items: JoarkBrowserItems = []
     existingItems.forEach((existingItem: JoarkBrowserItem, index: number) => {
       const match = existingItem.title.match(/^(\d+)_ARKIV\.pdf$/)
-      if (match) {
+      if (list && match) {
         const id = match[1]
         let journalpostDoc: JoarkDoc | undefined
         for (var jp of list) {
@@ -288,17 +292,15 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   // this will update when we get updated existingItems
   useEffect(() => {
-    if (!_.isEmpty(list)) {
-      console.log('preparing joarkBrowser')
-      let items: JoarkBrowserItems = []
-      if (mode === 'select') {
-        items = getItemsForSelectMode(list!, existingItems)
-      }
-      if (mode === 'view') {
-        items = getItemsForViewMode(list!, existingItems)
-      }
-      setItems(items)
+    console.log('preparing joarkBrowser')
+    let items: JoarkBrowserItems = []
+    if (mode === 'select') {
+      items = getItemsForSelectMode(list, existingItems)
     }
+    if (mode === 'view') {
+      items = getItemsForViewMode(list, existingItems)
+    }
+    setItems(items)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [existingItems, list, mode])
 

@@ -1,3 +1,4 @@
+import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { IS_TEST } from 'constants/environment'
 import { SavingAttachmentsJob } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
@@ -19,13 +20,14 @@ export interface SEDAttachmentPayload {
 export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
   journalpostId: string | undefined
   dokumentInfoId: string | undefined
-  variantformat: string
+  variantformat: string | undefined
 }
 
 export interface SEDAttachmentSenderProps {
   attachmentsError ?: boolean
   className?: string
   initialStatus ?: ProgressBarStatus
+  onCancel ?: () => void
   onSaved: (savingAttachmentsJob: SavingAttachmentsJob) => void
   onFinished : () => void
   payload: SEDAttachmentPayload
@@ -40,11 +42,13 @@ const mapState = (state: State): SEDAttachmentSelector => ({
   savingAttachmentsJob: state.buc.savingAttachmentsJob
 })
 
-const SEDAttachmentSenderDiv = styled.div``
+const SEDAttachmentSenderDiv = styled.div`
+  display: flex;
+`
 
 const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   attachmentsError, className, initialStatus = 'inprogress',
-  payload, onSaved, onFinished, sendAttachmentToSed
+  onCancel, payload, onSaved, onFinished, sendAttachmentToSed
 }: SEDAttachmentSenderProps): JSX.Element => {
   const [status, setStatus] = useState<ProgressBarStatus>(initialStatus)
   const { savingAttachmentsJob }: SEDAttachmentSelector = useSelector<State, SEDAttachmentSelector>(mapState)
@@ -76,7 +80,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
       if (!savingAttachmentsJob.saving) {
         /* istanbul ignore next */
         if (!IS_TEST) {
-          console.log('Saved.' +
+          console.log('Picking one to save.' +
             ' Total (' + savingAttachmentsJob.total.length +
             ') saved (' + savingAttachmentsJob.saved.length + ') ' +
             ' saving (' + !!savingAttachmentsJob.saving +
@@ -88,20 +92,20 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           ...payload,
           journalpostId: unsentAttachment.journalpostId,
           dokumentInfoId: unsentAttachment.dokumentInfoId,
-          variantformat: unsentAttachment.variant!.variantformat
+          variantformat: unsentAttachment.variant?.variantformat
         }
+        console.log('Sending...')
         sendAttachmentToSed(params, unsentAttachment)
-        return
-      }
-
-      // one attachment will be saved now. Display as such.
-      /* istanbul ignore next */
-      if (!IS_TEST) {
-        console.log('Saving.' +
-          ' Total (' + savingAttachmentsJob.total.length +
-          ') saved (' + savingAttachmentsJob.saved.length + ') ' +
-          ' saving (' + !!savingAttachmentsJob.saving +
-          ') remaining (' + savingAttachmentsJob.remaining.length + ')')
+      } else {
+        // one attachment will be saved now. Display as such.
+        /* istanbul ignore next */
+        if (!IS_TEST) {
+          console.log('Saving.' +
+            ' Total (' + savingAttachmentsJob.total.length +
+            ') saved (' + savingAttachmentsJob.saved.length + ') ' +
+            ' saving (' + !!savingAttachmentsJob.saving +
+            ') remaining (' + savingAttachmentsJob.remaining.length + ')')
+        }
       }
     }
   }, [onSaved, onFinished, payload, sendAttachmentToSed, savingAttachmentsJob])
@@ -132,6 +136,22 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           {status === 'error' ? t('buc:error-sendingAttachments') : null}
         </>
       </ProgressBar>
+      {status === 'inprogress' && _.isFunction(onCancel) && (
+        <>
+          <HorizontalSeparatorDiv data-sise='0.35' />
+          <HighContrastKnapp
+            mini
+            kompakt
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault()
+              e.stopPropagation()
+              onCancel()
+            }}
+          >
+            {t('ui:cancel')}
+          </HighContrastKnapp>
+        </>
+      )}
     </SEDAttachmentSenderDiv>
   )
 }

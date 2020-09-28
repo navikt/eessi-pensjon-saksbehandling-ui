@@ -53,7 +53,7 @@ export const JoarkBrowserItemWithContentPropType = PT.shape({
 export const JoarkBrowserItemFileType = PT.shape({
   key: PT.string.isRequired,
   hasSubrows: PT.bool.isRequired,
-  type: PT.oneOf<JoarkBrowserType>(['sed', 'joark']).isRequired,
+  type: PT.oneOf<JoarkBrowserType>(['sed', 'sednew', 'joark']).isRequired,
   journalpostId: PT.string.isRequired,
   dokumentInfoId: PT.string.isRequired,
   variant: JoarkFileVariantPropType.isRequired,

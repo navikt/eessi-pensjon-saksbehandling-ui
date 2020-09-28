@@ -103,6 +103,11 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     dispatch(sendAttachmentToSed(params, unsentAttachment))
   }
 
+  const _cancelSendAttachmentToSed = (): void => {
+    setSendingAttachments(false)
+    dispatch(resetSavingAttachmentJob())
+  }
+
   const onAttachmentsPanelClose = () => {
     setAttachmentsTableVisible(false)
   }
@@ -114,6 +119,23 @@ const SEDBody: React.FC<SEDBodyProps> = ({
 
   const onRowViewDelete = (newItems: JoarkBrowserItems) => {
     setItems(newItems)
+  }
+
+  const _onSaved = (savingAttachmentsJob: SavingAttachmentsJob) => {
+    const sedOriginalAttachments = _.filter(items, (att) => att.type === 'sed')
+    const newAttachments = sedOriginalAttachments
+      .concat(savingAttachmentsJob.saved)
+      .concat(savingAttachmentsJob.remaining)
+      .sort(sedAttachmentSorter)
+    setItems(newAttachments)
+  }
+
+  const _onFinished = () => {
+    setItems(items.map(item => {
+      item.type = 'sed'
+      return item
+    }))
+    setAttachmentsSent(true)
   }
 
   const onSedAttachmentsChanged = useCallback((sedAttachments: SEDAttachments) => {
@@ -200,8 +222,9 @@ const SEDBody: React.FC<SEDBodyProps> = ({
                   rinaId: buc.caseId,
                   rinaDokumentId: sed.id
                 } as SEDAttachmentPayload}
-                onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
-                onFinished={() => setAttachmentsSent(true)}
+                onSaved={_onSaved}
+                onFinished={_onFinished}
+                onCancel={_cancelSendAttachmentToSed}
               />
               <VerticalSeparatorDiv />
             </>

@@ -4,7 +4,7 @@ import {
   createSed,
   getCountryList,
   getInstitutionsListForBucAndCountry,
-  getSedList,
+  getSedList, resetSavingAttachmentJob,
   resetSed,
   resetSedAttachments,
   sendAttachmentToSed,
@@ -52,7 +52,7 @@ import {
 } from 'declarations/buc'
 import { BucsPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
+// import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import {
   AllowedLocaleString,
@@ -343,6 +343,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return true
   }
 
+  const _cancelSendAttachmentToSed = (): void => {
+    setSendingAttachments(false)
+    setAttachmentsSent(false)
+    dispatch(resetSavingAttachmentJob())
+  }
+
   const fetchInstitutionsForSelectedCountries = useCallback(
     (countries: Array<Country>) => {
       if (!buc) {
@@ -552,7 +558,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return s.match(/^\d+$/g) !== null
   }
 
-  const onFinished = useCallback(() => {
+  const _onSaved = (savingAttachmentsJob: SavingAttachmentsJob) => {
+    const newAttachments = savingAttachmentsJob.saved
+      .concat(savingAttachmentsJob.remaining)
+      .sort(sedAttachmentSorter)
+    setSedAttachments(newAttachments)
+  }
+
+  const _onFinished = useCallback(() => {
     resetSedForm()
     dispatch(resetSed())
     dispatch(resetSedAttachments())
@@ -600,7 +613,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       // we may have now a chosen sed which does not allow vedlegg, but maybe previously the sb chose some vedlegg
       // using another selected sed, so check before createing a savingAttachmentJob
       if (!sedCanHaveAttachments()) {
-        onFinished()
+        _onFinished()
         return
       }
 
@@ -612,7 +625,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         if (!IS_TEST) {
           console.log('SEDStart: No attachments to send, concluding')
         }
-        onFinished()
+        _onFinished()
         return
       }
 
@@ -624,7 +637,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       })
       dispatch(createSavingAttachmentJob(joarksToUpload))
     }
-  }, [dispatch, onFinished, sendingAttachments, sedAttachments, sedCanHaveAttachments, attachmentsSent, sed, sedSent])
+  }, [dispatch, _onFinished, sendingAttachments, sedAttachments, sedCanHaveAttachments, attachmentsSent, sed, sedSent])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
@@ -884,8 +897,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                       rinaId: buc.caseId,
                       rinaDokumentId: sed!.id
                     } as SEDAttachmentPayload}
-                    onSaved={(savingAttachmentsJob: SavingAttachmentsJob) => onJoarkAttachmentsChanged(savingAttachmentsJob.remaining)}
-                    onFinished={onFinished}
+                    onSaved={_onSaved}
+                    onFinished={_onFinished}
+                    onCancel={_cancelSendAttachmentToSed}
                   />
                   <VerticalSeparatorDiv />
                 </>
@@ -916,7 +930,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
-  initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
+  // initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
   onSedCreated: PT.func.isRequired,
   onSedCancelled: PT.func.isRequired
 }

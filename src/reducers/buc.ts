@@ -500,6 +500,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           item.journalpostId === newlySavedJoarkBrowserItem.journalpostId &&
           item.variant === newlySavedJoarkBrowserItem.variant
       })
+      newlySavedJoarkBrowserItem.type = 'sednew'
       const newSaved = state.savingAttachmentsJob?.saved.concat(newlySavedJoarkBrowserItem)
 
       newSeds!.forEach(sed => {

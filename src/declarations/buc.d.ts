@@ -17,6 +17,7 @@ export interface Date {
 }
 
 export type SedType = 'sed'
+export type SedNewType = 'sednew'
 
 export interface SEDAttachment {
   id: string
