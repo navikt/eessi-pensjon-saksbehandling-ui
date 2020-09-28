@@ -34,8 +34,6 @@ export interface JoarkFile {
   date: Date
 }
 
-export type JoarkFiles = Array<JoarkFile>
-
 interface Content {
   base64: string
 }
