@@ -7,8 +7,7 @@ import {
   getSubjectAreaList,
   getTagList,
   resetBuc,
-  saveBucsInfo,
-  SaveBucsInfoProps
+  saveBucsInfo
 } from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { BUCMode } from 'applications/BUC/index'
@@ -24,7 +23,7 @@ import {
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
+import { Buc, Bucs, BucsInfo, SaveBucsInfoProps, Tags } from 'declarations/buc'
 import {
   PersonAvdod, PersonAvdods,
   AllowedLocaleString,

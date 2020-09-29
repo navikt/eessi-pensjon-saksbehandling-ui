@@ -16,9 +16,9 @@ import {
   HorizontalSeparatorDiv, Row,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
-import { Buc, BucInfo, Bucs, BucsInfo, PersonAvdods, Sed, Tags } from 'declarations/buc'
+import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString, PersonAvdods } from 'declarations/types'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'

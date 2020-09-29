@@ -66,6 +66,7 @@ export default (payload:any) => {
       date: nowString,
       id: '1'
     },
-    allowsAttachments: true
+    allowsAttachments: true,
+    message: 'additional message'
   }
 }

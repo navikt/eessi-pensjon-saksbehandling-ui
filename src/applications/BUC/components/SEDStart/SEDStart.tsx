@@ -42,19 +42,16 @@ import {
   InstitutionListMap,
   Institutions,
   NewSedPayload,
-  PersonAvdod,
-  PersonAvdods,
   RawInstitution,
   SavingAttachmentsJob,
   Sed,
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
-import { BucsPropType } from 'declarations/buc.pt'
-import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-// import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
-import { State } from 'declarations/reducers'
 import {
+  PersonAvdod,
+  PersonAvdods
+  ,
   AllowedLocaleString,
   Country,
   FeatureToggles,
@@ -63,6 +60,11 @@ import {
   PesysContext,
   Validation
 } from 'declarations/types'
+import { BucsPropType } from 'declarations/buc.pt'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
+// import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
+import { State } from 'declarations/reducers'
+
 import CountryData from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'

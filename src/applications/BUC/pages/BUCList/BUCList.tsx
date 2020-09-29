@@ -26,12 +26,12 @@ import {
   BucsInfo,
   Institution,
   InstitutionListMap,
-  Participant, PersonAvdods,
+  Participant,
   RawInstitution,
   Sed
 } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, PesysContext } from 'declarations/types'
+import { AllowedLocaleString, Loading, PersonAvdods, PesysContext } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'

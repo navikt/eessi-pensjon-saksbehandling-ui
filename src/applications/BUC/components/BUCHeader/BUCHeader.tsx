@@ -10,12 +10,11 @@ import {
   Institution,
   InstitutionListMap,
   InstitutionNames,
-  PersonAvdods,
   ValidBuc
 } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, RinaUrl } from 'declarations/types'
+import { AllowedLocaleString, PersonAvdods, RinaUrl } from 'declarations/types'
 import { FlagItems, FlagList } from 'flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'

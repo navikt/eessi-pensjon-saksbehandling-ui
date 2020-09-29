@@ -1,5 +1,5 @@
 import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
-import { JoarkBrowserItems, JoarkFile } from 'declarations/joark'
+import { JoarkBrowserItems } from 'declarations/joark'
 
 export interface Date {
   year: number
@@ -80,6 +80,7 @@ export interface Sed {
   firstVersion: Version
   lastVersion: Version
   allowsAttachments: boolean
+  message ?: string
 }
 
 export type Seds = Array<Sed>
@@ -161,8 +162,8 @@ export type BucsInfoList = Array<string>
 
 export interface BucsInfo {
   bucs: {
-    [key: string] : BucInfo
-  };
+    [key: string]: BucInfo
+  }
 }
 
 export interface NewSedPayload {
@@ -203,10 +204,6 @@ export interface Tag {
 }
 
 export type Tags = Array<Tag>
-
-export type SEDFile = JoarkFile | SEDAttachment
-
-export type SEDFiles = Array<SEDFile>
 
 export interface SavingAttachmentsJob {
   total: JoarkBrowserItems

@@ -1,4 +1,5 @@
 import * as types from 'constants/actionTypes'
+import { Sed } from 'declarations/buc'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
@@ -6,6 +7,7 @@ import { AlertStatus } from 'components/Alert/Alert'
 
 export interface AlertState {
   clientErrorStatus: AlertStatus | undefined
+  clientErrorParam: any | undefined
   clientErrorMessage: string | undefined
   serverErrorMessage: string | undefined
   uuid: string | undefined
@@ -14,6 +16,7 @@ export interface AlertState {
 
 export const initialAlertState: AlertState = {
   clientErrorStatus: undefined,
+  clientErrorParam: undefined,
   clientErrorMessage: undefined,
   serverErrorMessage: undefined,
   uuid: undefined,
@@ -21,7 +24,10 @@ export const initialAlertState: AlertState = {
 }
 
 const alertReducer = (state: AlertState = initialAlertState, action: Action | ActionWithPayload) => {
-  let clientErrorMessage: string | undefined, serverErrorMessage: string, clientErrorStatus: string
+  let clientErrorMessage: string | undefined
+  let serverErrorMessage: string
+  let clientErrorStatus: string
+  let clientErrorParam = {}
 
   if (action.type === types.ALERT_CLIENT_CLEAR) {
     return initialAlertState
@@ -138,6 +144,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
       ...state,
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
       clientErrorMessage: clientErrorMessage,
+      clientErrorParam: clientErrorParam,
       error: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.error : undefined,
       uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
@@ -146,12 +153,21 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   switch (action.type) {
     case types.BUC_CREATE_BUC_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdBuc|' + (action as ActionWithPayload).payload.type
+      clientErrorMessage = 'buc:alert-createdBuc'
+      clientErrorParam = {
+        type: (action as ActionWithPayload).payload.type
+      }
       break
 
     case types.BUC_CREATE_SED_SUCCESS:
+    case types.BUC_CREATE_REPLY_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdSed|' + ((action as ActionWithPayload).context.sed.sed)
+      const message = ((action as ActionWithPayload).payload as Sed).message
+      clientErrorMessage = 'buc:alert-createdSed'
+      clientErrorParam = {
+        sed: (((action as ActionWithPayload).payload as Sed).type),
+        message: message ? ' - ' + message : ''
+      }
       break
 
     default:
@@ -166,6 +182,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     ...state,
     clientErrorStatus: 'OK',
     clientErrorMessage: clientErrorMessage,
+    clientErrorParam: clientErrorParam,
     uuid: undefined,
     error: undefined
   }

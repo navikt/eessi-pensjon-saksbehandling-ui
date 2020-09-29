@@ -26,6 +26,7 @@ export interface TopContainerProps {
 }
 
 export interface TopContainerSelector {
+  clientErrorParam: any | undefined
   clientErrorStatus: AlertStatus | undefined
   clientErrorMessage: string | undefined
   serverErrorMessage: string | undefined
@@ -42,6 +43,7 @@ export interface TopContainerSelector {
 }
 
 const mapState = (state: State): TopContainerSelector => ({
+  clientErrorParam: state.alert.clientErrorParam,
   clientErrorStatus: state.alert.clientErrorStatus,
   clientErrorMessage: state.alert.clientErrorMessage,
   serverErrorMessage: state.alert.serverErrorMessage,
@@ -73,8 +75,8 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   className, children
 }: TopContainerProps): JSX.Element => {
   const {
-    clientErrorMessage, clientErrorStatus, serverErrorMessage, error, expirationTime, params, username, gettingUserInfo,
-    isLoggingOut, footerOpen, modal, highContrast
+    clientErrorParam, clientErrorMessage, clientErrorStatus, error, expirationTime, footerOpen,
+    gettingUserInfo, highContrast, isLoggingOut, modal, params, serverErrorMessage, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -92,14 +94,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     if (!clientErrorMessage) {
       return undefined
     }
-    const separatorIndex: number = clientErrorMessage.lastIndexOf('|')
-    let message: string
-    if (separatorIndex >= 0) {
-      message = t(clientErrorMessage.substring(0, separatorIndex)) + ': ' + clientErrorMessage.substring(separatorIndex + 1)
-    } else {
-      message = t(clientErrorMessage)
-    }
-    return message
+    return t(clientErrorMessage, clientErrorParam)
   }
 
   const getServerErrorMessage = (): string | undefined => {
