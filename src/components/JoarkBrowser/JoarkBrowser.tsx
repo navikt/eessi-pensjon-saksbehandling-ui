@@ -1,6 +1,6 @@
 import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getPreviewJoarkFile, listJoarkFiles, setPreviewJoarkFile } from 'actions/joark'
+import { getJoarkItemPreview, listJoarkItems, setJoarkItemPreview } from 'actions/joark'
 import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
 import { HighContrastKnapp } from 'components/StyledComponents'
@@ -109,12 +109,12 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }
 
   const handleModalClose = useCallback(() => {
-    dispatch(setPreviewJoarkFile(undefined))
+    dispatch(setJoarkItemPreview(undefined))
   }, [dispatch])
 
   const onPreviewItem = (clickedItem: JoarkBrowserItem): void => {
     setClickedPreviewItem(clickedItem)
-    dispatch(getPreviewJoarkFile(clickedItem))
+    dispatch(getJoarkItemPreview(clickedItem))
   }
 
   const handleDelete = (itemToDelete: JoarkBrowserItem, contextFiles: JoarkBrowserItems) => {
@@ -306,7 +306,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
-      dispatch(listJoarkFiles(aktoerId))
+      dispatch(listJoarkItems(aktoerId))
     }
     setMounted(true)
   }, [aktoerId, dispatch, list, loadingJoarkList, mounted])

@@ -1,8 +1,8 @@
 import * as appActions from 'actions/app'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { call as originalCall, ActionWithPayload } from 'js-fetch-api'
-
+import { ParamPayload } from 'declarations/app'
+import { ActionWithPayload, call as originalCall } from 'js-fetch-api'
 import { Action } from 'redux'
 
 jest.mock('js-fetch-api', () => ({
@@ -20,28 +20,38 @@ describe('actions/app', () => {
     call.mockRestore()
   })
 
-  it('setStatusParam()', () => {
-    const mockKey: string = 'mockKey'
-    const mockValue: string = 'mockValue'
-    const generatedResult: ActionWithPayload<appActions.ParamPayload> = appActions.setStatusParam(mockKey, mockValue)
+  it('clearData()', () => {
+    const generatedResult: Action = appActions.clearData()
     expect(generatedResult).toMatchObject({
-      type: types.APP_PARAM_SET,
-      payload: {
-        key: mockKey,
-        value: mockValue
-      }
+      type: types.APP_CLEAR_DATA
     })
   })
 
-  it('unsetStatusParam()', () => {
-    const mockKey: string = 'mockKey'
-    const generatedResult: ActionWithPayload<appActions.ParamPayload> = appActions.unsetStatusParam(mockKey)
-    expect(generatedResult).toMatchObject({
-      type: types.APP_PARAM_UNSET,
-      payload: {
-        key: mockKey
-      }
-    })
+  it('getPersonAvdodInfo()', () => {
+    const mockAktoerId: string = '123'
+    const mockVedtakId: string = '456'
+    appActions.getPersonAvdodInfo(mockAktoerId, mockVedtakId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.APP_PERSONINFO_AVDOD_REQUEST,
+        success: types.APP_PERSONINFO_AVDOD_SUCCESS,
+        failure: types.APP_PERSONINFO_AVDOD_FAILURE
+      },
+      url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
+    }))
+  })
+
+  it('getPersonInfo()', () => {
+    const mockAktoerId: string = '123'
+    appActions.getPersonInfo(mockAktoerId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.APP_PERSONINFO_REQUEST,
+        success: types.APP_PERSONINFO_SUCCESS,
+        failure: types.APP_PERSONINFO_FAILURE
+      },
+      url: sprintf(urls.PERSON_URL, { aktoerId: mockAktoerId })
+    }))
   })
 
   it('login()', () => {
@@ -55,7 +65,11 @@ describe('actions/app', () => {
       }
     })
     const generatedResult: Action = appActions.login()
-    expect(window.location.href).toEqual('http://localhost/frontend/login?redirect=http://fake-url.nav.no/&context=%2Fpath%3Fvar%3Dparam')
+    expect(window.location.href).toEqual(
+      'http://localhost/frontend/login?' +
+      'redirect=http://fake-url.nav.no/&' +
+      'context=%2Fpath%3Fvar%3Dparam'
+    )
     expect(generatedResult).toMatchObject({
       type: types.APP_LOGIN_REQUEST
     })
@@ -73,6 +87,19 @@ describe('actions/app', () => {
     })
   })
 
+  it('setStatusParam()', () => {
+    const mockKey: string = 'mockKey'
+    const mockValue: string = 'mockValue'
+    const generatedResult: ActionWithPayload<ParamPayload> = appActions.setStatusParam(mockKey, mockValue)
+    expect(generatedResult).toMatchObject({
+      type: types.APP_PARAM_SET,
+      payload: {
+        key: mockKey,
+        value: mockValue
+      }
+    })
+  })
+
   it('getUserInfo()', () => {
     appActions.getUserInfo()
     expect(call).toBeCalledWith(expect.objectContaining({
@@ -87,37 +114,14 @@ describe('actions/app', () => {
     }))
   })
 
-  it('getPersonInfo()', () => {
-    const mockAktoerId: string = '123'
-    appActions.getPersonInfo(mockAktoerId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.APP_PERSONINFO_REQUEST,
-        success: types.APP_PERSONINFO_SUCCESS,
-        failure: types.APP_PERSONINFO_FAILURE
-      },
-      url: sprintf(urls.PERSON_URL, { aktoerId: mockAktoerId })
-    }))
-  })
-
-  it('getPersonAvdfodInfo()', () => {
-    const mockAktoerId: string = '123'
-    const mockVedtakId: string = '456'
-    appActions.getPersonAvdodInfo(mockAktoerId, mockVedtakId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.APP_PERSONINFO_AVDOD_REQUEST,
-        success: types.APP_PERSONINFO_AVDOD_SUCCESS,
-        failure: types.APP_PERSONINFO_AVDOD_FAILURE
-      },
-      url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
-    }))
-  })
-
-  it('clearData()', () => {
-    const generatedResult: Action = appActions.clearData()
+  it('unsetStatusParam()', () => {
+    const mockKey: string = 'mockKey'
+    const generatedResult: ActionWithPayload<ParamPayload> = appActions.unsetStatusParam(mockKey)
     expect(generatedResult).toMatchObject({
-      type: types.APP_CLEAR_DATA
+      type: types.APP_PARAM_UNSET,
+      payload: {
+        key: mockKey
+      }
     })
   })
 })

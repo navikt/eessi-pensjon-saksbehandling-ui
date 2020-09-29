@@ -45,7 +45,7 @@ export interface JoarkBrowserItemWithContent extends JoarkBrowserItem {
   mimetype: string
 }
 
-export interface JoarkPayload {
+export interface JoarkPreview {
   fileName: string | undefined
   contentType: string
   filInnhold: string
@@ -72,4 +72,12 @@ export interface JoarkBrowserContext extends Context {
   previewFile: JoarkBrowserItemWithContent | undefined
   clickedPreviewItem: JoarkBrowserItem | undefined,
   mode: JoarkBrowserMode
+}
+
+export interface JoarkList {
+  data: {
+    dokumentoversiktBruker: {
+      journalposter: Array<JoarkPoster>
+    }
+  }
 }

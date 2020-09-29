@@ -1,11 +1,9 @@
 import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { JoarkFile } from 'declarations/joark'
 import { call as originalCall } from 'js-fetch-api'
-import _ from 'lodash'
-import mockJoarkRaw from 'mocks/joark/joarkRaw'
-import mockJoarkPayload from 'mocks/joark/payload'
+import mockPreview from 'mocks/joark/preview'
+import mockItems from 'mocks/joark/items'
 
 const sprintf = require('sprintf-js').sprintf
 jest.mock('js-fetch-api', () => ({
@@ -21,21 +19,10 @@ describe('actions/joark', () => {
   afterAll(() => {
     call.mockRestore()
   })
-  const mockItem: JoarkFile = {
-    tittel: 'tittel',
-    tema: 'tema',
-    datoOpprettet: new Date(1970, 1, 1),
-    journalpostId: '1',
-    dokumentInfoId: '4',
-    variant: {
-      variantformat: 'mockVariant',
-      filnavn: 'mockFilnavn'
-    }
-  }
 
-  it('listJoarkFiles()', () => {
+  it('listJoarkItems()', () => {
     const mockUserId = '123'
-    joarkActions.listJoarkFiles(mockUserId)
+    joarkActions.listJoarkItems(mockUserId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_LIST_REQUEST,
@@ -46,34 +33,33 @@ describe('actions/joark', () => {
     }))
   })
 
-  it('getPreviewJoarkFile()', () => {
-    joarkActions.getPreviewJoarkFile(mockItem)
+  it('getJoarkItemPreview()', () => {
+    joarkActions.getJoarkItemPreview(mockItems[0])
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_PREVIEW_REQUEST,
         success: types.JOARK_PREVIEW_SUCCESS,
         failure: types.JOARK_PREVIEW_FAILURE
       },
-      context: mockItem,
+      context: mockItems[0],
       url: sprintf(urls.API_JOARK_GET_URL, {
-        dokumentInfoId: mockItem.dokumentInfoId,
-        journalpostId: mockItem.journalpostId,
-        variantformat: mockItem.variant.variantformat
+        dokumentInfoId: mockItems[0].dokumentInfoId,
+        journalpostId: mockItems[0].journalpostId,
+        variantformat: mockItems[0].variant!.variantformat
       })
     }))
   })
 
-  it('setPreviewJoarkFile()', () => {
-    const generatedResult = joarkActions.setPreviewJoarkFile(mockItem)
+  it('setJoarkItemPreview()', () => {
+    const generatedResult = joarkActions.setJoarkItemPreview(mockItems[0])
     expect(generatedResult).toMatchObject({
       type: types.JOARK_PREVIEW_SET,
-      payload: mockItem
+      payload: mockItems[0]
     })
   })
 
   it('getMockedPayload() in localhost, test environment will not used mocked values', () => {
-    const mockJournalpostId = '1'
-    const generatedResult = mockJoarkPayload(mockJournalpostId)
+    const generatedResult = mockPreview()
     expect(generatedResult).toEqual(undefined)
   })
 
@@ -82,15 +68,10 @@ describe('actions/joark', () => {
     jest.mock('constants/environment', () => {
       return { IS_TEST: false }
     })
-    const mockJournalpostId = '1'
-    const newMockJoarkPayload = require('mocks/joark/payload').default
-    const expectedItem = _.find(mockJoarkRaw.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
-    const generatedResult = newMockJoarkPayload(mockJournalpostId)
-    const tittel = expectedItem ? expectedItem.tittel : ''
-    expect(generatedResult).toMatchObject({
-      fileName: tittel,
-      contentType: 'application/pdf',
-      filInnhold: mockJoarkRaw.files[tittel]
-    })
+    const newMockPreviewfile = require('mocks/joark/preview').default
+    const generatedResult = newMockPreviewfile()
+    expect(generatedResult).toHaveProperty('fileName')
+    expect(generatedResult).toHaveProperty('contentType', 'application/pdf')
+    expect(generatedResult).toHaveProperty('filInnhold')
   })
 })

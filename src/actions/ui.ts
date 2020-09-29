@@ -3,9 +3,11 @@ import { ModalContent } from 'declarations/components'
 import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
 import { ActionWithPayload } from 'js-fetch-api'
-import { Action } from 'redux'
+import { Action, ActionCreator } from 'redux'
 
-export const changeLanguage = (language: AllowedLocaleString): ActionWithPayload<AllowedLocaleString> => {
+export const changeLanguage: ActionCreator<ActionWithPayload<AllowedLocaleString>> = (
+  language: AllowedLocaleString
+): ActionWithPayload<AllowedLocaleString> => {
   i18n.changeLanguage(language)
   return {
     type: types.UI_LANGUAGE_CHANGED,
@@ -13,20 +15,23 @@ export const changeLanguage = (language: AllowedLocaleString): ActionWithPayload
   }
 }
 
-export const openModal = (modal: ModalContent): ActionWithPayload<ModalContent> => ({
-  type: types.UI_MODAL_SET,
-  payload: modal
-})
-
-export const closeModal = (): ActionWithPayload<undefined> => ({
+export const closeModal: ActionCreator<ActionWithPayload<undefined>> = (
+): ActionWithPayload<undefined> => ({
   type: types.UI_MODAL_SET,
   payload: undefined
 })
 
-export const toggleFooterOpen = (): Action => ({
+export const openModal: ActionCreator<ActionWithPayload<ModalContent>> = (
+  modal: ModalContent
+): ActionWithPayload<ModalContent> => ({
+  type: types.UI_MODAL_SET,
+  payload: modal
+})
+
+export const toggleFooterOpen: ActionCreator<Action> = (): Action => ({
   type: types.UI_FOOTER_TOGGLE_OPEN
 })
 
-export const toggleHighContrast = (): Action => ({
+export const toggleHighContrast: ActionCreator<Action> = (): Action => ({
   type: types.UI_HIGHCONTRAST_TOGGLE
 })

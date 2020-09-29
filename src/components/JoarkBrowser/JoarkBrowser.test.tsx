@@ -1,4 +1,4 @@
-import { getPreviewJoarkFile, listJoarkFiles } from 'actions/joark'
+import { getJoarkItemPreview, listJoarkItems } from 'actions/joark'
 import { JoarkPoster } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
@@ -9,8 +9,8 @@ import TableSorter from 'tabell'
 import _ from 'lodash'
 
 jest.mock('actions/joark', () => ({
-  getPreviewJoarkFile: jest.fn(),
-  listJoarkFiles: jest.fn()
+  getJoarkItemPreview: jest.fn(),
+  listJoarkItems: jest.fn()
 }))
 
 const files: Array<JoarkPoster> = _.cloneDeep(mockJoark.data.dokumentoversiktBruker.journalposter)
@@ -61,7 +61,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   it('UseEffect: list Joark files ', () => {
     stageSelector(defaultSelector, { list: undefined })
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
-    expect(listJoarkFiles).toHaveBeenCalledWith(defaultSelector.aktoerId)
+    expect(listJoarkItems).toHaveBeenCalledWith(defaultSelector.aktoerId)
   })
 
   it('UseEffect: when new preview file is available, trigger it', () => {
@@ -107,9 +107,9 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   })
 
   it('Calls onPreviewItem', () => {
-    (getPreviewJoarkFile as jest.Mock).mockReset()
+    (getJoarkItemPreview as jest.Mock).mockReset()
     wrapper.find('#c-tablesorter__preview-button-1-4-ARKIV__23534345_pdf_').hostNodes().first().simulate('click')
-    expect(getPreviewJoarkFile).toHaveBeenCalledWith(expect.objectContaining({
+    expect(getJoarkItemPreview).toHaveBeenCalledWith(expect.objectContaining({
       date: expect.any(Date),
       dokumentInfoId: '4',
       journalpostId: '1',

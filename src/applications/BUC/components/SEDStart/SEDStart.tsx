@@ -60,7 +60,6 @@ import {
   FeatureToggles,
   Loading,
   Option,
-  Person,
   PesysContext,
   Validation
 } from 'declarations/types'
@@ -122,7 +121,6 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<RawInstitution> | undefined
   loading: Loading
   locale: AllowedLocaleString
-  person: Person | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId?: string
@@ -142,7 +140,6 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   institutionList: state.buc.institutionList,
   loading: state.loading,
   locale: state.ui.locale,
-  person: state.app.person,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
@@ -164,7 +161,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element | null => {
   const {
     attachmentsError, countryList, currentSed, featureToggles, highContrast, institutionList, loading,
-    locale, person, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
+    locale, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
 
   const { t } = useTranslation()
@@ -540,9 +537,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.subject = (buc as ValidBuc).subject
       }
       if (currentSed) {
-        dispatch(createReplySed(buc, payload, person!, currentSed))
+        dispatch(createReplySed(buc, payload, currentSed))
       } else {
-        dispatch(createSed(buc, payload, person!))
+        dispatch(createSed(buc, payload))
       }
       buttonLogger(e, payload)
     }

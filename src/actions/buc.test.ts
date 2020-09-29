@@ -1,10 +1,14 @@
 import * as bucActions from 'actions/buc'
+import { BUCMode } from 'applications/BUC'
+import { SEDAttachmentPayloadWithFile } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { Buc, Sed } from 'declarations/buc'
+import { JoarkBrowserItem } from 'declarations/joark'
 import { call as originalCall } from 'js-fetch-api'
+import mockItems from 'mocks/joark/items'
 
 jest.mock('js-fetch-api', () => ({
   call: jest.fn()
@@ -21,74 +25,80 @@ describe('actions/buc', () => {
     call.mockRestore()
   })
 
-  it('setMode()', () => {
-    const mockedMode = 'mode'
-    const generatedResult = bucActions.setMode(mockedMode)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_MODE_SET,
-      payload: mockedMode
+  it('cleanNewlyCreatedBuc()', () => {
+    const expectedResults = bucActions.cleanNewlyCreatedBuc()
+    expect(expectedResults).toMatchObject({
+      type: types.BUC_NEWLYCREATEDBUC_RESET
     })
   })
 
-  it('setCurrentBuc()', () => {
-    const mockedBuc = 'buc'
-    const generatedResult = bucActions.setCurrentBuc(mockedBuc)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_CURRENTBUC_SET,
-      payload: mockedBuc
-    })
-  })
-
-  it('setCurrentSed()', () => {
-    const mockedSed = 'sed'
-    const generatedResult = bucActions.setCurrentSed(mockedSed)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_CURRENTSED_SET,
-      payload: mockedSed
-    })
-  })
-
-  it('setSedList()', () => {
-    const mockedSedList = ['P2000', 'P4000', 'P6000']
-    const generatedResult = bucActions.setSedList(mockedSedList)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_SEDLIST_SET,
-      payload: mockedSedList
-    })
-  })
-
-  it('resetBuc()', () => {
-    const generatedResult = bucActions.resetBuc()
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_BUC_RESET
-    })
-  })
-
-  it('resetSed()', () => {
-    const generatedResult = bucActions.resetSed()
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_SED_RESET
-    })
-  })
-
-  it('resetSedAttachments()', () => {
-    const generatedResult = bucActions.resetSedAttachments()
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_SED_ATTACHMENTS_RESET
-    })
-  })
-
-  it('fetchSingleBuc()', () => {
-    const mockRinaCaseId = '123'
-    bucActions.fetchSingleBuc(mockRinaCaseId)
+  it('createBuc()', () => {
+    const mockBuc = 'P_BUC_01'
+    bucActions.createBuc(mockBuc)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_SINGLE_BUC_REQUEST,
-        success: types.BUC_GET_SINGLE_BUC_SUCCESS,
-        failure: types.BUC_GET_SINGLE_BUC_FAILURE
+        request: types.BUC_CREATE_BUC_REQUEST,
+        success: types.BUC_CREATE_BUC_SUCCESS,
+        failure: types.BUC_CREATE_BUC_FAILURE
       },
-      url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: mockRinaCaseId })
+      method: 'POST',
+      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc })
     }))
+  })
+
+  it('createReplySed()', () => {
+    const mockedPayload = {
+      sakId: '123',
+      buc: 'P_BUC_01',
+      sed: 'P2000',
+      institutions: [],
+      aktoerId: '123',
+      euxCaseId: '456'
+    }
+    const mockBuc = { type: 'mockBucType', caseId: '456' } as Buc
+    const mockParentId = '123'
+    bucActions.createReplySed(mockBuc, mockedPayload, mockParentId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_CREATE_REPLY_SED_REQUEST,
+        success: types.BUC_CREATE_REPLY_SED_SUCCESS,
+        failure: types.BUC_CREATE_REPLY_SED_FAILURE
+      },
+      method: 'POST',
+      payload: mockedPayload,
+      url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: mockParentId })
+    }))
+  })
+
+  it('createSed()', () => {
+    const mockBuc = { type: 'mockBucType', caseId: '456' } as Buc
+    const mockedPayload = {
+      sakId: '123',
+      buc: 'P_BUC_01',
+      sed: 'P2000',
+      institutions: [],
+      aktoerId: '123',
+      euxCaseId: '456'
+    }
+    bucActions.createSed(mockBuc, mockedPayload)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_CREATE_SED_REQUEST,
+        success: types.BUC_CREATE_SED_SUCCESS,
+        failure: types.BUC_CREATE_SED_FAILURE
+      },
+      method: 'POST',
+      payload: mockedPayload,
+      url: urls.BUC_CREATE_SED_URL
+    }))
+  })
+
+  it('createSavingAttachmentJob()', () => {
+    const generatedResult = bucActions.createSavingAttachmentJob(mockItems)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SAVINGATTACHMENTJOB_SET,
+      payload: mockItems
+    })
   })
 
   it('fetchBucParticipants()', () => {
@@ -118,18 +128,18 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('fetchBucsWithVedtakId()', () => {
-    const mockAktoerId = '123'
-    const mockVedtakId = '456'
-    bucActions.fetchBucsWithVedtakId(mockAktoerId, mockVedtakId)
+  it('fetchBucsInfo()', () => {
+    const mockUserId = 'mockUserId'
+    const mockNamespace = 'mockNamespace'
+    const mockFilename = 'mockFilename'
+    bucActions.fetchBucsInfo(mockUserId, mockNamespace, mockFilename)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_BUCS_REQUEST,
-        success: types.BUC_GET_BUCS_SUCCESS,
-        failure: types.BUC_GET_BUCS_FAILURE
+        request: types.BUC_GET_BUCSINFO_REQUEST,
+        success: types.BUC_GET_BUCSINFO_SUCCESS,
+        failure: types.BUC_GET_BUCSINFO_FAILURE
       },
-      cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCS_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
+      url: sprintf(urls.API_STORAGE_GET_URL, { userId: mockUserId, namespace: mockNamespace, file: mockFilename })
     }))
   })
 
@@ -146,30 +156,31 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('fetchBucsInfo()', () => {
-    const mockUserId = 'mockUserId'
-    const mockNamespace = 'mockNamespace'
-    const mockFilename = 'mockFilename'
-    bucActions.fetchBucsInfo(mockUserId, mockNamespace, mockFilename)
+  it('fetchBucsWithVedtakId()', () => {
+    const mockAktoerId = '123'
+    const mockVedtakId = '456'
+    bucActions.fetchBucsWithVedtakId(mockAktoerId, mockVedtakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_BUCSINFO_REQUEST,
-        success: types.BUC_GET_BUCSINFO_SUCCESS,
-        failure: types.BUC_GET_BUCSINFO_FAILURE
+        request: types.BUC_GET_BUCS_REQUEST,
+        success: types.BUC_GET_BUCS_SUCCESS,
+        failure: types.BUC_GET_BUCS_FAILURE
       },
-      url: sprintf(urls.API_STORAGE_GET_URL, { userId: mockUserId, namespace: mockNamespace, file: mockFilename })
+      cascadeFailureError: true,
+      url: sprintf(urls.BUC_GET_BUCS_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
     }))
   })
 
-  it('getSubjectAreaList()', () => {
-    bucActions.getSubjectAreaList()
+  it('fetchSingleBuc()', () => {
+    const mockRinaCaseId = '123'
+    bucActions.fetchSingleBuc(mockRinaCaseId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
-        success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
-        failure: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
+        request: types.BUC_GET_SINGLE_BUC_REQUEST,
+        success: types.BUC_GET_SINGLE_BUC_SUCCESS,
+        failure: types.BUC_GET_SINGLE_BUC_FAILURE
       },
-      url: urls.EUX_SUBJECT_AREA_URL
+      url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: mockRinaCaseId })
     }))
   })
 
@@ -187,6 +198,90 @@ describe('actions/buc', () => {
     }))
   })
 
+  it('getCountryList()', () => {
+    const mockBucType = 'P_BUC_01'
+    bucActions.getCountryList(mockBucType)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_COUNTRY_LIST_REQUEST,
+        success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
+        failure: types.BUC_GET_COUNTRY_LIST_FAILURE
+      },
+      url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: mockBucType })
+    }))
+  })
+
+  it('getInstitutionsListForBucAndCountry() - GB translated to UK', () => {
+    const mockBucType = 'P_BUC_01'
+    const mockCountry = 'GB'
+    bucActions.getInstitutionsListForBucAndCountry(mockBucType, mockCountry)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
+        success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
+        failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
+      },
+      context: {
+        buc: mockBucType,
+        country: mockCountry
+      },
+      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: 'UK' })
+    }))
+  })
+
+  it('getRinaUrl()', () => {
+    bucActions.getRinaUrl()
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_RINA_GET_URL_REQUEST,
+        success: types.BUC_RINA_GET_URL_SUCCESS,
+        failure: types.BUC_RINA_GET_URL_FAILURE
+      },
+      url: urls.EUX_RINA_URL
+    }))
+  })
+
+  it('getSed()', () => {
+    const mockCaseId = '123'
+    const mockSed = {
+      id: '456'
+    } as Sed
+    bucActions.getSed(mockCaseId, mockSed)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_SED_REQUEST,
+        success: types.BUC_GET_SED_SUCCESS,
+        failure: types.BUC_GET_SED_FAILURE
+      },
+      url: sprintf(urls.BUC_GET_SED_URL, { caseId: mockCaseId, documentId: mockSed.id })
+    }))
+  })
+
+  it('getSedList()', () => {
+    const mockBuc = { type: 'mockBucType', caseId: '456' }
+    bucActions.getSedList(mockBuc)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_SED_LIST_REQUEST,
+        success: types.BUC_GET_SED_LIST_SUCCESS,
+        failure: types.BUC_GET_SED_LIST_FAILURE
+      },
+      url: sprintf(urls.BUC_GET_SED_LIST_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
+    }))
+  })
+
+  it('getSubjectAreaList()', () => {
+    bucActions.getSubjectAreaList()
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
+        success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
+        failure: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
+      },
+      url: urls.EUX_SUBJECT_AREA_URL
+    }))
+  })
+
   it('getTagList()', () => {
     const expectedResults = bucActions.getTagList()
     expect(expectedResults).toMatchObject({
@@ -195,18 +290,39 @@ describe('actions/buc', () => {
     })
   })
 
-  it('createBuc()', () => {
-    const mockBuc = 'P_BUC_01'
-    bucActions.createBuc(mockBuc)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_CREATE_BUC_REQUEST,
-        success: types.BUC_CREATE_BUC_SUCCESS,
-        failure: types.BUC_CREATE_BUC_FAILURE
-      },
-      method: 'POST',
-      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc })
-    }))
+  it('resetBuc()', () => {
+    const generatedResult = bucActions.resetBuc()
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_BUC_RESET
+    })
+  })
+
+  it('resetNewSed()', () => {
+    const generatedResult = bucActions.resetNewSed()
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_NEWSED_RESET
+    })
+  })
+
+  it('resetSavingAttachmentJob()', () => {
+    const generatedResult = bucActions.resetSavingAttachmentJob(mockItems)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SAVINGATTACHMENTJOB_RESET
+    })
+  })
+
+  it('resetSed()', () => {
+    const generatedResult = bucActions.resetSed()
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SED_RESET
+    })
+  })
+
+  it('resetSedAttachments()', () => {
+    const generatedResult = bucActions.resetSedAttachments()
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SED_ATTACHMENTS_RESET
+    })
   })
 
   it('saveBucsInfo() with empty params', () => {
@@ -215,11 +331,14 @@ describe('actions/buc', () => {
       aktoerId: '123',
       buc: {
         caseId: '456'
-      }
+      },
+      avdod: '789'
     }
     const expectedPayload = {
       bucs: {
-        456: {}
+        456: {
+          avdod: '789'
+        }
       }
     }
     bucActions.saveBucsInfo(mockParams)
@@ -268,96 +387,22 @@ describe('actions/buc', () => {
     })
   })
 
-  it('getCountryList()', () => {
-    const mockBucType = 'P_BUC_01'
-    bucActions.getCountryList(mockBucType)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_COUNTRY_LIST_REQUEST,
-        success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-        failure: types.BUC_GET_COUNTRY_LIST_FAILURE
-      },
-      url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: mockBucType })
-    }))
+  it('setCurrentBuc()', () => {
+    const mockedBuc = 'buc'
+    const generatedResult = bucActions.setCurrentBuc(mockedBuc)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_CURRENTBUC_SET,
+      payload: mockedBuc
+    })
   })
 
-  it('getSedList()', () => {
-    const mockBuc = { type: 'mockBucType', caseId: '456' }
-    bucActions.getSedList(mockBuc)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_SED_LIST_REQUEST,
-        success: types.BUC_GET_SED_LIST_SUCCESS,
-        failure: types.BUC_GET_SED_LIST_FAILURE
-      },
-      url: sprintf(urls.BUC_GET_SED_LIST_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
-    }))
-  })
-
-  it('getInstitutionsListForBucAndCountry() - GB translated to UK', () => {
-    const mockBucType = 'P_BUC_01'
-    const mockCountry = 'GB'
-    bucActions.getInstitutionsListForBucAndCountry(mockBucType, mockCountry)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
-        success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
-        failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
-      },
-      context: {
-        buc: mockBucType,
-        country: mockCountry
-      },
-      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: 'UK' })
-    }))
-  })
-
-  it('createSed()', () => {
-    const mockBuc = {
-
-    } as Buc
-    const mockedPayload = {
-      sakId: '123',
-      buc: 'P_BUC_01',
-      sed: 'P2000',
-      institutions: [],
-      aktoerId: '123',
-      euxCaseId: '456'
-    }
-    bucActions.createSed(mockBuc, mockedPayload)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_CREATE_SED_REQUEST,
-        success: types.BUC_CREATE_SED_SUCCESS,
-        failure: types.BUC_CREATE_SED_FAILURE
-      },
-      method: 'POST',
-      payload: mockedPayload,
-      url: urls.BUC_CREATE_SED_URL
-    }))
-  })
-
-  it('createReplySed()', () => {
-    const mockedPayload = {
-      sakId: '123',
-      buc: 'P_BUC_01',
-      sed: 'P2000',
-      institutions: [],
-      aktoerId: '123',
-      euxCaseId: '456'
-    }
-    const mockParentId = '123'
-    bucActions.createReplySed(mockedPayload, mockParentId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_CREATE_REPLY_SED_REQUEST,
-        success: types.BUC_CREATE_REPLY_SED_SUCCESS,
-        failure: types.BUC_CREATE_REPLY_SED_FAILURE
-      },
-      method: 'POST',
-      payload: mockedPayload,
-      url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: mockParentId })
-    }))
+  it('setCurrentSed()', () => {
+    const mockedSed = 'sed'
+    const generatedResult = bucActions.setCurrentSed(mockedSed)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_CURRENTSED_SET,
+      payload: mockedSed
+    })
   })
 
   it('sendAttachmentToSed()', () => {
@@ -368,53 +413,49 @@ describe('actions/buc', () => {
       journalpostId: '123456',
       dokumentInfoId: '12346789',
       variantformat: 'DUMMY'
-    }
-    const mockContext = {
+    } as SEDAttachmentPayloadWithFile
+    const mockJoarkBrowserItem = {
+      hasSubrows: false,
+      key: '123456',
+      type: 'joark',
       journalpostId: '123456',
-      tittel: 'tittel',
+      title: 'title',
       tema: 'tema',
-      datoOpprettet: new Date(2020, 1, 1),
+      date: new Date(2020, 1, 1),
       dokumentInfoId: '12346789',
       variant: { variantformat: 'DUMMY', filnavn: 'filnavn' }
-    }
-    bucActions.sendAttachmentToSed(mockParams, mockContext)
+    } as JoarkBrowserItem
+    bucActions.sendAttachmentToSed(mockParams, mockJoarkBrowserItem)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_SEND_ATTACHMENT_REQUEST,
         success: types.BUC_SEND_ATTACHMENT_SUCCESS,
         failure: types.BUC_SEND_ATTACHMENT_FAILURE
       },
-      context: mockContext,
+      context: {
+        params: mockParams,
+        joarkBrowserItem: mockJoarkBrowserItem
+      },
       method: 'PUT',
       url: sprintf(urls.API_JOARK_ATTACHMENT_URL, mockParams)
     }))
   })
 
-  it('getSed()', () => {
-    const mockCaseId = '123'
-    const mockSed = {
-      id: '456'
-    } as Sed
-    bucActions.getSed(mockCaseId, mockSed)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_SED_REQUEST,
-        success: types.BUC_GET_SED_SUCCESS,
-        failure: types.BUC_GET_SED_FAILURE
-      },
-      url: sprintf(urls.BUC_GET_SED_URL, { caseId: mockCaseId, documentId: mockSed.id })
-    }))
+  it('setMode()', () => {
+    const mockedMode = 'mode' as BUCMode
+    const generatedResult = bucActions.setMode(mockedMode)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_MODE_SET,
+      payload: mockedMode
+    })
   })
 
-  it('getRinaUrl()', () => {
-    bucActions.getRinaUrl()
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_RINA_GET_URL_REQUEST,
-        success: types.BUC_RINA_GET_URL_SUCCESS,
-        failure: types.BUC_RINA_GET_URL_FAILURE
-      },
-      url: urls.EUX_RINA_URL
-    }))
+  it('setSedList()', () => {
+    const mockedSedList = ['P2000', 'P4000', 'P6000']
+    const generatedResult = bucActions.setSedList(mockedSedList)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SEDLIST_SET,
+      payload: mockedSedList
+    })
   })
 })

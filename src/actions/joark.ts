@@ -1,16 +1,19 @@
-import { JoarkBrowserItem, JoarkBrowserItemWithContent } from 'declarations/joark.d'
+import { JoarkBrowserItem, JoarkBrowserItemWithContent, JoarkList, JoarkPreview } from 'declarations/joark.d'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { call, ActionWithPayload } from 'js-fetch-api'
-import mockJoarkRaw from 'mocks/joark/joarkRaw'
-import mockJoarkPreviewFile from 'mocks/joark/previewFile'
+import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
+import mockJoark from 'mocks/joark/joark'
+import mockPreview from 'mocks/joark/preview'
+import { ActionCreator } from 'redux'
 
 const sprintf = require('sprintf-js').sprintf
 
-export const listJoarkFiles = (userId: string): Function => {
+export const listJoarkItems: ActionCreator<ThunkResult<ActionWithPayload<JoarkList>>> = (
+  userId: string
+): ThunkResult<ActionWithPayload<JoarkList>> => {
   return call({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
-    expectedPayload: mockJoarkRaw,
+    expectedPayload: mockJoark,
     type: {
       request: types.JOARK_LIST_REQUEST,
       success: types.JOARK_LIST_SUCCESS,
@@ -19,14 +22,16 @@ export const listJoarkFiles = (userId: string): Function => {
   })
 }
 
-export const getPreviewJoarkFile = (item: JoarkBrowserItem): Function => {
+export const getJoarkItemPreview: ActionCreator<ThunkResult<ActionWithPayload<JoarkPreview>>> = (
+  item: JoarkBrowserItem
+): ThunkResult<ActionWithPayload<JoarkPreview>> => {
   return call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
       variantformat: item.variant?.variantformat
     }),
-    expectedPayload: mockJoarkPreviewFile(),
+    expectedPayload: mockPreview(),
     context: item,
     type: {
       request: types.JOARK_PREVIEW_REQUEST,
@@ -36,7 +41,9 @@ export const getPreviewJoarkFile = (item: JoarkBrowserItem): Function => {
   })
 }
 
-export const setPreviewJoarkFile = (item:JoarkBrowserItemWithContent | undefined): ActionWithPayload<JoarkBrowserItemWithContent | undefined> => ({
+export const setJoarkItemPreview: ActionCreator<ActionWithPayload<JoarkBrowserItemWithContent | undefined>> = (
+  item: JoarkBrowserItemWithContent | undefined
+): ActionWithPayload<JoarkBrowserItemWithContent | undefined> => ({
   type: types.JOARK_PREVIEW_SET,
   payload: item
 })

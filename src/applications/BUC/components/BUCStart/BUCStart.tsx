@@ -24,9 +24,9 @@ import {
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { Buc, Bucs, BucsInfo, PersonAvdod, PersonAvdods, Tags } from 'declarations/buc'
-import { State } from 'declarations/reducers'
+import { Buc, Bucs, BucsInfo, Tags } from 'declarations/buc'
 import {
+  PersonAvdod, PersonAvdods,
   AllowedLocaleString,
   Loading,
   Option,
@@ -34,6 +34,8 @@ import {
   PesysContext,
   Validation
 } from 'declarations/types'
+import { State } from 'declarations/reducers'
+
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'

@@ -157,6 +157,8 @@ export interface BucInfo {
   comment?: Comments | string | null
 }
 
+export type BucsInfoList = Array<string>
+
 export interface BucsInfo {
   bucs: {
     [key: string] : BucInfo
@@ -182,6 +184,8 @@ export interface RawInstitution {
   landkode: string
   buc?: string
 }
+
+export type RawInstitutions = Array<RawInstitution>
 
 export interface InstitutionListMap<T> {
   [landkode: string]: Array<T>
@@ -211,14 +215,34 @@ export interface SavingAttachmentsJob {
   remaining: JoarkBrowserItems
 }
 
-export interface PersonAvdod {
+export type SubjectAreaList = Array<string>
+export type SEDList = Array<string>
+export type BUCList = Array<string>
+export type TagList = Array<string>
+export type CountryList = Array<string>
+
+export interface SaveBucsInfoProps {
   aktoerId: string
-  etternavn: string
-  fnr: string
-  fornavn: string
-  fulltNavn: string
-  mellomnavn: string | null
-  relasjon: string
+  avdod ?: string
+  buc: {
+    caseId: string
+  };
+  bucsInfo: BucsInfo
+  comment?: string
+  tags?: Array<string>
 }
 
-export type PersonAvdods = Array<PersonAvdod>
+export interface SEDP5000Payload {
+  sed: string
+  sedGVer: string
+  sedVer: string
+  nav: any
+  pensjon: any
+  trygdetid: any
+  ignore: any
+  horisontal: any
+}
+
+export interface RinaUrlPayload {
+  rinaUrl: string
+}

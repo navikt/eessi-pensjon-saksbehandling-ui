@@ -1,6 +1,7 @@
 import * as types from 'constants/actionTypes'
 import * as uiActions from 'actions/ui'
 import { ModalContent } from 'declarations/components'
+import { AllowedLocaleString } from 'declarations/types'
 import i18n from 'i18n'
 jest.mock('i18n', () => ({
   changeLanguage: jest.fn()
@@ -8,12 +9,20 @@ jest.mock('i18n', () => ({
 
 describe('actions/ui', () => {
   it('changeLanguage()', () => {
-    const mockLanguage = 'en'
+    const mockLanguage = 'en' as AllowedLocaleString
     const generatedResult = uiActions.changeLanguage(mockLanguage)
     expect(i18n.changeLanguage).toBeCalledWith(mockLanguage)
     expect(generatedResult).toMatchObject({
       type: types.UI_LANGUAGE_CHANGED,
       payload: mockLanguage
+    })
+  })
+
+  it('closeModal()', () => {
+    const generatedResult = uiActions.closeModal()
+    expect(generatedResult).toMatchObject({
+      type: types.UI_MODAL_SET,
+      payload: undefined
     })
   })
 
@@ -25,14 +34,6 @@ describe('actions/ui', () => {
     expect(generatedResult).toMatchObject({
       type: types.UI_MODAL_SET,
       payload: mockModal
-    })
-  })
-
-  it('closeModal()', () => {
-    const generatedResult = uiActions.closeModal()
-    expect(generatedResult).toMatchObject({
-      type: types.UI_MODAL_SET,
-      payload: undefined
     })
   })
 
