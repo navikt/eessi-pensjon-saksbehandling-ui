@@ -1,19 +1,12 @@
-
+import { BUCHeaderDiv, IconsDiv } from 'applications/BUC/components/BUCHeader/BUCHeader'
 import LoadingImage from 'components/Loading/LoadingImage'
 import LoadingText from 'components/Loading/LoadingText'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
-import Panel from 'nav-frontend-paneler'
+import { HighContrastPanel, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import React from 'react'
-import { themeKeys } from 'nav-styled-component-theme'
 import styled from 'styled-components'
 
-const BucPanel = styled(Panel)`
+const BucPanel = styled(HighContrastPanel)`
   margin-bottom: 1rem;
-  border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
-  border-style: solid;
-  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
-  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
 `
 const TitleText = styled(LoadingText)`
    min-height: 30px;
@@ -21,7 +14,7 @@ const TitleText = styled(LoadingText)`
    width: ${(props) => ((props.width || 50) + '%')};
    align-self: flex-start;
 `
-export const ContentText = styled(LoadingText)`
+const ContentText = styled(LoadingText)`
   min-height: 15px;
   margin-bottom: 0.5rem;
   width: ${(props) => ((props.width || 50) + '%')};
@@ -37,30 +30,11 @@ const LabelsDiv = styled.div`
   display: flex;
   flex-direction: column;
 `
-const IconsDiv = styled.div`
-  flex: 2;
-  display: flex;
-  flex-direction: row;
-`
-export const BUCHeaderDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0rem;
-  width: 100%;
-`
-
-export const FlagLoading = styled(LoadingImage)`
+const FlagLoading = styled(LoadingImage)`
   height: 48px;
   width: 48px;
   margin-right: 0.5rem;
 `
-
-const flagLoader = () => {
-  return Array(Math.ceil(Math.random() * 4))
-    .fill(0)
-    .map((i) => <FlagLoading key={i} />)
-}
 
 const BUCLoading = () => {
   return (
@@ -75,7 +49,9 @@ const BUCLoading = () => {
           </LabelsDiv>
           <HorizontalSeparatorDiv />
           <IconsDiv>
-            {flagLoader()}
+            {Array(Math.ceil(Math.random() * 4))
+              .fill(0)
+              .map((i) => <FlagLoading key={i} />)}
           </IconsDiv>
         </FlexDiv>
       </BUCHeaderDiv>

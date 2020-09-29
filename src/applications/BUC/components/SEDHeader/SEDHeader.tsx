@@ -159,13 +159,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>
                 <Normaltekst
-                  data-testid='a-buc-c-sedheader__lastUpdate'
+                  data-test-id='a-buc-c-sedheader__lastUpdate'
                 >
                   {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
                 </Normaltekst>
                 {sed.version && (
                   <Normaltekst
-                    data-testid='a-buc-c-sedheader__version'
+                    data-test-id='a-buc-c-sedheader__version'
                   >
                     {t('ui:version')}{': '}{sed.version || '-'}
                   </Normaltekst>
@@ -190,7 +190,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 )}
               >
                 <SEDAttachmentsDiv
-                  data-testid='a-buc-c-sedheader__actions-attachments'
+                  data-test-id='a-buc-c-sedheader__actions-attachments'
                 >
                   <FilledPaperClipIcon />
                 </SEDAttachmentsDiv>
@@ -200,7 +200,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <HighContrastFlatknapp
                 mini
                 data-amplitude='buc.list.besvarSed'
-                data-testid='a-buc-c-sedheader__actions-answer-button'
+                data-test-id='a-buc-c-sedheader__actions-answer-button'
                 disabled={buc.readOnly === true}
                 onClick={(e: React.MouseEvent) => {
                   buttonLogger(e)

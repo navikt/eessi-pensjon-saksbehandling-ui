@@ -1,9 +1,9 @@
-import { Buc, BucInfo, BucsInfo } from 'declarations/buc'
+import { Buc } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
+import personAvdod from 'mocks/app/personAvdod'
+import mockBucs from 'mocks/buc/bucs'
 import moment from 'moment'
 import React from 'react'
-import mockBucs from 'mocks/buc/bucs'
-import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 import BUCDetail, { BUCDetailProps, BUCDetailSelector } from './BUCDetail'
 
@@ -14,12 +14,12 @@ const defaultSelector: BUCDetailSelector = {
 }
 
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
+
   let wrapper: ReactWrapper
   const buc: Buc = mockBucs()[0] as Buc
-  const bucInfo: BucInfo = (mockBucsInfo as BucsInfo).bucs['' + buc.caseId]
   const initialMockProps: BUCDetailProps = {
     buc: buc,
-    bucInfo: bucInfo
+    personAvdods: personAvdod(1)
   }
 
   beforeAll(() => {
@@ -39,14 +39,37 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-expandingpanel')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucdetail__body')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucdetail__props')).toBeTruthy()
-    expect(wrapper.find('#a-buc-c-bucdetail__props-caseId-id').render().text()).toEqual(buc.caseId)
-    expect(wrapper.find('#a-buc-c-bucdetail__props-creator-id').render().text()).toEqual('NAVAT07')
-    expect(wrapper.find('#a-buc-c-bucdetail__props-startDate-id').render().text()).toEqual(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
-    expect(wrapper.find('#a-buc-c-bucdetail__props-status-id').render().text()).toEqual('ui:' + buc.status)
-    expect(wrapper.exists('.a-buc-c-bucdetail__institutions')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-bucdetail__institutions').hostNodes().render().text()).toEqual(['NAVAT07', 'DEMO001', 'DEMO001', 'DEMO001'].join(''))
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__panel-id\']')).toBeTruthy()
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__status-id\']').hostNodes().render().text()).toEqual('buc:status-' + buc.status)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__creator-id\']').hostNodes().render().text()).toEqual('NAVAT07')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__startDate-id\']').hostNodes().render().text()).toEqual(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__gotorina-link-id\']').hostNodes().render().text()).toEqual(buc.caseId)
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__institutions-id\']')).toBeTruthy()
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__institutionlist-id\']').render().text()).toEqual(['NAVAT07', 'DEMO001', 'DEMO001', 'DEMO001'].join(''))
+  })
+
+  it('P_BUC_02 BUCs have an avdod', () => {
+    const mockProps = {
+      ...initialMockProps,
+      buc: {
+        ...initialMockProps.buc,
+        readOnly: true
+      }
+    }
+    wrapper = mount(<BUCDetail {...mockProps} />)
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__readonly\']')).toBeTruthy()
+  })
+
+  it('Read only BUCs has an alertstripe warning', () => {
+    const mockProps = {
+      ...initialMockProps,
+      buc: {
+        ...initialMockProps.buc,
+        readOnly: true
+      }
+    }
+    wrapper = mount(<BUCDetail {...mockProps} />)
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__readonly\']')).toBeTruthy()
   })
 })

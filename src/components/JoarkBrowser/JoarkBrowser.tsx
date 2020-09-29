@@ -221,9 +221,13 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           variant: variant
         }) !== undefined
 
-        const disabled = _.find(disabledItems, {
+        let disabled = _.find(disabledItems, {
           dokumentInfoId: doc.dokumentInfoId
         }) !== undefined
+
+        if (!variant) {
+          disabled = true
+        }
 
         const item: JoarkBrowserItem = {
           key: post.journalpostId + '-' + doc.dokumentInfoId + '-' + variant?.variantformat + '-' + selected,
@@ -231,7 +235,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
           journalpostId: post.journalpostId,
           dokumentInfoId: doc.dokumentInfoId,
-          variant: variant!,
+          variant: variant,
 
           title: doc.tittel || '-',
           tema: post.tema,

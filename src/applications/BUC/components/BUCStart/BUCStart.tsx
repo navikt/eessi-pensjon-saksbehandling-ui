@@ -332,7 +332,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <div data-testid='a-buc-c-bucstart'>
+      <div data-test-id='a-buc-c-bucstart'>
         <Row>
           <Column>
             <VerticalSeparatorDiv data-size='2' />
@@ -343,7 +343,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <Select
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__subjectarea-select-id'
-                data-testid='a-buc-c-bucstart__subjectarea-select-id'
+                data-test-id='a-buc-c-bucstart__subjectarea-select-id'
                 isSearchable
                 placeholder={t('buc:form-chooseSubjectArea')}
                 defaultValue={{ label: _subjectArea, value: _subjectArea }}
@@ -360,7 +360,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <Select
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__buc-select-id'
-                data-testid='a-buc-c-bucstart__buc-select-id'
+                data-test-id='a-buc-c-bucstart__buc-select-id'
                 menuPortalTarget={document.body}
                 isSearchable
                 placeholder={t('buc:form-chooseBuc')}
@@ -378,7 +378,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 <Select
                   highContrast={highContrast}
                   menuPortalTarget={document.body}
-                  data-testid='a-buc-c-bucstart__avdod-select-id'
+                  data-test-id='a-buc-c-bucstart__avdod-select-id'
                   isSearchable
                   placeholder={t('buc:form-chooseAvdod')}
                   onChange={onAvdodChange}
@@ -435,10 +435,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </>
         )}
         <VerticalSeparatorDiv data-size='2' />
-        <div data-testid='a-buc-c-bucstart__buttons'>
+        <div data-test-id='a-buc-c-bucstart__buttons'>
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
-            data-testid='a-buc-c-bucstart__forward-button'
+            data-test-id='a-buc-c-bucstart__forward-button'
             disabled={isCreatingBuc}
             spinner={isCreatingBuc}
             onClick={onForwardButtonClick}
@@ -450,13 +450,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <HorizontalSeparatorDiv />
           <HighContrastFlatknapp
             data-amplitude='buc.new.cancel'
-            data-testid='a-buc-c-bucstart__cancel-button-id'
+            data-test-id='a-buc-c-bucstart__cancel-button-id'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
           </HighContrastFlatknapp>
         </div>
         <VerticalSeparatorDiv />
-        <LoadingDiv data-testid='selectBoxMessage'>
+        <LoadingDiv data-test-id='selectBoxMessage'>
           {!loading ? null
             : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
               : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}

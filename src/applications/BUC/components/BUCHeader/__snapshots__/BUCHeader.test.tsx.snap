@@ -586,7 +586,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
             },
             Object {
               "documentId": "cac9db2726d54f2c9b51d1562b7b0a7a",
-              "fileName": "balrog2.png",
+              "fileName": "491399765_ARKIV.pdf",
               "id": "58828e7ff57943779ab7b24c522b1a3d",
               "lastUpdate": Object {
                 "chronology": Object {
@@ -603,8 +603,8 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                 "year": 2019,
               },
               "medical": false,
-              "mimeType": "image/png",
-              "name": "balrog2.png",
+              "mimeType": "application/pdf",
+              "name": "491399765_ARKIV.pdf",
             },
           ],
           "creationDate": 1571818181793,
@@ -1013,7 +1013,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
-          "allowsAttachments": true,
+          "allowsAttachments": false,
           "attachments": Array [],
           "creationDate": 1571818188033,
           "displayName": "Insurance/residence periods",
@@ -1081,7 +1081,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
           "version": "1",
         },
         Object {
-          "allowsAttachments": true,
+          "allowsAttachments": false,
           "attachments": Array [],
           "creationDate": 1571234189234,
           "displayName": "Insurance/residence periods",
@@ -1292,17 +1292,25 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
   }
   bucInfo={
     Object {
-      "comment": "this is a comment for caseId 600891",
+      "comment": Array [
+        Object {
+          "value": "this is a comment for caseId 600891",
+        },
+        Object {
+          "value": "This is another comment",
+        },
+      ],
       "tags": Array [
         "tag-vip",
       ],
     }
   }
-  onBUCEdit={[MockFunction]}
+  newBuc={true}
 >
-  <ThemeProvider
+  <Component
     theme={
       Object {
+        "alternative-background-color": "#E9E7E7",
         "black": "#000000",
         "border-radius-base": "4px",
         "border-radius-large": "6px",
@@ -1313,7 +1321,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
         "container-md": "(940px + @grid-gutter-width)",
         "container-sm": "(720px + @grid-gutter-width)",
         "container-tablet": "(720px + @grid-gutter-width)",
-        "fokusFarge": "mix(@navBla,#3E3832,40%)",
+        "fokusFarge": "#254a6c",
         "grayBackground": "#E9E7E7",
         "grayIcon": "#B7B1A9",
         "grayInactive": "#78706A",
@@ -1322,105 +1330,108 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
         "grid-float-breakpoint": "768px",
         "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
         "grid-gutter-width": "16px",
+        "inverted-font-color": "#FFFFFF",
         "line-height-large": "1.3333333",
         "line-height-small": "1.5",
+        "main-active-color": "#a3dff3",
         "main-background-color": "#FFFFFF",
-        "main-background-other-color": "#E9E7E7",
+        "main-border-color": "#78706A",
+        "main-border-radius": "4px",
         "main-disabled-color": "#B7B1A9",
         "main-error-color": "#BA3A26",
-        "main-focus-color": "mix(@navBla,#3E3832,40%)",
+        "main-focus-color": "#254a6c",
         "main-font-color": "#3E3832",
-        "main-hover-color": "#66CBEC",
+        "main-hover-color": "#e0f4fb",
         "main-interactive-color": "#0067C5",
         "main-success-color": "#06893A",
         "main-warning-color": "#FF9100",
         "navBla": "#0067C5",
-        "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-        "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-        "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-        "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-        "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-        "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-        "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-        "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+        "navBlaDarken20": "#0c5da7",
+        "navBlaDarken40": "#18548a",
+        "navBlaDarken60": "#254a6c",
+        "navBlaDarken80": "#31414f",
+        "navBlaLighten20": "#3385d0",
+        "navBlaLighten40": "#66a3dc",
+        "navBlaLighten60": "#99c2e7",
+        "navBlaLighten80": "#cce0f3",
         "navDypBla": "#005B82",
-        "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-        "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-        "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-        "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-        "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-        "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-        "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-        "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+        "navDypBlaDarken20": "#0c5472",
+        "navDypBlaDarken40": "#184d62",
+        "navDypBlaDarken60": "#254652",
+        "navDypBlaDarken80": "#313f42",
+        "navDypBlaLighten20": "#337b9b",
+        "navDypBlaLighten40": "#669cb4",
+        "navDypBlaLighten60": "#99bdcd",
+        "navDypBlaLighten80": "#ccdee6",
         "navGra20": "#C6C2BF",
         "navGra40": "#B7B1A9",
         "navGra60": "#78706A",
         "navGra80": "#59514B",
         "navGronn": "#06893A",
-        "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-        "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-        "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-        "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-        "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-        "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-        "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-        "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+        "navGronnDarken20": "#117838",
+        "navGronnDarken40": "#1c6836",
+        "navGronnDarken60": "#275835",
+        "navGronnDarken80": "#324833",
+        "navGronnLighten20": "#37a061",
+        "navGronnLighten40": "#69b888",
+        "navGronnLighten60": "#9bcfb0",
+        "navGronnLighten80": "#cde7d7",
         "navLilla": "#634689",
-        "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-        "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-        "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-        "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-        "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-        "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-        "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-        "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+        "navLillaDarken20": "#5b4377",
+        "navLillaDarken40": "#544066",
+        "navLillaDarken60": "#4c3d54",
+        "navLillaDarken80": "#453a43",
+        "navLillaLighten20": "#826ba0",
+        "navLillaLighten40": "#a190b8",
+        "navLillaLighten60": "#c0b5cf",
+        "navLillaLighten80": "#dfdae7",
         "navLimeGronn": "#A2AD00",
-        "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-        "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-        "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-        "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-        "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-        "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-        "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-        "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+        "navLimeGronnDarken20": "#8e950a",
+        "navLimeGronnDarken40": "#7a7e14",
+        "navLimeGronnDarken60": "#66661e",
+        "navLimeGronnDarken80": "#524f28",
+        "navLimeGronnLighten20": "#b4bd33",
+        "navLimeGronnLighten40": "#c7cd66",
+        "navLimeGronnLighten60": "#d9de99",
+        "navLimeGronnLighten80": "#eceecc",
         "navLysBla": "#66CBEC",
-        "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-        "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-        "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-        "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-        "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-        "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-        "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-        "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+        "navLysBlaDarken20": "#5eadc6",
+        "navLysBlaDarken40": "#5690a1",
+        "navLysBlaDarken60": "#4e727c",
+        "navLysBlaDarken80": "#465557",
+        "navLysBlaLighten20": "#84d5ef",
+        "navLysBlaLighten40": "#a3dff3",
+        "navLysBlaLighten60": "#c1eaf7",
+        "navLysBlaLighten80": "#e0f4fb",
         "navLysGra": "#E9E7E7",
         "navMorkGra": "#3E3832",
         "navOransje": "#FF9100",
-        "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-        "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-        "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-        "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-        "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-        "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-        "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-        "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+        "navOransjeDarken20": "#d87f0a",
+        "navOransjeDarken40": "#b16d14",
+        "navOransjeDarken60": "#8b5b1e",
+        "navOransjeDarken80": "#644928",
+        "navOransjeLighten20": "#ffa733",
+        "navOransjeLighten40": "#ffbd66",
+        "navOransjeLighten60": "#ffd399",
+        "navOransjeLighten80": "#ffe9cc",
         "navRod": "#C30000",
-        "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-        "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-        "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-        "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-        "navRodLighten20": "mix(@navRod,#fff,80%)",
-        "navRodLighten40": "mix(@navRod,#fff,60%)",
-        "navRodLighten60": "mix(@navRod,#fff,40%)",
-        "navRodLighten80": "mix(@navRod,#fff,20%)",
+        "navRodDarken20": "#a80b0a",
+        "navRodDarken40": "#8d1614",
+        "navRodDarken60": "#73211e",
+        "navRodDarken80": "#582c28",
+        "navRodLighten20": "#cf3333",
+        "navRodLighten40": "#db6666",
+        "navRodLighten60": "#e79999",
+        "navRodLighten80": "#f3cccc",
         "orangeFocus": "#FFBD66",
-        "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-        "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-        "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-        "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-        "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-        "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-        "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-        "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+        "orangeFocusDarken20": "#d8a25b",
+        "orangeFocusDarken40": "#b18751",
+        "orangeFocusDarken60": "#8b6d46",
+        "orangeFocusDarken80": "#64523c",
+        "orangeFocusLighten20": "#ffca84",
+        "orangeFocusLighten40": "#ffd7a3",
+        "orangeFocusLighten60": "#ffe4c1",
+        "orangeFocusLighten80": "#fff1e0",
         "padding-base-horizontal": "12px",
         "padding-base-vertical": "6px",
         "padding-large-horizontal": "16px",
@@ -1429,19 +1440,16 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
         "padding-small-vertical": "5px",
         "padding-xs-horizontal": "5px",
         "padding-xs-vertical": "1px",
-        "pension-orange": "rgb(255, 167, 51)",
-        "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-        "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
         "pinkErrorBg": "#F3E3E3",
         "redError": "#BA3A26",
-        "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-        "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-        "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-        "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-        "redErrorLighten20": "mix(@redError,#fff,80%)",
-        "redErrorLighten40": "mix(@redError,#fff,60%)",
-        "redErrorLighten60": "mix(@redError,#fff,40%)",
-        "redErrorLighten80": "mix(@redError,#fff,20%)",
+        "redErrorDarken20": "#a13928",
+        "redErrorDarken40": "#88392a",
+        "redErrorDarken60": "#6f382d",
+        "redErrorDarken80": "#56382f",
+        "redErrorLighten20": "#c76151",
+        "redErrorLighten40": "#d5887c",
+        "redErrorLighten60": "#e3b0a8",
+        "redErrorLighten80": "#f1d7d3",
         "screen-desktop": "992px",
         "screen-lg": "1200px",
         "screen-lg-desktop": "1200px",
@@ -1460,76 +1468,97 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
     }
   >
     <styled.div
-      data-testId="a-buc-c-header"
-      id="a-buc-c-bucheader__P_BUC_01-600891"
+      className="new"
+      data-test-id="a-buc-c-bucheader__P_BUC_01-600891"
     >
       <div
-        className="sc-AxheI kIPwer"
-        data-testId="a-buc-c-header"
-        id="a-buc-c-bucheader__P_BUC_01-600891"
+        className="sc-iwaifL dUxYWO new"
+        data-test-id="a-buc-c-bucheader__P_BUC_01-600891"
       >
-        <Styled(Undertittel)
-          data-testId="a-buc-c-header__title"
-        >
-          <Undertittel
-            className="sc-Axmtr kgVWCI"
-            data-testId="a-buc-c-header__title"
-          >
-            <TypografiBase
-              className="sc-Axmtr kgVWCI"
-              data-testId="a-buc-c-header__title"
-              type="undertittel"
-            >
-              <h2
-                className="typo-undertittel sc-Axmtr kgVWCI"
-                data-testId="a-buc-c-header__title"
-              >
-                P_BUC_01 - buc:buc-P_BUC_01
-              </h2>
-            </TypografiBase>
-          </Undertittel>
-        </Styled(Undertittel)>
-        <styled.div>
+        <Styled(styled.div)>
           <div
-            className="sc-AxmLO gwYKfk"
+            className="sc-iqAbSa sc-lmgQde gthKme hQzrUY"
           >
-            <styled.div
-              data-testId="a-buc-c-header__labels"
+            <styled.div>
+              <div
+                className="sc-crzoUp fNvYlg"
+              >
+                <Styled(Undertittel)
+                  className="lenkepanel__heading"
+                  data-test-id="a-buc-c-bucheader__title-id"
+                >
+                  <Undertittel
+                    className="sc-hiKfjK dslcsY lenkepanel__heading"
+                    data-test-id="a-buc-c-bucheader__title-id"
+                  >
+                    <TypografiBase
+                      className="sc-hiKfjK dslcsY lenkepanel__heading"
+                      data-test-id="a-buc-c-bucheader__title-id"
+                      type="undertittel"
+                    >
+                      <h2
+                        className="typo-undertittel sc-hiKfjK dslcsY lenkepanel__heading"
+                        data-test-id="a-buc-c-bucheader__title-id"
+                      >
+                        P_BUC_01 - buc:buc-P_BUC_01
+                      </h2>
+                    </TypografiBase>
+                  </Undertittel>
+                </Styled(Undertittel)>
+              </div>
+            </styled.div>
+          </div>
+        </Styled(styled.div)>
+        <Styled(styled.div)>
+          <div
+            className="sc-iqAbSa sc-cxNIbT gthKme jEmGBa"
+          >
+            <Styled(styled.div)
+              data-test-id="a-buc-c-bucheader__label-id"
             >
               <div
-                className="sc-fzozJi dRwXX"
-                data-testId="a-buc-c-header__labels"
+                className="sc-crzoUp sc-giAqnE fNvYlg bFITXP"
+                data-test-id="a-buc-c-bucheader__label-id"
               >
-                <Normaltekst>
-                  <TypografiBase
-                    type="normaltekst"
-                  >
-                    <p
-                      className="typo-normal"
-                    >
-                      ui:created
-                      : 
-                      23.10.2019
-                    </p>
-                  </TypografiBase>
-                </Normaltekst>
                 <styled.div
-                  data-testId="a-buc-c-header__owner"
+                  data-test-id="a-buc-c-bucheader__label-date-id"
                 >
                   <div
-                    className="sc-fzplWN bcoWYt"
-                    data-testId="a-buc-c-header__owner"
+                    className="sc-bYwzba dmmhcr"
+                    data-test-id="a-buc-c-bucheader__label-date-id"
+                  >
+                    <Normaltekst>
+                      <TypografiBase
+                        type="normaltekst"
+                      >
+                        <p
+                          className="typo-normal"
+                        >
+                          ui:created
+                          : 
+                          23.10.2019
+                        </p>
+                      </TypografiBase>
+                    </Normaltekst>
+                  </div>
+                </styled.div>
+                <styled.div
+                  data-test-id="a-buc-c-bucheader__label-owner-id"
+                >
+                  <div
+                    className="sc-bYwzba dmmhcr"
+                    data-test-id="a-buc-c-bucheader__label-owner-id"
                   >
                     <Styled(Normaltekst)>
                       <Normaltekst
-                        className="sc-fznyAO itGmwE"
+                        className="sc-iklIKw fRDfYh"
                       >
                         <TypografiBase
-                          className="sc-fznyAO itGmwE"
+                          className="sc-iklIKw fRDfYh"
                           type="normaltekst"
                         >
                           <p
-                            className="typo-normal sc-fznyAO itGmwE"
+                            className="typo-normal sc-iklIKw fRDfYh"
                           >
                             buc:form-caseOwner: 
                           </p>
@@ -1537,7 +1566,8 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       </Normaltekst>
                     </Styled(Normaltekst)>
                     <InstitutionList
-                      data-testId="a-buc-c-bucheader__owner-institutions"
+                      className="noMargin"
+                      data-test-id="a-buc-c-bucheader__label-owner-institution-id"
                       flagType="circle"
                       institutions={
                         Array [
@@ -1552,26 +1582,29 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                       type="separated"
                     >
                       <styled.div
+                        className="noMargin"
                         key="NO"
                       >
                         <div
-                          className="sc-AxjAm iPShpD"
+                          className="sc-bdnylx fwVfqD noMargin"
                         >
                           <styled.div
+                            className="noMargin"
                             key="NAVAT07"
                           >
                             <div
-                              className="sc-AxirZ jigHkS"
+                              className="sc-gtssRu kvIbfH noMargin"
                             >
-                              <Sd
+                              <yd
                                 country="NO"
                                 label="Norge"
                                 size="S"
                                 type="circle"
                               >
-                                <wt
+                                <kt
                                   theme={
                                     Object {
+                                      "alternative-background-color": "#E9E7E7",
                                       "black": "#000000",
                                       "border-radius-base": "4px",
                                       "border-radius-large": "6px",
@@ -1582,7 +1615,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                                       "container-md": "(940px + @grid-gutter-width)",
                                       "container-sm": "(720px + @grid-gutter-width)",
                                       "container-tablet": "(720px + @grid-gutter-width)",
-                                      "fokusFarge": "mix(@navBla,#3E3832,40%)",
+                                      "fokusFarge": "#254a6c",
                                       "grayBackground": "#E9E7E7",
                                       "grayIcon": "#B7B1A9",
                                       "grayInactive": "#78706A",
@@ -1591,105 +1624,108 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                                       "grid-float-breakpoint": "768px",
                                       "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
                                       "grid-gutter-width": "16px",
+                                      "inverted-font-color": "#FFFFFF",
                                       "line-height-large": "1.3333333",
                                       "line-height-small": "1.5",
+                                      "main-active-color": "#e0f4fb",
                                       "main-background-color": "#FFFFFF",
-                                      "main-background-other-color": "#E9E7E7",
+                                      "main-border-color": "#78706A",
+                                      "main-border-radius": "4px",
                                       "main-disabled-color": "#B7B1A9",
                                       "main-error-color": "#BA3A26",
-                                      "main-focus-color": "mix(@navBla,#3E3832,40%)",
+                                      "main-focus-color": "#254a6c",
                                       "main-font-color": "#3E3832",
-                                      "main-hover-color": "#66CBEC",
+                                      "main-hover-color": "#e0f4fb",
                                       "main-interactive-color": "#0067C5",
                                       "main-success-color": "#06893A",
                                       "main-warning-color": "#FF9100",
                                       "navBla": "#0067C5",
-                                      "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-                                      "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-                                      "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-                                      "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-                                      "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-                                      "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-                                      "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-                                      "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+                                      "navBlaDarken20": "#0c5da7",
+                                      "navBlaDarken40": "#18548a",
+                                      "navBlaDarken60": "#254a6c",
+                                      "navBlaDarken80": "#31414f",
+                                      "navBlaLighten20": "#3385d0",
+                                      "navBlaLighten40": "#66a3dc",
+                                      "navBlaLighten60": "#99c2e7",
+                                      "navBlaLighten80": "#cce0f3",
                                       "navDypBla": "#005B82",
-                                      "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-                                      "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-                                      "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-                                      "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-                                      "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-                                      "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-                                      "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-                                      "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+                                      "navDypBlaDarken20": "#0c5472",
+                                      "navDypBlaDarken40": "#184d62",
+                                      "navDypBlaDarken60": "#254652",
+                                      "navDypBlaDarken80": "#313f42",
+                                      "navDypBlaLighten20": "#337b9b",
+                                      "navDypBlaLighten40": "#669cb4",
+                                      "navDypBlaLighten60": "#99bdcd",
+                                      "navDypBlaLighten80": "#ccdee6",
                                       "navGra20": "#C6C2BF",
                                       "navGra40": "#B7B1A9",
                                       "navGra60": "#78706A",
                                       "navGra80": "#59514B",
                                       "navGronn": "#06893A",
-                                      "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-                                      "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-                                      "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-                                      "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-                                      "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-                                      "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-                                      "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-                                      "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+                                      "navGronnDarken20": "#117838",
+                                      "navGronnDarken40": "#1c6836",
+                                      "navGronnDarken60": "#275835",
+                                      "navGronnDarken80": "#324833",
+                                      "navGronnLighten20": "#37a061",
+                                      "navGronnLighten40": "#69b888",
+                                      "navGronnLighten60": "#9bcfb0",
+                                      "navGronnLighten80": "#cde7d7",
                                       "navLilla": "#634689",
-                                      "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-                                      "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-                                      "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-                                      "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-                                      "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-                                      "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-                                      "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-                                      "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+                                      "navLillaDarken20": "#5b4377",
+                                      "navLillaDarken40": "#544066",
+                                      "navLillaDarken60": "#4c3d54",
+                                      "navLillaDarken80": "#453a43",
+                                      "navLillaLighten20": "#826ba0",
+                                      "navLillaLighten40": "#a190b8",
+                                      "navLillaLighten60": "#c0b5cf",
+                                      "navLillaLighten80": "#dfdae7",
                                       "navLimeGronn": "#A2AD00",
-                                      "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-                                      "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-                                      "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-                                      "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-                                      "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-                                      "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-                                      "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-                                      "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+                                      "navLimeGronnDarken20": "#8e950a",
+                                      "navLimeGronnDarken40": "#7a7e14",
+                                      "navLimeGronnDarken60": "#66661e",
+                                      "navLimeGronnDarken80": "#524f28",
+                                      "navLimeGronnLighten20": "#b4bd33",
+                                      "navLimeGronnLighten40": "#c7cd66",
+                                      "navLimeGronnLighten60": "#d9de99",
+                                      "navLimeGronnLighten80": "#eceecc",
                                       "navLysBla": "#66CBEC",
-                                      "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-                                      "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-                                      "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-                                      "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-                                      "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-                                      "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-                                      "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-                                      "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+                                      "navLysBlaDarken20": "#5eadc6",
+                                      "navLysBlaDarken40": "#5690a1",
+                                      "navLysBlaDarken60": "#4e727c",
+                                      "navLysBlaDarken80": "#465557",
+                                      "navLysBlaLighten20": "#84d5ef",
+                                      "navLysBlaLighten40": "#a3dff3",
+                                      "navLysBlaLighten60": "#c1eaf7",
+                                      "navLysBlaLighten80": "#e0f4fb",
                                       "navLysGra": "#E9E7E7",
                                       "navMorkGra": "#3E3832",
                                       "navOransje": "#FF9100",
-                                      "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-                                      "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-                                      "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-                                      "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-                                      "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-                                      "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-                                      "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-                                      "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+                                      "navOransjeDarken20": "#d87f0a",
+                                      "navOransjeDarken40": "#b16d14",
+                                      "navOransjeDarken60": "#8b5b1e",
+                                      "navOransjeDarken80": "#644928",
+                                      "navOransjeLighten20": "#ffa733",
+                                      "navOransjeLighten40": "#ffbd66",
+                                      "navOransjeLighten60": "#ffd399",
+                                      "navOransjeLighten80": "#ffe9cc",
                                       "navRod": "#C30000",
-                                      "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-                                      "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-                                      "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-                                      "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-                                      "navRodLighten20": "mix(@navRod,#fff,80%)",
-                                      "navRodLighten40": "mix(@navRod,#fff,60%)",
-                                      "navRodLighten60": "mix(@navRod,#fff,40%)",
-                                      "navRodLighten80": "mix(@navRod,#fff,20%)",
+                                      "navRodDarken20": "#a80b0a",
+                                      "navRodDarken40": "#8d1614",
+                                      "navRodDarken60": "#73211e",
+                                      "navRodDarken80": "#582c28",
+                                      "navRodLighten20": "#cf3333",
+                                      "navRodLighten40": "#db6666",
+                                      "navRodLighten60": "#e79999",
+                                      "navRodLighten80": "#f3cccc",
                                       "orangeFocus": "#FFBD66",
-                                      "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-                                      "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-                                      "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-                                      "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-                                      "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-                                      "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-                                      "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-                                      "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+                                      "orangeFocusDarken20": "#d8a25b",
+                                      "orangeFocusDarken40": "#b18751",
+                                      "orangeFocusDarken60": "#8b6d46",
+                                      "orangeFocusDarken80": "#64523c",
+                                      "orangeFocusLighten20": "#ffca84",
+                                      "orangeFocusLighten40": "#ffd7a3",
+                                      "orangeFocusLighten60": "#ffe4c1",
+                                      "orangeFocusLighten80": "#fff1e0",
                                       "padding-base-horizontal": "12px",
                                       "padding-base-vertical": "6px",
                                       "padding-large-horizontal": "16px",
@@ -1698,19 +1734,16 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                                       "padding-small-vertical": "5px",
                                       "padding-xs-horizontal": "5px",
                                       "padding-xs-vertical": "1px",
-                                      "pension-orange": "rgb(255, 167, 51)",
-                                      "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-                                      "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
                                       "pinkErrorBg": "#F3E3E3",
                                       "redError": "#BA3A26",
-                                      "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-                                      "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-                                      "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-                                      "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-                                      "redErrorLighten20": "mix(@redError,#fff,80%)",
-                                      "redErrorLighten40": "mix(@redError,#fff,60%)",
-                                      "redErrorLighten60": "mix(@redError,#fff,40%)",
-                                      "redErrorLighten80": "mix(@redError,#fff,20%)",
+                                      "redErrorDarken20": "#a13928",
+                                      "redErrorDarken40": "#88392a",
+                                      "redErrorDarken60": "#6f382d",
+                                      "redErrorDarken80": "#56382f",
+                                      "redErrorLighten20": "#c76151",
+                                      "redErrorLighten40": "#d5887c",
+                                      "redErrorLighten60": "#e3b0a8",
+                                      "redErrorLighten80": "#f1d7d3",
                                       "screen-desktop": "992px",
                                       "screen-lg": "1200px",
                                       "screen-lg-desktop": "1200px",
@@ -1728,7 +1761,6 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                                     }
                                   }
                                 >
-                                  <Memo(o) />
                                   <ForwardRef
                                     overlay={
                                       <span>
@@ -2004,7 +2036,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                                         style={Object {}}
                                       >
                                         <div
-                                          className="sc-AxjAm bcMPWx size-S type-circle"
+                                          className="sc-AxjAm kvmIIW size-S type-circle"
                                           onMouseEnter={[Function]}
                                           onMouseLeave={[Function]}
                                           style={Object {}}
@@ -2018,18 +2050,18 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                                       </styled.div>
                                     </e>
                                   </ForwardRef>
-                                </wt>
-                              </Sd>
+                                </kt>
+                              </yd>
                               <Styled(Normaltekst)>
                                 <Normaltekst
-                                  className="sc-AxiKw gswgyC"
+                                  className="sc-dlnjPT jqPgqp"
                                 >
                                   <TypografiBase
-                                    className="sc-AxiKw gswgyC"
+                                    className="sc-dlnjPT jqPgqp"
                                     type="normaltekst"
                                   >
                                     <p
-                                      className="typo-normal sc-AxiKw gswgyC"
+                                      className="typo-normal sc-dlnjPT jqPgqp"
                                     >
                                       NAVAT07
                                     </p>
@@ -2043,62 +2075,67 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                     </InstitutionList>
                   </div>
                 </styled.div>
-                <div
-                  data-testId="a-buc-c-bucheader__case"
+                <styled.div
+                  data-test-id="a-buc-c-bucheader__label-case-id"
                 >
-                  <Styled(Normaltekst)>
-                    <Normaltekst
-                      className="sc-fznyAO itGmwE"
-                    >
-                      <TypografiBase
-                        className="sc-fznyAO itGmwE"
-                        type="normaltekst"
+                  <div
+                    className="sc-bYwzba dmmhcr"
+                    data-test-id="a-buc-c-bucheader__label-case-id"
+                  >
+                    <Styled(Normaltekst)>
+                      <Normaltekst
+                        className="sc-iklIKw fRDfYh"
                       >
-                        <p
-                          className="typo-normal sc-fznyAO itGmwE"
+                        <TypografiBase
+                          className="sc-iklIKw fRDfYh"
+                          type="normaltekst"
                         >
-                          buc:form-caseNumberInRina: 
-                          <Styled(Lenke)
-                            data-amplitude="buc.list.buc.rinaUrl"
-                            data-testId="a-buc-c-bucheader__gotorina-link"
-                            href="http://rinaurl.mock.com600891"
-                            onClick={[Function]}
-                            target="rinaWindow"
+                          <p
+                            className="typo-normal sc-iklIKw fRDfYh"
                           >
-                            <Lenke
-                              className="sc-fzokOt iWTifU"
+                            buc:form-caseNumberInRina: 
+                            <Styled(Lenke)
                               data-amplitude="buc.list.buc.rinaUrl"
-                              data-testId="a-buc-c-bucheader__gotorina-link"
+                              data-test-id="a-buc-c-bucheader__label-case-gotorina-link-id"
                               href="http://rinaurl.mock.com600891"
                               onClick={[Function]}
                               target="rinaWindow"
                             >
-                              <a
-                                className="lenke sc-fzokOt iWTifU"
+                              <Lenke
+                                className="sc-kLokih jlClTq"
                                 data-amplitude="buc.list.buc.rinaUrl"
-                                data-testId="a-buc-c-bucheader__gotorina-link"
+                                data-test-id="a-buc-c-bucheader__label-case-gotorina-link-id"
                                 href="http://rinaurl.mock.com600891"
                                 onClick={[Function]}
-                                rel="noopener"
                                 target="rinaWindow"
                               >
-                                600891
-                              </a>
-                            </Lenke>
-                          </Styled(Lenke)>
-                        </p>
-                      </TypografiBase>
-                    </Normaltekst>
-                  </Styled(Normaltekst)>
-                </div>
+                                <a
+                                  className="lenke sc-kLokih jlClTq"
+                                  data-amplitude="buc.list.buc.rinaUrl"
+                                  data-test-id="a-buc-c-bucheader__label-case-gotorina-link-id"
+                                  href="http://rinaurl.mock.com600891"
+                                  onClick={[Function]}
+                                  rel="noopener"
+                                  target="rinaWindow"
+                                >
+                                  600891
+                                </a>
+                              </Lenke>
+                            </Styled(Lenke)>
+                          </p>
+                        </TypografiBase>
+                      </Normaltekst>
+                    </Styled(Normaltekst)>
+                  </div>
+                </styled.div>
               </div>
-            </styled.div>
-            <styled.div
-              data-testId="a-buc-c-bucheader__icons"
+            </Styled(styled.div)>
+            <Styled(styled.div)
+              data-test-id="a-buc-c-bucheader__icon-id"
             >
               <div
-                className="sc-fzoLsD jZipWJ"
-                data-testId="a-buc-c-bucheader__icons"
+                className="sc-crzoUp sc-iJCRLp fNvYlg hJIHgz"
+                data-test-id="a-buc-c-bucheader__icon-id"
               >
                 <FlagList
                   animate={true}
@@ -2109,6 +2146,10 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                         "label": "NO:NAVAT07",
                       },
                       Object {
+                        "country": "FR",
+                        "label": "FR:DEMO001",
+                      },
+                      Object {
                         "country": "GB",
                         "label": "GB:DEMO001",
                       },
@@ -2116,19 +2157,15 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                         "country": "UK",
                         "label": "UK:DEMO001",
                       },
-                      Object {
-                        "country": "FR",
-                        "label": "FR:DEMO001",
-                      },
                     ]
                   }
                   locale="nb"
-                  overflowLimit={5}
+                  overflowLimit={8}
                   size="XL"
                   type="circle"
                   wrapper={false}
                 >
-                  <Styled(Sd)
+                  <Styled(yd)
                     className="animate"
                     country="NO"
                     key="0"
@@ -2139,9 +2176,10 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                         "animationDelay": "0s",
                       }
                     }
+                    tooltip={true}
                     type="circle"
                   >
-                    <Sd
+                    <yd
                       className="sc-AxhCb eSwYtm animate"
                       country="NO"
                       label="NO:NAVAT07"
@@ -2151,11 +2189,13 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                           "animationDelay": "0s",
                         }
                       }
+                      tooltip={true}
                       type="circle"
                     >
-                      <wt
+                      <kt
                         theme={
                           Object {
+                            "alternative-background-color": "#E9E7E7",
                             "black": "#000000",
                             "border-radius-base": "4px",
                             "border-radius-large": "6px",
@@ -2166,7 +2206,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             "container-md": "(940px + @grid-gutter-width)",
                             "container-sm": "(720px + @grid-gutter-width)",
                             "container-tablet": "(720px + @grid-gutter-width)",
-                            "fokusFarge": "mix(@navBla,#3E3832,40%)",
+                            "fokusFarge": "#254a6c",
                             "grayBackground": "#E9E7E7",
                             "grayIcon": "#B7B1A9",
                             "grayInactive": "#78706A",
@@ -2175,105 +2215,108 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             "grid-float-breakpoint": "768px",
                             "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
                             "grid-gutter-width": "16px",
+                            "inverted-font-color": "#FFFFFF",
                             "line-height-large": "1.3333333",
                             "line-height-small": "1.5",
+                            "main-active-color": "#e0f4fb",
                             "main-background-color": "#FFFFFF",
-                            "main-background-other-color": "#E9E7E7",
+                            "main-border-color": "#78706A",
+                            "main-border-radius": "4px",
                             "main-disabled-color": "#B7B1A9",
                             "main-error-color": "#BA3A26",
-                            "main-focus-color": "mix(@navBla,#3E3832,40%)",
+                            "main-focus-color": "#254a6c",
                             "main-font-color": "#3E3832",
-                            "main-hover-color": "#66CBEC",
+                            "main-hover-color": "#e0f4fb",
                             "main-interactive-color": "#0067C5",
                             "main-success-color": "#06893A",
                             "main-warning-color": "#FF9100",
                             "navBla": "#0067C5",
-                            "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-                            "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-                            "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-                            "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-                            "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-                            "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-                            "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-                            "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+                            "navBlaDarken20": "#0c5da7",
+                            "navBlaDarken40": "#18548a",
+                            "navBlaDarken60": "#254a6c",
+                            "navBlaDarken80": "#31414f",
+                            "navBlaLighten20": "#3385d0",
+                            "navBlaLighten40": "#66a3dc",
+                            "navBlaLighten60": "#99c2e7",
+                            "navBlaLighten80": "#cce0f3",
                             "navDypBla": "#005B82",
-                            "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-                            "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-                            "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-                            "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-                            "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-                            "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-                            "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-                            "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+                            "navDypBlaDarken20": "#0c5472",
+                            "navDypBlaDarken40": "#184d62",
+                            "navDypBlaDarken60": "#254652",
+                            "navDypBlaDarken80": "#313f42",
+                            "navDypBlaLighten20": "#337b9b",
+                            "navDypBlaLighten40": "#669cb4",
+                            "navDypBlaLighten60": "#99bdcd",
+                            "navDypBlaLighten80": "#ccdee6",
                             "navGra20": "#C6C2BF",
                             "navGra40": "#B7B1A9",
                             "navGra60": "#78706A",
                             "navGra80": "#59514B",
                             "navGronn": "#06893A",
-                            "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-                            "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-                            "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-                            "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-                            "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-                            "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-                            "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-                            "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+                            "navGronnDarken20": "#117838",
+                            "navGronnDarken40": "#1c6836",
+                            "navGronnDarken60": "#275835",
+                            "navGronnDarken80": "#324833",
+                            "navGronnLighten20": "#37a061",
+                            "navGronnLighten40": "#69b888",
+                            "navGronnLighten60": "#9bcfb0",
+                            "navGronnLighten80": "#cde7d7",
                             "navLilla": "#634689",
-                            "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-                            "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-                            "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-                            "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-                            "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-                            "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-                            "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-                            "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+                            "navLillaDarken20": "#5b4377",
+                            "navLillaDarken40": "#544066",
+                            "navLillaDarken60": "#4c3d54",
+                            "navLillaDarken80": "#453a43",
+                            "navLillaLighten20": "#826ba0",
+                            "navLillaLighten40": "#a190b8",
+                            "navLillaLighten60": "#c0b5cf",
+                            "navLillaLighten80": "#dfdae7",
                             "navLimeGronn": "#A2AD00",
-                            "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-                            "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-                            "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-                            "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-                            "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-                            "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-                            "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-                            "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+                            "navLimeGronnDarken20": "#8e950a",
+                            "navLimeGronnDarken40": "#7a7e14",
+                            "navLimeGronnDarken60": "#66661e",
+                            "navLimeGronnDarken80": "#524f28",
+                            "navLimeGronnLighten20": "#b4bd33",
+                            "navLimeGronnLighten40": "#c7cd66",
+                            "navLimeGronnLighten60": "#d9de99",
+                            "navLimeGronnLighten80": "#eceecc",
                             "navLysBla": "#66CBEC",
-                            "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-                            "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-                            "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-                            "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-                            "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-                            "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-                            "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-                            "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+                            "navLysBlaDarken20": "#5eadc6",
+                            "navLysBlaDarken40": "#5690a1",
+                            "navLysBlaDarken60": "#4e727c",
+                            "navLysBlaDarken80": "#465557",
+                            "navLysBlaLighten20": "#84d5ef",
+                            "navLysBlaLighten40": "#a3dff3",
+                            "navLysBlaLighten60": "#c1eaf7",
+                            "navLysBlaLighten80": "#e0f4fb",
                             "navLysGra": "#E9E7E7",
                             "navMorkGra": "#3E3832",
                             "navOransje": "#FF9100",
-                            "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-                            "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-                            "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-                            "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-                            "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-                            "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-                            "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-                            "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+                            "navOransjeDarken20": "#d87f0a",
+                            "navOransjeDarken40": "#b16d14",
+                            "navOransjeDarken60": "#8b5b1e",
+                            "navOransjeDarken80": "#644928",
+                            "navOransjeLighten20": "#ffa733",
+                            "navOransjeLighten40": "#ffbd66",
+                            "navOransjeLighten60": "#ffd399",
+                            "navOransjeLighten80": "#ffe9cc",
                             "navRod": "#C30000",
-                            "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-                            "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-                            "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-                            "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-                            "navRodLighten20": "mix(@navRod,#fff,80%)",
-                            "navRodLighten40": "mix(@navRod,#fff,60%)",
-                            "navRodLighten60": "mix(@navRod,#fff,40%)",
-                            "navRodLighten80": "mix(@navRod,#fff,20%)",
+                            "navRodDarken20": "#a80b0a",
+                            "navRodDarken40": "#8d1614",
+                            "navRodDarken60": "#73211e",
+                            "navRodDarken80": "#582c28",
+                            "navRodLighten20": "#cf3333",
+                            "navRodLighten40": "#db6666",
+                            "navRodLighten60": "#e79999",
+                            "navRodLighten80": "#f3cccc",
                             "orangeFocus": "#FFBD66",
-                            "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-                            "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-                            "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-                            "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-                            "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-                            "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-                            "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-                            "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+                            "orangeFocusDarken20": "#d8a25b",
+                            "orangeFocusDarken40": "#b18751",
+                            "orangeFocusDarken60": "#8b6d46",
+                            "orangeFocusDarken80": "#64523c",
+                            "orangeFocusLighten20": "#ffca84",
+                            "orangeFocusLighten40": "#ffd7a3",
+                            "orangeFocusLighten60": "#ffe4c1",
+                            "orangeFocusLighten80": "#fff1e0",
                             "padding-base-horizontal": "12px",
                             "padding-base-vertical": "6px",
                             "padding-large-horizontal": "16px",
@@ -2282,19 +2325,16 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             "padding-small-vertical": "5px",
                             "padding-xs-horizontal": "5px",
                             "padding-xs-vertical": "1px",
-                            "pension-orange": "rgb(255, 167, 51)",
-                            "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-                            "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
                             "pinkErrorBg": "#F3E3E3",
                             "redError": "#BA3A26",
-                            "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-                            "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-                            "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-                            "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-                            "redErrorLighten20": "mix(@redError,#fff,80%)",
-                            "redErrorLighten40": "mix(@redError,#fff,60%)",
-                            "redErrorLighten60": "mix(@redError,#fff,40%)",
-                            "redErrorLighten80": "mix(@redError,#fff,20%)",
+                            "redErrorDarken20": "#a13928",
+                            "redErrorDarken40": "#88392a",
+                            "redErrorDarken60": "#6f382d",
+                            "redErrorDarken80": "#56382f",
+                            "redErrorLighten20": "#c76151",
+                            "redErrorLighten40": "#d5887c",
+                            "redErrorLighten60": "#e3b0a8",
+                            "redErrorLighten80": "#f1d7d3",
                             "screen-desktop": "992px",
                             "screen-lg": "1200px",
                             "screen-lg-desktop": "1200px",
@@ -2312,7 +2352,6 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                           }
                         }
                       >
-                        <Memo(o) />
                         <ForwardRef
                           overlay={
                             <span>
@@ -2592,7 +2631,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                               }
                             >
                               <div
-                                className="sc-AxjAm bcMPWx sc-AxhCb eSwYtm animate size-XL type-circle"
+                                className="sc-AxjAm kvmIIW sc-AxhCb eSwYtm animate size-XL type-circle"
                                 onMouseEnter={[Function]}
                                 onMouseLeave={[Function]}
                                 style={
@@ -2614,1015 +2653,40 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             </styled.div>
                           </e>
                         </ForwardRef>
-                      </wt>
-                    </Sd>
-                  </Styled(Sd)>
-                  <Styled(Sd)
+                      </kt>
+                    </yd>
+                  </Styled(yd)>
+                  <Styled(yd)
                     className="animate"
-                    country="GB"
+                    country="FR"
                     key="1"
-                    label="GB:DEMO001"
+                    label="FR:DEMO001"
                     size="XL"
                     style={
                       Object {
                         "animationDelay": "0.05s",
                       }
                     }
+                    tooltip={true}
                     type="circle"
                   >
-                    <Sd
-                      className="sc-AxhCb eSwYtm animate"
-                      country="GB"
-                      label="GB:DEMO001"
-                      size="XL"
-                      style={
-                        Object {
-                          "animationDelay": "0.05s",
-                        }
-                      }
-                      type="circle"
-                    >
-                      <wt
-                        theme={
-                          Object {
-                            "black": "#000000",
-                            "border-radius-base": "4px",
-                            "border-radius-large": "6px",
-                            "border-radius-small": "2px",
-                            "container-desktop": "(940px + @grid-gutter-width)",
-                            "container-large-desktop": "(1140px + @grid-gutter-width)",
-                            "container-lg": "(1140px + @grid-gutter-width)",
-                            "container-md": "(940px + @grid-gutter-width)",
-                            "container-sm": "(720px + @grid-gutter-width)",
-                            "container-tablet": "(720px + @grid-gutter-width)",
-                            "fokusFarge": "mix(@navBla,#3E3832,40%)",
-                            "grayBackground": "#E9E7E7",
-                            "grayIcon": "#B7B1A9",
-                            "grayInactive": "#78706A",
-                            "grayModia": "#333333",
-                            "grid-columns": "12",
-                            "grid-float-breakpoint": "768px",
-                            "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                            "grid-gutter-width": "16px",
-                            "line-height-large": "1.3333333",
-                            "line-height-small": "1.5",
-                            "main-background-color": "#FFFFFF",
-                            "main-background-other-color": "#E9E7E7",
-                            "main-disabled-color": "#B7B1A9",
-                            "main-error-color": "#BA3A26",
-                            "main-focus-color": "mix(@navBla,#3E3832,40%)",
-                            "main-font-color": "#3E3832",
-                            "main-hover-color": "#66CBEC",
-                            "main-interactive-color": "#0067C5",
-                            "main-success-color": "#06893A",
-                            "main-warning-color": "#FF9100",
-                            "navBla": "#0067C5",
-                            "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-                            "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-                            "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-                            "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-                            "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-                            "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-                            "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-                            "navBlaLighten80": "mix(@navBla,#fff, 20%)",
-                            "navDypBla": "#005B82",
-                            "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-                            "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-                            "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-                            "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-                            "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-                            "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-                            "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-                            "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
-                            "navGra20": "#C6C2BF",
-                            "navGra40": "#B7B1A9",
-                            "navGra60": "#78706A",
-                            "navGra80": "#59514B",
-                            "navGronn": "#06893A",
-                            "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-                            "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-                            "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-                            "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-                            "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-                            "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-                            "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-                            "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
-                            "navLilla": "#634689",
-                            "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-                            "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-                            "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-                            "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-                            "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-                            "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-                            "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-                            "navLillaLighten80": "mix(@navLilla,#fff,20%)",
-                            "navLimeGronn": "#A2AD00",
-                            "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-                            "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-                            "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-                            "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-                            "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-                            "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-                            "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-                            "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
-                            "navLysBla": "#66CBEC",
-                            "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-                            "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-                            "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-                            "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-                            "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-                            "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-                            "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-                            "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
-                            "navLysGra": "#E9E7E7",
-                            "navMorkGra": "#3E3832",
-                            "navOransje": "#FF9100",
-                            "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-                            "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-                            "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-                            "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-                            "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-                            "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-                            "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-                            "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
-                            "navRod": "#C30000",
-                            "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-                            "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-                            "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-                            "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-                            "navRodLighten20": "mix(@navRod,#fff,80%)",
-                            "navRodLighten40": "mix(@navRod,#fff,60%)",
-                            "navRodLighten60": "mix(@navRod,#fff,40%)",
-                            "navRodLighten80": "mix(@navRod,#fff,20%)",
-                            "orangeFocus": "#FFBD66",
-                            "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-                            "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-                            "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-                            "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-                            "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-                            "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-                            "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-                            "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
-                            "padding-base-horizontal": "12px",
-                            "padding-base-vertical": "6px",
-                            "padding-large-horizontal": "16px",
-                            "padding-large-vertical": "10px",
-                            "padding-small-horizontal": "10px",
-                            "padding-small-vertical": "5px",
-                            "padding-xs-horizontal": "5px",
-                            "padding-xs-vertical": "1px",
-                            "pension-orange": "rgb(255, 167, 51)",
-                            "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-                            "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
-                            "pinkErrorBg": "#F3E3E3",
-                            "redError": "#BA3A26",
-                            "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-                            "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-                            "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-                            "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-                            "redErrorLighten20": "mix(@redError,#fff,80%)",
-                            "redErrorLighten40": "mix(@redError,#fff,60%)",
-                            "redErrorLighten60": "mix(@redError,#fff,40%)",
-                            "redErrorLighten80": "mix(@redError,#fff,20%)",
-                            "screen-desktop": "992px",
-                            "screen-lg": "1200px",
-                            "screen-lg-desktop": "1200px",
-                            "screen-lg-min": "1200px",
-                            "screen-md": "992px",
-                            "screen-md-max": "(@screen-lg-min - 1)",
-                            "screen-md-min": "992px",
-                            "screen-sm": "768px",
-                            "screen-sm-max": "(@screen-md-min - 1)",
-                            "screen-sm-min": "768px",
-                            "screen-tablet": "768px",
-                            "screen-xs-max": "(@screen-sm-min - 1)",
-                            "type": "theme",
-                            "white": "#FFFFFF",
-                          }
-                        }
-                      >
-                        <Memo(o) />
-                        <ForwardRef
-                          overlay={
-                            <span>
-                              GB:DEMO001
-                            </span>
-                          }
-                          placement="top"
-                          trigger={
-                            Array [
-                              "hover",
-                            ]
-                          }
-                        >
-                          <e
-                            action={
-                              Array [
-                                "hover",
-                              ]
-                            }
-                            afterPopupVisibleChange={[Function]}
-                            autoDestroy={false}
-                            blurDelay={0.15}
-                            builtinPlacements={
-                              Object {
-                                "bottom": Object {
-                                  "offset": Array [
-                                    0,
-                                    4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tc",
-                                    "bc",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "bottomLeft": Object {
-                                  "offset": Array [
-                                    0,
-                                    4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tl",
-                                    "bl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "bottomRight": Object {
-                                  "offset": Array [
-                                    0,
-                                    4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tr",
-                                    "br",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "left": Object {
-                                  "offset": Array [
-                                    -4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "cr",
-                                    "cl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "leftBottom": Object {
-                                  "offset": Array [
-                                    -4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "br",
-                                    "bl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "leftTop": Object {
-                                  "offset": Array [
-                                    -4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tr",
-                                    "tl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "right": Object {
-                                  "offset": Array [
-                                    4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "cl",
-                                    "cr",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "rightBottom": Object {
-                                  "offset": Array [
-                                    4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "bl",
-                                    "br",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "rightTop": Object {
-                                  "offset": Array [
-                                    4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tl",
-                                    "tr",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "top": Object {
-                                  "offset": Array [
-                                    0,
-                                    -4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "bc",
-                                    "tc",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "topLeft": Object {
-                                  "offset": Array [
-                                    0,
-                                    -4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "bl",
-                                    "tl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "topRight": Object {
-                                  "offset": Array [
-                                    0,
-                                    -4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "br",
-                                    "tr",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                              }
-                            }
-                            defaultPopupVisible={false}
-                            destroyPopupOnHide={false}
-                            focusDelay={0}
-                            getDocument={[Function]}
-                            getPopupClassNameFromAlign={[Function]}
-                            hideAction={Array []}
-                            mask={false}
-                            maskClosable={true}
-                            mouseEnterDelay={0}
-                            mouseLeaveDelay={0.1}
-                            onPopupAlign={[Function]}
-                            onPopupVisibleChange={[Function]}
-                            overlay={
-                              <span>
-                                GB:DEMO001
-                              </span>
-                            }
-                            popup={[Function]}
-                            popupAlign={Object {}}
-                            popupClassName=""
-                            popupPlacement="top"
-                            popupStyle={Object {}}
-                            prefixCls="rc-tooltip"
-                            showAction={Array []}
-                          >
-                            <styled.div
-                              className="sc-AxhCb eSwYtm animate size-XL type-circle"
-                              key="trigger"
-                              onMouseEnter={[Function]}
-                              onMouseLeave={[Function]}
-                              style={
-                                Object {
-                                  "animationDelay": "0.05s",
-                                }
-                              }
-                            >
-                              <div
-                                className="sc-AxjAm bcMPWx sc-AxhCb eSwYtm animate size-XL type-circle"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "animationDelay": "0.05s",
-                                  }
-                                }
-                              >
-                                <img
-                                  alt="GB:DEMO001"
-                                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E %3CclipPath id='t'%3E %3Cpath d='M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z'/%3E %3C/clipPath%3E %3Cpath d='M0,0 v30 h60 v-30 z' fill='%2300247d'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' clip-path='url(%23t)' stroke='%23cf142b' stroke-width='4'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23cf142b' stroke-width='6'/%3E %3C/svg%3E"
-                                  style={
-                                    Object {
-                                      "animationDelay": "0.05s",
-                                    }
-                                  }
-                                />
-                              </div>
-                            </styled.div>
-                          </e>
-                        </ForwardRef>
-                      </wt>
-                    </Sd>
-                  </Styled(Sd)>
-                  <Styled(Sd)
-                    className="animate"
-                    country="UK"
-                    key="2"
-                    label="UK:DEMO001"
-                    size="XL"
-                    style={
-                      Object {
-                        "animationDelay": "0.1s",
-                      }
-                    }
-                    type="circle"
-                  >
-                    <Sd
-                      className="sc-AxhCb eSwYtm animate"
-                      country="UK"
-                      label="UK:DEMO001"
-                      size="XL"
-                      style={
-                        Object {
-                          "animationDelay": "0.1s",
-                        }
-                      }
-                      type="circle"
-                    >
-                      <wt
-                        theme={
-                          Object {
-                            "black": "#000000",
-                            "border-radius-base": "4px",
-                            "border-radius-large": "6px",
-                            "border-radius-small": "2px",
-                            "container-desktop": "(940px + @grid-gutter-width)",
-                            "container-large-desktop": "(1140px + @grid-gutter-width)",
-                            "container-lg": "(1140px + @grid-gutter-width)",
-                            "container-md": "(940px + @grid-gutter-width)",
-                            "container-sm": "(720px + @grid-gutter-width)",
-                            "container-tablet": "(720px + @grid-gutter-width)",
-                            "fokusFarge": "mix(@navBla,#3E3832,40%)",
-                            "grayBackground": "#E9E7E7",
-                            "grayIcon": "#B7B1A9",
-                            "grayInactive": "#78706A",
-                            "grayModia": "#333333",
-                            "grid-columns": "12",
-                            "grid-float-breakpoint": "768px",
-                            "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                            "grid-gutter-width": "16px",
-                            "line-height-large": "1.3333333",
-                            "line-height-small": "1.5",
-                            "main-background-color": "#FFFFFF",
-                            "main-background-other-color": "#E9E7E7",
-                            "main-disabled-color": "#B7B1A9",
-                            "main-error-color": "#BA3A26",
-                            "main-focus-color": "mix(@navBla,#3E3832,40%)",
-                            "main-font-color": "#3E3832",
-                            "main-hover-color": "#66CBEC",
-                            "main-interactive-color": "#0067C5",
-                            "main-success-color": "#06893A",
-                            "main-warning-color": "#FF9100",
-                            "navBla": "#0067C5",
-                            "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-                            "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-                            "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-                            "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-                            "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-                            "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-                            "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-                            "navBlaLighten80": "mix(@navBla,#fff, 20%)",
-                            "navDypBla": "#005B82",
-                            "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-                            "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-                            "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-                            "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-                            "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-                            "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-                            "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-                            "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
-                            "navGra20": "#C6C2BF",
-                            "navGra40": "#B7B1A9",
-                            "navGra60": "#78706A",
-                            "navGra80": "#59514B",
-                            "navGronn": "#06893A",
-                            "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-                            "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-                            "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-                            "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-                            "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-                            "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-                            "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-                            "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
-                            "navLilla": "#634689",
-                            "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-                            "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-                            "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-                            "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-                            "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-                            "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-                            "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-                            "navLillaLighten80": "mix(@navLilla,#fff,20%)",
-                            "navLimeGronn": "#A2AD00",
-                            "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-                            "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-                            "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-                            "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-                            "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-                            "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-                            "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-                            "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
-                            "navLysBla": "#66CBEC",
-                            "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-                            "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-                            "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-                            "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-                            "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-                            "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-                            "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-                            "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
-                            "navLysGra": "#E9E7E7",
-                            "navMorkGra": "#3E3832",
-                            "navOransje": "#FF9100",
-                            "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-                            "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-                            "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-                            "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-                            "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-                            "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-                            "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-                            "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
-                            "navRod": "#C30000",
-                            "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-                            "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-                            "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-                            "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-                            "navRodLighten20": "mix(@navRod,#fff,80%)",
-                            "navRodLighten40": "mix(@navRod,#fff,60%)",
-                            "navRodLighten60": "mix(@navRod,#fff,40%)",
-                            "navRodLighten80": "mix(@navRod,#fff,20%)",
-                            "orangeFocus": "#FFBD66",
-                            "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-                            "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-                            "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-                            "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-                            "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-                            "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-                            "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-                            "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
-                            "padding-base-horizontal": "12px",
-                            "padding-base-vertical": "6px",
-                            "padding-large-horizontal": "16px",
-                            "padding-large-vertical": "10px",
-                            "padding-small-horizontal": "10px",
-                            "padding-small-vertical": "5px",
-                            "padding-xs-horizontal": "5px",
-                            "padding-xs-vertical": "1px",
-                            "pension-orange": "rgb(255, 167, 51)",
-                            "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-                            "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
-                            "pinkErrorBg": "#F3E3E3",
-                            "redError": "#BA3A26",
-                            "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-                            "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-                            "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-                            "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-                            "redErrorLighten20": "mix(@redError,#fff,80%)",
-                            "redErrorLighten40": "mix(@redError,#fff,60%)",
-                            "redErrorLighten60": "mix(@redError,#fff,40%)",
-                            "redErrorLighten80": "mix(@redError,#fff,20%)",
-                            "screen-desktop": "992px",
-                            "screen-lg": "1200px",
-                            "screen-lg-desktop": "1200px",
-                            "screen-lg-min": "1200px",
-                            "screen-md": "992px",
-                            "screen-md-max": "(@screen-lg-min - 1)",
-                            "screen-md-min": "992px",
-                            "screen-sm": "768px",
-                            "screen-sm-max": "(@screen-md-min - 1)",
-                            "screen-sm-min": "768px",
-                            "screen-tablet": "768px",
-                            "screen-xs-max": "(@screen-sm-min - 1)",
-                            "type": "theme",
-                            "white": "#FFFFFF",
-                          }
-                        }
-                      >
-                        <Memo(o) />
-                        <ForwardRef
-                          overlay={
-                            <span>
-                              UK:DEMO001
-                            </span>
-                          }
-                          placement="top"
-                          trigger={
-                            Array [
-                              "hover",
-                            ]
-                          }
-                        >
-                          <e
-                            action={
-                              Array [
-                                "hover",
-                              ]
-                            }
-                            afterPopupVisibleChange={[Function]}
-                            autoDestroy={false}
-                            blurDelay={0.15}
-                            builtinPlacements={
-                              Object {
-                                "bottom": Object {
-                                  "offset": Array [
-                                    0,
-                                    4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tc",
-                                    "bc",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "bottomLeft": Object {
-                                  "offset": Array [
-                                    0,
-                                    4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tl",
-                                    "bl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "bottomRight": Object {
-                                  "offset": Array [
-                                    0,
-                                    4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tr",
-                                    "br",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "left": Object {
-                                  "offset": Array [
-                                    -4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "cr",
-                                    "cl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "leftBottom": Object {
-                                  "offset": Array [
-                                    -4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "br",
-                                    "bl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "leftTop": Object {
-                                  "offset": Array [
-                                    -4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tr",
-                                    "tl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "right": Object {
-                                  "offset": Array [
-                                    4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "cl",
-                                    "cr",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "rightBottom": Object {
-                                  "offset": Array [
-                                    4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "bl",
-                                    "br",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "rightTop": Object {
-                                  "offset": Array [
-                                    4,
-                                    0,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "tl",
-                                    "tr",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "top": Object {
-                                  "offset": Array [
-                                    0,
-                                    -4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "bc",
-                                    "tc",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "topLeft": Object {
-                                  "offset": Array [
-                                    0,
-                                    -4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "bl",
-                                    "tl",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                                "topRight": Object {
-                                  "offset": Array [
-                                    0,
-                                    -4,
-                                  ],
-                                  "overflow": Object {
-                                    "adjustX": 1,
-                                    "adjustY": 1,
-                                  },
-                                  "points": Array [
-                                    "br",
-                                    "tr",
-                                  ],
-                                  "targetOffset": Array [
-                                    0,
-                                    0,
-                                  ],
-                                },
-                              }
-                            }
-                            defaultPopupVisible={false}
-                            destroyPopupOnHide={false}
-                            focusDelay={0}
-                            getDocument={[Function]}
-                            getPopupClassNameFromAlign={[Function]}
-                            hideAction={Array []}
-                            mask={false}
-                            maskClosable={true}
-                            mouseEnterDelay={0}
-                            mouseLeaveDelay={0.1}
-                            onPopupAlign={[Function]}
-                            onPopupVisibleChange={[Function]}
-                            overlay={
-                              <span>
-                                UK:DEMO001
-                              </span>
-                            }
-                            popup={[Function]}
-                            popupAlign={Object {}}
-                            popupClassName=""
-                            popupPlacement="top"
-                            popupStyle={Object {}}
-                            prefixCls="rc-tooltip"
-                            showAction={Array []}
-                          >
-                            <styled.div
-                              className="sc-AxhCb eSwYtm animate size-XL type-circle"
-                              key="trigger"
-                              onMouseEnter={[Function]}
-                              onMouseLeave={[Function]}
-                              style={
-                                Object {
-                                  "animationDelay": "0.1s",
-                                }
-                              }
-                            >
-                              <div
-                                className="sc-AxjAm bcMPWx sc-AxhCb eSwYtm animate size-XL type-circle"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "animationDelay": "0.1s",
-                                  }
-                                }
-                              >
-                                <img
-                                  alt="UK:DEMO001"
-                                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E %3CclipPath id='t'%3E %3Cpath d='M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z'/%3E %3C/clipPath%3E %3Cpath d='M0,0 v30 h60 v-30 z' fill='%2300247d'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' clip-path='url(%23t)' stroke='%23cf142b' stroke-width='4'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23cf142b' stroke-width='6'/%3E %3C/svg%3E"
-                                  style={
-                                    Object {
-                                      "animationDelay": "0.1s",
-                                    }
-                                  }
-                                />
-                              </div>
-                            </styled.div>
-                          </e>
-                        </ForwardRef>
-                      </wt>
-                    </Sd>
-                  </Styled(Sd)>
-                  <Styled(Sd)
-                    className="animate"
-                    country="FR"
-                    key="3"
-                    label="FR:DEMO001"
-                    size="XL"
-                    style={
-                      Object {
-                        "animationDelay": "0.15000000000000002s",
-                      }
-                    }
-                    type="circle"
-                  >
-                    <Sd
+                    <yd
                       className="sc-AxhCb eSwYtm animate"
                       country="FR"
                       label="FR:DEMO001"
                       size="XL"
                       style={
                         Object {
-                          "animationDelay": "0.15000000000000002s",
+                          "animationDelay": "0.05s",
                         }
                       }
+                      tooltip={true}
                       type="circle"
                     >
-                      <wt
+                      <kt
                         theme={
                           Object {
+                            "alternative-background-color": "#E9E7E7",
                             "black": "#000000",
                             "border-radius-base": "4px",
                             "border-radius-large": "6px",
@@ -3633,7 +2697,7 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             "container-md": "(940px + @grid-gutter-width)",
                             "container-sm": "(720px + @grid-gutter-width)",
                             "container-tablet": "(720px + @grid-gutter-width)",
-                            "fokusFarge": "mix(@navBla,#3E3832,40%)",
+                            "fokusFarge": "#254a6c",
                             "grayBackground": "#E9E7E7",
                             "grayIcon": "#B7B1A9",
                             "grayInactive": "#78706A",
@@ -3642,105 +2706,108 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             "grid-float-breakpoint": "768px",
                             "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
                             "grid-gutter-width": "16px",
+                            "inverted-font-color": "#FFFFFF",
                             "line-height-large": "1.3333333",
                             "line-height-small": "1.5",
+                            "main-active-color": "#e0f4fb",
                             "main-background-color": "#FFFFFF",
-                            "main-background-other-color": "#E9E7E7",
+                            "main-border-color": "#78706A",
+                            "main-border-radius": "4px",
                             "main-disabled-color": "#B7B1A9",
                             "main-error-color": "#BA3A26",
-                            "main-focus-color": "mix(@navBla,#3E3832,40%)",
+                            "main-focus-color": "#254a6c",
                             "main-font-color": "#3E3832",
-                            "main-hover-color": "#66CBEC",
+                            "main-hover-color": "#e0f4fb",
                             "main-interactive-color": "#0067C5",
                             "main-success-color": "#06893A",
                             "main-warning-color": "#FF9100",
                             "navBla": "#0067C5",
-                            "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-                            "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-                            "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-                            "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-                            "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-                            "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-                            "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-                            "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+                            "navBlaDarken20": "#0c5da7",
+                            "navBlaDarken40": "#18548a",
+                            "navBlaDarken60": "#254a6c",
+                            "navBlaDarken80": "#31414f",
+                            "navBlaLighten20": "#3385d0",
+                            "navBlaLighten40": "#66a3dc",
+                            "navBlaLighten60": "#99c2e7",
+                            "navBlaLighten80": "#cce0f3",
                             "navDypBla": "#005B82",
-                            "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-                            "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-                            "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-                            "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-                            "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-                            "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-                            "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-                            "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+                            "navDypBlaDarken20": "#0c5472",
+                            "navDypBlaDarken40": "#184d62",
+                            "navDypBlaDarken60": "#254652",
+                            "navDypBlaDarken80": "#313f42",
+                            "navDypBlaLighten20": "#337b9b",
+                            "navDypBlaLighten40": "#669cb4",
+                            "navDypBlaLighten60": "#99bdcd",
+                            "navDypBlaLighten80": "#ccdee6",
                             "navGra20": "#C6C2BF",
                             "navGra40": "#B7B1A9",
                             "navGra60": "#78706A",
                             "navGra80": "#59514B",
                             "navGronn": "#06893A",
-                            "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-                            "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-                            "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-                            "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-                            "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-                            "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-                            "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-                            "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+                            "navGronnDarken20": "#117838",
+                            "navGronnDarken40": "#1c6836",
+                            "navGronnDarken60": "#275835",
+                            "navGronnDarken80": "#324833",
+                            "navGronnLighten20": "#37a061",
+                            "navGronnLighten40": "#69b888",
+                            "navGronnLighten60": "#9bcfb0",
+                            "navGronnLighten80": "#cde7d7",
                             "navLilla": "#634689",
-                            "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-                            "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-                            "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-                            "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-                            "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-                            "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-                            "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-                            "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+                            "navLillaDarken20": "#5b4377",
+                            "navLillaDarken40": "#544066",
+                            "navLillaDarken60": "#4c3d54",
+                            "navLillaDarken80": "#453a43",
+                            "navLillaLighten20": "#826ba0",
+                            "navLillaLighten40": "#a190b8",
+                            "navLillaLighten60": "#c0b5cf",
+                            "navLillaLighten80": "#dfdae7",
                             "navLimeGronn": "#A2AD00",
-                            "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-                            "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-                            "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-                            "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-                            "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-                            "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-                            "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-                            "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+                            "navLimeGronnDarken20": "#8e950a",
+                            "navLimeGronnDarken40": "#7a7e14",
+                            "navLimeGronnDarken60": "#66661e",
+                            "navLimeGronnDarken80": "#524f28",
+                            "navLimeGronnLighten20": "#b4bd33",
+                            "navLimeGronnLighten40": "#c7cd66",
+                            "navLimeGronnLighten60": "#d9de99",
+                            "navLimeGronnLighten80": "#eceecc",
                             "navLysBla": "#66CBEC",
-                            "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-                            "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-                            "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-                            "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-                            "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-                            "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-                            "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-                            "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+                            "navLysBlaDarken20": "#5eadc6",
+                            "navLysBlaDarken40": "#5690a1",
+                            "navLysBlaDarken60": "#4e727c",
+                            "navLysBlaDarken80": "#465557",
+                            "navLysBlaLighten20": "#84d5ef",
+                            "navLysBlaLighten40": "#a3dff3",
+                            "navLysBlaLighten60": "#c1eaf7",
+                            "navLysBlaLighten80": "#e0f4fb",
                             "navLysGra": "#E9E7E7",
                             "navMorkGra": "#3E3832",
                             "navOransje": "#FF9100",
-                            "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-                            "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-                            "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-                            "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-                            "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-                            "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-                            "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-                            "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+                            "navOransjeDarken20": "#d87f0a",
+                            "navOransjeDarken40": "#b16d14",
+                            "navOransjeDarken60": "#8b5b1e",
+                            "navOransjeDarken80": "#644928",
+                            "navOransjeLighten20": "#ffa733",
+                            "navOransjeLighten40": "#ffbd66",
+                            "navOransjeLighten60": "#ffd399",
+                            "navOransjeLighten80": "#ffe9cc",
                             "navRod": "#C30000",
-                            "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-                            "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-                            "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-                            "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-                            "navRodLighten20": "mix(@navRod,#fff,80%)",
-                            "navRodLighten40": "mix(@navRod,#fff,60%)",
-                            "navRodLighten60": "mix(@navRod,#fff,40%)",
-                            "navRodLighten80": "mix(@navRod,#fff,20%)",
+                            "navRodDarken20": "#a80b0a",
+                            "navRodDarken40": "#8d1614",
+                            "navRodDarken60": "#73211e",
+                            "navRodDarken80": "#582c28",
+                            "navRodLighten20": "#cf3333",
+                            "navRodLighten40": "#db6666",
+                            "navRodLighten60": "#e79999",
+                            "navRodLighten80": "#f3cccc",
                             "orangeFocus": "#FFBD66",
-                            "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-                            "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-                            "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-                            "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-                            "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-                            "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-                            "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-                            "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+                            "orangeFocusDarken20": "#d8a25b",
+                            "orangeFocusDarken40": "#b18751",
+                            "orangeFocusDarken60": "#8b6d46",
+                            "orangeFocusDarken80": "#64523c",
+                            "orangeFocusLighten20": "#ffca84",
+                            "orangeFocusLighten40": "#ffd7a3",
+                            "orangeFocusLighten60": "#ffe4c1",
+                            "orangeFocusLighten80": "#fff1e0",
                             "padding-base-horizontal": "12px",
                             "padding-base-vertical": "6px",
                             "padding-large-horizontal": "16px",
@@ -3749,19 +2816,16 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             "padding-small-vertical": "5px",
                             "padding-xs-horizontal": "5px",
                             "padding-xs-vertical": "1px",
-                            "pension-orange": "rgb(255, 167, 51)",
-                            "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-                            "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
                             "pinkErrorBg": "#F3E3E3",
                             "redError": "#BA3A26",
-                            "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-                            "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-                            "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-                            "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-                            "redErrorLighten20": "mix(@redError,#fff,80%)",
-                            "redErrorLighten40": "mix(@redError,#fff,60%)",
-                            "redErrorLighten60": "mix(@redError,#fff,40%)",
-                            "redErrorLighten80": "mix(@redError,#fff,20%)",
+                            "redErrorDarken20": "#a13928",
+                            "redErrorDarken40": "#88392a",
+                            "redErrorDarken60": "#6f382d",
+                            "redErrorDarken80": "#56382f",
+                            "redErrorLighten20": "#c76151",
+                            "redErrorLighten40": "#d5887c",
+                            "redErrorLighten60": "#e3b0a8",
+                            "redErrorLighten80": "#f1d7d3",
                             "screen-desktop": "992px",
                             "screen-lg": "1200px",
                             "screen-lg-desktop": "1200px",
@@ -3779,7 +2843,6 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                           }
                         }
                       >
-                        <Memo(o) />
                         <ForwardRef
                           overlay={
                             <span>
@@ -4054,12 +3117,994 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                               onMouseLeave={[Function]}
                               style={
                                 Object {
+                                  "animationDelay": "0.05s",
+                                }
+                              }
+                            >
+                              <div
+                                className="sc-AxjAm kvmIIW sc-AxhCb eSwYtm animate size-XL type-circle"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
+                                style={
+                                  Object {
+                                    "animationDelay": "0.05s",
+                                  }
+                                }
+                              >
+                                <img
+                                  alt="FR:DEMO001"
+                                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E %3Crect width='3' height='2' fill='%23ED2939'/%3E %3Crect width='2' height='2' fill='%23fff'/%3E %3Crect width='1' height='2' fill='%23002395'/%3E %3C/svg%3E"
+                                  style={
+                                    Object {
+                                      "animationDelay": "0.05s",
+                                    }
+                                  }
+                                />
+                              </div>
+                            </styled.div>
+                          </e>
+                        </ForwardRef>
+                      </kt>
+                    </yd>
+                  </Styled(yd)>
+                  <Styled(yd)
+                    className="animate"
+                    country="GB"
+                    key="2"
+                    label="GB:DEMO001"
+                    size="XL"
+                    style={
+                      Object {
+                        "animationDelay": "0.1s",
+                      }
+                    }
+                    tooltip={true}
+                    type="circle"
+                  >
+                    <yd
+                      className="sc-AxhCb eSwYtm animate"
+                      country="GB"
+                      label="GB:DEMO001"
+                      size="XL"
+                      style={
+                        Object {
+                          "animationDelay": "0.1s",
+                        }
+                      }
+                      tooltip={true}
+                      type="circle"
+                    >
+                      <kt
+                        theme={
+                          Object {
+                            "alternative-background-color": "#E9E7E7",
+                            "black": "#000000",
+                            "border-radius-base": "4px",
+                            "border-radius-large": "6px",
+                            "border-radius-small": "2px",
+                            "container-desktop": "(940px + @grid-gutter-width)",
+                            "container-large-desktop": "(1140px + @grid-gutter-width)",
+                            "container-lg": "(1140px + @grid-gutter-width)",
+                            "container-md": "(940px + @grid-gutter-width)",
+                            "container-sm": "(720px + @grid-gutter-width)",
+                            "container-tablet": "(720px + @grid-gutter-width)",
+                            "fokusFarge": "#254a6c",
+                            "grayBackground": "#E9E7E7",
+                            "grayIcon": "#B7B1A9",
+                            "grayInactive": "#78706A",
+                            "grayModia": "#333333",
+                            "grid-columns": "12",
+                            "grid-float-breakpoint": "768px",
+                            "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+                            "grid-gutter-width": "16px",
+                            "inverted-font-color": "#FFFFFF",
+                            "line-height-large": "1.3333333",
+                            "line-height-small": "1.5",
+                            "main-active-color": "#e0f4fb",
+                            "main-background-color": "#FFFFFF",
+                            "main-border-color": "#78706A",
+                            "main-border-radius": "4px",
+                            "main-disabled-color": "#B7B1A9",
+                            "main-error-color": "#BA3A26",
+                            "main-focus-color": "#254a6c",
+                            "main-font-color": "#3E3832",
+                            "main-hover-color": "#e0f4fb",
+                            "main-interactive-color": "#0067C5",
+                            "main-success-color": "#06893A",
+                            "main-warning-color": "#FF9100",
+                            "navBla": "#0067C5",
+                            "navBlaDarken20": "#0c5da7",
+                            "navBlaDarken40": "#18548a",
+                            "navBlaDarken60": "#254a6c",
+                            "navBlaDarken80": "#31414f",
+                            "navBlaLighten20": "#3385d0",
+                            "navBlaLighten40": "#66a3dc",
+                            "navBlaLighten60": "#99c2e7",
+                            "navBlaLighten80": "#cce0f3",
+                            "navDypBla": "#005B82",
+                            "navDypBlaDarken20": "#0c5472",
+                            "navDypBlaDarken40": "#184d62",
+                            "navDypBlaDarken60": "#254652",
+                            "navDypBlaDarken80": "#313f42",
+                            "navDypBlaLighten20": "#337b9b",
+                            "navDypBlaLighten40": "#669cb4",
+                            "navDypBlaLighten60": "#99bdcd",
+                            "navDypBlaLighten80": "#ccdee6",
+                            "navGra20": "#C6C2BF",
+                            "navGra40": "#B7B1A9",
+                            "navGra60": "#78706A",
+                            "navGra80": "#59514B",
+                            "navGronn": "#06893A",
+                            "navGronnDarken20": "#117838",
+                            "navGronnDarken40": "#1c6836",
+                            "navGronnDarken60": "#275835",
+                            "navGronnDarken80": "#324833",
+                            "navGronnLighten20": "#37a061",
+                            "navGronnLighten40": "#69b888",
+                            "navGronnLighten60": "#9bcfb0",
+                            "navGronnLighten80": "#cde7d7",
+                            "navLilla": "#634689",
+                            "navLillaDarken20": "#5b4377",
+                            "navLillaDarken40": "#544066",
+                            "navLillaDarken60": "#4c3d54",
+                            "navLillaDarken80": "#453a43",
+                            "navLillaLighten20": "#826ba0",
+                            "navLillaLighten40": "#a190b8",
+                            "navLillaLighten60": "#c0b5cf",
+                            "navLillaLighten80": "#dfdae7",
+                            "navLimeGronn": "#A2AD00",
+                            "navLimeGronnDarken20": "#8e950a",
+                            "navLimeGronnDarken40": "#7a7e14",
+                            "navLimeGronnDarken60": "#66661e",
+                            "navLimeGronnDarken80": "#524f28",
+                            "navLimeGronnLighten20": "#b4bd33",
+                            "navLimeGronnLighten40": "#c7cd66",
+                            "navLimeGronnLighten60": "#d9de99",
+                            "navLimeGronnLighten80": "#eceecc",
+                            "navLysBla": "#66CBEC",
+                            "navLysBlaDarken20": "#5eadc6",
+                            "navLysBlaDarken40": "#5690a1",
+                            "navLysBlaDarken60": "#4e727c",
+                            "navLysBlaDarken80": "#465557",
+                            "navLysBlaLighten20": "#84d5ef",
+                            "navLysBlaLighten40": "#a3dff3",
+                            "navLysBlaLighten60": "#c1eaf7",
+                            "navLysBlaLighten80": "#e0f4fb",
+                            "navLysGra": "#E9E7E7",
+                            "navMorkGra": "#3E3832",
+                            "navOransje": "#FF9100",
+                            "navOransjeDarken20": "#d87f0a",
+                            "navOransjeDarken40": "#b16d14",
+                            "navOransjeDarken60": "#8b5b1e",
+                            "navOransjeDarken80": "#644928",
+                            "navOransjeLighten20": "#ffa733",
+                            "navOransjeLighten40": "#ffbd66",
+                            "navOransjeLighten60": "#ffd399",
+                            "navOransjeLighten80": "#ffe9cc",
+                            "navRod": "#C30000",
+                            "navRodDarken20": "#a80b0a",
+                            "navRodDarken40": "#8d1614",
+                            "navRodDarken60": "#73211e",
+                            "navRodDarken80": "#582c28",
+                            "navRodLighten20": "#cf3333",
+                            "navRodLighten40": "#db6666",
+                            "navRodLighten60": "#e79999",
+                            "navRodLighten80": "#f3cccc",
+                            "orangeFocus": "#FFBD66",
+                            "orangeFocusDarken20": "#d8a25b",
+                            "orangeFocusDarken40": "#b18751",
+                            "orangeFocusDarken60": "#8b6d46",
+                            "orangeFocusDarken80": "#64523c",
+                            "orangeFocusLighten20": "#ffca84",
+                            "orangeFocusLighten40": "#ffd7a3",
+                            "orangeFocusLighten60": "#ffe4c1",
+                            "orangeFocusLighten80": "#fff1e0",
+                            "padding-base-horizontal": "12px",
+                            "padding-base-vertical": "6px",
+                            "padding-large-horizontal": "16px",
+                            "padding-large-vertical": "10px",
+                            "padding-small-horizontal": "10px",
+                            "padding-small-vertical": "5px",
+                            "padding-xs-horizontal": "5px",
+                            "padding-xs-vertical": "1px",
+                            "pinkErrorBg": "#F3E3E3",
+                            "redError": "#BA3A26",
+                            "redErrorDarken20": "#a13928",
+                            "redErrorDarken40": "#88392a",
+                            "redErrorDarken60": "#6f382d",
+                            "redErrorDarken80": "#56382f",
+                            "redErrorLighten20": "#c76151",
+                            "redErrorLighten40": "#d5887c",
+                            "redErrorLighten60": "#e3b0a8",
+                            "redErrorLighten80": "#f1d7d3",
+                            "screen-desktop": "992px",
+                            "screen-lg": "1200px",
+                            "screen-lg-desktop": "1200px",
+                            "screen-lg-min": "1200px",
+                            "screen-md": "992px",
+                            "screen-md-max": "(@screen-lg-min - 1)",
+                            "screen-md-min": "992px",
+                            "screen-sm": "768px",
+                            "screen-sm-max": "(@screen-md-min - 1)",
+                            "screen-sm-min": "768px",
+                            "screen-tablet": "768px",
+                            "screen-xs-max": "(@screen-sm-min - 1)",
+                            "type": "theme",
+                            "white": "#FFFFFF",
+                          }
+                        }
+                      >
+                        <ForwardRef
+                          overlay={
+                            <span>
+                              GB:DEMO001
+                            </span>
+                          }
+                          placement="top"
+                          trigger={
+                            Array [
+                              "hover",
+                            ]
+                          }
+                        >
+                          <e
+                            action={
+                              Array [
+                                "hover",
+                              ]
+                            }
+                            afterPopupVisibleChange={[Function]}
+                            autoDestroy={false}
+                            blurDelay={0.15}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            defaultPopupVisible={false}
+                            destroyPopupOnHide={false}
+                            focusDelay={0}
+                            getDocument={[Function]}
+                            getPopupClassNameFromAlign={[Function]}
+                            hideAction={Array []}
+                            mask={false}
+                            maskClosable={true}
+                            mouseEnterDelay={0}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onPopupVisibleChange={[Function]}
+                            overlay={
+                              <span>
+                                GB:DEMO001
+                              </span>
+                            }
+                            popup={[Function]}
+                            popupAlign={Object {}}
+                            popupClassName=""
+                            popupPlacement="top"
+                            popupStyle={Object {}}
+                            prefixCls="rc-tooltip"
+                            showAction={Array []}
+                          >
+                            <styled.div
+                              className="sc-AxhCb eSwYtm animate size-XL type-circle"
+                              key="trigger"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              style={
+                                Object {
+                                  "animationDelay": "0.1s",
+                                }
+                              }
+                            >
+                              <div
+                                className="sc-AxjAm kvmIIW sc-AxhCb eSwYtm animate size-XL type-circle"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
+                                style={
+                                  Object {
+                                    "animationDelay": "0.1s",
+                                  }
+                                }
+                              >
+                                <img
+                                  alt="GB:DEMO001"
+                                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E %3CclipPath id='t'%3E %3Cpath d='M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z'/%3E %3C/clipPath%3E %3Cpath d='M0,0 v30 h60 v-30 z' fill='%2300247d'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' clip-path='url(%23t)' stroke='%23cf142b' stroke-width='4'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23cf142b' stroke-width='6'/%3E %3C/svg%3E"
+                                  style={
+                                    Object {
+                                      "animationDelay": "0.1s",
+                                    }
+                                  }
+                                />
+                              </div>
+                            </styled.div>
+                          </e>
+                        </ForwardRef>
+                      </kt>
+                    </yd>
+                  </Styled(yd)>
+                  <Styled(yd)
+                    className="animate"
+                    country="UK"
+                    key="3"
+                    label="UK:DEMO001"
+                    size="XL"
+                    style={
+                      Object {
+                        "animationDelay": "0.15000000000000002s",
+                      }
+                    }
+                    tooltip={true}
+                    type="circle"
+                  >
+                    <yd
+                      className="sc-AxhCb eSwYtm animate"
+                      country="UK"
+                      label="UK:DEMO001"
+                      size="XL"
+                      style={
+                        Object {
+                          "animationDelay": "0.15000000000000002s",
+                        }
+                      }
+                      tooltip={true}
+                      type="circle"
+                    >
+                      <kt
+                        theme={
+                          Object {
+                            "alternative-background-color": "#E9E7E7",
+                            "black": "#000000",
+                            "border-radius-base": "4px",
+                            "border-radius-large": "6px",
+                            "border-radius-small": "2px",
+                            "container-desktop": "(940px + @grid-gutter-width)",
+                            "container-large-desktop": "(1140px + @grid-gutter-width)",
+                            "container-lg": "(1140px + @grid-gutter-width)",
+                            "container-md": "(940px + @grid-gutter-width)",
+                            "container-sm": "(720px + @grid-gutter-width)",
+                            "container-tablet": "(720px + @grid-gutter-width)",
+                            "fokusFarge": "#254a6c",
+                            "grayBackground": "#E9E7E7",
+                            "grayIcon": "#B7B1A9",
+                            "grayInactive": "#78706A",
+                            "grayModia": "#333333",
+                            "grid-columns": "12",
+                            "grid-float-breakpoint": "768px",
+                            "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+                            "grid-gutter-width": "16px",
+                            "inverted-font-color": "#FFFFFF",
+                            "line-height-large": "1.3333333",
+                            "line-height-small": "1.5",
+                            "main-active-color": "#e0f4fb",
+                            "main-background-color": "#FFFFFF",
+                            "main-border-color": "#78706A",
+                            "main-border-radius": "4px",
+                            "main-disabled-color": "#B7B1A9",
+                            "main-error-color": "#BA3A26",
+                            "main-focus-color": "#254a6c",
+                            "main-font-color": "#3E3832",
+                            "main-hover-color": "#e0f4fb",
+                            "main-interactive-color": "#0067C5",
+                            "main-success-color": "#06893A",
+                            "main-warning-color": "#FF9100",
+                            "navBla": "#0067C5",
+                            "navBlaDarken20": "#0c5da7",
+                            "navBlaDarken40": "#18548a",
+                            "navBlaDarken60": "#254a6c",
+                            "navBlaDarken80": "#31414f",
+                            "navBlaLighten20": "#3385d0",
+                            "navBlaLighten40": "#66a3dc",
+                            "navBlaLighten60": "#99c2e7",
+                            "navBlaLighten80": "#cce0f3",
+                            "navDypBla": "#005B82",
+                            "navDypBlaDarken20": "#0c5472",
+                            "navDypBlaDarken40": "#184d62",
+                            "navDypBlaDarken60": "#254652",
+                            "navDypBlaDarken80": "#313f42",
+                            "navDypBlaLighten20": "#337b9b",
+                            "navDypBlaLighten40": "#669cb4",
+                            "navDypBlaLighten60": "#99bdcd",
+                            "navDypBlaLighten80": "#ccdee6",
+                            "navGra20": "#C6C2BF",
+                            "navGra40": "#B7B1A9",
+                            "navGra60": "#78706A",
+                            "navGra80": "#59514B",
+                            "navGronn": "#06893A",
+                            "navGronnDarken20": "#117838",
+                            "navGronnDarken40": "#1c6836",
+                            "navGronnDarken60": "#275835",
+                            "navGronnDarken80": "#324833",
+                            "navGronnLighten20": "#37a061",
+                            "navGronnLighten40": "#69b888",
+                            "navGronnLighten60": "#9bcfb0",
+                            "navGronnLighten80": "#cde7d7",
+                            "navLilla": "#634689",
+                            "navLillaDarken20": "#5b4377",
+                            "navLillaDarken40": "#544066",
+                            "navLillaDarken60": "#4c3d54",
+                            "navLillaDarken80": "#453a43",
+                            "navLillaLighten20": "#826ba0",
+                            "navLillaLighten40": "#a190b8",
+                            "navLillaLighten60": "#c0b5cf",
+                            "navLillaLighten80": "#dfdae7",
+                            "navLimeGronn": "#A2AD00",
+                            "navLimeGronnDarken20": "#8e950a",
+                            "navLimeGronnDarken40": "#7a7e14",
+                            "navLimeGronnDarken60": "#66661e",
+                            "navLimeGronnDarken80": "#524f28",
+                            "navLimeGronnLighten20": "#b4bd33",
+                            "navLimeGronnLighten40": "#c7cd66",
+                            "navLimeGronnLighten60": "#d9de99",
+                            "navLimeGronnLighten80": "#eceecc",
+                            "navLysBla": "#66CBEC",
+                            "navLysBlaDarken20": "#5eadc6",
+                            "navLysBlaDarken40": "#5690a1",
+                            "navLysBlaDarken60": "#4e727c",
+                            "navLysBlaDarken80": "#465557",
+                            "navLysBlaLighten20": "#84d5ef",
+                            "navLysBlaLighten40": "#a3dff3",
+                            "navLysBlaLighten60": "#c1eaf7",
+                            "navLysBlaLighten80": "#e0f4fb",
+                            "navLysGra": "#E9E7E7",
+                            "navMorkGra": "#3E3832",
+                            "navOransje": "#FF9100",
+                            "navOransjeDarken20": "#d87f0a",
+                            "navOransjeDarken40": "#b16d14",
+                            "navOransjeDarken60": "#8b5b1e",
+                            "navOransjeDarken80": "#644928",
+                            "navOransjeLighten20": "#ffa733",
+                            "navOransjeLighten40": "#ffbd66",
+                            "navOransjeLighten60": "#ffd399",
+                            "navOransjeLighten80": "#ffe9cc",
+                            "navRod": "#C30000",
+                            "navRodDarken20": "#a80b0a",
+                            "navRodDarken40": "#8d1614",
+                            "navRodDarken60": "#73211e",
+                            "navRodDarken80": "#582c28",
+                            "navRodLighten20": "#cf3333",
+                            "navRodLighten40": "#db6666",
+                            "navRodLighten60": "#e79999",
+                            "navRodLighten80": "#f3cccc",
+                            "orangeFocus": "#FFBD66",
+                            "orangeFocusDarken20": "#d8a25b",
+                            "orangeFocusDarken40": "#b18751",
+                            "orangeFocusDarken60": "#8b6d46",
+                            "orangeFocusDarken80": "#64523c",
+                            "orangeFocusLighten20": "#ffca84",
+                            "orangeFocusLighten40": "#ffd7a3",
+                            "orangeFocusLighten60": "#ffe4c1",
+                            "orangeFocusLighten80": "#fff1e0",
+                            "padding-base-horizontal": "12px",
+                            "padding-base-vertical": "6px",
+                            "padding-large-horizontal": "16px",
+                            "padding-large-vertical": "10px",
+                            "padding-small-horizontal": "10px",
+                            "padding-small-vertical": "5px",
+                            "padding-xs-horizontal": "5px",
+                            "padding-xs-vertical": "1px",
+                            "pinkErrorBg": "#F3E3E3",
+                            "redError": "#BA3A26",
+                            "redErrorDarken20": "#a13928",
+                            "redErrorDarken40": "#88392a",
+                            "redErrorDarken60": "#6f382d",
+                            "redErrorDarken80": "#56382f",
+                            "redErrorLighten20": "#c76151",
+                            "redErrorLighten40": "#d5887c",
+                            "redErrorLighten60": "#e3b0a8",
+                            "redErrorLighten80": "#f1d7d3",
+                            "screen-desktop": "992px",
+                            "screen-lg": "1200px",
+                            "screen-lg-desktop": "1200px",
+                            "screen-lg-min": "1200px",
+                            "screen-md": "992px",
+                            "screen-md-max": "(@screen-lg-min - 1)",
+                            "screen-md-min": "992px",
+                            "screen-sm": "768px",
+                            "screen-sm-max": "(@screen-md-min - 1)",
+                            "screen-sm-min": "768px",
+                            "screen-tablet": "768px",
+                            "screen-xs-max": "(@screen-sm-min - 1)",
+                            "type": "theme",
+                            "white": "#FFFFFF",
+                          }
+                        }
+                      >
+                        <ForwardRef
+                          overlay={
+                            <span>
+                              UK:DEMO001
+                            </span>
+                          }
+                          placement="top"
+                          trigger={
+                            Array [
+                              "hover",
+                            ]
+                          }
+                        >
+                          <e
+                            action={
+                              Array [
+                                "hover",
+                              ]
+                            }
+                            afterPopupVisibleChange={[Function]}
+                            autoDestroy={false}
+                            blurDelay={0.15}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            defaultPopupVisible={false}
+                            destroyPopupOnHide={false}
+                            focusDelay={0}
+                            getDocument={[Function]}
+                            getPopupClassNameFromAlign={[Function]}
+                            hideAction={Array []}
+                            mask={false}
+                            maskClosable={true}
+                            mouseEnterDelay={0}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onPopupVisibleChange={[Function]}
+                            overlay={
+                              <span>
+                                UK:DEMO001
+                              </span>
+                            }
+                            popup={[Function]}
+                            popupAlign={Object {}}
+                            popupClassName=""
+                            popupPlacement="top"
+                            popupStyle={Object {}}
+                            prefixCls="rc-tooltip"
+                            showAction={Array []}
+                          >
+                            <styled.div
+                              className="sc-AxhCb eSwYtm animate size-XL type-circle"
+                              key="trigger"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              style={
+                                Object {
                                   "animationDelay": "0.15000000000000002s",
                                 }
                               }
                             >
                               <div
-                                className="sc-AxjAm bcMPWx sc-AxhCb eSwYtm animate size-XL type-circle"
+                                className="sc-AxjAm kvmIIW sc-AxhCb eSwYtm animate size-XL type-circle"
                                 onMouseEnter={[Function]}
                                 onMouseLeave={[Function]}
                                 style={
@@ -4069,8 +4114,8 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                                 }
                               >
                                 <img
-                                  alt="FR:DEMO001"
-                                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E %3Crect width='3' height='2' fill='%23ED2939'/%3E %3Crect width='2' height='2' fill='%23fff'/%3E %3Crect width='1' height='2' fill='%23002395'/%3E %3C/svg%3E"
+                                  alt="UK:DEMO001"
+                                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E %3CclipPath id='t'%3E %3Cpath d='M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z'/%3E %3C/clipPath%3E %3Cpath d='M0,0 v30 h60 v-30 z' fill='%2300247d'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/%3E %3Cpath d='M0,0 L60,30 M60,0 L0,30' clip-path='url(%23t)' stroke='%23cf142b' stroke-width='4'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3E %3Cpath d='M30,0 v30 M0,15 h60' stroke='%23cf142b' stroke-width='6'/%3E %3C/svg%3E"
                                   style={
                                     Object {
                                       "animationDelay": "0.15000000000000002s",
@@ -4081,9 +4126,9 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                             </styled.div>
                           </e>
                         </ForwardRef>
-                      </wt>
-                    </Sd>
-                  </Styled(Sd)>
+                      </kt>
+                    </yd>
+                  </Styled(yd)>
                 </FlagList>
                 <ForwardRef(Tooltip)
                   overlay={
@@ -4353,14 +4398,16 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                     showAction={Array []}
                   >
                     <styled.div
-                      data-testId="a-buc-c-bucheader__icon-numberofseds"
+                      data-icon-size="XL"
+                      data-test-id="a-buc-c-bucheader__icon-numberofseds-id"
                       key="trigger"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                     >
                       <div
-                        className="sc-fznZeY doBZUO"
-                        data-testId="a-buc-c-bucheader__icon-numberofseds"
+                        className="sc-ezzayL biSojA"
+                        data-icon-size="XL"
+                        data-test-id="a-buc-c-bucheader__icon-numberofseds-id"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                       >
@@ -4637,14 +4684,14 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                     showAction={Array []}
                   >
                     <styled.div
-                      data-testId="a-buc-c-bucheader__icon-tags"
+                      data-test-id="a-buc-c-bucheader__icon-tags-id"
                       key="trigger"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                     >
                       <div
-                        className="sc-fznKkj gohpvn"
-                        data-testId="a-buc-c-bucheader__icon-tags"
+                        className="sc-jJMGHv bMDUUI"
+                        data-test-id="a-buc-c-bucheader__icon-tags-id"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                       >
@@ -4669,49 +4716,11 @@ exports[`applications/BUC/components/BUCHeader/BUCHeader Renders 1`] = `
                   </Trigger>
                 </ForwardRef(Tooltip)>
               </div>
-            </styled.div>
-            <styled.div
-              test-id="a-buc-c-bucheader__actions"
-            >
-              <div
-                className="sc-fzpans fTrvZx"
-              >
-                <Styled(Lenke)
-                  className="knapp knapp--kompakt"
-                  data-amplitude="buc.list.editbuc"
-                  data-testId="a-buc-c-bucheader__bucedit-link-id"
-                  href="#P_BUC_01"
-                  onClick={[Function]}
-                >
-                  <Lenke
-                    className="sc-fzqBZW cVaXCZ knapp knapp--kompakt"
-                    data-amplitude="buc.list.editbuc"
-                    data-testId="a-buc-c-bucheader__bucedit-link-id"
-                    href="#P_BUC_01"
-                    onClick={[Function]}
-                  >
-                    <a
-                      className="lenke sc-fzqBZW cVaXCZ knapp knapp--kompakt"
-                      data-amplitude="buc.list.editbuc"
-                      data-testId="a-buc-c-bucheader__bucedit-link-id"
-                      href="#P_BUC_01"
-                      onClick={[Function]}
-                    >
-                      ui:processing
-                    </a>
-                  </Lenke>
-                </Styled(Lenke)>
-                <styled.div>
-                  <div
-                    className="sc-AxhUy ZSxJi"
-                  />
-                </styled.div>
-              </div>
-            </styled.div>
+            </Styled(styled.div)>
           </div>
-        </styled.div>
+        </Styled(styled.div)>
       </div>
     </styled.div>
-  </ThemeProvider>
+  </Component>
 </BUCHeader>
 `;

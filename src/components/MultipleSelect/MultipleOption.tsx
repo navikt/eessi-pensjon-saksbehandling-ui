@@ -35,7 +35,7 @@ const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProp
     >
       <ThemeProvider theme={theme}>
         <OptionCheckbox
-          data-testid={'c-multipleOption__checkbox-' + id}
+          data-test-id={'c-multipleOption__checkbox-' + id}
           label={data.label}
           onChange={(e) => {
             e.preventDefault()

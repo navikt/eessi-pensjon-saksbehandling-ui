@@ -98,12 +98,12 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDSearchPanel
-        data-testid='a-buc-c-sedsearch__panel-id'
+        data-test-id='a-buc-c-sedsearch__panel-id'
         className={className}
       >
         <PaddedDiv>
           <SearchInput
-            data-testid='a-buc-c-sedsearch__query-input-id'
+            data-test-id='a-buc-c-sedsearch__query-input-id'
             label=''
             bredde='fullbredde'
             value={_query || ''}
@@ -116,7 +116,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
             highContrast={highContrast}
             ariaLabel={t('buc:form-searchForStatus')}
             label=''
-            data-testid='a-buc-c-sedsearch__status-select-id'
+            data-test-id='a-buc-c-sedsearch__status-select-id'
             placeholder={t('buc:form-searchForStatus')}
             values={_status}
             hideSelectedOptions={false}

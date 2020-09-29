@@ -300,7 +300,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
           {!newBucPanelOpen && (
             <HighContrastKnapp
               data-amplitude='buc.list.newbuc'
-              data-testid='a-buc-p-buclist__newbuc-button-id'
+              data-test-id='a-buc-p-buclist__newbuc-button-id'
               onClick={onBUCNew}
             >
               {t('buc:form-createNewCase')}
@@ -366,7 +366,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
                 <BucLenkePanel
                   href='#'
                   border
-                  data-testid={'a-buc-p-buclist__buc-' + bucId}
+                  data-test-id={'a-buc-p-buclist__buc-' + bucId}
                   key={index}
                   className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
                   style={{ animationDelay: (0.2 * index) + 's' }}

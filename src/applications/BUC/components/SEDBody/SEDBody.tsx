@@ -232,7 +232,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         ) : (
           <>
             <HighContrastKnapp
-              data-testid='a-buc-c-sedattachments-button-id'
+              data-test-id='a-buc-c-sedattachments-button-id'
               onClick={() => !attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
             >
               {t(attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}

@@ -110,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
         <BrandDiv>
           <a
             href='#index'
-            data-testid='c-topHeader__logo-link'
+            data-test-id='c-topHeader__logo-link'
             onClick={onLogoClick}
           >
             <NavLogoTransparent width='100' height='45' color='white' />

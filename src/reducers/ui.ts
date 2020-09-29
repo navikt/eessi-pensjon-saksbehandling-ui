@@ -1,4 +1,5 @@
 import * as types from 'constants/actionTypes'
+import { WidthSize } from 'declarations/app'
 import { AllowedLocaleString } from 'declarations/types'
 import { ModalContent } from 'declarations/components'
 import { ActionWithPayload } from 'js-fetch-api'
@@ -11,6 +12,7 @@ export interface UiState {
   modal: ModalContent | undefined
   footerOpen: false
   highContrast: false
+  size: WidthSize | undefined
 }
 
 export const initialUiState: UiState = {
@@ -18,7 +20,8 @@ export const initialUiState: UiState = {
   locale: i18n.language as AllowedLocaleString,
   modal: undefined,
   footerOpen: false,
-  highContrast: false
+  highContrast: false,
+  size: undefined
 }
 
 const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithPayload) => {
@@ -51,6 +54,11 @@ const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithP
         highContrast: !state.highContrast
       }
 
+    case types.UI_WIDTH_SET:
+      return {
+        ...state,
+        size: ((action as ActionWithPayload).payload as WidthSize)
+      }
     default:
 
       return state

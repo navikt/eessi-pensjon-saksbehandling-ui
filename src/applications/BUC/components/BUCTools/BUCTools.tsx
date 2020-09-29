@@ -269,7 +269,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   return (
     <ThemeProvider theme={_theme}>
       <BUCToolsPanel
-        data-testid='a-buc-c-buctools__panel-id'
+        data-test-id='a-buc-c-buctools__panel-id'
         className={className}
       >
         <>
@@ -323,7 +323,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   highContrast={highContrast}
                   ariaLabel={t('buc:form-tagsForBUC')}
                   label=''
-                  data-testid='a-buc-c-buctools__tags-select-id'
+                  data-test-id='a-buc-c-buctools__tags-select-id'
                   placeholder={t('buc:form-tagPlaceholder')}
                   aria-describedby='help-tags'
                   values={tags || []}

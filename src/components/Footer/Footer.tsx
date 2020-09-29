@@ -180,7 +180,7 @@ const Footer: React.FC<FooterProps> = ({
                 onChange={onSetParamValue}
               />
               <AddButton
-                data-testid='c-footer__add-button-id'
+                data-test-id='c-footer__add-button-id'
                 onClick={onSetParam}
               >
                 &nbsp;+&nbsp;

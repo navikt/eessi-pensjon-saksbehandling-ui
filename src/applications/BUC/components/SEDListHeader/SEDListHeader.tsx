@@ -156,13 +156,13 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>
                 <Normaltekst
-                  data-testid='a-buc-c-sedlistheader__lastUpdate'
+                  data-test-id='a-buc-c-sedlistheader__lastUpdate'
                 >
                   {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
                 </Normaltekst>
                 {sed.version && (
                   <Normaltekst
-                    data-testid='a-buc-c-sedlistheader__version'
+                    data-test-id='a-buc-c-sedlistheader__version'
                   >
                     {t('ui:version')}{': '}{sed.version || '-'}
                   </Normaltekst>
@@ -194,7 +194,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
                 )}
               >
                 <SEDListAttachmentsDiv
-                  data-testid='a-buc-c-sedlistheader__actions-attachments'
+                  data-test-id='a-buc-c-sedlistheader__actions-attachments'
                 >
                   <FilledPaperClipIcon />
                 </SEDListAttachmentsDiv>
@@ -205,7 +205,7 @@ const SEDListHeader: React.FC<SEDListHeaderProps> = ({
                 mini
                 disabled={buc.readOnly === true}
                 data-amplitude='buc.edit.besvarSed'
-                data-testid='a-buc-c-sedlistheader__actions-answer-button'
+                data-test-id='a-buc-c-sedlistheader__actions-answer-button'
                 onClick={(e: React.MouseEvent) => {
                   buttonLogger(e)
                   onSEDNew(buc, sed)

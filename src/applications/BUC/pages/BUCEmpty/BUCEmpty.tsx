@@ -140,7 +140,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         {!aktoerId && (
           <BUCEmptyForm>
             <HighContrastInput
-              data-testid='a-buc-p-bucempty__aktoerid-input-id'
+              data-test-id='a-buc-p-bucempty__aktoerid-input-id'
               label={t('ui:aktoerId')}
               value={_aktoerId || ''}
               bredde='fullbredde'
@@ -149,7 +149,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
             />
             <HorizontalSeparatorDiv />
             <HighContrastHovedknapp
-              data-testid='a-buc-p-bucempty__aktoerid-button-id'
+              data-test-id='a-buc-p-bucempty__aktoerid-button-id'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
@@ -159,7 +159,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         {!sakId && (
           <BUCEmptyForm>
             <HighContrastInput
-              data-testid='a-buc-p-bucempty__sakid-input-id'
+              data-test-id='a-buc-p-bucempty__sakid-input-id'
               label={t('buc:form-caseId')}
               value={_sakId || ''}
               bredde='fullbredde'
@@ -168,7 +168,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
             />
             <HorizontalSeparatorDiv />
             <HighContrastKnapp
-              data-testid='a-buc-p-bucempty__sakid-button-id'
+              data-test-id='a-buc-p-bucempty__sakid-button-id'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}

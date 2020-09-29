@@ -1,5 +1,5 @@
 import { JoarkBrowserItem } from 'declarations/joark.d'
-import { AllowedLocaleString, T } from 'declarations/types.d'
+import { AllowedLocaleString, PersonAvdod, T } from 'declarations/types.d'
 import CountryData, { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
@@ -12,10 +12,10 @@ interface getBucTypeLabelProps {
 }
 
 export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): string => {
-  if (!type.match('P3000_')) {
+  if (type && !type.match('P3000_')) {
     return t('buc:buc-' + type)
   }
-  const re: RegExpMatchArray | null = type.match(/_(.*)$/)
+  const re: RegExpMatchArray | null = type ? type.match(/_(.*)$/) : null
   if (!re) {
     return ''
   }
@@ -69,4 +69,11 @@ export const countrySorter = (locale: string) => {
     if (CountryFilter.SCANDINAVIA.indexOf(b.toUpperCase()) - CountryFilter.SCANDINAVIA.indexOf(a.toUpperCase()) < 0) return -1
     return labelA.label.localeCompare(labelB.label)
   }
+}
+
+export const renderAvdodName = (avdod: PersonAvdod | undefined, t: Function) => {
+  return avdod?.fornavn +
+  (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+  (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+  ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')'
 }

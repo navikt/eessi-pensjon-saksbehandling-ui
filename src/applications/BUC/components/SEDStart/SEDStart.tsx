@@ -10,7 +10,12 @@ import {
   sendAttachmentToSed,
   setSedList
 } from 'actions/buc'
-import { getBucTypeLabel, sedAttachmentSorter, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import {
+  getBucTypeLabel,
+  renderAvdodName,
+  sedAttachmentSorter,
+  sedFilter
+} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender, {
@@ -699,7 +704,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             </label>
             <Select
               highContrast={highContrast}
-              data-testid='a-buc-c-sedstart__sed-select-id'
+              data-test-id='a-buc-c-sedstart__sed-select-id'
               id='a-buc-c-sedstart__sed-select-id'
               disabled={loading.gettingSedList}
               isSearchable
@@ -715,7 +720,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <HighContrastInput
                 disabled
-                data-testid='a-buc-c-sedstart__vedtakid-input-id'
+                data-test-id='a-buc-c-sedstart__vedtakid-input-id'
                 id='a-buc-c-sedstart__vedtakid-input-id'
                 label={t('buc:form-vedtakId')}
                 bredde='fullbredde'
@@ -740,10 +745,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     </label>
                     <HorizontalSeparatorDiv />
                     <Normaltekst>
-                      {_avdod?.fornavn +
-                    (_avdod?.mellomnavn ? ' ' + _avdod?.mellomnavn : '') +
-                    (_avdod?.etternavn ? ' ' + _avdod?.etternavn : '') +
-                      ' - ' + _avdod?.fnr + ' (' + t('buc:relasjon-' + _avdod?.relasjon) + ')'}
+                      {renderAvdodName(personAvdods[0], t)}
                     </Normaltekst>
                   </FlexDiv>
                 </>
@@ -755,7 +757,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <HighContrastInput
                 label={t('buc:form-avdodfnr')}
-                data-testid='a-buc-c-bucstart__avdod-input-id'
+                data-test-id='a-buc-c-bucstart__avdod-input-id'
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
                 feil={validation.avdodfnr ? t(validation.avdodfnr.feilmelding) : null}
@@ -770,7 +772,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 highContrast={highContrast}
                 ariaLabel={t('ui:country')}
                 label={t('ui:country')}
-                data-testid='a-buc-c-sedstart__country-select-id'
+                data-test-id='a-buc-c-sedstart__country-select-id'
                 id='a-buc-c-sedstart__country-select-id'
                 disabled={loading.gettingCountryList}
                 isLoading={loading.gettingCountryList}
@@ -790,7 +792,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 highContrast={highContrast}
                 ariaLabel={t('ui:institution')}
                 label={t('ui:institution')}
-                data-testid='a-buc-c-sedstart__institution-select-id'
+                data-test-id='a-buc-c-sedstart__institution-select-id'
                 disabled={loading.gettingInstitutionList}
                 isLoading={loading.gettingInstitutionList}
                 placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t('buc:form-chooseInstitution')}
@@ -825,7 +827,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <VerticalSeparatorDiv data-size='1.5' />
             <HighContrastHovedknapp
               data-amplitude='sed.new.create'
-              data-testid='a-buc-c-sedstart__forward-button-id'
+              data-test-id='a-buc-c-sedstart__forward-button-id'
               disabled={loading.creatingSed || sendingAttachments}
               spinner={loading.creatingSed || sendingAttachments}
               onClick={onForwardButtonClick}
@@ -838,7 +840,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <HorizontalSeparatorDiv />
             <HighContrastFlatknapp
               data-amplitude='sed.new.cancel'
-              data-testid='a-buc-c-sedstart__cancel-button-id'
+              data-test-id='a-buc-c-sedstart__cancel-button-id'
               onClick={onCancelButtonClick}
             >
               {t('ui:cancel')}

@@ -1,3 +1,4 @@
+import { WidthSize } from 'declarations/app'
 import { AllowedLocaleString } from 'declarations/types'
 import { ModalContent } from 'declarations/components'
 import i18n from 'i18n'
@@ -27,6 +28,14 @@ export const openModal: ActionCreator<ActionWithPayload<ModalContent>> = (
   type: types.UI_MODAL_SET,
   payload: modal
 })
+
+export const setWidthSize: ActionCreator<ActionWithPayload<WidthSize>> = (
+  size: WidthSize
+): ActionWithPayload<WidthSize> => ({
+  type: types.UI_WIDTH_SET,
+  payload: size
+})
+
 
 export const toggleFooterOpen: ActionCreator<Action> = (): Action => ({
   type: types.UI_FOOTER_TOGGLE_OPEN

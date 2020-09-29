@@ -11,3 +11,5 @@ export interface UserInfoPayload {
   allowed: boolean
   featureToggles: FeatureToggles
 }
+
+export type WidthSize = 'sm' | 'md' | 'lg'

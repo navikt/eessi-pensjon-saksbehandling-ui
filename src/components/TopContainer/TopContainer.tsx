@@ -1,10 +1,11 @@
 import { clientClear, clientError } from 'actions/alert'
-import { closeModal } from 'actions/ui'
+import { closeModal, setWidthSize } from 'actions/ui'
 import Alert, { AlertStatus } from 'components/Alert/Alert'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import Modal from 'components/Modal/Modal'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
+import { WidthSize } from 'declarations/app'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import { Person } from 'declarations/types'
@@ -15,6 +16,7 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import ReactResizeDetector from 'react-resize-detector'
 import styled, { ThemeProvider } from 'styled-components'
 import useErrorBoundary from 'use-error-boundary'
 
@@ -39,6 +41,7 @@ export interface TopContainerSelector {
   isLoggingOut: boolean
   footerOpen: boolean
   modal: ModalContent | undefined
+  size: WidthSize | undefined
   highContrast: boolean
 }
 
@@ -59,6 +62,7 @@ const mapState = (state: State): TopContainerSelector => ({
 
   footerOpen: state.ui.footerOpen,
   modal: state.ui.modal,
+  size: state.ui.size,
   highContrast: state.ui.highContrast
 })
 
@@ -76,7 +80,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 }: TopContainerProps): JSX.Element => {
   const {
     clientErrorParam, clientErrorMessage, clientErrorStatus, error, expirationTime, footerOpen,
-    gettingUserInfo, highContrast, isLoggingOut, modal, params, serverErrorMessage, username
+    gettingUserInfo, highContrast, isLoggingOut, modal, params, serverErrorMessage, size, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -101,6 +105,19 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     return serverErrorMessage ? t(serverErrorMessage) : undefined
   }
 
+  const onResize = (width: number) => {
+    if (width < 768 && size !== 'sm') {
+      return dispatch(setWidthSize('sm'))
+    }
+    if (width < 992 && size !== 'md') {
+      return dispatch(setWidthSize('md'))
+    }
+    if (size !== 'lg') {
+      return dispatch(setWidthSize('lg'))
+    }
+    return
+  }
+
   if (_.isNil(window.onerror)) {
     window.onerror = (msg) => {
       dispatch(clientError({ error: msg }))
@@ -112,6 +129,10 @@ export const TopContainer: React.FC<TopContainerProps> = ({
       <ErrorBoundary
         renderError={({ error }: any) => <Error type='internalError' error={error} />}
       >
+        <ReactResizeDetector
+          handleWidth
+          onResize={onResize}
+        />
         <Header
           highContrast={highContrast}
           username={username}

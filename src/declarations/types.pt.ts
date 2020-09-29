@@ -30,3 +30,15 @@ export const RinaUrlPropType = PT.string
 export const LoadingPropType = PT.objectOf(PT.bool.isRequired)
 
 export const ValidationPropType = PT.objectOf(PT.string)
+
+export const PersonAvdodPropType = PT.shape({
+  aktoerId: PT.string.isRequired,
+  etternavn: PT.string.isRequired,
+  fnr: PT.string.isRequired,
+  fornavn: PT.string.isRequired,
+  fulltNavn: PT.string.isRequired,
+  mellomnavn: PT.string.isRequired,
+  relasjon: PT.string.isRequired
+})
+
+export const PersonAvdodsPropType = PT.arrayOf(PersonAvdodPropType.isRequired)
