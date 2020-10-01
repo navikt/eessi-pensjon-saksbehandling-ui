@@ -1,5 +1,3 @@
-import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
-import React, { useEffect, useState } from 'react'
 import {
   cleanNewlyCreatedBuc,
   createBuc,
@@ -10,7 +8,6 @@ import {
   saveBucsInfo
 } from 'actions/buc'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { BUCMode } from 'applications/BUC/index'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
@@ -21,61 +18,63 @@ import {
   Row,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { Buc, Bucs, BucsInfo, SaveBucsInfoProps, Tags } from 'declarations/buc'
+import { Buc, BUCList, Bucs, BucsInfo, SaveBucsInfoProps, SubjectAreaList, Tag, TagList, Tags } from 'declarations/buc'
+import { State } from 'declarations/reducers'
 import {
-  PersonAvdod, PersonAvdods,
   AllowedLocaleString,
   Loading,
   Option,
+  Options,
   Person,
+  PersonAvdod,
+  PersonAvdods,
   PesysContext,
   Validation
 } from 'declarations/types'
-import { State } from 'declarations/reducers'
-
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
+import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 
 export interface BUCStartProps {
   aktoerId: string
+  initialCreatingBucInfo?: boolean
+  initialIsCreatingBuc?: boolean
   onBucCreated: () => void
   onBucCancelled: () => void
-  onTagsChanged?: (t: Tags) => void
-  setMode: (mode: BUCMode, s: string, callback?: any) => void
 }
 
 export interface BUCStartSelector {
+  bucList?: BUCList | undefined
+  bucParam: string | undefined
   bucs: Bucs | undefined
   bucsInfo?: BucsInfo | undefined
-  bucList?: Array<string> | undefined
-  bucParam: string | undefined
   currentBuc: string | undefined
   highContrast: boolean
-  locale: AllowedLocaleString
   loading: Loading
+  locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
   person: Person | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string
-  subjectAreaList?: Array<string> | undefined
-  tagList?: Array<string> | undefined
+  subjectAreaList?: SubjectAreaList | undefined
+  tagList?: TagList | undefined
 }
 
 const mapState = (state: State): BUCStartSelector => ({
-  bucs: state.buc.bucs,
-  bucParam: state.app.params.buc,
-  bucsInfo: state.buc.bucsInfo,
   bucList: state.buc.bucList,
+  bucParam: state.app.params.buc,
+  bucs: state.buc.bucs,
+  bucsInfo: state.buc.bucsInfo,
   currentBuc: state.buc.currentBuc,
   highContrast: state.ui.highContrast,
   loading: state.loading,
@@ -89,54 +88,51 @@ const mapState = (state: State): BUCStartSelector => ({
   tagList: state.buc.tagList
 })
 
-const MarginLeftDiv = styled.div`
-  margin-left: 0.5rem;
-`
-const LoadingDiv = styled.div`
-  text-align: left;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-`
 const BUCStart: React.FC<BUCStartProps> = ({
-  aktoerId, onBucCreated, onBucCancelled, onTagsChanged
+  aktoerId, initialIsCreatingBuc = false, initialCreatingBucInfo = false, onBucCreated, onBucCancelled
 }: BUCStartProps): JSX.Element | null => {
   const {
-    bucs, bucParam, bucsInfo, bucList, currentBuc,
-    highContrast, locale, loading, newlyCreatedBuc, person,
+    bucList, bucParam, bucs, bucsInfo, currentBuc,
+    highContrast, loading, locale, newlyCreatedBuc, person,
     personAvdods, pesysContext, sakId, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
-  const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
-  const [_buc, setBuc] = useState<string | undefined>(bucParam)
-  const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
-  const [_tags, setTags] = useState<Tags>([])
-  const [validation, setValidation] = useState<Validation>({})
-  const [showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
-  const [isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
-  const [isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(false)
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  const setValidationState: Function = (key: string, value: any) => {
-    const newValidation = _.cloneDeep(validation)
-    newValidation[key] = value
-    setValidation(newValidation)
+  const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
+  const [_buc, setBuc] = useState<string | undefined>(bucParam)
+  const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
+  const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
+  const [_showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
+  const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
+  const [_tags, setTags] = useState<Tags>([])
+  const [_validation, setValidation] = useState<Validation>({})
+
+  const hasNoValidationErrors = (): boolean => {
+    return _.find(_validation, (it) => (it !== undefined)) === undefined
   }
 
   const resetValidationState = (_key: string): void => {
-    setValidation(_.omitBy(validation, (value, key) => {
+    setValidation(_.omitBy(_validation, (value, key) => {
       return key === _key
     }))
   }
 
-  const validateSubjectArea = (subjectArea: string): boolean => {
-    if (!subjectArea) {
-      setValidationState('subjectArea', {
-        skjemaelementId: 'a-buc-c-bucstart__subjectarea-select-id',
-        feilmelding: t('buc:validation-chooseSubjectArea')
+  const setValidationState = (key: string, value: any): void => {
+    const newValidation = _.cloneDeep(_validation)
+    newValidation[key] = value
+    setValidation(newValidation)
+  }
+
+  const validateAvdod = (avdod: PersonAvdod | undefined): boolean => {
+    if (!avdod) {
+      setValidationState('avdod', {
+        skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
+        feilmelding: t('buc:validation-chooseAvdod')
       } as FeiloppsummeringFeil)
       return false
     } else {
-      resetValidationState('subjectArea')
+      resetValidationState('avdod')
       return true
     }
   }
@@ -154,21 +150,17 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const validateAvdod = (avdod: PersonAvdod | undefined): boolean => {
-    if (!avdod) {
-      setValidationState('avdod', {
-        skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
-        feilmelding: t('buc:validation-chooseAvdod')
+  const validateSubjectArea = (subjectArea: string): boolean => {
+    if (!subjectArea) {
+      setValidationState('subjectArea', {
+        skjemaelementId: 'a-buc-c-bucstart__subjectarea-select-id',
+        feilmelding: t('buc:validation-chooseSubjectArea')
       } as FeiloppsummeringFeil)
       return false
     } else {
-      resetValidationState('avdod')
+      resetValidationState('subjectArea')
       return true
     }
-  }
-
-  const hasNoValidationErrors = (): boolean => {
-    return _.find(validation, (it) => (it !== undefined)) === undefined
   }
 
   const performValidation = () :boolean => {
@@ -180,7 +172,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return valid
   }
 
-  const onForwardButtonClick = (e: React.MouseEvent): void => {
+  const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     dispatch(cleanNewlyCreatedBuc())
     if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
       setShowWarningBuc(true)
@@ -198,20 +190,20 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const onCancelButtonClick = (e: React.MouseEvent): void => {
+  const onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
     dispatch(resetBuc())
     onBucCancelled()
   }
 
-  const onSubjectAreaChange = (e: any) => {
-    const thisSubjectArea: string = e.value
+  const onSubjectAreaChange = (option: Option): void => {
+    const thisSubjectArea: string = option.value
     setSubjectArea(thisSubjectArea)
     validateSubjectArea(thisSubjectArea)
   }
 
-  const onBucChange = (e: any) => {
-    const thisBuc: string = e.value
+  const onBucChange = (option: Option): void => {
+    const thisBuc: string = option.value
     setBuc(thisBuc)
     validateBuc(thisBuc)
   }
@@ -219,12 +211,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const onTagsChange = (tagsList: Tags): void => {
     setTags(tagsList)
     standardLogger('buc.new.tags.select', { tags: tagsList?.map(t => t.label) || [] })
-    if (_.isFunction(onTagsChanged)) {
-      onTagsChanged(tagsList)
-    }
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined): Array<any> => {
+  const renderOptions = (options: Array<Option | string> | undefined): Options => {
     return options ? options.map((el: Option | string) => {
       let label: string, value: string
       if (typeof el === 'string') {
@@ -254,46 +243,46 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return label
   }
 
-  const getSpinner = (text:string): JSX.Element => {
-    return (
-      <MarginLeftDiv>
-        <WaitingPanel size='S' message={t(text)} oneLine />
-      </MarginLeftDiv>
-    )
-  }
-
   const tagObjectList: Tags = tagList ? tagList.map(tag => {
     return {
       value: tag,
       label: t('buc:' + tag)
-    }
+    } as Tag
   }) : []
 
-  const onAvdodChange = (e: any) => {
-    const thisAvdod: PersonAvdod | undefined = _.find(personAvdods, (p) => p.fnr === e.value)
+  const onAvdodChange = (option: Option): void => {
+    const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
+      (avdod: PersonAvdod) => avdod.fnr === option.value
+    )
     setAvdod(thisAvdod)
   }
 
-  const renderAvdodOptions = (options: any) => {
-    return options?.map((el: any) => ({
-      label: el.fulltNavn + ' (' + el.fnr + ')',
-      value: el.fnr
+  const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
+    return personAvdods?.map((avdod: PersonAvdod) => ({
+      label: avdod.fulltNavn + ' (' + avdod.fnr + ')',
+      value: avdod.fnr
     })) || []
   }
 
-  const avdodOptions = renderAvdodOptions(personAvdods)
+  const avdodOptions: Options = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
       dispatch(getSubjectAreaList())
     }
+  }, [dispatch, loading.gettingSubjectAreaList, subjectAreaList])
+
+  useEffect(() => {
     if (bucList === undefined && !loading.gettingBucList) {
       dispatch(getBucList(sakId, pesysContext))
     }
+  }, [bucList, dispatch, loading.gettingBucList, pesysContext, sakId])
+
+  useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
       dispatch(getTagList())
     }
-  }, [bucList, dispatch, loading, pesysContext, sakId, subjectAreaList, tagList])
+  }, [dispatch, loading.gettingTagList, tagList])
 
   useEffect(() => {
     if (_buc === 'P_BUC_02' &&
@@ -307,7 +296,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [_buc, _avdod, pesysContext, personAvdods])
 
   useEffect(() => {
-    if (isCreatingBuc && newlyCreatedBuc && !isCreatingBucInfo) {
+    if (_isCreatingBuc && newlyCreatedBuc && !_isCreatingBucInfo) {
       const buc: Buc = bucs![currentBuc!]
       dispatch(saveBucsInfo({
         aktoerId: aktoerId,
@@ -318,17 +307,17 @@ const BUCStart: React.FC<BUCStartProps> = ({
       } as SaveBucsInfoProps))
       setIsCreatingBucInfo(true)
     }
-  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, isCreatingBuc, isCreatingBucInfo, newlyCreatedBuc, _tags])
+  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, _isCreatingBuc, _isCreatingBucInfo, newlyCreatedBuc, _tags])
 
   useEffect(() => {
-    if (isCreatingBucInfo && newlyCreatedBuc && !loading.savingBucsInfo) {
+    if (_isCreatingBucInfo && newlyCreatedBuc && !loading.savingBucsInfo) {
       setBuc(undefined)
       setTags([])
       setIsCreatingBucInfo(false)
       setIsCreatingBuc(false)
       onBucCreated()
     }
-  }, [isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
+  }, [_isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
@@ -341,15 +330,17 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 {t('buc:form-subjectArea')}
               </label>
               <Select
+                data-test-id='a-buc-c-bucstart__subjectarea-select-id'
+                defaultValue={{ label: _subjectArea, value: _subjectArea }}
+                feil={_validation.subjectArea ? t(_validation.subjectArea.feilmelding) : null}
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__subjectarea-select-id'
-                data-test-id='a-buc-c-bucstart__subjectarea-select-id'
+                isLoading={loading.gettingSubjectAreaList}
                 isSearchable
-                placeholder={t('buc:form-chooseSubjectArea')}
-                defaultValue={{ label: _subjectArea, value: _subjectArea }}
+                menuPortalTarget={document.body}
                 onChange={onSubjectAreaChange}
                 options={renderOptions(subjectAreaList)}
-                feil={validation.subjectArea ? t(validation.subjectArea.feilmelding) : null}
+                placeholder={t(loading.gettingSubjectAreaList ? 'buc:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
               />
             </>
             <VerticalSeparatorDiv />
@@ -358,15 +349,16 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 {t('buc:form-buc')}
               </label>
               <Select
+                data-test-id='a-buc-c-bucstart__buc-select-id'
+                feil={_validation.buc ? t(_validation.buc.feilmelding) : null}
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__buc-select-id'
-                data-test-id='a-buc-c-bucstart__buc-select-id'
-                menuPortalTarget={document.body}
+                isLoading={loading.gettingBucList}
                 isSearchable
-                placeholder={t('buc:form-chooseBuc')}
+                menuPortalTarget={document.body}
                 onChange={onBucChange}
                 options={renderOptions(bucList)}
-                feil={validation.buc ? t(validation.buc.feilmelding) : null}
+                placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
               />
             </>
             {_buc === 'P_BUC_02' && personAvdods && personAvdods.length >= 1 && (
@@ -376,15 +368,15 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   {t('buc:form-avdod')}
                 </label>
                 <Select
-                  highContrast={highContrast}
-                  menuPortalTarget={document.body}
                   data-test-id='a-buc-c-bucstart__avdod-select-id'
+                  feil={_validation.avdod ? t(_validation.avdod.feilmelding) : null}
+                  highContrast={highContrast}
                   isSearchable
-                  placeholder={t('buc:form-chooseAvdod')}
+                  menuPortalTarget={document.body}
                   onChange={onAvdodChange}
                   options={avdodOptions}
+                  placeholder={t('buc:form-chooseAvdod')}
                   value={_.find(avdodOptions, (f: any) => f.value === _avdod?.fnr) || null}
-                  feil={validation.avdod ? t(validation.avdod.feilmelding) : null}
                 />
               </>
             )}
@@ -393,9 +385,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <Column>
             <VerticalSeparatorDiv data-size='2' />
             <MultipleSelect
-              menuPortalTarget={document.body}
-              highContrast={highContrast}
               ariaLabel={t('buc:form-tagsForBUC')}
+              aria-describedby='help-tags'
+              data-test-id='a-buc-c-bucstart__tags-select-id'
+              hideSelectedOptions={false}
+              highContrast={highContrast}
+              id='a-buc-c-bucstart__tags-select-id'
+              isLoading={loading.gettingTagList}
               label={(
                 <>
                   <label className='skjemaelement__label'>
@@ -407,23 +403,23 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   </Normaltekst>
                 </>
               )}
-              id='a-buc-c-bucstart__tags-select-id'
-              className='a-buc-c-bucstart__tags-select'
-              placeholder={t('buc:form-tagPlaceholder')}
-              aria-describedby='help-tags'
-              values={_tags}
-              hideSelectedOptions={false}
               onSelect={onTagsChange}
               options={tagObjectList}
+              menuPortalTarget={document.body}
+              placeholder={t(loading.gettingTagList ? 'buc:loading-tagList' : 'buc:form-tagPlaceholder')}
+              values={_tags}
             />
           </Column>
         </Row>
-        {showWarningBuc && (
+        {_showWarningBuc && (
           <>
             <VerticalSeparatorDiv data-size='2' />
             <Row>
               <Column>
-                <AlertStripe type='advarsel'>
+                <AlertStripe
+                  type='advarsel'
+                  data-test-id='a-buc-c-bucstart__warning-id'
+                >
                   <Normaltekst>
                     {t('buc:alert-noDeceased')}
                   </Normaltekst>
@@ -435,13 +431,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </>
         )}
         <VerticalSeparatorDiv data-size='2' />
-        <div data-test-id='a-buc-c-bucstart__buttons'>
+        <div data-test-id='a-buc-c-bucstart__buttons-id'>
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
-            data-test-id='a-buc-c-bucstart__forward-button'
-            disabled={isCreatingBuc}
-            spinner={isCreatingBuc}
+            data-test-id='a-buc-c-bucstart__forward-button-id'
+            disabled={_isCreatingBuc}
             onClick={onForwardButtonClick}
+            spinner={_isCreatingBuc}
           >
             {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
               : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
@@ -456,19 +452,15 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </HighContrastFlatknapp>
         </div>
         <VerticalSeparatorDiv />
-        <LoadingDiv data-test-id='selectBoxMessage'>
-          {!loading ? null
-            : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
-              : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
-        </LoadingDiv>
         {!hasNoValidationErrors() && (
           <>
             <VerticalSeparatorDiv data-size='2' />
             <Row>
               <Column>
                 <Feiloppsummering
+                  data-test-id='a-buc-c-bucstart__feiloppsummering-id'
                   tittel={t('buc:form-feiloppsummering')}
-                  feil={Object.values(validation)}
+                  feil={Object.values(_validation)}
                 />
               </Column>
               <HorizontalSeparatorDiv data-size='2' />
@@ -484,8 +476,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 BUCStart.propTypes = {
   aktoerId: PT.string.isRequired,
   onBucCreated: PT.func.isRequired,
-  onBucCancelled: PT.func.isRequired,
-  onTagsChanged: PT.func
+  onBucCancelled: PT.func.isRequired
 }
 
 export default BUCStart

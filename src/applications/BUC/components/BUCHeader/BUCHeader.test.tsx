@@ -40,12 +40,12 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId + '\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__title-id\']').hostNodes().render().text()).toEqual('P_BUC_01 - buc:buc-P_BUC_01')
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__label-id\']')).toBeTruthy()
@@ -63,7 +63,6 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
 
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__label-avdod-id\']')).toBeFalsy()
 
-
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__icon-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__icon-id\'] FlagList')).toBeTruthy()
 
@@ -73,7 +72,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__icon-tags-id\'] ProblemCircleIcon')).toBeTruthy()
   })
 
-  it('Shows icons only if necessary', () => {
+  it('Render: shows icon if we have tags', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__icon-tags-id\']')).toBeTruthy()
     wrapper.setProps({
       bucInfo: {
@@ -88,7 +87,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__icon-tags-id\']')).toBeFalsy()
   })
 
-  it('Handles Rina link', () => {
+  it('Handling: open Rina link', () => {
     window.open = jest.fn()
     wrapper.find('[data-test-id=\'a-buc-c-bucheader__label-case-gotorina-link-id\']').first().simulate('click')
     expect(window.open).toHaveBeenCalledWith(defaultSelector.rinaUrl! + initialMockProps.buc.caseId, 'rinaWindow')

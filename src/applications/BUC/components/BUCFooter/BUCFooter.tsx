@@ -44,7 +44,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCFooterDiv className={className}>
-        { rinaUrl ? (
+        {rinaUrl ? (
           <HighContrastLink
             data-amplitude='buc.list.rinaurl'
             data-test-id='a-buc-c-bucfooter__gotorina-link'
@@ -56,9 +56,9 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
             <HorizontalSeparatorDiv data-size='0.5' />
             <ExternalLink color={linkColor} />
           </HighContrastLink>
-            ) : (
-            <WaitingPanel size='S' />
-         )}
+        ) : (
+          <WaitingPanel size='S' />
+        )}
       </BUCFooterDiv>
     </ThemeProvider>
   )

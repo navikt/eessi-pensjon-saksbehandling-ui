@@ -14,7 +14,6 @@ const defaultSelector: BUCDetailSelector = {
 }
 
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
-
   let wrapper: ReactWrapper
   const buc: Buc = mockBucs()[0] as Buc
   const initialMockProps: BUCDetailProps = {
@@ -34,11 +33,11 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__panel-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__status-id\']').hostNodes().render().text()).toEqual('buc:status-' + buc.status)
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__creator-id\']').hostNodes().render().text()).toEqual('NAVAT07')
@@ -49,19 +48,19 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__institutionlist-id\']').render().text()).toEqual(['NAVAT07', 'DEMO001', 'DEMO001', 'DEMO001'].join(''))
   })
 
-  it('P_BUC_02 BUCs have an avdod', () => {
+  it('Render: P_BUC_02 BUCs have an avdod', () => {
     const mockProps = {
       ...initialMockProps,
       buc: {
         ...initialMockProps.buc,
-        readOnly: true
+        type: 'P_BUC_02'
       }
     }
     wrapper = mount(<BUCDetail {...mockProps} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__readonly\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']')).toBeTruthy()
   })
 
-  it('Read only BUCs has an alertstripe warning', () => {
+  it('Render: Show warning when buc is read only', () => {
     const mockProps = {
       ...initialMockProps,
       buc: {

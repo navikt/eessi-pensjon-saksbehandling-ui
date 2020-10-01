@@ -36,7 +36,6 @@ export const setWidthSize: ActionCreator<ActionWithPayload<WidthSize>> = (
   payload: size
 })
 
-
 export const toggleFooterOpen: ActionCreator<Action> = (): Action => ({
   type: types.UI_FOOTER_TOGGLE_OPEN
 })

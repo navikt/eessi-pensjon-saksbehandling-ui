@@ -320,7 +320,6 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
             <hr />
             <BUCStart
               aktoerId={aktoerId}
-              setMode={setMode}
               onBucCreated={() => {
                 setNewBucPanelOpen(false)
                 setMode('sednew', 'forward')

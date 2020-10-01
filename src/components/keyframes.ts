@@ -1,6 +1,5 @@
 import { keyframes } from 'styled-components'
 
-
 export const slideInFromRight = keyframes`
   0% {
     opacity: 0;

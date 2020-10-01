@@ -160,8 +160,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
       break
 
     case types.BUC_CREATE_SED_SUCCESS:
-    case types.BUC_CREATE_REPLY_SED_SUCCESS:
-
+    case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const message = ((action as ActionWithPayload).payload as Sed).message
       clientErrorMessage = 'buc:alert-createdSed'
       clientErrorParam = {
@@ -169,6 +168,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         message: message ? ' - ' + message : ''
       }
       break
+    }
 
     default:
       break

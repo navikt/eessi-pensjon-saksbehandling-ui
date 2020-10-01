@@ -165,7 +165,7 @@
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
 
   "loading-buc"                   : "Laster BUC...",
-  "loading-bucs"                  : "Laster BUC-er...",
+  "loading-bucList"               : "Laster BUC-er...",
   "loading-country"               : "Laster land...",
   "loading-creatingCaseinRINA"    : "Oppretter sak i RINA...",
   "loading-creatingSED"           : "Oppretter ny SED...",
@@ -175,7 +175,8 @@
   "loading-savingBucInfo"         : "Lagring BUC info...",
   "loading-sendingSEDattachments" : "Sender SED vedlegg...",
   "loading-sendingXofY"           : "Sender {{current}} av {{total}}",
-  "loading-subjectArea"           : "Laster fagområde...",
+  "loading-subjectAreaList"       : "Laster fagområde...",
+  "loading-tagList"               : "Laster merknader...",
 
   "P5000-title"                 : "Perioder for P5000",
 

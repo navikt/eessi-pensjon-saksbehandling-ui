@@ -25,16 +25,16 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(BUCFooterDiv)).toBeTruthy()
   })
 
-  it('Renders empty if no RinaUrl given', () => {
+  it('Render: WaitingPanel shows if no RinaUrl given', () => {
     stageSelector(defaultSelector, { rinaUrl: undefined })
     wrapper = mount(<BUCFooter {...initialMockProps} />)
     expect(wrapper.exists(WaitingPanel)).toBeTruthy()

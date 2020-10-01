@@ -174,7 +174,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
 
   useEffect(() => {
     if (size !== 'sm') {
-       setFlagSize('XL')
+      setFlagSize('XL')
     } else {
       setFlagSize('M')
     }
@@ -256,7 +256,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   {t('ui:deceased') + ': '}
                 </RowText>
                 <Normaltekst>
-                  { avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.subject?.avdod?.fnr}
+                  {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.subject?.avdod?.fnr}
                 </Normaltekst>
               </PropertyDiv>
             )}

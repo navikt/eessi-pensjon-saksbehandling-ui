@@ -115,7 +115,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     if (size !== 'lg') {
       return dispatch(setWidthSize('lg'))
     }
-    return
   }
 
   if (_.isNil(window.onerror)) {

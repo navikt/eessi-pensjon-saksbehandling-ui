@@ -51,7 +51,7 @@ const BUCLoading = () => {
           <IconsDiv>
             {Array(Math.ceil(Math.random() * 4))
               .fill(0)
-              .map((i) => <FlagLoading key={i} />)}
+              .map((i, j) => <FlagLoading key={j} />)}
           </IconsDiv>
         </FlexDiv>
       </BUCHeaderDiv>

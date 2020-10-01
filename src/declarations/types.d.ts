@@ -25,6 +25,8 @@ export interface Option {
   value: string
 }
 
+export type Options = Array<Option>
+
 export interface Country {
   label: string;
   value: string;
