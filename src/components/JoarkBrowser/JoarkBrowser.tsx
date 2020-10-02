@@ -381,7 +381,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           }, {
             id: 'date',
             label: t('ui:date'),
-            type: 'date'
+            type: 'date',
+            dateFormat: 'DD.MM.YYYY'
           }, {
             id: 'buttons',
             label: '',

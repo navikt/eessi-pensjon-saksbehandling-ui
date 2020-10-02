@@ -196,7 +196,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
-    expect(createBuc).toHaveBeenCalledWith('P_BUC_02', mockPerson, mockPersonAvdod[0])
+    expect(createBuc).toHaveBeenCalledWith('P_BUC_02', mockPerson, mockPersonAvdod![0])
   })
 
   it('Handling: onCancelButtonClick()', () => {
