@@ -78,6 +78,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   const avdod: PersonAvdod | undefined = _.find(personAvdods, (p: PersonAvdod) => (
     p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
   ))
+
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCDetailPanel
@@ -148,7 +149,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 {t('buc:form-rinaCaseNumber')}:
               </Element>
             </Dt>
-            <Dd id='a-buc-c-bucdetail__props-caseId-id'>
+            <Dd data-test-id='a-buc-c-bucdetail__caseId-id'>
               {rinaUrl ? (
                 <HighContrastLink
                   data-amplitude='buc.edit.detail.rinaurl'
@@ -170,7 +171,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                     {t('buc:form-avdod')}:
                   </Element>
                 </Dt>
-                <Dd className='odd' id='a-buc-c-bucdetail__avdod-id'>
+                <Dd className='odd' data-test-id='a-buc-c-bucdetail__avdod-id'>
                   {avdod ? (
                     <Normaltekst>
                       {renderAvdodName(avdod, t)}

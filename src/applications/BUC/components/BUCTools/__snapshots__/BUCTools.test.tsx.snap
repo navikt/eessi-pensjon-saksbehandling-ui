@@ -1,0 +1,1775 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications/BUC/components/BUCTools/BUCTools Render: match snapshot 1`] = `
+.c11 {
+  margin-bottom: 0.5rem;
+}
+
+ui-fss.g15[id="c10"] {
+  content: "c11,";
+}
+
+.c13 {
+  background-color: inherit;
+  color: #0067C5;
+  border-color: #0067C5;
+}
+
+.c13:hover:not(:disabled) {
+  background-color: #0067C5;
+  color: #FFFFFF;
+}
+
+.c13:hover:not(:disabled) svg path {
+  stroke: #FFFFFF;
+}
+
+.c13 svg path {
+  stroke: #0067C5;
+}
+
+ui-fss.g17[id="c12"] {
+  content: "c13,";
+}
+
+.c2 {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #78706A;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+}
+
+ui-fss.g20[id="c0"] {
+  content: "c2,";
+}
+
+.c5 .nav-frontend-tabs__tab-inner--aktiv {
+  color: #3E3832;
+  background: #FFFFFF;
+  border-width: 1px;
+  border-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+}
+
+.c5 .nav-frontend-tabs__tab-inner {
+  color: #0067C5;
+  background: none;
+}
+
+ui-fss.g23[id="c4"] {
+  content: "c5,";
+}
+
+.c3 {
+  opacity: 0;
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+  -webkit-animation: dgjvLb 0.3s forwards;
+  animation: dgjvLb 0.3s forwards;
+}
+
+ui-fss.g55[id="c1"] {
+  content: "c3,";
+}
+
+.c9 {
+  margin-bottom: 1rem;
+}
+
+ui-fss.g57[id="c8"] {
+  content: "c9,";
+}
+
+.c7 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+ui-fss.g58[id="c6"] {
+  content: "c7,";
+}
+
+<BUCTools
+  aktoerId="123"
+  buc={
+    Object {
+      "caseId": "600891",
+      "creator": Object {
+        "country": "NO",
+        "institution": "NO:NAVAT07",
+        "name": "NAV ACCEPTANCE TEST 07",
+      },
+      "error": null,
+      "institusjon": Array [
+        Object {
+          "country": "NO",
+          "institution": "NO:NAVAT07",
+          "name": "NAV ACCEPTANCE TEST 07",
+        },
+        Object {
+          "country": "GB",
+          "institution": "GB:DEMO001",
+          "name": "GB Demo 01",
+        },
+        Object {
+          "country": "UK",
+          "institution": "UK:DEMO001",
+          "name": "UK Demo 01",
+        },
+        Object {
+          "country": "FR",
+          "institution": "FR:DEMO001",
+          "name": "France Demo 01",
+        },
+      ],
+      "lastUpdate": 1571818216000,
+      "readOnly": false,
+      "sakType": null,
+      "seds": Array [
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [
+            Object {
+              "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
+              "fileName": "balrog.png",
+              "id": "58828e7ff57943779ab7b24c522b1a3f",
+              "lastUpdate": Object {
+                "chronology": Object {
+                  "calendarType": "iso8601",
+                  "id": "ISO",
+                },
+                "dayOfMonth": 20,
+                "dayOfWeek": "MONDAY",
+                "dayOfYear": 140,
+                "era": "CE",
+                "leapYear": false,
+                "month": "MAY",
+                "monthValue": 5,
+                "year": 2019,
+              },
+              "medical": false,
+              "mimeType": "image/png",
+              "name": "balrog.png",
+            },
+          ],
+          "creationDate": 1571818175000,
+          "displayName": "Invalidate Sed",
+          "firstVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "id": "98492223b35240138503f58ec09454fa",
+          "lastUpdate": 1571818175000,
+          "lastVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "parentDocumentId": "5d549c96e0ce40788a2eea2992c1f65f",
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": true,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "X008",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818194896,
+          "displayName": "Pension decision",
+          "firstVersion": Object {
+            "date": 1571818194896,
+            "id": "1",
+          },
+          "id": "10678159cd4142f890d56264bfdefd13",
+          "lastUpdate": 1571818294896,
+          "lastVersion": Object {
+            "date": 1571818294896,
+            "id": "3",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "DEMO001",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "IT",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "IT",
+                "id": "IT:DEMO001",
+                "location": null,
+                "name": "Italia Demo 01",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "DEMO001",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "ES",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "ES",
+                "id": "ES:DEMO001",
+                "location": null,
+                "name": "Spain Demo 01",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "DEMO001",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "FR",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "FR",
+                "id": "FR:DEMO001",
+                "location": null,
+                "name": "France Demo 01",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "active",
+          "type": "P6000",
+          "version": "3",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818175000,
+          "displayName": "Forward Case",
+          "firstVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "id": "4bff8e2fdbeb4f8fa5ba76e0d9f66f6d",
+          "lastUpdate": 1571818175000,
+          "lastVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "X007",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818201591,
+          "displayName": "Transfer of additional information",
+          "firstVersion": Object {
+            "date": 1571818201591,
+            "id": "1",
+          },
+          "id": "ef2905700e6f410b9edd04023856d49b",
+          "lastUpdate": 1571818201591,
+          "lastVersion": Object {
+            "date": 1571818201591,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "cancelled",
+          "type": "P10000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818175000,
+          "displayName": "Country specific information",
+          "firstVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "id": "8c582ae21c8744aa8e697c8a5c84d84f",
+          "lastUpdate": 1571818175000,
+          "lastVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+          ],
+          "status": "new",
+          "type": "P3000_NO",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818176000,
+          "displayName": "Request for Medical Information",
+          "firstVersion": Object {
+            "date": 1571818176000,
+            "id": "1",
+          },
+          "id": "7c52d3b4006b489d89ee1af37caef6f6",
+          "lastUpdate": 1571818176000,
+          "lastVersion": Object {
+            "date": 1571818176000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "H120",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [
+            Object {
+              "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
+              "fileName": "balrog.png",
+              "id": "58828e7ff57943779ab7b24c522b1a3f",
+              "lastUpdate": Object {
+                "chronology": Object {
+                  "calendarType": "iso8601",
+                  "id": "ISO",
+                },
+                "dayOfMonth": 20,
+                "dayOfWeek": "MONDAY",
+                "dayOfYear": 140,
+                "era": "CE",
+                "leapYear": false,
+                "month": "MAY",
+                "monthValue": 5,
+                "year": 2019,
+              },
+              "medical": false,
+              "mimeType": "image/png",
+              "name": "balrog.png",
+            },
+            Object {
+              "documentId": "cac9db2726d54f2c9b51d1562b7b0a7a",
+              "fileName": "491399765_ARKIV.pdf",
+              "id": "58828e7ff57943779ab7b24c522b1a3d",
+              "lastUpdate": Object {
+                "chronology": Object {
+                  "calendarType": "iso8601",
+                  "id": "ISO",
+                },
+                "dayOfMonth": 20,
+                "dayOfWeek": "MONDAY",
+                "dayOfYear": 140,
+                "era": "CE",
+                "leapYear": false,
+                "month": "JUN",
+                "monthValue": 5,
+                "year": 2019,
+              },
+              "medical": false,
+              "mimeType": "application/pdf",
+              "name": "491399765_ARKIV.pdf",
+            },
+          ],
+          "creationDate": 1571818181793,
+          "displayName": "Report on insurance history",
+          "firstVersion": Object {
+            "date": 1571818181793,
+            "id": "1",
+          },
+          "id": "dc4670bbd59d4c8ab3b41974a72bf11d",
+          "lastUpdate": 1571818181793,
+          "lastVersion": Object {
+            "date": 1571818181793,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "new",
+          "type": "P4000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818176000,
+          "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
+          "firstVersion": Object {
+            "date": 1571818176000,
+            "id": "1",
+          },
+          "id": "34b286dc45ff4f6fa8c91a8aa698345d",
+          "lastUpdate": 1571818176000,
+          "lastVersion": Object {
+            "date": 1571818176000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "H020",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818175000,
+          "displayName": "Notification of death",
+          "firstVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "id": "6b626b56303e4bca9fd8e40d758a4044",
+          "lastUpdate": 1571818175000,
+          "lastVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "H070",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818216066,
+          "displayName": "Notification of Summary note",
+          "firstVersion": Object {
+            "date": 1571818216066,
+            "id": "1",
+          },
+          "id": "619f742acee74769bcd449b13eb9cf54",
+          "lastUpdate": 1571818216066,
+          "lastVersion": Object {
+            "date": 1571818216066,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "sent",
+          "type": "P7000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818170586,
+          "displayName": "Old age pension claim",
+          "firstVersion": Object {
+            "date": 1571818170586,
+            "id": "1",
+          },
+          "id": "5d549c96e0ce40788a2eea2992c1f65f",
+          "lastUpdate": 1571818170586,
+          "lastVersion": Object {
+            "date": 1571818170586,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": true,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "sent",
+          "type": "P2000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818175000,
+          "displayName": "Add New Participant",
+          "firstVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "id": "d1f436ac1402462e827ad70b616d9594",
+          "lastUpdate": 1571818175000,
+          "lastVersion": Object {
+            "date": 1571818175000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "X005",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": false,
+          "attachments": Array [],
+          "creationDate": 1571818188033,
+          "displayName": "Insurance/residence periods",
+          "firstVersion": Object {
+            "date": 1571818188033,
+            "id": "1",
+          },
+          "id": "60578cf8bf9f45a7819a39987c6c8fd4",
+          "lastUpdate": 1571818188033,
+          "lastVersion": Object {
+            "date": 1571818188033,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "received",
+          "type": "P5000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": false,
+          "attachments": Array [],
+          "creationDate": 1571234189234,
+          "displayName": "Insurance/residence periods",
+          "firstVersion": Object {
+            "date": 1571547188033,
+            "id": "1",
+          },
+          "id": "50578cf8bf9f45a7819a39987c6c8fd4",
+          "lastUpdate": 1571547188033,
+          "lastVersion": Object {
+            "date": 1571547188033,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "received",
+          "type": "P5000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818208620,
+          "displayName": "Request for additional information",
+          "firstVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "id": "51d9d9277ab847008bc88c1b31b34865",
+          "lastUpdate": 1571818208620,
+          "lastVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "new",
+          "type": "P8000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818174000,
+          "displayName": "Reminder",
+          "firstVersion": Object {
+            "date": 1571818174000,
+            "id": "1",
+          },
+          "id": "fd55d46e6ab741838d3a8e1735d33f1b",
+          "lastUpdate": 1571818174000,
+          "lastVersion": Object {
+            "date": 1571818174000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "X009",
+          "version": "1",
+        },
+      ],
+      "startDate": 1571818162145,
+      "status": "open",
+      "type": "P_BUC_01",
+    }
+  }
+  bucInfo={
+    Object {
+      "comment": Array [
+        Object {
+          "value": "this is a comment for caseId 600891",
+        },
+        Object {
+          "value": "This is another comment",
+        },
+      ],
+      "tags": Array [
+        "tag-refusjonskrav",
+      ],
+    }
+  }
+  initialTab={0}
+  onTagChange={[MockFunction]}
+>
+  <Component
+    theme={
+      Object {
+        "alternative-background-color": "#E9E7E7",
+        "black": "#000000",
+        "border-radius-base": "4px",
+        "border-radius-large": "6px",
+        "border-radius-small": "2px",
+        "container-desktop": "(940px + @grid-gutter-width)",
+        "container-large-desktop": "(1140px + @grid-gutter-width)",
+        "container-lg": "(1140px + @grid-gutter-width)",
+        "container-md": "(940px + @grid-gutter-width)",
+        "container-sm": "(720px + @grid-gutter-width)",
+        "container-tablet": "(720px + @grid-gutter-width)",
+        "fokusFarge": "#254a6c",
+        "grayBackground": "#E9E7E7",
+        "grayIcon": "#B7B1A9",
+        "grayInactive": "#78706A",
+        "grayModia": "#333333",
+        "grid-columns": "12",
+        "grid-float-breakpoint": "768px",
+        "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+        "grid-gutter-width": "16px",
+        "inverted-font-color": "#FFFFFF",
+        "line-height-large": "1.3333333",
+        "line-height-small": "1.5",
+        "main-active-color": "#a3dff3",
+        "main-background-color": "#FFFFFF",
+        "main-border-color": "#78706A",
+        "main-border-radius": "4px",
+        "main-disabled-color": "#B7B1A9",
+        "main-error-color": "#BA3A26",
+        "main-focus-color": "#254a6c",
+        "main-font-color": "#3E3832",
+        "main-hover-color": "#e0f4fb",
+        "main-interactive-color": "#0067C5",
+        "main-success-color": "#06893A",
+        "main-warning-color": "#FF9100",
+        "navBla": "#0067C5",
+        "navBlaDarken20": "#0c5da7",
+        "navBlaDarken40": "#18548a",
+        "navBlaDarken60": "#254a6c",
+        "navBlaDarken80": "#31414f",
+        "navBlaLighten20": "#3385d0",
+        "navBlaLighten40": "#66a3dc",
+        "navBlaLighten60": "#99c2e7",
+        "navBlaLighten80": "#cce0f3",
+        "navDypBla": "#005B82",
+        "navDypBlaDarken20": "#0c5472",
+        "navDypBlaDarken40": "#184d62",
+        "navDypBlaDarken60": "#254652",
+        "navDypBlaDarken80": "#313f42",
+        "navDypBlaLighten20": "#337b9b",
+        "navDypBlaLighten40": "#669cb4",
+        "navDypBlaLighten60": "#99bdcd",
+        "navDypBlaLighten80": "#ccdee6",
+        "navGra20": "#C6C2BF",
+        "navGra40": "#B7B1A9",
+        "navGra60": "#78706A",
+        "navGra80": "#59514B",
+        "navGronn": "#06893A",
+        "navGronnDarken20": "#117838",
+        "navGronnDarken40": "#1c6836",
+        "navGronnDarken60": "#275835",
+        "navGronnDarken80": "#324833",
+        "navGronnLighten20": "#37a061",
+        "navGronnLighten40": "#69b888",
+        "navGronnLighten60": "#9bcfb0",
+        "navGronnLighten80": "#cde7d7",
+        "navLilla": "#634689",
+        "navLillaDarken20": "#5b4377",
+        "navLillaDarken40": "#544066",
+        "navLillaDarken60": "#4c3d54",
+        "navLillaDarken80": "#453a43",
+        "navLillaLighten20": "#826ba0",
+        "navLillaLighten40": "#a190b8",
+        "navLillaLighten60": "#c0b5cf",
+        "navLillaLighten80": "#dfdae7",
+        "navLimeGronn": "#A2AD00",
+        "navLimeGronnDarken20": "#8e950a",
+        "navLimeGronnDarken40": "#7a7e14",
+        "navLimeGronnDarken60": "#66661e",
+        "navLimeGronnDarken80": "#524f28",
+        "navLimeGronnLighten20": "#b4bd33",
+        "navLimeGronnLighten40": "#c7cd66",
+        "navLimeGronnLighten60": "#d9de99",
+        "navLimeGronnLighten80": "#eceecc",
+        "navLysBla": "#66CBEC",
+        "navLysBlaDarken20": "#5eadc6",
+        "navLysBlaDarken40": "#5690a1",
+        "navLysBlaDarken60": "#4e727c",
+        "navLysBlaDarken80": "#465557",
+        "navLysBlaLighten20": "#84d5ef",
+        "navLysBlaLighten40": "#a3dff3",
+        "navLysBlaLighten60": "#c1eaf7",
+        "navLysBlaLighten80": "#e0f4fb",
+        "navLysGra": "#E9E7E7",
+        "navMorkGra": "#3E3832",
+        "navOransje": "#FF9100",
+        "navOransjeDarken20": "#d87f0a",
+        "navOransjeDarken40": "#b16d14",
+        "navOransjeDarken60": "#8b5b1e",
+        "navOransjeDarken80": "#644928",
+        "navOransjeLighten20": "#ffa733",
+        "navOransjeLighten40": "#ffbd66",
+        "navOransjeLighten60": "#ffd399",
+        "navOransjeLighten80": "#ffe9cc",
+        "navRod": "#C30000",
+        "navRodDarken20": "#a80b0a",
+        "navRodDarken40": "#8d1614",
+        "navRodDarken60": "#73211e",
+        "navRodDarken80": "#582c28",
+        "navRodLighten20": "#cf3333",
+        "navRodLighten40": "#db6666",
+        "navRodLighten60": "#e79999",
+        "navRodLighten80": "#f3cccc",
+        "orangeFocus": "#FFBD66",
+        "orangeFocusDarken20": "#d8a25b",
+        "orangeFocusDarken40": "#b18751",
+        "orangeFocusDarken60": "#8b6d46",
+        "orangeFocusDarken80": "#64523c",
+        "orangeFocusLighten20": "#ffca84",
+        "orangeFocusLighten40": "#ffd7a3",
+        "orangeFocusLighten60": "#ffe4c1",
+        "orangeFocusLighten80": "#fff1e0",
+        "padding-base-horizontal": "12px",
+        "padding-base-vertical": "6px",
+        "padding-large-horizontal": "16px",
+        "padding-large-vertical": "10px",
+        "padding-small-horizontal": "10px",
+        "padding-small-vertical": "5px",
+        "padding-xs-horizontal": "5px",
+        "padding-xs-vertical": "1px",
+        "pinkErrorBg": "#F3E3E3",
+        "redError": "#BA3A26",
+        "redErrorDarken20": "#a13928",
+        "redErrorDarken40": "#88392a",
+        "redErrorDarken60": "#6f382d",
+        "redErrorDarken80": "#56382f",
+        "redErrorLighten20": "#c76151",
+        "redErrorLighten40": "#d5887c",
+        "redErrorLighten60": "#e3b0a8",
+        "redErrorLighten80": "#f1d7d3",
+        "screen-desktop": "992px",
+        "screen-lg": "1200px",
+        "screen-lg-desktop": "1200px",
+        "screen-lg-min": "1200px",
+        "screen-md": "992px",
+        "screen-md-max": "(@screen-lg-min - 1)",
+        "screen-md-min": "992px",
+        "screen-sm": "768px",
+        "screen-sm-max": "(@screen-md-min - 1)",
+        "screen-sm-min": "768px",
+        "screen-tablet": "768px",
+        "screen-xs-max": "(@screen-sm-min - 1)",
+        "type": "theme",
+        "white": "#FFFFFF",
+      }
+    }
+  >
+    <Styled(Styled(Panel))
+      data-test-id="a-buc-c-buctools__panel-id"
+    >
+      <Panel
+        border={false}
+        className="c0 c1 c2 c3"
+        data-test-id="a-buc-c-buctools__panel-id"
+      >
+        <div
+          className="panel c0 c1 c2 c3"
+          data-test-id="a-buc-c-buctools__panel-id"
+        >
+          <Styled(Tabs)
+            data-test-id="a-buc-c-buctools__tabs-id"
+            defaultAktiv={0}
+            onChange={[Function]}
+            tabs={
+              Array [
+                Object {
+                  "key": "P5000",
+                  "label": "buc:form-labelP5000",
+                },
+                Object {
+                  "key": "tags",
+                  "label": "ui:tags",
+                },
+                Object {
+                  "key": "comments",
+                  "label": "buc:form-commentForBUC",
+                },
+              ]
+            }
+          >
+            <Tabs
+              className="c4 c5"
+              data-test-id="a-buc-c-buctools__tabs-id"
+              defaultAktiv={0}
+              kompakt={false}
+              onChange={[Function]}
+              tabs={
+                Array [
+                  Object {
+                    "key": "P5000",
+                    "label": "buc:form-labelP5000",
+                  },
+                  Object {
+                    "key": "tags",
+                    "label": "ui:tags",
+                  },
+                  Object {
+                    "key": "comments",
+                    "label": "buc:form-commentForBUC",
+                  },
+                ]
+              }
+            >
+              <TabsPure
+                arrowKeysAutoSwitchTabs={true}
+                className="c4 c5"
+                data-test-id="a-buc-c-buctools__tabs-id"
+                kompakt={false}
+                onChange={[Function]}
+              >
+                <div
+                  className="nav-frontend-tabs c4 c5"
+                  data-test-id="a-buc-c-buctools__tabs-id"
+                  onChange={[Function]}
+                >
+                  <ul
+                    className="nav-frontend-tabs__tab-list"
+                    role="tablist"
+                  >
+                    <Tab
+                      aktiv={true}
+                      key=".$P5000"
+                      label="buc:form-labelP5000"
+                      linkRef={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      <li
+                        className="nav-frontend-tabs__tab-outer"
+                        role="presentation"
+                      >
+                        <button
+                          aria-selected={true}
+                          className="nav-frontend-tabs__tab-inner nav-frontend-tabs__tab-inner--aktiv"
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          role="tab"
+                        >
+                          <div
+                            className="nav-frontend-tabs__tab-label"
+                          >
+                            buc:form-labelP5000
+                          </div>
+                        </button>
+                      </li>
+                    </Tab>
+                    <Tab
+                      aktiv={false}
+                      key=".$tags"
+                      label="ui:tags"
+                      linkRef={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      <li
+                        className="nav-frontend-tabs__tab-outer"
+                        role="presentation"
+                      >
+                        <button
+                          aria-selected={false}
+                          className="nav-frontend-tabs__tab-inner nav-frontend-tabs__tab-inner--interaktiv"
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          role="tab"
+                        >
+                          <div
+                            className="nav-frontend-tabs__tab-label"
+                          >
+                            ui:tags
+                          </div>
+                        </button>
+                      </li>
+                    </Tab>
+                    <Tab
+                      aktiv={false}
+                      key=".$comments"
+                      label="buc:form-commentForBUC"
+                      linkRef={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      <li
+                        className="nav-frontend-tabs__tab-outer"
+                        role="presentation"
+                      >
+                        <button
+                          aria-selected={false}
+                          className="nav-frontend-tabs__tab-inner nav-frontend-tabs__tab-inner--interaktiv"
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          role="tab"
+                        >
+                          <div
+                            className="nav-frontend-tabs__tab-label"
+                          >
+                            buc:form-commentForBUC
+                          </div>
+                        </button>
+                      </li>
+                    </Tab>
+                  </ul>
+                </div>
+              </TabsPure>
+            </Tabs>
+          </Styled(Tabs)>
+          <styled.div>
+            <div
+              className="c6 c7"
+            >
+              <styled.div>
+                <div
+                  className="c8 c9"
+                >
+                  <Undertittel>
+                    <TypografiBase
+                      type="undertittel"
+                    >
+                      <h2
+                        className="typo-undertittel"
+                      >
+                        buc:form-titleP5000
+                      </h2>
+                    </TypografiBase>
+                  </Undertittel>
+                  <styled.div
+                    data-size="0.5"
+                  >
+                    <div
+                      className="c10 c11"
+                      data-size="0.5"
+                    />
+                  </styled.div>
+                  <Styled(KnappBase)
+                    data-amplitude="buc.edit.tools.P5000.view"
+                    data-test-id="a-buc-c-buctools__P5000-button-id"
+                    disabled={false}
+                    onClick={[Function]}
+                    spinner={false}
+                  >
+                    <KnappBase
+                      autoDisableVedSpinner={false}
+                      className="c12 c13"
+                      data-amplitude="buc.edit.tools.P5000.view"
+                      data-test-id="a-buc-c-buctools__P5000-button-id"
+                      disabled={false}
+                      htmlType="submit"
+                      inaktivKlasseVedDisabled={false}
+                      kompakt={false}
+                      mini={false}
+                      onClick={[Function]}
+                      spinner={false}
+                      type="standard"
+                    >
+                      <button
+                        className="knapp c12 c13 knapp--standard"
+                        data-amplitude="buc.edit.tools.P5000.view"
+                        data-test-id="a-buc-c-buctools__P5000-button-id"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="submit"
+                      >
+                        buc:form-seeP5000s
+                      </button>
+                    </KnappBase>
+                  </Styled(KnappBase)>
+                </div>
+              </styled.div>
+            </div>
+          </styled.div>
+        </div>
+      </Panel>
+    </Styled(Styled(Panel))>
+  </Component>
+</BUCTools>
+`;

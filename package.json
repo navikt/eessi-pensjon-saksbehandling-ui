@@ -131,6 +131,7 @@
     "enzyme-to-json": "^3.5.0",
     "es6-promise": "^4.2.8",
     "identity-obj-proxy": "^3.0.0",
+    "jest-styled-components": "^7.0.3",
     "less": "^3.12.2",
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.14.6",

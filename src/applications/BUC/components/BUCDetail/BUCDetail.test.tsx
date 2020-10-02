@@ -1,4 +1,5 @@
 import { Buc } from 'declarations/buc'
+import { PersonAvdods } from 'declarations/types'
 import { mount, ReactWrapper } from 'enzyme'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
@@ -13,12 +14,14 @@ const defaultSelector: BUCDetailSelector = {
   rinaUrl: 'http://rinaurl.mock.com'
 }
 
+const buc: Buc = mockBucs()[0] as Buc
+const mockPersonAvdods: PersonAvdods | undefined = personAvdod(1)
+
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   let wrapper: ReactWrapper
-  const buc: Buc = mockBucs()[0] as Buc
   const initialMockProps: BUCDetailProps = {
     buc: buc,
-    personAvdods: personAvdod(1)
+    personAvdods: mockPersonAvdods
   }
 
   beforeAll(() => {
@@ -42,6 +45,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__status-id\']').hostNodes().render().text()).toEqual('buc:status-' + buc.status)
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__creator-id\']').hostNodes().render().text()).toEqual('NAVAT07')
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__startDate-id\']').hostNodes().render().text()).toEqual(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__caseId-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__gotorina-link-id\']').hostNodes().render().text()).toEqual(buc.caseId)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__institutions-id\']')).toBeTruthy()
@@ -53,7 +57,15 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
       ...initialMockProps,
       buc: {
         ...initialMockProps.buc,
-        type: 'P_BUC_02'
+        type: 'P_BUC_02',
+        subject: {
+          gjenlevende: {
+            fnr: '123'
+          },
+          avdod: {
+            fnr: mockPersonAvdods![0].fnr
+          }
+        }
       }
     }
     wrapper = mount(<BUCDetail {...mockProps} />)

@@ -1,6 +1,137 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`] = `
+.c10 .skjemaelement__feilmelding .multipleSelect__control {
+  border: 1px solid #BA3A26;
+}
+
+ui-fss.g4[id="c9"] {
+  content: "c10,";
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g15[id="c0"] {
+  content: "c1,";
+}
+
+.c3 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+ui-fss.g16[id="c2"] {
+  content: "c3,";
+}
+
+.c5 {
+  margin-bottom: 2rem;
+}
+
+.c6 {
+  margin-bottom: 1rem;
+}
+
+ui-fss.g17[id="c4"] {
+  content: "c5,c6,";
+}
+
+.c8 {
+  display: inline-block;
+  margin-left: 2rem;
+}
+
+.c13 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+ui-fss.g18[id="c7"] {
+  content: "c8,c13,";
+}
+
+.c12 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  background-color: #0067C5;
+  color: #FFFFFF;
+  border-color: #0067C5;
+}
+
+.c12:hover:not(:disabled) {
+  background-color: #0067C5;
+  border-color: #0067C5;
+  color: #FFFFFF;
+}
+
+.c12:hover:not(:disabled) svg path {
+  stroke: #FFFFFF;
+}
+
+.c12:disabled {
+  color: #FFFFFF;
+  background-color: #B7B1A9;
+}
+
+.c12 svg path {
+  stroke: #0067C5;
+}
+
+ui-fss.g20[id="c11"] {
+  content: "c12,";
+}
+
+.c15 {
+  color: #0067C5;
+  background-color: transparent;
+}
+
+.c15:hover:not(:disabled) {
+  color: #0067C5;
+  border-color: #0067C5;
+}
+
+.c15:hover:not(:disabled) svg path {
+  stroke: #FFFFFF;
+}
+
+.c15:disabled {
+  background-color: #B7B1A9;
+  color: #3E3832;
+  border: none;
+}
+
+.c15 svg path {
+  stroke: #0067C5;
+}
+
+ui-fss.g21[id="c14"] {
+  content: "c15,";
+}
+
+@media (min-width:768px) {
+  .c1 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
 <BUCStart
   aktoerId="456"
   onBucCancelled={[MockFunction]}
@@ -171,17 +302,17 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
     >
       <styled.div>
         <div
-          className="sc-crzoUp fxphTO"
+          className="c0 c1"
         >
           <styled.div>
             <div
-              className="sc-dIsAE kEsOz"
+              className="c2 c3"
             >
               <styled.div
                 data-size="2"
               >
                 <div
-                  className="sc-bqGHjH dGWWYV"
+                  className="c4 c5"
                   data-size="2"
                 />
               </styled.div>
@@ -202,7 +333,13 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
                 highContrast={false}
                 id="a-buc-c-bucstart__subjectarea-select-id"
                 isSearchable={true}
-                menuPortalTarget={<body />}
+                menuPortalTarget={
+                  @media (min-width:768px) {
+
+}
+
+<body />
+                }
                 onChange={[Function]}
                 options={
                   Array [
@@ -1622,7 +1759,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
               </Select>
               <styled.div>
                 <div
-                  className="sc-bqGHjH hlpYvW"
+                  className="c4 c6"
                 />
               </styled.div>
               <label
@@ -3378,19 +3515,19 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
             data-size="2"
           >
             <div
-              className="sc-ksluoS dFAFVa"
+              className="c7 c8"
               data-size="2"
             />
           </styled.div>
           <styled.div>
             <div
-              className="sc-dIsAE kEsOz"
+              className="c2 c3"
             >
               <styled.div
                 data-size="2"
               >
                 <div
-                  className="sc-bqGHjH dGWWYV"
+                  className="c4 c5"
                   data-size="2"
                 />
               </styled.div>
@@ -3595,7 +3732,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
                     className=""
                   >
                     <div
-                      className="sc-hKFyIo VNITH"
+                      className="c9 c10"
                     >
                       <label
                         className="skjemaelement__label"
@@ -3608,7 +3745,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
                         </label>
                         <styled.div>
                           <div
-                            className="sc-bqGHjH hlpYvW"
+                            className="c4 c6"
                           />
                         </styled.div>
                         <Normaltekst>
@@ -8529,7 +8666,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
         data-size="2"
       >
         <div
-          className="sc-bqGHjH dGWWYV"
+          className="c4 c5"
           data-size="2"
         />
       </styled.div>
@@ -8544,7 +8681,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
           spinner={false}
         >
           <Hovedknapp
-            className="sc-fnVYJo dKGrnx"
+            className="c11 c12"
             data-amplitude="buc.new.create"
             data-test-id="a-buc-c-bucstart__forward-button-id"
             disabled={false}
@@ -8553,7 +8690,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
           >
             <KnappBase
               autoDisableVedSpinner={false}
-              className="sc-fnVYJo dKGrnx"
+              className="c11 c12"
               data-amplitude="buc.new.create"
               data-test-id="a-buc-c-bucstart__forward-button-id"
               disabled={false}
@@ -8566,7 +8703,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
               type="hoved"
             >
               <button
-                className="knapp sc-fnVYJo dKGrnx knapp--hoved"
+                className="knapp c11 c12 knapp--hoved"
                 data-amplitude="buc.new.create"
                 data-test-id="a-buc-c-bucstart__forward-button-id"
                 disabled={false}
@@ -8580,7 +8717,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
         </Styled(Hovedknapp)>
         <styled.div>
           <div
-            className="sc-ksluoS bUjyRd"
+            className="c7 c13"
           />
         </styled.div>
         <Styled(Flatknapp)
@@ -8589,14 +8726,14 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
           onClick={[Function]}
         >
           <Flatknapp
-            className="sc-fFSRdu jliMMW"
+            className="c14 c15"
             data-amplitude="buc.new.cancel"
             data-test-id="a-buc-c-bucstart__cancel-button-id"
             onClick={[Function]}
           >
             <KnappBase
               autoDisableVedSpinner={false}
-              className="sc-fFSRdu jliMMW"
+              className="c14 c15"
               data-amplitude="buc.new.cancel"
               data-test-id="a-buc-c-bucstart__cancel-button-id"
               disabled={false}
@@ -8609,7 +8746,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
               type="flat"
             >
               <button
-                className="knapp sc-fFSRdu jliMMW knapp--flat"
+                className="knapp c14 c15 knapp--flat"
                 data-amplitude="buc.new.cancel"
                 data-test-id="a-buc-c-bucstart__cancel-button-id"
                 disabled={false}
@@ -8624,7 +8761,7 @@ exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`
       </div>
       <styled.div>
         <div
-          className="sc-bqGHjH hlpYvW"
+          className="c4 c6"
         />
       </styled.div>
     </div>

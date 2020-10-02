@@ -1,1 +1,1 @@
-export default ['mockTag1', 'mockTag2']
+export default ['tag-refusjonskrav', 'tag-uttakFor67ar']

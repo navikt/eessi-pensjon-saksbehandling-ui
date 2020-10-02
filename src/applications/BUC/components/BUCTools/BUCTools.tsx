@@ -2,16 +2,29 @@ import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import Trashcan from 'assets/icons/Trashcan'
+import { slideInFromRight } from 'components/keyframes'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import {
   HighContrastKnapp,
   HighContrastModal,
   HighContrastPanel,
+  HighContrastTabs,
   HighContrastTextArea,
-  VerticalSeparatorDiv,
-  HighContrastTabs
+  VerticalSeparatorDiv
 } from 'components/StyledComponents'
-import { Buc, BucInfo, BucsInfo, Comment, Comments, SedContentMap, Seds, Tag, Tags, ValidBuc } from 'declarations/buc'
+import {
+  Buc,
+  BucInfo,
+  BucsInfo,
+  Comment,
+  Comments,
+  SedContentMap,
+  Seds,
+  Tag,
+  TagList,
+  Tags,
+  ValidBuc
+} from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
@@ -21,64 +34,15 @@ import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { keyframes, ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
-export interface BUCToolsProps {
-  aktoerId: string
-  buc: Buc
-  bucInfo: BucInfo
-  className?: string
-  onTagChange ?: (tagList: Tags) => void
-}
-
-export interface BUCToolsSelector {
-  featureToggles: FeatureToggles
-  highContrast: boolean
-  loading: Loading
-  locale: AllowedLocaleString
-  bucsInfo?: BucsInfo | undefined
-  sedContent: SedContentMap
-  tagList?: Array<string> | undefined
-}
-
-const mapState = (state: State): BUCToolsSelector => ({
-  featureToggles: state.app.featureToggles,
-  highContrast: state.ui.highContrast,
-  loading: state.loading,
-  locale: state.ui.locale,
-  bucsInfo: state.buc.bucsInfo,
-  tagList: state.buc.tagList,
-  sedContent: state.buc.sedContent
-})
-
-const slideInFromRight = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
 const BUCToolsPanel = styled(HighContrastPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight} 0.3s forwards;
-`
-const P5000Div = styled.div`
-  margin-bottom: 1rem;
-`
-const TextArea = styled(HighContrastTextArea)`
-  min-height: 150px;
-  width: 100%;
-`
-const PaddedTabContent = styled.div`
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 `
 const CommentDiv = styled.div`
   border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
@@ -89,50 +53,69 @@ const CommentDiv = styled.div`
   display: flex;
   justify-content: space-between;
 `
+const P5000Div = styled.div`
+  margin-bottom: 1rem;
+`
+const PaddedTabContent = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`
 const RemoveComment = styled.div`
   cursor: pointer;
 `
+export const TextArea = styled(HighContrastTextArea)`
+  min-height: 150px;
+  width: 100%;
+`
+
+export interface BUCToolsProps {
+  aktoerId: string
+  buc: Buc
+  bucInfo: BucInfo
+  className?: string
+  initialTab?: number
+  onTagChange?: (tagList: Tags) => void
+}
+
+export interface BUCToolsSelector {
+  bucsInfo?: BucsInfo | undefined
+  featureToggles: FeatureToggles
+  highContrast: boolean
+  loading: Loading
+  locale: AllowedLocaleString
+  sedContent: SedContentMap
+  tagList?: TagList | undefined
+}
+
+const mapState = (state: State): BUCToolsSelector => ({
+  bucsInfo: state.buc.bucsInfo,
+  featureToggles: state.app.featureToggles,
+  highContrast: state.ui.highContrast,
+  loading: state.loading,
+  locale: state.ui.locale,
+  sedContent: state.buc.sedContent,
+  tagList: state.buc.tagList
+})
 
 const BUCTools: React.FC<BUCToolsProps> = ({
-  aktoerId, buc, bucInfo, className, onTagChange
+  aktoerId, buc, bucInfo, className, initialTab = 0, onTagChange
 }: BUCToolsProps): JSX.Element => {
-  const { t } = useTranslation()
-  const [comment, setComment] = useState< string | null | undefined >('')
-  const [originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
-  const [allTags, setAllTags] = useState<Tags | undefined>(undefined)
-  const [fetchingP5000, setFetchingP5000] = useState<Seds>([])
-  const [modal, setModal] = useState<ModalContent | undefined>(undefined)
-  const [timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
-  const [tags, setTags] = useState<Tags | undefined>(undefined)
 
-  const [activeTab, setActiveTab] = useState<number>(0)
-  const { featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
-  const _theme = highContrast ? themeHighContrast : theme
+  const {
+    featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList
+  }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
-  useEffect(() => {
-    if (tagList === undefined && !loading.gettingTagList) {
-      dispatch(getTagList())
-    }
-  }, [dispatch, loading, tagList])
-
-  useEffect(() => {
-    if (!allTags && tagList) {
-      setAllTags(tagList.map((tag: string) => ({
-        value: tag,
-        label: t('buc:' + tag)
-      })))
-    }
-  }, [t, allTags, tagList])
-
-  useEffect(() => {
-    if (bucInfo && bucInfo.tags && tags === undefined) {
-      setTags(bucInfo.tags.map((tag: string) => ({
-        value: tag,
-        label: t('buc:' + tag)
-      })))
-    }
-  }, [bucInfo, t, tags])
+  const [_activeTab, setActiveTab] = useState<number>(initialTab)
+  const [_allTags, setAllTags] = useState<Tags | undefined>(undefined)
+  const [_comment, setComment] = useState< string | null | undefined >('')
+  const [_fetchingP5000, setFetchingP5000] = useState<Seds>([])
+  const [_modal, setModal] = useState<ModalContent | undefined>(undefined)
+  const [_originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
+  const [_timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
+  const [_tags, setTags] = useState<Tags | undefined>(undefined)
+  const _theme = highContrast ? themeHighContrast : theme
 
   const getP5000 = useCallback(() => {
     if (!buc.seds) {
@@ -154,22 +137,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         />
       )
     })
-  }, [highContrast, setModal, getP5000, locale, sedContent, t])
-
-  useEffect(() => {
-    if (!_.isEmpty(fetchingP5000)) {
-      const myDocumentIds = fetchingP5000.map(sed => sed.id)
-      const loadedSeds = Object.keys(sedContent)
-      const commonSeds = _.intersection(myDocumentIds, loadedSeds)
-      if (!_.isEmpty(commonSeds)) {
-        const newFetchingP5000 = _.filter(fetchingP5000, sed => !_.includes(commonSeds, sed.id))
-        setFetchingP5000(newFetchingP5000)
-        if (_.isEmpty(newFetchingP5000)) {
-          displayP5000table()
-        }
-      }
-    }
-  }, [displayP5000table, fetchingP5000, sedContent, setModal])
+  }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
   const onTagsChange = (tagsList: Tags): void => {
     if (_.isFunction(onTagChange)) {
@@ -180,8 +148,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     dispatch(saveBucsInfo({
       bucsInfo: bucsInfo!,
       aktoerId: aktoerId,
-      tags: tagsList ? tagsList.map(tag => tag.value) : [],
-      comment: originalComments,
+      tags: _tags ? _tags.map(tag => tag.value) : [],
+      comment: _originalComments,
       buc: buc as ValidBuc
     }))
   }
@@ -191,26 +159,23 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onSaveCommentClick = (): void => {
-    standardLogger('buc.edit.tools.comment.textarea', { comment: comment })
-
-    let newOriginalComments: string | Comments = originalComments ? _.cloneDeep(originalComments) : []
+    standardLogger('buc.edit.tools.comment.textarea', { comment: _comment })
+    let newOriginalComments: Comments | string = _originalComments ? _.cloneDeep(_originalComments) : []
     if (_.isString(newOriginalComments)) {
       newOriginalComments = [{ value: newOriginalComments }]
     }
-
     const newComment: Comment = {
-      value: comment!
+      value: _comment!
     }
-    if (comment) {
+    if (_comment) {
       newOriginalComments!.push(newComment)
       setOriginalComments(newOriginalComments)
       setComment('')
     }
-
     dispatch(saveBucsInfo({
       bucsInfo: bucsInfo!,
       aktoerId: aktoerId,
-      tags: tags ? tags.map(tag => tag.value) : [],
+      tags: _tags ? _tags.map(tag => tag.value) : [],
       comment: newOriginalComments,
       buc: buc as ValidBuc
     }))
@@ -218,14 +183,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   const onDeleteComment = (i: number): void => {
     if (window.confirm(t('buc:form-areYouSureDeleteComment'))) {
-      const newOriginalComments: Comments = _.cloneDeep(originalComments) as Comments
+      const newOriginalComments: Comments = _.cloneDeep(_originalComments) as Comments
       newOriginalComments.splice(i, 1)
       setOriginalComments(newOriginalComments)
-
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
         aktoerId: aktoerId,
-        tags: tags ? tags.map(tag => tag.value) : [],
+        tags: _tags ? _tags.map(tag => tag.value) : [],
         comment: newOriginalComments,
         buc: buc as ValidBuc
       }))
@@ -233,8 +197,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onModalClose = () => {
-    if (timeWithP5000Modal) {
-      timeLogger('buc.edit.tools.P5000', timeWithP5000Modal)
+    if (_timeWithP5000Modal) {
+      timeLogger('buc.edit.tools.P5000', _timeWithP5000Modal)
     }
     setModal(undefined)
   }
@@ -243,7 +207,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     return !_.isEmpty(getP5000())
   }
 
-  const onGettingP5000sClick = (e: React.MouseEvent) : void => {
+  const onGettingP5000sClick = (e: React.MouseEvent): void => {
     buttonLogger(e)
     const p5000s = getP5000()
     if (p5000s) {
@@ -258,6 +222,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     label: t('buc:form-labelP5000'),
     key: 'P5000'
   }] : []
+
   tabs = tabs.concat([{
     label: t('ui:tags'),
     key: 'tags'
@@ -266,45 +231,91 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     key: 'comments'
   }])
 
+  useEffect(() => {
+    if (tagList === undefined && !loading.gettingTagList) {
+      dispatch(getTagList())
+    }
+  }, [dispatch, loading, tagList])
+
+  useEffect(() => {
+    if (!_allTags && tagList) {
+      setAllTags(tagList.map((tag: string) => ({
+        value: tag,
+        label: t('buc:' + tag)
+      })))
+    }
+  }, [t, _allTags, tagList])
+
+  useEffect(() => {
+    if (bucInfo && bucInfo.tags && _tags === undefined) {
+      setTags(bucInfo.tags.map((tag: string) => ({
+        value: tag,
+        label: t('buc:' + tag)
+      })))
+    }
+  }, [bucInfo, t, _tags])
+
+  useEffect(() => {
+    if (!_.isEmpty(_fetchingP5000)) {
+      const myDocumentIds = _fetchingP5000.map(sed => sed.id)
+      const loadedSeds = Object.keys(sedContent)
+      const commonSeds = _.intersection(myDocumentIds, loadedSeds)
+      if (!_.isEmpty(commonSeds)) {
+        const newFetchingP5000 = _.filter(_fetchingP5000, sed => !_.includes(commonSeds, sed.id))
+        setFetchingP5000(newFetchingP5000)
+        if (_.isEmpty(newFetchingP5000)) {
+          displayP5000table()
+        }
+      }
+    }
+  }, [displayP5000table, _fetchingP5000, sedContent, setModal])
+
   return (
     <ThemeProvider theme={_theme}>
       <BUCToolsPanel
-        data-test-id='a-buc-c-buctools__panel-id'
         className={className}
+        data-test-id='a-buc-c-buctools__panel-id'
       >
         <>
           <HighContrastTabs
+            data-test-id='a-buc-c-buctools__tabs-id'
+            onChange={(e: SyntheticEvent<EventTarget, Event>, i: number) => setActiveTab(i)}
             tabs={tabs}
-            onChange={(e: any, i: number) => { setActiveTab(i) }}
+            defaultAktiv={_activeTab}
           />
           <PaddedTabContent>
-            {featureToggles && featureToggles.P5000_VISIBLE && tabs[activeTab].key === 'P5000' && (
+            {featureToggles && featureToggles.P5000_VISIBLE && tabs[_activeTab].key === 'P5000' && (
               <P5000Div>
                 <Undertittel>
                   {t('buc:form-titleP5000')}
                 </Undertittel>
                 <VerticalSeparatorDiv data-size='0.5' />
-                {modal && <HighContrastModal modal={modal} onModalClose={onModalClose} />}
+                {_modal && (
+                  <HighContrastModal
+                    data-test-id='a-buc-c-buctools__modal-id'
+                    modal={_modal}
+                    onModalClose={onModalClose}
+                  />
+                )}
                 <HighContrastKnapp
                   data-amplitude='buc.edit.tools.P5000.view'
-                  id='a-buc-c-buctools__p5000-button-id'
-                  className='a-buc-c-buctools__p5000-button mb-2'
-                  disabled={!hasP5000s() || !_.isEmpty(fetchingP5000)}
-                  spinner={!_.isEmpty(fetchingP5000)}
+                  data-test-id='a-buc-c-buctools__P5000-button-id'
+                  disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
+                  spinner={!_.isEmpty(_fetchingP5000)}
                   onClick={onGettingP5000sClick}
                 >
-                  {!_.isEmpty(fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+                  {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
                 </HighContrastKnapp>
               </P5000Div>
             )}
-            {tabs[activeTab].key === 'tags' && (
+            {tabs[_activeTab].key === 'tags' && (
               <>
                 <VerticalSeparatorDiv data-size='0.5' />
                 <Normaltekst>
                   {t('buc:form-tagsForBUC-description')}
                 </Normaltekst>
                 <VerticalSeparatorDiv data-size='0.5' />
-                {tags && !_.isEmpty(tags) && (
+                {_tags && !_.isEmpty(_tags) && (
                   <>
                     <dt>
                       <Element>
@@ -313,35 +324,37 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     </dt>
                     <dd>
                       <Normaltekst>
-                        {tags.map((tag: Tag) => tag.label).join(', ')}
+                        {_tags.map((tag: Tag) => tag.label).join(', ')}
                       </Normaltekst>
                     </dd>
                   </>
                 )}
                 <VerticalSeparatorDiv data-size='0.5' />
                 <MultipleSelect
-                  highContrast={highContrast}
                   ariaLabel={t('buc:form-tagsForBUC')}
-                  label=''
-                  data-test-id='a-buc-c-buctools__tags-select-id'
-                  placeholder={t('buc:form-tagPlaceholder')}
                   aria-describedby='help-tags'
-                  values={tags || []}
+                  data-test-id='a-buc-c-buctools__tags-select-id'
                   hideSelectedOptions={false}
+                  highContrast={highContrast}
+                  label=''
                   onSelect={onTagsChange}
-                  options={allTags}
+                  options={_allTags}
+                  placeholder={t('buc:form-tagPlaceholder')}
+                  values={_tags || []}
                 />
               </>
             )}
-            {tabs[activeTab].key === 'comments' && (
+            {tabs[_activeTab].key === 'comments' && (
               <>
                 <VerticalSeparatorDiv data-size='0.5' />
                 <Element>
                   {t('ui:comment')}
                 </Element>
-
-                {originalComments ? (originalComments as Comments).map((comment, i) => (
-                  <CommentDiv key={i}>
+                {_originalComments ? (_originalComments as Comments).map((comment: Comment, i: number) => (
+                  <CommentDiv
+                    data-test-id='a-buc-c-buctools__comment-div-id'
+                    key={i}
+                  >
                     <Normaltekst>
                       {comment.value}
                     </Normaltekst>
@@ -360,14 +373,14 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 )}
                 <VerticalSeparatorDiv data-size='0.5' />
                 <TextArea
-                  id='a-buc-c-buctools__comment-textarea-id'
+                  data-test-id='a-buc-c-buctools__comment-textarea-id'
                   className='skjemaelement__input'
                   label=''
-                  value={comment || ''}
+                  value={_comment || ''}
                   onChange={onCommentChange}
                 />
                 <HighContrastKnapp
-                  data-id='a-buc-c-buctools__save-button-id'
+                  data-test-id='a-buc-c-buctools__comment-save-button-id'
                   disabled={loading.savingBucsInfo}
                   spinner={loading.savingBucsInfo}
                   onClick={onSaveCommentClick}

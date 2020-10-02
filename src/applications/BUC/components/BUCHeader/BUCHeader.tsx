@@ -132,7 +132,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const { highContrast, institutionNames, locale, personAvdods, rinaUrl, size }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
-  const [flagSize, setFlagSize] = useState<string>('XL')
+  const [_flagSize, setFlagSize] = useState<string>('XL')
   const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
 
   const generateFlagItems = (): FlagItems => {
@@ -271,7 +271,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 locale={locale}
                 type='circle'
                 overflowLimit={8}
-                size={flagSize}
+                size={_flagSize}
                 wrapper={false}
               />
             )}
@@ -285,7 +285,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               >
                 <NumberOfSedsDiv
                   data-test-id='a-buc-c-bucheader__icon-numberofseds-id'
-                  data-icon-size={flagSize}
+                  data-icon-size={_flagSize}
                 >
                   {numberOfSeds}
                 </NumberOfSedsDiv>
@@ -301,8 +301,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               >
                 <TagsDiv data-test-id='a-buc-c-bucheader__icon-tags-id'>
                   <ProblemCircleIcon
-                    width={flagSize === 'XL' ? 50 : 32}
-                    height={flagSize === 'XL' ? 50 : 32}
+                    width={_flagSize === 'XL' ? 50 : 32}
+                    height={_flagSize === 'XL' ? 50 : 32}
                   />
                 </TagsDiv>
               </Tooltip>

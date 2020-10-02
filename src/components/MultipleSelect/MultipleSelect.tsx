@@ -6,7 +6,7 @@ import { Feilmelding } from 'nav-frontend-typografi'
 import { guid } from 'nav-frontend-js-utils'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import Select, { ValueType } from 'react-select'
 import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
@@ -47,14 +47,12 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
   highContrast = false, hideSelectedOptions = false,
   id, isLoading = false, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
 }: MultipleSelectProps<any>): JSX.Element => {
-  const [_values, setValues] = useState<Array<any>>(values)
   const _theme = highContrast ? themeHighContrast : theme
 
   const onSelectChange = (e: Array<any>) => {
     if (_.isFunction(onSelect)) {
       onSelect(e)
     }
-    setValues(e)
   }
 
   const Component: typeof React.Component = creatable ? CreatableSelect : Select
@@ -78,7 +76,7 @@ const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
           menuPortalTarget={menuPortalTarget || document.body}
           animatedComponents
           closeMenuOnSelect={false}
-          value={_values}
+          value={values}
           options={options}
           selectProps={{
             theme: _theme

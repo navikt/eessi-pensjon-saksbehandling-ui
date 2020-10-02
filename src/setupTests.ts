@@ -2,6 +2,7 @@ import Enzyme, { mount, render, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { act } from 'react-dom/test-utils'
 import { useDispatch, useSelector } from 'react-redux'
+import 'jest-styled-components'
 
 jest.mock('react-redux')
 
