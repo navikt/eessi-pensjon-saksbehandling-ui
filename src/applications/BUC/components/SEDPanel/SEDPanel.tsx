@@ -21,7 +21,6 @@ export interface SEDPanelProps {
 }
 
 const activeStatus: Array<string> = ['new', 'active']
-const sedWithProperties: Array<string> = []
 
 const slideInFromLeft = keyframes`
   0% {
@@ -74,12 +73,8 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
   }
 
-  const sedCanShowProperties = (sed: Sed): boolean => {
-    return _.includes(sedWithProperties, sed.type) || !_.isEmpty(sed.attachments)
-  }
-
   const sedHasOption = (sed: Sed): boolean => {
-    return sedCanHaveAttachments(sed) || sedCanShowProperties(sed)
+    return sedCanHaveAttachments(sed)
   }
 
   return (
@@ -114,7 +109,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
               highContrast={highContrast}
               sed={sed}
               canHaveAttachments={sedCanHaveAttachments(sed)}
-              canShowProperties={sedCanShowProperties(sed)}
             />
           </CustomExpandingPanel>
         )}

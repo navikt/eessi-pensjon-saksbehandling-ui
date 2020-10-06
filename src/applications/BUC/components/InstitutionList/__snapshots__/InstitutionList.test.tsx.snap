@@ -1,6 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`] = `
+exports[`applications/BUC/components/InstitutionList/InstitutionList Render: match snapshot 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g1[id="c0"] {
+  content: "c1,";
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3:not(.noMargin) {
+  margin-bottom: 0.35rem;
+}
+
+ui-fss.g2[id="c2"] {
+  content: "c3,";
+}
+
+.c5 {
+  margin-left: 0.5rem;
+}
+
+ui-fss.g3[id="c4"] {
+  content: "c5,";
+}
+
 <InstitutionList
   institutions={
     Array [
@@ -20,22 +65,25 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
     key="NO"
   >
     <div
-      className="sc-AxjAm iPShpD"
+      className="c0 c1"
     >
-      <styled.div>
+      <styled.div
+        data-test-id="a-buc-c-institutionlist__div-id"
+      >
         <div
-          className="sc-AxirZ jigHkS"
+          className="c2 c3"
+          data-test-id="a-buc-c-institutionlist__div-id"
         >
-          <Sd
-            className="mr-2"
+          <Bd
             country="NO"
             label="Norge"
             size="S"
             type="circle"
           >
-            <wt
+            <Lt
               theme={
                 Object {
+                  "alternative-background-color": "#E9E7E7",
                   "black": "#000000",
                   "border-radius-base": "4px",
                   "border-radius-large": "6px",
@@ -46,7 +94,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                   "container-md": "(940px + @grid-gutter-width)",
                   "container-sm": "(720px + @grid-gutter-width)",
                   "container-tablet": "(720px + @grid-gutter-width)",
-                  "fokusFarge": "mix(@navBla,#3E3832,40%)",
+                  "fokusFarge": "#254a6c",
                   "grayBackground": "#E9E7E7",
                   "grayIcon": "#B7B1A9",
                   "grayInactive": "#78706A",
@@ -55,105 +103,108 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                   "grid-float-breakpoint": "768px",
                   "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
                   "grid-gutter-width": "16px",
+                  "inverted-font-color": "#FFFFFF",
                   "line-height-large": "1.3333333",
                   "line-height-small": "1.5",
+                  "main-active-color": "#a3dff3",
                   "main-background-color": "#FFFFFF",
-                  "main-background-other-color": "#E9E7E7",
+                  "main-border-color": "#78706A",
+                  "main-border-radius": "4px",
                   "main-disabled-color": "#B7B1A9",
                   "main-error-color": "#BA3A26",
-                  "main-focus-color": "mix(@navBla,#3E3832,40%)",
+                  "main-focus-color": "#254a6c",
                   "main-font-color": "#3E3832",
-                  "main-hover-color": "#66CBEC",
+                  "main-hover-color": "#e0f4fb",
                   "main-interactive-color": "#0067C5",
                   "main-success-color": "#06893A",
                   "main-warning-color": "#FF9100",
                   "navBla": "#0067C5",
-                  "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-                  "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-                  "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-                  "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-                  "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-                  "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-                  "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-                  "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+                  "navBlaDarken20": "#0c5da7",
+                  "navBlaDarken40": "#18548a",
+                  "navBlaDarken60": "#254a6c",
+                  "navBlaDarken80": "#31414f",
+                  "navBlaLighten20": "#3385d0",
+                  "navBlaLighten40": "#66a3dc",
+                  "navBlaLighten60": "#99c2e7",
+                  "navBlaLighten80": "#cce0f3",
                   "navDypBla": "#005B82",
-                  "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-                  "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-                  "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-                  "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-                  "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-                  "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-                  "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-                  "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+                  "navDypBlaDarken20": "#0c5472",
+                  "navDypBlaDarken40": "#184d62",
+                  "navDypBlaDarken60": "#254652",
+                  "navDypBlaDarken80": "#313f42",
+                  "navDypBlaLighten20": "#337b9b",
+                  "navDypBlaLighten40": "#669cb4",
+                  "navDypBlaLighten60": "#99bdcd",
+                  "navDypBlaLighten80": "#ccdee6",
                   "navGra20": "#C6C2BF",
                   "navGra40": "#B7B1A9",
                   "navGra60": "#78706A",
                   "navGra80": "#59514B",
                   "navGronn": "#06893A",
-                  "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-                  "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-                  "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-                  "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-                  "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-                  "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-                  "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-                  "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+                  "navGronnDarken20": "#117838",
+                  "navGronnDarken40": "#1c6836",
+                  "navGronnDarken60": "#275835",
+                  "navGronnDarken80": "#324833",
+                  "navGronnLighten20": "#37a061",
+                  "navGronnLighten40": "#69b888",
+                  "navGronnLighten60": "#9bcfb0",
+                  "navGronnLighten80": "#cde7d7",
                   "navLilla": "#634689",
-                  "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-                  "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-                  "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-                  "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-                  "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-                  "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-                  "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-                  "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+                  "navLillaDarken20": "#5b4377",
+                  "navLillaDarken40": "#544066",
+                  "navLillaDarken60": "#4c3d54",
+                  "navLillaDarken80": "#453a43",
+                  "navLillaLighten20": "#826ba0",
+                  "navLillaLighten40": "#a190b8",
+                  "navLillaLighten60": "#c0b5cf",
+                  "navLillaLighten80": "#dfdae7",
                   "navLimeGronn": "#A2AD00",
-                  "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-                  "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-                  "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-                  "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-                  "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-                  "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-                  "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-                  "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+                  "navLimeGronnDarken20": "#8e950a",
+                  "navLimeGronnDarken40": "#7a7e14",
+                  "navLimeGronnDarken60": "#66661e",
+                  "navLimeGronnDarken80": "#524f28",
+                  "navLimeGronnLighten20": "#b4bd33",
+                  "navLimeGronnLighten40": "#c7cd66",
+                  "navLimeGronnLighten60": "#d9de99",
+                  "navLimeGronnLighten80": "#eceecc",
                   "navLysBla": "#66CBEC",
-                  "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-                  "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-                  "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-                  "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-                  "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-                  "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-                  "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-                  "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+                  "navLysBlaDarken20": "#5eadc6",
+                  "navLysBlaDarken40": "#5690a1",
+                  "navLysBlaDarken60": "#4e727c",
+                  "navLysBlaDarken80": "#465557",
+                  "navLysBlaLighten20": "#84d5ef",
+                  "navLysBlaLighten40": "#a3dff3",
+                  "navLysBlaLighten60": "#c1eaf7",
+                  "navLysBlaLighten80": "#e0f4fb",
                   "navLysGra": "#E9E7E7",
                   "navMorkGra": "#3E3832",
                   "navOransje": "#FF9100",
-                  "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-                  "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-                  "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-                  "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-                  "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-                  "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-                  "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-                  "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+                  "navOransjeDarken20": "#d87f0a",
+                  "navOransjeDarken40": "#b16d14",
+                  "navOransjeDarken60": "#8b5b1e",
+                  "navOransjeDarken80": "#644928",
+                  "navOransjeLighten20": "#ffa733",
+                  "navOransjeLighten40": "#ffbd66",
+                  "navOransjeLighten60": "#ffd399",
+                  "navOransjeLighten80": "#ffe9cc",
                   "navRod": "#C30000",
-                  "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-                  "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-                  "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-                  "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-                  "navRodLighten20": "mix(@navRod,#fff,80%)",
-                  "navRodLighten40": "mix(@navRod,#fff,60%)",
-                  "navRodLighten60": "mix(@navRod,#fff,40%)",
-                  "navRodLighten80": "mix(@navRod,#fff,20%)",
+                  "navRodDarken20": "#a80b0a",
+                  "navRodDarken40": "#8d1614",
+                  "navRodDarken60": "#73211e",
+                  "navRodDarken80": "#582c28",
+                  "navRodLighten20": "#cf3333",
+                  "navRodLighten40": "#db6666",
+                  "navRodLighten60": "#e79999",
+                  "navRodLighten80": "#f3cccc",
                   "orangeFocus": "#FFBD66",
-                  "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-                  "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-                  "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-                  "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-                  "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-                  "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-                  "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-                  "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+                  "orangeFocusDarken20": "#d8a25b",
+                  "orangeFocusDarken40": "#b18751",
+                  "orangeFocusDarken60": "#8b6d46",
+                  "orangeFocusDarken80": "#64523c",
+                  "orangeFocusLighten20": "#ffca84",
+                  "orangeFocusLighten40": "#ffd7a3",
+                  "orangeFocusLighten60": "#ffe4c1",
+                  "orangeFocusLighten80": "#fff1e0",
                   "padding-base-horizontal": "12px",
                   "padding-base-vertical": "6px",
                   "padding-large-horizontal": "16px",
@@ -162,19 +213,16 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                   "padding-small-vertical": "5px",
                   "padding-xs-horizontal": "5px",
                   "padding-xs-vertical": "1px",
-                  "pension-orange": "rgb(255, 167, 51)",
-                  "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-                  "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
                   "pinkErrorBg": "#F3E3E3",
                   "redError": "#BA3A26",
-                  "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-                  "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-                  "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-                  "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-                  "redErrorLighten20": "mix(@redError,#fff,80%)",
-                  "redErrorLighten40": "mix(@redError,#fff,60%)",
-                  "redErrorLighten60": "mix(@redError,#fff,40%)",
-                  "redErrorLighten80": "mix(@redError,#fff,20%)",
+                  "redErrorDarken20": "#a13928",
+                  "redErrorDarken40": "#88392a",
+                  "redErrorDarken60": "#6f382d",
+                  "redErrorDarken80": "#56382f",
+                  "redErrorLighten20": "#c76151",
+                  "redErrorLighten40": "#d5887c",
+                  "redErrorLighten60": "#e3b0a8",
+                  "redErrorLighten80": "#f1d7d3",
                   "screen-desktop": "992px",
                   "screen-lg": "1200px",
                   "screen-lg-desktop": "1200px",
@@ -192,7 +240,6 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                 }
               }
             >
-              <Memo(o) />
               <ForwardRef
                 overlay={
                   <span>
@@ -461,14 +508,14 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                   showAction={Array []}
                 >
                   <styled.div
-                    className="mr-2 size-S type-circle"
+                    className="size-S type-circle"
                     key="trigger"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
                     style={Object {}}
                   >
                     <div
-                      className="sc-AxjAm bcMPWx mr-2 size-S type-circle"
+                      className="c0 NSHWL size-S type-circle"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       style={Object {}}
@@ -482,18 +529,572 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`]
                   </styled.div>
                 </e>
               </ForwardRef>
-            </wt>
-          </Sd>
+            </Lt>
+          </Bd>
           <Styled(Normaltekst)>
             <Normaltekst
-              className="sc-AxiKw gswgyC"
+              className="c4 c5"
             >
               <TypografiBase
-                className="sc-AxiKw gswgyC"
+                className="c4 c5"
                 type="normaltekst"
               >
                 <p
-                  className="typo-normal sc-AxiKw gswgyC"
+                  className="typo-normal c4 c5"
+                >
+                  Mock 1 institution, Mock 2 institution
+                </p>
+              </TypografiBase>
+            </Normaltekst>
+          </Styled(Normaltekst)>
+        </div>
+      </styled.div>
+    </div>
+  </styled.div>
+</InstitutionList>
+`;
+
+exports[`applications/BUC/components/InstitutionList/InstitutionList Renders 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g1[id="c0"] {
+  content: "c1,";
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3:not(.noMargin) {
+  margin-bottom: 0.35rem;
+}
+
+ui-fss.g2[id="c2"] {
+  content: "c3,";
+}
+
+.c5 {
+  margin-left: 0.5rem;
+}
+
+ui-fss.g3[id="c4"] {
+  content: "c5,";
+}
+
+<InstitutionList
+  institutions={
+    Array [
+      Object {
+        "country": "NO",
+        "institution": "Mock1",
+      },
+      Object {
+        "country": "NO",
+        "institution": "Mock2",
+      },
+    ]
+  }
+  locale="nb"
+>
+  <styled.div
+    key="NO"
+  >
+    <div
+      className="c0 c1"
+    >
+      <styled.div
+        data-test-id="a-buc-c-institutionlist__div-id"
+      >
+        <div
+          className="c2 c3"
+          data-test-id="a-buc-c-institutionlist__div-id"
+        >
+          <Bd
+            country="NO"
+            label="Norge"
+            size="S"
+            type="circle"
+          >
+            <Lt
+              theme={
+                Object {
+                  "alternative-background-color": "#E9E7E7",
+                  "black": "#000000",
+                  "border-radius-base": "4px",
+                  "border-radius-large": "6px",
+                  "border-radius-small": "2px",
+                  "container-desktop": "(940px + @grid-gutter-width)",
+                  "container-large-desktop": "(1140px + @grid-gutter-width)",
+                  "container-lg": "(1140px + @grid-gutter-width)",
+                  "container-md": "(940px + @grid-gutter-width)",
+                  "container-sm": "(720px + @grid-gutter-width)",
+                  "container-tablet": "(720px + @grid-gutter-width)",
+                  "fokusFarge": "#254a6c",
+                  "grayBackground": "#E9E7E7",
+                  "grayIcon": "#B7B1A9",
+                  "grayInactive": "#78706A",
+                  "grayModia": "#333333",
+                  "grid-columns": "12",
+                  "grid-float-breakpoint": "768px",
+                  "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+                  "grid-gutter-width": "16px",
+                  "inverted-font-color": "#FFFFFF",
+                  "line-height-large": "1.3333333",
+                  "line-height-small": "1.5",
+                  "main-active-color": "#a3dff3",
+                  "main-background-color": "#FFFFFF",
+                  "main-border-color": "#78706A",
+                  "main-border-radius": "4px",
+                  "main-disabled-color": "#B7B1A9",
+                  "main-error-color": "#BA3A26",
+                  "main-focus-color": "#254a6c",
+                  "main-font-color": "#3E3832",
+                  "main-hover-color": "#e0f4fb",
+                  "main-interactive-color": "#0067C5",
+                  "main-success-color": "#06893A",
+                  "main-warning-color": "#FF9100",
+                  "navBla": "#0067C5",
+                  "navBlaDarken20": "#0c5da7",
+                  "navBlaDarken40": "#18548a",
+                  "navBlaDarken60": "#254a6c",
+                  "navBlaDarken80": "#31414f",
+                  "navBlaLighten20": "#3385d0",
+                  "navBlaLighten40": "#66a3dc",
+                  "navBlaLighten60": "#99c2e7",
+                  "navBlaLighten80": "#cce0f3",
+                  "navDypBla": "#005B82",
+                  "navDypBlaDarken20": "#0c5472",
+                  "navDypBlaDarken40": "#184d62",
+                  "navDypBlaDarken60": "#254652",
+                  "navDypBlaDarken80": "#313f42",
+                  "navDypBlaLighten20": "#337b9b",
+                  "navDypBlaLighten40": "#669cb4",
+                  "navDypBlaLighten60": "#99bdcd",
+                  "navDypBlaLighten80": "#ccdee6",
+                  "navGra20": "#C6C2BF",
+                  "navGra40": "#B7B1A9",
+                  "navGra60": "#78706A",
+                  "navGra80": "#59514B",
+                  "navGronn": "#06893A",
+                  "navGronnDarken20": "#117838",
+                  "navGronnDarken40": "#1c6836",
+                  "navGronnDarken60": "#275835",
+                  "navGronnDarken80": "#324833",
+                  "navGronnLighten20": "#37a061",
+                  "navGronnLighten40": "#69b888",
+                  "navGronnLighten60": "#9bcfb0",
+                  "navGronnLighten80": "#cde7d7",
+                  "navLilla": "#634689",
+                  "navLillaDarken20": "#5b4377",
+                  "navLillaDarken40": "#544066",
+                  "navLillaDarken60": "#4c3d54",
+                  "navLillaDarken80": "#453a43",
+                  "navLillaLighten20": "#826ba0",
+                  "navLillaLighten40": "#a190b8",
+                  "navLillaLighten60": "#c0b5cf",
+                  "navLillaLighten80": "#dfdae7",
+                  "navLimeGronn": "#A2AD00",
+                  "navLimeGronnDarken20": "#8e950a",
+                  "navLimeGronnDarken40": "#7a7e14",
+                  "navLimeGronnDarken60": "#66661e",
+                  "navLimeGronnDarken80": "#524f28",
+                  "navLimeGronnLighten20": "#b4bd33",
+                  "navLimeGronnLighten40": "#c7cd66",
+                  "navLimeGronnLighten60": "#d9de99",
+                  "navLimeGronnLighten80": "#eceecc",
+                  "navLysBla": "#66CBEC",
+                  "navLysBlaDarken20": "#5eadc6",
+                  "navLysBlaDarken40": "#5690a1",
+                  "navLysBlaDarken60": "#4e727c",
+                  "navLysBlaDarken80": "#465557",
+                  "navLysBlaLighten20": "#84d5ef",
+                  "navLysBlaLighten40": "#a3dff3",
+                  "navLysBlaLighten60": "#c1eaf7",
+                  "navLysBlaLighten80": "#e0f4fb",
+                  "navLysGra": "#E9E7E7",
+                  "navMorkGra": "#3E3832",
+                  "navOransje": "#FF9100",
+                  "navOransjeDarken20": "#d87f0a",
+                  "navOransjeDarken40": "#b16d14",
+                  "navOransjeDarken60": "#8b5b1e",
+                  "navOransjeDarken80": "#644928",
+                  "navOransjeLighten20": "#ffa733",
+                  "navOransjeLighten40": "#ffbd66",
+                  "navOransjeLighten60": "#ffd399",
+                  "navOransjeLighten80": "#ffe9cc",
+                  "navRod": "#C30000",
+                  "navRodDarken20": "#a80b0a",
+                  "navRodDarken40": "#8d1614",
+                  "navRodDarken60": "#73211e",
+                  "navRodDarken80": "#582c28",
+                  "navRodLighten20": "#cf3333",
+                  "navRodLighten40": "#db6666",
+                  "navRodLighten60": "#e79999",
+                  "navRodLighten80": "#f3cccc",
+                  "orangeFocus": "#FFBD66",
+                  "orangeFocusDarken20": "#d8a25b",
+                  "orangeFocusDarken40": "#b18751",
+                  "orangeFocusDarken60": "#8b6d46",
+                  "orangeFocusDarken80": "#64523c",
+                  "orangeFocusLighten20": "#ffca84",
+                  "orangeFocusLighten40": "#ffd7a3",
+                  "orangeFocusLighten60": "#ffe4c1",
+                  "orangeFocusLighten80": "#fff1e0",
+                  "padding-base-horizontal": "12px",
+                  "padding-base-vertical": "6px",
+                  "padding-large-horizontal": "16px",
+                  "padding-large-vertical": "10px",
+                  "padding-small-horizontal": "10px",
+                  "padding-small-vertical": "5px",
+                  "padding-xs-horizontal": "5px",
+                  "padding-xs-vertical": "1px",
+                  "pinkErrorBg": "#F3E3E3",
+                  "redError": "#BA3A26",
+                  "redErrorDarken20": "#a13928",
+                  "redErrorDarken40": "#88392a",
+                  "redErrorDarken60": "#6f382d",
+                  "redErrorDarken80": "#56382f",
+                  "redErrorLighten20": "#c76151",
+                  "redErrorLighten40": "#d5887c",
+                  "redErrorLighten60": "#e3b0a8",
+                  "redErrorLighten80": "#f1d7d3",
+                  "screen-desktop": "992px",
+                  "screen-lg": "1200px",
+                  "screen-lg-desktop": "1200px",
+                  "screen-lg-min": "1200px",
+                  "screen-md": "992px",
+                  "screen-md-max": "(@screen-lg-min - 1)",
+                  "screen-md-min": "992px",
+                  "screen-sm": "768px",
+                  "screen-sm-max": "(@screen-md-min - 1)",
+                  "screen-sm-min": "768px",
+                  "screen-tablet": "768px",
+                  "screen-xs-max": "(@screen-sm-min - 1)",
+                  "type": "theme",
+                  "white": "#FFFFFF",
+                }
+              }
+            >
+              <ForwardRef
+                overlay={
+                  <span>
+                    Norge
+                  </span>
+                }
+                placement="top"
+                trigger={
+                  Array [
+                    "hover",
+                  ]
+                }
+              >
+                <e
+                  action={
+                    Array [
+                      "hover",
+                    ]
+                  }
+                  afterPopupVisibleChange={[Function]}
+                  autoDestroy={false}
+                  blurDelay={0.15}
+                  builtinPlacements={
+                    Object {
+                      "bottom": Object {
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tc",
+                          "bc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "bottomLeft": Object {
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "bl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "bottomRight": Object {
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "br",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "left": Object {
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "cr",
+                          "cl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "leftBottom": Object {
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "bl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "leftTop": Object {
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "tl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "right": Object {
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "cl",
+                          "cr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "rightBottom": Object {
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "br",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "rightTop": Object {
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "tr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "top": Object {
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bc",
+                          "tc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "topLeft": Object {
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "tl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "topRight": Object {
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "tr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                    }
+                  }
+                  defaultPopupVisible={false}
+                  destroyPopupOnHide={false}
+                  focusDelay={0}
+                  getDocument={[Function]}
+                  getPopupClassNameFromAlign={[Function]}
+                  hideAction={Array []}
+                  mask={false}
+                  maskClosable={true}
+                  mouseEnterDelay={0}
+                  mouseLeaveDelay={0.1}
+                  onPopupAlign={[Function]}
+                  onPopupVisibleChange={[Function]}
+                  overlay={
+                    <span>
+                      Norge
+                    </span>
+                  }
+                  popup={[Function]}
+                  popupAlign={Object {}}
+                  popupClassName=""
+                  popupPlacement="top"
+                  popupStyle={Object {}}
+                  prefixCls="rc-tooltip"
+                  showAction={Array []}
+                >
+                  <styled.div
+                    className="size-S type-circle"
+                    key="trigger"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={Object {}}
+                  >
+                    <div
+                      className="c0 NSHWL size-S type-circle"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      style={Object {}}
+                    >
+                      <img
+                        alt="Norge"
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3E %3Crect width='1100' height='800' fill='%23ef2b2d'/%3E %3Crect width='200' height='800' x='300' fill='%23fff'/%3E %3Crect width='1100' height='200' y='300' fill='%23fff'/%3E %3Crect width='100' height='800' x='350' fill='%23002868'/%3E %3Crect width='1100' height='100' y='350' fill='%23002868'/%3E %3C/svg%3E"
+                        style={Object {}}
+                      />
+                    </div>
+                  </styled.div>
+                </e>
+              </ForwardRef>
+            </Lt>
+          </Bd>
+          <Styled(Normaltekst)>
+            <Normaltekst
+              className="c4 c5"
+            >
+              <TypografiBase
+                className="c4 c5"
+                type="normaltekst"
+              >
+                <p
+                  className="typo-normal c4 c5"
                 >
                   Mock 1 institution, Mock 2 institution
                 </p>

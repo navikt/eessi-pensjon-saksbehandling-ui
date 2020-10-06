@@ -27,11 +27,6 @@ export interface Option {
 
 export type Options = Array<Option>
 
-export interface Country {
-  label: string;
-  value: string;
-}
-
 export type Labels = {[k in string]? : string}
 
 export interface Person {

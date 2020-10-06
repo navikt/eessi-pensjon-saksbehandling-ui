@@ -18,10 +18,7 @@ import {
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
-import SEDAttachmentSender, {
-  SEDAttachmentPayload,
-  SEDAttachmentPayloadWithFile
-} from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import { BUCMode } from 'applications/BUC/index'
 import PersonIcon from 'assets/icons/line-version-person-2'
 import Alert from 'components/Alert/Alert'
@@ -50,24 +47,25 @@ import {
   RawInstitution,
   SavingAttachmentsJob,
   Sed,
+  SEDAttachmentPayload,
+  SEDAttachmentPayloadWithFile,
   SedsWithAttachmentsMap,
   ValidBuc
-} from 'declarations/buc'
+} from 'declarations/buc.d'
 import {
   PersonAvdod,
-  PersonAvdods
-  ,
+  PersonAvdods,
   AllowedLocaleString,
-  Country,
   FeatureToggles,
   Loading,
   Option,
+  Options,
   PesysContext,
   Validation
-} from 'declarations/types'
+} from 'declarations/types.d'
 import { BucsPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-// import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
+import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 
 import CountryData from 'land-verktoy'
@@ -86,7 +84,7 @@ const SEDStartDiv = styled.div`
   display: flex;
   flex-direction: column;
 `
-const countrySort = (a: Country, b: Country) => a.label.localeCompare(b.label)
+const countrySort = (a: Option, b: Option) => a.label.localeCompare(b.label)
 
 const FullWidthDiv = styled.div`
   width: 100%;
@@ -354,7 +352,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const fetchInstitutionsForSelectedCountries = useCallback(
-    (countries: Array<Country>) => {
+    (countries: Options) => {
       if (!buc) {
         return
       }
@@ -398,7 +396,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setInstitutions(newInstitutions)
   }
 
-  const onCountriesChange = (countries: Array<Country>) => {
+  const onCountriesChange = (countries: Options) => {
     fetchInstitutionsForSelectedCountries(countries)
   }
 
@@ -865,10 +863,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               {attachmentsTableVisible && (
                 <SEDAttachmentModal
-                  tableId='newsed-modal'
-                  sedAttachments={sedAttachments}
+                  highContrast={highContrast}
                   onModalClose={() => setAttachmentsTableVisible(false)}
                   onFinishedSelection={onJoarkAttachmentsChanged}
+                  sedAttachments={sedAttachments}
+                  tableId='newsed-modal'
                 />
               )}
               {!_.isEmpty(sedAttachments) && (
@@ -931,7 +930,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
-  // initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
+  initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
   onSedCreated: PT.func.isRequired,
   onSedCancelled: PT.func.isRequired
 }

@@ -105,15 +105,17 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     return serverErrorMessage ? t(serverErrorMessage) : undefined
   }
 
-  const onResize = (width: number) => {
+  const onResize = (width: number): void => {
     if (width < 768 && size !== 'sm') {
-      return dispatch(setWidthSize('sm'))
+      dispatch(setWidthSize('sm'))
+      return
     }
     if (width < 992 && size !== 'md') {
-      return dispatch(setWidthSize('md'))
+      dispatch(setWidthSize('md'))
+      return
     }
     if (size !== 'lg') {
-      return dispatch(setWidthSize('lg'))
+      dispatch(setWidthSize('lg'))
     }
     return
   }

@@ -178,6 +178,18 @@ export interface NewSedPayload {
   vedtakId?: string
 }
 
+export interface SEDAttachmentPayload {
+  aktoerId: string
+  rinaId: string
+  rinaDokumentId: string
+}
+
+export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
+  journalpostId: string | undefined
+  dokumentInfoId: string | undefined
+  variantformat: string | undefined
+}
+
 export interface RawInstitution {
   id: string
   navn: string

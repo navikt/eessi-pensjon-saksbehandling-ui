@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/RefreshButton Renders 1`] = `
+.c1 .rotating {
+  display: inline-block;
+  -webkit-animation: fvtopB 2s linear infinite;
+  animation: fvtopB 2s linear infinite;
+}
+
+ui-fss.g1[id="c0"] {
+  content: "c1,";
+}
+
 <RefreshButton
   labelRefresh="mockLabelRefresh"
   onRefreshClicked={[MockFunction]}
@@ -8,7 +18,7 @@ exports[`components/RefreshButton Renders 1`] = `
 >
   <styled.div>
     <div
-      className="sc-AxjAm bqtyzC"
+      className="c0 c1"
     >
       <a
         className="lenke"

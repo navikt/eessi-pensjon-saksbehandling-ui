@@ -2,8 +2,7 @@ import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getJoarkItemPreview, listJoarkItems, setJoarkItemPreview } from 'actions/joark'
 import Trashcan from 'assets/icons/Trashcan'
-import Modal from 'components/Modal/Modal'
-import { HighContrastKnapp } from 'components/StyledComponents'
+import { HighContrastKnapp, HighContrastModal } from 'components/StyledComponents'
 import { SedNewType, SedType } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import {
@@ -351,7 +350,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   return (
     <div className='c-joarkBrowser'>
-      <Modal modal={modal} onModalClose={handleModalClose} />
+      <HighContrastModal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}

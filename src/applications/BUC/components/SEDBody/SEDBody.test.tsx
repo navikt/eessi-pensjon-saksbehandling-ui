@@ -1,25 +1,35 @@
-import { resetSedAttachments } from 'actions/buc'
+import { resetSavingAttachmentJob, resetSedAttachments } from 'actions/buc'
 import { Buc } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
+import _ from 'lodash'
 import React from 'react'
-import { act } from 'react-dom/test-utils'
 import mockBucs from 'mocks/buc/bucs'
 import { stageSelector } from 'setupTests'
-import SEDBody, { SEDBodyProps } from './SEDBody'
+import SEDBody, { SEDBodyDiv, SEDBodyProps } from './SEDBody'
+
+const defaultSelector = {
+  attachmentsError: false
+}
 
 jest.mock('actions/buc', () => ({
+  createSavingAttachmentJob: jest.fn(),
+  resetSavingAttachmentJob: jest.fn(),
   resetSedAttachments: jest.fn(),
   sendAttachmentToSed: jest.fn()
 }))
 
-const defaultSelector = {
-  attachments: { sed: [], joark: [] },
-  attachmentsError: false
-}
-
-jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
-  return () => <div className='mock-joarkbrowser' />
+jest.mock('applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal', () => {
+  const joarkBrowserItems = require('mocks/joark/items').default
+  return (props: any) => (
+    <div data-test-id='mock-sedattachmentmodal'>
+      <button id='onFinishedSelection' onClick={() => props.onFinishedSelection(joarkBrowserItems)}>click</button>
+    </div>
+  )
 })
+
+jest.mock('components/JoarkBrowser/JoarkBrowser', () => () => (
+  <div data-test-id='mock-joarkbrowser' />
+))
 
 describe('applications/BUC/components/SEDBody/SEDBody', () => {
   let wrapper: ReactWrapper
@@ -28,7 +38,6 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     aktoerId: '123',
     buc: buc,
     canHaveAttachments: true,
-    canShowProperties: false,
     highContrast: false,
     initialAttachmentsSent: false,
     initialSeeAttachmentPanel: false,
@@ -38,11 +47,8 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     sed: buc.seds![0]
   }
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<SEDBody {...initialMockProps} />)
   })
 
@@ -50,41 +56,58 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedbody')).toBeTruthy()
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.exists(SEDBodyDiv)).toBeTruthy()
   })
 
-  it('UseEffect: cleanup after attachments sent', () => {
-    wrapper = mount(<SEDBody {...initialMockProps} initialAttachmentsSent initialSendingAttachments />)
-    wrapper.update()
-    expect(resetSedAttachments).toHaveBeenCalled()
+  it('Render: shows JoarkBrowser only if items are not empty', () => {
+    expect(_.isEmpty(initialMockProps.sed.attachments)).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedbody__attachments-id\']')).toBeTruthy()
+    const newMockProps = {
+      ...initialMockProps,
+      sed: {
+        ...initialMockProps.sed,
+        attachments: []
+      }
+    }
+    wrapper = mount(<SEDBody {...newMockProps} />)
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedbody__attachments-id\']')).toBeFalsy()
   })
 
-  it('Shows the SEDAttachmentSender', () => {
+  it('Shows SEDAttachmentSender', () => {
     wrapper = mount(<SEDBody {...initialMockProps} />)
     expect(wrapper.exists('SEDAttachmentSender')).toBeFalsy()
     wrapper = mount(<SEDBody {...initialMockProps} initialSendingAttachments />)
     expect(wrapper.exists('SEDAttachmentSender')).toBeTruthy()
   })
 
-  it('SEDAttachment onAttachmentsPanelOpened is called', () => {
-    (initialMockProps.onAttachmentsPanelOpen as jest.Mock).mockReset()
-    act(() => {
-      // TODO
-    })
-    expect(initialMockProps.onAttachmentsPanelOpen).toHaveBeenCalled()
+  it('Render: shows upload button if there are joark attachments to upload', () => {
+    wrapper = mount(<SEDBody {...initialMockProps} initialSeeAttachmentPanel />)
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedbody__upload-button-id\']')).toBeFalsy()
+    wrapper.find('#onFinishedSelection').hostNodes().simulate('click')
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedbody__upload-button-id\']')).toBeTruthy()
   })
 
-  it('SEDAttachment onAttachmentsPanelSubmitted is called', () => {
-    (initialMockProps.onAttachmentsSubmit as jest.Mock).mockReset()
-    act(() => {
-      // TODO
-    })
-    expect(initialMockProps.onAttachmentsSubmit).toHaveBeenCalled()
+  it('Render: shows modal open button if SED can have attachments', () => {
+    expect(wrapper.exists('[data-test-id=\'mock-sedattachmentmodal\']')).toBeFalsy()
+    wrapper.find('[data-test-id=\'a-buc-c-sedbody__show-table-button-id\']').hostNodes().simulate('click')
+    expect(wrapper.exists('[data-test-id=\'mock-sedattachmentmodal\']')).toBeTruthy()
+  })
+
+  it('UseEffect: cleanup after attachments sent', () => {
+    (resetSedAttachments as jest.Mock).mockReset()
+    wrapper = mount(<SEDBody {...initialMockProps} initialAttachmentsSent initialSendingAttachments />)
+    expect(resetSedAttachments).toHaveBeenCalled()
+  })
+
+  it('UseEffect: cleanup after attachments sent, part 2', () => {
+    (resetSavingAttachmentJob as jest.Mock).mockReset()
+    wrapper = mount(<SEDBody {...initialMockProps} initialAttachmentsSent initialSendingAttachments={false} />)
+    expect(resetSavingAttachmentJob).toHaveBeenCalled()
   })
 })

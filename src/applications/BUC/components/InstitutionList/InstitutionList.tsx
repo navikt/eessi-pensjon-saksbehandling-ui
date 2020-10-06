@@ -4,8 +4,8 @@ import { InstitutionsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/types'
 import { AllowedLocaleStringPropType } from 'declarations/types.pt'
-import Flag from 'flagg-ikoner'
-import CountryData from 'land-verktoy'
+import Flag, { FlagType } from 'flagg-ikoner'
+import CountryData, { Country } from 'land-verktoy'
 import _ from 'lodash'
 import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
@@ -13,15 +13,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-
-export interface InstitutionListProps {
-  className?: string
-  flag?: boolean
-  flagType?: 'original' | 'circle'
-  institutions: Institutions
-  locale: AllowedLocaleString
-  type?: string
-}
 
 const InstitutionListDiv = styled.div`
   display: flex;
@@ -39,6 +30,18 @@ const InstitutionDiv = styled.div`
 const InstitutionText = styled(Normaltekst)`
   margin-left: 0.5rem;
 `
+
+export type InstitutionListType = 'joined' | 'separated'
+
+export interface InstitutionListProps {
+  className?: string
+  flag?: boolean
+  flagType?: FlagType
+  institutions: Institutions
+  locale: AllowedLocaleString
+  type?: InstitutionListType
+}
+
 const InstitutionList: React.FC<InstitutionListProps> = ({
   className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined'
 }: InstitutionListProps): JSX.Element => {
@@ -80,15 +83,18 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     <>
       {Object.keys(institutionList)
         .sort(countrySorter(locale) as (a: string, b: string) => number)
-        .map(landkode => {
-          const country = CountryData.getCountryInstance(locale).findByValue(landkode)
+        .map((landkode: string) => {
+          const country: Country = CountryData.getCountryInstance(locale).findByValue(landkode)
           return (
             <InstitutionListDiv
               className={className}
               key={landkode}
             >
               {type === 'joined' && (
-                <InstitutionDiv className={className}>
+                <InstitutionDiv
+                  data-test-id='a-buc-c-institutionlist__div-id'
+                  className={className}
+                >
                   {flag && (
                     <Flag
                       label={country ? country.label : landkode}
@@ -103,7 +109,11 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                 </InstitutionDiv>
               )}
               {type === 'separated' && institutionList[landkode].map((institutionId : string) => (
-                <InstitutionDiv key={institutionId} className={className}>
+                <InstitutionDiv
+                  key={institutionId}
+                  data-test-id='a-buc-c-institutionlist__div-id'
+                  className={className}
+                >
                   {flag && (
                     <Flag
                       label={country ? country.label : landkode}
@@ -130,7 +140,7 @@ InstitutionList.propTypes = {
   flagType: PT.oneOf(['original', 'circle']),
   institutions: InstitutionsPropType.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
-  type: PT.string
+  type: PT.oneOf(['joined', 'separated'])
 }
 
 export default InstitutionList

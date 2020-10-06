@@ -31,12 +31,11 @@ const defaultSelector = {
     '60578cf8bf9f45a7819a39987c6c8fd4': mockSedP50001,
     '50578cf8bf9f45a7819a39987c6c8fd4': mockSedP50002
   } as SedContentMap,
-  tagList: mockTagList as TagList,
+  tagList: mockTagList as TagList
 }
 
 const buc: Buc = mockBucs()[0]
 const bucInfo: BucInfo = (mockBucsInfo as BucsInfo).bucs['' + buc.caseId]
-
 
 describe('applications/BUC/components/BUCTools/BUCTools', () => {
   let wrapper: ReactWrapper
@@ -47,7 +46,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     bucInfo: bucInfo,
     initialTab: 0,
     onTagChange: jest.fn()
-  }
+  } as BUCToolsProps
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
@@ -76,7 +75,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Render: has proper HTML: tag tab', () => {
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={1}/>)
+    wrapper = mount(<BUCTools {...initialMockProps} initialTab={1} />)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__P5000-button-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__tags-select-id\']')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']')).toBeFalsy()
@@ -84,13 +83,12 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Render: has proper HTML: comment tab', () => {
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2}/>)
+    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2} />)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__P5000-button-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__tags-select-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-save-button-id\']')).toBeTruthy()
   })
-
 
   it('UseEffect: fetches tag list', () => {
     stageSelector(defaultSelector, { tagList: undefined })
@@ -100,9 +98,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Handling: Changing tags', () => {
     (initialMockProps.onTagChange as jest.Mock).mockReset()
-    wrapper = mount(<BUCTools {...initialMockProps}
-      initialTab={1}
-    />);
+    wrapper = mount(<BUCTools {...initialMockProps} initialTab={1} />)
     const tagSelect = wrapper.find('[data-test-id=\'a-buc-c-buctools__tags-select-id\']').find('input').hostNodes()
     tagSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     tagSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
@@ -118,7 +114,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Handling: Changing comments', () => {
     (saveBucsInfo as jest.Mock).mockReset()
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2}/>)
+    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2} />)
     const newComment = 'this is a new comment'
     expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-div-id\']').hostNodes().length).toEqual(bucInfo.comment!.length)
@@ -129,9 +125,23 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-save-button-id\']').hostNodes().simulate('click')
 
     expect(saveBucsInfo).toHaveBeenCalledWith(expect.objectContaining({
-      comment: (bucInfo.comment as Comments)!.concat([{value: newComment} as Comment])
+      comment: (bucInfo.comment as Comments)!.concat([{ value: newComment } as Comment])
     }))
+  })
 
+  it('Handling: Deleting comments', () => {
+    (saveBucsInfo as jest.Mock).mockReset()
+    jest.spyOn(global, 'confirm' as any).mockReturnValueOnce(true)
+    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2} />)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-div-id\']').hostNodes().length).toEqual(bucInfo.comment!.length)
+
+    expect(wrapper.find(TextArea).props().value).toEqual('')
+
+    wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-delete-0-id\']').hostNodes().simulate('click')
+
+    expect(saveBucsInfo).toHaveBeenCalledWith(expect.objectContaining({
+      comment: (bucInfo.comment as Comments)!.splice(1, 1)
+    }))
   })
 
   it('Handling: Loads SEDs for P5000', () => {

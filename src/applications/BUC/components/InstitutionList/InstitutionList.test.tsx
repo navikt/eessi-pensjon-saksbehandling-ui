@@ -20,7 +20,7 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
       institution: 'Mock2'
     }],
     locale: 'nb'
-  }
+  } as InstitutionListProps
 
   beforeAll(() => {
     stageSelector(defaultSelector, {})
@@ -34,20 +34,20 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure with joined type', () => {
-    expect(wrapper.find('.a-buc-c-institutionlist__institution')).toHaveLength(1)
-    expect(wrapper.find('.a-buc-c-institutionlist__institution').hostNodes().render().text()).toEqual('Mock 1 institution, Mock 2 institution')
+  it('Render: Has proper HTML structure with joined type', () => {
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes()).toHaveLength(1)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().render().text()).toEqual('Mock 1 institution, Mock 2 institution')
   })
 
-  it('Has proper HTML structure with separated type', () => {
+  it('Render: Has proper HTML structure with separated type', () => {
     wrapper = mount(<InstitutionList {...initialMockProps} type='separated' />)
-    expect(wrapper.find('.a-buc-c-institutionlist__institution').hostNodes()).toHaveLength(2)
-    expect(wrapper.find('.a-buc-c-institutionlist__institution:first-child').hostNodes().render().text()).toEqual('Mock 1 institution')
-    expect(wrapper.find('.a-buc-c-institutionlist__institution:last-child').hostNodes().render().text()).toEqual('Mock 2 institution')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes()).toHaveLength(2)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().first().render().text()).toEqual('Mock 1 institution')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().last().render().text()).toEqual('Mock 2 institution')
   })
 })

@@ -143,6 +143,21 @@ export const NewSedPayloadPropType = PT.shape({
   avdodfnr: PT.string
 })
 
+export const SEDAttachmentPayloadPropType = PT.shape({
+  aktoerId: PT.string.isRequired,
+  rinaId: PT.string.isRequired,
+  rinaDokumentId: PT.string.isRequired
+})
+
+export const SEDAttachmentPayloadWithFilePropType = PT.shape({
+  aktoerId: PT.string.isRequired,
+  dokumentInfoId: PT.string,
+  journalpostId: PT.string,
+  rinaId: PT.string.isRequired,
+  rinaDokumentId: PT.string.isRequired,
+  variantformat: PT.string
+})
+
 export const RawInstitutionPropType = PT.shape({
   id: PT.string.isRequired,
   navn: PT.string.isRequired,

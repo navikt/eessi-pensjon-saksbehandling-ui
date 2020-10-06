@@ -65,3 +65,5 @@ export const JoarkBrowserItemFileType = PT.shape({
   visible: PT.bool.isRequired,
   openSubrows: PT.bool.isRequired
 })
+
+export const JoarkBrowserItemsFileType = PT.arrayOf(JoarkBrowserItemFileType.isRequired)

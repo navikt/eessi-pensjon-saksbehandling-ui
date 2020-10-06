@@ -34,7 +34,7 @@ import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
@@ -100,7 +100,6 @@ const mapState = (state: State): BUCToolsSelector => ({
 const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, initialTab = 0, onTagChange
 }: BUCToolsProps): JSX.Element => {
-
   const {
     featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList
   }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
@@ -279,7 +278,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         <>
           <HighContrastTabs
             data-test-id='a-buc-c-buctools__tabs-id'
-            onChange={(e: SyntheticEvent<EventTarget, Event>, i: number) => setActiveTab(i)}
+            onChange={(e: any, i: number) => setActiveTab(i)}
             tabs={tabs}
             defaultAktiv={_activeTab}
           />
@@ -360,6 +359,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     </Normaltekst>
                     <RemoveComment>
                       <Trashcan
+                        data-test-id={'a-buc-c-buctools__comment-delete-' + i + '-id'}
                         width={20}
                         color={_theme[themeKeys.MAIN_INTERACTIVE_COLOR]}
                         onClick={() => onDeleteComment(i)}
@@ -402,6 +402,7 @@ BUCTools.propTypes = {
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType.isRequired,
   className: PT.string,
+  initialTab: PT.number,
   onTagChange: PT.func
 }
 

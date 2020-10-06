@@ -1,58 +1,24 @@
 import { Buc, Sed } from 'declarations/buc'
+import { JoarkBrowserItem } from 'declarations/joark'
+import { Labels } from 'declarations/types'
 import Mustache from 'mustache'
-import mockBucs from 'mocks/buc/bucs'
+import personAvdod from 'mocks/app/personAvdod'
+import joarkItems from 'mocks/joark/items'
+import { countrySorter, renderAvdodName, sedAttachmentSorter } from './BUCUtils'
 import * as BUCUtils from './BUCUtils'
 
+const CORRECT_ORDER = -1
+const WRONG_ORDER_WILL_SWAP = 1
+
 describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
-  const t = jest.fn((label, vars) => Mustache.render(label, vars))
-  const sed = mockBucs()[0].seds![0]
-
-  it('getBucTypeLabel()', () => {
-    expect(BUCUtils.getBucTypeLabel({
-      type: 'P2000',
-      locale: 'nb',
-      t: t
-    })).toEqual('buc:buc-P2000')
-
-    expect(BUCUtils.getBucTypeLabel({
-      type: 'P3000_NO',
-      locale: 'nb',
-      t: t
-    })).toEqual('buc:buc-P3000_XX')
-  })
-
-  it('sedSorter', () => {
-    const CORRECT_ORDER = -1
-    const WRONG_ORDER_WILL_SWAP = 1
-    expect(BUCUtils.sedSorter(
-      { ...sed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' },
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' }
-    )).toEqual(CORRECT_ORDER)
-
-    expect(BUCUtils.sedSorter(
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
-      { ...sed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' }
-    )).toEqual(WRONG_ORDER_WILL_SWAP)
-
-    expect(BUCUtils.sedSorter(
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
-    )).toEqual(CORRECT_ORDER)
-
-    expect(BUCUtils.sedSorter(
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P10000' },
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
-    )).toEqual(WRONG_ORDER_WILL_SWAP)
-
-    expect(BUCUtils.sedSorter(
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' }
-    )).toEqual(CORRECT_ORDER)
-
-    expect(BUCUtils.sedSorter(
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' },
-      { ...sed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'H1000' }
-    )).toEqual(WRONG_ORDER_WILL_SWAP)
+  const t = jest.fn((label, vars) => {
+    const translations: Labels = {
+      'buc:buc-P2000': 'Krav om uføretrygd',
+      'buc:buc-P3000_XX': 'Landspesifikk informasjon til {{country}}',
+      'buc:relasjon-REPA': 'Repa',
+      'ui:unknownLand': 'ukjent land'
+    }
+    return Mustache.render(label ? translations[label] : label, vars)
   })
 
   const mockSed: Sed = {
@@ -89,12 +55,19 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     status: 'mockStatus'
   }
 
-  it('sedFilter', () => {
-    expect(BUCUtils.sedFilter({ ...mockSed, status: 'empty' })).toBeFalsy()
-    expect(BUCUtils.sedFilter({ ...mockSed, status: 'notempty' })).toBeTruthy()
+  it('bucSorter()', () => {
+    expect(BUCUtils.bucSorter(
+      { ...mockBuc, startDate: new Date(2010, 1, 2).getDate() } as Buc,
+      { ...mockBuc, startDate: new Date(2010, 1, 1).getDate() } as Buc
+    )).toEqual(CORRECT_ORDER)
+
+    expect(BUCUtils.bucSorter(
+      { ...mockBuc, startDate: new Date(2010, 1, 1).getDate() } as Buc,
+      { ...mockBuc, startDate: new Date(2010, 1, 2).getDate() } as Buc
+    )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 
-  it('bucFilter', () => {
+  it('bucFilter()', () => {
     expect(BUCUtils.bucFilter({ ...mockBuc, type: 'P_BUC_01' })).toBeTruthy()
     expect(BUCUtils.bucFilter({ ...mockBuc, type: 'P_BUC_09' })).toBeTruthy()
 
@@ -109,5 +82,95 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     expect(BUCUtils.bucFilter({ ...mockBuc, type: 'M_BUC_02' })).toBeTruthy()
     expect(BUCUtils.bucFilter({ ...mockBuc, type: 'M_BUC_03a' })).toBeTruthy()
     expect(BUCUtils.bucFilter({ ...mockBuc, type: 'M_BUC_03b' })).toBeTruthy()
+  })
+
+  it('countrySorter()', () => {
+    const sort = countrySorter('nb')
+    expect(sort('no', 'se')).toEqual(CORRECT_ORDER)
+    expect(sort('no', 'dk')).toEqual(CORRECT_ORDER)
+    expect(sort('no', 'ag')).toEqual(CORRECT_ORDER)
+  })
+
+  it('getBucTypeLabel()', () => {
+    expect(BUCUtils.getBucTypeLabel({
+      type: 'P2000',
+      locale: 'nb',
+      t: t
+    })).toEqual('Krav om uføretrygd')
+
+    expect(BUCUtils.getBucTypeLabel({
+      type: 'P3000_NO',
+      locale: 'nb',
+      t: t
+    })).toEqual('Landspesifikk informasjon til Norge')
+
+    expect(BUCUtils.getBucTypeLabel({
+      type: 'P3000_YY',
+      locale: 'nb',
+      t: t
+    })).toEqual('Landspesifikk informasjon til ukjent land')
+  })
+
+  it('renderAvdodName()', () => {
+    expect(renderAvdodName(personAvdod(1)![0], t)).toEqual('FRODIG BLYANT - 12345678902 (Repa)')
+  })
+
+  it('sedAttachmentSorter()', () => {
+    expect(sedAttachmentSorter({
+      ...joarkItems[0], type: 'sed'
+    } as JoarkBrowserItem, {
+      ...joarkItems[0], type: 'joark'
+    } as JoarkBrowserItem)).toEqual(CORRECT_ORDER)
+
+    expect(sedAttachmentSorter({
+      ...joarkItems[0], type: 'joark'
+    } as JoarkBrowserItem, {
+      ...joarkItems[0], type: 'sed'
+    } as JoarkBrowserItem)).toEqual(WRONG_ORDER_WILL_SWAP)
+
+    expect(sedAttachmentSorter({
+      ...joarkItems[0], type: 'sed', key: 'b'
+    } as JoarkBrowserItem, {
+      ...joarkItems[0], type: 'sed', key: 'a'
+    } as JoarkBrowserItem)).toEqual(CORRECT_ORDER)
+  })
+
+  it('sedFilter', () => {
+    expect(BUCUtils.sedFilter({ ...mockSed, status: 'empty' })).toBeFalsy()
+    expect(BUCUtils.sedFilter({ ...mockSed, status: 'notempty' })).toBeTruthy()
+  })
+
+  it('sedSorter', () => {
+    const CORRECT_ORDER = -1
+    const WRONG_ORDER_WILL_SWAP = 1
+    expect(BUCUtils.sedSorter(
+      { ...mockSed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' }
+    )).toEqual(CORRECT_ORDER)
+
+    expect(BUCUtils.sedSorter(
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' }
+    )).toEqual(WRONG_ORDER_WILL_SWAP)
+
+    expect(BUCUtils.sedSorter(
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
+    )).toEqual(CORRECT_ORDER)
+
+    expect(BUCUtils.sedSorter(
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P10000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
+    )).toEqual(WRONG_ORDER_WILL_SWAP)
+
+    expect(BUCUtils.sedSorter(
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' }
+    )).toEqual(CORRECT_ORDER)
+
+    expect(BUCUtils.sedSorter(
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'H1000' }
+    )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 })

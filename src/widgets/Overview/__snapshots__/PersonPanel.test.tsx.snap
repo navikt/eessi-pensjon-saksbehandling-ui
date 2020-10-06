@@ -1,6 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`widgets/Overview/PersonPanel Renders 1`] = `
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g11[id="c0"] {
+  content: "c2,";
+}
+
+.c6 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+ui-fss.g12[id="c4"] {
+  content: "c6,";
+}
+
+.c9 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+ui-fss.g14[id="c8"] {
+  content: "c9,";
+}
+
+.c13 {
+  margin: 1.5rem;
+  border-color: !important;
+}
+
+ui-fss.g27[id="c12"] {
+  content: "c13,";
+}
+
+.c3 {
+  margin: 1.5rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+ui-fss.g28[id="c1"] {
+  content: "c3,";
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+ui-fss.g29[id="c5"] {
+  content: "c7,";
+}
+
+.c11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+
+ui-fss.g30[id="c10"] {
+  content: "c11,";
+}
+
+@media (min-width:768px) {
+  .c2 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
 <PersonPanel
   highContrast={false}
   locale="nb"
@@ -227,15 +324,15 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
 >
   <styled.div>
     <div
-      className="sc-AxiKw bOTXee"
+      className=""
     >
-      <styled.div>
+      <Styled(styled.div)>
         <div
-          className="sc-AxhUy eYhIe"
+          className="c0 c1 c2 c3"
         >
-          <styled.div>
+          <Styled(styled.div)>
             <div
-              className="sc-AxgMl drhlBv"
+              className="c4 c5 c6 c7"
             >
               <_default
                 color="black"
@@ -276,25 +373,22 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
               </_default>
               <styled.div>
                 <div
-                  className="sc-AxirZ jpZlcz"
+                  className="c8 c9"
                 />
               </styled.div>
               <styled.div
                 id="w-overview-personPanel__element-bostedsadresse"
               >
                 <div
-                  className="sc-AxheI UQoXB"
+                  className="c10 c11"
                   id="w-overview-personPanel__element-bostedsadresse"
                 >
-                  <Undertekst
-                    className="mr-2"
-                  >
+                  <Undertekst>
                     <TypografiBase
-                      className="mr-2"
                       type="undertekst"
                     >
                       <p
-                        className="typo-undertekst mr-2"
+                        className="typo-undertekst"
                       >
                         <strong>
                           ui:bostedsadresse
@@ -303,6 +397,11 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                       </p>
                     </TypografiBase>
                   </Undertekst>
+                  <styled.div>
+                    <div
+                      className="c8 c9"
+                    />
+                  </styled.div>
                   <Normaltekst>
                     <TypografiBase
                       type="normaltekst"
@@ -586,10 +685,13 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
-                        <span
-                          className="mr-2"
+                        <styled.div
                           key="0"
-                        />
+                        >
+                          <div
+                            className="c8 c9"
+                          />
+                        </styled.div>
                         <ForwardRef(Tooltip)
                           overlay={
                             <span>
@@ -1145,10 +1247,13 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
-                        <span
-                          className="mr-2"
+                        <styled.div
                           key="5"
-                        />
+                        >
+                          <div
+                            className="c8 c9"
+                          />
+                        </styled.div>
                         <ForwardRef(Tooltip)
                           overlay={
                             <span>
@@ -1434,10 +1539,10 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                 </div>
               </styled.div>
             </div>
-          </styled.div>
-          <styled.div>
+          </Styled(styled.div)>
+          <Styled(styled.div)>
             <div
-              className="sc-AxgMl drhlBv"
+              className="c4 c5 c6 c7"
             >
               <_default
                 color="black"
@@ -1497,25 +1602,22 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
               </_default>
               <styled.div>
                 <div
-                  className="sc-AxirZ jpZlcz"
+                  className="c8 c9"
                 />
               </styled.div>
               <styled.div
                 id="w-overview-personPanel__element-birthdate"
               >
                 <div
-                  className="sc-AxheI UQoXB"
+                  className="c10 c11"
                   id="w-overview-personPanel__element-birthdate"
                 >
-                  <Undertekst
-                    className="mr-2"
-                  >
+                  <Undertekst>
                     <TypografiBase
-                      className="mr-2"
                       type="undertekst"
                     >
                       <p
-                        className="typo-undertekst mr-2"
+                        className="typo-undertekst"
                       >
                         <strong>
                           ui:birthdate
@@ -1524,6 +1626,11 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                       </p>
                     </TypografiBase>
                   </Undertekst>
+                  <styled.div>
+                    <div
+                      className="c8 c9"
+                    />
+                  </styled.div>
                   <Normaltekst>
                     <TypografiBase
                       type="normaltekst"
@@ -1538,10 +1645,10 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                 </div>
               </styled.div>
             </div>
-          </styled.div>
-          <styled.div>
+          </Styled(styled.div)>
+          <Styled(styled.div)>
             <div
-              className="sc-AxgMl drhlBv"
+              className="c4 c5 c6 c7"
             >
               <_default
                 color="black"
@@ -1572,25 +1679,22 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
               </_default>
               <styled.div>
                 <div
-                  className="sc-AxirZ jpZlcz"
+                  className="c8 c9"
                 />
               </styled.div>
               <styled.div
                 id="w-overview-personPanel__element-nationality"
               >
                 <div
-                  className="sc-AxheI UQoXB"
+                  className="c10 c11"
                   id="w-overview-personPanel__element-nationality"
                 >
-                  <Undertekst
-                    className="mr-2"
-                  >
+                  <Undertekst>
                     <TypografiBase
-                      className="mr-2"
                       type="undertekst"
                     >
                       <p
-                        className="typo-undertekst mr-2"
+                        className="typo-undertekst"
                       >
                         <strong>
                           ui:nationality
@@ -1599,6 +1703,11 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                       </p>
                     </TypografiBase>
                   </Undertekst>
+                  <styled.div>
+                    <div
+                      className="c8 c9"
+                    />
+                  </styled.div>
                   <Normaltekst>
                     <TypografiBase
                       type="normaltekst"
@@ -1613,21 +1722,21 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                 </div>
               </styled.div>
             </div>
-          </styled.div>
+          </Styled(styled.div)>
         </div>
-      </styled.div>
+      </Styled(styled.div)>
       <styled.hr>
         <hr
-          className="sc-AxhCb esYCGe"
+          className="c12 c13"
         />
       </styled.hr>
-      <styled.div>
+      <Styled(styled.div)>
         <div
-          className="sc-AxhUy eYhIe"
+          className="c0 c1 c2 c3"
         >
-          <styled.div>
+          <Styled(styled.div)>
             <div
-              className="sc-AxgMl drhlBv"
+              className="c4 c5 c6 c7"
             >
               <_default
                 color="black"
@@ -1656,25 +1765,22 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
               </_default>
               <styled.div>
                 <div
-                  className="sc-AxirZ jpZlcz"
+                  className="c8 c9"
                 />
               </styled.div>
               <styled.div
                 id="w-overview-personPanel__element-postadresse"
               >
                 <div
-                  className="sc-AxheI UQoXB"
+                  className="c10 c11"
                   id="w-overview-personPanel__element-postadresse"
                 >
-                  <Undertekst
-                    className="mr-2"
-                  >
+                  <Undertekst>
                     <TypografiBase
-                      className="mr-2"
                       type="undertekst"
                     >
                       <p
-                        className="typo-undertekst mr-2"
+                        className="typo-undertekst"
                       >
                         <strong>
                           ui:postadresse
@@ -1683,6 +1789,11 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                       </p>
                     </TypografiBase>
                   </Undertekst>
+                  <styled.div>
+                    <div
+                      className="c8 c9"
+                    />
+                  </styled.div>
                   <Normaltekst>
                     <TypografiBase
                       type="normaltekst"
@@ -2812,10 +2923,108 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                 </div>
               </styled.div>
             </div>
-          </styled.div>
-          <styled.div>
+          </Styled(styled.div)>
+          <Styled(styled.div)>
             <div
-              className="sc-AxgMl drhlBv"
+              className="c4 c5 c6 c7"
+            >
+              <_default
+                color="black"
+              >
+                <svg
+                  color="black"
+                  contentScriptType="text/ecmascript"
+                  contentStyleType="text/css"
+                  height="24"
+                  preserveAspectRatio="xMidYMid meet"
+                  version="1.0"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  zoomAndPan="magnify"
+                >
+                  <g
+                    fill="none"
+                    stroke="black"
+                    strokeLinejoin="round"
+                    strokeMiterlimit="10"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="11.5"
+                    />
+                    <path
+                      d="M12 18s5.5-4 5.5-6.962c0-3.418-4.5-4.5-5.5-.341-1-4.159-5.5-3.078-5.5.341 0 2.962 5.5 6.962 5.5 6.962z"
+                    />
+                  </g>
+                </svg>
+              </_default>
+              <styled.div>
+                <div
+                  className="c8 c9"
+                />
+              </styled.div>
+              <styled.div
+                id="w-overview-personPanel__element-marital-status"
+              >
+                <div
+                  className="c10 c11"
+                  id="w-overview-personPanel__element-marital-status"
+                >
+                  <Undertekst>
+                    <TypografiBase
+                      type="undertekst"
+                    >
+                      <p
+                        className="typo-undertekst"
+                      >
+                        <strong>
+                          ui:marital-status
+                        </strong>
+                        :
+                      </p>
+                    </TypografiBase>
+                  </Undertekst>
+                  <styled.div>
+                    <div
+                      className="c8 c9"
+                    />
+                  </styled.div>
+                  <Normaltekst>
+                    <TypografiBase
+                      type="normaltekst"
+                    >
+                      <p
+                        className="typo-normal"
+                      >
+                        ui:widget-overview-maritalstatus-Enke (19.06.2006)
+                      </p>
+                    </TypografiBase>
+                  </Normaltekst>
+                </div>
+              </styled.div>
+            </div>
+          </Styled(styled.div)>
+          <Styled(styled.div)>
+            <div
+              className="c4 c5 c6 c7"
+            />
+          </Styled(styled.div)>
+        </div>
+      </Styled(styled.div)>
+      <styled.hr>
+        <hr
+          className="c12 c13"
+        />
+      </styled.hr>
+      <Styled(styled.div)>
+        <div
+          className="c0 c1 c2 c3"
+        >
+          <Styled(styled.div)>
+            <div
+              className="c4 c5 c6 c7"
             >
               <_default
                 color="black"
@@ -2875,25 +3084,22 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
               </_default>
               <styled.div>
                 <div
-                  className="sc-AxirZ jpZlcz"
+                  className="c8 c9"
                 />
               </styled.div>
               <styled.div
                 id="w-overview-personPanel__element-deathdate"
               >
                 <div
-                  className="sc-AxheI UQoXB"
+                  className="c10 c11"
                   id="w-overview-personPanel__element-deathdate"
                 >
-                  <Undertekst
-                    className="mr-2"
-                  >
+                  <Undertekst>
                     <TypografiBase
-                      className="mr-2"
                       type="undertekst"
                     >
                       <p
-                        className="typo-undertekst mr-2"
+                        className="typo-undertekst"
                       >
                         <strong>
                           ui:deathdate
@@ -2902,6 +3108,11 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                       </p>
                     </TypografiBase>
                   </Undertekst>
+                  <styled.div>
+                    <div
+                      className="c8 c9"
+                    />
+                  </styled.div>
                   <Normaltekst>
                     <TypografiBase
                       type="normaltekst"
@@ -2916,89 +3127,14 @@ exports[`widgets/Overview/PersonPanel Renders 1`] = `
                 </div>
               </styled.div>
             </div>
-          </styled.div>
-          <styled.div>
+          </Styled(styled.div)>
+          <Styled(styled.div)>
             <div
-              className="sc-AxgMl drhlBv"
-            >
-              <_default
-                color="black"
-              >
-                <svg
-                  color="black"
-                  contentScriptType="text/ecmascript"
-                  contentStyleType="text/css"
-                  height="24"
-                  preserveAspectRatio="xMidYMid meet"
-                  version="1.0"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  zoomAndPan="magnify"
-                >
-                  <g
-                    fill="none"
-                    stroke="black"
-                    strokeLinejoin="round"
-                    strokeMiterlimit="10"
-                  >
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="11.5"
-                    />
-                    <path
-                      d="M12 18s5.5-4 5.5-6.962c0-3.418-4.5-4.5-5.5-.341-1-4.159-5.5-3.078-5.5.341 0 2.962 5.5 6.962 5.5 6.962z"
-                    />
-                  </g>
-                </svg>
-              </_default>
-              <styled.div>
-                <div
-                  className="sc-AxirZ jpZlcz"
-                />
-              </styled.div>
-              <styled.div
-                id="w-overview-personPanel__element-marital-status"
-              >
-                <div
-                  className="sc-AxheI UQoXB"
-                  id="w-overview-personPanel__element-marital-status"
-                >
-                  <Undertekst
-                    className="mr-2"
-                  >
-                    <TypografiBase
-                      className="mr-2"
-                      type="undertekst"
-                    >
-                      <p
-                        className="typo-undertekst mr-2"
-                      >
-                        <strong>
-                          ui:marital-status
-                        </strong>
-                        :
-                      </p>
-                    </TypografiBase>
-                  </Undertekst>
-                  <Normaltekst>
-                    <TypografiBase
-                      type="normaltekst"
-                    >
-                      <p
-                        className="typo-normal"
-                      >
-                        ui:widget-overview-maritalstatus-Enke (19.06.2006)
-                      </p>
-                    </TypografiBase>
-                  </Normaltekst>
-                </div>
-              </styled.div>
-            </div>
-          </styled.div>
+              className="c4 c5 c6 c7"
+            />
+          </Styled(styled.div)>
         </div>
-      </styled.div>
+      </Styled(styled.div)>
     </div>
   </styled.div>
 </PersonPanel>

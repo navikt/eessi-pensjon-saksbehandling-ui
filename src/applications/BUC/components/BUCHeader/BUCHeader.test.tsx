@@ -26,7 +26,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     buc: buc,
     bucInfo: (mockBucsInfo as BucsInfo).bucs['' + buc.caseId],
     newBuc: true
-  }
+  } as BUCHeaderProps
 
   beforeAll(() => {
     stageSelector(defaultSelector, {})

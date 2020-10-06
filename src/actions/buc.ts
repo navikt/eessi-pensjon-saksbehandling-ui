@@ -1,5 +1,4 @@
 import { BUCMode } from 'applications/BUC'
-import { SEDAttachmentPayloadWithFile } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
@@ -17,6 +16,7 @@ import {
   RinaUrlPayload,
   SaveBucsInfoProps,
   Sed,
+  SEDAttachmentPayloadWithFile,
   SEDList,
   SEDP5000Payload,
   SubjectAreaList,

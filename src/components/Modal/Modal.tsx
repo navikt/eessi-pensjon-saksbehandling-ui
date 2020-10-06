@@ -86,7 +86,7 @@ const ContentDiv = styled.div`
     margin-top: 3rem;
   }
 `
-export const Modal: React.FC<ModalProps> = ({
+const Modal: React.FC<ModalProps> = ({
   className,
   icon = undefined,
   onModalClose,
@@ -200,5 +200,5 @@ Modal.propTypes = {
   onModalClose: PT.func,
   modal: ModalContentPropType
 }
-Modal.displayName = 'Modal'
+
 export default Modal

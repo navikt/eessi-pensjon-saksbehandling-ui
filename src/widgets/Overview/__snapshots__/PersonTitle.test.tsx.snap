@@ -1,6 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`widgets/Overview/PersonTitle Renders 1`] = `
+.c3 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+ui-fss.g14[id="c2"] {
+  content: "c3,";
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1 .dead {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+ui-fss.g30[id="c0"] {
+  content: "c1,";
+}
+
 <PersonTitle
   gettingPersonInfo={false}
   person={
@@ -226,7 +255,7 @@ exports[`widgets/Overview/PersonTitle Renders 1`] = `
 >
   <styled.div>
     <div
-      className="sc-AxhUy lbrUut"
+      className="c0 c1"
     >
       <img
         alt="nav-woman-icon"
@@ -236,7 +265,7 @@ exports[`widgets/Overview/PersonTitle Renders 1`] = `
       />
       <styled.div>
         <div
-          className="sc-AxirZ jpZlcz"
+          className="c2 c3"
         />
       </styled.div>
       <Systemtittel>

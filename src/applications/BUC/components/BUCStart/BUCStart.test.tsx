@@ -50,7 +50,7 @@ const defaultSelector = {
 
 describe('applications/BUC/components/BUCStart/BUCStart', () => {
   let wrapper: ReactWrapper
-  const initialMockProps = {
+  const initialMockProps: BUCStartProps = {
     aktoerId: '456',
     onBucCreated: jest.fn(),
     onBucCancelled: jest.fn()
@@ -62,6 +62,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
+
     wrapper = mount(<BUCStart {...initialMockProps} />)
   })
 

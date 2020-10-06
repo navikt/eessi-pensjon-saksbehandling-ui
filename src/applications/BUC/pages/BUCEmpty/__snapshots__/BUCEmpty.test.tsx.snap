@@ -1,12 +1,234 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
+.c5 {
+  margin-bottom: 1rem;
+}
+
+ui-fss.g13[id="c4"] {
+  content: "c5,";
+}
+
+.c11 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.c20 {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+ui-fss.g14[id="c10"] {
+  content: "c11,c20,";
+}
+
+.c15 {
+  background-color: inherit;
+  color: #0067C5;
+  border-color: #0067C5;
+}
+
+.c15:hover:not(:disabled) {
+  background-color: #0067C5;
+  color: #FFFFFF;
+}
+
+.c15:hover:not(:disabled) svg path {
+  stroke: #FFFFFF;
+}
+
+.c15 svg path {
+  stroke: #0067C5;
+}
+
+ui-fss.g15[id="c14"] {
+  content: "c15,";
+}
+
+.c13 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  background-color: #0067C5;
+  color: #FFFFFF;
+  border-color: #0067C5;
+}
+
+.c13:hover:not(:disabled) {
+  background-color: #0067C5;
+  border-color: #0067C5;
+  color: #FFFFFF;
+}
+
+.c13:hover:not(:disabled) svg path {
+  stroke: #FFFFFF;
+}
+
+.c13:disabled {
+  color: #FFFFFF;
+  background-color: #B7B1A9;
+}
+
+.c13 svg path {
+  stroke: #0067C5;
+}
+
+ui-fss.g16[id="c12"] {
+  content: "c13,";
+}
+
+.c9 input {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: #78706A;
+  background-color: #FFFFFF;
+  color: #3E3832;
+}
+
+ui-fss.g19[id="c8"] {
+  content: "c9,";
+}
+
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: inherit;
+  line-height: inherit;
+  color: #0067C5 !important;
+}
+
+.c19 svg {
+  fill: #0067C5 !important;
+  stroke: #0067C5 !important;
+}
+
+ui-fss.g20[id="c18"] {
+  content: "c19,";
+}
+
+.c17 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+ui-fss.g27[id="c16"] {
+  content: "c17,";
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-color: #78706A;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: #FFFFFF;
+}
+
+ui-fss.g28[id="c0"] {
+  content: "c1,";
+}
+
+.c3 {
+  position: relative;
+  height: 300px;
+  width: 250px;
+}
+
+.c3 .monitor {
+  width: 250px;
+  height: 200px;
+}
+
+.c3 .cup {
+  width: 33px;
+  height: 30px;
+  top: 170px;
+  left: 255px;
+}
+
+.c3 .mouse {
+  width: 60px;
+  height: 80px;
+  left: 190px;
+  top: 180px;
+}
+
+.c3 .map {
+  width: 70px;
+  height: 100px;
+  top: 20px;
+  left: 90px;
+}
+
+.c3 img {
+  position: absolute;
+}
+
+ui-fss.g29[id="c2"] {
+  content: "c3,";
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: flex-end;
+  -webkit-box-align: flex-end;
+  -ms-flex-align: flex-end;
+  align-items: flex-end;
+}
+
+.c7 .skjemaelement {
+  margin-bottom: 0px !important;
+}
+
+ui-fss.g30[id="c6"] {
+  content: "c7,";
+}
+
 <BUCEmpty
   onBUCNew={[MockFunction]}
 >
-  <ThemeProvider
+  <Component
     theme={
       Object {
+        "alternative-background-color": "#E9E7E7",
         "black": "#000000",
         "border-radius-base": "4px",
         "border-radius-large": "6px",
@@ -17,7 +239,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
         "container-md": "(940px + @grid-gutter-width)",
         "container-sm": "(720px + @grid-gutter-width)",
         "container-tablet": "(720px + @grid-gutter-width)",
-        "fokusFarge": "mix(@navBla,#3E3832,40%)",
+        "fokusFarge": "#254a6c",
         "grayBackground": "#E9E7E7",
         "grayIcon": "#B7B1A9",
         "grayInactive": "#78706A",
@@ -26,105 +248,108 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
         "grid-float-breakpoint": "768px",
         "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
         "grid-gutter-width": "16px",
+        "inverted-font-color": "#FFFFFF",
         "line-height-large": "1.3333333",
         "line-height-small": "1.5",
+        "main-active-color": "#a3dff3",
         "main-background-color": "#FFFFFF",
-        "main-background-other-color": "#E9E7E7",
+        "main-border-color": "#78706A",
+        "main-border-radius": "4px",
         "main-disabled-color": "#B7B1A9",
         "main-error-color": "#BA3A26",
-        "main-focus-color": "mix(@navBla,#3E3832,40%)",
+        "main-focus-color": "#254a6c",
         "main-font-color": "#3E3832",
-        "main-hover-color": "#66CBEC",
+        "main-hover-color": "#e0f4fb",
         "main-interactive-color": "#0067C5",
         "main-success-color": "#06893A",
         "main-warning-color": "#FF9100",
         "navBla": "#0067C5",
-        "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-        "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-        "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-        "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-        "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-        "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-        "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-        "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+        "navBlaDarken20": "#0c5da7",
+        "navBlaDarken40": "#18548a",
+        "navBlaDarken60": "#254a6c",
+        "navBlaDarken80": "#31414f",
+        "navBlaLighten20": "#3385d0",
+        "navBlaLighten40": "#66a3dc",
+        "navBlaLighten60": "#99c2e7",
+        "navBlaLighten80": "#cce0f3",
         "navDypBla": "#005B82",
-        "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-        "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-        "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-        "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-        "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-        "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-        "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-        "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+        "navDypBlaDarken20": "#0c5472",
+        "navDypBlaDarken40": "#184d62",
+        "navDypBlaDarken60": "#254652",
+        "navDypBlaDarken80": "#313f42",
+        "navDypBlaLighten20": "#337b9b",
+        "navDypBlaLighten40": "#669cb4",
+        "navDypBlaLighten60": "#99bdcd",
+        "navDypBlaLighten80": "#ccdee6",
         "navGra20": "#C6C2BF",
         "navGra40": "#B7B1A9",
         "navGra60": "#78706A",
         "navGra80": "#59514B",
         "navGronn": "#06893A",
-        "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-        "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-        "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-        "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-        "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-        "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-        "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-        "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+        "navGronnDarken20": "#117838",
+        "navGronnDarken40": "#1c6836",
+        "navGronnDarken60": "#275835",
+        "navGronnDarken80": "#324833",
+        "navGronnLighten20": "#37a061",
+        "navGronnLighten40": "#69b888",
+        "navGronnLighten60": "#9bcfb0",
+        "navGronnLighten80": "#cde7d7",
         "navLilla": "#634689",
-        "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-        "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-        "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-        "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-        "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-        "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-        "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-        "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+        "navLillaDarken20": "#5b4377",
+        "navLillaDarken40": "#544066",
+        "navLillaDarken60": "#4c3d54",
+        "navLillaDarken80": "#453a43",
+        "navLillaLighten20": "#826ba0",
+        "navLillaLighten40": "#a190b8",
+        "navLillaLighten60": "#c0b5cf",
+        "navLillaLighten80": "#dfdae7",
         "navLimeGronn": "#A2AD00",
-        "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-        "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-        "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-        "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-        "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-        "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-        "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-        "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+        "navLimeGronnDarken20": "#8e950a",
+        "navLimeGronnDarken40": "#7a7e14",
+        "navLimeGronnDarken60": "#66661e",
+        "navLimeGronnDarken80": "#524f28",
+        "navLimeGronnLighten20": "#b4bd33",
+        "navLimeGronnLighten40": "#c7cd66",
+        "navLimeGronnLighten60": "#d9de99",
+        "navLimeGronnLighten80": "#eceecc",
         "navLysBla": "#66CBEC",
-        "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-        "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-        "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-        "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-        "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-        "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-        "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-        "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+        "navLysBlaDarken20": "#5eadc6",
+        "navLysBlaDarken40": "#5690a1",
+        "navLysBlaDarken60": "#4e727c",
+        "navLysBlaDarken80": "#465557",
+        "navLysBlaLighten20": "#84d5ef",
+        "navLysBlaLighten40": "#a3dff3",
+        "navLysBlaLighten60": "#c1eaf7",
+        "navLysBlaLighten80": "#e0f4fb",
         "navLysGra": "#E9E7E7",
         "navMorkGra": "#3E3832",
         "navOransje": "#FF9100",
-        "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-        "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-        "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-        "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-        "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-        "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-        "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-        "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+        "navOransjeDarken20": "#d87f0a",
+        "navOransjeDarken40": "#b16d14",
+        "navOransjeDarken60": "#8b5b1e",
+        "navOransjeDarken80": "#644928",
+        "navOransjeLighten20": "#ffa733",
+        "navOransjeLighten40": "#ffbd66",
+        "navOransjeLighten60": "#ffd399",
+        "navOransjeLighten80": "#ffe9cc",
         "navRod": "#C30000",
-        "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-        "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-        "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-        "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-        "navRodLighten20": "mix(@navRod,#fff,80%)",
-        "navRodLighten40": "mix(@navRod,#fff,60%)",
-        "navRodLighten60": "mix(@navRod,#fff,40%)",
-        "navRodLighten80": "mix(@navRod,#fff,20%)",
+        "navRodDarken20": "#a80b0a",
+        "navRodDarken40": "#8d1614",
+        "navRodDarken60": "#73211e",
+        "navRodDarken80": "#582c28",
+        "navRodLighten20": "#cf3333",
+        "navRodLighten40": "#db6666",
+        "navRodLighten60": "#e79999",
+        "navRodLighten80": "#f3cccc",
         "orangeFocus": "#FFBD66",
-        "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-        "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-        "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-        "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-        "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-        "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-        "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-        "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+        "orangeFocusDarken20": "#d8a25b",
+        "orangeFocusDarken40": "#b18751",
+        "orangeFocusDarken60": "#8b6d46",
+        "orangeFocusDarken80": "#64523c",
+        "orangeFocusLighten20": "#ffca84",
+        "orangeFocusLighten40": "#ffd7a3",
+        "orangeFocusLighten60": "#ffe4c1",
+        "orangeFocusLighten80": "#fff1e0",
         "padding-base-horizontal": "12px",
         "padding-base-vertical": "6px",
         "padding-large-horizontal": "16px",
@@ -133,19 +358,16 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
         "padding-small-vertical": "5px",
         "padding-xs-horizontal": "5px",
         "padding-xs-vertical": "1px",
-        "pension-orange": "rgb(255, 167, 51)",
-        "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-        "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
         "pinkErrorBg": "#F3E3E3",
         "redError": "#BA3A26",
-        "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-        "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-        "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-        "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-        "redErrorLighten20": "mix(@redError,#fff,80%)",
-        "redErrorLighten40": "mix(@redError,#fff,60%)",
-        "redErrorLighten60": "mix(@redError,#fff,40%)",
-        "redErrorLighten80": "mix(@redError,#fff,20%)",
+        "redErrorDarken20": "#a13928",
+        "redErrorDarken40": "#88392a",
+        "redErrorDarken60": "#6f382d",
+        "redErrorDarken80": "#56382f",
+        "redErrorLighten20": "#c76151",
+        "redErrorLighten40": "#d5887c",
+        "redErrorLighten60": "#e3b0a8",
+        "redErrorLighten80": "#f1d7d3",
         "screen-desktop": "992px",
         "screen-lg": "1200px",
         "screen-lg-desktop": "1200px",
@@ -165,11 +387,11 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
   >
     <styled.div>
       <div
-        className="sc-AxhUy irZigt"
+        className="c0 c1"
       >
         <styled.div>
           <div
-            className="sc-AxgMl fdNlLh"
+            className="c2 c3"
           >
             <img
               alt=""
@@ -195,158 +417,155 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
         </styled.div>
         <styled.div>
           <div
-            className="sc-AxjAm hjOQuY"
-          />
-        </styled.div>
-        <Undertittel>
-          <TypografiBase
-            type="undertittel"
-          >
-            <h2
-              className="typo-undertittel"
-            >
-              <Lenke
-                data-tedtIid="a-buc-p-bucempty__newbuc-link-id"
-                href="#"
-                onClick={[MockFunction]}
-              >
-                <a
-                  className="lenke"
-                  data-tedtIid="a-buc-p-bucempty__newbuc-link-id"
-                  href="#"
-                  onClick={[MockFunction]}
-                >
-                  buc:form-empty-startANewCase
-                </a>
-              </Lenke>
-            </h2>
-          </TypografiBase>
-        </Undertittel>
-        <styled.div>
-          <div
-            className="sc-AxjAm hjOQuY"
+            className="c4 c5"
           />
         </styled.div>
         <styled.div>
           <div
-            className="sc-AxheI hzANGr"
+            className="c6 c7"
           >
-            <Input
+            <Styled(Input)
               bredde="fullbredde"
-              data-testId="a-buc-p-bucempty__aktoerid-input-id"
+              data-test-id="a-buc-p-bucempty__aktoerid-input-id"
               feil={false}
               label="ui:aktoerId"
               onChange={[Function]}
               value=""
             >
-              <div
-                className="skjemaelement"
+              <Input
+                bredde="fullbredde"
+                className="c8 c9"
+                data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+                feil={false}
+                label="ui:aktoerId"
+                onChange={[Function]}
+                value=""
               >
-                <Label
-                  htmlFor="58495341-13379-4861-8101-135470421416513"
+                <div
+                  className="skjemaelement c8 c9"
                 >
-                  <label
-                    className="skjemaelement__label"
-                    htmlFor="58495341-13379-4861-8101-135470421416513"
+                  <Label
+                    htmlFor="156207387-5239-30547-16153-231652391427826"
                   >
-                    ui:aktoerId
-                  </label>
-                </Label>
-                <input
-                  aria-invalid={false}
-                  className="skjemaelement__input input--fullbredde"
-                  data-testId="a-buc-p-bucempty__aktoerid-input-id"
-                  id="58495341-13379-4861-8101-135470421416513"
-                  onChange={[Function]}
-                  type="text"
-                  value=""
-                />
-              </div>
-            </Input>
+                    <label
+                      className="skjemaelement__label"
+                      htmlFor="156207387-5239-30547-16153-231652391427826"
+                    >
+                      ui:aktoerId
+                    </label>
+                  </Label>
+                  <input
+                    aria-invalid={false}
+                    className="skjemaelement__input input--fullbredde"
+                    data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+                    id="156207387-5239-30547-16153-231652391427826"
+                    onChange={[Function]}
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </Input>
+            </Styled(Input)>
             <styled.div>
               <div
-                className="sc-AxirZ jpZlcz"
+                className="c10 c11"
               />
             </styled.div>
-            <Hovedknapp
-              data-testId="a-buc-p-bucempty__aktoerid-button-id"
+            <Styled(Hovedknapp)
+              data-test-id="a-buc-p-bucempty__aktoerid-button-id"
               onClick={[Function]}
             >
-              <KnappBase
-                autoDisableVedSpinner={false}
-                className={null}
-                data-testId="a-buc-p-bucempty__aktoerid-button-id"
-                disabled={false}
-                htmlType="submit"
-                inaktivKlasseVedDisabled={false}
-                kompakt={false}
-                mini={false}
+              <Hovedknapp
+                className="c12 c13"
+                data-test-id="a-buc-p-bucempty__aktoerid-button-id"
                 onClick={[Function]}
-                spinner={false}
-                type="hoved"
               >
-                <button
-                  className="knapp knapp--hoved"
-                  data-testId="a-buc-p-bucempty__aktoerid-button-id"
+                <KnappBase
+                  autoDisableVedSpinner={false}
+                  className="c12 c13"
+                  data-test-id="a-buc-p-bucempty__aktoerid-button-id"
                   disabled={false}
+                  htmlType="submit"
+                  inaktivKlasseVedDisabled={false}
+                  kompakt={false}
+                  mini={false}
                   onClick={[Function]}
-                  type="submit"
+                  spinner={false}
+                  type="hoved"
                 >
-                  ui:add
-                </button>
-              </KnappBase>
-            </Hovedknapp>
+                  <button
+                    className="knapp c12 c13 knapp--hoved"
+                    data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="submit"
+                  >
+                    ui:add
+                  </button>
+                </KnappBase>
+              </Hovedknapp>
+            </Styled(Hovedknapp)>
           </div>
         </styled.div>
         <styled.div>
           <div
-            className="sc-AxheI hzANGr"
+            className="c6 c7"
           >
-            <Input
+            <Styled(Input)
               bredde="fullbredde"
-              data-testId="a-buc-p-bucempty__sakid-input-id"
+              data-test-id="a-buc-p-bucempty__sakid-input-id"
               feil={false}
               label="buc:form-caseId"
               onChange={[Function]}
               value=""
             >
-              <div
-                className="skjemaelement"
+              <Input
+                bredde="fullbredde"
+                className="c8 c9"
+                data-test-id="a-buc-p-bucempty__sakid-input-id"
+                feil={false}
+                label="buc:form-caseId"
+                onChange={[Function]}
+                value=""
               >
-                <Label
-                  htmlFor="218309975-20898-18301-7156-15796068016826"
+                <div
+                  className="skjemaelement c8 c9"
                 >
-                  <label
-                    className="skjemaelement__label"
-                    htmlFor="218309975-20898-18301-7156-15796068016826"
+                  <Label
+                    htmlFor="822621344-6163-9250-7474-36801801620703"
                   >
-                    buc:form-caseId
-                  </label>
-                </Label>
-                <input
-                  aria-invalid={false}
-                  className="skjemaelement__input input--fullbredde"
-                  data-testId="a-buc-p-bucempty__sakid-input-id"
-                  id="218309975-20898-18301-7156-15796068016826"
-                  onChange={[Function]}
-                  type="text"
-                  value=""
-                />
-              </div>
-            </Input>
+                    <label
+                      className="skjemaelement__label"
+                      htmlFor="822621344-6163-9250-7474-36801801620703"
+                    >
+                      buc:form-caseId
+                    </label>
+                  </Label>
+                  <input
+                    aria-invalid={false}
+                    className="skjemaelement__input input--fullbredde"
+                    data-test-id="a-buc-p-bucempty__sakid-input-id"
+                    id="822621344-6163-9250-7474-36801801620703"
+                    onChange={[Function]}
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </Input>
+            </Styled(Input)>
             <styled.div>
               <div
-                className="sc-AxirZ jpZlcz"
+                className="c10 c11"
               />
             </styled.div>
-            <Hovedknapp
-              data-testId="a-buc-p-bucempty__sakid-button-id"
+            <Styled(KnappBase)
+              data-test-id="a-buc-p-bucempty__sakid-button-id"
               onClick={[Function]}
             >
               <KnappBase
                 autoDisableVedSpinner={false}
-                className={null}
-                data-testId="a-buc-p-bucempty__sakid-button-id"
+                className="c14 c15"
+                data-test-id="a-buc-p-bucempty__sakid-button-id"
                 disabled={false}
                 htmlType="submit"
                 inaktivKlasseVedDisabled={false}
@@ -354,11 +573,11 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                 mini={false}
                 onClick={[Function]}
                 spinner={false}
-                type="hoved"
+                type="standard"
               >
                 <button
-                  className="knapp knapp--hoved"
-                  data-testId="a-buc-p-bucempty__sakid-button-id"
+                  className="knapp c14 c15 knapp--standard"
+                  data-test-id="a-buc-p-bucempty__sakid-button-id"
                   disabled={false}
                   onClick={[Function]}
                   type="submit"
@@ -366,15 +585,16 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                   ui:add
                 </button>
               </KnappBase>
-            </Hovedknapp>
+            </Styled(KnappBase)>
           </div>
         </styled.div>
       </div>
     </styled.div>
     <BUCFooter>
-      <ThemeProvider
+      <Component
         theme={
           Object {
+            "alternative-background-color": "#E9E7E7",
             "black": "#000000",
             "border-radius-base": "4px",
             "border-radius-large": "6px",
@@ -385,7 +605,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
             "container-md": "(940px + @grid-gutter-width)",
             "container-sm": "(720px + @grid-gutter-width)",
             "container-tablet": "(720px + @grid-gutter-width)",
-            "fokusFarge": "mix(@navBla,#3E3832,40%)",
+            "fokusFarge": "#254a6c",
             "grayBackground": "#E9E7E7",
             "grayIcon": "#B7B1A9",
             "grayInactive": "#78706A",
@@ -394,105 +614,108 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
             "grid-float-breakpoint": "768px",
             "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
             "grid-gutter-width": "16px",
+            "inverted-font-color": "#FFFFFF",
             "line-height-large": "1.3333333",
             "line-height-small": "1.5",
+            "main-active-color": "#a3dff3",
             "main-background-color": "#FFFFFF",
-            "main-background-other-color": "#E9E7E7",
+            "main-border-color": "#78706A",
+            "main-border-radius": "4px",
             "main-disabled-color": "#B7B1A9",
             "main-error-color": "#BA3A26",
-            "main-focus-color": "mix(@navBla,#3E3832,40%)",
+            "main-focus-color": "#254a6c",
             "main-font-color": "#3E3832",
-            "main-hover-color": "#66CBEC",
+            "main-hover-color": "#e0f4fb",
             "main-interactive-color": "#0067C5",
             "main-success-color": "#06893A",
             "main-warning-color": "#FF9100",
             "navBla": "#0067C5",
-            "navBlaDarken20": "mix(@navBla,#3E3832,80%)",
-            "navBlaDarken40": "mix(@navBla,#3E3832,60%)",
-            "navBlaDarken60": "mix(@navBla,#3E3832,40%)",
-            "navBlaDarken80": "mix(@navBla,#3E3832,20%)",
-            "navBlaLighten20": "mix(@navBla,#fff, 80%)",
-            "navBlaLighten40": "mix(@navBla,#fff, 60%)",
-            "navBlaLighten60": "mix(@navBla,#fff, 40%)",
-            "navBlaLighten80": "mix(@navBla,#fff, 20%)",
+            "navBlaDarken20": "#0c5da7",
+            "navBlaDarken40": "#18548a",
+            "navBlaDarken60": "#254a6c",
+            "navBlaDarken80": "#31414f",
+            "navBlaLighten20": "#3385d0",
+            "navBlaLighten40": "#66a3dc",
+            "navBlaLighten60": "#99c2e7",
+            "navBlaLighten80": "#cce0f3",
             "navDypBla": "#005B82",
-            "navDypBlaDarken20": "mix(@navDypBla,#3E3832,80%)",
-            "navDypBlaDarken40": "mix(@navDypBla,#3E3832,60%)",
-            "navDypBlaDarken60": "mix(@navDypBla,#3E3832,40%)",
-            "navDypBlaDarken80": "mix(@navDypBla,#3E3832,20%)",
-            "navDypBlaLighten20": "mix(@navDypBla,#fff, 80%)",
-            "navDypBlaLighten40": "mix(@navDypBla,#fff, 60%)",
-            "navDypBlaLighten60": "mix(@navDypBla,#fff, 40%)",
-            "navDypBlaLighten80": "mix(@navDypBla,#fff, 20%)",
+            "navDypBlaDarken20": "#0c5472",
+            "navDypBlaDarken40": "#184d62",
+            "navDypBlaDarken60": "#254652",
+            "navDypBlaDarken80": "#313f42",
+            "navDypBlaLighten20": "#337b9b",
+            "navDypBlaLighten40": "#669cb4",
+            "navDypBlaLighten60": "#99bdcd",
+            "navDypBlaLighten80": "#ccdee6",
             "navGra20": "#C6C2BF",
             "navGra40": "#B7B1A9",
             "navGra60": "#78706A",
             "navGra80": "#59514B",
             "navGronn": "#06893A",
-            "navGronnDarken20": "mix(@navGronn,#3E3832,80%)",
-            "navGronnDarken40": "mix(@navGronn,#3E3832,60%)",
-            "navGronnDarken60": "mix(@navGronn,#3E3832,40%)",
-            "navGronnDarken80": "mix(@navGronn,#3E3832,20%)",
-            "navGronnLighten20": "mix(@navGronn,#fff, 80%)",
-            "navGronnLighten40": "mix(@navGronn,#fff, 60%)",
-            "navGronnLighten60": "mix(@navGronn,#fff, 40%)",
-            "navGronnLighten80": "mix(@navGronn,#fff, 20%)",
+            "navGronnDarken20": "#117838",
+            "navGronnDarken40": "#1c6836",
+            "navGronnDarken60": "#275835",
+            "navGronnDarken80": "#324833",
+            "navGronnLighten20": "#37a061",
+            "navGronnLighten40": "#69b888",
+            "navGronnLighten60": "#9bcfb0",
+            "navGronnLighten80": "#cde7d7",
             "navLilla": "#634689",
-            "navLillaDarken20": "mix(@navLilla,#3E3832,80%)",
-            "navLillaDarken40": "mix(@navLilla,#3E3832,60%)",
-            "navLillaDarken60": "mix(@navLilla,#3E3832,40%)",
-            "navLillaDarken80": "mix(@navLilla,#3E3832,20%)",
-            "navLillaLighten20": "mix(@navLilla,#fff,80%)",
-            "navLillaLighten40": "mix(@navLilla,#fff,60%)",
-            "navLillaLighten60": "mix(@navLilla,#fff,40%)",
-            "navLillaLighten80": "mix(@navLilla,#fff,20%)",
+            "navLillaDarken20": "#5b4377",
+            "navLillaDarken40": "#544066",
+            "navLillaDarken60": "#4c3d54",
+            "navLillaDarken80": "#453a43",
+            "navLillaLighten20": "#826ba0",
+            "navLillaLighten40": "#a190b8",
+            "navLillaLighten60": "#c0b5cf",
+            "navLillaLighten80": "#dfdae7",
             "navLimeGronn": "#A2AD00",
-            "navLimeGronnDarken20": "mix(@navLimeGronn,#3E3832,80%)",
-            "navLimeGronnDarken40": "mix(@navLimeGronn,#3E3832,60%)",
-            "navLimeGronnDarken60": "mix(@navLimeGronn,#3E3832,40%)",
-            "navLimeGronnDarken80": "mix(@navLimeGronn,#3E3832,20%)",
-            "navLimeGronnLighten20": "mix(@navLimeGronn,#fff,80%)",
-            "navLimeGronnLighten40": "mix(@navLimeGronn,#fff,60%)",
-            "navLimeGronnLighten60": "mix(@navLimeGronn,#fff,40%)",
-            "navLimeGronnLighten80": "mix(@navLimeGronn,#fff,20%)",
+            "navLimeGronnDarken20": "#8e950a",
+            "navLimeGronnDarken40": "#7a7e14",
+            "navLimeGronnDarken60": "#66661e",
+            "navLimeGronnDarken80": "#524f28",
+            "navLimeGronnLighten20": "#b4bd33",
+            "navLimeGronnLighten40": "#c7cd66",
+            "navLimeGronnLighten60": "#d9de99",
+            "navLimeGronnLighten80": "#eceecc",
             "navLysBla": "#66CBEC",
-            "navLysBlaDarken20": "mix(@navLysBla,#3E3832,80%)",
-            "navLysBlaDarken40": "mix(@navLysBla,#3E3832,60%)",
-            "navLysBlaDarken60": "mix(@navLysBla,#3E3832,40%)",
-            "navLysBlaDarken80": "mix(@navLysBla,#3E3832,20%)",
-            "navLysBlaLighten20": "mix(@navLysBla,#fff,80%)",
-            "navLysBlaLighten40": "mix(@navLysBla,#fff,60%)",
-            "navLysBlaLighten60": "mix(@navLysBla,#fff,40%)",
-            "navLysBlaLighten80": "mix(@navLysBla,#fff,20%)",
+            "navLysBlaDarken20": "#5eadc6",
+            "navLysBlaDarken40": "#5690a1",
+            "navLysBlaDarken60": "#4e727c",
+            "navLysBlaDarken80": "#465557",
+            "navLysBlaLighten20": "#84d5ef",
+            "navLysBlaLighten40": "#a3dff3",
+            "navLysBlaLighten60": "#c1eaf7",
+            "navLysBlaLighten80": "#e0f4fb",
             "navLysGra": "#E9E7E7",
             "navMorkGra": "#3E3832",
             "navOransje": "#FF9100",
-            "navOransjeDarken20": "mix(@navOransje,#3E3832,80%)",
-            "navOransjeDarken40": "mix(@navOransje,#3E3832,60%)",
-            "navOransjeDarken60": "mix(@navOransje,#3E3832,40%)",
-            "navOransjeDarken80": "mix(@navOransje,#3E3832,20%)",
-            "navOransjeLighten20": "mix(@navOransje,#fff,80%)",
-            "navOransjeLighten40": "mix(@navOransje,#fff,60%)",
-            "navOransjeLighten60": "mix(@navOransje,#fff,40%)",
-            "navOransjeLighten80": "mix(@navOransje,#fff,20%)",
+            "navOransjeDarken20": "#d87f0a",
+            "navOransjeDarken40": "#b16d14",
+            "navOransjeDarken60": "#8b5b1e",
+            "navOransjeDarken80": "#644928",
+            "navOransjeLighten20": "#ffa733",
+            "navOransjeLighten40": "#ffbd66",
+            "navOransjeLighten60": "#ffd399",
+            "navOransjeLighten80": "#ffe9cc",
             "navRod": "#C30000",
-            "navRodDarken20": "mix(@navRod,#3E3832,80%)",
-            "navRodDarken40": "mix(@navRod,#3E3832,60%)",
-            "navRodDarken60": "mix(@navRod,#3E3832,40%)",
-            "navRodDarken80": "mix(@navRod,#3E3832,20%)",
-            "navRodLighten20": "mix(@navRod,#fff,80%)",
-            "navRodLighten40": "mix(@navRod,#fff,60%)",
-            "navRodLighten60": "mix(@navRod,#fff,40%)",
-            "navRodLighten80": "mix(@navRod,#fff,20%)",
+            "navRodDarken20": "#a80b0a",
+            "navRodDarken40": "#8d1614",
+            "navRodDarken60": "#73211e",
+            "navRodDarken80": "#582c28",
+            "navRodLighten20": "#cf3333",
+            "navRodLighten40": "#db6666",
+            "navRodLighten60": "#e79999",
+            "navRodLighten80": "#f3cccc",
             "orangeFocus": "#FFBD66",
-            "orangeFocusDarken20": "mix(@orangeFocus,#3E3832,80%)",
-            "orangeFocusDarken40": "mix(@orangeFocus,#3E3832,60%)",
-            "orangeFocusDarken60": "mix(@orangeFocus,#3E3832,40%)",
-            "orangeFocusDarken80": "mix(@orangeFocus,#3E3832,20%)",
-            "orangeFocusLighten20": "mix(@orangeFocus,#fff,80%)",
-            "orangeFocusLighten40": "mix(@orangeFocus,#fff,60%)",
-            "orangeFocusLighten60": "mix(@orangeFocus,#fff,40%)",
-            "orangeFocusLighten80": "mix(@orangeFocus,#fff,20%)",
+            "orangeFocusDarken20": "#d8a25b",
+            "orangeFocusDarken40": "#b18751",
+            "orangeFocusDarken60": "#8b6d46",
+            "orangeFocusDarken80": "#64523c",
+            "orangeFocusLighten20": "#ffca84",
+            "orangeFocusLighten40": "#ffd7a3",
+            "orangeFocusLighten60": "#ffe4c1",
+            "orangeFocusLighten80": "#fff1e0",
             "padding-base-horizontal": "12px",
             "padding-base-vertical": "6px",
             "padding-large-horizontal": "16px",
@@ -501,19 +724,16 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
             "padding-small-vertical": "5px",
             "padding-xs-horizontal": "5px",
             "padding-xs-vertical": "1px",
-            "pension-orange": "rgb(255, 167, 51)",
-            "pension-orange-alpha": "rgba(255, 167, 51, 0.5)",
-            "pension-orange-alpha-80": "rgba(255, 167, 51, 0.8)",
             "pinkErrorBg": "#F3E3E3",
             "redError": "#BA3A26",
-            "redErrorDarken20": "mix(@redError,#3E3832,80%)",
-            "redErrorDarken40": "mix(@redError,#3E3832,60%)",
-            "redErrorDarken60": "mix(@redError,#3E3832,40%)",
-            "redErrorDarken80": "mix(@redError,#3E3832,20%)",
-            "redErrorLighten20": "mix(@redError,#fff,80%)",
-            "redErrorLighten40": "mix(@redError,#fff,60%)",
-            "redErrorLighten60": "mix(@redError,#fff,40%)",
-            "redErrorLighten80": "mix(@redError,#fff,20%)",
+            "redErrorDarken20": "#a13928",
+            "redErrorDarken40": "#88392a",
+            "redErrorDarken60": "#6f382d",
+            "redErrorDarken80": "#56382f",
+            "redErrorLighten20": "#c76151",
+            "redErrorLighten40": "#d5887c",
+            "redErrorLighten60": "#e3b0a8",
+            "redErrorLighten80": "#f1d7d3",
             "screen-desktop": "992px",
             "screen-lg": "1200px",
             "screen-lg-desktop": "1200px",
@@ -533,29 +753,28 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
       >
         <styled.div>
           <div
-            className="sc-AxiKw Gryew"
+            className="c16 c17"
           >
             <Styled(Lenke)
-              className="a-buc-c-buclist__gotorina"
               data-amplitude="buc.list.rinaurl"
+              data-test-id="a-buc-c-bucfooter__gotorina-link"
               href="http://mock.url"
-              id="a-buc-c-buclist__gotorina-link"
               onClick={[Function]}
               target="rinaWindow"
             >
               <Lenke
-                className="sc-AxhCb tbEXJ a-buc-c-buclist__gotorina"
+                className="c18 c19"
                 data-amplitude="buc.list.rinaurl"
+                data-test-id="a-buc-c-bucfooter__gotorina-link"
                 href="http://mock.url"
-                id="a-buc-c-buclist__gotorina-link"
                 onClick={[Function]}
                 target="rinaWindow"
               >
                 <a
-                  className="lenke sc-AxhCb tbEXJ a-buc-c-buclist__gotorina"
+                  className="lenke c18 c19"
                   data-amplitude="buc.list.rinaurl"
+                  data-test-id="a-buc-c-bucfooter__gotorina-link"
                   href="http://mock.url"
-                  id="a-buc-c-buclist__gotorina-link"
                   onClick={[Function]}
                   rel="noopener"
                   target="rinaWindow"
@@ -565,7 +784,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
                     data-size="0.5"
                   >
                     <div
-                      className="sc-AxirZ kuzrjh"
+                      className="c10 c20"
                       data-size="0.5"
                     />
                   </styled.div>
@@ -605,8 +824,8 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
             </Styled(Lenke)>
           </div>
         </styled.div>
-      </ThemeProvider>
+      </Component>
     </BUCFooter>
-  </ThemeProvider>
+  </Component>
 </BUCEmpty>
 `;

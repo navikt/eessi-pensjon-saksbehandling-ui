@@ -1,35 +1,28 @@
 import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { IS_TEST } from 'constants/environment'
-import { SavingAttachmentsJob } from 'declarations/buc'
+import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFile } from 'declarations/buc'
+import { SEDAttachmentPayloadPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import ProgressBar, { ProgressBarStatus } from 'fremdriftslinje'
-import PT from 'prop-types'
 import _ from 'lodash'
+import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-export interface SEDAttachmentPayload {
-  aktoerId: string
-  rinaId: string
-  rinaDokumentId: string
-}
-
-export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
-  journalpostId: string | undefined
-  dokumentInfoId: string | undefined
-  variantformat: string | undefined
-}
+const SEDAttachmentSenderDiv = styled.div`
+  display: flex;
+`
 
 export interface SEDAttachmentSenderProps {
   attachmentsError ?: boolean
   className?: string
   initialStatus ?: ProgressBarStatus
   onCancel ?: () => void
-  onSaved: (savingAttachmentsJob: SavingAttachmentsJob) => void
   onFinished : () => void
+  onSaved: (savingAttachmentsJob: SavingAttachmentsJob) => void
   payload: SEDAttachmentPayload
   sendAttachmentToSed : (params: SEDAttachmentPayloadWithFile, unsent: JoarkBrowserItem) => void
 }
@@ -42,15 +35,11 @@ const mapState = (state: State): SEDAttachmentSelector => ({
   savingAttachmentsJob: state.buc.savingAttachmentsJob
 })
 
-const SEDAttachmentSenderDiv = styled.div`
-  display: flex;
-`
-
 const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   attachmentsError, className, initialStatus = 'inprogress',
-  onCancel, payload, onSaved, onFinished, sendAttachmentToSed
+  onCancel, onFinished, onSaved, payload, sendAttachmentToSed
 }: SEDAttachmentSenderProps): JSX.Element => {
-  const [status, setStatus] = useState<ProgressBarStatus>(initialStatus)
+  const [_status, setStatus] = useState<ProgressBarStatus>(initialStatus)
   const { savingAttachmentsJob }: SEDAttachmentSelector = useSelector<State, SEDAttachmentSelector>(mapState)
   const { t } = useTranslation()
 
@@ -94,7 +83,6 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           dokumentInfoId: unsentAttachment.dokumentInfoId,
           variantformat: unsentAttachment.variant?.variantformat
         }
-        console.log('Sending...')
         sendAttachmentToSed(params, unsentAttachment)
       } else {
         // one attachment will be saved now. Display as such.
@@ -111,7 +99,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   }, [onSaved, onFinished, payload, sendAttachmentToSed, savingAttachmentsJob])
 
   useEffect(() => {
-    if (attachmentsError) {
+    if (attachmentsError && _status !== 'error') {
       setStatus('error')
     }
   }, [attachmentsError, setStatus])
@@ -125,23 +113,31 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   const percentage: number = (Math.floor((current * 100) / total))
 
   return (
-    <SEDAttachmentSenderDiv className={className}>
-      <ProgressBar now={percentage} status={status}>
+    <SEDAttachmentSenderDiv
+      data-test-id='a-buc-c-sedAttachmentSender__div-id'
+      className={className}
+    >
+      <ProgressBar
+        data-test-id='a-buc-c-sedAttachmentSender__progress-bar-id'
+        now={percentage}
+        status={_status}
+      >
         <>
-          {status === 'inprogress' ? t('buc:loading-sendingXofY', {
+          {_status === 'inprogress' && t('buc:loading-sendingXofY', {
             current: current,
             total: total
-          }) : null}
-          {status === 'done' ? t('buc:form-attachmentsSent') : null}
-          {status === 'error' ? t('buc:error-sendingAttachments') : null}
+          })}
+          {_status === 'done' && t('buc:form-attachmentsSent')}
+          {_status === 'error' && t('buc:error-sendingAttachments')}
         </>
       </ProgressBar>
-      {status === 'inprogress' && _.isFunction(onCancel) && (
+      {_status === 'inprogress' && _.isFunction(onCancel) && (
         <>
           <HorizontalSeparatorDiv data-sise='0.35' />
           <HighContrastKnapp
-            mini
+            data-test-id='a-buc-c-sedAttachmentSender__cancel-button-id'
             kompakt
+            mini
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault()
               e.stopPropagation()
@@ -160,9 +156,10 @@ SEDAttachmentSender.propTypes = {
   attachmentsError: PT.bool,
   className: PT.string,
   initialStatus: PT.oneOf(['todo', 'inprogress', 'done', 'error']),
+  onCancel: PT.func,
   onFinished: PT.func.isRequired,
   onSaved: PT.func.isRequired,
-  payload: PT.any,
+  payload: SEDAttachmentPayloadPropType.isRequired,
   sendAttachmentToSed: PT.func.isRequired
 }
 

@@ -22,7 +22,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   const initialMockProps: BUCDetailProps = {
     buc: buc,
     personAvdods: mockPersonAvdods
-  }
+  } as BUCDetailProps
 
   beforeAll(() => {
     stageSelector(defaultSelector, {})

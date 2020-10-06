@@ -3556,12 +3556,12 @@ ui-fss.g21[id="c14"] {
                 options={
                   Array [
                     Object {
-                      "label": "buc:mockTag1",
-                      "value": "mockTag1",
+                      "label": "buc:tag-refusjonskrav",
+                      "value": "tag-refusjonskrav",
                     },
                     Object {
-                      "label": "buc:mockTag2",
-                      "value": "mockTag2",
+                      "label": "buc:tag-uttakFor67ar",
+                      "value": "tag-uttakFor67ar",
                     },
                   ]
                 }
@@ -3808,12 +3808,12 @@ ui-fss.g21[id="c14"] {
                         options={
                           Array [
                             Object {
-                              "label": "buc:mockTag1",
-                              "value": "mockTag1",
+                              "label": "buc:tag-refusjonskrav",
+                              "value": "tag-refusjonskrav",
                             },
                             Object {
-                              "label": "buc:mockTag2",
-                              "value": "mockTag2",
+                              "label": "buc:tag-uttakFor67ar",
+                              "value": "tag-uttakFor67ar",
                             },
                           ]
                         }
@@ -4066,12 +4066,12 @@ ui-fss.g21[id="c14"] {
                           options={
                             Array [
                               Object {
-                                "label": "buc:mockTag1",
-                                "value": "mockTag1",
+                                "label": "buc:tag-refusjonskrav",
+                                "value": "tag-refusjonskrav",
                               },
                               Object {
-                                "label": "buc:mockTag2",
-                                "value": "mockTag2",
+                                "label": "buc:tag-uttakFor67ar",
+                                "value": "tag-uttakFor67ar",
                               },
                             ]
                           }
@@ -4273,12 +4273,12 @@ ui-fss.g21[id="c14"] {
                             options={
                               Array [
                                 Object {
-                                  "label": "buc:mockTag1",
-                                  "value": "mockTag1",
+                                  "label": "buc:tag-refusjonskrav",
+                                  "value": "tag-refusjonskrav",
                                 },
                                 Object {
-                                  "label": "buc:mockTag2",
-                                  "value": "mockTag2",
+                                  "label": "buc:tag-uttakFor67ar",
+                                  "value": "tag-uttakFor67ar",
                                 },
                               ]
                             }
@@ -4355,12 +4355,12 @@ ui-fss.g21[id="c14"] {
                                 "openMenuOnFocus": false,
                                 "options": Array [
                                   Object {
-                                    "label": "buc:mockTag1",
-                                    "value": "mockTag1",
+                                    "label": "buc:tag-refusjonskrav",
+                                    "value": "tag-refusjonskrav",
                                   },
                                   Object {
-                                    "label": "buc:mockTag2",
-                                    "value": "mockTag2",
+                                    "label": "buc:tag-uttakFor67ar",
+                                    "value": "tag-uttakFor67ar",
                                   },
                                 ],
                                 "pageSize": 5,
@@ -4609,12 +4609,12 @@ ui-fss.g21[id="c14"] {
                                   options={
                                     Array [
                                       Object {
-                                        "label": "buc:mockTag1",
-                                        "value": "mockTag1",
+                                        "label": "buc:tag-refusjonskrav",
+                                        "value": "tag-refusjonskrav",
                                       },
                                       Object {
-                                        "label": "buc:mockTag2",
-                                        "value": "mockTag2",
+                                        "label": "buc:tag-uttakFor67ar",
+                                        "value": "tag-uttakFor67ar",
                                       },
                                     ]
                                   }
@@ -4691,12 +4691,12 @@ ui-fss.g21[id="c14"] {
                                       "openMenuOnFocus": false,
                                       "options": Array [
                                         Object {
-                                          "label": "buc:mockTag1",
-                                          "value": "mockTag1",
+                                          "label": "buc:tag-refusjonskrav",
+                                          "value": "tag-refusjonskrav",
                                         },
                                         Object {
-                                          "label": "buc:mockTag2",
-                                          "value": "mockTag2",
+                                          "label": "buc:tag-uttakFor67ar",
+                                          "value": "tag-uttakFor67ar",
                                         },
                                       ],
                                       "pageSize": 5,
@@ -4954,12 +4954,12 @@ ui-fss.g21[id="c14"] {
                                         options={
                                           Array [
                                             Object {
-                                              "label": "buc:mockTag1",
-                                              "value": "mockTag1",
+                                              "label": "buc:tag-refusjonskrav",
+                                              "value": "tag-refusjonskrav",
                                             },
                                             Object {
-                                              "label": "buc:mockTag2",
-                                              "value": "mockTag2",
+                                              "label": "buc:tag-uttakFor67ar",
+                                              "value": "tag-uttakFor67ar",
                                             },
                                           ]
                                         }
@@ -5036,12 +5036,12 @@ ui-fss.g21[id="c14"] {
                                             "openMenuOnFocus": false,
                                             "options": Array [
                                               Object {
-                                                "label": "buc:mockTag1",
-                                                "value": "mockTag1",
+                                                "label": "buc:tag-refusjonskrav",
+                                                "value": "tag-refusjonskrav",
                                               },
                                               Object {
-                                                "label": "buc:mockTag2",
-                                                "value": "mockTag2",
+                                                "label": "buc:tag-uttakFor67ar",
+                                                "value": "tag-uttakFor67ar",
                                               },
                                             ],
                                             "pageSize": 5,
@@ -5264,12 +5264,12 @@ ui-fss.g21[id="c14"] {
                                           options={
                                             Array [
                                               Object {
-                                                "label": "buc:mockTag1",
-                                                "value": "mockTag1",
+                                                "label": "buc:tag-refusjonskrav",
+                                                "value": "tag-refusjonskrav",
                                               },
                                               Object {
-                                                "label": "buc:mockTag2",
-                                                "value": "mockTag2",
+                                                "label": "buc:tag-uttakFor67ar",
+                                                "value": "tag-uttakFor67ar",
                                               },
                                             ]
                                           }
@@ -5346,12 +5346,12 @@ ui-fss.g21[id="c14"] {
                                               "openMenuOnFocus": false,
                                               "options": Array [
                                                 Object {
-                                                  "label": "buc:mockTag1",
-                                                  "value": "mockTag1",
+                                                  "label": "buc:tag-refusjonskrav",
+                                                  "value": "tag-refusjonskrav",
                                                 },
                                                 Object {
-                                                  "label": "buc:mockTag2",
-                                                  "value": "mockTag2",
+                                                  "label": "buc:tag-uttakFor67ar",
+                                                  "value": "tag-uttakFor67ar",
                                                 },
                                               ],
                                               "pageSize": 5,
@@ -5572,12 +5572,12 @@ ui-fss.g21[id="c14"] {
                                             options={
                                               Array [
                                                 Object {
-                                                  "label": "buc:mockTag1",
-                                                  "value": "mockTag1",
+                                                  "label": "buc:tag-refusjonskrav",
+                                                  "value": "tag-refusjonskrav",
                                                 },
                                                 Object {
-                                                  "label": "buc:mockTag2",
-                                                  "value": "mockTag2",
+                                                  "label": "buc:tag-uttakFor67ar",
+                                                  "value": "tag-uttakFor67ar",
                                                 },
                                               ]
                                             }
@@ -5654,12 +5654,12 @@ ui-fss.g21[id="c14"] {
                                                 "openMenuOnFocus": false,
                                                 "options": Array [
                                                   Object {
-                                                    "label": "buc:mockTag1",
-                                                    "value": "mockTag1",
+                                                    "label": "buc:tag-refusjonskrav",
+                                                    "value": "tag-refusjonskrav",
                                                   },
                                                   Object {
-                                                    "label": "buc:mockTag2",
-                                                    "value": "mockTag2",
+                                                    "label": "buc:tag-uttakFor67ar",
+                                                    "value": "tag-uttakFor67ar",
                                                   },
                                                 ],
                                                 "pageSize": 5,
@@ -5905,12 +5905,12 @@ ui-fss.g21[id="c14"] {
                                                   options={
                                                     Array [
                                                       Object {
-                                                        "label": "buc:mockTag1",
-                                                        "value": "mockTag1",
+                                                        "label": "buc:tag-refusjonskrav",
+                                                        "value": "tag-refusjonskrav",
                                                       },
                                                       Object {
-                                                        "label": "buc:mockTag2",
-                                                        "value": "mockTag2",
+                                                        "label": "buc:tag-uttakFor67ar",
+                                                        "value": "tag-uttakFor67ar",
                                                       },
                                                     ]
                                                   }
@@ -5987,12 +5987,12 @@ ui-fss.g21[id="c14"] {
                                                       "openMenuOnFocus": false,
                                                       "options": Array [
                                                         Object {
-                                                          "label": "buc:mockTag1",
-                                                          "value": "mockTag1",
+                                                          "label": "buc:tag-refusjonskrav",
+                                                          "value": "tag-refusjonskrav",
                                                         },
                                                         Object {
-                                                          "label": "buc:mockTag2",
-                                                          "value": "mockTag2",
+                                                          "label": "buc:tag-uttakFor67ar",
+                                                          "value": "tag-uttakFor67ar",
                                                         },
                                                       ],
                                                       "pageSize": 5,
@@ -6218,12 +6218,12 @@ ui-fss.g21[id="c14"] {
                                                     options={
                                                       Array [
                                                         Object {
-                                                          "label": "buc:mockTag1",
-                                                          "value": "mockTag1",
+                                                          "label": "buc:tag-refusjonskrav",
+                                                          "value": "tag-refusjonskrav",
                                                         },
                                                         Object {
-                                                          "label": "buc:mockTag2",
-                                                          "value": "mockTag2",
+                                                          "label": "buc:tag-uttakFor67ar",
+                                                          "value": "tag-uttakFor67ar",
                                                         },
                                                       ]
                                                     }
@@ -6300,12 +6300,12 @@ ui-fss.g21[id="c14"] {
                                                         "openMenuOnFocus": false,
                                                         "options": Array [
                                                           Object {
-                                                            "label": "buc:mockTag1",
-                                                            "value": "mockTag1",
+                                                            "label": "buc:tag-refusjonskrav",
+                                                            "value": "tag-refusjonskrav",
                                                           },
                                                           Object {
-                                                            "label": "buc:mockTag2",
-                                                            "value": "mockTag2",
+                                                            "label": "buc:tag-uttakFor67ar",
+                                                            "value": "tag-uttakFor67ar",
                                                           },
                                                         ],
                                                         "pageSize": 5,
@@ -6550,12 +6550,12 @@ ui-fss.g21[id="c14"] {
                                                         options={
                                                           Array [
                                                             Object {
-                                                              "label": "buc:mockTag1",
-                                                              "value": "mockTag1",
+                                                              "label": "buc:tag-refusjonskrav",
+                                                              "value": "tag-refusjonskrav",
                                                             },
                                                             Object {
-                                                              "label": "buc:mockTag2",
-                                                              "value": "mockTag2",
+                                                              "label": "buc:tag-uttakFor67ar",
+                                                              "value": "tag-uttakFor67ar",
                                                             },
                                                           ]
                                                         }
@@ -6632,12 +6632,12 @@ ui-fss.g21[id="c14"] {
                                                             "openMenuOnFocus": false,
                                                             "options": Array [
                                                               Object {
-                                                                "label": "buc:mockTag1",
-                                                                "value": "mockTag1",
+                                                                "label": "buc:tag-refusjonskrav",
+                                                                "value": "tag-refusjonskrav",
                                                               },
                                                               Object {
-                                                                "label": "buc:mockTag2",
-                                                                "value": "mockTag2",
+                                                                "label": "buc:tag-uttakFor67ar",
+                                                                "value": "tag-uttakFor67ar",
                                                               },
                                                             ],
                                                             "pageSize": 5,
@@ -6975,12 +6975,12 @@ ui-fss.g21[id="c14"] {
                                                       "openMenuOnFocus": false,
                                                       "options": Array [
                                                         Object {
-                                                          "label": "buc:mockTag1",
-                                                          "value": "mockTag1",
+                                                          "label": "buc:tag-refusjonskrav",
+                                                          "value": "tag-refusjonskrav",
                                                         },
                                                         Object {
-                                                          "label": "buc:mockTag2",
-                                                          "value": "mockTag2",
+                                                          "label": "buc:tag-uttakFor67ar",
+                                                          "value": "tag-uttakFor67ar",
                                                         },
                                                       ],
                                                       "pageSize": 5,
@@ -7279,12 +7279,12 @@ ui-fss.g21[id="c14"] {
                                                         "openMenuOnFocus": false,
                                                         "options": Array [
                                                           Object {
-                                                            "label": "buc:mockTag1",
-                                                            "value": "mockTag1",
+                                                            "label": "buc:tag-refusjonskrav",
+                                                            "value": "tag-refusjonskrav",
                                                           },
                                                           Object {
-                                                            "label": "buc:mockTag2",
-                                                            "value": "mockTag2",
+                                                            "label": "buc:tag-uttakFor67ar",
+                                                            "value": "tag-uttakFor67ar",
                                                           },
                                                         ],
                                                         "pageSize": 5,
@@ -7619,12 +7619,12 @@ ui-fss.g21[id="c14"] {
                                         options={
                                           Array [
                                             Object {
-                                              "label": "buc:mockTag1",
-                                              "value": "mockTag1",
+                                              "label": "buc:tag-refusjonskrav",
+                                              "value": "tag-refusjonskrav",
                                             },
                                             Object {
-                                              "label": "buc:mockTag2",
-                                              "value": "mockTag2",
+                                              "label": "buc:tag-uttakFor67ar",
+                                              "value": "tag-uttakFor67ar",
                                             },
                                           ]
                                         }
@@ -7701,12 +7701,12 @@ ui-fss.g21[id="c14"] {
                                             "openMenuOnFocus": false,
                                             "options": Array [
                                               Object {
-                                                "label": "buc:mockTag1",
-                                                "value": "mockTag1",
+                                                "label": "buc:tag-refusjonskrav",
+                                                "value": "tag-refusjonskrav",
                                               },
                                               Object {
-                                                "label": "buc:mockTag2",
-                                                "value": "mockTag2",
+                                                "label": "buc:tag-uttakFor67ar",
+                                                "value": "tag-uttakFor67ar",
                                               },
                                             ],
                                             "pageSize": 5,
@@ -7945,12 +7945,12 @@ ui-fss.g21[id="c14"] {
                                               options={
                                                 Array [
                                                   Object {
-                                                    "label": "buc:mockTag1",
-                                                    "value": "mockTag1",
+                                                    "label": "buc:tag-refusjonskrav",
+                                                    "value": "tag-refusjonskrav",
                                                   },
                                                   Object {
-                                                    "label": "buc:mockTag2",
-                                                    "value": "mockTag2",
+                                                    "label": "buc:tag-uttakFor67ar",
+                                                    "value": "tag-uttakFor67ar",
                                                   },
                                                 ]
                                               }
@@ -8027,12 +8027,12 @@ ui-fss.g21[id="c14"] {
                                                   "openMenuOnFocus": false,
                                                   "options": Array [
                                                     Object {
-                                                      "label": "buc:mockTag1",
-                                                      "value": "mockTag1",
+                                                      "label": "buc:tag-refusjonskrav",
+                                                      "value": "tag-refusjonskrav",
                                                     },
                                                     Object {
-                                                      "label": "buc:mockTag2",
-                                                      "value": "mockTag2",
+                                                      "label": "buc:tag-uttakFor67ar",
+                                                      "value": "tag-uttakFor67ar",
                                                     },
                                                   ],
                                                   "pageSize": 5,
@@ -8282,12 +8282,12 @@ ui-fss.g21[id="c14"] {
                                               options={
                                                 Array [
                                                   Object {
-                                                    "label": "buc:mockTag1",
-                                                    "value": "mockTag1",
+                                                    "label": "buc:tag-refusjonskrav",
+                                                    "value": "tag-refusjonskrav",
                                                   },
                                                   Object {
-                                                    "label": "buc:mockTag2",
-                                                    "value": "mockTag2",
+                                                    "label": "buc:tag-uttakFor67ar",
+                                                    "value": "tag-uttakFor67ar",
                                                   },
                                                 ]
                                               }
@@ -8364,12 +8364,12 @@ ui-fss.g21[id="c14"] {
                                                   "openMenuOnFocus": false,
                                                   "options": Array [
                                                     Object {
-                                                      "label": "buc:mockTag1",
-                                                      "value": "mockTag1",
+                                                      "label": "buc:tag-refusjonskrav",
+                                                      "value": "tag-refusjonskrav",
                                                     },
                                                     Object {
-                                                      "label": "buc:mockTag2",
-                                                      "value": "mockTag2",
+                                                      "label": "buc:tag-uttakFor67ar",
+                                                      "value": "tag-uttakFor67ar",
                                                     },
                                                   ],
                                                   "pageSize": 5,

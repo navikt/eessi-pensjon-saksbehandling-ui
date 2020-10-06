@@ -475,6 +475,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
 BUCStart.propTypes = {
   aktoerId: PT.string.isRequired,
+  initialCreatingBucInfo: PT.bool,
+  initialIsCreatingBuc: PT.bool,
   onBucCreated: PT.func.isRequired,
   onBucCancelled: PT.func.isRequired
 }
