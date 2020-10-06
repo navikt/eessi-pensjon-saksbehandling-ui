@@ -2,6 +2,7 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
+import { slideInFromLeft } from 'components/keyframes'
 import { HighContrastFlatknapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
@@ -12,44 +13,15 @@ import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Panel from 'nav-frontend-paneler'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import Tooltip from 'rc-tooltip'
-import styled, { keyframes, ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
-export interface SEDHeaderProps {
-  buc: Buc
-  className ?: string
-  followUpSeds: Seds
-  onSEDNew: (buc: Buc, sed: Sed) => void
-  sed: Sed
-  style?: React.CSSProperties
-}
-
-export interface SEDHeaderSelector {
-  highContrast: boolean
-  locale: AllowedLocaleString
-}
-
-const mapState = (state: State): SEDHeaderSelector => ({
-  highContrast: state.ui.highContrast,
-  locale: state.ui.locale
-})
-
-const slideInFromLeft = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-const SEDHeaderPanel = styled(Panel)`
+export const SEDHeaderPanel = styled(Panel)`
   width: 100%;
   padding: 0rem;
   transform: translateX(-20px);
@@ -111,15 +83,35 @@ const SEDVersion = styled.div`
 `
 const SEDAttachmentsDiv = styled.div``
 
+export interface SEDHeaderProps {
+  buc: Buc
+  className ?: string
+  followUpSeds: Seds
+  onSEDNew: (buc: Buc, sed: Sed) => void
+  sed: Sed
+  style?: React.CSSProperties
+}
+
+export interface SEDHeaderSelector {
+  highContrast: boolean
+  locale: AllowedLocaleString
+}
+
+const mapState = (state: State): SEDHeaderSelector => ({
+  highContrast: state.ui.highContrast,
+  locale: state.ui.locale
+})
+
 const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc, className, followUpSeds, onSEDNew, sed, style
 }: SEDHeaderProps): JSX.Element => {
-  const institutionList: Institutions = sed.participants
-    ? sed.participants.filter((participant) => {
-      return (sed.status === 'received') ? participant.role === 'Sender'
-        : (sed.status !== 'draft') ? participant.role !== 'Sender'
-          : participant.organisation.countryCode === 'NO'
-    })
+
+  const institutionList: Institutions = sed.participants ? sed.participants
+      .filter((participant) => (
+        (sed.status === 'received') ? participant.role === 'Sender'
+          : (sed.status !== 'draft') ? participant.role !== 'Sender'
+            : participant.organisation.countryCode === 'NO'
+      ))
       .map((participant: Participant) => ({
         country: participant.organisation.countryCode,
         institution: participant.organisation.name
@@ -127,9 +119,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   const { highContrast, locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
   const { t } = useTranslation()
   const sedLabel: string = getBucTypeLabel({
+    locale: locale,
     t: t,
-    type: sed.type,
-    locale: locale
+    type: sed.type
   })
 
   return (
@@ -140,7 +132,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
       >
         <SEDHeaderContent>
           <SEDNameDiv>
-            <Element>
+            <Element
+              data-test-id='a-buc-c-sedheader__name-id'
+            >
               {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
             </Element>
           </SEDNameDiv>
@@ -154,18 +148,20 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   </Normaltekst>
                 )}
               >
-                <SEDStatus highContrast={highContrast} status={sed.status} />
+                <SEDStatus
+                  data-test-id='a-buc-c-sedheader__status-id'
+                  highContrast={highContrast}
+                  status={sed.status}
+                />
               </Tooltip>
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>
-                <Normaltekst
-                  data-test-id='a-buc-c-sedheader__lastUpdate'
-                >
+                <Normaltekst data-test-id='a-buc-c-sedheader__version-date-id'>
                   {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
                 </Normaltekst>
                 {sed.version && (
                   <Normaltekst
-                    data-test-id='a-buc-c-sedheader__version'
+                    data-test-id='a-buc-c-sedheader__version-id'
                   >
                     {t('ui:version')}{': '}{sed.version || '-'}
                   </Normaltekst>
@@ -175,12 +171,15 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </SEDStatusDiv>
           <SEDInstitutionsDiv>
             <InstitutionList
+              data-test-id='a-buc-c-sedheader__institutions-id'
               locale={locale}
               type='separated'
               institutions={institutionList}
             />
           </SEDInstitutionsDiv>
-          <SEDActionsDiv>
+          <SEDActionsDiv
+            data-test-id='a-buc-c-sedheader__actions-id'
+          >
             {!_.isEmpty(sed.attachments) && (
               <Tooltip
                 placement='top' trigger={['hover']} overlay={(
@@ -200,9 +199,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <HighContrastFlatknapp
                 mini
                 data-amplitude='buc.list.besvarSed'
-                data-test-id='a-buc-c-sedheader__actions-answer-button'
+                data-test-id='a-buc-c-sedheader__answer-button-id'
                 disabled={buc.readOnly === true}
-                onClick={(e: React.MouseEvent) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   buttonLogger(e)
                   onSEDNew(buc, sed)
                 }}

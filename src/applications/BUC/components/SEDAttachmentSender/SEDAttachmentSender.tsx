@@ -102,7 +102,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
     if (attachmentsError && _status !== 'error') {
       setStatus('error')
     }
-  }, [attachmentsError, setStatus])
+  }, [attachmentsError, setStatus, _status])
 
   if (!savingAttachmentsJob) {
     return <div />

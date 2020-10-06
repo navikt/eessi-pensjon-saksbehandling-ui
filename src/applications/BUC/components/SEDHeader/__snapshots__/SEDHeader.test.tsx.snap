@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications/BUC/components/SEDHeader/SEDHeader Renders 1`] = `
+exports[`applications/BUC/components/SEDHeader/SEDHeader Render: match snapshot 1`] = `
 .c19 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1966,12 +1966,16 @@ ui-fss.g37[id="c14"] {
                 <div
                   className="c4 c5"
                 >
-                  <Element>
+                  <Element
+                    data-test-id="a-buc-c-sedheader__name-id"
+                  >
                     <TypografiBase
+                      data-test-id="a-buc-c-sedheader__name-id"
                       type="element"
                     >
                       <p
                         className="typo-element"
+                        data-test-id="a-buc-c-sedheader__name-id"
                       >
                         X008
                          - buc:buc-X008
@@ -1988,7 +1992,7 @@ ui-fss.g37[id="c14"] {
                     <div
                       className="c8 c9"
                     >
-                      <ForwardRef(Tooltip)
+                      <Component
                         overlay={
                           <Normaltekst>
                             ui:firstVersion
@@ -2002,264 +2006,12 @@ ui-fss.g37[id="c14"] {
                           ]
                         }
                       >
-                        <Trigger
-                          action={
-                            Array [
-                              "none",
-                            ]
-                          }
-                          afterPopupVisibleChange={[Function]}
-                          autoDestroy={false}
-                          blurDelay={0.15}
-                          builtinPlacements={
-                            Object {
-                              "bottom": Object {
-                                "offset": Array [
-                                  0,
-                                  4,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "tc",
-                                  "bc",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "bottomLeft": Object {
-                                "offset": Array [
-                                  0,
-                                  4,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "tl",
-                                  "bl",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "bottomRight": Object {
-                                "offset": Array [
-                                  0,
-                                  4,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "tr",
-                                  "br",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "left": Object {
-                                "offset": Array [
-                                  -4,
-                                  0,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "cr",
-                                  "cl",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "leftBottom": Object {
-                                "offset": Array [
-                                  -4,
-                                  0,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "br",
-                                  "bl",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "leftTop": Object {
-                                "offset": Array [
-                                  -4,
-                                  0,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "tr",
-                                  "tl",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "right": Object {
-                                "offset": Array [
-                                  4,
-                                  0,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "cl",
-                                  "cr",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "rightBottom": Object {
-                                "offset": Array [
-                                  4,
-                                  0,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "bl",
-                                  "br",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "rightTop": Object {
-                                "offset": Array [
-                                  4,
-                                  0,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "tl",
-                                  "tr",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "top": Object {
-                                "offset": Array [
-                                  0,
-                                  -4,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "bc",
-                                  "tc",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "topLeft": Object {
-                                "offset": Array [
-                                  0,
-                                  -4,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "bl",
-                                  "tl",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                              "topRight": Object {
-                                "offset": Array [
-                                  0,
-                                  -4,
-                                ],
-                                "overflow": Object {
-                                  "adjustX": 1,
-                                  "adjustY": 1,
-                                },
-                                "points": Array [
-                                  "br",
-                                  "tr",
-                                ],
-                                "targetOffset": Array [
-                                  0,
-                                  0,
-                                ],
-                              },
-                            }
-                          }
-                          defaultPopupVisible={false}
-                          destroyPopupOnHide={false}
-                          focusDelay={0}
-                          getDocument={[Function]}
-                          getPopupClassNameFromAlign={[Function]}
-                          hideAction={Array []}
-                          mask={false}
-                          maskClosable={true}
-                          mouseEnterDelay={0}
-                          mouseLeaveDelay={0.1}
-                          onPopupAlign={[Function]}
-                          onPopupVisibleChange={[Function]}
-                          overlay={
-                            <Normaltekst>
-                              ui:firstVersion
-                              23.10.2019
-                            </Normaltekst>
-                          }
-                          popup={[Function]}
-                          popupAlign={Object {}}
-                          popupClassName=""
-                          popupPlacement="top"
-                          popupStyle={Object {}}
-                          prefixCls="rc-tooltip"
-                          showAction={Array []}
+                        <div
+                          data-test-id="mock-tooltip"
                         >
                           <SEDStatus
+                            data-test-id="a-buc-c-sedheader__status-id"
                             highContrast={false}
-                            key="trigger"
                             status="received"
                           >
                             <Component
@@ -2449,8 +2201,8 @@ ui-fss.g37[id="c14"] {
                               </Styled(EtikettBase)>
                             </Component>
                           </SEDStatus>
-                        </Trigger>
-                      </ForwardRef(Tooltip)>
+                        </div>
+                      </Component>
                       <styled.div
                         date-size="0.5"
                       >
@@ -2463,30 +2215,30 @@ ui-fss.g37[id="c14"] {
                           className="c14 c15"
                         >
                           <Normaltekst
-                            data-test-id="a-buc-c-sedheader__lastUpdate"
+                            data-test-id="a-buc-c-sedheader__version-date-id"
                           >
                             <TypografiBase
-                              data-test-id="a-buc-c-sedheader__lastUpdate"
+                              data-test-id="a-buc-c-sedheader__version-date-id"
                               type="normaltekst"
                             >
                               <p
                                 className="typo-normal"
-                                data-test-id="a-buc-c-sedheader__lastUpdate"
+                                data-test-id="a-buc-c-sedheader__version-date-id"
                               >
                                 23.10.2019
                               </p>
                             </TypografiBase>
                           </Normaltekst>
                           <Normaltekst
-                            data-test-id="a-buc-c-sedheader__version"
+                            data-test-id="a-buc-c-sedheader__version-id"
                           >
                             <TypografiBase
-                              data-test-id="a-buc-c-sedheader__version"
+                              data-test-id="a-buc-c-sedheader__version-id"
                               type="normaltekst"
                             >
                               <p
                                 className="typo-normal"
-                                data-test-id="a-buc-c-sedheader__version"
+                                data-test-id="a-buc-c-sedheader__version-id"
                               >
                                 ui:version
                                 : 
@@ -2505,6 +2257,7 @@ ui-fss.g37[id="c14"] {
                   className="c16 c17"
                 >
                   <InstitutionList
+                    data-test-id="a-buc-c-sedheader__institutions-id"
                     institutions={
                       Array [
                         Object {
@@ -2523,10 +2276,12 @@ ui-fss.g37[id="c14"] {
                         className="c18 c19"
                       >
                         <styled.div
+                          data-test-id="a-buc-c-institutionlist__div-id"
                           key="NAV ACCEPTANCE TEST 07"
                         >
                           <div
                             className="c20 c21"
+                            data-test-id="a-buc-c-institutionlist__div-id"
                           >
                             <Bd
                               country="NO"
@@ -3008,11 +2763,14 @@ ui-fss.g37[id="c14"] {
                   </InstitutionList>
                 </div>
               </styled.div>
-              <styled.div>
+              <styled.div
+                data-test-id="a-buc-c-sedheader__actions-id"
+              >
                 <div
                   className="c24 c25"
+                  data-test-id="a-buc-c-sedheader__actions-id"
                 >
-                  <ForwardRef(Tooltip)
+                  <Component
                     overlay={
                       <span>
                         buc:form-youHaveXAttachmentsInSed
@@ -3025,273 +2783,17 @@ ui-fss.g37[id="c14"] {
                       ]
                     }
                   >
-                    <Trigger
-                      action={
-                        Array [
-                          "hover",
-                        ]
-                      }
-                      afterPopupVisibleChange={[Function]}
-                      autoDestroy={false}
-                      blurDelay={0.15}
-                      builtinPlacements={
-                        Object {
-                          "bottom": Object {
-                            "offset": Array [
-                              0,
-                              4,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "tc",
-                              "bc",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "bottomLeft": Object {
-                            "offset": Array [
-                              0,
-                              4,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "tl",
-                              "bl",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "bottomRight": Object {
-                            "offset": Array [
-                              0,
-                              4,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "tr",
-                              "br",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "left": Object {
-                            "offset": Array [
-                              -4,
-                              0,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "cr",
-                              "cl",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "leftBottom": Object {
-                            "offset": Array [
-                              -4,
-                              0,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "br",
-                              "bl",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "leftTop": Object {
-                            "offset": Array [
-                              -4,
-                              0,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "tr",
-                              "tl",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "right": Object {
-                            "offset": Array [
-                              4,
-                              0,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "cl",
-                              "cr",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "rightBottom": Object {
-                            "offset": Array [
-                              4,
-                              0,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "bl",
-                              "br",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "rightTop": Object {
-                            "offset": Array [
-                              4,
-                              0,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "tl",
-                              "tr",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "top": Object {
-                            "offset": Array [
-                              0,
-                              -4,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "bc",
-                              "tc",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "topLeft": Object {
-                            "offset": Array [
-                              0,
-                              -4,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "bl",
-                              "tl",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                          "topRight": Object {
-                            "offset": Array [
-                              0,
-                              -4,
-                            ],
-                            "overflow": Object {
-                              "adjustX": 1,
-                              "adjustY": 1,
-                            },
-                            "points": Array [
-                              "br",
-                              "tr",
-                            ],
-                            "targetOffset": Array [
-                              0,
-                              0,
-                            ],
-                          },
-                        }
-                      }
-                      defaultPopupVisible={false}
-                      destroyPopupOnHide={false}
-                      focusDelay={0}
-                      getDocument={[Function]}
-                      getPopupClassNameFromAlign={[Function]}
-                      hideAction={Array []}
-                      mask={false}
-                      maskClosable={true}
-                      mouseEnterDelay={0}
-                      mouseLeaveDelay={0.1}
-                      onPopupAlign={[Function]}
-                      onPopupVisibleChange={[Function]}
-                      overlay={
-                        <span>
-                          buc:form-youHaveXAttachmentsInSed
-                        </span>
-                      }
-                      popup={[Function]}
-                      popupAlign={Object {}}
-                      popupClassName=""
-                      popupPlacement="top"
-                      popupStyle={Object {}}
-                      prefixCls="rc-tooltip"
-                      showAction={Array []}
+                    <div
+                      data-test-id="mock-tooltip"
                     >
                       <styled.div
                         data-test-id="a-buc-c-sedheader__actions-attachments"
-                        key="trigger"
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
                       >
                         <div
                           className=""
                           data-test-id="a-buc-c-sedheader__actions-attachments"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
                         >
-                          <_default>
+                          <FilledPaperClipIcon>
                             <svg
                               contentScriptType="text/ecmascript"
                               contentStyleType="text/css"
@@ -3320,14 +2822,14 @@ ui-fss.g37[id="c14"] {
                                 </g>
                               </g>
                             </svg>
-                          </_default>
+                          </FilledPaperClipIcon>
                         </div>
                       </styled.div>
-                    </Trigger>
-                  </ForwardRef(Tooltip)>
+                    </div>
+                  </Component>
                   <Styled(Flatknapp)
                     data-amplitude="buc.list.besvarSed"
-                    data-test-id="a-buc-c-sedheader__actions-answer-button"
+                    data-test-id="a-buc-c-sedheader__answer-button-id"
                     disabled={false}
                     mini={true}
                     onClick={[Function]}
@@ -3335,7 +2837,7 @@ ui-fss.g37[id="c14"] {
                     <Flatknapp
                       className="c26 c27"
                       data-amplitude="buc.list.besvarSed"
-                      data-test-id="a-buc-c-sedheader__actions-answer-button"
+                      data-test-id="a-buc-c-sedheader__answer-button-id"
                       disabled={false}
                       mini={true}
                       onClick={[Function]}
@@ -3344,7 +2846,7 @@ ui-fss.g37[id="c14"] {
                         autoDisableVedSpinner={false}
                         className="c26 c27"
                         data-amplitude="buc.list.besvarSed"
-                        data-test-id="a-buc-c-sedheader__actions-answer-button"
+                        data-test-id="a-buc-c-sedheader__answer-button-id"
                         disabled={false}
                         htmlType="submit"
                         inaktivKlasseVedDisabled={false}
@@ -3357,7 +2859,7 @@ ui-fss.g37[id="c14"] {
                         <button
                           className="knapp c26 c27 knapp--flat knapp--mini"
                           data-amplitude="buc.list.besvarSed"
-                          data-test-id="a-buc-c-sedheader__actions-answer-button"
+                          data-test-id="a-buc-c-sedheader__answer-button-id"
                           disabled={false}
                           onClick={[Function]}
                           type="submit"

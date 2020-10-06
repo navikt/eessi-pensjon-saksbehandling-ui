@@ -1,9 +1,14 @@
+import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
+import React from 'react'
 import { stageSelector } from 'setupTests'
-import SEDHeader, { SEDHeaderProps, SEDHeaderSelector } from './SEDHeader'
+import SEDHeader, { SEDHeaderPanel, SEDHeaderProps, SEDHeaderSelector } from './SEDHeader'
+
+jest.mock('rc-tooltip', () => ({children}: any) => (
+  <div data-test-id='mock-tooltip' >{children}</div>
+))
 
 const defaultSelector: SEDHeaderSelector = {
   highContrast: false,
@@ -11,6 +16,7 @@ const defaultSelector: SEDHeaderSelector = {
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
+
   const buc: Buc = mockBucs()[0]
   const sed: Sed = buc.seds![0]
   sed.status = 'received'
@@ -34,26 +40,28 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedheader')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedheader__name').hostNodes().render().text()).toEqual('X008 - buc:buc-X008')
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.exists(SEDHeaderPanel)).toBeTruthy()
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__name-id\']').hostNodes().render().text()).toEqual('X008 - buc:buc-X008')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__status-id\']').render().text()).toEqual('buc:status-' + sed.status)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__version-date-id\']').hostNodes().render().text()).toEqual('23.10.2019')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__version-id\']').hostNodes().render().text()).toEqual('ui:version: 1')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__institutions-id\']').render().text()).toEqual('NAV ACCEPTANCE TEST 07')
 
-    const status = wrapper.find('.a-buc-c-sedheader__status').hostNodes()
-    expect(status.find('SEDStatus').render().text()).toEqual('buc:status-' + sed.status)
-    expect(status.find('Normaltekst.a-buc-c-sedheader__lastUpdate').render().text()).toEqual('23.10.2019')
+    const actions = wrapper.find('[data-test-id=\'a-buc-c-sedheader__actions-id\']').hostNodes()
+    expect(actions.exists('FilledPaperClipIcon')).toBeTruthy()
 
-    const institutions = wrapper.find('.a-buc-c-sedheader__institutions').hostNodes()
-    expect(institutions.find('InstitutionList').render().text()).toEqual('NAV ACCEPTANCE TEST 07')
+    expect(actions.exists('[data-test-id=\'a-buc-c-sedheader__answer-button-id\']')).toBeTruthy()
+  })
 
-    const actions = wrapper.find('.a-buc-c-sedheader__actions').hostNodes()
-    expect(actions.exists('Icons')).toBeTruthy()
-    expect(actions.exists('Flatknapp.a-buc-c-sedheader__actions-answer-button')).toBeTruthy()
-    const replySedButton = wrapper.find('.a-buc-c-sedheader__actions-answer-button').hostNodes().first()
+  it('Handling: handling answer button click', () => {
+    (initialMockProps.onSEDNew as jest.Mock).mockReset()
+    const replySedButton = wrapper.find('[data-test-id=\'a-buc-c-sedheader__answer-button-id\']').hostNodes().first()
     replySedButton.simulate('click')
     expect(initialMockProps.onSEDNew).toBeCalledWith(buc, sed)
   })
