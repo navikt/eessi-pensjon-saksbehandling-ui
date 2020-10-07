@@ -1,25 +1,22 @@
 import {
   createSed,
-  fetchBucs,
-  getCountryList, getInstitutionsListForBucAndCountry,
+  getCountryList,
+  getInstitutionsListForBucAndCountry,
   getSedList,
   resetSed,
-  resetSedAttachments,
-  sendAttachmentToSed,
   setSedList
 } from 'actions/buc'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { Bucs } from 'declarations/buc'
-import { JoarkFile } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
+import mockFeatureToggles from 'mocks/app/featureToggles'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
+import mockItems from 'mocks/joark/items'
 import React from 'react'
 import { stageSelector } from 'setupTests'
-import { SEDStart, SEDStartProps, SEDStartSelector } from './SEDStart'
-import mockFeatureToggles from 'mocks/app/featureToggles'
-import mockItems from 'mocks/joark/items'
+import { SEDStart, SEDStartDiv, SEDStartProps, SEDStartSelector } from './SEDStart'
 
 jest.mock('actions/buc', () => ({
   createReplySed: jest.fn(),
@@ -56,11 +53,12 @@ const defaultSelector: SEDStartSelector = {
 
 describe('applications/BUC/components/SEDStart/SEDStart', () => {
   let wrapper: ReactWrapper
-
+  const mockBucList: Bucs = _.keyBy(mockBucs(), 'caseId')
+  const mockCurrentBuc = '195440'
   const initialMockProps: SEDStartProps = {
     aktoerId: '123',
-    bucs: _.keyBy(mockBucs(), 'caseId'),
-    currentBuc: '195440',
+    bucs: mockBucList,
+    currentBuc: mockCurrentBuc,
     initialAttachments: mockItems,
     initialSed: 'P2000',
     onSedCreated: jest.fn(),
@@ -82,9 +80,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedstart')).toBeTruthy()
-    expect(wrapper.exists('#a-buc-c-sedstart__forward-button-id')).toBeTruthy()
-    expect(wrapper.exists('#a-buc-c-sedstart__cancel-button-id')).toBeTruthy()
+    expect(wrapper.exists(SEDStartDiv)).toBeTruthy()
   })
 
   it('UseEffect: getCountryList', () => {
@@ -112,63 +108,75 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(getInstitutionsListForBucAndCountry).toHaveBeenCalled()
   })
 
-  it('UseEffect: sendAttachmentToSed start', () => {
-    expect(sendAttachmentToSed).not.toHaveBeenCalled()
-    stageSelector(defaultSelector, { sed: { id: 'mockSedId' } })
+  it('UseEffect: getInstitutionsListForBucAndCountry', () => {
+    (getInstitutionsListForBucAndCountry as jest.Mock).mockReset()
     wrapper = mount(<SEDStart {...initialMockProps} />)
-    expect(sendAttachmentToSed).toHaveBeenCalledWith({
-      aktoerId: initialMockProps.aktoerId,
-      rinaId: initialMockProps.currentBuc,
-      rinaDokumentId: 'mockSedId',
-      journalpostId: (initialMockProps.initialAttachments!.joark[0] as JoarkFile).journalpostId,
-      dokumentInfoId: (initialMockProps.initialAttachments!.joark[0] as JoarkFile).dokumentInfoId,
-      variantformat: (initialMockProps.initialAttachments!.joark[0] as JoarkFile).variant.variantformat
-    }, initialMockProps.initialAttachments!.joark[0])
+    expect(getInstitutionsListForBucAndCountry).toHaveBeenCalled()
   })
 
-  it('UseEffect: sendAttachmentToSed end', () => {
-    stageSelector(defaultSelector, { sed: { id: 'mockSedId' } })
-    wrapper = mount(<SEDStart {...initialMockProps} initialAttachments={{ joark: [] }} />)
-    expect(resetSed).toHaveBeenCalled()
-    expect(resetSedAttachments).toHaveBeenCalled()
-    expect(fetchBucs).toHaveBeenCalled()
-    expect(initialMockProps.setMode).toHaveBeenCalledWith('bucedit')
-  })
+  /*
+  it('UseEffect: createSavingAttachmentJob', () => {
+    (createSavingAttachmentJob as jest.Mock).mockReset()
+    const mockSed: Sed = {
+      id: '123',
+      type: 'mockType',
+      status: 'new',
+      creationDate: 1,
+      lastUpdate: 2,
+      participants: [],
+      attachments: [],
+      firstVersion: {id: '1', date: 1},
+      lastVersion: {id: '1', date: 1},
+      allowsAttachments: true
+    }
+    stageSelector(defaultSelector, { sed: mockSed })
+    wrapper = mount(<SEDStart {...initialMockProps} initialSendingAttachments={true} initialAttachments={mockItems} />)
+    expect(createSavingAttachmentJob).toHaveBeenCalled()
+  }) */
 
-  it('With a BUC with SEDs that have NO participants, demand a institution', () => {
-    stageSelector(defaultSelector, {})
+  it('Handling: with a BUC with SEDs that have NO participants, demand a institution', () => {
     const mockBucsWithNoParticipants: Bucs = _.keyBy(mockBucs(), 'caseId')
     mockBucsWithNoParticipants[initialMockProps.currentBuc!].institusjon = []
     mockBucsWithNoParticipants[initialMockProps.currentBuc!].seds = []
     wrapper = mount(<SEDStart {...initialMockProps} bucs={mockBucsWithNoParticipants} />)
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)
-    wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'mockSed' } })
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']')).toBeFalsy()
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes().simulate('change', { target: { value: 'P4000' } })
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
+      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution'
+    )
   })
 
-  it('With a BUC with SEDs that have participants, no need to demand a institution', () => {
-    wrapper = mount(<SEDStart {...initialMockProps} initialSed={undefined} />)
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)
-    wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'mockSed' } })
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(false)
+  it('Handling: with a BUC with SEDs that have participants, no need to demand a institution', () => {
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes().simulate('change', { target: { value: 'P4000' } })
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']')).toBeFalsy()
   })
 
   it('Creates sed when forward button is clicked ', () => {
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().prop('disabled')).toBeFalsy()
-    wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().simulate('click')
-    expect(createSed).toHaveBeenCalledWith({
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes().simulate('change', { target: { value: 'P4000' } })
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
+    expect(createSed).toHaveBeenCalledWith(mockBucList[mockCurrentBuc], {
       aktoerId: '123',
+      avdodfnr: '12345678902',
       buc: 'P_BUC_02',
       euxCaseId: '195440',
       institutions: [],
       sakId: '123',
-      sed: 'P2000'
+      sed: 'P2000',
+      subject: {
+        avdod: {
+          fnr: '12345678902'
+        },
+        gjenlevende: {
+          fnr: '12345678901'
+        }
+      }
     })
   })
 
   it('Cancels sed when cancel button is clicked ', () => {
-    wrapper.find('#a-buc-c-sedstart__cancel-button-id').hostNodes().simulate('click')
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__cancel-button-id\']').hostNodes().simulate('click')
     expect(resetSed).toHaveBeenCalled()
-    expect(initialMockProps.setMode).toHaveBeenCalledWith('bucedit')
   })
 })

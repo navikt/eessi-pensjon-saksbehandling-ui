@@ -104,7 +104,7 @@ const SEDAttachmentSenderDiv = styled.div`
    margin-bottom: 1rem;
    width: 100%;
 `
-const SEDStartDiv = styled.div`
+export const SEDStartDiv = styled.div`
   display: flex;
   flex-direction: column;
 `
@@ -115,6 +115,7 @@ export interface SEDStartProps {
   currentBuc: string
   initialAttachments ?: JoarkBrowserItems
   initialSed ?: string | undefined
+  initialSendingAttachments ?: boolean
   onSedCreated: () => void
   onSedCancelled: () => void
 }
@@ -163,6 +164,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   currentBuc,
   initialAttachments = [],
   initialSed = undefined,
+  initialSendingAttachments = false,
   onSedCreated,
   onSedCancelled
 } : SEDStartProps): JSX.Element => {
@@ -188,6 +190,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         })
       : []
     return Array.from(new Set(_.flatten(institutions))) // remove duplicates
+  }
+
+  const getOptionLabel = (value: string): string => {
+    let label: string = value
+    const description: string = getBucTypeLabel({
+      t: t,
+      locale: locale,
+      type: value
+    })
+    if (description !== 'buc-' + value) {
+      label += ' - ' + description
+    }
+    return label
   }
 
   const renderOptions = (options: Array<Option | string> | undefined): Options => {
@@ -226,7 +241,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_sedAttachments, setSedAttachments] = useState<JoarkBrowserItems>(initialAttachments)
   const _sedOptions: Options = renderOptions(sedList)
   const [_sedSent, setSedSent] = useState<boolean>(false)
-  const [_sendingAttachments, setSendingAttachments] = useState<boolean>(false)
+  const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = useState<string | undefined>(vedtakId)
 
@@ -416,19 +431,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setVedtakId(vedtakId)
   }
 
-  const getOptionLabel = (value: string): string => {
-    let label: string = value
-    const description: string = getBucTypeLabel({
-      t: t,
-      locale: locale,
-      type: value
-    })
-    if (description !== 'buc-' + value) {
-      label += ' - ' + description
-    }
-    return label
-  }
-
   const getSpinner = (text: string): JSX.Element => (
     <WaitingPanel size='S' message={t(text)} oneLine />
   )
@@ -594,7 +596,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           }
         })
       }
-
       setMounted(true)
     }
   }, [_buc, bucs, _countries, currentBuc, currentSed, dispatch, institutionList, _mounted])
@@ -774,6 +775,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
                 hideSelectedOptions={false}
                 highContrast={highContrast}
+                id='a-buc-c-sedstart__institution-select-id'
                 isLoading={loading.gettingInstitutionList}
                 label={t('ui:institution')}
                 options={_institutionObjectList}
@@ -892,6 +894,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <Row>
             <Column>
               <Feiloppsummering
+                data-test-id='a-buc-c-sedstart__feiloppsummering-id'
                 feil={Object.values(_validation)}
                 tittel={t('buc:form-feiloppsummering')}
               />
@@ -911,6 +914,7 @@ SEDStart.propTypes = {
   currentBuc: PT.string.isRequired,
   initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired),
   initialSed: PT.string,
+  initialSendingAttachments: PT.bool,
   onSedCreated: PT.func.isRequired,
   onSedCancelled: PT.func.isRequired
 }

@@ -25,9 +25,9 @@ const statusList: Labels = {
   first_received: 'advarsel'
 }
 
-type StatusType = 'suksess' | 'info' | 'advarsel' | 'fokus'
+export type StatusType = 'suksess' | 'info' | 'advarsel' | 'fokus'
 
-const Etikett = styled(EtikettBase)`
+export const Etikett = styled(EtikettBase)`
   border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
   text-transform: capitalize;
   font-size: 12px;
@@ -65,6 +65,7 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
 
 SEDStatus.propTypes = {
   className: PT.string,
+  highContrast: PT.bool.isRequired,
   status: PT.string.isRequired
 }
 
