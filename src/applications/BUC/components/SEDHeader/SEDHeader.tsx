@@ -3,7 +3,7 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import { slideInFromLeft } from 'components/keyframes'
-import { HighContrastFlatknapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'components/StyledComponents'
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -11,7 +11,6 @@ import { AllowedLocaleString } from 'declarations/types'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
-import Panel from 'nav-frontend-paneler'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
 import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -21,7 +20,24 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
 
-export const SEDHeaderPanel = styled(Panel)`
+const SEDActionsDiv = styled.div`
+  flex: 2;
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`
+const SEDAttachmentsDiv = styled.div`
+`
+const SEDHeaderContent = styled.div`
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`
+export const SEDHeaderPanel = styled(HighContrastPanel)`
   width: 100%;
   padding: 0rem;
   transform: translateX(-20px);
@@ -31,12 +47,13 @@ export const SEDHeaderPanel = styled(Panel)`
   border-bottom-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
   border-bottom-style: solid;
 `
-const SEDHeaderContent = styled.div`
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+const SEDInstitutionsDiv = styled.div`
+  flex: 3;
+  width: 100%;
+  flex-direction: row;
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  flex-direction: column;
 `
 const SEDNameDiv = styled.div`
   display: flex;
@@ -60,28 +77,11 @@ const SEDStatusItemDiv = styled.div`
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
 `
-const SEDInstitutionsDiv = styled.div`
-  flex: 3;
-  width: 100%;
-  flex-direction: row;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-`
-const SEDActionsDiv = styled.div`
-  flex: 2;
-  width: 100%;
-  flex-direction: row;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-`
 const SEDVersion = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `
-const SEDAttachmentsDiv = styled.div``
 
 export interface SEDHeaderProps {
   buc: Buc
@@ -105,24 +105,30 @@ const mapState = (state: State): SEDHeaderSelector => ({
 const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc, className, followUpSeds, onSEDNew, sed, style
 }: SEDHeaderProps): JSX.Element => {
-
-  const institutionList: Institutions = sed.participants ? sed.participants
-      .filter((participant) => (
-        (sed.status === 'received') ? participant.role === 'Sender'
-          : (sed.status !== 'draft') ? participant.role !== 'Sender'
-            : participant.organisation.countryCode === 'NO'
-      ))
-      .map((participant: Participant) => ({
-        country: participant.organisation.countryCode,
-        institution: participant.organisation.name
-      })) : []
   const { highContrast, locale }: SEDHeaderSelector = useSelector<State, SEDHeaderSelector>(mapState)
   const { t } = useTranslation()
+
+  const institutionList: Institutions = sed.participants ? sed.participants
+    .filter((participant) => (
+      (sed.status === 'received') ? participant.role === 'Sender'
+        : (sed.status !== 'draft') ? participant.role !== 'Sender'
+          : participant.organisation.countryCode === 'NO'
+    ))
+    .map((participant: Participant) => ({
+      country: participant.organisation.countryCode,
+      institution: participant.organisation.name
+    })) : []
+
   const sedLabel: string = getBucTypeLabel({
     locale: locale,
     t: t,
     type: sed.type
   })
+
+  const onReplySed = (e: React.MouseEvent<HTMLButtonElement>) => {
+    buttonLogger(e)
+    onSEDNew(buc, sed)
+  }
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
@@ -156,7 +162,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </Tooltip>
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>
-                <Normaltekst data-test-id='a-buc-c-sedheader__version-date-id'>
+                <Normaltekst
+                  data-test-id='a-buc-c-sedheader__version-date-id'
+                >
                   {sed.lastUpdate && moment(sed.lastUpdate).format('DD.MM.YYYY')}
                 </Normaltekst>
                 {sed.version && (
@@ -183,13 +191,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             {!_.isEmpty(sed.attachments) && (
               <Tooltip
                 placement='top' trigger={['hover']} overlay={(
-                  <span>{t('buc:form-youHaveXAttachmentsInSed',
-                    { attachments: sed.attachments.length })}
+                  <span>
+                    {t('buc:form-youHaveXAttachmentsInSed',
+                      { attachments: sed.attachments.length })}
                   </span>
                 )}
               >
                 <SEDAttachmentsDiv
-                  data-test-id='a-buc-c-sedheader__actions-attachments'
+                  data-test-id='a-buc-c-sedheader__actions-attachments-id'
                 >
                   <FilledPaperClipIcon />
                 </SEDAttachmentsDiv>
@@ -201,10 +210,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 data-amplitude='buc.list.besvarSed'
                 data-test-id='a-buc-c-sedheader__answer-button-id'
                 disabled={buc.readOnly === true}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  buttonLogger(e)
-                  onSEDNew(buc, sed)
-                }}
+                onClick={onReplySed}
               >
                 {t('buc:form-answerSED')}
               </HighContrastFlatknapp>

@@ -1,22 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/SEDHeader/SEDHeader Render: match snapshot 1`] = `
-.c19 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-ui-fss.g1[id="c18"] {
-  content: "c19,";
-}
-
-.c21 {
+.c23 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30,23 +15,38 @@ ui-fss.g1[id="c18"] {
   align-items: center;
 }
 
-.c21:not(.noMargin) {
+.c23:not(.noMargin) {
   margin-bottom: 0.35rem;
+}
+
+ui-fss.g1[id="c22"] {
+  content: "c23,";
+}
+
+.c21 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 ui-fss.g2[id="c20"] {
   content: "c21,";
 }
 
-.c23 {
+.c25 {
   margin-left: 0.5rem;
 }
 
-ui-fss.g3[id="c22"] {
-  content: "c23,";
+ui-fss.g3[id="c24"] {
+  content: "c25,";
 }
 
-.c11 {
+.c13 {
   border-radius: 4px;
   text-transform: capitalize;
   font-size: 12px;
@@ -55,81 +55,101 @@ ui-fss.g3[id="c22"] {
   font-weight: normal;
 }
 
-.c11.received {
+.c13.received {
   background-color: #99c2e7 !important;
 }
 
-.c11.active {
+.c13.active {
   background-color: #c0b5cf !important;
   border-color: #634689 !important;
 }
 
-.c11.first_sent,
-.c11.first_received,
-.c11.first_cancelled {
+.c13.first_sent,
+.c13.first_received,
+.c13.first_cancelled {
   background-color: #B7B1A9 !important;
 }
 
-ui-fss.g4[id="c10"] {
-  content: "c11,";
+ui-fss.g4[id="c12"] {
+  content: "c13,";
 }
 
-.c13 {
+.c15 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-ui-fss.g18[id="c12"] {
-  content: "c13,";
+ui-fss.g18[id="c14"] {
+  content: "c15,";
 }
 
-.c27 {
+.c29 {
   color: #0067C5;
   background-color: transparent;
 }
 
-.c27:hover:not(:disabled) {
+.c29:hover:not(:disabled) {
   color: #0067C5;
   border-color: #0067C5;
 }
 
-.c27:hover:not(:disabled) svg path {
+.c29:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
 }
 
-.c27:disabled {
+.c29:disabled {
   background-color: #B7B1A9;
   color: #3E3832;
   border: none;
 }
 
-.c27 svg path {
+.c29 svg path {
   stroke: #0067C5;
 }
 
-ui-fss.g21[id="c26"] {
+ui-fss.g21[id="c28"] {
+  content: "c29,";
+}
+
+.c2 {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #78706A;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+}
+
+ui-fss.g22[id="c0"] {
+  content: "c2,";
+}
+
+.c27 {
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+ui-fss.g30[id="c26"] {
   content: "c27,";
 }
 
-.c1 {
-  width: 100%;
-  padding: 0rem;
-  -webkit-transform: translateX(-20px);
-  -ms-transform: translateX(-20px);
-  transform: translateX(-20px);
-  opacity: 0;
-  -webkit-animation: fSLHgq 0.2s forwards;
-  animation: fSLHgq 0.2s forwards;
-  border-bottom-width: 1px;
-  border-bottom-color: #78706A;
-  border-bottom-style: solid;
-}
-
-ui-fss.g30[id="c0"] {
-  content: "c1,";
-}
-
-.c3 {
+.c5 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   display: -webkit-box;
@@ -146,11 +166,54 @@ ui-fss.g30[id="c0"] {
   align-items: flex-start;
 }
 
-ui-fss.g31[id="c2"] {
+ui-fss.g32[id="c4"] {
+  content: "c5,";
+}
+
+.c3 {
+  width: 100%;
+  padding: 0rem;
+  -webkit-transform: translateX(-20px);
+  -ms-transform: translateX(-20px);
+  transform: translateX(-20px);
+  opacity: 0;
+  -webkit-animation: fSLHgq 0.2s forwards;
+  animation: fSLHgq 0.2s forwards;
+  border-bottom-width: 1px;
+  border-bottom-color: #78706A;
+  border-bottom-style: solid;
+}
+
+ui-fss.g33[id="c1"] {
   content: "c3,";
 }
 
-.c5 {
+.c19 {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g34[id="c18"] {
+  content: "c19,";
+}
+
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -168,11 +231,11 @@ ui-fss.g31[id="c2"] {
   justify-content: center;
 }
 
-ui-fss.g32[id="c4"] {
-  content: "c5,";
+ui-fss.g35[id="c6"] {
+  content: "c7,";
 }
 
-.c7 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -197,11 +260,11 @@ ui-fss.g32[id="c4"] {
   flex-wrap: wrap;
 }
 
-ui-fss.g33[id="c6"] {
-  content: "c7,";
+ui-fss.g36[id="c8"] {
+  content: "c9,";
 }
 
-.c9 {
+.c11 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -214,77 +277,26 @@ ui-fss.g33[id="c6"] {
   margin-right: 0.5rem;
 }
 
-ui-fss.g34[id="c8"] {
-  content: "c9,";
+ui-fss.g37[id="c10"] {
+  content: "c11,";
 }
 
 .c17 {
-  -webkit-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-  width: 100%;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-align-items: flex-start;
   -webkit-box-align: flex-start;
   -ms-flex-align: flex-start;
   align-items: flex-start;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
 }
 
-ui-fss.g35[id="c16"] {
+ui-fss.g38[id="c16"] {
   content: "c17,";
-}
-
-.c25 {
-  -webkit-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-  width: 100%;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-}
-
-ui-fss.g36[id="c24"] {
-  content: "c25,";
-}
-
-.c15 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-}
-
-ui-fss.g37[id="c14"] {
-  content: "c15,";
 }
 
 <SEDHeader
@@ -1950,21 +1962,21 @@ ui-fss.g37[id="c14"] {
       }
     }
   >
-    <Styled(Panel)>
+    <Styled(Styled(Panel))>
       <Panel
         border={false}
-        className="c0 c1"
+        className="c0 c1 c2 c3"
       >
         <div
-          className="panel c0 c1"
+          className="panel c0 c1 c2 c3"
         >
           <styled.div>
             <div
-              className="c2 c3"
+              className="c4 c5"
             >
               <styled.div>
                 <div
-                  className="c4 c5"
+                  className="c6 c7"
                 >
                   <Element
                     data-test-id="a-buc-c-sedheader__name-id"
@@ -1986,11 +1998,11 @@ ui-fss.g37[id="c14"] {
               </styled.div>
               <styled.div>
                 <div
-                  className="c6 c7"
+                  className="c8 c9"
                 >
                   <styled.div>
                     <div
-                      className="c8 c9"
+                      className="c10 c11"
                     >
                       <Component
                         overlay={
@@ -2179,12 +2191,12 @@ ui-fss.g37[id="c14"] {
                                 type="info"
                               >
                                 <EtikettBase
-                                  className="c10 c11 received"
+                                  className="c12 c13 received"
                                   mini={false}
                                   type="info"
                                 >
                                   <div
-                                    className="etikett c10 c11 received etikett--info"
+                                    className="etikett c12 c13 received etikett--info"
                                   >
                                     <TypografiBase
                                       tag="span"
@@ -2207,12 +2219,12 @@ ui-fss.g37[id="c14"] {
                         date-size="0.5"
                       >
                         <div
-                          className="c12 c13"
+                          className="c14 c15"
                         />
                       </styled.div>
                       <styled.div>
                         <div
-                          className="c14 c15"
+                          className="c16 c17"
                         >
                           <Normaltekst
                             data-test-id="a-buc-c-sedheader__version-date-id"
@@ -2254,7 +2266,7 @@ ui-fss.g37[id="c14"] {
               </styled.div>
               <styled.div>
                 <div
-                  className="c16 c17"
+                  className="c18 c19"
                 >
                   <InstitutionList
                     data-test-id="a-buc-c-sedheader__institutions-id"
@@ -2273,14 +2285,14 @@ ui-fss.g37[id="c14"] {
                       key="NO"
                     >
                       <div
-                        className="c18 c19"
+                        className="c20 c21"
                       >
                         <styled.div
                           data-test-id="a-buc-c-institutionlist__div-id"
                           key="NAV ACCEPTANCE TEST 07"
                         >
                           <div
-                            className="c20 c21"
+                            className="c22 c23"
                             data-test-id="a-buc-c-institutionlist__div-id"
                           >
                             <Bd
@@ -2724,7 +2736,7 @@ ui-fss.g37[id="c14"] {
                                       style={Object {}}
                                     >
                                       <div
-                                        className="c18 NSHWL size-S type-circle"
+                                        className="c22 NSHWL size-S type-circle"
                                         onMouseEnter={[Function]}
                                         onMouseLeave={[Function]}
                                         style={Object {}}
@@ -2742,14 +2754,14 @@ ui-fss.g37[id="c14"] {
                             </Bd>
                             <Styled(Normaltekst)>
                               <Normaltekst
-                                className="c22 c23"
+                                className="c24 c25"
                               >
                                 <TypografiBase
-                                  className="c22 c23"
+                                  className="c24 c25"
                                   type="normaltekst"
                                 >
                                   <p
-                                    className="typo-normal c22 c23"
+                                    className="typo-normal c24 c25"
                                   >
                                     NAV ACCEPTANCE TEST 07
                                   </p>
@@ -2767,7 +2779,7 @@ ui-fss.g37[id="c14"] {
                 data-test-id="a-buc-c-sedheader__actions-id"
               >
                 <div
-                  className="c24 c25"
+                  className="c26 c27"
                   data-test-id="a-buc-c-sedheader__actions-id"
                 >
                   <Component
@@ -2787,11 +2799,11 @@ ui-fss.g37[id="c14"] {
                       data-test-id="mock-tooltip"
                     >
                       <styled.div
-                        data-test-id="a-buc-c-sedheader__actions-attachments"
+                        data-test-id="a-buc-c-sedheader__actions-attachments-id"
                       >
                         <div
                           className=""
-                          data-test-id="a-buc-c-sedheader__actions-attachments"
+                          data-test-id="a-buc-c-sedheader__actions-attachments-id"
                         >
                           <FilledPaperClipIcon>
                             <svg
@@ -2835,7 +2847,7 @@ ui-fss.g37[id="c14"] {
                     onClick={[Function]}
                   >
                     <Flatknapp
-                      className="c26 c27"
+                      className="c28 c29"
                       data-amplitude="buc.list.besvarSed"
                       data-test-id="a-buc-c-sedheader__answer-button-id"
                       disabled={false}
@@ -2844,7 +2856,7 @@ ui-fss.g37[id="c14"] {
                     >
                       <KnappBase
                         autoDisableVedSpinner={false}
-                        className="c26 c27"
+                        className="c28 c29"
                         data-amplitude="buc.list.besvarSed"
                         data-test-id="a-buc-c-sedheader__answer-button-id"
                         disabled={false}
@@ -2857,7 +2869,7 @@ ui-fss.g37[id="c14"] {
                         type="flat"
                       >
                         <button
-                          className="knapp c26 c27 knapp--flat knapp--mini"
+                          className="knapp c28 c29 knapp--flat knapp--mini"
                           data-amplitude="buc.list.besvarSed"
                           data-test-id="a-buc-c-sedheader__answer-button-id"
                           disabled={false}
@@ -2875,7 +2887,7 @@ ui-fss.g37[id="c14"] {
           </styled.div>
         </div>
       </Panel>
-    </Styled(Panel)>
+    </Styled(Styled(Panel))>
   </Component>
 </SEDHeader>
 `;

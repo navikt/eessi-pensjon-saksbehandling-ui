@@ -9,7 +9,7 @@ import {
   Bucs,
   BucsInfo,
   BucsInfoList,
-  CountryList,
+  CountryRawList,
   NewSedPayload,
   Participants,
   RawInstitutions,
@@ -223,9 +223,9 @@ export const getBucList: ActionCreator<ThunkResult<ActionWithPayload<BUCList>>> 
   })
 }
 
-export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload<CountryList>>> = (
+export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload<CountryRawList>>> = (
   bucType: string
-): ThunkResult<ActionWithPayload<CountryList>> => {
+): ThunkResult<ActionWithPayload<CountryRawList>> => {
   return call({
     url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: bucType }),
     context: {

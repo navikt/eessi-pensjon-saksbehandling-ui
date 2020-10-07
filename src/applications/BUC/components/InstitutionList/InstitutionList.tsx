@@ -14,11 +14,6 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-const InstitutionListDiv = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`
 const InstitutionDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -27,11 +22,16 @@ const InstitutionDiv = styled.div`
      margin-bottom: 0.35rem;
   }
 `
+const InstitutionListDiv = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+`
+export type InstitutionListType = 'joined' | 'separated'
+
 const InstitutionText = styled(Normaltekst)`
   margin-left: 0.5rem;
 `
-
-export type InstitutionListType = 'joined' | 'separated'
 
 export interface InstitutionListProps {
   className?: string

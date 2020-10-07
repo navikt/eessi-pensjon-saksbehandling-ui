@@ -12,6 +12,7 @@ describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
   let wrapper: ReactWrapper
 
   const initialMockProps: SEDP5000Props = {
+    highContrast: false,
     locale: 'nb',
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
     sedContent: {
@@ -28,15 +29,15 @@ describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: Has proper HTML structure', () => {
     expect(wrapper.exists(SEDP5000Container)).toBeTruthy()
-    expect(wrapper.exists('#checkbox-60578cf8bf9f45a7819a39987c6c8fd4')).toBeTruthy()
-    expect(wrapper.exists('#checkbox-50578cf8bf9f45a7819a39987c6c8fd4')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedp5000__checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedp5000__checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
     expect(wrapper.exists(TableSorter)).toBeTruthy()
     expect(wrapper.find('.tabell:not(.print-version) th').hostNodes().map(it => it.render().text())).toEqual([
       '', 'ui:country', 'ui:_institution', 'ui:type', 'ui:startDate', 'ui:endDate', 'ui:year', 'ui:quarter', 'ui:month',

@@ -1,21 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/BUCHeader/BUCHeader Render: match snapshot 1`] = `
-.c19 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-ui-fss.g1[id="c18"] {
-  content: "c19,";
-}
-
 .c21 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -34,8 +19,23 @@ ui-fss.g1[id="c18"] {
   margin-bottom: 0.35rem;
 }
 
-ui-fss.g2[id="c20"] {
+ui-fss.g1[id="c20"] {
   content: "c21,";
+}
+
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g2[id="c18"] {
+  content: "c19,";
 }
 
 .c23 {
@@ -1854,10 +1854,12 @@ ui-fss.g40[id="c8"] {
                         >
                           <styled.div
                             className="noMargin"
+                            data-test-id="a-buc-c-institutionlist__div-id"
                             key="NAVAT07"
                           >
                             <div
                               className="c20 c21 noMargin"
+                              data-test-id="a-buc-c-institutionlist__div-id"
                             >
                               <Bd
                                 country="NO"
@@ -2300,7 +2302,7 @@ ui-fss.g40[id="c8"] {
                                         style={Object {}}
                                       >
                                         <div
-                                          className="c18 NSHWL size-S type-circle"
+                                          className="c20 NSHWL size-S type-circle"
                                           onMouseEnter={[Function]}
                                           onMouseLeave={[Function]}
                                           style={Object {}}
@@ -2895,7 +2897,7 @@ ui-fss.g40[id="c8"] {
                               }
                             >
                               <div
-                                className="c18 NSHWL bdDYJz animate size-XL type-circle"
+                                className="c20 NSHWL bdDYJz animate size-XL type-circle"
                                 onMouseEnter={[Function]}
                                 onMouseLeave={[Function]}
                                 style={
@@ -3386,7 +3388,7 @@ ui-fss.g40[id="c8"] {
                               }
                             >
                               <div
-                                className="c18 NSHWL bdDYJz animate size-XL type-circle"
+                                className="c20 NSHWL bdDYJz animate size-XL type-circle"
                                 onMouseEnter={[Function]}
                                 onMouseLeave={[Function]}
                                 style={
@@ -3877,7 +3879,7 @@ ui-fss.g40[id="c8"] {
                               }
                             >
                               <div
-                                className="c18 NSHWL bdDYJz animate size-XL type-circle"
+                                className="c20 NSHWL bdDYJz animate size-XL type-circle"
                                 onMouseEnter={[Function]}
                                 onMouseLeave={[Function]}
                                 style={
@@ -4368,7 +4370,7 @@ ui-fss.g40[id="c8"] {
                               }
                             >
                               <div
-                                className="c18 NSHWL bdDYJz animate size-XL type-circle"
+                                className="c20 NSHWL bdDYJz animate size-XL type-circle"
                                 onMouseEnter={[Function]}
                                 onMouseLeave={[Function]}
                                 style={

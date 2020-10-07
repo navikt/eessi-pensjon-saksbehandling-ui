@@ -1,14 +1,22 @@
 import SEDListHeader, {
+  SEDListHeaderPanel,
   SEDListHeaderProps,
   SEDListSelector
 } from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
+import React from 'react'
 import { stageSelector } from 'setupTests'
 
-const defaultSelector: SEDListSelector = { locale: 'nb' }
+jest.mock('rc-tooltip', () => ({ children }: any) => (
+  <div data-test-id='mock-tooltip'>{children}</div>
+))
+
+const defaultSelector: SEDListSelector = {
+  highContrast: false,
+  locale: 'nb'
+}
 
 describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
   const buc: Buc = mockBucs()[0] as Buc
@@ -16,9 +24,9 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
   sed.status = 'received'
   const initialMockProps: SEDListHeaderProps = {
     buc: buc,
+    followUpSeds: [buc.seds![1]],
     onSEDNew: jest.fn(),
-    sed: sed,
-    followUpSeds: [buc.seds![1]]
+    sed: sed
   }
   let wrapper: ReactWrapper
 
@@ -34,27 +42,30 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedlistheader')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedlistheader__name').hostNodes().render().text()).toEqual(
-      ['X008 - buc:buc-X008', 'buc:status-received', '23.10.2019', 'ui:version: 1'].join('')
-    )
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.exists(SEDListHeaderPanel)).toBeTruthy()
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__name-id\']').hostNodes().render().text()).toEqual('X008 - buc:buc-X008')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__status-id\']').render().text()).toEqual('buc:status-' + sed.status)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__version-date-id\']').hostNodes().render().text()).toEqual('23.10.2019')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__version-id\']').hostNodes().render().text()).toEqual('ui:version: 1')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__institutions-id\']').first().render().text()).toEqual('NAV ACCEPTANCE TEST 07')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__institutions-id\']').last().render().text()).toEqual('NAV ACCEPTANCE TEST 08')
 
-    const status = wrapper.find('.a-buc-c-sedlistheader__status').hostNodes()
-    expect(status.find('SEDStatus').render().text()).toEqual('buc:status-' + sed.status)
-    expect(status.find('Normaltekst.a-buc-c-sedlistheader__lastUpdate').render().text()).toEqual('23.10.2019')
+    const actions = wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__actions-id\']').hostNodes()
+    expect(actions.exists('FilledPaperClipIcon')).toBeTruthy()
 
-    const institutions = wrapper.find('.a-buc-c-sedlistheader__institutions').hostNodes()
-    expect(institutions.find('InstitutionList').first().render().text()).toEqual('NAV ACCEPTANCE TEST 07')
-    expect(institutions.find('InstitutionList').last().render().text()).toEqual('NAV ACCEPTANCE TEST 08')
+    expect(actions.exists('[data-test-id=\'a-buc-c-sedlistheader__answer-button-id\']')).toBeTruthy()
+  })
 
-    const actions = wrapper.find('.a-buc-c-sedlistheader__actions').hostNodes()
-    expect(actions.exists('Icons')).toBeTruthy()
-    expect(actions.exists('Flatknapp.a-buc-c-sedlistheader__actions-answer-button')).toBeTruthy()
+  it('Handling: handling answer button click', () => {
+    (initialMockProps.onSEDNew as jest.Mock).mockReset()
+    const replySedButton = wrapper.find('[data-test-id=\'a-buc-c-sedlistheader__answer-button-id\']').hostNodes().first()
+    replySedButton.simulate('click')
+    expect(initialMockProps.onSEDNew).toBeCalledWith(buc, sed)
   })
 })

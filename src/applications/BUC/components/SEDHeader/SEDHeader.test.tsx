@@ -1,4 +1,3 @@
-import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
@@ -6,8 +5,8 @@ import React from 'react'
 import { stageSelector } from 'setupTests'
 import SEDHeader, { SEDHeaderPanel, SEDHeaderProps, SEDHeaderSelector } from './SEDHeader'
 
-jest.mock('rc-tooltip', () => ({children}: any) => (
-  <div data-test-id='mock-tooltip' >{children}</div>
+jest.mock('rc-tooltip', () => ({ children }: any) => (
+  <div data-test-id='mock-tooltip'>{children}</div>
 ))
 
 const defaultSelector: SEDHeaderSelector = {
@@ -16,15 +15,14 @@ const defaultSelector: SEDHeaderSelector = {
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
-
   const buc: Buc = mockBucs()[0]
   const sed: Sed = buc.seds![0]
   sed.status = 'received'
   const initialMockProps: SEDHeaderProps = {
-    onSEDNew: jest.fn(),
     buc: buc,
-    sed: sed,
-    followUpSeds: [buc.seds![1]]
+    followUpSeds: [buc.seds![1]],
+    onSEDNew: jest.fn(),
+    sed: sed
   }
   let wrapper: ReactWrapper
 

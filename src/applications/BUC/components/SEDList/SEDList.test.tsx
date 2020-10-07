@@ -1,15 +1,13 @@
-import { SEDHeaderSelector } from 'applications/BUC/components/SEDHeader/SEDHeader'
+import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import { Seds } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
-import { stageSelector } from 'setupTests'
-import SEDList, { SEDListProps } from './SEDList'
+import SEDList, { SEDFooterDiv, SEDListProps } from './SEDList'
 
-const defaultSelector: SEDHeaderSelector = {
-  highContrast: false,
-  locale: 'nb'
-}
+jest.mock('applications/BUC/components/SEDHeader/SEDHeader', () => {
+  return () => <div className='mock-sedheader' />
+})
 
 describe('applications/BUC/components/SEDList/SEDList', () => {
   let wrapper: ReactWrapper
@@ -20,10 +18,6 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
     seds: (mockBucs()[0].seds as Seds)
   }
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
     wrapper = mount(<SEDList {...initialMockProps} />)
   })
@@ -32,20 +26,20 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.find('SEDHeader').length).toEqual(
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.find(SEDHeader).length).toEqual(
       initialMockProps.seds!.filter(sed => sed.status !== 'empty').length
     )
-    expect(wrapper.exists('.a-buc-c-sedlist__footer')).toBeTruthy()
+    expect(wrapper.exists(SEDFooterDiv)).toBeTruthy()
   })
 
-  it('With no seds', () => {
+  it('Render: with no seds', () => {
     wrapper = mount(<SEDList {...initialMockProps} seds={[]} />)
-    expect(wrapper.find('SEDRow').length).toEqual(0)
+    expect(wrapper.find(SEDHeader).length).toEqual(0)
   })
 })

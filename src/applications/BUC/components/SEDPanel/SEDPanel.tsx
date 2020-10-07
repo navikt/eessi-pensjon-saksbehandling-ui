@@ -1,3 +1,4 @@
+import { slideInFromLeft } from 'components/keyframes'
 import React from 'react'
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import classNames from 'classnames'
@@ -5,34 +6,12 @@ import { HighContrastExpandingPanel, HighContrastPanel } from 'components/Styled
 import { Buc, Sed, Seds } from 'declarations/buc'
 import _ from 'lodash'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
-import styled, { keyframes, ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
-
-export interface SEDPanelProps {
-  aktoerId: string
-  buc: Buc
-  className ?: string
-  followUpSeds: Seds
-  highContrast: boolean
-  newSed: boolean
-  onSEDNew: (buc: Buc, sed: Sed) => void
-  sed: Sed
-  style: React.CSSProperties
-}
 
 const activeStatus: Array<string> = ['new', 'active']
 
-const slideInFromLeft = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-const SEDPanelPanel = styled(HighContrastPanel)`
+export const SEDPanelContainer = styled(HighContrastPanel)`
   transform: translateX(-20px);
   opacity: 0;
   padding: 0;
@@ -51,12 +30,12 @@ const SEDPanelPanel = styled(HighContrastPanel)`
     background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
   }
 `
-const PaddedDiv = styled.div`
+export const SEDPanelDiv = styled.div`
   padding: 1rem;
   border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
   background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
-const CustomExpandingPanel = styled(HighContrastExpandingPanel)`
+export const SEDPanelExpandingPanel = styled(HighContrastExpandingPanel)`
   border: none;
   .ekspanderbartPanel__hode:hover {
     background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
@@ -66,6 +45,18 @@ const CustomExpandingPanel = styled(HighContrastExpandingPanel)`
   }
 `
 
+export interface SEDPanelProps {
+  aktoerId: string
+  buc: Buc
+  className ?: string
+  followUpSeds: Seds
+  highContrast: boolean
+  newSed: boolean
+  onSEDNew: (buc: Buc, sed: Sed) => void
+  sed: Sed
+  style: React.CSSProperties
+}
+
 const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId, buc, className, followUpSeds, highContrast, newSed, onSEDNew, sed, style
 }: SEDPanelProps): JSX.Element => {
@@ -73,46 +64,42 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
   }
 
-  const sedHasOption = (sed: Sed): boolean => {
-    return sedCanHaveAttachments(sed)
-  }
-
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <SEDPanelPanel className={classNames(className, { new: newSed })}>
-        {!sedHasOption(sed) ? (
-          <PaddedDiv>
+      <SEDPanelContainer className={classNames(className, { new: newSed })}>
+        {!sedCanHaveAttachments(sed) ? (
+          <SEDPanelDiv>
             <SEDListHeader
+              buc={buc}
               followUpSeds={followUpSeds}
+              onSEDNew={onSEDNew}
               sed={sed}
               style={style}
-              buc={buc}
-              onSEDNew={onSEDNew}
             />
-          </PaddedDiv>
+          </SEDPanelDiv>
         ) : (
-          <CustomExpandingPanel
+          <SEDPanelExpandingPanel
             style={style}
             highContrast={highContrast}
             heading={
               <SEDListHeader
-                followUpSeds={followUpSeds}
-                sed={sed}
                 buc={buc}
+                followUpSeds={followUpSeds}
                 onSEDNew={onSEDNew}
+                sed={sed}
               />
             }
           >
             <SEDBody
               aktoerId={aktoerId}
               buc={buc}
+              canHaveAttachments={sedCanHaveAttachments(sed)}
               highContrast={highContrast}
               sed={sed}
-              canHaveAttachments={sedCanHaveAttachments(sed)}
             />
-          </CustomExpandingPanel>
+          </SEDPanelExpandingPanel>
         )}
-      </SEDPanelPanel>
+      </SEDPanelContainer>
     </ThemeProvider>
   )
 }

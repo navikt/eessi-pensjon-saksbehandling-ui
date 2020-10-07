@@ -4,7 +4,15 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { ThemeProvider } from 'styled-components'
 
-const SEDPanelHeaderDiv = styled.div`
+export const ActionsDiv = styled.div`
+  flex: 2;
+  width: 100%;
+`
+export const SedDiv = styled.div`
+  flex: 4;
+  width: 100%;
+`
+export const SEDPanelHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 3px solid ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navBla};
@@ -13,40 +21,35 @@ const SEDPanelHeaderDiv = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
 `
-const Flex4Div = styled.div`
-  flex: 4;
-  width: 100%;
-`
-const Flex3Div = styled.div`
+export const SenderReceiverDiv = styled.div`
   flex: 3;
   width: 100%;
 `
-const Flex2Div = styled.div`
-  flex: 2;
-  width: 100%;
-`
+
 export interface SEDPanelHeaderProps {
   highContrast: boolean
 }
+
 const SEDPanelHeader: React.FC<SEDPanelHeaderProps> = ({
   highContrast
 }: SEDPanelHeaderProps): JSX.Element => {
   const { t } = useTranslation()
+
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDPanelHeaderDiv>
-        <Flex4Div>
+        <SedDiv>
           <Element>{t('buc:form-sed')}</Element>
-        </Flex4Div>
-        <Flex3Div>
+        </SedDiv>
+        <SenderReceiverDiv>
           <Element>{t('buc:form-sender')}</Element>
-        </Flex3Div>
-        <Flex3Div>
+        </SenderReceiverDiv>
+        <SenderReceiverDiv>
           <Element>{t('buc:form-receiver')}</Element>
-        </Flex3Div>
-        <Flex2Div>
+        </SenderReceiverDiv>
+        <ActionsDiv>
           <Element>{t('buc:form-actions')}</Element>
-        </Flex2Div>
+        </ActionsDiv>
       </SEDPanelHeaderDiv>
     </ThemeProvider>
   )

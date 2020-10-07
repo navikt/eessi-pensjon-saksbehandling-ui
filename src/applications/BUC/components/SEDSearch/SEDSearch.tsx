@@ -1,22 +1,11 @@
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { HighContrastPanel } from 'components/StyledComponents'
+import { HighContrastInput, HighContrastPanel } from 'components/StyledComponents'
 import { standardLogger } from 'metrics/loggers'
-import { Input } from 'nav-frontend-skjema'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { ThemeProvider } from 'styled-components'
-
-export type StatusList = Array<{label: string, value: string}>
-
-export interface SEDSearchProps {
-  className ?: string
-  highContrast: boolean
-  onSearch: (e: string) => void
-  onStatusSearch: (sl: StatusList) => void
-  value: string | undefined
-}
 
 const SEDSearchPanel = styled(HighContrastPanel)`
   display: flex !important;
@@ -31,18 +20,12 @@ const PaddedDiv = styled.div`
   padding-right: 0.25rem;
   width: 50%;
 `
-const SearchInput = styled(Input)`
+const SearchInput = styled(HighContrastInput)`
   margin-right: 0.5rem;
   margin-bottom: 0.25rem !important;
   margin-left: 0.25rem;
   .skjemaelement__label {
     display: none;
-  }
-  .skjemaelement__input {
-    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-    border-style: solid;
-    border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
-    background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   }
 `
 const SearchSelect = styled(MultipleSelect)`
@@ -51,34 +34,42 @@ const SearchSelect = styled(MultipleSelect)`
   }
 `
 
+export type StatusList = Array<{label: string, value: string}>
+
+export interface SEDSearchProps {
+  className ?: string
+  highContrast: boolean
+  onSearch: (e: string) => void
+  onStatusSearch: (sl: StatusList) => void
+  value: string | undefined
+}
+
 const SEDSearch: React.FC<SEDSearchProps> = ({
   className, highContrast, onSearch, onStatusSearch, value
 }: SEDSearchProps): JSX.Element => {
   const [_query, setQuery] = useState<string | undefined>(value || '')
   const [_status, setStatus] = useState<StatusList>([])
-  const [timer, setTimer] = useState<any>()
+  const [_timer, setTimer] = useState<number | undefined>(undefined)
   const { t } = useTranslation()
 
   const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (typeof onSearch === 'function') {
-      setQuery(e.target.value)
-      onSearch(e.target.value)
+    setQuery(e.target.value)
+    onSearch(e.target.value)
 
-      const _timer = setTimeout(() => {
-        standardLogger('buc.edit.filter.text.input')
-        clearTimeout(timer)
-        setTimer(undefined)
-      }, 1000)
-      setTimer(_timer)
-    }
+    const timer = setTimeout(() => {
+      standardLogger('buc.edit.filter.text.input')
+      if (_timer) {
+        clearTimeout(_timer)
+      }
+      setTimer(undefined)
+    }, 1000)
+    setTimer(timer)
   }
 
   const onStatusChange = (statusList: StatusList) => {
-    if (typeof onStatusSearch === 'function') {
-      onStatusSearch(statusList)
-      setStatus(statusList)
-      standardLogger('buc.edit.filter.status.select')
-    }
+    onStatusSearch(statusList)
+    setStatus(statusList)
+    standardLogger('buc.edit.filter.status.select')
   }
 
   const availableStatuses: StatusList = [{
@@ -103,25 +94,27 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
       >
         <PaddedDiv>
           <SearchInput
-            data-test-id='a-buc-c-sedsearch__query-input-id'
-            label=''
             bredde='fullbredde'
-            value={_query || ''}
+            data-test-id='a-buc-c-sedsearch__query-input-id'
+            id='a-buc-c-sedsearch__query-input-id'
+            label=''
             onChange={onQueryChange}
             placeholder={t('buc:form-filterSED')}
+            value={_query || ''}
           />
         </PaddedDiv>
         <PaddedDiv>
           <SearchSelect
-            highContrast={highContrast}
             ariaLabel={t('buc:form-searchForStatus')}
-            label=''
             data-test-id='a-buc-c-sedsearch__status-select-id'
-            placeholder={t('buc:form-searchForStatus')}
-            values={_status}
+            id='a-buc-c-sedsearch__status-select-id'
             hideSelectedOptions={false}
+            highContrast={highContrast}
+            label=''
             onSelect={onStatusChange}
             options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}
+            placeholder={t('buc:form-searchForStatus')}
+            values={_status}
           />
         </PaddedDiv>
       </SEDSearchPanel>
@@ -131,6 +124,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
 
 SEDSearch.propTypes = {
   className: PT.string,
+  highContrast: PT.bool.isRequired,
   onSearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
   value: PT.string

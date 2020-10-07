@@ -1,60 +1,26 @@
+import WarningCircle from 'assets/icons/WarningCircle'
 import Alert from 'components/Alert/Alert'
 import { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { AllowedLocaleString } from 'declarations/types'
-import _ from 'lodash'
 import Flag from 'flagg-ikoner'
+import CountryData from 'land-verktoy'
+import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { Checkbox, Select } from 'nav-frontend-skjema'
+import { Normaltekst } from 'nav-frontend-typografi'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { ThemeProvider } from 'styled-components'
-import * as labels from './SEDP5000.labels'
-import WarningCircle from 'assets/icons/WarningCircle'
-import TableSorter from 'tabell'
 import ReactToPrint from 'react-to-print'
-import { Checkbox, Select } from 'nav-frontend-skjema'
-import { Normaltekst } from 'nav-frontend-typografi'
-import CountryData from 'land-verktoy'
+import styled, { ThemeProvider } from 'styled-components'
+import TableSorter, { Sort } from 'tabell'
+import * as labels from './SEDP5000.labels'
 
-export interface SEDP5000Props {
-  highContrast: boolean
-  locale: AllowedLocaleString
-  seds: Seds
-  sedContent: SedContentMap
-}
-
-type ActiveSeds = {[k: string]: boolean}
-
-interface SedSender {
-  date: string
-  country: string
-  countryLabel: string
-  institution: string
-  acronym: string
-}
-
-export const SEDP5000Container = styled.div`
-  margin-top: 1rem;
-  min-height: 500px;
-`
-export const SEDP5000Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-`
-export const SEDP5000Checkboxes = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export const HiddenDiv = styled.div`
-  display: none;
-`
 export const ButtonsDiv = styled.div`
   margin-top: '1.5rem;
   margin-bottom: '1.5rem;
@@ -63,6 +29,25 @@ export const CheckboxLabel = styled.div`
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
+`
+const CustomCheckbox = styled(Checkbox)`
+  margin-bottom: 0.5rem;
+`
+const CustomSelect = styled(Select)`
+  select {
+    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  }
+`
+const FlexDiv = styled.div`
+  display: flex;
+`
+export const HiddenDiv = styled.div`
+  display: none;
+`
+const MarginDiv = styled.div`
+  margin-left: 1rem;
+  margin-right: 1rem;
 `
 export const PrintableTableSorter = styled(TableSorter)`
   width: 100%;
@@ -76,39 +61,81 @@ export const PrintableTableSorter = styled(TableSorter)`
     }
   }
 `
-const FlexDiv = styled.div`
+export const SEDP5000Checkboxes = styled.div`
   display: flex;
+  flex-direction: column;
 `
-const SeparatorSpan = styled.span`
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+export const SEDP5000Container = styled.div`
+  margin-top: 1rem;
+  min-height: 500px;
 `
-const MarginDiv = styled.div`
-  margin-left: 1rem;
-  margin-right: 1rem;
+export const SEDP5000Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
 `
 const Sender = styled.div`
   display: flex;
   align-items: center;
 `
-const CustomSelect = styled(Select)`
-  select {
-    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-    background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
-  }
+const SeparatorSpan = styled.span`
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 `
-const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedContent }: SEDP5000Props) => {
+
+type ActiveSeds = {[k: string]: boolean}
+
+type EmptyPeriodsReport = {[k: string]: boolean}
+
+export interface SEDP5000Props {
+  highContrast: boolean
+  locale: AllowedLocaleString
+  seds: Seds
+  sedContent: SedContentMap
+}
+
+interface SedSender {
+  date: string
+  country: string
+  countryLabel: string
+  institution: string
+  acronym: string
+}
+
+export interface SEDP5000Row {
+  key: string
+  land: string
+  acronym: string
+  type: string
+  startdato: string
+  sluttdato: string
+  år: string
+  kvartal: string
+  måned: string
+  uker: string
+  dagerEnhet: string
+  relevantForYtelse: string
+  ordning: string
+  informasjonOmBeregning: string
+}
+
+export type SEDP5000Rows = Array<SEDP5000Row>
+
+const SEDP5000: React.FC<SEDP5000Props> = ({
+  highContrast, locale, seds, sedContent
+}: SEDP5000Props) => {
   const { t } = useTranslation()
   const { height } = useWindowDimensions()
-  const [itemsPerPage, setItemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
-  const [activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
-  const [tableSort, setTableSort] = useState<any>({ column: '', order: 'none' })
-  const [printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const componentRef = useRef(null)
+  const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
+  const [_itemsPerPage, setItemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
+  const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
+  const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
-  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): Array<any> => {
-    const res: Array<any> = []
-    const sender = getSedSender(sedId)
+  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): SEDP5000Rows => {
+    const res: SEDP5000Rows = []
+    const sender: SedSender | undefined = getSedSender(sedId)
     const medlemskap = sedContent.pensjon?.medlemskap
     if (medlemskap) {
       medlemskap.forEach((m: any, i: number) => {
@@ -127,7 +154,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
           relevantForYtelse: m.relevans || '-',
           ordning: m.ordning || '-',
           informasjonOmBeregning: m.beregning || '-'
-        })
+        } as SEDP5000Row)
       })
     }
     return res
@@ -138,7 +165,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
     if (!sed) {
       return undefined
     }
-
     const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
     if (sender) {
       return {
@@ -152,51 +178,49 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
     return undefined
   }
 
-  const getItems = () => {
-    let res: Array<any> = []
-    Object.keys(activeSeds).forEach((key: string) => {
-      if (activeSeds[key]) {
+  const getItems = (): SEDP5000Rows => {
+    let res: SEDP5000Rows = []
+    Object.keys(_activeSeds).forEach((key: string) => {
+      if (_activeSeds[key]) {
         res = res.concat(convertRawP5000toRow(key, sedContent[key]))
       }
     })
     return res
   }
 
-  type EmptyPeriodsReport = {[k: string]: boolean}
-
   const getEmptyPeriodsReport = (): EmptyPeriodsReport => {
     const res: EmptyPeriodsReport = {}
-    Object.keys(activeSeds).forEach((key: string) => {
-      if (activeSeds[key]) {
+    Object.keys(_activeSeds).forEach((key: string) => {
+      if (_activeSeds[key]) {
         res[key] = sedContent[key]?.pensjon?.medlemskapAnnen?.length > 0
       }
     })
     return res
   }
 
-  const hasEmptyPeriods = (emptyPeriodsReport: EmptyPeriodsReport) => {
+  const hasEmptyPeriods = (emptyPeriodsReport: EmptyPeriodsReport): boolean => {
     return Object.values(emptyPeriodsReport).indexOf(true) >= 0
   }
 
-  const beforePrintOut = () => {
+  const beforePrintOut = (): void => {
   }
 
-  const prepareContent = () => {
+  const prepareContent = (): void => {
     standardLogger('buc.edit.tools.P5000.print.button')
     setPrintDialogOpen(true)
   }
 
-  const afterPrintOut = () => {
+  const afterPrintOut = (): void => {
     setPrintDialogOpen(false)
   }
 
-  const changeActiveSed = (sedId: string) => {
-    const newActiveSeds = _.cloneDeep(activeSeds)
-    newActiveSeds[sedId] = !activeSeds[sedId]
+  const changeActiveSed = (sedId: string): void => {
+    const newActiveSeds = _.cloneDeep(_activeSeds)
+    newActiveSeds[sedId] = !_activeSeds[sedId]
     setActiveSeds(newActiveSeds)
   }
 
-  const itemsPerPageChanged = (e: any) => {
+  const itemsPerPageChanged = (e: any): void => {
     standardLogger('buc.edit.tools.P5000.itemsPerPage.select', { value: e.target.value })
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
@@ -210,43 +234,43 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
       <SEDP5000Container>
         <SEDP5000Header>
           <SEDP5000Checkboxes>
-            {Object.keys(activeSeds).map(sedId => {
+            {Object.keys(_activeSeds).map(sedId => {
               const sender: SedSender | undefined = getSedSender(sedId)
               return (
-                <>
-                  <Checkbox
-                    key={sedId}
-                    data-test-id={'checkbox-' + sedId}
-                    checked={activeSeds[sedId]}
-                    onChange={() => changeActiveSed(sedId)}
-                    label={(
-                      <CheckboxLabel>
-                        <span>{t('buc:form-dateP5000', { date: sender?.date })}</span>
-                        <SeparatorSpan>-</SeparatorSpan>
-                        {sender ? (
-                          <Sender>
-                            <Flag
-                              type='circle'
-                              size='XS'
-                              country={sender?.country}
-                              label={sender?.countryLabel}
-                            />
-                            <span>{sender?.countryLabel}</span>
-                            <SeparatorSpan>-</SeparatorSpan>
-                            <span>{sender?.institution}</span>
-                          </Sender>
-                        ) : sedId}
-                        {emptyPeriodReport[sedId] && (
-                          <>
-                            <HorizontalSeparatorDiv data-size='0.5' />
-                            <WarningCircle />
-                          </>
-                        )}
-                      </CheckboxLabel>
-                    )}
-                  />
-                  <VerticalSeparatorDiv data-size='0.5' />
-                </>
+                <CustomCheckbox
+                  data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                  checked={_activeSeds[sedId]}
+                  key={sedId}
+                  id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                  onChange={() => changeActiveSed(sedId)}
+                  label={(
+                    <CheckboxLabel>
+                      <span>
+                        {t('buc:form-dateP5000', { date: sender?.date })}
+                      </span>
+                      <SeparatorSpan>-</SeparatorSpan>
+                      {sender ? (
+                        <Sender>
+                          <Flag
+                            country={sender?.country}
+                            label={sender?.countryLabel}
+                            size='XS'
+                            type='circle'
+                          />
+                          <span>{sender?.countryLabel}</span>
+                          <SeparatorSpan>-</SeparatorSpan>
+                          <span>{sender?.institution}</span>
+                        </Sender>
+                      ) : sedId}
+                      {emptyPeriodReport[sedId] && (
+                        <>
+                          <HorizontalSeparatorDiv data-size='0.5' />
+                          <WarningCircle />
+                        </>
+                      )}
+                    </CheckboxLabel>
+                  )}
+                />
               )
             })}
           </SEDP5000Checkboxes>
@@ -262,11 +286,11 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
               </MarginDiv>
             )}
             <CustomSelect
-              id='itemsPerPage'
               bredde='l'
+              id='itemsPerPage'
               label={t('ui:itemsPerPage')}
-              value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
               onChange={itemsPerPageChanged}
+              value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
             >
               <option value='15'>15</option>
               <option value='20'>20</option>
@@ -286,7 +310,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
             standardLogger('buc.edit.tools.P5000.sort', { sort: sort })
             setTableSort(sort)
           }}
-          itemsPerPage={itemsPerPage}
+          itemsPerPage={_itemsPerPage}
           labels={labels}
           compact
           columns={[
@@ -323,14 +347,14 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
           <div ref={componentRef} id='printJS-form'>
             <PrintableTableSorter
               // important to it re-renders when sorting changes
-              key={JSON.stringify(tableSort)}
+              key={JSON.stringify(_tableSort)}
               className='print-version'
               items={items}
               animatable={false}
               searchable={false}
               selectable={false}
               sortable
-              sort={tableSort}
+              sort={_tableSort}
               itemsPerPage={9999}
               labels={labels}
               compact
@@ -369,13 +393,13 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
         <ButtonsDiv>
           <ReactToPrint
             documentTitle='P5000'
+            onAfterPrint={afterPrintOut}
             onBeforePrint={beforePrintOut}
             onBeforeGetContent={prepareContent}
-            onAfterPrint={afterPrintOut}
             trigger={() =>
               <HighContrastKnapp
-                disabled={printDialogOpen}
-                spinner={printDialogOpen}
+                disabled={_printDialogOpen}
+                spinner={_printDialogOpen}
               >
                 {t('ui:print')}
               </HighContrastKnapp>}
@@ -390,6 +414,8 @@ const SEDP5000: React.FC<SEDP5000Props> = ({ highContrast, locale, seds, sedCont
 }
 
 SEDP5000.propTypes = {
+  highContrast: PT.bool.isRequired,
+  locale: PT.oneOf<AllowedLocaleString>(['en', 'nb']).isRequired,
   seds: SedsPropType.isRequired,
   sedContent: PT.any.isRequired
 }

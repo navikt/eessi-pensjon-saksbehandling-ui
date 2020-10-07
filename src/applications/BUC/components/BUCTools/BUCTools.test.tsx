@@ -1,8 +1,9 @@
 import { getTagList, saveBucsInfo, getSed } from 'actions/buc'
 import { Buc, BucInfo, BucsInfo, Comment, Comments, SedContentMap, TagList } from 'declarations/buc.d'
-import { AllowedLocaleString, FeatureToggles } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/types'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockBucs from 'mocks/buc/bucs'
 import mockTagList from 'mocks/buc/tagsList'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
@@ -20,10 +21,7 @@ jest.mock('actions/buc', () => ({
 
 const defaultSelector = {
   bucsInfo: mockBucsInfo as BucsInfo,
-  featureToggles: {
-    P5000_VISIBLE: true,
-    P_BUC_02_VISIBLE: true
-  } as FeatureToggles,
+  featureToggles: mockFeatureToggles,
   highContrast: false,
   loading: {},
   locale: 'nb' as AllowedLocaleString,

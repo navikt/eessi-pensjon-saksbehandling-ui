@@ -111,6 +111,11 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     })).toEqual('Landspesifikk informasjon til ukjent land')
   })
 
+  it('labelSorter()', () => {
+    expect(BUCUtils.labelSorter({ label: 'A', value: 'B' }, { label: 'B', value: 'A' })).toEqual(CORRECT_ORDER)
+    expect(BUCUtils.labelSorter({ label: 'B', value: 'B' }, { label: 'A', value: 'A' })).toEqual(WRONG_ORDER_WILL_SWAP)
+  })
+
   it('renderAvdodName()', () => {
     expect(renderAvdodName(personAvdod(1)![0], t)).toEqual('FRODIG BLYANT - 12345678902 (Repa)')
   })

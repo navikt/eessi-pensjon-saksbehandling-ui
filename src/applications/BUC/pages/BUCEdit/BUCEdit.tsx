@@ -264,7 +264,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       >
         <SEDNewDiv>
           <SEDStart
-            aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} setMode={setMode} onSedCreated={() => {
+            aktoerId={aktoerId} bucs={bucs!} currentBuc={currentBuc} onSedCreated={() => {
               setStartSed('close')
             }}
             onSedCancelled={() => setStartSed('close')}

@@ -1,5 +1,5 @@
 import { JoarkBrowserItem } from 'declarations/joark.d'
-import { AllowedLocaleString, PersonAvdod, T } from 'declarations/types.d'
+import { AllowedLocaleString, Option, PersonAvdod, T } from 'declarations/types.d'
 import CountryData, { Country, CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
@@ -48,6 +48,8 @@ export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): stri
   const countryLabel: Country | undefined = CountryData.getCountryInstance(locale).findByValue(re[1])
   return t('buc:buc-P3000_XX', { country: countryLabel?.label || t('ui:unknownLand') })
 }
+
+export const labelSorter = (a: Option, b: Option) => a.label.localeCompare(b.label)
 
 export const renderAvdodName = (avdod: PersonAvdod | undefined, t: Function) => {
   return avdod?.fornavn +

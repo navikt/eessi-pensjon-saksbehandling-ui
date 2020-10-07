@@ -1,6 +1,8 @@
 import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
 import { JoarkBrowserItems } from 'declarations/joark'
 
+export type RawList = Array<string>
+
 export interface Date {
   year: number
   month: string
@@ -154,11 +156,9 @@ export type Comments = Array<Comment>
 
 export interface BucInfo {
   avdod ?: string
-  tags?: Array<string> | null
+  tags?: RawList | null
   comment?: Comments | string | null
 }
-
-export type BucsInfoList = Array<string>
 
 export interface BucsInfo {
   bucs: {
@@ -224,11 +224,13 @@ export interface SavingAttachmentsJob {
   remaining: JoarkBrowserItems
 }
 
-export type SubjectAreaList = Array<string>
-export type SEDList = Array<string>
-export type BUCList = Array<string>
-export type TagList = Array<string>
-export type CountryList = Array<string>
+export type SubjectAreaList = RawList
+export type SEDList = RawList
+export type BUCList = RawList
+export type BucsInfoList = RawList
+export type TagList = RawList
+export type CountryRawList = RawList
+export type InstitutionRawList = RawList
 
 export interface SaveBucsInfoProps {
   aktoerId: string
@@ -238,7 +240,7 @@ export interface SaveBucsInfoProps {
   };
   bucsInfo: BucsInfo
   comment?: string
-  tags?: Array<string>
+  tags?: RawList
 }
 
 export interface SEDP5000Payload {

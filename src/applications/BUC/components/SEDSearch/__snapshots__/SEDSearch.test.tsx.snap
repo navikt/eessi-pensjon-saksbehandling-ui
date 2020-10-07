@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications/BUC/components/SEDSearch/SEDSearch Renders 1`] = `
-.c11 .skjemaelement__feilmelding .multipleSelect__control {
+exports[`applications/BUC/components/SEDSearch/SEDSearch Render: match snapshot 1`] = `
+.c13 .skjemaelement__feilmelding .multipleSelect__control {
   border: 1px solid #BA3A26;
 }
 
-ui-fss.g4[id="c10"] {
-  content: "c11,";
+ui-fss.g4[id="c12"] {
+  content: "c13,";
 }
 
 .c2 {
@@ -19,6 +19,19 @@ ui-fss.g4[id="c10"] {
 
 ui-fss.g22[id="c0"] {
   content: "c2,";
+}
+
+.c8 input {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: #78706A;
+  background-color: #FFFFFF;
+  color: #3E3832;
+}
+
+ui-fss.g23[id="c6"] {
+  content: "c8,";
 }
 
 .c3 {
@@ -51,36 +64,30 @@ ui-fss.g31[id="c4"] {
   content: "c5,";
 }
 
-.c7 {
+.c9 {
   margin-right: 0.5rem;
   margin-bottom: 0.25rem !important;
   margin-left: 0.25rem;
 }
 
-.c7 .skjemaelement__label {
+.c9 .skjemaelement__label {
   display: none;
 }
 
-.c7 .skjemaelement__input {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #78706A;
-  background: #FFFFFF;
-}
-
-ui-fss.g32[id="c6"] {
-  content: "c7,";
-}
-
-.c9 .skjemaelement__label {
-  margin-bottom: 0px !important;
-}
-
-ui-fss.g33[id="c8"] {
+ui-fss.g32[id="c7"] {
   content: "c9,";
 }
 
+.c11 .skjemaelement__label {
+  margin-bottom: 0px !important;
+}
+
+ui-fss.g33[id="c10"] {
+  content: "c11,";
+}
+
 <SEDSearch
+  highContrast={false}
   onSearch={[MockFunction]}
   onStatusSearch={[MockFunction]}
 >
@@ -260,9 +267,10 @@ ui-fss.g33[id="c8"] {
             <div
               className="c4 c5"
             >
-              <Styled(Input)
+              <Styled(Styled(Input))
                 bredde="fullbredde"
                 data-test-id="a-buc-c-sedsearch__query-input-id"
+                id="a-buc-c-sedsearch__query-input-id"
                 label=""
                 onChange={[Function]}
                 placeholder="buc:form-filterSED"
@@ -270,21 +278,22 @@ ui-fss.g33[id="c8"] {
               >
                 <Input
                   bredde="fullbredde"
-                  className="c6 c7"
+                  className="c6 c7 c8 c9"
                   data-test-id="a-buc-c-sedsearch__query-input-id"
+                  id="a-buc-c-sedsearch__query-input-id"
                   label=""
                   onChange={[Function]}
                   placeholder="buc:form-filterSED"
                   value=""
                 >
                   <div
-                    className="skjemaelement c6 c7"
+                    className="skjemaelement c6 c7 c8 c9"
                   >
                     <input
                       aria-invalid={false}
                       className="skjemaelement__input input--fullbredde"
                       data-test-id="a-buc-c-sedsearch__query-input-id"
-                      id="2131419622-2483-21516-06746-22431831523361"
+                      id="a-buc-c-sedsearch__query-input-id"
                       onChange={[Function]}
                       placeholder="buc:form-filterSED"
                       type="text"
@@ -292,7 +301,7 @@ ui-fss.g33[id="c8"] {
                     />
                   </div>
                 </Input>
-              </Styled(Input)>
+              </Styled(Styled(Input))>
             </div>
           </styled.div>
           <styled.div>
@@ -303,6 +312,8 @@ ui-fss.g33[id="c8"] {
                 ariaLabel="buc:form-searchForStatus"
                 data-test-id="a-buc-c-sedsearch__status-select-id"
                 hideSelectedOptions={false}
+                highContrast={false}
+                id="a-buc-c-sedsearch__status-select-id"
                 label=""
                 onSelect={[Function]}
                 options={
@@ -330,9 +341,11 @@ ui-fss.g33[id="c8"] {
               >
                 <MultipleSelect
                   ariaLabel="buc:form-searchForStatus"
-                  className="c8 c9"
+                  className="c10 c11"
                   data-test-id="a-buc-c-sedsearch__status-select-id"
                   hideSelectedOptions={false}
+                  highContrast={false}
+                  id="a-buc-c-sedsearch__status-select-id"
                   label=""
                   onSelect={[Function]}
                   options={
@@ -519,14 +532,14 @@ ui-fss.g33[id="c8"] {
                     }
                   >
                     <styled.div
-                      className="c8 c9"
+                      className="c10 c11"
                     >
                       <div
-                        className="c10 c11 c8 c9"
+                        className="c12 c13 c10 c11"
                       >
                         <label
                           className="skjemaelement__label"
-                          htmlFor="295883254-6946-04697-5200-0071065278317"
+                          htmlFor="a-buc-c-sedsearch__status-select-id"
                         />
                         <StateManager
                           animatedComponents={true}
@@ -568,7 +581,7 @@ ui-fss.g33[id="c8"] {
                           defaultValue={null}
                           disabled={false}
                           hideSelectedOptions={false}
-                          inputId={null}
+                          inputId="a-buc-c-sedsearch__status-select-id"
                           isLoading={false}
                           isMulti={true}
                           menuPortalTarget={<body />}
@@ -815,7 +828,7 @@ ui-fss.g33[id="c8"] {
                             getOptionLabel={[Function]}
                             getOptionValue={[Function]}
                             hideSelectedOptions={false}
-                            inputId={null}
+                            inputId="a-buc-c-sedsearch__status-select-id"
                             inputValue=""
                             isDisabled={false}
                             isLoading={false}
@@ -1121,7 +1134,7 @@ ui-fss.g33[id="c8"] {
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
                                   "hideSelectedOptions": false,
-                                  "inputId": null,
+                                  "inputId": "a-buc-c-sedsearch__status-select-id",
                                   "inputValue": "",
                                   "isDisabled": false,
                                   "isLoading": false,
@@ -1473,7 +1486,7 @@ ui-fss.g33[id="c8"] {
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
                                         "hideSelectedOptions": false,
-                                        "inputId": null,
+                                        "inputId": "a-buc-c-sedsearch__status-select-id",
                                         "inputValue": "",
                                         "isDisabled": false,
                                         "isLoading": false,
@@ -1834,7 +1847,7 @@ ui-fss.g33[id="c8"] {
                                               "getOptionLabel": [Function],
                                               "getOptionValue": [Function],
                                               "hideSelectedOptions": false,
-                                              "inputId": null,
+                                              "inputId": "a-buc-c-sedsearch__status-select-id",
                                               "inputValue": "",
                                               "isDisabled": false,
                                               "isLoading": false,
@@ -2160,7 +2173,7 @@ ui-fss.g33[id="c8"] {
                                                 "getOptionLabel": [Function],
                                                 "getOptionValue": [Function],
                                                 "hideSelectedOptions": false,
-                                                "inputId": null,
+                                                "inputId": "a-buc-c-sedsearch__status-select-id",
                                                 "inputValue": "",
                                                 "isDisabled": false,
                                                 "isLoading": false,
@@ -2484,7 +2497,7 @@ ui-fss.g33[id="c8"] {
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
                                                   "hideSelectedOptions": false,
-                                                  "inputId": null,
+                                                  "inputId": "a-buc-c-sedsearch__status-select-id",
                                                   "inputValue": "",
                                                   "isDisabled": false,
                                                   "isLoading": false,
@@ -2833,7 +2846,7 @@ ui-fss.g33[id="c8"] {
                                                         "getOptionLabel": [Function],
                                                         "getOptionValue": [Function],
                                                         "hideSelectedOptions": false,
-                                                        "inputId": null,
+                                                        "inputId": "a-buc-c-sedsearch__status-select-id",
                                                         "inputValue": "",
                                                         "isDisabled": false,
                                                         "isLoading": false,
@@ -3162,7 +3175,7 @@ ui-fss.g33[id="c8"] {
                                                           "getOptionLabel": [Function],
                                                           "getOptionValue": [Function],
                                                           "hideSelectedOptions": false,
-                                                          "inputId": null,
+                                                          "inputId": "a-buc-c-sedsearch__status-select-id",
                                                           "inputValue": "",
                                                           "isDisabled": false,
                                                           "isLoading": false,
@@ -3510,7 +3523,7 @@ ui-fss.g33[id="c8"] {
                                                               "getOptionLabel": [Function],
                                                               "getOptionValue": [Function],
                                                               "hideSelectedOptions": false,
-                                                              "inputId": null,
+                                                              "inputId": "a-buc-c-sedsearch__status-select-id",
                                                               "inputValue": "",
                                                               "isDisabled": false,
                                                               "isLoading": false,
@@ -3805,7 +3818,7 @@ ui-fss.g33[id="c8"] {
                                                     autoCorrect="off"
                                                     cx={[Function]}
                                                     getStyles={[Function]}
-                                                    id="react-select-2-input"
+                                                    id="a-buc-c-sedsearch__status-select-id"
                                                     in={true}
                                                     innerRef={[Function]}
                                                     isDisabled={false}
@@ -3861,7 +3874,7 @@ ui-fss.g33[id="c8"] {
                                                         "getOptionLabel": [Function],
                                                         "getOptionValue": [Function],
                                                         "hideSelectedOptions": false,
-                                                        "inputId": null,
+                                                        "inputId": "a-buc-c-sedsearch__status-select-id",
                                                         "inputValue": "",
                                                         "isDisabled": false,
                                                         "isLoading": false,
@@ -4120,7 +4133,7 @@ ui-fss.g33[id="c8"] {
                                                       autoCorrect="off"
                                                       cx={[Function]}
                                                       getStyles={[Function]}
-                                                      id="react-select-2-input"
+                                                      id="a-buc-c-sedsearch__status-select-id"
                                                       innerRef={[Function]}
                                                       isDisabled={false}
                                                       isHidden={false}
@@ -4173,7 +4186,7 @@ ui-fss.g33[id="c8"] {
                                                           "getOptionLabel": [Function],
                                                           "getOptionValue": [Function],
                                                           "hideSelectedOptions": false,
-                                                          "inputId": null,
+                                                          "inputId": "a-buc-c-sedsearch__status-select-id",
                                                           "inputValue": "",
                                                           "isDisabled": false,
                                                           "isLoading": false,
@@ -4449,7 +4462,7 @@ ui-fss.g33[id="c8"] {
                                                             autoCorrect="off"
                                                             className="multipleSelect__input"
                                                             disabled={false}
-                                                            id="react-select-2-input"
+                                                            id="a-buc-c-sedsearch__status-select-id"
                                                             injectStyles={true}
                                                             inputRef={[Function]}
                                                             inputStyle={
@@ -4488,7 +4501,7 @@ ui-fss.g33[id="c8"] {
                                                                 autoComplete="off"
                                                                 autoCorrect="off"
                                                                 disabled={false}
-                                                                id="react-select-2-input"
+                                                                id="a-buc-c-sedsearch__status-select-id"
                                                                 onBlur={[Function]}
                                                                 onChange={[Function]}
                                                                 onFocus={[Function]}
@@ -4611,7 +4624,7 @@ ui-fss.g33[id="c8"] {
                                               "getOptionLabel": [Function],
                                               "getOptionValue": [Function],
                                               "hideSelectedOptions": false,
-                                              "inputId": null,
+                                              "inputId": "a-buc-c-sedsearch__status-select-id",
                                               "inputValue": "",
                                               "isDisabled": false,
                                               "isLoading": false,
@@ -4953,7 +4966,7 @@ ui-fss.g33[id="c8"] {
                                                     "getOptionLabel": [Function],
                                                     "getOptionValue": [Function],
                                                     "hideSelectedOptions": false,
-                                                    "inputId": null,
+                                                    "inputId": "a-buc-c-sedsearch__status-select-id",
                                                     "inputValue": "",
                                                     "isDisabled": false,
                                                     "isLoading": false,
@@ -5306,7 +5319,7 @@ ui-fss.g33[id="c8"] {
                                                     "getOptionLabel": [Function],
                                                     "getOptionValue": [Function],
                                                     "hideSelectedOptions": false,
-                                                    "inputId": null,
+                                                    "inputId": "a-buc-c-sedsearch__status-select-id",
                                                     "inputValue": "",
                                                     "isDisabled": false,
                                                     "isLoading": false,
