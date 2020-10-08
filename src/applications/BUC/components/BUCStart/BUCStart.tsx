@@ -337,7 +337,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 id='a-buc-c-bucstart__subjectarea-select-id'
                 isLoading={loading.gettingSubjectAreaList}
                 isSearchable
-                menuPortalTarget={document.body}
+                menuPortalTarget={document.getElementById('main')}
                 onChange={onSubjectAreaChange}
                 options={renderOptions(subjectAreaList)}
                 placeholder={t(loading.gettingSubjectAreaList ? 'buc:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
@@ -355,7 +355,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 id='a-buc-c-bucstart__buc-select-id'
                 isLoading={loading.gettingBucList}
                 isSearchable
-                menuPortalTarget={document.body}
+                menuPortalTarget={document.getElementById('main')}
                 onChange={onBucChange}
                 options={renderOptions(bucList)}
                 placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
@@ -372,7 +372,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   feil={_validation.avdod ? t(_validation.avdod.feilmelding) : null}
                   highContrast={highContrast}
                   isSearchable
-                  menuPortalTarget={document.body}
+                  menuPortalTarget={document.getElementById('main')}
                   onChange={onAvdodChange}
                   options={avdodOptions}
                   placeholder={t('buc:form-chooseAvdod')}
@@ -405,7 +405,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               )}
               onSelect={onTagsChange}
               options={tagObjectList}
-              menuPortalTarget={document.body}
+              menuPortalTarget={document.getElementById('main')}
               placeholder={t(loading.gettingTagList ? 'buc:loading-tagList' : 'buc:form-tagPlaceholder')}
               values={_tags}
             />
