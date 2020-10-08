@@ -2,10 +2,21 @@ import { fetchSingleBuc } from 'actions/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import { Server, WebSocket } from 'mock-socket'
+import Popover from 'nav-frontend-popover'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import BucWebSocket, { BucWebSocketProps } from './WebSocket'
-jest.mock('nav-frontend-popover', () => ({ children }: any) => (<div className='mock-popover'>{children}</div>))
+import BucWebSocket, { BUCWebsocketDiv, BucWebSocketProps } from './WebSocket'
+
+jest.mock('nav-frontend-popover', () => ({
+  __esModule: true, // this property makes it work
+  default: ({ children }: any) => (
+    <div className='mock-popover'>{children}</div>
+  ),
+  PopoverOrientering: {
+    Under: 'Under'
+  }
+}))
+
 jest.mock('constants/urls', () => ({
   WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
 }))
@@ -21,6 +32,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
   }
   const mockServer: Server = new Server('ws://localhost:8888')
   let mockSocket: WebSocket
+
   mockServer.on('connection', socket => {
     socket.on('message', data => {
       socket.send(JSON.stringify({ data: data, subscriptions: true }))
@@ -36,16 +48,16 @@ describe('applications/BUC/websocket/WebSocket', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: not empty', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-websocket')).toBeTruthy()
-    expect(wrapper.exists('.mock-popover')).toBeTruthy()
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.exists(BUCWebsocketDiv)).toBeTruthy()
+    expect(wrapper.exists(Popover)).toBeTruthy()
   })
 
-  it('Connects in a while', async (done) => {
+  it('Handling: Connects in a while', async (done) => {
     await act(async () => {
       await new Promise(() => {
         setTimeout(() => {
@@ -63,7 +75,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
     })
   })
 
-  it('Replies to messages', async (done) => {
+  it('Handling: replies to messages', async (done) => {
     await new Promise(() => {
       setTimeout(() => {
         mockSocket.send(JSON.stringify({ bucUpdated: { caseId: '123' } }))
@@ -79,29 +91,29 @@ describe('applications/BUC/websocket/WebSocket', () => {
     })
   })
 
-  it('error connection', async (done) => {
-    expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: CONNECTED')
+  it('Handling: error connection', async (done) => {
+    expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: CONNECTED')
     act(() => {
       mockServer.simulate('error')
     })
     await new Promise(() => {
       setTimeout(() => {
         wrapper.update()
-        expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: ERROR')
+        expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: ERROR')
         done()
       }, 500)
     })
   })
 
-  it('close connection', async (done) => {
-    expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: ERROR')
+  it('Handling: close connection', async (done) => {
+    expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: ERROR')
     act(() => {
       mockSocket.close()
     })
     await new Promise(() => {
       setTimeout(() => {
         wrapper.update()
-        expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: NOTCONNECTED')
+        expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: NOTCONNECTED')
         done()
       }, 500)
     })

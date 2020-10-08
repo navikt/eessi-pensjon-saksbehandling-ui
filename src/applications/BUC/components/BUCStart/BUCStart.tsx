@@ -19,7 +19,7 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
-import { Buc, BUCList, Bucs, BucsInfo, SaveBucsInfoProps, SubjectAreaList, Tag, TagList, Tags } from 'declarations/buc'
+import { Buc, BUCRawList, Bucs, BucsInfo, SaveBucsInfoProps, SubjectAreaRawList, Tag, TagRawList, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import {
   AllowedLocaleString,
@@ -53,7 +53,7 @@ export interface BUCStartProps {
 }
 
 export interface BUCStartSelector {
-  bucList?: BUCList | undefined
+  bucList?: BUCRawList | undefined
   bucParam: string | undefined
   bucs: Bucs | undefined
   bucsInfo?: BucsInfo | undefined
@@ -66,8 +66,8 @@ export interface BUCStartSelector {
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string
-  subjectAreaList?: SubjectAreaList | undefined
-  tagList?: TagList | undefined
+  subjectAreaList?: SubjectAreaRawList | undefined
+  tagList?: TagRawList | undefined
 }
 
 const mapState = (state: State): BUCStartSelector => ({

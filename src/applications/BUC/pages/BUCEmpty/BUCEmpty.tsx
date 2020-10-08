@@ -21,22 +21,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
 
-export interface BUCEmptySelector {
-  rinaUrl: RinaUrl | undefined
-  highContrast: boolean
-}
-
-const mapState = (state: State): BUCEmptySelector => ({
-  highContrast: state.ui.highContrast,
-  rinaUrl: state.buc.rinaUrl
-})
-
-export interface BUCEmptyProps {
-  aktoerId?: string
-  sakId?: string
-}
-
-const BUCEmptyDiv = styled.div`
+export const BUCEmptyDiv = styled.div`
   display: flex;
   border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
   border-style: solid;
@@ -48,7 +33,7 @@ const BUCEmptyDiv = styled.div`
   padding: 2rem;
   background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
-const BUCEmptyArtwork = styled.div`
+export const BUCEmptyArtwork = styled.div`
   position: relative;
   height: 300px;
   width: 250px;
@@ -86,6 +71,21 @@ const BUCEmptyForm = styled.div`
     margin-bottom: 0px !important
   }
 `
+
+export interface BUCEmptySelector {
+  rinaUrl: RinaUrl | undefined
+  highContrast: boolean
+}
+
+const mapState = (state: State): BUCEmptySelector => ({
+  highContrast: state.ui.highContrast,
+  rinaUrl: state.buc.rinaUrl
+})
+
+export interface BUCEmptyProps {
+  aktoerId?: string
+  sakId?: string
+}
 
 const BUCEmpty: React.FC<BUCEmptyProps> = ({
   aktoerId, sakId
@@ -140,12 +140,13 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         {!aktoerId && (
           <BUCEmptyForm>
             <HighContrastInput
-              data-test-id='a-buc-p-bucempty__aktoerid-input-id'
-              label={t('ui:aktoerId')}
-              value={_aktoerId || ''}
               bredde='fullbredde'
-              onChange={onAktoerIdChange}
+              data-test-id='a-buc-p-bucempty__aktoerid-input-id'
               feil={validation || false}
+              id='a-buc-p-bucempty__aktoerid-input-id'
+              label={t('ui:aktoerId')}
+              onChange={onAktoerIdChange}
+              value={_aktoerId || ''}
             />
             <HorizontalSeparatorDiv />
             <HighContrastHovedknapp
@@ -159,12 +160,13 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         {!sakId && (
           <BUCEmptyForm>
             <HighContrastInput
-              data-test-id='a-buc-p-bucempty__sakid-input-id'
-              label={t('buc:form-caseId')}
-              value={_sakId || ''}
               bredde='fullbredde'
-              onChange={onSakIdChange}
+              data-test-id='a-buc-p-bucempty__sakid-input-id'
               feil={validation || false}
+              id='a-buc-p-bucempty__sakid-input-id'
+              label={t('buc:form-caseId')}
+              onChange={onSakIdChange}
+              value={_sakId || ''}
             />
             <HorizontalSeparatorDiv />
             <HighContrastKnapp

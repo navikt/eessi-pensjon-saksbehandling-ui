@@ -10,6 +10,7 @@ import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import classNames from 'classnames'
+import { fadeIn, fadeOut } from 'components/keyframes'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
@@ -21,43 +22,12 @@ import { timeDiffLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 const transition = 1000
 const timeout = 1001
 const zoomOutTransition = 100
 
-const ContainerDiv = styled.div`
-  width: 100%;
-  display: block;
-  overflow: hidden;
-  will-change: transform;
-  &.shrink {
-    transform: scale(0.98);
-    transform-origin: center center;
-    transition: transform ${zoomOutTransition}ms ease-in;
-  }
-  &:not(.shrink) {
-    transform: scale(1);
-    transform-origin: center center;
-    transition: transform ${zoomOutTransition}ms ease-out;
-  }
-`
-const WindowDiv = styled.div`
-  width: 200%;
-  display: flex;
-  overflow: hidden;
-`
-const fadeIn = keyframes`
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 1; }
-`
-const fadeOut = keyframes`
-  0% { opacity: 1; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
-`
 const AnimatableDiv = styled.div`
   flex: 1;
   background: inherit;
@@ -98,7 +68,22 @@ const AnimatableDiv = styled.div`
     transform: translateX(20%);
   }
 `
-
+export const ContainerDiv = styled.div`
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  will-change: transform;
+  &.shrink {
+    transform: scale(0.98);
+    transform-origin: center center;
+    transition: transform ${zoomOutTransition}ms ease-in;
+  }
+  &:not(.shrink) {
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform ${zoomOutTransition}ms ease-out;
+  }
+`
 const WaitingPanelDiv = styled.div`
   flex: 1;
   display: flex;
@@ -106,6 +91,11 @@ const WaitingPanelDiv = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 50vh;
+`
+export const WindowDiv = styled.div`
+  width: 200%;
+  display: flex;
+  overflow: hidden;
 `
 
 export interface BUCIndexProps {
@@ -156,7 +146,7 @@ export enum Slide {
   B_GOING_TO_RIGHT
 }
 
-const BUCIndexDiv = styled.div``
+export const BUCIndexDiv = styled.div``
 
 export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
@@ -165,6 +155,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   const { aktoerId, bucs, loading, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
+  const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
   const [positionA, setPositionA] = useState<Slide>(Slide.LEFT)
@@ -201,7 +192,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     </div>
   )
 
-  const _setMode = useCallback((newMode: BUCMode, from: string, callback?: any) => {
+  const _setMode = useCallback((newMode: BUCMode, from: string, callback?: () => void) => {
     if (animating) {
       return
     }
@@ -284,11 +275,20 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       setMounted(true)
       if (!aktoerId || !sakId) {
         setContentA(EmptyBuc)
+        setNoParams(true)
       } else {
+        setNoParams(false)
         _setMode('buclist', 'none')
       }
     }
   }, [dispatch, aktoerId, EmptyBuc, _mounted, rinaUrl, sakId, _setMode, WaitingDiv])
+
+  useEffect(() => {
+    if (_mounted && _noParams && sakId && aktoerId) {
+      setNoParams(false)
+      setContentA(<BUCList setMode={_setMode} />)
+    }
+  }, [aktoerId, sakId, _mounted, _noParams, _setMode])
 
   useEffect(() => {
     return () => {

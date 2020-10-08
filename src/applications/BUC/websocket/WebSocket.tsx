@@ -1,18 +1,19 @@
 /* global WebSocket */
 
 import { fetchSingleBuc } from 'actions/buc'
-import classNames from 'classnames'
+import FilledNetworkConnecting from 'assets/icons/filled-version-network-connecting'
 import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
+import LineCheckCircle from 'assets/icons/line-version-check-circle-2'
+import classNames from 'classnames'
+import { rotating } from 'components/keyframes'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import _ from 'lodash'
+import Popover, { PopoverOrientering } from 'nav-frontend-popover'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import Popover, { PopoverOrientering } from 'nav-frontend-popover'
-import LineCheckCircle from 'assets/icons/line-version-check-circle-2'
-import FilledNetworkConnecting from 'assets/icons/filled-version-network-connecting'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 export interface BucWebSocketProps {
   fnr: string | undefined
@@ -30,15 +31,7 @@ interface EESSIPen {
 }
 interface WindowEESSIPen extends Window, EESSIPen {}
 
-const rotating = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`
-const BUCWebsocketDiv = styled.div`
+export const BUCWebsocketDiv = styled.div`
   display: flex;
   button {
     width: 24px;
@@ -49,10 +42,10 @@ const BUCWebsocketDiv = styled.div`
     display: block;
   }
   .info {
-    color: @white;
+    color: white;
   }
   .error {
-    color: @redError;
+    color: red;
   }
   .rotating {
     animation: ${rotating} 2s linear infinite;
@@ -62,13 +55,14 @@ const BUCWebsocketDiv = styled.div`
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
   fnr, avdodfnr
 }: BucWebSocketProps): JSX.Element => {
-  const [status, setStatus] = useState<string>(NOTCONNECTED)
-  const [popoverOpen, setPopoverOpen] = useState<boolean>(false)
-  const [popoverAnchor, setPopoverAnchor] = useState<HTMLElement | undefined>(undefined)
-  const [log, setLog] = useState<Array<JSX.Element>>([])
-  const [simpleLog, setSimpleLog] = useState<Array<string>>([])
-  const [websocketConnection, setWebsocketConnection] = useState(undefined)
   const dispatch = useDispatch()
+
+  const [_log, setLog] = useState<Array<JSX.Element>>([])
+  const [_popoverOpen, setPopoverOpen] = useState<boolean>(false)
+  const [_popoverAnchor, setPopoverAnchor] = useState<HTMLElement | undefined>(undefined)
+  const [_simpleLog, setSimpleLog] = useState<Array<string>>([])
+  const [_status, setStatus] = useState<string>(NOTCONNECTED)
+  const [_websocketConnection, setWebsocketConnection] = useState(undefined)
 
   const onMessageHandler = useCallback((e: MessageEvent) => {
     setStatus(RECEIVING)
@@ -90,7 +84,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   }, [dispatch])
 
   const websocketSubscribe = useCallback((connection) => {
-    const ids = []
+    const ids:Array<string> = []
     if (fnr) {
       ids.push(fnr)
     }
@@ -131,15 +125,15 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   }, [onMessageHandler, websocketSubscribe])
 
   useEffect(() => {
-    if (!websocketConnection && (fnr || avdodfnr)) {
+    if (!_websocketConnection && (fnr || avdodfnr)) {
       pushToLog('info', 'Got fnr ' + fnr + ' avdodfnr ' + avdodfnr + ', starting websocket connection')
       setWebsocketConnection(connectToWebSocket())
     }
-  }, [connectToWebSocket, websocketConnection, fnr, avdodfnr])
+  }, [connectToWebSocket, _websocketConnection, fnr, avdodfnr])
 
   const pushToLog = (level: string, message: string) => {
-    const now = new Date()
-    const line = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ': ' + message
+    const now: Date = new Date()
+    const line: string = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ': ' + message
     if (!IS_TEST) {
       /* istanbul ignore next */
       if (level === 'error') {
@@ -153,7 +147,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   }
 
   const getAnchor = () => {
-    switch (status) {
+    switch (_status) {
       case CONNECTED:
         return LineCheckCircle
       case NOTCONNECTED:
@@ -169,25 +163,30 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 
   const Icon = getAnchor()
 
-  const handleClick = (e: React.MouseEvent<any>) => {
-    if (!popoverOpen) {
-      console.log(simpleLog.join('\n'))
+  const onIconClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (!_popoverOpen) {
+      console.log(_simpleLog.join('\n'))
     }
-    setPopoverAnchor(popoverOpen ? undefined : e.currentTarget)
-    setPopoverOpen(!popoverOpen)
+    setPopoverAnchor(_popoverOpen ? undefined : e.currentTarget)
+    setPopoverOpen(!_popoverOpen)
   }
 
   return (
-    <BUCWebsocketDiv title={'websocket: ' + status}>
-      <Icon kind={getAnchor()} size={24} onClick={handleClick} />
-      <Popover orientering={PopoverOrientering.Under} ankerEl={popoverAnchor}>{log}</Popover>
+    <BUCWebsocketDiv title={'websocket: ' + _status}>
+      <Icon size={24} onClick={onIconClick} />
+      <Popover
+        orientering={PopoverOrientering.Under}
+        ankerEl={_popoverAnchor}
+      >
+        {_log}
+      </Popover>
     </BUCWebsocketDiv>
   )
 }
 
 BucWebSocket.propTypes = {
-  fnr: PT.string,
-  avdodfnr: PT.string
+  fnr: PT.string.isRequired,
+  avdodfnr: PT.string.isRequired
 }
 
 export default BucWebSocket

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Renders 1`] = `
+exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Render: match snapshot 1`] = `
 .c5 {
   margin-bottom: 1rem;
 }
@@ -222,9 +222,7 @@ ui-fss.g30[id="c6"] {
   content: "c7,";
 }
 
-<BUCEmpty
-  onBUCNew={[MockFunction]}
->
+<BUCEmpty>
   <Component
     theme={
       Object {
@@ -428,6 +426,7 @@ ui-fss.g30[id="c6"] {
               bredde="fullbredde"
               data-test-id="a-buc-p-bucempty__aktoerid-input-id"
               feil={false}
+              id="a-buc-p-bucempty__aktoerid-input-id"
               label="ui:aktoerId"
               onChange={[Function]}
               value=""
@@ -437,6 +436,7 @@ ui-fss.g30[id="c6"] {
                 className="c8 c9"
                 data-test-id="a-buc-p-bucempty__aktoerid-input-id"
                 feil={false}
+                id="a-buc-p-bucempty__aktoerid-input-id"
                 label="ui:aktoerId"
                 onChange={[Function]}
                 value=""
@@ -445,11 +445,11 @@ ui-fss.g30[id="c6"] {
                   className="skjemaelement c8 c9"
                 >
                   <Label
-                    htmlFor="156207387-5239-30547-16153-231652391427826"
+                    htmlFor="a-buc-p-bucempty__aktoerid-input-id"
                   >
                     <label
                       className="skjemaelement__label"
-                      htmlFor="156207387-5239-30547-16153-231652391427826"
+                      htmlFor="a-buc-p-bucempty__aktoerid-input-id"
                     >
                       ui:aktoerId
                     </label>
@@ -458,7 +458,7 @@ ui-fss.g30[id="c6"] {
                     aria-invalid={false}
                     className="skjemaelement__input input--fullbredde"
                     data-test-id="a-buc-p-bucempty__aktoerid-input-id"
-                    id="156207387-5239-30547-16153-231652391427826"
+                    id="a-buc-p-bucempty__aktoerid-input-id"
                     onChange={[Function]}
                     type="text"
                     value=""
@@ -515,6 +515,7 @@ ui-fss.g30[id="c6"] {
               bredde="fullbredde"
               data-test-id="a-buc-p-bucempty__sakid-input-id"
               feil={false}
+              id="a-buc-p-bucempty__sakid-input-id"
               label="buc:form-caseId"
               onChange={[Function]}
               value=""
@@ -524,6 +525,7 @@ ui-fss.g30[id="c6"] {
                 className="c8 c9"
                 data-test-id="a-buc-p-bucempty__sakid-input-id"
                 feil={false}
+                id="a-buc-p-bucempty__sakid-input-id"
                 label="buc:form-caseId"
                 onChange={[Function]}
                 value=""
@@ -532,11 +534,11 @@ ui-fss.g30[id="c6"] {
                   className="skjemaelement c8 c9"
                 >
                   <Label
-                    htmlFor="822621344-6163-9250-7474-36801801620703"
+                    htmlFor="a-buc-p-bucempty__sakid-input-id"
                   >
                     <label
                       className="skjemaelement__label"
-                      htmlFor="822621344-6163-9250-7474-36801801620703"
+                      htmlFor="a-buc-p-bucempty__sakid-input-id"
                     >
                       buc:form-caseId
                     </label>
@@ -545,7 +547,7 @@ ui-fss.g30[id="c6"] {
                     aria-invalid={false}
                     className="skjemaelement__input input--fullbredde"
                     data-test-id="a-buc-p-bucempty__sakid-input-id"
-                    id="822621344-6163-9250-7474-36801801620703"
+                    id="a-buc-p-bucempty__sakid-input-id"
                     onChange={[Function]}
                     type="text"
                     value=""

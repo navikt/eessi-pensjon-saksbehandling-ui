@@ -53,7 +53,7 @@ import {
   Sed,
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile,
-  SEDList,
+  SEDRawList,
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc.d'
@@ -135,7 +135,7 @@ export interface SEDStartSelector {
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
-  sedList: SEDList | undefined
+  sedList: SEDRawList | undefined
   vedtakId: string | undefined
 }
 

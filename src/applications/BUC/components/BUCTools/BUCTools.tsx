@@ -21,7 +21,7 @@ import {
   SedContentMap,
   Seds,
   Tag,
-  TagList,
+  TagRawList,
   Tags,
   ValidBuc
 } from 'declarations/buc'
@@ -84,7 +84,7 @@ export interface BUCToolsSelector {
   loading: Loading
   locale: AllowedLocaleString
   sedContent: SedContentMap
-  tagList?: TagList | undefined
+  tagList?: TagRawList | undefined
 }
 
 const mapState = (state: State): BUCToolsSelector => ({

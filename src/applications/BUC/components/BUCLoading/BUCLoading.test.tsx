@@ -14,13 +14,13 @@ describe('applications/BUC/components/BUCLoading/BUCLoading', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: something', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     // can't do it, markup is always different
     // expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(BUCHeaderDiv)).toBeTruthy()
   })
 })

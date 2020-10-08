@@ -1,5 +1,6 @@
+import * as constants from 'constants/constants'
 import { JoarkBrowserItem } from 'declarations/joark.d'
-import { AllowedLocaleString, Option, PersonAvdod, T } from 'declarations/types.d'
+import { AllowedLocaleString, Option, PersonAvdod, PersonAvdods, PesysContext, T } from 'declarations/types.d'
 import CountryData, { Country, CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
@@ -50,6 +51,21 @@ export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): stri
 }
 
 export const labelSorter = (a: Option, b: Option) => a.label.localeCompare(b.label)
+
+export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvdods | undefined) =>
+  (buc: Buc) => {
+    if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && (
+      // 'NO:NAVAT08' in test environment should be read as a foreign institution
+      buc?.creator?.country === 'NO' && buc?.creator?.institution !== 'NO:NAVAT08'
+    )) {
+      return false
+    }
+    if (buc.type === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST &&
+      personAvdods?.length === 0 && buc?.creator?.country === 'NO') {
+      return false
+    }
+    return true
+  }
 
 export const renderAvdodName = (avdod: PersonAvdod | undefined, t: Function) => {
   return avdod?.fornavn +

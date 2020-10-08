@@ -1,5 +1,5 @@
 import { getTagList, saveBucsInfo, getSed } from 'actions/buc'
-import { Buc, BucInfo, BucsInfo, Comment, Comments, SedContentMap, TagList } from 'declarations/buc.d'
+import { Buc, BucInfo, BucsInfo, Comment, Comments, SedContentMap, TagRawList } from 'declarations/buc.d'
 import { AllowedLocaleString } from 'declarations/types'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
@@ -29,7 +29,7 @@ const defaultSelector = {
     '60578cf8bf9f45a7819a39987c6c8fd4': mockSedP50001,
     '50578cf8bf9f45a7819a39987c6c8fd4': mockSedP50002
   } as SedContentMap,
-  tagList: mockTagList as TagList
+  tagList: mockTagList as TagRawList
 }
 
 const buc: Buc = mockBucs()[0]

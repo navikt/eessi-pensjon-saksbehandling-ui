@@ -13,5 +13,3 @@ export interface ModalContent {
   modalButtons?: Array<ModalButton> |null
   closeButton?: boolean | null
 }
-
-export type AllowedLocaleString = 'en' | 'nb'

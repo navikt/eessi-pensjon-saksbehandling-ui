@@ -224,11 +224,11 @@ export interface SavingAttachmentsJob {
   remaining: JoarkBrowserItems
 }
 
-export type SubjectAreaList = RawList
-export type SEDList = RawList
-export type BUCList = RawList
-export type BucsInfoList = RawList
-export type TagList = RawList
+export type SubjectAreaRawList = RawList
+export type SEDRawList = RawList
+export type BUCRawList = RawList
+export type BucsInfoRawList = RawList
+export type TagRawList = RawList
 export type CountryRawList = RawList
 export type InstitutionRawList = RawList
 

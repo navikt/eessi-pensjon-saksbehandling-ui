@@ -1,23 +1,18 @@
-import {
-  fetchBucsInfo,
-  fetchSingleBuc,
-  getInstitutionsListForBucAndCountry,
-  setCurrentBuc
-} from 'actions/buc'
+import { fetchBucsInfo, fetchSingleBuc, getInstitutionsListForBucAndCountry, setCurrentBuc } from 'actions/buc'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
-import { bucFilter, bucSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
+import { animationClose, animationOpen, slideInFromLeft } from 'components/keyframes'
 import {
   HighContrastKnapp,
   HighContrastLenkepanelBase,
   HighContrastPanel,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
-import * as constants from 'constants/constants'
 import * as storage from 'constants/storage'
 import {
   Buc,
@@ -36,12 +31,73 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { keyframes, ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
+
+export const BUCListDiv = styled.div``
+const BUCListHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px;
+`
+export const BadBucDiv = styled.div`
+  width: 100%;
+  padding: 0rem;
+  .alertstripe--advarsel {
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    border-color: ${({ theme }) => theme.navOransjeDarken20};
+    background-color: ${({ theme }) => theme.navOransjeLighten80};
+    color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
+    div {
+      font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+      line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
+    }
+  }
+  .alertstripe__tekst {
+    max-width: 100% !important;
+  }
+`
+export const BucLenkePanel = styled(HighContrastLenkepanelBase)`
+  transform: translateX(-20px);
+  opacity: 0;
+  animation: ${slideInFromLeft} 0.2s forwards;
+  margin-bottom: 1rem;
+  &.new {
+    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+  }
+  &:hover {
+    border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]};
+  }
+`
+const BUCNewDiv = styled(HighContrastPanel)`
+  padding: 2rem !important;
+`
+export const BUCStartDiv = styled.div`
+  max-height: 0;
+  height: 0%;
+  overflow: hidden;
+  &.close {
+    will-change: max-height, height;
+    max-height: 0;
+    animation: ${animationClose} 400ms ease;
+  }
+  &.open {
+    will-change: max-height, height;
+    max-height: 40em;
+    animation: ${animationOpen} 400ms ease;
+  }
+`
+export const BUCLoadingDiv = styled.div``
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -76,160 +132,56 @@ const mapState = (state: State): BUCListSelector => ({
   pesysContext: state.app.pesysContext
 })
 
-type Country = {country: string, buc: string}
-type CountryList = Array<Country>
-
-const slideInFromLeft = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-const animationOpen = keyframes`
-  0% {
-    height: 0%;
-    max-height: 0;
-  }
-  100% {
-    max-height: 150em;
-    height: 100%;
-  }
-`
-const animationClose = keyframes`
-  0% {
-    max-height: 150em;
-    height: 100%;
-  }
-  100% {
-    max-height: 0;
-    height: 0%;
-  }
-`
-
-const BUCListDiv = styled.div``
-const BUCListHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 40px;
-`
-const BadBucDiv = styled.div`
-  width: 100%;
-  padding: 0rem;
-  .alertstripe--advarsel {
-    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-    border-style: solid;
-    border-color: ${({ theme }) => theme.navOransjeDarken20};
-    background-color: ${({ theme }) => theme.navOransjeLighten80};
-    color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
-    div {
-      font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-      line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    }
-  }
-  .alertstripe__tekst {
-    max-width: 100% !important;
-  }
-`
-const BucLenkePanel = styled(HighContrastLenkepanelBase)`
-  transform: translateX(-20px);
-  opacity: 0;
-  animation: ${slideInFromLeft} 0.2s forwards;
-  margin-bottom: 1rem;
-  &.new {
-    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
-  }
-  &:hover {
-    border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
-    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-    border-style: solid;
-    background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]};
-  }
-`
-const BUCNewDiv = styled(HighContrastPanel)`
-  padding: 2rem !important;
-`
-const BUCStartDiv = styled.div`
-  max-height: 0;
-  height: 0%;
-  overflow: hidden;
-  &.close {
-    will-change: max-height, height;
-    max-height: 0;
-    animation: ${animationClose} 400ms ease;
-  }
-  &.open {
-    will-change: max-height, height;
-    max-height: 40em;
-    animation: ${animationOpen} 400ms ease;
-  }
-`
-
-const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }: BUCListProps): JSX.Element => {
-  const [mounted, setMounted] = useState<boolean>(false)
+const BUCList: React.FC<BUCListProps> = ({
+  setMode, initialBucNew = undefined
+}: BUCListProps): JSX.Element => {
   const {
     aktoerId, bucs, bucsInfo, bucsInfoList, highContrast, institutionList, loading,
     newlyCreatedBuc, personAvdods, pesysContext
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [loggedTime] = useState<Date>(new Date())
-  const [newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
-  const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
+
+  const [_loggedTime] = useState<Date>(new Date())
+  const [_mounted, setMounted] = useState<boolean>(false)
+  const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
+  const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
+  const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
 
   useEffect(() => {
     standardLogger('buc.list.entrance')
     return () => {
-      timeLogger('buc.list.view', loggedTime)
-      timeDiffLogger('buc.list.mouseover', totalTimeWithMouseOver)
+      timeLogger('buc.list.view', _loggedTime)
+      timeDiffLogger('buc.list.mouseover', _totalTimeWithMouseOver)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedTime])
+  }, [_loggedTime])
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
   const onMouseLeave = () => {
-    if (mouseEnterDate) {
-      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
+    if (_mouseEnterDate) {
+      setTotalTimeWithMouseOver(_totalTimeWithMouseOver + (new Date().getTime() - _mouseEnterDate?.getTime()))
     }
   }
 
-  const onBUCNew = (e: React.MouseEvent): void => {
+  const onBUCNew = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
     setNewBucPanelOpen(true)
   }
 
-  const onBUCEdit = (buc: Buc) => {
+  const onBUCEdit = (buc: Buc): void => {
     getSeds(buc.caseId!)
     dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit' as BUCMode, 'forward')
   }
 
-  const getSeds = (bucId: string) => {
+  const getSeds = (bucId: string): void => {
     if (bucs && _.isNil(bucs[bucId].seds)) {
       dispatch(fetchSingleBuc(bucId))
     }
   }
 
-  const pbuc02filter = (buc: Buc): boolean => {
-    if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && (
-      // 'NO:NAVAT08' in test environment should be read as a foreign institution
-      buc?.creator?.country === 'NO' && buc?.creator?.institution !== 'NO:NAVAT08'
-    )) {
-      return false
-    }
-    if (buc.type === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST &&
-      personAvdods?.length === 0 && buc?.creator?.country === 'NO') {
-      return false
-    }
-    return true
-  }
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !loading.gettingBUCinfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
@@ -238,9 +190,9 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
   }, [aktoerId, bucsInfo, bucsInfoList, dispatch, loading])
 
   useEffect(() => {
-    if (!mounted && !_.isNil(bucs)) {
+    if (!_mounted && !_.isNil(bucs)) {
       if (!_.isEmpty(bucs)) {
-        const listOfCountries: CountryList = []
+        const listOfCountries: Array<{country: string, buc: string}> = []
         bucs && Object.keys(bucs).forEach(key => {
           const buc: Buc = bucs[key]
           if (_.isArray(buc.institusjon)) {
@@ -270,7 +222,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
           }
         })
 
-        listOfCountries.forEach((country: Country) => {
+        listOfCountries.forEach((country) => {
           if (institutionList && !_.find(Object.keys(institutionList), country.country)) {
             dispatch(getInstitutionsListForBucAndCountry(country.buc, country.country))
           }
@@ -284,12 +236,11 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
       })
       setMounted(true)
     }
-  }, [institutionList, bucs, dispatch, mounted])
+  }, [institutionList, bucs, dispatch, _mounted])
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCListDiv
-        className='a-buc-p-buclist'
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -297,7 +248,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
           <Undertittel>
             {t('buc:form-buclist')}
           </Undertittel>
-          {!newBucPanelOpen && (
+          {!_newBucPanelOpen && (
             <HighContrastKnapp
               data-amplitude='buc.list.newbuc'
               data-test-id='a-buc-p-buclist__newbuc-button-id'
@@ -309,8 +260,8 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
         </BUCListHeader>
         <VerticalSeparatorDiv />
         <BUCStartDiv className={classNames({
-          open: newBucPanelOpen === true,
-          close: newBucPanelOpen === false
+          open: _newBucPanelOpen === true,
+          close: _newBucPanelOpen === false
         })}
         >
           <BUCNewDiv>
@@ -330,11 +281,11 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
           <VerticalSeparatorDiv />
         </BUCStartDiv>
         {loading.gettingBUCs && (
-          <>
+          <BUCLoadingDiv>
             <BUCLoading />
             <BUCLoading />
             <BUCLoading />
-          </>
+          </BUCLoadingDiv>
         )}
         {bucs === null && (
           <>
@@ -347,7 +298,7 @@ const BUCList: React.FC<BUCListProps> = ({ setMode, initialBucNew = undefined }:
         {!loading.gettingBUCs && !_.isNil(bucs) && (!_.isEmpty(bucs)
           ? Object.keys(bucs).map(key => bucs[key])
             .filter(bucFilter)
-            .filter(pbuc02filter)
+            .filter(pbuc02filter(pesysContext, personAvdods))
             .sort(bucSorter)
             .map((buc: Buc, index: number) => {
               if (buc.error) {

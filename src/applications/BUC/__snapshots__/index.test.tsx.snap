@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications/BUC/index Render: match snapshot 1`] = `
+.c1 {
+  margin-bottom: 1rem;
+}
+
+ui-fss.g15[id="c0"] {
+  content: "c1,";
+}
+
+.c7 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: inherit;
+}
+
+.c7.animate {
+  will-change: transform,opacity;
+  pointer-events: none;
+  -webkit-transition: -webkit-transform 1000ms ease-in-out;
+  -webkit-transition: transform 1000ms ease-in-out;
+  transition: transform 1000ms ease-in-out;
+}
+
+.c7.animate * {
+  pointer-events: none;
+}
+
+.c7.left {
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+.c7.right {
+  -webkit-transform: translateX(20%);
+  -ms-transform: translateX(20%);
+  transform: translateX(20%);
+}
+
+.c7.alt_left {
+  -webkit-transform: translateX(-120%);
+  -ms-transform: translateX(-120%);
+  transform: translateX(-120%);
+}
+
+.c7.alt_right {
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.c7.A_going_to_left {
+  -webkit-transform: translateX(-120%);
+  -ms-transform: translateX(-120%);
+  transform: translateX(-120%);
+  -webkit-animation: fWxXjM 1000ms forwards;
+  animation: fWxXjM 1000ms forwards;
+}
+
+.c7.A_going_to_right {
+  -webkit-animation: jIkTRE 1000ms forwards;
+  animation: jIkTRE 1000ms forwards;
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+.c7.B_going_to_left {
+  -webkit-animation: jIkTRE 1000ms forwards;
+  animation: jIkTRE 1000ms forwards;
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.c7.B_going_to_right {
+  -webkit-animation: fWxXjM 1000ms forwards;
+  animation: fWxXjM 1000ms forwards;
+  -webkit-transform: translateX(20%);
+  -ms-transform: translateX(20%);
+  transform: translateX(20%);
+}
+
+ui-fss.g156[id="c6"] {
+  content: "c7,";
+}
+
+.c3 {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.c3.shrink {
+  -webkit-transform: scale(0.98);
+  -ms-transform: scale(0.98);
+  transform: scale(0.98);
+  -webkit-transform-origin: center center;
+  -ms-transform-origin: center center;
+  transform-origin: center center;
+  -webkit-transition: -webkit-transform 100ms ease-in;
+  -webkit-transition: transform 100ms ease-in;
+  transition: transform 100ms ease-in;
+}
+
+.c3:not(.shrink) {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transform-origin: center center;
+  -ms-transform-origin: center center;
+  transform-origin: center center;
+  -webkit-transition: -webkit-transform 100ms ease-out;
+  -webkit-transition: transform 100ms ease-out;
+  transition: transform 100ms ease-out;
+}
+
+ui-fss.g157[id="c2"] {
+  content: "c3,";
+}
+
+.c5 {
+  width: 200%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+}
+
+ui-fss.g159[id="c4"] {
+  content: "c5,";
+}
+
+<BUCIndex
+  allowFullScreen={true}
+  onFullFocus={[MockFunction]}
+  onRestoreFocus={[MockFunction]}
+  waitForMount={false}
+>
+  <styled.div
+    key="bucIndexDiv"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className=""
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <styled.div>
+        <div
+          className="c0 c1"
+        />
+      </styled.div>
+      <styled.div
+        className=""
+      >
+        <div
+          className="c2 c3"
+        >
+          <styled.div>
+            <div
+              className="c4 c5"
+            >
+              <styled.div
+                className="left"
+                key="animatableDivA"
+              >
+                <div
+                  className="c6 c7 left"
+                />
+              </styled.div>
+              <styled.div
+                className="right"
+                key="animatableDivB"
+              >
+                <div
+                  className="c6 c7 right"
+                />
+              </styled.div>
+            </div>
+          </styled.div>
+        </div>
+      </styled.div>
+    </div>
+  </styled.div>
+</BUCIndex>
+`;

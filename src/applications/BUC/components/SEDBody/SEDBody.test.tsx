@@ -79,7 +79,7 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedbody__attachments-id\']')).toBeFalsy()
   })
 
-  it('Shows SEDAttachmentSender', () => {
+  it('Render: shows SEDAttachmentSender', () => {
     wrapper = mount(<SEDBody {...initialMockProps} />)
     expect(wrapper.exists('SEDAttachmentSender')).toBeFalsy()
     wrapper = mount(<SEDBody {...initialMockProps} initialSendingAttachments />)

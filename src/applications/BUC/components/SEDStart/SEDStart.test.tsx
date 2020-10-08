@@ -153,7 +153,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']')).toBeFalsy()
   })
 
-  it('Creates sed when forward button is clicked ', () => {
+  it('Handling: Creates sed when forward button is clicked ', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes().simulate('change', { target: { value: 'P4000' } })
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     expect(createSed).toHaveBeenCalledWith(mockBucList[mockCurrentBuc], {
@@ -175,7 +175,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     })
   })
 
-  it('Cancels sed when cancel button is clicked ', () => {
+  it('Handling: Cancels sed when cancel button is clicked ', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__cancel-button-id\']').hostNodes().simulate('click')
     expect(resetSed).toHaveBeenCalled()
   })
