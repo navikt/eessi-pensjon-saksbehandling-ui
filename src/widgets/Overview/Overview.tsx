@@ -4,7 +4,8 @@ import { HighContrastExpandingPanel } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, PersonAvdods, PesysContext } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
+import { PersonAvdods } from 'declarations/person.d'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
@@ -82,10 +83,19 @@ export const Overview: React.FC<OverviewProps> = ({
     }
   }, [featureToggles, mounted, dispatch, aktoerId, person, pesysContext, vedtakId])
 
-  const onExpandablePanelChange = (): void => {
+  const onExpandablePanelClosing = (): void => {
     const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = !newWidget.options.collapsed
-    standardLogger('overview.ekspandpanel.' + (newWidget.options.collapsed ? 'close' : 'open'))
+    newWidget.options.collapsed = true
+    standardLogger('overview.ekspandpanel.close')
+    if (onUpdate) {
+      onUpdate(newWidget)
+    }
+  }
+
+  const onExpandablePanelOpening = (): void => {
+    const newWidget = _.cloneDeep(widget)
+    newWidget.options.collapsed = false
+    standardLogger('overview.ekspandpanel.open')
     if (onUpdate) {
       onUpdate(newWidget)
     }
@@ -118,7 +128,8 @@ export const Overview: React.FC<OverviewProps> = ({
           collapseProps={{ id: 'w-overview-id' }}
           className={classNames({ highContrast: highContrast })}
           open={!widget.options.collapsed}
-          onClick={onExpandablePanelChange}
+          onOpen={onExpandablePanelOpening}
+          onClose={onExpandablePanelClosing}
           heading={(
             <PersonTitle
               gettingPersonInfo={gettingPersonInfo}

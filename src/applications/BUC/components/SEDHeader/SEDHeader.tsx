@@ -7,7 +7,7 @@ import { HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from
 import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
 import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/app.d'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'

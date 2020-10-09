@@ -14,6 +14,7 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import * as storage from 'constants/storage'
+import { AllowedLocaleString, Loading, PesysContext } from 'declarations/app.d'
 import {
   Buc,
   BucInfo,
@@ -26,7 +27,7 @@ import {
   Sed
 } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading, PersonAvdods, PesysContext } from 'declarations/types'
+import { PersonAvdods } from 'declarations/person.d'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'

@@ -1,6 +1,7 @@
 import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
-import { Feature, FeatureToggles, Params, PersonAvdods, PesysContext, Person } from 'declarations/types'
+import { Feature, FeatureToggles, Params, PesysContext } from 'declarations/app.d'
+import { PersonAvdods, Person } from 'declarations/person.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 

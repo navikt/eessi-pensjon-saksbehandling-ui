@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Alert/Alert Renders 1`] = `
+exports[`components/Alert/Alert Render: match snapshot 1`] = `
 .c1 {
   opacity: 0;
-  -webkit-animation: cJoqxJ 0.5s forwards;
-  animation: cJoqxJ 0.5s forwards;
+  -webkit-animation: jIkTRE 1s forwards;
+  animation: jIkTRE 1s forwards;
   position: relative;
 }
 
@@ -125,17 +125,20 @@ ui-fss.g2[id="c2"] {
               className="typo-normal alertstripe__tekst"
             >
               mockErrorMessage
-              <Styled(_default)
+              <Styled(FilledVersionRemoveCircle)
+                data-test-id="c-alert__close-icon"
                 onClick={[Function]}
               >
-                <_default
+                <FilledVersionRemoveCircle
                   className="c2 c3"
+                  data-test-id="c-alert__close-icon"
                   onClick={[Function]}
                 >
                   <svg
                     className="c2 c3"
                     contentScriptType="text/ecmascript"
                     contentStyleType="text/css"
+                    data-test-id="c-alert__close-icon"
                     enableBackground="new 0 0 24 24"
                     height={24}
                     id="Filled_Version"
@@ -154,8 +157,8 @@ ui-fss.g2[id="c2"] {
                       fill="#3e3832"
                     />
                   </svg>
-                </_default>
-              </Styled(_default)>
+                </FilledVersionRemoveCircle>
+              </Styled(FilledVersionRemoveCircle)>
             </div>
           </TypografiBase>
         </Normaltekst>

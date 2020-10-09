@@ -1,5 +1,5 @@
 import { Buc } from 'declarations/buc'
-import { PersonAvdods } from 'declarations/types'
+import { PersonAvdods } from 'declarations/person.d'
 import { mount, ReactWrapper } from 'enzyme'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'

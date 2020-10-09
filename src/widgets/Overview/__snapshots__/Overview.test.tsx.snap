@@ -315,7 +315,8 @@ ui-fss.g34[id="c10"] {
             gettingPersonInfo={false}
           />
         }
-        onClick={[Function]}
+        onClose={[Function]}
+        onOpen={[Function]}
         open={true}
       >
         <ExpandingPanel
@@ -330,7 +331,8 @@ ui-fss.g34[id="c10"] {
               gettingPersonInfo={false}
             />
           }
-          onClick={[Function]}
+          onClose={[Function]}
+          onOpen={[Function]}
           open={true}
         >
           <Component
@@ -506,6 +508,9 @@ ui-fss.g34[id="c10"] {
                   aria-expanded={true}
                   className="ekspanderbartPanel__hode"
                   onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
                   <div
                     className="ekspanderbartPanel__flex-wrapper"

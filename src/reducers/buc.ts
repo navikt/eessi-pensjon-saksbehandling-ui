@@ -21,7 +21,7 @@ import {
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
-import { RinaUrl } from 'declarations/types'
+import { RinaUrl } from 'declarations/app.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import md5 from 'md5'

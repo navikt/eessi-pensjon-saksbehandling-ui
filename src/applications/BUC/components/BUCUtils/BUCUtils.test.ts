@@ -1,6 +1,6 @@
 import { Buc, Sed } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
-import { Labels } from 'declarations/types'
+import { Labels } from 'declarations/app.d'
 import Mustache from 'mustache'
 import personAvdod from 'mocks/app/personAvdod'
 import joarkItems from 'mocks/joark/items'

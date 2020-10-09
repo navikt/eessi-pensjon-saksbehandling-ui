@@ -27,6 +27,7 @@ const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProp
     <div
       {...innerProps}
       style={getStyles('option', props)}
+      role='button'
       onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()

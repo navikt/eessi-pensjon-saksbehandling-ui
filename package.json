@@ -84,7 +84,7 @@
     "nav-frontend-veileder-style": "^2.0.18",
     "nav-frontend-veilederpanel": "^0.1.32",
     "nav-frontend-veilederpanel-style": "^0.0.32",
-    "print-js": "^1.0.63",
+    "print-js": "^1.4.0",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-collapse": "^5.0.1",
@@ -93,13 +93,13 @@
     "react-loadable": "^5.5.0",
     "react-modal": "^3.11.2",
     "react-redux": "^7.2.1",
-    "react-resize-detector": "^5.0.7",
+    "react-resize-detector": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.0",
     "react-to-print": "^2.10.0",
     "redux": "^4.0.5",
     "sprintf-js": "^1.1.2",
-    "styled-components": "^5.1.1",
+    "styled-components": "^5.2.0",
     "tabell": "^1.1.8",
     "use-error-boundary": "^2.0.4"
   },
@@ -121,7 +121,7 @@
     "@types/react-resize-detector": "^5.0.0",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
-    "@types/react-select": "^3.0.21",
+    "@types/react-select": "^3.0.22",
     "@types/styled-components": "^5.1.3",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
@@ -156,6 +156,16 @@
     "not op_mini all"
   ],
   "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "plugin:jsx-a11y/recommended"
+    ],
     "rules": {
       "no-use-before-define": "off",
       "@typescript-eslint/no-use-before-define": "off",

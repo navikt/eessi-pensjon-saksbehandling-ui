@@ -333,13 +333,7 @@ ui-fss.g21[id="c14"] {
                 highContrast={false}
                 id="a-buc-c-bucstart__subjectarea-select-id"
                 isSearchable={true}
-                menuPortalTarget={
-                  @media (min-width:768px) {
-
-}
-
-<body />
-                }
+                menuPortalTarget={null}
                 onChange={[Function]}
                 options={
                   Array [
@@ -368,7 +362,7 @@ ui-fss.g21[id="c14"] {
                   inputId="a-buc-c-bucstart__subjectarea-select-id"
                   isOptionDisabled={[Function]}
                   isSearchable={true}
-                  menuPortalTarget={<body />}
+                  menuPortalTarget={null}
                   onChange={[Function]}
                   options={
                     Array [
@@ -420,7 +414,7 @@ ui-fss.g21[id="c14"] {
                     maxMenuHeight={300}
                     menuIsOpen={false}
                     menuPlacement="bottom"
-                    menuPortalTarget={<body />}
+                    menuPortalTarget={null}
                     menuPosition="absolute"
                     menuShouldBlockScroll={false}
                     menuShouldScrollIntoView={true}
@@ -519,7 +513,7 @@ ui-fss.g21[id="c14"] {
                           "maxMenuHeight": 300,
                           "menuIsOpen": false,
                           "menuPlacement": "bottom",
-                          "menuPortalTarget": <body />,
+                          "menuPortalTarget": null,
                           "menuPosition": "absolute",
                           "menuShouldBlockScroll": false,
                           "menuShouldScrollIntoView": true,
@@ -666,7 +660,7 @@ ui-fss.g21[id="c14"] {
                                 "maxMenuHeight": 300,
                                 "menuIsOpen": false,
                                 "menuPlacement": "bottom",
-                                "menuPortalTarget": <body />,
+                                "menuPortalTarget": null,
                                 "menuPosition": "absolute",
                                 "menuShouldBlockScroll": false,
                                 "menuShouldScrollIntoView": true,
@@ -820,7 +814,7 @@ ui-fss.g21[id="c14"] {
                                       "maxMenuHeight": 300,
                                       "menuIsOpen": false,
                                       "menuPlacement": "bottom",
-                                      "menuPortalTarget": <body />,
+                                      "menuPortalTarget": null,
                                       "menuPosition": "absolute",
                                       "menuShouldBlockScroll": false,
                                       "menuShouldScrollIntoView": true,
@@ -964,7 +958,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -1105,7 +1099,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -1331,7 +1325,7 @@ ui-fss.g21[id="c14"] {
                                       "maxMenuHeight": 300,
                                       "menuIsOpen": false,
                                       "menuPlacement": "bottom",
-                                      "menuPortalTarget": <body />,
+                                      "menuPortalTarget": null,
                                       "menuPosition": "absolute",
                                       "menuShouldBlockScroll": false,
                                       "menuShouldScrollIntoView": true,
@@ -1466,7 +1460,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -1612,7 +1606,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -1773,7 +1767,7 @@ ui-fss.g21[id="c14"] {
                 highContrast={false}
                 id="a-buc-c-bucstart__buc-select-id"
                 isSearchable={true}
-                menuPortalTarget={<body />}
+                menuPortalTarget={null}
                 onChange={[Function]}
                 options={
                   Array [
@@ -1817,7 +1811,7 @@ ui-fss.g21[id="c14"] {
                   inputId="a-buc-c-bucstart__buc-select-id"
                   isOptionDisabled={[Function]}
                   isSearchable={true}
-                  menuPortalTarget={<body />}
+                  menuPortalTarget={null}
                   onChange={[Function]}
                   options={
                     Array [
@@ -1889,7 +1883,7 @@ ui-fss.g21[id="c14"] {
                     maxMenuHeight={300}
                     menuIsOpen={false}
                     menuPlacement="bottom"
-                    menuPortalTarget={<body />}
+                    menuPortalTarget={null}
                     menuPosition="absolute"
                     menuShouldBlockScroll={false}
                     menuShouldScrollIntoView={true}
@@ -2023,7 +2017,7 @@ ui-fss.g21[id="c14"] {
                           "maxMenuHeight": 300,
                           "menuIsOpen": false,
                           "menuPlacement": "bottom",
-                          "menuPortalTarget": <body />,
+                          "menuPortalTarget": null,
                           "menuPosition": "absolute",
                           "menuShouldBlockScroll": false,
                           "menuShouldScrollIntoView": true,
@@ -2207,7 +2201,7 @@ ui-fss.g21[id="c14"] {
                                 "maxMenuHeight": 300,
                                 "menuIsOpen": false,
                                 "menuPlacement": "bottom",
-                                "menuPortalTarget": <body />,
+                                "menuPortalTarget": null,
                                 "menuPosition": "absolute",
                                 "menuShouldBlockScroll": false,
                                 "menuShouldScrollIntoView": true,
@@ -2398,7 +2392,7 @@ ui-fss.g21[id="c14"] {
                                       "maxMenuHeight": 300,
                                       "menuIsOpen": false,
                                       "menuPlacement": "bottom",
-                                      "menuPortalTarget": <body />,
+                                      "menuPortalTarget": null,
                                       "menuPosition": "absolute",
                                       "menuShouldBlockScroll": false,
                                       "menuShouldScrollIntoView": true,
@@ -2575,7 +2569,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -2729,7 +2723,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -2992,7 +2986,7 @@ ui-fss.g21[id="c14"] {
                                       "maxMenuHeight": 300,
                                       "menuIsOpen": false,
                                       "menuPlacement": "bottom",
-                                      "menuPortalTarget": <body />,
+                                      "menuPortalTarget": null,
                                       "menuPosition": "absolute",
                                       "menuShouldBlockScroll": false,
                                       "menuShouldScrollIntoView": true,
@@ -3164,7 +3158,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -3347,7 +3341,7 @@ ui-fss.g21[id="c14"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
-                                            "menuPortalTarget": <body />,
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -3551,7 +3545,7 @@ ui-fss.g21[id="c14"] {
                     </Normaltekst>
                   </React.Fragment>
                 }
-                menuPortalTarget={<body />}
+                menuPortalTarget={null}
                 onSelect={[Function]}
                 options={
                   Array [
@@ -3803,7 +3797,13 @@ ui-fss.g21[id="c14"] {
                         inputId="a-buc-c-bucstart__tags-select-id"
                         isLoading={false}
                         isMulti={true}
-                        menuPortalTarget={<body />}
+                        menuPortalTarget={
+                          @media (min-width:768px) {
+
+}
+
+<body />
+                        }
                         onChange={[Function]}
                         options={
                           Array [

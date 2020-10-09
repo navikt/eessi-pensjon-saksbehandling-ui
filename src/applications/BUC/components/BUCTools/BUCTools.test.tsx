@@ -1,6 +1,6 @@
 import { getTagList, saveBucsInfo, getSed } from 'actions/buc'
 import { Buc, BucInfo, BucsInfo, Comment, Comments, SedContentMap, TagRawList } from 'declarations/buc.d'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import mockFeatureToggles from 'mocks/app/featureToggles'

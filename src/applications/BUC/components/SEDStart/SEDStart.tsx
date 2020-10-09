@@ -39,6 +39,7 @@ import {
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
+import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, Validation, Option, Options } from 'declarations/app.d'
 import {
   Buc,
   Bucs,
@@ -61,18 +62,8 @@ import { BucsPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
-import {
-  AllowedLocaleString,
-  FeatureToggles,
-  Loading,
-  Option,
-  Options,
-  PersonAvdod,
-  PersonAvdods,
-  PesysContext,
-  Validation
-} from 'declarations/types.d'
 
+import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import CountryData, { Country, CountryList } from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'
@@ -791,7 +782,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <InstitutionsDiv>
                 <InstitutionList
                   institutions={_institutions.map(item => {
-                    var [country, institution] = item.split(':')
+                    let [country, institution] = item.split(':')
                     return {
                       country: country,
                       institution: institution

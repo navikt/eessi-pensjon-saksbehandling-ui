@@ -21,7 +21,8 @@ import {
 } from 'components/StyledComponents'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, PersonAvdods } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/app.d'
+import { PersonAvdods } from 'declarations/person.d'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
@@ -275,14 +276,13 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             .filter(sedSearchFilter)
             .sort(sedSorter as (a: Sed, b: Sed) => number)
             .map((sed, index) => (
-              <>
+              <div key={sed.id}>
                 <VerticalSeparatorDiv data-size='0.5' />
                 <SEDPanel
                   aktoerId={aktoerId!}
                   highContrast={highContrast}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   buc={buc!}
-                  key={index}
                   sed={sed}
                   newSed={(
                     newlyCreatedSed && newlyCreatedSedTime &&
@@ -292,7 +292,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   followUpSeds={buc!.seds!.filter(_seds => _seds.parentDocumentId === sed.id)}
                   onSEDNew={() => onSEDNew(buc!, sed)}
                 />
-              </>
+              </div>
             ))
             : (
               <NoSedsDiv>

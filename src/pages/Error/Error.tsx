@@ -103,7 +103,7 @@ export const Error = ({ error, type }: ErrorProps) => {
           <ErrorPanel
             highContrast={highContrast}
             id='p-error__content-error-id'
-            onClick={() => standardLogger('errorPage.expandingPanel.open')}
+            onOpen={() => standardLogger('errorPage.expandingPanel.open')}
             heading={t('ui:error-header')}
           >
             <div

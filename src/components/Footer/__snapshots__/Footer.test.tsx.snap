@@ -348,6 +348,9 @@ ui-fss.g32[id="c14"] {
             <div
               className="footerButtonOpen"
               onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex={0}
             >
               ▼
             </div>
@@ -379,7 +382,7 @@ ui-fss.g32[id="c14"] {
                           className="skjemaelement__input"
                           date-testid="c-footer__select-id"
                           disabled={false}
-                          id="0174706225-1424-30520-5458-0138124518892"
+                          id="077636989-7971-14843-24285-019432283426050"
                           onChange={[Function]}
                         >
                           <option
@@ -467,7 +470,7 @@ ui-fss.g32[id="c14"] {
                         aria-invalid={false}
                         className="skjemaelement__input input--fullbredde"
                         date-testid="c-footer__input-id"
-                        id="025665871-0921-23900-0580-1039796929740"
+                        id="25226695-4967-5274-04073-52420362700455"
                         onChange={[Function]}
                         type="text"
                         value=""

@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import _ from 'lodash'
 import { guid } from 'nav-frontend-js-utils'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -16,7 +15,8 @@ export interface ExpandingPanelProps {
   highContrast?: boolean
   heading?: JSX.Element | string
   id?: string
-  onClick?: (e: React.MouseEvent) => void
+  onOpen?: () => void
+  onClose?: () => void
   open?: boolean
   renderContentWhenClosed?: boolean
   style?: React.CSSProperties
@@ -58,7 +58,7 @@ const ExpandingPanelDiv = styled.div`
 
 const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
   ariaTittel, border = false, children, className, collapseProps, highContrast = false, heading, id,
-  onClick, open = false, renderContentWhenClosed, style = {}
+  onClose = () => {}, onOpen = () => {}, open = false, renderContentWhenClosed, style = {}
 }: ExpandingPanelProps): JSX.Element => {
   const [_open, setOpen] = useState<boolean>(open)
   const [isCloseAnimation, setIsCloseAnimation] = useState<boolean>(false)
@@ -71,9 +71,22 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
   }, [open, _open])
 
   const handleOnClick = (e: React.MouseEvent): void => {
+    e.preventDefault()
+    handleOpenToggle()
+  }
+
+  const handleKeyboard = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleOpenToggle()
+    }
+  }
+
+  const handleOpenToggle = (): void => {
     setOpen(!_open)
-    if (_.isFunction(onClick)) {
-      onClick(e)
+    if (!_open) {
+      onClose()
+    } else {
+      onOpen()
     }
   }
 
@@ -109,9 +122,12 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
         })}
       >
         <div
+          aria-expanded={_open}
           className='ekspanderbartPanel__hode'
           onClick={handleOnClick}
-          aria-expanded={_open}
+          onKeyDown={handleKeyboard}
+          role='button'
+          tabIndex={0}
           {...ariaControls}
         >
           <div className='ekspanderbartPanel__flex-wrapper'>
@@ -119,7 +135,7 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
             <button
               className='ekspanderbartPanel__knapp'
               onKeyDown={tabHandler}
-              onClick={onClick}
+              onClick={handleOnClick}
               aria-expanded={_open}
               type='button'
               aria-label='open'
@@ -149,7 +165,8 @@ ExpandingPanel.propTypes = {
   className: PT.string,
   collapseProps: PT.object,
   heading: PT.oneOfType([PT.string, PT.element]),
-  onClick: PT.func,
+  onClose: PT.func,
+  onOpen: PT.func,
   open: PT.bool,
   renderContentWhenClosed: PT.bool,
   style: PT.object

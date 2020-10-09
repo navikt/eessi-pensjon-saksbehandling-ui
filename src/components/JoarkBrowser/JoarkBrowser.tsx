@@ -325,7 +325,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         modalContent: (
           <div
             style={{ cursor: 'pointer' }}
-            onClick={handleModalClose}
           >
             <File
               file={previewFile}

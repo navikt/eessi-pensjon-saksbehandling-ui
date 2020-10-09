@@ -4,7 +4,7 @@ import { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/app.d'
 import Flag from 'flagg-ikoner'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'

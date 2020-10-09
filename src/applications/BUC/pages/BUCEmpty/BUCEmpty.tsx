@@ -12,7 +12,7 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import { State } from 'declarations/reducers'
-import { RinaUrl } from 'declarations/types'
+import { RinaUrl } from 'declarations/app.d'
 import { standardLogger } from 'metrics/loggers'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'

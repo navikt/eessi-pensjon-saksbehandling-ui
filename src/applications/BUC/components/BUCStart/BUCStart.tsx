@@ -19,19 +19,21 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
-import { Buc, BUCRawList, Bucs, BucsInfo, SaveBucsInfoProps, SubjectAreaRawList, Tag, TagRawList, Tags } from 'declarations/buc'
-import { State } from 'declarations/reducers'
+import { AllowedLocaleString, Loading, PesysContext, Validation, Option, Options } from 'declarations/app.d'
 import {
-  AllowedLocaleString,
-  Loading,
-  Option,
-  Options,
-  Person,
-  PersonAvdod,
-  PersonAvdods,
-  PesysContext,
-  Validation
-} from 'declarations/types'
+  Buc,
+  BUCRawList,
+  Bucs,
+  BucsInfo,
+  SaveBucsInfoProps,
+  SubjectAreaRawList,
+  Tag,
+  TagRawList,
+  Tags
+} from 'declarations/buc'
+import { State } from 'declarations/reducers'
+
+import { Person, PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'

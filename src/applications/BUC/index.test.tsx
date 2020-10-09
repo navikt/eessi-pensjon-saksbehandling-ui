@@ -10,7 +10,7 @@ import { BUCIndex, BUCIndexDiv, BUCIndexProps, BUCIndexSelector, ContainerDiv, W
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKEROVERSIKT, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'

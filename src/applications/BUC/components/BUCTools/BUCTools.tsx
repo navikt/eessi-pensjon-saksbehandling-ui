@@ -28,7 +28,7 @@ import {
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/types'
+import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'

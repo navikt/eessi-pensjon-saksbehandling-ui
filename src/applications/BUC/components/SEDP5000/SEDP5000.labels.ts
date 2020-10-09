@@ -1,4 +1,4 @@
-import { Labels } from 'declarations/types.d'
+import { Labels } from 'declarations/app.d'
 
 export const dagerEnhet = {
   5: 'D/5 dager (5 dager i uken)',

@@ -147,6 +147,12 @@ const Footer: React.FC<FooterProps> = ({
     document.body.removeChild(element)
   }
 
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      dispatch(toggleFooterOpen())
+    }
+  }
+
   const _toggleFooterOpen = () => {
     dispatch(toggleFooterOpen())
   }
@@ -156,8 +162,11 @@ const Footer: React.FC<FooterProps> = ({
       <FooterDiv role='contentinfo' className={classNames(className, { toggled: footerOpen })}>
         <ContentDiv className={classNames({ fullWidth: !footerOpen })}>
           <div
+            role='button'
             className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
             onClick={_toggleFooterOpen}
+            onKeyDown={onKeyDown}
+            tabIndex={0}
           >
             {footerOpen ? '▼' : null}
           </div>

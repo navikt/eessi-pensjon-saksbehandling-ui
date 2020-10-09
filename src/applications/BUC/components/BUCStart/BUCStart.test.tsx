@@ -1,7 +1,7 @@
 import { createBuc, getBucList, getSubjectAreaList, getTagList, saveBucsInfo } from 'actions/buc'
 import * as constants from 'constants/constants'
 import { BucsInfo } from 'declarations/buc'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import { Feiloppsummering } from 'nav-frontend-skjema'

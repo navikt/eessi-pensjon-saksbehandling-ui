@@ -1,4 +1,4 @@
-import { FeatureToggles } from 'declarations/types'
+import { FeatureToggles } from 'declarations/app.d'
 
 export default {
   P5000_VISIBLE: true,

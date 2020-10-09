@@ -1,6 +1,7 @@
 import * as constants from 'constants/constants'
 import { JoarkBrowserItem } from 'declarations/joark.d'
-import { AllowedLocaleString, Option, PersonAvdod, PersonAvdods, PesysContext, T } from 'declarations/types.d'
+import { AllowedLocaleString, Option, PesysContext, T } from 'declarations/app.d'
+import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import CountryData, { Country, CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'

@@ -24,7 +24,8 @@ import {
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { Person, PersonAvdod, PesysContext } from 'declarations/types'
+import { PesysContext } from 'declarations/app.d'
+import { Person, PersonAvdod } from 'declarations/person.d'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'

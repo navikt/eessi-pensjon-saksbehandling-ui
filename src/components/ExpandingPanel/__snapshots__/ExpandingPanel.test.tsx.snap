@@ -208,6 +208,9 @@ ui-fss.g1[id="c0"] {
           aria-expanded={false}
           className="ekspanderbartPanel__hode"
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
         >
           <div
             className="ekspanderbartPanel__flex-wrapper"
@@ -219,7 +222,7 @@ ui-fss.g1[id="c0"] {
               aria-expanded={false}
               aria-label="open"
               className="ekspanderbartPanel__knapp"
-              onClick={[MockFunction]}
+              onClick={[Function]}
               onKeyDown={[Function]}
               type="button"
             >

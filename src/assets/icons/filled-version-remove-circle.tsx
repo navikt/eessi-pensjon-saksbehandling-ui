@@ -1,5 +1,5 @@
 import React from 'react'
-export default (props: any) => (
+const FilledVersionRemoveCircle = (props: any) => (
   <svg
     contentScriptType='text/ecmascript' zoomAndPan='magnify'
     contentStyleType='text/css'
@@ -15,3 +15,5 @@ export default (props: any) => (
     />
   </svg>
 )
+
+export default FilledVersionRemoveCircle

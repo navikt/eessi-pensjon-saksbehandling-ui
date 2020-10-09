@@ -2,12 +2,22 @@ import { getUserInfo, login, setStatusParam } from 'actions/app'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
+import { Params } from 'declarations/app'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 import styled from 'styled-components'
+
+const RouteDiv = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+`
 
 export interface AuthenticatedRouteSelector {
   allowed: boolean | undefined;
@@ -30,25 +40,15 @@ const paramAliases: {[k: string]: string} = {
   saksType: 'sakType'
 }
 
-type Params = {[k: string]: any}
-
-const RouteDiv = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-`
-
 export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX.Element => {
-  const { location } = props
-  const [_params, _setParams] = useState<Params>({})
-  const [mounted, setMounted] = useState<boolean>(false)
-  const [requestingUserInfo, setRequestingUserInfo] = useState<boolean>(false)
-  const [requestingLogin, setRequestingLogin] = useState<boolean>(false)
   const { allowed, loggedIn, userRole } = useSelector<State, AuthenticatedRouteSelector>(mapState)
   const dispatch = useDispatch()
+  const { location } = props
+
+  const [_params, _setParams] = useState<Params>({})
+  const [_mounted, setMounted] = useState<boolean>(false)
+  const [_requestingUserInfo, setRequestingUserInfo] = useState<boolean>(false)
+  const [_requestingLogin, setRequestingLogin] = useState<boolean>(false)
 
   useEffect(() => {
     const parseSearchParams = () => {
@@ -60,10 +60,9 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
           const _key = Object.prototype.hasOwnProperty.call(paramAliases, key)
             ? paramAliases[key]
             : key
-          const _value: string | undefined = value || undefined
-          if (_value !== _params[_key]) {
-            dispatch(setStatusParam(_key, _value))
-            newParams[_key] = _value
+          if (value && value !== _params[_key]) {
+            dispatch(setStatusParam(_key, value))
+            newParams[_key] = value
           }
         })
         if (!_.isEmpty(newParams)) {
@@ -77,13 +76,13 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
   }, [dispatch, location, _params])
 
   useEffect(() => {
-    if (!mounted) {
-      if (loggedIn === undefined && !requestingUserInfo) {
+    if (!_mounted) {
+      if (loggedIn === undefined && !_requestingUserInfo) {
         dispatch(getUserInfo())
         setRequestingUserInfo(true)
       }
 
-      if (loggedIn === false && !requestingLogin) {
+      if (loggedIn === false && !_requestingLogin) {
         dispatch(login())
         setRequestingLogin(true)
       }
@@ -91,9 +90,9 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
         setMounted(true)
       }
     }
-  }, [dispatch, loggedIn, requestingUserInfo, requestingLogin, mounted])
+  }, [dispatch, loggedIn, _requestingUserInfo, _requestingLogin, _mounted])
 
-  if (!mounted) {
+  if (!_mounted) {
     return (
       <RouteDiv>
         <WaitingPanel />

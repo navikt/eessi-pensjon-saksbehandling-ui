@@ -1,6 +1,5 @@
-import { WidthSize } from 'declarations/app'
-import { AllowedLocaleString } from 'declarations/types'
-import { ModalContent } from 'declarations/components'
+import { AllowedLocaleString, WidthSize } from 'declarations/app.d'
+import { ModalContent } from 'declarations/components.d'
 import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
 import { ActionWithPayload } from 'js-fetch-api'

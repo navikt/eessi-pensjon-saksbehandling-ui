@@ -1,9 +1,9 @@
 import * as types from 'constants/actionTypes'
 import { Sed } from 'declarations/buc'
+import { AlertStatus } from 'declarations/components'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
-import { AlertStatus } from 'components/Alert/Alert'
 
 export interface AlertState {
   clientErrorStatus: AlertStatus | undefined

@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { WidthSize } from 'declarations/app'
-import { AllowedLocaleString } from 'declarations/types'
+import { AllowedLocaleString } from 'declarations/app.d'
 import { ModalContent } from 'declarations/components'
 import { ActionWithPayload } from 'js-fetch-api'
 import { Action } from 'redux'
