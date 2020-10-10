@@ -28,21 +28,6 @@ export interface HeaderProps {
   username?: string
 }
 
-const HeaderDiv = styled.header`
-  background-color: ${({ theme }) => theme.navMorkGra};
-  display: flex;
-  flex-direction: row;
-  height: 4rem;
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-`
-const Skillelinje = styled.div`
-  border-left: 1px solid ${({ theme }) => theme.white};
-  display: flex;
-  height: 30px;
-  width: 1px;
-`
 const BrandDiv = styled.div`
   align-items: center;
   display: flex;
@@ -52,28 +37,44 @@ const BrandDiv = styled.div`
    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
 `
+const HeaderDiv = styled.header`
+  background-color: ${({ theme }) => theme.navMorkGra};
+  display: flex;
+  flex-direction: row;
+  height: 4rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+`
+const Link = styled(Lenke)`
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme[themeKeys.WHITE]};
+`
+const NameDiv = styled.div`
+  margin: auto 0px;
+  padding: 0.3em;
+`
+const SaksbehandlerUser = styled.div`
+   color: white;
+`
+const Skillelinje = styled.div`
+  border-left: 1px solid ${({ theme }) => theme.white};
+  display: flex;
+  height: 30px;
+  width: 1px;
+`
 const Title = styled.div`
   color: ${({ theme }) => theme.white};
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
 `
+
 const UserDiv = styled.div`
   align-items: flex-end;
   display: flex;
   flex-direction: row;
   align-items: center;
-`
-const SaksbehandlerUser = styled.div`
-   color: white;
-`
-const NameDiv = styled.div`
-  margin: auto 0px;
-  padding: 0.3em;
-`
-const Link = styled(Lenke)`
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme[themeKeys.WHITE]};
 `
 const UsernameSpan = styled.span`
   padding: 0.45rem;
@@ -83,8 +84,7 @@ const UsernameSpan = styled.span`
 `
 
 const Header: React.FC<HeaderProps> = ({
-  className, children, gettingUserInfo, highContrast, header,
-  isLoggingOut, username
+  className, children, gettingUserInfo, highContrast, header, isLoggingOut, username
 }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -110,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
         <BrandDiv>
           <a
             href='#index'
-            data-test-id='c-topHeader__logo-link'
+            data-test-id='c-header__logo-link'
             onClick={onLogoClick}
           >
             <NavLogoTransparent width='100' height='45' color='white' />
@@ -121,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({
           </Title>
         </BrandDiv>
         <Link
-          id='c-topHeader__highcontrast-link-id'
+          data-test-id='c-header__highcontrast-link-id'
           href='#highContrast'
           onClick={onHighContrastClick}
         >

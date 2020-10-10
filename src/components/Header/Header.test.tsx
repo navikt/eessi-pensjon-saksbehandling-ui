@@ -1,4 +1,4 @@
-import { clearData, logout } from 'actions/app'
+import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import * as routes from 'constants/routes'
 import { mount, ReactWrapper } from 'enzyme'
@@ -6,8 +6,7 @@ import React from 'react'
 import Header, { HeaderProps } from './Header'
 
 jest.mock('actions/app', () => ({
-  clearData: jest.fn(),
-  logout: jest.fn()
+  clearData: jest.fn()
 }))
 jest.mock('actions/ui', () => ({
   toggleHighContrast: jest.fn()
@@ -26,9 +25,10 @@ jest.mock('react-router-dom', () => {
   }
 })
 
-describe('components/Header', () => {
+describe('components/Header/Header', () => {
   let wrapper: ReactWrapper
   const initialMockProps: HeaderProps = {
+    highContrast: false,
     username: 'testUser'
   }
 
@@ -42,14 +42,15 @@ describe('components/Header', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Clicking logo is handled', () => {
-    (clearData as jest.Mock).mockReset()
-    wrapper.find('#c-topHeader__logo-link').hostNodes().simulate('click')
+  it('Handling: clicking logo is handled', () => {
+    (clearData as jest.Mock).mockReset();
+    (mockHistoryPush as jest.Mock).mockReset()
+    wrapper.find('[data-test-id=\'c-header__logo-link\']').hostNodes().simulate('click')
     expect(clearData).toHaveBeenCalled()
     expect(mockHistoryPush).toHaveBeenCalledWith({
       pathname: routes.ROOT,
@@ -57,17 +58,9 @@ describe('components/Header', () => {
     })
   })
 
-  it('Clicking logout', () => {
-    (clearData as jest.Mock).mockReset();
-    (logout as jest.Mock).mockReset()
-    const select = wrapper.find('select#username-select-id')
-    select.simulate('change', { target: { value: 'logout' } })
-    expect(clearData).toHaveBeenCalled()
-    expect(logout).toHaveBeenCalled()
-  })
-
-  it('Clicking highConstrast handled', () => {
-    wrapper.find('a.c-topHeader__highcontrast-link').simulate('click')
+  it('Handling: Clicking highConstrast handled', () => {
+    (toggleHighContrast as jest.Mock).mockReset()
+    wrapper.find('[data-test-id=\'c-header__highcontrast-link-id\']').hostNodes().simulate('click')
     expect(toggleHighContrast).toHaveBeenCalled()
   })
 })

@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/EESSIPensjonVeileder Renders 1`] = `
+exports[`components/EESSIPensjonVeileder/EESSIPensjonVeileder Render: match snapshot 1`] = `
 <EESSIPensjonVeileder>
-  <div>
+  <div
+    data-test-id="c-eessipensjonveileder"
+  >
     <img
       alt="nav-smilende-veileder"
       height={130}

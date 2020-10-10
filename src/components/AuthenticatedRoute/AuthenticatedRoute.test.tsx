@@ -19,7 +19,7 @@ const defaultSelector: AuthenticatedRouteSelector = {
   allowed: undefined
 }
 
-describe('components/AuthenticatedRoute', () => {
+describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
   let wrapper: ReactWrapper
   const initialMockProps: RouteProps = {
     location: {
@@ -53,14 +53,6 @@ describe('components/AuthenticatedRoute', () => {
     expect(getUserInfo).toBeCalled()
   })
 
-  it('Has proper HTML structure: not mounted', () => {
-    wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
-    expect(wrapper.exists('WaitingPanel')).toBeTruthy()
-  })
-
   it('UseEffect: redirect for login', () => {
     stageSelector(defaultSelector, { loggedIn: false })
     wrapper = mount(<AuthenticatedRoute {...initialMockProps} />)
@@ -77,7 +69,15 @@ describe('components/AuthenticatedRoute', () => {
     expect(login).not.toBeCalled()
   })
 
-  it('Has proper HTML structure: forbidden', () => {
+  it('Render: Has proper HTML structure: not mounted', () => {
+    wrapper = mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} />
+      </Router>)
+    expect(wrapper.exists('WaitingPanel')).toBeTruthy()
+  })
+
+  it('Render: Has proper HTML structure: forbidden', () => {
     stageSelector(defaultSelector, {
       loggedIn: true,
       userRole: 'UNKNOWN'
@@ -90,7 +90,7 @@ describe('components/AuthenticatedRoute', () => {
     expect((wrapper.find('Redirect').props().to as any)!.pathname).toEqual(routes.FORBIDDEN)
   })
 
-  it('Has proper HTML structure: not allowed', () => {
+  it('Render: Has proper HTML structure: not allowed', () => {
     stageSelector(defaultSelector, {
       loggedIn: true,
       userRole: 'SAKSBEHANDLER',
@@ -104,7 +104,7 @@ describe('components/AuthenticatedRoute', () => {
     expect((wrapper.find('Redirect').props().to as any)!.pathname).toEqual(routes.NOT_INVITED)
   })
 
-  it('Has proper HTML structure: route', () => {
+  it('Render: Has proper HTML structure: route', () => {
     stageSelector(defaultSelector, {
       loggedIn: true,
       userRole: 'SAKSBEHANDLER',

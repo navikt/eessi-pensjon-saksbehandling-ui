@@ -782,7 +782,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <InstitutionsDiv>
                 <InstitutionList
                   institutions={_institutions.map(item => {
-                    let [country, institution] = item.split(':')
+                    const [country, institution] = item.split(':')
                     return {
                       country: country,
                       institution: institution

@@ -1,10 +1,11 @@
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
-import React from 'react'
 import { HighContrastLink } from 'components/StyledComponents'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import PT from 'prop-types'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { ThemeProvider } from 'styled-components'
 
-const AlertDiv = styled.div`
+export const AlertDiv = styled.div`
   padding: 0.5rem 1rem;
   background-color: ${({ theme }: any) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
   a {
@@ -14,11 +15,12 @@ const AlertDiv = styled.div`
   justify-content: center;
  `
 
-interface IEAlertProps {
+export interface IEAlertProps {
   highContrast: boolean
+  onLinkClick?: () => void
 }
 
-const IEAlert: React.FC<IEAlertProps> = ({ highContrast }: IEAlertProps) => {
+const IEAlert: React.FC<IEAlertProps> = ({ highContrast, onLinkClick = () => {} }: IEAlertProps) => {
   // Internet Explorer 6-11
   // @ts-ignore
   const isIE = /* @cc_on!@ */false || !!document.documentMode
@@ -34,14 +36,21 @@ const IEAlert: React.FC<IEAlertProps> = ({ highContrast }: IEAlertProps) => {
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <AlertDiv>
         <HighContrastLink
-          target='_blank'
+          data-test-id='c-iealert__link-id'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-fagsystemer/SitePages/Ta-i-bruk-PESYS-Chrome!.aspx'
+          onClick={onLinkClick}
+          target='_blank'
         >
           {t('buc:alert-IEAlert')}
         </HighContrastLink>
       </AlertDiv>
     </ThemeProvider>
   )
+}
+
+IEAlert.propTypes = {
+  highContrast: PT.bool.isRequired,
+  onLinkClick: PT.func
 }
 
 export default IEAlert

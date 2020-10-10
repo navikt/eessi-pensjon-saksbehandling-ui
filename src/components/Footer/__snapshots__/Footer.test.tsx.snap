@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Footer Renders 1`] = `
+exports[`components/Footer Render: match snapshot 1`] = `
 .c13 {
   background-color: inherit;
   color: #0067C5;
@@ -169,6 +169,7 @@ ui-fss.g32[id="c14"] {
 
 <Footer
   footerOpen={true}
+  highContrast={false}
   params={Object {}}
 >
   <Component
@@ -359,15 +360,17 @@ ui-fss.g32[id="c14"] {
                 className="c4 c5"
               >
                 <Styled(Select)
-                  date-testid="c-footer__select-id"
+                  data-test-id="c-footer__select-id"
+                  id="c-footer__select-id"
                   label=""
                   onChange={[Function]}
                 >
                   <Select
                     bredde="fullbredde"
                     className="c6 c7"
-                    date-testid="c-footer__select-id"
+                    data-test-id="c-footer__select-id"
                     disabled={false}
+                    id="c-footer__select-id"
                     label=""
                     onChange={[Function]}
                   >
@@ -380,9 +383,9 @@ ui-fss.g32[id="c14"] {
                         <select
                           aria-invalid={false}
                           className="skjemaelement__input"
-                          date-testid="c-footer__select-id"
+                          data-test-id="c-footer__select-id"
                           disabled={false}
-                          id="077636989-7971-14843-24285-019432283426050"
+                          id="c-footer__select-id"
                           onChange={[Function]}
                         >
                           <option
@@ -450,7 +453,8 @@ ui-fss.g32[id="c14"] {
                   </Select>
                 </Styled(Select)>
                 <Styled(Input)
-                  date-testid="c-footer__input-id"
+                  data-test-id="c-footer__input-id"
+                  id="c-footer__input-id"
                   label=""
                   onChange={[Function]}
                   value=""
@@ -458,7 +462,8 @@ ui-fss.g32[id="c14"] {
                   <Input
                     bredde="fullbredde"
                     className="c8 c9"
-                    date-testid="c-footer__input-id"
+                    data-test-id="c-footer__input-id"
+                    id="c-footer__input-id"
                     label=""
                     onChange={[Function]}
                     value=""
@@ -469,8 +474,8 @@ ui-fss.g32[id="c14"] {
                       <input
                         aria-invalid={false}
                         className="skjemaelement__input input--fullbredde"
-                        date-testid="c-footer__input-id"
-                        id="25226695-4967-5274-04073-52420362700455"
+                        data-test-id="c-footer__input-id"
+                        id="c-footer__input-id"
                         onChange={[Function]}
                         type="text"
                         value=""

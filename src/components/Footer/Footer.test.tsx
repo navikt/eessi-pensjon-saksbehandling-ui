@@ -15,40 +15,44 @@ describe('components/Footer', () => {
   let wrapper: ReactWrapper
   const initialMockProps: FooterProps = {
     footerOpen: true,
+    highContrast: false,
     params: {}
   }
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     wrapper = mount(<Footer {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Toggles open/closed with props', () => {
+  it('Handling: Toggles open/closed with props', () => {
     wrapper = mount(<Footer {...initialMockProps} footerOpen={false} />)
-    expect(wrapper.exists('div.footerButtonClosed')).toBeTruthy()
+    expect(wrapper.exists('.footerButtonClosed')).toBeTruthy()
     wrapper.setProps({ footerOpen: true })
-    expect(wrapper.exists('div.footerButtonOpen')).toBeTruthy()
+    expect(wrapper.exists('.footerButtonOpen')).toBeTruthy()
   })
 
-  it('Toggles open/closed with click', () => {
+  it('Handling: Toggles open/closed with click', () => {
+    (toggleFooterOpen as jest.Mock).mockReset()
     wrapper = mount(<Footer {...initialMockProps} footerOpen={false} />)
     wrapper.find('.footerButtonClosed').hostNodes().simulate('click')
     expect(toggleFooterOpen).toHaveBeenCalled()
   })
 
-  it('Adds a param', () => {
+  it('Handling: Adds a param', () => {
+    (setStatusParam as jest.Mock).mockReset()
     wrapper = mount(<Footer {...initialMockProps} />)
-    wrapper.find('#c-footer__select-id').hostNodes().simulate('change', { target: { value: 'aktoerId' } })
-    wrapper.find('#c-footer__input-id').hostNodes().simulate('change', { target: { value: '123' } })
-    wrapper.find('#c-footer__add-button-id').hostNodes().simulate('click')
+    wrapper.find('[data-test-id=\'c-footer__select-id\']').hostNodes().simulate('change', { target: { value: 'aktoerId' } })
+    wrapper.find('[data-test-id=\'c-footer__input-id\']').hostNodes().simulate('change', { target: { value: '123' } })
+    wrapper.find('[data-test-id=\'c-footer__add-button-id\']').hostNodes().simulate('click')
     expect(setStatusParam).toHaveBeenCalled()
   })
 
-  it('Remove a param', () => {
+  it('Handling: Remove a param', () => {
+    (unsetStatusParam as jest.Mock).mockReset()
     wrapper = mount(<Footer {...initialMockProps} params={{ sakId: '123' }} />)
-    expect(wrapper.find('.c-footer__param-string').hostNodes().render().text()).toEqual('sakId 123')
-    wrapper.find('.c-footer__remove-button').hostNodes().simulate('click')
+    expect(wrapper.find('[data-test-id=\'c-footer__param-string\']').hostNodes().render().text()).toEqual('sakId 123')
+    wrapper.find('[data-test-id=\'c-footer__remove-button\']').hostNodes().simulate('click')
     expect(unsetStatusParam).toHaveBeenCalled()
   })
 })

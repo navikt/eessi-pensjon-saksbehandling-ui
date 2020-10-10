@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/ExpandingPanel/ExpandingPanel Renders 1`] = `
+exports[`components/ExpandingPanel/ExpandingPanel Render: match snapshot 1`] = `
 .c1.ekspanderbartPanel--apen .ReactCollapse--collapse {
   will-change: max-height,height;
   max-height: 150em;
-  -webkit-animation: iZaYLF 250ms ease;
-  animation: iZaYLF 250ms ease;
+  -webkit-animation: biJkQB 250ms ease;
+  animation: biJkQB 250ms ease;
 }
 
 .c1.ekspanderbartPanel--lukket .ReactCollapse--collapse {
@@ -32,7 +32,8 @@ ui-fss.g1[id="c0"] {
       heading
     </h2>
   }
-  onClick={[MockFunction]}
+  onClose={[MockFunction]}
+  onOpen={[MockFunction]}
   open={false}
   renderContentWhenClosed={false}
 >
@@ -207,6 +208,7 @@ ui-fss.g1[id="c0"] {
         <div
           aria-expanded={false}
           className="ekspanderbartPanel__hode"
+          data-test-id="c-expandingpanel__head-id"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"
@@ -214,14 +216,16 @@ ui-fss.g1[id="c0"] {
         >
           <div
             className="ekspanderbartPanel__flex-wrapper"
+            data-test-id="c-expandingpanel__body-id"
           >
             <h2>
               heading
             </h2>
             <button
               aria-expanded={false}
-              aria-label="open"
+              aria-label="ui:open"
               className="ekspanderbartPanel__knapp"
+              data-test-id="c-expandingpanel__button-id"
               onClick={[Function]}
               onKeyDown={[Function]}
               type="button"

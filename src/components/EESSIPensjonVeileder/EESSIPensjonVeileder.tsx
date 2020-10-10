@@ -16,6 +16,7 @@ const EESSIPensjonVeileder: React.FC<EESSIPensjonVeilederProps> = ({
 }: EESSIPensjonVeilederProps): JSX.Element => (
   <div
     id={id}
+    data-test-id='c-eessipensjonveileder'
     className={className}
   >
     <img
@@ -28,8 +29,10 @@ const EESSIPensjonVeileder: React.FC<EESSIPensjonVeilederProps> = ({
 )
 
 EESSIPensjonVeileder.propTypes = {
+  id: PT.string,
   className: PT.string,
   mood: PT.oneOf(['smilende', 'trist'])
 }
+
 EESSIPensjonVeileder.displayName = 'EESSIPensjonVeileder'
 export default EESSIPensjonVeileder

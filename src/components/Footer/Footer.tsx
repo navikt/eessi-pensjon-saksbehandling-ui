@@ -13,14 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'redux'
 import styled, { ThemeProvider } from 'styled-components'
 
-export interface FooterProps {
-  className ?: string
-  highContrast: boolean
-  footerOpen: boolean
-  params: {[k: string]: any}
-}
-
-const FooterDiv = styled.footer`
+export const FooterDiv = styled.footer`
   flex-shrink: 0;
   background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   padding: 0rem;
@@ -82,7 +75,6 @@ const FooterInput = styled(Input)`
 const AddButton = styled(Knapp)`
  padding: 0.5rem;
 `
-
 const ParamsDiv = styled.div`
   display: flex;
   flex-direction: row-reverse;
@@ -105,39 +97,48 @@ const RemoveButton = styled(Lukknapp)`
   transform: scale(0.5);
 `
 
+export interface FooterProps {
+  className ?: string
+  highContrast: boolean
+  footerOpen: boolean
+  params: {[k: string]: any}
+}
+
+const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
+
 const Footer: React.FC<FooterProps> = ({
   className, footerOpen, highContrast, params
 }: FooterProps): JSX.Element => {
-  const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
-  const [paramName, setParamName] = useState<string |undefined>(undefined)
-  const [paramValue, setParamValue] = useState<string |undefined>(undefined)
   const store = useSelector<Store, Store>(state => state)
   const dispatch = useDispatch()
-  const onUnsetParam = (key: string) => {
+  const [_paramName, setParamName] = useState<string |undefined>(undefined)
+  const [_paramValue, setParamValue] = useState<string |undefined>(undefined)
+
+  const onUnsetParam = (key: string): void => {
     dispatch(unsetStatusParam(key))
   }
 
-  const onSetParam = () => {
-    dispatch(setStatusParam(paramName!, paramValue))
+  const onSetParam = (): void => {
+    dispatch(setStatusParam(_paramName!, _paramValue))
     setParamName(undefined)
     setParamValue(undefined)
   }
 
-  const onSetParamName = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onSetParamName = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const name = e.target.value
     if (name !== '') {
       setParamName(name)
     }
   }
 
-  const onSetParamValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSetParamValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value
     if (value !== '') {
       setParamValue(value)
     }
   }
 
-  const dumpStore = () => {
+  const dumpStore = (): void => {
     const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(store, null, 2)))
     element.setAttribute('download', 'store.txt')
@@ -147,19 +148,22 @@ const Footer: React.FC<FooterProps> = ({
     document.body.removeChild(element)
   }
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
+  const onKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key === 'Enter') {
       dispatch(toggleFooterOpen())
     }
   }
 
-  const _toggleFooterOpen = () => {
+  const _toggleFooterOpen = (): void => {
     dispatch(toggleFooterOpen())
   }
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <FooterDiv role='contentinfo' className={classNames(className, { toggled: footerOpen })}>
+      <FooterDiv
+        role='contentinfo'
+        className={classNames(className, { toggled: footerOpen })}
+      >
         <ContentDiv className={classNames({ fullWidth: !footerOpen })}>
           <div
             role='button'
@@ -173,7 +177,8 @@ const Footer: React.FC<FooterProps> = ({
           {footerOpen && (
             <FormDiv>
               <FooterSelect
-                date-testid='c-footer__select-id'
+                data-test-id='c-footer__select-id'
+                id='c-footer__select-id'
                 label=''
                 onChange={onSetParamName}
               >
@@ -184,8 +189,9 @@ const Footer: React.FC<FooterProps> = ({
               </FooterSelect>
               <FooterInput
                 label=''
-                date-testid='c-footer__input-id'
-                value={paramValue || ''}
+                data-test-id='c-footer__input-id'
+                id='c-footer__input-id'
+                value={_paramValue || ''}
                 onChange={onSetParamValue}
               />
               <AddButton
@@ -205,10 +211,15 @@ const Footer: React.FC<FooterProps> = ({
             {validParams.map(param => {
               return params[param] && (
                 <ParamDiv key={param}>
-                  <EtikettBase className='c-footer__param-string' type='info'>
+                  <EtikettBase
+                    className='c-footer__param-string'
+                    data-test-id='c-footer__param-string'
+                    type='info'
+                  >
                     <b>{param}</b> {params[param]}
                   </EtikettBase>
                   <RemoveButton
+                    data-test-id='c-footer__remove-button'
                     onClick={() => onUnsetParam(param)}
                   />
                 </ParamDiv>
@@ -224,6 +235,7 @@ const Footer: React.FC<FooterProps> = ({
 Footer.propTypes = {
   className: PT.string,
   footerOpen: PT.bool.isRequired,
+  highContrast: PT.bool.isRequired,
   params: PT.object.isRequired
 }
 

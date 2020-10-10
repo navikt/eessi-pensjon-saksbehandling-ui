@@ -1,49 +1,14 @@
 import classNames from 'classnames'
+import { animationClose, animationOpen } from 'components/keyframes'
 import { guid } from 'nav-frontend-js-utils'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { Collapse, UnmountClosed } from 'react-collapse'
-import styled, { keyframes, ThemeProvider } from 'styled-components'
+import { useTranslation } from 'react-i18next'
+import styled, { ThemeProvider } from 'styled-components'
 
-export interface ExpandingPanelProps {
-  ariaTittel?: string
-  border?: boolean
-  children : JSX.Element
-  className ?: string
-  collapseProps?: any
-  highContrast?: boolean
-  heading?: JSX.Element | string
-  id?: string
-  onOpen?: () => void
-  onClose?: () => void
-  open?: boolean
-  renderContentWhenClosed?: boolean
-  style?: React.CSSProperties
-}
-
-const animationOpen = keyframes`
-  0% {
-    height: 0%;
-    max-height: 0;
-  }
-  100% {
-    max-height:150em;
-    height: 100%;
-  }
-`
-const animationClose = keyframes`
-  0% {
-    max-height: 150em;
-    height: 100%;
-  }
-  100% {
-    max-height: 0;
-    height: 0%;
-  }
-`
-
-const ExpandingPanelDiv = styled.div`
+export const ExpandingPanelDiv = styled.div`
   &.ekspanderbartPanel--apen .ReactCollapse--collapse {
     will-change: max-height, height;
     max-height: 150em;
@@ -56,12 +21,29 @@ const ExpandingPanelDiv = styled.div`
   }
 `
 
+export interface ExpandingPanelProps {
+  ariaTittel?: string
+  border?: boolean
+  children : JSX.Element
+  className?: string
+  collapseProps?: any
+  highContrast: boolean
+  heading?: JSX.Element | string
+  id?: string
+  onClose?: () => void
+  onOpen?: () => void
+  open?: boolean
+  renderContentWhenClosed?: boolean
+  style?: React.CSSProperties
+}
+
 const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
-  ariaTittel, border = false, children, className, collapseProps, highContrast = false, heading, id,
+  ariaTittel, border = false, children, className, collapseProps, highContrast, heading, id,
   onClose = () => {}, onOpen = () => {}, open = false, renderContentWhenClosed, style = {}
 }: ExpandingPanelProps): JSX.Element => {
   const [_open, setOpen] = useState<boolean>(open)
-  const [isCloseAnimation, setIsCloseAnimation] = useState<boolean>(false)
+  const { t } = useTranslation()
+  const [_isCloseAnimation, setIsCloseAnimation] = useState<boolean>(false)
   const contentId: string = (collapseProps && collapseProps.id) || guid()
 
   useEffect(() => {
@@ -101,7 +83,7 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
     const { keyCode } = e
     const isTab = keyCode === 9
 
-    if (isTab && isCloseAnimation) {
+    if (isTab && _isCloseAnimation) {
       e.preventDefault()
     }
   }
@@ -123,6 +105,7 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
       >
         <div
           aria-expanded={_open}
+          data-test-id='c-expandingpanel__head-id'
           className='ekspanderbartPanel__hode'
           onClick={handleOnClick}
           onKeyDown={handleKeyboard}
@@ -130,15 +113,19 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
           tabIndex={0}
           {...ariaControls}
         >
-          <div className='ekspanderbartPanel__flex-wrapper'>
+          <div
+            className='ekspanderbartPanel__flex-wrapper'
+            data-test-id='c-expandingpanel__body-id'
+          >
             {heading}
             <button
+              aria-expanded={_open}
+              aria-label={t('ui:open')}
               className='ekspanderbartPanel__knapp'
+              data-test-id='c-expandingpanel__button-id'
               onKeyDown={tabHandler}
               onClick={handleOnClick}
-              aria-expanded={_open}
               type='button'
-              aria-label='open'
             >
               <span className='ekspanderbartPanel__indikator' />
             </button>
@@ -150,7 +137,11 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
           onRest={onRestProxy}
           {...collapseProps}
         >
-          <article aria-label={ariaTittel} className='ekspanderbartPanel__innhold'>
+          <article
+            aria-label={ariaTittel}
+            className='ekspanderbartPanel__innhold'
+            data-test-id='c-expandingpanel__content-id'
+          >
             {children}
           </article>
         </CollapseComponent>
@@ -162,9 +153,12 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
 ExpandingPanel.propTypes = {
   ariaTittel: PT.string,
   border: PT.bool,
+  children: PT.any.isRequired,
   className: PT.string,
   collapseProps: PT.object,
+  highContrast: PT.bool.isRequired,
   heading: PT.oneOfType([PT.string, PT.element]),
+  id: PT.string,
   onClose: PT.func,
   onOpen: PT.func,
   open: PT.bool,

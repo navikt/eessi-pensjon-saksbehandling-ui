@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Header Renders 1`] = `
+exports[`components/Header/Header Render: match snapshot 1`] = `
 .c15 {
   display: inline-block;
   margin-left: 1rem;
@@ -8,6 +8,29 @@ exports[`components/Header Renders 1`] = `
 
 ui-fss.g14[id="c14"] {
   content: "c15,";
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c3 * {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+ui-fss.g26[id="c2"] {
+  content: "c3,";
 }
 
 .c1 {
@@ -33,8 +56,34 @@ ui-fss.g14[id="c14"] {
   flex-shrink: 0;
 }
 
-ui-fss.g26[id="c0"] {
+ui-fss.g27[id="c0"] {
   content: "c1,";
+}
+
+.c9 {
+  font-size: 1.5rem;
+  color: #FFFFFF;
+}
+
+ui-fss.g28[id="c8"] {
+  content: "c9,";
+}
+
+.c17 {
+  margin: auto 0px;
+  padding: 0.3em;
+}
+
+ui-fss.g29[id="c16"] {
+  content: "c17,";
+}
+
+.c13 {
+  color: white;
+}
+
+ui-fss.g30[id="c12"] {
+  content: "c13,";
 }
 
 .c5 {
@@ -47,31 +96,8 @@ ui-fss.g26[id="c0"] {
   width: 1px;
 }
 
-ui-fss.g27[id="c4"] {
+ui-fss.g31[id="c4"] {
   content: "c5,";
-}
-
-.c3 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.c3 * {
-  font-size: inherit;
-  line-height: inherit;
-}
-
-ui-fss.g28[id="c2"] {
-  content: "c3,";
 }
 
 .c7 {
@@ -84,7 +110,7 @@ ui-fss.g28[id="c2"] {
   padding-left: 15px;
 }
 
-ui-fss.g29[id="c6"] {
+ui-fss.g32[id="c6"] {
   content: "c7,";
 }
 
@@ -106,34 +132,8 @@ ui-fss.g29[id="c6"] {
   align-items: center;
 }
 
-ui-fss.g30[id="c10"] {
+ui-fss.g33[id="c10"] {
   content: "c11,";
-}
-
-.c13 {
-  color: white;
-}
-
-ui-fss.g31[id="c12"] {
-  content: "c13,";
-}
-
-.c17 {
-  margin: auto 0px;
-  padding: 0.3em;
-}
-
-ui-fss.g32[id="c16"] {
-  content: "c17,";
-}
-
-.c9 {
-  font-size: 1.5rem;
-  color: #FFFFFF;
-}
-
-ui-fss.g33[id="c8"] {
-  content: "c9,";
 }
 
 .c19 {
@@ -148,6 +148,7 @@ ui-fss.g34[id="c18"] {
 }
 
 <Header
+  highContrast={false}
   username="testUser"
 >
   <Component
@@ -322,7 +323,7 @@ ui-fss.g34[id="c18"] {
             className="c2 c3"
           >
             <a
-              data-test-id="c-topHeader__logo-link"
+              data-test-id="c-header__logo-link"
               href="#index"
               onClick={[Function]}
             >
@@ -423,20 +424,20 @@ ui-fss.g34[id="c18"] {
           </div>
         </styled.div>
         <Styled(Lenke)
+          data-test-id="c-header__highcontrast-link-id"
           href="#highContrast"
-          id="c-topHeader__highcontrast-link-id"
           onClick={[Function]}
         >
           <Lenke
             className="c8 c9"
+            data-test-id="c-header__highcontrast-link-id"
             href="#highContrast"
-            id="c-topHeader__highcontrast-link-id"
             onClick={[Function]}
           >
             <a
               className="lenke c8 c9"
+              data-test-id="c-header__highcontrast-link-id"
               href="#highContrast"
-              id="c-topHeader__highcontrast-link-id"
               onClick={[Function]}
             >
               ui:highContrast

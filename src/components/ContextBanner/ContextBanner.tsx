@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled, { ThemeProvider } from 'styled-components'
 
-const DivWithLinks = styled.div`
+export const DivWithLinks = styled.div`
   padding: 0.5rem 2rem;
   display: flex;
   flex-direction: row-reverse;
@@ -30,7 +30,7 @@ const Content = styled.div`
   justify-content: space-between;
   background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'lightgrey'};
 `
-const Context = styled.div`
+export const Context = styled.div`
  padding: 0.5rem 2rem;
  display: flex;
  align-items: center;
@@ -39,18 +39,18 @@ const Context = styled.div`
    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
  }
 `
-const Tag = styled(EtikettLiten)`
+export const Tag = styled(EtikettLiten)`
  padding: 0rem 0.5rem;
  margin-left: 0.25rem;
  margin-right: 0.25rem;
 `
 
-interface ContextBannerProps {
+export interface ContextBannerProps {
   highContrast: boolean
   mode: BUCMode
 }
 
-interface ContextBannerSelector {
+export interface ContextBannerSelector {
   person: Person | undefined
   pesysContext?: PesysContext
   sakType?: string
@@ -65,22 +65,22 @@ const mapState = (state: State): ContextBannerSelector => ({
 const ContextBanner: React.FC<ContextBannerProps> = ({
   highContrast, mode
 }: ContextBannerProps): JSX.Element => {
-  const _theme = highContrast ? themeHighContrast : theme
-  const linkColor = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
-  const [mounted, setMounted] = useState<boolean>(false)
   const { t } = useTranslation()
   const { person, pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
+  const _theme = highContrast ? themeHighContrast : theme
+  const linkColor = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
+  const [_mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!mounted) {
+    if (!_mounted) {
       standardLogger('context', {
         pesys: pesysContext,
         sakType: sakType
       })
       setMounted(true)
     }
-  }, [mounted, pesysContext, sakType])
+  }, [_mounted, pesysContext, sakType])
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
