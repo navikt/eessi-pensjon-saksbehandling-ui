@@ -277,7 +277,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
     {
-      const excludedBucs = ['P_BUC_05', 'P_BUC_10']
+      const excludedBucs = ['P_BUC_10']
       if (_.get((action as ActionWithPayload), 'context.featureToggles.P_BUC_02_VISIBLE') === false) {
         excludedBucs.push('P_BUC_02')
       }
