@@ -1,6 +1,18 @@
 import { JoarkFilePropType } from 'declarations/joark.pt'
 import PT from 'prop-types'
 
+export const AddressPropType = PT.shape({
+  country: PT.string.isRequired,
+  town: PT.string,
+  street: PT.string,
+  postalCode: PT.string,
+  region: PT.string
+})
+
+export const AvdodPropType = PT.shape({
+  fnr: PT.string.isRequired
+})
+
 export const DatePropType = PT.shape({
   year: PT.number.isRequired,
   month: PT.string.isRequired,
@@ -28,13 +40,7 @@ export const SEDAttachmentPropType = PT.shape({
 
 export const SEDAttachmentsPropType = PT.arrayOf(SEDAttachmentPropType.isRequired)
 
-export const AddressPropType = PT.shape({
-  country: PT.string.isRequired,
-  town: PT.string,
-  street: PT.string,
-  postalCode: PT.string,
-  region: PT.string
-})
+
 
 export const OrganisationPropType = PT.shape({
   address: AddressPropType.isRequired,
@@ -115,7 +121,7 @@ export const ErrorBucPropType = PT.shape({
   error: PT.string
 })
 
-export const BucPropType = PT.any// oneOfType([ValidBucPropType, ErrorBucPropType])
+export const BucPropType = PT.any//oneOfType([ValidBucPropType, ErrorBucPropType])
 
 export const BucsPropType = PT.objectOf(BucPropType)
 

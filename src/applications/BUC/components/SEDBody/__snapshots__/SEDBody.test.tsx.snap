@@ -9,7 +9,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Render: match snapshot 1`] 
   margin-bottom: 2rem;
 }
 
-ui-fss.g13[id="c0"] {
+ui-fss.g4[id="c0"] {
   content: "c1,c2,";
 }
 
@@ -17,7 +17,7 @@ ui-fss.g13[id="c0"] {
   background-color: inherit;
 }
 
-ui-fss.g15[id="c3"] {
+ui-fss.g6[id="c3"] {
   content: "c4,";
 }
 

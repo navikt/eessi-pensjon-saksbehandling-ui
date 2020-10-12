@@ -13,17 +13,3 @@ exports[`components/SessionMonitor Render: match snapshot 1`] = `
   />
 </SessionMonitor>
 `;
-
-exports[`components/SessionMonitor Renders 1`] = `
-<SessionMonitor
-  checkInterval={500}
-  expirationTime={2020-01-31T23:00:00.000Z}
-  millisecondsForWarning={9900}
-  now={2020-12-17T02:24:00.000Z}
-  sessionExpiredReload={1000}
->
-  <div
-    className="c-sessionMonitor"
-  />
-</SessionMonitor>
-`;

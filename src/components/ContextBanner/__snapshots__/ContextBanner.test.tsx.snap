@@ -6,7 +6,7 @@ exports[`components/ContextBanner/ContextBanner Render: match snapshot 1`] = `
   margin-left: 0.5rem;
 }
 
-ui-fss.g14[id="c10"] {
+ui-fss.g5[id="c10"] {
   content: "c11,";
 }
 
@@ -29,7 +29,7 @@ ui-fss.g14[id="c10"] {
   stroke: #0067C5 !important;
 }
 
-ui-fss.g20[id="c8"] {
+ui-fss.g11[id="c8"] {
   content: "c9,";
 }
 
@@ -44,7 +44,7 @@ ui-fss.g20[id="c8"] {
   flex-direction: row-reverse;
 }
 
-ui-fss.g26[id="c6"] {
+ui-fss.g16[id="c6"] {
   content: "c7,";
 }
 
@@ -52,7 +52,7 @@ ui-fss.g26[id="c6"] {
   padding: 0rem 0.5rem;
 }
 
-ui-fss.g27[id="c12"] {
+ui-fss.g17[id="c12"] {
   content: "c13,";
 }
 
@@ -75,7 +75,7 @@ ui-fss.g27[id="c12"] {
   background-color: lightgrey;
 }
 
-ui-fss.g28[id="c0"] {
+ui-fss.g18[id="c0"] {
   content: "c1,";
 }
 
@@ -96,7 +96,7 @@ ui-fss.g28[id="c0"] {
   line-height: inherit;
 }
 
-ui-fss.g29[id="c2"] {
+ui-fss.g19[id="c2"] {
   content: "c3,";
 }
 
@@ -106,7 +106,7 @@ ui-fss.g29[id="c2"] {
   margin-right: 0.25rem;
 }
 
-ui-fss.g30[id="c4"] {
+ui-fss.g20[id="c4"] {
   content: "c5,";
 }
 

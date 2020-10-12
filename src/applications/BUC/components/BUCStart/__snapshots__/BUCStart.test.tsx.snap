@@ -21,7 +21,7 @@ ui-fss.g4[id="c9"] {
   flex-direction: column;
 }
 
-ui-fss.g15[id="c0"] {
+ui-fss.g6[id="c0"] {
   content: "c1,";
 }
 
@@ -33,7 +33,7 @@ ui-fss.g15[id="c0"] {
   margin-right: 0.5rem;
 }
 
-ui-fss.g16[id="c2"] {
+ui-fss.g7[id="c2"] {
   content: "c3,";
 }
 
@@ -45,7 +45,7 @@ ui-fss.g16[id="c2"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g17[id="c4"] {
+ui-fss.g8[id="c4"] {
   content: "c5,c6,";
 }
 
@@ -59,7 +59,7 @@ ui-fss.g17[id="c4"] {
   margin-left: 1rem;
 }
 
-ui-fss.g18[id="c7"] {
+ui-fss.g9[id="c7"] {
   content: "c8,c13,";
 }
 
@@ -92,7 +92,7 @@ ui-fss.g18[id="c7"] {
   stroke: #0067C5;
 }
 
-ui-fss.g20[id="c11"] {
+ui-fss.g11[id="c11"] {
   content: "c12,";
 }
 
@@ -120,7 +120,7 @@ ui-fss.g20[id="c11"] {
   stroke: #0067C5;
 }
 
-ui-fss.g21[id="c14"] {
+ui-fss.g12[id="c14"] {
   content: "c15,";
 }
 

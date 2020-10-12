@@ -58,7 +58,7 @@ ui-fss.g3[id="c22"] {
   flex-direction: column;
 }
 
-ui-fss.g14[id="c2"] {
+ui-fss.g5[id="c2"] {
   content: "c4,";
 }
 
@@ -70,7 +70,7 @@ ui-fss.g14[id="c2"] {
   margin-right: 0.5rem;
 }
 
-ui-fss.g15[id="c6"] {
+ui-fss.g6[id="c6"] {
   content: "c7,";
 }
 
@@ -94,7 +94,7 @@ ui-fss.g15[id="c6"] {
   background: #eceecc;
 }
 
-ui-fss.g30[id="c0"] {
+ui-fss.g20[id="c0"] {
   content: "c1,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g30[id="c0"] {
   justify-content: space-between;
 }
 
-ui-fss.g31[id="c10"] {
+ui-fss.g21[id="c10"] {
   content: "c11,";
 }
 
@@ -118,7 +118,7 @@ ui-fss.g31[id="c10"] {
   width: 100%;
 }
 
-ui-fss.g32[id="c3"] {
+ui-fss.g22[id="c3"] {
   content: "c5,";
 }
 
@@ -142,7 +142,7 @@ ui-fss.g32[id="c3"] {
   flex: 2;
 }
 
-ui-fss.g33[id="c26"] {
+ui-fss.g23[id="c26"] {
   content: "c27,";
 }
 
@@ -152,7 +152,7 @@ ui-fss.g33[id="c26"] {
   flex: 1;
 }
 
-ui-fss.g34[id="c12"] {
+ui-fss.g24[id="c12"] {
   content: "c13,";
 }
 
@@ -181,7 +181,7 @@ ui-fss.g34[id="c12"] {
   font-size: 1.5rem;
 }
 
-ui-fss.g35[id="c28"] {
+ui-fss.g25[id="c28"] {
   content: "c29,";
 }
 
@@ -197,7 +197,7 @@ ui-fss.g35[id="c28"] {
   margin: 0.2rem 0rem;
 }
 
-ui-fss.g36[id="c14"] {
+ui-fss.g26[id="c14"] {
   content: "c15,";
 }
 
@@ -207,7 +207,7 @@ ui-fss.g36[id="c14"] {
   color: #0067C5 !important;
 }
 
-ui-fss.g37[id="c24"] {
+ui-fss.g27[id="c24"] {
   content: "c25,";
 }
 
@@ -216,7 +216,7 @@ ui-fss.g37[id="c24"] {
   padding-right: 0.5rem;
 }
 
-ui-fss.g38[id="c16"] {
+ui-fss.g28[id="c16"] {
   content: "c17,";
 }
 
@@ -235,7 +235,7 @@ ui-fss.g38[id="c16"] {
   align-items: center;
 }
 
-ui-fss.g39[id="c30"] {
+ui-fss.g29[id="c30"] {
   content: "c31,";
 }
 
@@ -244,7 +244,7 @@ ui-fss.g39[id="c30"] {
   width: 100%;
 }
 
-ui-fss.g40[id="c8"] {
+ui-fss.g30[id="c8"] {
   content: "c9,";
 }
 

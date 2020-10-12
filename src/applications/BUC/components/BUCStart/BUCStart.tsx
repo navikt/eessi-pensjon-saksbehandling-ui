@@ -19,7 +19,7 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
-import { AllowedLocaleString, Loading, PesysContext, Validation, Option, Options } from 'declarations/app.d'
+import { AllowedLocaleString, Loading, Option, Options, PesysContext, Validation } from 'declarations/app.d'
 import {
   Buc,
   BUCRawList,
@@ -31,9 +31,9 @@ import {
   TagRawList,
   Tags
 } from 'declarations/buc'
-import { State } from 'declarations/reducers'
 
 import { Person, PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
@@ -44,6 +44,7 @@ import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { ValueType } from 'react-select'
 import { ThemeProvider } from 'styled-components'
 
 export interface BUCStartProps {
@@ -198,21 +199,27 @@ const BUCStart: React.FC<BUCStartProps> = ({
     onBucCancelled()
   }
 
-  const onSubjectAreaChange = (option: Option): void => {
-    const thisSubjectArea: string = option.value
-    setSubjectArea(thisSubjectArea)
-    validateSubjectArea(thisSubjectArea)
+  const onSubjectAreaChange = (option: ValueType<Option> | null | undefined): void => {
+    console.log(option)
+      if (option) {
+        const thisSubjectArea: string = (option as Option).value
+        setSubjectArea(thisSubjectArea)
+        validateSubjectArea(thisSubjectArea)
+      }
   }
 
-  const onBucChange = (option: Option): void => {
-    const thisBuc: string = option.value
-    setBuc(thisBuc)
-    validateBuc(thisBuc)
+  const onBucChange = (option: ValueType<Option> | null | undefined): void => {
+    console.log(option)
+    if (option) {
+      const thisBuc: string = (option as Option).value
+      setBuc(thisBuc)
+      validateBuc(thisBuc)
+    }
   }
 
-  const onTagsChange = (tagsList: Tags): void => {
-    setTags(tagsList)
-    standardLogger('buc.new.tags.select', { tags: tagsList?.map(t => t.label) || [] })
+  const onTagsChange = (tagsList: ValueType<Tag>): void => {
+    setTags(tagsList as Tags)
+    standardLogger('buc.new.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
   }
 
   const renderOptions = (options: Array<Option | string> | undefined): Options => {
@@ -252,11 +259,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
     } as Tag
   }) : []
 
-  const onAvdodChange = (option: Option): void => {
-    const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
-      (avdod: PersonAvdod) => avdod.fnr === option.value
-    )
-    setAvdod(thisAvdod)
+  const onAvdodChange = (option: ValueType<Option> | null | undefined): void => {
+    if (option) {
+      const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
+        (avdod: PersonAvdod) => avdod.fnr === (option as Option).value
+      )
+      setAvdod(thisAvdod)
+    }
   }
 
   const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
@@ -334,7 +343,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <Select
                 data-test-id='a-buc-c-bucstart__subjectarea-select-id'
                 defaultValue={{ label: _subjectArea, value: _subjectArea }}
-                feil={_validation.subjectArea ? t(_validation.subjectArea.feilmelding) : null}
+                feil={_validation.subjectArea ? t(_validation.subjectArea.feilmelding) : undefined}
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__subjectarea-select-id'
                 isLoading={loading.gettingSubjectAreaList}
@@ -352,7 +361,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               </label>
               <Select
                 data-test-id='a-buc-c-bucstart__buc-select-id'
-                feil={_validation.buc ? t(_validation.buc.feilmelding) : null}
+                feil={_validation.buc ? t(_validation.buc.feilmelding) : undefined}
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__buc-select-id'
                 isLoading={loading.gettingBucList}
@@ -371,7 +380,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 </label>
                 <Select
                   data-test-id='a-buc-c-bucstart__avdod-select-id'
-                  feil={_validation.avdod ? t(_validation.avdod.feilmelding) : null}
+                  feil={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
                   highContrast={highContrast}
                   isSearchable
                   menuPortalTarget={document.getElementById('main')}
@@ -386,7 +395,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <HorizontalSeparatorDiv data-size='2' />
           <Column>
             <VerticalSeparatorDiv data-size='2' />
-            <MultipleSelect
+            <MultipleSelect<Tag>
               ariaLabel={t('buc:form-tagsForBUC')}
               aria-describedby='help-tags'
               data-test-id='a-buc-c-bucstart__tags-select-id'

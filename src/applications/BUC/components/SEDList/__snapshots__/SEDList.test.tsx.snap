@@ -5,7 +5,7 @@ exports[`applications/BUC/components/SEDList/SEDList Render: match snapshot 1`] 
   margin-bottom: 1rem;
 }
 
-ui-fss.g13[id="c0"] {
+ui-fss.g4[id="c0"] {
   content: "c1,";
 }
 
@@ -20,7 +20,7 @@ ui-fss.g13[id="c0"] {
   justify-content: space-between;
 }
 
-ui-fss.g26[id="c2"] {
+ui-fss.g16[id="c2"] {
   content: "c3,";
 }
 

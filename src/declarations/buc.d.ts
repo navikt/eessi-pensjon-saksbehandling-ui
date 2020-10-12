@@ -1,7 +1,32 @@
 import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
 import { JoarkBrowserItems } from 'declarations/joark'
 
-export type RawList = Array<string>
+export interface Address {
+  country: string
+  town?: string | null
+  street?: string| null
+  postalCode?: string| null
+  region?: string| null
+}
+
+export interface Avdod {
+  fnr: string
+}
+
+export interface Gjenlevende {
+  fnr: string
+}
+
+export interface BUCSubject {
+  gjenlevende: Gjenlevende
+  avdod: Avdod
+}
+
+export interface Comment {
+  value: string
+}
+
+export type Comments = Array<Comment>
 
 export interface Date {
   year: number
@@ -18,27 +43,47 @@ export interface Date {
   monthValue: number
 }
 
-export type SedType = 'sed'
-export type SedNewType = 'sednew'
-
-export interface SEDAttachment {
-  id: string
-  name: string
-  fileName: string
-  mimeType: string
-  documentId: string
-  lastUpdate: any
-  medical: boolean
+export interface ErrorBuc {
+  caseId: string | null
+  readOnly ?: any
+  creator: null
+  error: string
+  institusjon: null | undefined
+  deltakere?: null
+  lastUpdate: null
+  sakType: null
+  seds: null
+  status: null
+  startDate: null
+  type: string | null
 }
 
-export type SEDAttachments = Array<SEDAttachment>
-
-export interface Address {
+export interface Institution {
   country: string
-  town?: string | null
-  street?: string| null
-  postalCode?: string| null
-  region?: string| null
+  institution: string
+  name?: string | null
+}
+
+export type Institutions = Array<Institution>
+
+export interface InstitutionListMap<T> {
+  [landkode: string]: Array<T>
+}
+
+export interface InstitutionNames {
+  [id: string]: string
+}
+
+export interface NewSedPayload {
+  aktoerId: string
+  avdodfnr?: string
+  buc: string
+  euxCaseId: string
+  institutions: Institutions
+  sakId: string
+  sed: string
+  subject?: BUCSubject
+  vedtakId?: string
 }
 
 export interface Organisation {
@@ -63,6 +108,40 @@ export interface Participant {
 
 export type Participants = Array<Participant>
 
+export type RawList = Array<string>
+
+export interface RawInstitution {
+  id: string
+  navn: string
+  akronym: string
+  landkode: string
+  buc?: string
+}
+
+export type RawInstitutions = Array<RawInstitution>
+
+export interface RinaUrlPayload {
+  rinaUrl: string
+}
+
+export interface SaveBucsInfoProps {
+  aktoerId: string
+  avdod ?: string
+  buc: {
+    caseId: string
+  };
+  bucsInfo: BucsInfo
+  comment?: string
+  tags?: RawList
+}
+
+export interface SavingAttachmentsJob {
+  total: JoarkBrowserItems
+  saved: JoarkBrowserItems
+  saving: JoarkBrowserItem | undefined
+  remaining: JoarkBrowserItems
+}
+
 export interface Version {
   id: string
   date: number
@@ -85,45 +164,54 @@ export interface Sed {
   message ?: string
 }
 
+export type SEDAttachments = Array<SEDAttachment>
+
+export interface SEDAttachmentPayload {
+  aktoerId: string
+  rinaId: string
+  rinaDokumentId: string
+}
+
+export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
+  journalpostId: string | undefined
+  dokumentInfoId: string | undefined
+  variantformat: string | undefined
+}
+
+export interface SEDP5000Payload {
+  sed: string
+  sedGVer: string
+  sedVer: string
+  nav: any
+  pensjon: any
+  trygdetid: any
+  ignore: any
+  horisontal: any
+}
+
+export type SedType = 'sed'
+export type SedNewType = 'sednew'
+
+export type SedsWithAttachmentsMap = {[k: string]: boolean}
+
+export interface SEDAttachment {
+  id: string
+  name: string
+  fileName: string
+  mimeType: string
+  documentId: string
+  lastUpdate: any
+  medical: boolean
+}
 export type Seds = Array<Sed>
 
 export type SedContent = any
 
 export type SedContentMap = {[k: string]: SedContent}
 
-export interface Institution {
-  country: string
-  institution: string
-  name?: string | null
-}
-
-export type Institutions = Array<Institution>
-
-export interface Gjenlevende {
-  fnr: string
-}
-
-export interface Avdod {
-  fnr: string
-}
-export interface BUCSubject {
-  gjenlevende: Gjenlevende
-  avdod: Avdod
-}
-
-export interface ErrorBuc {
-  caseId: string | null
-  readOnly ?: any
-  creator: null
-  error: string
-  institusjon: null | undefined
-  deltakere?: null
-  lastUpdate: null
-  sakType: null
-  seds: null
-  status: null
-  startDate: null
-  type: string | null
+export interface Tag extends OptionType {
+  value: string
+  label: string
 }
 
 export interface ValidBuc {
@@ -148,12 +236,6 @@ export type Buc = ValidBuc | ErrorBuc
 
 export type Bucs = {[caseId: string]: Buc}
 
-export interface Comment {
-  value: string
-}
-
-export type Comments = Array<Comment>
-
 export interface BucInfo {
   avdod ?: string
   tags?: RawList | null
@@ -166,94 +248,14 @@ export interface BucsInfo {
   }
 }
 
-export interface NewSedPayload {
-  aktoerId: string
-  avdodfnr?: string
-  buc: string
-  euxCaseId: string
-  institutions: Institutions
-  sakId: string
-  sed: string
-  subject?: BUCSubject
-  vedtakId?: string
-}
-
-export interface SEDAttachmentPayload {
-  aktoerId: string
-  rinaId: string
-  rinaDokumentId: string
-}
-
-export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
-  journalpostId: string | undefined
-  dokumentInfoId: string | undefined
-  variantformat: string | undefined
-}
-
-export interface RawInstitution {
-  id: string
-  navn: string
-  akronym: string
-  landkode: string
-  buc?: string
-}
-
-export type RawInstitutions = Array<RawInstitution>
-
-export interface InstitutionListMap<T> {
-  [landkode: string]: Array<T>
-}
-
-export interface InstitutionNames {
-  [id: string]: string
-}
-
-export type SedsWithAttachmentsMap = {[k: string]: boolean}
-
-export interface Tag {
-  value: string
-  label: string
-}
-
-export type Tags = Array<Tag>
-
-export interface SavingAttachmentsJob {
-  total: JoarkBrowserItems
-  saved: JoarkBrowserItems
-  saving: JoarkBrowserItem | undefined
-  remaining: JoarkBrowserItems
-}
-
-export type SubjectAreaRawList = RawList
-export type SEDRawList = RawList
 export type BUCRawList = RawList
 export type BucsInfoRawList = RawList
-export type TagRawList = RawList
 export type CountryRawList = RawList
 export type InstitutionRawList = RawList
+export type SEDRawList = RawList
+export type SubjectAreaRawList = RawList
+export type Tags = Array<Tag>
+export type TagRawList = RawList
 
-export interface SaveBucsInfoProps {
-  aktoerId: string
-  avdod ?: string
-  buc: {
-    caseId: string
-  };
-  bucsInfo: BucsInfo
-  comment?: string
-  tags?: RawList
-}
 
-export interface SEDP5000Payload {
-  sed: string
-  sedGVer: string
-  sedVer: string
-  nav: any
-  pensjon: any
-  trygdetid: any
-  ignore: any
-  horisontal: any
-}
 
-export interface RinaUrlPayload {
-  rinaUrl: string
-}

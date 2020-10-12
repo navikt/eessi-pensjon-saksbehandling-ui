@@ -1,5 +1,4 @@
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import Modal from 'components/Modal/Modal'
 import Knapp, { Flatknapp, Hovedknapp } from 'nav-frontend-knapper'
 import Lenke from 'nav-frontend-lenker'
 import Panel from 'nav-frontend-paneler'

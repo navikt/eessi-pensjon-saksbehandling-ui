@@ -5,7 +5,7 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Render: match snapshot 1`] =
   margin-bottom: 1rem;
 }
 
-ui-fss.g13[id="c4"] {
+ui-fss.g4[id="c4"] {
   content: "c5,";
 }
 
@@ -19,7 +19,7 @@ ui-fss.g13[id="c4"] {
   margin-left: 0.5rem;
 }
 
-ui-fss.g14[id="c10"] {
+ui-fss.g5[id="c10"] {
   content: "c11,c20,";
 }
 
@@ -42,7 +42,7 @@ ui-fss.g14[id="c10"] {
   stroke: #0067C5;
 }
 
-ui-fss.g15[id="c14"] {
+ui-fss.g6[id="c14"] {
   content: "c15,";
 }
 
@@ -75,7 +75,7 @@ ui-fss.g15[id="c14"] {
   stroke: #0067C5;
 }
 
-ui-fss.g16[id="c12"] {
+ui-fss.g7[id="c12"] {
   content: "c13,";
 }
 
@@ -88,7 +88,7 @@ ui-fss.g16[id="c12"] {
   color: #3E3832;
 }
 
-ui-fss.g19[id="c8"] {
+ui-fss.g10[id="c8"] {
   content: "c9,";
 }
 
@@ -111,7 +111,7 @@ ui-fss.g19[id="c8"] {
   stroke: #0067C5 !important;
 }
 
-ui-fss.g20[id="c18"] {
+ui-fss.g11[id="c18"] {
   content: "c19,";
 }
 
@@ -128,7 +128,7 @@ ui-fss.g20[id="c18"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g27[id="c16"] {
+ui-fss.g17[id="c16"] {
   content: "c17,";
 }
 
@@ -156,7 +156,7 @@ ui-fss.g27[id="c16"] {
   background-color: #FFFFFF;
 }
 
-ui-fss.g28[id="c0"] {
+ui-fss.g18[id="c0"] {
   content: "c1,";
 }
 
@@ -196,7 +196,7 @@ ui-fss.g28[id="c0"] {
   position: absolute;
 }
 
-ui-fss.g29[id="c2"] {
+ui-fss.g19[id="c2"] {
   content: "c3,";
 }
 
@@ -218,7 +218,7 @@ ui-fss.g29[id="c2"] {
   margin-bottom: 0px !important;
 }
 
-ui-fss.g30[id="c6"] {
+ui-fss.g20[id="c6"] {
   content: "c7,";
 }
 

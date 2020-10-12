@@ -5,7 +5,15 @@ import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { ThemeProvider } from 'styled-components'
+import { OptionTypeBase, ValueType } from 'react-select'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+
+interface StatusItem extends OptionTypeBase {
+  label: string
+  value: string
+}
+
+export type StatusItems = Array<StatusItem>
 
 const SEDSearchPanel = styled(HighContrastPanel)`
   display: flex !important;
@@ -28,19 +36,17 @@ const SearchInput = styled(HighContrastInput)`
     display: none;
   }
 `
-const SearchSelect = styled(MultipleSelect)`
+const GlobalStyle = createGlobalStyle`
   .skjemaelement__label {
     margin-bottom: 0px !important;
   }
 `
 
-export type StatusList = Array<{label: string, value: string}>
-
 export interface SEDSearchProps {
   className ?: string
   highContrast: boolean
   onSearch: (e: string) => void
-  onStatusSearch: (sl: StatusList) => void
+  onStatusSearch: (sl: StatusItems) => void
   value: string | undefined
 }
 
@@ -48,7 +54,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
   className, highContrast, onSearch, onStatusSearch, value
 }: SEDSearchProps): JSX.Element => {
   const [_query, setQuery] = useState<string | undefined>(value || '')
-  const [_status, setStatus] = useState<StatusList>([])
+  const [_status, setStatus] = useState<StatusItems>([])
   const [_timer, setTimer] = useState<number | undefined>(undefined)
   const { t } = useTranslation()
 
@@ -66,13 +72,15 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     setTimer(timer)
   }
 
-  const onStatusChange = (statusList: StatusList) => {
-    onStatusSearch(statusList)
-    setStatus(statusList)
-    standardLogger('buc.edit.filter.status.select')
+  const onStatusChange = (statusList: ValueType<StatusItem> | StatusItems | null | undefined ) => {
+    if (statusList) {
+      onStatusSearch(statusList as StatusItems)
+      setStatus(statusList as StatusItems)
+      standardLogger('buc.edit.filter.status.select')
+    }
   }
 
-  const availableStatuses: StatusList = [{
+  const availableStatuses: StatusItems = [{
     label: t('ui:new'),
     value: 'new'
   }, {
@@ -88,6 +96,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+      <GlobalStyle/>
       <SEDSearchPanel
         data-test-id='a-buc-c-sedsearch__panel-id'
         className={className}
@@ -104,8 +113,9 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
           />
         </PaddedDiv>
         <PaddedDiv>
-          <SearchSelect
+          <MultipleSelect<StatusItem>
             ariaLabel={t('buc:form-searchForStatus')}
+            className='a-buc-c-sedsearch'
             data-test-id='a-buc-c-sedsearch__status-select-id'
             id='a-buc-c-sedsearch__status-select-id'
             hideSelectedOptions={false}

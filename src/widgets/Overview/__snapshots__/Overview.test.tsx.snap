@@ -4,8 +4,8 @@ exports[`widgets/Overview/Overview Renders 1`] = `
 .c3.ekspanderbartPanel--apen .ReactCollapse--collapse {
   will-change: max-height,height;
   max-height: 150em;
-  -webkit-animation: iZaYLF 250ms ease;
-  animation: iZaYLF 250ms ease;
+  -webkit-animation: biJkQB 250ms ease;
+  animation: biJkQB 250ms ease;
 }
 
 .c3.ekspanderbartPanel--lukket .ReactCollapse--collapse {
@@ -24,7 +24,7 @@ ui-fss.g1[id="c2"] {
   margin-left: 1rem;
 }
 
-ui-fss.g14[id="c8"] {
+ui-fss.g5[id="c8"] {
   content: "c9,";
 }
 
@@ -62,7 +62,7 @@ ui-fss.g14[id="c8"] {
   line-height: inherit;
 }
 
-ui-fss.g24[id="c0"] {
+ui-fss.g14[id="c0"] {
   content: "c1,";
 }
 
@@ -78,7 +78,7 @@ ui-fss.g24[id="c0"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g31[id="c6"] {
+ui-fss.g21[id="c6"] {
   content: "c7,";
 }
 
@@ -92,7 +92,7 @@ ui-fss.g31[id="c6"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g32[id="c12"] {
+ui-fss.g22[id="c12"] {
   content: "c13,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g32[id="c12"] {
   flex: 1;
 }
 
-ui-fss.g33[id="c4"] {
+ui-fss.g23[id="c4"] {
   content: "c5,";
 }
 
@@ -120,7 +120,7 @@ ui-fss.g33[id="c4"] {
   width: 100%;
 }
 
-ui-fss.g34[id="c10"] {
+ui-fss.g24[id="c10"] {
   content: "c11,";
 }
 
@@ -507,6 +507,7 @@ ui-fss.g34[id="c10"] {
                   aria-controls="w-overview-id"
                   aria-expanded={true}
                   className="ekspanderbartPanel__hode"
+                  data-test-id="c-expandingpanel__head-id"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
@@ -514,6 +515,7 @@ ui-fss.g34[id="c10"] {
                 >
                   <div
                     className="ekspanderbartPanel__flex-wrapper"
+                    data-test-id="c-expandingpanel__body-id"
                   >
                     <PersonTitle
                       gettingPersonInfo={false}
@@ -523,20 +525,20 @@ ui-fss.g34[id="c10"] {
                           <div
                             className="c4 c5"
                           >
-                            <_default>
+                            <LoadingImage>
                               <styled.div>
                                 <div
                                   className="c6 c7"
                                 />
                               </styled.div>
-                            </_default>
+                            </LoadingImage>
                             <styled.div>
                               <div
                                 className="c8 c9"
                               />
                             </styled.div>
-                            <Styled(_default)>
-                              <_default
+                            <Styled(LoadingText)>
+                              <LoadingText
                                 className="c10 c11"
                               >
                                 <styled.div
@@ -546,16 +548,17 @@ ui-fss.g34[id="c10"] {
                                     className="c12 c13 c10 c11"
                                   />
                                 </styled.div>
-                              </_default>
-                            </Styled(_default)>
+                              </LoadingText>
+                            </Styled(LoadingText)>
                           </div>
                         </styled.div>
                       </PersonLoading>
                     </PersonTitle>
                     <button
                       aria-expanded={true}
-                      aria-label="open"
+                      aria-label="ui:open"
                       className="ekspanderbartPanel__knapp"
+                      data-test-id="c-expandingpanel__button-id"
                       onClick={[Function]}
                       onKeyDown={[Function]}
                       type="button"
@@ -604,6 +607,7 @@ ui-fss.g34[id="c10"] {
                       >
                         <article
                           className="ekspanderbartPanel__innhold"
+                          data-test-id="c-expandingpanel__content-id"
                         >
                           <PersonPanel
                             locale="nb"

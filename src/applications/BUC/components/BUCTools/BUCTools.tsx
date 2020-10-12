@@ -37,6 +37,7 @@ import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { ValueType } from 'react-select'
 import styled, { ThemeProvider } from 'styled-components'
 
 const BUCToolsPanel = styled(HighContrastPanel)`
@@ -138,19 +139,21 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
-  const onTagsChange = (tagsList: Tags): void => {
-    if (_.isFunction(onTagChange)) {
-      onTagChange(tagsList)
+  const onTagsChange = (tagsList: ValueType<Tag>): void => {
+    if (tagsList) {
+      if (_.isFunction(onTagChange)) {
+        onTagChange(tagsList as Tags)
+      }
+      standardLogger('buc.edit.tools.tags.select', {tags: (tagsList as Tags)?.map(t => t.label) || []})
+      setTags(tagsList as Tags)
+      dispatch(saveBucsInfo({
+        bucsInfo: bucsInfo!,
+        aktoerId: aktoerId,
+        tags: _tags ? (_tags as Tags).map(tag => tag.value) : [],
+        comment: _originalComments,
+        buc: buc as ValidBuc
+      }))
     }
-    standardLogger('buc.edit.tools.tags.select', { tags: tagsList?.map(t => t.label) || [] })
-    setTags(tagsList)
-    dispatch(saveBucsInfo({
-      bucsInfo: bucsInfo!,
-      aktoerId: aktoerId,
-      tags: _tags ? _tags.map(tag => tag.value) : [],
-      comment: _originalComments,
-      buc: buc as ValidBuc
-    }))
   }
 
   const onCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -330,7 +333,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   </>
                 )}
                 <VerticalSeparatorDiv data-size='0.5' />
-                <MultipleSelect
+                <MultipleSelect<Tag>
                   ariaLabel={t('buc:form-tagsForBUC')}
                   aria-describedby='help-tags'
                   data-test-id='a-buc-c-buctools__tags-select-id'

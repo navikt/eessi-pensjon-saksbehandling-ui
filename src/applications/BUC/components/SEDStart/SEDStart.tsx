@@ -39,7 +39,15 @@ import {
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
-import { AllowedLocaleString, FeatureToggles, Loading, PesysContext, Validation, Option, Options } from 'declarations/app.d'
+import {
+  AllowedLocaleString,
+  FeatureToggles,
+  Loading,
+  PesysContext,
+  Validation,
+  Option,
+  Options,
+} from 'declarations/app.d'
 import {
   Buc,
   Bucs,
@@ -74,6 +82,7 @@ import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { GroupType, ValueType } from 'react-select'
 import styled from 'styled-components'
 
 const AlertDiv = styled.div`
@@ -224,7 +233,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_institutions, setInstitutions] = useState<InstitutionRawList>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
-  const _institutionObjectList: Array<{ label: string, options: Options }> = []
+  const _institutionObjectList: Array<GroupType<Option>> = []
   let _institutionValueList: Options = []
   const [_mounted, setMounted] = useState<boolean>(false)
   const _notHostInstitution = (institution: RawInstitution) : boolean => institution.id !== 'NO:DEMO001'
@@ -404,17 +413,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     } as PersonAvdod)
   }
 
-  const onSedChange = (option: Option): void => {
-    setSed(option.value)
+  const onSedChange = (option: ValueType<Option> | null | undefined): void => {
+    setSed((option as Option).value)
   }
 
-  const onInstitutionsChange = (institutions: Options): void => {
-    const newInstitutions: InstitutionRawList = institutions ? institutions.map(institution => institution.value) : []
+  const onInstitutionsChange = (institutions: ValueType<Option | GroupType<Option>>): void => {
+    const newInstitutions: InstitutionRawList = institutions ? (institutions as unknown as Options).map(institution => institution.value) : []
     setInstitutions(newInstitutions)
   }
 
-  const onCountriesChange = (countries: Options): void => {
-    fetchInstitutionsForSelectedCountries(countries)
+  const onCountriesChange = (countries: ValueType<Option> | null | undefined): void => {
+    fetchInstitutionsForSelectedCountries(countries as Options)
   }
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -647,6 +656,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return <div />
   }
 
+  // @ts-ignore
   return (
     <SEDStartDiv>
       <Systemtittel>
@@ -683,7 +693,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               onChange={onSedChange}
               options={_sedOptions}
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
-              feil={_validation.sed ? t(_validation.sed.feilmelding) : null}
+              feil={_validation.sed ? t(_validation.sed.feilmelding) : undefined}
             />
           </>
           {sedNeedsVedtakId() && (
@@ -758,7 +768,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 value={_countryValueList}
               />
               <VerticalSeparatorDiv />
-              <MultipleSelect
+              <MultipleSelect<GroupType<Option> | Option>
                 ariaLabel={t('ui:institution')}
                 aria-describedby='help-institution'
                 data-test-id='a-buc-c-sedstart__institution-select-id'

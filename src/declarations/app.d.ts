@@ -1,5 +1,6 @@
 import * as constants from 'constants/constants'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
+import { OptionTypeBase } from 'react-select'
 
 export type AllowedLocaleString = 'en' | 'nb'
 
@@ -15,7 +16,7 @@ export type Labels = {[k in string]? : string}
 
 export type Loading = {[key: string]: boolean}
 
-export interface Option {
+export interface Option extends OptionTypeBase {
   label: string
   navn?: string
   value: string
