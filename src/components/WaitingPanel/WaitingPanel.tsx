@@ -6,15 +6,7 @@ import PT from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-export interface WaitingPanelProps {
-  className?: string
-  size?: 'XXS'| 'XS' | 'S'| 'M' | 'L'| 'XL'| 'XXL' | 'XXXL'
-  style?: React.CSSProperties
-  message?: string,
-  oneLine?: boolean
-}
-
-const WaitingPanelDiv = styled.div`
+export const WaitingPanelDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -26,6 +18,16 @@ const WaitingPanelDiv = styled.div`
     vertical-align: top;
   }
 `
+
+export type WaitingPanelSize = 'XXS'| 'XS' | 'S'| 'M' | 'L'| 'XL'| 'XXL' | 'XXXL'
+
+export interface WaitingPanelProps {
+  className?: string
+  size?: WaitingPanelSize
+  style?: React.CSSProperties
+  message?: string,
+  oneLine?: boolean
+}
 
 const WaitingPanel: React.FC<WaitingPanelProps> = ({
   className, size = 'M', style = {}, message = 'Vennligst vent...', oneLine = false
@@ -40,6 +42,7 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
         <HorizontalSeparatorDiv />
         <Normaltekst
           className={classNames({ oneLine: oneLine })}
+          data-test-id='c-waitingpanel__text-id'
         >
           {message}
         </Normaltekst>

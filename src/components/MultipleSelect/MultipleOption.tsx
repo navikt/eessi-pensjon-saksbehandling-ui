@@ -1,11 +1,11 @@
 import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
-import { OptionProps } from 'react-select'
+import { OptionProps, OptionTypeBase } from 'react-select'
 import { Checkbox } from 'nav-frontend-skjema'
 import styled, { ThemeProvider } from 'styled-components'
 
-export type MultipleOptionProps = OptionProps<any>
+export type MultipleOptionProps = OptionProps<OptionTypeBase>
 
 const OptionCheckbox = styled(Checkbox)`
    &:not(:disabled) {
@@ -24,8 +24,10 @@ const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProp
   const theme = selectProps.selectProps.theme
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
     <div
       {...innerProps}
+      data-test-id='c-multipleoption__div-id'
       style={getStyles('option', props)}
       role='button'
       onClick={(e) => {
@@ -36,7 +38,8 @@ const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProp
     >
       <ThemeProvider theme={theme}>
         <OptionCheckbox
-          data-test-id={'c-multipleOption__checkbox-' + id}
+          data-test-id={'c-multipleoption__checkbox-' + id}
+          id={'c-multipleoption__checkbox-' + id}
           label={data.label}
           onChange={(e) => {
             e.preventDefault()

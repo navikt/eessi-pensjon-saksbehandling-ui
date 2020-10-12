@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/MultipleSelect/MultipleSelect Renders 1`] = `
+exports[`components/MultipleSelect/MultipleSelect Render: match snapshot 1`] = `
 .c3 {
   padding: 0px;
 }
@@ -36,8 +36,11 @@ ui-fss.g4[id="c0"] {
 <MultipleSelect
   ariaLabel="mockAriaLabel"
   creatable={true}
+  disabled={false}
   hideSelectedOptions={false}
+  highContrast={false}
   id="mockMultipleSelectId"
+  isLoading={false}
   label="mockLabel"
   onSelect={[MockFunction]}
   options={
@@ -3950,7 +3953,9 @@ ui-fss.g4[id="c0"] {
                                                         }
                                                       }
                                                     >
-                                                      <MultiValueGeneric>
+                                                      <MultiValueGeneric
+                                                        data-test-id="c-multipleselect-multivaluelabel"
+                                                      >
                                                         <div>
                                                           <styled.div>
                                                             <div
@@ -4247,6 +4252,7 @@ ui-fss.g4[id="c0"] {
                                                     >
                                                       <styled.div
                                                         className="css-xb97g8 multipleSelect__multi-value__remove"
+                                                        data-test-id="c-multipleselect-multiplevalueremove"
                                                         onClick={[Function]}
                                                         onMouseDown={[Function]}
                                                         onMouseEnter={[Function]}
@@ -4256,6 +4262,7 @@ ui-fss.g4[id="c0"] {
                                                       >
                                                         <div
                                                           className="c4 c5 css-xb97g8 multipleSelect__multi-value__remove"
+                                                          data-test-id="c-multipleselect-multiplevalueremove"
                                                           onClick={[Function]}
                                                           onMouseDown={[Function]}
                                                           onMouseEnter={[Function]}

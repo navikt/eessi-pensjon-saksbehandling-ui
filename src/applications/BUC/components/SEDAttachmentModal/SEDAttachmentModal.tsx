@@ -1,6 +1,6 @@
 import Document from 'assets/icons/document'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import { HighContrastModal } from 'components/StyledComponents'
+import Modal from 'components/Modal/Modal'
 import { JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemsFileType } from 'declarations/joark.pt'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
@@ -38,7 +38,8 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <HighContrastModal
+      <Modal
+        highContrast={highContrast}
         icon={<Document />}
         modal={{
           closeButton: true,

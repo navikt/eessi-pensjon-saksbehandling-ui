@@ -1,5 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { OptionTypeBase } from 'react-select'
 import MultipleSelect, { MultipleSelectProps } from './MultipleSelect'
 
 describe('components/MultipleSelect/MultipleSelect', () => {
@@ -7,14 +8,18 @@ describe('components/MultipleSelect/MultipleSelect', () => {
   const options = [
     { label: 'mockLabel01', value: 'mockValue01' },
     { label: 'mockLabel02', value: 'mockValue02' }
-  ]
-  const initialMockProps: MultipleSelectProps<any> = {
-    id: 'mockMultipleSelectId',
+  ] as Array<OptionTypeBase>
+
+  const initialMockProps: MultipleSelectProps<OptionTypeBase> = {
     ariaLabel: 'mockAriaLabel',
-    label: 'mockLabel',
     creatable: true,
+    disabled: false,
     error: undefined,
+    highContrast: false,
     hideSelectedOptions: false,
+    id: 'mockMultipleSelectId',
+    isLoading: false,
+    label: 'mockLabel',
     onSelect: jest.fn(),
     options: options,
     placeholder: 'mockPlaceholder',
@@ -29,16 +34,16 @@ describe('components/MultipleSelect/MultipleSelect', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     expect(wrapper.find('c-multipleSelect')).toBeTruthy()
   })
 
-  it('Triggers onSelect', () => {
+  it('Handling: Triggers onSelect', () => {
     (initialMockProps.onSelect as jest.Mock).mockReset()
     wrapper.find('input').hostNodes().simulate('keyDown', { key: 'ArrowDown' })
     wrapper.find('input').hostNodes().first().simulate('keyDown', { key: 'Enter' })

@@ -58,3 +58,6 @@ export const fadeOut = keyframes`
   50% { opacity: 1; }
   100% { opacity: 0; }
 `
+export const progressBarAnimation = keyframes`
+  0% {background-position: 1rem 0;} to {background-position: 0 0;}
+`

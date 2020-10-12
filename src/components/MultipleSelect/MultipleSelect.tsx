@@ -11,12 +11,19 @@ import Select, { ValueType } from 'react-select'
 import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
 import { SelectComponents } from 'react-select/src/components'
+import { OptionTypeBase } from 'react-select/src/types'
 import styled, { ThemeProvider } from 'styled-components'
 import MultipleOption from './MultipleOption'
 
-const animatedComponents: SelectComponents<any> = makeAnimated()
+const MultipleSelectDiv = styled.div`
+  .skjemaelement__feilmelding {
+    .multipleSelect__control {
+      border: 1px solid ${({ theme }) => theme.redError};
+    }
+  }
+`
 
-export interface MultipleSelectProps<T> {
+export interface MultipleSelectProps<OptionType> {
   ariaLabel ?: string
   className ?: string
   creatable ?: boolean
@@ -27,29 +34,23 @@ export interface MultipleSelectProps<T> {
   id ?: string
   isLoading?: boolean
   label: string | JSX.Element
-  menuPortalTarget ?: any,
-  onSelect?: (e: ValueType<any>) => void
-  options?: Array<T>
+  menuPortalTarget?: any,
+  onSelect?: (e: ValueType<OptionType>) => void
+  options?: Array<OptionType>
   placeholder?: JSX.Element | string
-  values?: Array<T>
+  values?: Array<OptionType>
 }
 
-const MultipleSelectDiv = styled.div`
-  .skjemaelement__feilmelding {
-    .multipleSelect__control {
-      border: 1px solid ${({ theme }) => theme.redError};
-    }
-  }
-`
-
-const MultipleSelect: React.FC<MultipleSelectProps<any>> = ({
+const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
   ariaLabel, className, creatable = false, disabled = false, error,
   highContrast = false, hideSelectedOptions = false,
   id, isLoading = false, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
-}: MultipleSelectProps<any>): JSX.Element => {
+}: MultipleSelectProps<OptionType>): JSX.Element => {
   const _theme = highContrast ? themeHighContrast : theme
 
-  const onSelectChange = (e: Array<any>) => {
+  const animatedComponents: SelectComponents<OptionType> = makeAnimated()
+
+  const onSelectChange = (e: Array<OptionType>) => {
     if (_.isFunction(onSelect)) {
       onSelect(e)
     }

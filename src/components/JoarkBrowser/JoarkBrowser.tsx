@@ -2,7 +2,8 @@ import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getJoarkItemPreview, listJoarkItems, setJoarkItemPreview } from 'actions/joark'
 import Trashcan from 'assets/icons/Trashcan'
-import { HighContrastKnapp, HighContrastModal } from 'components/StyledComponents'
+import { HighContrastKnapp } from 'components/StyledComponents'
+import Modal from 'components/Modal/Modal'
 import { SedNewType, SedType } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
 import {
@@ -15,7 +16,6 @@ import {
   JoarkPoster,
   JoarkType
 } from 'declarations/joark'
-import TableSorter from 'tabell'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
@@ -26,6 +26,16 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import TableSorter from 'tabell'
+
+const ButtonsDiv = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.25rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+`
 
 export interface JoarkBrowserSelector {
   aktoerId: string
@@ -56,15 +66,6 @@ export interface JoarkBrowserProps {
   tableId: string
 }
 
-const ButtonsDiv = styled.div`
-  display: flex;
-  align-items: flex-start;
-  padding-top: 0.25rem;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-`
-
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   existingItems = [],
   highContrast = false,
@@ -79,21 +80,22 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }: JoarkBrowserSelector = useSelector<State, JoarkBrowserSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
-  const [clickedPreviewItem, setClickedPreviewItem] = useState<JoarkBrowserItem | undefined>(undefined)
-  const [mounted, setMounted] = useState<boolean>(false)
-  const [modal, setModal] = useState<ModalContent | undefined>(undefined)
+
+  const [_clickedPreviewItem, setClickedPreviewItem] = useState<JoarkBrowserItem | undefined>(undefined)
   const [_items, setItems] = useState<JoarkBrowserItems | undefined>(undefined)
+  const [_mounted, setMounted] = useState<boolean>(false)
+  const [_modal, setModal] = useState<ModalContent | undefined>(undefined)
+  const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
 
   const context: JoarkBrowserContext = {
     existingItems: existingItems,
     loadingJoarkPreviewFile: loadingJoarkPreviewFile,
     previewFile: _previewFile,
-    clickedPreviewItem: clickedPreviewItem,
+    clickedPreviewItem: _clickedPreviewItem,
     mode: mode
   }
 
-  const equalFiles: Function = (a: JoarkBrowserItem, b: JoarkBrowserItem): boolean => {
+  const equalFiles = (a: JoarkBrowserItem | undefined, b: JoarkBrowserItem | undefined): boolean => {
     if (!a && !b) { return true }
     if ((!a && b) || (a && !b)) { return false }
 
@@ -102,9 +104,9 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       ((a as any).journalpostId && !(b as any).journalpostId)) {
       return false
     }
-    return a.journalpostId === b.journalpostId &&
-      a.dokumentInfoId === b.dokumentInfoId &&
-      _.isEqual(a.variant, b.variant)
+    return a!.journalpostId === b!.journalpostId &&
+      a!.dokumentInfoId === b!.dokumentInfoId &&
+      _.isEqual(a!.variant, b!.variant)
   }
 
   const handleModalClose = useCallback(() => {
@@ -116,7 +118,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     dispatch(getJoarkItemPreview(clickedItem))
   }
 
-  const handleDelete = (itemToDelete: JoarkBrowserItem, contextFiles: JoarkBrowserItems) => {
+  const handleDelete = (itemToDelete: JoarkBrowserItem, contextFiles: JoarkBrowserItems): void => {
     const newExistingItems: JoarkBrowserItems = _.reject(contextFiles, (item: JoarkBrowserItem) => {
       return itemToDelete.journalpostId === item.journalpostId &&
         itemToDelete.dokumentInfoId === item.dokumentInfoId
@@ -126,7 +128,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const renderButtonsCell = (item: JoarkBrowserItem, value: any, context: JoarkBrowserContext) => {
+  const renderButtonsCell = (item: JoarkBrowserItem, value: any, context: JoarkBrowserContext): JSX.Element => {
     if (item.hasSubrows) {
       return <div />
     }
@@ -295,7 +297,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   // this will update when we get updated existingItems
   useEffect(() => {
-    console.log('preparing joarkBrowser')
     let items: JoarkBrowserItems = []
     if (mode === 'select') {
       items = getItemsForSelectMode(list, existingItems)
@@ -308,11 +309,11 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }, [existingItems, list, mode])
 
   useEffect(() => {
-    if (!mounted && list === undefined && !loadingJoarkList) {
+    if (!_mounted && list === undefined && !loadingJoarkList) {
       dispatch(listJoarkItems(aktoerId))
     }
     setMounted(true)
-  }, [aktoerId, dispatch, list, loadingJoarkList, mounted])
+  }, [aktoerId, dispatch, list, loadingJoarkList, _mounted])
 
   useEffect(() => {
     if (!equalFiles(previewFile, _previewFile)) {
@@ -343,13 +344,17 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }, [handleModalClose, onPreviewFile, previewFile, _previewFile])
 
-  if (!mounted) {
+  if (!_mounted) {
     return <div />
   }
 
   return (
-    <div className='c-joarkBrowser'>
-      <HighContrastModal modal={modal} onModalClose={handleModalClose} />
+    <div data-test-id='c-joarkBrowser'>
+      <Modal
+        highContrast={highContrast}
+        modal={_modal}
+        onModalClose={handleModalClose}
+      />
       <TableSorter
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
@@ -396,6 +401,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
 JoarkBrowser.propTypes = {
   existingItems: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
+  highContrast: PT.bool,
   onRowSelectChange: PT.func,
   onPreviewFile: PT.func,
   onRowViewDelete: PT.func,

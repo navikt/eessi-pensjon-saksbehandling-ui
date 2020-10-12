@@ -1,19 +1,19 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import WaitingPanel from './WaitingPanel'
+import WaitingPanel, { WaitingPanelDiv } from './WaitingPanel'
 
-describe('components/WaitingPanel', () => {
+describe('components/WaitingPanel/WaitingPanel', () => {
   let wrapper: ReactWrapper
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     wrapper = mount(<WaitingPanel message='' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     wrapper = mount(<WaitingPanel message='testmessage' />)
-    expect(wrapper.exists('.c-waitingPanel')).toBeTruthy()
-    expect(wrapper.find('.c-waitingPanel__message').hostNodes().text()).toEqual('testmessage')
+    expect(wrapper.exists(WaitingPanelDiv)).toBeTruthy()
+    expect(wrapper.find('[data-test-id=\'c-waitingPanel__text-id\']').hostNodes().text()).toEqual('testmessage')
   })
 })

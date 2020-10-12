@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/MultipleSelect/MultipleValueLabel Render: match snapshot 1`] = `
+.c1 {
+  padding: 0px;
+}
+
+ui-fss.g1[id="c0"] {
+  content: "c1,";
+}
+
+<MultipleValueLabel
+  data={
+    Object {
+      "label": "mockLabel",
+    }
+  }
+>
+  <MultiValueGeneric
+    data-test-id="c-multipleselect-multivaluelabel"
+  >
+    <div>
+      <styled.div>
+        <div
+          className="c0 c1"
+        >
+              
+          mockLabel
+              
+        </div>
+      </styled.div>
+    </div>
+  </MultiValueGeneric>
+</MultipleValueLabel>
+`;

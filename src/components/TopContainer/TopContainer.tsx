@@ -20,6 +20,15 @@ import ReactResizeDetector from 'react-resize-detector'
 import styled, { ThemeProvider } from 'styled-components'
 import useErrorBoundary from 'use-error-boundary'
 
+const Main = styled.main`
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+`
+
 export interface TopContainerProps {
   className?: string
   children?: JSX.Element | Array<JSX.Element | null>
@@ -65,15 +74,6 @@ const mapState = (state: State): TopContainerSelector => ({
   size: state.ui.size,
   highContrast: state.ui.highContrast
 })
-
-const Main = styled.main`
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
-  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-`
 
 export const TopContainer: React.FC<TopContainerProps> = ({
   className, children
@@ -156,6 +156,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
         {modal !== undefined ? (
           <Modal
             appElement={(document.getElementById('main') || document.body)}
+            highContrast={highContrast}
             modal={modal}
             onModalClose={handleModalClose}
           />
@@ -182,7 +183,9 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
 TopContainer.propTypes = {
   className: PT.string,
-  children: PT.any
+  children: PT.any,
+  fluid: PT.bool,
+  header: PT.any
 }
 
 export default TopContainer

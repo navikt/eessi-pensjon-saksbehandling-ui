@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/SessionMonitor Renders 1'] = `
+exports[`components/SessionMonitor Render: match snapshot 1`] = `
+<SessionMonitor
+  checkInterval={500}
+  expirationTime={2020-01-31T23:00:00.000Z}
+  millisecondsForWarning={9900}
+  now={2020-12-17T02:24:00.000Z}
+  sessionExpiredReload={1000}
+>
+  <div
+    data-test-id="c-sessionMonitor"
+  />
+</SessionMonitor>
+`;
+
+exports[`components/SessionMonitor Renders 1`] = `
 <SessionMonitor
   checkInterval={500}
   expirationTime={2020-01-31T23:00:00.000Z}
@@ -12,4 +26,4 @@ exports['components/SessionMonitor Renders 1'] = `
     className="c-sessionMonitor"
   />
 </SessionMonitor>
-`
+`;

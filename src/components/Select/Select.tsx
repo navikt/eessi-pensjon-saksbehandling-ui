@@ -1,10 +1,16 @@
+import Feiloppsummering from 'nav-frontend-skjema/lib/feiloppsummering'
 import React from 'react'
 import { Feilmelding } from 'nav-frontend-typografi'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import classNames from 'classnames'
-import ReactSelect from 'react-select'
+import ReactSelect, { OptionTypeBase, Props } from 'react-select'
 
-const Select = (props: any) => {
+interface SelectProps extends Props<OptionTypeBase> {
+  feil?: Feiloppsummering
+  highContrast: boolean
+}
+
+const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
   const _theme = props.highContrast ? themeHighContrast : theme
   return (
     <>

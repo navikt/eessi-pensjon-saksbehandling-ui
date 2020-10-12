@@ -137,10 +137,6 @@ export const HighContrastTextArea = styled(Textarea)`
   border-color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navGra60};
   background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
-export const HighContrastModal = styled(Modal)`
-  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
-`
 export const HighContrastExpandingPanel = styled(ExpandingPanel)`
   border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
   background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};

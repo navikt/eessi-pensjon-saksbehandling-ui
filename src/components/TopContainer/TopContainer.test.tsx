@@ -1,10 +1,11 @@
 import { clientClear } from 'actions/alert'
-import { closeModal, toggleHighContrast } from 'actions/ui'
+import { closeModal } from 'actions/ui'
 import { ModalContent } from 'declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 import { TopContainer, TopContainerProps, TopContainerSelector } from './TopContainer'
 import { stageSelector } from 'setupTests'
+import mockPerson from 'mocks/app/person'
 
 jest.mock('use-error-boundary', () => ({
   __esModule: true, // this property makes it work
@@ -24,18 +25,21 @@ jest.mock('react-router-dom', () => {
 })
 
 const defaultSelector: TopContainerSelector = {
+  clientErrorParam: undefined,
   clientErrorStatus: 'ERROR',
   clientErrorMessage: 'mockErrorMessage',
   serverErrorMessage: undefined,
   error: undefined,
   expirationTime: undefined,
-  params: {},
-  username: 'mockUsername',
-  gettingUserInfo: false,
-  isLoggingOut: false,
   footerOpen: false,
+  gettingUserInfo: false,
+  highContrast: false,
+  isLoggingOut: false,
   modal: undefined,
-  highContrast: false
+  params: {},
+  person: mockPerson.person,
+  size: 'lg',
+  username: 'mockUsername'
 }
 
 jest.mock('actions/alert', () => ({
@@ -63,21 +67,20 @@ describe('components/TopContainer', () => {
     )
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     expect(wrapper.exists('Header')).toBeTruthy()
-    expect(wrapper.exists('Banner')).toBeTruthy()
     expect(wrapper.exists('Alert')).toBeTruthy()
     expect(wrapper.exists('SessionMonitor')).toBeTruthy()
     expect(wrapper.exists('Footer')).toBeTruthy()
     expect(wrapper.exists('Modal')).toBeFalsy()
   })
 
-  it('Compute the client error message', () => {
+  it('Render: client error message', () => {
     (clientClear as jest.Mock).mockReset()
     stageSelector(defaultSelector, { clientErrorMessage: 'mockMessage|mockParams' })
     wrapper = mount(
@@ -86,19 +89,12 @@ describe('components/TopContainer', () => {
       </TopContainer>
     )
     const clientAlert = wrapper.find('Alert[type="client"]')
-    expect(clientAlert.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage: mockParams')
-
-    clientAlert.find('Icons').simulate('click')
+    expect(clientAlert.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage|mockParams')
+    clientAlert.find('[data-test-id=\'c-alert__close-icon\']').hostNodes().simulate('click')
     expect(clientClear).toHaveBeenCalled()
   })
 
-  it('Toggles high contrast', () => {
-    (toggleHighContrast as jest.Mock).mockReset()
-    wrapper.find('Banner #c-banner__highcontrast-link-id').hostNodes().simulate('click')
-    expect(toggleHighContrast).toHaveBeenCalledWith()
-  })
-
-  it('Opens and closes modal', () => {
+  it('Handling: open / closes modal', () => {
     expect(wrapper.exists('Modal')).toBeFalsy()
     const mockModal: ModalContent = {
       modalTitle: 'mockTitle',

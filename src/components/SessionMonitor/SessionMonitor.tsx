@@ -58,7 +58,7 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
     }
   }, [checkInterval, dispatch, expirationTime, millisecondsForWarning, mounted, now, sessionExpiredReload, t])
 
-  return <div className='c-sessionMonitor' />
+  return <div data-test-id='c-sessionMonitor' />
 }
 
 SessionMonitor.propTypes = {

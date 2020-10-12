@@ -2,7 +2,8 @@ import { getJoarkItemPreview, listJoarkItems } from 'actions/joark'
 import { JoarkPoster } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import mockJoark from 'mocks/joark/joarkRaw'
+import mockJoark from 'mocks/joark/joark'
+import mockJoarkProcessed from 'mocks/joark/joarkAsItems'
 import { stageSelector } from 'setupTests'
 import { JoarkBrowser, JoarkBrowserProps, JoarkBrowserSelector } from './JoarkBrowser'
 import TableSorter from 'tabell'
@@ -27,10 +28,13 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   let wrapper: ReactWrapper
 
   const initialMockProps: JoarkBrowserProps = {
-
-    onFilesChange: jest.fn(),
+    existingItems: [],
+    highContrast: false,
+    onRowSelectChange: jest.fn(),
+    onPreviewFile: jest.fn(),
+    onRowViewDelete: jest.fn(),
     mode: 'view',
-    onPreviewFile: jest.fn()
+    tableId: 'test-table-id'
   }
 
   beforeEach(() => {
@@ -42,7 +46,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
@@ -53,12 +57,12 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     expect(wrapper.find('WaitingPanel')).toBeTruthy()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-joarkBrowser')).toBeTruthy()
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.exists('[data-test-id=\'c-joarkBrowser\']')).toBeTruthy()
     expect(wrapper.exists(TableSorter)).toBeTruthy()
   })
 
-  it('UseEffect: list Joark files ', () => {
+  it('UseEffect: list Joark files', () => {
     stageSelector(defaultSelector, { list: undefined })
     wrapper = mount(<JoarkBrowser {...initialMockProps} />)
     expect(listJoarkItems).toHaveBeenCalledWith(defaultSelector.aktoerId)
@@ -80,48 +84,34 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     stageSelector(defaultSelector, {})
   })
 
-  it('Calls onFilesChange when selecting a file', () => {
-    (initialMockProps.onFilesChange as jest.Mock).mockReset()
-    stageSelector(defaultSelector, {})
-    wrapper = mount(<JoarkBrowser {...initialMockProps} />)
-    wrapper.find('#c-tableSorter__row-checkbox-id-view-1-4-ARKIV').hostNodes().simulate('change', { target: { checked: true } })
-    const expectedFile = files[0]
-    expectedFile.variant = {
-      variantformat: 'ARKIV',
-      filnavn: '23534345.pdf'
-    }
-    expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([{
-      date: new Date('2018-12-27T14:42:24'),
-      dokumentInfoId: '4',
-      journalpostId: '1',
-      key: 'view-1-4-ARKIV',
-      label: 'ARKIV (23534345.pdf)',
-      name: 'blue.pdf',
-      selected: true,
-      tema: 'foo',
-      variant: {
-        filnavn: '23534345.pdf',
-        variantformat: 'ARKIV'
-      }
-    }])
+  it('Handling: calls onRowSelectChange when selecting a row', () => {
+    (initialMockProps.onRowSelectChange as jest.Mock).mockReset()
+    wrapper = mount(<JoarkBrowser {...initialMockProps} mode='select' />)
+    wrapper.find('#c-tableSorter__row-checkbox-id-joark-group-1-joarkbrowser-test-table-id').hostNodes().simulate('change', { target: { checked: true } })
+
+    expect(initialMockProps.onRowSelectChange).toHaveBeenCalledWith(mockJoarkProcessed)
   })
 
-  it('Calls onPreviewItem', () => {
+  it('Handling: calls onPreviewItem', () => {
     (getJoarkItemPreview as jest.Mock).mockReset()
-    wrapper.find('#c-tablesorter__preview-button-1-4-ARKIV__23534345_pdf_').hostNodes().first().simulate('click')
+    wrapper = mount(<JoarkBrowser {...initialMockProps} mode='select' />)
+    wrapper.find('#c-tablesorter__preview-button-458208506-475715315').hostNodes().simulate('click')
     expect(getJoarkItemPreview).toHaveBeenCalledWith(expect.objectContaining({
-      date: expect.any(Date),
-      dokumentInfoId: '4',
-      journalpostId: '1',
-      key: 'view-1-4-ARKIV',
-      label: 'ARKIV (23534345.pdf)',
-      name: 'blue.pdf',
+      date: new Date('2019-10-01T03:11:34.000Z'),
+      disabled: false,
+      dokumentInfoId: '475715315',
+      hasSubrows: false,
+      journalpostId: '458208506',
+      key: '458208506-475715315-ARKIV-false',
       selected: false,
-      tema: 'foo',
+      tema: 'AAP',
+      title: 'Vedtak om arbeidsavklaringspenger',
+      type: 'joark',
       variant: {
-        filnavn: '23534345.pdf',
+        filnavn: null,
         variantformat: 'ARKIV'
-      }
+      },
+      visible: true
     }))
   })
 })

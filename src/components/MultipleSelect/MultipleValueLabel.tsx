@@ -6,7 +6,7 @@ const Label = styled.div`
   padding: 0px;
 `
 const MultipleValueLabel = (props: any) => (
-  <components.MultiValueLabel>
+  <components.MultiValueLabel data-test-id='c-multipleselect-multivaluelabel'>
     <Label>&nbsp;&nbsp;&nbsp;&nbsp;{props.data.label}&nbsp;&nbsp;&nbsp;&nbsp;</Label>
   </components.MultiValueLabel>
 )

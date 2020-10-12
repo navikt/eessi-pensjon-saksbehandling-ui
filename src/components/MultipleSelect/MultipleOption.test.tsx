@@ -1,4 +1,5 @@
 import { mount, ReactWrapper } from 'enzyme'
+import { theme } from 'nav-styled-component-theme'
 import React from 'react'
 import MultipleOption, { MultipleOptionProps } from './MultipleOption'
 
@@ -22,7 +23,12 @@ describe('components/MultipleSelect/MultipleOption', () => {
       value: 'mockValue'
     },
     getStyles: jest.fn(),
-    selectProps: { selectProps: {} },
+    selectProps: {
+      id: 'mockId',
+      selectProps: {
+        theme: theme
+      }
+    },
     innerProps: {
       onClick: jest.fn()
     } as any,
@@ -39,21 +45,22 @@ describe('components/MultipleSelect/MultipleOption', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-multipleOption__checkbox')).toBeTruthy()
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.exists('[data-test-id=\'c-multipleoption__div-id\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'c-multipleoption__checkbox-mockId-mockValue\']')).toBeTruthy()
   })
 
-  it('Triggers innerProps.onClick', () => {
-    wrapper.find('.c-multipleOption').simulate('click')
+  it('Handling: Triggers innerProps.onClick', () => {
+    wrapper.find('[data-test-id=\'c-multipleoption__div-id\']').simulate('click')
     expect(initialMockProps.innerProps.onClick).toHaveBeenCalled()
   })
 
-  it('Checkbox change triggers innerProps.onClick', () => {
+  it('Handling: Checkbox change triggers innerProps.onClick', () => {
     wrapper.find('Checkbox input').simulate('change')
     expect(initialMockProps.innerProps.onClick).toHaveBeenCalled()
   })

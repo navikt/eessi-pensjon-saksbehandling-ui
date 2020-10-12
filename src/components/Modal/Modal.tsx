@@ -4,21 +4,12 @@ import { ModalContent } from 'declarations/components'
 import { ModalContentPropType } from 'declarations/components.pt'
 import _ from 'lodash'
 import Lukknapp from 'nav-frontend-lukknapp'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import ReactModal from 'react-modal'
 import { Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
-
-export interface ModalProps {
-  appElement?: Element
-  className?: string
-  icon?: JSX.Element | undefined
-  onModalClose?: () => void
-  closeButton?: boolean
-  closeButtonLabel?: string
-  modal: ModalContent | undefined
-}
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 const ModalDiv = styled(ReactModal)`
   background-color: #FFF;
@@ -31,6 +22,8 @@ const ModalDiv = styled(ReactModal)`
   max-height: 100%;
   margin-bottom: 0;
   z-index: 1010;
+  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
 const OverlayStyle = createGlobalStyle`
   modal__overlay {
@@ -86,9 +79,22 @@ const ContentDiv = styled.div`
     margin-top: 3rem;
   }
 `
+
+export interface ModalProps {
+  appElement?: Element
+  className?: string
+  highContrast: boolean
+  icon?: JSX.Element | undefined
+  onModalClose?: () => void
+  closeButton?: boolean
+  closeButtonLabel?: string
+  modal: ModalContent | undefined
+}
+
 const Modal: React.FC<ModalProps> = ({
   className,
   icon = undefined,
+  highContrast,
   onModalClose,
   closeButton = true,
   closeButtonLabel = '',
@@ -123,11 +129,11 @@ const Modal: React.FC<ModalProps> = ({
   // ReactModal.setAppElement(appElement)
 
   return (
-    <>
+    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <OverlayStyle />
       <ModalDiv
-        overlayClassName='modal__overlay'
         className={className}
+        overlayClassName='modal__overlay'
         isOpen={!_(_modal).isNil()}
         onRequestClose={closeModal}
       >
@@ -139,18 +145,19 @@ const Modal: React.FC<ModalProps> = ({
             <ContentDiv className={classNames({ icon: !!icon })}>
               {closeButton && (
                 <CloseButton
+                  data-test-id='c-modal__close-button-id'
                   onClick={onCloseButtonClicked}
                 >
                   {closeButtonLabel}
                 </CloseButton>
               )}
               {_modal.modalTitle && (
-                <Title>
+                <Title data-test-id='c-modal__title-id'>
                   {_modal.modalTitle}
                 </Title>
               )}
               {_modal.modalContent || (
-                <ModalText>
+                <ModalText data-test-id='c-modal__text-id'>
                   {_modal.modalText}
                 </ModalText>
               )}
@@ -174,9 +181,10 @@ const Modal: React.FC<ModalProps> = ({
                 return (
                   <ButtonMargin key={i}>
                     <Button
-                      id={'c-modal__button-id-' + i}
+                      data-test-id={'c-modal__button-id-' + i}
                       disabled={button.disabled || false}
                       key={button.text}
+                      id={'c-modal__button-id-' + i}
                       onClick={handleClick}
                     >
                       {button.text}
@@ -188,7 +196,7 @@ const Modal: React.FC<ModalProps> = ({
           )}
         </>
       </ModalDiv>
-    </>
+    </ThemeProvider>
   )
 }
 
@@ -197,6 +205,7 @@ Modal.propTypes = {
   className: PT.string,
   closeButton: PT.bool,
   closeButtonLabel: PT.string,
+  highContrast: PT.bool.isRequired,
   onModalClose: PT.func,
   modal: ModalContentPropType
 }

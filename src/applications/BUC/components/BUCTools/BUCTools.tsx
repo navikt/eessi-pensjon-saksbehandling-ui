@@ -4,9 +4,9 @@ import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import Trashcan from 'assets/icons/Trashcan'
 import { slideInFromRight } from 'components/keyframes'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import Modal from 'components/Modal/Modal'
 import {
   HighContrastKnapp,
-  HighContrastModal,
   HighContrastPanel,
   HighContrastTabs,
   HighContrastTextArea,
@@ -290,7 +290,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 </Undertittel>
                 <VerticalSeparatorDiv data-size='0.5' />
                 {_modal && (
-                  <HighContrastModal
+                  <Modal
+                    highContrast={highContrast}
                     data-test-id='a-buc-c-buctools__modal-id'
                     modal={_modal}
                     onModalClose={onModalClose}
