@@ -203,7 +203,7 @@
 
   "step-startBUCTitle"          : "Start ny BUC",
   "step-startSEDTitle"          : "Bestill {{sed}} til {{buc}}",
-  "step-replySEDTitle"          : "Bestill svar til {{sed}} på {{buc}}",
+  "step-replySEDTitle"          : "Bestill svar til {{replySed}} med SED {{sed}} på {{buc}}",
 
   "tag-urgent"    : "Urgent",
   "tag-vip"       : "VIP",

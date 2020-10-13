@@ -66,6 +66,6 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     (initialMockProps.onSEDNew as jest.Mock).mockReset()
     const replySedButton = wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__answer-button-id\']').hostNodes().first()
     replySedButton.simulate('click')
-    expect(initialMockProps.onSEDNew).toBeCalledWith(buc, sed)
+    expect(initialMockProps.onSEDNew).toBeCalledWith(buc, sed, undefined)
   })
 })

@@ -66,7 +66,7 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc.d'
-import { BucsPropType } from 'declarations/buc.pt'
+import { BucsPropType, SedPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
@@ -113,17 +113,18 @@ export interface SEDStartProps {
   aktoerId: string
   bucs: Bucs
   currentBuc: string
+  currentSed: Sed | undefined
   initialAttachments ?: JoarkBrowserItems
   initialSed ?: string | undefined
   initialSendingAttachments ?: boolean
   onSedCreated: () => void
   onSedCancelled: () => void
+  replySed: Sed | undefined
 }
 
 export interface SEDStartSelector {
   attachmentsError: boolean
   countryList: CountryRawList | undefined
-  currentSed: Sed | undefined
   featureToggles: FeatureToggles
   highContrast: boolean
   institutionList: InstitutionListMap<RawInstitution> | undefined
@@ -142,7 +143,6 @@ export interface SEDStartSelector {
 const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
   attachmentsError: state.buc.attachmentsError,
   countryList: state.buc.countryList,
-  currentSed: state.buc.currentSed,
   featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
@@ -162,14 +162,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId,
   bucs,
   currentBuc,
+  currentSed,
   initialAttachments = [],
   initialSed = undefined,
   initialSendingAttachments = false,
   onSedCreated,
-  onSedCancelled
+  onSedCancelled,
+  replySed
 } : SEDStartProps): JSX.Element => {
   const {
-    attachmentsError, countryList, currentSed, featureToggles, highContrast, institutionList, loading,
+    attachmentsError, countryList, featureToggles, highContrast, institutionList, loading,
     locale, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -581,12 +583,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (!_mounted) {
-      dispatch(!currentSed
-        ? getSedList(_buc as ValidBuc)
-        : setSedList([currentSed.type])
-      )
-      if (currentSed) {
-        setSed(currentSed.type)
+      dispatch(!replySed ? getSedList(_buc as ValidBuc) : setSedList([replySed.type]))
+      if (replySed) {
+        setSed(replySed.type)
       }
       if (_buc && _buc.type !== null && !_.isEmpty(_countries)) {
         _countries.forEach(country => {
@@ -597,7 +596,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       setMounted(true)
     }
-  }, [_buc, bucs, _countries, currentBuc, currentSed, dispatch, institutionList, _mounted])
+  }, [_buc, bucs, _countries, dispatch, institutionList, _mounted, replySed])
+
+  useEffect(() => {
+    dispatch(!replySed ? getSedList(_buc as ValidBuc) : setSedList([replySed.type]))
+    if (replySed) {
+      setSed(replySed.type)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [replySed])
 
   useEffect(() => {
     if (sed && !_sedSent) {
@@ -659,12 +666,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   return (
     <SEDStartDiv>
       <Systemtittel>
-        {!currentSed ? t('buc:step-startSEDTitle', {
+        {!currentSed && !replySed ? t('buc:step-startSEDTitle', {
           buc: t(`buc:buc-${_buc?.type}`),
           sed: _sed || t('buc:form-newSed')
         }) : t('buc:step-replySEDTitle', {
           buc: t(`buc:buc-${_buc?.type}`),
-          sed: _buc.seds!.find((sed: Sed) => sed.id === currentSed)!.type
+          replySed: replySed!.type,
+          sed: currentSed!.type
         })}
       </Systemtittel>
       <hr />
@@ -913,11 +921,13 @@ SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
   currentBuc: PT.string.isRequired,
+  currentSed: SedPropType.isRequired,
   initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired),
   initialSed: PT.string,
   initialSendingAttachments: PT.bool,
   onSedCreated: PT.func.isRequired,
-  onSedCancelled: PT.func.isRequired
+  onSedCancelled: PT.func.isRequired,
+  replySed: SedPropType.isRequired
 }
 
 export default SEDStart

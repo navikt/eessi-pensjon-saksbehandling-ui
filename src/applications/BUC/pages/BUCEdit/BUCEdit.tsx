@@ -84,33 +84,37 @@ export interface BUCEditProps {
 export interface BUCEditSelector {
   aktoerId: string
   bucs: Bucs | undefined
-  currentBuc?: string | undefined
-  bucsInfo?: BucsInfo
+  bucsInfo: BucsInfo | undefined
+  currentBuc: string | undefined
+  currentSed: Sed | undefined
   highContrast: boolean
   locale: AllowedLocaleString,
   newlyCreatedSed: Sed | undefined,
   newlyCreatedSedTime: Date | undefined
   personAvdods: PersonAvdods | undefined
+  replySed: Sed | undefined
 }
 
 const mapState = (state: State): BUCEditSelector => ({
   aktoerId: state.app.params.aktoerId,
   bucs: state.buc.bucs,
   currentBuc: state.buc.currentBuc,
+  currentSed: state.buc.currentSed,
   bucsInfo: state.buc.bucsInfo,
   highContrast: state.ui.highContrast,
   locale: state.ui.locale,
   newlyCreatedSed: state.buc.newlyCreatedSed,
   newlyCreatedSedTime: state.buc.newlyCreatedSedTime,
-  personAvdods: state.app.personAvdods
+  personAvdods: state.app.personAvdods,
+  replySed: state.buc.replySed
 })
 
 const BUCEdit: React.FC<BUCEditProps> = ({
   initialSearch = undefined, initialSedNew = 'none', initialStatusSearch, setMode
 }: BUCEditProps): JSX.Element => {
   const {
-    aktoerId, bucs, currentBuc, bucsInfo, highContrast, locale,
-    newlyCreatedSed, newlyCreatedSedTime, personAvdods
+    aktoerId, bucs, currentBuc, currentSed, bucsInfo, highContrast, locale,
+    newlyCreatedSed, newlyCreatedSedTime, personAvdods, replySed
   }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -148,7 +152,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     }
   }
 
-  const onSEDNew = (buc: Buc, sed: Sed | undefined): void => {
+  const onSEDNew = (buc: Buc, sed: Sed | undefined, replySed: Sed | undefined): void => {
     const uniqueSed: Sed | undefined = _.find(buc.seds, (s: Sed) =>
       (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') &&
       (s.status !== 'empty')
@@ -158,7 +162,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         error: t('buc:error-uniqueSed', { sed: uniqueSed.type })
       }))
     } else {
-      dispatch(setCurrentSed(sed))
+      dispatch(setCurrentSed(sed, replySed))
       setStartSed('open')
     }
   }
@@ -203,7 +207,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   const onNewSedButtonClick = (e: React.MouseEvent) => {
     buttonLogger(e)
-    onSEDNew(buc!, undefined)
+    onSEDNew(buc!, undefined, undefined)
   }
 
   const onBackLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -256,6 +260,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             aktoerId={aktoerId}
             bucs={bucs!}
             currentBuc={currentBuc}
+            currentSed={currentSed}
+            replySed={replySed}
             onSedCreated={() => setStartSed('close')}
             onSedCancelled={() => setStartSed('close')}
           />
@@ -289,8 +295,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     newlyCreatedSed.id === sed.id &&
                     ((new Date().getTime() - newlyCreatedSedTime?.getTime()) < 5 * 60 * 1000)
                   ) || false}
-                  followUpSed={buc!.seds!.find(_seds => _seds.parentDocumentId === sed.id)}
-                  onSEDNew={() => onSEDNew(buc!, sed)}
+                  onSEDNew={onSEDNew}
                 />
               </div>
             ))

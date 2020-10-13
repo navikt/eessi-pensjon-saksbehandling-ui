@@ -43,6 +43,7 @@ export interface BucState {
   newlyCreatedBuc: Buc | undefined
   newlyCreatedSed: Sed | undefined
   newlyCreatedSedTime: Date | undefined
+  replySed: Sed | undefined
   rinaId: string | undefined
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
@@ -69,6 +70,7 @@ export const initialBucState: BucState = {
   newlyCreatedBuc: undefined,
   newlyCreatedSed: undefined,
   newlyCreatedSedTime: undefined,
+  replySed: undefined,
   rinaId: undefined,
   rinaUrl: undefined,
   savingAttachmentsJob: undefined,
@@ -106,7 +108,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       return {
         ...state,
-        currentSed: (action as ActionWithPayload).payload
+        currentSed: (action as ActionWithPayload).payload.sed,
+        replySed: (action as ActionWithPayload).payload.replySed
       }
 
     case types.BUC_SEDLIST_SET:
@@ -120,6 +123,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         sed: undefined,
+        replySed: undefined,
+        currentSed: undefined,
         countryList: undefined,
         institutionList: undefined,
         sedContent: {}
@@ -143,6 +148,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         currentBuc: undefined,
+        currentSed: undefined,
+        replySed: undefined,
         sed: undefined,
         savingAttachmentsJob: undefined,
         sedContent: {}

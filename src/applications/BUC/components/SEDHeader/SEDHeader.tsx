@@ -75,8 +75,7 @@ const SEDVersion = styled.div`
 export interface SEDHeaderProps {
   buc: Buc
   className ?: string
-  followUpSed: Sed | undefined
-  onSEDNew: (buc: Buc, sed: Sed) => void
+  onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
   sed: Sed
   style?: React.CSSProperties
 }
@@ -92,10 +91,11 @@ const mapState = (state: State): SEDListSelector => ({
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
-  buc, className, followUpSed, onSEDNew, sed, style
+  buc, className, onSEDNew, sed, style
 }: SEDHeaderProps): JSX.Element => {
   const { highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
+  const followUpSed: Sed | undefined = buc.seds!.find(_seds => _seds.parentDocumentId === sed.id)
 
   const institutionSenderList: Institutions = sed.participants ? sed.participants
     .filter((participant: Participant) => participant.role === 'Sender')
@@ -118,10 +118,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   })
 
   const onReplySed = (e: React.MouseEvent) => {
-    if (followUpSed) {
-      buttonLogger(e)
-      onSEDNew(buc, followUpSed)
-    }
+    buttonLogger(e)
+    onSEDNew(buc, sed, followUpSed)
   }
 
   return (
@@ -225,7 +223,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 SEDHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
-  followUpSed: SedPropType.isRequired,
   onSEDNew: PT.func.isRequired,
   sed: SedPropType.isRequired,
   style: PT.object

@@ -49,16 +49,15 @@ export interface SEDPanelProps {
   aktoerId: string
   buc: Buc
   className ?: string
-  followUpSed: Sed | undefined
   highContrast: boolean
   newSed: boolean
-  onSEDNew: (buc: Buc, sed: Sed) => void
+  onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
   sed: Sed
   style: React.CSSProperties
 }
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
-  aktoerId, buc, className, followUpSed, highContrast, newSed, onSEDNew, sed, style
+  aktoerId, buc, className, highContrast, newSed, onSEDNew, sed, style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
@@ -71,7 +70,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           <SEDPanelDiv>
             <SEDHeader
               buc={buc}
-              followUpSed={followUpSed}
               onSEDNew={onSEDNew}
               sed={sed}
               style={style}
@@ -84,7 +82,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             heading={
               <SEDHeader
                 buc={buc}
-                followUpSed={followUpSed}
                 onSEDNew={onSEDNew}
                 sed={sed}
               />

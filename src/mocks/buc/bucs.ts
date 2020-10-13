@@ -1117,10 +1117,78 @@ const mockBuc = [
         id: '51d9d9277ab847008bc88c1b31b34865',
         parentDocumentId: null,
         type: 'P8000',
-        status: 'new',
+        status: 'received',
         creationDate: 1571818208620,
         lastUpdate: 1571818208620,
         displayName: 'Request for additional information',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: '2018-08-26T22:00:00.000+0000',
+              registryNumber: null,
+              acronym: 'NAV ACCT 07',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAV ACCEPTANCE TEST 07',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVAT07',
+              accessPoint: null
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: '2018-08-26T22:00:00.000+0000',
+              registryNumber: null,
+              acronym: 'NAV ACCT 08',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAV ACCEPTANCE TEST 08',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVAT08',
+              accessPoint: null
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818208620
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818208620
+        },
+        allowsAttachments: true
+      },
+      {
+        id: '00d9d9277ab847008bc88c1b31b34865',
+        parentDocumentId: '51d9d9277ab847008bc88c1b31b34865',
+        type: 'P9000',
+        status: 'empty',
+        creationDate: 1571818208620,
+        lastUpdate: 1571818208620,
+        displayName: 'P9000',
         participants: [
           {
             role: 'Sender',
