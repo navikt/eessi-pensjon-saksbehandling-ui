@@ -11,6 +11,15 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import * as extraWidgets from 'widgets'
 
+const CustomDashboard = styled(Dashboard)`
+   max-width: 1440px;
+   flex: 1 1 auto;
+   position: relative;
+   margin: 0 auto;
+   width: 100%;
+   padding: 0rem 1rem;
+`
+
 export interface IndexPageProps {
   username?: string
 }
@@ -69,14 +78,6 @@ export interface IndexPageSelector {
   username: string | undefined
 }
 
-const CustomDashboard = styled(Dashboard)`
-   max-width: 1440px;
-   flex: 1 1 auto;
-   position: relative;
-   margin: 0 auto;
-   width: 100%;
-   padding: 0rem 1rem;
-`
 const mapState = (state: State): IndexPageSelector => ({
   highContrast: state.ui.highContrast,
   mode: state.buc.mode,

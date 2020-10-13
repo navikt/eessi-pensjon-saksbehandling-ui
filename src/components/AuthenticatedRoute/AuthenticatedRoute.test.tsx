@@ -1,6 +1,6 @@
 import { getUserInfo, login, setStatusParam } from 'actions/app'
 import * as routes from 'constants/routes'
-import { mount, ReactWrapper } from 'enzyme'
+import { mount, ReactWrapper, render } from 'enzyme'
 import { createBrowserHistory, Location } from 'history'
 import React from 'react'
 import { RouteProps, Router } from 'react-router-dom'
@@ -67,14 +67,6 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
         <AuthenticatedRoute {...initialMockProps} />
       </Router>)
     expect(login).not.toBeCalled()
-  })
-
-  it('Render: Has proper HTML structure: not mounted', () => {
-    wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
-    expect(wrapper.exists('WaitingPanel')).toBeTruthy()
   })
 
   it('Render: Has proper HTML structure: forbidden', () => {

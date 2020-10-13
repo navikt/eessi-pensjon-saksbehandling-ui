@@ -6,8 +6,9 @@ import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
 const defaultSelector: IndexPageSelector = {
-  username: 'mockUsername',
-  mode: 'buclist' as BUCMode
+  highContrast: false,
+  mode: 'buclist' as BUCMode,
+  username: 'mockUsername'
 }
 
 jest.mock('components/TopContainer/TopContainer', () => {
@@ -17,8 +18,16 @@ jest.mock('components/TopContainer/TopContainer', () => {
     </div>
   )
 })
+jest.mock('components/ContextBanner/ContextBanner', () => {
+  return ({ children }: {children: JSX.Element}) => (
+    <div className='mock-c-contextbanner'>
+      {children}
+    </div>
+  )
+})
 
 jest.mock('nav-dashboard', () => (props: any) => (
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
   <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
 ))
 
@@ -38,12 +47,12 @@ describe('pages/IndexPage', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('IndexPage has proper HTML structure', () => {
+  it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(TopContainer)).toBeTruthy()
     expect(wrapper.exists('.mock-c-dashboard')).toBeTruthy()
   })

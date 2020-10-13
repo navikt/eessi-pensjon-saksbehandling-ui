@@ -10,54 +10,50 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-export interface ErrorProps {
-  error?: any
-  type: string
-}
-
-const ContentDiv = styled.div`
+const Description = styled.div`
+  width: 80%;
+  margin: 1rem;
+  text-align: center;
+`
+export const ErrorPageDiv = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `
-
-const Veilder = styled(EESSIPensjonVeileder)`
-  height: 110px;
+export const ErrorPanel = styled(HighContrastExpandingPanel)`
+  min-width: 50%;i
 `
-const Title = styled(Undertittel)``
-
-const Description = styled.div`
-  width: 80%;
-  margin: 1rem;
-  text-align: center;
-`
-const ErrorPanel = styled(HighContrastExpandingPanel)`
-  min-width: 50%;
-`
-
 const Line = styled.div`
    width: 60%;
    margin: 1rem;
    min-height: 0.25rem;
    border-bottom: 1px solid ${({ theme }) => theme.navGra60};
 `
+const Title = styled(Undertittel)``
+const Veilder = styled(EESSIPensjonVeileder)`
+  height: 110px;
+`
+export interface ErrorPageProps {
+  error?: any
+  type: string
+}
 
-export interface ErrorSelector {
+export interface ErrorPageSelector {
   highContrast: boolean
 }
 
-const mapState = (state: State): ErrorSelector => ({
+const mapState = (state: State): ErrorPageSelector => ({
   highContrast: state.ui.highContrast
 })
 
-export const Error = ({ error, type }: ErrorProps) => {
+export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps): JSX.Element => {
   let title, description, footer
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
   const [mounted, setMounted] = useState<boolean>(false)
-  const { highContrast } = useSelector<State, ErrorSelector>(mapState)
+  const { highContrast } = useSelector<State, ErrorPageSelector>(mapState)
 
   useEffect(() => {
     if (!mounted) {
@@ -87,21 +83,24 @@ export const Error = ({ error, type }: ErrorProps) => {
 
   return (
     <TopContainer>
-      <ContentDiv>
+      <ErrorPageDiv>
         <Veilder
           mood='trist'
-          data-test-id='EESSIPensjonVeileder'
+          data-test-id='p-error__veileder-id'
         />
         <VerticalSeparatorDiv data-size='2' />
-        <Title>
+        <Title data-test-id='p-error__title-id'>
           {title}
         </Title>
         <Description
+          data-test-id='p-error__description-id'
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {error && (
           <ErrorPanel
+            collapseProps={{id: 'p-error__content-error-id'}}
             highContrast={highContrast}
+            data-test-id='p-error__content-error-id'
             id='p-error__content-error-id'
             onOpen={() => standardLogger('errorPage.expandingPanel.open')}
             heading={t('ui:error-header')}
@@ -113,15 +112,15 @@ export const Error = ({ error, type }: ErrorProps) => {
           </ErrorPanel>
         )}
         {footer && (
-          <>
+          <div data-test-id='p-error__footer-id'>
             <Line />
             <VerticalSeparatorDiv />
             <Normaltekst>
               {footer}
             </Normaltekst>
-          </>
+          </div>
         )}
-      </ContentDiv>
+      </ErrorPageDiv>
     </TopContainer>
   )
 }

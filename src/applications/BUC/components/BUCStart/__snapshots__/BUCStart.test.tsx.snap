@@ -329,7 +329,6 @@ ui-fss.g12[id="c14"] {
                     "value": "Pensjon",
                   }
                 }
-                feil={null}
                 highContrast={false}
                 id="a-buc-c-bucstart__subjectarea-select-id"
                 isSearchable={true}
@@ -356,7 +355,6 @@ ui-fss.g12[id="c14"] {
                       "value": "Pensjon",
                     }
                   }
-                  feil={null}
                   highContrast={false}
                   id="a-buc-c-bucstart__subjectarea-select-id"
                   inputId="a-buc-c-bucstart__subjectarea-select-id"
@@ -395,7 +393,6 @@ ui-fss.g12[id="c14"] {
                     controlShouldRenderValue={true}
                     data-test-id="a-buc-c-bucstart__subjectarea-select-id"
                     escapeClearsValue={false}
-                    feil={null}
                     filterOption={[Function]}
                     formatGroupLabel={[Function]}
                     getOptionLabel={[Function]}
@@ -494,7 +491,7 @@ ui-fss.g12[id="c14"] {
                           "controlShouldRenderValue": true,
                           "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                           "escapeClearsValue": false,
-                          "feil": null,
+                          "feil": undefined,
                           "filterOption": [Function],
                           "formatGroupLabel": [Function],
                           "getOptionLabel": [Function],
@@ -641,7 +638,7 @@ ui-fss.g12[id="c14"] {
                                 "controlShouldRenderValue": true,
                                 "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                                 "escapeClearsValue": false,
-                                "feil": null,
+                                "feil": undefined,
                                 "filterOption": [Function],
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
@@ -795,7 +792,7 @@ ui-fss.g12[id="c14"] {
                                       "controlShouldRenderValue": true,
                                       "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                                       "escapeClearsValue": false,
-                                      "feil": null,
+                                      "feil": undefined,
                                       "filterOption": [Function],
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
@@ -939,7 +936,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
@@ -1080,7 +1077,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
@@ -1306,7 +1303,7 @@ ui-fss.g12[id="c14"] {
                                       "controlShouldRenderValue": true,
                                       "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                                       "escapeClearsValue": false,
-                                      "feil": null,
+                                      "feil": undefined,
                                       "filterOption": [Function],
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
@@ -1441,7 +1438,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
@@ -1587,7 +1584,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__subjectarea-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
@@ -1763,7 +1760,6 @@ ui-fss.g12[id="c14"] {
               </label>
               <Select
                 data-test-id="a-buc-c-bucstart__buc-select-id"
-                feil={null}
                 highContrast={false}
                 id="a-buc-c-bucstart__buc-select-id"
                 isSearchable={true}
@@ -1805,7 +1801,6 @@ ui-fss.g12[id="c14"] {
                   defaultInputValue=""
                   defaultMenuIsOpen={false}
                   defaultValue={null}
-                  feil={null}
                   highContrast={false}
                   id="a-buc-c-bucstart__buc-select-id"
                   inputId="a-buc-c-bucstart__buc-select-id"
@@ -1864,7 +1859,6 @@ ui-fss.g12[id="c14"] {
                     controlShouldRenderValue={true}
                     data-test-id="a-buc-c-bucstart__buc-select-id"
                     escapeClearsValue={false}
-                    feil={null}
                     filterOption={[Function]}
                     formatGroupLabel={[Function]}
                     getOptionLabel={[Function]}
@@ -1998,7 +1992,7 @@ ui-fss.g12[id="c14"] {
                           "controlShouldRenderValue": true,
                           "data-test-id": "a-buc-c-bucstart__buc-select-id",
                           "escapeClearsValue": false,
-                          "feil": null,
+                          "feil": undefined,
                           "filterOption": [Function],
                           "formatGroupLabel": [Function],
                           "getOptionLabel": [Function],
@@ -2182,7 +2176,7 @@ ui-fss.g12[id="c14"] {
                                 "controlShouldRenderValue": true,
                                 "data-test-id": "a-buc-c-bucstart__buc-select-id",
                                 "escapeClearsValue": false,
-                                "feil": null,
+                                "feil": undefined,
                                 "filterOption": [Function],
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
@@ -2373,7 +2367,7 @@ ui-fss.g12[id="c14"] {
                                       "controlShouldRenderValue": true,
                                       "data-test-id": "a-buc-c-bucstart__buc-select-id",
                                       "escapeClearsValue": false,
-                                      "feil": null,
+                                      "feil": undefined,
                                       "filterOption": [Function],
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
@@ -2550,7 +2544,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__buc-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
@@ -2704,7 +2698,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__buc-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
@@ -2967,7 +2961,7 @@ ui-fss.g12[id="c14"] {
                                       "controlShouldRenderValue": true,
                                       "data-test-id": "a-buc-c-bucstart__buc-select-id",
                                       "escapeClearsValue": false,
-                                      "feil": null,
+                                      "feil": undefined,
                                       "filterOption": [Function],
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
@@ -3139,7 +3133,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__buc-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
@@ -3322,7 +3316,7 @@ ui-fss.g12[id="c14"] {
                                             "controlShouldRenderValue": true,
                                             "data-test-id": "a-buc-c-bucstart__buc-select-id",
                                             "escapeClearsValue": false,
-                                            "feil": null,
+                                            "feil": undefined,
                                             "filterOption": [Function],
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],

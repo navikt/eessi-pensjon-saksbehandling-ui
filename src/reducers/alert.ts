@@ -6,21 +6,21 @@ import _ from 'lodash'
 import { Action } from 'redux'
 
 export interface AlertState {
-  clientErrorStatus: AlertStatus | undefined
-  clientErrorParam: any | undefined
   clientErrorMessage: string | undefined
+  clientErrorParam: any | undefined
+  clientErrorStatus: AlertStatus | undefined
+  error: any |undefined
   serverErrorMessage: string | undefined
   uuid: string | undefined
-  error: any |undefined
 }
 
 export const initialAlertState: AlertState = {
-  clientErrorStatus: undefined,
-  clientErrorParam: undefined,
   clientErrorMessage: undefined,
+  clientErrorParam: undefined,
+  clientErrorStatus: undefined,
+  error: undefined,
   serverErrorMessage: undefined,
-  uuid: undefined,
-  error: undefined
+  uuid: undefined
 }
 
 const alertReducer = (state: AlertState = initialAlertState, action: Action | ActionWithPayload) => {
@@ -60,6 +60,22 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     clientErrorStatus = 'ERROR'
 
     switch (action.type) {
+
+      case types.BUC_CREATE_BUC_FAILURE:
+
+        clientErrorMessage = 'buc:alert-createBucFailure'
+        break
+
+      case types.BUC_CREATE_SED_FAILURE:
+
+        clientErrorMessage = 'buc:alert-createSedFailure'
+        break
+
+      case types.BUC_GET_BUC_LIST_FAILURE:
+
+        clientErrorMessage = 'buc:alert-noBucList'
+        break
+
       case types.BUC_GET_BUCS_FAILURE:
 
         clientErrorMessage = 'buc:alert-noBucs'
@@ -74,19 +90,9 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         clientErrorMessage = 'buc:alert-noBucsInfo'
         break
 
-      case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
+      case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noSubjectAreaList'
-        break
-
-      case types.BUC_GET_BUC_LIST_FAILURE:
-
-        clientErrorMessage = 'buc:alert-noBucList'
-        break
-
-      case types.BUC_GET_TAG_LIST_FAILURE:
-
-        clientErrorMessage = 'buc:alert-noTagList'
+        clientErrorMessage = 'buc:alert-noCountryList'
         break
 
       case types.BUC_GET_INSTITUTION_LIST_FAILURE:
@@ -99,29 +105,24 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         clientErrorMessage = 'buc:alert-noSedList'
         break
 
-      case types.BUC_GET_COUNTRY_LIST_FAILURE:
+      case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noCountryList'
+        clientErrorMessage = 'buc:alert-noSubjectAreaList'
         break
 
-      case types.BUC_CREATE_BUC_FAILURE:
+      case types.BUC_GET_TAG_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-createBucFailure'
-        break
-
-      case types.BUC_CREATE_SED_FAILURE:
-
-        clientErrorMessage = 'buc:alert-createSedFailure'
-        break
-
-      case types.BUC_SEND_ATTACHMENT_FAILURE:
-
-        clientErrorMessage = 'buc:alert-createAttachmentFailure'
+        clientErrorMessage = 'buc:alert-noTagList'
         break
 
       case types.BUC_SAVE_BUCSINFO_FAILURE:
 
         clientErrorMessage = 'buc:alert-saveBucsInfoFailure'
+        break
+
+      case types.BUC_SEND_ATTACHMENT_FAILURE:
+
+        clientErrorMessage = 'buc:alert-createAttachmentFailure'
         break
 
       case types.JOARK_LIST_FAILURE:

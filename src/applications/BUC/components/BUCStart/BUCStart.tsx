@@ -200,7 +200,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const onSubjectAreaChange = (option: ValueType<Option> | null | undefined): void => {
-    console.log(option)
     if (option) {
       const thisSubjectArea: string = (option as Option).value
       setSubjectArea(thisSubjectArea)
@@ -209,7 +208,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const onBucChange = (option: ValueType<Option> | null | undefined): void => {
-    console.log(option)
     if (option) {
       const thisBuc: string = (option as Option).value
       setBuc(thisBuc)
