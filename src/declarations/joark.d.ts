@@ -38,13 +38,6 @@ interface Content {
   base64: string
 }
 
-export interface JoarkBrowserItemWithContent extends JoarkBrowserItem {
-  content: Content
-  name: string
-  size: number
-  mimetype: string
-}
-
 export interface JoarkPreview {
   fileName: string | undefined
   contentType: string
@@ -65,6 +58,13 @@ export interface JoarkBrowserItem extends Item {
 }
 
 export type JoarkBrowserItems = Array<JoarkBrowserItem>
+
+export interface JoarkBrowserItemWithContent extends JoarkBrowserItem {
+  content: Content
+  name: string
+  size: number
+  mimetype: string
+}
 
 export interface JoarkBrowserContext extends Context {
   existingItems: JoarkBrowserItems

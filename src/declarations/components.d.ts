@@ -1,12 +1,12 @@
 
+export type AlertStatus = 'OK' | 'ERROR' | 'WARNING'
+
 export interface AlertError {
   status?: AlertStatus
   message?: JSX.Element | string
   error?: string | undefined
   uuid ?: string | undefined
 }
-
-export type AlertStatus = 'OK' | 'ERROR' | 'WARNING'
 
 export interface ModalButton {
   onClick?: () => void

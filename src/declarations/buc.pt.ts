@@ -40,8 +40,6 @@ export const SEDAttachmentPropType = PT.shape({
 
 export const SEDAttachmentsPropType = PT.arrayOf(SEDAttachmentPropType.isRequired)
 
-
-
 export const OrganisationPropType = PT.shape({
   address: AddressPropType.isRequired,
   activeSince: PT.oneOfType([PT.number, PT.string]).isRequired,
@@ -121,7 +119,7 @@ export const ErrorBucPropType = PT.shape({
   error: PT.string
 })
 
-export const BucPropType = PT.any//oneOfType([ValidBucPropType, ErrorBucPropType])
+export const BucPropType = PT.any// oneOfType([ValidBucPropType, ErrorBucPropType])
 
 export const BucsPropType = PT.objectOf(BucPropType)
 

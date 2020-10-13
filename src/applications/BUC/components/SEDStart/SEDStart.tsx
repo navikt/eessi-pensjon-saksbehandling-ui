@@ -46,7 +46,7 @@ import {
   PesysContext,
   Validation,
   Option,
-  Options,
+  Options
 } from 'declarations/app.d'
 import {
   Buc,

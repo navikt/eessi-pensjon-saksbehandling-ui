@@ -144,7 +144,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       if (_.isFunction(onTagChange)) {
         onTagChange(tagsList as Tags)
       }
-      standardLogger('buc.edit.tools.tags.select', {tags: (tagsList as Tags)?.map(t => t.label) || []})
+      standardLogger('buc.edit.tools.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
       setTags(tagsList as Tags)
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,

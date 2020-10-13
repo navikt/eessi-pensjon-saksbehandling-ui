@@ -201,11 +201,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onSubjectAreaChange = (option: ValueType<Option> | null | undefined): void => {
     console.log(option)
-      if (option) {
-        const thisSubjectArea: string = (option as Option).value
-        setSubjectArea(thisSubjectArea)
-        validateSubjectArea(thisSubjectArea)
-      }
+    if (option) {
+      const thisSubjectArea: string = (option as Option).value
+      setSubjectArea(thisSubjectArea)
+      validateSubjectArea(thisSubjectArea)
+    }
   }
 
   const onBucChange = (option: ValueType<Option> | null | undefined): void => {

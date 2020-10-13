@@ -1,19 +1,13 @@
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { HighContrastInput, HighContrastPanel } from 'components/StyledComponents'
+import { Option, Options } from 'declarations/app'
 import { standardLogger } from 'metrics/loggers'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { OptionTypeBase, ValueType } from 'react-select'
+import { ValueType } from 'react-select'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
-
-interface StatusItem extends OptionTypeBase {
-  label: string
-  value: string
-}
-
-export type StatusItems = Array<StatusItem>
 
 const SEDSearchPanel = styled(HighContrastPanel)`
   display: flex !important;
@@ -46,7 +40,7 @@ export interface SEDSearchProps {
   className ?: string
   highContrast: boolean
   onSearch: (e: string) => void
-  onStatusSearch: (sl: StatusItems) => void
+  onStatusSearch: (sl: Options) => void
   value: string | undefined
 }
 
@@ -54,7 +48,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
   className, highContrast, onSearch, onStatusSearch, value
 }: SEDSearchProps): JSX.Element => {
   const [_query, setQuery] = useState<string | undefined>(value || '')
-  const [_status, setStatus] = useState<StatusItems>([])
+  const [_status, setStatus] = useState<Options>([])
   const [_timer, setTimer] = useState<number | undefined>(undefined)
   const { t } = useTranslation()
 
@@ -72,15 +66,15 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     setTimer(timer)
   }
 
-  const onStatusChange = (statusList: ValueType<StatusItem> | StatusItems | null | undefined ) => {
+  const onStatusChange = (statusList: ValueType<Option>) => {
     if (statusList) {
-      onStatusSearch(statusList as StatusItems)
-      setStatus(statusList as StatusItems)
+      onStatusSearch(statusList as Options)
+      setStatus(statusList as Options)
       standardLogger('buc.edit.filter.status.select')
     }
   }
 
-  const availableStatuses: StatusItems = [{
+  const availableStatuses: Options = [{
     label: t('ui:new'),
     value: 'new'
   }, {
@@ -96,7 +90,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
 
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
-      <GlobalStyle/>
+      <GlobalStyle />
       <SEDSearchPanel
         data-test-id='a-buc-c-sedsearch__panel-id'
         className={className}
@@ -113,7 +107,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
           />
         </PaddedDiv>
         <PaddedDiv>
-          <MultipleSelect<StatusItem>
+          <MultipleSelect<Option>
             ariaLabel={t('buc:form-searchForStatus')}
             className='a-buc-c-sedsearch'
             data-test-id='a-buc-c-sedsearch__status-select-id'

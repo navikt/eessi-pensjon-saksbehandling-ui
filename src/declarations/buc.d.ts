@@ -1,4 +1,5 @@
 import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
+import { Option } from 'declarations/app'
 import { JoarkBrowserItems } from 'declarations/joark'
 
 export interface Address {
@@ -124,6 +125,18 @@ export interface RinaUrlPayload {
   rinaUrl: string
 }
 
+export interface BucInfo {
+  avdod ?: string
+  tags?: RawList | null
+  comment?: Comments | string | null
+}
+
+export interface BucsInfo {
+  bucs: {
+    [key: string]: BucInfo
+  }
+}
+
 export interface SaveBucsInfoProps {
   aktoerId: string
   avdod ?: string
@@ -147,6 +160,17 @@ export interface Version {
   date: number
 }
 
+export interface SEDAttachment {
+  id: string
+  name: string
+  fileName: string
+  mimeType: string
+  documentId: string
+  lastUpdate: any
+  medical: boolean
+}
+export type SEDAttachments = Array<SEDAttachment>
+
 export interface Sed {
   id: string
   parentDocumentId?: string | null
@@ -163,8 +187,6 @@ export interface Sed {
   allowsAttachments: boolean
   message ?: string
 }
-
-export type SEDAttachments = Array<SEDAttachment>
 
 export interface SEDAttachmentPayload {
   aktoerId: string
@@ -194,25 +216,13 @@ export type SedNewType = 'sednew'
 
 export type SedsWithAttachmentsMap = {[k: string]: boolean}
 
-export interface SEDAttachment {
-  id: string
-  name: string
-  fileName: string
-  mimeType: string
-  documentId: string
-  lastUpdate: any
-  medical: boolean
-}
 export type Seds = Array<Sed>
 
 export type SedContent = any
 
 export type SedContentMap = {[k: string]: SedContent}
 
-export interface Tag extends OptionType {
-  value: string
-  label: string
-}
+export interface Tag extends Option {}
 
 export interface ValidBuc {
   aktoerId?: string | null
@@ -236,18 +246,6 @@ export type Buc = ValidBuc | ErrorBuc
 
 export type Bucs = {[caseId: string]: Buc}
 
-export interface BucInfo {
-  avdod ?: string
-  tags?: RawList | null
-  comment?: Comments | string | null
-}
-
-export interface BucsInfo {
-  bucs: {
-    [key: string]: BucInfo
-  }
-}
-
 export type BUCRawList = RawList
 export type BucsInfoRawList = RawList
 export type CountryRawList = RawList
@@ -256,6 +254,3 @@ export type SEDRawList = RawList
 export type SubjectAreaRawList = RawList
 export type Tags = Array<Tag>
 export type TagRawList = RawList
-
-
-
