@@ -98,7 +98,7 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
         />
         {error && (
           <ErrorPanel
-            collapseProps={{id: 'p-error__content-error-id'}}
+            collapseProps={{ id: 'p-error__content-error-id' }}
             highContrast={highContrast}
             data-test-id='p-error__content-error-id'
             id='p-error__content-error-id'

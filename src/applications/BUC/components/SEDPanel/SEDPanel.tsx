@@ -1,6 +1,6 @@
 import { slideInFromLeft } from 'components/keyframes'
 import React from 'react'
-import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
+import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
 import { HighContrastExpandingPanel, HighContrastPanel } from 'components/StyledComponents'
 import { Buc, Sed, Seds } from 'declarations/buc'
@@ -69,7 +69,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
       <SEDPanelContainer className={classNames(className, { new: newSed })}>
         {!sedCanHaveAttachments(sed) ? (
           <SEDPanelDiv>
-            <SEDListHeader
+            <SEDHeader
               buc={buc}
               followUpSeds={followUpSeds}
               onSEDNew={onSEDNew}
@@ -82,7 +82,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             style={style}
             highContrast={highContrast}
             heading={
-              <SEDListHeader
+              <SEDHeader
                 buc={buc}
                 followUpSeds={followUpSeds}
                 onSEDNew={onSEDNew}

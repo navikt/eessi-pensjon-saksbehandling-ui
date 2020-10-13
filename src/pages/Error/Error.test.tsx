@@ -1,7 +1,4 @@
-import { BUCMode } from 'applications/BUC'
-import Header from 'components/Header/Header'
 import { mount, ReactWrapper } from 'enzyme'
-import { IndexPageSelector } from 'pages/IndexPage/IndexPage'
 import React from 'react'
 import { stageSelector } from 'setupTests'
 import { Error as PageError, ErrorPageDiv, ErrorPageProps, ErrorPageSelector, ErrorPanel } from './Error'
@@ -37,7 +34,6 @@ describe('pages/Error', () => {
     wrapper.unmount()
   })
 
-
   it('Render: match snapshot', () => {
     wrapper = mount(<PageError {...initialMockProps} type='something' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
@@ -47,8 +43,8 @@ describe('pages/Error', () => {
   it('Render: Page forbidden: Has proper HTML structure', () => {
     wrapper = mount(<PageError {...initialMockProps} type='forbidden' />)
     expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(wrapper.exists( '[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
-    expect(wrapper.find( '[data-test-id=\'p-error__title-id\']').hostNodes().render().text()).toEqual('ui:error-forbidden-title')
+    expect(wrapper.exists('[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
+    expect(wrapper.find('[data-test-id=\'p-error__title-id\']').hostNodes().render().text()).toEqual('ui:error-forbidden-title')
     expect(wrapper.find('[data-test-id=\'p-error__description-id\']').hostNodes().render().text()).toEqual('ui:error-forbidden-description')
     expect(wrapper.find('[data-test-id=\'p-error__footer-id\']').hostNodes().render().text()).toEqual('ui:error-forbidden-footer')
   })
@@ -56,7 +52,7 @@ describe('pages/Error', () => {
   it('Render: Page notLogged: Has proper HTML structure', () => {
     wrapper = mount(<PageError {...initialMockProps} type='notLogged' />)
     expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(wrapper.exists( '[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'p-error__title-id\']').hostNodes().render().text()).toEqual('ui:error-notLogged-title')
     expect(wrapper.find('[data-test-id=\'p-error__description-id\']').hostNodes().render().text()).toEqual('ui:error-notLogged-description')
     expect(wrapper.find('[data-test-id=\'p-error__footer-id\']').hostNodes().render().text()).toEqual('ui:error-notLogged-footer')
@@ -65,7 +61,7 @@ describe('pages/Error', () => {
   it('Render: Page notInvited: Has proper HTML structure', () => {
     wrapper = mount(<PageError {...initialMockProps} type='notInvited' />)
     expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(wrapper.exists( '[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'p-error__title-id\']').hostNodes().render().text()).toEqual('ui:error-notInvited-title')
     expect(wrapper.find('[data-test-id=\'p-error__description-id\']').hostNodes().render().text()).toEqual('ui:error-notInvited-description')
     expect(wrapper.find('[data-test-id=\'p-error__footer-id\']').hostNodes().render().text()).toEqual('ui:error-notInvited-footer')
@@ -75,7 +71,7 @@ describe('pages/Error', () => {
     const mockError = new Error('Mock error')
     wrapper = mount(<PageError {...initialMockProps} type='internalError' error={mockError} />)
     expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(wrapper.exists( '[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'p-error__title-id\']').hostNodes().render().text()).toEqual('ui:error-internalError-title')
     expect(wrapper.find('[data-test-id=\'p-error__description-id\']').hostNodes().render().text()).toEqual('ui:error-internalError-description')
     expect(wrapper.exists(ErrorPanel)).toBeTruthy()
@@ -85,7 +81,7 @@ describe('pages/Error', () => {
   it('Render: Page default: Has proper HTML structure', () => {
     wrapper = mount(<PageError {...initialMockProps} type='default' />)
     expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(wrapper.exists( '[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'p-error__title-id\']').hostNodes().render().text()).toEqual('ui:error-404-title')
     expect(wrapper.find('[data-test-id=\'p-error__description-id\']').hostNodes().render().text()).toEqual('ui:error-404-description')
   })

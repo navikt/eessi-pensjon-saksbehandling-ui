@@ -1,13 +1,13 @@
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
-import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
+import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
 import React from 'react'
 import SEDPanel, { SEDPanelDiv, SEDPanelExpandingPanel, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
 
-jest.mock('applications/BUC/components/SEDListHeader/SEDListHeader', () => ({ children }: any) => (
-  <div data-test-id='mock-SEDListHeader'>{children}</div>
+jest.mock('applications/BUC/components/SEDHeader/SEDHeader', () => ({ children }: any) => (
+  <div data-test-id='mock-SEDHeader'>{children}</div>
 ))
 
 jest.mock('applications/BUC/components/SEDBody/SEDBody', () => ({ children }: any) => (
@@ -45,7 +45,7 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(SEDPanelContainer)).toBeTruthy()
-    expect(wrapper.exists(SEDListHeader)).toBeTruthy()
+    expect(wrapper.exists(SEDHeader)).toBeTruthy()
   })
 
   it('Render: SED can\'t have attachments', () => {

@@ -60,7 +60,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     clientErrorStatus = 'ERROR'
 
     switch (action.type) {
-
       case types.BUC_CREATE_BUC_FAILURE:
 
         clientErrorMessage = 'buc:alert-createBucFailure'
