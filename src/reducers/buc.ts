@@ -36,7 +36,7 @@ export interface BucState {
   bucList: Array<string> | undefined
   countryList: Array<string> | undefined
   currentBuc: string | undefined
-  currentSed: string | undefined
+  currentSed: Sed | undefined
   institutionList: InstitutionListMap<RawInstitution> | undefined
   institutionNames: InstitutionNames
   mode: BUCMode

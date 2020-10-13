@@ -384,11 +384,11 @@ export const setCurrentBuc: ActionCreator<ActionWithPayload<string | undefined>>
   payload: bucCaseId
 })
 
-export const setCurrentSed: ActionCreator<ActionWithPayload<string | undefined>> = (
-  sedDocumentId: string | undefined
-) : ActionWithPayload<string | undefined> => ({
+export const setCurrentSed: ActionCreator<ActionWithPayload<Sed | undefined>> = (
+  sed: Sed | undefined
+) : ActionWithPayload<Sed | undefined> => ({
   type: types.BUC_CURRENTSED_SET,
-  payload: sedDocumentId
+  payload: sed
 })
 
 export const sendAttachmentToSed: ActionCreator<ThunkResult<Action>> = (

@@ -123,7 +123,7 @@ export interface SEDStartProps {
 export interface SEDStartSelector {
   attachmentsError: boolean
   countryList: CountryRawList | undefined
-  currentSed: string | undefined
+  currentSed: Sed | undefined
   featureToggles: FeatureToggles
   highContrast: boolean
   institutionList: InstitutionListMap<RawInstitution> | undefined
@@ -583,12 +583,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!_mounted) {
       dispatch(!currentSed
         ? getSedList(_buc as ValidBuc)
-        : setSedList(
-        bucs[currentBuc].seds!
-          .filter(sed => sed.parentDocumentId === currentSed)
-          .map(sed => sed.type)
-        ))
-
+        : setSedList([currentSed.type])
+      )
+      if (currentSed) {
+        setSed(currentSed.type)
+      }
       if (_buc && _buc.type !== null && !_.isEmpty(_countries)) {
         _countries.forEach(country => {
           if (!institutionList || !Object.keys(institutionList).includes(country)) {
@@ -684,16 +683,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               {t('buc:form-sed')}
             </label>
             <Select
-              highContrast={highContrast}
               data-test-id='a-buc-c-sedstart__sed-select-id'
-              id='a-buc-c-sedstart__sed-select-id'
               disabled={loading.gettingSedList}
+              highContrast={highContrast}
+              id='a-buc-c-sedstart__sed-select-id'
               isSearchable
-              placeholder={t('buc:form-chooseSed')}
+              feil={_validation.sed ? t(_validation.sed.feilmelding) : undefined}
+              menuPortalTarget={document.getElementById('main')}
               onChange={onSedChange}
               options={_sedOptions}
+              placeholder={t('buc:form-chooseSed')}
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
-              feil={_validation.sed ? t(_validation.sed.feilmelding) : undefined}
             />
           </>
           {sedNeedsVedtakId() && (

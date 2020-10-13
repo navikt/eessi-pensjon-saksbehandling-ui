@@ -158,7 +158,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         error: t('buc:error-uniqueSed', { sed: uniqueSed.type })
       }))
     } else {
-      dispatch(setCurrentSed(sed ? sed.id : undefined))
+      dispatch(setCurrentSed(sed))
       setStartSed('open')
     }
   }

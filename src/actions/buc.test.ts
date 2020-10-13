@@ -397,7 +397,9 @@ describe('actions/buc', () => {
   })
 
   it('setCurrentSed()', () => {
-    const mockedSed = 'sed'
+    const mockedSed = {
+      id: 'sed'
+    } as Sed
     const generatedResult = bucActions.setCurrentSed(mockedSed)
     expect(generatedResult).toMatchObject({
       type: types.BUC_CURRENTSED_SET,
