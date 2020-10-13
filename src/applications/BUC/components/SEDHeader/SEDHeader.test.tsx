@@ -24,7 +24,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   sed.status = 'received'
   const initialMockProps: SEDHeaderProps = {
     buc: buc,
-    followUpSeds: [buc.seds![1]],
+    followUpSed: buc.seds![1],
     onSEDNew: jest.fn(),
     sed: sed
   }

@@ -4,10 +4,10 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import { slideInFromLeft } from 'components/keyframes'
 import { HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'components/StyledComponents'
-import { Buc, Institutions, Participant, Sed, Seds } from 'declarations/buc'
-import { BucPropType, SedPropType, SedsPropType } from 'declarations/buc.pt'
-import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/app.d'
+import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
+import { BucPropType, SedPropType } from 'declarations/buc.pt'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -75,7 +75,7 @@ const SEDVersion = styled.div`
 export interface SEDHeaderProps {
   buc: Buc
   className ?: string
-  followUpSeds: Seds
+  followUpSed: Sed | undefined
   onSEDNew: (buc: Buc, sed: Sed) => void
   sed: Sed
   style?: React.CSSProperties
@@ -92,7 +92,7 @@ const mapState = (state: State): SEDListSelector => ({
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
-  buc, className, followUpSeds, onSEDNew, sed, style
+  buc, className, followUpSed, onSEDNew, sed, style
 }: SEDHeaderProps): JSX.Element => {
   const { highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
@@ -118,8 +118,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   })
 
   const onReplySed = (e: React.MouseEvent) => {
-    buttonLogger(e)
-    onSEDNew(buc, sed)
+    if (followUpSed) {
+      buttonLogger(e)
+      onSEDNew(buc, followUpSed)
+    }
   }
 
   return (
@@ -202,7 +204,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 </SEDListAttachmentsDiv>
               </Tooltip>
             )}
-            {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
+            {(followUpSed && sed.status === 'received') && (
               <HighContrastFlatknapp
                 mini
                 disabled={buc.readOnly === true}
@@ -223,7 +225,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 SEDHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
-  followUpSeds: SedsPropType.isRequired,
+  followUpSed: SedPropType.isRequired,
   onSEDNew: PT.func.isRequired,
   sed: SedPropType.isRequired,
   style: PT.object

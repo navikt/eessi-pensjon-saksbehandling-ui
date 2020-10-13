@@ -289,7 +289,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     newlyCreatedSed.id === sed.id &&
                     ((new Date().getTime() - newlyCreatedSedTime?.getTime()) < 5 * 60 * 1000)
                   ) || false}
-                  followUpSeds={buc!.seds!.filter(_seds => _seds.parentDocumentId === sed.id)}
+                  followUpSed={buc!.seds!.find(_seds => _seds.parentDocumentId === sed.id)}
                   onSEDNew={() => onSEDNew(buc!, sed)}
                 />
               </div>

@@ -1,11 +1,11 @@
-import { slideInFromLeft } from 'components/keyframes'
-import React from 'react'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
+import { slideInFromLeft } from 'components/keyframes'
 import { HighContrastExpandingPanel, HighContrastPanel } from 'components/StyledComponents'
-import { Buc, Sed, Seds } from 'declarations/buc'
+import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
 
@@ -49,7 +49,7 @@ export interface SEDPanelProps {
   aktoerId: string
   buc: Buc
   className ?: string
-  followUpSeds: Seds
+  followUpSed: Sed | undefined
   highContrast: boolean
   newSed: boolean
   onSEDNew: (buc: Buc, sed: Sed) => void
@@ -58,7 +58,7 @@ export interface SEDPanelProps {
 }
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
-  aktoerId, buc, className, followUpSeds, highContrast, newSed, onSEDNew, sed, style
+  aktoerId, buc, className, followUpSed, highContrast, newSed, onSEDNew, sed, style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
@@ -71,7 +71,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           <SEDPanelDiv>
             <SEDHeader
               buc={buc}
-              followUpSeds={followUpSeds}
+              followUpSed={followUpSed}
               onSEDNew={onSEDNew}
               sed={sed}
               style={style}
@@ -84,7 +84,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             heading={
               <SEDHeader
                 buc={buc}
-                followUpSeds={followUpSeds}
+                followUpSed={followUpSed}
                 onSEDNew={onSEDNew}
                 sed={sed}
               />

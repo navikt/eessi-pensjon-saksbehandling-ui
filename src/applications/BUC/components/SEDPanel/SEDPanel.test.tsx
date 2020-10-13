@@ -21,7 +21,7 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
   const initialMockProps: SEDPanelProps = {
     aktoerId: '123',
     buc: buc,
-    followUpSeds: [buc.seds![1]],
+    followUpSed: buc.seds![1],
     highContrast: false,
     newSed: false,
     onSEDNew: jest.fn(),
