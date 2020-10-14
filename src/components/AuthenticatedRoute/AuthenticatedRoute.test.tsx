@@ -1,6 +1,6 @@
 import { getUserInfo, login, setStatusParam } from 'actions/app'
 import * as routes from 'constants/routes'
-import { mount, ReactWrapper, render } from 'enzyme'
+import { mount, ReactWrapper } from 'enzyme'
 import { createBrowserHistory, Location } from 'history'
 import React from 'react'
 import { RouteProps, Router } from 'react-router-dom'
