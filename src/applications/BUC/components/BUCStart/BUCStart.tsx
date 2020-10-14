@@ -24,7 +24,7 @@ import {
   Buc,
   BUCRawList,
   Bucs,
-  BucsInfo,
+  BucsInfo, SakTypeValue,
   SaveBucsInfoProps,
   SubjectAreaRawList,
   Tag,
@@ -69,6 +69,7 @@ export interface BUCStartSelector {
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string
+  sakType: SakTypeValue | undefined
   subjectAreaList?: SubjectAreaRawList | undefined
   tagList?: TagRawList | undefined
 }
@@ -87,18 +88,25 @@ const mapState = (state: State): BUCStartSelector => ({
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
+  sakType: state.app.params.sakType as SakTypeValue | undefined,
   subjectAreaList: state.buc.subjectAreaList,
   tagList: state.buc.tagList
 })
 
 const BUCStart: React.FC<BUCStartProps> = ({
-  aktoerId, initialIsCreatingBuc = false, initialCreatingBucInfo = false, onBucCreated, onBucCancelled
+  aktoerId,
+  initialIsCreatingBuc = false,
+  initialCreatingBucInfo = false,
+  onBucCreated,
+  onBucCancelled
 }: BUCStartProps): JSX.Element | null => {
+
   const {
-    bucList, bucParam, bucs, bucsInfo, currentBuc,
-    highContrast, loading, locale, newlyCreatedBuc, person,
-    personAvdods, pesysContext, sakId, subjectAreaList, tagList
+    bucList, bucParam, bucs, bucsInfo, currentBuc, highContrast,
+    loading, locale, newlyCreatedBuc, person, personAvdods,
+    pesysContext, sakId, sakType, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
+
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -283,9 +291,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   useEffect(() => {
     if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId, pesysContext))
+      dispatch(getBucList(sakId, pesysContext, sakType))
     }
-  }, [bucList, dispatch, loading.gettingBucList, pesysContext, sakId])
+  }, [bucList, dispatch, loading.gettingBucList, pesysContext, sakId, sakType])
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {

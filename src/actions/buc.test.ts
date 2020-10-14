@@ -2,6 +2,7 @@ import * as bucActions from 'actions/buc'
 import { BUCMode } from 'applications/BUC'
 import { SEDAttachmentPayloadWithFile } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import * as types from 'constants/actionTypes'
+import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
@@ -186,8 +187,9 @@ describe('actions/buc', () => {
 
   it('getBucList()', () => {
     const sakId = '123'
-    const featureToggles = {}
-    bucActions.getBucList(sakId, featureToggles)
+    const pesysContext = VEDTAKSKONTEKST
+    const sakType = undefined
+    bucActions.getBucList(sakId, pesysContext, sakType)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_LIST_REQUEST,

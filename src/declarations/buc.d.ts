@@ -137,6 +137,27 @@ export interface BucsInfo {
   }
 }
 
+export type SakTypeKey = 'AFP'|'AFP_PRIVAT'|'ALDER'|'BARNEP'|'FAM_PL'|'GAM_YRK'|'GENRL'|'GJENLEV'|'GRBL'|'KRIGSP'|'OMSORG'|'UFOREP'
+
+export type SakTypeValue = 'AFP'|'AFP Privat'|'Alderspensjon'|'Barnepensjon'|'Familiepleierytelse'|'Gammel yrkesskade'|
+  'Generell'|'Gjenlevendeytelse'|'Grunnblanketter'|'Krigspensjon'|'Omsorgsopptjening'|'Uføretrygd'
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const SakTypeMap: {[key in SakTypeKey]: SakTypeValue} = {
+  AFP: 'AFP',
+  AFP_PRIVAT: 'AFP Privat',
+  ALDER: 'Alderspensjon',
+  BARNEP: 'Barnepensjon',
+  FAM_PL: 'Familiepleierytelse',
+  GAM_YRK: 'Gammel yrkesskade',
+  GENRL: 'Generell',
+  GJENLEV: 'Gjenlevendeytelse',
+  GRBL: 'Grunnblanketter',
+  KRIGSP: 'Krigspensjon',
+  OMSORG: 'Omsorgsopptjening',
+  UFOREP: 'Uføretrygd'
+}
+
 export interface SaveBucsInfoProps {
   aktoerId: string
   avdod ?: string
@@ -234,7 +255,7 @@ export interface ValidBuc {
   deltakere?: Institutions
   institusjon: Institutions | undefined
   lastUpdate: number
-  sakType: string | null
+  sakType: SakTypeValue | null
   seds: Seds
   status: string
   startDate: number

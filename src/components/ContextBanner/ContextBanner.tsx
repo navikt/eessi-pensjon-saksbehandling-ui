@@ -1,6 +1,7 @@
 import { BUCMode } from 'applications/BUC'
 import ExternalLink from 'assets/icons/line-version-logout'
 import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
 import { State } from 'declarations/reducers'
 import { PesysContext } from 'declarations/app.d'
 import { Person } from 'declarations/person.d'
@@ -53,13 +54,13 @@ export interface ContextBannerProps {
 export interface ContextBannerSelector {
   person: Person | undefined
   pesysContext?: PesysContext
-  sakType?: string
+  sakType?: SakTypeValue
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
   person: state.app.person,
   pesysContext: state.app.pesysContext,
-  sakType: state.app.params.sakType
+  sakType: state.app.params.sakType as SakTypeValue
 })
 
 const ContextBanner: React.FC<ContextBannerProps> = ({
@@ -98,7 +99,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           {sakType && (
             <Tag>
               <span>{t('buc:form-caseType')}: </span>
-              <strong>{sakType}</strong>
+              <strong>{Object.values(SakTypeMap).indexOf(sakType) >= 0 ? sakType : t('ui:unknown')}</strong>
             </Tag>
           )}
         </Context>

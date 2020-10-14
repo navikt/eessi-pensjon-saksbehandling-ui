@@ -1,4 +1,5 @@
 import * as constants from 'constants/constants'
+import { SakTypeValue } from 'declarations/buc'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { OptionTypeBase } from 'react-select'
 

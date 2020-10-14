@@ -14,6 +14,7 @@ import {
   Participant,
   Participants,
   RawInstitution,
+  SakTypeValue,
   SavingAttachmentsJob,
   Sed,
   SedContentMap,
@@ -285,6 +286,14 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_BUC_LIST_SUCCESS:
     {
       const excludedBucs = ['P_BUC_10']
+
+      const sakTypeAllowingPBUC05: Array<SakTypeValue> = ['Alderspensjon', 'Uføretrygd', 'Generell', 'Omsorgsopptjening']
+
+      const sakType: SakTypeValue |undefined = (action as ActionWithPayload).context.sakType
+      if ( sakType && sakTypeAllowingPBUC05.indexOf(sakType) < 0) {
+        excludedBucs.push('P_BUC_05')
+      }
+
       if (_.get((action as ActionWithPayload), 'context.featureToggles.P_BUC_02_VISIBLE') === false) {
         excludedBucs.push('P_BUC_02')
       }

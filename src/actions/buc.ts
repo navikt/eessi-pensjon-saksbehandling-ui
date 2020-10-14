@@ -21,7 +21,7 @@ import {
   SEDP5000Payload,
   SubjectAreaRawList,
   TagRawList,
-  ValidBuc
+  ValidBuc, SakTypeValue
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { PesysContext } from 'declarations/app.d'
@@ -208,13 +208,14 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBu
 }
 
 export const getBucList: ActionCreator<ThunkResult<ActionWithPayload<BUCRawList>>> = (
-  sakId: string, pesysContext: PesysContext
+  sakId: string, pesysContext: PesysContext, sakType: SakTypeValue
 ): ThunkResult<ActionWithPayload<BUCRawList>> => {
   return call({
     url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId }),
     expectedPayload: mockBucList,
     context: {
-      pesysContext: pesysContext
+      pesysContext: pesysContext,
+      sakType: sakType
     },
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,

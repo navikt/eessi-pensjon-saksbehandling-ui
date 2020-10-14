@@ -43,7 +43,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
   const mockBuc: Buc = {
     type: 'P2000',
     caseId: '123',
-    sakType: 'mockSakType',
+    sakType: 'Alderspensjon',
     creator: {
       institution: 'mockInstitution',
       country: 'mockCountry'

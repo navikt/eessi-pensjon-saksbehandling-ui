@@ -1,3 +1,4 @@
+import { SakTypeValue } from 'declarations/buc'
 import { JoarkFilePropType } from 'declarations/joark.pt'
 import PT from 'prop-types'
 
@@ -91,6 +92,10 @@ export const InstitutionPropType = PT.shape({
 
 export const InstitutionsPropType = PT.arrayOf(InstitutionPropType.isRequired)
 
+export const SakTypeValuePropType = PT.oneOf<SakTypeValue>(['AFP', 'AFP Privat', 'Alderspensjon', 'Barnepensjon',
+  'Familiepleierytelse', 'Gammel yrkesskade', 'Generell', 'Gjenlevendeytelse', 'Grunnblanketter', 'Krigspensjon',
+  'Omsorgsopptjening', 'Uføretrygd'])
+
 export const ValidBucPropType = PT.shape({
   aktoerId: PT.string,
   caseId: PT.string.isRequired,
@@ -98,7 +103,7 @@ export const ValidBucPropType = PT.shape({
   description: PT.string,
   institusjon: InstitutionsPropType.isRequired,
   lastUpdate: PT.number.isRequired,
-  sakType: PT.string.isRequired,
+  sakType: SakTypeValuePropType.isRequired,
   status: PT.string.isRequired,
   startDate: PT.number.isRequired,
   seds: PT.arrayOf(SedPropType.isRequired).isRequired,

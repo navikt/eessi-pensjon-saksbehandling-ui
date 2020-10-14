@@ -14,7 +14,7 @@ import { fadeIn, fadeOut } from 'components/keyframes'
 import { VerticalSeparatorDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { Bucs, BucsInfo } from 'declarations/buc'
+import { Bucs, BucsInfo, SakTypeValue } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, Loading, PesysContext, RinaUrl } from 'declarations/app.d'
 import _ from 'lodash'
@@ -117,7 +117,7 @@ export interface BUCIndexSelector {
   pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | undefined
-  sakType: string | undefined
+  sakType: SakTypeValue | undefined
   vedtakId: string | undefined
 }
 
@@ -131,7 +131,7 @@ const mapState = (state: State): BUCIndexSelector => ({
   pesysContext: state.app.pesysContext,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
-  sakType: state.app.params.sakType,
+  sakType: state.app.params.sakType as SakTypeValue,
   vedtakId: state.app.params.vedtakId
 })
 
