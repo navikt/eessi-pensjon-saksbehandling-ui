@@ -93,9 +93,10 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
           styles={{
             control: (styles: any) => ({
               ...styles,
-              borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-              borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
+              borderWidth: _theme.type === 'themeHighContrast' ? '2px' : (!error ? '1px' : '2px'),
+              borderColor: !error ? _theme[themeKeys.MAIN_BORDER_COLOR] : _theme[themeKeys.REDERROR],
               borderStyle: 'solid',
+              borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
               color: _theme[themeKeys.MAIN_FONT_COLOR],
               backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
             }),

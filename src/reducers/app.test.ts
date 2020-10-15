@@ -14,7 +14,7 @@ describe('reducers/app', () => {
       })
     ).toEqual({
       ...initialAppState,
-      pesysContext: constants.BRUKEROVERSIKT,
+      pesysContext: constants.BRUKERKONTEKST,
       params: {
         mockKey: 'mockValue'
       }

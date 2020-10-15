@@ -1,4 +1,5 @@
 import { BUCMode } from 'applications/BUC'
+import { bucsWithAvdod } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import {
@@ -288,8 +289,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const excludedBucs = ['P_BUC_10']
       const pesysContext = _.get((action as ActionWithPayload), 'context.pesysContext')
 
-      const sakTypeAllowingPBUC05notVedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Uføretrygd', 'Generell', 'Omsorgsopptjening']
-      const sakTypeAllowingPBUC05vedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Uføretrygd', 'Omsorgsopptjening']
+      const sakTypeAllowingPBUC05notVedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Barnepensjon', 'Generell', 'Gjenlevendeytelse', 'Omsorgsopptjening', 'Uføretrygd']
+      const sakTypeAllowingPBUC05vedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Barnepensjon', 'Gjenlevendeytelse', 'Omsorgsopptjening', 'Uføretrygd']
 
       const sakTypeAllowingPBUC05 = pesysContext === VEDTAKSKONTEKST ? sakTypeAllowingPBUC05vedtakscontext : sakTypeAllowingPBUC05notVedtakscontext
       const sakType: SakTypeValue |undefined = (action as ActionWithPayload).context.sakType
@@ -351,7 +352,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
       const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
 
-      if (newBuc.type === 'P_BUC_02') {
+      if (bucsWithAvdod(newBuc.type)) {
         newBuc.subject = {
           gjenlevende: {
             fnr: (action as ActionWithPayload).context.person.aktoer.ident.ident

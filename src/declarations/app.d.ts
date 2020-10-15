@@ -27,7 +27,7 @@ export type Options = Array<Option>
 
 export type Params = {[k: string] : string}
 
-export type PesysContext = constants.BRUKEROVERSIKT | constants.KRAVKONTEKST | constants.VEDTAKSKONTEKST
+export type PesysContext = constants.BRUKERKONTEKST | constants.KRAVKONTEKST | constants.VEDTAKSKONTEKST
 
 export interface ParamPayload {
   key: string,

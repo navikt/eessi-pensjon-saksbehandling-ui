@@ -8,7 +8,7 @@ import {
 } from 'actions/buc'
 import { BUCIndex, BUCIndexDiv, BUCIndexProps, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/index'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
-import { BRUKEROVERSIKT, VEDTAKSKONTEKST } from 'constants/constants'
+import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
@@ -91,7 +91,7 @@ describe('applications/BUC/index', () => {
     (fetchBucsInfoList as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       bucs: undefined,
-      pesysContext: BRUKEROVERSIKT
+      pesysContext: BRUKERKONTEKST
     })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(fetchBucs).toHaveBeenCalled()

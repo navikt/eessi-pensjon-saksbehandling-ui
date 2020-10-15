@@ -12,6 +12,7 @@ import {
   setSedList
 } from 'actions/buc'
 import {
+  bucsWithAvdod,
   getBucTypeLabel,
   labelSorter,
   renderAvdodName,
@@ -27,7 +28,7 @@ import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
-  Column,
+  Column, HighContrastFeiloppsummering,
   HighContrastFlatknapp,
   HighContrastHovedknapp,
   HighContrastInput,
@@ -81,7 +82,7 @@ import CountryData, { Country, CountryList } from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
+import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -259,9 +260,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
-  const onlyOnePersonAvdod = (): boolean => personAvdods ? personAvdods.length === 1 : false
-
-  const sedNeedsAvdod = useCallback((): boolean => _buc.type === 'P_BUC_02' || _buc.type === 'P_BUC_05', [_buc])
+  const sedNeedsAvdod = useCallback((): boolean => bucsWithAvdod(_buc.type), [_buc])
 
   const sedNeedsVedtakId = (): boolean => _sed === 'P6000' || _sed === 'P7000'
 
@@ -342,8 +341,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateSed = (sed: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!sed) {
       return {
-        skjemaelementId: 'a-buc-c-sedstart__sed-select-id',
-        feilmelding: t('buc:validation-chooseSed')
+        feilmelding: t('buc:validation-chooseSed'),
+        skjemaelementId: 'a-buc-c-sedstart__sed-select-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -352,8 +351,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateInstitutions = (institutions: InstitutionRawList): FeiloppsummeringFeil | undefined => {
     if (_.isEmpty(institutions)) {
       return {
-        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
-        feilmelding: t('buc:validation-chooseInstitution')
+        feilmelding: t('buc:validation-chooseInstitution'),
+        skjemaelementId: 'a-buc-c-sedstart__institution-select-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -372,14 +371,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateVedtakId = (vedtakId: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!vedtakId) {
       return {
-        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id',
-        feilmelding: t('buc:validation-chooseVedtakId')
+        feilmelding: t('buc:validation-chooseVedtakId'),
+        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id'
       } as FeiloppsummeringFeil
     }
     if (!isNumber(vedtakId!)) {
       return {
-        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id',
-        feilmelding: t('buc:validation-invalidVedtakId')
+        feilmelding: t('buc:validation-invalidVedtakId'),
+        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -388,8 +387,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateAvdodFnr = (_avdod: PersonAvdod | null | undefined): FeiloppsummeringFeil | undefined => {
     if (!_avdod) {
       return {
-        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
-        feilmelding: t('buc:validation-chooseAvdodFnr')
+        feilmelding: t('buc:validation-chooseAvdodFnr'),
+        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -398,8 +397,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateAvdodOrSoker = (_avdodOrSoker: AvdodOrSokerValue | undefined): FeiloppsummeringFeil | undefined => {
     if (!_avdodOrSoker) {
       return {
-        skjemaelementId: 'a-buc-c-bucstart__avdodorsoker-radiogroup-id',
-        feilmelding: t('buc:validation-chooseAvdodOrSoker')
+        feilmelding: t('buc:validation-chooseAvdodOrSoker'),
+        skjemaelementId: 'a-buc-c-bucstart__avdodorsoker-radiogroup-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -760,7 +759,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          {sedNeedsAvdod() && onlyOnePersonAvdod() && (
+          {sedNeedsAvdod() && _avdod && (
             <>
               <VerticalSeparatorDiv />
               <FlexDiv>
@@ -771,7 +770,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 </label>
                 <HorizontalSeparatorDiv />
                 <Normaltekst>
-                  {renderAvdodName(personAvdods![0], t)}
+                  {renderAvdodName(_avdod, t)}
                 </Normaltekst>
               </FlexDiv>
             </>
@@ -782,6 +781,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <HighContrastInput
                 label={t('buc:form-avdodfnr')}
                 data-test-id='a-buc-c-bucstart__avdod-input-id'
+                id='a-buc-c-bucstart__avdod-input-id'
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
                 feil={_validation.avdodfnr ? t(_validation.avdodfnr.feilmelding) : null}
@@ -792,16 +792,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <HighContrastRadioPanelGroup
+                checked={_avdodOrSoker}
                 data-test-id='a-buc-c-bucstart__avdodorsoker-radiogroup-id'
-                name='avdodorbruker'
+                feil={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
                 legend={t('buc:form-avdodorsøker')}
+                name='avdodorbruker'
                 radios={[
                   { label: t('buc:form-avdod'), value: 'AVDOD' },
                   { label: t('buc:form-søker'), value: 'SOKER' }
                 ]}
-                checked={_avdodOrSoker}
                 onChange={onAvdodOrSokerChange}
-                feil={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
               />
             </>
           )}
@@ -956,7 +956,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <VerticalSeparatorDiv data-size='2' />
           <Row>
             <Column>
-              <Feiloppsummering
+              <HighContrastFeiloppsummering
                 data-test-id='a-buc-c-sedstart__feiloppsummering-id'
                 feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}
                 tittel={t('buc:form-feiloppsummering')}

@@ -2,7 +2,7 @@ import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import Knapp, { Flatknapp, Hovedknapp } from 'nav-frontend-knapper'
 import Lenke from 'nav-frontend-lenker'
 import Panel from 'nav-frontend-paneler'
-import { Input, RadioPanelGruppe, Textarea } from 'nav-frontend-skjema'
+import { Feiloppsummering, Input, RadioPanelGruppe, Textarea } from 'nav-frontend-skjema'
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { themeKeys } from 'nav-styled-component-theme'
 import Tabs from 'nav-frontend-tabs'
@@ -188,10 +188,24 @@ export const HighContrastRadioPanelGroup = styled(RadioPanelGruppe)`
     margin-left: -0.25rem !important;
     margin-right: -0.25rem !important;
   }
+  .inputPanel {
+    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+    border-style: solid;
+    border-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'white' : theme.navGra60};
+    background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    color:  ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+  }
   .radioPanel {
     width: 100%;
     margin-left: 0.25rem !important;
     margin-right: 0.25rem !important;
     margin-bottom: 0rem !important;
+  }
+`
+export const HighContrastFeiloppsummering = styled(Feiloppsummering)`
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  color:  ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+  a {
+    color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
   }
 `

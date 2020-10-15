@@ -25,6 +25,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             borderWidth: props.feil ? '2px' : _theme.type === 'themeHighContrast' ? '2px' : '1px',
             borderColor: props.feil ? _theme[themeKeys.REDERROR] : _theme[themeKeys.MAIN_BORDER_COLOR],
             borderStyle: 'solid',
+            borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
             color: _theme[themeKeys.MAIN_FONT_COLOR],
             backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
           }),

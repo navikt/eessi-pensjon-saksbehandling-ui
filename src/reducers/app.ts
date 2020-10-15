@@ -53,7 +53,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         newParams[action.payload.key] = action.payload.value
       }
 
-      newContext = constants.BRUKEROVERSIKT
+      newContext = constants.BRUKERKONTEKST
       if (newParams.kravId) {
         newContext = constants.KRAVKONTEKST
       }
@@ -73,7 +73,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       newParams = _.cloneDeep(state.params)
       delete newParams[action.payload.key]
 
-      newContext = constants.BRUKEROVERSIKT
+      newContext = constants.BRUKERKONTEKST
       if (newParams.kravId) {
         newContext = constants.KRAVKONTEKST
       }

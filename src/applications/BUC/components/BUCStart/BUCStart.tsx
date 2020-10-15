@@ -7,11 +7,12 @@ import {
   resetBuc,
   saveBucsInfo
 } from 'actions/buc'
-import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucsWithAvdod, getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
   Column,
+  HighContrastFeiloppsummering,
   HighContrastFlatknapp,
   HighContrastHovedknapp,
   HorizontalSeparatorDiv,
@@ -24,7 +25,8 @@ import {
   Buc,
   BUCRawList,
   Bucs,
-  BucsInfo, SakTypeValue,
+  BucsInfo,
+  SakTypeValue,
   SaveBucsInfoProps,
   SubjectAreaRawList,
   Tag,
@@ -37,7 +39,7 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
-import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema'
+import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
@@ -118,7 +120,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [_tags, setTags] = useState<Tags>([])
   const [_validation, setValidation] = useState<Validation>({})
 
-  const sedNeedsAvdod = (): boolean => (_buc === 'P_BUC_02' && (personAvdods ? personAvdods.length > 0 : false))
+  const sedNeedsAvdod = (): boolean => (bucsWithAvdod(_buc) && (personAvdods ? personAvdods.length > 0 : false))
 
   const hasNoValidationErrors = (validation: Validation): boolean => {
     return _.find(validation, (it) => (it !== undefined)) === undefined
@@ -293,7 +295,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [dispatch, loading.gettingTagList, tagList])
 
   useEffect(() => {
-    if (_buc === 'P_BUC_02' &&
+    if (bucsWithAvdod(_buc) &&
       pesysContext === constants.VEDTAKSKONTEKST &&
       personAvdods &&
       personAvdods.length === 1 &&
@@ -465,7 +467,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             <VerticalSeparatorDiv data-size='2' />
             <Row>
               <Column>
-                <Feiloppsummering
+                <HighContrastFeiloppsummering
                   data-test-id='a-buc-c-bucstart__feiloppsummering-id'
                   tittel={t('buc:form-feiloppsummering')}
                   feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}

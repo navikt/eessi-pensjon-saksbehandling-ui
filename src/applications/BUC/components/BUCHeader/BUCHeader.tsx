@@ -1,4 +1,5 @@
 import {
+  bucsWithAvdod,
   countrySorter,
   getBucTypeLabel,
   renderAvdodName,
@@ -249,7 +250,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 )}
               </PropertyDiv>
             )}
-            {buc.type === 'P_BUC_02' && (buc as ValidBuc).subject && (
+            {bucsWithAvdod(buc.type) && (buc as ValidBuc).subject && (
               <PropertyDiv
                 data-test-id='a-buc-c-bucheader__label-avdod-id'
               >
