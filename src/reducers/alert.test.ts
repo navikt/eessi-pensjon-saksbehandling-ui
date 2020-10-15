@@ -58,51 +58,27 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_BUCS_FAILURE', () => {
+  it('BUC_CREATE_BUC_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_BUCS_FAILURE
+        type: types.BUC_CREATE_BUC_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-noBucs'
+      clientErrorMessage: 'buc:alert-createBucFailure'
     })
   })
 
-  it('BUC_GET_BUCSINFO_LIST_FAILURE', () => {
+  it('BUC_CREATE_SED_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_BUCSINFO_LIST_FAILURE
+        type: types.BUC_CREATE_SED_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-noBucsListInfo'
-    })
-  })
-
-  it('BUC_GET_BUCSINFO_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_GET_BUCSINFO_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-noBucsInfo'
-    })
-  })
-
-  it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-noSubjectAreaList'
+      clientErrorMessage: 'buc:alert-createSedFailure'
     })
   })
 
@@ -118,15 +94,51 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_TAG_LIST_FAILURE', () => {
+  it('BUC_GET_BUCS_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_TAG_LIST_FAILURE
+        type: types.BUC_GET_BUCS_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-noTagList'
+      clientErrorMessage: 'buc:alert-noBucs'
+    })
+  })
+
+  it('BUC_GET_BUCSINFO_FAILURE', () => {
+    expect(
+      alertReducer(initialAlertState, {
+        type: types.BUC_GET_BUCSINFO_FAILURE
+      })
+    ).toEqual({
+      ...initialAlertState,
+      clientErrorStatus: 'ERROR',
+      clientErrorMessage: 'buc:alert-noBucsInfo'
+    })
+  })
+
+  it('BUC_GET_BUCSINFO_LIST_FAILURE', () => {
+    expect(
+      alertReducer(initialAlertState, {
+        type: types.BUC_GET_BUCSINFO_LIST_FAILURE
+      })
+    ).toEqual({
+      ...initialAlertState,
+      clientErrorStatus: 'ERROR',
+      clientErrorMessage: 'buc:alert-noBucsListInfo'
+    })
+  })
+
+  it('BUC_GET_COUNTRY_LIST_FAILURE', () => {
+    expect(
+      alertReducer(initialAlertState, {
+        type: types.BUC_GET_COUNTRY_LIST_FAILURE
+      })
+    ).toEqual({
+      ...initialAlertState,
+      clientErrorStatus: 'ERROR',
+      clientErrorMessage: 'buc:alert-noCountryList'
     })
   })
 
@@ -154,51 +166,27 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_COUNTRY_LIST_FAILURE', () => {
+  it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_COUNTRY_LIST_FAILURE
+        type: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-noCountryList'
+      clientErrorMessage: 'buc:alert-noSubjectAreaList'
     })
   })
 
-  it('BUC_CREATE_BUC_FAILURE', () => {
+  it('BUC_GET_TAG_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_CREATE_BUC_FAILURE
+        type: types.BUC_GET_TAG_LIST_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-createBucFailure'
-    })
-  })
-
-  it('BUC_CREATE_SED_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_CREATE_SED_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-createSedFailure'
-    })
-  })
-
-  it('BUC_SEND_ATTACHMENT_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_SEND_ATTACHMENT_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-createAttachmentFailure'
+      clientErrorMessage: 'buc:alert-noTagList'
     })
   })
 
@@ -211,6 +199,18 @@ describe('reducers/alert', () => {
       ...initialAlertState,
       clientErrorStatus: 'ERROR',
       clientErrorMessage: 'buc:alert-saveBucsInfoFailure'
+    })
+  })
+
+  it('BUC_SEND_ATTACHMENT_FAILURE', () => {
+    expect(
+      alertReducer(initialAlertState, {
+        type: types.BUC_SEND_ATTACHMENT_FAILURE
+      })
+    ).toEqual({
+      ...initialAlertState,
+      clientErrorStatus: 'ERROR',
+      clientErrorMessage: 'buc:alert-createAttachmentFailure'
     })
   })
 
@@ -269,6 +269,21 @@ describe('reducers/alert', () => {
     expect(
       alertReducer(initialAlertState, {
         type: types.BUC_CREATE_SED_SUCCESS,
+        payload: {
+          type: 'mockType'
+        }
+      })
+    ).toEqual({
+      ...initialAlertState,
+      clientErrorStatus: 'OK',
+      clientErrorMessage: 'buc:alert-createdSed|mockType'
+    })
+  })
+
+  it('BUC_CREATE_REPLY_SED_SUCCESS', () => {
+    expect(
+      alertReducer(initialAlertState, {
+        type: types.BUC_CREATE_REPLY_SED_SUCCESS,
         payload: {
           type: 'mockType'
         }

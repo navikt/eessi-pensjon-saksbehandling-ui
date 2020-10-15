@@ -290,7 +290,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const sakTypeAllowingPBUC05: Array<SakTypeValue> = ['Alderspensjon', 'Uføretrygd', 'Generell', 'Omsorgsopptjening']
 
       const sakType: SakTypeValue |undefined = (action as ActionWithPayload).context.sakType
-      if ( sakType && sakTypeAllowingPBUC05.indexOf(sakType) < 0) {
+      if (sakType && sakTypeAllowingPBUC05.indexOf(sakType) < 0) {
         excludedBucs.push('P_BUC_05')
       }
 

@@ -2,7 +2,7 @@ import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import Knapp, { Flatknapp, Hovedknapp } from 'nav-frontend-knapper'
 import Lenke from 'nav-frontend-lenker'
 import Panel from 'nav-frontend-paneler'
-import { Input, Textarea } from 'nav-frontend-skjema'
+import { Input, RadioPanelGruppe, Textarea } from 'nav-frontend-skjema'
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { themeKeys } from 'nav-styled-component-theme'
 import Tabs from 'nav-frontend-tabs'
@@ -176,5 +176,22 @@ export const HighContrastLenkepanelBase = styled(LenkepanelBase)`
   }
   &:hover .lenkepanel__heading {
     color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+  }
+`
+
+export const HighContrastRadioPanelGroup = styled(RadioPanelGruppe)`
+ .skjemagruppe__legend {
+    margin-bottom: 0.25rem !important;
+  }
+  .inputPanelGruppe__inner {
+    display: flex;
+    margin-left: -0.25rem !important;
+    margin-right: -0.25rem !important;
+  }
+  .radioPanel {
+    width: 100%;
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+    margin-bottom: 0rem !important;
   }
 `

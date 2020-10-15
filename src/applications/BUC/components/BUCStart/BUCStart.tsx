@@ -100,7 +100,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
   onBucCreated,
   onBucCancelled
 }: BUCStartProps): JSX.Element | null => {
-
   const {
     bucList, bucParam, bucs, bucsInfo, currentBuc, highContrast,
     loading, locale, newlyCreatedBuc, person, personAvdods,
@@ -119,68 +118,59 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [_tags, setTags] = useState<Tags>([])
   const [_validation, setValidation] = useState<Validation>({})
 
-  const hasNoValidationErrors = (): boolean => {
-    return _.find(_validation, (it) => (it !== undefined)) === undefined
+  const sedNeedsAvdod = (): boolean => (_buc === 'P_BUC_02' && (personAvdods ? personAvdods.length > 0 : false))
+
+  const hasNoValidationErrors = (validation: Validation): boolean => {
+    return _.find(validation, (it) => (it !== undefined)) === undefined
   }
 
-  const resetValidationState = (_key: string): void => {
-    setValidation(_.omitBy(_validation, (value, key) => {
-      return key === _key
-    }))
+  const updateValidation = (_key: string, validationError: FeiloppsummeringFeil | undefined) => {
+    if (!validationError) {
+      const newValidation = _.cloneDeep(_validation)
+      newValidation[_key] = undefined
+      setValidation(newValidation)
+    }
   }
 
-  const setValidationState = (key: string, value: any): void => {
-    const newValidation = _.cloneDeep(_validation)
-    newValidation[key] = value
-    setValidation(newValidation)
-  }
-
-  const validateAvdod = (avdod: PersonAvdod | undefined): boolean => {
+  const validateAvdod = (avdod: PersonAvdod | undefined): FeiloppsummeringFeil | undefined => {
     if (!avdod) {
-      setValidationState('avdod', {
+      return {
         skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
         feilmelding: t('buc:validation-chooseAvdod')
-      } as FeiloppsummeringFeil)
-      return false
-    } else {
-      resetValidationState('avdod')
-      return true
+      } as FeiloppsummeringFeil
     }
+    return undefined
   }
 
-  const validateBuc = (buc: string | undefined): boolean => {
+  const validateBuc = (buc: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!buc) {
-      setValidationState('buc', {
+      return {
         skjemaelementId: 'a-buc-c-bucstart__buc-select-id',
         feilmelding: t('buc:validation-chooseBuc')
-      } as FeiloppsummeringFeil)
-      return false
-    } else {
-      resetValidationState('buc')
-      return true
+      } as FeiloppsummeringFeil
     }
+    return undefined
   }
 
-  const validateSubjectArea = (subjectArea: string): boolean => {
+  const validateSubjectArea = (subjectArea: string): FeiloppsummeringFeil | undefined => {
     if (!subjectArea) {
-      setValidationState('subjectArea', {
+      return {
         skjemaelementId: 'a-buc-c-bucstart__subjectarea-select-id',
         feilmelding: t('buc:validation-chooseSubjectArea')
-      } as FeiloppsummeringFeil)
-      return false
-    } else {
-      resetValidationState('subjectArea')
-      return true
+      } as FeiloppsummeringFeil
     }
+    return undefined
   }
 
   const performValidation = () :boolean => {
-    let valid = validateSubjectArea(_subjectArea)
-    valid = valid && validateBuc(_buc)
-    if (_buc === 'P_BUC_02' && personAvdods && personAvdods.length >= 1) {
-      valid = valid && validateAvdod(_avdod)
+    const validation: Validation = {}
+    validation.subjectArea = validateSubjectArea(_subjectArea)
+    validation.buc = validateBuc(_buc)
+    if (sedNeedsAvdod()) {
+      validation.avdod = validateAvdod(_avdod)
     }
-    return valid
+    setValidation(validation)
+    return hasNoValidationErrors(validation)
   }
 
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -211,7 +201,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (option) {
       const thisSubjectArea: string = (option as Option).value
       setSubjectArea(thisSubjectArea)
-      validateSubjectArea(thisSubjectArea)
+      updateValidation('sed', validateSubjectArea(thisSubjectArea))
     }
   }
 
@@ -219,7 +209,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (option) {
       const thisBuc: string = (option as Option).value
       setBuc(thisBuc)
-      validateBuc(thisBuc)
+      updateValidation('buc', validateBuc(thisBuc))
     }
   }
 
@@ -265,12 +255,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
     } as Tag
   }) : []
 
-  const onAvdodChange = (option: ValueType<Option> | null | undefined): void => {
+  const onAvdodChange = (option: ValueType<Option>): void => {
     if (option) {
       const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
         (avdod: PersonAvdod) => avdod.fnr === (option as Option).value
       )
       setAvdod(thisAvdod)
+      updateValidation('avdod', validateAvdod(thisAvdod))
     }
   }
 
@@ -378,7 +369,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
               />
             </>
-            {_buc === 'P_BUC_02' && personAvdods && personAvdods.length >= 1 && (
+            {sedNeedsAvdod() && (
               <>
                 <VerticalSeparatorDiv />
                 <label className='skjemaelement__label'>
@@ -469,7 +460,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </HighContrastFlatknapp>
         </div>
         <VerticalSeparatorDiv />
-        {!hasNoValidationErrors() && (
+        {!hasNoValidationErrors(_validation) && (
           <>
             <VerticalSeparatorDiv data-size='2' />
             <Row>
@@ -477,7 +468,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 <Feiloppsummering
                   data-test-id='a-buc-c-bucstart__feiloppsummering-id'
                   tittel={t('buc:form-feiloppsummering')}
-                  feil={Object.values(_validation)}
+                  feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}
                 />
               </Column>
               <HorizontalSeparatorDiv data-size='2' />

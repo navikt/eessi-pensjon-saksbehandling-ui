@@ -45,6 +45,6 @@ export interface UserInfoPayload {
   featureToggles: FeatureToggles
 }
 
-export type Validation = {[key: string]: FeiloppsummeringFeil}
+export type Validation = {[key: string]: FeiloppsummeringFeil | undefined}
 
 export type WidthSize = 'sm' | 'md' | 'lg'

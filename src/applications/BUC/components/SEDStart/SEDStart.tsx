@@ -32,6 +32,7 @@ import {
   HighContrastHovedknapp,
   HighContrastInput,
   HighContrastKnapp,
+  HighContrastRadioPanelGroup,
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
@@ -43,10 +44,10 @@ import {
   AllowedLocaleString,
   FeatureToggles,
   Loading,
-  PesysContext,
-  Validation,
   Option,
-  Options
+  Options,
+  PesysContext,
+  Validation
 } from 'declarations/app.d'
 import {
   Buc,
@@ -58,6 +59,8 @@ import {
   NewSedPayload,
   RawInstitution,
   RawList,
+  SakTypeMap,
+  SakTypeValue,
   SavingAttachmentsJob,
   Sed,
   SEDAttachmentPayload,
@@ -69,9 +72,9 @@ import {
 import { BucsPropType, SedPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
-import { State } from 'declarations/reducers'
 
 import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { State } from 'declarations/reducers'
 import CountryData, { Country, CountryList } from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'
@@ -133,6 +136,7 @@ export interface SEDStartSelector {
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId?: string
+  sakType: SakTypeValue | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
@@ -151,12 +155,15 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
+  sakType: state.app.params.sakType as SakTypeValue,
   savingAttachmentsJob: state.buc.savingAttachmentsJob,
   sed: state.buc.sed,
   sedList: state.buc.sedList,
   sedsWithAttachments: state.buc.sedsWithAttachments,
   vedtakId: state.app.params.vedtakId
 })
+
+export type AvdodOrSokerValue = 'AVDOD' | 'SOKER'
 
 export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId,
@@ -172,7 +179,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element => {
   const {
     attachmentsError, countryList, featureToggles, highContrast, institutionList, loading,
-    locale, personAvdods, pesysContext, sakId, sed, sedList, sedsWithAttachments, vedtakId
+    locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -225,6 +232,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
+  const [_avdodOrSoker, setAvdodOrSoker] = useState<AvdodOrSokerValue | undefined>(undefined)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const _buc: Buc = _.cloneDeep(bucs[currentBuc!])
@@ -247,21 +255,39 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = useState<string | undefined>(vedtakId)
 
-  const needsAvdod = (): boolean => (
-    _buc.type === 'P_BUC_02'
-  )
+  // QUESTIONS
 
-  const hasNoValidationErrors = (): boolean => {
-    return _.find(_validation, (it) => (it !== undefined)) === undefined
-  }
+  const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
-  const needsAvdodFnrInput = (): boolean => {
-    return _buc.type === 'P_BUC_02' &&
+  const onlyOnePersonAvdod = (): boolean => personAvdods ? personAvdods.length === 1 : false
+
+  const sedNeedsAvdod = useCallback((): boolean => _buc.type === 'P_BUC_02' || _buc.type === 'P_BUC_05', [_buc])
+
+  const sedNeedsVedtakId = (): boolean => _sed === 'P6000' || _sed === 'P7000'
+
+  const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
+    (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+
+  const sedNeedsAvdodFnrInput = (): boolean => {
+    return sedNeedsAvdod() &&
     (!personAvdods || _.isEmpty(personAvdods)) &&
     pesysContext !== constants.VEDTAKSKONTEKST &&
-    (_buc?.creator?.country !== 'NO' ||
-      (_buc?.creator?.country === 'NO' && _buc?.creator?.institution === 'NO:NAVAT08'))
+      (
+        (
+          _buc?.creator?.country !== 'NO' ||
+          (_buc?.creator?.country === 'NO' && _buc?.creator?.institution === 'NO:NAVAT08')
+        ) ||
+        sedNeedsAvdodBrukerQuestion()
+      )
   }
+
+  const sedCanHaveAttachments = useCallback((): boolean => {
+    return _sed !== undefined && sedsWithAttachments[_sed]
+  }, [_sed, sedsWithAttachments])
+
+  const isNumber = (string: string): boolean => string.match(/^\d+$/g) !== null
+
+  //
 
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
@@ -298,85 +324,78 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
   }
 
-  const resetValidationState = useCallback((_key: string): void => {
-    setValidation(_.omitBy(_validation, (value, key) => key === _key))
-  }, [setValidation, _validation])
-
-  const setValidationState = useCallback((key: string, value: FeiloppsummeringFeil): void => {
-    const newValidation: Validation = _.cloneDeep(_validation)
-    newValidation[key] = value
-    setValidation(newValidation)
-  }, [setValidation, _validation])
-
-  const validateCountries = useCallback((country: CountryRawList): boolean => {
-    if (_.isEmpty(country)) {
-      setValidationState('country', {
-        feilmelding: t('buc:validation-chooseCountry'),
-        skjemaelementId: 'a-buc-c-sedstart__country-select-id'
-      } as FeiloppsummeringFeil)
-      return false
-    } else {
-      resetValidationState('country')
-      return true
+  const updateValidation = useCallback((_key: string, validationError: FeiloppsummeringFeil | undefined) => {
+    if (!validationError) {
+      const newValidation = _.cloneDeep(_validation)
+      newValidation[_key] = undefined
+      setValidation(newValidation)
     }
-  }, [resetValidationState, setValidationState, t])
+  }, [_validation])
 
-  const validateSed = (sed: string | undefined): boolean => {
+  const validateSed = (sed: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!sed) {
-      setValidationState('sed', {
+      return {
         skjemaelementId: 'a-buc-c-sedstart__sed-select-id',
         feilmelding: t('buc:validation-chooseSed')
-      } as FeiloppsummeringFeil)
-      return false
-    } else {
-      resetValidationState('sed')
-      return true
+      } as FeiloppsummeringFeil
     }
+    return undefined
   }
 
-  const validateAvdodFnr = (_avdod: PersonAvdod | null | undefined): boolean => {
-    if (!_avdod) {
-      setValidationState('avdodfnr', {
-        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
-        feilmelding: t('buc:validation-chooseAvdodFnr')
-      } as FeiloppsummeringFeil)
-      return false
-    } else {
-      resetValidationState('avdodfnr')
-      return true
-    }
-  }
-
-  const validateInstitutions = (institutions: InstitutionRawList): boolean => {
+  const validateInstitutions = (institutions: InstitutionRawList): FeiloppsummeringFeil | undefined => {
     if (_.isEmpty(institutions)) {
-      setValidationState('institution', {
+      return {
         skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
         feilmelding: t('buc:validation-chooseInstitution')
-      } as FeiloppsummeringFeil)
-      return false
-    } else {
-      resetValidationState('institution')
-      return true
+      } as FeiloppsummeringFeil
     }
+    return undefined
   }
 
-  const validateVedtakId = (vedtakId: string | undefined): boolean => {
+  const validateCountries = useCallback((country: CountryRawList): FeiloppsummeringFeil | undefined => {
+    if (_.isEmpty(country)) {
+      return {
+        feilmelding: t('buc:validation-chooseCountry'),
+        skjemaelementId: 'a-buc-c-sedstart__country-select-id'
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+  }, [t])
+
+  const validateVedtakId = (vedtakId: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!vedtakId) {
-      setValidationState('vedtak', {
+      return {
         skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id',
         feilmelding: t('buc:validation-chooseVedtakId')
-      } as FeiloppsummeringFeil)
-      return false
+      } as FeiloppsummeringFeil
     }
     if (!isNumber(vedtakId!)) {
-      setValidationState('vedtak', {
+      return {
         skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id',
         feilmelding: t('buc:validation-invalidVedtakId')
-      } as FeiloppsummeringFeil)
-      return false
+      } as FeiloppsummeringFeil
     }
-    resetValidationState('vedtak')
-    return true
+    return undefined
+  }
+
+  const validateAvdodFnr = (_avdod: PersonAvdod | null | undefined): FeiloppsummeringFeil | undefined => {
+    if (!_avdod) {
+      return {
+        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
+        feilmelding: t('buc:validation-chooseAvdodFnr')
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+  }
+
+  const validateAvdodOrSoker = (_avdodOrSoker: AvdodOrSokerValue | undefined): FeiloppsummeringFeil | undefined => {
+    if (!_avdodOrSoker) {
+      return {
+        skjemaelementId: 'a-buc-c-bucstart__avdodorsoker-radiogroup-id',
+        feilmelding: t('buc:validation-chooseAvdodOrSoker')
+      } as FeiloppsummeringFeil
+    }
+    return undefined
   }
 
   const _cancelSendAttachmentToSed = (): void => {
@@ -406,22 +425,36 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setInstitutions(newInstitutions)
     })
     setCountries(newCountries)
-    validateCountries(newCountries)
-  }, [_buc, _countries, dispatch, _institutions, setCountries, setInstitutions, validateCountries])
+    updateValidation('country', validateCountries(newCountries))
+  }, [_buc, _countries, dispatch, _institutions, setCountries, setInstitutions, updateValidation, validateCountries])
+
+  const onAvdodOrSokerChange = (e: any): void => {
+    const avdodorsoker: AvdodOrSokerValue = e.target.value as AvdodOrSokerValue
+    setAvdodOrSoker(avdodorsoker)
+    updateValidation('avdodorsoker', validateAvdodOrSoker(avdodorsoker))
+  }
 
   const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setAvdod({
+    const newAvdod: PersonAvdod | undefined = e.target.value ? {
       fnr: e.target.value
-    } as PersonAvdod)
+    } as PersonAvdod : undefined
+    setAvdod(newAvdod)
+    updateValidation('avdodfnr', validateAvdodFnr(newAvdod))
   }
 
   const onSedChange = (option: ValueType<Option> | null | undefined): void => {
-    setSed((option as Option).value)
+    const newSed: string | undefined = (option as Option).value
+    setSed(newSed)
+    // reset all validations, to clear validations of extra options that may be hidden now
+    setValidation({
+      sed: validateSed(newSed)
+    })
   }
 
   const onInstitutionsChange = (institutions: ValueType<Option | GroupType<Option>>): void => {
     const newInstitutions: InstitutionRawList = institutions ? (institutions as unknown as Options).map(institution => institution.value) : []
     setInstitutions(newInstitutions)
+    updateValidation('institution', validateInstitutions(newInstitutions))
   }
 
   const onCountriesChange = (countries: ValueType<Option> | null | undefined): void => {
@@ -431,6 +464,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const vedtakId = e.target.value
     setVedtakId(vedtakId)
+    updateValidation('vedtakid', validateVedtakId(vedtakId))
   }
 
   const getSpinner = (text: string): JSX.Element => (
@@ -462,15 +496,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return false
   }
 
-  const sedNeedsVedtakId = (): boolean => (_sed === 'P6000' || _sed === 'P7000')
-
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))
   }
-
-  const sedCanHaveAttachments = useCallback((): boolean => {
-    return _sed !== undefined && sedsWithAttachments[_sed]
-  }, [_sed, sedsWithAttachments])
 
   const convertInstitutionIDsToInstitutionObjects = (): Institutions => {
     const institutions: Institutions = []
@@ -497,21 +525,24 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setCountries([])
   }, [dispatch])
 
-  const performValidation = () => {
-    let valid: boolean = true
-    valid = valid && validateSed(_sed)
+  const performValidation = (): boolean => {
+    const validation: Validation = {}
+    validation.sed = validateSed(_sed)
     if (!bucHasSedsWithAtLeastOneInstitution()) {
-      valid = valid &&
-        validateInstitutions(_institutions) &&
-        validateCountries(_countries)
+      validation.institution = validateInstitutions(_institutions)
+      validation.country = validateCountries(_countries)
     }
     if (sedNeedsVedtakId()) {
-      valid = valid && validateVedtakId(_vedtakId)
+      validation.vedtakid = validateVedtakId(_vedtakId)
     }
-    if (needsAvdodFnrInput()) {
-      valid = valid && validateAvdodFnr(_avdod)
+    if (sedNeedsAvdodFnrInput()) {
+      validation.avdodfnr = validateAvdodFnr(_avdod)
     }
-    return valid
+    if (sedNeedsAvdodBrukerQuestion()) {
+      validation.avdodorsoker = validateAvdodOrSoker(_avdodOrSoker)
+    }
+    setValidation(validation)
+    return hasNoValidationErrors(validation)
   }
 
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -529,9 +560,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
-      if (needsAvdod()) {
+      if (sedNeedsAvdod()) {
         payload.avdodfnr = _avdod?.fnr
       }
+      if (sedNeedsAvdodBrukerQuestion()) {
+        payload.xxx = _avdodOrSoker
+      }
+
       if ((_buc as ValidBuc).subject) {
         payload.subject = (_buc as ValidBuc).subject
       }
@@ -549,8 +584,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     resetSedForm()
     onSedCancelled()
   }
-
-  const isNumber = (string: string): boolean => string.match(/^\d+$/g) !== null
 
   const _onSaved = (savingAttachmentsJob: SavingAttachmentsJob): void => {
     const newAttachments: JoarkBrowserItems = savingAttachmentsJob.saved
@@ -647,7 +680,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [sedList, _sed, setSed])
 
   useEffect(() => {
-    if (_buc.type === 'P_BUC_02' && (_buc as ValidBuc).subject && _avdod === undefined) {
+    if (sedNeedsAvdod() && (_buc as ValidBuc).subject && _avdod === undefined) {
       let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
         p.fnr === (_buc as ValidBuc)?.subject?.avdod?.fnr
       )
@@ -656,7 +689,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       setAvdod(avdod)
     }
-  }, [_avdod, _buc, personAvdods])
+  }, [_avdod, _buc, personAvdods, sedNeedsAvdod])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return <div />
@@ -716,31 +749,27 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 value={vedtakId || ''}
                 onChange={onVedtakIdChange}
                 placeholder={t('buc:form-noVedtakId')}
-                feil={_validation.vedtak ? t(_validation.vedtak.feilmelding) : null}
+                feil={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
               />
             </>
           )}
-          {_buc.type === 'P_BUC_02' && personAvdods && (
+          {sedNeedsAvdod() && onlyOnePersonAvdod() && (
             <>
-              {personAvdods.length === 1 && (
-                <>
-                  <VerticalSeparatorDiv />
-                  <FlexDiv>
-                    <PersonIcon color={highContrast ? 'white' : 'black'} />
-                    <HorizontalSeparatorDiv />
-                    <label className='skjemaelement__label'>
-                      {t('buc:form-avdod')}:
-                    </label>
-                    <HorizontalSeparatorDiv />
-                    <Normaltekst>
-                      {renderAvdodName(personAvdods[0], t)}
-                    </Normaltekst>
-                  </FlexDiv>
-                </>
-              )}
+              <VerticalSeparatorDiv />
+              <FlexDiv>
+                <PersonIcon color={highContrast ? 'white' : 'black'} />
+                <HorizontalSeparatorDiv />
+                <label className='skjemaelement__label'>
+                  {t('buc:form-avdod')}:
+                </label>
+                <HorizontalSeparatorDiv />
+                <Normaltekst>
+                  {renderAvdodName(personAvdods![0], t)}
+                </Normaltekst>
+              </FlexDiv>
             </>
           )}
-          {needsAvdodFnrInput() && (
+          {sedNeedsAvdodFnrInput() && (
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
@@ -752,6 +781,24 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
+          {sedNeedsAvdodBrukerQuestion() && (
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastRadioPanelGroup
+                data-test-id='a-buc-c-bucstart__avdodorsoker-radiogroup-id'
+                name='avdodorbruker'
+                legend={t('buc:form-avdodorsøker')}
+                radios={[
+                  { label: t('buc:form-avdod'), value: 'AVDOD' },
+                  { label: t('buc:form-søker'), value: 'SOKER' }
+                ]}
+                checked={_avdodOrSoker}
+                onChange={onAvdodOrSokerChange}
+                feil={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
+              />
+            </>
+          )}
+
           {!currentSed && (
             <>
               <VerticalSeparatorDiv />
@@ -897,14 +944,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           </Column>
         </Column>
       </Row>
-      {!hasNoValidationErrors() && (
+      {!hasNoValidationErrors(_validation) && (
         <>
           <VerticalSeparatorDiv data-size='2' />
           <Row>
             <Column>
               <Feiloppsummering
                 data-test-id='a-buc-c-sedstart__feiloppsummering-id'
-                feil={Object.values(_validation)}
+                feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}
                 tittel={t('buc:form-feiloppsummering')}
               />
             </Column>

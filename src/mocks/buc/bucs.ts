@@ -3694,6 +3694,31 @@ const mockBuc = [
     }]
   },
   {
+    type: 'P_BUC_05',
+    readOnly: false,
+    creator: {
+      country: 'NO',
+      institution: 'NO:DEMO002',
+      name: 'DEMO002'
+    },
+    caseId: '158125',
+    sakType: '',
+    aktoerId: '001122334455',
+    status: 'open',
+    startDate: 1557392989122,
+    lastUpdate: 1558362934000,
+    institusjon: [{
+      country: 'NO',
+      institution: 'NO:DEMO002',
+      name: 'DEMO002'
+    }, {
+      country: 'NO',
+      institution: 'NO:DEMO001',
+      name: 'DEMO001'
+    }],
+    seds: []
+  },
+  {
     type: 'P_BUC_06',
     readOnly: false,
     creator: {

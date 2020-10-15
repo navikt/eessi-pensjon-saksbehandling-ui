@@ -79,14 +79,15 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
 
         clientErrorMessage = 'buc:alert-noBucs'
         break
-      case types.BUC_GET_BUCSINFO_LIST_FAILURE:
-
-        clientErrorMessage = 'buc:alert-noBucsListInfo'
-        break
 
       case types.BUC_GET_BUCSINFO_FAILURE:
 
         clientErrorMessage = 'buc:alert-noBucsInfo'
+        break
+
+      case types.BUC_GET_BUCSINFO_LIST_FAILURE:
+
+        clientErrorMessage = 'buc:alert-noBucsListInfo'
         break
 
       case types.BUC_GET_COUNTRY_LIST_FAILURE:

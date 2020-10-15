@@ -85,6 +85,7 @@ export interface NewSedPayload {
   sed: string
   subject?: BUCSubject
   vedtakId?: string
+  xxx?: string
 }
 
 export interface Organisation {
