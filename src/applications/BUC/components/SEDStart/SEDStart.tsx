@@ -38,6 +38,7 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as constants from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
 import {
@@ -50,6 +51,7 @@ import {
   Validation
 } from 'declarations/app.d'
 import {
+  AvdodOrSokerValue,
   Buc,
   Bucs,
   CountryRawList,
@@ -163,8 +165,6 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   vedtakId: state.app.params.vedtakId
 })
 
-export type AvdodOrSokerValue = 'AVDOD' | 'SOKER'
-
 export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId,
   bucs,
@@ -266,7 +266,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const sedNeedsVedtakId = (): boolean => _sed === 'P6000' || _sed === 'P7000'
 
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
-    (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+    (pesysContext !== VEDTAKSKONTEKST
+      ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : (
+        personAvdods?.length === 1
+          ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP || sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP) : (
+          personAvdods?.length === 2 ? (sakType === SakTypeMap.BARNEP) : false
+          )
+      )
+    )
 
   const sedNeedsAvdodFnrInput = (): boolean => {
     return sedNeedsAvdod() &&
@@ -564,7 +571,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.avdodfnr = _avdod?.fnr
       }
       if (sedNeedsAvdodBrukerQuestion()) {
-        payload.xxx = _avdodOrSoker
+        payload.referanseTilPerson = _avdodOrSoker
       }
 
       if ((_buc as ValidBuc).subject) {

@@ -1,6 +1,5 @@
-import { JoarkBrowserItem } from 'components/JoarkBrowser/JoarkBrowser'
-import { Option } from 'declarations/app'
-import { JoarkBrowserItems } from 'declarations/joark'
+import { Option } from 'declarations/app.d'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark.d'
 
 export interface Address {
   country: string
@@ -13,6 +12,8 @@ export interface Address {
 export interface Avdod {
   fnr: string
 }
+
+export type AvdodOrSokerValue = 'AVDOD' | 'SOKER'
 
 export interface Gjenlevende {
   fnr: string
@@ -85,7 +86,7 @@ export interface NewSedPayload {
   sed: string
   subject?: BUCSubject
   vedtakId?: string
-  xxx?: string
+  referanseTilPerson?: AvdodOrSokerValue
 }
 
 export interface Organisation {

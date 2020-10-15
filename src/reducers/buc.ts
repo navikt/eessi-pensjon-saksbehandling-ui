@@ -286,9 +286,12 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_BUC_LIST_SUCCESS:
     {
       const excludedBucs = ['P_BUC_10']
+      const pesysContext = _.get((action as ActionWithPayload), 'context.pesysContext')
 
-      const sakTypeAllowingPBUC05: Array<SakTypeValue> = ['Alderspensjon', 'Uføretrygd', 'Generell', 'Omsorgsopptjening']
+      const sakTypeAllowingPBUC05notVedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Uføretrygd', 'Generell', 'Omsorgsopptjening']
+      const sakTypeAllowingPBUC05vedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Uføretrygd', 'Omsorgsopptjening']
 
+      const sakTypeAllowingPBUC05 = pesysContext === VEDTAKSKONTEKST ? sakTypeAllowingPBUC05vedtakscontext : sakTypeAllowingPBUC05notVedtakscontext
       const sakType: SakTypeValue |undefined = (action as ActionWithPayload).context.sakType
       if (sakType && sakTypeAllowingPBUC05.indexOf(sakType) < 0) {
         excludedBucs.push('P_BUC_05')
@@ -297,7 +300,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       if (_.get((action as ActionWithPayload), 'context.featureToggles.P_BUC_02_VISIBLE') === false) {
         excludedBucs.push('P_BUC_02')
       }
-      if (_.get((action as ActionWithPayload), 'context.pesysContext') !== VEDTAKSKONTEKST) {
+      if (pesysContext !== VEDTAKSKONTEKST) {
         excludedBucs.push('P_BUC_02')
       }
       return {
