@@ -58,7 +58,6 @@ ui-fss.g2[id="c2"] {
 }
 
 <Alert
-  error={Object {}}
   message="mockErrorMessage"
   onClose={[MockFunction]}
   status="OK"

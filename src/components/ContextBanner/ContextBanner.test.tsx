@@ -21,7 +21,7 @@ jest.mock('nav-frontend-popover', () => ({
 }))
 
 const mockPesysContext = VEDTAKSKONTEKST
-const mockSakType = 'mockSakType'
+const mockSakType = 'Generell'
 
 const defaultSelector: ContextBannerSelector = {
   person: mockPerson.person,

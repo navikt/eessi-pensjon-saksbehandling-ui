@@ -13,6 +13,7 @@ describe('components/ExpandingPanel/ExpandingPanel', () => {
     },
     children: <div />,
     heading: <h2>heading</h2>,
+    highContrast: false,
     onClose: jest.fn(),
     onOpen: jest.fn(),
     open: false,

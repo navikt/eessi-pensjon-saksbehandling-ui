@@ -172,7 +172,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
         countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
         country: sender.organisation.countryCode,
         institution: sender.organisation.name,
-        acronym: sender.organisation.acronym
+        acronym: sender.organisation.acronym || '-'
       }
     }
     return undefined

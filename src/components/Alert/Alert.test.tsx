@@ -8,7 +8,7 @@ describe('components/Alert/Alert', () => {
   const initialMockProps: AlertProps = {
     status: 'OK',
     message: 'mockErrorMessage',
-    error: {},
+    error: undefined,
     onClose: jest.fn()
   }
 
