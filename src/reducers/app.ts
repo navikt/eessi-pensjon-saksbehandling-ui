@@ -6,17 +6,17 @@ import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
 export interface AppState {
+  allowed: boolean
+  expirationTime: Date | undefined
+  featureToggles: FeatureToggles
   loggedIn: boolean | undefined
   loggedTime: Date | undefined
-  allowed: boolean
-  pesysContext: PesysContext | undefined
-  expirationTime: Date | undefined
-  username: string | undefined
-  userRole: string | undefined
+  params: Params
   person: Person | undefined
   personAvdods: PersonAvdods | undefined
-  params: Params
-  featureToggles: FeatureToggles
+  pesysContext: PesysContext | undefined
+  username: string | undefined
+  userRole: string | undefined
 }
 
 const initialFeatureToggles: FeatureToggles = {
@@ -27,22 +27,26 @@ const initialFeatureToggles: FeatureToggles = {
 }
 
 export const initialAppState: AppState = {
+  allowed: false,
+  expirationTime: undefined,
+  featureToggles: initialFeatureToggles,
   loggedIn: undefined,
   loggedTime: undefined,
-  expirationTime: undefined,
-  allowed: false,
-  username: undefined,
-  userRole: undefined,
+  params: {},
   person: undefined,
   personAvdods: undefined,
   pesysContext: undefined,
-  params: {},
-  featureToggles: initialFeatureToggles
+  username: undefined,
+  userRole: undefined
 }
 
 const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
-  let newParams, newFeatureToggles, newContext
+  let newParams: Params, newFeatureToggles: FeatureToggles, newContext: PesysContext
   switch (action.type) {
+    case types.APP_LOGOUT_SUCCESS: {
+      return initialAppState
+    }
+
     case types.APP_PARAM_SET:
       newParams = _.cloneDeep(state.params)
       newFeatureToggles = _.cloneDeep(state.featureToggles)
@@ -87,6 +91,35 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         pesysContext: newContext
       }
 
+    case types.APP_PERSONINFO_SUCCESS:
+
+      return {
+        ...state,
+        person: action.payload.person
+      }
+
+    case types.APP_PERSONINFO_AVDOD_SUCCESS:
+
+      return {
+        ...state,
+        personAvdods: action.payload
+      }
+
+    case types.APP_USERINFO_FAILURE:
+
+      return {
+        ...initialAppState,
+        loggedIn: false
+      }
+
+    case types.APP_USERINFO_FORBIDDEN:
+
+      return {
+        ...initialAppState,
+        loggedIn: true,
+        userRole: 'FORBIDDEN'
+      }
+
     case types.APP_USERINFO_SUCCESS: {
       const now = action.payload.now ? new Date(action.payload.now) : new Date()
       const expirationTime = action.payload.expirationTime
@@ -105,39 +138,6 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         loggedTime: now,
         expirationTime: expirationTime
       }
-    }
-
-    case types.APP_USERINFO_FAILURE:
-
-      return {
-        ...initialAppState,
-        loggedIn: false
-      }
-
-    case types.APP_USERINFO_FORBIDDEN:
-
-      return {
-        ...initialAppState,
-        loggedIn: true,
-        userRole: 'FORBIDDEN'
-      }
-
-    case types.APP_PERSONINFO_SUCCESS:
-
-      return {
-        ...state,
-        person: action.payload.person
-      }
-
-    case types.APP_PERSONINFO_AVDOD_SUCCESS:
-
-      return {
-        ...state,
-        personAvdods: action.payload
-      }
-
-    case types.APP_LOGOUT_SUCCESS: {
-      return initialAppState
     }
 
     default:

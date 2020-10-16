@@ -352,13 +352,15 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
       const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
 
-      if (bucsWithAvdod(newBuc.type)) {
+      const person = (action as ActionWithPayload).context.person
+      const avdod = (action as ActionWithPayload).context.avdod
+      if (bucsWithAvdod(newBuc.type) && person && avdod) {
         newBuc.subject = {
           gjenlevende: {
-            fnr: (action as ActionWithPayload).context.person.aktoer.ident.ident
+            fnr: person.aktoer.ident.ident
           },
           avdod: {
-            fnr: (action as ActionWithPayload).context.avdod.fnr!
+            fnr: avdod.fnr!
           }
         } as BUCSubject
       }
