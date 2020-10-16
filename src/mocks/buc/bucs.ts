@@ -1,6 +1,7 @@
+import { Bucs } from 'declarations/buc'
 import _ from 'lodash'
 
-const mockBuc = [
+const mockBuc: Bucs = [
   {
     type: 'P_BUC_01',
     readOnly: false,
@@ -1329,7 +1330,7 @@ const mockBuc = [
       name: 'NAV ACCEPTANCE TEST 07'
     },
     caseId: '195440',
-    sakType: '',
+    sakType: 'Generell',
     aktoerId: '1000070418092',
     status: 'open',
     startDate: 1571731760978,
@@ -1511,7 +1512,28 @@ const mockBuc = [
             selected: false
           }
         ],
-        attachments: [],
+        attachments: [{
+          id: '58828e7ff57943779ab7b24c522b1a3e',
+          name: 'balrog.png',
+          fileName: 'balrog.png',
+          mimeType: 'image/png',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+          lastUpdate: {
+            year: 2019,
+            month: 'MAY',
+            chronology: {
+              id: 'ISO',
+              calendarType: 'iso8601'
+            },
+            dayOfMonth: 20,
+            dayOfWeek: 'MONDAY',
+            era: 'CE',
+            dayOfYear: 140,
+            leapYear: false,
+            monthValue: 5
+          },
+          medical: false
+        }],
         version: '4',
         firstVersion: {
           id: '1',
@@ -2392,7 +2414,7 @@ const mockBuc = [
       name: 'Swedish Demo Institution 001'
     },
     caseId: '195441',
-    sakType: '',
+    sakType: 'Generell',
     aktoerId: '1000070418092',
     status: 'open',
     startDate: 1571731760978,
@@ -2509,7 +2531,7 @@ const mockBuc = [
       name: 'DEMO002'
     },
     caseId: '158123',
-    sakType: '',
+    sakType: 'Generell',
     aktoerId: '001122334455',
     status: 'open',
     startDate: 1557392989122,
@@ -3702,7 +3724,7 @@ const mockBuc = [
       name: 'DEMO002'
     },
     caseId: '158125',
-    sakType: '',
+    sakType: 'Generell',
     aktoerId: '001122334455',
     status: 'open',
     startDate: 1557392989122,
@@ -3727,7 +3749,7 @@ const mockBuc = [
       name: 'DEMO002'
     },
     caseId: '158124',
-    sakType: '',
+    sakType: 'Generell',
     aktoerId: '001122334455',
     status: 'open',
     startDate: 1557392989122,

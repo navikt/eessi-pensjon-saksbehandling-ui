@@ -50,7 +50,7 @@ ui-fss.g14[id="c6"] {
   padding: 0.25rem;
 }
 
-ui-fss.g20[id="c1"] {
+ui-fss.g22[id="c1"] {
   content: "c3,";
 }
 
@@ -60,7 +60,7 @@ ui-fss.g20[id="c1"] {
   width: 50%;
 }
 
-ui-fss.g21[id="c4"] {
+ui-fss.g23[id="c4"] {
   content: "c5,";
 }
 
@@ -74,7 +74,7 @@ ui-fss.g21[id="c4"] {
   display: none;
 }
 
-ui-fss.g22[id="c7"] {
+ui-fss.g24[id="c7"] {
   content: "c9,";
 }
 
@@ -1708,7 +1708,7 @@ ui-fss.g22[id="c7"] {
                                         "alignItems": "center",
                                         "backgroundColor": "#FFFFFF",
                                         "borderColor": "#78706A",
-                                        "borderRadius": 4,
+                                        "borderRadius": "4px",
                                         "borderStyle": "solid",
                                         "borderWidth": "1px",
                                         "boxShadow": null,

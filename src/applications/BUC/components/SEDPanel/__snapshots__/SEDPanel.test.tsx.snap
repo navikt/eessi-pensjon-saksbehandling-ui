@@ -39,7 +39,7 @@ ui-fss.g9[id="c0"] {
   background: #e0f4fb !important;
 }
 
-ui-fss.g16[id="c1"] {
+ui-fss.g18[id="c1"] {
   content: "c3,";
 }
 
@@ -49,7 +49,7 @@ ui-fss.g16[id="c1"] {
   background: #FFFFFF;
 }
 
-ui-fss.g17[id="c4"] {
+ui-fss.g19[id="c4"] {
   content: "c5,";
 }
 
@@ -1243,8 +1243,76 @@ ui-fss.g17[id="c4"] {
               "selected": false,
             },
           ],
-          "status": "new",
+          "status": "received",
           "type": "P8000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818208620,
+          "displayName": "P9000",
+          "firstVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "id": "00d9d9277ab847008bc88c1b31b34865",
+          "lastUpdate": 1571818208620,
+          "lastVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "P9000",
           "version": "1",
         },
         Object {
@@ -1321,146 +1389,144 @@ ui-fss.g17[id="c4"] {
       "type": "P_BUC_01",
     }
   }
-  followUpSeds={
-    Array [
-      Object {
-        "allowsAttachments": true,
-        "attachments": Array [],
-        "creationDate": 1571818194896,
-        "displayName": "Pension decision",
-        "firstVersion": Object {
-          "date": 1571818194896,
-          "id": "1",
-        },
-        "id": "10678159cd4142f890d56264bfdefd13",
-        "lastUpdate": 1571818294896,
-        "lastVersion": Object {
-          "date": 1571818294896,
-          "id": "3",
-        },
-        "parentDocumentId": null,
-        "participants": Array [
-          Object {
-            "organisation": Object {
-              "accessPoint": null,
-              "acronym": "NAV ACCT 07",
-              "activeSince": "2018-08-26T22:00:00.000+0000",
-              "address": Object {
-                "country": "NO",
-                "postalCode": null,
-                "region": null,
-                "street": null,
-                "town": null,
-              },
-              "assignedBUCs": null,
-              "contactMethods": null,
-              "countryCode": "NO",
-              "id": "NO:NAVAT07",
-              "location": null,
-              "name": "NAV ACCEPTANCE TEST 07",
-              "registryNumber": null,
-            },
-            "role": "Sender",
-            "selected": false,
-          },
-          Object {
-            "organisation": Object {
-              "accessPoint": null,
-              "acronym": "NAV ACCT 08",
-              "activeSince": "2018-08-26T22:00:00.000+0000",
-              "address": Object {
-                "country": "NO",
-                "postalCode": null,
-                "region": null,
-                "street": null,
-                "town": null,
-              },
-              "assignedBUCs": null,
-              "contactMethods": null,
-              "countryCode": "NO",
-              "id": "NO:NAVAT08",
-              "location": null,
-              "name": "NAV ACCEPTANCE TEST 08",
-              "registryNumber": null,
-            },
-            "role": "Receiver",
-            "selected": false,
-          },
-          Object {
-            "organisation": Object {
-              "accessPoint": null,
-              "acronym": "DEMO001",
-              "activeSince": "2018-08-26T22:00:00.000+0000",
-              "address": Object {
-                "country": "IT",
-                "postalCode": null,
-                "region": null,
-                "street": null,
-                "town": null,
-              },
-              "assignedBUCs": null,
-              "contactMethods": null,
-              "countryCode": "IT",
-              "id": "IT:DEMO001",
-              "location": null,
-              "name": "Italia Demo 01",
-              "registryNumber": null,
-            },
-            "role": "Receiver",
-            "selected": false,
-          },
-          Object {
-            "organisation": Object {
-              "accessPoint": null,
-              "acronym": "DEMO001",
-              "activeSince": "2018-08-26T22:00:00.000+0000",
-              "address": Object {
-                "country": "ES",
-                "postalCode": null,
-                "region": null,
-                "street": null,
-                "town": null,
-              },
-              "assignedBUCs": null,
-              "contactMethods": null,
-              "countryCode": "ES",
-              "id": "ES:DEMO001",
-              "location": null,
-              "name": "Spain Demo 01",
-              "registryNumber": null,
-            },
-            "role": "Receiver",
-            "selected": false,
-          },
-          Object {
-            "organisation": Object {
-              "accessPoint": null,
-              "acronym": "DEMO001",
-              "activeSince": "2018-08-26T22:00:00.000+0000",
-              "address": Object {
-                "country": "FR",
-                "postalCode": null,
-                "region": null,
-                "street": null,
-                "town": null,
-              },
-              "assignedBUCs": null,
-              "contactMethods": null,
-              "countryCode": "FR",
-              "id": "FR:DEMO001",
-              "location": null,
-              "name": "France Demo 01",
-              "registryNumber": null,
-            },
-            "role": "Receiver",
-            "selected": false,
-          },
-        ],
-        "status": "active",
-        "type": "P6000",
-        "version": "3",
+  followUpSed={
+    Object {
+      "allowsAttachments": true,
+      "attachments": Array [],
+      "creationDate": 1571818194896,
+      "displayName": "Pension decision",
+      "firstVersion": Object {
+        "date": 1571818194896,
+        "id": "1",
       },
-    ]
+      "id": "10678159cd4142f890d56264bfdefd13",
+      "lastUpdate": 1571818294896,
+      "lastVersion": Object {
+        "date": 1571818294896,
+        "id": "3",
+      },
+      "parentDocumentId": null,
+      "participants": Array [
+        Object {
+          "organisation": Object {
+            "accessPoint": null,
+            "acronym": "NAV ACCT 07",
+            "activeSince": "2018-08-26T22:00:00.000+0000",
+            "address": Object {
+              "country": "NO",
+              "postalCode": null,
+              "region": null,
+              "street": null,
+              "town": null,
+            },
+            "assignedBUCs": null,
+            "contactMethods": null,
+            "countryCode": "NO",
+            "id": "NO:NAVAT07",
+            "location": null,
+            "name": "NAV ACCEPTANCE TEST 07",
+            "registryNumber": null,
+          },
+          "role": "Sender",
+          "selected": false,
+        },
+        Object {
+          "organisation": Object {
+            "accessPoint": null,
+            "acronym": "NAV ACCT 08",
+            "activeSince": "2018-08-26T22:00:00.000+0000",
+            "address": Object {
+              "country": "NO",
+              "postalCode": null,
+              "region": null,
+              "street": null,
+              "town": null,
+            },
+            "assignedBUCs": null,
+            "contactMethods": null,
+            "countryCode": "NO",
+            "id": "NO:NAVAT08",
+            "location": null,
+            "name": "NAV ACCEPTANCE TEST 08",
+            "registryNumber": null,
+          },
+          "role": "Receiver",
+          "selected": false,
+        },
+        Object {
+          "organisation": Object {
+            "accessPoint": null,
+            "acronym": "DEMO001",
+            "activeSince": "2018-08-26T22:00:00.000+0000",
+            "address": Object {
+              "country": "IT",
+              "postalCode": null,
+              "region": null,
+              "street": null,
+              "town": null,
+            },
+            "assignedBUCs": null,
+            "contactMethods": null,
+            "countryCode": "IT",
+            "id": "IT:DEMO001",
+            "location": null,
+            "name": "Italia Demo 01",
+            "registryNumber": null,
+          },
+          "role": "Receiver",
+          "selected": false,
+        },
+        Object {
+          "organisation": Object {
+            "accessPoint": null,
+            "acronym": "DEMO001",
+            "activeSince": "2018-08-26T22:00:00.000+0000",
+            "address": Object {
+              "country": "ES",
+              "postalCode": null,
+              "region": null,
+              "street": null,
+              "town": null,
+            },
+            "assignedBUCs": null,
+            "contactMethods": null,
+            "countryCode": "ES",
+            "id": "ES:DEMO001",
+            "location": null,
+            "name": "Spain Demo 01",
+            "registryNumber": null,
+          },
+          "role": "Receiver",
+          "selected": false,
+        },
+        Object {
+          "organisation": Object {
+            "accessPoint": null,
+            "acronym": "DEMO001",
+            "activeSince": "2018-08-26T22:00:00.000+0000",
+            "address": Object {
+              "country": "FR",
+              "postalCode": null,
+              "region": null,
+              "street": null,
+              "town": null,
+            },
+            "assignedBUCs": null,
+            "contactMethods": null,
+            "countryCode": "FR",
+            "id": "FR:DEMO001",
+            "location": null,
+            "name": "France Demo 01",
+            "registryNumber": null,
+          },
+          "role": "Receiver",
+          "selected": false,
+        },
+      ],
+      "status": "active",
+      "type": "P6000",
+      "version": "3",
+    }
   }
   highContrast={false}
   newSed={false}
@@ -2923,8 +2989,76 @@ ui-fss.g17[id="c4"] {
                             "selected": false,
                           },
                         ],
-                        "status": "new",
+                        "status": "received",
                         "type": "P8000",
+                        "version": "1",
+                      },
+                      Object {
+                        "allowsAttachments": true,
+                        "attachments": Array [],
+                        "creationDate": 1571818208620,
+                        "displayName": "P9000",
+                        "firstVersion": Object {
+                          "date": 1571818208620,
+                          "id": "1",
+                        },
+                        "id": "00d9d9277ab847008bc88c1b31b34865",
+                        "lastUpdate": 1571818208620,
+                        "lastVersion": Object {
+                          "date": 1571818208620,
+                          "id": "1",
+                        },
+                        "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
+                        "participants": Array [
+                          Object {
+                            "organisation": Object {
+                              "accessPoint": null,
+                              "acronym": "NAV ACCT 07",
+                              "activeSince": "2018-08-26T22:00:00.000+0000",
+                              "address": Object {
+                                "country": "NO",
+                                "postalCode": null,
+                                "region": null,
+                                "street": null,
+                                "town": null,
+                              },
+                              "assignedBUCs": null,
+                              "contactMethods": null,
+                              "countryCode": "NO",
+                              "id": "NO:NAVAT07",
+                              "location": null,
+                              "name": "NAV ACCEPTANCE TEST 07",
+                              "registryNumber": null,
+                            },
+                            "role": "Sender",
+                            "selected": false,
+                          },
+                          Object {
+                            "organisation": Object {
+                              "accessPoint": null,
+                              "acronym": "NAV ACCT 08",
+                              "activeSince": "2018-08-26T22:00:00.000+0000",
+                              "address": Object {
+                                "country": "NO",
+                                "postalCode": null,
+                                "region": null,
+                                "street": null,
+                                "town": null,
+                              },
+                              "assignedBUCs": null,
+                              "contactMethods": null,
+                              "countryCode": "NO",
+                              "id": "NO:NAVAT08",
+                              "location": null,
+                              "name": "NAV ACCEPTANCE TEST 08",
+                              "registryNumber": null,
+                            },
+                            "role": "Receiver",
+                            "selected": false,
+                          },
+                        ],
+                        "status": "empty",
+                        "type": "P9000",
                         "version": "1",
                       },
                       Object {
@@ -3000,147 +3134,6 @@ ui-fss.g17[id="c4"] {
                     "status": "open",
                     "type": "P_BUC_01",
                   }
-                }
-                followUpSeds={
-                  Array [
-                    Object {
-                      "allowsAttachments": true,
-                      "attachments": Array [],
-                      "creationDate": 1571818194896,
-                      "displayName": "Pension decision",
-                      "firstVersion": Object {
-                        "date": 1571818194896,
-                        "id": "1",
-                      },
-                      "id": "10678159cd4142f890d56264bfdefd13",
-                      "lastUpdate": 1571818294896,
-                      "lastVersion": Object {
-                        "date": 1571818294896,
-                        "id": "3",
-                      },
-                      "parentDocumentId": null,
-                      "participants": Array [
-                        Object {
-                          "organisation": Object {
-                            "accessPoint": null,
-                            "acronym": "NAV ACCT 07",
-                            "activeSince": "2018-08-26T22:00:00.000+0000",
-                            "address": Object {
-                              "country": "NO",
-                              "postalCode": null,
-                              "region": null,
-                              "street": null,
-                              "town": null,
-                            },
-                            "assignedBUCs": null,
-                            "contactMethods": null,
-                            "countryCode": "NO",
-                            "id": "NO:NAVAT07",
-                            "location": null,
-                            "name": "NAV ACCEPTANCE TEST 07",
-                            "registryNumber": null,
-                          },
-                          "role": "Sender",
-                          "selected": false,
-                        },
-                        Object {
-                          "organisation": Object {
-                            "accessPoint": null,
-                            "acronym": "NAV ACCT 08",
-                            "activeSince": "2018-08-26T22:00:00.000+0000",
-                            "address": Object {
-                              "country": "NO",
-                              "postalCode": null,
-                              "region": null,
-                              "street": null,
-                              "town": null,
-                            },
-                            "assignedBUCs": null,
-                            "contactMethods": null,
-                            "countryCode": "NO",
-                            "id": "NO:NAVAT08",
-                            "location": null,
-                            "name": "NAV ACCEPTANCE TEST 08",
-                            "registryNumber": null,
-                          },
-                          "role": "Receiver",
-                          "selected": false,
-                        },
-                        Object {
-                          "organisation": Object {
-                            "accessPoint": null,
-                            "acronym": "DEMO001",
-                            "activeSince": "2018-08-26T22:00:00.000+0000",
-                            "address": Object {
-                              "country": "IT",
-                              "postalCode": null,
-                              "region": null,
-                              "street": null,
-                              "town": null,
-                            },
-                            "assignedBUCs": null,
-                            "contactMethods": null,
-                            "countryCode": "IT",
-                            "id": "IT:DEMO001",
-                            "location": null,
-                            "name": "Italia Demo 01",
-                            "registryNumber": null,
-                          },
-                          "role": "Receiver",
-                          "selected": false,
-                        },
-                        Object {
-                          "organisation": Object {
-                            "accessPoint": null,
-                            "acronym": "DEMO001",
-                            "activeSince": "2018-08-26T22:00:00.000+0000",
-                            "address": Object {
-                              "country": "ES",
-                              "postalCode": null,
-                              "region": null,
-                              "street": null,
-                              "town": null,
-                            },
-                            "assignedBUCs": null,
-                            "contactMethods": null,
-                            "countryCode": "ES",
-                            "id": "ES:DEMO001",
-                            "location": null,
-                            "name": "Spain Demo 01",
-                            "registryNumber": null,
-                          },
-                          "role": "Receiver",
-                          "selected": false,
-                        },
-                        Object {
-                          "organisation": Object {
-                            "accessPoint": null,
-                            "acronym": "DEMO001",
-                            "activeSince": "2018-08-26T22:00:00.000+0000",
-                            "address": Object {
-                              "country": "FR",
-                              "postalCode": null,
-                              "region": null,
-                              "street": null,
-                              "town": null,
-                            },
-                            "assignedBUCs": null,
-                            "contactMethods": null,
-                            "countryCode": "FR",
-                            "id": "FR:DEMO001",
-                            "location": null,
-                            "name": "France Demo 01",
-                            "registryNumber": null,
-                          },
-                          "role": "Receiver",
-                          "selected": false,
-                        },
-                      ],
-                      "status": "active",
-                      "type": "P6000",
-                      "version": "3",
-                    },
-                  ]
                 }
                 onSEDNew={[MockFunction]}
                 sed={
@@ -3239,7 +3232,7 @@ ui-fss.g17[id="c4"] {
                 style={Object {}}
               >
                 <div
-                  data-test-id="mock-SEDListHeader"
+                  data-test-id="mock-SEDHeader"
                 />
               </Component>
             </div>

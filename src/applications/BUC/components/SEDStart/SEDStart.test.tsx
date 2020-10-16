@@ -7,7 +7,7 @@ import {
   setSedList
 } from 'actions/buc'
 import { VEDTAKSKONTEKST } from 'constants/constants'
-import { Bucs } from 'declarations/buc'
+import { Bucs, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -35,7 +35,6 @@ jest.mock('actions/buc', () => ({
 const defaultSelector: SEDStartSelector = {
   attachmentsError: false,
   countryList: [],
-  currentSed: undefined,
   featureToggles: mockFeatureToggles,
   highContrast: false,
   institutionList: {},
@@ -44,6 +43,7 @@ const defaultSelector: SEDStartSelector = {
   personAvdods: personAvdod(1),
   pesysContext: VEDTAKSKONTEKST,
   sakId: '123',
+  sakType: undefined,
   savingAttachmentsJob: undefined,
   sed: undefined,
   sedsWithAttachments: {},
@@ -54,7 +54,9 @@ const defaultSelector: SEDStartSelector = {
 describe('applications/BUC/components/SEDStart/SEDStart', () => {
   let wrapper: ReactWrapper
   const mockBucList: Bucs = _.keyBy(mockBucs(), 'caseId')
-  const mockCurrentBuc = '195440'
+  const mockCurrentBuc: string = '195440'
+  const mockReplySed: Sed | undefined = _.find(mockBucList[mockCurrentBuc].seds, sed => sed.parentDocumentId !== undefined)
+  const mockCurrentSed: Sed | undefined = _.find(mockBucList[mockCurrentBuc].seds, sed => sed.id === mockReplySed.parentDocumentId)
   const initialMockProps: SEDStartProps = {
     aktoerId: '123',
     bucs: mockBucList,
@@ -62,7 +64,9 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     initialAttachments: mockItems,
     initialSed: 'P2000',
     onSedCreated: jest.fn(),
-    onSedCancelled: jest.fn()
+    onSedCancelled: jest.fn(),
+    currentSed: undefined,
+    replySed: undefined
   }
 
   beforeEach(() => {
@@ -95,10 +99,9 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(getSedList).toHaveBeenCalledWith(initialMockProps.bucs[initialMockProps.currentBuc])
   })
 
-  it('UseEffect: getSedList with valid currentSed ', () => {
+  it('UseEffect: getSedList with valid replySed ', () => {
     (setSedList as jest.Mock).mockReset()
-    stageSelector(defaultSelector, { currentSed: '90149c52a98044b599c3bf5d48537782' })
-    wrapper = mount(<SEDStart {...initialMockProps} />)
+    wrapper = mount(<SEDStart {...initialMockProps} replySed={mockReplySed} currentSed={mockCurrentSed}/>)
     expect(setSedList).toHaveBeenCalledWith(['P6000'])
   })
 
@@ -143,7 +146,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes().simulate('change', { target: { value: 'P4000' } })
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution'
+      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
     )
   })
 

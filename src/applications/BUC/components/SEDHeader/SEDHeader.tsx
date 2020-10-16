@@ -131,7 +131,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         <SEDHeaderContent>
           <SEDListStatusDiv>
             <Element
-              data-test-id='a-buc-c-SEDHeader__name-id'
+              data-test-id='a-buc-c-sedheader__name-id'
             >
               {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
             </Element>
@@ -145,7 +145,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 )}
               >
                 <SEDStatus
-                  data-test-id='a-buc-c-SEDHeader__status-id'
+                  data-test-id='a-buc-c-sedheader__status-id'
                   highContrast={highContrast}
                   status={sed.status}
                 />
@@ -153,13 +153,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <HorizontalSeparatorDiv date-size='0.5' />
               <SEDVersion>
                 <Normaltekst
-                  data-test-id='a-buc-c-SEDHeader__version-date-id'
+                  data-test-id='a-buc-c-sedheader__version-date-id'
                 >
                   {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
                 </Normaltekst>
                 {sed.version && (
                   <Normaltekst
-                    data-test-id='a-buc-c-SEDHeader__version-id'
+                    data-test-id='a-buc-c-sedheader__version-id'
                   >
                     {t('ui:version')}{': '}{sed.version || '-'}
                   </Normaltekst>
@@ -169,7 +169,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </SEDListStatusDiv>
           <SEDListInstitutionsDiv>
             <InstitutionList
-              data-test-id='a-buc-c-SEDHeader__institutions-id'
+              data-test-id='a-buc-c-sedheader__institutions-id'
               locale={locale}
               type='separated'
               institutions={institutionSenderList}
@@ -177,14 +177,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </SEDListInstitutionsDiv>
           <SEDListInstitutionsDiv>
             <InstitutionList
-              data-test-id='a-buc-c-SEDHeader__institutions-id'
+              data-test-id='a-buc-c-sedheader__institutions-id'
               locale={locale}
               type='separated'
               institutions={institutionReceiverList}
             />
           </SEDListInstitutionsDiv>
           <SEDListActionsDiv
-            data-test-id='a-buc-c-SEDHeader__actions-id'
+            data-test-id='a-buc-c-sedheader__actions-id'
           >
             {!_.isEmpty(sed.attachments) && (
               <Tooltip
@@ -196,7 +196,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 )}
               >
                 <SEDListAttachmentsDiv
-                  data-test-id='a-buc-c-SEDHeader__actions-attachments'
+                  data-test-id='a-buc-c-sedheader__actions-attachments'
                 >
                   <FilledPaperClipIcon />
                 </SEDListAttachmentsDiv>
@@ -207,7 +207,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 mini
                 disabled={buc.readOnly === true}
                 data-amplitude='buc.edit.besvarSed'
-                data-test-id='a-buc-c-SEDHeader__answer-button-id'
+                data-test-id='a-buc-c-sedheader__answer-button-id'
                 onClick={onReplySed}
               >
                 {t('buc:form-answerSED')}

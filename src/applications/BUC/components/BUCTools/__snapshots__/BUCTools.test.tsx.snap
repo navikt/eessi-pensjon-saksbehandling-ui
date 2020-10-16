@@ -72,7 +72,7 @@ ui-fss.g14[id="c4"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g55[id="c1"] {
+ui-fss.g57[id="c1"] {
   content: "c3,";
 }
 
@@ -80,7 +80,7 @@ ui-fss.g55[id="c1"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g57[id="c8"] {
+ui-fss.g59[id="c8"] {
   content: "c9,";
 }
 
@@ -89,7 +89,7 @@ ui-fss.g57[id="c8"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g58[id="c6"] {
+ui-fss.g60[id="c6"] {
   content: "c7,";
 }
 
@@ -1283,8 +1283,76 @@ ui-fss.g58[id="c6"] {
               "selected": false,
             },
           ],
-          "status": "new",
+          "status": "received",
           "type": "P8000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818208620,
+          "displayName": "P9000",
+          "firstVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "id": "00d9d9277ab847008bc88c1b31b34865",
+          "lastUpdate": 1571818208620,
+          "lastVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "P9000",
           "version": "1",
         },
         Object {

@@ -19,7 +19,7 @@ exports[`components/JoarkBrowser/JoarkBrowser Render: match snapshot 1`] = `
   background-color: #FFFFFF;
 }
 
-ui-fss.g16[id="c0"] {
+ui-fss.g18[id="c0"] {
   content: "c1,";
 }
 
@@ -101,7 +101,7 @@ ui-fss.g16[id="c0"] {
   color: #FFFFFF !important;
 }
 
-ui-fss.g42[id="c2"] {
+ui-fss.g44[id="c2"] {
   content: "c3,";
 }
 
@@ -109,7 +109,7 @@ ui-fss.g42[id="c2"] {
   position: relative;
 }
 
-ui-fss.g43[id="c4"] {
+ui-fss.g45[id="c4"] {
   content: "c5,";
 }
 
@@ -117,7 +117,7 @@ ui-fss.g43[id="c4"] {
   width: 100%;
 }
 
-ui-fss.g45[id="c6"] {
+ui-fss.g47[id="c6"] {
   content: "c7,";
 }
 
@@ -139,7 +139,7 @@ ui-fss.g45[id="c6"] {
   align-items: center;
 }
 
-ui-fss.g46[id="c8"] {
+ui-fss.g48[id="c8"] {
   content: "c9,";
 }
 

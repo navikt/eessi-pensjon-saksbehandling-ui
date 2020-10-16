@@ -43,7 +43,7 @@ ui-fss.g5[id="c8"] {
   border-color: !important;
 }
 
-ui-fss.g17[id="c12"] {
+ui-fss.g19[id="c12"] {
   content: "c13,";
 }
 
@@ -55,7 +55,7 @@ ui-fss.g17[id="c12"] {
   display: flex;
 }
 
-ui-fss.g18[id="c1"] {
+ui-fss.g20[id="c1"] {
   content: "c3,";
 }
 
@@ -71,7 +71,7 @@ ui-fss.g18[id="c1"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g19[id="c5"] {
+ui-fss.g21[id="c5"] {
   content: "c7,";
 }
 
@@ -86,7 +86,7 @@ ui-fss.g19[id="c5"] {
   align-items: baseline;
 }
 
-ui-fss.g20[id="c10"] {
+ui-fss.g22[id="c10"] {
   content: "c11,";
 }
 

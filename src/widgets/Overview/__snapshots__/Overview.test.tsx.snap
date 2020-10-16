@@ -78,7 +78,7 @@ ui-fss.g14[id="c0"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g21[id="c6"] {
+ui-fss.g23[id="c6"] {
   content: "c7,";
 }
 
@@ -92,7 +92,7 @@ ui-fss.g21[id="c6"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g22[id="c12"] {
+ui-fss.g24[id="c12"] {
   content: "c13,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g22[id="c12"] {
   flex: 1;
 }
 
-ui-fss.g23[id="c4"] {
+ui-fss.g25[id="c4"] {
   content: "c5,";
 }
 
@@ -120,7 +120,7 @@ ui-fss.g23[id="c4"] {
   width: 100%;
 }
 
-ui-fss.g24[id="c10"] {
+ui-fss.g26[id="c10"] {
   content: "c11,";
 }
 

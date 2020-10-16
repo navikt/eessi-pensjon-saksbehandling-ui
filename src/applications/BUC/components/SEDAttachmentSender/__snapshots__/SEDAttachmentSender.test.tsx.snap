@@ -25,7 +25,7 @@ ui-fss.g6[id="c4"] {
   display: flex;
 }
 
-ui-fss.g16[id="c0"] {
+ui-fss.g18[id="c0"] {
   content: "c1,";
 }
 

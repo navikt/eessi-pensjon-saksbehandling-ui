@@ -59,11 +59,7 @@ export const JoarkBrowserItemFileType = PT.shape({
   variant: JoarkFileVariantPropType.isRequired,
   title: PT.string.isRequired,
   tema: PT.string.isRequired,
-  date: PT.instanceOf(Date).isRequired,
-  selected: PT.bool.isRequired,
-  disabled: PT.bool.isRequired,
-  visible: PT.bool.isRequired,
-  openSubrows: PT.bool.isRequired
+  date: PT.instanceOf(Date).isRequired
 })
 
 export const JoarkBrowserItemsFileType = PT.arrayOf(JoarkBrowserItemFileType.isRequired)

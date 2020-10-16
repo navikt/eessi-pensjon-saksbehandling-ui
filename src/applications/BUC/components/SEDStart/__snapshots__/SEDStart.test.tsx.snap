@@ -28,7 +28,7 @@ ui-fss.g2[id="c15"] {
   flex-direction: column;
 }
 
-ui-fss.g5[id="c2"] {
+ui-fss.g7[id="c2"] {
   content: "c3,";
 }
 
@@ -40,7 +40,7 @@ ui-fss.g5[id="c2"] {
   margin-right: 0.5rem;
 }
 
-ui-fss.g6[id="c4"] {
+ui-fss.g8[id="c4"] {
   content: "c5,";
 }
 
@@ -56,7 +56,7 @@ ui-fss.g6[id="c4"] {
   margin-bottom: 1.5rem;
 }
 
-ui-fss.g7[id="c6"] {
+ui-fss.g9[id="c6"] {
   content: "c7,c8,c17,";
 }
 
@@ -65,7 +65,7 @@ ui-fss.g7[id="c6"] {
   margin-left: 1rem;
 }
 
-ui-fss.g8[id="c11"] {
+ui-fss.g10[id="c11"] {
   content: "c12,";
 }
 
@@ -76,7 +76,7 @@ ui-fss.g8[id="c11"] {
   align-items: baseline;
 }
 
-ui-fss.g10[id="c18"] {
+ui-fss.g12[id="c18"] {
   content: "c19,";
 }
 
@@ -88,7 +88,7 @@ ui-fss.g10[id="c18"] {
   border: none;
 }
 
-ui-fss.g11[id="c20"] {
+ui-fss.g13[id="c20"] {
   content: "c21,";
 }
 
@@ -96,7 +96,7 @@ ui-fss.g11[id="c20"] {
   border: 1px solid #BA3A26;
 }
 
-ui-fss.g59[id="c13"] {
+ui-fss.g61[id="c13"] {
   content: "c14,";
 }
 
@@ -107,7 +107,7 @@ ui-fss.g59[id="c13"] {
   display: flex;
 }
 
-ui-fss.g72[id="c9"] {
+ui-fss.g74[id="c9"] {
   content: "c10,";
 }
 
@@ -121,7 +121,7 @@ ui-fss.g72[id="c9"] {
   flex-direction: column;
 }
 
-ui-fss.g76[id="c0"] {
+ui-fss.g78[id="c0"] {
   content: "c1,";
 }
 
@@ -172,7 +172,7 @@ ui-fss.g76[id="c0"] {
         ],
         "lastUpdate": 1558362934000,
         "readOnly": true,
-        "sakType": "",
+        "sakType": "Generell",
         "seds": Array [
           Object {
             "allowsAttachments": true,
@@ -1444,7 +1444,7 @@ ui-fss.g76[id="c0"] {
         ],
         "lastUpdate": 1558362934000,
         "readOnly": false,
-        "sakType": "",
+        "sakType": "Generell",
         "seds": Array [
           Object {
             "allowsAttachments": true,
@@ -1519,6 +1519,34 @@ ui-fss.g76[id="c0"] {
         "status": "open",
         "type": "P_BUC_06",
       },
+      "158125": Object {
+        "aktoerId": "001122334455",
+        "caseId": "158125",
+        "creator": Object {
+          "country": "NO",
+          "institution": "NO:DEMO002",
+          "name": "DEMO002",
+        },
+        "institusjon": Array [
+          Object {
+            "country": "NO",
+            "institution": "NO:DEMO002",
+            "name": "DEMO002",
+          },
+          Object {
+            "country": "NO",
+            "institution": "NO:DEMO001",
+            "name": "DEMO001",
+          },
+        ],
+        "lastUpdate": 1558362934000,
+        "readOnly": false,
+        "sakType": "Generell",
+        "seds": Array [],
+        "startDate": 1557392989122,
+        "status": "open",
+        "type": "P_BUC_05",
+      },
       "195440": Object {
         "aktoerId": "1000070418092",
         "caseId": "195440",
@@ -1555,7 +1583,7 @@ ui-fss.g76[id="c0"] {
         ],
         "lastUpdate": 1571731814000,
         "readOnly": false,
-        "sakType": "",
+        "sakType": "Generell",
         "seds": Array [
           Object {
             "allowsAttachments": true,
@@ -1648,7 +1676,30 @@ ui-fss.g76[id="c0"] {
           },
           Object {
             "allowsAttachments": true,
-            "attachments": Array [],
+            "attachments": Array [
+              Object {
+                "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
+                "fileName": "balrog.png",
+                "id": "58828e7ff57943779ab7b24c522b1a3e",
+                "lastUpdate": Object {
+                  "chronology": Object {
+                    "calendarType": "iso8601",
+                    "id": "ISO",
+                  },
+                  "dayOfMonth": 20,
+                  "dayOfWeek": "MONDAY",
+                  "dayOfYear": 140,
+                  "era": "CE",
+                  "leapYear": false,
+                  "month": "MAY",
+                  "monthValue": 5,
+                  "year": 2019,
+                },
+                "medical": false,
+                "mimeType": "image/png",
+                "name": "balrog.png",
+              },
+            ],
             "creationDate": 1559117444000,
             "firstVersion": Object {
               "date": 1559117444000,
@@ -2620,7 +2671,7 @@ ui-fss.g76[id="c0"] {
         ],
         "lastUpdate": 1571731814000,
         "readOnly": false,
-        "sakType": "",
+        "sakType": "Generell",
         "seds": Array [
           Object {
             "allowsAttachments": true,
@@ -3905,8 +3956,76 @@ ui-fss.g76[id="c0"] {
                 "selected": false,
               },
             ],
-            "status": "new",
+            "status": "received",
             "type": "P8000",
+            "version": "1",
+          },
+          Object {
+            "allowsAttachments": true,
+            "attachments": Array [],
+            "creationDate": 1571818208620,
+            "displayName": "P9000",
+            "firstVersion": Object {
+              "date": 1571818208620,
+              "id": "1",
+            },
+            "id": "00d9d9277ab847008bc88c1b31b34865",
+            "lastUpdate": 1571818208620,
+            "lastVersion": Object {
+              "date": 1571818208620,
+              "id": "1",
+            },
+            "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
+            "participants": Array [
+              Object {
+                "organisation": Object {
+                  "accessPoint": null,
+                  "acronym": "NAV ACCT 07",
+                  "activeSince": "2018-08-26T22:00:00.000+0000",
+                  "address": Object {
+                    "country": "NO",
+                    "postalCode": null,
+                    "region": null,
+                    "street": null,
+                    "town": null,
+                  },
+                  "assignedBUCs": null,
+                  "contactMethods": null,
+                  "countryCode": "NO",
+                  "id": "NO:NAVAT07",
+                  "location": null,
+                  "name": "NAV ACCEPTANCE TEST 07",
+                  "registryNumber": null,
+                },
+                "role": "Sender",
+                "selected": false,
+              },
+              Object {
+                "organisation": Object {
+                  "accessPoint": null,
+                  "acronym": "NAV ACCT 08",
+                  "activeSince": "2018-08-26T22:00:00.000+0000",
+                  "address": Object {
+                    "country": "NO",
+                    "postalCode": null,
+                    "region": null,
+                    "street": null,
+                    "town": null,
+                  },
+                  "assignedBUCs": null,
+                  "contactMethods": null,
+                  "countryCode": "NO",
+                  "id": "NO:NAVAT08",
+                  "location": null,
+                  "name": "NAV ACCEPTANCE TEST 08",
+                  "registryNumber": null,
+                },
+                "role": "Receiver",
+                "selected": false,
+              },
+            ],
+            "status": "empty",
+            "type": "P9000",
             "version": "1",
           },
           Object {
@@ -4049,6 +4168,7 @@ ui-fss.g76[id="c0"] {
                 highContrast={false}
                 id="a-buc-c-sedstart__sed-select-id"
                 isSearchable={true}
+                menuPortalTarget={null}
                 onChange={[Function]}
                 options={Array []}
                 placeholder="buc:form-chooseSed"
@@ -4065,6 +4185,7 @@ ui-fss.g76[id="c0"] {
                   inputId="a-buc-c-sedstart__sed-select-id"
                   isOptionDisabled={[Function]}
                   isSearchable={true}
+                  menuPortalTarget={null}
                   onChange={[Function]}
                   options={Array []}
                   placeholder="buc:form-chooseSed"
@@ -4109,6 +4230,7 @@ ui-fss.g76[id="c0"] {
                     maxMenuHeight={300}
                     menuIsOpen={false}
                     menuPlacement="bottom"
+                    menuPortalTarget={null}
                     menuPosition="absolute"
                     menuShouldBlockScroll={false}
                     menuShouldScrollIntoView={true}
@@ -4189,6 +4311,7 @@ ui-fss.g76[id="c0"] {
                           "maxMenuHeight": 300,
                           "menuIsOpen": false,
                           "menuPlacement": "bottom",
+                          "menuPortalTarget": null,
                           "menuPosition": "absolute",
                           "menuShouldBlockScroll": false,
                           "menuShouldScrollIntoView": true,
@@ -4321,6 +4444,7 @@ ui-fss.g76[id="c0"] {
                                 "maxMenuHeight": 300,
                                 "menuIsOpen": false,
                                 "menuPlacement": "bottom",
+                                "menuPortalTarget": null,
                                 "menuPosition": "absolute",
                                 "menuShouldBlockScroll": false,
                                 "menuShouldScrollIntoView": true,
@@ -4392,7 +4516,7 @@ ui-fss.g76[id="c0"] {
                                   "alignItems": "center",
                                   "backgroundColor": "#FFFFFF",
                                   "borderColor": "#78706A",
-                                  "borderRadius": 4,
+                                  "borderRadius": "4px",
                                   "borderStyle": "solid",
                                   "borderWidth": "1px",
                                   "boxShadow": null,
@@ -4460,6 +4584,7 @@ ui-fss.g76[id="c0"] {
                                       "maxMenuHeight": 300,
                                       "menuIsOpen": false,
                                       "menuPlacement": "bottom",
+                                      "menuPortalTarget": null,
                                       "menuPosition": "absolute",
                                       "menuShouldBlockScroll": false,
                                       "menuShouldScrollIntoView": true,
@@ -4585,6 +4710,7 @@ ui-fss.g76[id="c0"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -4714,6 +4840,7 @@ ui-fss.g76[id="c0"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -4925,6 +5052,7 @@ ui-fss.g76[id="c0"] {
                                       "maxMenuHeight": 300,
                                       "menuIsOpen": false,
                                       "menuPlacement": "bottom",
+                                      "menuPortalTarget": null,
                                       "menuPosition": "absolute",
                                       "menuShouldBlockScroll": false,
                                       "menuShouldScrollIntoView": true,
@@ -5045,6 +5173,7 @@ ui-fss.g76[id="c0"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -5176,6 +5305,7 @@ ui-fss.g76[id="c0"] {
                                             "maxMenuHeight": 300,
                                             "menuIsOpen": false,
                                             "menuPlacement": "bottom",
+                                            "menuPortalTarget": null,
                                             "menuPosition": "absolute",
                                             "menuShouldBlockScroll": false,
                                             "menuShouldScrollIntoView": true,
@@ -9841,7 +9971,7 @@ ui-fss.g76[id="c0"] {
                                         "alignItems": "center",
                                         "backgroundColor": "#FFFFFF",
                                         "borderColor": "#78706A",
-                                        "borderRadius": 4,
+                                        "borderRadius": "4px",
                                         "borderStyle": "solid",
                                         "borderWidth": "1px",
                                         "boxShadow": null,

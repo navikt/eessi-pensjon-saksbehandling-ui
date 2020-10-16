@@ -323,7 +323,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                     "alignItems": "center",
                     "backgroundColor": "#FFFFFF",
                     "borderColor": "#78706A",
-                    "borderRadius": 4,
+                    "borderRadius": "4px",
                     "borderStyle": "solid",
                     "borderWidth": "1px",
                     "boxShadow": null,

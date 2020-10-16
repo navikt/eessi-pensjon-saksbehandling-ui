@@ -3,10 +3,11 @@ import SEDHeader, {
   SEDHeaderProps,
   SEDListSelector
 } from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { Buc, Sed } from 'declarations/buc'
+import { Buc, Bucs, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
 import React from 'react'
+import _ from 'lodash'
 import { stageSelector } from 'setupTests'
 
 jest.mock('rc-tooltip', () => ({ children }: any) => (
@@ -19,14 +20,18 @@ const defaultSelector: SEDListSelector = {
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
-  const buc: Buc = mockBucs()[0] as Buc
-  const sed: Sed = buc.seds![0]
-  sed.status = 'received'
+  const bucs: Bucs = _.keyBy(mockBucs(), 'caseId')
+  const currentBuc: string = '195440'
+  const buc: Buc = bucs[currentBuc]
+  const mockReplySed: Sed | undefined = _.find(bucs[currentBuc].seds, sed => sed.parentDocumentId !== undefined)
+  const mockCurrentSed: Sed | undefined = _.find(bucs[currentBuc].seds, sed => sed.id === mockReplySed!.parentDocumentId)
+
+  const sed: Sed | undefined = _.find(buc.seds, sed => sed.parentDocumentId !== undefined)
+  sed!.status = 'received'
   const initialMockProps: SEDHeaderProps = {
     buc: buc,
-    followUpSed: buc.seds![1],
     onSEDNew: jest.fn(),
-    sed: sed
+    sed: mockCurrentSed!
   }
   let wrapper: ReactWrapper
 
@@ -49,23 +54,23 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(SEDHeaderPanel)).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__name-id\']').hostNodes().render().text()).toEqual('X008 - buc:buc-X008')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__status-id\']').render().text()).toEqual('buc:status-' + sed.status)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__version-date-id\']').hostNodes().render().text()).toEqual('23.10.2019')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__version-id\']').hostNodes().render().text()).toEqual('ui:version: 1')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__institutions-id\']').first().render().text()).toEqual('NAV ACCEPTANCE TEST 07')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__institutions-id\']').last().render().text()).toEqual('NAV ACCEPTANCE TEST 08')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__name-id\']').hostNodes().render().text()).toEqual('P2000 - buc:buc-P2000')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__status-id\']').render().text()).toEqual('buc:status-' + sed!.status)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__version-date-id\']').hostNodes().render().text()).toEqual('29.05.2019')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__version-id\']').hostNodes().render().text()).toEqual('ui:version: 5')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__institutions-id\']').first().render().text()).toEqual('DEMO002')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__institutions-id\']').last().render().text()).toEqual('DEMO001')
 
-    const actions = wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__actions-id\']').hostNodes()
+    const actions = wrapper.find('[data-test-id=\'a-buc-c-sedheader__actions-id\']').hostNodes()
     expect(actions.exists('FilledPaperClipIcon')).toBeTruthy()
 
-    expect(actions.exists('[data-test-id=\'a-buc-c-SEDHeader__answer-button-id\']')).toBeTruthy()
+    expect(actions.exists('[data-test-id=\'a-buc-c-sedheader__answer-button-id\']')).toBeTruthy()
   })
 
   it('Handling: handling answer button click', () => {
     (initialMockProps.onSEDNew as jest.Mock).mockReset()
-    const replySedButton = wrapper.find('[data-test-id=\'a-buc-c-SEDHeader__answer-button-id\']').hostNodes().first()
+    const replySedButton = wrapper.find('[data-test-id=\'a-buc-c-sedheader__answer-button-id\']').hostNodes().first()
     replySedButton.simulate('click')
-    expect(initialMockProps.onSEDNew).toBeCalledWith(buc, sed, undefined)
+    expect(initialMockProps.onSEDNew).toBeCalledWith(buc, mockCurrentSed, mockReplySed)
   })
 })

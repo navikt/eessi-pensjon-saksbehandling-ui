@@ -75,7 +75,7 @@ ui-fss.g7[id="c12"] {
   background-color: #FFFFFF;
 }
 
-ui-fss.g16[id="c0"] {
+ui-fss.g18[id="c0"] {
   content: "c1,";
 }
 
@@ -86,7 +86,7 @@ ui-fss.g16[id="c0"] {
   z-index: 999;
 }
 
-ui-fss.g18[id="c6"] {
+ui-fss.g20[id="c6"] {
   content: "c7,";
 }
 
@@ -100,7 +100,7 @@ ui-fss.g18[id="c6"] {
   flex-direction: row;
 }
 
-ui-fss.g21[id="c8"] {
+ui-fss.g23[id="c8"] {
   content: "c9,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g21[id="c8"] {
   margin-botton: 0.5rem;
 }
 
-ui-fss.g22[id="c10"] {
+ui-fss.g24[id="c10"] {
   content: "c11,";
 }
 
@@ -124,7 +124,7 @@ ui-fss.g22[id="c10"] {
   top: -3rem;
 }
 
-ui-fss.g23[id="c2"] {
+ui-fss.g25[id="c2"] {
   content: "c3,";
 }
 
@@ -141,7 +141,7 @@ ui-fss.g23[id="c2"] {
   margin-top: 3rem;
 }
 
-ui-fss.g24[id="c4"] {
+ui-fss.g26[id="c4"] {
   content: "c5,";
 }
 
@@ -346,30 +346,32 @@ ui-fss.g24[id="c4"] {
               "text": "ui:cancel",
             },
           ],
-          "modalContent": <Unknown
-            data-test-id="a-buc-c-sedattachmentmodal__joarkbrowser-id"
-            existingItems={
-              Array [
-                Object {
-                  "date": 1970-01-31T23:00:00.000Z,
-                  "dokumentInfoId": "4",
-                  "hasSubrows": false,
-                  "journalpostId": "1",
-                  "key": "1",
-                  "tema": "tema",
-                  "title": "title",
-                  "type": "joark",
-                  "variant": Object {
-                    "filnavn": "mockFilnavn",
-                    "variantformat": "mockVariant",
+          "modalContent": <React.Fragment>
+            <Unknown
+              data-test-id="a-buc-c-sedattachmentmodal__joarkbrowser-id"
+              existingItems={
+                Array [
+                  Object {
+                    "date": 1970-01-31T23:00:00.000Z,
+                    "dokumentInfoId": "4",
+                    "hasSubrows": false,
+                    "journalpostId": "1",
+                    "key": "1",
+                    "tema": "tema",
+                    "title": "title",
+                    "type": "joark",
+                    "variant": Object {
+                      "filnavn": "mockFilnavn",
+                      "variantformat": "mockVariant",
+                    },
                   },
-                },
-              ]
-            }
-            mode="select"
-            onRowSelectChange={[Function]}
-            tableId="test-id"
-          />,
+                ]
+              }
+              mode="select"
+              onRowSelectChange={[Function]}
+              tableId="test-id"
+            />
+          </React.Fragment>,
         }
       }
       onModalClose={[MockFunction]}
@@ -632,7 +634,7 @@ ui-fss.g7[id="c12"] {
   background-color: #FFFFFF;
 }
 
-ui-fss.g16[id="c0"] {
+ui-fss.g18[id="c0"] {
   content: "c1,";
 }
 
@@ -643,7 +645,7 @@ ui-fss.g16[id="c0"] {
   z-index: 999;
 }
 
-ui-fss.g18[id="c6"] {
+ui-fss.g20[id="c6"] {
   content: "c7,";
 }
 
@@ -657,7 +659,7 @@ ui-fss.g18[id="c6"] {
   flex-direction: row;
 }
 
-ui-fss.g21[id="c8"] {
+ui-fss.g23[id="c8"] {
   content: "c9,";
 }
 
@@ -667,7 +669,7 @@ ui-fss.g21[id="c8"] {
   margin-botton: 0.5rem;
 }
 
-ui-fss.g22[id="c10"] {
+ui-fss.g24[id="c10"] {
   content: "c11,";
 }
 
@@ -681,7 +683,7 @@ ui-fss.g22[id="c10"] {
   top: -3rem;
 }
 
-ui-fss.g23[id="c2"] {
+ui-fss.g25[id="c2"] {
   content: "c3,";
 }
 
@@ -698,7 +700,7 @@ ui-fss.g23[id="c2"] {
   margin-top: 3rem;
 }
 
-ui-fss.g24[id="c4"] {
+ui-fss.g26[id="c4"] {
   content: "c5,";
 }
 
@@ -792,7 +794,7 @@ ui-fss.g24[id="c4"] {
                           />
                         </button>
                         <div
-                          class="mock-joarkbrowser"
+                          data-test-id="mock-joarkbrowser"
                         />
                       </div>
                       <div
@@ -1017,7 +1019,7 @@ ui-fss.g24[id="c4"] {
                           tableId="test-id"
                         >
                           <div
-                            className="mock-joarkbrowser"
+                            data-test-id="mock-joarkbrowser"
                           />
                         </Component>
                       </div>

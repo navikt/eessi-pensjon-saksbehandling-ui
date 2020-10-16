@@ -975,13 +975,13 @@ SEDStart.propTypes = {
   aktoerId: PT.string.isRequired,
   bucs: BucsPropType.isRequired,
   currentBuc: PT.string.isRequired,
-  currentSed: SedPropType.isRequired,
+  currentSed: SedPropType,
   initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired),
   initialSed: PT.string,
   initialSendingAttachments: PT.bool,
   onSedCreated: PT.func.isRequired,
   onSedCancelled: PT.func.isRequired,
-  replySed: SedPropType.isRequired
+  replySed: SedPropType
 }
 
 export default SEDStart

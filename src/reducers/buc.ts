@@ -499,20 +499,22 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           })
         }
 
-        contextSed.institutions?.forEach(inst => {
-          newSed.participants.push({
-            role: 'Receiver',
-            organisation: {
-              address: {
-                country: inst.country
+        if (_.isArray(contextSed.institutions)) {
+          contextSed.institutions.forEach(inst => {
+            newSed.participants.push({
+              role: 'Receiver',
+              organisation: {
+                address: {
+                  country: inst.country
+                },
+                countryCode: inst.country,
+                name: inst.name || '',
+                id: inst.institution
               },
-              countryCode: inst.country,
-              name: inst.name || '',
-              id: inst.institution
-            },
-            selected: true
+              selected: true
+            })
           })
-        })
+        }
       }
 
       if (bucs) {

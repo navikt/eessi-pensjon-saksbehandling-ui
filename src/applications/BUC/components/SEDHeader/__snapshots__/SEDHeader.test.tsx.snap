@@ -83,6 +83,34 @@ ui-fss.g9[id="c12"] {
   content: "c13,";
 }
 
+.c27 {
+  color: #0067C5;
+  background-color: transparent;
+}
+
+.c27:hover:not(:disabled) {
+  color: #0067C5;
+  border-color: #0067C5;
+}
+
+.c27:hover:not(:disabled) svg path {
+  stroke: #FFFFFF;
+}
+
+.c27:disabled {
+  background-color: #B7B1A9;
+  color: #3E3832;
+  border: none;
+}
+
+.c27 svg path {
+  stroke: #0067C5;
+}
+
+ui-fss.g12[id="c26"] {
+  content: "c27,";
+}
+
 .c2 {
   border-width: 1px;
   border-style: solid;
@@ -117,7 +145,7 @@ ui-fss.g13[id="c0"] {
   justify-content: flex-start;
 }
 
-ui-fss.g20[id="c24"] {
+ui-fss.g22[id="c24"] {
   content: "c25,";
 }
 
@@ -138,7 +166,7 @@ ui-fss.g20[id="c24"] {
   align-items: flex-start;
 }
 
-ui-fss.g22[id="c4"] {
+ui-fss.g24[id="c4"] {
   content: "c5,";
 }
 
@@ -154,7 +182,7 @@ ui-fss.g22[id="c4"] {
   border: none;
 }
 
-ui-fss.g23[id="c1"] {
+ui-fss.g25[id="c1"] {
   content: "c3,";
 }
 
@@ -176,7 +204,7 @@ ui-fss.g23[id="c1"] {
   align-items: flex-start;
 }
 
-ui-fss.g24[id="c16"] {
+ui-fss.g26[id="c16"] {
   content: "c17,";
 }
 
@@ -198,7 +226,7 @@ ui-fss.g24[id="c16"] {
   justify-content: center;
 }
 
-ui-fss.g25[id="c6"] {
+ui-fss.g27[id="c6"] {
   content: "c7,";
 }
 
@@ -216,7 +244,7 @@ ui-fss.g25[id="c6"] {
   margin-top: 0.5rem;
 }
 
-ui-fss.g26[id="c8"] {
+ui-fss.g28[id="c8"] {
   content: "c9,";
 }
 
@@ -234,45 +262,49 @@ ui-fss.g26[id="c8"] {
   align-items: flex-start;
 }
 
-ui-fss.g27[id="c14"] {
+ui-fss.g29[id="c14"] {
   content: "c15,";
 }
 
 <SEDHeader
   buc={
     Object {
-      "caseId": "600891",
+      "aktoerId": "1000070418092",
+      "caseId": "195440",
       "creator": Object {
         "country": "NO",
         "institution": "NO:NAVAT07",
         "name": "NAV ACCEPTANCE TEST 07",
       },
-      "error": null,
       "institusjon": Array [
         Object {
           "country": "NO",
           "institution": "NO:NAVAT07",
-          "name": "NAV ACCEPTANCE TEST 07",
+        },
+        Object {
+          "country": "SE",
+          "institution": "SE:DEMO001",
+        },
+        Object {
+          "country": "FI",
+          "institution": "FI:DEMO002",
         },
         Object {
           "country": "GB",
-          "institution": "GB:DEMO001",
-          "name": "GB Demo 01",
+          "institution": "GB:DEMO003",
         },
         Object {
-          "country": "UK",
-          "institution": "UK:DEMO001",
-          "name": "UK Demo 01",
+          "country": "PT",
+          "institution": "PT:DEMO004",
         },
         Object {
           "country": "FR",
-          "institution": "FR:DEMO001",
-          "name": "France Demo 01",
+          "institution": "FR:DEMO005",
         },
       ],
-      "lastUpdate": 1571818216000,
+      "lastUpdate": 1571731814000,
       "readOnly": false,
-      "sakType": null,
+      "sakType": "Generell",
       "seds": Array [
         Object {
           "allowsAttachments": true,
@@ -300,25 +332,23 @@ ui-fss.g27[id="c14"] {
               "name": "balrog.png",
             },
           ],
-          "creationDate": 1571818175000,
-          "displayName": "Invalidate Sed",
+          "creationDate": 1559117379454,
           "firstVersion": Object {
-            "date": 1571818175000,
+            "date": 1559117379454,
             "id": "1",
           },
-          "id": "98492223b35240138503f58ec09454fa",
-          "lastUpdate": 1571818175000,
+          "id": "90149c52a98044b599c3bf5d48537782",
+          "lastUpdate": 1559080800000,
           "lastVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
+            "date": 1559080800000,
+            "id": "r",
           },
-          "parentDocumentId": "5d549c96e0ce40788a2eea2992c1f65f",
           "participants": Array [
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12348",
+                "activeSince": 1518476400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -329,9 +359,9 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT07",
+                "id": "NO:DEMO002",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
+                "name": "DEMO002",
                 "registryNumber": null,
               },
               "role": "Sender",
@@ -340,8 +370,8 @@ ui-fss.g27[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12347",
+                "activeSince": 1508450400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -352,9 +382,9 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT08",
+                "id": "NO:DEMO001",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
+                "name": "DEMO001",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -362,417 +392,8 @@ ui-fss.g27[id="c14"] {
             },
           ],
           "status": "received",
-          "type": "X008",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818194896,
-          "displayName": "Pension decision",
-          "firstVersion": Object {
-            "date": 1571818194896,
-            "id": "1",
-          },
-          "id": "10678159cd4142f890d56264bfdefd13",
-          "lastUpdate": 1571818294896,
-          "lastVersion": Object {
-            "date": 1571818294896,
-            "id": "3",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "DEMO001",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "IT",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "IT",
-                "id": "IT:DEMO001",
-                "location": null,
-                "name": "Italia Demo 01",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "DEMO001",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "ES",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "ES",
-                "id": "ES:DEMO001",
-                "location": null,
-                "name": "Spain Demo 01",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "DEMO001",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "FR",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "FR",
-                "id": "FR:DEMO001",
-                "location": null,
-                "name": "France Demo 01",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "active",
-          "type": "P6000",
-          "version": "3",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818175000,
-          "displayName": "Forward Case",
-          "firstVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "id": "4bff8e2fdbeb4f8fa5ba76e0d9f66f6d",
-          "lastUpdate": 1571818175000,
-          "lastVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "X007",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818201591,
-          "displayName": "Transfer of additional information",
-          "firstVersion": Object {
-            "date": 1571818201591,
-            "id": "1",
-          },
-          "id": "ef2905700e6f410b9edd04023856d49b",
-          "lastUpdate": 1571818201591,
-          "lastVersion": Object {
-            "date": 1571818201591,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "cancelled",
-          "type": "P10000",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818175000,
-          "displayName": "Country specific information",
-          "firstVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "id": "8c582ae21c8744aa8e697c8a5c84d84f",
-          "lastUpdate": 1571818175000,
-          "lastVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-          ],
-          "status": "new",
-          "type": "P3000_NO",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818176000,
-          "displayName": "Request for Medical Information",
-          "firstVersion": Object {
-            "date": 1571818176000,
-            "id": "1",
-          },
-          "id": "7c52d3b4006b489d89ee1af37caef6f6",
-          "lastUpdate": 1571818176000,
-          "lastVersion": Object {
-            "date": 1571818176000,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "H120",
-          "version": "1",
+          "type": "P2000",
+          "version": "5",
         },
         Object {
           "allowsAttachments": true,
@@ -780,7 +401,7 @@ ui-fss.g27[id="c14"] {
             Object {
               "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
               "fileName": "balrog.png",
-              "id": "58828e7ff57943779ab7b24c522b1a3f",
+              "id": "58828e7ff57943779ab7b24c522b1a3e",
               "lastUpdate": Object {
                 "chronology": Object {
                   "calendarType": "iso8601",
@@ -799,48 +420,25 @@ ui-fss.g27[id="c14"] {
               "mimeType": "image/png",
               "name": "balrog.png",
             },
-            Object {
-              "documentId": "cac9db2726d54f2c9b51d1562b7b0a7a",
-              "fileName": "491399765_ARKIV.pdf",
-              "id": "58828e7ff57943779ab7b24c522b1a3d",
-              "lastUpdate": Object {
-                "chronology": Object {
-                  "calendarType": "iso8601",
-                  "id": "ISO",
-                },
-                "dayOfMonth": 20,
-                "dayOfWeek": "MONDAY",
-                "dayOfYear": 140,
-                "era": "CE",
-                "leapYear": false,
-                "month": "JUN",
-                "monthValue": 5,
-                "year": 2019,
-              },
-              "medical": false,
-              "mimeType": "application/pdf",
-              "name": "491399765_ARKIV.pdf",
-            },
           ],
-          "creationDate": 1571818181793,
-          "displayName": "Report on insurance history",
+          "creationDate": 1559117444000,
           "firstVersion": Object {
-            "date": 1571818181793,
+            "date": 1559117444000,
             "id": "1",
           },
-          "id": "dc4670bbd59d4c8ab3b41974a72bf11d",
-          "lastUpdate": 1571818181793,
+          "id": "ff98ea9256244b908e19d4439db5bad3",
+          "lastUpdate": 1559080800000,
           "lastVersion": Object {
-            "date": 1571818181793,
-            "id": "1",
+            "date": 1559080800000,
+            "id": "4",
           },
-          "parentDocumentId": null,
+          "parentDocumentId": "90149c52a98044b599c3bf5d48537782",
           "participants": Array [
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12348",
+                "activeSince": 1518476400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -851,9 +449,9 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT07",
+                "id": "NO:DEMO002",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
+                "name": "DEMO002",
                 "registryNumber": null,
               },
               "role": "Sender",
@@ -862,8 +460,8 @@ ui-fss.g27[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12347",
+                "activeSince": 1508450400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -874,41 +472,39 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT08",
+                "id": "NO:DEMO001",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
+                "name": "DEMO001",
                 "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
             },
           ],
-          "status": "new",
-          "type": "P4000",
-          "version": "1",
+          "status": "received",
+          "type": "P6000",
+          "version": "4",
         },
         Object {
           "allowsAttachments": true,
           "attachments": Array [],
-          "creationDate": 1571818176000,
-          "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
+          "creationDate": 1559117443000,
           "firstVersion": Object {
-            "date": 1571818176000,
+            "date": 1559117443000,
             "id": "1",
           },
-          "id": "34b286dc45ff4f6fa8c91a8aa698345d",
-          "lastUpdate": 1571818176000,
+          "id": "549bab7141c54cfcb14902e7e3b107b4",
+          "lastUpdate": 1559080800000,
           "lastVersion": Object {
-            "date": 1571818176000,
-            "id": "1",
+            "date": 1559080800000,
+            "id": "4",
           },
-          "parentDocumentId": null,
           "participants": Array [
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12347",
+                "activeSince": 1508450400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -919,19 +515,19 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT07",
+                "id": "NO:DEMO001",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
+                "name": "DEMO001",
                 "registryNumber": null,
               },
-              "role": "Sender",
+              "role": "Receiver",
               "selected": false,
             },
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12348",
+                "activeSince": 1518476400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -942,313 +538,39 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT08",
+                "id": "NO:DEMO002",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
+                "name": "DEMO002",
                 "registryNumber": null,
               },
-              "role": "Receiver",
+              "role": "Sender",
               "selected": false,
             },
           ],
           "status": "empty",
-          "type": "H020",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818175000,
-          "displayName": "Notification of death",
-          "firstVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "id": "6b626b56303e4bca9fd8e40d758a4044",
-          "lastUpdate": 1571818175000,
-          "lastVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "H070",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818216066,
-          "displayName": "Notification of Summary note",
-          "firstVersion": Object {
-            "date": 1571818216066,
-            "id": "1",
-          },
-          "id": "619f742acee74769bcd449b13eb9cf54",
-          "lastUpdate": 1571818216066,
-          "lastVersion": Object {
-            "date": 1571818216066,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "sent",
-          "type": "P7000",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818170586,
-          "displayName": "Old age pension claim",
-          "firstVersion": Object {
-            "date": 1571818170586,
-            "id": "1",
-          },
-          "id": "5d549c96e0ce40788a2eea2992c1f65f",
-          "lastUpdate": 1571818170586,
-          "lastVersion": Object {
-            "date": 1571818170586,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": true,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "sent",
-          "type": "P2000",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818175000,
-          "displayName": "Add New Participant",
-          "firstVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "id": "d1f436ac1402462e827ad70b616d9594",
-          "lastUpdate": 1571818175000,
-          "lastVersion": Object {
-            "date": 1571818175000,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "X005",
-          "version": "1",
+          "type": "P3000_NO",
+          "version": "4",
         },
         Object {
           "allowsAttachments": false,
           "attachments": Array [],
-          "creationDate": 1571818188033,
-          "displayName": "Insurance/residence periods",
+          "creationDate": 1559117444000,
           "firstVersion": Object {
-            "date": 1571818188033,
+            "date": 1559117444000,
             "id": "1",
           },
-          "id": "60578cf8bf9f45a7819a39987c6c8fd4",
-          "lastUpdate": 1571818188033,
+          "id": "1911923c542746ada10f7c922b46a271",
+          "lastUpdate": 1559080800000,
           "lastVersion": Object {
-            "date": 1571818188033,
-            "id": "1",
+            "date": 1559080800000,
+            "id": "3",
           },
-          "parentDocumentId": null,
           "participants": Array [
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12348",
+                "activeSince": 1518476400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -1259,9 +581,9 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT07",
+                "id": "NO:DEMO002",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
+                "name": "DEMO002",
                 "registryNumber": null,
               },
               "role": "Sender",
@@ -1270,8 +592,8 @@ ui-fss.g27[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12347",
+                "activeSince": 1508450400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -1282,213 +604,9 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT08",
+                "id": "NO:DEMO001",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "received",
-          "type": "P5000",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": false,
-          "attachments": Array [],
-          "creationDate": 1571234189234,
-          "displayName": "Insurance/residence periods",
-          "firstVersion": Object {
-            "date": 1571547188033,
-            "id": "1",
-          },
-          "id": "50578cf8bf9f45a7819a39987c6c8fd4",
-          "lastUpdate": 1571547188033,
-          "lastVersion": Object {
-            "date": 1571547188033,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "received",
-          "type": "P5000",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818208620,
-          "displayName": "Request for additional information",
-          "firstVersion": Object {
-            "date": 1571818208620,
-            "id": "1",
-          },
-          "id": "51d9d9277ab847008bc88c1b31b34865",
-          "lastUpdate": 1571818208620,
-          "lastVersion": Object {
-            "date": 1571818208620,
-            "id": "1",
-          },
-          "parentDocumentId": null,
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "received",
-          "type": "P8000",
-          "version": "1",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1571818208620,
-          "displayName": "P9000",
-          "firstVersion": Object {
-            "date": 1571818208620,
-            "id": "1",
-          },
-          "id": "00d9d9277ab847008bc88c1b31b34865",
-          "lastUpdate": 1571818208620,
-          "lastVersion": Object {
-            "date": 1571818208620,
-            "id": "1",
-          },
-          "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT07",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
+                "name": "DEMO001",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -1496,31 +614,29 @@ ui-fss.g27[id="c14"] {
             },
           ],
           "status": "empty",
-          "type": "P9000",
-          "version": "1",
+          "type": "P5000",
+          "version": "3",
         },
         Object {
           "allowsAttachments": true,
           "attachments": Array [],
-          "creationDate": 1571818174000,
-          "displayName": "Reminder",
+          "creationDate": 1559117443000,
           "firstVersion": Object {
-            "date": 1571818174000,
+            "date": 1559117443000,
             "id": "1",
           },
-          "id": "fd55d46e6ab741838d3a8e1735d33f1b",
-          "lastUpdate": 1571818174000,
+          "id": "9ebb27b848c644ba8a8ba95772403618",
+          "lastUpdate": 1559080800000,
           "lastVersion": Object {
-            "date": 1571818174000,
-            "id": "1",
+            "date": 1559080800000,
+            "id": "4",
           },
-          "parentDocumentId": null,
           "participants": Array [
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12348",
+                "activeSince": 1518476400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -1531,9 +647,9 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT07",
+                "id": "NO:DEMO002",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 07",
+                "name": "DEMO002",
                 "registryNumber": null,
               },
               "role": "Sender",
@@ -1542,8 +658,8 @@ ui-fss.g27[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "acronym": "12347",
+                "activeSince": 1508450400000,
                 "address": Object {
                   "country": "NO",
                   "postalCode": null,
@@ -1554,9 +670,9 @@ ui-fss.g27[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:NAVAT08",
+                "id": "NO:DEMO001",
                 "location": null,
-                "name": "NAV ACCEPTANCE TEST 08",
+                "name": "DEMO001",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -1565,151 +681,680 @@ ui-fss.g27[id="c14"] {
           ],
           "status": "empty",
           "type": "X009",
-          "version": "1",
+          "version": "4",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117444000,
+            "id": "1",
+          },
+          "id": "4ae14845e31d4d0db52acb692d9abe8e",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "P8000",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117443000,
+          "firstVersion": Object {
+            "date": 1559117443000,
+            "id": "1",
+          },
+          "id": "5ef5fdea78e94911a873322d98589664",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "P7000",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117443000,
+            "id": "1",
+          },
+          "id": "2cfa8cc7af2647c4ad89315a6d1b0ad7",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "P4000",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117443000,
+            "id": "1",
+          },
+          "id": "af7f8476e55f4c53b501c41fd03a25be",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "X007",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117444000,
+            "id": "1",
+          },
+          "id": "4c10c2288a23442f85b511ecfaecb0f7",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "X005",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117444000,
+            "id": "1",
+          },
+          "id": "147065531dca429a90d47b5aa3b7cf2c",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "P10000",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117444000,
+            "id": "1",
+          },
+          "id": "07cce7d3b2514676ba342caab580c573",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "H020",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117444000,
+            "id": "1",
+          },
+          "id": "7e2b28e4bc3b47e992fc06e5024bec3a",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "H120",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117443000,
+          "firstVersion": Object {
+            "date": 1559117443000,
+            "id": "1",
+          },
+          "id": "7c60826b53cc431f9059d8b30e4a1f7d",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": true,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "X008",
+          "version": "2",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1559117444000,
+          "firstVersion": Object {
+            "date": 1559117444000,
+            "id": "1",
+          },
+          "id": "c1069862321c419e8e3ca418f7372d64",
+          "lastUpdate": 1559080800000,
+          "lastVersion": Object {
+            "date": 1559080800000,
+            "id": "2",
+          },
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12348",
+                "activeSince": 1518476400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO002",
+                "location": null,
+                "name": "DEMO002",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "12347",
+                "activeSince": 1508450400000,
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:DEMO001",
+                "location": null,
+                "name": "DEMO001",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "H070",
+          "version": "2",
         },
       ],
-      "startDate": 1571818162145,
+      "startDate": 1571731760978,
       "status": "open",
-      "type": "P_BUC_01",
-    }
-  }
-  followUpSed={
-    Object {
-      "allowsAttachments": true,
-      "attachments": Array [],
-      "creationDate": 1571818194896,
-      "displayName": "Pension decision",
-      "firstVersion": Object {
-        "date": 1571818194896,
-        "id": "1",
+      "subject": Object {
+        "avdod": Object {
+          "fnr": "12345678902",
+        },
+        "gjenlevende": Object {
+          "fnr": "12345678901",
+        },
       },
-      "id": "10678159cd4142f890d56264bfdefd13",
-      "lastUpdate": 1571818294896,
-      "lastVersion": Object {
-        "date": 1571818294896,
-        "id": "3",
-      },
-      "parentDocumentId": null,
-      "participants": Array [
-        Object {
-          "organisation": Object {
-            "accessPoint": null,
-            "acronym": "NAV ACCT 07",
-            "activeSince": "2018-08-26T22:00:00.000+0000",
-            "address": Object {
-              "country": "NO",
-              "postalCode": null,
-              "region": null,
-              "street": null,
-              "town": null,
-            },
-            "assignedBUCs": null,
-            "contactMethods": null,
-            "countryCode": "NO",
-            "id": "NO:NAVAT07",
-            "location": null,
-            "name": "NAV ACCEPTANCE TEST 07",
-            "registryNumber": null,
-          },
-          "role": "Sender",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "accessPoint": null,
-            "acronym": "NAV ACCT 08",
-            "activeSince": "2018-08-26T22:00:00.000+0000",
-            "address": Object {
-              "country": "NO",
-              "postalCode": null,
-              "region": null,
-              "street": null,
-              "town": null,
-            },
-            "assignedBUCs": null,
-            "contactMethods": null,
-            "countryCode": "NO",
-            "id": "NO:NAVAT08",
-            "location": null,
-            "name": "NAV ACCEPTANCE TEST 08",
-            "registryNumber": null,
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "accessPoint": null,
-            "acronym": "DEMO001",
-            "activeSince": "2018-08-26T22:00:00.000+0000",
-            "address": Object {
-              "country": "IT",
-              "postalCode": null,
-              "region": null,
-              "street": null,
-              "town": null,
-            },
-            "assignedBUCs": null,
-            "contactMethods": null,
-            "countryCode": "IT",
-            "id": "IT:DEMO001",
-            "location": null,
-            "name": "Italia Demo 01",
-            "registryNumber": null,
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "accessPoint": null,
-            "acronym": "DEMO001",
-            "activeSince": "2018-08-26T22:00:00.000+0000",
-            "address": Object {
-              "country": "ES",
-              "postalCode": null,
-              "region": null,
-              "street": null,
-              "town": null,
-            },
-            "assignedBUCs": null,
-            "contactMethods": null,
-            "countryCode": "ES",
-            "id": "ES:DEMO001",
-            "location": null,
-            "name": "Spain Demo 01",
-            "registryNumber": null,
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "accessPoint": null,
-            "acronym": "DEMO001",
-            "activeSince": "2018-08-26T22:00:00.000+0000",
-            "address": Object {
-              "country": "FR",
-              "postalCode": null,
-              "region": null,
-              "street": null,
-              "town": null,
-            },
-            "assignedBUCs": null,
-            "contactMethods": null,
-            "countryCode": "FR",
-            "id": "FR:DEMO001",
-            "location": null,
-            "name": "France Demo 01",
-            "registryNumber": null,
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-      ],
-      "status": "active",
-      "type": "P6000",
-      "version": "3",
+      "type": "P_BUC_02",
     }
   }
   onSEDNew={[MockFunction]}
@@ -1740,25 +1385,23 @@ ui-fss.g27[id="c14"] {
           "name": "balrog.png",
         },
       ],
-      "creationDate": 1571818175000,
-      "displayName": "Invalidate Sed",
+      "creationDate": 1559117379454,
       "firstVersion": Object {
-        "date": 1571818175000,
+        "date": 1559117379454,
         "id": "1",
       },
-      "id": "98492223b35240138503f58ec09454fa",
-      "lastUpdate": 1571818175000,
+      "id": "90149c52a98044b599c3bf5d48537782",
+      "lastUpdate": 1559080800000,
       "lastVersion": Object {
-        "date": 1571818175000,
-        "id": "1",
+        "date": 1559080800000,
+        "id": "r",
       },
-      "parentDocumentId": "5d549c96e0ce40788a2eea2992c1f65f",
       "participants": Array [
         Object {
           "organisation": Object {
             "accessPoint": null,
-            "acronym": "NAV ACCT 07",
-            "activeSince": "2018-08-26T22:00:00.000+0000",
+            "acronym": "12348",
+            "activeSince": 1518476400000,
             "address": Object {
               "country": "NO",
               "postalCode": null,
@@ -1769,9 +1412,9 @@ ui-fss.g27[id="c14"] {
             "assignedBUCs": null,
             "contactMethods": null,
             "countryCode": "NO",
-            "id": "NO:NAVAT07",
+            "id": "NO:DEMO002",
             "location": null,
-            "name": "NAV ACCEPTANCE TEST 07",
+            "name": "DEMO002",
             "registryNumber": null,
           },
           "role": "Sender",
@@ -1780,8 +1423,8 @@ ui-fss.g27[id="c14"] {
         Object {
           "organisation": Object {
             "accessPoint": null,
-            "acronym": "NAV ACCT 08",
-            "activeSince": "2018-08-26T22:00:00.000+0000",
+            "acronym": "12347",
+            "activeSince": 1508450400000,
             "address": Object {
               "country": "NO",
               "postalCode": null,
@@ -1792,9 +1435,9 @@ ui-fss.g27[id="c14"] {
             "assignedBUCs": null,
             "contactMethods": null,
             "countryCode": "NO",
-            "id": "NO:NAVAT08",
+            "id": "NO:DEMO001",
             "location": null,
-            "name": "NAV ACCEPTANCE TEST 08",
+            "name": "DEMO001",
             "registryNumber": null,
           },
           "role": "Receiver",
@@ -1802,8 +1445,8 @@ ui-fss.g27[id="c14"] {
         },
       ],
       "status": "received",
-      "type": "X008",
-      "version": "1",
+      "type": "P2000",
+      "version": "5",
     }
   }
 >
@@ -1984,18 +1627,18 @@ ui-fss.g27[id="c14"] {
                   className="c6 c7"
                 >
                   <Element
-                    data-test-id="a-buc-c-SEDHeader__name-id"
+                    data-test-id="a-buc-c-sedheader__name-id"
                   >
                     <TypografiBase
-                      data-test-id="a-buc-c-SEDHeader__name-id"
+                      data-test-id="a-buc-c-sedheader__name-id"
                       type="element"
                     >
                       <p
                         className="typo-element"
-                        data-test-id="a-buc-c-SEDHeader__name-id"
+                        data-test-id="a-buc-c-sedheader__name-id"
                       >
-                        X008
-                         - buc:buc-X008
+                        P2000
+                         - buc:buc-P2000
                       </p>
                     </TypografiBase>
                   </Element>
@@ -2007,13 +1650,13 @@ ui-fss.g27[id="c14"] {
                         overlay={
                           <Normaltekst>
                             ui:firstVersion
-                            23.10.2019
+                            29.05.2019
                           </Normaltekst>
                         }
                         placement="top"
                         trigger={
                           Array [
-                            "none",
+                            "hover",
                           ]
                         }
                       >
@@ -2021,7 +1664,7 @@ ui-fss.g27[id="c14"] {
                           data-test-id="mock-tooltip"
                         >
                           <SEDStatus
-                            data-test-id="a-buc-c-SEDHeader__status-id"
+                            data-test-id="a-buc-c-sedheader__status-id"
                             highContrast={false}
                             status="received"
                           >
@@ -2226,34 +1869,34 @@ ui-fss.g27[id="c14"] {
                           className="c14 c15"
                         >
                           <Normaltekst
-                            data-test-id="a-buc-c-SEDHeader__version-date-id"
+                            data-test-id="a-buc-c-sedheader__version-date-id"
                           >
                             <TypografiBase
-                              data-test-id="a-buc-c-SEDHeader__version-date-id"
+                              data-test-id="a-buc-c-sedheader__version-date-id"
                               type="normaltekst"
                             >
                               <p
                                 className="typo-normal"
-                                data-test-id="a-buc-c-SEDHeader__version-date-id"
+                                data-test-id="a-buc-c-sedheader__version-date-id"
                               >
-                                23.10.2019
+                                29.05.2019
                               </p>
                             </TypografiBase>
                           </Normaltekst>
                           <Normaltekst
-                            data-test-id="a-buc-c-SEDHeader__version-id"
+                            data-test-id="a-buc-c-sedheader__version-id"
                           >
                             <TypografiBase
-                              data-test-id="a-buc-c-SEDHeader__version-id"
+                              data-test-id="a-buc-c-sedheader__version-id"
                               type="normaltekst"
                             >
                               <p
                                 className="typo-normal"
-                                data-test-id="a-buc-c-SEDHeader__version-id"
+                                data-test-id="a-buc-c-sedheader__version-id"
                               >
                                 ui:version
                                 : 
-                                1
+                                5
                               </p>
                             </TypografiBase>
                           </Normaltekst>
@@ -2268,12 +1911,12 @@ ui-fss.g27[id="c14"] {
                   className="c16 c17"
                 >
                   <InstitutionList
-                    data-test-id="a-buc-c-SEDHeader__institutions-id"
+                    data-test-id="a-buc-c-sedheader__institutions-id"
                     institutions={
                       Array [
                         Object {
                           "country": "NO",
-                          "institution": "NAV ACCEPTANCE TEST 07",
+                          "institution": "DEMO002",
                         },
                       ]
                     }
@@ -2288,7 +1931,7 @@ ui-fss.g27[id="c14"] {
                       >
                         <styled.div
                           data-test-id="a-buc-c-institutionlist__div-id"
-                          key="NAV ACCEPTANCE TEST 07"
+                          key="DEMO002"
                         >
                           <div
                             className="c20 c21"
@@ -2762,7 +2405,7 @@ ui-fss.g27[id="c14"] {
                                   <p
                                     className="typo-normal c22 c23"
                                   >
-                                    NAV ACCEPTANCE TEST 07
+                                    DEMO002
                                   </p>
                                 </TypografiBase>
                               </Normaltekst>
@@ -2779,12 +2422,12 @@ ui-fss.g27[id="c14"] {
                   className="c16 c17"
                 >
                   <InstitutionList
-                    data-test-id="a-buc-c-SEDHeader__institutions-id"
+                    data-test-id="a-buc-c-sedheader__institutions-id"
                     institutions={
                       Array [
                         Object {
                           "country": "NO",
-                          "institution": "NAV ACCEPTANCE TEST 08",
+                          "institution": "DEMO001",
                         },
                       ]
                     }
@@ -2799,7 +2442,7 @@ ui-fss.g27[id="c14"] {
                       >
                         <styled.div
                           data-test-id="a-buc-c-institutionlist__div-id"
-                          key="NAV ACCEPTANCE TEST 08"
+                          key="DEMO001"
                         >
                           <div
                             className="c20 c21"
@@ -3273,7 +2916,7 @@ ui-fss.g27[id="c14"] {
                                   <p
                                     className="typo-normal c22 c23"
                                   >
-                                    NAV ACCEPTANCE TEST 08
+                                    DEMO001
                                   </p>
                                 </TypografiBase>
                               </Normaltekst>
@@ -3286,11 +2929,11 @@ ui-fss.g27[id="c14"] {
                 </div>
               </styled.div>
               <styled.div
-                data-test-id="a-buc-c-SEDHeader__actions-id"
+                data-test-id="a-buc-c-sedheader__actions-id"
               >
                 <div
                   className="c24 c25"
-                  data-test-id="a-buc-c-SEDHeader__actions-id"
+                  data-test-id="a-buc-c-sedheader__actions-id"
                 >
                   <Component
                     overlay={
@@ -3309,11 +2952,11 @@ ui-fss.g27[id="c14"] {
                       data-test-id="mock-tooltip"
                     >
                       <styled.div
-                        data-test-id="a-buc-c-SEDHeader__actions-attachments"
+                        data-test-id="a-buc-c-sedheader__actions-attachments"
                       >
                         <div
                           className=""
-                          data-test-id="a-buc-c-SEDHeader__actions-attachments"
+                          data-test-id="a-buc-c-sedheader__actions-attachments"
                         >
                           <FilledPaperClipIcon>
                             <svg
@@ -3349,6 +2992,48 @@ ui-fss.g27[id="c14"] {
                       </styled.div>
                     </div>
                   </Component>
+                  <Styled(Flatknapp)
+                    data-amplitude="buc.edit.besvarSed"
+                    data-test-id="a-buc-c-sedheader__answer-button-id"
+                    disabled={false}
+                    mini={true}
+                    onClick={[Function]}
+                  >
+                    <Flatknapp
+                      className="c26 c27"
+                      data-amplitude="buc.edit.besvarSed"
+                      data-test-id="a-buc-c-sedheader__answer-button-id"
+                      disabled={false}
+                      mini={true}
+                      onClick={[Function]}
+                    >
+                      <KnappBase
+                        autoDisableVedSpinner={false}
+                        className="c26 c27"
+                        data-amplitude="buc.edit.besvarSed"
+                        data-test-id="a-buc-c-sedheader__answer-button-id"
+                        disabled={false}
+                        htmlType="submit"
+                        inaktivKlasseVedDisabled={false}
+                        kompakt={false}
+                        mini={true}
+                        onClick={[Function]}
+                        spinner={false}
+                        type="flat"
+                      >
+                        <button
+                          className="knapp c26 c27 knapp--flat knapp--mini"
+                          data-amplitude="buc.edit.besvarSed"
+                          data-test-id="a-buc-c-sedheader__answer-button-id"
+                          disabled={false}
+                          onClick={[Function]}
+                          type="submit"
+                        >
+                          buc:form-answerSED
+                        </button>
+                      </KnappBase>
+                    </Flatknapp>
+                  </Styled(Flatknapp)>
                 </div>
               </styled.div>
             </div>

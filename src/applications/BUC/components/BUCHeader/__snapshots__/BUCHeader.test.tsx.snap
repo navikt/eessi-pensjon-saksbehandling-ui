@@ -94,7 +94,7 @@ ui-fss.g6[id="c6"] {
   background: #eceecc;
 }
 
-ui-fss.g20[id="c0"] {
+ui-fss.g22[id="c0"] {
   content: "c1,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g20[id="c0"] {
   justify-content: space-between;
 }
 
-ui-fss.g21[id="c10"] {
+ui-fss.g23[id="c10"] {
   content: "c11,";
 }
 
@@ -118,7 +118,7 @@ ui-fss.g21[id="c10"] {
   width: 100%;
 }
 
-ui-fss.g22[id="c3"] {
+ui-fss.g24[id="c3"] {
   content: "c5,";
 }
 
@@ -142,7 +142,7 @@ ui-fss.g22[id="c3"] {
   flex: 2;
 }
 
-ui-fss.g23[id="c26"] {
+ui-fss.g25[id="c26"] {
   content: "c27,";
 }
 
@@ -152,7 +152,7 @@ ui-fss.g23[id="c26"] {
   flex: 1;
 }
 
-ui-fss.g24[id="c12"] {
+ui-fss.g26[id="c12"] {
   content: "c13,";
 }
 
@@ -181,7 +181,7 @@ ui-fss.g24[id="c12"] {
   font-size: 1.5rem;
 }
 
-ui-fss.g25[id="c28"] {
+ui-fss.g27[id="c28"] {
   content: "c29,";
 }
 
@@ -197,7 +197,7 @@ ui-fss.g25[id="c28"] {
   margin: 0.2rem 0rem;
 }
 
-ui-fss.g26[id="c14"] {
+ui-fss.g28[id="c14"] {
   content: "c15,";
 }
 
@@ -207,7 +207,7 @@ ui-fss.g26[id="c14"] {
   color: #0067C5 !important;
 }
 
-ui-fss.g27[id="c24"] {
+ui-fss.g29[id="c24"] {
   content: "c25,";
 }
 
@@ -216,7 +216,7 @@ ui-fss.g27[id="c24"] {
   padding-right: 0.5rem;
 }
 
-ui-fss.g28[id="c16"] {
+ui-fss.g30[id="c16"] {
   content: "c17,";
 }
 
@@ -235,7 +235,7 @@ ui-fss.g28[id="c16"] {
   align-items: center;
 }
 
-ui-fss.g29[id="c30"] {
+ui-fss.g31[id="c30"] {
   content: "c31,";
 }
 
@@ -244,7 +244,7 @@ ui-fss.g29[id="c30"] {
   width: 100%;
 }
 
-ui-fss.g30[id="c8"] {
+ui-fss.g32[id="c8"] {
   content: "c9,";
 }
 
@@ -1476,8 +1476,76 @@ ui-fss.g30[id="c8"] {
               "selected": false,
             },
           ],
-          "status": "new",
+          "status": "received",
           "type": "P8000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818208620,
+          "displayName": "P9000",
+          "firstVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "id": "00d9d9277ab847008bc88c1b31b34865",
+          "lastUpdate": 1571818208620,
+          "lastVersion": Object {
+            "date": 1571818208620,
+            "id": "1",
+          },
+          "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAV ACCT 08",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 08",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "empty",
+          "type": "P9000",
           "version": "1",
         },
         Object {
