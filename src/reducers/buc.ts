@@ -1,10 +1,10 @@
 import { BUCMode } from 'applications/BUC'
 import { bucsWithAvdod } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as types from 'constants/actionTypes'
+import { VEDTAKSKONTEKST } from 'constants/constants'
+import { RinaUrl } from 'declarations/app.d'
 import {
   Buc,
-  SEDAttachment,
   Bucs,
   BucsInfo,
   BUCSubject,
@@ -12,18 +12,19 @@ import {
   InstitutionListMap,
   InstitutionNames,
   Institutions,
+  NewSedPayload,
   Participant,
   Participants,
   RawInstitution,
   SakTypeValue,
   SavingAttachmentsJob,
   Sed,
+  SEDAttachment,
   SedContentMap,
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
-import { RinaUrl } from 'declarations/app.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import md5 from 'md5'
@@ -476,11 +477,44 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const newSed: Sed = (action as ActionWithPayload).payload as Sed
+      const bucs = _.cloneDeep(state.bucs)
+      const contextSed: NewSedPayload = (action as ActionWithPayload).context.sed
+
       newSed.status = 'new'
       if (!newSed.participants) {
         newSed.participants = []
+
+        if (bucs && bucs[state.currentBuc!]) {
+          newSed.participants.push({
+            role: 'Sender',
+            organisation: {
+              address: {
+                country: bucs[state.currentBuc!].creator!.country
+              },
+              countryCode: bucs[state.currentBuc!].creator!.country,
+              name: bucs[state.currentBuc!].creator!.name || '',
+              id: bucs[state.currentBuc!].creator!.institution
+            },
+            selected: true
+          })
+        }
+
+        contextSed.institutions?.forEach(inst => {
+          newSed.participants.push({
+            role: 'Receiver',
+            organisation: {
+              address: {
+                country: inst.country
+              },
+              countryCode: inst.country,
+              name: inst.name || '',
+              id: inst.institution
+            },
+            selected: true
+          })
+        })
       }
-      const bucs = _.cloneDeep(state.bucs)
+
       if (bucs) {
         bucs[state.currentBuc!].seds!.push(newSed)
       }

@@ -91,9 +91,9 @@ export interface NewSedPayload {
 
 export interface Organisation {
   address: Address
-  activeSince: string | number
+  activeSince?: string | number
   registryNumber?: any
-  acronym: string
+  acronym?: string
   countryCode: string
   contactMethods?: any
   name: string
@@ -116,7 +116,7 @@ export type RawList = Array<string>
 export interface RawInstitution {
   id: string
   navn: string
-  akronym: string
+  akronym?: string
   landkode: string
   buc?: string
 }
