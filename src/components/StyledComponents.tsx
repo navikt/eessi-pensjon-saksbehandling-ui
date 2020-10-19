@@ -25,6 +25,10 @@ export const Column = styled.div`
 export const VerticalSeparatorDiv = styled.div`
   margin-bottom: ${(props: any) => props['data-size'] || 1}rem;
 `
+export const HorizontalSeparatorSpan = styled.span`
+  display: inline-block;
+  margin-left: ${(props: any) => props['data-size'] || 1}rem;
+`
 export const HorizontalSeparatorDiv = styled.div`
   display: inline-block;
   margin-left: ${(props: any) => props['data-size'] || 1}rem;

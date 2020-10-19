@@ -36,30 +36,6 @@ describe('reducers/loading', () => {
     ).toEqual(initialLoadingState)
   })
 
-  it('APP_USERINFO_REQUEST', () => {
-    simulateRequest(types.APP_USERINFO_REQUEST, 'gettingUserInfo')
-  })
-
-  it('APP_USERINFO_SUCCESS', () => {
-    simulateSuccess(types.APP_USERINFO_SUCCESS, 'gettingUserInfo')
-  })
-
-  it('APP_USERINFO_FAILURE', () => {
-    simulateFailure(types.APP_USERINFO_FAILURE, 'gettingUserInfo')
-  })
-
-  it('APP_PERSONINFO_REQUEST', () => {
-    simulateRequest(types.APP_PERSONINFO_REQUEST, 'gettingPersonInfo')
-  })
-
-  it('APP_PERSONINFO_SUCCESS', () => {
-    simulateSuccess(types.APP_PERSONINFO_SUCCESS, 'gettingPersonInfo')
-  })
-
-  it('APP_PERSONINFO_FAILURE', () => {
-    simulateFailure(types.APP_PERSONINFO_FAILURE, 'gettingPersonInfo')
-  })
-
   it('APP_LOGIN_REQUEST', () => {
     simulateRequest(types.APP_LOGIN_REQUEST, 'isLoggingIn')
   })
@@ -74,6 +50,78 @@ describe('reducers/loading', () => {
 
   it('APP_LOGOUT_FAILURE', () => {
     simulateFailure(types.APP_LOGOUT_FAILURE, 'isLoggingOut')
+  })
+
+  it('APP_PERSONINFO_REQUEST', () => {
+    simulateRequest(types.APP_PERSONINFO_REQUEST, 'gettingPersonInfo')
+  })
+
+  it('APP_PERSONINFO_SUCCESS', () => {
+    simulateSuccess(types.APP_PERSONINFO_SUCCESS, 'gettingPersonInfo')
+  })
+
+  it('APP_PERSONINFO_FAILURE', () => {
+    simulateFailure(types.APP_PERSONINFO_FAILURE, 'gettingPersonInfo')
+  })
+
+  it('APP_PERSONINFO_AVDOD_REQUEST', () => {
+    simulateRequest(types.APP_PERSONINFO_AVDOD_REQUEST, 'gettingPersonAvdodInfo')
+  })
+
+  it('APP_PERSONINFO_AVDOD_SUCCESS', () => {
+    simulateSuccess(types.APP_PERSONINFO_AVDOD_SUCCESS, 'gettingPersonAvdodInfo')
+  })
+
+  it('APP_PERSONINFO_AVDOD_FAILURE', () => {
+    simulateFailure(types.APP_PERSONINFO_AVDOD_FAILURE, 'gettingPersonAvdodInfo')
+  })
+
+  it('APP_USERINFO_REQUEST', () => {
+    simulateRequest(types.APP_USERINFO_REQUEST, 'gettingUserInfo')
+  })
+
+  it('APP_USERINFO_SUCCESS', () => {
+    simulateSuccess(types.APP_USERINFO_SUCCESS, 'gettingUserInfo')
+  })
+
+  it('APP_USERINFO_FAILURE', () => {
+    simulateFailure(types.APP_USERINFO_FAILURE, 'gettingUserInfo')
+  })
+
+  it('BUC_CREATE_BUC_REQUEST', () => {
+    simulateRequest(types.BUC_CREATE_BUC_REQUEST, 'creatingBUC')
+  })
+
+  it('BUC_CREATE_BUC_SUCCESS', () => {
+    simulateSuccess(types.BUC_CREATE_BUC_SUCCESS, 'creatingBUC')
+  })
+
+  it('BUC_CREATE_BUC_FAILURE', () => {
+    simulateFailure(types.BUC_CREATE_BUC_FAILURE, 'creatingBUC')
+  })
+
+  it('BUC_CREATE_SED_REQUEST', () => {
+    simulateRequest(types.BUC_CREATE_SED_REQUEST, 'creatingSed')
+  })
+
+  it('BUC_CREATE_SED_SUCCESS', () => {
+    simulateSuccess(types.BUC_CREATE_SED_SUCCESS, 'creatingSed')
+  })
+
+  it('BUC_CREATE_SED_FAILURE', () => {
+    simulateFailure(types.BUC_CREATE_SED_FAILURE, 'creatingSed')
+  })
+
+  it('BUC_GET_BUC_LIST_REQUEST', () => {
+    simulateRequest(types.BUC_GET_BUC_LIST_REQUEST, 'gettingBucList')
+  })
+
+  it('BUC_GET_BUC_LIST_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_BUC_LIST_SUCCESS, 'gettingBucList')
+  })
+
+  it('BUC_GET_BUC_LIST_FAILURE', () => {
+    simulateFailure(types.BUC_GET_BUC_LIST_FAILURE, 'gettingBucList')
   })
 
   it('BUC_GET_BUCS_REQUEST', () => {
@@ -100,66 +148,6 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_BUCSINFO_FAILURE, 'gettingBUCinfo')
   })
 
-  it('BUC_GET_SUBJECT_AREA_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_SUBJECT_AREA_LIST_REQUEST, 'gettingSubjectAreaList')
-  })
-
-  it('BUC_GET_SUBJECT_AREA_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS, 'gettingSubjectAreaList')
-  })
-
-  it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_SUBJECT_AREA_LIST_FAILURE, 'gettingSubjectAreaList')
-  })
-
-  it('BUC_GET_BUC_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_BUC_LIST_REQUEST, 'gettingBucList')
-  })
-
-  it('BUC_GET_BUC_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_BUC_LIST_SUCCESS, 'gettingBucList')
-  })
-
-  it('BUC_GET_BUC_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_BUC_LIST_FAILURE, 'gettingBucList')
-  })
-
-  it('BUC_CREATE_BUC_REQUEST', () => {
-    simulateRequest(types.BUC_CREATE_BUC_REQUEST, 'creatingBUC')
-  })
-
-  it('BUC_CREATE_BUC_SUCCESS', () => {
-    simulateSuccess(types.BUC_CREATE_BUC_SUCCESS, 'creatingBUC')
-  })
-
-  it('BUC_CREATE_BUC_FAILURE', () => {
-    simulateFailure(types.BUC_CREATE_BUC_FAILURE, 'creatingBUC')
-  })
-
-  it('BUC_SAVE_BUCSINFO_REQUEST', () => {
-    simulateRequest(types.BUC_SAVE_BUCSINFO_REQUEST, 'savingBucsInfo')
-  })
-
-  it('BUC_SAVE_BUCSINFO_SUCCESS', () => {
-    simulateSuccess(types.BUC_SAVE_BUCSINFO_SUCCESS, 'savingBucsInfo')
-  })
-
-  it('BUC_SAVE_BUCSINFO_FAILURE', () => {
-    simulateFailure(types.BUC_SAVE_BUCSINFO_FAILURE, 'savingBucsInfo')
-  })
-
-  it('BUC_GET_SED_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_SED_LIST_REQUEST, 'gettingSedList')
-  })
-
-  it('BUC_GET_SED_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_SED_LIST_SUCCESS, 'gettingSedList')
-  })
-
-  it('BUC_GET_SED_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_SED_LIST_FAILURE, 'gettingSedList')
-  })
-
   it('BUC_GET_COUNTRY_LIST_REQUEST', () => {
     simulateRequest(types.BUC_GET_COUNTRY_LIST_REQUEST, 'gettingCountryList')
   })
@@ -184,16 +172,40 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_INSTITUTION_LIST_FAILURE, 'gettingInstitutionList')
   })
 
-  it('BUC_CREATE_SED_REQUEST', () => {
-    simulateRequest(types.BUC_CREATE_SED_REQUEST, 'creatingSed')
+  it('BUC_GET_PARTICIPANTS_REQUEST', () => {
+    simulateRequest(types.BUC_GET_PARTICIPANTS_REQUEST, 'gettingBucDeltakere')
   })
 
-  it('BUC_CREATE_SED_SUCCESS', () => {
-    simulateSuccess(types.BUC_CREATE_SED_SUCCESS, 'creatingSed')
+  it('BUC_GET_PARTICIPANTS_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_PARTICIPANTS_SUCCESS, 'gettingBucDeltakere')
   })
 
-  it('BUC_CREATE_SED_FAILURE', () => {
-    simulateFailure(types.BUC_CREATE_SED_FAILURE, 'creatingSed')
+  it('BUC_GET_PARTICIPANTS_FAILURE', () => {
+    simulateFailure(types.BUC_GET_PARTICIPANTS_FAILURE, 'gettingBucDeltakere')
+  })
+
+  it('BUC_GET_SED_LIST_REQUEST', () => {
+    simulateRequest(types.BUC_GET_SED_LIST_REQUEST, 'gettingSedList')
+  })
+
+  it('BUC_GET_SED_LIST_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_SED_LIST_SUCCESS, 'gettingSedList')
+  })
+
+  it('BUC_GET_SED_LIST_FAILURE', () => {
+    simulateFailure(types.BUC_GET_SED_LIST_FAILURE, 'gettingSedList')
+  })
+
+  it('BUC_GET_SUBJECT_AREA_LIST_REQUEST', () => {
+    simulateRequest(types.BUC_GET_SUBJECT_AREA_LIST_REQUEST, 'gettingSubjectAreaList')
+  })
+
+  it('BUC_GET_SUBJECT_AREA_LIST_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS, 'gettingSubjectAreaList')
+  })
+
+  it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
+    simulateFailure(types.BUC_GET_SUBJECT_AREA_LIST_FAILURE, 'gettingSubjectAreaList')
   })
 
   it('BUC_RINA_GET_URL_REQUEST', () => {
@@ -206,6 +218,18 @@ describe('reducers/loading', () => {
 
   it('BUC_RINA_GET_URL_FAILURE', () => {
     simulateFailure(types.BUC_RINA_GET_URL_FAILURE, 'rinaUrl')
+  })
+
+  it('BUC_SAVE_BUCSINFO_REQUEST', () => {
+    simulateRequest(types.BUC_SAVE_BUCSINFO_REQUEST, 'savingBucsInfo')
+  })
+
+  it('BUC_SAVE_BUCSINFO_SUCCESS', () => {
+    simulateSuccess(types.BUC_SAVE_BUCSINFO_SUCCESS, 'savingBucsInfo')
+  })
+
+  it('BUC_SAVE_BUCSINFO_FAILURE', () => {
+    simulateFailure(types.BUC_SAVE_BUCSINFO_FAILURE, 'savingBucsInfo')
   })
 
   it('JOARK_LIST_REQUEST', () => {

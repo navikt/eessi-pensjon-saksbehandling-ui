@@ -261,7 +261,10 @@ describe('reducers/alert', () => {
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'OK',
-      clientErrorMessage: 'buc:alert-createdBuc|mockType'
+      clientErrorParam: {
+        type: 'mockType'
+      },
+      clientErrorMessage: 'buc:alert-createdBuc'
     })
   })
 
@@ -276,7 +279,11 @@ describe('reducers/alert', () => {
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'OK',
-      clientErrorMessage: 'buc:alert-createdSed|mockType'
+      clientErrorParam: {
+        message: '',
+        sed: 'mockType'
+      },
+      clientErrorMessage: 'buc:alert-createdSed'
     })
   })
 
@@ -291,7 +298,11 @@ describe('reducers/alert', () => {
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'OK',
-      clientErrorMessage: 'buc:alert-createdSed|mockType'
+      clientErrorParam: {
+        message: '',
+        sed: 'mockType'
+      },
+      clientErrorMessage: 'buc:alert-createdSed'
     })
   })
 

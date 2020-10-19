@@ -9,7 +9,7 @@ exports[`applications/BUC/components/SEDPanel/SEDPanel Render: match snapshot 1`
   border-radius: 4px;
 }
 
-ui-fss.g9[id="c0"] {
+ui-fss.g10[id="c0"] {
   content: "c2,";
 }
 
@@ -39,7 +39,7 @@ ui-fss.g9[id="c0"] {
   background: #e0f4fb !important;
 }
 
-ui-fss.g18[id="c1"] {
+ui-fss.g19[id="c1"] {
   content: "c3,";
 }
 
@@ -49,7 +49,7 @@ ui-fss.g18[id="c1"] {
   background: #FFFFFF;
 }
 
-ui-fss.g19[id="c4"] {
+ui-fss.g20[id="c4"] {
   content: "c5,";
 }
 

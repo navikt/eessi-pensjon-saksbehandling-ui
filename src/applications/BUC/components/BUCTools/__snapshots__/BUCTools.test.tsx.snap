@@ -28,7 +28,7 @@ ui-fss.g6[id="c10"] {
   stroke: #0067C5;
 }
 
-ui-fss.g8[id="c12"] {
+ui-fss.g9[id="c12"] {
   content: "c13,";
 }
 
@@ -40,7 +40,7 @@ ui-fss.g8[id="c12"] {
   border-radius: 4px;
 }
 
-ui-fss.g11[id="c0"] {
+ui-fss.g12[id="c0"] {
   content: "c2,";
 }
 
@@ -59,7 +59,7 @@ ui-fss.g11[id="c0"] {
   background: none;
 }
 
-ui-fss.g14[id="c4"] {
+ui-fss.g15[id="c4"] {
   content: "c5,";
 }
 
@@ -72,7 +72,7 @@ ui-fss.g14[id="c4"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g57[id="c1"] {
+ui-fss.g58[id="c1"] {
   content: "c3,";
 }
 
@@ -80,7 +80,7 @@ ui-fss.g57[id="c1"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g59[id="c8"] {
+ui-fss.g60[id="c8"] {
   content: "c9,";
 }
 
@@ -89,7 +89,7 @@ ui-fss.g59[id="c8"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g60[id="c6"] {
+ui-fss.g61[id="c6"] {
   content: "c7,";
 }
 

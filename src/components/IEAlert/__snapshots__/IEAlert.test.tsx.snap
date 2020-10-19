@@ -20,7 +20,7 @@ exports[`components/IEAlert/IEAlert Render: For Edge, show alert 1`] = `
   stroke: #0067C5 !important;
 }
 
-ui-fss.g11[id="c2"] {
+ui-fss.g12[id="c2"] {
   content: "c3,";
 }
 
@@ -41,7 +41,7 @@ ui-fss.g11[id="c2"] {
   color: #FFFFFF !important;
 }
 
-ui-fss.g18[id="c0"] {
+ui-fss.g19[id="c0"] {
   content: "c1,";
 }
 
@@ -264,7 +264,7 @@ exports[`components/IEAlert/IEAlert Render: For IE, show alert 1`] = `
   stroke: #0067C5 !important;
 }
 
-ui-fss.g11[id="c2"] {
+ui-fss.g12[id="c2"] {
   content: "c3,";
 }
 
@@ -285,7 +285,7 @@ ui-fss.g11[id="c2"] {
   color: #FFFFFF !important;
 }
 
-ui-fss.g18[id="c0"] {
+ui-fss.g19[id="c0"] {
   content: "c1,";
 }
 

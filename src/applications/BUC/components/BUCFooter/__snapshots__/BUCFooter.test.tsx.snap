@@ -6,7 +6,7 @@ exports[`applications/BUC/components/BUCFooter/BUCFooter Render: match snapshot 
   margin-left: 0.5rem;
 }
 
-ui-fss.g5[id="c4"] {
+ui-fss.g6[id="c4"] {
   content: "c5,";
 }
 
@@ -29,7 +29,7 @@ ui-fss.g5[id="c4"] {
   stroke: #0067C5 !important;
 }
 
-ui-fss.g11[id="c2"] {
+ui-fss.g12[id="c2"] {
   content: "c3,";
 }
 
@@ -46,7 +46,7 @@ ui-fss.g11[id="c2"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g19[id="c0"] {
+ui-fss.g20[id="c0"] {
   content: "c1,";
 }
 

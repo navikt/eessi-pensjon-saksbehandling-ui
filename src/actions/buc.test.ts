@@ -1,12 +1,11 @@
 import * as bucActions from 'actions/buc'
 import { BUCMode } from 'applications/BUC'
-import { SEDAttachmentPayloadWithFile } from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { Buc, Sed } from 'declarations/buc'
+import { Buc, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { call as originalCall } from 'js-fetch-api'
 import mockItems from 'mocks/joark/items'
@@ -402,10 +401,16 @@ describe('actions/buc', () => {
     const mockedSed = {
       id: 'sed'
     } as Sed
-    const generatedResult = bucActions.setCurrentSed(mockedSed)
+    const mockedReplySed = {
+      id: 'replySed'
+    } as Sed
+    const generatedResult = bucActions.setCurrentSed(mockedSed, mockedReplySed)
     expect(generatedResult).toMatchObject({
       type: types.BUC_CURRENTSED_SET,
-      payload: mockedSed
+      payload: {
+        sed: mockedSed,
+        replySed: mockedReplySed
+      }
     })
   })
 

@@ -13,23 +13,25 @@ import React from 'react'
 import styled from 'styled-components'
 import PersonLoading from 'widgets/Overview/PersonLoading'
 
-export interface PersonTitleProps {
-  gettingPersonInfo: boolean
-  person?: Person
-}
-
-const Title = styled.div`
+export const Title = styled.div`
   display: flex;
   align-items: center;
   .dead {
     filter: grayscale(100%)
   }
 `
+
+export interface PersonTitleProps {
+  gettingPersonInfo: boolean
+  person?: Person
+}
+
 const PersonTitle: React.FC<PersonTitleProps> = ({
   gettingPersonInfo, person
 }: PersonTitleProps): JSX.Element => {
   let birthDate: Date | Moment | undefined
   let deathDate: Date | Moment | undefined
+
   if (!person || gettingPersonInfo) {
     return (
       <PersonLoading />
@@ -65,9 +67,10 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
     <Title>
       <img
         alt={kind}
-        width={40}
-        src={src}
         className={classNames({ dead: !_.isNil(deathDate) })}
+        data-test-id='w-persontitle__img'
+        src={src}
+        width={40}
       />
       <HorizontalSeparatorDiv />
       <Systemtittel>

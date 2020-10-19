@@ -6,7 +6,7 @@ exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Ren
   margin-left: 1rem;
 }
 
-ui-fss.g5[id="c2"] {
+ui-fss.g6[id="c2"] {
   content: "c3,";
 }
 
@@ -14,7 +14,7 @@ ui-fss.g5[id="c2"] {
   background-color: inherit;
 }
 
-ui-fss.g6[id="c4"] {
+ui-fss.g7[id="c4"] {
   content: "c5,";
 }
 
@@ -25,7 +25,7 @@ ui-fss.g6[id="c4"] {
   display: flex;
 }
 
-ui-fss.g18[id="c0"] {
+ui-fss.g19[id="c0"] {
   content: "c1,";
 }
 

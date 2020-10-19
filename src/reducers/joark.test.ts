@@ -1,97 +1,17 @@
 import * as types from 'constants/actionTypes'
-import { JoarkDoc, JoarkPoster } from 'declarations/joark'
-import _ from 'lodash'
-import mockJoarkRaw from 'mocks/joark/joarkRaw'
+import mockJoarkRaw from 'mocks/joark/joark'
 import joarkReducer, { initialJoarkState } from './joark'
 
 describe('reducers/joark', () => {
-  const mockPayload = {
-    data: {
-      dokumentoversiktBruker: {
-        journalposter: [{
-          tilleggsopplysninger: 'mocktilleggsopplysninger',
-          journalpostId: 'mockjournalpostId',
-          datoOpprettet: '2020-12-17T03:24:00',
-          tema: 'mocktema',
-          dokumenter: [{
-            tittel: 'mocktittel',
-            dokumentInfoId: 'mockdokumentInfoId',
-            dokumentvarianter: [{
-              variantformat: 'mockVariantFormat1',
-              filnavn: 'mockFilnavn1'
-            }, {
-              variantformat: 'mockVariantFormat2',
-              filnavn: 'mockFilnavn2'
-            }]
-          }]
-        }, {
-          tilleggsopplysninger: 'mocktilleggsopplysninger2',
-          journalpostId: 'mockjournalpostId2',
-          datoOpprettet: '2020-12-17T03:24:00',
-          tema: 'mocktema2',
-          dokumenter: [{
-            tittel: 'mocktittel2',
-            dokumentInfoId: 'mockdokumentInfoId2',
-            dokumentvarianter: [{
-              variantformat: 'mockVariantFormat3',
-              filnavn: 'mockFilnavn3'
-            }, {
-              variantformat: 'mockVariantFormat4',
-              filnavn: 'mockFilnavn4'
-            }]
-          }]
-        }]
-      }
-    }
-  }
-
-  const mockList = [{
-    tilleggsopplysninger: 'mocktilleggsopplysninger',
-    journalpostId: 'mockjournalpostId',
-    tittel: 'mocktittel',
-    tema: 'mocktema',
-    dokumentInfoId: 'mockdokumentInfoId',
-    datoOpprettet: new Date(Date.parse('2020-12-17T03:24:00')),
-    variant: {
-      variantformat: 'mockVariantFormat1',
-      filnavn: 'mockFilnavn1'
-    }
-  }, {
-    tilleggsopplysninger: 'mocktilleggsopplysninger2',
-    journalpostId: 'mockjournalpostId2',
-    tittel: 'mocktittel2',
-    tema: 'mocktema2',
-    dokumentInfoId: 'mockdokumentInfoId2',
-    datoOpprettet: new Date(Date.parse('2020-12-17T03:24:00')),
-    variant: {
-      variantformat: 'mockVariantFormat3',
-      filnavn: 'mockFilnavn3'
-    }
-  }]
-
-  it('JOARK_LIST_SUCCESS with mockJoarkRaw', () => {
-    const generatedState = joarkReducer(initialJoarkState, {
-      type: types.JOARK_LIST_SUCCESS,
-      payload: mockJoarkRaw
-    })
-    const expectedResponseSize = mockJoarkRaw.data.dokumentoversiktBruker.journalposter.map((post: JoarkPoster) => {
-      return post.dokumenter.map((doc: JoarkDoc) => {
-        return !_.isEmpty(doc.dokumentvarianter) ? doc.dokumentvarianter[0] : undefined
-      })
-    })
-    const expectedLength = _.filter(_.flatten(expectedResponseSize), e => e).length
-    expect(generatedState.list!.length).toEqual(expectedLength)
-  })
-
   it('JOARK_LIST_SUCCESS', () => {
     expect(
       joarkReducer(initialJoarkState, {
         type: types.JOARK_LIST_SUCCESS,
-        payload: mockPayload
+        payload: mockJoarkRaw
       })
     ).toEqual({
       ...initialJoarkState,
-      list: mockList
+      list: mockJoarkRaw.data.dokumentoversiktBruker.journalposter
     })
   })
 
@@ -99,11 +19,11 @@ describe('reducers/joark', () => {
     expect(
       joarkReducer(initialJoarkState, {
         type: types.JOARK_PREVIEW_SET,
-        payload: mockPayload
+        payload: 'something'
       })
     ).toEqual({
       ...initialJoarkState,
-      previewFile: mockPayload
+      previewFile: 'something'
     })
   })
 
@@ -134,45 +54,6 @@ describe('reducers/joark', () => {
         tittel: 'mocktittel2',
         tema: 'mocktema2',
         dokumentInfoId: 'mockdokumentInfoId2',
-        datoOpprettet: '2020-12-17T03:24:00',
-        variant: 'mockVariant',
-        name: 'mockName',
-        size: 11,
-        mimetype: 'mockContentType',
-        content: {
-          base64: 'mockContent'
-        }
-      }
-    })
-  })
-
-  it('JOARK_PREVIEW_SUCCESS, empty tittel', () => {
-    expect(
-      joarkReducer(initialJoarkState, {
-        type: types.JOARK_PREVIEW_SUCCESS,
-        context: {
-          journalpostId: 'mockjournalpostId',
-          tilleggsopplysninger: 'mocktilleggsopplysninger',
-          tittel: undefined,
-          tema: 'mocktema',
-          dokumentInfoId: 'mockdokumentInfoId',
-          datoOpprettet: '2020-12-17T03:24:00',
-          variant: 'mockVariant'
-        },
-        payload: {
-          fileName: 'mockName',
-          filInnhold: 'mockContent',
-          contentType: 'mockContentType'
-        }
-      })
-    ).toEqual({
-      ...initialJoarkState,
-      previewFile: {
-        journalpostId: 'mockjournalpostId',
-        tilleggsopplysninger: 'mocktilleggsopplysninger',
-        tittel: undefined,
-        tema: 'mocktema',
-        dokumentInfoId: 'mockdokumentInfoId',
         datoOpprettet: '2020-12-17T03:24:00',
         variant: 'mockVariant',
         name: 'mockName',

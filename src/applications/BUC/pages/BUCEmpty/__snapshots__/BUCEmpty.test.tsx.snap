@@ -19,7 +19,7 @@ ui-fss.g4[id="c4"] {
   margin-left: 0.5rem;
 }
 
-ui-fss.g5[id="c10"] {
+ui-fss.g6[id="c10"] {
   content: "c11,c20,";
 }
 
@@ -42,7 +42,7 @@ ui-fss.g5[id="c10"] {
   stroke: #0067C5;
 }
 
-ui-fss.g6[id="c14"] {
+ui-fss.g7[id="c14"] {
   content: "c15,";
 }
 
@@ -75,7 +75,7 @@ ui-fss.g6[id="c14"] {
   stroke: #0067C5;
 }
 
-ui-fss.g7[id="c12"] {
+ui-fss.g8[id="c12"] {
   content: "c13,";
 }
 
@@ -88,7 +88,7 @@ ui-fss.g7[id="c12"] {
   color: #3E3832;
 }
 
-ui-fss.g10[id="c8"] {
+ui-fss.g11[id="c8"] {
   content: "c9,";
 }
 
@@ -111,7 +111,7 @@ ui-fss.g10[id="c8"] {
   stroke: #0067C5 !important;
 }
 
-ui-fss.g11[id="c18"] {
+ui-fss.g12[id="c18"] {
   content: "c19,";
 }
 
@@ -128,7 +128,7 @@ ui-fss.g11[id="c18"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g19[id="c16"] {
+ui-fss.g20[id="c16"] {
   content: "c17,";
 }
 
@@ -156,7 +156,7 @@ ui-fss.g19[id="c16"] {
   background-color: #FFFFFF;
 }
 
-ui-fss.g20[id="c0"] {
+ui-fss.g21[id="c0"] {
   content: "c1,";
 }
 
@@ -196,7 +196,7 @@ ui-fss.g20[id="c0"] {
   position: absolute;
 }
 
-ui-fss.g21[id="c2"] {
+ui-fss.g22[id="c2"] {
   content: "c3,";
 }
 
@@ -218,7 +218,7 @@ ui-fss.g21[id="c2"] {
   margin-bottom: 0px !important;
 }
 
-ui-fss.g22[id="c6"] {
+ui-fss.g23[id="c6"] {
   content: "c7,";
 }
 

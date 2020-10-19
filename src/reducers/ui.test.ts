@@ -1,3 +1,4 @@
+import { WidthSize } from 'declarations/app'
 import uiReducer, { initialUiState } from './ui'
 import * as types from 'constants/actionTypes'
 
@@ -46,6 +47,18 @@ describe('reducers/ui', () => {
     ).toEqual({
       ...initialUiState,
       highContrast: true
+    })
+  })
+
+  it('UI_WIDTH_SET', () => {
+    expect(
+      uiReducer(initialUiState, {
+        type: types.UI_WIDTH_SET,
+        payload: 'lg' as WidthSize
+      })
+    ).toEqual({
+      ...initialUiState,
+      size: 'lg'
     })
   })
 

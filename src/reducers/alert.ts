@@ -16,7 +16,7 @@ export interface AlertState {
 
 export const initialAlertState: AlertState = {
   clientErrorMessage: undefined,
-  clientErrorParam: undefined,
+  clientErrorParam: {},
   clientErrorStatus: undefined,
   error: undefined,
   serverErrorMessage: undefined,

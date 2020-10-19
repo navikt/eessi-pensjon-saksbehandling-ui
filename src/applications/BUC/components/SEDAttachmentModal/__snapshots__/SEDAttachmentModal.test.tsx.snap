@@ -20,7 +20,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Render: mat
   stroke: #0067C5;
 }
 
-ui-fss.g6[id="c14"] {
+ui-fss.g7[id="c14"] {
   content: "c15,";
 }
 
@@ -53,7 +53,7 @@ ui-fss.g6[id="c14"] {
   stroke: #0067C5;
 }
 
-ui-fss.g7[id="c12"] {
+ui-fss.g8[id="c12"] {
   content: "c13,";
 }
 
@@ -75,7 +75,7 @@ ui-fss.g7[id="c12"] {
   background-color: #FFFFFF;
 }
 
-ui-fss.g18[id="c0"] {
+ui-fss.g19[id="c0"] {
   content: "c1,";
 }
 
@@ -86,7 +86,7 @@ ui-fss.g18[id="c0"] {
   z-index: 999;
 }
 
-ui-fss.g20[id="c6"] {
+ui-fss.g21[id="c6"] {
   content: "c7,";
 }
 
@@ -100,7 +100,7 @@ ui-fss.g20[id="c6"] {
   flex-direction: row;
 }
 
-ui-fss.g23[id="c8"] {
+ui-fss.g24[id="c8"] {
   content: "c9,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g23[id="c8"] {
   margin-botton: 0.5rem;
 }
 
-ui-fss.g24[id="c10"] {
+ui-fss.g25[id="c10"] {
   content: "c11,";
 }
 
@@ -124,7 +124,7 @@ ui-fss.g24[id="c10"] {
   top: -3rem;
 }
 
-ui-fss.g25[id="c2"] {
+ui-fss.g26[id="c2"] {
   content: "c3,";
 }
 
@@ -141,7 +141,7 @@ ui-fss.g25[id="c2"] {
   margin-top: 3rem;
 }
 
-ui-fss.g26[id="c4"] {
+ui-fss.g27[id="c4"] {
   content: "c5,";
 }
 
@@ -579,7 +579,7 @@ ui-fss.g26[id="c4"] {
   stroke: #0067C5;
 }
 
-ui-fss.g6[id="c14"] {
+ui-fss.g7[id="c14"] {
   content: "c15,";
 }
 
@@ -612,7 +612,7 @@ ui-fss.g6[id="c14"] {
   stroke: #0067C5;
 }
 
-ui-fss.g7[id="c12"] {
+ui-fss.g8[id="c12"] {
   content: "c13,";
 }
 
@@ -634,7 +634,7 @@ ui-fss.g7[id="c12"] {
   background-color: #FFFFFF;
 }
 
-ui-fss.g18[id="c0"] {
+ui-fss.g19[id="c0"] {
   content: "c1,";
 }
 
@@ -645,7 +645,7 @@ ui-fss.g18[id="c0"] {
   z-index: 999;
 }
 
-ui-fss.g20[id="c6"] {
+ui-fss.g21[id="c6"] {
   content: "c7,";
 }
 
@@ -659,7 +659,7 @@ ui-fss.g20[id="c6"] {
   flex-direction: row;
 }
 
-ui-fss.g23[id="c8"] {
+ui-fss.g24[id="c8"] {
   content: "c9,";
 }
 
@@ -669,7 +669,7 @@ ui-fss.g23[id="c8"] {
   margin-botton: 0.5rem;
 }
 
-ui-fss.g24[id="c10"] {
+ui-fss.g25[id="c10"] {
   content: "c11,";
 }
 
@@ -683,7 +683,7 @@ ui-fss.g24[id="c10"] {
   top: -3rem;
 }
 
-ui-fss.g25[id="c2"] {
+ui-fss.g26[id="c2"] {
   content: "c3,";
 }
 
@@ -700,7 +700,7 @@ ui-fss.g25[id="c2"] {
   margin-top: 3rem;
 }
 
-ui-fss.g26[id="c4"] {
+ui-fss.g27[id="c4"] {
   content: "c5,";
 }
 

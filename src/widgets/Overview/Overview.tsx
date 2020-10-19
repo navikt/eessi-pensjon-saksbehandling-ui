@@ -15,9 +15,13 @@ import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
+
+export const Alert = styled(Alertstripe)`
+  width: 100%
+`
 
 export interface OverviewSelector {
   aktoerId: string
@@ -71,18 +75,6 @@ export const Overview: React.FC<OverviewProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
-  useEffect(() => {
-    if (!mounted && aktoerId && pesysContext) {
-      if (!person) {
-        dispatch(getPersonInfo(aktoerId))
-        if (pesysContext === constants.VEDTAKSKONTEKST) {
-          dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD))
-        }
-      }
-      setMounted(true)
-    }
-  }, [featureToggles, mounted, dispatch, aktoerId, person, pesysContext, vedtakId])
-
   const onExpandablePanelClosing = (): void => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = true
@@ -109,11 +101,26 @@ export const Overview: React.FC<OverviewProps> = ({
     }
   }
 
+  useEffect(() => {
+    if (!mounted && aktoerId && pesysContext) {
+      if (!person) {
+        dispatch(getPersonInfo(aktoerId))
+        if (pesysContext === constants.VEDTAKSKONTEKST) {
+          dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD))
+        }
+      }
+      setMounted(true)
+    }
+  }, [featureToggles, mounted, dispatch, aktoerId, person, pesysContext, vedtakId])
+
   if (!aktoerId) {
     return (
-      <Alertstripe type='advarsel' className='w-overview__alert w-100'>
+      <Alert
+        type='advarsel'
+        data-test-id='w-overview__alert'
+      >
         {t('buc:validation-noAktoerId')}
-      </Alertstripe>
+      </Alert>
     )
   }
 
@@ -127,6 +134,7 @@ export const Overview: React.FC<OverviewProps> = ({
           highContrast={highContrast}
           collapseProps={{ id: 'w-overview-id' }}
           className={classNames({ highContrast: highContrast })}
+          data-test-id='w-overview-id'
           open={!widget.options.collapsed}
           onOpen={onExpandablePanelOpening}
           onClose={onExpandablePanelClosing}

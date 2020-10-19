@@ -38,51 +38,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
   switch (action.type) {
   // APP
 
-    case types.APP_USERINFO_REQUEST:
-
-      return {
-        ...state,
-        gettingUserInfo: true
-      }
-
-    case types.APP_USERINFO_SUCCESS:
-    case types.APP_USERINFO_FAILURE:
-
-      return {
-        ...state,
-        gettingUserInfo: false
-      }
-
-    case types.APP_PERSONINFO_REQUEST:
-
-      return {
-        ...state,
-        gettingPersonInfo: true
-      }
-
-    case types.APP_PERSONINFO_SUCCESS:
-    case types.APP_PERSONINFO_FAILURE:
-
-      return {
-        ...state,
-        gettingPersonInfo: false
-      }
-
-    case types.APP_PERSONINFO_AVDOD_REQUEST:
-
-      return {
-        ...state,
-        gettingPersonAvdodInfo: true
-      }
-
-    case types.APP_PERSONINFO_AVDOD_SUCCESS:
-    case types.APP_PERSONINFO_AVDOD_FAILURE:
-
-      return {
-        ...state,
-        gettingPersonAvdodInfo: false
-      }
-
     case types.APP_LOGIN_REQUEST: {
       return {
         ...state,
@@ -103,65 +58,80 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         isLoggingOut: true
       }
 
+    case types.APP_PERSONINFO_SUCCESS:
+    case types.APP_PERSONINFO_FAILURE:
+
+      return {
+        ...state,
+        gettingPersonInfo: false
+      }
+
+    case types.APP_PERSONINFO_REQUEST:
+
+      return {
+        ...state,
+        gettingPersonInfo: true
+      }
+
+    case types.APP_PERSONINFO_AVDOD_REQUEST:
+
+      return {
+        ...state,
+        gettingPersonAvdodInfo: true
+      }
+
+    case types.APP_PERSONINFO_AVDOD_SUCCESS:
+    case types.APP_PERSONINFO_AVDOD_FAILURE:
+
+      return {
+        ...state,
+        gettingPersonAvdodInfo: false
+      }
+
+    case types.APP_USERINFO_REQUEST:
+
+      return {
+        ...state,
+        gettingUserInfo: true
+      }
+
+    case types.APP_USERINFO_SUCCESS:
+    case types.APP_USERINFO_FAILURE:
+
+      return {
+        ...state,
+        gettingUserInfo: false
+      }
+
       // BUC
-
-    case types.BUC_GET_BUCS_REQUEST:
+    case types.BUC_CREATE_BUC_REQUEST:
 
       return {
         ...state,
-        gettingBUCs: true
+        creatingBUC: true
       }
 
-    case types.BUC_GET_BUCS_SUCCESS:
-    case types.BUC_GET_BUCS_FAILURE:
+    case types.BUC_CREATE_BUC_SUCCESS:
+    case types.BUC_CREATE_BUC_FAILURE:
+
       return {
         ...state,
-        gettingBUCs: false
+        creatingBUC: false
       }
 
-    case types.BUC_GET_PARTICIPANTS_REQUEST:
+    case types.BUC_CREATE_SED_REQUEST:
 
       return {
         ...state,
-        gettingBucDeltakere: true
+        creatingSed: true
       }
 
-    case types.BUC_GET_PARTICIPANTS_SUCCESS:
-    case types.BUC_GET_PARTICIPANTS_FAILURE:
+    case types.BUC_CREATE_SED_SUCCESS:
+    case types.BUC_CREATE_SED_FAILURE:
 
       return {
         ...state,
-        gettingBucDeltakere: false
-      }
-
-    case types.BUC_GET_BUCSINFO_REQUEST:
-
-      return {
-        ...state,
-        gettingBUCinfo: true
-      }
-
-    case types.BUC_GET_BUCSINFO_SUCCESS:
-    case types.BUC_GET_BUCSINFO_FAILURE:
-
-      return {
-        ...state,
-        gettingBUCinfo: false
-      }
-
-    case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
-
-      return {
-        ...state,
-        gettingSubjectAreaList: true
-      }
-
-    case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
-    case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
-
-      return {
-        ...state,
-        gettingSubjectAreaList: false
+        creatingSed: false
       }
 
     case types.BUC_GET_BUC_LIST_REQUEST:
@@ -179,49 +149,33 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         gettingBucList: false
       }
 
-    case types.BUC_CREATE_BUC_REQUEST:
+    case types.BUC_GET_BUCS_REQUEST:
 
       return {
         ...state,
-        creatingBUC: true
+        gettingBUCs: true
       }
 
-    case types.BUC_CREATE_BUC_SUCCESS:
-    case types.BUC_CREATE_BUC_FAILURE:
-
+    case types.BUC_GET_BUCS_SUCCESS:
+    case types.BUC_GET_BUCS_FAILURE:
       return {
         ...state,
-        creatingBUC: false
+        gettingBUCs: false
       }
 
-    case types.BUC_SAVE_BUCSINFO_REQUEST:
-      console.log('0')
+    case types.BUC_GET_BUCSINFO_REQUEST:
+
       return {
         ...state,
-        savingBucsInfo: true
+        gettingBUCinfo: true
       }
 
-    case types.BUC_SAVE_BUCSINFO_SUCCESS:
-    case types.BUC_SAVE_BUCSINFO_FAILURE:
+    case types.BUC_GET_BUCSINFO_SUCCESS:
+    case types.BUC_GET_BUCSINFO_FAILURE:
 
       return {
         ...state,
-        savingBucsInfo: false
-      }
-
-    case types.BUC_GET_SED_LIST_REQUEST:
-
-      return {
-        ...state,
-        gettingSedList: true
-      }
-
-    case types.BUC_GET_SED_LIST_SUCCESS:
-    case types.BUC_GET_SED_LIST_FAILURE:
-
-      return {
-        ...state,
-        gettingSedList: false
+        gettingBUCinfo: false
       }
 
     case types.BUC_GET_COUNTRY_LIST_REQUEST:
@@ -254,19 +208,49 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         gettingInstitutionList: false
       }
 
-    case types.BUC_CREATE_SED_REQUEST:
+    case types.BUC_GET_PARTICIPANTS_REQUEST:
 
       return {
         ...state,
-        creatingSed: true
+        gettingBucDeltakere: true
       }
 
-    case types.BUC_CREATE_SED_SUCCESS:
-    case types.BUC_CREATE_SED_FAILURE:
+    case types.BUC_GET_PARTICIPANTS_SUCCESS:
+    case types.BUC_GET_PARTICIPANTS_FAILURE:
 
       return {
         ...state,
-        creatingSed: false
+        gettingBucDeltakere: false
+      }
+
+    case types.BUC_GET_SED_LIST_REQUEST:
+
+      return {
+        ...state,
+        gettingSedList: true
+      }
+
+    case types.BUC_GET_SED_LIST_SUCCESS:
+    case types.BUC_GET_SED_LIST_FAILURE:
+
+      return {
+        ...state,
+        gettingSedList: false
+      }
+
+    case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
+
+      return {
+        ...state,
+        gettingSubjectAreaList: true
+      }
+
+    case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
+    case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
+
+      return {
+        ...state,
+        gettingSubjectAreaList: false
       }
 
     case types.BUC_RINA_GET_URL_REQUEST:
@@ -282,6 +266,20 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         rinaUrl: false
+      }
+
+    case types.BUC_SAVE_BUCSINFO_REQUEST:
+      return {
+        ...state,
+        savingBucsInfo: true
+      }
+
+    case types.BUC_SAVE_BUCSINFO_SUCCESS:
+    case types.BUC_SAVE_BUCSINFO_FAILURE:
+
+      return {
+        ...state,
+        savingBucsInfo: false
       }
 
       // JOARK

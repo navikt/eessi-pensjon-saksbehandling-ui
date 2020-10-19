@@ -31,7 +31,7 @@ describe('components/Alert/Alert', () => {
   })
 
   it('Render: has proper HTML structure with error message', () => {
-    wrapper = mount(<Alert {...initialMockProps} type='client' error={{ message: 'mockError' }} />)
+    wrapper = mount(<Alert {...initialMockProps} type='client' error='mockError' />)
     expect(wrapper.exists('.type-client')).toBeTruthy()
     expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage: mockError')
   })

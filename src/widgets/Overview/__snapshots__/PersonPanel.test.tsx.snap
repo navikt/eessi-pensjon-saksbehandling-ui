@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Overview/PersonPanel Renders 1`] = `
+exports[`widgets/Overview/PersonPanel Render: match snapshot 1`] = `
 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -29,22 +29,46 @@ ui-fss.g3[id="c4"] {
   content: "c6,";
 }
 
+.c13 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+ui-fss.g5[id="c12"] {
+  content: "c13,";
+}
+
 .c9 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-ui-fss.g5[id="c8"] {
+ui-fss.g6[id="c8"] {
   content: "c9,";
 }
 
-.c13 {
+.c11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+
+ui-fss.g19[id="c10"] {
+  content: "c11,";
+}
+
+.c15 {
   margin: 1.5rem;
   border-color: !important;
 }
 
-ui-fss.g19[id="c12"] {
-  content: "c13,";
+ui-fss.g20[id="c14"] {
+  content: "c15,";
 }
 
 .c3 {
@@ -55,7 +79,7 @@ ui-fss.g19[id="c12"] {
   display: flex;
 }
 
-ui-fss.g20[id="c1"] {
+ui-fss.g21[id="c1"] {
   content: "c3,";
 }
 
@@ -71,23 +95,8 @@ ui-fss.g20[id="c1"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g21[id="c5"] {
+ui-fss.g22[id="c5"] {
   content: "c7,";
-}
-
-.c11 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-}
-
-ui-fss.g22[id="c10"] {
-  content: "c11,";
 }
 
 @media (min-width:768px) {
@@ -321,6 +330,19 @@ ui-fss.g22[id="c10"] {
       "vergeListe": Array [],
     }
   }
+  personAvdods={
+    Array [
+      Object {
+        "aktoerId": "2865434801175",
+        "etternavn": "BLYANT",
+        "fnr": "12345678902",
+        "fornavn": "FRODIG",
+        "fulltNavn": "BLYANT FRODIG",
+        "mellomnavn": null,
+        "relasjon": "REPA",
+      },
+    ]
+  }
 >
   <styled.div>
     <div
@@ -410,6 +432,7 @@ ui-fss.g22[id="c10"] {
                         className="typo-normal"
                       >
                         <ForwardRef(Tooltip)
+                          key="ui:gatenavnKJEMPEBAKKENVEIEN"
                           overlay={
                             <span>
                               ui:gatenavn
@@ -685,14 +708,15 @@ ui-fss.g22[id="c10"] {
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
-                        <styled.div
+                        <styled.span
                           key="0"
                         >
-                          <div
-                            className="c8 c9"
+                          <span
+                            className="c12 c13"
                           />
-                        </styled.div>
+                        </styled.span>
                         <ForwardRef(Tooltip)
+                          key="ui:husnummer12"
                           overlay={
                             <span>
                               ui:husnummer
@@ -972,6 +996,7 @@ ui-fss.g22[id="c10"] {
                           key="2"
                         />
                         <ForwardRef(Tooltip)
+                          key="ui:poststed5036"
                           overlay={
                             <span>
                               ui:poststed
@@ -1247,14 +1272,15 @@ ui-fss.g22[id="c10"] {
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
-                        <styled.div
+                        <styled.span
                           key="5"
                         >
-                          <div
-                            className="c8 c9"
+                          <span
+                            className="c12 c13"
                           />
-                        </styled.div>
+                        </styled.span>
                         <ForwardRef(Tooltip)
+                          key="ui:cityBERGEN"
                           overlay={
                             <span>
                               ui:city
@@ -1727,7 +1753,7 @@ ui-fss.g22[id="c10"] {
       </Styled(styled.div)>
       <styled.hr>
         <hr
-          className="c12 c13"
+          className="c14 c15"
         />
       </styled.hr>
       <Styled(styled.div)>
@@ -1802,6 +1828,7 @@ ui-fss.g22[id="c10"] {
                         className="typo-normal"
                       >
                         <ForwardRef(Tooltip)
+                          key="ui:adresseNYACHAE"
                           overlay={
                             <span>
                               ui:adresse
@@ -2081,6 +2108,7 @@ ui-fss.g22[id="c10"] {
                           key="0"
                         />
                         <ForwardRef(Tooltip)
+                          key="ui:adresseS-BHF ORANIENBURGER STR."
                           overlay={
                             <span>
                               ui:adresse
@@ -2360,6 +2388,7 @@ ui-fss.g22[id="c10"] {
                           key="1"
                         />
                         <ForwardRef(Tooltip)
+                          key="ui:adresse20095"
                           overlay={
                             <span>
                               ui:adresse
@@ -2639,6 +2668,7 @@ ui-fss.g22[id="c10"] {
                           key="2"
                         />
                         <ForwardRef(Tooltip)
+                          key="ui:countrySverige"
                           overlay={
                             <span>
                               ui:country
@@ -3015,13 +3045,85 @@ ui-fss.g22[id="c10"] {
       </Styled(styled.div)>
       <styled.hr>
         <hr
-          className="c12 c13"
+          className="c14 c15"
         />
       </styled.hr>
       <Styled(styled.div)>
         <div
           className="c0 c1 c2 c3"
         >
+          <Styled(styled.div)>
+            <div
+              className="c4 c5 c6 c7"
+            >
+              <LineVersionPersonIcon
+                color="black"
+              >
+                <svg
+                  color="black"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 23.5h11.5s0-2.057-1-4.057c-.746-1.491-4-2.5-8-4v-3s1.5-1 1.5-3c.5 0 1-2 0-2.5 0-.297 1.339-2.801 1-4.5-.5-2.5-7.5-2.5-8-.5-3 0-1 4.594-1 5-1 .5-.5 2.5 0 2.5 0 2 1.5 3 1.5 3v3c-4 1.5-7.255 2.509-8 4-1 2-1 4.057-1 4.057h11.5z"
+                    fill="none"
+                    stroke="#000"
+                    strokeLinejoin="round"
+                    strokeMiterlimit="10"
+                  />
+                </svg>
+              </LineVersionPersonIcon>
+              <styled.div>
+                <div
+                  className="c8 c9"
+                />
+              </styled.div>
+              <Undertekst>
+                <TypografiBase
+                  type="undertekst"
+                >
+                  <p
+                    className="typo-undertekst"
+                  >
+                    <strong>
+                      ui:deceased
+                    </strong>
+                    :
+                  </p>
+                </TypografiBase>
+              </Undertekst>
+              <div>
+                <styled.div
+                  id="w-overview-personPanel__element-deceased"
+                  key="12345678902"
+                >
+                  <div
+                    className="c10 c11"
+                    id="w-overview-personPanel__element-deceased"
+                  >
+                    <styled.div>
+                      <div
+                        className="c8 c9"
+                      />
+                    </styled.div>
+                    <Normaltekst>
+                      <TypografiBase
+                        type="normaltekst"
+                      >
+                        <p
+                          className="typo-normal"
+                        >
+                          FRODIG BLYANT - 12345678902 (buc:relasjon-REPA)
+                        </p>
+                      </TypografiBase>
+                    </Normaltekst>
+                  </div>
+                </styled.div>
+              </div>
+            </div>
+          </Styled(styled.div)>
           <Styled(styled.div)>
             <div
               className="c4 c5 c6 c7"

@@ -50,7 +50,7 @@ ui-fss.g4[id="c4"] {
   line-height: inherit;
 }
 
-ui-fss.g14[id="c8"] {
+ui-fss.g15[id="c8"] {
   content: "c10,";
 }
 
@@ -60,7 +60,7 @@ ui-fss.g14[id="c8"] {
   text-align: center;
 }
 
-ui-fss.g18[id="c6"] {
+ui-fss.g19[id="c6"] {
   content: "c7,";
 }
 
@@ -85,7 +85,7 @@ ui-fss.g18[id="c6"] {
   justify-content: center;
 }
 
-ui-fss.g19[id="c0"] {
+ui-fss.g20[id="c0"] {
   content: "c1,";
 }
 
@@ -93,7 +93,7 @@ ui-fss.g19[id="c0"] {
   min-width: 50%;
 }
 
-ui-fss.g20[id="c9"] {
+ui-fss.g21[id="c9"] {
   content: "c11,";
 }
 
@@ -104,7 +104,7 @@ ui-fss.g20[id="c9"] {
   border-bottom: 1px solid;
 }
 
-ui-fss.g21[id="c14"] {
+ui-fss.g22[id="c14"] {
   content: "c15,";
 }
 
@@ -112,7 +112,7 @@ ui-fss.g21[id="c14"] {
   height: 110px;
 }
 
-ui-fss.g23[id="c2"] {
+ui-fss.g24[id="c2"] {
   content: "c3,";
 }
 

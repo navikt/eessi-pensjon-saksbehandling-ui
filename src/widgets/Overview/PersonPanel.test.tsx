@@ -1,14 +1,16 @@
 import { mount, ReactWrapper } from 'enzyme'
+import personAvdod from 'mocks/app/personAvdod'
 import React from 'react'
 import mockPerson from 'mocks/app/person'
-import PersonPanel, { PersonPanelProps } from './PersonPanel'
+import PersonPanel, { PersonPanelDiv, PersonPanelProps } from './PersonPanel'
 
 describe('widgets/Overview/PersonPanel', () => {
   let wrapper: ReactWrapper
   const initialMockProps: PersonPanelProps = {
     highContrast: false,
+    locale: 'nb',
     person: mockPerson.person,
-    locale: 'nb'
+    personAvdods: personAvdod(1)
   }
 
   beforeEach(() => {
@@ -19,32 +21,32 @@ describe('widgets/Overview/PersonPanel', () => {
     wrapper.unmount()
   })
 
-  it('Renders', () => {
+  it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Renders empty with no person', () => {
+  it('Render: returns empty with no person', () => {
     wrapper.setProps({ person: undefined })
     expect(wrapper.isEmptyRender()).toBeTruthy()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.w-overview-personPanel__content')).toBeTruthy()
+  it('Render: has proper HTML structure', () => {
+    expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').render().text()).toEqual(
-      'ui:bostedsadresse:KJEMPEBAKKENVEIEN125036BERGEN')
+    expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').hostNodes().render().text()).toEqual(
+      'ui:bostedsadresse:' + 'KJEMPEBAKKENVEIEN' + '12' + '5036' + 'BERGEN')
 
     expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-birthdate').render().text()).toEqual(
-      'ui:birthdate:26.07.1929')
+    expect(wrapper.find('#w-overview-personPanel__element-birthdate').hostNodes().render().text()).toEqual(
+      'ui:birthdate:' + '26.07.1929')
 
     expect(wrapper.find('svg[kind="nav-work"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-nationality').render().text()).toEqual(
-      'ui:nationality:Danmark')
+    expect(wrapper.find('#w-overview-personPanel__element-nationality').hostNodes().render().text()).toEqual(
+      'ui:nationality:' + 'Danmark')
   })
 
-  it('Empty value renders not registered', () => {
+  it('Render: Empty value renders not registered', () => {
     wrapper.setProps({
       person: {
         ...mockPerson.person,
@@ -52,15 +54,15 @@ describe('widgets/Overview/PersonPanel', () => {
         foedselsdato: null
       }
     })
-    expect(wrapper.exists('.w-overview-personPanel__content')).toBeTruthy()
+    expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').render().text()).toEqual(
-      'ui:bostedsadresse:ui:notRegistered')
-    expect(wrapper.find('#w-overview-personPanel__element-birthdate').render().text()).toEqual(
-      'ui:birthdate:ui:notRegistered')
+    expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').hostNodes().render().text()).toEqual(
+      'ui:bostedsadresse:' + 'ui:notRegistered')
+    expect(wrapper.find('#w-overview-personPanel__element-birthdate').hostNodes().render().text()).toEqual(
+      'ui:birthdate:' + 'ui:notRegistered')
   })
 
-  it('gets dates converted properly', () => {
+  it('Render: gets dates converted properly', () => {
     wrapper.setProps({
       person: {
         ...mockPerson.person,
@@ -78,7 +80,7 @@ describe('widgets/Overview/PersonPanel', () => {
         }
       }
     })
-    expect(wrapper.find('#w-overview-personPanel__element-marital-status').render().text()).toEqual(
+    expect(wrapper.find('#w-overview-personPanel__element-marital-status').hostNodes().render().text()).toEqual(
       'ui:marital-status:ui:widget-overview-maritalstatus-Mock (01.01.1970 - 31.12.1980)')
   })
 })
