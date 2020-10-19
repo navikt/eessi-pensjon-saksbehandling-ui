@@ -1,7 +1,6 @@
-import { Bucs } from 'declarations/buc'
 import _ from 'lodash'
 
-const mockBuc: Bucs = [
+const mockBuc = [
   {
     type: 'P_BUC_01',
     readOnly: false,

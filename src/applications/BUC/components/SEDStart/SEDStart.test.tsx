@@ -101,7 +101,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
 
   it('UseEffect: getSedList with valid replySed ', () => {
     (setSedList as jest.Mock).mockReset()
-    wrapper = mount(<SEDStart {...initialMockProps} replySed={mockReplySed} currentSed={mockCurrentSed}/>)
+    wrapper = mount(<SEDStart {...initialMockProps} replySed={mockReplySed} currentSed={mockCurrentSed} />)
     expect(setSedList).toHaveBeenCalledWith(['P6000'])
   })
 

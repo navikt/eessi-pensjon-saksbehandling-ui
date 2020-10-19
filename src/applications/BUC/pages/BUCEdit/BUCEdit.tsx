@@ -90,7 +90,7 @@ export interface BUCEditSelector {
   highContrast: boolean
   locale: AllowedLocaleString,
   newlyCreatedSed: Sed | undefined,
-  newlyCreatedSedTime: Date | undefined
+  newlyCreatedSedTime: number | undefined
   personAvdods: PersonAvdods | undefined
   replySed: Sed | undefined
 }
@@ -293,7 +293,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   newSed={(
                     newlyCreatedSed && newlyCreatedSedTime &&
                     newlyCreatedSed.id === sed.id &&
-                    ((new Date().getTime() - newlyCreatedSedTime?.getTime()) < 5 * 60 * 1000)
+                    ((Date.now() - newlyCreatedSedTime) < 5 * 60 * 1000)
                   ) || false}
                   onSEDNew={onSEDNew}
                 />
