@@ -140,6 +140,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const generateFlagItems = (): FlagItems => {
     const institutionList: InstitutionListMap<string> = {}
     buc.deltakere!.forEach((institution: Institution) => {
+      if ( institution.country === 'NO' && institution.institution === 'NO:NAVAT08') {
+        institution.country = 'AQ'
+      }
       if (Object.prototype.hasOwnProperty.call(institutionList, institution.country)) {
         institutionList[institution.country].push(institution.institution)
       } else {
