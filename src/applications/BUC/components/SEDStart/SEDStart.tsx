@@ -329,6 +329,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
   }
 
+  const bucHasSedsWithAtLeastOneInstitution = (): boolean => {
+    if (_buc.seds) {
+      return _.find(_buc.seds, sed => _.isArray(sed.participants) && !_.isEmpty(sed.participants)) !== undefined
+    }
+    return false
+  }
+
   const updateValidation = useCallback((_key: string, validationError: FeiloppsummeringFeil | undefined) => {
     if (!validationError) {
       const newValidation = _.cloneDeep(_validation)
@@ -490,13 +497,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const onRowViewDelete = (newAttachments: JoarkBrowserItems): void => {
     setSedAttachments(newAttachments)
-  }
-
-  const bucHasSedsWithAtLeastOneInstitution = (): boolean => {
-    if (_buc.seds) {
-      return _.find(_buc.seds, sed => _.isArray(sed.participants) && !_.isEmpty(sed.participants)) !== undefined
-    }
-    return false
   }
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
