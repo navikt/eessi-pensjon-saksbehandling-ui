@@ -329,12 +329,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
   }
 
-  const bucHasSedsWithAtLeastOneInstitution = (): boolean => {
+  const bucHasSedsWithAtLeastOneInstitution = useCallback((): boolean => {
     if (_buc.seds) {
       return _.find(_buc.seds, sed => _.isArray(sed.participants) && !_.isEmpty(sed.participants)) !== undefined
     }
     return false
-  }
+  }, [_buc])
 
   const updateValidation = useCallback((_key: string, validationError: FeiloppsummeringFeil | undefined) => {
     if (!validationError) {
