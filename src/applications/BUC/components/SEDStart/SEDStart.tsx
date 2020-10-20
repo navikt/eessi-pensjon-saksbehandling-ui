@@ -816,12 +816,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 hideSelectedOptions={false}
                 highContrast={highContrast}
                 id='a-buc-c-sedstart__country-select-id'
-                includeList={countryList}
+                includeList={_countryObjectList}
                 isLoading={loading.gettingCountryList}
                 isMulti
                 label={t('ui:country')}
                 onOptionSelected={onCountriesChange}
-                options={_countryObjectList}
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
                 value={_countryValueList}
               />
