@@ -820,6 +820,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 isLoading={loading.gettingCountryList}
                 isMulti
                 label={t('ui:country')}
+                options={_countryObjectList}
                 onOptionSelected={onCountriesChange}
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
                 value={_countryValueList}
