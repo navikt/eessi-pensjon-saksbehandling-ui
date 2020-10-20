@@ -349,7 +349,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const validateInstitutions = (institutions: InstitutionRawList): FeiloppsummeringFeil | undefined => {
-    if (_.isEmpty(institutions)) {
+    if (!bucHasSedsWithAtLeastOneInstitution() && _.isEmpty(institutions)) {
       return {
         feilmelding: t('buc:validation-chooseInstitution'),
         skjemaelementId: 'a-buc-c-sedstart__institution-select-id'
@@ -359,7 +359,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const validateCountries = useCallback((country: CountryRawList): FeiloppsummeringFeil | undefined => {
-    if (_.isEmpty(country)) {
+    if (!bucHasSedsWithAtLeastOneInstitution() && _.isEmpty(country)) {
       return {
         feilmelding: t('buc:validation-chooseCountry'),
         skjemaelementId: 'a-buc-c-sedstart__country-select-id'
@@ -495,9 +495,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const bucHasSedsWithAtLeastOneInstitution = (): boolean => {
     if (_buc.seds) {
-      return _(_buc.seds).find(sed => {
-        return _.isArray(sed.participants) && !_.isEmpty(sed.participants)
-      }) !== undefined
+      return _.find(_buc.seds, sed => _.isArray(sed.participants) && !_.isEmpty(sed.participants)) !== undefined
     }
     return false
   }
@@ -534,10 +532,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const performValidation = (): boolean => {
     const validation: Validation = {}
     validation.sed = validateSed(_sed)
-    if (!bucHasSedsWithAtLeastOneInstitution()) {
-      validation.institution = validateInstitutions(_institutions)
-      validation.country = validateCountries(_countries)
-    }
+    validation.institution = validateInstitutions(_institutions)
+    validation.country = validateCountries(_countries)
+
     if (sedNeedsVedtakId()) {
       validation.vedtakid = validateVedtakId(_vedtakId)
     }
