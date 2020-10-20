@@ -815,12 +815,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 highContrast={highContrast}
                 id='a-buc-c-sedstart__country-select-id'
                 includeList={_countryIncludeList}
+                initialValue={_countryValueList}
                 isLoading={loading.gettingCountryList}
                 isMulti
                 label={t('ui:country')}
                 onOptionSelected={onCountriesChange}
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
-                value={_countryValueList}
               />
               <VerticalSeparatorDiv />
               <MultipleSelect<GroupType<Option> | Option>
