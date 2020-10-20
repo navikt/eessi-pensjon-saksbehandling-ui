@@ -237,15 +237,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const _buc: Buc = _.cloneDeep(bucs[currentBuc!])
-  const _countryData: CountryList = CountryData.getCountryInstance(locale)
-  const _countryObjectList = countryList ? _countryData.filterByValueOnArray(countryList).sort(labelSorter) : []
   const [_countries, setCountries] = useState<CountryRawList>(prefill('countryCode'))
-  const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
+  const _countryData: CountryList = CountryData.getCountryInstance(locale)
   const [_institutions, setInstitutions] = useState<InstitutionRawList>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
-  const _institutionObjectList: Array<GroupType<Option>> = []
-  let _institutionValueList: Options = []
   const [_mounted, setMounted] = useState<boolean>(false)
   const _notHostInstitution = (institution: RawInstitution) : boolean => institution.id !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
@@ -257,6 +253,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_vedtakId, setVedtakId] = useState<string | undefined>(vedtakId)
 
   // QUESTIONS
+
+  const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' && _buc?.creator?.institution !== 'NO:NAVAT08'
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
@@ -278,13 +276,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return sedNeedsAvdod() &&
     (!personAvdods || _.isEmpty(personAvdods)) &&
     pesysContext !== constants.VEDTAKSKONTEKST &&
-      (
-        (
-          _buc?.creator?.country !== 'NO' ||
-          (_buc?.creator?.country === 'NO' && _buc?.creator?.institution === 'NO:NAVAT08')
-        ) ||
-        sedNeedsAvdodBrukerQuestion()
-      )
+    (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion())
   }
 
   const sedCanHaveAttachments = useCallback((): boolean => {
@@ -293,7 +285,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const isNumber = (string: string): boolean => string.match(/^\d+$/g) !== null
 
-  //
+  // Manage Institution / country options
+
+  const _countryObjectList = countryList ? _countryData.filterByValueOnArray(
+    isNorwayCaseOwner() ? countryList : ['NO']
+  ).sort(labelSorter) : []
+  const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
+  const _institutionObjectList: Array<GroupType<Option>> = []
+  let _institutionValueList: Options = []
 
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
@@ -366,7 +365,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } as FeiloppsummeringFeil
     }
     return undefined
-  }, [t])
+  }, [t, bucHasSedsWithAtLeastOneInstitution])
 
   const validateVedtakId = (vedtakId: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!vedtakId) {
