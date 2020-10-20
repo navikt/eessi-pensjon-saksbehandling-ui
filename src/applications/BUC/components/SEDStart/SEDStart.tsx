@@ -287,9 +287,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   // Manage Institution / country options
 
-  const _countryObjectList = countryList ? _countryData.filterByValueOnArray(
-    isNorwayCaseOwner() ? countryList : ['NO']
-  ).sort(labelSorter) : []
+  const _countryIncludeList: CountryRawList = countryList ? (isNorwayCaseOwner() ? countryList : ['NO']) : []
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
   const _institutionObjectList: Array<GroupType<Option>> = []
   let _institutionValueList: Options = []
@@ -816,11 +814,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 hideSelectedOptions={false}
                 highContrast={highContrast}
                 id='a-buc-c-sedstart__country-select-id'
-                includeList={_countryObjectList}
+                includeList={_countryIncludeList}
                 isLoading={loading.gettingCountryList}
                 isMulti
                 label={t('ui:country')}
-                options={_countryObjectList}
                 onOptionSelected={onCountriesChange}
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
                 value={_countryValueList}
