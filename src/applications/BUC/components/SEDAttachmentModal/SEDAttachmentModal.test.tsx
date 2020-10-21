@@ -1,4 +1,3 @@
-import { AlertStatus } from 'declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
 import joarkBrowserItems from 'mocks/joark/items'
 import React from 'react'

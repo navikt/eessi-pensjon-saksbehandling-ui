@@ -1,4 +1,10 @@
-import { fetchBucsInfo, fetchSingleBuc, getInstitutionsListForBucAndCountry, setCurrentBuc } from 'actions/buc'
+import {
+  fetchBucsInfo,
+  fetchBucsWithAvdodFnr,
+  fetchSingleBuc,
+  getInstitutionsListForBucAndCountry,
+  setCurrentBuc
+} from 'actions/buc'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
@@ -8,11 +14,14 @@ import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import { animationClose, animationOpen, slideInFromLeft } from 'components/keyframes'
 import {
+  HighContrastHovedknapp,
+  HighContrastInput,
   HighContrastKnapp,
   HighContrastLenkepanelBase,
-  HighContrastPanel,
+  HighContrastPanel, HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
+import { BRUKERKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
 import { AllowedLocaleString, Loading, PesysContext } from 'declarations/app.d'
 import {
@@ -24,10 +33,12 @@ import {
   InstitutionListMap,
   Participant,
   RawInstitution,
+  SakTypeMap,
+  SakTypeValue,
   Sed
-} from 'declarations/buc'
-import { State } from 'declarations/reducers'
+} from 'declarations/buc.d'
 import { PersonAvdods } from 'declarations/person.d'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -99,6 +110,10 @@ export const BUCStartDiv = styled.div`
   }
 `
 export const BUCLoadingDiv = styled.div``
+const FlexDiv = styled.div`
+  display: flex;
+  align-items: flex-end;
+`
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -117,6 +132,7 @@ export interface BUCListSelector {
   newlyCreatedBuc: Buc | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
+  sakType: SakTypeValue | undefined
 }
 
 const mapState = (state: State): BUCListSelector => ({
@@ -130,7 +146,8 @@ const mapState = (state: State): BUCListSelector => ({
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
   personAvdods: state.app.personAvdods,
-  pesysContext: state.app.pesysContext
+  pesysContext: state.app.pesysContext,
+  sakType: state.app.params.sakType as SakTypeValue
 })
 
 const BUCList: React.FC<BUCListProps> = ({
@@ -138,16 +155,18 @@ const BUCList: React.FC<BUCListProps> = ({
 }: BUCListProps): JSX.Element => {
   const {
     aktoerId, bucs, bucsInfo, bucsInfoList, highContrast, institutionList, loading,
-    newlyCreatedBuc, personAvdods, pesysContext
+    newlyCreatedBuc, personAvdods, pesysContext, sakType
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
   const [_loggedTime] = useState<Date>(new Date())
+  const [_avdodfnr, setAvdodFnr] = useState<string>('')
   const [_mounted, setMounted] = useState<boolean>(false)
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
+  const [_validation, setValidation] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     standardLogger('buc.list.entrance')
@@ -169,6 +188,23 @@ const BUCList: React.FC<BUCListProps> = ({
   const onBUCNew = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
     setNewBucPanelOpen(true)
+  }
+
+  const performValidation = (): boolean => _avdodfnr.match(/^\d{11}$/) !== null
+
+  const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setValidation(undefined)
+    setAvdodFnr(e.target.value)
+  }
+
+  const onAvdodFnrButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    const valid = performValidation()
+    if (valid) {
+      setNewBucPanelOpen(false)
+      dispatch(fetchBucsWithAvdodFnr(aktoerId, _avdodfnr))
+    } else {
+      setValidation(t('buc:validation-badAvdodFnr'))
+    }
   }
 
   const onBUCEdit = (buc: Buc): void => {
@@ -259,6 +295,39 @@ const BUCList: React.FC<BUCListProps> = ({
             </HighContrastKnapp>
           )}
         </BUCListHeader>
+        {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && (
+          <>
+            <VerticalSeparatorDiv data-size='2' />
+            <BadBucDiv>
+              <Alertstripe type='advarsel'>
+                {t('buc:form-noBUCsFound')}
+              </Alertstripe>
+            </BadBucDiv>
+            <VerticalSeparatorDiv data-size='2' />
+            {pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
+              <>
+                <FlexDiv>
+                  <HighContrastInput
+                    bredde='M'
+                    data-test-id='a-buc-p-buclist__avdod-input-id'
+                    feil={_validation || false}
+                    id='a-buc-p-buclist__avdod-input-id'
+                    label={t('buc:form-chooseAvdodFnr')}
+                    onChange={onAvdodFnrChange}
+                    value={_avdodfnr || ''}
+                  />
+                  <HorizontalSeparatorDiv />
+                  <HighContrastHovedknapp
+                    onClick={onAvdodFnrButtonClick}
+                  >
+                    {t('ui:send')}
+                  </HighContrastHovedknapp>
+                </FlexDiv>
+                <VerticalSeparatorDiv data-size='2' />
+              </>
+            )}
+          </>
+        )}
         <VerticalSeparatorDiv />
         <BUCStartDiv className={classNames({
           open: _newBucPanelOpen === true,
@@ -296,8 +365,8 @@ const BUCList: React.FC<BUCListProps> = ({
             </Normaltekst>
           </>
         )}
-        {!loading.gettingBUCs && !_.isNil(bucs) && (!_.isEmpty(bucs)
-          ? Object.keys(bucs).map(key => bucs[key])
+        {!loading.gettingBUCs && !_.isNil(bucs) && !_.isEmpty(bucs) &&
+          Object.keys(bucs).map(key => bucs[key])
             .filter(bucFilter)
             .filter(pbuc02filter(pesysContext, personAvdods))
             .sort(bucSorter)
@@ -334,16 +403,7 @@ const BUCList: React.FC<BUCListProps> = ({
                   />
                 </BucLenkePanel>
               )
-            })
-          : (
-            <>
-              <VerticalSeparatorDiv data-size='2' />
-              <Normaltekst>
-                {t('buc:form-noBUCsFound')}
-              </Normaltekst>
-            </>
-          )
-        )}
+            })}
         <BUCFooter />
       </BUCListDiv>
     </ThemeProvider>

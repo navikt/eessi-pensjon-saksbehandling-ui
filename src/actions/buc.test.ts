@@ -156,6 +156,21 @@ describe('actions/buc', () => {
     }))
   })
 
+  it('fetchBucsWithAvdodfnr()', () => {
+    const mockAktoerId = '123'
+    const mockAvdodfnr = '456'
+    bucActions.fetchBucsWithAvdodFnr(mockAktoerId, mockAvdodfnr)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_BUCS_REQUEST,
+        success: types.BUC_GET_BUCS_SUCCESS,
+        failure: types.BUC_GET_BUCS_FAILURE
+      },
+      cascadeFailureError: true,
+      url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: mockAktoerId, avdodfnr: mockAvdodfnr })
+    }))
+  })
+
   it('fetchBucsWithVedtakId()', () => {
     const mockAktoerId = '123'
     const mockVedtakId = '456'

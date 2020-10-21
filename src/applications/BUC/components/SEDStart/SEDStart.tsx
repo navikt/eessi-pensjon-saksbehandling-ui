@@ -254,7 +254,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   // QUESTIONS
 
-  const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' && _buc?.creator?.institution !== 'NO:NAVAT08'
+  const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' &&
+    (_buc?.creator?.institution !== 'NO:NAVAT08' && _buc?.creator?.institution !== 'NO:NAVAT06')
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 

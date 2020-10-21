@@ -41,7 +41,7 @@
     "i18next-xhr-backend": "^3.2.2",
     "js-fetch-api": "^1.0.3",
     "land-verktoy": "^1.0.3",
-    "landvelger": "^1.1.0",
+    "landvelger": "^1.1.1",
     "lodash": "^4.17.20",
     "lodash.throttle": "^4.1.1",
     "md5": "^2.3.0",

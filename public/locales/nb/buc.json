@@ -230,7 +230,8 @@
 
   "validation-badKravDato"          : "Ugyldig krav dato, vennligst bruk DD-MM-ÅÅÅÅ",
   "validation-chooseAvdod"          : "Velg avdød",
-  "validation-chooseAvdodFnr"       : "Velg avdøds fnr",
+  "validation-badAvdodFnr"          : "Ugyldig avdødes F-/D-nr.",
+  "validation-chooseAvdodFnr"       : "Velg avdødes F-/D-nr.",
   "validation-chooseAvdodOrSoker"   : "Velg hvem gjelder henvendelsen",
   "validation-chooseBuc"            : "Velg en BUC",
   "validation-chooseCountry"        : "Velg et land",

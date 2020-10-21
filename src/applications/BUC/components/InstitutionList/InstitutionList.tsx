@@ -53,8 +53,10 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     institutions.forEach(item => {
       let institution: string = item.institution
       let country: string = item.country
-      console.log(item.institution, item.country)
       if (country === 'NO' && institution === 'NO:NAVAT08') {
+        country = 'AQ'
+      }
+      if (country === 'NO' && institution === 'NO:NAVAT06') {
         country = 'AQ'
       }
       if (institution && institution.startsWith(country + ':')) {

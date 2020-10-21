@@ -59,7 +59,7 @@ export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvd
   (buc: Buc) => {
     if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && (
       // 'NO:NAVAT08' in test environment should be read as a foreign institution
-      buc?.creator?.country === 'NO' && buc?.creator?.institution !== 'NO:NAVAT08'
+      buc?.creator?.country === 'NO' && (buc?.creator?.institution !== 'NO:NAVAT08' && buc?.creator?.institution !== 'NO:NAVAT06')
     )) {
       return false
     }

@@ -5515,12 +5515,7 @@ ui-fss.g79[id="c0"] {
                 highContrast={false}
                 id="a-buc-c-sedstart__country-select-id"
                 includeList={Array []}
-                isMulti={true}
-                label="ui:country"
-                onOptionSelected={[Function]}
-                options={Array []}
-                placeholder="buc:form-chooseCountry"
-                value={
+                initialValue={
                   Array [
                     Object {
                       "alpha2": "NO",
@@ -5547,6 +5542,10 @@ ui-fss.g79[id="c0"] {
                     },
                   ]
                 }
+                isMulti={true}
+                label="ui:country"
+                onOptionSelected={[Function]}
+                placeholder="buc:form-chooseCountry"
               >
                 <Component
                   theme={
@@ -5920,6 +5919,7 @@ ui-fss.g79[id="c0"] {
                           }
                         }
                         tabSelectsValue={false}
+                        value={Array []}
                       >
                         <n
                           aria-label="ui:country"
@@ -6151,7 +6151,7 @@ ui-fss.g79[id="c0"] {
                           }
                           tabIndex="0"
                           tabSelectsValue={false}
-                          value={null}
+                          value={Array []}
                         >
                           <SelectContainer
                             className="c-countrySelect__select"
@@ -6398,7 +6398,7 @@ ui-fss.g79[id="c0"] {
                                 },
                                 "tabIndex": "0",
                                 "tabSelectsValue": false,
-                                "value": null,
+                                "value": Array [],
                               }
                             }
                             setValue={[Function]}
@@ -6438,7 +6438,7 @@ ui-fss.g79[id="c0"] {
                               css={
                                 Object {
                                   "backgroundColor": "#FFFFFF",
-                                  "borderColor": "2px solid #BA3A26",
+                                  "borderColor": "1px solid #78706A",
                                   "borderRadius": "4px",
                                   "boxShadow": "none",
                                   "boxSizing": "border-box",
@@ -6451,7 +6451,7 @@ ui-fss.g79[id="c0"] {
                               onKeyDown={[Function]}
                             >
                               <div
-                                className="c-countrySelect__select css-4def05-container"
+                                className="c-countrySelect__select css-1xg2xfm-container"
                                 onKeyDown={[Function]}
                               >
                                 <Control
@@ -6700,7 +6700,7 @@ ui-fss.g79[id="c0"] {
                                       },
                                       "tabIndex": "0",
                                       "tabSelectsValue": false,
-                                      "value": null,
+                                      "value": Array [],
                                     }
                                   }
                                   setValue={[Function]}
@@ -7010,7 +7010,7 @@ ui-fss.g79[id="c0"] {
                                             },
                                             "tabIndex": "0",
                                             "tabSelectsValue": false,
-                                            "value": null,
+                                            "value": Array [],
                                           }
                                         }
                                         setValue={[Function]}
@@ -7303,7 +7303,7 @@ ui-fss.g79[id="c0"] {
                                                   },
                                                   "tabIndex": "0",
                                                   "tabSelectsValue": false,
-                                                  "value": null,
+                                                  "value": Array [],
                                                 }
                                               }
                                               setValue={[Function]}
@@ -7601,7 +7601,7 @@ ui-fss.g79[id="c0"] {
                                                   },
                                                   "tabIndex": "0",
                                                   "tabSelectsValue": false,
-                                                  "value": null,
+                                                  "value": Array [],
                                                 }
                                               }
                                               spellCheck="false"
@@ -7982,7 +7982,7 @@ ui-fss.g79[id="c0"] {
                                             },
                                             "tabIndex": "0",
                                             "tabSelectsValue": false,
-                                            "value": null,
+                                            "value": Array [],
                                           }
                                         }
                                         setValue={[Function]}
@@ -8270,7 +8270,7 @@ ui-fss.g79[id="c0"] {
                                                   },
                                                   "tabIndex": "0",
                                                   "tabSelectsValue": false,
-                                                  "value": null,
+                                                  "value": Array [],
                                                 }
                                               }
                                               setValue={[Function]}
@@ -8569,7 +8569,7 @@ ui-fss.g79[id="c0"] {
                                                   },
                                                   "tabIndex": "0",
                                                   "tabSelectsValue": false,
-                                                  "value": null,
+                                                  "value": Array [],
                                                 }
                                               }
                                               setValue={[Function]}

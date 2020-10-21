@@ -178,6 +178,21 @@ export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload<Bucs
   })
 }
 
+export const fetchBucsWithAvdodFnr: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
+  aktoerId: string, avdodfnr: string
+): ThunkResult<ActionWithPayload<Bucs>> => {
+  return call({
+    url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: aktoerId, avdodfnr: avdodfnr }),
+    cascadeFailureError: true,
+    expectedPayload: mockBucs,
+    type: {
+      request: types.BUC_GET_BUCS_REQUEST,
+      success: types.BUC_GET_BUCS_SUCCESS,
+      failure: types.BUC_GET_BUCS_FAILURE
+    }
+  })
+}
+
 export const fetchBucsWithVedtakId: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
   aktoerId: string, vedtakId: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
