@@ -23,7 +23,7 @@ export const ErrorPageDiv = styled.div`
   justify-content: center;
 `
 export const ErrorPanel = styled(HighContrastExpandingPanel)`
-  min-width: 50%;i
+  min-width: 50%;
 `
 const Line = styled.div`
    width: 60%;

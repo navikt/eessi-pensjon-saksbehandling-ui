@@ -138,6 +138,8 @@
   "form-name"                         : "Navn på SED",
   "form-newSed"                       : "ny SED",
   "form-noBUCsFound"                  : "Ingen BUC-er funnet, vennligst start ny BUC",
+  "form-noBUCsFoundOrAvdod"           : "Ingen BUC-er funnet, vennligst start ny BUC eller",
+  "form-noBUCsFoundOrAvdodLink"       : "skriv inn avdødes F-/D-nr",
   "form-noAttachmentsYet"             : "Ingen vedlegg ennå",
   "form-noAvdod"                      : "Ingen avdød",
   "form-noAvdodfnr"                   : "Ingen Avdød fnr",

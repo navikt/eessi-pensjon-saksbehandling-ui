@@ -14,10 +14,11 @@ import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import { animationClose, animationOpen, slideInFromLeft } from 'components/keyframes'
 import {
+  HighContrastExpandingPanel,
   HighContrastHovedknapp,
   HighContrastInput,
   HighContrastKnapp,
-  HighContrastLenkepanelBase,
+  HighContrastLenkepanelBase, HighContrastLink,
   HighContrastPanel, HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
@@ -114,7 +115,15 @@ const FlexDiv = styled.div`
   display: flex;
   align-items: flex-end;
 `
-
+const HighContrastAlertExpandingPanel = styled(HighContrastExpandingPanel)`
+  .ekspanderbartPanel__hode {
+    padding: 0;
+  }
+  .alertstripe {
+    width: 100%;
+    border: 0;
+  }
+`
 export interface BUCListProps {
   initialBucNew?: boolean
   setMode: (mode: BUCMode, s: string, callback?: any) => void
@@ -162,6 +171,7 @@ const BUCList: React.FC<BUCListProps> = ({
 
   const [_loggedTime] = useState<Date>(new Date())
   const [_avdodfnr, setAvdodFnr] = useState<string>('')
+  const [_expandingPanelOpen, setExpandingPanelOpen] = useState<boolean>(false)
   const [_mounted, setMounted] = useState<boolean>(false)
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
@@ -295,39 +305,6 @@ const BUCList: React.FC<BUCListProps> = ({
             </HighContrastKnapp>
           )}
         </BUCListHeader>
-        {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && (
-          <>
-            <VerticalSeparatorDiv data-size='2' />
-            <BadBucDiv>
-              <Alertstripe type='advarsel'>
-                {t('buc:form-noBUCsFound')}
-              </Alertstripe>
-            </BadBucDiv>
-            <VerticalSeparatorDiv data-size='2' />
-            {pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
-              <>
-                <FlexDiv>
-                  <HighContrastInput
-                    bredde='M'
-                    data-test-id='a-buc-p-buclist__avdod-input-id'
-                    feil={_validation || false}
-                    id='a-buc-p-buclist__avdod-input-id'
-                    label={t('buc:form-chooseAvdodFnr')}
-                    onChange={onAvdodFnrChange}
-                    value={_avdodfnr || ''}
-                  />
-                  <HorizontalSeparatorDiv />
-                  <HighContrastHovedknapp
-                    onClick={onAvdodFnrButtonClick}
-                  >
-                    {t('ui:send')}
-                  </HighContrastHovedknapp>
-                </FlexDiv>
-                <VerticalSeparatorDiv data-size='2' />
-              </>
-            )}
-          </>
-        )}
         <VerticalSeparatorDiv />
         <BUCStartDiv className={classNames({
           open: _newBucPanelOpen === true,
@@ -403,7 +380,64 @@ const BUCList: React.FC<BUCListProps> = ({
                   />
                 </BucLenkePanel>
               )
-            })}
+            })
+          }
+          {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && (
+            <>
+              <VerticalSeparatorDiv data-size='2' />
+              <BadBucDiv>
+                {pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) ? (
+                  <>
+                    <HighContrastAlertExpandingPanel
+                      highContrast={highContrast}
+                      open={_expandingPanelOpen}
+                      collapseProps={{ id: 'a-buc-c-buclist__no-buc-id' }}
+                      className={classNames({ highContrast: highContrast })}
+                      data-test-id='a-buc-c-buclist__no-buc-id'
+                      heading={(
+                        <Alertstripe type='advarsel'>
+                          <FlexDiv>
+                            {t('buc:form-noBUCsFoundOrAvdod')}
+                            <HorizontalSeparatorDiv data-size='0.5'/>
+                            <HighContrastLink
+                              href='#'
+                              onClick={() => setExpandingPanelOpen(!_expandingPanelOpen)}
+                            >
+                              {t('buc:form-noBUCsFoundOrAvdodLink')}
+                            </HighContrastLink>
+                          </FlexDiv>
+                        </Alertstripe>
+                      )}
+                    >
+                      <FlexDiv>
+                        <HighContrastInput
+                          bredde='M'
+                          data-test-id='a-buc-p-buclist__avdod-input-id'
+                          feil={_validation || false}
+                          id='a-buc-p-buclist__avdod-input-id'
+                          label={t('buc:form-chooseAvdodFnr')}
+                          onChange={onAvdodFnrChange}
+                          value={_avdodfnr || ''}
+                        />
+                        <HorizontalSeparatorDiv />
+                        <HighContrastHovedknapp
+                          onClick={onAvdodFnrButtonClick}
+                        >
+                          {t('ui:send')}
+                        </HighContrastHovedknapp>
+                      </FlexDiv>
+                    </HighContrastAlertExpandingPanel>
+                    <VerticalSeparatorDiv data-size='2' />
+                  </>
+                ) : (
+                  <Alertstripe type='advarsel'>
+                    {t('buc:form-noBUCsFound')}
+                  </Alertstripe>
+                )}
+              </BadBucDiv>
+              <VerticalSeparatorDiv data-size='2' />
+            </>
+          )}
         <BUCFooter />
       </BUCListDiv>
     </ThemeProvider>
