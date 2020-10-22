@@ -10,6 +10,7 @@ import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockPerson from 'mocks/app/person'
 import mockPersonAvdods from 'mocks/app/personAvdod'
+import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockBucList from 'mocks/buc/bucList'
 import mockTagsList from 'mocks/buc/tagsList'
@@ -36,6 +37,7 @@ const defaultSelector = {
   bucs: bucs,
   bucsInfo: {},
   currentBuc: undefined,
+  featureToggles: mockFeatureToggles,
   highContrast: false,
   loading: {},
   locale: 'nb' as AllowedLocaleString,

@@ -20,7 +20,15 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
-import { AllowedLocaleString, Loading, Option, Options, PesysContext, Validation } from 'declarations/app.d'
+import {
+  AllowedLocaleString,
+  FeatureToggles,
+  Loading,
+  Option,
+  Options,
+  PesysContext,
+  Validation
+} from 'declarations/app.d'
 import {
   Buc,
   BUCRawList,
@@ -63,6 +71,7 @@ export interface BUCStartSelector {
   bucs: Bucs | undefined
   bucsInfo?: BucsInfo | undefined
   currentBuc: string | undefined
+  featureToggles: FeatureToggles
   highContrast: boolean
   loading: Loading
   locale: AllowedLocaleString
@@ -82,6 +91,7 @@ const mapState = (state: State): BUCStartSelector => ({
   bucs: state.buc.bucs,
   bucsInfo: state.buc.bucsInfo,
   currentBuc: state.buc.currentBuc,
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
@@ -103,7 +113,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   onBucCancelled
 }: BUCStartProps): JSX.Element | null => {
   const {
-    bucList, bucParam, bucs, bucsInfo, currentBuc, highContrast,
+    bucList, bucParam, bucs, bucsInfo, currentBuc, featureToggles, highContrast,
     loading, locale, newlyCreatedBuc, person, personAvdods,
     pesysContext, sakId, sakType, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
@@ -284,7 +294,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   useEffect(() => {
     if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId, pesysContext, sakType))
+      dispatch(getBucList(sakId, featureToggles, pesysContext, sakType))
     }
   }, [bucList, dispatch, loading.gettingBucList, pesysContext, sakId, sakType])
 

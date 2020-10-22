@@ -24,7 +24,7 @@ import {
   ValidBuc, SakTypeValue
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { PesysContext } from 'declarations/app.d'
+import { FeatureToggles, PesysContext } from 'declarations/app.d'
 import { Person, PersonAvdod } from 'declarations/person.d'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import { CountryFilter } from 'land-verktoy'
@@ -141,7 +141,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
   return call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: [],//mockBucs,
+    expectedPayload: [], // mockBucs,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
@@ -223,12 +223,13 @@ export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBu
 }
 
 export const getBucList: ActionCreator<ThunkResult<ActionWithPayload<BUCRawList>>> = (
-  sakId: string, pesysContext: PesysContext, sakType: SakTypeValue
+  sakId: string, featureToggles: FeatureToggles, pesysContext: PesysContext, sakType: SakTypeValue
 ): ThunkResult<ActionWithPayload<BUCRawList>> => {
   return call({
     url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId }),
     expectedPayload: mockBucList,
     context: {
+      featureToggles: featureToggles,
       pesysContext: pesysContext,
       sakType: sakType
     },

@@ -5,6 +5,7 @@ export default {
   featureToggles: {
     P5000_VISIBLE: true,
     P_BUC_02_VISIBLE: true,
+    P_BUC_05_VISIBLE: true,
     SED_PREFILL_INSTITUTIONS: false
   }
 }

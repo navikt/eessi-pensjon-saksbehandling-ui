@@ -380,64 +380,63 @@ const BUCList: React.FC<BUCListProps> = ({
                   />
                 </BucLenkePanel>
               )
-            })
-          }
-          {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && (
-            <>
-              <VerticalSeparatorDiv data-size='2' />
-              <BadBucDiv>
-                {pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) ? (
-                  <>
-                    <HighContrastAlertExpandingPanel
-                      highContrast={highContrast}
-                      open={_expandingPanelOpen}
-                      collapseProps={{ id: 'a-buc-c-buclist__no-buc-id' }}
-                      className={classNames({ highContrast: highContrast })}
-                      data-test-id='a-buc-c-buclist__no-buc-id'
-                      heading={(
-                        <Alertstripe type='advarsel'>
-                          <FlexDiv>
-                            {t('buc:form-noBUCsFoundOrAvdod')}
-                            <HorizontalSeparatorDiv data-size='0.5'/>
-                            <HighContrastLink
-                              href='#'
-                              onClick={() => setExpandingPanelOpen(!_expandingPanelOpen)}
-                            >
-                              {t('buc:form-noBUCsFoundOrAvdodLink')}
-                            </HighContrastLink>
-                          </FlexDiv>
-                        </Alertstripe>
-                      )}
-                    >
-                      <FlexDiv>
-                        <HighContrastInput
-                          bredde='M'
-                          data-test-id='a-buc-p-buclist__avdod-input-id'
-                          feil={_validation || false}
-                          id='a-buc-p-buclist__avdod-input-id'
-                          label={t('buc:form-chooseAvdodFnr')}
-                          onChange={onAvdodFnrChange}
-                          value={_avdodfnr || ''}
-                        />
-                        <HorizontalSeparatorDiv />
-                        <HighContrastHovedknapp
-                          onClick={onAvdodFnrButtonClick}
-                        >
-                          {t('ui:send')}
-                        </HighContrastHovedknapp>
-                      </FlexDiv>
-                    </HighContrastAlertExpandingPanel>
-                    <VerticalSeparatorDiv data-size='2' />
-                  </>
-                ) : (
-                  <Alertstripe type='advarsel'>
-                    {t('buc:form-noBUCsFound')}
-                  </Alertstripe>
-                )}
-              </BadBucDiv>
-              <VerticalSeparatorDiv data-size='2' />
-            </>
-          )}
+            })}
+        {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && (
+          <>
+            <VerticalSeparatorDiv data-size='2' />
+            <BadBucDiv>
+              {pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) ? (
+                <>
+                  <HighContrastAlertExpandingPanel
+                    highContrast={highContrast}
+                    open={_expandingPanelOpen}
+                    collapseProps={{ id: 'a-buc-c-buclist__no-buc-id' }}
+                    className={classNames({ highContrast: highContrast })}
+                    data-test-id='a-buc-c-buclist__no-buc-id'
+                    heading={(
+                      <Alertstripe type='advarsel'>
+                        <FlexDiv>
+                          {t('buc:form-noBUCsFoundOrAvdod')}
+                          <HorizontalSeparatorDiv data-size='0.5' />
+                          <HighContrastLink
+                            href='#'
+                            onClick={() => setExpandingPanelOpen(!_expandingPanelOpen)}
+                          >
+                            {t('buc:form-noBUCsFoundOrAvdodLink')}
+                          </HighContrastLink>
+                        </FlexDiv>
+                      </Alertstripe>
+                    )}
+                  >
+                    <FlexDiv>
+                      <HighContrastInput
+                        bredde='M'
+                        data-test-id='a-buc-p-buclist__avdod-input-id'
+                        feil={_validation || false}
+                        id='a-buc-p-buclist__avdod-input-id'
+                        label={t('buc:form-chooseAvdodFnr')}
+                        onChange={onAvdodFnrChange}
+                        value={_avdodfnr || ''}
+                      />
+                      <HorizontalSeparatorDiv />
+                      <HighContrastHovedknapp
+                        onClick={onAvdodFnrButtonClick}
+                      >
+                        {t('ui:send')}
+                      </HighContrastHovedknapp>
+                    </FlexDiv>
+                  </HighContrastAlertExpandingPanel>
+                  <VerticalSeparatorDiv data-size='2' />
+                </>
+              ) : (
+                <Alertstripe type='advarsel'>
+                  {t('buc:form-noBUCsFound')}
+                </Alertstripe>
+              )}
+            </BadBucDiv>
+            <VerticalSeparatorDiv data-size='2' />
+          </>
+        )}
         <BUCFooter />
       </BUCListDiv>
     </ThemeProvider>
