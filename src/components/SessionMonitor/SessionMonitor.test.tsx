@@ -8,6 +8,13 @@ jest.mock('actions/ui', () => ({
   closeModal: jest.fn()
 }))
 
+Object.defineProperty(window, 'location', {
+  value: {
+    ...window.location,
+    reload: jest.fn()
+  }
+})
+
 describe('components/SessionMonitor', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SessionMonitorProps = {

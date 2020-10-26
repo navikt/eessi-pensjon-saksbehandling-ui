@@ -13,10 +13,8 @@ Enzyme.configure({ adapter: new Adapter() });
 (global as any).mount = mount;
 (global as any).act = act
 
-// eslint-disable-next-line no-undef
 HTMLCanvasElement.prototype.getContext = jest.fn()
 window.scrollTo = jest.fn()
-window.location.reload = jest.fn()
 
 const crypto = require('crypto')
 
@@ -25,7 +23,6 @@ Object.defineProperty(global.self, 'crypto', {
     getRandomValues: (arr) => crypto.randomBytes(arr.length)
   }
 })
-
 Object.defineProperty(window, 'getComputedStyle', {
   value: () => ({
     getPropertyValue: () => ('')

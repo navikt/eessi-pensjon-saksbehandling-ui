@@ -161,7 +161,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
 
   const onSedAttachmentsChanged = useCallback((sedAttachments: SEDAttachments) => {
     setItems(convertSedAttachmentsToJoarkBrowserItems(sedAttachments) || [])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setItems])
 
   useEffect(() => {

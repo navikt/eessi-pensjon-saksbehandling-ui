@@ -184,7 +184,6 @@ const BUCList: React.FC<BUCListProps> = ({
       timeLogger('buc.list.view', _loggedTime)
       timeDiffLogger('buc.list.mouseover', _totalTimeWithMouseOver)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_loggedTime])
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
@@ -207,7 +206,7 @@ const BUCList: React.FC<BUCListProps> = ({
     setAvdodFnr(e.target.value)
   }
 
-  const onAvdodFnrButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const onAvdodFnrButtonClick = (): void => {
     const valid = performValidation()
     if (valid) {
       setNewBucPanelOpen(false)

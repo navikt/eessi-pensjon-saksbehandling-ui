@@ -637,7 +637,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (replySed) {
       setSed(replySed.type)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [replySed])
 
   useEffect(() => {

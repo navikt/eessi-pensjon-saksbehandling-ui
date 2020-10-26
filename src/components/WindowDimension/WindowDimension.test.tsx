@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
 
 describe('components/WindowDimension/WindowDimension', () => {
-  const MockElement: React.FC<any> = (props: any) => {
+  const MockElement: React.FC<any> = () => {
     const { height } = useWindowDimensions()
     return (<div data-test-id='mockelement' id={'' + height} />)
   }

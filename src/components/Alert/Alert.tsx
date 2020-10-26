@@ -9,7 +9,6 @@ import PT from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type AlertStatusClasses = {[status in AlertStatus]: AlertStripeType}
 
 export type AlertType = 'client' | 'server'

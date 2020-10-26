@@ -84,7 +84,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
         </Undertekst>
         <HorizontalSeparatorDiv />
         <Normaltekst>
-          {_value.map((val: any, i: number) => val)}
+          {_value.map((val: any) => val)}
         </Normaltekst>
       </Element>
     )

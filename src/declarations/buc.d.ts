@@ -144,7 +144,6 @@ export type SakTypeKey = 'AFP'|'AFP_PRIVAT'|'ALDER'|'BARNEP'|'FAM_PL'|'GAM_YRK'|
 export type SakTypeValue = 'AFP'|'AFP Privat'|'Alderspensjon'|'Barnepensjon'|'Familiepleierytelse'|'Gammel yrkesskade'|
   'Generell'|'Gjenlevendeytelse'|'Grunnblanketter'|'Krigspensjon'|'Omsorgsopptjening'|'Uføretrygd'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const SakTypeMap: {[key in SakTypeKey]: SakTypeValue} = {
   AFP: 'AFP',
   AFP_PRIVAT: 'AFP Privat',

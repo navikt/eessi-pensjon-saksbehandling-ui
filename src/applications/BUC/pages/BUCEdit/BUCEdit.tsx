@@ -137,7 +137,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       timeLogger('buc.edit.view', loggedTime)
       timeDiffLogger('buc.edit.mouseover', _totalTimeWithMouseOver)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedTime])
 
   useEffect(() => {

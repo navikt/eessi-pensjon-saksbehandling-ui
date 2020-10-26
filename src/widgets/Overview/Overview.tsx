@@ -69,7 +69,6 @@ export const Overview: React.FC<OverviewProps> = ({
     return () => {
       timeDiffLogger('overview.mouseover', totalTimeWithMouseOver)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const dispatch = useDispatch()

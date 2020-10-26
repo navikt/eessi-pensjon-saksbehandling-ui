@@ -294,7 +294,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     return () => {
       timeDiffLogger('buc.mouseover', totalTimeWithMouseOver)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

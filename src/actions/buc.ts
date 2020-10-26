@@ -3,28 +3,28 @@ import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
+import { FeatureToggles, PesysContext } from 'declarations/app.d'
 import {
   Buc,
   BUCRawList,
   Bucs,
-  BucsInfo,
   BucsInfoRawList,
   CountryRawList,
   NewSedPayload,
   Participants,
   RawInstitutions,
   RinaUrlPayload,
+  SakTypeValue,
   SaveBucsInfoProps,
   Sed,
   SEDAttachmentPayloadWithFile,
-  SEDRawList,
   SEDP5000Payload,
+  SEDRawList,
   SubjectAreaRawList,
   TagRawList,
-  ValidBuc, SakTypeValue
+  ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { FeatureToggles, PesysContext } from 'declarations/app.d'
 import { Person, PersonAvdod } from 'declarations/person.d'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import { CountryFilter } from 'land-verktoy'
@@ -141,7 +141,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
   return call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: [], // mockBucs,
+    expectedPayload: mockBucs,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
@@ -150,7 +150,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
   })
 }
 
-export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload<BucsInfo>>> = (
+export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload<BucsInfoRawList>>> = (
   userId: string, namespace: string, file: string
 ): ThunkResult<ActionWithPayload<BucsInfoRawList>> => {
   return call({
@@ -413,7 +413,7 @@ export const setCurrentSed: ActionCreator<ActionWithPayload<{[k in string] : Sed
 
 export const sendAttachmentToSed: ActionCreator<ThunkResult<Action>> = (
   params: SEDAttachmentPayloadWithFile, joarkBrowserItem: JoarkBrowserItem
-): ActionCreator<ThunkResult<Action>> => {
+): ThunkResult<Action> => {
   return call({
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',

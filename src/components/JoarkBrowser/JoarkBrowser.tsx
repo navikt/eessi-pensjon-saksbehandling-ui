@@ -118,7 +118,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     dispatch(getJoarkItemPreview(clickedItem))
   }
 
-  const handleDelete = (itemToDelete: JoarkBrowserItem, contextFiles: JoarkBrowserItems): void => {
+  const handleDelete = (itemToDelete: JoarkBrowserItem, contextFiles: JoarkBrowserItems | undefined): void => {
     const newExistingItems: JoarkBrowserItems = _.reject(contextFiles, (item: JoarkBrowserItem) => {
       return itemToDelete.journalpostId === item.journalpostId &&
         itemToDelete.dokumentInfoId === item.dokumentInfoId
@@ -128,12 +128,12 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const renderButtonsCell = (item: JoarkBrowserItem, value: any, context: JoarkBrowserContext): JSX.Element => {
+  const renderButtonsCell = (item: JoarkBrowserItem, value: any, context: JoarkBrowserContext | undefined): JSX.Element => {
     if (item.hasSubrows) {
       return <div />
     }
-    const previewing = context.loadingJoarkPreviewFile
-    const spinner = previewing && _.isEqual(item as JoarkBrowserItem, context.clickedPreviewItem)
+    const previewing = context?.loadingJoarkPreviewFile
+    const spinner = previewing && _.isEqual(item as JoarkBrowserItem, context?.clickedPreviewItem)
     return (
       <ButtonsDiv>
         {item.journalpostId && item.dokumentInfoId && (
@@ -158,7 +158,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             onClick={(e: any) => {
               e.preventDefault()
               e.stopPropagation()
-              handleDelete(item as JoarkBrowserItem, context.existingItems)
+              handleDelete(item as JoarkBrowserItem, context?.existingItems)
             }}
           >
             <Trashcan />
@@ -305,7 +305,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       items = getItemsForViewMode(list, existingItems)
     }
     setItems(items)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [existingItems, list, mode])
 
   useEffect(() => {
