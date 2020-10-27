@@ -102,7 +102,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           <Tag>
             <span>{t('buc:form-caseType')}: </span>
             {gettingSakType && (
-              <WaitingPanel size='S' />
+              <WaitingPanel size='S' oneLine />
             )}
             {sakType && (
               <strong>{Object.values(SakTypeMap).indexOf(sakType) >= 0 ? sakType : t('ui:unknown')}</strong>

@@ -1,6 +1,7 @@
 import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import { Feature, FeatureToggles, Params, PesysContext } from 'declarations/app.d'
+import { SakTypeKey, SakTypeMap } from 'declarations/buc'
 import { PersonAvdods, Person } from 'declarations/person.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
@@ -154,7 +155,17 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
     case types.BUC_GET_SAKTYPE_SUCCESS:
 
       newParams = _.cloneDeep(state.params)
-      newParams.sakType = action.payload.sakType
+      newParams.sakType = SakTypeMap[action.payload.sakType as SakTypeKey]
+
+      return {
+        ...state,
+        params: newParams
+      }
+
+    case types.BUC_GET_SAKTYPE_FAILURE:
+
+      newParams = _.cloneDeep(state.params)
+      newParams.sakType = ''
 
       return {
         ...state,
