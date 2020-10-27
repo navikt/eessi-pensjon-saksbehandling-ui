@@ -18,6 +18,7 @@ export const initialLoadingState: LoadingState = {
   gettingInstitutionList: false,
   gettingPersonInfo: false,
   gettingPersonAvdodInfo: false,
+  gettingSakType: false,
   gettingSedList: false,
   gettingSubjectAreaList: false,
   gettingTagList: false,
@@ -221,6 +222,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingBucDeltakere: false
+      }
+
+    case types.BUC_GET_SAKTYPE_REQUEST:
+
+      return {
+        ...state,
+        gettingSakType: true
+      }
+
+    case types.BUC_GET_SAKTYPE_SUCCESS:
+    case types.BUC_GET_SAKTYPE_FAILURE:
+
+      return {
+        ...state,
+        gettingSakType: false
       }
 
     case types.BUC_GET_SED_LIST_REQUEST:

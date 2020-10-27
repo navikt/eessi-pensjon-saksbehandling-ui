@@ -3,7 +3,7 @@ import {
   fetchBucs,
   fetchBucsInfoList,
   fetchBucsWithVedtakId,
-  getRinaUrl,
+  getRinaUrl, getSakType,
   setMode
 } from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -152,7 +152,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
   waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, loading, pesysContext, rinaUrl, sakId, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, loading, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
@@ -302,6 +302,12 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       dispatch(fetchBucsInfoList(aktoerId))
     }
   }, [aktoerId, bucs, dispatch, loading.gettingBUCs, pesysContext, sakId, vedtakId])
+
+  useEffect(() => {
+    if (aktoerId && sakId && !sakType && !loading.gettingSakType) {
+      dispatch(getSakType(sakId, aktoerId))
+    }
+  }, [aktoerId, dispatch, loading.gettingSakType, sakId, sakType])
 
   useEffect(() => {
     if (bucs && !_bucs) {

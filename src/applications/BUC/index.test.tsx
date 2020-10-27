@@ -4,6 +4,7 @@ import {
   fetchBucsInfoList,
   fetchBucsWithVedtakId,
   getRinaUrl,
+  getSakType,
   setMode
 } from 'actions/buc'
 import { BUCIndex, BUCIndexDiv, BUCIndexProps, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/index'
@@ -27,6 +28,7 @@ jest.mock('actions/buc', () => ({
   fetchBucsWithVedtakId: jest.fn(),
   fetchBucParticipants: jest.fn(),
   fetchBucsInfoList: jest.fn(),
+  getSakType: jest.fn(),
   getSubjectAreaList: jest.fn(),
   getBucList: jest.fn(),
   getRinaUrl: jest.fn(),
@@ -53,7 +55,7 @@ const defaultSelector: BUCIndexSelector = {
   pesysContext: VEDTAKSKONTEKST,
   rinaUrl: undefined,
   sakId: '456',
-  sakType: undefined,
+  sakType: 'Generell',
   vedtakId: undefined
 }
 
@@ -108,6 +110,14 @@ describe('applications/BUC/index', () => {
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     expect(fetchBucsWithVedtakId).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
+  })
+
+  it('UseEffect: getting sakType', () => {
+    (getSakType as jest.Mock).mockReset()
+    stageSelector(defaultSelector, { sakType: undefined })
+    wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
+    // -1 as there is one ErrorBuc in mockBucs
+    expect(getSakType).toHaveBeenCalled()
   })
 
   it('UseEffect: when getting bucs list, get participants', () => {

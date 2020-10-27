@@ -141,6 +141,26 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       }
     }
 
+    case types.BUC_GET_SAKTYPE_REQUEST:
+
+      newParams = _.cloneDeep(state.params)
+      delete newParams.sakType
+
+      return {
+        ...state,
+        params: newParams
+      }
+
+    case types.BUC_GET_SAKTYPE_SUCCESS:
+
+      newParams = _.cloneDeep(state.params)
+      newParams.sakType = action.payload.sakType
+
+      return {
+        ...state,
+        params: newParams
+      }
+
     default:
       return state
   }

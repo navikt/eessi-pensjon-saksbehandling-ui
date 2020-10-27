@@ -9,6 +9,7 @@ const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
 const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FRONTEND_API_URL + '/eux'
+const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 
@@ -45,6 +46,9 @@ export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs/%(sakId)s'
 export const BUC_GET_SINGLE_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
+
+// PensjonController
+export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'

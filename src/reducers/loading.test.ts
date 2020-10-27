@@ -184,6 +184,18 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_PARTICIPANTS_FAILURE, 'gettingBucDeltakere')
   })
 
+  it('BUC_GET_SAKTYPE_REQUEST', () => {
+    simulateRequest(types.BUC_GET_SAKTYPE_REQUEST, 'gettingSakType')
+  })
+
+  it('BUC_GET_SAKTYPE_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_SAKTYPE_SUCCESS, 'gettingSakType')
+  })
+
+  it('BUC_GET_SAKTYPE_FAILURE', () => {
+    simulateFailure(types.BUC_GET_SAKTYPE_FAILURE, 'gettingSakType')
+  })
+
   it('BUC_GET_SED_LIST_REQUEST', () => {
     simulateRequest(types.BUC_GET_SED_LIST_REQUEST, 'gettingSedList')
   })

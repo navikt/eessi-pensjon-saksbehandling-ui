@@ -257,6 +257,21 @@ describe('actions/buc', () => {
     }))
   })
 
+  it('getSakType()', () => {
+    const mockSakId = '123'
+    const mockAktoerId = '456'
+
+    bucActions.getSakType(mockSakId, mockAktoerId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_SAKTYPE_REQUEST,
+        success: types.BUC_GET_SAKTYPE_SUCCESS,
+        failure: types.BUC_GET_SAKTYPE_FAILURE
+      },
+      url: sprintf(urls.BUC_GET_SAKTYPE_URL, { sakId: mockSakId, aktoerId: mockAktoerId })
+    }))
+  })
+
   it('getSed()', () => {
     const mockCaseId = '123'
     const mockSed = {

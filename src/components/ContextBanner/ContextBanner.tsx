@@ -1,16 +1,17 @@
 import { BUCMode } from 'applications/BUC'
+import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import ExternalLink from 'assets/icons/line-version-logout'
 import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
-import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
-import { State } from 'declarations/reducers'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { PesysContext } from 'declarations/app.d'
+import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
 import { Person } from 'declarations/person.d'
-import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { EtikettLiten } from 'nav-frontend-typografi'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -52,12 +53,14 @@ export interface ContextBannerProps {
 }
 
 export interface ContextBannerSelector {
+  gettingSakType: boolean
   person: Person | undefined
   pesysContext?: PesysContext
   sakType?: SakTypeValue
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
+  gettingSakType: state.loading.gettingSakType,
   person: state.app.person,
   pesysContext: state.app.pesysContext,
   sakType: state.app.params.sakType as SakTypeValue
@@ -67,7 +70,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   highContrast, mode
 }: ContextBannerProps): JSX.Element => {
   const { t } = useTranslation()
-  const { person, pesysContext, sakType }: ContextBannerSelector =
+  const { gettingSakType, person, pesysContext, sakType }: ContextBannerSelector =
     useSelector<State, ContextBannerSelector>(mapState)
   const _theme = highContrast ? themeHighContrast : theme
   const linkColor = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
@@ -96,12 +99,16 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             <span>{t('ui:youComeFrom')}</span>
             <strong>{pesysContext}</strong>.
           </Tag>
-          {sakType && (
-            <Tag>
-              <span>{t('buc:form-caseType')}: </span>
+          <Tag>
+            <span>{t('buc:form-caseType')}: </span>
+            {gettingSakType && (
+              <WaitingPanel size='S' />
+            )}
+            {sakType && (
               <strong>{Object.values(SakTypeMap).indexOf(sakType) >= 0 ? sakType : t('ui:unknown')}</strong>
-            </Tag>
-          )}
+            )}
+          </Tag>
+
         </Context>
         <DivWithLinks>
           <HighContrastLink

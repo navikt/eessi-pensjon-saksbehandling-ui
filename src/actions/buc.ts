@@ -38,6 +38,7 @@ import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
 import mockInstitutions from 'mocks/buc/institutions'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
+import mockSakType from 'mocks/buc/sakType'
 import mockSed from 'mocks/buc/sed'
 import mockSedList from 'mocks/buc/sedList'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
@@ -290,6 +291,20 @@ export const getRinaUrl: ActionCreator<ThunkResult<ActionWithPayload<RinaUrlPayl
       request: types.BUC_RINA_GET_URL_REQUEST,
       success: types.BUC_RINA_GET_URL_SUCCESS,
       failure: types.BUC_RINA_GET_URL_FAILURE
+    }
+  })
+}
+
+export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (
+  sakId: string, aktoerId: string
+): ThunkResult<ActionWithPayload> => {
+  return call({
+    url: sprintf(urls.BUC_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
+    expectedPayload: mockSakType,
+    type: {
+      request: types.BUC_GET_SAKTYPE_REQUEST,
+      success: types.BUC_GET_SAKTYPE_SUCCESS,
+      failure: types.BUC_GET_SAKTYPE_FAILURE
     }
   })
 }
