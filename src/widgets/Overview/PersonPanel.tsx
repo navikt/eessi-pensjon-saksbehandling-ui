@@ -197,31 +197,44 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
         <>
           <Hr />
           <MarginRow>
-            {personAvdods && personAvdods.length > 0 && (
-              <MarginColumn>
-                <PersonIcon color={highContrast ? 'white' : 'black'} />
-                <HorizontalSeparatorDiv />
-                <Undertekst>
-                  <strong>{t('ui:deceased')}</strong>:
-                </Undertekst>
-                <div>
-                  {personAvdods.map(avdod => (
-                    <Element
-                      key={avdod?.fnr}
-                      id='w-overview-personPanel__element-deceased'
-                    >
-                      <HorizontalSeparatorDiv />
-                      <Normaltekst>
-                        {avdod?.fornavn +
-                      (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                      (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                      ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
-                      </Normaltekst>
-                    </Element>
-                  ))}
-                </div>
-              </MarginColumn>
-            )}
+
+            <MarginColumn>
+              <PersonIcon color={highContrast ? 'white' : 'black'} />
+              <HorizontalSeparatorDiv />
+              <Undertekst>
+                <strong>{t('ui:deceased')}</strong>:
+              </Undertekst>
+              <div>
+                {personAvdods && (
+                  personAvdods.length > 0
+                    ? personAvdods.map(avdod => (
+                      <Element
+                        key={avdod?.fnr}
+                        id='w-overview-personPanel__element-deceased'
+                      >
+                        <HorizontalSeparatorDiv />
+                        <Normaltekst>
+                          {avdod?.fornavn +
+                          (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                          (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                          ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
+                        </Normaltekst>
+                      </Element>
+                    )) : (
+                      <Element
+                        key='noAvdod'
+                        id='w-overview-personPanel__element-deceased'
+                      >
+                        <HorizontalSeparatorDiv />
+                        <Normaltekst>
+                          {t('buc:form-noAvdod')}
+                        </Normaltekst>
+                      </Element>
+                    )
+                )}
+              </div>
+            </MarginColumn>
+
             {deathDateString ? (
               <MarginColumn>
                 <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
