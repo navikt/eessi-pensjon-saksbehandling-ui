@@ -572,7 +572,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.subject = (_buc as ValidBuc).subject
       }
       if (currentSed) {
-        dispatch(createReplySed(_buc, payload, currentSed))
+        dispatch(createReplySed(_buc, payload, currentSed.id))
       } else {
         dispatch(createSed(_buc, payload))
       }
