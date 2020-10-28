@@ -220,17 +220,17 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                           ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
                         </Normaltekst>
                       </Element>
-                    )) : (
-                      <Element
-                        key='noAvdod'
-                        id='w-overview-personPanel__element-deceased'
-                      >
-                        <HorizontalSeparatorDiv />
-                        <Normaltekst>
-                          {t('buc:form-noAvdod')}
-                        </Normaltekst>
-                      </Element>
-                    )
+                      )) : (
+                        <Element
+                          key='noAvdod'
+                          id='w-overview-personPanel__element-deceased'
+                        >
+                          <HorizontalSeparatorDiv />
+                          <Normaltekst>
+                            {t('buc:form-noAvdod')}
+                          </Normaltekst>
+                        </Element>
+                      )
                 )}
               </div>
             </MarginColumn>

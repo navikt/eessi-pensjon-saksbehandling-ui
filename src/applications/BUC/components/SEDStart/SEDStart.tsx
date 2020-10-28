@@ -193,9 +193,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         .map((sed: Sed) => {
           return sed.participants
             ? sed.participants.filter(p => p.role === 'Sender')
-              .map(p => {
-                return _.get(p.organisation, prop)
-              })
+                .map(p => {
+                  return _.get(p.organisation, prop)
+                })
             : []
         })
       : []
@@ -266,11 +266,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
       ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : (
-        personAvdods?.length === 1
-          ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP || sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP) : (
-          personAvdods?.length === 2 ? (sakType === SakTypeMap.BARNEP) : false
-          )
-      )
+          personAvdods?.length === 1
+            ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP || sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP) : (
+                personAvdods?.length === 2 ? (sakType === SakTypeMap.BARNEP) : false
+              )
+        )
     )
 
   const sedNeedsAvdodFnrInput = (): boolean => {

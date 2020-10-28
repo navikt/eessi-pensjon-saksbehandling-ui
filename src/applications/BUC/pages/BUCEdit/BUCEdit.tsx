@@ -304,7 +304,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   {t('buc:form-noSedsYet')}
                 </Normaltekst>
               </NoSedsDiv>
-            )}
+              )}
         </ContentDiv>
         <WidgetDiv>
           <BUCDetail

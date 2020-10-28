@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({
                 </SaksbehandlerUser>
                 <HorizontalSeparatorDiv />
               </>
-            )}
+              )}
           <Skillelinje />
           <NameDiv>
             {gettingUserInfo ? t('buc:loading-gettingUserInfo') : (

@@ -1,8 +1,6 @@
 {
     "app-headerTitle" : "Pensjon",
 
-
-
     "add" : "Legg til",
     "adresse" : "Adresse",
     "aktoerId" : "Aktoer ID",
@@ -48,6 +46,7 @@
     "firstVersion": "Først versjon",
     "gatenavn": "Gatenavn",
     "gatenummer": "Gatenummer",
+    "get": "Hent",
     "giveFeedback" : "Gi tilbakemelding",
     "goToRina" : "Gå til RINA",
     "help": "Hjelp",

@@ -380,11 +380,11 @@ const BUCList: React.FC<BUCListProps> = ({
                 </BucLenkePanel>
               )
             })}
-        {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && (
-          <>
-            <VerticalSeparatorDiv data-size='2' />
-            <BadBucDiv>
-              {pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) ? (
+        {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && pesysContext === BRUKERKONTEKST &&
+          (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
+            <>
+              <VerticalSeparatorDiv data-size='2' />
+              <BadBucDiv>
                 <>
                   <HighContrastAlertExpandingPanel
                     highContrast={highContrast}
@@ -421,20 +421,15 @@ const BUCList: React.FC<BUCListProps> = ({
                       <HighContrastHovedknapp
                         onClick={onAvdodFnrButtonClick}
                       >
-                        {t('ui:send')}
+                        {t('ui:get')}
                       </HighContrastHovedknapp>
                     </FlexDiv>
                   </HighContrastAlertExpandingPanel>
                   <VerticalSeparatorDiv data-size='2' />
                 </>
-              ) : (
-                <Alertstripe type='advarsel'>
-                  {t('buc:form-noBUCsFound')}
-                </Alertstripe>
-              )}
-            </BadBucDiv>
-            <VerticalSeparatorDiv data-size='2' />
-          </>
+              </BadBucDiv>
+              <VerticalSeparatorDiv data-size='2' />
+            </>
         )}
         <BUCFooter />
       </BUCListDiv>
