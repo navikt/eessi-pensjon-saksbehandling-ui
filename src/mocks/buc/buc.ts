@@ -6,10 +6,12 @@ export const mockBuc = (rinaCaseId: string) => _.find(mockBucs(), buc => buc.cas
 
 export const mockParticipants = (rinaCaseId: string) => {
   const buc = mockBuc(rinaCaseId)
-  return buc && buc.institusjon ? _.map(buc.institusjon, (i: Institution) => ({
-    organisation: {
-      countryCode: i.country,
-      id: i.institution
-    }
-  })) : []
+  return buc && buc.institusjon
+    ? _.map(buc.institusjon, (i: Institution) => ({
+        organisation: {
+          countryCode: i.country,
+          id: i.institution
+        }
+      }))
+    : []
 }

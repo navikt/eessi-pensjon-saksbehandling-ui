@@ -153,14 +153,14 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           error={error}
           onClose={onClear}
         />
-        {modal !== undefined ? (
+        {modal !== undefined && (
           <Modal
             appElement={(document.getElementById('main') || document.body)}
             highContrast={highContrast}
             modal={modal}
             onModalClose={handleModalClose}
           />
-        ) : null}
+        )}
         <SessionMonitor
           expirationTime={expirationTime!}
         />

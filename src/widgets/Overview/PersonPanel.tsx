@@ -188,7 +188,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
           {renderEntity('ui:marital-status',
             t('ui:widget-overview-maritalstatus-' + maritalStatus) +
             (maritalStatus !== 'Null' && maritalStatus !== 'Ugif' && dateString
-              ? ' (' + dateString + ')' : '')
+              ? ' (' + dateString + ')'
+              : '')
           )}
         </MarginColumn>
         <MarginColumn />
@@ -220,30 +221,33 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                           ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
                         </Normaltekst>
                       </Element>
-                      )) : (
-                        <Element
-                          key='noAvdod'
-                          id='w-overview-personPanel__element-deceased'
-                        >
-                          <HorizontalSeparatorDiv />
-                          <Normaltekst>
-                            {t('buc:form-noAvdod')}
-                          </Normaltekst>
-                        </Element>
+                      ))
+                    : (
+                      <Element
+                        key='noAvdod'
+                        id='w-overview-personPanel__element-deceased'
+                      >
+                        <HorizontalSeparatorDiv />
+                        <Normaltekst>
+                          {t('buc:form-noAvdod')}
+                        </Normaltekst>
+                      </Element>
                       )
                 )}
               </div>
             </MarginColumn>
 
-            {deathDateString ? (
-              <MarginColumn>
-                <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
-                <HorizontalSeparatorDiv />
-                {renderEntity('ui:deathdate', deathDateString)}
-              </MarginColumn>
-            ) : (
-              <MarginColumn />
-            )}
+            {deathDateString
+              ? (
+                <MarginColumn>
+                  <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+                  <HorizontalSeparatorDiv />
+                  {renderEntity('ui:deathdate', deathDateString)}
+                </MarginColumn>
+                )
+              : (
+                <MarginColumn />
+                )}
             <MarginColumn />
           </MarginRow>
         </>

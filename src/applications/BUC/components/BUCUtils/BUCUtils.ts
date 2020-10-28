@@ -22,9 +22,11 @@ export const bucSorter = (a: Buc, b: Buc): number => {
 
 export const bucFilter = (buc: Buc): boolean => {
   return !_.isEmpty(buc.error) || (
-    buc.type ? (
-      buc.type.startsWith('P_BUC') || _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
-    ) : true
+    buc.type
+      ? (
+          buc.type.startsWith('P_BUC') || _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
+        )
+      : true
   )
 }
 

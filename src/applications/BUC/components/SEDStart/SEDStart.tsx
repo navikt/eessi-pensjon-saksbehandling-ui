@@ -216,20 +216,22 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const renderOptions = (options: Array<Option | string> | undefined): Options => {
-    return options ? options.map((el: Option | string) => {
-      let label, value
-      if (typeof el === 'string') {
-        label = el
-        value = el
-      } else {
-        value = el.value || el.navn
-        label = el.label || el.navn
-      }
-      return {
-        label: getOptionLabel(label!),
-        value: value
-      } as Option
-    }) : []
+    return options
+      ? options.map((el: Option | string) => {
+          let label, value
+          if (typeof el === 'string') {
+            label = el
+            value = el
+          } else {
+            value = el.value || el.navn
+            label = el.label || el.navn
+          }
+          return {
+            label: getOptionLabel(label!),
+            value: value
+          } as Option
+        })
+      : []
   }
 
   const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
@@ -265,11 +267,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
-      ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : (
-          personAvdods?.length === 1
-            ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP || sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP) : (
-                personAvdods?.length === 2 ? (sakType === SakTypeMap.BARNEP) : false
-              )
+      ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+      : (personAvdods?.length === 1
+          ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP || sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
+          : (personAvdods?.length === 2
+              ? (sakType === SakTypeMap.BARNEP)
+              : false
+            )
         )
     )
 
@@ -419,9 +423,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!_buc) {
       return
     }
-    const newCountries: CountryRawList = countries ? countries.map(item => {
-      return item.value
-    }) : []
+    const newCountries: CountryRawList = countries
+      ? countries.map(item => item.value)
+      : []
 
     const oldCountriesList: CountryRawList = _.cloneDeep(_countries)
     const addedCountries: CountryRawList = newCountries.filter(country => !oldCountriesList.includes(country))
@@ -446,9 +450,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const newAvdod: PersonAvdod | undefined = e.target.value ? {
-      fnr: e.target.value
-    } as PersonAvdod : undefined
+    const newAvdod: PersonAvdod | undefined = e.target.value
+      ? {
+        fnr: e.target.value
+      } as PersonAvdod
+      : undefined
     setAvdod(newAvdod)
     updateValidation('avdodfnr', validateAvdodFnr(newAvdod))
   }
@@ -699,14 +705,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   return (
     <SEDStartDiv>
       <Systemtittel>
-        {!currentSed && !replySed ? t('buc:step-startSEDTitle', {
-          buc: t(`buc:buc-${_buc?.type}`),
-          sed: _sed || t('buc:form-newSed')
-        }) : t('buc:step-replySEDTitle', {
-          buc: t(`buc:buc-${_buc?.type}`),
-          replySed: replySed!.type,
-          sed: currentSed!.type
-        })}
+        {!currentSed && !replySed
+          ? t('buc:step-startSEDTitle', {
+              buc: t(`buc:buc-${_buc?.type}`),
+              sed: _sed || t('buc:form-newSed')
+            })
+          : t('buc:step-replySEDTitle', {
+            buc: t(`buc:buc-${_buc?.type}`),
+            replySed: replySed!.type,
+            sed: currentSed!.type
+          })}
       </Systemtittel>
       <hr />
       {!vedtakId && _sed === 'P6000' && (
@@ -868,8 +876,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               spinner={loading.creatingSed || _sendingAttachments}
               onClick={onForwardButtonClick}
             >
-              {loading.creatingSed ? t('buc:loading-creatingSED')
-                : _sendingAttachments ? t('buc:loading-sendingSEDattachments')
+              {loading.creatingSed
+                ? t('buc:loading-creatingSED')
+                : _sendingAttachments
+                  ? t('buc:loading-sendingSEDattachments')
                   : t('buc:form-orderSED')}
             </HighContrastHovedknapp>
             <HorizontalSeparatorDiv />

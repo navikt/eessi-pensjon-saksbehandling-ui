@@ -231,20 +231,22 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const renderOptions = (options: Array<Option | string> | undefined): Options => {
-    return options ? options.map((el: Option | string) => {
-      let label: string, value: string
-      if (typeof el === 'string') {
-        value = el
-        label = el
-      } else {
-        value = (el.value || el.navn)!
-        label = (el.label || el.navn)!
-      }
-      return {
-        label: getOptionLabel(label),
-        value: value
-      }
-    }) : []
+    return options
+      ? options.map((el: Option | string) => {
+          let label: string, value: string
+          if (typeof el === 'string') {
+            value = el
+            label = el
+          } else {
+            value = (el.value || el.navn)!
+            label = (el.label || el.navn)!
+          }
+          return {
+            label: getOptionLabel(label),
+            value: value
+          }
+        })
+      : []
   }
 
   const getOptionLabel = (value: string): string => {
@@ -260,12 +262,14 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return label
   }
 
-  const tagObjectList: Tags = tagList ? tagList.map(tag => {
-    return {
-      value: tag,
-      label: t('buc:' + tag)
-    } as Tag
-  }) : []
+  const tagObjectList: Tags = tagList
+    ? tagList.map(tag => {
+        return {
+          value: tag,
+          label: t('buc:' + tag)
+        } as Tag
+      })
+    : []
 
   const onAvdodChange = (option: ValueType<Option>): void => {
     if (option) {
@@ -459,8 +463,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
             onClick={onForwardButtonClick}
             spinner={_isCreatingBuc}
           >
-            {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
-              : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
+            {loading.creatingBUC
+              ? t('buc:loading-creatingCaseinRINA')
+              : loading.savingBucsInfo
+                ? t('buc:loading-savingBucInfo')
                 : t('buc:form-createCaseinRINA')}
           </HighContrastHovedknapp>
           <HorizontalSeparatorDiv />

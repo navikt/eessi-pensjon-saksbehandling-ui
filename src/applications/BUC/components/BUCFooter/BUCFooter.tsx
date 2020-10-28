@@ -44,21 +44,23 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <BUCFooterDiv className={className}>
-        {rinaUrl ? (
-          <HighContrastLink
-            data-amplitude='buc.list.rinaurl'
-            data-test-id='a-buc-c-bucfooter__gotorina-link'
-            href={rinaUrl}
-            onClick={linkLogger}
-            target='rinaWindow'
-          >
-            {t('ui:goToRina')}
-            <HorizontalSeparatorDiv data-size='0.5' />
-            <ExternalLink color={linkColor} />
-          </HighContrastLink>
-        ) : (
-          <WaitingPanel size='S' />
-        )}
+        {rinaUrl
+          ? (
+            <HighContrastLink
+              data-amplitude='buc.list.rinaurl'
+              data-test-id='a-buc-c-bucfooter__gotorina-link'
+              href={rinaUrl}
+              onClick={linkLogger}
+              target='rinaWindow'
+            >
+              {t('ui:goToRina')}
+              <HorizontalSeparatorDiv data-size='0.5' />
+              <ExternalLink color={linkColor} />
+            </HighContrastLink>
+            )
+          : (
+            <WaitingPanel size='S' />
+            )}
       </BUCFooterDiv>
     </ThemeProvider>
   )

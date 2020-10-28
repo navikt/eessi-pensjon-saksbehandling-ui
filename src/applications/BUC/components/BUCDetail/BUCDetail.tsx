@@ -151,19 +151,21 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
               </Element>
             </Dt>
             <Dd data-test-id='a-buc-c-bucdetail__caseId-id'>
-              {rinaUrl ? (
-                <HighContrastLink
-                  data-amplitude='buc.edit.detail.rinaurl'
-                  data-test-id='a-buc-c-bucdetail__gotorina-link-id'
-                  href={rinaUrl + buc.caseId}
-                  target='rinaWindow'
-                  onClick={linkLogger}
-                >
-                  {buc.caseId}
-                </HighContrastLink>
-              ) : (
-                <WaitingPanel size='S' />
-              )}
+              {rinaUrl
+                ? (
+                  <HighContrastLink
+                    data-amplitude='buc.edit.detail.rinaurl'
+                    data-test-id='a-buc-c-bucdetail__gotorina-link-id'
+                    href={rinaUrl + buc.caseId}
+                    target='rinaWindow'
+                    onClick={linkLogger}
+                  >
+                    {buc.caseId}
+                  </HighContrastLink>
+                  )
+                : (
+                  <WaitingPanel size='S' />
+                  )}
             </Dd>
             {bucsWithAvdod(buc.type) && (
               <>
@@ -173,15 +175,17 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   </Element>
                 </Dt>
                 <Dd className='odd' data-test-id='a-buc-c-bucdetail__avdod-id'>
-                  {avdod ? (
-                    <Normaltekst>
-                      {renderAvdodName(avdod, t)}
-                    </Normaltekst>
-                  ) : (
-                    <Normaltekst>
-                      {(buc as ValidBuc)?.subject?.avdod?.fnr}
-                    </Normaltekst>
-                  )}
+                  {avdod
+                    ? (
+                      <Normaltekst>
+                        {renderAvdodName(avdod, t)}
+                      </Normaltekst>
+                      )
+                    : (
+                      <Normaltekst>
+                        {(buc as ValidBuc)?.subject?.avdod?.fnr}
+                      </Normaltekst>
+                      )}
                 </Dd>
               </>
             )}

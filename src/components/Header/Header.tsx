@@ -140,28 +140,34 @@ const Header: React.FC<HeaderProps> = ({
               )}
           <Skillelinje />
           <NameDiv>
-            {gettingUserInfo ? t('buc:loading-gettingUserInfo') : (
-              username ? (
-                <UsernameSpan>
-                  {username}
-                </UsernameSpan>
-              ) : (
-                <>
-                  <AdvarselTrekant size={16} />
-                  <UsernameSpan>
-                    {t('ui:unknown')}
-                  </UsernameSpan>
-                </>
-              )
-            )}
+            {gettingUserInfo
+              ? t('buc:loading-gettingUserInfo')
+              : (
+                  username
+                    ? (
+                      <UsernameSpan>
+                        {username}
+                      </UsernameSpan>
+                      )
+                    : (
+                      <>
+                        <AdvarselTrekant size={16} />
+                        <UsernameSpan>
+                          {t('ui:unknown')}
+                        </UsernameSpan>
+                      </>
+                      )
+                )}
           </NameDiv>
         </UserDiv>
         {header && (
-          _.isString(header) ? (
-            <Systemtittel className='m-4'>
-              {header}
-            </Systemtittel>
-          ) : header
+          _.isString(header)
+            ? (
+              <Systemtittel className='m-4'>
+                {header}
+              </Systemtittel>
+              )
+            : header
         )}
         {children}
       </HeaderDiv>

@@ -212,35 +212,38 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       </>
       <VerticalSeparatorDiv />
       {canHaveAttachments && (
-        (_sendingAttachments || _attachmentsSent) ? (
-          <SEDAttachmentSenderDiv>
+        (_sendingAttachments || _attachmentsSent)
+          ? (
+            <SEDAttachmentSenderDiv>
+              <>
+                <SEDAttachmentSender
+                  attachmentsError={attachmentsError}
+                  sendAttachmentToSed={_sendAttachmentToSed}
+                  payload={{
+                    aktoerId: aktoerId,
+                    rinaId: buc.caseId,
+                    rinaDokumentId: sed.id
+                  } as SEDAttachmentPayload}
+                  onCancel={_onCancel}
+                  onFinished={_onFinished}
+                  onSaved={_onSaved}
+                />
+                <VerticalSeparatorDiv />
+              </>
+            </SEDAttachmentSenderDiv>
+            )
+          : (
             <>
-              <SEDAttachmentSender
-                attachmentsError={attachmentsError}
-                sendAttachmentToSed={_sendAttachmentToSed}
-                payload={{
-                  aktoerId: aktoerId,
-                  rinaId: buc.caseId,
-                  rinaDokumentId: sed.id
-                } as SEDAttachmentPayload}
-                onCancel={_onCancel}
-                onFinished={_onFinished}
-                onSaved={_onSaved}
-              />
+              <HighContrastKnapp
+                data-test-id='a-buc-c-sedbody__show-table-button-id'
+                onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
+              >
+                {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
+              </HighContrastKnapp>
               <VerticalSeparatorDiv />
             </>
-          </SEDAttachmentSenderDiv>
-        ) : (
-          <>
-            <HighContrastKnapp
-              data-test-id='a-buc-c-sedbody__show-table-button-id'
-              onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
-            >
-              {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-            </HighContrastKnapp>
-            <VerticalSeparatorDiv />
-          </>
-        ))}
+            )
+      )}
       {_attachmentsTableVisible && (
         <SEDAttachmentModal
           highContrast={highContrast}

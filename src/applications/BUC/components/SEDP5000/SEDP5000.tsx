@@ -249,19 +249,21 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
                         {t('buc:form-dateP5000', { date: sender?.date })}
                       </span>
                       <SeparatorSpan>-</SeparatorSpan>
-                      {sender ? (
-                        <Sender>
-                          <Flag
-                            country={sender?.country}
-                            label={sender?.countryLabel}
-                            size='XS'
-                            type='circle'
-                          />
-                          <span>{sender?.countryLabel}</span>
-                          <SeparatorSpan>-</SeparatorSpan>
-                          <span>{sender?.institution}</span>
-                        </Sender>
-                      ) : sedId}
+                      {sender
+                        ? (
+                          <Sender>
+                            <Flag
+                              country={sender?.country}
+                              label={sender?.countryLabel}
+                              size='XS'
+                              type='circle'
+                            />
+                            <span>{sender?.countryLabel}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
+                            <span>{sender?.institution}</span>
+                          </Sender>
+                          )
+                        : sedId}
                       {emptyPeriodReport[sedId] && (
                         <>
                           <HorizontalSeparatorDiv data-size='0.5' />

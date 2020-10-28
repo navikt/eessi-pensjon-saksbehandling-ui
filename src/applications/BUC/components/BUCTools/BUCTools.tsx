@@ -220,10 +220,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
-  let tabs = featureToggles && featureToggles.P5000_VISIBLE ? [{
-    label: t('buc:form-labelP5000'),
-    key: 'P5000'
-  }] : []
+  let tabs = featureToggles && featureToggles.P5000_VISIBLE
+    ? [{
+        label: t('buc:form-labelP5000'),
+        key: 'P5000'
+      }]
+    : []
 
   tabs = tabs.concat([{
     label: t('ui:tags'),
@@ -353,28 +355,30 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 <Element>
                   {t('ui:comment')}
                 </Element>
-                {_originalComments ? (_originalComments as Comments).map((comment: Comment, i: number) => (
-                  <CommentDiv
-                    data-test-id='a-buc-c-buctools__comment-div-id'
-                    key={i}
-                  >
+                {_originalComments
+                  ? (_originalComments as Comments).map((comment: Comment, i: number) => (
+                    <CommentDiv
+                      data-test-id='a-buc-c-buctools__comment-div-id'
+                      key={i}
+                    >
+                      <Normaltekst>
+                        {comment.value}
+                      </Normaltekst>
+                      <RemoveComment>
+                        <Trashcan
+                          data-test-id={'a-buc-c-buctools__comment-delete-' + i + '-id'}
+                          width={20}
+                          color={_theme[themeKeys.MAIN_INTERACTIVE_COLOR]}
+                          onClick={() => onDeleteComment(i)}
+                        />
+                      </RemoveComment>
+                    </CommentDiv>
+                    ))
+                  : (
                     <Normaltekst>
-                      {comment.value}
+                      {t('ui:noCommentsYet')}
                     </Normaltekst>
-                    <RemoveComment>
-                      <Trashcan
-                        data-test-id={'a-buc-c-buctools__comment-delete-' + i + '-id'}
-                        width={20}
-                        color={_theme[themeKeys.MAIN_INTERACTIVE_COLOR]}
-                        onClick={() => onDeleteComment(i)}
-                      />
-                    </RemoveComment>
-                  </CommentDiv>
-                )) : (
-                  <Normaltekst>
-                    {t('ui:noCommentsYet')}
-                  </Normaltekst>
-                )}
+                    )}
                 <VerticalSeparatorDiv data-size='0.5' />
                 <TextArea
                   data-test-id='a-buc-c-buctools__comment-textarea-id'

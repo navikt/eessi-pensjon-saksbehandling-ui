@@ -24,7 +24,8 @@ export const SEDPanelContainer = styled(HighContrastPanel)`
   &.new .ekspanderbartPanel__hode,
   &.new .ekspanderbartPanel__hode div:not(.etikett) {
     background: ${({ theme }) => theme.type === 'themeHighContrast'
-  ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+      ? theme[themeKeys.NAVLIMEGRONNDARKEN80]
+      : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
   }
   &.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
     background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
@@ -66,36 +67,38 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   return (
     <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
       <SEDPanelContainer className={classNames(className, { new: newSed })}>
-        {!sedCanHaveAttachments(sed) ? (
-          <SEDPanelDiv>
-            <SEDHeader
-              buc={buc}
-              onSEDNew={onSEDNew}
-              sed={sed}
-              style={style}
-            />
-          </SEDPanelDiv>
-        ) : (
-          <SEDPanelExpandingPanel
-            style={style}
-            highContrast={highContrast}
-            heading={
+        {!sedCanHaveAttachments(sed)
+          ? (
+            <SEDPanelDiv>
               <SEDHeader
                 buc={buc}
                 onSEDNew={onSEDNew}
                 sed={sed}
+                style={style}
               />
-            }
-          >
-            <SEDBody
-              aktoerId={aktoerId}
-              buc={buc}
-              canHaveAttachments={sedCanHaveAttachments(sed)}
+            </SEDPanelDiv>
+            )
+          : (
+            <SEDPanelExpandingPanel
+              style={style}
               highContrast={highContrast}
-              sed={sed}
-            />
-          </SEDPanelExpandingPanel>
-        )}
+              heading={
+                <SEDHeader
+                  buc={buc}
+                  onSEDNew={onSEDNew}
+                  sed={sed}
+                />
+              }
+            >
+              <SEDBody
+                aktoerId={aktoerId}
+                buc={buc}
+                canHaveAttachments={sedCanHaveAttachments(sed)}
+                highContrast={highContrast}
+                sed={sed}
+              />
+            </SEDPanelExpandingPanel>
+            )}
       </SEDPanelContainer>
     </ThemeProvider>
   )

@@ -238,22 +238,24 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               <PropertyDiv
                 data-test-id='a-buc-c-bucheader__label-case-id'
               >
-                {rinaUrl ? (
-                  <RowText>
-                    {t('buc:form-caseNumberInRina') + ': '}
-                    <RinaLink
-                      data-amplitude='buc.list.buc.rinaUrl'
-                      data-test-id='a-buc-c-bucheader__label-case-gotorina-link-id'
-                      href={rinaUrl + buc.caseId}
-                      onClick={onRinaLinkClick}
-                      target='rinaWindow'
-                    >
-                      {buc.caseId}
-                    </RinaLink>
-                  </RowText>
-                ) : (
-                  <WaitingPanel size='S' />
-                )}
+                {rinaUrl
+                  ? (
+                    <RowText>
+                      {t('buc:form-caseNumberInRina') + ': '}
+                      <RinaLink
+                        data-amplitude='buc.list.buc.rinaUrl'
+                        data-test-id='a-buc-c-bucheader__label-case-gotorina-link-id'
+                        href={rinaUrl + buc.caseId}
+                        onClick={onRinaLinkClick}
+                        target='rinaWindow'
+                      >
+                        {buc.caseId}
+                      </RinaLink>
+                    </RowText>
+                    )
+                  : (
+                    <WaitingPanel size='S' />
+                    )}
               </PropertyDiv>
             )}
             {bucsWithAvdod(buc.type) && (buc as ValidBuc).subject && (

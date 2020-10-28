@@ -276,28 +276,29 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             value={_search}
           />
           <SEDPanelHeader highContrast={highContrast} />
-          {!_.isNil(buc!.seds) ? buc!.seds
-            .filter(sedFilter)
-            .filter(sedSearchFilter)
-            .sort(sedSorter as (a: Sed, b: Sed) => number)
-            .map((sed, index) => (
-              <div key={sed.id}>
-                <VerticalSeparatorDiv data-size='0.5' />
-                <SEDPanel
-                  aktoerId={aktoerId!}
-                  highContrast={highContrast}
-                  style={{ animationDelay: (0.2 * index) + 's' }}
-                  buc={buc!}
-                  sed={sed}
-                  newSed={(
-                    newlyCreatedSed && newlyCreatedSedTime &&
+          {!_.isNil(buc!.seds)
+            ? buc!.seds
+              .filter(sedFilter)
+              .filter(sedSearchFilter)
+              .sort(sedSorter as (a: Sed, b: Sed) => number)
+              .map((sed, index) => (
+                <div key={sed.id}>
+                  <VerticalSeparatorDiv data-size='0.5' />
+                  <SEDPanel
+                    aktoerId={aktoerId!}
+                    highContrast={highContrast}
+                    style={{ animationDelay: (0.2 * index) + 's' }}
+                    buc={buc!}
+                    sed={sed}
+                    newSed={(
+                      newlyCreatedSed && newlyCreatedSedTime &&
                     newlyCreatedSed.id === sed.id &&
                     ((Date.now() - newlyCreatedSedTime) < 5 * 60 * 1000)
-                  ) || false}
-                  onSEDNew={onSEDNew}
-                />
-              </div>
-            ))
+                    ) || false}
+                    onSEDNew={onSEDNew}
+                  />
+                </div>
+              ))
             : (
               <NoSedsDiv>
                 <Normaltekst>

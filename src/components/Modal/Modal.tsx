@@ -173,10 +173,12 @@ const Modal: React.FC<ModalProps> = ({
                 if (button.flat) {
                   Button = HighContrastFlatknapp
                 }
-                const handleClick = _.isFunction(button.onClick) ? () => {
-                button.onClick!()
-                closeModal()
-                } : closeModal
+                const handleClick = _.isFunction(button.onClick)
+                  ? () => {
+                    button.onClick!()
+                    closeModal()
+                    }
+                  : closeModal
 
                 return (
                   <ButtonMargin key={i}>

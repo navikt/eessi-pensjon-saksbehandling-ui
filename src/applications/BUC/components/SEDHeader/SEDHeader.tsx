@@ -97,19 +97,23 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   const { t } = useTranslation()
   const followUpSed: Sed | undefined = buc.seds!.find(_seds => _seds.parentDocumentId === sed.id)
 
-  const institutionSenderList: Institutions = sed.participants ? sed.participants
-    .filter((participant: Participant) => participant.role === 'Sender')
-    .map((participant: Participant) => ({
-      country: participant.organisation.countryCode,
-      institution: participant.organisation.name
-    })) : []
+  const institutionSenderList: Institutions = sed.participants
+    ? sed.participants
+        .filter((participant: Participant) => participant.role === 'Sender')
+        .map((participant: Participant) => ({
+          country: participant.organisation.countryCode,
+          institution: participant.organisation.name
+        }))
+    : []
 
-  const institutionReceiverList: Institutions = sed.participants ? sed.participants
-    .filter((participant: Participant) => participant.role === 'Receiver')
-    .map((participant: Participant) => ({
-      country: participant.organisation.countryCode,
-      institution: participant.organisation.name
-    })) : []
+  const institutionReceiverList: Institutions = sed.participants
+    ? sed.participants
+        .filter((participant: Participant) => participant.role === 'Receiver')
+        .map((participant: Participant) => ({
+          country: participant.organisation.countryCode,
+          institution: participant.organisation.name
+        }))
+    : []
 
   const sedLabel: string = getBucTypeLabel({
     t: t,
