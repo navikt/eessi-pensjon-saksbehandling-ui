@@ -45,6 +45,8 @@ export const Tag = styled(EtikettLiten)`
  padding: 0rem 0.5rem;
  margin-left: 0.25rem;
  margin-right: 0.25rem;
+ display: block;
+ align-items: center;
 `
 
 export interface ContextBannerProps {
@@ -97,12 +99,14 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           <HoyreChevron />
           <Tag>
             <span>{t('ui:youComeFrom')}</span>
+            <HorizontalSeparatorDiv data-size='0.25'/>
             <strong>{pesysContext}</strong>.
           </Tag>
           <Tag>
             <span>{t('buc:form-caseType')}: </span>
+            <HorizontalSeparatorDiv data-size='0.25'/>
             {gettingSakType && (
-              <WaitingPanel size='S' oneLine />
+               <WaitingPanel size='S' oneLine />
             )}
             {sakType && (
               <strong>{Object.values(SakTypeMap).indexOf(sakType) >= 0 ? sakType : t('ui:unknown')}</strong>
