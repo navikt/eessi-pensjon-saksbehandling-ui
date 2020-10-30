@@ -142,7 +142,7 @@ export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
   return call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs,
+    expectedPayload: [], // mockBucs,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,

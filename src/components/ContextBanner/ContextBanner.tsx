@@ -99,14 +99,14 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           <HoyreChevron />
           <Tag>
             <span>{t('ui:youComeFrom')}</span>
-            <HorizontalSeparatorDiv data-size='0.25'/>
+            <HorizontalSeparatorDiv data-size='0.25' />
             <strong>{pesysContext}</strong>.
           </Tag>
           <Tag>
             <span>{t('buc:form-caseType')}: </span>
-            <HorizontalSeparatorDiv data-size='0.25'/>
+            <HorizontalSeparatorDiv data-size='0.25' />
             {gettingSakType && (
-               <WaitingPanel size='S' oneLine />
+              <WaitingPanel size='S' oneLine />
             )}
             {sakType && (
               <strong>{Object.values(SakTypeMap).indexOf(sakType) >= 0 ? sakType : t('ui:unknown')}</strong>
