@@ -97,7 +97,7 @@
 
   "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-avdod"                        : "Avdød",
-  "form-avdodfnr"                     : "Avdødes F-/D-nr.",
+  "form-avdodfnr"                     : "Avdødes f.nr./d.nr.",
   "form-avdodorsøker"                 : "Hjem gjelder henvendelsen?",
   "form-areYouSureDeleteComment"      : "Er du sikker på at du vil slette kommentaren?",
   "form-BUCtools"                     : "Verktøy",
@@ -114,7 +114,7 @@
   "form-caseOwner"                    : "Sakseier",
   "form-caseType"                     : "Saktype",
   "form-chooseAvdod"                  : "Velg avdød",
-  "form-chooseAvdodFnr"               : "Skriv inn avdødes F-/D-nr",
+  "form-chooseAvdodFnr"               : "Skriv inn avdødes f.nr./d.nr.",
   "form-chooseBuc"                    : "Velg BUC",
   "form-chooseCountry"                : "Velg land",
   "form-chooseInstitution"            : "Velg mottakerinstitusjon",
