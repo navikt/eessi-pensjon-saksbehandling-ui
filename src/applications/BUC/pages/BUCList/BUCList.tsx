@@ -411,7 +411,7 @@ const BUCList: React.FC<BUCListProps> = ({
                       <VerticalSeparatorDiv />
                       <FlexDiv className={classNames({ feil: _validation || false })}>
                         <HighContrastInput
-                          bredde='M'
+                          style={{width: '200px'}}
                           data-test-id='a-buc-p-buclist__avdod-input-id'
                           feil={_validation || false}
                           id='a-buc-p-buclist__avdod-input-id'

@@ -94,7 +94,7 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
 
   if (!_mounted) {
     return (
-      <RouteDiv>
+      <RouteDiv role='alert'>
         <WaitingPanel />
       </RouteDiv>
     )

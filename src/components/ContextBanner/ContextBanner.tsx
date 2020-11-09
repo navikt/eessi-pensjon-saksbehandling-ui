@@ -30,7 +30,7 @@ const Content = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'lightgrey'};
+  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'white'};
 `
 export const Context = styled.div`
  padding: 0.5rem 2rem;

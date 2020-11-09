@@ -15,7 +15,7 @@ import styled, { ThemeProvider } from 'styled-components'
 
 export const FooterDiv = styled.footer`
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'white'};
   padding: 0rem;
   display: flex;
   flex-direction: row;
@@ -38,7 +38,7 @@ const ContentDiv = styled.div`
     margin: 0px;
     display: block;
     padding: 0px;
-    background-color: lightgray;
+    background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'white'};
   }
   .footerButtonClosed:hover {
     cursor: pointer;
@@ -172,7 +172,7 @@ const Footer: React.FC<FooterProps> = ({
             onKeyDown={onKeyDown}
             tabIndex={0}
           >
-            {footerOpen ? '▼' : null}
+            {footerOpen ? '▼' : ''}
           </div>
           {footerOpen && (
             <FormDiv>

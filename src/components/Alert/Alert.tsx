@@ -64,7 +64,7 @@ export const errorTypes: AlertStatusClasses = {
 
 export const Alert: React.FC<AlertProps> = ({
   className, error, fixed, message, onClose, status = 'ERROR', type
-}: AlertProps): JSX.Element => {
+}: AlertProps): JSX.Element | null => {
   let _message: JSX.Element | string | undefined = message
 
   const onCloseIconClicked = (): void => {
@@ -91,17 +91,17 @@ export const Alert: React.FC<AlertProps> = ({
   }
 
   if (!_message) {
-    return <div />
+    return null
   }
 
   if (!_.includes(['client', 'server'], type)) {
     console.error('Invalid alert type: ' + type)
-    return <div />
+    return null
   }
 
   if (!_.includes(Object.keys(errorTypes), status)) {
     console.error('Invalid alert status: ' + status)
-    return <div />
+    return null
   }
 
   if (!_.isEmpty(error)) {
@@ -117,6 +117,7 @@ export const Alert: React.FC<AlertProps> = ({
         className,
         { fixed: _fixed }
       )}
+      role='alert'
       type={errorTypes[status]}
     >
       {_message}

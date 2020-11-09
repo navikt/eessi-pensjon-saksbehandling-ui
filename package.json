@@ -103,6 +103,7 @@
     "use-error-boundary": "^2.0.4"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.0.0",
     "@babel/runtime": "^7.12.5",
     "@types/amplitude-js": "^6.0.0",
     "@types/classnames": "^2.2.11",
@@ -128,8 +129,8 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
     "es6-promise": "^4.2.8",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "identity-obj-proxy": "^3.0.0",
     "jest-styled-components": "^7.0.3",
     "less": "^3.12.2",

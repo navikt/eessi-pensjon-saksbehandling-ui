@@ -32,7 +32,10 @@ if (Number && isFinite && !Number.isFinite) {
 
 const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
 
-if (IS_PRODUCTION) {
+if (!IS_PRODUCTION) {
+  var axe = require('@axe-core/react')
+  axe(React, ReactDOM, 1000)
+} else {
   Sentry.init()
   Amplitude.init()
 }

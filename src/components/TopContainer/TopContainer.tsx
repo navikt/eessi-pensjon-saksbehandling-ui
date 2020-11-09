@@ -130,10 +130,12 @@ export const TopContainer: React.FC<TopContainerProps> = ({
       <ErrorBoundary
         renderError={({ error }: any) => <Error type='internalError' error={error} />}
       >
-        <ReactResizeDetector
-          handleWidth
-          onResize={onResize}
-        />
+        <div role='application'>
+          <ReactResizeDetector
+            handleWidth
+            onResize={onResize}
+          />
+        </div>
         <Header
           highContrast={highContrast}
           username={username}
