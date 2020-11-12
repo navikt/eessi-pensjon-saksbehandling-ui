@@ -31,7 +31,7 @@ export const initialLoadingState: LoadingState = {
   savingBucsInfo: false
 }
 
-const loadingReducer = (state: LoadingState = initialLoadingState, action: Action) => {
+const loadingReducer = (state: LoadingState = initialLoadingState, action: Action = { type: '' }) => {
   if (_.endsWith(action.type, '/ERROR')) {
     return initialLoadingState
   }

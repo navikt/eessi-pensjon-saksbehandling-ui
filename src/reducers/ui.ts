@@ -24,7 +24,7 @@ export const initialUiState: UiState = {
   size: undefined
 }
 
-const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithPayload) => {
+const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithPayload = { type: '' }) => {
   switch (action.type) {
     case types.UI_MODAL_SET:
       return {

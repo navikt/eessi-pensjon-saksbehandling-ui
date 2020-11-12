@@ -1,6 +1,7 @@
 import * as types from 'constants/actionTypes'
 import { JoarkBrowserItemWithContent, JoarkPoster } from 'declarations/joark'
 import { ActionWithPayload } from 'js-fetch-api'
+import { Action } from 'redux'
 
 export interface JoarkState {
   list: Array<JoarkPoster> | undefined
@@ -12,7 +13,7 @@ export const initialJoarkState: JoarkState = {
   previewFile: undefined
 }
 
-const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithPayload) => {
+const joarkReducer = (state: JoarkState = initialJoarkState, action: Action | ActionWithPayload = { type: '' }) => {
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
       return {

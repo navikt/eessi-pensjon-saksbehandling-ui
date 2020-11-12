@@ -401,7 +401,7 @@ ui-fss.g49[id="c8"] {
         </Styled(Modal)>
       </Component>
     </Modal>
-    <Pt
+    <ut
       columns={
         Array [
           Object {
@@ -695,8 +695,8 @@ ui-fss.g49[id="c8"] {
                     className="c8 c9"
                   >
                     <div />
-                    <n>
-                      <t
+                    <o>
+                      <s
                         type="normaltekst"
                       >
                         <p
@@ -704,9 +704,9 @@ ui-fss.g49[id="c8"] {
                         >
                           Ingen ui:attachments vist
                         </p>
-                      </t>
-                    </n>
-                    <y
+                      </s>
+                    </o>
+                    <g
                       currentPage={1}
                       highContrast={false}
                       itemsPerPage={30}
@@ -720,7 +720,7 @@ ui-fss.g49[id="c8"] {
           </div>
         </styled.div>
       </Component>
-    </Pt>
+    </ut>
   </div>
 </JoarkBrowser>
 `;

@@ -263,8 +263,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       if (list && match) {
         const id = match[1]
         let journalpostDoc: JoarkDoc | undefined
-        for (var jp of list) {
-          for (var doc of jp.dokumenter) {
+        for (const jp of list) {
+          for (const doc of jp.dokumenter) {
             if (doc.dokumentInfoId === id) {
               journalpostDoc = doc
               if (doc.tittel) {

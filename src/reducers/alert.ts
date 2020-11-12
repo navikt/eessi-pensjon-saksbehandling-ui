@@ -23,7 +23,7 @@ export const initialAlertState: AlertState = {
   uuid: undefined
 }
 
-const alertReducer = (state: AlertState = initialAlertState, action: Action | ActionWithPayload) => {
+const alertReducer = (state: AlertState = initialAlertState, action: Action | ActionWithPayload = { type: '' }) => {
   let clientErrorMessage: string | undefined
   let serverErrorMessage: string
   let clientErrorStatus: string

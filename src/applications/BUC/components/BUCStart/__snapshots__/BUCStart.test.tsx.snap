@@ -3533,7 +3533,7 @@ ui-fss.g13[id="c14"] {
                     >
                       buc:form-tagsForBUC
                     </label>
-                    <ForwardRef(styled.div) />
+                    <styled.div />
                     <Normaltekst>
                       buc:form-tagsForBUC-description
                     </Normaltekst>

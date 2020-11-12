@@ -5,6 +5,7 @@ import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
 import { PersonAvdods, Person } from 'declarations/person.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
+import { Action } from 'redux'
 
 export interface AppState {
   allowed: boolean
@@ -42,7 +43,7 @@ export const initialAppState: AppState = {
   userRole: undefined
 }
 
-const appReducer = (state: AppState = initialAppState, action: ActionWithPayload) => {
+const appReducer = (state: AppState = initialAppState, action: Action | ActionWithPayload = { type: '' }) => {
   let newParams: Params, newFeatureToggles: FeatureToggles, newContext: PesysContext
   switch (action.type) {
     case types.APP_LOGOUT_SUCCESS: {

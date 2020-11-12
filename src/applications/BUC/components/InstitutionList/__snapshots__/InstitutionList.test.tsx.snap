@@ -74,13 +74,13 @@ ui-fss.g3[id="c4"] {
           className="c2 c3"
           data-test-id="a-buc-c-institutionlist__div-id"
         >
-          <Bd
+          <pd
             country="NO"
             label="Norge"
             size="S"
             type="circle"
           >
-            <Lt
+            <Dt
               theme={
                 Object {
                   "alternative-background-color": "#E9E7E7",
@@ -515,7 +515,7 @@ ui-fss.g3[id="c4"] {
                     style={Object {}}
                   >
                     <div
-                      className="c2 NSHWL size-S type-circle"
+                      className="NSHWL size-S type-circle"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       style={Object {}}
@@ -529,8 +529,8 @@ ui-fss.g3[id="c4"] {
                   </styled.div>
                 </e>
               </ForwardRef>
-            </Lt>
-          </Bd>
+            </Dt>
+          </pd>
           <Styled(Normaltekst)>
             <Normaltekst
               className="c4 c5"
@@ -542,7 +542,7 @@ ui-fss.g3[id="c4"] {
                 <p
                   className="typo-normal c4 c5"
                 >
-                  Mock 1 institution, Mock 2 institution
+                  Mock1, Mock2
                 </p>
               </TypografiBase>
             </Normaltekst>

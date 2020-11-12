@@ -16,7 +16,9 @@ export interface ApiRejectedAction extends Action {
   context: any
 }
 
-const sentryReducer = (state: SentryState = initialSentryState, action: ApiRejectedAction) => {
+const sentryReducer = (state: SentryState = initialSentryState, action: ApiRejectedAction = {
+  type: '', error: undefined, originalPayload: undefined, context: undefined
+}) => {
   switch (action.type) {
     case types.API_CALL_REJECTED:
 

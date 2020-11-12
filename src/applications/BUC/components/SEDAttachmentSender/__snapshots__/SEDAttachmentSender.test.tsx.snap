@@ -142,7 +142,7 @@ ui-fss.g19[id="c0"] {
         now={0}
         status="inprogress"
       >
-        <Ne
+        <Se
           theme={
             Object {
               "alternative-background-color": "#E9E7E7",
@@ -168,7 +168,7 @@ ui-fss.g19[id="c0"] {
               "inverted-font-color": "#FFFFFF",
               "line-height-large": "1.3333333",
               "line-height-small": "1.5",
-              "main-active-color": "#e0f4fb",
+              "main-active-color": "#a3dff3",
               "main-background-color": "#FFFFFF",
               "main-border-color": "#78706A",
               "main-border-radius": "4px",
@@ -306,7 +306,7 @@ ui-fss.g19[id="c0"] {
             className=""
           >
             <div
-              className="chRaMj"
+              className="fLrpIu"
             >
               <styled.div
                 aria-valuemax={100}
@@ -324,7 +324,7 @@ ui-fss.g19[id="c0"] {
                   aria-valuemax={100}
                   aria-valuemin={0}
                   aria-valuenow={0}
-                  className="lfhSMu inprogress"
+                  className="omix inprogress"
                   role="progressbar"
                   style={
                     Object {
@@ -337,7 +337,7 @@ ui-fss.g19[id="c0"] {
               </styled.div>
             </div>
           </styled.div>
-        </Ne>
+        </Se>
       </g>
       <styled.div
         data-sise="0.35"
