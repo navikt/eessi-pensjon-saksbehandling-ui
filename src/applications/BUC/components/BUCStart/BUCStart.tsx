@@ -238,8 +238,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
             value = el
             label = el
           } else {
-            value = (el.value || el.navn)!
-            label = (el.label || el.navn)!
+            value = el.value
+            label = el.label
           }
           return {
             label: getOptionLabel(label),

@@ -55,12 +55,11 @@ import {
   AvdodOrSokerValue,
   Buc,
   Bucs,
-  CountryRawList,
-  InstitutionListMap,
+  CountryRawList, Institution,
+  InstitutionListMap, InstitutionNames,
   InstitutionRawList,
   Institutions,
   NewSedPayload,
-  RawInstitution,
   RawList,
   SakTypeMap,
   SakTypeValue,
@@ -133,7 +132,8 @@ export interface SEDStartSelector {
   countryList: CountryRawList | undefined
   featureToggles: FeatureToggles
   highContrast: boolean
-  institutionList: InstitutionListMap<RawInstitution> | undefined
+  institutionList: InstitutionListMap<Institution> | undefined
+  institutionNames: InstitutionNames | undefined
   loading: Loading
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
@@ -153,6 +153,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
+  institutionNames: state.buc.institutionNames,
   loading: state.loading,
   locale: state.ui.locale,
   personAvdods: state.app.personAvdods,
@@ -179,7 +180,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   replySed
 } : SEDStartProps): JSX.Element => {
   const {
-    attachmentsError, countryList, featureToggles, highContrast, institutionList, loading,
+    attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, loading,
     locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -223,8 +224,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             label = el
             value = el
           } else {
-            value = el.value || el.navn
-            label = el.label || el.navn
+            value = el.value || el.institution
+            label = el.label || el.name
           }
           return {
             label: getOptionLabel(label!),
@@ -245,7 +246,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
   const [_mounted, setMounted] = useState<boolean>(false)
-  const _notHostInstitution = (institution: RawInstitution) : boolean => institution.id !== 'NO:DEMO001'
+  const _notHostInstitution = (institution: Institution) : boolean => institution.institution !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_sedAttachments, setSedAttachments] = useState<JoarkBrowserItems>(initialAttachments)
   const _sedOptions: Options = renderOptions(sedList)
@@ -304,9 +305,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         if (country) {
           _institutionObjectList.push({
             label: country.label,
-            options: institutionList[landkode].filter(_notHostInstitution).map((institution: RawInstitution) => ({
-              label: institution.akronym + ' – ' + institution.navn,
-              value: institution.id
+            options: institutionList[landkode].filter(_notHostInstitution).map((institution: Institution) => ({
+              label: institution.name,
+              value: institution.institution
             }))
           })
         }
@@ -317,11 +318,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   if (institutionList && _institutions) {
     _institutionValueList = _institutions.map(item => {
       const [country, institution] = item.split(':')
-      const found = _.find(institutionList[country], { id: item })
+      const found = _.find(institutionList[country], { institution: item })
       if (found) {
         return {
-          label: found.navn,
-          value: found.id
+          label: found.name,
+          value: found.institution
         }
       } else {
         return {
@@ -512,13 +513,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     const institutions: Institutions = []
     _institutions.forEach(item => {
       Object.keys(institutionList!).forEach((landkode: string) => {
-        const found: RawInstitution | undefined = _.find(institutionList![landkode], { id: item })
+        const found: Institution | undefined = _.find(institutionList![landkode], { institution: item })
         if (found) {
-          institutions.push({
-            country: found.landkode,
-            institution: found.id,
-            name: found.navn
-          })
+          institutions.push(found)
         }
       })
     })
@@ -858,7 +855,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     const [country, institution] = item.split(':')
                     return {
                       country: country,
-                      institution: institution
+                      institution: item,
+                      name: institutionNames ? institutionNames[item] : institution
                     }
                   })}
                   locale={locale}

@@ -46,10 +46,9 @@ const defaultSelector: BUCListSelector = {
   highContrast: false,
   institutionList: {
     NO: [{
-      navn: 'mockInstitution1',
-      akronym: 'MI1',
-      id: 'NO:MI1',
-      landkode: 'NO'
+      name: 'mockInstitution1',
+      institution: 'NO:MI1',
+      country: 'NO'
     }]
   },
   loading: {

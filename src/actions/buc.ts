@@ -9,10 +9,9 @@ import {
   BUCRawList,
   Bucs,
   BucsInfoRawList,
-  CountryRawList,
+  CountryRawList, Institutions,
   NewSedPayload,
   Participants,
-  RawInstitutions,
   RinaUrlPayload,
   SakTypeValue,
   SaveBucsInfoProps,
@@ -259,9 +258,9 @@ export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload<Country
   })
 }
 
-export const getInstitutionsListForBucAndCountry: ActionCreator<ThunkResult<ActionWithPayload<RawInstitutions>>> = (
+export const getInstitutionsListForBucAndCountry: ActionCreator<ThunkResult<ActionWithPayload<Institutions>>> = (
   bucType: string, country: string
-): ThunkResult<ActionWithPayload<RawInstitutions>> => {
+): ThunkResult<ActionWithPayload<Institutions>> => {
   // RINA uses UK, not GB
   let _country: string = country
   if (_country.toUpperCase() === 'GB') {

@@ -1,46 +1,37 @@
 export default [{
-  id: 'NO:DEMO001',
-  navn: 'Demo institution 001',
-  akronym: '001',
-  landkode: 'NO'
+  institution: 'NO:DEMO001',
+  name: 'Demo institution 001',
+  country: 'NO'
 }, {
-  id: 'NO:DEMO002',
-  navn: 'Demo institution 002',
-  akronym: '002',
-  landkode: 'NO'
+  institution: 'NO:DEMO002',
+  name: 'Demo institution 002',
+  country: 'NO'
 }, {
-  id: 'NO:NAVAT07',
-  navn: 'NAV ACCEPTANCE TEST 07',
-  akronym: 'NAVAT07',
-  landkode: 'NO'
+  institution: 'NO:NAVAT07',
+  name: 'NAV ACCEPTANCE TEST 07',
+  country: 'NO'
 }, {
-  id: 'SE:DEMO003',
-  navn: 'Demo institution 003',
-  akronym: '003',
-  landkode: 'SE'
+  institution: 'SE:DEMO003',
+  name: 'Demo institution 003',
+  country: 'SE'
 }, {
-  id: 'SE:DEMO004',
-  navn: 'Demo institution 004',
-  akronym: '004',
-  landkode: 'SE'
+  institution: 'SE:DEMO004',
+  name: 'Demo institution 004',
+  country: 'SE'
 }, {
-  id: 'FI:DEMO005',
-  navn: 'Demo institution 005',
-  akronym: '005',
-  landkode: 'FI'
+  institution: 'FI:DEMO005',
+  name: 'Demo institution 005',
+  country: 'FI'
 }, {
-  id: 'FI:DEMO006',
-  navn: 'Demo institution 006',
-  akronym: '005',
-  landkode: 'FI'
+  institution: 'FI:DEMO006',
+  name: 'Demo institution 006',
+  country: 'FI'
 }, {
-  id: 'FI:DEMO007',
-  navn: 'Demo institution 007',
-  akronym: '007',
-  landkode: 'DK'
+  institution: 'FI:DEMO007',
+  name: 'Demo institution 007',
+  country: 'DK'
 }, {
-  id: 'FI:DEMO008',
-  navn: 'Demo institution 008',
-  akronym: '008',
-  landkode: 'DK'
+  institution: 'FI:DEMO008',
+  name: 'Demo institution 008',
+  country: 'DK'
 }]

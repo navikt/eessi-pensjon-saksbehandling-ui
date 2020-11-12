@@ -539,9 +539,9 @@ describe('reducers/buc', () => {
 
   it('BUC_GET_INSTITUTION_LIST_SUCCESS', () => {
     const mockPayload = [
-      { id: '1', navn: 'a', akronym: 'A', landkode: 'AA' },
-      { id: '2', navn: 'aa', akronym: 'AA', landkode: 'AA' },
-      { id: '3', navn: 'b', akronym: 'B', landkode: 'BB' }
+      { institution: '1', name: 'a', country: 'AA' },
+      { institution: '2', name: 'aa', country: 'AA' },
+      { institution: '3', name: 'b', country: 'BB' }
     ]
     expect(
       bucReducer({
@@ -565,11 +565,11 @@ describe('reducers/buc', () => {
 
       institutionList: {
         AA: [
-          { id: '1', navn: 'a', akronym: 'A', landkode: 'AA', buc: 'mockBucContext' },
-          { id: '2', navn: 'aa', akronym: 'AA', landkode: 'AA', buc: 'mockBucContext' }
+          { institution: '1', name: 'a', country: 'AA', buc: 'mockBucContext' },
+          { institution: '2', name: 'aa', country: 'AA', buc: 'mockBucContext' }
         ],
         BB: [
-          { id: '3', navn: 'b', akronym: 'B', landkode: 'BB', buc: 'mockBucContext' }
+          { institution: '3', name: 'b', country: 'BB', buc: 'mockBucContext' }
         ]
       }
     })

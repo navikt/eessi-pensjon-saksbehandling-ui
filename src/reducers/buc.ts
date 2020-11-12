@@ -15,7 +15,6 @@ import {
   NewSedPayload,
   Participant,
   Participants,
-  RawInstitution,
   SakTypeValue,
   SavingAttachmentsJob,
   Sed,
@@ -40,7 +39,7 @@ export interface BucState {
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
-  institutionList: InstitutionListMap<RawInstitution> | undefined
+  institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames
   mode: BUCMode
   newlyCreatedBuc: Buc | undefined
@@ -377,22 +376,21 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS: {
-      const institutionList: InstitutionListMap<RawInstitution> = state.institutionList ? _.cloneDeep(state.institutionList!) : {}
+      const institutionList: InstitutionListMap<Institution> = state.institutionList ? _.cloneDeep(state.institutionList!) : {}
       const institutionNames: InstitutionNames = _.clone(state.institutionNames);
-      (action as ActionWithPayload).payload.forEach((institution: RawInstitution) => {
-        const existingInstitutions = institutionList[institution.landkode] || []
-        if (!_.find(existingInstitutions, { id: institution.id })) {
+      (action as ActionWithPayload).payload.forEach((institution: Institution) => {
+        const existingInstitutions: Institutions = institutionList[institution.country] || []
+        if (!_.find(existingInstitutions, { institution: institution.institution })) {
           existingInstitutions.push({
-            id: institution.id,
-            navn: institution.navn,
-            akronym: institution.akronym,
-            landkode: institution.landkode,
+            institution: institution.institution,
+            name: institution.name,
+            country: institution.country,
             buc: (action as ActionWithPayload).context.buc
           })
         }
-        existingInstitutions.sort((a: RawInstitution, b: RawInstitution) => a.navn.localeCompare(b.navn))
-        institutionList[institution.landkode] = existingInstitutions
-        institutionNames[institution.id] = institution.navn
+        existingInstitutions.sort((a: Institution, b: Institution) => a.institution.localeCompare(b.institution))
+        institutionList[institution.country] = existingInstitutions
+        institutionNames[institution.institution] = institution.name
       })
       return {
         ...state,

@@ -63,7 +63,8 @@ export interface ErrorBuc {
 export interface Institution {
   country: string
   institution: string
-  name?: string | null
+  name: string
+  buc?: string
 }
 
 export type Institutions = Array<Institution>
@@ -112,16 +113,6 @@ export interface Participant {
 export type Participants = Array<Participant>
 
 export type RawList = Array<string>
-
-export interface RawInstitution {
-  id: string
-  navn: string
-  akronym?: string
-  landkode: string
-  buc?: string
-}
-
-export type RawInstitutions = Array<RawInstitution>
 
 export interface RinaUrlPayload {
   rinaUrl: string

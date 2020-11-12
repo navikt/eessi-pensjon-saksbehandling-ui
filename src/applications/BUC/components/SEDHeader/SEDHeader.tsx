@@ -102,7 +102,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         .filter((participant: Participant) => participant.role === 'Sender')
         .map((participant: Participant) => ({
           country: participant.organisation.countryCode,
-          institution: participant.organisation.name
+          name: participant.organisation.name,
+          institution: participant.organisation.id
         }))
     : []
 
@@ -111,7 +112,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         .filter((participant: Participant) => participant.role === 'Receiver')
         .map((participant: Participant) => ({
           country: participant.organisation.countryCode,
-          institution: participant.organisation.name
+          name: participant.organisation.name,
+          institution: participant.organisation.id
         }))
     : []
 

@@ -35,7 +35,6 @@ import {
   Institution,
   InstitutionListMap,
   Participant,
-  RawInstitution,
   SakTypeMap,
   SakTypeValue,
   Sed
@@ -133,7 +132,7 @@ export interface BUCListSelector {
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
   highContrast: boolean
-  institutionList: InstitutionListMap<RawInstitution> | undefined
+  institutionList: InstitutionListMap<Institution> | undefined
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined

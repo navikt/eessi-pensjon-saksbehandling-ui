@@ -87,7 +87,8 @@ export const SedsPropType = PT.arrayOf(SedPropType.isRequired)
 export const InstitutionPropType = PT.shape({
   country: PT.string.isRequired,
   institution: PT.string.isRequired,
-  name: PT.string
+  name: PT.string.isRequired,
+  buc: PT.string.isRequired
 })
 
 export const InstitutionsPropType = PT.arrayOf(InstitutionPropType.isRequired)
@@ -165,14 +166,6 @@ export const SEDAttachmentPayloadWithFilePropType = PT.shape({
   rinaId: PT.string.isRequired,
   rinaDokumentId: PT.string.isRequired,
   variantformat: PT.string
-})
-
-export const RawInstitutionPropType = PT.shape({
-  id: PT.string.isRequired,
-  navn: PT.string.isRequired,
-  akronym: PT.string.isRequired,
-  landkode: PT.string.isRequired,
-  buc: PT.string
 })
 
 export const InstitutionListMapPropType = PT.objectOf(PT.arrayOf(PT.any).isRequired)
