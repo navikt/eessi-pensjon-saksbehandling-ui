@@ -564,7 +564,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         aktoerId: aktoerId!,
         euxCaseId: _buc.caseId!
       }
-      if (sedNeedsVedtakId()) {
+      if (_vedtakId) {
         payload.vedtakId = _vedtakId
       }
       if (sedNeedsAvdod()) {
@@ -754,7 +754,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 id='a-buc-c-sedstart__vedtakid-input-id'
                 label={t('buc:form-vedtakId')}
                 bredde='fullbredde'
-                value={vedtakId || ''}
+                value={_vedtakId || ''}
                 onChange={onVedtakIdChange}
                 placeholder={t('buc:form-noVedtakId')}
                 feil={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
