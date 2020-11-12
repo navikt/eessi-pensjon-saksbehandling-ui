@@ -15,7 +15,6 @@ const SAF_URL = FAGMODUL_API_URL + '/saf'
 
 // EuxController
 export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
-export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions/%(buc)s/%(country)s'
 export const EUX_COUNTRIES_FOR_BUC_URL = EUX_URL + '/countries/%(bucType)s'
 export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 
@@ -55,6 +54,7 @@ export const BUC_CREATE_SED_URL = SED_URL + '/add'
 export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(documentId)s'
+export const BUC_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = SED_URL + '/institutions/%(buc)s/%(country)s'
 
 // Login
 export const LOGIN_URL = FRONTEND_API_URL + '/login'

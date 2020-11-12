@@ -241,7 +241,7 @@ describe('actions/buc', () => {
         buc: mockBucType,
         country: mockCountry
       },
-      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: 'UK' })
+      url: sprintf(urls.BUC_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: 'UK' })
     }))
   })
 
