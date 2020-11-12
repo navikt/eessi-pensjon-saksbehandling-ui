@@ -9,4 +9,9 @@ export const RinaUrlPropType = PT.string
 
 export const TPropType = PT.func
 
-export const ValidationPropType = PT.objectOf(PT.string)
+export const FeiloppsummeringFeilPropType = PT.shape({
+  feilmendling: PT.string.isRequired,
+  skjemaelementId: PT.string.isRequired
+})
+
+export const ValidationPropType = PT.objectOf(FeiloppsummeringFeilPropType)

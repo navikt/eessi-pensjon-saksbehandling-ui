@@ -165,7 +165,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
     case types.BUC_GET_SAKTYPE_FAILURE:
 
       newParams = _.cloneDeep(state.params)
-      newParams.sakType = ''
+      newParams.sakType = 'Ukjent'
 
       return {
         ...state,
