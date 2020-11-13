@@ -440,7 +440,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) > 0) return 1
           if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) < 0) return -1
           return mainCompare
-        })
+        }).filter((sed: string) => sed !== 'P9000')
       }
     }
 
