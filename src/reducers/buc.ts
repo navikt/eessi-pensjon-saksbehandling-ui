@@ -246,8 +246,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         // Cache institution names
         if (bucs[bucId].institusjon) {
           bucs[bucId].institusjon.forEach((inst: Institution) => {
-            if (inst.institution && inst.name && !institutionNames[inst.institution]) {
-              institutionNames[inst.institution] = inst.name
+            if (inst.institution && !institutionNames[inst.institution]) {
+              institutionNames[inst.institution] = inst
             }
           })
         }
@@ -382,15 +382,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         const existingInstitutions: Institutions = institutionList[institution.country] || []
         if (!_.find(existingInstitutions, { institution: institution.institution })) {
           existingInstitutions.push({
-            institution: institution.institution,
-            name: institution.name,
-            country: institution.country,
+            ...institution,
             buc: (action as ActionWithPayload).context.buc
           })
         }
         existingInstitutions.sort((a: Institution, b: Institution) => a.institution.localeCompare(b.institution))
         institutionList[institution.country] = existingInstitutions
-        institutionNames[institution.institution] = institution.name
+        institutionNames[institution.institution] = institution
       })
       return {
         ...state,
@@ -406,7 +404,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const deltakere: Institutions = (action as ActionWithPayload<Participants>).payload.map((participant: Participant) => ({
         country: participant.organisation.countryCode,
         institution: participant.organisation.id,
-        name: participant.organisation.name
+        name: participant.organisation.name,
+        acronym: participant.organisation.acronym || participant.organisation.id
       }))
 
       if (bucs![rinaCaseId]) {

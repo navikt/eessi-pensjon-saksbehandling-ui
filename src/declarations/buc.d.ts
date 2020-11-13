@@ -64,6 +64,7 @@ export interface Institution {
   country: string
   institution: string
   name: string
+  acronym: string
   buc?: string
 }
 
@@ -74,7 +75,7 @@ export interface InstitutionListMap<T> {
 }
 
 export interface InstitutionNames {
-  [id: string]: string
+  [id: string]: Institution
 }
 
 export interface NewSedPayload {

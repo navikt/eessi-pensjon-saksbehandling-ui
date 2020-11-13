@@ -8,7 +8,8 @@ const mockBuc = [
     creator: {
       country: 'NO',
       institution: 'NO:NAVAT07',
-      name: 'NAV ACCEPTANCE TEST 07'
+      name: 'NAV ACCEPTANCE TEST 07',
+      acronym: 'NAVAT07'
     },
     sakType: null,
     status: 'open',
@@ -16,19 +17,23 @@ const mockBuc = [
     lastUpdate: 1571818216000,
     institusjon: [{
       country: 'NO',
+      acronym: 'NAVAT07',
       institution: 'NO:NAVAT07',
       name: 'NAV ACCEPTANCE TEST 07'
     }, {
       country: 'GB',
-      institution: 'GB:DEMO001',
+      acronym: 'DEMOGB01',
+      institution: 'GB:DEMOGB01',
       name: 'GB Demo 01'
     }, {
       country: 'UK',
-      institution: 'UK:DEMO001',
+      acronym: 'DEMOUK01',
+      institution: 'UK:DEMOUK01',
       name: 'UK Demo 01'
     }, {
       country: 'FR',
-      institution: 'FR:DEMO001',
+      acronym: 'DEMOFR01',
+      institution: 'FR:DEMOFR01',
       name: 'France Demo 01'
     }],
     seds: [
@@ -53,7 +58,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -76,7 +81,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -142,7 +147,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -165,7 +170,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -187,13 +192,13 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'DEMO001',
+              acronym: 'DEMOIT01',
               countryCode: 'IT',
               contactMethods: null,
-              name: 'Italia Demo 01',
+              name: 'Italian institution 001',
               location: null,
               assignedBUCs: null,
-              id: 'IT:DEMO001',
+              id: 'IT:DEMOIT01',
               accessPoint: null
             },
             selected: false
@@ -209,13 +214,13 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'DEMO001',
+              acronym: 'DEMOES01',
               countryCode: 'ES',
               contactMethods: null,
-              name: 'Spain Demo 01',
+              name: 'Spanish institution 01',
               location: null,
               assignedBUCs: null,
-              id: 'ES:DEMO001',
+              id: 'ES:DEMOES01',
               accessPoint: null
             },
             selected: false
@@ -231,13 +236,13 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'DEMO001',
+              acronym: 'DEMOFR01',
               countryCode: 'FR',
               contactMethods: null,
-              name: 'France Demo 01',
+              name: 'French insstitution 01',
               location: null,
               assignedBUCs: null,
-              id: 'FR:DEMO001',
+              id: 'FR:DEMOFR01',
               accessPoint: null
             },
             selected: false
@@ -276,7 +281,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -299,7 +304,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -344,7 +349,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -367,7 +372,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -412,7 +417,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -435,7 +440,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -480,7 +485,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -503,7 +508,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -548,7 +553,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -571,7 +576,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -658,7 +663,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -681,7 +686,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -726,7 +731,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -749,7 +754,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -794,7 +799,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -817,7 +822,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -862,7 +867,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -885,7 +890,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -930,7 +935,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -953,7 +958,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -998,7 +1003,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -1021,7 +1026,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -1066,7 +1071,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -1089,7 +1094,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -1134,7 +1139,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -1157,7 +1162,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -1202,7 +1207,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -1225,7 +1230,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -1270,7 +1275,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 07',
+              acronym: 'NAVAT07',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
@@ -1293,7 +1298,7 @@ const mockBuc = [
               },
               activeSince: '2018-08-26T22:00:00.000+0000',
               registryNumber: null,
-              acronym: 'NAV ACCT 08',
+              acronym: 'NAVAT08',
               countryCode: 'NO',
               contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
@@ -1326,7 +1331,8 @@ const mockBuc = [
     creator: {
       country: 'NO',
       institution: 'NO:NAVAT07',
-      name: 'NAV ACCEPTANCE TEST 07'
+      name: 'NAV ACCEPTANCE TEST 07',
+      acronym: 'NAVAT07'
     },
     caseId: '195440',
     sakType: 'Generell',
@@ -1345,27 +1351,39 @@ const mockBuc = [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVAT07'
+        institution: 'NO:NAVAT07',
+        acronym: 'NAVAT07',
+        name: 'NAV acceptance Test 07'
       },
       {
         country: 'SE',
-        institution: 'SE:DEMO001'
+        institution: 'SE:DEMOSE01',
+        acronym: 'DEMOSE01',
+        name: 'Swedish institution 01'
       },
       {
         country: 'FI',
-        institution: 'FI:DEMO002'
+        institution: 'FI:DEMOFI02',
+        acronym: 'DEMOFI02',
+        name: 'Finnish institution 02'
       },
       {
         country: 'GB',
-        institution: 'GB:DEMO003'
+        institution: 'GB:DEMOGB03',
+        acronym: 'DEMOGB02',
+        name: 'GB institution 03'
       },
       {
         country: 'PT',
-        institution: 'PT:DEMO004'
+        institution: 'PT:DEMOPT04',
+        acronym: 'DEMOPT04',
+        name: 'PT institution 04'
       },
       {
         country: 'FR',
-        institution: 'FR:DEMO005'
+        institution: 'FR:DEMO005',
+        acronym: 'DEMOFR05',
+        name: 'French institution 05'
       }
     ],
     seds: [
@@ -1388,13 +1406,13 @@ const mockBuc = [
               },
               activeSince: 1518476400000,
               registryNumber: null,
-              acronym: '12348',
+              acronym: 'DEMONO02',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'DEMO002',
+              name: 'Norwegian institution 02',
               location: null,
               assignedBUCs: null,
-              id: 'NO:DEMO002',
+              id: 'NO:DEMONO02',
               accessPoint: null
             },
             selected: true
@@ -1411,13 +1429,13 @@ const mockBuc = [
               },
               activeSince: 1508450400000,
               registryNumber: null,
-              acronym: '12347',
+              acronym: 'DEMONO01',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'DEMO001',
+              name: 'Norwegian institution 01',
               location: null,
               assignedBUCs: null,
-              id: 'NO:DEMO001',
+              id: 'NO:DEMONO01',
               accessPoint: null
             },
             selected: false
@@ -1476,13 +1494,13 @@ const mockBuc = [
               },
               activeSince: 1518476400000,
               registryNumber: null,
-              acronym: '12348',
+              acronym: 'DEMONO02',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'DEMO002',
+              name: 'Norwegin institution 02',
               location: null,
               assignedBUCs: null,
-              id: 'NO:DEMO002',
+              id: 'NO:DEMONO02',
               accessPoint: null
             },
             selected: false
@@ -1499,13 +1517,13 @@ const mockBuc = [
               },
               activeSince: 1508450400000,
               registryNumber: null,
-              acronym: '12347',
+              acronym: 'DEMONO01',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'DEMO001',
+              name: 'Norwegian institution 01',
               location: null,
               assignedBUCs: null,
-              id: 'NO:DEMO001',
+              id: 'NO:DEMONO01',
               accessPoint: null
             },
             selected: false
@@ -2409,8 +2427,9 @@ const mockBuc = [
     readOnly: false,
     creator: {
       country: 'SE',
-      institution: 'SE:DEMO001',
-      name: 'Swedish Demo Institution 001'
+      institution: 'SE:DEMOSE01',
+      name: 'Swedish Demo Institution 001',
+      acronym: 'DEMOSE01'
     },
     caseId: '195441',
     sakType: 'Generell',
@@ -2429,33 +2448,39 @@ const mockBuc = [
     institusjon: [
       {
         country: 'IE',
-        institution: 'IE:DEMO001',
-        name: 'Irish Institution 001'
+        institution: 'IE:DEMOIE01',
+        name: 'Irish Institution 001',
+        acronym: 'DEMOIE01'
       },
       {
         country: 'US',
-        institution: 'US:DEMO001',
-        name: 'N American Institution 001'
+        institution: 'US:DEMOUS01',
+        name: 'North American Institution 001',
+        acronym: 'DEMOUS01'
       },
       {
         country: 'IT',
-        institution: 'IT:DEMO001',
-        name: 'Italian Institution 001'
+        institution: 'IT:DEMOIT01',
+        name: 'Italian Institution 001',
+        acronym: 'DEMOIT01'
       },
       {
         country: 'DE',
-        institution: 'DE:DEMO001',
-        name: 'German Institution 001'
+        institution: 'DE:DEMODE01',
+        name: 'German Institution 001',
+        acronym: 'DEMODE01'
       },
       {
         country: 'SE',
-        institution: 'SE:DEMO001',
-        name: 'Swedish Institution 001'
+        institution: 'SE:DEMOSE01',
+        name: 'Swedish Institution 001',
+        acronym: 'DEMOSE01'
       },
       {
         country: 'ZA',
-        institution: 'ZA:DEMO001',
-        name: 'South African Institution 001'
+        institution: 'ZA:DEMOZA01',
+        name: 'South African Institution 001',
+        acronym: 'DEMOZA01'
       }
     ],
     seds: [
@@ -2532,8 +2557,9 @@ const mockBuc = [
     readOnly: true,
     creator: {
       country: 'NO',
-      institution: 'NO:DEMO002',
-      name: 'DEMO002'
+      institution: 'NO:DEMONO02',
+      name: 'Norwegian institution 02',
+      acronym: 'DEMONO02'
     },
     caseId: '158123',
     sakType: 'Generell',
@@ -2543,12 +2569,14 @@ const mockBuc = [
     lastUpdate: 1558362934000,
     institusjon: [{
       country: 'NO',
-      institution: 'NO:DEMO002',
-      name: 'DEMO002'
+      institution: 'NO:DEMONO02',
+      name: 'Norwegian institution 02',
+      acronym: 'DEMONO02'
     }, {
       country: 'NO',
-      institution: 'NO:DEMO001',
-      name: 'DEMO001'
+      institution: 'NO:DEMONO01',
+      name: 'Norwegian institution 01',
+      acronym: 'DEMONO01'
     }],
     seds: [{
       id: 'f2123ebf16dc4ddaaaf2420d0adb39c7',
@@ -3723,10 +3751,11 @@ const mockBuc = [
   {
     type: 'P_BUC_05',
     readOnly: false,
-    creator: {
+    creator:  {
       country: 'NO',
-      institution: 'NO:DEMO002',
-      name: 'DEMO002'
+      institution: 'NO:DEMONO02',
+      name: 'Norwegian institution 02',
+      acronym: 'DEMONO02'
     },
     caseId: '158125',
     sakType: 'Generell',
@@ -3734,14 +3763,16 @@ const mockBuc = [
     status: 'open',
     startDate: 1557392989122,
     lastUpdate: 1558362934000,
-    institusjon: [{
+    institusjon: [ {
       country: 'NO',
-      institution: 'NO:DEMO002',
-      name: 'DEMO002'
-    }, {
+      institution: 'NO:DEMONO01',
+      name: 'Norwegian institution 01',
+      acronym: 'DEMONO01'
+    },  {
       country: 'NO',
-      institution: 'NO:DEMO001',
-      name: 'DEMO001'
+      institution: 'NO:DEMONO02',
+      name: 'Norwegian institution 02',
+      acronym: 'DEMONO02'
     }],
     seds: []
   },
@@ -3750,8 +3781,9 @@ const mockBuc = [
     readOnly: false,
     creator: {
       country: 'NO',
-      institution: 'NO:DEMO002',
-      name: 'DEMO002'
+      institution: 'NO:DEMONO02',
+      name: 'Norwegian institution 02',
+      acronym: 'DEMONO02'
     },
     caseId: '158124',
     sakType: 'Generell',
@@ -3759,14 +3791,16 @@ const mockBuc = [
     status: 'open',
     startDate: 1557392989122,
     lastUpdate: 1558362934000,
-    institusjon: [{
+    institusjon: [ {
       country: 'NO',
-      institution: 'NO:DEMO002',
-      name: 'DEMO002'
-    }, {
+      institution: 'NO:DEMONO01',
+      name: 'Norwegian institution 01',
+      acronym: 'DEMONO01'
+    },  {
       country: 'NO',
-      institution: 'NO:DEMO001',
-      name: 'DEMO001'
+      institution: 'NO:DEMONO02',
+      name: 'Norwegian institution 02',
+      acronym: 'DEMONO02'
     }],
     seds: [{
       id: 'f2123ebf16dc4ddaaaf2420d0adb39c8',
@@ -3842,7 +3876,8 @@ const mockBuc = [
     creator: {
       country: 'NO',
       institution: 'NO:NAVAT07',
-      name: 'NAV ACCEPTANCE TEST 07'
+      name: 'NAV ACCEPTANCE TEST 07',
+      acronym: 'NAVAT07'
     },
     sakType: null,
     status: 'open',

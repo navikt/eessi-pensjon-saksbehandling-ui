@@ -103,7 +103,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         .map((participant: Participant) => ({
           country: participant.organisation.countryCode,
           name: participant.organisation.name,
-          institution: participant.organisation.id
+          institution: participant.organisation.id,
+          acronym: participant.organisation.acronym || participant.organisation.id.split(':')[1]
         }))
     : []
 
@@ -113,7 +114,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         .map((participant: Participant) => ({
           country: participant.organisation.countryCode,
           name: participant.organisation.name,
-          institution: participant.organisation.id
+          institution: participant.organisation.id,
+          acronym: participant.organisation.acronym || participant.organisation.id.split(':')[1]
         }))
     : []
 

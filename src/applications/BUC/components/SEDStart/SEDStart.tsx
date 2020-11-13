@@ -259,7 +259,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   // QUESTIONS
 
   const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' &&
-    (_buc?.creator?.institution !== 'NO:NAVAT08' && _buc?.creator?.institution !== 'NO:NAVAT06')
+    (_buc?.creator?.institution !== 'NO:NAVAT05' && _buc?.creator?.institution !== 'NO:NAVAT08' && _buc?.creator?.institution !== 'NO:NAVAT06')
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
@@ -267,9 +267,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsVedtakId = ['P6000', 'P7000']
 
-  const sedPrefillsCountriesAndInstitutions = ['P5000', 'P6000', 'P8000', 'P10000', 'H020', 'H070']
+  const sedPrefillsCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'P8000', 'P10000', 'H020', 'H070', 'H120', 'H121']
 
-  const sedFreezesCountriesAndInstitutions = ['P5000', 'P6000', 'H070']
+  const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'H070', 'H121']
 
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
@@ -330,7 +330,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           _institutionObjectList.push({
             label: country.label,
             options: institutionList[landkode].filter(_notHostInstitution).map((institution: Institution) => ({
-              label: institution.name,
+              label: `${institution.acronym} – ${institution.name} (${institution.institution})`,
               value: institution.institution
             }))
           })
@@ -885,12 +885,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <InstitutionsDiv>
                 <InstitutionList
-                  institutions={_institutions.map(item => {
-                    const [country, institution] = item.split(':')
+                  institutions={_institutions.map(institution => {
+                    const [country, acronym] = institution.split(':')
                     return {
                       country: country,
-                      institution: item,
-                      name: institutionNames ? institutionNames[item] : institution
+                      acronym: acronym,
+                      institution: institution,
+                      name: institutionNames ? institutionNames[institution].name : institution
                     }
                   })}
                   locale={locale}

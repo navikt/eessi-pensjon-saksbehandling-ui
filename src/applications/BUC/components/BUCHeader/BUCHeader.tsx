@@ -140,11 +140,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const generateFlagItems = (): FlagItems => {
     const institutionList: InstitutionListMap<string> = {}
     buc.deltakere!.forEach((institution: Institution) => {
-      if (institution.country === 'NO' && institution.institution === 'NO:NAVAT08') {
-        institution.country = 'AQ'
+      if (institution.country === 'NO' && institution.institution === 'NO:NAVAT05') {
+        institution.country = 'SE'
       }
       if (institution.country === 'NO' && institution.institution === 'NO:NAVAT06') {
-        institution.country = 'AQ'
+        institution.country = 'DK'
+      }
+      if (institution.country === 'NO' && institution.institution === 'NO:NAVAT08') {
+        institution.country = 'FI'
       }
       if (Object.prototype.hasOwnProperty.call(institutionList, institution.country)) {
         institutionList[institution.country].push(institution.institution)
@@ -160,7 +163,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         label: institutionList[landkode].map((institutionId: string) => {
           return institutionNames &&
         Object.prototype.hasOwnProperty.call(institutionNames, institutionId)
-            ? institutionNames[institutionId]
+            ? institutionNames[institutionId].name
             : institutionId
         }).join(', ')
       }))

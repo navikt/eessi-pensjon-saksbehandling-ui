@@ -53,14 +53,14 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     institutions.forEach(item => {
       let institution: string = item.institution
       let country: string = item.country
-      if (country === 'NO' && institution === 'NO:NAVAT08') {
-        country = 'AQ'
+      if (country === 'NO' && institution === 'NO:NAVAT05') {
+        country = 'SE'
       }
       if (country === 'NO' && institution === 'NO:NAVAT06') {
-        country = 'AQ'
+        country = 'DK'
       }
-      if (institution && institution.startsWith(country + ':')) {
-        institution = institution.substring(institution.indexOf(':') + 1, institution.length)
+      if (country === 'NO' && institution === 'NO:NAVAT08') {
+        country = 'FI'
       }
       if (Object.prototype.hasOwnProperty.call(institutionList, country)) {
         institutionList[country].push(institution)
@@ -70,11 +70,11 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     })
   }
 
-  const getLabel = (landkode: string, institutionId: string): string => {
+  const getLabel = (institution: string): string => {
     return institutionNames &&
-    Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
-      ? institutionNames[landkode + ':' + institutionId]
-      : institutionId
+    Object.prototype.hasOwnProperty.call(institutionNames, institution)
+      ? institutionNames[institution].name
+      : institution
   }
 
   return _.isEmpty(institutionList)
@@ -112,13 +112,13 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                       />
                     )}
                     <InstitutionText>
-                      {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}
+                      {institutionList[landkode].map((institution: string) => getLabel(institution)).join(', ')}
                     </InstitutionText>
                   </InstitutionDiv>
                 )}
-                {type === 'separated' && institutionList[landkode].map((institutionId : string) => (
+                {type === 'separated' && institutionList[landkode].map((institution : string) => (
                   <InstitutionDiv
-                    key={institutionId}
+                    key={institution}
                     data-test-id='a-buc-c-institutionlist__div-id'
                     className={className}
                   >
@@ -131,7 +131,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                       />
                     )}
                     <InstitutionText>
-                      {getLabel(landkode, institutionId)}
+                      {getLabel(institution)}
                     </InstitutionText>
                   </InstitutionDiv>
                 ))}

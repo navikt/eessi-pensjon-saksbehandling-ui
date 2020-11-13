@@ -88,6 +88,7 @@ export const InstitutionPropType = PT.shape({
   country: PT.string.isRequired,
   institution: PT.string.isRequired,
   name: PT.string.isRequired,
+  acronym: PT.string.isRequired,
   buc: PT.string.isRequired
 })
 
