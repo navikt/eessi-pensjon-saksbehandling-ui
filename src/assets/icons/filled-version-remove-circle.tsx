@@ -1,6 +1,7 @@
 import React from 'react'
 const FilledVersionRemoveCircle = (props: any) => (
   <svg
+
     contentScriptType='text/ecmascript' zoomAndPan='magnify'
     contentStyleType='text/css'
     id='Filled_Version' enableBackground='new 0 0 24 24' version='1.1'

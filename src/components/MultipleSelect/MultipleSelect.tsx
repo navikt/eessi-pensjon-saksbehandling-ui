@@ -27,12 +27,13 @@ export interface MultipleSelectProps<OptionType> {
   ariaLabel ?: string
   className ?: string
   creatable ?: boolean
-  disabled ?: boolean
   error ?: string
   highContrast?: boolean
   hideSelectedOptions ?: boolean
   id ?: string
+  isDisabled ?: boolean
   isLoading?: boolean
+  isSearchable ?: boolean
   label: string | JSX.Element
   menuPortalTarget?: any,
   onSelect?: (e: ValueType<OptionType>) => void
@@ -42,9 +43,8 @@ export interface MultipleSelectProps<OptionType> {
 }
 
 const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
-  ariaLabel, className, creatable = false, disabled = false, error,
-  highContrast = false, hideSelectedOptions = false,
-  id, isLoading = false, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
+  ariaLabel, className, creatable = false, error, highContrast = false, hideSelectedOptions = false, id,
+  isDisabled = false, isLoading = false, isSearchable = true, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
 }: MultipleSelectProps<OptionType>): JSX.Element => {
   const _theme = highContrast ? themeHighContrast : theme
 
@@ -71,9 +71,10 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
           classNamePrefix='multipleSelect'
           placeholder={placeholder}
           aria-label={ariaLabel}
-          disabled={disabled}
+          isDisabled={isDisabled}
           isMulti
           isLoading={isLoading}
+          isSearchable={isSearchable}
           menuPortalTarget={menuPortalTarget || document.body}
           animatedComponents
           closeMenuOnSelect={false}
@@ -91,6 +92,17 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
           onChange={onSelectChange}
           hideSelectedOptions={hideSelectedOptions || false}
           styles={{
+            container: (styles: any, state: any) => ({
+              ...styles,
+              backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR],
+              borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
+              borderColor: !error
+                ? `1px solid ${_theme[themeKeys.MAIN_BORDER_COLOR]}`
+                : `2px solid ${_theme[themeKeys.REDERROR]}`,
+              boxShadow: state.isFocused
+                ? `0 0 0 3px ${_theme[themeKeys.MAIN_FOCUS_COLOR]}`
+                : (error ? `0 0 0 1px ${_theme[themeKeys.REDERROR]}` : 'none')
+            }),
             control: (styles: any) => ({
               ...styles,
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : (!error ? '1px' : '2px'),
@@ -98,7 +110,15 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
               borderStyle: 'solid',
               borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
               color: _theme[themeKeys.MAIN_FONT_COLOR],
-              backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
+              backgroundColor: isDisabled ? _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR] : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
+            }),
+            indicatorSeparator: (styles: any) => ({
+              ...styles,
+              backgroundColor: _theme[themeKeys.MAIN_BORDER_COLOR]
+            }),
+            menu: (styles: any) => ({
+              ...styles,
+              zIndex: 500
             }),
             multiValue: (styles: any) => ({
               ...styles,
@@ -113,17 +133,9 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
               flexDirection: 'row',
               justifyContent: 'center'
             }),
-            singleValue: (styles: any) => ({
+            multiValueRemove: (styles: any) => ({
               ...styles,
-              color: _theme[themeKeys.MAIN_FONT_COLOR]
-            }),
-            indicatorSeparator: (styles: any) => ({
-              ...styles,
-              backgroundColor: _theme[themeKeys.MAIN_BORDER_COLOR]
-            }),
-            menu: (styles: any) => ({
-              ...styles,
-              zIndex: 500
+              padding: '0rem'
             }),
             menuList: (styles: any) => ({
               ...styles,
@@ -145,7 +157,12 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
                 : isSelected
                   ? _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
                   : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
-            })
+            }),
+            menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
+            singleValue: (styles: any) => ({
+              ...styles,
+              color: _theme[themeKeys.MAIN_FONT_COLOR]
+            }),
           }}
           tabSelectsValue={false}
         />

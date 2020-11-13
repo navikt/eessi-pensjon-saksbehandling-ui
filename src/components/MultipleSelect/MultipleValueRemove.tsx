@@ -14,6 +14,7 @@ const MultipleValueRemove = (props: any) => {
   const { selectProps, innerProps } = props
   const theme = selectProps.selectProps.theme
 
+  const visibility = selectProps.isDisabled ? 'hidden' : 'visible'
   return (
     <FlexDiv
       {...innerProps}
@@ -21,8 +22,11 @@ const MultipleValueRemove = (props: any) => {
       data-test-id='c-multipleselect-multiplevalueremove'
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+
     >
-      <FilledRemoveCircle color={
+      <FilledRemoveCircle
+        style={{ visibility:visibility }}
+        color={
         theme[hover ? 'main-interactive-color' : 'main-font-color']
       }
       />

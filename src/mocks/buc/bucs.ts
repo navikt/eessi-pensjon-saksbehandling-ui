@@ -2429,27 +2429,33 @@ const mockBuc = [
     institusjon: [
       {
         country: 'IE',
-        institution: 'IE:DEMO001'
+        institution: 'IE:DEMO001',
+        name: 'Irish Institution 001'
       },
       {
         country: 'US',
-        institution: 'US:DEMO001'
+        institution: 'US:DEMO001',
+        name: 'N American Institution 001'
       },
       {
         country: 'IT',
-        institution: 'IT:DEMO001'
+        institution: 'IT:DEMO001',
+        name: 'Italian Institution 001'
       },
       {
         country: 'DE',
-        institution: 'DE:DEMO001'
+        institution: 'DE:DEMO001',
+        name: 'German Institution 001'
       },
       {
         country: 'SE',
-        institution: 'SE:DEMO001'
+        institution: 'SE:DEMO001',
+        name: 'Swedish Institution 001'
       },
       {
         country: 'ZA',
-        institution: 'ZA:DEMO001'
+        institution: 'ZA:DEMO001',
+        name: 'South African Institution 001'
       }
     ],
     seds: [

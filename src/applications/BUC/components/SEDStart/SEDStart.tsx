@@ -240,7 +240,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const _buc: Buc = _.cloneDeep(bucs[currentBuc!])
-  const [_countries, setCountries] = useState<CountryRawList>(prefill('countryCode'))
+  const [_countries, setCountries] = useState<CountryRawList>(
+    featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('countryCode') : [])
   const _countryData: CountryList = CountryData.getCountryInstance(locale)
   const [_institutions, setInstitutions] = useState<InstitutionRawList>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
@@ -265,6 +266,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const sedNeedsAvdod = useCallback((): boolean => bucsWithAvdod(_buc.type), [_buc])
 
   const sedNeedsVedtakId = (): boolean => _sed === 'P6000' || _sed === 'P7000'
+
+  const sedPrefillsCountriesAndInstitutions = (sed: string): boolean => sed === 'P5000' || sed === 'P6000' || sed === 'H070'
+
+  const sedFreezesCountriesAndInstitutions = (sed: string | undefined): boolean => sed === 'P5000' || sed === 'P6000' || sed === 'H070'
 
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
@@ -293,7 +298,26 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   // Manage Institution / country options
 
-  const _countryIncludeList: CountryRawList = countryList ? (isNorwayCaseOwner() ? countryList : ['NO']) : []
+  const getParticipantCountriesWithoutNorway = (): CountryRawList => {
+    let countries: RawList = bucs[currentBuc!].institusjon ?
+      bucs[currentBuc!].institusjon!.map((inst: Institution) => inst.country) :
+      []
+    return _.uniq(_.filter(countries, ((c: string) => c !== 'NO')))
+  }
+
+  const getParticipantInstitutionsWithoutNorway = (): InstitutionRawList => {
+    let institutions: RawList = bucs[currentBuc!].institusjon ?
+      bucs[currentBuc!].institusjon!
+        .filter((inst: Institution) => inst.country !== 'NO')
+        .map((inst: Institution) => inst.institution) : []
+    return _.uniq(institutions)
+  }
+
+  const isDisabled = sedFreezesCountriesAndInstitutions(_sed)
+
+  const _countryIncludeList: CountryRawList = countryList ?
+    (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway()) :
+    []
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
   const _institutionObjectList: Array<GroupType<Option>> = []
   let _institutionValueList: Options = []
@@ -420,13 +444,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     dispatch(resetSavingAttachmentJob())
   }
 
-  const fetchInstitutionsForSelectedCountries = useCallback((countries: Options): void => {
+  const fetchInstitutionsForSelectedCountries = useCallback((countries: Options | CountryRawList): void => {
     if (!_buc) {
       return
     }
-    const newCountries: CountryRawList = countries
-      ? countries.map(item => item.value)
-      : []
+
+    let newCountries: CountryRawList = []
+    if (!_.isEmpty(countries)) {
+      if (typeof countries[0] === 'string') {
+        newCountries = countries as CountryRawList
+      } else {
+        newCountries = (countries as Options).map(item => item.value)
+      }
+    }
 
     const oldCountriesList: CountryRawList = _.cloneDeep(_countries)
     const addedCountries: CountryRawList = newCountries.filter(country => !oldCountriesList.includes(country))
@@ -467,6 +497,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setValidation({
       sed: validateSed(newSed)
     })
+    if (sedPrefillsCountriesAndInstitutions(newSed)) {
+      const countries: CountryRawList = getParticipantCountriesWithoutNorway()
+      fetchInstitutionsForSelectedCountries(countries)
+      setInstitutions(getParticipantInstitutionsWithoutNorway())
+    }
   }
 
   const onInstitutionsChange = (institutions: ValueType<Option | GroupType<Option>>): void => {
@@ -804,7 +839,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-
           {!currentSed && (
             <>
               <VerticalSeparatorDiv />
@@ -813,14 +847,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 aria-describedby='help-country'
                 closeMenuOnSelect={false}
                 data-test-id='a-buc-c-sedstart__country-select-id'
-                disabled={loading.gettingCountryList}
+                isDisabled={loading.gettingCountryList || isDisabled}
                 error={_validation.country ? t(_validation.country.feilmelding) : null}
                 flagType='circle'
                 hideSelectedOptions={false}
                 highContrast={highContrast}
                 id='a-buc-c-sedstart__country-select-id'
                 includeList={_countryIncludeList}
-                initialValue={_countryValueList}
+                values={_countryValueList}
                 isLoading={loading.gettingCountryList}
                 isMulti
                 label={t('ui:country')}
@@ -832,7 +866,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 ariaLabel={t('ui:institution')}
                 aria-describedby='help-institution'
                 data-test-id='a-buc-c-sedstart__institution-select-id'
-                disabled={loading.gettingInstitutionList}
+                isDisabled={loading.gettingInstitutionList || isDisabled}
                 error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
                 hideSelectedOptions={false}
                 highContrast={highContrast}
