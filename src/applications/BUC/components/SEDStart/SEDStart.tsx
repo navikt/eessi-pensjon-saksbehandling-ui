@@ -265,11 +265,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsAvdod = useCallback((): boolean => bucsWithAvdod(_buc.type), [_buc])
 
-  const sedNeedsVedtakId = (): boolean => _sed === 'P6000' || _sed === 'P7000'
+  const sedNeedsVedtakId = ['P6000', 'P7000']
 
-  const sedPrefillsCountriesAndInstitutions = (sed: string): boolean => sed === 'P5000' || sed === 'P6000' || sed === 'H070'
+  const sedPrefillsCountriesAndInstitutions = ['P5000', 'P6000', 'P8000', 'P10000', 'H020', 'H070']
 
-  const sedFreezesCountriesAndInstitutions = (sed: string | undefined): boolean => sed === 'P5000' || sed === 'P6000' || sed === 'H070'
+  const sedFreezesCountriesAndInstitutions = ['P5000', 'P6000', 'H070']
 
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
@@ -313,7 +313,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return _.uniq(institutions)
   }
 
-  const isDisabled = sedFreezesCountriesAndInstitutions(_sed)
+  const isDisabled = _sed ? !isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0 : false
 
   const _countryIncludeList: CountryRawList = countryList ?
     (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway()) :
@@ -497,7 +497,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setValidation({
       sed: validateSed(newSed)
     })
-    if (sedPrefillsCountriesAndInstitutions(newSed)) {
+    if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
@@ -571,7 +571,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     validation.institution = validateInstitutions(_institutions)
     validation.country = validateCountries(_countries)
 
-    if (sedNeedsVedtakId()) {
+    if (_sed && sedNeedsVedtakId.indexOf(_sed) >= 0) {
       validation.vedtakid = validateVedtakId(_vedtakId)
     }
     if (sedNeedsAvdodFnrInput()) {
@@ -777,7 +777,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
           </>
-          {sedNeedsVedtakId() && (
+          {_sed && sedNeedsVedtakId.indexOf(_sed) >= 0 && (
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
