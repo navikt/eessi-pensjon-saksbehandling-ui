@@ -206,34 +206,33 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                 <strong>{t('ui:deceased')}</strong>:
               </Undertekst>
               <div>
-                {personAvdods && (
-                  personAvdods.length > 0
-                    ? personAvdods.map(avdod => (
-                      <Element
-                        key={avdod?.fnr}
-                        id='w-overview-personPanel__element-deceased'
-                      >
-                        <HorizontalSeparatorDiv />
-                        <Normaltekst>
-                          {avdod?.fornavn +
-                          (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                          (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                          ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
-                        </Normaltekst>
-                      </Element>
-                      ))
-                    : (
-                      <Element
-                        key='noAvdod'
-                        id='w-overview-personPanel__element-deceased'
-                      >
-                        <HorizontalSeparatorDiv />
-                        <Normaltekst>
-                          {t('buc:form-noAvdod')}
-                        </Normaltekst>
-                      </Element>
-                      )
-                )}
+                {personAvdods && personAvdods.length > 0 ?
+                  personAvdods.map(avdod => (
+                    <Element
+                      key={avdod?.fnr}
+                      id='w-overview-personPanel__element-deceased'
+                    >
+                      <HorizontalSeparatorDiv />
+                      <Normaltekst>
+                        {avdod?.fornavn +
+                        (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                        (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                        ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
+                      </Normaltekst>
+                    </Element>
+                    ))
+                  : (
+                    <Element
+                      key='noAvdod'
+                      id='w-overview-personPanel__element-deceased'
+                    >
+                      <HorizontalSeparatorDiv />
+                      <Normaltekst>
+                        {t('buc:form-noAvdod')}
+                      </Normaltekst>
+                    </Element>
+                  )
+                }
               </div>
             </MarginColumn>
 

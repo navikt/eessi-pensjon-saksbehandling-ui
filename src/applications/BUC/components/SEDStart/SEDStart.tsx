@@ -56,7 +56,8 @@ import {
   Buc,
   Bucs,
   CountryRawList, Institution,
-  InstitutionListMap, InstitutionNames,
+  InstitutionListMap,
+  InstitutionNames,
   InstitutionRawList,
   Institutions,
   NewSedPayload,
@@ -340,19 +341,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   if (institutionList && _institutions) {
-    _institutionValueList = _institutions.map(item => {
-      const [country, institution] = item.split(':')
-      const found = _.find(institutionList[country], { institution: item })
-      if (found) {
-        return {
-          label: found.name,
-          value: found.institution
-        }
-      } else {
-        return {
-          label: item,
-          value: institution
-        }
+    _institutionValueList = _institutions.map(institution => {
+      return {
+        label: institutionNames && institutionNames[institution] ? institutionNames[institution].name : institution,
+        value:institutionNames && institutionNames[institution] ? institutionNames[institution].institution : institution,
       }
     })
   }
