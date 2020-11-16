@@ -3751,7 +3751,7 @@ const mockBuc = [
   {
     type: 'P_BUC_05',
     readOnly: false,
-    creator:  {
+    creator: {
       country: 'NO',
       institution: 'NO:DEMONO02',
       name: 'Norwegian institution 02',
@@ -3763,12 +3763,12 @@ const mockBuc = [
     status: 'open',
     startDate: 1557392989122,
     lastUpdate: 1558362934000,
-    institusjon: [ {
+    institusjon: [{
       country: 'NO',
       institution: 'NO:DEMONO01',
       name: 'Norwegian institution 01',
       acronym: 'DEMONO01'
-    },  {
+    }, {
       country: 'NO',
       institution: 'NO:DEMONO02',
       name: 'Norwegian institution 02',
@@ -3791,12 +3791,12 @@ const mockBuc = [
     status: 'open',
     startDate: 1557392989122,
     lastUpdate: 1558362934000,
-    institusjon: [ {
+    institusjon: [{
       country: 'NO',
       institution: 'NO:DEMONO01',
       name: 'Norwegian institution 01',
       acronym: 'DEMONO01'
-    },  {
+    }, {
       country: 'NO',
       institution: 'NO:DEMONO02',
       name: 'Norwegian institution 02',

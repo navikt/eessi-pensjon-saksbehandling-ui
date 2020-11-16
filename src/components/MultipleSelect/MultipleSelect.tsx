@@ -162,7 +162,7 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
             singleValue: (styles: any) => ({
               ...styles,
               color: _theme[themeKeys.MAIN_FONT_COLOR]
-            }),
+            })
           }}
           tabSelectsValue={false}
         />

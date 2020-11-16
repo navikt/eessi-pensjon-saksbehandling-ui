@@ -206,8 +206,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                 <strong>{t('ui:deceased')}</strong>:
               </Undertekst>
               <div>
-                {personAvdods && personAvdods.length > 0 ?
-                  personAvdods.map(avdod => (
+                {personAvdods && personAvdods.length > 0
+                  ? personAvdods.map(avdod => (
                     <Element
                       key={avdod?.fnr}
                       id='w-overview-personPanel__element-deceased'
@@ -231,8 +231,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                         {t('buc:form-noAvdod')}
                       </Normaltekst>
                     </Element>
-                  )
-                }
+                    )}
               </div>
             </MarginColumn>
 

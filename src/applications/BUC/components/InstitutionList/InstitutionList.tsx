@@ -51,7 +51,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
 
   if (institutions) {
     institutions.forEach(item => {
-      let institution: string = item.institution
+      const institution: string = item.institution
       let country: string = item.country
       if (country === 'NO' && institution === 'NO:NAVAT05') {
         country = 'SE'

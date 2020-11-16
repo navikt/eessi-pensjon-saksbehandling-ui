@@ -25,7 +25,7 @@ const MultipleValueRemove = (props: any) => {
 
     >
       <FilledRemoveCircle
-        style={{ visibility:visibility }}
+        style={{ visibility: visibility }}
         color={
         theme[hover ? 'main-interactive-color' : 'main-font-color']
       }

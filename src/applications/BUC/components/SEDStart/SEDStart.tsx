@@ -237,6 +237,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
+  const [_avdodfnr, setAvdodfnr] = useState<string | undefined>(undefined)
   const [_avdodOrSoker, setAvdodOrSoker] = useState<AvdodOrSokerValue | undefined>(undefined)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
@@ -300,25 +301,26 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   // Manage Institution / country options
 
   const getParticipantCountriesWithoutNorway = (): CountryRawList => {
-    let countries: RawList = bucs[currentBuc!].institusjon ?
-      bucs[currentBuc!].institusjon!.map((inst: Institution) => inst.country) :
-      []
-    return _.uniq(_.filter(countries, ((c: string) => c !== 'NO')))
+    const countries: RawList = bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!].institusjon!.map((inst: Institution) => inst.country)
+      : []
+    return _.uniq(_.filter(countries, (c: string) => c !== 'NO'))
   }
 
   const getParticipantInstitutionsWithoutNorway = (): InstitutionRawList => {
-    let institutions: RawList = bucs[currentBuc!].institusjon ?
-      bucs[currentBuc!].institusjon!
+    const institutions: RawList = bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!].institusjon!
         .filter((inst: Institution) => inst.country !== 'NO')
-        .map((inst: Institution) => inst.institution) : []
+        .map((inst: Institution) => inst.institution)
+      : []
     return _.uniq(institutions)
   }
 
   const isDisabled = _sed ? !isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0 : false
 
-  const _countryIncludeList: CountryRawList = countryList ?
-    (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway()) :
-    []
+  const _countryIncludeList: CountryRawList = countryList
+    ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
+    : []
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
   const _institutionObjectList: Array<GroupType<Option>> = []
   let _institutionValueList: Options = []
@@ -344,7 +346,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     _institutionValueList = _institutions.map(institution => {
       return {
         label: institutionNames && institutionNames[institution] ? institutionNames[institution].name : institution,
-        value:institutionNames && institutionNames[institution] ? institutionNames[institution].institution : institution,
+        value: institutionNames && institutionNames[institution] ? institutionNames[institution].institution : institution
       }
     })
   }
@@ -410,8 +412,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return undefined
   }
 
-  const validateAvdodFnr = (_avdod: PersonAvdod | null | undefined): FeiloppsummeringFeil | undefined => {
-    if (!_avdod) {
+  const validateAvdodFnr = (avdodfnr: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!avdodfnr) {
       return {
         feilmelding: t('buc:validation-chooseAvdodFnr'),
         skjemaelementId: 'a-buc-c-bucstart__avdod-input-id'
@@ -473,13 +475,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const newAvdod: PersonAvdod | undefined = e.target.value
-      ? {
-        fnr: e.target.value
-      } as PersonAvdod
-      : undefined
-    setAvdod(newAvdod)
-    updateValidation('avdodfnr', validateAvdodFnr(newAvdod))
+    const newAvdodFnr: string | undefined = e.target.value
+    setAvdodfnr(newAvdodFnr)
+    updateValidation('avdodfnr', validateAvdodFnr(newAvdodFnr))
   }
 
   const onSedChange = (option: ValueType<Option> | null | undefined): void => {
@@ -567,7 +565,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       validation.vedtakid = validateVedtakId(_vedtakId)
     }
     if (sedNeedsAvdodFnrInput()) {
-      validation.avdodfnr = validateAvdodFnr(_avdod)
+      validation.avdodfnr = validateAvdodFnr(_avdodfnr)
     }
     if (sedNeedsAvdodBrukerQuestion()) {
       validation.avdodorsoker = validateAvdodOrSoker(_avdodOrSoker)
@@ -594,10 +592,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsAvdod()) {
         payload.avdodfnr = _avdod?.fnr
       }
+      if (sedNeedsAvdodFnrInput()) {
+        payload.avdodfnr = _avdodfnr
+      }
       if (sedNeedsAvdodBrukerQuestion()) {
         payload.referanseTilPerson = _avdodOrSoker
       }
-
       if ((_buc as ValidBuc).subject) {
         payload.subject = (_buc as ValidBuc).subject
       }
@@ -725,7 +725,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return <div />
   }
 
-  // @ts-ignore
   return (
     <SEDStartDiv>
       <Systemtittel>
