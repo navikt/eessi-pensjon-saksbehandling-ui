@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Header/Header Render: match snapshot 1`] = `
+exports['components/Header/Header Render: match snapshot 1'] = `
 .c15 {
   display: inline-block;
   margin-left: 1rem;
@@ -532,4 +532,4 @@ ui-fss.g27[id="c18"] {
     </styled.header>
   </Component>
 </Header>
-`;
+`

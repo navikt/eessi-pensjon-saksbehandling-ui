@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/EESSIPensjonVeileder/EESSIPensjonVeileder Render: match snapshot 1`] = `
+exports['components/EESSIPensjonVeileder/EESSIPensjonVeileder Render: match snapshot 1'] = `
 <EESSIPensjonVeileder>
   <div
     data-test-id="c-eessipensjonveileder"
@@ -13,4 +13,4 @@ exports[`components/EESSIPensjonVeileder/EESSIPensjonVeileder Render: match snap
     />
   </div>
 </EESSIPensjonVeileder>
-`;
+`

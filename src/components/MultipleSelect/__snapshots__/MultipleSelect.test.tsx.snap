@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/MultipleSelect/MultipleSelect Render: match snapshot 1`] = `
+exports['components/MultipleSelect/MultipleSelect Render: match snapshot 1'] = `
 .c3 {
   padding: 0px;
 }
@@ -6520,4 +6520,4 @@ ui-fss.g4[id="c0"] {
     </styled.div>
   </Component>
 </MultipleSelect>
-`;
+`

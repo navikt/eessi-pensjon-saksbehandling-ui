@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/RefreshButton Render: match snapshot 1`] = `
+exports['components/RefreshButton Render: match snapshot 1'] = `
 .c1 .rotating {
   display: inline-block;
   -webkit-animation: fvtopB 2s linear infinite;
@@ -79,4 +79,4 @@ ui-fss.g1[id="c0"] {
     </div>
   </styled.div>
 </RefreshButton>
-`;
+`

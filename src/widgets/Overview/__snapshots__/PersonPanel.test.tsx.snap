@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Overview/PersonPanel Render: match snapshot 1`] = `
+exports['widgets/Overview/PersonPanel Render: match snapshot 1'] = `
 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3240,4 +3240,4 @@ ui-fss.g22[id="c5"] {
     </div>
   </styled.div>
 </PersonPanel>
-`;
+`

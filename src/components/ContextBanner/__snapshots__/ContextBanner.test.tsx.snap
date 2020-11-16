@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/ContextBanner/ContextBanner Render: match snapshot 1`] = `
+exports['components/ContextBanner/ContextBanner Render: match snapshot 1'] = `
 .c11 {
   display: inline-block;
   margin-left: 0.5rem;
@@ -492,4 +492,4 @@ ui-fss.g23[id="c4"] {
     </styled.div>
   </Component>
 </ContextBanner>
-`;
+`

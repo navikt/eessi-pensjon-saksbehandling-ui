@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Modal Render: match snapshot 1`] = `
+exports['components/Modal Render: match snapshot 1'] = `
 .c17 {
   background-color: inherit;
   color: #0067C5;
@@ -799,4 +799,4 @@ ui-fss.g27[id="c2"] {
     </Styled(Modal)>
   </Component>
 </Modal>
-`;
+`

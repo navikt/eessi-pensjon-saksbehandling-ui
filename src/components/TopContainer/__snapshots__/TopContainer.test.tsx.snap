@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/TopContainer Render: match snapshot 1`] = `
+exports['components/TopContainer Render: match snapshot 1'] = `
 .c21 {
   opacity: 0;
   -webkit-animation: jIkTRE 1s forwards;
@@ -1198,4 +1198,4 @@ ui-fss.g54[id="c24"] {
     </ErrorBoundary>
   </Component>
 </TopContainer>
-`;
+`

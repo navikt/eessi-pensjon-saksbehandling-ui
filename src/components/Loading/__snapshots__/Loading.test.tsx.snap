@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Loading/LoadingImage Render: match snapshot 1`] = `
+exports['components/Loading/LoadingImage Render: match snapshot 1'] = `
 .c1 {
   min-width: 40px;
   min-height: 40px;
@@ -24,9 +24,9 @@ ui-fss.g1[id="c0"] {
     />
   </styled.div>
 </LoadingImage>
-`;
+`
 
-exports[`components/Loading/LoadingText Render: match snapshot 1`] = `
+exports['components/Loading/LoadingText Render: match snapshot 1'] = `
 .c1 {
   min-width: 40px;
   min-height: 40px;
@@ -50,4 +50,4 @@ ui-fss.g1[id="c0"] {
     />
   </styled.div>
 </LoadingImage>
-`;
+`

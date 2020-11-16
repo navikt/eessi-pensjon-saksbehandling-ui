@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/Footer Render: match snapshot 1`] = `
+exports['components/Footer Render: match snapshot 1'] = `
 .c13 {
   background-color: inherit;
   color: #0067C5;
@@ -549,4 +549,4 @@ ui-fss.g25[id="c14"] {
     </styled.footer>
   </Component>
 </Footer>
-`;
+`

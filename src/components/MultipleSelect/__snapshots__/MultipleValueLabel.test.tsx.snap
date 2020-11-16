@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/MultipleSelect/MultipleValueLabel Render: match snapshot 1`] = `
+exports['components/MultipleSelect/MultipleValueLabel Render: match snapshot 1'] = `
 .c1 {
   padding: 0px;
 }
@@ -32,4 +32,4 @@ ui-fss.g1[id="c0"] {
     </div>
   </MultiValueGeneric>
 </MultipleValueLabel>
-`;
+`

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/IEAlert/IEAlert Render: For Edge, show alert 1`] = `
+exports['components/IEAlert/IEAlert Render: For Edge, show alert 1'] = `
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -242,9 +242,9 @@ ui-fss.g19[id="c0"] {
     </styled.div>
   </Component>
 </IEAlert>
-`;
+`
 
-exports[`components/IEAlert/IEAlert Render: For IE, show alert 1`] = `
+exports['components/IEAlert/IEAlert Render: For IE, show alert 1'] = `
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -486,13 +486,13 @@ ui-fss.g19[id="c0"] {
     </styled.div>
   </Component>
 </IEAlert>
-`;
+`
 
-exports[`components/IEAlert/IEAlert Render: For others, do not show alert 1`] = `
+exports['components/IEAlert/IEAlert Render: For others, do not show alert 1'] = `
 <IEAlert
   highContrast={false}
   onLinkClick={[MockFunction]}
 >
   <div />
 </IEAlert>
-`;
+`

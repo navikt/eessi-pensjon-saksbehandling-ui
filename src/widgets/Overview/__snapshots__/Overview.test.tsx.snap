@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Overview/Overview Render: match snapshot 1`] = `
+exports['widgets/Overview/Overview Render: match snapshot 1'] = `
 .c3.ekspanderbartPanel--apen .ReactCollapse--collapse {
   will-change: max-height,height;
   max-height: 150em;
@@ -644,4 +644,4 @@ ui-fss.g27[id="c10"] {
     </div>
   </Component>
 </Overview>
-`;
+`

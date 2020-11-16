@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Overview/PersonTitle Render: match snapshot 1`] = `
+exports['widgets/Overview/PersonTitle Render: match snapshot 1'] = `
 .c3 {
   display: inline-block;
   margin-left: 1rem;
@@ -287,4 +287,4 @@ ui-fss.g23[id="c0"] {
     </div>
   </styled.div>
 </PersonTitle>
-`;
+`

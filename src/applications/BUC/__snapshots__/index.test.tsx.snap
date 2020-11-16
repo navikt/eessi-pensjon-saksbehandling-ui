@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications/BUC/index Render: match snapshot 1`] = `
+exports['applications/BUC/index Render: match snapshot 1'] = `
 .c1 {
   margin-bottom: 1rem;
 }
@@ -190,4 +190,4 @@ ui-fss.g162[id="c4"] {
     </div>
   </styled.div>
 </BUCIndex>
-`;
+`

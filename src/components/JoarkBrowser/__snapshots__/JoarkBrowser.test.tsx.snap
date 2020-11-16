@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/JoarkBrowser/JoarkBrowser Render: match snapshot 1`] = `
+exports['components/JoarkBrowser/JoarkBrowser Render: match snapshot 1'] = `
 .c1 {
   background-color: #FFF;
   display: block;
@@ -723,4 +723,4 @@ ui-fss.g49[id="c8"] {
     </ut>
   </div>
 </JoarkBrowser>
-`;
+`
