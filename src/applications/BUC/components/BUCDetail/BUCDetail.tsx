@@ -183,7 +183,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                       )
                     : (
                       <Normaltekst>
-                        {(buc as ValidBuc)?.subject?.avdod?.fnr}
+                        {(buc as ValidBuc)?.subject?.avdod?.fnr || t('buc:form-noAvdod')}
                       </Normaltekst>
                       )}
                 </Dd>
