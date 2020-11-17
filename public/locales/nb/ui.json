@@ -46,6 +46,7 @@
     "firstVersion": "Først versjon",
     "gatenavn": "Gatenavn",
     "gatenummer": "Gatenummer",
+    "gateway-timeout": "Opps, det tok lengre tid enn forventet. Prøv igjen senere.",
     "get": "Hent",
     "giveFeedback" : "Gi tilbakemelding",
     "goToRina" : "Gå til RINA",
@@ -128,5 +129,5 @@
     "widget-overview-maritalstatus-Ugif" : "Ugift",
     "year" : "År",
     "yes" : "Ja",
-    "youComeFrom": "Du kommer fra "
+    "youComeFrom": "Du kommer fra ",
 }

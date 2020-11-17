@@ -37,6 +37,9 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     switch (action.type) {
       case types.SERVER_INTERNAL_ERROR:
         serverErrorMessage = 'ui:serverInternalError'
+        if ((action as ActionWithPayload)?.payload?.error?.status === 504) {
+          serverErrorMessage = 'ui:gatewayTimeout'
+        }
         break
 
       case types.SERVER_UNAUTHORIZED_ERROR:
