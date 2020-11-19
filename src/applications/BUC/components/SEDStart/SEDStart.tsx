@@ -265,7 +265,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
-  const sedNeedsAvdod = useCallback((): boolean => bucsWithAvdod(_buc.type), [_buc])
+  const bucNeedsAvdod = useCallback((): boolean => bucsWithAvdod(_buc.type), [_buc])
+
+  const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
   const sedNeedsVedtakId = ['P6000', 'P7000']
 
@@ -286,10 +288,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     )
 
   const sedNeedsAvdodFnrInput = (): boolean => {
-    return sedNeedsAvdod() &&
-    (!personAvdods || _.isEmpty(personAvdods)) &&
-    pesysContext !== constants.VEDTAKSKONTEKST &&
-    (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion())
+    return bucNeedsAvdod() &&
+      !avdodExists() &&
+      pesysContext !== constants.VEDTAKSKONTEKST &&
+      (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion()) &&
+      (!isNorwayCaseOwner() && _buc.type === 'P_BUC_05' ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
   }
 
   const sedCanHaveAttachments = useCallback((): boolean => {
@@ -589,7 +592,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (_vedtakId) {
         payload.vedtakId = _vedtakId
       }
-      if (sedNeedsAvdod()) {
+      if (bucNeedsAvdod() && avdodExists()) {
         payload.avdodfnr = _avdod?.fnr
       }
       if (sedNeedsAvdodFnrInput()) {
@@ -710,7 +713,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [sedList, _sed, setSed])
 
   useEffect(() => {
-    if (sedNeedsAvdod() && (_buc as ValidBuc).subject && _avdod === undefined) {
+    if (bucNeedsAvdod() && (_buc as ValidBuc).subject && _avdod === undefined) {
       let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
         p.fnr === (_buc as ValidBuc)?.subject?.avdod?.fnr
       )
@@ -719,7 +722,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       setAvdod(avdod)
     }
-  }, [_avdod, _buc, personAvdods, sedNeedsAvdod])
+  }, [_avdod, _buc, personAvdods, bucNeedsAvdod])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return <div />
@@ -784,7 +787,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          {sedNeedsAvdod() && _avdod && (
+          {bucNeedsAvdod() && _avdod && (
             <>
               <VerticalSeparatorDiv />
               <FlexDiv>

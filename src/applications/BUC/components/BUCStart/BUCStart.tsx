@@ -130,7 +130,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [_tags, setTags] = useState<Tags>([])
   const [_validation, setValidation] = useState<Validation>({})
 
-  const sedNeedsAvdod = (): boolean => (bucsWithAvdod(_buc) && (personAvdods ? personAvdods.length > 0 : false))
+  const bucNeedsAvdod = (): boolean => bucsWithAvdod(_buc)
+
+  const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
   const hasNoValidationErrors = (validation: Validation): boolean => {
     return _.find(validation, (it) => (it !== undefined)) === undefined
@@ -178,7 +180,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     const validation: Validation = {}
     validation.subjectArea = validateSubjectArea(_subjectArea)
     validation.buc = validateBuc(_buc)
-    if (sedNeedsAvdod()) {
+    if (bucNeedsAvdod() && avdodExists()) {
       validation.avdod = validateAvdod(_avdod)
     }
     setValidation(validation)
@@ -385,7 +387,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
               />
             </>
-            {sedNeedsAvdod() && (
+            {bucNeedsAvdod() && avdodExists() && (
               <>
                 <VerticalSeparatorDiv />
                 <label className='skjemaelement__label'>
