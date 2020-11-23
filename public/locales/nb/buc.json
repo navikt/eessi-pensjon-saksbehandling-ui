@@ -150,7 +150,7 @@
   "form-searchForStatus"              : "Filtrer SED på status",
   "form-searchOtherBUCs"              : "Søk etter P_BUC_05 med utkast av P8000",
   "form-searchOtherBUCs-description"  : "Her kan du skrive inn avdødes f.nr./d.nr. for å hente frem tidligere opprettet P_BUC_05 med tilhørende utkast av P8000.",
-  "form-searchOtherBUCs-placeholder"  : "Skriv inn avdødes f.nr/D-nr.",
+  "form-searchOtherBUCs-placeholder"  : "Skriv inn avdødes f.nr/d.nr.",
   "form-sed"                          : "SED",
   "form-seeP5000s"                    : "Se oversikt",
   "form-selectAgainAttachments"       : "Velg igjen vedlegg",
