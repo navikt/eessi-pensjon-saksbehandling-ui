@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props: any) => (
+
+const HeartCircle: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript' width='24'
     zoomAndPan='magnify'
@@ -17,3 +18,5 @@ export default (props: any) => (
     </g>
   </svg>
 )
+
+export default HeartCircle

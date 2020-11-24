@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props: any) => (
+
+const Tilsette: React.FC<any> = (props: any) => (
   <svg viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg' {...props}>
     <title>Tilsette</title>
     <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
@@ -9,3 +10,5 @@ export default (props: any) => (
     </g>
   </svg>
 )
+
+export default Tilsette

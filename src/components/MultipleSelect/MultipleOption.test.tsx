@@ -59,9 +59,4 @@ describe('components/MultipleSelect/MultipleOption', () => {
     wrapper.find('[data-test-id=\'c-multipleoption__div-id\']').simulate('click')
     expect(initialMockProps.innerProps.onClick).toHaveBeenCalled()
   })
-
-  it('Handling: Checkbox change triggers innerProps.onClick', () => {
-    wrapper.find('Checkbox input').simulate('change')
-    expect(initialMockProps.innerProps.onClick).toHaveBeenCalled()
-  })
 })

@@ -28,11 +28,8 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     newBuc: true
   } as BUCHeaderProps
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<BucHeader {...initialMockProps} />)
   })
 
@@ -56,7 +53,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__label-owner-id\']')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__label-owner-institution-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__label-owner-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-caseOwner: NAVAT07'
+      'buc:form-caseOwner: NO:NAVAT07'
     )
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__label-case-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__label-case-id\']').hostNodes().render().text()).toEqual('buc:form-caseNumberInRina: 600891')

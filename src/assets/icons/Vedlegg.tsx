@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props: any) => (
+
+const Vedlegg: React.FC<any> = (props: any) => (
   <svg {...props} viewBox='0 0 21 20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
     <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
       <g transform='translate(-185.000000, -659.000000)' fill={props.color || '#0067C5'}>
@@ -12,3 +13,5 @@ export default (props: any) => (
     </g>
   </svg>
 )
+
+export default Vedlegg

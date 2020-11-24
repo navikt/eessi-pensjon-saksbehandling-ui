@@ -56,6 +56,7 @@ jest.mock('react-i18next', () => ({
 (useDispatch as jest.Mock).mockImplementation(() => jest.fn())
 
 export const stageSelector = (defaultSelector: any, params: any) => {
+  (useDispatch as jest.Mock).mockImplementation(() => jest.fn());
   (useSelector as jest.Mock).mockImplementation(() => ({
     ...defaultSelector,
     ...params

@@ -301,7 +301,11 @@ describe('reducers/buc', () => {
       ...initialBucState,
       bucs: { 123456: mockBuc },
       institutionNames: {
-        'NO:NAVAT07': 'NAV ACCEPTANCE TEST 07'
+        'NO:NAVAT07': {
+          country: 'NO',
+          institution: 'NO:NAVAT07',
+          name: 'NAV ACCEPTANCE TEST 07'
+        }
       }
     })
   })
@@ -558,9 +562,9 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       institutionNames: {
-        1: 'a',
-        2: 'aa',
-        3: 'b'
+        1: { institution: '1', name: 'a', country: 'AA' },
+        2: { institution: '2', name: 'aa', country: 'AA' },
+        3: { institution: '3', name: 'b', country: 'BB' }
       },
 
       institutionList: {
@@ -596,7 +600,7 @@ describe('reducers/buc', () => {
       }]
     })
     expect(newState.bucs![mockCaseId!].deltakere).toEqual([
-      { country: 'AA', institution: 'ID', name: 'NAME' }
+      { country: 'AA', institution: 'ID', name: 'NAME', acronym: 'ID' }
     ])
   })
 

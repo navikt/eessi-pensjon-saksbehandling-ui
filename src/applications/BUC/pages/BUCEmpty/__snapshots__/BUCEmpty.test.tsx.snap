@@ -790,7 +790,7 @@ ui-fss.g23[id="c6"] {
                       data-size="0.5"
                     />
                   </styled.div>
-                  <_default
+                  <LogoutIcon
                     color="#0067C5"
                   >
                     <svg
@@ -820,7 +820,7 @@ ui-fss.g23[id="c6"] {
                         />
                       </g>
                     </svg>
-                  </_default>
+                  </LogoutIcon>
                 </a>
               </Lenke>
             </Styled(Lenke)>

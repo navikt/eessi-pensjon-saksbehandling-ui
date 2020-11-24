@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props: any) => (
+
+const Close: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript'
     zoomAndPan='magnify'
@@ -15,3 +16,5 @@ export default (props: any) => (
     </g>
   </svg>
 )
+
+export default Close

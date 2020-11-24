@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/TopContainer Render: match snapshot 1'] = `
+exports[`components/TopContainer Render: match snapshot 1`] = `
 .c21 {
   opacity: 0;
   -webkit-animation: jIkTRE 1s forwards;
@@ -70,7 +70,7 @@ ui-fss.g8[id="c14"] {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  background-color: #E9E7E7;
+  background-color: white;
   padding: 0rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -115,7 +115,7 @@ ui-fss.g21[id="c26"] {
   margin: 0px;
   display: block;
   padding: 0px;
-  background-color: lightgray;
+  background-color: white;
 }
 
 .c29 .footerButtonClosed:hover {
@@ -467,19 +467,23 @@ ui-fss.g54[id="c24"] {
       <div
         className="mock-error-boundary"
       >
-        <ResizeDetector
-          handleHeight={true}
-          handleWidth={true}
-          nodeType="div"
-          onResize={[Function]}
-          querySelector={null}
-          refreshRate={1000}
-          skipOnMount={false}
-          targetDomEl={null}
-          targetRef={null}
+        <div
+          role="application"
         >
-          <div />
-        </ResizeDetector>
+          <ResizeDetector
+            handleHeight={true}
+            handleWidth={true}
+            nodeType="div"
+            onResize={[Function]}
+            querySelector={null}
+            refreshRate={1000}
+            skipOnMount={false}
+            targetDomEl={null}
+            targetRef={null}
+          >
+            <div />
+          </ResizeDetector>
+        </div>
         <Header
           gettingUserInfo={false}
           highContrast={false}
@@ -875,16 +879,19 @@ ui-fss.g54[id="c24"] {
         >
           <Styled(AlertStripe)
             className="type-client status-ERROR fixed"
+            role="alert"
             type="feil"
           >
             <AlertStripe
               className="c20 c21 type-client status-ERROR fixed"
               form="default"
+              role="alert"
               size="1.5em"
               type="feil"
             >
               <div
                 className="alertstripe c20 c21 type-client status-ERROR fixed alertstripe--feil"
+                role="alert"
               >
                 <span
                   className="alertstripe__ikon"
@@ -980,12 +987,11 @@ ui-fss.g54[id="c24"] {
         <Alert
           onClose={[Function]}
           type="server"
-        >
-          <div />
-        </Alert>
+        />
         <SessionMonitor>
           <div
             data-test-id="c-sessionMonitor"
+            role="application"
           />
         </SessionMonitor>
         <styled.main
@@ -1198,4 +1204,4 @@ ui-fss.g54[id="c24"] {
     </ErrorBoundary>
   </Component>
 </TopContainer>
-`
+`;

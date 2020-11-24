@@ -72,7 +72,7 @@ ui-fss.g15[id="c4"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g58[id="c1"] {
+ui-fss.g59[id="c1"] {
   content: "c3,";
 }
 
@@ -80,7 +80,7 @@ ui-fss.g58[id="c1"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g60[id="c8"] {
+ui-fss.g61[id="c8"] {
   content: "c9,";
 }
 
@@ -89,7 +89,7 @@ ui-fss.g60[id="c8"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g61[id="c6"] {
+ui-fss.g62[id="c6"] {
   content: "c7,";
 }
 
@@ -99,6 +99,7 @@ ui-fss.g61[id="c6"] {
     Object {
       "caseId": "600891",
       "creator": Object {
+        "acronym": "NAVAT07",
         "country": "NO",
         "institution": "NO:NAVAT07",
         "name": "NAV ACCEPTANCE TEST 07",
@@ -106,23 +107,27 @@ ui-fss.g61[id="c6"] {
       "error": null,
       "institusjon": Array [
         Object {
+          "acronym": "NAVAT07",
           "country": "NO",
           "institution": "NO:NAVAT07",
           "name": "NAV ACCEPTANCE TEST 07",
         },
         Object {
+          "acronym": "DEMOGB01",
           "country": "GB",
-          "institution": "GB:DEMO001",
+          "institution": "GB:DEMOGB01",
           "name": "GB Demo 01",
         },
         Object {
+          "acronym": "DEMOUK01",
           "country": "UK",
-          "institution": "UK:DEMO001",
+          "institution": "UK:DEMOUK01",
           "name": "UK Demo 01",
         },
         Object {
+          "acronym": "DEMOFR01",
           "country": "FR",
-          "institution": "FR:DEMO001",
+          "institution": "FR:DEMOFR01",
           "name": "France Demo 01",
         },
       ],
@@ -173,7 +178,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -196,7 +201,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -241,7 +246,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -264,7 +269,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -287,7 +292,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "DEMO001",
+                "acronym": "DEMOIT01",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "IT",
@@ -299,9 +304,9 @@ ui-fss.g61[id="c6"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "IT",
-                "id": "IT:DEMO001",
+                "id": "IT:DEMOIT01",
                 "location": null,
-                "name": "Italia Demo 01",
+                "name": "Italian institution 001",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -310,7 +315,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "DEMO001",
+                "acronym": "DEMOES01",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "ES",
@@ -322,9 +327,9 @@ ui-fss.g61[id="c6"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "ES",
-                "id": "ES:DEMO001",
+                "id": "ES:DEMOES01",
                 "location": null,
-                "name": "Spain Demo 01",
+                "name": "Spanish institution 01",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -333,7 +338,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "DEMO001",
+                "acronym": "DEMOFR01",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "FR",
@@ -345,9 +350,9 @@ ui-fss.g61[id="c6"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "FR",
-                "id": "FR:DEMO001",
+                "id": "FR:DEMOFR01",
                 "location": null,
-                "name": "France Demo 01",
+                "name": "French insstitution 01",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -378,7 +383,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -401,7 +406,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -446,7 +451,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -469,7 +474,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -514,7 +519,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -537,7 +542,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -582,7 +587,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -605,7 +610,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -695,7 +700,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -718,7 +723,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -763,7 +768,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -786,7 +791,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -831,7 +836,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -854,7 +859,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -899,7 +904,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -922,7 +927,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -967,7 +972,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -990,7 +995,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1035,7 +1040,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1058,7 +1063,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1103,7 +1108,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1126,7 +1131,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1171,7 +1176,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1194,7 +1199,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1239,7 +1244,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1262,7 +1267,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1307,7 +1312,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1330,7 +1335,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1375,7 +1380,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 07",
+                "acronym": "NAVAT07",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",
@@ -1398,7 +1403,7 @@ ui-fss.g61[id="c6"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "NAV ACCT 08",
+                "acronym": "NAVAT08",
                 "activeSince": "2018-08-26T22:00:00.000+0000",
                 "address": Object {
                   "country": "NO",

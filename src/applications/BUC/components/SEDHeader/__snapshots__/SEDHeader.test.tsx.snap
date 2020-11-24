@@ -272,34 +272,47 @@ ui-fss.g30[id="c14"] {
       "aktoerId": "1000070418092",
       "caseId": "195440",
       "creator": Object {
+        "acronym": "NAVAT07",
         "country": "NO",
         "institution": "NO:NAVAT07",
         "name": "NAV ACCEPTANCE TEST 07",
       },
       "institusjon": Array [
         Object {
+          "acronym": "NAVAT07",
           "country": "NO",
           "institution": "NO:NAVAT07",
+          "name": "NAV acceptance Test 07",
         },
         Object {
+          "acronym": "DEMOSE01",
           "country": "SE",
-          "institution": "SE:DEMO001",
+          "institution": "SE:DEMOSE01",
+          "name": "Swedish institution 01",
         },
         Object {
+          "acronym": "DEMOFI02",
           "country": "FI",
-          "institution": "FI:DEMO002",
+          "institution": "FI:DEMOFI02",
+          "name": "Finnish institution 02",
         },
         Object {
+          "acronym": "DEMOGB02",
           "country": "GB",
-          "institution": "GB:DEMO003",
+          "institution": "GB:DEMOGB03",
+          "name": "GB institution 03",
         },
         Object {
+          "acronym": "DEMOPT04",
           "country": "PT",
-          "institution": "PT:DEMO004",
+          "institution": "PT:DEMOPT04",
+          "name": "PT institution 04",
         },
         Object {
+          "acronym": "DEMOFR05",
           "country": "FR",
           "institution": "FR:DEMO005",
+          "name": "French institution 05",
         },
       ],
       "lastUpdate": 1571731814000,
@@ -347,7 +360,7 @@ ui-fss.g30[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "12348",
+                "acronym": "DEMONO02",
                 "activeSince": 1518476400000,
                 "address": Object {
                   "country": "NO",
@@ -359,9 +372,9 @@ ui-fss.g30[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:DEMO002",
+                "id": "NO:DEMONO02",
                 "location": null,
-                "name": "DEMO002",
+                "name": "Norwegian institution 02",
                 "registryNumber": null,
               },
               "role": "Sender",
@@ -370,7 +383,7 @@ ui-fss.g30[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "12347",
+                "acronym": "DEMONO01",
                 "activeSince": 1508450400000,
                 "address": Object {
                   "country": "NO",
@@ -382,9 +395,9 @@ ui-fss.g30[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:DEMO001",
+                "id": "NO:DEMONO01",
                 "location": null,
-                "name": "DEMO001",
+                "name": "Norwegian institution 01",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -437,7 +450,7 @@ ui-fss.g30[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "12348",
+                "acronym": "DEMONO02",
                 "activeSince": 1518476400000,
                 "address": Object {
                   "country": "NO",
@@ -449,9 +462,9 @@ ui-fss.g30[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:DEMO002",
+                "id": "NO:DEMONO02",
                 "location": null,
-                "name": "DEMO002",
+                "name": "Norwegin institution 02",
                 "registryNumber": null,
               },
               "role": "Sender",
@@ -460,7 +473,7 @@ ui-fss.g30[id="c14"] {
             Object {
               "organisation": Object {
                 "accessPoint": null,
-                "acronym": "12347",
+                "acronym": "DEMONO01",
                 "activeSince": 1508450400000,
                 "address": Object {
                   "country": "NO",
@@ -472,9 +485,9 @@ ui-fss.g30[id="c14"] {
                 "assignedBUCs": null,
                 "contactMethods": null,
                 "countryCode": "NO",
-                "id": "NO:DEMO001",
+                "id": "NO:DEMONO01",
                 "location": null,
-                "name": "DEMO001",
+                "name": "Norwegian institution 01",
                 "registryNumber": null,
               },
               "role": "Receiver",
@@ -1400,7 +1413,7 @@ ui-fss.g30[id="c14"] {
         Object {
           "organisation": Object {
             "accessPoint": null,
-            "acronym": "12348",
+            "acronym": "DEMONO02",
             "activeSince": 1518476400000,
             "address": Object {
               "country": "NO",
@@ -1412,9 +1425,9 @@ ui-fss.g30[id="c14"] {
             "assignedBUCs": null,
             "contactMethods": null,
             "countryCode": "NO",
-            "id": "NO:DEMO002",
+            "id": "NO:DEMONO02",
             "location": null,
-            "name": "DEMO002",
+            "name": "Norwegian institution 02",
             "registryNumber": null,
           },
           "role": "Sender",
@@ -1423,7 +1436,7 @@ ui-fss.g30[id="c14"] {
         Object {
           "organisation": Object {
             "accessPoint": null,
-            "acronym": "12347",
+            "acronym": "DEMONO01",
             "activeSince": 1508450400000,
             "address": Object {
               "country": "NO",
@@ -1435,9 +1448,9 @@ ui-fss.g30[id="c14"] {
             "assignedBUCs": null,
             "contactMethods": null,
             "countryCode": "NO",
-            "id": "NO:DEMO001",
+            "id": "NO:DEMONO01",
             "location": null,
-            "name": "DEMO001",
+            "name": "Norwegian institution 01",
             "registryNumber": null,
           },
           "role": "Receiver",
@@ -1915,8 +1928,10 @@ ui-fss.g30[id="c14"] {
                     institutions={
                       Array [
                         Object {
+                          "acronym": "DEMONO02",
                           "country": "NO",
-                          "institution": "DEMO002",
+                          "institution": "NO:DEMONO02",
+                          "name": "Norwegian institution 02",
                         },
                       ]
                     }
@@ -1931,19 +1946,19 @@ ui-fss.g30[id="c14"] {
                       >
                         <styled.div
                           data-test-id="a-buc-c-institutionlist__div-id"
-                          key="DEMO002"
+                          key="NO:DEMONO02"
                         >
                           <div
                             className="c20 c21"
                             data-test-id="a-buc-c-institutionlist__div-id"
                           >
-                            <Bd
+                            <pd
                               country="NO"
                               label="Norge"
                               size="S"
                               type="circle"
                             >
-                              <Lt
+                              <Dt
                                 theme={
                                   Object {
                                     "alternative-background-color": "#E9E7E7",
@@ -2378,7 +2393,7 @@ ui-fss.g30[id="c14"] {
                                       style={Object {}}
                                     >
                                       <div
-                                        className="c20 NSHWL size-S type-circle"
+                                        className="NSHWL size-S type-circle"
                                         onMouseEnter={[Function]}
                                         onMouseLeave={[Function]}
                                         style={Object {}}
@@ -2392,8 +2407,8 @@ ui-fss.g30[id="c14"] {
                                     </styled.div>
                                   </e>
                                 </ForwardRef>
-                              </Lt>
-                            </Bd>
+                              </Dt>
+                            </pd>
                             <Styled(Normaltekst)>
                               <Normaltekst
                                 className="c22 c23"
@@ -2405,7 +2420,7 @@ ui-fss.g30[id="c14"] {
                                   <p
                                     className="typo-normal c22 c23"
                                   >
-                                    DEMO002
+                                    NO:DEMONO02
                                   </p>
                                 </TypografiBase>
                               </Normaltekst>
@@ -2426,8 +2441,10 @@ ui-fss.g30[id="c14"] {
                     institutions={
                       Array [
                         Object {
+                          "acronym": "DEMONO01",
                           "country": "NO",
-                          "institution": "DEMO001",
+                          "institution": "NO:DEMONO01",
+                          "name": "Norwegian institution 01",
                         },
                       ]
                     }
@@ -2442,19 +2459,19 @@ ui-fss.g30[id="c14"] {
                       >
                         <styled.div
                           data-test-id="a-buc-c-institutionlist__div-id"
-                          key="DEMO001"
+                          key="NO:DEMONO01"
                         >
                           <div
                             className="c20 c21"
                             data-test-id="a-buc-c-institutionlist__div-id"
                           >
-                            <Bd
+                            <pd
                               country="NO"
                               label="Norge"
                               size="S"
                               type="circle"
                             >
-                              <Lt
+                              <Dt
                                 theme={
                                   Object {
                                     "alternative-background-color": "#E9E7E7",
@@ -2889,7 +2906,7 @@ ui-fss.g30[id="c14"] {
                                       style={Object {}}
                                     >
                                       <div
-                                        className="c20 NSHWL size-S type-circle"
+                                        className="NSHWL size-S type-circle"
                                         onMouseEnter={[Function]}
                                         onMouseLeave={[Function]}
                                         style={Object {}}
@@ -2903,8 +2920,8 @@ ui-fss.g30[id="c14"] {
                                     </styled.div>
                                   </e>
                                 </ForwardRef>
-                              </Lt>
-                            </Bd>
+                              </Dt>
+                            </pd>
                             <Styled(Normaltekst)>
                               <Normaltekst
                                 className="c22 c23"
@@ -2916,7 +2933,7 @@ ui-fss.g30[id="c14"] {
                                   <p
                                     className="typo-normal c22 c23"
                                   >
-                                    DEMO001
+                                    NO:DEMONO01
                                   </p>
                                 </TypografiBase>
                               </Normaltekst>

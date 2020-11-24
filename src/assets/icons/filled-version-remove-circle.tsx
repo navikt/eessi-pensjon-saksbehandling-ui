@@ -1,5 +1,6 @@
 import React from 'react'
-const FilledVersionRemoveCircle = (props: any) => (
+
+const FilledVersionRemoveCircle: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript' zoomAndPan='magnify'
     contentStyleType='text/css'

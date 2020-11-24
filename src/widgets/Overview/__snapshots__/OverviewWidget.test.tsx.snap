@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/OverviewWidget Render: match snapshot 1'] = `
+exports[`widgets/OverviewWidget Render: match snapshot 1`] = `
 <OverviewWidget
   highContrast={false}
   labels={Object {}}
@@ -56,7 +56,8 @@ exports['widgets/OverviewWidget Render: match snapshot 1'] = `
         }
       }
       querySelector={null}
-      refreshRate={1000}
+      refreshMode="debounce"
+      refreshRate={50}
       skipOnMount={false}
       targetDomEl={null}
       targetRef={null}
@@ -84,4 +85,4 @@ exports['widgets/OverviewWidget Render: match snapshot 1'] = `
     </Component>
   </div>
 </OverviewWidget>
-`
+`;

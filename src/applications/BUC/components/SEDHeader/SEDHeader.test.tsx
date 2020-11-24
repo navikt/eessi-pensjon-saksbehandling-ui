@@ -35,11 +35,8 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   }
   let wrapper: ReactWrapper
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<SEDHeader {...initialMockProps} />)
   })
 
@@ -58,8 +55,8 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__status-id\']').render().text()).toEqual('buc:status-' + sed!.status)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__version-date-id\']').hostNodes().render().text()).toEqual('29.05.2019')
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__version-id\']').hostNodes().render().text()).toEqual('ui:version: 5')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__institutions-id\']').first().render().text()).toEqual('DEMO002')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__institutions-id\']').last().render().text()).toEqual('DEMO001')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__institutions-id\']').first().render().text()).toEqual('NO:DEMONO02')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedheader__institutions-id\']').last().render().text()).toEqual('NO:DEMONO01')
 
     const actions = wrapper.find('[data-test-id=\'a-buc-c-sedheader__actions-id\']').hostNodes()
     expect(actions.exists('FilledPaperClipIcon')).toBeTruthy()

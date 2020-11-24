@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/JoarkBrowser/JoarkBrowser Render: match snapshot 1'] = `
+exports[`components/JoarkBrowser/JoarkBrowser Render: match snapshot 1`] = `
 .c1 {
   background-color: #FFF;
   display: block;
@@ -330,11 +330,14 @@ ui-fss.g49[id="c8"] {
             bodyOpenClassName="ReactModal__Body--open"
             className="c0 c1"
             closeTimeoutMS={0}
+            contentElement={[Function]}
             isOpen={false}
             onRequestClose={[Function]}
             overlayClassName="modal__overlay"
+            overlayElement={[Function]}
             parentSelector={[Function]}
             portalClassName="ReactModalPortal"
+            preventScroll={false}
             role="dialog"
             shouldCloseOnEsc={true}
             shouldCloseOnOverlayClick={true}
@@ -353,6 +356,7 @@ ui-fss.g49[id="c8"] {
                 bodyOpenClassName="ReactModal__Body--open"
                 className="c0 c1"
                 closeTimeoutMS={0}
+                contentElement={[Function]}
                 defaultStyles={
                   Object {
                     "content": Object {
@@ -382,8 +386,10 @@ ui-fss.g49[id="c8"] {
                 isOpen={false}
                 onRequestClose={[Function]}
                 overlayClassName="modal__overlay"
+                overlayElement={[Function]}
                 parentSelector={[Function]}
                 portalClassName="ReactModalPortal"
+                preventScroll={false}
                 role="dialog"
                 shouldCloseOnEsc={true}
                 shouldCloseOnOverlayClick={true}
@@ -723,4 +729,4 @@ ui-fss.g49[id="c8"] {
     </ut>
   </div>
 </JoarkBrowser>
-`
+`;

@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props: any) => (
+
+const EmailSend: React.FC<any> = (props: any) => (
   <svg
     zoomAndPan='magnify'
     contentStyleType='text/css'
@@ -19,3 +20,5 @@ export default (props: any) => (
     </g>
   </svg>
 )
+
+export default EmailSend

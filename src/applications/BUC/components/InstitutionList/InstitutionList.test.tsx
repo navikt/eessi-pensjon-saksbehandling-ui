@@ -41,13 +41,13 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
 
   it('Render: Has proper HTML structure with joined type', () => {
     expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes()).toHaveLength(1)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().render().text()).toEqual('Mock 1 institution, Mock 2 institution')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().render().text()).toEqual('Mock1, Mock2')
   })
 
   it('Render: Has proper HTML structure with separated type', () => {
     wrapper = mount(<InstitutionList {...initialMockProps} type='separated' />)
     expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes()).toHaveLength(2)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().first().render().text()).toEqual('Mock 1 institution')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().last().render().text()).toEqual('Mock 2 institution')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().first().render().text()).toEqual('Mock1')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().last().render().text()).toEqual('Mock2')
   })
 })

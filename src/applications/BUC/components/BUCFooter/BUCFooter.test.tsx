@@ -13,11 +13,8 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCFooterProps = {}
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<BUCFooter {...initialMockProps} />)
   })
 

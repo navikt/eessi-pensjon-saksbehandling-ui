@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/MultipleSelect/MultipleValueRemove Render: match snapshot 1'] = `
+exports[`components/MultipleSelect/MultipleValueRemove Render: match snapshot 1`] = `
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -196,6 +196,11 @@ ui-fss.g1[id="c0"] {
     >
       <FilledVersionRemoveCircle
         color="#3E3832"
+        style={
+          Object {
+            "visibility": "visible",
+          }
+        }
       >
         <svg
           color="#3E3832"
@@ -205,6 +210,11 @@ ui-fss.g1[id="c0"] {
           height={24}
           id="Filled_Version"
           preserveAspectRatio="xMidYMid meet"
+          style={
+            Object {
+              "visibility": "visible",
+            }
+          }
           version="1.1"
           viewBox="0 0 24 24"
           width={24}
@@ -222,4 +232,4 @@ ui-fss.g1[id="c0"] {
     </div>
   </styled.div>
 </MultipleValueRemove>
-`
+`;

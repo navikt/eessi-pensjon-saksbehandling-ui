@@ -1,5 +1,6 @@
 import React from 'react'
-const FilledPaperClipIcon: React.FC = (props: any) => (
+
+const FilledPaperClipIcon: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript' zoomAndPan='magnify'
     contentStyleType='text/css'

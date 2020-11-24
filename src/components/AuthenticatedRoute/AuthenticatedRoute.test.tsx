@@ -27,7 +27,7 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
     } as Location
   }
 
-  beforeAll(() => {
+  beforeEach(() => {
     stageSelector(defaultSelector, {})
   })
 

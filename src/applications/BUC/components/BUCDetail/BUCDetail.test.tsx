@@ -24,11 +24,8 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     personAvdods: mockPersonAvdods
   } as BUCDetailProps
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<BUCDetail {...initialMockProps} />)
   })
 
@@ -43,13 +40,13 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__panel-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__status-id\']').hostNodes().render().text()).toEqual('buc:status-' + buc.status)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__creator-id\']').hostNodes().render().text()).toEqual('NAVAT07')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__creator-id\']').hostNodes().render().text()).toEqual('NO:NAVAT07')
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__startDate-id\']').hostNodes().render().text()).toEqual(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__caseId-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__gotorina-link-id\']').hostNodes().render().text()).toEqual(buc.caseId)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__institutions-id\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__institutionlist-id\']').render().text()).toEqual(['NAVAT07', 'DEMO001', 'DEMO001', 'DEMO001'].join(''))
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__institutionlist-id\']').render().text()).toEqual(['NO:NAVAT07', 'FR:DEMOFR01', 'GB:DEMOGB01', 'UK:DEMOUK01'].join(''))
   })
 
   it('Render: P_BUC_02 BUCs have an avdod', () => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['pages/IndexPage Render: match snapshot 1'] = `
+exports[`pages/IndexPage Render: match snapshot 1`] = `
 .c1 {
   max-width: 1440px;
   -webkit-flex: 1 1 auto;
@@ -12,7 +12,7 @@ exports['pages/IndexPage Render: match snapshot 1'] = `
   padding: 0rem 1rem;
 }
 
-ui-fss.g179[id="c0"] {
+ui-fss.g180[id="c0"] {
   content: "c1,";
 }
 
@@ -334,4 +334,4 @@ ui-fss.g179[id="c0"] {
     </div>
   </Component>
 </IndexPage>
-`
+`;

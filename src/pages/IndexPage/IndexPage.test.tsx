@@ -35,11 +35,8 @@ describe('pages/IndexPage', () => {
   let wrapper: ReactWrapper
   const initialMockProps: IndexPageProps = {}
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<IndexPage {...initialMockProps} />)
   })
 

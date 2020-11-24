@@ -331,7 +331,7 @@ ui-fss.g27[id="c4"] {
   >
     <Modal
       highContrast={false}
-      icon={<_default />}
+      icon={<Document />}
       modal={
         Object {
           "closeButton": true,
@@ -547,11 +547,14 @@ ui-fss.g27[id="c4"] {
             bodyOpenClassName="ReactModal__Body--open"
             className="c0 c1"
             closeTimeoutMS={0}
+            contentElement={[Function]}
             isOpen={true}
             onRequestClose={[Function]}
             overlayClassName="modal__overlay"
+            overlayElement={[Function]}
             parentSelector={[Function]}
             portalClassName="ReactModalPortal"
+            preventScroll={false}
             role="dialog"
             shouldCloseOnEsc={true}
             shouldCloseOnOverlayClick={true}
@@ -711,6 +714,7 @@ ui-fss.g27[id="c4"] {
                     class="ReactModal__Overlay ReactModal__Overlay--after-open modal__overlay"
                   >
                     <div
+                      aria-modal="true"
                       class="ReactModal__Content ReactModal__Content--after-open c0 c1"
                       role="dialog"
                       tabindex="-1"
@@ -835,6 +839,7 @@ ui-fss.g27[id="c4"] {
                 bodyOpenClassName="ReactModal__Body--open"
                 className="c0 c1"
                 closeTimeoutMS={0}
+                contentElement={[Function]}
                 defaultStyles={
                   Object {
                     "content": Object {
@@ -864,8 +869,10 @@ ui-fss.g27[id="c4"] {
                 isOpen={true}
                 onRequestClose={[Function]}
                 overlayClassName="modal__overlay"
+                overlayElement={[Function]}
                 parentSelector={[Function]}
                 portalClassName="ReactModalPortal"
+                preventScroll={false}
                 role="dialog"
                 shouldCloseOnEsc={true}
                 shouldCloseOnOverlayClick={true}
@@ -885,6 +892,7 @@ ui-fss.g27[id="c4"] {
                   style={Object {}}
                 >
                   <div
+                    aria-modal={true}
                     className="ReactModal__Content ReactModal__Content--after-open c0 c1"
                     onClick={[Function]}
                     onKeyDown={[Function]}
@@ -898,7 +906,7 @@ ui-fss.g27[id="c4"] {
                       <div
                         className="c2 c3"
                       >
-                        <_default>
+                        <Document>
                           <svg
                             height="100"
                             width="100"
@@ -962,7 +970,7 @@ ui-fss.g27[id="c4"] {
                               />
                             </g>
                           </svg>
-                        </_default>
+                        </Document>
                       </div>
                     </styled.div>
                     <styled.div

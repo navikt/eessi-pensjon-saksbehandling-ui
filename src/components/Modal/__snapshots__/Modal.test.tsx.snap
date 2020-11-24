@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/Modal Render: match snapshot 1'] = `
+exports[`components/Modal Render: match snapshot 1`] = `
 .c17 {
   background-color: inherit;
   color: #0067C5;
@@ -341,11 +341,14 @@ ui-fss.g27[id="c2"] {
         bodyOpenClassName="ReactModal__Body--open"
         className="c0 c1"
         closeTimeoutMS={0}
+        contentElement={[Function]}
         isOpen={true}
         onRequestClose={[Function]}
         overlayClassName="modal__overlay"
+        overlayElement={[Function]}
         parentSelector={[Function]}
         portalClassName="ReactModalPortal"
+        preventScroll={false}
         role="dialog"
         shouldCloseOnEsc={true}
         shouldCloseOnOverlayClick={true}
@@ -508,6 +511,7 @@ ui-fss.g27[id="c2"] {
                 class="ReactModal__Overlay ReactModal__Overlay--after-open modal__overlay"
               >
                 <div
+                  aria-modal="true"
                   class="ReactModal__Content ReactModal__Content--after-open c0 c1"
                   role="dialog"
                   tabindex="-1"
@@ -574,6 +578,7 @@ ui-fss.g27[id="c2"] {
             bodyOpenClassName="ReactModal__Body--open"
             className="c0 c1"
             closeTimeoutMS={0}
+            contentElement={[Function]}
             defaultStyles={
               Object {
                 "content": Object {
@@ -603,8 +608,10 @@ ui-fss.g27[id="c2"] {
             isOpen={true}
             onRequestClose={[Function]}
             overlayClassName="modal__overlay"
+            overlayElement={[Function]}
             parentSelector={[Function]}
             portalClassName="ReactModalPortal"
+            preventScroll={false}
             role="dialog"
             shouldCloseOnEsc={true}
             shouldCloseOnOverlayClick={true}
@@ -624,6 +631,7 @@ ui-fss.g27[id="c2"] {
               style={Object {}}
             >
               <div
+                aria-modal={true}
                 className="ReactModal__Content ReactModal__Content--after-open c0 c1"
                 onClick={[Function]}
                 onKeyDown={[Function]}
@@ -799,4 +807,4 @@ ui-fss.g27[id="c2"] {
     </Styled(Modal)>
   </Component>
 </Modal>
-`
+`;

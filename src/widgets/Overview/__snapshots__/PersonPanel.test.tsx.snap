@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/Overview/PersonPanel Render: match snapshot 1'] = `
+exports[`widgets/Overview/PersonPanel Render: match snapshot 1`] = `
 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -356,7 +356,7 @@ ui-fss.g22[id="c5"] {
             <div
               className="c4 c5 c6 c7"
             >
-              <_default
+              <HomeIcon
                 color="black"
               >
                 <svg
@@ -392,7 +392,7 @@ ui-fss.g22[id="c5"] {
                     />
                   </g>
                 </svg>
-              </_default>
+              </HomeIcon>
               <styled.div>
                 <div
                   className="c8 c9"
@@ -1570,7 +1570,7 @@ ui-fss.g22[id="c5"] {
             <div
               className="c4 c5 c6 c7"
             >
-              <_default
+              <ExpandedCalendar
                 color="black"
               >
                 <svg
@@ -1625,7 +1625,7 @@ ui-fss.g22[id="c5"] {
                     y2="7.5"
                   />
                 </svg>
-              </_default>
+              </ExpandedCalendar>
               <styled.div>
                 <div
                   className="c8 c9"
@@ -1676,7 +1676,7 @@ ui-fss.g22[id="c5"] {
             <div
               className="c4 c5 c6 c7"
             >
-              <_default
+              <Handbag
                 color="black"
               >
                 <svg
@@ -1702,7 +1702,7 @@ ui-fss.g22[id="c5"] {
                     />
                   </g>
                 </svg>
-              </_default>
+              </Handbag>
               <styled.div>
                 <div
                   className="c8 c9"
@@ -1764,7 +1764,7 @@ ui-fss.g22[id="c5"] {
             <div
               className="c4 c5 c6 c7"
             >
-              <_default
+              <Globe
                 color="black"
               >
                 <svg
@@ -1788,7 +1788,7 @@ ui-fss.g22[id="c5"] {
                     fill="black"
                   />
                 </svg>
-              </_default>
+              </Globe>
               <styled.div>
                 <div
                   className="c8 c9"
@@ -2958,7 +2958,7 @@ ui-fss.g22[id="c5"] {
             <div
               className="c4 c5 c6 c7"
             >
-              <_default
+              <HeartCircle
                 color="black"
               >
                 <svg
@@ -2989,7 +2989,7 @@ ui-fss.g22[id="c5"] {
                     />
                   </g>
                 </svg>
-              </_default>
+              </HeartCircle>
               <styled.div>
                 <div
                   className="c8 c9"
@@ -3128,7 +3128,7 @@ ui-fss.g22[id="c5"] {
             <div
               className="c4 c5 c6 c7"
             >
-              <_default
+              <ExpandedCalendar
                 color="black"
               >
                 <svg
@@ -3183,7 +3183,7 @@ ui-fss.g22[id="c5"] {
                     y2="7.5"
                   />
                 </svg>
-              </_default>
+              </ExpandedCalendar>
               <styled.div>
                 <div
                   className="c8 c9"
@@ -3240,4 +3240,4 @@ ui-fss.g22[id="c5"] {
     </div>
   </styled.div>
 </PersonPanel>
-`
+`;

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ className }: any) => (
+const Document: React.FC<any> = ({ className }: any) => (
   <svg className={className} width='100' height='100' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
     <defs>
       <circle id='a' cx='50' cy='50' r='50' />
@@ -23,3 +23,5 @@ export default ({ className }: any) => (
     </g>
   </svg>
 )
+
+export default Document

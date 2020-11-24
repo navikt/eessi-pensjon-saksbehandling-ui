@@ -1,7 +1,6 @@
 import {
   createSed,
   getCountryList,
-  getInstitutionsListForBucAndCountry,
   getSedList,
   resetSed,
   setSedList
@@ -105,18 +104,12 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(setSedList).toHaveBeenCalledWith(['P6000'])
   })
 
-  it('UseEffect: getInstitutionsListForBucAndCountry', () => {
+  /* it('UseEffect: getInstitutionsListForBucAndCountry', () => {
     (getInstitutionsListForBucAndCountry as jest.Mock).mockReset()
     wrapper = mount(<SEDStart {...initialMockProps} />)
     expect(getInstitutionsListForBucAndCountry).toHaveBeenCalled()
   })
-
-  it('UseEffect: getInstitutionsListForBucAndCountry', () => {
-    (getInstitutionsListForBucAndCountry as jest.Mock).mockReset()
-    wrapper = mount(<SEDStart {...initialMockProps} />)
-    expect(getInstitutionsListForBucAndCountry).toHaveBeenCalled()
-  })
-
+*/
   /*
   it('UseEffect: createSavingAttachmentJob', () => {
     (createSavingAttachmentJob as jest.Mock).mockReset()

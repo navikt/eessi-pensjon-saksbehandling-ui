@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NavLogoTransparent = (props: any) => (
+const NavLogoTransparent: React.FC<any> = (props: any) => (
   <svg
     width={(props.width || props.size || 269)} height={(props.height || props.size || 169)}
     viewBox='0 0 269 169'

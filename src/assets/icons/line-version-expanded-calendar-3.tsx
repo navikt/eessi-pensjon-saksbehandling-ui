@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props: any) => (
+
+const ExpandedCalendar: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript' zoomAndPan='magnify'
     contentStyleType='text/css'
@@ -15,3 +16,5 @@ export default (props: any) => (
     <line fill='none' x1='0.5' x2='23.5' y1='7.5' y2='7.5' stroke={props.color || '#3e3832'} />
   </svg>
 )
+
+export default ExpandedCalendar

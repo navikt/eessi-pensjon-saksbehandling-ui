@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props: any) => (
+
+const NetworkConnecting: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript' zoomAndPan='magnify'
     contentStyleType='text/css'
@@ -23,3 +24,5 @@ export default (props: any) => (
     </g>
   </svg>
 )
+
+export default NetworkConnecting

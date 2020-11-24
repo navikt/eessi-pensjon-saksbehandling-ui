@@ -1,6 +1,6 @@
 import { Buc, Sed } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
-import { Labels } from 'declarations/app.d'
+import { Labels, T } from 'declarations/app.d'
 import Mustache from 'mustache'
 import personAvdod from 'mocks/app/personAvdod'
 import joarkItems from 'mocks/joark/items'
@@ -11,14 +11,18 @@ const CORRECT_ORDER = -1
 const WRONG_ORDER_WILL_SWAP = 1
 
 describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
-  const t = jest.fn((label, vars) => {
-    const translations: Labels = {
-      'buc:buc-P2000': 'Krav om uføretrygd',
-      'buc:buc-P3000_XX': 'Landspesifikk informasjon til {{country}}',
-      'buc:relasjon-REPA': 'Repa',
-      'ui:unknownLand': 'ukjent land'
-    }
-    return Mustache.render(label ? translations[label] : label, vars)
+  let t: T
+
+  beforeEach(() => {
+    t = jest.fn().mockImplementation((label, vars) => {
+      const translations: Labels = {
+        'buc:buc-P2000': 'Krav om uføretrygd',
+        'buc:buc-P3000_XX': 'Landspesifikk informasjon til {{country}}',
+        'buc:relasjon-REPA': 'Repa',
+        'ui:unknownLand': 'ukjent land'
+      }
+      return Mustache.render(translations[label] || '---', vars)
+    })
   })
 
   const mockSed: Sed = {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/Footer Render: match snapshot 1'] = `
+exports[`components/Footer Render: match snapshot 1`] = `
 .c13 {
   background-color: inherit;
   color: #0067C5;
@@ -28,7 +28,7 @@ ui-fss.g7[id="c12"] {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  background-color: #E9E7E7;
+  background-color: white;
   padding: 0rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -73,7 +73,7 @@ ui-fss.g19[id="c0"] {
   margin: 0px;
   display: block;
   padding: 0px;
-  background-color: lightgray;
+  background-color: white;
 }
 
 .c3 .footerButtonClosed:hover {
@@ -549,4 +549,4 @@ ui-fss.g25[id="c14"] {
     </styled.footer>
   </Component>
 </Footer>
-`
+`;

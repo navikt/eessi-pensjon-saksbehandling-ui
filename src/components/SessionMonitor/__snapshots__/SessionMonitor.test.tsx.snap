@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/SessionMonitor Render: match snapshot 1'] = `
+exports[`components/SessionMonitor Render: match snapshot 1`] = `
 <SessionMonitor
   checkInterval={500}
   expirationTime={2020-01-31T23:00:00.000Z}
@@ -10,6 +10,7 @@ exports['components/SessionMonitor Render: match snapshot 1'] = `
 >
   <div
     data-test-id="c-sessionMonitor"
+    role="application"
   />
 </SessionMonitor>
-`
+`;

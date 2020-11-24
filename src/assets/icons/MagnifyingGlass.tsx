@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MagnifyingGlass = (props: any) => (
+const MagnifyingGlass: React.FC<any> = (props: any) => (
   <svg {...props} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
     <g stroke='#000' strokeLinejoin='round' strokeMiterlimit='10' fill='none'>
       <circle cx='8.5' cy='8.5' r='8' />

@@ -1,6 +1,7 @@
 import { openModal } from 'actions/ui'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
+import { stageSelector } from 'setupTests'
 import SessionMonitor, { SessionMonitorProps } from './SessionMonitor'
 
 jest.mock('actions/ui', () => ({
@@ -17,6 +18,10 @@ Object.defineProperty(window, 'location', {
 
 describe('components/SessionMonitor', () => {
   let wrapper: ReactWrapper
+
+  beforeEach(() => {
+    stageSelector({}, {})
+  })
   const initialMockProps: SessionMonitorProps = {
     expirationTime: new Date(2020, 1, 1)
   }
@@ -37,7 +42,7 @@ describe('components/SessionMonitor', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Handling: trigger openModal when session is almost expiring', async (done) => {
+  it('Handling: trigger openModal when session is almost expiring', async () => {
     // expires in 5 seconds - will check every 0.5s - warnings start at 9.9s - reload only happens under 1s
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:24:05')
@@ -51,16 +56,15 @@ describe('components/SessionMonitor', () => {
         {...initialMockProps}
       />)
     expect(openModal).not.toHaveBeenCalled()
-    await new Promise(resolve => {
+    return new Promise(resolve => {
       setTimeout(() => {
         expect(openModal).toHaveBeenCalled()
-        done()
-        resolve()
+        resolve(true)
       }, 1000)
     })
   })
 
-  it('Handling: trigger a openModal when session expires', async (done) => {
+  it('Handling: trigger a openModal when session expires', async () => {
     // expires in 1 seconds - will check every 0.5s - warnings start at 0.9s - reload happens under 10s
     (window.location.reload as jest.Mock).mockReset()
     const aDate = new Date('2020-12-17T03:24:00')
@@ -74,12 +78,11 @@ describe('components/SessionMonitor', () => {
         sessionExpiredReload={10000}
         {...initialMockProps}
       />)
-    await new Promise(resolve => {
+    return new Promise(resolve => {
       setTimeout(() => {
         expect(window.location.reload).toHaveBeenCalled();
         (window.location.reload as jest.Mock).mockRestore()
-        done()
-        resolve()
+        resolve(true)
       }, 1000)
     })
   })

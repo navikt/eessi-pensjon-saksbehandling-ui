@@ -1,19 +1,19 @@
 import { createBuc, getBucList, getSubjectAreaList, getTagList, saveBucsInfo } from 'actions/buc'
 import * as constants from 'constants/constants'
-import { BucsInfo } from 'declarations/buc'
 import { AllowedLocaleString } from 'declarations/app.d'
+import { BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
-import { Feiloppsummering } from 'nav-frontend-skjema'
-import React from 'react'
-import mockBucs from 'mocks/buc/bucs'
-import mockBucsInfo from 'mocks/buc/bucsInfo'
+import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockPerson from 'mocks/app/person'
 import mockPersonAvdods from 'mocks/app/personAvdod'
-import mockFeatureToggles from 'mocks/app/featureToggles'
-import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockBucList from 'mocks/buc/bucList'
+import mockBucs from 'mocks/buc/bucs'
+import mockBucsInfo from 'mocks/buc/bucsInfo'
+import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
+import { Feiloppsummering } from 'nav-frontend-skjema'
+import React from 'react'
 import { stageSelector } from 'setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
 
@@ -58,13 +58,8 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     onBucCancelled: jest.fn()
   } as BUCStartProps
 
-  beforeAll(() => {
-    stageSelector(defaultSelector, {})
-  })
-
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-
     wrapper = mount(<BUCStart {...initialMockProps} />)
   })
 
@@ -98,6 +93,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
   })
 
   it('UseEffect: Fetch subject area list', () => {
+    wrapper.unmount();
     (getSubjectAreaList as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       subjectAreaList: undefined
