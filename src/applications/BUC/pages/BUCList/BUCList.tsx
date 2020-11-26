@@ -120,6 +120,10 @@ const FlexDiv = styled.div`
     align-items: center !important;
   }
 `
+const HiddenDiv = styled.div`
+  position: absolute;
+  left: -99999px;
+`
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -414,7 +418,11 @@ const BUCList: React.FC<BUCListProps> = ({
                           data-test-id='a-buc-p-buclist__avdod-input-id'
                           feil={_validation || false}
                           id='a-buc-p-buclist__avdod-input-id'
-                          label={t('buc:form-avdodfnr')}
+                          label={(
+                            <HiddenDiv>
+                              {t('buc:form-avdodfnr')}
+                            </HiddenDiv>
+                          )}
                           onChange={onAvdodFnrChange}
                           placeholder={t('buc:form-searchOtherBUCs-placeholder')}
                           value={_avdodfnr || ''}

@@ -28,7 +28,7 @@
     "@sentry/browser": "^5.27.6",
     "amplitude-js": "^7.3.3",
     "classnames": "^2.2.6",
-    "core-js": "^3.7.0",
+    "core-js": "^3.8.0",
     "filopplasting": "^1.0.4",
     "flagg-ikoner": "^1.0.8",
     "forhandsvisningsfil": "^1.0.8",
@@ -103,7 +103,7 @@
     "use-error-boundary": "^2.0.4"
   },
   "devDependencies": {
-    "@axe-core/react": "^4.0.0",
+    "@axe-core/react": "^4.1.0",
     "@babel/runtime": "^7.12.5",
     "@types/amplitude-js": "^6.0.0",
     "@types/classnames": "^2.2.11",

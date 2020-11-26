@@ -34,7 +34,7 @@ const store: Store = createStore(combineReducers(reducers), applyMiddleware(thun
 
 if (!IS_PRODUCTION) {
   const axe = require('@axe-core/react')
-  axe(React, ReactDOM, 1000)
+  axe(React, ReactDOM, 1000, {})
 } else {
   Sentry.init()
   Amplitude.init()
