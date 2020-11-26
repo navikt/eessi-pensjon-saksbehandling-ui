@@ -286,7 +286,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
     {
-      const excludedBucs = ['P_BUC_10']
+      const excludedBucs: Array<string> = []
+
       const pesysContext = _.get((action as ActionWithPayload), 'context.pesysContext')
       const featureToggles = _.get((action as ActionWithPayload), 'context.featureToggles')
 
@@ -295,6 +296,12 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       const sakTypeAllowingPBUC05 = pesysContext === VEDTAKSKONTEKST ? sakTypeAllowingPBUC05vedtakscontext : sakTypeAllowingPBUC05notVedtakscontext
       const sakType: SakTypeValue |undefined = (action as ActionWithPayload).context.sakType
+
+      if (featureToggles.P_BUC_10_VISIBLE === false) {
+        if (excludedBucs.indexOf('P_BUC_10') < 0) {
+          excludedBucs.push('P_BUC_10')
+        }
+      }
 
       if (sakType && sakTypeAllowingPBUC05.indexOf(sakType) < 0) {
         excludedBucs.push('P_BUC_05')
