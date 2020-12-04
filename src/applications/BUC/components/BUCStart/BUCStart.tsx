@@ -211,23 +211,23 @@ const BUCStart: React.FC<BUCStartProps> = ({
     onBucCancelled()
   }
 
-  const onSubjectAreaChange = (option: ValueType<Option> | null | undefined): void => {
+  const onSubjectAreaChange = (option: ValueType<Option, false>): void => {
     if (option) {
-      const thisSubjectArea: string = (option as Option).value
+      const thisSubjectArea: string = option.value
       setSubjectArea(thisSubjectArea)
       updateValidation('sed', validateSubjectArea(thisSubjectArea))
     }
   }
 
-  const onBucChange = (option: ValueType<Option> | null | undefined): void => {
+  const onBucChange = (option: ValueType<Option, false>): void => {
     if (option) {
-      const thisBuc: string = (option as Option).value
+      const thisBuc: string = option.value
       setBuc(thisBuc)
       updateValidation('buc', validateBuc(thisBuc))
     }
   }
 
-  const onTagsChange = (tagsList: ValueType<Tag>): void => {
+  const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     setTags(tagsList as Tags)
     standardLogger('buc.new.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
   }
@@ -273,10 +273,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
       })
     : []
 
-  const onAvdodChange = (option: ValueType<Option>): void => {
+  const onAvdodChange = (option: ValueType<Option, false>): void => {
     if (option) {
       const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
-        (avdod: PersonAvdod) => avdod.fnr === (option as Option).value
+        (avdod: PersonAvdod) => avdod.fnr === option.value
       )
       setAvdod(thisAvdod)
       updateValidation('avdod', validateAvdod(thisAvdod))

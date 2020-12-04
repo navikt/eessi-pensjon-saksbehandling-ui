@@ -28,7 +28,7 @@ import {
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
+import { AllowedLocaleString, Loading } from 'declarations/app.d'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
@@ -80,7 +80,6 @@ export interface BUCToolsProps {
 
 export interface BUCToolsSelector {
   bucsInfo?: BucsInfo | undefined
-  featureToggles: FeatureToggles
   highContrast: boolean
   loading: Loading
   locale: AllowedLocaleString
@@ -90,7 +89,6 @@ export interface BUCToolsSelector {
 
 const mapState = (state: State): BUCToolsSelector => ({
   bucsInfo: state.buc.bucsInfo,
-  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
@@ -102,7 +100,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, initialTab = 0, onTagChange
 }: BUCToolsProps): JSX.Element => {
   const {
-    featureToggles, highContrast, loading, locale, bucsInfo, sedContent, tagList
+    highContrast, loading, locale, bucsInfo, sedContent, tagList
   }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -139,7 +137,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
-  const onTagsChange = (tagsList: ValueType<Tag>): void => {
+  const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     if (tagsList) {
       if (_.isFunction(onTagChange)) {
         onTagChange(tagsList as Tags)
@@ -220,7 +218,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
-  let tabs = [{
+  const tabs = [{
     label: t('buc:form-labelP5000'),
     key: 'P5000'
   }, {

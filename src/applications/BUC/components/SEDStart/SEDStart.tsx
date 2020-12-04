@@ -445,7 +445,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!_buc) {
       return
     }
-
     let newCountries: CountryRawList = []
     if (!_.isEmpty(countries)) {
       if (typeof countries[0] === 'string') {
@@ -483,27 +482,30 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     updateValidation('avdodfnr', validateAvdodFnr(newAvdodFnr))
   }
 
-  const onSedChange = (option: ValueType<Option> | null | undefined): void => {
-    const newSed: string | undefined = (option as Option).value
-    setSed(newSed)
-    // reset all validations, to clear validations of extra options that may be hidden now
-    setValidation({
-      sed: validateSed(newSed)
-    })
-    if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
-      const countries: CountryRawList = getParticipantCountriesWithoutNorway()
-      fetchInstitutionsForSelectedCountries(countries)
-      setInstitutions(getParticipantInstitutionsWithoutNorway())
+  const onSedChange = (option: ValueType<Option, false> | null | undefined): void => {
+    if (option) {
+      const newSed: string | undefined = option.value
+
+      setSed(newSed)
+      // reset all validations, to clear validations of extra options that may be hidden now
+      setValidation({
+        sed: validateSed(newSed)
+      })
+      if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
+        const countries: CountryRawList = getParticipantCountriesWithoutNorway()
+        fetchInstitutionsForSelectedCountries(countries)
+        setInstitutions(getParticipantInstitutionsWithoutNorway())
+      }
     }
   }
 
-  const onInstitutionsChange = (institutions: ValueType<Option | GroupType<Option>>): void => {
-    const newInstitutions: InstitutionRawList = institutions ? (institutions as unknown as Options).map(institution => institution.value) : []
+  const onInstitutionsChange = (institutions: ValueType<Option, true>): void => {
+    const newInstitutions: InstitutionRawList = institutions ? institutions.map(institution => institution.value) : []
     setInstitutions(newInstitutions)
     updateValidation('institution', validateInstitutions(newInstitutions))
   }
 
-  const onCountriesChange = (countries: ValueType<Option> | null | undefined): void => {
+  const onCountriesChange = (countries: ValueType<Option, true> | null | undefined): void => {
     fetchInstitutionsForSelectedCountries(countries as Options)
   }
 
@@ -856,7 +858,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
               />
               <VerticalSeparatorDiv />
-              <MultipleSelect<GroupType<Option> | Option>
+              <MultipleSelect<Option>
                 ariaLabel={t('ui:institution')}
                 aria-describedby='help-institution'
                 data-test-id='a-buc-c-sedstart__institution-select-id'

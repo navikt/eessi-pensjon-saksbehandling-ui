@@ -5,7 +5,7 @@ import { OptionProps, OptionTypeBase } from 'react-select'
 import { Checkbox } from 'nav-frontend-skjema'
 import styled, { ThemeProvider } from 'styled-components'
 
-export type MultipleOptionProps = OptionProps<OptionTypeBase>
+export type MultipleOptionProps = OptionProps<OptionTypeBase, true>
 
 const OptionCheckbox = styled(Checkbox)`
    &:not(:disabled) {

@@ -7,7 +7,7 @@ import { guid } from 'nav-frontend-js-utils'
 import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
-import Select, { ValueType } from 'react-select'
+import Select, { GroupedOptionsType, OptionsType, ValueType } from 'react-select'
 import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
 import { SelectComponents } from 'react-select/src/components'
@@ -36,10 +36,10 @@ export interface MultipleSelectProps<OptionType> {
   isSearchable ?: boolean
   label: string | JSX.Element
   menuPortalTarget?: any,
-  onSelect?: (e: ValueType<OptionType>) => void
-  options?: Array<OptionType>
+  onSelect?: (e: ValueType<OptionType, true>) => void
+  options?: OptionsType<OptionType> | GroupedOptionsType<OptionType>
   placeholder?: JSX.Element | string
-  values?: Array<OptionType>
+  values?: OptionsType<OptionType>
 }
 
 const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
@@ -48,7 +48,7 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
 }: MultipleSelectProps<OptionType>): JSX.Element => {
   const _theme = highContrast ? themeHighContrast : theme
 
-  const animatedComponents: SelectComponents<OptionType> = makeAnimated()
+  const animatedComponents: SelectComponents<OptionType, true> = makeAnimated()
 
   const onSelectChange = (e: Array<OptionType>) => {
     if (_.isFunction(onSelect)) {

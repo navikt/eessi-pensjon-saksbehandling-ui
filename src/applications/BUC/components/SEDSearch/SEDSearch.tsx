@@ -66,7 +66,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     setTimer(timer)
   }
 
-  const onStatusChange = (statusList: ValueType<Option>) => {
+  const onStatusChange = (statusList: ValueType<Option, true>) => {
     if (statusList) {
       onStatusSearch(statusList as Options)
       setStatus(statusList as Options)
