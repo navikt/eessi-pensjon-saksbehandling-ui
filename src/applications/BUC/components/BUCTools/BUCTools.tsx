@@ -220,20 +220,16 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
-  let tabs = featureToggles && featureToggles.P5000_VISIBLE
-    ? [{
-        label: t('buc:form-labelP5000'),
-        key: 'P5000'
-      }]
-    : []
-
-  tabs = tabs.concat([{
+  let tabs = [{
+    label: t('buc:form-labelP5000'),
+    key: 'P5000'
+  }, {
     label: t('ui:tags'),
     key: 'tags'
   }, {
     label: t('buc:form-commentForBUC'),
     key: 'comments'
-  }])
+  }]
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -288,7 +284,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             defaultAktiv={_activeTab}
           />
           <PaddedTabContent>
-            {featureToggles && featureToggles.P5000_VISIBLE && tabs[_activeTab].key === 'P5000' && (
+            {tabs[_activeTab].key === 'P5000' && (
               <P5000Div>
                 <Undertittel>
                   {t('buc:form-titleP5000')}

@@ -307,20 +307,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         excludedBucs.push('P_BUC_05')
       }
 
-      if (featureToggles.P_BUC_05_VISIBLE === false) {
-        if (excludedBucs.indexOf('P_BUC_05') < 0) {
-          excludedBucs.push('P_BUC_05')
-        }
-      }
-
       if (pesysContext !== VEDTAKSKONTEKST) {
         excludedBucs.push('P_BUC_02')
-      }
-
-      if (featureToggles.P_BUC_02_VISIBLE === false) {
-        if (excludedBucs.indexOf('P_BUC_02') < 0) {
-          excludedBucs.push('P_BUC_02')
-        }
       }
 
       return {

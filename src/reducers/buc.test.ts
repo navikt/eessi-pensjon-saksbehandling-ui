@@ -326,67 +326,32 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_02 true', () => {
+  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_10 true', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_BUC_LIST_SUCCESS,
-        payload: ['mockPayload', 'P_BUC_02'],
+        payload: ['mockPayload', 'P_BUC_10'],
         context: {
           pesysContext: VEDTAKSKONTEKST,
           featureToggles: {
-            P_BUC_02_VISIBLE: true
+            P_BUC_10_VISIBLE: true
           }
         }
       })
     ).toEqual({
       ...initialBucState,
-      bucList: ['mockPayload', 'P_BUC_02']
+      bucList: ['mockPayload', 'P_BUC_10']
     })
   })
 
-  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_02 false', () => {
+  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_10 false', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_BUC_LIST_SUCCESS,
-        payload: ['mockPayload', 'P_BUC_02'],
+        payload: ['mockPayload', 'P_BUC_10'],
         context: {
           featureToggles: {
-            P_BUC_02_VISIBLE: false
-          }
-        }
-      })
-    ).toEqual({
-      ...initialBucState,
-      bucList: ['mockPayload']
-    })
-  })
-
-  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_05 true', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_BUC_LIST_SUCCESS,
-        payload: ['mockPayload', 'P_BUC_05'],
-        context: {
-          pesysContext: VEDTAKSKONTEKST,
-          featureToggles: {
-            P_BUC_05_VISIBLE: true
-          }
-        }
-      })
-    ).toEqual({
-      ...initialBucState,
-      bucList: ['mockPayload', 'P_BUC_05']
-    })
-  })
-
-  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_05 false', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_BUC_LIST_SUCCESS,
-        payload: ['mockPayload', 'P_BUC_05'],
-        context: {
-          featureToggles: {
-            P_BUC_05_VISIBLE: false
+            P_BUC_10_VISIBLE: false
           }
         }
       })

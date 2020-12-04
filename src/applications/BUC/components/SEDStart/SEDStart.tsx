@@ -908,7 +908,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 : _sendingAttachments
                   ? t('buc:loading-sendingSEDattachments')
                   : t('buc:form-orderSED')}
-            </HighContrastHovedknapp>
+            </HighContrastHovedknapp>'
             <HorizontalSeparatorDiv />
             <HighContrastFlatknapp
               data-amplitude='sed.new.cancel'
