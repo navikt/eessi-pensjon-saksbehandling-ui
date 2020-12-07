@@ -386,7 +386,7 @@ const BUCList: React.FC<BUCListProps> = ({
                 </BucLenkePanel>
               )
             })}
-        {!loading.gettingBUCs && !_.isNil(bucs) && _.isEmpty(bucs) && pesysContext === BRUKERKONTEKST &&
+        {!loading.gettingBUCs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
               <VerticalSeparatorDiv data-size='2' />
