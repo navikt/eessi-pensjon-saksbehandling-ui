@@ -30,7 +30,7 @@ import moment from 'moment'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -119,6 +119,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
+  const componentRef = useRef(null)
   const buc: Buc | undefined = bucs ? bucs[currentBuc!] : undefined
   const bucInfo: BucInfo = buc && bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
   const [loggedTime] = useState<Date>(new Date())
@@ -163,6 +164,10 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     } else {
       dispatch(setCurrentSed(sed, replySed))
       setStartSed('open')
+      if (componentRef.current) {
+        // @ts-ignore
+        componentRef.current?.scrollIntoView({behavior: 'smooth'})
+      }
     }
   }
 
@@ -249,10 +254,12 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         )}
       </BUCEditHeader>
       <VerticalSeparatorDiv />
-      <SEDStartDiv className={classNames({
-        open: _startSed === 'open',
-        close: _startSed === 'close'
-      })}
+      <SEDStartDiv
+        className={classNames({
+          open: _startSed === 'open',
+          close: _startSed === 'close'
+        })}
+        ref={componentRef}
       >
         <SEDNewDiv>
           <SEDStart
