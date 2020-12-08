@@ -99,3 +99,6 @@ export const sedSorter = (a: Sed, b: Sed): number => {
   if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) < 0) return -1
   return mainCompare > 0 ? 1 : -1
 }
+
+export const valueSorter = (a: Option, b: Option) => a.value.localeCompare(b.value)
+

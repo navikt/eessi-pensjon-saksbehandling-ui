@@ -7,7 +7,7 @@ import {
   resetBuc,
   saveBucsInfo
 } from 'actions/buc'
-import { bucsWithAvdod, getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucsWithAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
@@ -232,7 +232,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     standardLogger('buc.new.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined): Options => {
+  const renderOptions = (options: Array<Option | string> | undefined, sort?: (a: Option, b: Option) => number): Options => {
     return options
       ? options.map((el: Option | string) => {
           let label: string, value: string
@@ -247,8 +247,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             label: getOptionLabel(label),
             value: value
           }
-        })
-      : []
+        }).sort(sort) : []
   }
 
   const getOptionLabel = (value: string): string => {
@@ -383,7 +382,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 isSearchable
                 menuPortalTarget={document.getElementById('main')}
                 onChange={onBucChange}
-                options={renderOptions(bucList)}
+                options={renderOptions(bucList, valueSorter)}
                 placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
               />
             </>
