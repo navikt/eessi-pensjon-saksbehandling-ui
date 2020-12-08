@@ -95,7 +95,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 }: SEDHeaderProps): JSX.Element => {
   const { highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
-  const followUpSed: Sed | undefined = buc.seds!.find(_seds => _seds.parentDocumentId === sed.id)
+  const followUpSed: Sed | undefined = buc.seds!.find(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent')
 
   const institutionSenderList: Institutions = sed.participants
     ? sed.participants
