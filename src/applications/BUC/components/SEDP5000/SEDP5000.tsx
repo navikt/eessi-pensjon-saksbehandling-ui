@@ -139,22 +139,24 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
     const medlemskap = sedContent.pensjon?.medlemskap
     if (medlemskap) {
       medlemskap.forEach((m: any, i: number) => {
-        res.push({
-          key: sedId + '-' + i,
-          land: sender!.countryLabel || '-',
-          acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
-          type: m.type || '-',
-          startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
-          sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
-          år: m.sum?.aar || '-',
-          kvartal: m.sum?.kvartal || '-',
-          måned: m.sum?.maaneder || '-',
-          uker: m.sum?.uker || '-',
-          dagerEnhet: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
-          relevantForYtelse: m.relevans || '-',
-          ordning: m.ordning || '-',
-          informasjonOmBeregning: m.beregning || '-'
-        } as SEDP5000Row)
+        if (!_.isNil(m)) {
+          res.push({
+            key: sedId + '-' + i,
+            land: sender!.countryLabel || '-',
+            acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
+            type: m.type || '-',
+            startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
+            sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
+            år: m.sum?.aar || '-',
+            kvartal: m.sum?.kvartal || '-',
+            måned: m.sum?.maaneder || '-',
+            uker: m.sum?.uker || '-',
+            dagerEnhet: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
+            relevantForYtelse: m.relevans || '-',
+            ordning: m.ordning || '-',
+            informasjonOmBeregning: m.beregning || '-'
+          } as SEDP5000Row)
+        }
       })
     }
     return res

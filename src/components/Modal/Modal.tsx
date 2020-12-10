@@ -12,7 +12,6 @@ import React, { useEffect, useState } from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 const ModalDiv = styled(ReactModal)`
-  background-color: #FFF;
   display: block;
   padding: 1rem 1rem 1rem 1rem;
   border-radius: 4px;
@@ -56,6 +55,7 @@ const ModalText = styled.div`
 const ModalButtons = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `
 const ButtonMargin = styled.div`
   margin-right: 1rem;
@@ -75,7 +75,7 @@ const ContentDiv = styled.div`
   &.icon {
     margin-top: 3rem;
   }
-  &.burrons {
+  &.buttons {
     margin-top: 3rem;
   }
 `
@@ -164,7 +164,7 @@ const Modal: React.FC<ModalProps> = ({
             </ContentDiv>
           )}
           {_modal && _modal.modalButtons && (
-            <ModalButtons>
+            <ModalButtons className={classNames('buttons')}>
               {_modal.modalButtons.map((button, i) => {
                 let Button = HighContrastKnapp
                 if (button.main) {

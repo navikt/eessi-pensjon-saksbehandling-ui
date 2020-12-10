@@ -62,6 +62,7 @@ const Skillelinje = styled.div`
   display: flex;
   height: 30px;
   width: 1px;
+  margin-left: 1rem;
 `
 const Title = styled.div`
   color: ${({ theme }) => theme.white};
