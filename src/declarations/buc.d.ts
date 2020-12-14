@@ -84,6 +84,8 @@ export interface NewSedPayload {
   buc: string
   euxCaseId: string
   institutions: Institutions
+  kravdato?: string
+  kravom?: string
   sakId: string
   sed: string
   subject?: BUCSubject

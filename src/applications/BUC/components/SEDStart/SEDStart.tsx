@@ -248,6 +248,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_institutions, setInstitutions] = useState<InstitutionRawList>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
+  const [_kravDato, setKravDato] = useState<string>('')
+  const [_kravOm, setKravOm] = useState<string | undefined>(undefined)
   const [_mounted, setMounted] = useState<boolean>(false)
   const _notHostInstitution = (institution: Institution) : boolean => institution.institution !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
@@ -275,6 +277,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'H070', 'H121']
 
+  const sedNeedsKravOm = ['P15000']
+
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
       ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
@@ -288,12 +292,20 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     )
 
   const sedNeedsAvdodFnrInput = (): boolean => {
-    return bucNeedsAvdod() &&
+    return (
+      bucNeedsAvdod() &&
       !avdodExists() &&
       pesysContext !== constants.VEDTAKSKONTEKST &&
       (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion()) &&
       (!isNorwayCaseOwner() && _buc.type === 'P_BUC_05' ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
+    ) || (
+      _buc.type === 'P_BUC_10' && _sed === 'P15000' &&  pesysContext !== constants.VEDTAKSKONTEKST &&
+      (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+
+    )
   }
+
+  const sedNeedsKravdato = (): boolean => _sed === 'P15000'
 
   const sedCanHaveAttachments = useCallback((): boolean => {
     return _sed !== undefined && sedsWithAttachments[_sed]
@@ -369,6 +381,22 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }, [_validation])
 
+  const validateKravDato = (kravDato: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!kravDato || kravDato?.length === 0) {
+      return {
+        feilmelding: t('buc:validation-chooseKravdato'),
+        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id'
+      } as FeiloppsummeringFeil
+   }
+    if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
+      return {
+        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id',
+        feilmelding: t('buc:validation-badKravDato')
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+ }
+
   const validateSed = (sed: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!sed) {
       return {
@@ -420,6 +448,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       return {
         feilmelding: t('buc:validation-chooseAvdodFnr'),
         skjemaelementId: 'a-buc-c-bucstart__avdod-input-id'
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+  }
+
+  const validateKravOm = (kravOm: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!kravOm) {
+      return {
+        feilmelding: t('buc:validation-chooseKravOm'),
+        skjemaelementId: 'a-buc-c-bucstart__kravom-radiogroup-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -482,6 +520,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     updateValidation('avdodfnr', validateAvdodFnr(newAvdodFnr))
   }
 
+  const setDefaultKravOm = () => {
+    setKravOm('Etterlatteytelser')
+  }
+
   const onSedChange = (option: ValueType<Option, false> | null | undefined): void => {
     if (option) {
       const newSed: string | undefined = option.value
@@ -496,7 +538,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         fetchInstitutionsForSelectedCountries(countries)
         setInstitutions(getParticipantInstitutionsWithoutNorway())
       }
+      if (sedNeedsKravOm.indexOf(newSed) >= 0) {
+        setDefaultKravOm()
+      }
     }
+  }
+
+  const onKravOmChange = (e: any): void => {
+    const newKravOm: string = e.target.value
+    setKravOm(newKravOm)
   }
 
   const onInstitutionsChange = (institutions: ValueType<Option, true>): void => {
@@ -507,6 +557,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const onCountriesChange = (countries: ValueType<Option, true> | null | undefined): void => {
     fetchInstitutionsForSelectedCountries(countries as Options)
+  }
+
+  const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newKravDato = e.target.value
+    updateValidation('kravdato', undefined)
+    setKravDato(newKravDato)
   }
 
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -558,6 +614,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setSed(undefined)
     setInstitutions([])
     setCountries([])
+    setKravDato('')
   }, [dispatch])
 
   const performValidation = (): boolean => {
@@ -574,6 +631,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
     if (sedNeedsAvdodBrukerQuestion()) {
       validation.avdodorsoker = validateAvdodOrSoker(_avdodOrSoker)
+    }
+    if (sedNeedsKravdato()){
+      validation.kravdato = validateKravDato(_kravDato)
+    }
+    if (_sed && sedNeedsKravOm.indexOf(_sed) >= 0){
+      validation.kravom = validateKravOm(_kravOm)
     }
     setValidation(validation)
     return hasNoValidationErrors(validation)
@@ -602,6 +665,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       if (sedNeedsAvdodBrukerQuestion()) {
         payload.referanseTilPerson = _avdodOrSoker
+      }
+      if (validateKravDato(_kravDato)) {
+        payload.kravdato = _kravDato
+      }
+      if (_kravOm) {
+        payload.kravom = _kravOm
       }
       if ((_buc as ValidBuc).subject) {
         payload.subject = (_buc as ValidBuc).subject
@@ -773,6 +842,39 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
           </>
+          {sedNeedsKravdato() && (
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastInput
+                data-testid='a-buc-c-sedstart__kravdato-input-id'
+                id='a-buc-c-sedstart__kravdato-input-id'
+                label={t('buc:form-kravDato')}
+                bredde='fullbredde'
+                value={_kravDato}
+                onChange={onKravDatoChange}
+                placeholder={t('buc:form-kravDatoPlaceholder')}
+                feil={_validation.kravdato ? t(_validation.kravdato.feilmelding) : undefined}
+              />
+            </>
+          )}
+          {_sed && sedNeedsKravOm.indexOf(_sed) >= 0 && (
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastRadioPanelGroup
+                checked={_kravOm}
+                data-test-id='a-buc-c-bucstart__kravom-radiogroup-id'
+                feil={_validation.kravom ? t(_validation.kravom.feilmelding) : undefined}
+                legend={t('buc:form-kravOm')}
+                name='kravom'
+                radios={[
+                  { label: t('buc:form-alderspensjon'), value: 'Alderspensjon' },
+                  { label: t('buc:form-etterletteytelser'), value: 'Etterlatteytelser' },
+                  { label: t('buc:form-uføretrygd'), value: 'Uføretrygd' }
+                ]}
+                onChange={onKravOmChange}
+              />
+            </>
+          )}
           {_sed && sedNeedsVedtakId.indexOf(_sed) >= 0 && (
             <>
               <VerticalSeparatorDiv />
