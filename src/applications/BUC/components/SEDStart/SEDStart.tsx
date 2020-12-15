@@ -280,6 +280,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsKravOm = ['P15000']
 
+  const sedNeedsKravdato = ['P15000']
+
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
       ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
@@ -305,8 +307,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
     )
   }
-
-  const sedNeedsKravdato = (): boolean => _sed === 'P15000'
 
   const sedCanHaveAttachments = useCallback((): boolean => {
     return _sed !== undefined && sedsWithAttachments[_sed]
@@ -385,7 +385,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateKravDato = (kravDato: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!kravDato || kravDato?.length === 0) {
       return {
-        feilmelding: t('buc:validation-chooseKravdato'),
+        feilmelding: t('buc:validation-chooseKravDato'),
         skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id'
       } as FeiloppsummeringFeil
    }
@@ -533,6 +533,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setKravOm('Etterlatteytelser')
   }
 
+  const setDefaultKravDato = () => {
+    if (pesysContext === constants.VEDTAKSKONTEKST && (
+      (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
+    )) {
+      setKravDato('2020-12-15')
+    }
+  }
+
   const onSedChange = (option: ValueType<Option, false> | null | undefined): void => {
     if (option) {
       const newSed: string | undefined = option.value
@@ -549,6 +557,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       if (sedNeedsKravOm.indexOf(newSed) >= 0) {
         setDefaultKravOm()
+      }
+      if (sedNeedsKravdato.indexOf(newSed) >= 0) {
+        setDefaultKravDato()
       }
     }
   }
@@ -641,10 +652,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (sedNeedsAvdodBrukerQuestion()) {
       validation.avdodorsoker = validateAvdodOrSoker(_avdodOrSoker)
     }
-    if (sedNeedsKravdato()){
+    if (_sed && sedNeedsKravdato.indexOf(_sed) >= 0) {
       validation.kravdato = validateKravDato(_kravDato)
     }
-    if (_sed && sedNeedsKravOm.indexOf(_sed) >= 0){
+    if (_sed && sedNeedsKravOm.indexOf(_sed) >= 0) {
       validation.kravom = validateKravOm(_kravOm)
     }
     setValidation(validation)
@@ -851,7 +862,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
           </>
-          {sedNeedsKravdato() && (
+          {_sed && sedNeedsKravdato.indexOf(_sed) >= 0 && (
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
