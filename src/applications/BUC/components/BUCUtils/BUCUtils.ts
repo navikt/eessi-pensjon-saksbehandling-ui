@@ -30,7 +30,7 @@ export const bucFilter = (buc: Buc): boolean => {
   )
 }
 
-export const bucsWithAvdod = (bucType: string | null | undefined): boolean => bucType === 'P_BUC_02' || bucType === 'P_BUC_05'
+export const bucsWithAvdod = (bucType: string | null | undefined): boolean => _.includes(['P_BUC_02', 'P_BUC_05'], bucType)
 
 export const countrySorter = (locale: string) => {
   return (a: string, b: string): number => {

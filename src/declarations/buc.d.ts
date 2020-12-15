@@ -163,6 +163,7 @@ export interface SaveBucsInfoProps {
   };
   bucsInfo: BucsInfo
   comment?: string
+  kravDato?: string
   tags?: RawList
 }
 

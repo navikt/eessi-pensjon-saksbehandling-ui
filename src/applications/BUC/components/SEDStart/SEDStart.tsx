@@ -261,7 +261,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = useState<string | undefined>(vedtakId)
 
-  // QUESTIONS
+  // BEGIN QUESTIONS
 
   const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' &&
     (_buc?.creator?.institution !== 'NO:NAVAT05' && _buc?.creator?.institution !== 'NO:NAVAT08' && _buc?.creator?.institution !== 'NO:NAVAT06')
@@ -313,6 +313,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [_sed, sedsWithAttachments])
 
   const isNumber = (string: string): boolean => string.match(/^\d+$/g) !== null
+
+  // END QUESTIONS
 
   // Manage Institution / country options
 

@@ -14,7 +14,7 @@ import {
   Column,
   HighContrastFeiloppsummering,
   HighContrastFlatknapp,
-  HighContrastHovedknapp,
+  HighContrastHovedknapp, HighContrastInput,
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
@@ -33,14 +33,14 @@ import {
   Buc,
   BUCRawList,
   Bucs,
-  BucsInfo,
+  BucsInfo, SakTypeMap,
   SakTypeValue,
   SaveBucsInfoProps,
   SubjectAreaRawList,
   Tag,
   TagRawList,
   Tags
-} from 'declarations/buc'
+} from 'declarations/buc.d'
 
 import { Person, PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
@@ -122,7 +122,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const dispatch = useDispatch()
 
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
+  const [_avdodfnr, setAvdodfnr] = useState<string | undefined>(undefined)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
+  const [_kravDato, setKravDato] = useState<string>('')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
   const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
   const [_showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
@@ -130,9 +132,28 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [_tags, setTags] = useState<Tags>([])
   const [_validation, setValidation] = useState<Validation>({})
 
-  const bucNeedsAvdod = (): boolean => bucsWithAvdod(_buc)
+  // BEGIN QUESTIONS
 
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
+
+  // show avdod select for P_BUC_02 and P_BUC_05 when there are avdods
+  const bucNeedsAvdod = (): boolean => bucsWithAvdod(_buc) && avdodExists()
+
+  // show avdod fnr input for P_BUC_10, have avdods and we are in vedtakskontekst and have saktype
+  const bucNeedsAvdodFnrInput = (): boolean => {
+    return !!(_buc === 'P_BUC_10' && pesysContext === constants.VEDTAKSKONTEKST &&
+    (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
+    personAvdods && personAvdods.length === 1)
+  }
+
+  // show krav dato for the same criteria as bucNeedsAvdodFnrInput
+  const bucNeedsKravDato = (buc: string | null | undefined): boolean => {
+    return !!(buc === 'P_BUC_10' && pesysContext === constants.VEDTAKSKONTEKST &&
+      (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
+      personAvdods && personAvdods.length === 1)
+  }
+
+  // END QUESTIONS
 
   const hasNoValidationErrors = (validation: Validation): boolean => {
     return _.find(validation, (it) => (it !== undefined)) === undefined
@@ -176,15 +197,51 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return undefined
   }
 
+  const validateAvdodFnr = (avdodfnr: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!avdodfnr) {
+      return {
+        feilmelding: t('buc:validation-chooseAvdodFnr'),
+        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id'
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+  }
+
+  const validateKravDato = (kravDato: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!kravDato || kravDato?.length === 0) {
+      return {
+        feilmelding: t('buc:validation-chooseKravDato'),
+        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id'
+      } as FeiloppsummeringFeil
+    }
+    if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
+      return {
+        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id',
+        feilmelding: t('buc:validation-badKravDato')
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+  }
+
   const performValidation = () :boolean => {
     const validation: Validation = {}
     validation.subjectArea = validateSubjectArea(_subjectArea)
     validation.buc = validateBuc(_buc)
-    if (bucNeedsAvdod() && avdodExists()) {
+    if (bucNeedsAvdod()) {
       validation.avdod = validateAvdod(_avdod)
+    }
+    if (bucNeedsAvdodFnrInput()) {
+      validation.avdodfnr = validateAvdodFnr(_avdodfnr)
+    }
+    if (bucNeedsKravDato(_buc)) {
+      validation.kravdato = validateKravDato(_kravDato)
     }
     setValidation(validation)
     return hasNoValidationErrors(validation)
+  }
+
+  const setDefaultKravDato = () => {
+    setKravDato('15-12-2020')
   }
 
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -208,6 +265,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
     dispatch(resetBuc())
+    setBuc(bucParam)
+    setKravDato('')
+    setAvdod(undefined)
+    setAvdodfnr(undefined)
     onBucCancelled()
   }
 
@@ -224,12 +285,22 @@ const BUCStart: React.FC<BUCStartProps> = ({
       const thisBuc: string = option.value
       setBuc(thisBuc)
       updateValidation('buc', validateBuc(thisBuc))
+
+      if (bucNeedsKravDato(thisBuc)) {
+        setDefaultKravDato()
+      }
     }
   }
 
   const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     setTags(tagsList as Tags)
     standardLogger('buc.new.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
+  }
+
+  const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newKravDato = e.target.value
+    updateValidation('kravdato', undefined)
+    setKravDato(newKravDato)
   }
 
   const renderOptions = (options: Array<Option | string> | undefined, sort?: (a: Option, b: Option) => number): Options => {
@@ -282,6 +353,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
+  const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const newAvdodFnr: string | undefined = e.target.value
+    setAvdodfnr(newAvdodFnr)
+    updateValidation('avdodfnr', validateAvdodFnr(newAvdodFnr))
+  }
+
   const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
     return personAvdods?.map((avdod: PersonAvdod) => ({
       label: avdod.fulltNavn + ' (' + avdod.fnr + ')',
@@ -323,13 +400,19 @@ const BUCStart: React.FC<BUCStartProps> = ({
   useEffect(() => {
     if (_isCreatingBuc && newlyCreatedBuc && !_isCreatingBucInfo) {
       const buc: Buc = bucs![currentBuc!]
-      dispatch(saveBucsInfo({
+      let payload: SaveBucsInfoProps = {
         aktoerId: aktoerId,
         bucsInfo: bucsInfo,
         tags: _tags.map(t => t.value),
-        buc: buc,
-        avdod: _avdod
-      } as SaveBucsInfoProps))
+        buc: buc
+      } as SaveBucsInfoProps
+      if (bucNeedsAvdod()) {
+        payload.avdod = _avdod?.fnr
+      }
+      if (bucNeedsKravDato(newlyCreatedBuc.type)) {
+        payload.kravDato = _kravDato
+      }
+      dispatch(saveBucsInfo(payload))
       setIsCreatingBucInfo(true)
     }
   }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, _isCreatingBuc, _isCreatingBucInfo, newlyCreatedBuc, _tags])
@@ -384,9 +467,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 onChange={onBucChange}
                 options={renderOptions(bucList, valueSorter)}
                 placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
+                value={_.find(bucList, (b: Option) => b.value === _buc) as ValueType<Option, false>}
               />
             </>
-            {bucNeedsAvdod() && avdodExists() && (
+            {bucNeedsAvdod() && (
               <>
                 <VerticalSeparatorDiv />
                 <label className='skjemaelement__label'>
@@ -402,6 +486,34 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   options={avdodOptions}
                   placeholder={t('buc:form-chooseAvdod')}
                   value={_.find(avdodOptions, (f: any) => f.value === _avdod?.fnr) || null}
+                />
+              </>
+            )}
+            {bucNeedsAvdodFnrInput() && (
+              <>
+                <VerticalSeparatorDiv />
+                <HighContrastInput
+                  label={t('buc:form-avdodfnr')}
+                  data-test-id='a-buc-c-bucstart__avdod-input-id'
+                  id='a-buc-c-bucstart__avdod-input-id'
+                  placeholder={t('buc:form-chooseAvdodFnr')}
+                  onChange={onAvdodFnrChange}
+                  feil={_validation.avdodfnr ? t(_validation.avdodfnr.feilmelding) : null}
+                />
+              </>
+            )}
+            { bucNeedsKravDato(_buc) && (
+              <>
+                <VerticalSeparatorDiv />
+                <HighContrastInput
+                  data-testid='a-buc-c-bucstart__kravdato-input-id'
+                  id='a-buc-c-bucstart__kravdato-input-id'
+                  label={t('buc:form-kravDato')}
+                  bredde='fullbredde'
+                  value={_kravDato}
+                  onChange={onKravDatoChange}
+                  placeholder={t('buc:form-kravDatoPlaceholder')}
+                  feil={_validation.kravdato ? t(_validation.kravdato.feilmelding) : undefined}
                 />
               </>
             )}

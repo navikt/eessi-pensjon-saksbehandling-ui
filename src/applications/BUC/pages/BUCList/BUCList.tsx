@@ -107,7 +107,7 @@ export const BUCStartDiv = styled.div`
   }
   &.open {
     will-change: max-height, height;
-    max-height: 40em;
+    max-height: 50em;
     animation: ${animationOpen} 400ms ease;
   }
 `
