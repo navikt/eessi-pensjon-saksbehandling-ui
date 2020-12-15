@@ -888,7 +888,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 name='kravom'
                 radios={[
                   { label: t('buc:form-alderspensjon'), value: 'Alderspensjon' },
-                  { label: t('buc:form-etterletteytelser'), value: 'Etterlatteytelser' },
+                  { label: t('buc:form-etterletteytelser'), value: 'Etterlatteytelser', disabled: (
+                      (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
+                    ) },
                   { label: t('buc:form-uføretrygd'), value: 'Uføretrygd' }
                 ]}
                 onChange={onKravOmChange}
