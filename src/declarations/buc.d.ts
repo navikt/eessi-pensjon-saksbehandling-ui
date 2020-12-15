@@ -85,7 +85,6 @@ export interface NewBucPayload {
   buc: string
   person: Person
   avdod: PersonAvdod
-  avdodFnr ?: string
   kravDato?: string
 }
 
@@ -268,7 +267,6 @@ export interface ValidBuc {
   startDate: number
   addedParams?: {
     subject?: BUCSubject
-    avdodFnr ?: string
     kravDato?: string
   }
   type: string

@@ -1,4 +1,4 @@
-import { bucsThatRequireAvdod, getBucTypeLabel, renderAvdodName } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucsThatSupportAvdod, getBucTypeLabel, renderAvdodName } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import { slideInFromRight } from 'components/keyframes'
 import { HighContrastExpandingPanel, HighContrastLink } from 'components/StyledComponents'
@@ -167,7 +167,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   <WaitingPanel size='S' />
                   )}
             </Dd>
-            {bucsThatRequireAvdod(buc.type) && (
+            {bucsThatSupportAvdod(buc.type) && (
               <>
                 <Dt className='odd'>
                   <Element>

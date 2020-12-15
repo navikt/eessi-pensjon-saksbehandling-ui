@@ -60,7 +60,6 @@ export const createBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> 
     context: {
       avdod: params.avdod,
       person: params.person,
-      avdodFnr: params.avdodFnr,
       kravDato: params.kravDato
     },
     cascadeFailureError: true,

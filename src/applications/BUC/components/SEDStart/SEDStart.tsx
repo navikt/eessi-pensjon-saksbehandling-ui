@@ -12,7 +12,7 @@ import {
   setSedList
 } from 'actions/buc'
 import {
-  bucsThatRequireAvdod, bucsThatSupportAvdod,
+  bucsThatSupportAvdod,
   getBucTypeLabel,
   labelSorter,
   renderAvdodName,
@@ -28,7 +28,8 @@ import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
-  Column, HighContrastFeiloppsummering,
+  Column,
+  HighContrastFeiloppsummering,
   HighContrastFlatknapp,
   HighContrastHovedknapp,
   HighContrastInput,
@@ -39,8 +40,8 @@ import {
   VerticalSeparatorDiv
 } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as constants from 'constants/constants'
+import { VEDTAKSKONTEKST } from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
 import {
   AllowedLocaleString,
@@ -56,7 +57,8 @@ import {
   AvdodOrSokerValue,
   Buc,
   Bucs,
-  CountryRawList, Institution,
+  CountryRawList,
+  Institution,
   InstitutionListMap,
   InstitutionNames,
   InstitutionRawList,
@@ -239,7 +241,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
   const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
-  const [_avdodFnrDisabled, setAvdodFnrDisabled] = useState<boolean>(false)
   const [_avdodOrSoker, setAvdodOrSoker] = useState<AvdodOrSokerValue | undefined>(undefined)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
@@ -271,7 +272,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
   // SEDs that needs Avdod filled so it goes to payload
-  const sedNeedsAvdod = useCallback((): boolean => bucsThatRequireAvdod(_buc.type), [_buc])
+  const sedNeedsAvdod = useCallback((): boolean => bucsThatSupportAvdod(_buc.type), [_buc])
 
   // SEDs that use avdod (can be only for display)
   const sedSupportsAvdod = useCallback((): boolean => bucsThatSupportAvdod(_buc.type), [_buc])
@@ -306,23 +307,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   // When to show Avdods fnr? When we are in avdod-supported SED, not vedtakscontext, no avdod in sight and extra conditions
   const sedNeedsAvdodFnrInput = (): boolean => {
     const answer = (
-      (
-        sedSupportsAvdod()
-      ) && (
-        (
-          !avdodExists() &&
-          pesysContext !== constants.VEDTAKSKONTEKST &&
-          (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion()) &&
-          (!isNorwayCaseOwner() && _buc.type === 'P_BUC_05' ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
-        ) || (
-           _sed === 'P15000' &&
-          (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
-        )
-      )
+      sedSupportsAvdod() &&
+      !avdodExists() &&
+      pesysContext !== constants.VEDTAKSKONTEKST &&
+      (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion()) &&
+      (!isNorwayCaseOwner() && _buc.type === 'P_BUC_05' ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
     )
     return answer
   }
-
 
   const sedCanHaveAttachments = useCallback((): boolean => {
     return _sed !== undefined && sedsWithAttachments[_sed]
@@ -406,7 +398,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         feilmelding: t('buc:validation-chooseKravDato'),
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
       } as FeiloppsummeringFeil
-   }
+    }
     if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
@@ -414,7 +406,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } as FeiloppsummeringFeil
     }
     return undefined
- }
+  }
 
   const validateSed = (sed: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!sed) {
@@ -822,7 +814,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [sedList, _sed, setSed])
 
   useEffect(() => {
-    if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject ) {
+    if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject) {
       let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
         p.fnr === (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
       )
@@ -831,11 +823,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       setAvdod(avdod)
     }
-    if (sedSupportsAvdod() && _avdodFnr === undefined && (_buc as ValidBuc).addedParams?.avdodFnr) {
-      // avdod fnr comes fom buc, so pass it to sed for read only purposes
-      setAvdodFnr((_buc as ValidBuc).addedParams?.avdodFnr)
-      setAvdodFnrDisabled(true)
-    }
+
     if (_.isEmpty(_kravDato) && !_.isEmpty((_buc as ValidBuc).addedParams?.kravDato)) {
       setKravDato((_buc as ValidBuc).addedParams?.kravDato!)
     }
@@ -888,41 +876,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
           </>
-          {_sed && sedNeedsKravdato.indexOf(_sed) >= 0 && (
-            <>
-              <VerticalSeparatorDiv />
-              <HighContrastInput
-                data-testid='a-buc-c-sedstart__kravDato-input-id'
-                id='a-buc-c-sedstart__kravDato-input-id'
-                label={t('buc:form-kravDato')}
-                bredde='fullbredde'
-                value={_kravDato}
-                onChange={onKravDatoChange}
-                placeholder={t('buc:form-kravDatoPlaceholder')}
-                feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
-              />
-            </>
-          )}
-          {_sed && sedNeedsKravOm.indexOf(_sed) >= 0 && (
-            <>
-              <VerticalSeparatorDiv />
-              <HighContrastRadioPanelGroup
-                checked={_kravOm as string}
-                data-test-id='a-buc-c-bucstart__kravOm-radiogroup-id'
-                feil={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
-                legend={t('buc:form-kravOm')}
-                name='kravOm'
-                radios={[
-                  { label: t('buc:form-alderspensjon'), value: 'Alderspensjon' },
-                  { label: t('buc:form-etterletteytelser'), value: 'Etterlatteytelser', disabled: (
-                      (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
-                    ) },
-                  { label: t('buc:form-uføretrygd'), value: 'Uføretrygd' }
-                ]}
-                onChange={onKravOmChange}
-              />
-            </>
-          )}
           {_sed && sedNeedsVedtakId.indexOf(_sed) >= 0 && (
             <>
               <VerticalSeparatorDiv />
@@ -965,8 +918,46 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
                 value={_avdodFnr}
-                disabled={_avdodFnrDisabled}
                 feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
+              />
+            </>
+          )}
+          {_sed && sedNeedsKravdato.indexOf(_sed) >= 0 && (
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastInput
+                data-testid='a-buc-c-sedstart__kravDato-input-id'
+                id='a-buc-c-sedstart__kravDato-input-id'
+                label={t('buc:form-kravDato')}
+                bredde='fullbredde'
+                value={_kravDato}
+                onChange={onKravDatoChange}
+                placeholder={t('buc:form-kravDatoPlaceholder')}
+                feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
+              />
+            </>
+          )}
+          {_sed && sedNeedsKravOm.indexOf(_sed) >= 0 && (
+            <>
+              <VerticalSeparatorDiv />
+              <HighContrastRadioPanelGroup
+                checked={_kravOm as string}
+                data-test-id='a-buc-c-bucstart__kravOm-radiogroup-id'
+                feil={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
+                legend={t('buc:form-kravOm')}
+                name='kravOm'
+                radios={[
+                  { label: t('buc:form-alderspensjon'), value: 'Alderspensjon' },
+                  {
+                    label: t('buc:form-etterletteytelser'),
+                    value: 'Etterlatteytelser',
+                    disabled: (
+                      (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
+                    )
+                  },
+                  { label: t('buc:form-uføretrygd'), value: 'Uføretrygd' }
+                ]}
+                onChange={onKravOmChange}
               />
             </>
           )}

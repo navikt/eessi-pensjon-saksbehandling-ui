@@ -141,7 +141,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   // show avdod select for P_BUC_02, P_BUC_05, P_BUC_10 and when there are avdods
   const bucNeedsAvdod = (): boolean => bucsThatSupportAvdod(_buc) && avdodExists() &&
-    (_buc === 'P_BUC_10' ?  pesysContext === constants.VEDTAKSKONTEKST &&
+    (_buc === 'P_BUC_10' ? pesysContext === constants.VEDTAKSKONTEKST &&
       (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
 
   // show krav dato for P_BUC_10 criteria
@@ -244,7 +244,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         buc: _buc
       })
       setIsCreatingBuc(true)
-      let payload: any = {
+      const payload: any = {
         buc: _buc,
         person: person
       }
@@ -389,7 +389,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   useEffect(() => {
     if (_isCreatingBuc && newlyCreatedBuc && !_isCreatingBucInfo) {
       const buc: Buc = bucs![currentBuc!]
-      let payload: SaveBucsInfoProps = {
+      const payload: SaveBucsInfoProps = {
         aktoerId: aktoerId,
         bucsInfo: bucsInfo,
         tags: _tags.map(t => t.value),

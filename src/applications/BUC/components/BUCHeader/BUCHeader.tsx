@@ -1,5 +1,5 @@
 import {
-  bucsThatRequireAvdod,
+  bucsThatSupportAvdod,
   countrySorter,
   getBucTypeLabel,
   renderAvdodName,
@@ -261,7 +261,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                     )}
               </PropertyDiv>
             )}
-            {bucsThatRequireAvdod(buc.type) && (buc as ValidBuc)?.addedParams?.subject && (
+            {bucsThatSupportAvdod(buc.type) && (buc as ValidBuc)?.addedParams?.subject && (
               <PropertyDiv
                 data-test-id='a-buc-c-bucheader__label-avdod-id'
               >

@@ -166,7 +166,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       setStartSed('open')
       if (componentRef.current) {
         // @ts-ignore
-        componentRef.current?.scrollIntoView({behavior: 'smooth'})
+        componentRef.current?.scrollIntoView({ behavior: 'smooth' })
       }
     }
   }

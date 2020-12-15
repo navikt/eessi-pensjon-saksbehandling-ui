@@ -30,8 +30,6 @@ export const bucFilter = (buc: Buc): boolean => {
   )
 }
 
-export const bucsThatRequireAvdod = (bucType: string | null | undefined): boolean => _.includes(['P_BUC_02', 'P_BUC_05'], bucType)
-
 export const bucsThatSupportAvdod = (bucType: string | null | undefined): boolean => _.includes(['P_BUC_02', 'P_BUC_05', 'P_BUC_10'], bucType)
 
 export const countrySorter = (locale: string) => {
@@ -103,4 +101,3 @@ export const sedSorter = (a: Sed, b: Sed): number => {
 }
 
 export const valueSorter = (a: Option, b: Option) => a.value.localeCompare(b.value)
-
