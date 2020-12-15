@@ -171,7 +171,7 @@ const BUCList: React.FC<BUCListProps> = ({
   const { t } = useTranslation()
 
   const [_loggedTime] = useState<Date>(new Date())
-  const [_avdodfnr, setAvdodFnr] = useState<string>('')
+  const [_avdodFnr, setAvdodFnr] = useState<string>('')
   const [_mounted, setMounted] = useState<boolean>(false)
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
@@ -199,7 +199,7 @@ const BUCList: React.FC<BUCListProps> = ({
     setNewBucPanelOpen(true)
   }
 
-  const performValidation = (): boolean => _avdodfnr.match(/^\d{11}$/) !== null
+  const performValidation = (): boolean => _avdodFnr.match(/^\d{11}$/) !== null
 
   const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidation(undefined)
@@ -210,7 +210,7 @@ const BUCList: React.FC<BUCListProps> = ({
     const valid = performValidation()
     if (valid) {
       setNewBucPanelOpen(false)
-      dispatch(fetchBucsWithAvdodFnr(aktoerId, _avdodfnr))
+      dispatch(fetchBucsWithAvdodFnr(aktoerId, _avdodFnr))
     } else {
       setValidation(t('buc:validation-badAvdodFnr'))
     }
@@ -420,12 +420,12 @@ const BUCList: React.FC<BUCListProps> = ({
                           id='a-buc-p-buclist__avdod-input-id'
                           label={(
                             <HiddenDiv>
-                              {t('buc:form-avdodfnr')}
+                              {t('buc:form-avdodFnr')}
                             </HiddenDiv>
                           )}
                           onChange={onAvdodFnrChange}
                           placeholder={t('buc:form-searchOtherBUCs-placeholder')}
-                          value={_avdodfnr || ''}
+                          value={_avdodFnr || ''}
                           onKeyPress={handleKeyPress}
                         />
                         <HorizontalSeparatorDiv />

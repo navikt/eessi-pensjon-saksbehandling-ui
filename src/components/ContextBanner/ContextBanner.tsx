@@ -94,7 +94,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
         <Context>
           <BUCWebSocket
             fnr={_.get(person, 'aktoer.ident.ident')}
-            avdodfnr=''
+            avdodFnr=''
           />
           <HoyreChevron />
           <Tag>

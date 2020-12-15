@@ -1,5 +1,5 @@
 import { BUCMode } from 'applications/BUC'
-import { bucsWithAvdod } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucsThatRequireAvdod } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { RinaUrl } from 'declarations/app.d'
@@ -122,8 +122,20 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       const person = (action as ActionWithPayload).context.person
       const avdod = (action as ActionWithPayload).context.avdod
-      if (bucsWithAvdod(newBuc.type) && person && avdod) {
-        newBuc.subject = {
+      const avdodFnr = (action as ActionWithPayload).context.avdodFnr
+      const kravDato = (action as ActionWithPayload).context.kravDato
+
+      newBuc.addedParams = {}
+
+      if (avdodFnr) {
+        newBuc.addedParams.avdodFnr = avdodFnr
+      }
+      if (kravDato) {
+        newBuc.addedParams.kravDato = kravDato
+      }
+
+      if (bucsThatRequireAvdod(newBuc.type) && person && avdod) {
+        newBuc.addedParams.subject = {
           gjenlevende: {
             fnr: person.aktoer.ident.ident
           },

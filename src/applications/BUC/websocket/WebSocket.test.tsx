@@ -28,7 +28,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BucWebSocketProps = {
     fnr: '123',
-    avdodfnr: '456'
+    avdodFnr: '456'
   }
   const mockServer: Server = new Server('ws://localhost:8888')
   let mockSocket: WebSocket
@@ -64,10 +64,10 @@ describe('applications/BUC/websocket/WebSocket', () => {
           wrapper.update()
           const logs = wrapper.find('.mock-popover span.log')
           expect(logs.length).toBe(5)
-          expect(_(logs.at(0).render().html()).endsWith('Got fnr 123 avdodfnr 456, starting websocket connection')).toBeTruthy()
+          expect(_(logs.at(0).render().html()).endsWith('Got fnr 123 avdodFnr 456, starting websocket connection')).toBeTruthy()
           expect(_(logs.at(1).render().html()).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
           expect(_(logs.at(2).render().html()).endsWith('Connected')).toBeTruthy()
-          expect(_(logs.at(3).render().html()).endsWith('Request subscribing to fnr 123 and avdodfnr 456')).toBeTruthy()
+          expect(_(logs.at(3).render().html()).endsWith('Request subscribing to fnr 123 and avdodFnr 456')).toBeTruthy()
           expect(_(logs.at(4).render().html()).endsWith('Subscription status is true')).toBeTruthy()
           resolve()
         }, 200)

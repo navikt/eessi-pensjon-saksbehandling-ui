@@ -156,10 +156,10 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('fetchBucsWithAvdodfnr()', () => {
+  it('fetchBucsWithAvdodFnr()', () => {
     const mockAktoerId = '123'
-    const mockAvdodfnr = '456'
-    bucActions.fetchBucsWithAvdodFnr(mockAktoerId, mockAvdodfnr)
+    const mockAvdodFnr = '456'
+    bucActions.fetchBucsWithAvdodFnr(mockAktoerId, mockAvdodFnr)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCS_REQUEST,
@@ -167,7 +167,7 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_BUCS_FAILURE
       },
       cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: mockAktoerId, avdodfnr: mockAvdodfnr })
+      url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: mockAktoerId, avdodFnr: mockAvdodFnr })
     }))
   })
 

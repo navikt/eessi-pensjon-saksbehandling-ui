@@ -1,4 +1,4 @@
-import { bucsWithAvdod, getBucTypeLabel, renderAvdodName } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucsThatRequireAvdod, getBucTypeLabel, renderAvdodName } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import { slideInFromRight } from 'components/keyframes'
 import { HighContrastExpandingPanel, HighContrastLink } from 'components/StyledComponents'
@@ -77,7 +77,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   const { t } = useTranslation()
 
   const avdod: PersonAvdod | undefined = _.find(personAvdods, (p: PersonAvdod) => (
-    p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
+    p.fnr === (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
   ))
 
   return (
@@ -167,7 +167,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   <WaitingPanel size='S' />
                   )}
             </Dd>
-            {bucsWithAvdod(buc.type) && (
+            {bucsThatRequireAvdod(buc.type) && (
               <>
                 <Dt className='odd'>
                   <Element>
@@ -183,7 +183,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                       )
                     : (
                       <Normaltekst>
-                        {(buc as ValidBuc)?.subject?.avdod?.fnr || t('buc:form-noAvdod')}
+                        {(buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr || t('buc:form-noAvdod')}
                       </Normaltekst>
                       )}
                 </Dd>

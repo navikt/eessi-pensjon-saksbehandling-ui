@@ -9,7 +9,7 @@ import {
   BUCRawList,
   Bucs,
   BucsInfoRawList,
-  CountryRawList, Institutions,
+  CountryRawList, Institutions, NewBucPayload,
   NewSedPayload,
   Participants,
   RinaUrlPayload,
@@ -24,7 +24,6 @@ import {
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { Person, PersonAvdod } from 'declarations/person.d'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
@@ -49,25 +48,30 @@ export const cleanNewlyCreatedBuc: ActionCreator<Action> = (): Action => ({
   type: types.BUC_NEWLYCREATEDBUC_RESET
 })
 
-export const createBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> =
-  (buc: string, person: Person, avdod: PersonAvdod
-  ): ThunkResult<ActionWithPayload<ValidBuc>> => {
-    return call({
-      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
-      method: 'POST',
-      context: {
-        avdod: avdod,
-        person: person
-      },
-      cascadeFailureError: true,
-      expectedPayload: mockCreateBuc(buc),
-      type: {
-        request: types.BUC_CREATE_BUC_REQUEST,
-        success: types.BUC_CREATE_BUC_SUCCESS,
-        failure: types.BUC_CREATE_BUC_FAILURE
-      }
-    })
-  }
+export const createBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> = (
+  params: NewBucPayload
+): ThunkResult<ActionWithPayload<ValidBuc>> => {
+  return call({
+    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
+    method: 'POST',
+
+    //  these are params collected on create BUC and have to be passed later so that
+    // create SED either just displays them, or decides if should ask for them again
+    context: {
+      avdod: params.avdod,
+      person: params.person,
+      avdodFnr: params.avdodFnr,
+      kravDato: params.kravDato
+    },
+    cascadeFailureError: true,
+    expectedPayload: mockCreateBuc(params.buc),
+    type: {
+      request: types.BUC_CREATE_BUC_REQUEST,
+      success: types.BUC_CREATE_BUC_SUCCESS,
+      failure: types.BUC_CREATE_BUC_FAILURE
+    }
+  })
+}
 
 export const createReplySed: ActionCreator<ThunkResult<ActionWithPayload<Sed>>> = (
   buc: Buc, payload: NewSedPayload, parentId: string
@@ -179,10 +183,10 @@ export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload<Bucs
 }
 
 export const fetchBucsWithAvdodFnr: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
-  aktoerId: string, avdodfnr: string
+  aktoerId: string, avdodFnr: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: aktoerId, avdodfnr: avdodfnr }),
+    url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: aktoerId, avdodFnr: avdodFnr }),
     cascadeFailureError: true,
     expectedPayload: mockBucs,
     type: {

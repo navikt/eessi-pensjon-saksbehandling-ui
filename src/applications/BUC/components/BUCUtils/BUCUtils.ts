@@ -30,7 +30,9 @@ export const bucFilter = (buc: Buc): boolean => {
   )
 }
 
-export const bucsWithAvdod = (bucType: string | null | undefined): boolean => _.includes(['P_BUC_02', 'P_BUC_05'], bucType)
+export const bucsThatRequireAvdod = (bucType: string | null | undefined): boolean => _.includes(['P_BUC_02', 'P_BUC_05'], bucType)
+
+export const bucsThatSupportAvdod = (bucType: string | null | undefined): boolean => _.includes(['P_BUC_02', 'P_BUC_05', 'P_BUC_10'], bucType)
 
 export const countrySorter = (locale: string) => {
   return (a: string, b: string): number => {
@@ -72,7 +74,7 @@ export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvd
     return true
   }
 
-export const renderAvdodName = (avdod: PersonAvdod | undefined, t: Function) => {
+export const renderAvdodName = (avdod: PersonAvdod | null | undefined, t: Function) => {
   return avdod?.fornavn +
     (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
     (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +

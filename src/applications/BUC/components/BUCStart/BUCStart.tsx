@@ -7,7 +7,11 @@ import {
   resetBuc,
   saveBucsInfo
 } from 'actions/buc'
-import { bucsWithAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import {
+  bucsThatRequireAvdod,
+  getBucTypeLabel,
+  valueSorter
+} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import {
@@ -122,7 +126,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const dispatch = useDispatch()
 
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
-  const [_avdodfnr, setAvdodfnr] = useState<string | undefined>(undefined)
+  const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_kravDato, setKravDato] = useState<string>('')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
@@ -137,7 +141,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
   // show avdod select for P_BUC_02 and P_BUC_05 when there are avdods
-  const bucNeedsAvdod = (): boolean => bucsWithAvdod(_buc) && avdodExists()
+  const bucNeedsAvdod = (): boolean => bucsThatRequireAvdod(_buc) && avdodExists()
 
   // show avdod fnr input for P_BUC_10, have avdods and we are in vedtakskontekst and have saktype
   const bucNeedsAvdodFnrInput = (): boolean => {
@@ -197,8 +201,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return undefined
   }
 
-  const validateAvdodFnr = (avdodfnr: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!avdodfnr) {
+  const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!avdodFnr) {
       return {
         feilmelding: t('buc:validation-chooseAvdodFnr'),
         skjemaelementId: 'a-buc-c-bucstart__avdod-input-id'
@@ -211,12 +215,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (!kravDato || kravDato?.length === 0) {
       return {
         feilmelding: t('buc:validation-chooseKravDato'),
-        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id'
+        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
       } as FeiloppsummeringFeil
     }
     if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
-        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id',
+        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
         feilmelding: t('buc:validation-badKravDato')
       } as FeiloppsummeringFeil
     }
@@ -231,10 +235,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
       validation.avdod = validateAvdod(_avdod)
     }
     if (bucNeedsAvdodFnrInput()) {
-      validation.avdodfnr = validateAvdodFnr(_avdodfnr)
+      validation.avdodFnr = validateAvdodFnr(_avdodFnr)
     }
     if (bucNeedsKravDato(_buc)) {
-      validation.kravdato = validateKravDato(_kravDato)
+      validation.kravDato = validateKravDato(_kravDato)
     }
     setValidation(validation)
     return hasNoValidationErrors(validation)
@@ -258,7 +262,20 @@ const BUCStart: React.FC<BUCStartProps> = ({
         buc: _buc
       })
       setIsCreatingBuc(true)
-      dispatch(createBuc(_buc, person, _avdod))
+      let payload: any = {
+        buc: _buc,
+        person: person
+      }
+      if (bucNeedsAvdod()) {
+        payload.avdod = _avdod
+      }
+      if (bucNeedsAvdodFnrInput()) {
+        payload.avdodFnr = _avdodFnr
+      }
+      if (bucNeedsKravDato(_buc)) {
+        payload.kravDato = _kravDato
+      }
+      dispatch(createBuc(payload))
     }
   }
 
@@ -268,7 +285,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     setBuc(bucParam)
     setKravDato('')
     setAvdod(undefined)
-    setAvdodfnr(undefined)
+    setAvdodFnr(undefined)
     onBucCancelled()
   }
 
@@ -299,7 +316,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newKravDato = e.target.value
-    updateValidation('kravdato', undefined)
+    updateValidation('kravDato', undefined)
     setKravDato(newKravDato)
   }
 
@@ -355,8 +372,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newAvdodFnr: string | undefined = e.target.value
-    setAvdodfnr(newAvdodFnr)
-    updateValidation('avdodfnr', validateAvdodFnr(newAvdodFnr))
+    setAvdodFnr(newAvdodFnr)
+    updateValidation('avdodFnr', validateAvdodFnr(newAvdodFnr))
   }
 
   const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
@@ -387,7 +404,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [dispatch, loading.gettingTagList, tagList])
 
   useEffect(() => {
-    if (bucsWithAvdod(_buc) &&
+    if (bucsThatRequireAvdod(_buc) &&
       pesysContext === constants.VEDTAKSKONTEKST &&
       personAvdods &&
       personAvdods.length === 1 &&
@@ -493,12 +510,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <>
                 <VerticalSeparatorDiv />
                 <HighContrastInput
-                  label={t('buc:form-avdodfnr')}
+                  label={t('buc:form-avdodFnr')}
                   data-test-id='a-buc-c-bucstart__avdod-input-id'
                   id='a-buc-c-bucstart__avdod-input-id'
                   placeholder={t('buc:form-chooseAvdodFnr')}
                   onChange={onAvdodFnrChange}
-                  feil={_validation.avdodfnr ? t(_validation.avdodfnr.feilmelding) : null}
+                  feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
                 />
               </>
             )}
@@ -506,14 +523,14 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <>
                 <VerticalSeparatorDiv />
                 <HighContrastInput
-                  data-testid='a-buc-c-bucstart__kravdato-input-id'
-                  id='a-buc-c-bucstart__kravdato-input-id'
+                  data-testid='a-buc-c-bucstart__kravDato-input-id'
+                  id='a-buc-c-bucstart__kravDato-input-id'
                   label={t('buc:form-kravDato')}
                   bredde='fullbredde'
                   value={_kravDato}
                   onChange={onKravDatoChange}
                   placeholder={t('buc:form-kravDatoPlaceholder')}
-                  feil={_validation.kravdato ? t(_validation.kravdato.feilmelding) : undefined}
+                  feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
                 />
               </>
             )}

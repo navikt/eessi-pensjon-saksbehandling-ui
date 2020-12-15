@@ -1,5 +1,5 @@
 import {
-  bucsWithAvdod,
+  bucsThatRequireAvdod,
   countrySorter,
   getBucTypeLabel,
   renderAvdodName,
@@ -172,7 +172,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const flagItems: FlagItems = _.isArray(buc.deltakere) ? generateFlagItems() : []
 
   const avdod: PersonAvdod | undefined = _.find(personAvdods, p =>
-    p.fnr === (buc as ValidBuc)?.subject?.avdod?.fnr
+    p.fnr === (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
   )
 
   const onRinaLinkClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -261,7 +261,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                     )}
               </PropertyDiv>
             )}
-            {bucsWithAvdod(buc.type) && (buc as ValidBuc).subject && (
+            {bucsThatRequireAvdod(buc.type) && (buc as ValidBuc)?.addedParams?.subject && (
               <PropertyDiv
                 data-test-id='a-buc-c-bucheader__label-avdod-id'
               >
@@ -269,7 +269,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   {t('ui:deceased') + ': '}
                 </RowText>
                 <Normaltekst>
-                  {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.subject?.avdod?.fnr}
+                  {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr}
                 </Normaltekst>
               </PropertyDiv>
             )}

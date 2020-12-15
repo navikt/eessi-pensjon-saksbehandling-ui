@@ -151,7 +151,7 @@ export const NewSedPayloadPropType = PT.shape({
   aktoerId: PT.string.isRequired,
   euxCaseId: PT.string.isRequired,
   vedtakId: PT.string,
-  avdodfnr: PT.string
+  avdodFnr: PT.string
 })
 
 export const SEDAttachmentPayloadPropType = PT.shape({

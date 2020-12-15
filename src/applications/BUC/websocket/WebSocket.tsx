@@ -17,7 +17,7 @@ import styled from 'styled-components'
 
 export interface BucWebSocketProps {
   fnr: string | undefined
-  avdodfnr: string | undefined
+  avdodFnr: string | undefined
 }
 
 const NOTCONNECTED = 'NOTCONNECTED'
@@ -53,7 +53,7 @@ export const BUCWebsocketDiv = styled.div`
 `
 
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
-  fnr, avdodfnr
+  fnr, avdodFnr
 }: BucWebSocketProps): JSX.Element => {
   const dispatch = useDispatch()
 
@@ -88,17 +88,17 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
     if (fnr) {
       ids.push(fnr)
     }
-    if (avdodfnr) {
-      ids.push(avdodfnr)
+    if (avdodFnr) {
+      ids.push(avdodFnr)
     }
     if (!_.isEmpty(ids)) {
       const message = {
         subscriptions: ids
       }
       connection.send(JSON.stringify(message))
-      pushToLog('info', 'Request subscribing to fnr ' + fnr + ' and avdodfnr ' + avdodfnr)
+      pushToLog('info', 'Request subscribing to fnr ' + fnr + ' and avdodFnr ' + avdodFnr)
     }
-  }, [fnr, avdodfnr])
+  }, [fnr, avdodFnr])
 
   const connectToWebSocket: Function = useCallback(() => {
     setStatus(CONNECTING)
@@ -125,11 +125,11 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   }, [onMessageHandler, websocketSubscribe])
 
   useEffect(() => {
-    if (!_websocketConnection && (fnr || avdodfnr)) {
-      pushToLog('info', 'Got fnr ' + fnr + ' avdodfnr ' + avdodfnr + ', starting websocket connection')
+    if (!_websocketConnection && (fnr || avdodFnr)) {
+      pushToLog('info', 'Got fnr ' + fnr + ' avdodFnr ' + avdodFnr + ', starting websocket connection')
       setWebsocketConnection(connectToWebSocket())
     }
-  }, [connectToWebSocket, _websocketConnection, fnr, avdodfnr])
+  }, [connectToWebSocket, _websocketConnection, fnr, avdodFnr])
 
   const pushToLog = (level: string, message: string) => {
     const now: Date = new Date()
@@ -186,7 +186,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 
 BucWebSocket.propTypes = {
   fnr: PT.string.isRequired,
-  avdodfnr: PT.string.isRequired
+  avdodFnr: PT.string.isRequired
 }
 
 export default BucWebSocket

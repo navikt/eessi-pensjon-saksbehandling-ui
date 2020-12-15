@@ -97,7 +97,7 @@
 
   "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-avdod"                        : "Avdød",
-  "form-avdodfnr"                     : "Avdødes f.nr./d.nr.",
+  "form-avdodFnr"                     : "Avdødes f.nr./d.nr.",
   "form-avdodorsøker"                 : "Hjem gjelder henvendelsen?",
   "form-areYouSureDeleteComment"      : "Er du sikker på at du vil slette kommentaren?",
   "form-BUCtools"                     : "Verktøy",

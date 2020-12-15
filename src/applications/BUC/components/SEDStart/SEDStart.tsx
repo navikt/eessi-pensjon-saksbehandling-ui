@@ -12,7 +12,7 @@ import {
   setSedList
 } from 'actions/buc'
 import {
-  bucsWithAvdod,
+  bucsThatRequireAvdod, bucsThatSupportAvdod,
   getBucTypeLabel,
   labelSorter,
   renderAvdodName,
@@ -238,7 +238,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
-  const [_avdodfnr, setAvdodfnr] = useState<string | undefined>(undefined)
+  const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
+  const [_avdodFnrDisabled, setAvdodFnrDisabled] = useState<boolean>(false)
   const [_avdodOrSoker, setAvdodOrSoker] = useState<AvdodOrSokerValue | undefined>(undefined)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
@@ -263,12 +264,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   // BEGIN QUESTIONS
 
+  // norway as case owner (except some mock institutions that should simulate foreign institutions)
   const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' &&
     (_buc?.creator?.institution !== 'NO:NAVAT05' && _buc?.creator?.institution !== 'NO:NAVAT08' && _buc?.creator?.institution !== 'NO:NAVAT06')
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
-  const bucNeedsAvdod = useCallback((): boolean => bucsWithAvdod(_buc.type), [_buc])
+  // SEDs that needs Avdod filled so it goes to payload
+  const sedNeedsAvdod = useCallback((): boolean => bucsThatRequireAvdod(_buc.type), [_buc])
+
+  // SEDs that use avdod (can be only for display)
+  const sedSupportsAvdod = useCallback((): boolean => bucsThatSupportAvdod(_buc.type), [_buc])
 
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
@@ -294,19 +300,29 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         )
     )
 
-  const sedNeedsAvdodFnrInput = (): boolean => {
-    return (
-      bucNeedsAvdod() &&
-      !avdodExists() &&
-      pesysContext !== constants.VEDTAKSKONTEKST &&
-      (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion()) &&
-      (!isNorwayCaseOwner() && _buc.type === 'P_BUC_05' ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
-    ) || (
-      _buc.type === 'P_BUC_10' && _sed === 'P15000' &&  pesysContext !== constants.VEDTAKSKONTEKST &&
-      (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+  // if SED has a prefilled avdod and supports avdod, then let's render avdod name
+  const sedHasFixedAvdod = (): boolean => !!(_avdod && sedSupportsAvdod())
 
+  // When to show Avdods fnr? When we are in avdod-supported SED, not vedtakscontext, no avdod in sight and extra conditions
+  const sedNeedsAvdodFnrInput = (): boolean => {
+    const answer = (
+      (
+        sedSupportsAvdod()
+      ) && (
+        (
+          !avdodExists() &&
+          pesysContext !== constants.VEDTAKSKONTEKST &&
+          (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion()) &&
+          (!isNorwayCaseOwner() && _buc.type === 'P_BUC_05' ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
+        ) || (
+           _sed === 'P15000' &&
+          (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+        )
+      )
     )
+    return answer
   }
+
 
   const sedCanHaveAttachments = useCallback((): boolean => {
     return _sed !== undefined && sedsWithAttachments[_sed]
@@ -388,12 +404,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!kravDato || kravDato?.length === 0) {
       return {
         feilmelding: t('buc:validation-chooseKravDato'),
-        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id'
+        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
       } as FeiloppsummeringFeil
    }
     if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
-        skjemaelementId: 'a-buc-c-sedstart__kravdato-input-id',
+        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
         feilmelding: t('buc:validation-badKravDato')
       } as FeiloppsummeringFeil
     }
@@ -446,8 +462,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return undefined
   }
 
-  const validateAvdodFnr = (avdodfnr: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!avdodfnr) {
+  const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!avdodFnr) {
       return {
         feilmelding: t('buc:validation-chooseAvdodFnr'),
         skjemaelementId: 'a-buc-c-bucstart__avdod-input-id'
@@ -460,7 +476,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!kravOm) {
       return {
         feilmelding: t('buc:validation-chooseKravOm'),
-        skjemaelementId: 'a-buc-c-bucstart__kravom-radiogroup-id'
+        skjemaelementId: 'a-buc-c-bucstart__kravOm-radiogroup-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -519,8 +535,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newAvdodFnr: string | undefined = e.target.value
-    setAvdodfnr(newAvdodFnr)
-    updateValidation('avdodfnr', validateAvdodFnr(newAvdodFnr))
+    setAvdodFnr(newAvdodFnr)
+    updateValidation('avdodFnr', validateAvdodFnr(newAvdodFnr))
   }
 
   const setDefaultKravOm = () => {
@@ -583,7 +599,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newKravDato = e.target.value
-    updateValidation('kravdato', undefined)
+    updateValidation('kravDato', undefined)
     setKravDato(newKravDato)
   }
 
@@ -649,16 +665,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       validation.vedtakid = validateVedtakId(_vedtakId)
     }
     if (sedNeedsAvdodFnrInput()) {
-      validation.avdodfnr = validateAvdodFnr(_avdodfnr)
+      validation.avdodFnr = validateAvdodFnr(_avdodFnr)
     }
     if (sedNeedsAvdodBrukerQuestion()) {
       validation.avdodorsoker = validateAvdodOrSoker(_avdodOrSoker)
     }
     if (_sed && sedNeedsKravdato.indexOf(_sed) >= 0) {
-      validation.kravdato = validateKravDato(_kravDato)
+      validation.kravDato = validateKravDato(_kravDato)
     }
     if (_sed && sedNeedsKravOm.indexOf(_sed) >= 0) {
-      validation.kravom = validateKravOm(_kravOm)
+      validation.kravOm = validateKravOm(_kravOm)
     }
     setValidation(validation)
     return hasNoValidationErrors(validation)
@@ -679,23 +695,23 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (_vedtakId) {
         payload.vedtakId = _vedtakId
       }
-      if (bucNeedsAvdod() && avdodExists()) {
-        payload.avdodfnr = _avdod?.fnr
+      if (sedNeedsAvdod() && avdodExists()) {
+        payload.avdodFnr = _avdod?.fnr
       }
       if (sedNeedsAvdodFnrInput()) {
-        payload.avdodfnr = _avdodfnr
+        payload.avdodFnr = _avdodFnr
       }
       if (sedNeedsAvdodBrukerQuestion()) {
         payload.referanseTilPerson = _avdodOrSoker
       }
       if (validateKravDato(_kravDato)) {
-        payload.kravdato = _kravDato
+        payload.kravDato = _kravDato
       }
       if (_kravOm) {
-        payload.kravom = _kravOm
+        payload.kravOm = _kravOm
       }
-      if ((_buc as ValidBuc).subject) {
-        payload.subject = (_buc as ValidBuc).subject
+      if ((_buc as ValidBuc)?.addedParams?.subject) {
+        payload.subject = (_buc as ValidBuc)?.addedParams?.subject
       }
       if (currentSed) {
         dispatch(createReplySed(_buc, payload, currentSed.id))
@@ -806,16 +822,24 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [sedList, _sed, setSed])
 
   useEffect(() => {
-    if (bucNeedsAvdod() && (_buc as ValidBuc).subject && _avdod === undefined) {
+    if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject ) {
       let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
-        p.fnr === (_buc as ValidBuc)?.subject?.avdod?.fnr
+        p.fnr === (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
       )
       if (avdod === undefined) {
         avdod = null
       }
       setAvdod(avdod)
     }
-  }, [_avdod, _buc, personAvdods, bucNeedsAvdod])
+    if (sedSupportsAvdod() && _avdodFnr === undefined && (_buc as ValidBuc).addedParams?.avdodFnr) {
+      // avdod fnr comes fom buc, so pass it to sed for read only purposes
+      setAvdodFnr((_buc as ValidBuc).addedParams?.avdodFnr)
+      setAvdodFnrDisabled(true)
+    }
+    if (_.isEmpty(_kravDato) && !_.isEmpty((_buc as ValidBuc).addedParams?.kravDato)) {
+      setKravDato((_buc as ValidBuc).addedParams?.kravDato!)
+    }
+  }, [_avdod, _avdodFnr, _buc, _kravDato, personAvdods, sedNeedsAvdod])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return <div />
@@ -868,14 +892,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
-                data-testid='a-buc-c-sedstart__kravdato-input-id'
-                id='a-buc-c-sedstart__kravdato-input-id'
+                data-testid='a-buc-c-sedstart__kravDato-input-id'
+                id='a-buc-c-sedstart__kravDato-input-id'
                 label={t('buc:form-kravDato')}
                 bredde='fullbredde'
                 value={_kravDato}
                 onChange={onKravDatoChange}
                 placeholder={t('buc:form-kravDatoPlaceholder')}
-                feil={_validation.kravdato ? t(_validation.kravdato.feilmelding) : undefined}
+                feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
               />
             </>
           )}
@@ -884,10 +908,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <HighContrastRadioPanelGroup
                 checked={_kravOm as string}
-                data-test-id='a-buc-c-bucstart__kravom-radiogroup-id'
-                feil={_validation.kravom ? t(_validation.kravom.feilmelding) : undefined}
+                data-test-id='a-buc-c-bucstart__kravOm-radiogroup-id'
+                feil={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
                 legend={t('buc:form-kravOm')}
-                name='kravom'
+                name='kravOm'
                 radios={[
                   { label: t('buc:form-alderspensjon'), value: 'Alderspensjon' },
                   { label: t('buc:form-etterletteytelser'), value: 'Etterlatteytelser', disabled: (
@@ -915,7 +939,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          {bucNeedsAvdod() && _avdod && (
+          {sedHasFixedAvdod() && (
             <>
               <VerticalSeparatorDiv />
               <FlexDiv>
@@ -935,12 +959,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
-                label={t('buc:form-avdodfnr')}
+                label={t('buc:form-avdodFnr')}
                 data-test-id='a-buc-c-bucstart__avdod-input-id'
                 id='a-buc-c-bucstart__avdod-input-id'
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
-                feil={_validation.avdodfnr ? t(_validation.avdodfnr.feilmelding) : null}
+                value={_avdodFnr}
+                disabled={_avdodFnrDisabled}
+                feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
               />
             </>
           )}

@@ -1,5 +1,6 @@
 import { Option } from 'declarations/app.d'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark.d'
+import { Person, PersonAvdod } from 'declarations/person.d'
 
 export interface Address {
   country: string
@@ -80,14 +81,22 @@ export interface InstitutionNames {
   [id: string]: Institution
 }
 
+export interface NewBucPayload {
+  buc: string
+  person: Person
+  avdod: PersonAvdod
+  avdodFnr ?: string
+  kravDato?: string
+}
+
 export interface NewSedPayload {
   aktoerId: string
-  avdodfnr?: string
+  avdodFnr?: string
   buc: string
   euxCaseId: string
   institutions: Institutions
-  kravdato?: string
-  kravom?: string
+  kravDato?: string
+  kravOm?: string
   sakId: string
   sed: string
   subject?: BUCSubject
@@ -257,7 +266,11 @@ export interface ValidBuc {
   seds: Seds
   status: string
   startDate: number
-  subject?: BUCSubject
+  addedParams?: {
+    subject?: BUCSubject
+    avdodFnr ?: string
+    kravDato?: string
+  }
   type: string
 }
 
