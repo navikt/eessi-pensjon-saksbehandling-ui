@@ -51,6 +51,7 @@ import {
   PesysContext,
   Validation
 } from 'declarations/app.d'
+import { KravOmValue } from 'declarations/buc'
 import {
   AvdodOrSokerValue,
   Buc,
@@ -249,7 +250,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
   const [_kravDato, setKravDato] = useState<string>('')
-  const [_kravOm, setKravOm] = useState<string | undefined>(undefined)
+  const [_kravOm, setKravOm] = useState<KravOmValue | undefined>(undefined)
   const [_mounted, setMounted] = useState<boolean>(false)
   const _notHostInstitution = (institution: Institution) : boolean => institution.institution !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
@@ -521,6 +522,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const setDefaultKravOm = () => {
+    if (sakType === SakTypeMap.ALDER) {
+      setKravOm('Alderspensjon' as KravOmValue)
+      return
+    }
+    if (sakType === SakTypeMap.UFOREP) {
+      setKravOm('Uføretrygd' as KravOmValue)
+      return
+    }
     setKravOm('Etterlatteytelser')
   }
 
@@ -545,7 +554,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const onKravOmChange = (e: any): void => {
-    const newKravOm: string = e.target.value
+    const newKravOm: KravOmValue = e.target.value as KravOmValue
     setKravOm(newKravOm)
   }
 
@@ -861,7 +870,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <HighContrastRadioPanelGroup
-                checked={_kravOm}
+                checked={_kravOm as string}
                 data-test-id='a-buc-c-bucstart__kravom-radiogroup-id'
                 feil={_validation.kravom ? t(_validation.kravom.feilmelding) : undefined}
                 legend={t('buc:form-kravOm')}

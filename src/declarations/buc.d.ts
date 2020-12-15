@@ -15,6 +15,8 @@ export interface Avdod {
 
 export type AvdodOrSokerValue = 'AVDOD' | 'SOKER'
 
+export type KravOmValue = 'Alderspensjon' | 'Etterlatteytelser' | 'Uføretrygd'
+
 export interface Gjenlevende {
   fnr: string
 }
