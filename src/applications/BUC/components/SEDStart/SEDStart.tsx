@@ -690,13 +690,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (sedNeedsAvdod() && avdodExists()) {
         payload.avdodFnr = _avdod?.fnr
       }
-      if (sedNeedsAvdodFnrInput()) {
+      if (sedNeedsAvdodFnrInput() && _avdodFnr) {
         payload.avdodFnr = _avdodFnr
       }
       if (sedNeedsAvdodBrukerQuestion()) {
         payload.referanseTilPerson = _avdodOrSoker
       }
-      if (validateKravDato(_kravDato)) {
+      if (!_.isEmpty(_kravDato)) {
         payload.kravDato = _kravDato
       }
       if (_kravOm) {

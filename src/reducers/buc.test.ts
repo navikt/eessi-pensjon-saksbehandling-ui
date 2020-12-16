@@ -66,12 +66,14 @@ describe('reducers/buc', () => {
       ...initialBucState,
       bucs: {
         123: {
+          addedParams: {},
           caseId: '123',
           mockPayload: 'mockPayload'
         }
       },
       currentBuc: '123',
       newlyCreatedBuc: {
+        addedParams: {},
         caseId: '123',
         mockPayload: 'mockPayload'
       },

@@ -164,9 +164,10 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     } else {
       dispatch(setCurrentSed(sed, replySed))
       setStartSed('open')
-      if (componentRef.current) {
-        // @ts-ignore
-        componentRef.current?.scrollIntoView({ behavior: 'smooth' })
+      if (componentRef && componentRef!.current) {
+        if ((componentRef.current as any).scrollIntoView) {
+          (componentRef.current as any).scrollIntoView({behavior: 'smooth'})
+        }
       }
     }
   }

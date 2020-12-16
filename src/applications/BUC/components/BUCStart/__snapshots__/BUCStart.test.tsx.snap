@@ -1792,9 +1792,14 @@ ui-fss.g14[id="c14"] {
                       "label": "P_BUC_06 - buc:buc-P_BUC_06",
                       "value": "P_BUC_06",
                     },
+                    Object {
+                      "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                      "value": "P_BUC_10",
+                    },
                   ]
                 }
                 placeholder="buc:form-chooseBuc"
+                value="P_BUC_01"
               >
                 <StateManager
                   className=""
@@ -1835,6 +1840,10 @@ ui-fss.g14[id="c14"] {
                         "label": "P_BUC_06 - buc:buc-P_BUC_06",
                         "value": "P_BUC_06",
                       },
+                      Object {
+                        "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                        "value": "P_BUC_10",
+                      },
                     ]
                   }
                   placeholder="buc:form-chooseBuc"
@@ -1848,6 +1857,7 @@ ui-fss.g14[id="c14"] {
                       "singleValue": [Function],
                     }
                   }
+                  value="P_BUC_01"
                 >
                   <Select
                     backspaceRemovesValue={true}
@@ -1916,6 +1926,10 @@ ui-fss.g14[id="c14"] {
                           "label": "P_BUC_06 - buc:buc-P_BUC_06",
                           "value": "P_BUC_06",
                         },
+                        Object {
+                          "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                          "value": "P_BUC_10",
+                        },
                       ]
                     }
                     pageSize={5}
@@ -1933,7 +1947,7 @@ ui-fss.g14[id="c14"] {
                     }
                     tabIndex="0"
                     tabSelectsValue={true}
-                    value={null}
+                    value="P_BUC_01"
                   >
                     <SelectContainer
                       className=""
@@ -1977,6 +1991,10 @@ ui-fss.g14[id="c14"] {
                           Object {
                             "label": "P_BUC_06 - buc:buc-P_BUC_06",
                             "value": "P_BUC_06",
+                          },
+                          Object {
+                            "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                            "value": "P_BUC_10",
                           },
                         ]
                       }
@@ -2049,6 +2067,10 @@ ui-fss.g14[id="c14"] {
                               "label": "P_BUC_06 - buc:buc-P_BUC_06",
                               "value": "P_BUC_06",
                             },
+                            Object {
+                              "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                              "value": "P_BUC_10",
+                            },
                           ],
                           "pageSize": 5,
                           "placeholder": "buc:form-chooseBuc",
@@ -2063,7 +2085,7 @@ ui-fss.g14[id="c14"] {
                           },
                           "tabIndex": "0",
                           "tabSelectsValue": true,
-                          "value": null,
+                          "value": "P_BUC_01",
                         }
                       }
                       setValue={[Function]}
@@ -2162,6 +2184,10 @@ ui-fss.g14[id="c14"] {
                                   "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                   "value": "P_BUC_06",
                                 },
+                                Object {
+                                  "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                  "value": "P_BUC_10",
+                                },
                               ]
                             }
                             selectOption={[Function]}
@@ -2233,6 +2259,10 @@ ui-fss.g14[id="c14"] {
                                     "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                     "value": "P_BUC_06",
                                   },
+                                  Object {
+                                    "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                    "value": "P_BUC_10",
+                                  },
                                 ],
                                 "pageSize": 5,
                                 "placeholder": "buc:form-chooseBuc",
@@ -2247,7 +2277,7 @@ ui-fss.g14[id="c14"] {
                                 },
                                 "tabIndex": "0",
                                 "tabSelectsValue": true,
-                                "value": null,
+                                "value": "P_BUC_01",
                               }
                             }
                             setValue={[Function]}
@@ -2353,6 +2383,10 @@ ui-fss.g14[id="c14"] {
                                         "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                         "value": "P_BUC_06",
                                       },
+                                      Object {
+                                        "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                        "value": "P_BUC_10",
+                                      },
                                     ]
                                   }
                                   selectOption={[Function]}
@@ -2424,6 +2458,10 @@ ui-fss.g14[id="c14"] {
                                           "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                           "value": "P_BUC_06",
                                         },
+                                        Object {
+                                          "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                          "value": "P_BUC_10",
+                                        },
                                       ],
                                       "pageSize": 5,
                                       "placeholder": "buc:form-chooseBuc",
@@ -2438,7 +2476,7 @@ ui-fss.g14[id="c14"] {
                                       },
                                       "tabIndex": "0",
                                       "tabSelectsValue": true,
-                                      "value": null,
+                                      "value": "P_BUC_01",
                                     }
                                   }
                                   setValue={[Function]}
@@ -2530,6 +2568,10 @@ ui-fss.g14[id="c14"] {
                                               "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                               "value": "P_BUC_06",
                                             },
+                                            Object {
+                                              "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                              "value": "P_BUC_10",
+                                            },
                                           ]
                                         }
                                         selectOption={[Function]}
@@ -2601,6 +2643,10 @@ ui-fss.g14[id="c14"] {
                                                 "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                                 "value": "P_BUC_06",
                                               },
+                                              Object {
+                                                "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                                "value": "P_BUC_10",
+                                              },
                                             ],
                                             "pageSize": 5,
                                             "placeholder": "buc:form-chooseBuc",
@@ -2615,7 +2661,7 @@ ui-fss.g14[id="c14"] {
                                             },
                                             "tabIndex": "0",
                                             "tabSelectsValue": true,
-                                            "value": null,
+                                            "value": "P_BUC_01",
                                           }
                                         }
                                         setValue={[Function]}
@@ -2755,6 +2801,10 @@ ui-fss.g14[id="c14"] {
                                                 "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                                 "value": "P_BUC_06",
                                               },
+                                              Object {
+                                                "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                                "value": "P_BUC_10",
+                                              },
                                             ],
                                             "pageSize": 5,
                                             "placeholder": "buc:form-chooseBuc",
@@ -2769,7 +2819,7 @@ ui-fss.g14[id="c14"] {
                                             },
                                             "tabIndex": "0",
                                             "tabSelectsValue": true,
-                                            "value": null,
+                                            "value": "P_BUC_01",
                                           }
                                         }
                                         spellCheck="false"
@@ -2947,6 +2997,10 @@ ui-fss.g14[id="c14"] {
                                         "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                         "value": "P_BUC_06",
                                       },
+                                      Object {
+                                        "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                        "value": "P_BUC_10",
+                                      },
                                     ]
                                   }
                                   selectOption={[Function]}
@@ -3018,6 +3072,10 @@ ui-fss.g14[id="c14"] {
                                           "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                           "value": "P_BUC_06",
                                         },
+                                        Object {
+                                          "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                          "value": "P_BUC_10",
+                                        },
                                       ],
                                       "pageSize": 5,
                                       "placeholder": "buc:form-chooseBuc",
@@ -3032,7 +3090,7 @@ ui-fss.g14[id="c14"] {
                                       },
                                       "tabIndex": "0",
                                       "tabSelectsValue": true,
-                                      "value": null,
+                                      "value": "P_BUC_01",
                                     }
                                   }
                                   setValue={[Function]}
@@ -3119,6 +3177,10 @@ ui-fss.g14[id="c14"] {
                                               "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                               "value": "P_BUC_06",
                                             },
+                                            Object {
+                                              "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                              "value": "P_BUC_10",
+                                            },
                                           ]
                                         }
                                         selectOption={[Function]}
@@ -3190,6 +3252,10 @@ ui-fss.g14[id="c14"] {
                                                 "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                                 "value": "P_BUC_06",
                                               },
+                                              Object {
+                                                "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                                "value": "P_BUC_10",
+                                              },
                                             ],
                                             "pageSize": 5,
                                             "placeholder": "buc:form-chooseBuc",
@@ -3204,7 +3270,7 @@ ui-fss.g14[id="c14"] {
                                             },
                                             "tabIndex": "0",
                                             "tabSelectsValue": true,
-                                            "value": null,
+                                            "value": "P_BUC_01",
                                           }
                                         }
                                         setValue={[Function]}
@@ -3302,6 +3368,10 @@ ui-fss.g14[id="c14"] {
                                               "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                               "value": "P_BUC_06",
                                             },
+                                            Object {
+                                              "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                              "value": "P_BUC_10",
+                                            },
                                           ]
                                         }
                                         selectOption={[Function]}
@@ -3373,6 +3443,10 @@ ui-fss.g14[id="c14"] {
                                                 "label": "P_BUC_06 - buc:buc-P_BUC_06",
                                                 "value": "P_BUC_06",
                                               },
+                                              Object {
+                                                "label": "P_BUC_10 - buc:buc-P_BUC_10",
+                                                "value": "P_BUC_10",
+                                              },
                                             ],
                                             "pageSize": 5,
                                             "placeholder": "buc:form-chooseBuc",
@@ -3387,7 +3461,7 @@ ui-fss.g14[id="c14"] {
                                             },
                                             "tabIndex": "0",
                                             "tabSelectsValue": true,
-                                            "value": null,
+                                            "value": "P_BUC_01",
                                           }
                                         }
                                         setValue={[Function]}

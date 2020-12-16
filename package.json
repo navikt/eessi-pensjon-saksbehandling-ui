@@ -200,9 +200,8 @@
   },
   "standardx": {
     "ignore": [
-      "public/**/*.js",
-      "node_modules/**/*.js",
-      "src/**/*.snap"
+      "public/",
+      "*.snap"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {

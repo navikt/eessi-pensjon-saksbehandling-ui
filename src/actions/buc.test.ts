@@ -33,7 +33,9 @@ describe('actions/buc', () => {
   })
 
   it('createBuc()', () => {
-    const mockBuc = 'P_BUC_01'
+    const mockBuc = {
+      buc: 'P_BUC_01'
+    }
     bucActions.createBuc(mockBuc)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -42,7 +44,7 @@ describe('actions/buc', () => {
         failure: types.BUC_CREATE_BUC_FAILURE
       },
       method: 'POST',
-      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc })
+      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc.buc })
     }))
   })
 

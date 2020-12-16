@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/SEDStart/SEDStart Render: match snapshot 1`] = `
-.c16 {
+.c12 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -12,8 +12,8 @@ exports[`applications/BUC/components/SEDStart/SEDStart Render: match snapshot 1`
   flex-direction: column;
 }
 
-ui-fss.g2[id="c15"] {
-  content: "c16,";
+ui-fss.g2[id="c11"] {
+  content: "c12,";
 }
 
 .c3 {
@@ -52,62 +52,51 @@ ui-fss.g8[id="c4"] {
   margin-bottom: 1rem;
 }
 
-.c17 {
+.c13 {
   margin-bottom: 1.5rem;
 }
 
 ui-fss.g9[id="c6"] {
-  content: "c7,c8,c17,";
+  content: "c7,c8,c13,";
 }
 
-.c12 {
+.c17 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-ui-fss.g11[id="c11"] {
-  content: "c12,";
+ui-fss.g11[id="c16"] {
+  content: "c17,";
 }
 
-.c19 {
+.c15 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
 }
 
-ui-fss.g13[id="c18"] {
-  content: "c19,";
+ui-fss.g13[id="c14"] {
+  content: "c15,";
 }
 
-.c21 {
+.c19 {
   background-color: transparent;
 }
 
-.c21:disabled {
+.c19:disabled {
   border: none;
 }
 
-ui-fss.g14[id="c20"] {
-  content: "c21,";
+ui-fss.g14[id="c18"] {
+  content: "c19,";
 }
 
-.c14 .skjemaelement__feilmelding .multipleSelect__control {
+.c10 .skjemaelement__feilmelding .multipleSelect__control {
   border: 1px solid #BA3A26;
 }
 
-ui-fss.g63[id="c13"] {
-  content: "c14,";
-}
-
-.c10 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-ui-fss.g76[id="c9"] {
+ui-fss.g63[id="c9"] {
   content: "c10,";
 }
 
@@ -5489,63 +5478,6 @@ ui-fss.g80[id="c0"] {
                   className="c6 c8"
                 />
               </styled.div>
-              <styled.div>
-                <div
-                  className="c9 c10"
-                >
-                  <LineVersionPersonIcon
-                    color="black"
-                  >
-                    <svg
-                      color="black"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 23.5h11.5s0-2.057-1-4.057c-.746-1.491-4-2.5-8-4v-3s1.5-1 1.5-3c.5 0 1-2 0-2.5 0-.297 1.339-2.801 1-4.5-.5-2.5-7.5-2.5-8-.5-3 0-1 4.594-1 5-1 .5-.5 2.5 0 2.5 0 2 1.5 3 1.5 3v3c-4 1.5-7.255 2.509-8 4-1 2-1 4.057-1 4.057h11.5z"
-                        fill="none"
-                        stroke="#000"
-                        strokeLinejoin="round"
-                        strokeMiterlimit="10"
-                      />
-                    </svg>
-                  </LineVersionPersonIcon>
-                  <styled.div>
-                    <div
-                      className="c11 c12"
-                    />
-                  </styled.div>
-                  <label
-                    className="skjemaelement__label"
-                  >
-                    buc:form-avdod
-                    :
-                  </label>
-                  <styled.div>
-                    <div
-                      className="c11 c12"
-                    />
-                  </styled.div>
-                  <Normaltekst>
-                    <TypografiBase
-                      type="normaltekst"
-                    >
-                      <p
-                        className="typo-normal"
-                      >
-                        FRODIG BLYANT - 12345678902 (buc:relasjon-REPA)
-                      </p>
-                    </TypografiBase>
-                  </Normaltekst>
-                </div>
-              </styled.div>
-              <styled.div>
-                <div
-                  className="c6 c8"
-                />
-              </styled.div>
               <At
                 aria-describedby="help-country"
                 ariaLabel="ui:country"
@@ -8880,7 +8812,7 @@ ui-fss.g80[id="c0"] {
                     className=""
                   >
                     <div
-                      className="c13 c14"
+                      className="c9 c10"
                     >
                       <label
                         className="skjemaelement__label"
@@ -13598,7 +13530,7 @@ ui-fss.g80[id="c0"] {
                   >
                     <styled.div>
                       <div
-                        className="c15 c16"
+                        className="c11 c12"
                       >
                         <Normaltekst>
                           <TypografiBase
@@ -13624,7 +13556,7 @@ ui-fss.g80[id="c0"] {
                     data-size="1.5"
                   >
                     <div
-                      className="c6 c17"
+                      className="c6 c13"
                       data-size="1.5"
                     />
                   </styled.div>
@@ -13636,7 +13568,7 @@ ui-fss.g80[id="c0"] {
                     spinner={false}
                   >
                     <Hovedknapp
-                      className="c18 c19"
+                      className="c14 c15"
                       data-amplitude="sed.new.create"
                       data-test-id="a-buc-c-sedstart__forward-button-id"
                       disabled={false}
@@ -13645,7 +13577,7 @@ ui-fss.g80[id="c0"] {
                     >
                       <KnappBase
                         autoDisableVedSpinner={false}
-                        className="c18 c19"
+                        className="c14 c15"
                         data-amplitude="sed.new.create"
                         data-test-id="a-buc-c-sedstart__forward-button-id"
                         disabled={false}
@@ -13658,7 +13590,7 @@ ui-fss.g80[id="c0"] {
                         type="hoved"
                       >
                         <button
-                          className="knapp c18 c19 knapp--hoved"
+                          className="knapp c14 c15 knapp--hoved"
                           data-amplitude="sed.new.create"
                           data-test-id="a-buc-c-sedstart__forward-button-id"
                           disabled={false}
@@ -13673,7 +13605,7 @@ ui-fss.g80[id="c0"] {
                   '
                   <styled.div>
                     <div
-                      className="c11 c12"
+                      className="c16 c17"
                     />
                   </styled.div>
                   <Styled(Flatknapp)
@@ -13682,14 +13614,14 @@ ui-fss.g80[id="c0"] {
                     onClick={[Function]}
                   >
                     <Flatknapp
-                      className="c20 c21"
+                      className="c18 c19"
                       data-amplitude="sed.new.cancel"
                       data-test-id="a-buc-c-sedstart__cancel-button-id"
                       onClick={[Function]}
                     >
                       <KnappBase
                         autoDisableVedSpinner={false}
-                        className="c20 c21"
+                        className="c18 c19"
                         data-amplitude="sed.new.cancel"
                         data-test-id="a-buc-c-sedstart__cancel-button-id"
                         disabled={false}
@@ -13702,7 +13634,7 @@ ui-fss.g80[id="c0"] {
                         type="flat"
                       >
                         <button
-                          className="knapp c20 c21 knapp--flat"
+                          className="knapp c18 c19 knapp--flat"
                           data-amplitude="sed.new.cancel"
                           data-test-id="a-buc-c-sedstart__cancel-button-id"
                           disabled={false}
@@ -13718,7 +13650,7 @@ ui-fss.g80[id="c0"] {
                     data-size="1.5"
                   >
                     <div
-                      className="c6 c17"
+                      className="c6 c13"
                       data-size="1.5"
                     />
                   </styled.div>
@@ -13728,7 +13660,7 @@ ui-fss.g80[id="c0"] {
           </styled.div>
           <styled.div>
             <div
-              className="c11 c12"
+              className="c16 c17"
             />
           </styled.div>
           <styled.div>

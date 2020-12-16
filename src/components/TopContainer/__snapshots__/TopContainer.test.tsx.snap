@@ -225,6 +225,7 @@ ui-fss.g34[id="c12"] {
   display: flex;
   height: 30px;
   width: 1px;
+  margin-left: 1rem;
 }
 
 ui-fss.g35[id="c4"] {

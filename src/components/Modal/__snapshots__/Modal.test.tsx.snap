@@ -58,7 +58,6 @@ ui-fss.g8[id="c14"] {
 }
 
 .c1 {
-  background-color: #FFF;
   display: block;
   padding: 1rem 1rem 1rem 1rem;
   border-radius: 4px;
@@ -115,6 +114,10 @@ ui-fss.g23[id="c8"] {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 ui-fss.g24[id="c10"] {
@@ -140,7 +143,7 @@ ui-fss.g25[id="c12"] {
   margin-top: 3rem;
 }
 
-.c3.burrons {
+.c3.buttons {
   margin-top: 3rem;
 }
 
@@ -414,7 +417,6 @@ ui-fss.g8[id="c14"] {
 }
 
 .c1 {
-  background-color: #FFF;
   display: block;
   padding: 1rem 1rem 1rem 1rem;
   border-radius: 4px;
@@ -471,6 +473,10 @@ ui-fss.g23[id="c8"] {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 ui-fss.g24[id="c10"] {
@@ -496,7 +502,7 @@ ui-fss.g25[id="c12"] {
   margin-top: 3rem;
 }
 
-.c3.burrons {
+.c3.buttons {
   margin-top: 3rem;
 }
 
@@ -541,7 +547,7 @@ ui-fss.g27[id="c2"] {
                     </div>
                   </div>
                   <div
-                    class="c10 c11"
+                    class="c10 c11 buttons"
                   >
                     <div
                       class="c12 c13"
@@ -703,9 +709,11 @@ ui-fss.g27[id="c2"] {
                     </styled.div>
                   </div>
                 </styled.div>
-                <styled.div>
+                <styled.div
+                  className="buttons"
+                >
                   <div
-                    className="c10 c11"
+                    className="c10 c11 buttons"
                   >
                     <styled.div
                       key="0"

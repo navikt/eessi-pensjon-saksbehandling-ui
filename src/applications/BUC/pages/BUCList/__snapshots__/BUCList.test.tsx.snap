@@ -440,7 +440,7 @@ ui-fss.g46[id="c9"] {
 
 .c7.open {
   will-change: max-height,height;
-  max-height: 40em;
+  max-height: 50em;
   -webkit-animation: biJkQB 400ms ease;
   animation: biJkQB 400ms ease;
 }
@@ -4636,42 +4636,6 @@ ui-fss.g47[id="c6"] {
                                   </WaitingPanel>
                                 </div>
                               </styled.div>
-                              <styled.div
-                                data-test-id="a-buc-c-bucheader__label-avdod-id"
-                              >
-                                <div
-                                  className="c30 c31"
-                                  data-test-id="a-buc-c-bucheader__label-avdod-id"
-                                >
-                                  <Styled(Normaltekst)>
-                                    <Normaltekst
-                                      className="c32 c33"
-                                    >
-                                      <TypografiBase
-                                        className="c32 c33"
-                                        type="normaltekst"
-                                      >
-                                        <p
-                                          className="typo-normal c32 c33"
-                                        >
-                                          ui:deceased: 
-                                        </p>
-                                      </TypografiBase>
-                                    </Normaltekst>
-                                  </Styled(Normaltekst)>
-                                  <Normaltekst>
-                                    <TypografiBase
-                                      type="normaltekst"
-                                    >
-                                      <p
-                                        className="typo-normal"
-                                      >
-                                        FRODIG BLYANT - 12345678902 (buc:relasjon-REPA)
-                                      </p>
-                                    </TypografiBase>
-                                  </Normaltekst>
-                                </div>
-                              </styled.div>
                             </div>
                           </Styled(styled.div)>
                           <Styled(styled.div)
@@ -7001,42 +6965,6 @@ ui-fss.g47[id="c6"] {
                                       </div>
                                     </styled.div>
                                   </WaitingPanel>
-                                </div>
-                              </styled.div>
-                              <styled.div
-                                data-test-id="a-buc-c-bucheader__label-avdod-id"
-                              >
-                                <div
-                                  className="c30 c31"
-                                  data-test-id="a-buc-c-bucheader__label-avdod-id"
-                                >
-                                  <Styled(Normaltekst)>
-                                    <Normaltekst
-                                      className="c32 c33"
-                                    >
-                                      <TypografiBase
-                                        className="c32 c33"
-                                        type="normaltekst"
-                                      >
-                                        <p
-                                          className="typo-normal c32 c33"
-                                        >
-                                          ui:deceased: 
-                                        </p>
-                                      </TypografiBase>
-                                    </Normaltekst>
-                                  </Styled(Normaltekst)>
-                                  <Normaltekst>
-                                    <TypografiBase
-                                      type="normaltekst"
-                                    >
-                                      <p
-                                        className="typo-normal"
-                                      >
-                                        FRODIG BLYANT - 12345678902 (buc:relasjon-REPA)
-                                      </p>
-                                    </TypografiBase>
-                                  </Normaltekst>
                                 </div>
                               </styled.div>
                             </div>

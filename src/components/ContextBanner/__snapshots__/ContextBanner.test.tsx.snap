@@ -293,7 +293,7 @@ ui-fss.g24[id="c4"] {
             className="c2 c3"
           >
             <Component
-              avdodfnr=""
+              avdodFnr=""
               fnr="27072942618"
             >
               <div
@@ -306,7 +306,7 @@ ui-fss.g24[id="c4"] {
                 stor={false}
                 type="høyre"
               >
-                <i
+                <span
                   className="nav-frontend-chevron chevronboks chevron--hoyre"
                 />
               </NavFrontendChevron>
