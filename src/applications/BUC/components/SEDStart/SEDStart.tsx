@@ -318,7 +318,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               sedNeedsAvdodBrukerQuestion() :
               (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
             ) :
-             (_buc.type === 'P_BUC_10' ? _sed === 'P15000' : false)
+             (_buc.type === 'P_BUC_10' ?
+               _sed === 'P15000' && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) :
+               false
+             )
           )
         )
       )
