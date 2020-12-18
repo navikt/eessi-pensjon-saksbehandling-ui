@@ -561,7 +561,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (pesysContext === constants.VEDTAKSKONTEKST && (
       (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
     )) {
-      setKravDato('2020-12-15')
+      setKravDato('15-12-2020')
     }
   }
 

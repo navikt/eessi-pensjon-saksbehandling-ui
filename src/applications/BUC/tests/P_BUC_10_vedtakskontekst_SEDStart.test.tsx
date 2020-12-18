@@ -1,5 +1,5 @@
 import { SEDStart, SEDStartProps, SEDStartSelector } from 'applications/BUC/components/SEDStart/SEDStart'
-import { BRUKERKONTEKST, KRAVKONTEKST } from 'constants/constants'
+import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -40,7 +40,7 @@ const defaultSelector: SEDStartSelector = {
   vedtakId: undefined
 }
 
-describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
+describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
   let wrapper: ReactWrapper
   const mockBucList: Bucs = {
     NorwayIsCaseOwner: {
@@ -109,13 +109,13 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
   }
 
   /*
-    EP 1047: Scenario 1
+    EP 1048: Scenario 2
 
-    Gitt at saksbehandler har navigert fra krav- eller brukerkontekst
+    Gitt at saksbehandler har navigert fra vedtakskontekst
     OG sakstype er ALDER eller UFOREP
     OG saksbehandler har opprettet P_BUC_10
     Så kan saksbehandler bestille P15000
-    OG må legge inn kravdato
+    OG kravdato er preutfylt (kan overskrives av saksbehandler)
     OG radioknapp "Krav om" preutfylles basert på hvilken sakstype saksbehandler kommer fra (Alderspensjon eller uføretrygd)
     OG saksbehandler må velge land og mottakerinstitusjon
     Slik at SED P15000 blir automatisk opprettet i Rina
@@ -123,11 +123,11 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
 
 
    */
-  it('EP-1047 Scenario 1 (frontend): Kravkontekst - AP eller UT', () => {
+  it('EP-1048 Scenario 2 (frontend): Vedtakskontekst - AP eller UT', () => {
 
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      pesysContext: KRAVKONTEKST,
+      pesysContext: VEDTAKSKONTEKST,
       sakType: SakTypeMap.ALDER,
       sedList: ['P2000', 'P15000'],
       personAvdods: []
@@ -165,10 +165,9 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
 
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
-    // needs institution and country and krav dato (not prefilled)
+    // needs institution and country (krav dato is prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseKravDato'
+      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
     )
   })
 })
