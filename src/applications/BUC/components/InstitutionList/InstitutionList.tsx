@@ -1,9 +1,8 @@
 import { countrySorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { InstitutionListMap, InstitutionNames, Institutions } from 'declarations/buc'
-import { InstitutionsPropType } from 'declarations/buc.pt'
-import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
+import { InstitutionListMap, InstitutionNames, Institutions } from 'declarations/buc'
+import { State } from 'declarations/reducers'
 import Flag, { FlagType } from 'flagg-ikoner'
 import CountryData, { Country } from 'land-verktoy'
 import _ from 'lodash'
@@ -146,7 +145,6 @@ InstitutionList.propTypes = {
   className: PT.string,
   flag: PT.bool,
   flagType: PT.oneOf(['original', 'circle']),
-  institutions: InstitutionsPropType.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
   type: PT.oneOf(['joined', 'separated'])
 }

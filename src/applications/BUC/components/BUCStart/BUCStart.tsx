@@ -65,7 +65,7 @@ export interface BUCStartProps {
   aktoerId: string
   initialCreatingBucInfo?: boolean
   initialIsCreatingBuc?: boolean
-  onBucChanged: (option: ValueType<Option, false>) => void
+  onBucChanged?: (option: ValueType<Option, false>) => void
   onBucCreated: () => void
   onBucCancelled: () => void
 }

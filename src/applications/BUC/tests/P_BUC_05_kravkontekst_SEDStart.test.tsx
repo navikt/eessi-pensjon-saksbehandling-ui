@@ -1,5 +1,5 @@
 import { SEDStart, SEDStartProps, SEDStartSelector } from 'applications/BUC/components/SEDStart/SEDStart'
-import { BRUKERKONTEKST } from 'constants/constants'
+import { KRAVKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -30,7 +30,7 @@ const defaultSelector: SEDStartSelector = {
   loading: {},
   locale: 'nb',
   personAvdods: personAvdod(1),
-  pesysContext: BRUKERKONTEKST,
+  pesysContext: KRAVKONTEKST,
   sakId: '123',
   sakType: undefined,
   savingAttachmentsJob: undefined,
@@ -40,7 +40,7 @@ const defaultSelector: SEDStartSelector = {
   vedtakId: undefined
 }
 
-describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
+describe('P_BUC_05 for SEDStart, kravkontekst,', () => {
   let wrapper: ReactWrapper
   const mockBucList: Bucs = {
     NorwayIsCaseOwner: {
@@ -109,20 +109,22 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
   }
 
   /*
-    EP 939: Scenario 1
+    EP 942: Scenario 1
 
-    Gitt at saksbehandler navigerer fra PESYS via jordkloden i brukerkontekst
+    Gitt at saksbehandler navigerer fra kravkontekst
+    OG EESSI-Pensjon har informasjon om sakId
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
     OG sakstype er ALDER, UFOREP, GENRL, eller OMSORG
     OG saksbehandler velger å opprette en ny BUC
     Så vises P_BUC_05 i nedtrekkslista
     Slik at saksbehandler kan opprette P_BUC_05 i EP
     OG kan bestille SED P8000 i EP for denne BUC-en
    */
-  it('EP-939 Scenario 1: Opprette P_BUC_05 - brukerkontekst', () => {
+  it('EP-942 Scenario 1: Opprette P_BUC_05 - kravkontekst', () => {
 
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      pesysContext: BRUKERKONTEKST,
+      pesysContext: KRAVKONTEKST,
       sakType: SakTypeMap.ALDER,
       sedList: ['P2000', 'P8000'],
       personAvdods: []
@@ -164,9 +166,11 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
   })
 
   /*
-    EP 939 Scenario 2
+    EP 942 Scenario 2
 
-    Gitt at saksbehandler navigerer fra brukerkontekst
+    Gitt at saksbehandler navigerer fra kravkontekst
+    OG EESSI-Pensjon har informasjon om sakId
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
     OG sakstype er GJENLEV eller BARNEP,
     OG saksbehandler velger å opprette en ny BUC
     Så kan saksbehandler velge P_BUC_05 i nedtrekkslista i EP
@@ -176,11 +180,11 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     Slik at P_BUC_05 kan opprettes på avdøde i RINA
     OG saksbehandler kan bestille SED P8000
    */
-  it('EP-939 Scenario 2: Opprette P_BUC_05 - brukerkontekst - etterlatteytelser (avdøde)', () => {
+  it('EP-942 Scenario 2: Opprette P_BUC_05 - kravkontekst - etterlatteytelser (avdøde)', () => {
 
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      pesysContext: BRUKERKONTEKST,
+      pesysContext: KRAVKONTEKST,
       sakType: SakTypeMap.GJENLEV,
       sedList: ['P2000', 'P8000'],
       personAvdods: []
@@ -223,9 +227,11 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
   })
 
   /*
-   EP 939 Scenario 3
+   EP 942 Scenario 3
 
-    Gitt at saksbehandler navigerer fra brukerkontekst
+    Gitt at saksbehandler navigerer fra kravkontekst
+    OG EESSI-Pensjon har informasjon om sakId
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
     OG sakstype er GJENLEV eller BARNEP,
     OG saksbehandler velger å opprette en ny BUC
     Så kan saksbehandler velge P_BUC_05 i nedtrekkslista i EP
@@ -235,11 +241,11 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     Slik at P_BUC_05 kan opprettes på avdøde i RINA
     OG saksbehandler kan bestille SED P8000
   */
-  it('EP-939 Scenario 3: Opprette P_BUC_05 - brukerkontekst -etterlatteyteser (bruker)', () => {
+  it('EP-942 Scenario 3: Opprette P_BUC_05 - kravkontekst -etterlatteyteser (bruker)', () => {
 
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      pesysContext: BRUKERKONTEKST,
+      pesysContext: KRAVKONTEKST,
       sakType: SakTypeMap.BARNEP,
       sedList: ['P2000', 'P8000'],
       personAvdods: []

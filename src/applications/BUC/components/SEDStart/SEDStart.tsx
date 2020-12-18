@@ -126,7 +126,7 @@ export interface SEDStartProps {
   initialAttachments ?: JoarkBrowserItems
   initialSed ?: string | undefined
   initialSendingAttachments ?: boolean
-  onSedChanged: (option: ValueType<Option, false> | null | undefined) => void
+  onSedChanged?: (option: ValueType<Option, false> | null | undefined) => void
   onSedCreated: () => void
   onSedCancelled: () => void
   replySed: Sed | undefined
