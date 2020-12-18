@@ -126,6 +126,7 @@ export interface SEDStartProps {
   initialAttachments ?: JoarkBrowserItems
   initialSed ?: string | undefined
   initialSendingAttachments ?: boolean
+  onSedChanged: (option: ValueType<Option, false> | null | undefined) => void
   onSedCreated: () => void
   onSedCancelled: () => void
   replySed: Sed | undefined
@@ -179,6 +180,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   initialAttachments = [],
   initialSed = undefined,
   initialSendingAttachments = false,
+  onSedChanged,
   onSedCreated,
   onSedCancelled,
   replySed
@@ -321,7 +323,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         )
       )
     )
-    console.log(answer, sedSupportsAvdod(), avdodExists(), pesysContext, _buc.type, isNorwayCaseOwner(), sedNeedsAvdodBrukerQuestion())
+//  console.log(answer, sedSupportsAvdod(), avdodExists(), pesysContext, _buc.type, isNorwayCaseOwner(), sedNeedsAvdodBrukerQuestion())
     return answer
   }
 
@@ -580,6 +582,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       if (sedNeedsKravdato.indexOf(newSed) >= 0) {
         setDefaultKravDato()
+      }
+      if (onSedChanged) {
+        onSedChanged(option)
       }
     }
   }
