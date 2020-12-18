@@ -563,7 +563,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const onSedChange = (option: ValueType<Option, false> | null | undefined): void => {
-    console.log(option?.value)
     if (option) {
       const newSed: string | undefined = option.value
 
@@ -830,6 +829,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject) {
+
       let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
         p.fnr === (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
       )
@@ -910,7 +910,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {sedHasFixedAvdod() && (
             <>
               <VerticalSeparatorDiv />
-              <FlexDiv>
+              <FlexDiv
+                data-test-id='a-buc-c-sedstart__avdod-div-id'
+              >
                 <PersonIcon color={highContrast ? 'white' : 'black'} />
                 <HorizontalSeparatorDiv />
                 <label className='skjemaelement__label'>

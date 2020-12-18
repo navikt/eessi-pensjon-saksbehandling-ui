@@ -1,10 +1,14 @@
-import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
+import BUCList, {
+  BucLenkePanel,
+  BUCListDiv,
+  BUCListProps,
+  BUCListSelector
+} from 'applications/BUC/pages/BUCList/BUCList'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { mount, ReactWrapper } from 'enzyme'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import React from 'react'
-import BUCList, { BucLenkePanel, BUCListDiv, BUCListProps, BUCListSelector } from 'applications/BUC/pages/BUCList/BUCList'
 import { stageSelector } from 'setupTests'
 
 jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)
@@ -118,7 +122,7 @@ describe('P_BUC_02 for BUCStart', () => {
     Slik at saksbehandler ikke kan se pågående P_BUC_02 for aktuell bruker uten å navigere fra vedtakskontekst med avdøde i vedtaket
 
    */
-  it('Scenario 4: Oversikt over pågående P_BUC_02 - bruker kravkontekst eller brukeroversikten - Norge er sakseier', () => {
+  it('EP-899 Scenario 4: Oversikt over pågående P_BUC_02 - bruker kravkontekst eller brukeroversikten - Norge er sakseier', () => {
 
     stageSelector(defaultSelector, {
       pesysContext: BRUKERKONTEKST
@@ -144,7 +148,7 @@ describe('P_BUC_02 for BUCStart', () => {
     Slik at saksbehandler kan behandle pågående P_BUC_02 uten at et vedtak er fattet i Pesys.
 
   */
-  it('Scenario 5: Oversikt over pågående P_BUC_02 - bruker kravkontekst eller brukeroversikten) - Norge er deltaker', () => {
+  it('EP-899 Scenario 5: Oversikt over pågående P_BUC_02 - bruker kravkontekst eller brukeroversikten) - Norge er deltaker', () => {
 
     stageSelector(defaultSelector, {
       pesysContext: BRUKERKONTEKST

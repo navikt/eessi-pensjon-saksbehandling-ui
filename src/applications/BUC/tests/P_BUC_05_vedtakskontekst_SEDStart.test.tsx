@@ -1,9 +1,10 @@
 import { SEDStart, SEDStartProps, SEDStartSelector } from 'applications/BUC/components/SEDStart/SEDStart'
-import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
+import { VEDTAKSKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import personAvdod from 'mocks/app/personAvdod'
+import mockPersonAvdods from 'mocks/app/personAvdod'
 import React from 'react'
 import { stageSelector } from 'setupTests'
 
@@ -40,7 +41,7 @@ const defaultSelector: SEDStartSelector = {
   vedtakId: undefined
 }
 
-describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
+describe('P_BUC_05 for SEDStart, vedtakskontekst,', () => {
   let wrapper: ReactWrapper
   const mockBucList: Bucs = {
     NorwayIsCaseOwner: {
@@ -64,6 +65,16 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
         name: 'NAV ACCEPTANCE TEST 07'
       }],
       seds: [],
+      addedParams: {
+        subject: {
+          avdod: {
+            fnr: '12345678902'
+          },
+          gjenlevende: {
+            fnr: '12345678901'
+          }
+        }
+      },
       error: null
     },
     NorwayIsNOTCaseOwner: {
@@ -92,6 +103,16 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
         acronym: 'DEMOSE01'
       }],
       seds: [],
+      addedParams: {
+        subject: {
+          avdod: {
+            fnr: '12345678902'
+          },
+          gjenlevende: {
+            fnr: '12345678901'
+          }
+        }
+      },
       error: null
     }
   } as Bucs
@@ -109,20 +130,23 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
   }
 
   /*
-    EP 939: Scenario 1
+    EP 943 - Scenario 1
 
-    Gitt at saksbehandler navigerer fra PESYS via jordkloden i brukerkontekst
-    OG sakstype er ALDER, UFOREP, GENRL, eller OMSORG
+    Gitt at saksbehandler navigerer fra vedtakskontekst
+    OG EESSI-Pensjon har informasjon om sakId og vedtaksid
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
+    OG sakstype er ALDER, UFOREP, eller OMSORG
+    OG det kun er bruker/forsikrede i vedtaket (ingen avdøde)
     OG saksbehandler velger å opprette en ny BUC
     Så vises P_BUC_05 i nedtrekkslista
     Slik at saksbehandler kan opprette P_BUC_05 i EP
     OG kan bestille SED P8000 i EP for denne BUC-en
    */
-  it('EP-939 Scenario 1: Opprette P_BUC_05 - brukerkontekst', () => {
+  it('EP-943 Scenario 1: Opprette P_BUC_05 - vedtakskontekst', () => {
 
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      pesysContext: BRUKERKONTEKST,
+      pesysContext: VEDTAKSKONTEKST,
       sakType: SakTypeMap.ALDER,
       sedList: ['P2000', 'P8000'],
       personAvdods: []
@@ -164,33 +188,35 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
   })
 
   /*
-    EP 939 Scenario 2
+    EP 943 - Scenario 2
 
-    Gitt at saksbehandler navigerer fra brukerkontekst
-    OG sakstype er GJENLEV eller BARNEP,
+    Gitt at saksbehandler navigerer fra vedtakskontekst
+    OG EESSI-Pensjon har informasjon om sakId og vedtaksid
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
+    OG sakstype er GJENLEV, BARNEP, ALDER eller UFØREP
+    OG det er én avdøde i vedtaket
     OG saksbehandler velger å opprette en ny BUC
     Så kan saksbehandler velge P_BUC_05 i nedtrekkslista i EP
-    OG saksbehandler må legge inn avdødes fnr/dnr
+    OG det vises avdødes navn og fnr/dnr (som i P_BUC_02)
+    OG saksbehandler kan bestille P8000
     OG det stilles spørsmål om henvendelsen gjelder den avdøde eller bruker
-    OG saksbehandler svarer at henvendelsen gjelder avdøde
-    Slik at P_BUC_05 kan opprettes på avdøde i RINA
-    OG saksbehandler kan bestille SED P8000
+    Slik at P8000 kan preutfylles med riktig informasjon
    */
-  it('EP-939 Scenario 2: Opprette P_BUC_05 - brukerkontekst - etterlatteytelser (avdøde)', () => {
+  it('EP-943 Scenario 2: Opprette P_BUC_05 - vedtakskontekst - etterlatteytelser (én avdøde)', () => {
 
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      pesysContext: BRUKERKONTEKST,
+      pesysContext: VEDTAKSKONTEKST,
       sakType: SakTypeMap.GJENLEV,
       sedList: ['P2000', 'P8000'],
-      personAvdods: []
+      personAvdods: mockPersonAvdods(1)
     })
 
     wrapper = mount(<SEDStart {...initialMockProps} />)
 
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
@@ -205,8 +231,8 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
       value: 'P8000'
     })
     // does show avdodFnr
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeTruthy()
     // does not show kravDato
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
     // does not show kravOm
@@ -218,38 +244,43 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     // needs instituion and country
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseAvdodFnr' + 'buc:validation-chooseAvdodOrSoker'
+       'buc:validation-chooseAvdodOrSoker'
     )
   })
 
   /*
-   EP 939 Scenario 3
+   EP 943 - Scenario 3
 
-    Gitt at saksbehandler navigerer fra brukerkontekst
-    OG sakstype er GJENLEV eller BARNEP,
+    Gitt at saksbehandler navigerer fra vedtakskontekst
+    OG EESSI-Pensjon har informasjon om sakId og vedtaksid
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
+    OG sakstype er BARNEP,
+    OG det er to avdøde i vedtaket
     OG saksbehandler velger å opprette en ny BUC
     Så kan saksbehandler velge P_BUC_05 i nedtrekkslista i EP
-    OG saksbehandler må legge inn avdødes fnr/dnr
+    OG det vises en nedtrekkslite med avdødes navn og fnr/dnr (som i P_BUC_02)
+    OG saksbehandler må velge en avdøde
+    SÅ kan saksbehandler bestille P8000
     OG det stilles spørsmål om henvendelsen gjelder den avdøde eller bruker
-    OG saksbehandler svarer at henvendelsen gjelder bruker/søker
-    Slik at P_BUC_05 kan opprettes på avdøde i RINA
-    OG saksbehandler kan bestille SED P8000
+    Slik at P8000 kan preutfylles med riktig informasjon
+
+
   */
-  it('EP-939 Scenario 3: Opprette P_BUC_05 - brukerkontekst -etterlatteyteser (bruker)', () => {
+  it('EP-943 Scenario 3: Opprette P_BUC_05 - vedtakskontekst - barnep (to avdøde)', () => {
 
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      pesysContext: BRUKERKONTEKST,
+      pesysContext: VEDTAKSKONTEKST,
       sakType: SakTypeMap.BARNEP,
       sedList: ['P2000', 'P8000'],
-      personAvdods: []
+      personAvdods: mockPersonAvdods(2)
     })
 
     wrapper = mount(<SEDStart {...initialMockProps} />)
 
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
@@ -264,8 +295,8 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
       value: 'P8000'
     })
     // does show avdodFnr
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeTruthy()
     // does not show kravDato
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
     // does not show kravOm
@@ -277,7 +308,7 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     // needs instituion and country
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseAvdodFnr' + 'buc:validation-chooseAvdodOrSoker'
+      'buc:validation-chooseAvdodOrSoker'
     )
   })
 })

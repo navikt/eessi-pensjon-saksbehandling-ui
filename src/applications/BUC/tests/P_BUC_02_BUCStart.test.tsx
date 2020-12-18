@@ -55,7 +55,7 @@ describe('P_BUC_02 for BUCStart', () => {
     OG bruker er søker
     Slik at saksbehandler kan bestille andre SED i EP for denne BUC-en
    */
-  it('Scenario 1: Oversikt over pågående P_BUC_02 - vedtakshistorikk m avdøde', () => {
+  it('EP-899 Scenario 1: Oversikt over pågående P_BUC_02 - vedtakshistorikk m avdøde', () => {
 
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
@@ -116,7 +116,7 @@ describe('P_BUC_02 for BUCStart', () => {
     Så vises det kun pågående P_BUC-er som gjelder brukeren i startskjermbildet
     Slik at saksbehandler ikke kan se pågående P_BUC_02 for aktuell bruker uten å navigere fra riktig vedtak
    */
-  it('Oversikt over pågående P_BUC_02 - ingen avdøde i vedtaket (bruker har AP eller UT-sak, ukjent avdød?)', () => {
+  it('EP-899 Scenario 2: Oversikt over pågående P_BUC_02 - ingen avdøde i vedtaket (bruker har AP eller UT-sak, ukjent avdød?)', () => {
 
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
@@ -169,7 +169,7 @@ describe('P_BUC_02 for BUCStart', () => {
     OG bruker er søker
     Slik at saksbehandler kan bestille SED i EP for aktuelle  BUC-er
    */
-  it('Oversikt over pågående P_BUC_02 - to avdøde (foreldreløs)', () => {
+  it('EP-899 Scenario 3: Oversikt over pågående P_BUC_02 - to avdøde (foreldreløs)', () => {
 
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()

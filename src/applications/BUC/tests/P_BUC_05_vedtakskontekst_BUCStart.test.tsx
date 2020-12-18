@@ -5,6 +5,7 @@ import { AllowedLocaleString } from 'declarations/app'
 import { SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
+import mockPersonAvdods from 'mocks/app/personAvdod'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
 import React from 'react'
@@ -35,7 +36,7 @@ const defaultSelector: BUCStartSelector = {
   tagList: mockTagsList
 }
 
-describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
+describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
   let wrapper: ReactWrapper
 
   const initialMockProps: BUCStartProps = {
@@ -46,16 +47,19 @@ describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
   }
 
   /*
-    EP 939 - Scenario 1:
+    EP 943 - Scenario 1:
 
-    Gitt at saksbehandler navigerer fra PESYS via jordkloden i brukerkontekst
-    OG sakstype er ALDER, UFOREP, GENRL, eller OMSORG
+    Gitt at saksbehandler navigerer fra vedtakskontekst
+    OG EESSI-Pensjon har informasjon om sakId og vedtaksid
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
+    OG sakstype er ALDER, UFOREP, eller OMSORG
+    OG det kun er bruker/forsikrede i vedtaket (ingen avdøde)
     OG saksbehandler velger å opprette en ny BUC
     Så vises P_BUC_05 i nedtrekkslista
     Slik at saksbehandler kan opprette P_BUC_05 i EP
     OG kan bestille SED P8000 i EP for denne BUC-en
    */
-  it('EP-939 Scenario 1: Opprette P_BUC_05 - brukerkontekst', () => {
+  it('EP-943 Scenario 1: Opprette P_BUC_05 - vedtakskontekst', () => {
 
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
@@ -63,7 +67,7 @@ describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
     stageSelector(defaultSelector, {
       bucList: ['P_BUC_02', 'P_BUC_05'],
       personAvdods: [],
-      pesysContext: constants.BRUKERKONTEKST,
+      pesysContext: constants.VEDTAKSKONTEKST,
       sakType: SakTypeMap.ALDER
     })
 
@@ -85,7 +89,7 @@ describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
       value: 'P_BUC_05'
     })
 
-    // show avdod fnr select
+    // do not show avdod fnr select
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
     // keep kravDato input hidden
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
@@ -101,27 +105,29 @@ describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
   })
 
   /*
-    EP 939 - Scenario 2:
+    EP 943 - Scenario 2:
 
-    Gitt at saksbehandler navigerer fra brukerkontekst
-    OG sakstype er GJENLEV eller BARNEP,
+    Gitt at saksbehandler navigerer fra vedtakskontekst
+    OG EESSI-Pensjon har informasjon om sakId og vedtaksid
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
+    OG sakstype er GJENLEV, BARNEP, ALDER eller UFØREP
+    OG det er én avdøde i vedtaket
     OG saksbehandler velger å opprette en ny BUC
     Så kan saksbehandler velge P_BUC_05 i nedtrekkslista i EP
-    OG saksbehandler må legge inn avdødes fnr/dnr
+    OG det vises avdødes navn og fnr/dnr (som i P_BUC_02)
+    OG saksbehandler kan bestille P8000
     OG det stilles spørsmål om henvendelsen gjelder den avdøde eller bruker
-    OG saksbehandler svarer at henvendelsen gjelder avdøde
-    Slik at P_BUC_05 kan opprettes på avdøde i RINA
-    OG saksbehandler kan bestille SED P8000
+    Slik at P8000 kan preutfylles med riktig informasjon
    */
-  it('EP-939 Scenario 2: Opprette P_BUC_05 - brukerkontekst - etterlatteytelser (avdøde)**', () => {
+  it('EP-943 Scenario 2: Opprette P_BUC_05 - vedtakskontekst - etterlatteytelser (én avdøde)', () => {
 
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
       bucList: ['P_BUC_02', 'P_BUC_05'],
-      personAvdods: [],
-      pesysContext: constants.BRUKERKONTEKST,
+      personAvdods: mockPersonAvdods(1),
+      pesysContext: constants.VEDTAKSKONTEKST,
       sakType: SakTypeMap.GJENLEV
     })
 
@@ -144,7 +150,7 @@ describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
     })
 
     // show avdod fnr select
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeTruthy()
     // keep kravDato input hidden
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
     // click forward button
@@ -153,33 +159,45 @@ describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
+      avdod:  {
+        aktoerId: '2865434801175',
+        etternavn: 'BLYANT',
+        fnr: '12345678902',
+        fornavn: 'FRODIG',
+        fulltNavn: 'BLYANT FRODIG',
+        mellomnavn: null,
+        relasjon: 'REPA',
+      },
       buc: 'P_BUC_05',
       person: undefined
     })
   })
 
   /*
-   EP 939 - Scenario 3:
+   EP 943 - Scenario 3:
 
-    Gitt at saksbehandler navigerer fra brukerkontekst
-    OG sakstype er GJENLEV eller BARNEP,
+    Gitt at saksbehandler navigerer fra vedtakskontekst
+    OG EESSI-Pensjon har informasjon om sakId og vedtaksid
+    SÅ finner EP (backend) hvilken sakstype denne saken gjelder
+    OG sakstype er BARNEP,
+    OG det er to avdøde i vedtaket
     OG saksbehandler velger å opprette en ny BUC
     Så kan saksbehandler velge P_BUC_05 i nedtrekkslista i EP
-    OG saksbehandler må legge inn avdødes fnr/dnr
+    OG det vises en nedtrekkslite med avdødes navn og fnr/dnr (som i P_BUC_02)
+    OG saksbehandler må velge en avdøde
+    SÅ kan saksbehandler bestille P8000
     OG det stilles spørsmål om henvendelsen gjelder den avdøde eller bruker
-    OG saksbehandler svarer at henvendelsen gjelder bruker/søker
-    Slik at P_BUC_05 kan opprettes på avdøde i RINA
-    OG saksbehandler kan bestille SED P8000
+    Slik at P8000 kan preutfylles med riktig informasjon
   */
-  it('EP-939 scenario 3: Opprette P_BUC_05 - brukerkontekst - etterlatteytelser (bruker)', () => {
+  it('EP-943 Scenario 3: Opprette P_BUC_05 - vedtakskontekst - barnep (to avdøde)', () => {
 
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
       bucList: ['P_BUC_02', 'P_BUC_05'],
-      personAvdods: [],
-      pesysContext: constants.BRUKERKONTEKST,
+      personAvdods: mockPersonAvdods(2),
+      pesysContext: constants.VEDTAKSKONTEKST,
       sakType: SakTypeMap.BARNEP
     })
 
@@ -202,18 +220,18 @@ describe('P_BUC_05 for BUCStart, brukerkontekst', () => {
     })
 
     // show avdod fnr select
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeTruthy()
     // keep kravDato input hidden
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
     // click forward button
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
     // no validation errors
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
-    // submit payload and create BUC
-    expect(createBuc).toHaveBeenCalledWith({
-      buc: 'P_BUC_05',
-      person: undefined
-    })
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeTruthy()
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
+      'buc:form-feiloppsummering' + 'buc:validation-chooseAvdod'
+    )
+    // create buc is not called
+    expect(createBuc).not.toHaveBeenCalled()
   })
 
 })
