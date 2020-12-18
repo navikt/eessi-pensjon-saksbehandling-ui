@@ -1,5 +1,5 @@
 import { SEDStart, SEDStartProps, SEDStartSelector } from 'applications/BUC/components/SEDStart/SEDStart'
-import { BRUKERKONTEKST } from 'constants/constants'
+import { BRUKERKONTEKST, KRAVKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -172,5 +172,66 @@ describe('P_BUC_10 for SEDStart, brukerkontekst,', () => {
     )
   })
 
+  /*
+    EP 1045: Scenario 3
 
+    Gitt at saksbehandler har navigert fra krav- eller brukerkontekst
+    OG sakstype er GLENLEV eller BARNEP
+    OG saksbehandler har opprettet P_BUC_10
+    Så kan saksbehandler bestille P15000
+    OG må legge inn Avdødes f.nr./d.nr.
+    OG må legge inn kravdato
+    OG radioknapp "Krav om" preutfylles med "Etterlatteytelser"
+    OG saksbehandler må velge land og mottakerinstitusjon
+    Slik at SED P15000 blir automatisk opprettet i Rina
+    OG SED P15000 kan preutfylles med nødvendig informasjon (hentet fra Pesys, TPS og frontend)
+   */
+  it('EP-1045 Scenario 3 (frontend): Krav- eller brukerkontekst - etterlatteytelser', () => {
+
+    (initialMockProps.onSedChanged as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {
+      pesysContext: BRUKERKONTEKST,
+      sakType: SakTypeMap.GJENLEV,
+      sedList: ['P2000', 'P15000'],
+      personAvdods: []
+    })
+
+    wrapper = mount(<SEDStart {...initialMockProps} />)
+
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
+
+    let select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    select.simulate('keyDown', { key: 'ArrowDown' })
+    select.simulate('keyDown', { key: 'ArrowDown' })
+    select.simulate('keyDown', { key: 'Enter' })
+    wrapper.update()
+    expect(initialMockProps.onSedChanged).toHaveBeenCalledWith({
+      label: 'P15000 - buc:buc-P15000',
+      value: 'P15000'
+    })
+    // does not show avdodFnr
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    // does show kravDato
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeTruthy()
+    // does show kravOm
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeTruthy()
+    // prefills with Alderspensjon
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\'] input[aria-checked=true]').props().value).toEqual('Etterlatteytelser')
+
+    // does not show avdodOrSoker
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
+
+    wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
+    // needs institution and country and avdodFnr and krav dato (not prefilled)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
+      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
+      'buc:validation-chooseAvdodFnr' + 'buc:validation-chooseKravDato'
+    )
+  })
 })
