@@ -271,10 +271,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
-  // SEDs that needs Avdod filled so it goes to payload
-  const sedNeedsAvdod = useCallback((): boolean => bucsThatSupportAvdod(_buc.type), [_buc])
-
-  // SEDs that use avdod (can be only for display)
+  // SEDs that use avdod
   const sedSupportsAvdod = useCallback((): boolean => bucsThatSupportAvdod(_buc.type), [_buc])
 
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
@@ -310,9 +307,21 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       sedSupportsAvdod() &&
       !avdodExists() &&
       pesysContext !== constants.VEDTAKSKONTEKST &&
-      (!isNorwayCaseOwner() || sedNeedsAvdodBrukerQuestion()) &&
-      (!isNorwayCaseOwner() && _buc.type === 'P_BUC_05' ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
+      (
+        (_buc.type === 'P_BUC_02' ?
+          !isNorwayCaseOwner() :
+          (_buc.type === 'P_BUC_05' ?
+            (
+              isNorwayCaseOwner() ?
+              sedNeedsAvdodBrukerQuestion() :
+              (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+            ) :
+             (_buc.type === 'P_BUC_10' ? _sed === 'P15000' : false)
+          )
+        )
+      )
     )
+    console.log(answer, sedSupportsAvdod(), avdodExists(), pesysContext, _buc.type, isNorwayCaseOwner(), sedNeedsAvdodBrukerQuestion())
     return answer
   }
 
@@ -458,7 +467,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!avdodFnr) {
       return {
         feilmelding: t('buc:validation-chooseAvdodFnr'),
-        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id'
+        skjemaelementId: 'a-buc-c-sedstart__avdod-input-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -468,7 +477,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!kravOm) {
       return {
         feilmelding: t('buc:validation-chooseKravOm'),
-        skjemaelementId: 'a-buc-c-bucstart__kravOm-radiogroup-id'
+        skjemaelementId: 'a-buc-c-sedstart__kravOm-radiogroup-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -478,7 +487,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!_avdodOrSoker) {
       return {
         feilmelding: t('buc:validation-chooseAvdodOrSoker'),
-        skjemaelementId: 'a-buc-c-bucstart__avdodorsoker-radiogroup-id'
+        skjemaelementId: 'a-buc-c-sedstart__avdodorsoker-radiogroup-id'
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -552,6 +561,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const onSedChange = (option: ValueType<Option, false> | null | undefined): void => {
+    console.log(option?.value)
     if (option) {
       const newSed: string | undefined = option.value
 
@@ -687,7 +697,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (_vedtakId) {
         payload.vedtakId = _vedtakId
       }
-      if (sedNeedsAvdod() && avdodExists()) {
+      if (sedSupportsAvdod() && avdodExists()) {
         payload.avdodFnr = _avdod?.fnr
       }
       if (sedNeedsAvdodFnrInput() && _avdodFnr) {
@@ -827,7 +837,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (_.isEmpty(_kravDato) && !_.isEmpty((_buc as ValidBuc).addedParams?.kravDato)) {
       setKravDato((_buc as ValidBuc).addedParams?.kravDato!)
     }
-  }, [_avdod, _avdodFnr, _buc, _kravDato, personAvdods, sedNeedsAvdod])
+  }, [_avdod, _avdodFnr, _buc, _kravDato, personAvdods, sedSupportsAvdod])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return <div />
@@ -913,8 +923,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <HighContrastInput
                 label={t('buc:form-avdodFnr')}
-                data-test-id='a-buc-c-bucstart__avdod-input-id'
-                id='a-buc-c-bucstart__avdod-input-id'
+                data-test-id='a-buc-c-sedstart__avdod-input-id'
+                id='a-buc-c-sedstart__avdod-input-id'
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
                 value={_avdodFnr}
@@ -926,7 +936,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
-                data-testid='a-buc-c-sedstart__kravDato-input-id'
+                data-test-id='a-buc-c-sedstart__kravDato-input-id'
                 id='a-buc-c-sedstart__kravDato-input-id'
                 label={t('buc:form-kravDato')}
                 bredde='fullbredde'
@@ -942,7 +952,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <HighContrastRadioPanelGroup
                 checked={_kravOm as string}
-                data-test-id='a-buc-c-bucstart__kravOm-radiogroup-id'
+                data-test-id='a-buc-c-sedstart__kravOm-radiogroup-id'
                 feil={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
                 legend={t('buc:form-kravOm')}
                 name='kravOm'
@@ -966,7 +976,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <HighContrastRadioPanelGroup
                 checked={_avdodOrSoker}
-                data-test-id='a-buc-c-bucstart__avdodorsoker-radiogroup-id'
+                data-test-id='a-buc-c-sedstart__avdodorsoker-radiogroup-id'
                 feil={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
                 legend={t('buc:form-avdodorsøker')}
                 name='avdodorbruker'

@@ -482,7 +482,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <>
                 <VerticalSeparatorDiv />
                 <HighContrastInput
-                  data-testid='a-buc-c-bucstart__kravDato-input-id'
+                  data-test-id='a-buc-c-bucstart__kravDato-input-id'
                   id='a-buc-c-bucstart__kravDato-input-id'
                   label={t('buc:form-kravDato')}
                   bredde='fullbredde'

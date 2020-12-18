@@ -9,12 +9,13 @@ import ReactSelect, { Props } from 'react-select'
 interface SelectProps extends Props<Option> {
   feil?: Feiloppsummering
   highContrast: boolean
+  'data-test-id'?: string
 }
 
 const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
   const _theme = props.highContrast ? themeHighContrast : theme
   return (
-    <>
+    <div data-test-id={props['data-test-id'] || props.id}>
       <ReactSelect
         inputId={props.id}
         className={classNames({ skjemaelement__feilmelding: !!props.feil })}
@@ -71,7 +72,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
           <Feilmelding>{props.feil}</Feilmelding>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
