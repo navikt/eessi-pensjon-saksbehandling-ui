@@ -65,6 +65,7 @@ export interface BUCStartProps {
   aktoerId: string
   initialCreatingBucInfo?: boolean
   initialIsCreatingBuc?: boolean
+  onBucChanged: (option: ValueType<Option, false>) => void
   onBucCreated: () => void
   onBucCancelled: () => void
 }
@@ -113,6 +114,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId,
   initialIsCreatingBuc = false,
   initialCreatingBucInfo = false,
+  onBucChanged,
   onBucCreated,
   onBucCancelled
 }: BUCStartProps): JSX.Element | null => {
@@ -280,9 +282,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
       const thisBuc: string = option.value
       setBuc(thisBuc)
       updateValidation('buc', validateBuc(thisBuc))
-
       if (bucNeedsKravDato(thisBuc)) {
         setDefaultKravDato()
+      }
+      if (onBucChanged) {
+        onBucChanged(option)
       }
     }
   }
@@ -469,6 +473,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   data-test-id='a-buc-c-bucstart__avdod-select-id'
                   feil={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
                   highContrast={highContrast}
+                  id='a-buc-c-bucstart__avdod-select-id'
                   isSearchable
                   menuPortalTarget={document.getElementById('main')}
                   onChange={onAvdodChange}

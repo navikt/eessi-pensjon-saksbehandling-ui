@@ -89,7 +89,7 @@ export const InstitutionPropType = PT.shape({
   institution: PT.string.isRequired,
   name: PT.string.isRequired,
   acronym: PT.string.isRequired,
-  buc: PT.string.isRequired
+  buc: PT.string
 })
 
 export const InstitutionsPropType = PT.arrayOf(InstitutionPropType.isRequired)

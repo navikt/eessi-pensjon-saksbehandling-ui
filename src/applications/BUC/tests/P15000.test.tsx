@@ -135,3 +135,58 @@ describe('P15000', () => {
 
   })
 })
+
+
+/*const mockBucList: Bucs = {
+    NorwayIsCaseOwner: {
+      type: 'P_BUC_02',
+      readOnly: false,
+      caseId: 'NorwayIsCaseOwner',
+      creator: {
+        country: 'NO',
+        institution: 'NO:NAVAT07',
+        name: 'NAV ACCEPTANCE TEST 07',
+        acronym: 'NAVAT07'
+      },
+      sakType: null,
+      status: 'open',
+      startDate: 1571818162145,
+      lastUpdate: 1571818216000,
+      institusjon: [{
+        country: 'NO',
+        acronym: 'NAVAT07',
+        institution: 'NO:NAVAT07',
+        name: 'NAV ACCEPTANCE TEST 07'
+      }],
+      seds: [],
+      error: null
+    },
+    NorwayIsNOTCaseOwner: {
+      type: 'P_BUC_02',
+      readOnly: false,
+      caseId: 'NorwayIsNOTCaseOwner',
+      creator: {
+        country: 'SE',
+        institution: 'SE:DEMOSE01',
+        name: 'SE Demo 01',
+        acronym: 'DEMOSE01'
+      },
+      sakType: null,
+      status: 'open',
+      startDate: 1571818162145,
+      lastUpdate: 1571818216000,
+      institusjon: [{
+        country: 'NO',
+        acronym: 'NAVAT07',
+        institution: 'NO:NAVAT07',
+        name: 'NAV ACCEPTANCE TEST 07'
+      }, {
+        country: 'SE',
+        institution: 'SE:DEMOSE01',
+        name: 'SE Demo 01',
+        acronym: 'DEMOSE01'
+      }],
+      seds: [],
+      error: null
+    }
+  } as Bucs*/
