@@ -55,12 +55,14 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
       buc: {
         ...initialMockProps.buc,
         type: 'P_BUC_02',
-        subject: {
-          gjenlevende: {
-            fnr: '123'
-          },
-          avdod: {
-            fnr: mockPersonAvdods![0].fnr
+        addedParams: {
+          subject: {
+            gjenlevende: {
+              fnr: '123'
+            },
+            avdod: {
+              fnr: mockPersonAvdods![0].fnr
+            }
           }
         }
       }

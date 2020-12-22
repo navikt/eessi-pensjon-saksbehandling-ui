@@ -124,7 +124,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const avdod = (action as ActionWithPayload).context.avdod
       const kravDato = (action as ActionWithPayload).context.kravDato
 
-      newBuc.addedParams = {}
+      if (!newBuc.addedParams) {
+        newBuc.addedParams = {}
+      }
 
       if (kravDato) {
         newBuc.addedParams.kravDato = kravDato
@@ -266,6 +268,14 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           seds.forEach((sed: Sed) => {
             sedsWithAttachments[sed.type] = sed.allowsAttachments
           })
+        }
+
+        if (!bucs[bucId].addedParams) {
+          bucs[bucId].addedParams = {}
+        }
+
+        if (bucs[bucId].subject) {
+          bucs[bucId].addedParams.subject = _.cloneDeep(bucs[bucId].subject)
         }
 
         /* Lazy load: pick one:
