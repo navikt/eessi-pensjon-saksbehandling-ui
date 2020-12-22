@@ -49,7 +49,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
 }: SEDSearchProps): JSX.Element => {
   const [_query, setQuery] = useState<string | undefined>(value || '')
   const [_status, setStatus] = useState<Options>([])
-  const [_timer, setTimer] = useState<number | undefined>(undefined)
+  const [_timer, setTimer] = useState<ReturnType<typeof setTimeout> | undefined>(undefined)
   const { t } = useTranslation()
 
   const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
