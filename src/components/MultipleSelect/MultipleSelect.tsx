@@ -12,7 +12,8 @@ import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
 import { SelectComponents } from 'react-select/src/components'
 import { OptionTypeBase } from 'react-select/src/types'
-import styled, { ThemeProvider } from 'styled-components'
+import NavHighContrast from 'nav-hoykontrast'
+import styled from 'styled-components'
 import MultipleOption from './MultipleOption'
 
 const MultipleSelectDiv = styled.div`
@@ -60,7 +61,7 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
   const inputId = id || guid()
 
   return (
-    <ThemeProvider theme={_theme}>
+    <NavHighContrast highContrast={highContrast}>
       <MultipleSelectDiv
         className={classNames(className, { skjemaelement__feilmelding: error })}
       >
@@ -81,7 +82,8 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
           value={values}
           options={options}
           selectProps={{
-            theme: _theme
+            theme: _theme,
+            highContrast: highContrast
           }}
           components={{
             ...animatedComponents,
@@ -173,7 +175,7 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
           </div>
         )}
       </MultipleSelectDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

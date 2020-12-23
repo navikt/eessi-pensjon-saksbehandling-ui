@@ -1,6 +1,6 @@
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
 import classNames from 'classnames'
-import { HighContrastExpandingPanel } from 'components/StyledComponents'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import * as constants from 'constants/constants'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
@@ -10,14 +10,14 @@ import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
 import Alertstripe from 'nav-frontend-alertstriper'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
+import NavHighContrast from 'nav-hoykontrast'
 
 export const Alert = styled(Alertstripe)`
   width: 100%
@@ -124,12 +124,12 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <div
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <HighContrastExpandingPanel
+        <ExpandingPanel
           highContrast={highContrast}
           collapseProps={{ id: 'w-overview-id' }}
           className={classNames({ highContrast: highContrast })}
@@ -150,9 +150,9 @@ export const Overview: React.FC<OverviewProps> = ({
             person={person}
             personAvdods={personAvdods}
           />
-        </HighContrastExpandingPanel>
+        </ExpandingPanel>
       </div>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

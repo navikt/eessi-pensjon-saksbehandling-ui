@@ -56,7 +56,6 @@ describe('P_BUC_02 for BUCStart', () => {
     Slik at saksbehandler kan bestille andre SED i EP for denne BUC-en
    */
   it('EP-899 Scenario 1: Oversikt over pågående P_BUC_02 - vedtakshistorikk m avdøde', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -74,7 +73,7 @@ describe('P_BUC_02 for BUCStart', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -101,7 +100,7 @@ describe('P_BUC_02 for BUCStart', () => {
         fornavn: 'FRODIG',
         fulltNavn: 'BLYANT FRODIG',
         mellomnavn: null,
-        relasjon: 'REPA',
+        relasjon: 'REPA'
       },
       buc: 'P_BUC_02',
       person: undefined
@@ -117,7 +116,6 @@ describe('P_BUC_02 for BUCStart', () => {
     Slik at saksbehandler ikke kan se pågående P_BUC_02 for aktuell bruker uten å navigere fra riktig vedtak
    */
   it('EP-899 Scenario 2: Oversikt over pågående P_BUC_02 - ingen avdøde i vedtaket (bruker har AP eller UT-sak, ukjent avdød?)', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -135,7 +133,7 @@ describe('P_BUC_02 for BUCStart', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -170,7 +168,6 @@ describe('P_BUC_02 for BUCStart', () => {
     Slik at saksbehandler kan bestille SED i EP for aktuelle  BUC-er
    */
   it('EP-899 Scenario 3: Oversikt over pågående P_BUC_02 - to avdøde (foreldreløs)', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -188,7 +185,7 @@ describe('P_BUC_02 for BUCStart', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })

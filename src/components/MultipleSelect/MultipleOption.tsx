@@ -3,7 +3,8 @@ import PT from 'prop-types'
 import React from 'react'
 import { OptionProps, OptionTypeBase } from 'react-select'
 import { Checkbox } from 'nav-frontend-skjema'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
+import NavHighContrast from 'nav-hoykontrast'
 
 export type MultipleOptionProps = OptionProps<OptionTypeBase, true>
 
@@ -21,7 +22,6 @@ const OptionCheckbox = styled(Checkbox)`
 const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProps): JSX.Element => {
   const { data, selectProps, innerProps, isSelected, getStyles } = props
   const id: string = selectProps.id + '-' + data.value
-  const theme = selectProps.selectProps.theme
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
@@ -36,7 +36,7 @@ const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProp
         innerProps.onClick(e)
       }}
     >
-      <ThemeProvider theme={theme}>
+      <NavHighContrast highContrast={selectProps.selectProps.highContrast}>
         <OptionCheckbox
           data-test-id={'c-multipleoption__checkbox-' + id}
           id={'c-multipleoption__checkbox-' + id}
@@ -47,7 +47,7 @@ const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProp
           }}
           checked={isSelected}
         />
-      </ThemeProvider>
+      </NavHighContrast>
     </div>
   )
 }

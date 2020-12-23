@@ -4,22 +4,22 @@ import MonitorPNG from 'assets/images/artwork/dataskjerm.png'
 import CupPNG from 'assets/images/artwork/kop.png'
 import MousePNG from 'assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'assets/images/artwork/saksstatus.png'
-import {
+import NavHighContrast, {
   HighContrastHovedknapp,
   HighContrastInput,
   HighContrastKnapp,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
-} from 'components/StyledComponents'
+} from 'nav-hoykontrast'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/app.d'
 import { standardLogger } from 'metrics/loggers'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export const BUCEmptyDiv = styled.div`
   display: flex;
@@ -128,7 +128,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <BUCEmptyDiv>
         <BUCEmptyArtwork>
           <img alt='' className='monitor' src={MonitorPNG} />
@@ -179,7 +179,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         )}
       </BUCEmptyDiv>
       {rinaUrl && (<BUCFooter />)}
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

@@ -1,6 +1,6 @@
 import WarningCircle from 'assets/icons/WarningCircle'
 import Alert from 'components/Alert/Alert'
-import { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'components/StyledComponents'
+import NavHighContrast, { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
@@ -12,12 +12,12 @@ import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { Checkbox, Select } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import TableSorter, { Sort } from 'tabell'
 import * as labels from './SEDP5000.labels'
 
@@ -232,7 +232,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <SEDP5000Container>
         <SEDP5000Header>
           <SEDP5000Checkboxes>
@@ -413,7 +413,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           />
         </ButtonsDiv>
       </SEDP5000Container>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

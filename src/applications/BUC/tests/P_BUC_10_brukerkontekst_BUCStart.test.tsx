@@ -59,7 +59,6 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
     OG SED P15000 blir preutfylt med nødvendig informasjon (hentet fra Pesys, TPS og frontend)
    */
   it('EP-1047 Scenario 1 (frontend): Brukerkontekst - AP eller UT', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -78,7 +77,7 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -119,7 +118,6 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
 
    */
   it('EP-1045 Scenario 3 (frontend): Krav- eller brukerkontekst - etterlatteytelser', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -138,7 +136,7 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -162,5 +160,4 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
       person: undefined
     })
   })
-
 })

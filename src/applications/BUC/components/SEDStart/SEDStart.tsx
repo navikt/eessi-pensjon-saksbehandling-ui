@@ -38,7 +38,7 @@ import {
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
-} from 'components/StyledComponents'
+} from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { VEDTAKSKONTEKST } from 'constants/constants'
@@ -310,23 +310,23 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       !avdodExists() &&
       pesysContext !== constants.VEDTAKSKONTEKST &&
       (
-        (_buc.type === 'P_BUC_02' ?
-          !isNorwayCaseOwner() :
-          (_buc.type === 'P_BUC_05' ?
-            (
-              isNorwayCaseOwner() ?
-              sedNeedsAvdodBrukerQuestion() :
-              (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
-            ) :
-             (_buc.type === 'P_BUC_10' ?
-               _sed === 'P15000' && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) :
-               false
-             )
-          )
+        (_buc.type === 'P_BUC_02'
+          ? !isNorwayCaseOwner()
+          : (_buc.type === 'P_BUC_05'
+              ? (
+                  isNorwayCaseOwner()
+                    ? sedNeedsAvdodBrukerQuestion()
+                    : (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+                )
+              : (_buc.type === 'P_BUC_10'
+                  ? _sed === 'P15000' && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+                  : false
+                )
+            )
         )
       )
     )
-//  console.log(answer, sedSupportsAvdod(), avdodExists(), pesysContext, _buc.type, isNorwayCaseOwner(), sedNeedsAvdodBrukerQuestion())
+    //  console.log(answer, sedSupportsAvdod(), avdodExists(), pesysContext, _buc.type, isNorwayCaseOwner(), sedNeedsAvdodBrukerQuestion())
     return answer
   }
 
@@ -832,7 +832,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject) {
-
       let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
         p.fnr === (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
       )

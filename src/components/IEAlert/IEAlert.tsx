@@ -1,9 +1,9 @@
-import { HighContrastLink } from 'components/StyledComponents'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import NavHighContrast, { HighContrastLink } from 'nav-hoykontrast'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export const AlertDiv = styled.div`
   padding: 0.5rem 1rem;
@@ -33,7 +33,7 @@ const IEAlert: React.FC<IEAlertProps> = ({ highContrast, onLinkClick = () => {} 
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <AlertDiv>
         <HighContrastLink
           data-test-id='c-iealert__link-id'
@@ -44,7 +44,7 @@ const IEAlert: React.FC<IEAlertProps> = ({ highContrast, onLinkClick = () => {} 
           {t('buc:alert-IEAlert')}
         </HighContrastLink>
       </AlertDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

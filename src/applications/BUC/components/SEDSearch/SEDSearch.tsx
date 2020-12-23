@@ -1,13 +1,12 @@
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { HighContrastInput, HighContrastPanel } from 'components/StyledComponents'
+import NavHighContrast, { HighContrastInput, HighContrastPanel } from 'nav-hoykontrast'
 import { Option, Options } from 'declarations/app'
 import { standardLogger } from 'metrics/loggers'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ValueType } from 'react-select'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 const SEDSearchPanel = styled(HighContrastPanel)`
   display: flex !important;
@@ -89,7 +88,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
   }]
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <GlobalStyle />
       <SEDSearchPanel
         data-test-id='a-buc-c-sedsearch__panel-id'
@@ -122,7 +121,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
           />
         </PaddedDiv>
       </SEDSearchPanel>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

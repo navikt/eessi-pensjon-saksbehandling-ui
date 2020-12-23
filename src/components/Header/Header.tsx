@@ -2,9 +2,9 @@ import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import NavHighContrast, { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import * as routes from 'constants/routes'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import AdvarselTrekant from 'assets/icons/advarsel-trekant'
 import React from 'react'
@@ -16,7 +16,7 @@ import NavLogoTransparent from 'assets/images/NavLogoTransparent'
 import Lenke from 'nav-frontend-lenker'
 import Spinner from 'nav-frontend-spinner'
 import { Systemtittel } from 'nav-frontend-typografi'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export interface HeaderProps {
   className ?: string
@@ -106,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <HeaderDiv role='banner' className={className}>
         <BrandDiv>
           <a
@@ -172,7 +172,7 @@ const Header: React.FC<HeaderProps> = ({
         )}
         {children}
       </HeaderDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

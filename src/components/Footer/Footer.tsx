@@ -1,17 +1,17 @@
 import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
 import classNames from 'classnames'
-import { HighContrastKnapp } from 'components/StyledComponents'
+import NavHighContrast, { HighContrastKnapp } from 'nav-hoykontrast'
 import EtikettBase from 'nav-frontend-etiketter'
 import Knapp from 'nav-frontend-knapper'
 import Lukknapp from 'nav-frontend-lukknapp'
 import { Input, Select } from 'nav-frontend-skjema'
-import { theme, themeKeys, themeHighContrast } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export const FooterDiv = styled.footer`
   flex-shrink: 0;
@@ -159,7 +159,7 @@ const Footer: React.FC<FooterProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <FooterDiv
         role='contentinfo'
         className={classNames(className, { toggled: footerOpen })}
@@ -228,7 +228,7 @@ const Footer: React.FC<FooterProps> = ({
           </ParamsDiv>
         )}
       </FooterDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

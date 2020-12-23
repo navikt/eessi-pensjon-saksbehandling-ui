@@ -1,6 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`widgets/Overview/PersonPanel Render: match snapshot 1`] = `
+.c6 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+ui-fss.g2[id="c4"] {
+  content: "c6,";
+}
+
 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -13,20 +25,8 @@ exports[`widgets/Overview/PersonPanel Render: match snapshot 1`] = `
   flex-direction: column;
 }
 
-ui-fss.g2[id="c0"] {
+ui-fss.g6[id="c0"] {
   content: "c2,";
-}
-
-.c6 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-ui-fss.g3[id="c4"] {
-  content: "c6,";
 }
 
 .c13 {
@@ -34,7 +34,7 @@ ui-fss.g3[id="c4"] {
   margin-left: 1rem;
 }
 
-ui-fss.g5[id="c12"] {
+ui-fss.g21[id="c12"] {
   content: "c13,";
 }
 
@@ -43,7 +43,7 @@ ui-fss.g5[id="c12"] {
   margin-left: 1rem;
 }
 
-ui-fss.g6[id="c8"] {
+ui-fss.g22[id="c8"] {
   content: "c9,";
 }
 
@@ -58,7 +58,7 @@ ui-fss.g6[id="c8"] {
   align-items: baseline;
 }
 
-ui-fss.g19[id="c10"] {
+ui-fss.g27[id="c10"] {
   content: "c11,";
 }
 
@@ -67,7 +67,7 @@ ui-fss.g19[id="c10"] {
   border-color: !important;
 }
 
-ui-fss.g20[id="c14"] {
+ui-fss.g28[id="c14"] {
   content: "c15,";
 }
 
@@ -79,7 +79,7 @@ ui-fss.g20[id="c14"] {
   display: flex;
 }
 
-ui-fss.g21[id="c1"] {
+ui-fss.g29[id="c1"] {
   content: "c3,";
 }
 
@@ -95,7 +95,7 @@ ui-fss.g21[id="c1"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g22[id="c5"] {
+ui-fss.g30[id="c5"] {
   content: "c7,";
 }
 

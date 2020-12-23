@@ -1,6 +1,6 @@
 import LoadingImage from 'components/Loading/LoadingImage'
 import LoadingText from 'components/Loading/LoadingText'
-import { HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import React from 'react'
 import styled from 'styled-components'
 

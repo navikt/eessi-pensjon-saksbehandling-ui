@@ -1,5 +1,5 @@
 import ExternalLink from 'assets/icons/line-version-logout'
-import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import NavHighContrast, { HighContrastLink, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/app.d'
@@ -9,7 +9,7 @@ import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export const BUCFooterDiv = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   const linkColor: string = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <BUCFooterDiv className={className}>
         {rinaUrl
           ? (
@@ -62,7 +62,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
             <WaitingPanel size='S' />
             )}
       </BUCFooterDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

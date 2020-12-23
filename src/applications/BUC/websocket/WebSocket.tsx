@@ -5,7 +5,7 @@ import FilledNetworkConnecting from 'assets/icons/filled-version-network-connect
 import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
 import LineCheckCircle from 'assets/icons/line-version-check-circle-2'
 import classNames from 'classnames'
-import { rotating } from 'components/keyframes'
+import { rotating } from 'nav-hoykontrast'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import _ from 'lodash'

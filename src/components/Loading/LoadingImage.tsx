@@ -1,4 +1,4 @@
-import { progressBarAnimation } from 'components/keyframes'
+import { progressBarAnimation } from 'nav-hoykontrast'
 import React from 'react'
 import styled from 'styled-components'
 

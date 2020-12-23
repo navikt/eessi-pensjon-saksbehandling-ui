@@ -58,7 +58,6 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     OG kan bestille SED P8000 i EP for denne BUC-en
    */
   it('EP-942 Scenario 1: Opprette P_BUC_05 - kravkontekst', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -77,7 +76,7 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -118,7 +117,6 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     OG saksbehandler kan bestille SED P8000
    */
   it('EP-942 Scenario 2: Opprette P_BUC_05 - kravkontekst etterlatteytelser (avdøde)', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -137,7 +135,7 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -178,7 +176,6 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     OG saksbehandler kan bestille SED P8000
   */
   it('EP-942 scenario 3: Opprette P_BUC_05 - kravkontekst - etterlatteytelser (bruker)', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -197,7 +194,7 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -221,5 +218,4 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
       person: undefined
     })
   })
-
 })

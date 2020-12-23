@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Render: match snapshot 1`] = `
+.c5 {
+  background-color: inherit;
+}
+
+ui-fss.g13[id="c4"] {
+  content: "c5,";
+}
+
 .c3 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-ui-fss.g6[id="c2"] {
+ui-fss.g22[id="c2"] {
   content: "c3,";
-}
-
-.c5 {
-  background-color: inherit;
-}
-
-ui-fss.g7[id="c4"] {
-  content: "c5,";
 }
 
 .c1 {
@@ -25,7 +25,7 @@ ui-fss.g7[id="c4"] {
   display: flex;
 }
 
-ui-fss.g19[id="c0"] {
+ui-fss.g27[id="c0"] {
   content: "c1,";
 }
 
@@ -347,36 +347,44 @@ ui-fss.g19[id="c0"] {
           data-sise="0.35"
         />
       </styled.div>
-      <Styled(KnappBase)
+      <Styled(o)
         data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
         kompakt={true}
         mini={true}
         onClick={[Function]}
       >
-        <KnappBase
-          autoDisableVedSpinner={false}
+        <o
           className="c4 c5"
           data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
-          disabled={false}
-          htmlType="submit"
-          inaktivKlasseVedDisabled={false}
           kompakt={true}
           mini={true}
           onClick={[Function]}
-          spinner={false}
-          type="standard"
         >
-          <button
-            className="knapp c4 c5 knapp--standard knapp--mini knapp--kompakt"
+          <d
+            autoDisableVedSpinner={false}
+            className="c4 c5"
             data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
             disabled={false}
+            htmlType="submit"
+            inaktivKlasseVedDisabled={false}
+            kompakt={true}
+            mini={true}
             onClick={[Function]}
-            type="submit"
+            spinner={false}
+            type="standard"
           >
-            ui:cancel
-          </button>
-        </KnappBase>
-      </Styled(KnappBase)>
+            <button
+              className="knapp c4 c5 knapp--standard knapp--mini knapp--kompakt"
+              data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
+              disabled={false}
+              onClick={[Function]}
+              type="submit"
+            >
+              ui:cancel
+            </button>
+          </d>
+        </o>
+      </Styled(o)>
     </div>
   </styled.div>
 </SEDAttachmentSender>

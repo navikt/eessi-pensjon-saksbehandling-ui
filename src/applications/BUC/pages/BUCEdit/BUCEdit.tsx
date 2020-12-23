@@ -9,8 +9,8 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
-import { animationClose, animationOpen } from 'components/keyframes'
 import {
+  animationClose, animationOpen,
   Column,
   HighContrastKnapp,
   HighContrastLink,
@@ -18,7 +18,8 @@ import {
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
-} from 'components/StyledComponents'
+} from 'nav-hoykontrast'
+
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/app.d'
@@ -61,12 +62,12 @@ const SEDStartDiv = styled.div`
   &.close {
     will-change: max-height, height;
     max-height: 0;
-    animation: ${animationClose} 700ms ease;
+    animation: ${animationClose(150)} 700ms ease;
   }
   &.open {
     will-change: max-height, height;
     max-height: 150em;
-    animation: ${animationOpen} 700ms ease;
+    animation: ${animationOpen(150)} 700ms ease;
   }
 `
 const WidgetDiv = styled(Column)`
@@ -166,7 +167,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       setStartSed('open')
       if (componentRef && componentRef!.current) {
         if ((componentRef.current as any).scrollIntoView) {
-          (componentRef.current as any).scrollIntoView({behavior: 'smooth'})
+          (componentRef.current as any).scrollIntoView({ behavior: 'smooth' })
         }
       }
     }

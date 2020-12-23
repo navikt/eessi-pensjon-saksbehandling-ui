@@ -60,7 +60,6 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     OG SED P15000 blir preutfylt med nødvendig informasjon (hentet fra Pesys, TPS og frontend)
    */
   it('EP-1048 Scenario 2 (frontend): Vedtakskontekst - AP eller UT', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -79,7 +78,7 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -122,7 +121,6 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     OG SED P15000 blir preutfylt med nødvendig informasjon (hentet fra Pesys, TPS og frontend)
    */
   it('Scenario 4 a (frontend): Vedtakskontekst - etterlatteytelser - én avdøde', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -141,7 +139,7 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -168,7 +166,7 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
         fornavn: 'FRODIG',
         fulltNavn: 'BLYANT FRODIG',
         mellomnavn: null,
-        relasjon: 'REPA',
+        relasjon: 'REPA'
       },
       kravDato: '15-12-2020',
       buc: 'P_BUC_10',
@@ -194,7 +192,6 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     OG SED P15000 blir preutfylt med nødvendig informasjon (hentet fra Pesys, TPS og frontend)
    */
   it('Scenario 4 a (frontend): Vedtakskontekst - etterlatteytelser - to avdøde', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -213,7 +210,7 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })

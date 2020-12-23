@@ -10,14 +10,15 @@ import { AlertStatus, ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import { Person } from 'declarations/person.d'
 import _ from 'lodash'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import Error from 'pages/Error/Error'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
-import styled, { ThemeProvider } from 'styled-components'
+import NavHighContrast from 'nav-hoykontrast'
+import styled from 'styled-components'
 import useErrorBoundary from 'use-error-boundary'
 
 const Main = styled.main`
@@ -126,7 +127,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <ErrorBoundary
         renderError={({ error }: any) => <Error type='internalError' error={error} />}
       >
@@ -179,7 +180,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           footerOpen={footerOpen}
         />
       </ErrorBoundary>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

@@ -8,7 +8,7 @@ import {
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ProblemCircleIcon from 'assets/icons/report-problem-circle'
 import classNames from 'classnames'
-import { Column, Row } from 'components/StyledComponents'
+import NavHighContrast, { Column, Row } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, ValidBuc } from 'declarations/buc'
@@ -22,13 +22,13 @@ import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Lenke from 'nav-frontend-lenker'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export const BUCHeaderDiv = styled.div`
   display: flex;
@@ -192,7 +192,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   }, [size])
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <BUCHeaderDiv
         className={classNames({ new: newBuc })}
         data-test-id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
@@ -323,7 +323,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           </IconsDiv>
         </FlexRow>
       </BUCHeaderDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

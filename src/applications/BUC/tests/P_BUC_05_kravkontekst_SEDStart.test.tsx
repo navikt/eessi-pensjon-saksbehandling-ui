@@ -121,7 +121,6 @@ describe('P_BUC_05 for SEDStart, kravkontekst,', () => {
     OG kan bestille SED P8000 i EP for denne BUC-en
    */
   it('EP-942 Scenario 1: Opprette P_BUC_05 - kravkontekst', () => {
-
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       pesysContext: KRAVKONTEKST,
@@ -139,7 +138,7 @@ describe('P_BUC_05 for SEDStart, kravkontekst,', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
 
-    let select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -181,7 +180,6 @@ describe('P_BUC_05 for SEDStart, kravkontekst,', () => {
     OG saksbehandler kan bestille SED P8000
    */
   it('EP-942 Scenario 2: Opprette P_BUC_05 - kravkontekst - etterlatteytelser (avdøde)', () => {
-
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       pesysContext: KRAVKONTEKST,
@@ -199,7 +197,7 @@ describe('P_BUC_05 for SEDStart, kravkontekst,', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
 
-    let select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -242,7 +240,6 @@ describe('P_BUC_05 for SEDStart, kravkontekst,', () => {
     OG saksbehandler kan bestille SED P8000
   */
   it('EP-942 Scenario 3: Opprette P_BUC_05 - kravkontekst -etterlatteyteser (bruker)', () => {
-
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       pesysContext: KRAVKONTEKST,
@@ -260,7 +257,7 @@ describe('P_BUC_05 for SEDStart, kravkontekst,', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
 
-    let select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })

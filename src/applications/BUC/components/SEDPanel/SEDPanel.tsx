@@ -1,12 +1,13 @@
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
-import { slideInFromLeft } from 'components/keyframes'
-import { HighContrastExpandingPanel, HighContrastPanel } from 'components/StyledComponents'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import NavHighContrast, { slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
+
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
 
 const activeStatus: Array<string> = ['new', 'active']
@@ -15,7 +16,7 @@ export const SEDPanelContainer = styled(HighContrastPanel)`
   transform: translateX(-20px);
   opacity: 0;
   padding: 0;
-  animation: ${slideInFromLeft} 0.2s forwards;
+  animation: ${slideInFromLeft(20)} 0.2s forwards;
   margin-bottom: 1rem;
   span, p {
     font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
@@ -36,7 +37,7 @@ export const SEDPanelDiv = styled.div`
   border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
   background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
 `
-export const SEDPanelExpandingPanel = styled(HighContrastExpandingPanel)`
+export const SEDPanelExpandingPanel = styled(ExpandingPanel)`
   border: none;
   .ekspanderbartPanel__hode:hover {
     background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
@@ -65,7 +66,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <SEDPanelContainer className={classNames(className, { new: newSed })}>
         {!sedCanHaveAttachments(sed)
           ? (
@@ -100,7 +101,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             </SEDPanelExpandingPanel>
             )}
       </SEDPanelContainer>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

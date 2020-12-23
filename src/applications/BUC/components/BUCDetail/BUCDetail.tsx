@@ -1,7 +1,7 @@
 import { bucsThatSupportAvdod, getBucTypeLabel, renderAvdodName } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { slideInFromRight } from 'components/keyframes'
-import { HighContrastExpandingPanel, HighContrastLink } from 'components/StyledComponents'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import NavHighContrast, { HighContrastLink, slideInFromRight } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Buc, Institutions, ValidBuc } from 'declarations/buc'
 import { BucPropType } from 'declarations/buc.pt'
@@ -14,17 +14,17 @@ import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import AlertStripe from 'nav-frontend-alertstriper'
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
-const BUCDetailPanel = styled(HighContrastExpandingPanel)`
+const BUCDetailPanel = styled(ExpandingPanel)`
   opacity: 0;
   transform: translateX(20px);
-  animation: ${slideInFromRight} 0.3s forwards;
+  animation: ${slideInFromRight(20)} 0.3s forwards;
 `
 const Dd = styled.dd`
   width: 50%;
@@ -40,6 +40,7 @@ const Dt = styled.dt`
     margin-left: 0.5rem;
   }
 `
+
 const InstitutionListDiv = styled.div`
   padding: 0.5rem;
 `
@@ -81,7 +82,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   ))
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <BUCDetailPanel
         className={className}
         data-test-id='a-buc-c-bucdetail__panel-id'
@@ -203,7 +204,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
           </InstitutionListDiv>
         </>
       </BUCDetailPanel>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

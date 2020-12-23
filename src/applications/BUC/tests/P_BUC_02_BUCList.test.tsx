@@ -123,7 +123,6 @@ describe('P_BUC_02 for BUCStart', () => {
 
    */
   it('EP-899 Scenario 4: Oversikt over pågående P_BUC_02 - bruker kravkontekst eller brukeroversikten - Norge er sakseier', () => {
-
     stageSelector(defaultSelector, {
       pesysContext: BRUKERKONTEKST
     })
@@ -132,7 +131,6 @@ describe('P_BUC_02 for BUCStart', () => {
     expect(wrapper.exists(BUCListDiv)).toBeTruthy()
     expect(wrapper.find(BucLenkePanel).length).toEqual(1)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__P_BUC_02-NorwayIsCaseOwner\']')).toBeFalsy()
-
   })
 
   /*
@@ -149,7 +147,6 @@ describe('P_BUC_02 for BUCStart', () => {
 
   */
   it('EP-899 Scenario 5: Oversikt over pågående P_BUC_02 - bruker kravkontekst eller brukeroversikten) - Norge er deltaker', () => {
-
     stageSelector(defaultSelector, {
       pesysContext: BRUKERKONTEKST
     })
@@ -158,7 +155,5 @@ describe('P_BUC_02 for BUCStart', () => {
     expect(wrapper.exists(BUCListDiv)).toBeTruthy()
     expect(wrapper.find(BucLenkePanel).length).toEqual(1)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__P_BUC_02-NorwayIsNOTCaseOwner\']')).toBeTruthy()
-
   })
-
 })

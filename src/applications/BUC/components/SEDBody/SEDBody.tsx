@@ -8,7 +8,7 @@ import { sedAttachmentSorter } from 'applications/BUC/components/BUCUtils/BUCUti
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import { HighContrastHovedknapp, HighContrastKnapp, VerticalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastHovedknapp, HighContrastKnapp, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import {
   Buc,
   SavingAttachmentsJob,

@@ -154,7 +154,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     expect(createSed).toHaveBeenCalledWith(mockBucList[mockCurrentBuc], {
       aktoerId: '123',
-      avdodFnr: "12345678902",
+      avdodFnr: '12345678902',
       buc: 'P_BUC_02',
       euxCaseId: '195440',
       institutions: [],

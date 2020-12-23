@@ -1,15 +1,16 @@
 import classNames from 'classnames'
-import { HighContrastFlatknapp, HighContrastHovedknapp, HighContrastKnapp } from 'components/StyledComponents'
+import NavHighContrast, { HighContrastFlatknapp, HighContrastHovedknapp, HighContrastKnapp } from 'nav-hoykontrast'
 import { ModalContent } from 'declarations/components'
 import { ModalContentPropType } from 'declarations/components.pt'
 import _ from 'lodash'
 import Lukknapp from 'nav-frontend-lukknapp'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import ReactModal from 'react-modal'
 import { Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+
+import styled, { createGlobalStyle } from 'styled-components'
 
 const ModalDiv = styled(ReactModal)`
   display: block;
@@ -129,7 +130,7 @@ const Modal: React.FC<ModalProps> = ({
   // ReactModal.setAppElement(appElement)
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <OverlayStyle />
       <ModalDiv
         className={className}
@@ -198,7 +199,7 @@ const Modal: React.FC<ModalProps> = ({
           )}
         </>
       </ModalDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

@@ -1,5 +1,6 @@
 import EESSIPensjonVeileder from 'components/EESSIPensjonVeileder/EESSIPensjonVeileder'
-import { HighContrastExpandingPanel, VerticalSeparatorDiv } from 'components/StyledComponents'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { State } from 'declarations/reducers'
 import { standardLogger, timeLogger } from 'metrics/loggers'
@@ -22,7 +23,7 @@ export const ErrorPageDiv = styled.div`
   align-items: center;
   justify-content: center;
 `
-export const ErrorPanel = styled(HighContrastExpandingPanel)`
+export const ErrorPanel = styled(ExpandingPanel)`
   min-width: 50%;
 `
 const Line = styled.div`

@@ -2,16 +2,17 @@ import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import Trashcan from 'assets/icons/Trashcan'
-import { slideInFromRight } from 'components/keyframes'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import Modal from 'components/Modal/Modal'
-import {
+import NavHighContrast, {
+  slideInFromRight,
   HighContrastKnapp,
   HighContrastPanel,
   HighContrastTabs,
   HighContrastTextArea,
   VerticalSeparatorDiv
-} from 'components/StyledComponents'
+} from 'nav-hoykontrast'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import Modal from 'components/Modal/Modal'
+
 import {
   Buc,
   BucInfo,
@@ -38,12 +39,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 const BUCToolsPanel = styled(HighContrastPanel)`
   opacity: 0;
   transform: translateX(20px);
-  animation: ${slideInFromRight} 0.3s forwards;
+  animation: ${slideInFromRight(20)} 0.3s forwards;
 `
 const CommentDiv = styled.div`
   border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
@@ -269,7 +270,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }, [displayP5000table, _fetchingP5000, sedContent, setModal])
 
   return (
-    <ThemeProvider theme={_theme}>
+    <NavHighContrast highContrast={highContrast}>
       <BUCToolsPanel
         className={className}
         data-test-id='a-buc-c-buctools__panel-id'
@@ -395,7 +396,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           </PaddedTabContent>
         </>
       </BUCToolsPanel>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

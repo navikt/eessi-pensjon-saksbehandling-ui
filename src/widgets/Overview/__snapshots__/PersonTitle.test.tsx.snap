@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/Overview/PersonTitle Render: match snapshot 1'] = `
+exports[`widgets/Overview/PersonTitle Render: match snapshot 1`] = `
 .c3 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-ui-fss.g6[id="c2"] {
+ui-fss.g22[id="c2"] {
   content: "c3,";
 }
 
@@ -26,7 +26,7 @@ ui-fss.g6[id="c2"] {
   filter: grayscale(100%);
 }
 
-ui-fss.g23[id="c0"] {
+ui-fss.g31[id="c0"] {
   content: "c1,";
 }
 
@@ -287,4 +287,4 @@ ui-fss.g23[id="c0"] {
     </div>
   </styled.div>
 </PersonTitle>
-`
+`;

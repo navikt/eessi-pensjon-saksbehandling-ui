@@ -3,7 +3,6 @@ import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
-import personAvdod from 'mocks/app/personAvdod'
 import React from 'react'
 import { stageSelector } from 'setupTests'
 import mockPersonAvdods from 'mocks/app/personAvdod'
@@ -30,7 +29,7 @@ const defaultSelector: SEDStartSelector = {
   institutionList: {},
   loading: {},
   locale: 'nb',
-  personAvdods: personAvdod(1),
+  personAvdods: mockPersonAvdods(1),
   pesysContext: BRUKERKONTEKST,
   sakId: '123',
   sakType: undefined,
@@ -144,10 +143,8 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     Slik at SED P15000 blir automatisk opprettet i Rina
     OG SED P15000 blir preutfylt med nødvendig informasjon (hentet fra Pesys, TPS og frontend)
 
-
    */
   it('EP-1048 Scenario 2 (frontend): Vedtakskontekst - AP eller UT', () => {
-
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       pesysContext: VEDTAKSKONTEKST,
@@ -165,7 +162,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
 
-    let select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -213,7 +210,6 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
 
    */
   it('EP-1046 Scenario 4a (frontend): Vedtakskontekst - etterlatteytelser - én avdøde', () => {
-
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       pesysContext: VEDTAKSKONTEKST,
@@ -231,7 +227,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
 
-    let select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -280,7 +276,6 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
 
    */
   it('EP-1046 Scenario 4b (frontend): Vedtakskontekst - etterlatteytelser - to avdøde', () => {
-
     (initialMockProps.onSedChanged as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       pesysContext: VEDTAKSKONTEKST,
@@ -298,7 +293,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
 
-    let select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })

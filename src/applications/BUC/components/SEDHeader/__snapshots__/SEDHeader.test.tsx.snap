@@ -46,43 +46,6 @@ ui-fss.g3[id="c22"] {
   content: "c23,";
 }
 
-.c11 {
-  border-radius: 4px;
-  text-transform: capitalize;
-  font-size: 12px;
-  min-width: 70px;
-  color: #3E3832;
-  font-weight: normal;
-}
-
-.c11.received {
-  background-color: #99c2e7 !important;
-}
-
-.c11.active {
-  background-color: #c0b5cf !important;
-  border-color: #634689 !important;
-}
-
-.c11.first_sent,
-.c11.first_received,
-.c11.first_cancelled {
-  background-color: #B7B1A9 !important;
-}
-
-ui-fss.g4[id="c10"] {
-  content: "c11,";
-}
-
-.c13 {
-  display: inline-block;
-  margin-left: 1rem;
-}
-
-ui-fss.g10[id="c12"] {
-  content: "c13,";
-}
-
 .c27 {
   color: #0067C5;
   background-color: transparent;
@@ -119,8 +82,45 @@ ui-fss.g13[id="c26"] {
   border-radius: 4px;
 }
 
-ui-fss.g14[id="c0"] {
+ui-fss.g20[id="c0"] {
   content: "c2,";
+}
+
+.c13 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+ui-fss.g25[id="c12"] {
+  content: "c13,";
+}
+
+.c11 {
+  border-radius: 4px;
+  text-transform: capitalize;
+  font-size: 12px;
+  min-width: 70px;
+  color: #3E3832;
+  font-weight: normal;
+}
+
+.c11.received {
+  background-color: #99c2e7 !important;
+}
+
+.c11.active {
+  background-color: #c0b5cf !important;
+  border-color: #634689 !important;
+}
+
+.c11.first_sent,
+.c11.first_received,
+.c11.first_cancelled {
+  background-color: #B7B1A9 !important;
+}
+
+ui-fss.g30[id="c10"] {
+  content: "c11,";
 }
 
 .c25 {
@@ -145,7 +145,7 @@ ui-fss.g14[id="c0"] {
   justify-content: flex-start;
 }
 
-ui-fss.g23[id="c24"] {
+ui-fss.g31[id="c24"] {
   content: "c25,";
 }
 
@@ -166,7 +166,7 @@ ui-fss.g23[id="c24"] {
   align-items: flex-start;
 }
 
-ui-fss.g25[id="c4"] {
+ui-fss.g33[id="c4"] {
   content: "c5,";
 }
 
@@ -182,7 +182,7 @@ ui-fss.g25[id="c4"] {
   border: none;
 }
 
-ui-fss.g26[id="c1"] {
+ui-fss.g34[id="c1"] {
   content: "c3,";
 }
 
@@ -204,7 +204,7 @@ ui-fss.g26[id="c1"] {
   align-items: flex-start;
 }
 
-ui-fss.g27[id="c16"] {
+ui-fss.g35[id="c16"] {
   content: "c17,";
 }
 
@@ -226,7 +226,7 @@ ui-fss.g27[id="c16"] {
   justify-content: center;
 }
 
-ui-fss.g28[id="c6"] {
+ui-fss.g36[id="c6"] {
   content: "c7,";
 }
 
@@ -244,7 +244,7 @@ ui-fss.g28[id="c6"] {
   margin-top: 0.5rem;
 }
 
-ui-fss.g29[id="c8"] {
+ui-fss.g37[id="c8"] {
   content: "c9,";
 }
 
@@ -262,13 +262,23 @@ ui-fss.g29[id="c8"] {
   align-items: flex-start;
 }
 
-ui-fss.g30[id="c14"] {
+ui-fss.g38[id="c14"] {
   content: "c15,";
 }
 
 <SEDHeader
   buc={
     Object {
+      "addedParams": Object {
+        "subject": Object {
+          "avdod": Object {
+            "fnr": "12345678902",
+          },
+          "gjenlevende": Object {
+            "fnr": "12345678901",
+          },
+        },
+      },
       "aktoerId": "1000070418092",
       "caseId": "195440",
       "creator": Object {
@@ -1359,14 +1369,6 @@ ui-fss.g30[id="c14"] {
       ],
       "startDate": 1571731760978,
       "status": "open",
-      "subject": Object {
-        "avdod": Object {
-          "fnr": "12345678902",
-        },
-        "gjenlevende": Object {
-          "fnr": "12345678901",
-        },
-      },
       "type": "P_BUC_02",
     }
   }
@@ -1463,1601 +1465,1609 @@ ui-fss.g30[id="c14"] {
     }
   }
 >
-  <Component
-    theme={
-      Object {
-        "alternative-background-color": "#E9E7E7",
-        "black": "#000000",
-        "border-radius-base": "4px",
-        "border-radius-large": "6px",
-        "border-radius-small": "2px",
-        "container-desktop": "(940px + @grid-gutter-width)",
-        "container-large-desktop": "(1140px + @grid-gutter-width)",
-        "container-lg": "(1140px + @grid-gutter-width)",
-        "container-md": "(940px + @grid-gutter-width)",
-        "container-sm": "(720px + @grid-gutter-width)",
-        "container-tablet": "(720px + @grid-gutter-width)",
-        "fokusFarge": "#254a6c",
-        "grayBackground": "#E9E7E7",
-        "grayIcon": "#B7B1A9",
-        "grayInactive": "#78706A",
-        "grayModia": "#333333",
-        "grid-columns": "12",
-        "grid-float-breakpoint": "768px",
-        "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-        "grid-gutter-width": "16px",
-        "inverted-font-color": "#FFFFFF",
-        "line-height-large": "1.3333333",
-        "line-height-small": "1.5",
-        "main-active-color": "#a3dff3",
-        "main-background-color": "#FFFFFF",
-        "main-border-color": "#78706A",
-        "main-border-radius": "4px",
-        "main-disabled-color": "#B7B1A9",
-        "main-error-color": "#BA3A26",
-        "main-focus-color": "#254a6c",
-        "main-font-color": "#3E3832",
-        "main-hover-color": "#e0f4fb",
-        "main-interactive-color": "#0067C5",
-        "main-success-color": "#06893A",
-        "main-warning-color": "#FF9100",
-        "navBla": "#0067C5",
-        "navBlaDarken20": "#0c5da7",
-        "navBlaDarken40": "#18548a",
-        "navBlaDarken60": "#254a6c",
-        "navBlaDarken80": "#31414f",
-        "navBlaLighten20": "#3385d0",
-        "navBlaLighten40": "#66a3dc",
-        "navBlaLighten60": "#99c2e7",
-        "navBlaLighten80": "#cce0f3",
-        "navDypBla": "#005B82",
-        "navDypBlaDarken20": "#0c5472",
-        "navDypBlaDarken40": "#184d62",
-        "navDypBlaDarken60": "#254652",
-        "navDypBlaDarken80": "#313f42",
-        "navDypBlaLighten20": "#337b9b",
-        "navDypBlaLighten40": "#669cb4",
-        "navDypBlaLighten60": "#99bdcd",
-        "navDypBlaLighten80": "#ccdee6",
-        "navGra20": "#C6C2BF",
-        "navGra40": "#B7B1A9",
-        "navGra60": "#78706A",
-        "navGra80": "#59514B",
-        "navGronn": "#06893A",
-        "navGronnDarken20": "#117838",
-        "navGronnDarken40": "#1c6836",
-        "navGronnDarken60": "#275835",
-        "navGronnDarken80": "#324833",
-        "navGronnLighten20": "#37a061",
-        "navGronnLighten40": "#69b888",
-        "navGronnLighten60": "#9bcfb0",
-        "navGronnLighten80": "#cde7d7",
-        "navLilla": "#634689",
-        "navLillaDarken20": "#5b4377",
-        "navLillaDarken40": "#544066",
-        "navLillaDarken60": "#4c3d54",
-        "navLillaDarken80": "#453a43",
-        "navLillaLighten20": "#826ba0",
-        "navLillaLighten40": "#a190b8",
-        "navLillaLighten60": "#c0b5cf",
-        "navLillaLighten80": "#dfdae7",
-        "navLimeGronn": "#A2AD00",
-        "navLimeGronnDarken20": "#8e950a",
-        "navLimeGronnDarken40": "#7a7e14",
-        "navLimeGronnDarken60": "#66661e",
-        "navLimeGronnDarken80": "#524f28",
-        "navLimeGronnLighten20": "#b4bd33",
-        "navLimeGronnLighten40": "#c7cd66",
-        "navLimeGronnLighten60": "#d9de99",
-        "navLimeGronnLighten80": "#eceecc",
-        "navLysBla": "#66CBEC",
-        "navLysBlaDarken20": "#5eadc6",
-        "navLysBlaDarken40": "#5690a1",
-        "navLysBlaDarken60": "#4e727c",
-        "navLysBlaDarken80": "#465557",
-        "navLysBlaLighten20": "#84d5ef",
-        "navLysBlaLighten40": "#a3dff3",
-        "navLysBlaLighten60": "#c1eaf7",
-        "navLysBlaLighten80": "#e0f4fb",
-        "navLysGra": "#E9E7E7",
-        "navMorkGra": "#3E3832",
-        "navOransje": "#FF9100",
-        "navOransjeDarken20": "#d87f0a",
-        "navOransjeDarken40": "#b16d14",
-        "navOransjeDarken60": "#8b5b1e",
-        "navOransjeDarken80": "#644928",
-        "navOransjeLighten20": "#ffa733",
-        "navOransjeLighten40": "#ffbd66",
-        "navOransjeLighten60": "#ffd399",
-        "navOransjeLighten80": "#ffe9cc",
-        "navRod": "#C30000",
-        "navRodDarken20": "#a80b0a",
-        "navRodDarken40": "#8d1614",
-        "navRodDarken60": "#73211e",
-        "navRodDarken80": "#582c28",
-        "navRodLighten20": "#cf3333",
-        "navRodLighten40": "#db6666",
-        "navRodLighten60": "#e79999",
-        "navRodLighten80": "#f3cccc",
-        "orangeFocus": "#FFBD66",
-        "orangeFocusDarken20": "#d8a25b",
-        "orangeFocusDarken40": "#b18751",
-        "orangeFocusDarken60": "#8b6d46",
-        "orangeFocusDarken80": "#64523c",
-        "orangeFocusLighten20": "#ffca84",
-        "orangeFocusLighten40": "#ffd7a3",
-        "orangeFocusLighten60": "#ffe4c1",
-        "orangeFocusLighten80": "#fff1e0",
-        "padding-base-horizontal": "12px",
-        "padding-base-vertical": "6px",
-        "padding-large-horizontal": "16px",
-        "padding-large-vertical": "10px",
-        "padding-small-horizontal": "10px",
-        "padding-small-vertical": "5px",
-        "padding-xs-horizontal": "5px",
-        "padding-xs-vertical": "1px",
-        "pinkErrorBg": "#F3E3E3",
-        "redError": "#BA3A26",
-        "redErrorDarken20": "#a13928",
-        "redErrorDarken40": "#88392a",
-        "redErrorDarken60": "#6f382d",
-        "redErrorDarken80": "#56382f",
-        "redErrorLighten20": "#c76151",
-        "redErrorLighten40": "#d5887c",
-        "redErrorLighten60": "#e3b0a8",
-        "redErrorLighten80": "#f1d7d3",
-        "screen-desktop": "992px",
-        "screen-lg": "1200px",
-        "screen-lg-desktop": "1200px",
-        "screen-lg-min": "1200px",
-        "screen-md": "992px",
-        "screen-md-max": "(@screen-lg-min - 1)",
-        "screen-md-min": "992px",
-        "screen-sm": "768px",
-        "screen-sm-max": "(@screen-md-min - 1)",
-        "screen-sm-min": "768px",
-        "screen-tablet": "768px",
-        "screen-xs-max": "(@screen-sm-min - 1)",
-        "type": "theme",
-        "white": "#FFFFFF",
-      }
-    }
+  <Se
+    highContrast={false}
   >
-    <Styled(Styled(Panel))>
-      <Panel
-        border={false}
-        className="c0 c1 c2 c3"
-      >
-        <div
-          className="panel c0 c1 c2 c3"
+    <Component
+      theme={
+        Object {
+          "alternative-background-color": "#E9E7E7",
+          "black": "#000000",
+          "border-radius-base": "4px",
+          "border-radius-large": "6px",
+          "border-radius-small": "2px",
+          "container-desktop": "(940px + @grid-gutter-width)",
+          "container-large-desktop": "(1140px + @grid-gutter-width)",
+          "container-lg": "(1140px + @grid-gutter-width)",
+          "container-md": "(940px + @grid-gutter-width)",
+          "container-sm": "(720px + @grid-gutter-width)",
+          "container-tablet": "(720px + @grid-gutter-width)",
+          "fokusFarge": "#254a6c",
+          "grayBackground": "#E9E7E7",
+          "grayIcon": "#B7B1A9",
+          "grayInactive": "#78706A",
+          "grayModia": "#333333",
+          "grid-columns": "12",
+          "grid-float-breakpoint": "768px",
+          "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+          "grid-gutter-width": "16px",
+          "inverted-font-color": "#FFFFFF",
+          "line-height-large": "1.3333333",
+          "line-height-small": "1.5",
+          "main-active-color": "#a3dff3",
+          "main-background-color": "#FFFFFF",
+          "main-border-color": "#78706A",
+          "main-border-radius": "4px",
+          "main-disabled-color": "#B7B1A9",
+          "main-error-color": "#BA3A26",
+          "main-focus-color": "#254a6c",
+          "main-font-color": "#3E3832",
+          "main-hover-color": "#e0f4fb",
+          "main-interactive-color": "#0067C5",
+          "main-success-color": "#06893A",
+          "main-warning-color": "#FF9100",
+          "navBla": "#0067C5",
+          "navBlaDarken20": "#0c5da7",
+          "navBlaDarken40": "#18548a",
+          "navBlaDarken60": "#254a6c",
+          "navBlaDarken80": "#31414f",
+          "navBlaLighten20": "#3385d0",
+          "navBlaLighten40": "#66a3dc",
+          "navBlaLighten60": "#99c2e7",
+          "navBlaLighten80": "#cce0f3",
+          "navDypBla": "#005B82",
+          "navDypBlaDarken20": "#0c5472",
+          "navDypBlaDarken40": "#184d62",
+          "navDypBlaDarken60": "#254652",
+          "navDypBlaDarken80": "#313f42",
+          "navDypBlaLighten20": "#337b9b",
+          "navDypBlaLighten40": "#669cb4",
+          "navDypBlaLighten60": "#99bdcd",
+          "navDypBlaLighten80": "#ccdee6",
+          "navGra20": "#C6C2BF",
+          "navGra40": "#B7B1A9",
+          "navGra60": "#78706A",
+          "navGra80": "#59514B",
+          "navGronn": "#06893A",
+          "navGronnDarken20": "#117838",
+          "navGronnDarken40": "#1c6836",
+          "navGronnDarken60": "#275835",
+          "navGronnDarken80": "#324833",
+          "navGronnLighten20": "#37a061",
+          "navGronnLighten40": "#69b888",
+          "navGronnLighten60": "#9bcfb0",
+          "navGronnLighten80": "#cde7d7",
+          "navLilla": "#634689",
+          "navLillaDarken20": "#5b4377",
+          "navLillaDarken40": "#544066",
+          "navLillaDarken60": "#4c3d54",
+          "navLillaDarken80": "#453a43",
+          "navLillaLighten20": "#826ba0",
+          "navLillaLighten40": "#a190b8",
+          "navLillaLighten60": "#c0b5cf",
+          "navLillaLighten80": "#dfdae7",
+          "navLimeGronn": "#A2AD00",
+          "navLimeGronnDarken20": "#8e950a",
+          "navLimeGronnDarken40": "#7a7e14",
+          "navLimeGronnDarken60": "#66661e",
+          "navLimeGronnDarken80": "#524f28",
+          "navLimeGronnLighten20": "#b4bd33",
+          "navLimeGronnLighten40": "#c7cd66",
+          "navLimeGronnLighten60": "#d9de99",
+          "navLimeGronnLighten80": "#eceecc",
+          "navLysBla": "#66CBEC",
+          "navLysBlaDarken20": "#5eadc6",
+          "navLysBlaDarken40": "#5690a1",
+          "navLysBlaDarken60": "#4e727c",
+          "navLysBlaDarken80": "#465557",
+          "navLysBlaLighten20": "#84d5ef",
+          "navLysBlaLighten40": "#a3dff3",
+          "navLysBlaLighten60": "#c1eaf7",
+          "navLysBlaLighten80": "#e0f4fb",
+          "navLysGra": "#E9E7E7",
+          "navMorkGra": "#3E3832",
+          "navOransje": "#FF9100",
+          "navOransjeDarken20": "#d87f0a",
+          "navOransjeDarken40": "#b16d14",
+          "navOransjeDarken60": "#8b5b1e",
+          "navOransjeDarken80": "#644928",
+          "navOransjeLighten20": "#ffa733",
+          "navOransjeLighten40": "#ffbd66",
+          "navOransjeLighten60": "#ffd399",
+          "navOransjeLighten80": "#ffe9cc",
+          "navRod": "#C30000",
+          "navRodDarken20": "#a80b0a",
+          "navRodDarken40": "#8d1614",
+          "navRodDarken60": "#73211e",
+          "navRodDarken80": "#582c28",
+          "navRodLighten20": "#cf3333",
+          "navRodLighten40": "#db6666",
+          "navRodLighten60": "#e79999",
+          "navRodLighten80": "#f3cccc",
+          "orangeFocus": "#FFBD66",
+          "orangeFocusDarken20": "#d8a25b",
+          "orangeFocusDarken40": "#b18751",
+          "orangeFocusDarken60": "#8b6d46",
+          "orangeFocusDarken80": "#64523c",
+          "orangeFocusLighten20": "#ffca84",
+          "orangeFocusLighten40": "#ffd7a3",
+          "orangeFocusLighten60": "#ffe4c1",
+          "orangeFocusLighten80": "#fff1e0",
+          "padding-base-horizontal": "12px",
+          "padding-base-vertical": "6px",
+          "padding-large-horizontal": "16px",
+          "padding-large-vertical": "10px",
+          "padding-small-horizontal": "10px",
+          "padding-small-vertical": "5px",
+          "padding-xs-horizontal": "5px",
+          "padding-xs-vertical": "1px",
+          "pinkErrorBg": "#F3E3E3",
+          "redError": "#BA3A26",
+          "redErrorDarken20": "#a13928",
+          "redErrorDarken40": "#88392a",
+          "redErrorDarken60": "#6f382d",
+          "redErrorDarken80": "#56382f",
+          "redErrorLighten20": "#c76151",
+          "redErrorLighten40": "#d5887c",
+          "redErrorLighten60": "#e3b0a8",
+          "redErrorLighten80": "#f1d7d3",
+          "screen-desktop": "992px",
+          "screen-lg": "1200px",
+          "screen-lg-desktop": "1200px",
+          "screen-lg-min": "1200px",
+          "screen-md": "992px",
+          "screen-md-max": "(@screen-lg-min - 1)",
+          "screen-md-min": "992px",
+          "screen-sm": "768px",
+          "screen-sm-max": "(@screen-md-min - 1)",
+          "screen-sm-min": "768px",
+          "screen-tablet": "768px",
+          "screen-xs-max": "(@screen-sm-min - 1)",
+          "type": "theme",
+          "white": "#FFFFFF",
+        }
+      }
+    >
+      <Styled(Styled(l))>
+        <l
+          border={false}
+          className="c0 c1 c2 c3"
         >
-          <styled.div>
-            <div
-              className="c4 c5"
-            >
-              <styled.div>
-                <div
-                  className="c6 c7"
-                >
-                  <Element
-                    data-test-id="a-buc-c-sedheader__name-id"
-                  >
-                    <TypografiBase
-                      data-test-id="a-buc-c-sedheader__name-id"
-                      type="element"
-                    >
-                      <p
-                        className="typo-element"
-                        data-test-id="a-buc-c-sedheader__name-id"
-                      >
-                        P2000
-                         - buc:buc-P2000
-                      </p>
-                    </TypografiBase>
-                  </Element>
-                  <styled.div>
-                    <div
-                      className="c8 c9"
-                    >
-                      <Component
-                        overlay={
-                          <Normaltekst>
-                            ui:firstVersion
-                            29.05.2019
-                          </Normaltekst>
-                        }
-                        placement="top"
-                        trigger={
-                          Array [
-                            "hover",
-                          ]
-                        }
-                      >
-                        <div
-                          data-test-id="mock-tooltip"
-                        >
-                          <SEDStatus
-                            data-test-id="a-buc-c-sedheader__status-id"
-                            highContrast={false}
-                            status="received"
-                          >
-                            <Component
-                              theme={
-                                Object {
-                                  "alternative-background-color": "#E9E7E7",
-                                  "black": "#000000",
-                                  "border-radius-base": "4px",
-                                  "border-radius-large": "6px",
-                                  "border-radius-small": "2px",
-                                  "container-desktop": "(940px + @grid-gutter-width)",
-                                  "container-large-desktop": "(1140px + @grid-gutter-width)",
-                                  "container-lg": "(1140px + @grid-gutter-width)",
-                                  "container-md": "(940px + @grid-gutter-width)",
-                                  "container-sm": "(720px + @grid-gutter-width)",
-                                  "container-tablet": "(720px + @grid-gutter-width)",
-                                  "fokusFarge": "#254a6c",
-                                  "grayBackground": "#E9E7E7",
-                                  "grayIcon": "#B7B1A9",
-                                  "grayInactive": "#78706A",
-                                  "grayModia": "#333333",
-                                  "grid-columns": "12",
-                                  "grid-float-breakpoint": "768px",
-                                  "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                                  "grid-gutter-width": "16px",
-                                  "inverted-font-color": "#FFFFFF",
-                                  "line-height-large": "1.3333333",
-                                  "line-height-small": "1.5",
-                                  "main-active-color": "#a3dff3",
-                                  "main-background-color": "#FFFFFF",
-                                  "main-border-color": "#78706A",
-                                  "main-border-radius": "4px",
-                                  "main-disabled-color": "#B7B1A9",
-                                  "main-error-color": "#BA3A26",
-                                  "main-focus-color": "#254a6c",
-                                  "main-font-color": "#3E3832",
-                                  "main-hover-color": "#e0f4fb",
-                                  "main-interactive-color": "#0067C5",
-                                  "main-success-color": "#06893A",
-                                  "main-warning-color": "#FF9100",
-                                  "navBla": "#0067C5",
-                                  "navBlaDarken20": "#0c5da7",
-                                  "navBlaDarken40": "#18548a",
-                                  "navBlaDarken60": "#254a6c",
-                                  "navBlaDarken80": "#31414f",
-                                  "navBlaLighten20": "#3385d0",
-                                  "navBlaLighten40": "#66a3dc",
-                                  "navBlaLighten60": "#99c2e7",
-                                  "navBlaLighten80": "#cce0f3",
-                                  "navDypBla": "#005B82",
-                                  "navDypBlaDarken20": "#0c5472",
-                                  "navDypBlaDarken40": "#184d62",
-                                  "navDypBlaDarken60": "#254652",
-                                  "navDypBlaDarken80": "#313f42",
-                                  "navDypBlaLighten20": "#337b9b",
-                                  "navDypBlaLighten40": "#669cb4",
-                                  "navDypBlaLighten60": "#99bdcd",
-                                  "navDypBlaLighten80": "#ccdee6",
-                                  "navGra20": "#C6C2BF",
-                                  "navGra40": "#B7B1A9",
-                                  "navGra60": "#78706A",
-                                  "navGra80": "#59514B",
-                                  "navGronn": "#06893A",
-                                  "navGronnDarken20": "#117838",
-                                  "navGronnDarken40": "#1c6836",
-                                  "navGronnDarken60": "#275835",
-                                  "navGronnDarken80": "#324833",
-                                  "navGronnLighten20": "#37a061",
-                                  "navGronnLighten40": "#69b888",
-                                  "navGronnLighten60": "#9bcfb0",
-                                  "navGronnLighten80": "#cde7d7",
-                                  "navLilla": "#634689",
-                                  "navLillaDarken20": "#5b4377",
-                                  "navLillaDarken40": "#544066",
-                                  "navLillaDarken60": "#4c3d54",
-                                  "navLillaDarken80": "#453a43",
-                                  "navLillaLighten20": "#826ba0",
-                                  "navLillaLighten40": "#a190b8",
-                                  "navLillaLighten60": "#c0b5cf",
-                                  "navLillaLighten80": "#dfdae7",
-                                  "navLimeGronn": "#A2AD00",
-                                  "navLimeGronnDarken20": "#8e950a",
-                                  "navLimeGronnDarken40": "#7a7e14",
-                                  "navLimeGronnDarken60": "#66661e",
-                                  "navLimeGronnDarken80": "#524f28",
-                                  "navLimeGronnLighten20": "#b4bd33",
-                                  "navLimeGronnLighten40": "#c7cd66",
-                                  "navLimeGronnLighten60": "#d9de99",
-                                  "navLimeGronnLighten80": "#eceecc",
-                                  "navLysBla": "#66CBEC",
-                                  "navLysBlaDarken20": "#5eadc6",
-                                  "navLysBlaDarken40": "#5690a1",
-                                  "navLysBlaDarken60": "#4e727c",
-                                  "navLysBlaDarken80": "#465557",
-                                  "navLysBlaLighten20": "#84d5ef",
-                                  "navLysBlaLighten40": "#a3dff3",
-                                  "navLysBlaLighten60": "#c1eaf7",
-                                  "navLysBlaLighten80": "#e0f4fb",
-                                  "navLysGra": "#E9E7E7",
-                                  "navMorkGra": "#3E3832",
-                                  "navOransje": "#FF9100",
-                                  "navOransjeDarken20": "#d87f0a",
-                                  "navOransjeDarken40": "#b16d14",
-                                  "navOransjeDarken60": "#8b5b1e",
-                                  "navOransjeDarken80": "#644928",
-                                  "navOransjeLighten20": "#ffa733",
-                                  "navOransjeLighten40": "#ffbd66",
-                                  "navOransjeLighten60": "#ffd399",
-                                  "navOransjeLighten80": "#ffe9cc",
-                                  "navRod": "#C30000",
-                                  "navRodDarken20": "#a80b0a",
-                                  "navRodDarken40": "#8d1614",
-                                  "navRodDarken60": "#73211e",
-                                  "navRodDarken80": "#582c28",
-                                  "navRodLighten20": "#cf3333",
-                                  "navRodLighten40": "#db6666",
-                                  "navRodLighten60": "#e79999",
-                                  "navRodLighten80": "#f3cccc",
-                                  "orangeFocus": "#FFBD66",
-                                  "orangeFocusDarken20": "#d8a25b",
-                                  "orangeFocusDarken40": "#b18751",
-                                  "orangeFocusDarken60": "#8b6d46",
-                                  "orangeFocusDarken80": "#64523c",
-                                  "orangeFocusLighten20": "#ffca84",
-                                  "orangeFocusLighten40": "#ffd7a3",
-                                  "orangeFocusLighten60": "#ffe4c1",
-                                  "orangeFocusLighten80": "#fff1e0",
-                                  "padding-base-horizontal": "12px",
-                                  "padding-base-vertical": "6px",
-                                  "padding-large-horizontal": "16px",
-                                  "padding-large-vertical": "10px",
-                                  "padding-small-horizontal": "10px",
-                                  "padding-small-vertical": "5px",
-                                  "padding-xs-horizontal": "5px",
-                                  "padding-xs-vertical": "1px",
-                                  "pinkErrorBg": "#F3E3E3",
-                                  "redError": "#BA3A26",
-                                  "redErrorDarken20": "#a13928",
-                                  "redErrorDarken40": "#88392a",
-                                  "redErrorDarken60": "#6f382d",
-                                  "redErrorDarken80": "#56382f",
-                                  "redErrorLighten20": "#c76151",
-                                  "redErrorLighten40": "#d5887c",
-                                  "redErrorLighten60": "#e3b0a8",
-                                  "redErrorLighten80": "#f1d7d3",
-                                  "screen-desktop": "992px",
-                                  "screen-lg": "1200px",
-                                  "screen-lg-desktop": "1200px",
-                                  "screen-lg-min": "1200px",
-                                  "screen-md": "992px",
-                                  "screen-md-max": "(@screen-lg-min - 1)",
-                                  "screen-md-min": "992px",
-                                  "screen-sm": "768px",
-                                  "screen-sm-max": "(@screen-md-min - 1)",
-                                  "screen-sm-min": "768px",
-                                  "screen-tablet": "768px",
-                                  "screen-xs-max": "(@screen-sm-min - 1)",
-                                  "type": "theme",
-                                  "white": "#FFFFFF",
-                                }
-                              }
-                            >
-                              <Styled(EtikettBase)
-                                className="received"
-                                type="info"
-                              >
-                                <EtikettBase
-                                  className="c10 c11 received"
-                                  mini={false}
-                                  type="info"
-                                >
-                                  <div
-                                    className="etikett c10 c11 received etikett--info"
-                                  >
-                                    <TypografiBase
-                                      tag="span"
-                                      type="normaltekst"
-                                    >
-                                      <span
-                                        className="typo-normal"
-                                      >
-                                        buc:status-received
-                                      </span>
-                                    </TypografiBase>
-                                  </div>
-                                </EtikettBase>
-                              </Styled(EtikettBase)>
-                            </Component>
-                          </SEDStatus>
-                        </div>
-                      </Component>
-                      <styled.div
-                        date-size="0.5"
-                      >
-                        <div
-                          className="c12 c13"
-                        />
-                      </styled.div>
-                      <styled.div>
-                        <div
-                          className="c14 c15"
-                        >
-                          <Normaltekst
-                            data-test-id="a-buc-c-sedheader__version-date-id"
-                          >
-                            <TypografiBase
-                              data-test-id="a-buc-c-sedheader__version-date-id"
-                              type="normaltekst"
-                            >
-                              <p
-                                className="typo-normal"
-                                data-test-id="a-buc-c-sedheader__version-date-id"
-                              >
-                                29.05.2019
-                              </p>
-                            </TypografiBase>
-                          </Normaltekst>
-                          <Normaltekst
-                            data-test-id="a-buc-c-sedheader__version-id"
-                          >
-                            <TypografiBase
-                              data-test-id="a-buc-c-sedheader__version-id"
-                              type="normaltekst"
-                            >
-                              <p
-                                className="typo-normal"
-                                data-test-id="a-buc-c-sedheader__version-id"
-                              >
-                                ui:version
-                                : 
-                                5
-                              </p>
-                            </TypografiBase>
-                          </Normaltekst>
-                        </div>
-                      </styled.div>
-                    </div>
-                  </styled.div>
-                </div>
-              </styled.div>
-              <styled.div>
-                <div
-                  className="c16 c17"
-                >
-                  <InstitutionList
-                    data-test-id="a-buc-c-sedheader__institutions-id"
-                    institutions={
-                      Array [
-                        Object {
-                          "acronym": "DEMONO02",
-                          "country": "NO",
-                          "institution": "NO:DEMONO02",
-                          "name": "Norwegian institution 02",
-                        },
-                      ]
-                    }
-                    locale="nb"
-                    type="separated"
-                  >
-                    <styled.div
-                      key="NO"
-                    >
-                      <div
-                        className="c18 c19"
-                      >
-                        <styled.div
-                          data-test-id="a-buc-c-institutionlist__div-id"
-                          key="NO:DEMONO02"
-                        >
-                          <div
-                            className="c20 c21"
-                            data-test-id="a-buc-c-institutionlist__div-id"
-                          >
-                            <pd
-                              country="NO"
-                              label="Norge"
-                              size="S"
-                              type="circle"
-                            >
-                              <Dt
-                                theme={
-                                  Object {
-                                    "alternative-background-color": "#E9E7E7",
-                                    "black": "#000000",
-                                    "border-radius-base": "4px",
-                                    "border-radius-large": "6px",
-                                    "border-radius-small": "2px",
-                                    "container-desktop": "(940px + @grid-gutter-width)",
-                                    "container-large-desktop": "(1140px + @grid-gutter-width)",
-                                    "container-lg": "(1140px + @grid-gutter-width)",
-                                    "container-md": "(940px + @grid-gutter-width)",
-                                    "container-sm": "(720px + @grid-gutter-width)",
-                                    "container-tablet": "(720px + @grid-gutter-width)",
-                                    "fokusFarge": "#254a6c",
-                                    "grayBackground": "#E9E7E7",
-                                    "grayIcon": "#B7B1A9",
-                                    "grayInactive": "#78706A",
-                                    "grayModia": "#333333",
-                                    "grid-columns": "12",
-                                    "grid-float-breakpoint": "768px",
-                                    "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                                    "grid-gutter-width": "16px",
-                                    "inverted-font-color": "#FFFFFF",
-                                    "line-height-large": "1.3333333",
-                                    "line-height-small": "1.5",
-                                    "main-active-color": "#a3dff3",
-                                    "main-background-color": "#FFFFFF",
-                                    "main-border-color": "#78706A",
-                                    "main-border-radius": "4px",
-                                    "main-disabled-color": "#B7B1A9",
-                                    "main-error-color": "#BA3A26",
-                                    "main-focus-color": "#254a6c",
-                                    "main-font-color": "#3E3832",
-                                    "main-hover-color": "#e0f4fb",
-                                    "main-interactive-color": "#0067C5",
-                                    "main-success-color": "#06893A",
-                                    "main-warning-color": "#FF9100",
-                                    "navBla": "#0067C5",
-                                    "navBlaDarken20": "#0c5da7",
-                                    "navBlaDarken40": "#18548a",
-                                    "navBlaDarken60": "#254a6c",
-                                    "navBlaDarken80": "#31414f",
-                                    "navBlaLighten20": "#3385d0",
-                                    "navBlaLighten40": "#66a3dc",
-                                    "navBlaLighten60": "#99c2e7",
-                                    "navBlaLighten80": "#cce0f3",
-                                    "navDypBla": "#005B82",
-                                    "navDypBlaDarken20": "#0c5472",
-                                    "navDypBlaDarken40": "#184d62",
-                                    "navDypBlaDarken60": "#254652",
-                                    "navDypBlaDarken80": "#313f42",
-                                    "navDypBlaLighten20": "#337b9b",
-                                    "navDypBlaLighten40": "#669cb4",
-                                    "navDypBlaLighten60": "#99bdcd",
-                                    "navDypBlaLighten80": "#ccdee6",
-                                    "navGra20": "#C6C2BF",
-                                    "navGra40": "#B7B1A9",
-                                    "navGra60": "#78706A",
-                                    "navGra80": "#59514B",
-                                    "navGronn": "#06893A",
-                                    "navGronnDarken20": "#117838",
-                                    "navGronnDarken40": "#1c6836",
-                                    "navGronnDarken60": "#275835",
-                                    "navGronnDarken80": "#324833",
-                                    "navGronnLighten20": "#37a061",
-                                    "navGronnLighten40": "#69b888",
-                                    "navGronnLighten60": "#9bcfb0",
-                                    "navGronnLighten80": "#cde7d7",
-                                    "navLilla": "#634689",
-                                    "navLillaDarken20": "#5b4377",
-                                    "navLillaDarken40": "#544066",
-                                    "navLillaDarken60": "#4c3d54",
-                                    "navLillaDarken80": "#453a43",
-                                    "navLillaLighten20": "#826ba0",
-                                    "navLillaLighten40": "#a190b8",
-                                    "navLillaLighten60": "#c0b5cf",
-                                    "navLillaLighten80": "#dfdae7",
-                                    "navLimeGronn": "#A2AD00",
-                                    "navLimeGronnDarken20": "#8e950a",
-                                    "navLimeGronnDarken40": "#7a7e14",
-                                    "navLimeGronnDarken60": "#66661e",
-                                    "navLimeGronnDarken80": "#524f28",
-                                    "navLimeGronnLighten20": "#b4bd33",
-                                    "navLimeGronnLighten40": "#c7cd66",
-                                    "navLimeGronnLighten60": "#d9de99",
-                                    "navLimeGronnLighten80": "#eceecc",
-                                    "navLysBla": "#66CBEC",
-                                    "navLysBlaDarken20": "#5eadc6",
-                                    "navLysBlaDarken40": "#5690a1",
-                                    "navLysBlaDarken60": "#4e727c",
-                                    "navLysBlaDarken80": "#465557",
-                                    "navLysBlaLighten20": "#84d5ef",
-                                    "navLysBlaLighten40": "#a3dff3",
-                                    "navLysBlaLighten60": "#c1eaf7",
-                                    "navLysBlaLighten80": "#e0f4fb",
-                                    "navLysGra": "#E9E7E7",
-                                    "navMorkGra": "#3E3832",
-                                    "navOransje": "#FF9100",
-                                    "navOransjeDarken20": "#d87f0a",
-                                    "navOransjeDarken40": "#b16d14",
-                                    "navOransjeDarken60": "#8b5b1e",
-                                    "navOransjeDarken80": "#644928",
-                                    "navOransjeLighten20": "#ffa733",
-                                    "navOransjeLighten40": "#ffbd66",
-                                    "navOransjeLighten60": "#ffd399",
-                                    "navOransjeLighten80": "#ffe9cc",
-                                    "navRod": "#C30000",
-                                    "navRodDarken20": "#a80b0a",
-                                    "navRodDarken40": "#8d1614",
-                                    "navRodDarken60": "#73211e",
-                                    "navRodDarken80": "#582c28",
-                                    "navRodLighten20": "#cf3333",
-                                    "navRodLighten40": "#db6666",
-                                    "navRodLighten60": "#e79999",
-                                    "navRodLighten80": "#f3cccc",
-                                    "orangeFocus": "#FFBD66",
-                                    "orangeFocusDarken20": "#d8a25b",
-                                    "orangeFocusDarken40": "#b18751",
-                                    "orangeFocusDarken60": "#8b6d46",
-                                    "orangeFocusDarken80": "#64523c",
-                                    "orangeFocusLighten20": "#ffca84",
-                                    "orangeFocusLighten40": "#ffd7a3",
-                                    "orangeFocusLighten60": "#ffe4c1",
-                                    "orangeFocusLighten80": "#fff1e0",
-                                    "padding-base-horizontal": "12px",
-                                    "padding-base-vertical": "6px",
-                                    "padding-large-horizontal": "16px",
-                                    "padding-large-vertical": "10px",
-                                    "padding-small-horizontal": "10px",
-                                    "padding-small-vertical": "5px",
-                                    "padding-xs-horizontal": "5px",
-                                    "padding-xs-vertical": "1px",
-                                    "pinkErrorBg": "#F3E3E3",
-                                    "redError": "#BA3A26",
-                                    "redErrorDarken20": "#a13928",
-                                    "redErrorDarken40": "#88392a",
-                                    "redErrorDarken60": "#6f382d",
-                                    "redErrorDarken80": "#56382f",
-                                    "redErrorLighten20": "#c76151",
-                                    "redErrorLighten40": "#d5887c",
-                                    "redErrorLighten60": "#e3b0a8",
-                                    "redErrorLighten80": "#f1d7d3",
-                                    "screen-desktop": "992px",
-                                    "screen-lg": "1200px",
-                                    "screen-lg-desktop": "1200px",
-                                    "screen-lg-min": "1200px",
-                                    "screen-md": "992px",
-                                    "screen-md-max": "(@screen-lg-min - 1)",
-                                    "screen-md-min": "992px",
-                                    "screen-sm": "768px",
-                                    "screen-sm-max": "(@screen-md-min - 1)",
-                                    "screen-sm-min": "768px",
-                                    "screen-tablet": "768px",
-                                    "screen-xs-max": "(@screen-sm-min - 1)",
-                                    "type": "theme",
-                                    "white": "#FFFFFF",
-                                  }
-                                }
-                              >
-                                <ForwardRef
-                                  overlay={
-                                    <span>
-                                      Norge
-                                    </span>
-                                  }
-                                  placement="top"
-                                  trigger={
-                                    Array [
-                                      "hover",
-                                    ]
-                                  }
-                                >
-                                  <e
-                                    action={
-                                      Array [
-                                        "hover",
-                                      ]
-                                    }
-                                    afterPopupVisibleChange={[Function]}
-                                    autoDestroy={false}
-                                    blurDelay={0.15}
-                                    builtinPlacements={
-                                      Object {
-                                        "bottom": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tc",
-                                            "bc",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "bottomLeft": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tl",
-                                            "bl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "bottomRight": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tr",
-                                            "br",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "left": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "cr",
-                                            "cl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "leftBottom": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "br",
-                                            "bl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "leftTop": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tr",
-                                            "tl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "right": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "cl",
-                                            "cr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "rightBottom": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bl",
-                                            "br",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "rightTop": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tl",
-                                            "tr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "top": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bc",
-                                            "tc",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "topLeft": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bl",
-                                            "tl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "topRight": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "br",
-                                            "tr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                      }
-                                    }
-                                    defaultPopupVisible={false}
-                                    destroyPopupOnHide={false}
-                                    focusDelay={0}
-                                    getDocument={[Function]}
-                                    getPopupClassNameFromAlign={[Function]}
-                                    hideAction={Array []}
-                                    mask={false}
-                                    maskClosable={true}
-                                    mouseEnterDelay={0}
-                                    mouseLeaveDelay={0.1}
-                                    onPopupAlign={[Function]}
-                                    onPopupVisibleChange={[Function]}
-                                    overlay={
-                                      <span>
-                                        Norge
-                                      </span>
-                                    }
-                                    popup={[Function]}
-                                    popupAlign={Object {}}
-                                    popupClassName=""
-                                    popupPlacement="top"
-                                    popupStyle={Object {}}
-                                    prefixCls="rc-tooltip"
-                                    showAction={Array []}
-                                  >
-                                    <styled.div
-                                      className="size-S type-circle"
-                                      key="trigger"
-                                      onMouseEnter={[Function]}
-                                      onMouseLeave={[Function]}
-                                      style={Object {}}
-                                    >
-                                      <div
-                                        className="NSHWL size-S type-circle"
-                                        onMouseEnter={[Function]}
-                                        onMouseLeave={[Function]}
-                                        style={Object {}}
-                                      >
-                                        <img
-                                          alt="Norge"
-                                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3E %3Crect width='1100' height='800' fill='%23ef2b2d'/%3E %3Crect width='200' height='800' x='300' fill='%23fff'/%3E %3Crect width='1100' height='200' y='300' fill='%23fff'/%3E %3Crect width='100' height='800' x='350' fill='%23002868'/%3E %3Crect width='1100' height='100' y='350' fill='%23002868'/%3E %3C/svg%3E"
-                                          style={Object {}}
-                                        />
-                                      </div>
-                                    </styled.div>
-                                  </e>
-                                </ForwardRef>
-                              </Dt>
-                            </pd>
-                            <Styled(Normaltekst)>
-                              <Normaltekst
-                                className="c22 c23"
-                              >
-                                <TypografiBase
-                                  className="c22 c23"
-                                  type="normaltekst"
-                                >
-                                  <p
-                                    className="typo-normal c22 c23"
-                                  >
-                                    NO:DEMONO02
-                                  </p>
-                                </TypografiBase>
-                              </Normaltekst>
-                            </Styled(Normaltekst)>
-                          </div>
-                        </styled.div>
-                      </div>
-                    </styled.div>
-                  </InstitutionList>
-                </div>
-              </styled.div>
-              <styled.div>
-                <div
-                  className="c16 c17"
-                >
-                  <InstitutionList
-                    data-test-id="a-buc-c-sedheader__institutions-id"
-                    institutions={
-                      Array [
-                        Object {
-                          "acronym": "DEMONO01",
-                          "country": "NO",
-                          "institution": "NO:DEMONO01",
-                          "name": "Norwegian institution 01",
-                        },
-                      ]
-                    }
-                    locale="nb"
-                    type="separated"
-                  >
-                    <styled.div
-                      key="NO"
-                    >
-                      <div
-                        className="c18 c19"
-                      >
-                        <styled.div
-                          data-test-id="a-buc-c-institutionlist__div-id"
-                          key="NO:DEMONO01"
-                        >
-                          <div
-                            className="c20 c21"
-                            data-test-id="a-buc-c-institutionlist__div-id"
-                          >
-                            <pd
-                              country="NO"
-                              label="Norge"
-                              size="S"
-                              type="circle"
-                            >
-                              <Dt
-                                theme={
-                                  Object {
-                                    "alternative-background-color": "#E9E7E7",
-                                    "black": "#000000",
-                                    "border-radius-base": "4px",
-                                    "border-radius-large": "6px",
-                                    "border-radius-small": "2px",
-                                    "container-desktop": "(940px + @grid-gutter-width)",
-                                    "container-large-desktop": "(1140px + @grid-gutter-width)",
-                                    "container-lg": "(1140px + @grid-gutter-width)",
-                                    "container-md": "(940px + @grid-gutter-width)",
-                                    "container-sm": "(720px + @grid-gutter-width)",
-                                    "container-tablet": "(720px + @grid-gutter-width)",
-                                    "fokusFarge": "#254a6c",
-                                    "grayBackground": "#E9E7E7",
-                                    "grayIcon": "#B7B1A9",
-                                    "grayInactive": "#78706A",
-                                    "grayModia": "#333333",
-                                    "grid-columns": "12",
-                                    "grid-float-breakpoint": "768px",
-                                    "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                                    "grid-gutter-width": "16px",
-                                    "inverted-font-color": "#FFFFFF",
-                                    "line-height-large": "1.3333333",
-                                    "line-height-small": "1.5",
-                                    "main-active-color": "#a3dff3",
-                                    "main-background-color": "#FFFFFF",
-                                    "main-border-color": "#78706A",
-                                    "main-border-radius": "4px",
-                                    "main-disabled-color": "#B7B1A9",
-                                    "main-error-color": "#BA3A26",
-                                    "main-focus-color": "#254a6c",
-                                    "main-font-color": "#3E3832",
-                                    "main-hover-color": "#e0f4fb",
-                                    "main-interactive-color": "#0067C5",
-                                    "main-success-color": "#06893A",
-                                    "main-warning-color": "#FF9100",
-                                    "navBla": "#0067C5",
-                                    "navBlaDarken20": "#0c5da7",
-                                    "navBlaDarken40": "#18548a",
-                                    "navBlaDarken60": "#254a6c",
-                                    "navBlaDarken80": "#31414f",
-                                    "navBlaLighten20": "#3385d0",
-                                    "navBlaLighten40": "#66a3dc",
-                                    "navBlaLighten60": "#99c2e7",
-                                    "navBlaLighten80": "#cce0f3",
-                                    "navDypBla": "#005B82",
-                                    "navDypBlaDarken20": "#0c5472",
-                                    "navDypBlaDarken40": "#184d62",
-                                    "navDypBlaDarken60": "#254652",
-                                    "navDypBlaDarken80": "#313f42",
-                                    "navDypBlaLighten20": "#337b9b",
-                                    "navDypBlaLighten40": "#669cb4",
-                                    "navDypBlaLighten60": "#99bdcd",
-                                    "navDypBlaLighten80": "#ccdee6",
-                                    "navGra20": "#C6C2BF",
-                                    "navGra40": "#B7B1A9",
-                                    "navGra60": "#78706A",
-                                    "navGra80": "#59514B",
-                                    "navGronn": "#06893A",
-                                    "navGronnDarken20": "#117838",
-                                    "navGronnDarken40": "#1c6836",
-                                    "navGronnDarken60": "#275835",
-                                    "navGronnDarken80": "#324833",
-                                    "navGronnLighten20": "#37a061",
-                                    "navGronnLighten40": "#69b888",
-                                    "navGronnLighten60": "#9bcfb0",
-                                    "navGronnLighten80": "#cde7d7",
-                                    "navLilla": "#634689",
-                                    "navLillaDarken20": "#5b4377",
-                                    "navLillaDarken40": "#544066",
-                                    "navLillaDarken60": "#4c3d54",
-                                    "navLillaDarken80": "#453a43",
-                                    "navLillaLighten20": "#826ba0",
-                                    "navLillaLighten40": "#a190b8",
-                                    "navLillaLighten60": "#c0b5cf",
-                                    "navLillaLighten80": "#dfdae7",
-                                    "navLimeGronn": "#A2AD00",
-                                    "navLimeGronnDarken20": "#8e950a",
-                                    "navLimeGronnDarken40": "#7a7e14",
-                                    "navLimeGronnDarken60": "#66661e",
-                                    "navLimeGronnDarken80": "#524f28",
-                                    "navLimeGronnLighten20": "#b4bd33",
-                                    "navLimeGronnLighten40": "#c7cd66",
-                                    "navLimeGronnLighten60": "#d9de99",
-                                    "navLimeGronnLighten80": "#eceecc",
-                                    "navLysBla": "#66CBEC",
-                                    "navLysBlaDarken20": "#5eadc6",
-                                    "navLysBlaDarken40": "#5690a1",
-                                    "navLysBlaDarken60": "#4e727c",
-                                    "navLysBlaDarken80": "#465557",
-                                    "navLysBlaLighten20": "#84d5ef",
-                                    "navLysBlaLighten40": "#a3dff3",
-                                    "navLysBlaLighten60": "#c1eaf7",
-                                    "navLysBlaLighten80": "#e0f4fb",
-                                    "navLysGra": "#E9E7E7",
-                                    "navMorkGra": "#3E3832",
-                                    "navOransje": "#FF9100",
-                                    "navOransjeDarken20": "#d87f0a",
-                                    "navOransjeDarken40": "#b16d14",
-                                    "navOransjeDarken60": "#8b5b1e",
-                                    "navOransjeDarken80": "#644928",
-                                    "navOransjeLighten20": "#ffa733",
-                                    "navOransjeLighten40": "#ffbd66",
-                                    "navOransjeLighten60": "#ffd399",
-                                    "navOransjeLighten80": "#ffe9cc",
-                                    "navRod": "#C30000",
-                                    "navRodDarken20": "#a80b0a",
-                                    "navRodDarken40": "#8d1614",
-                                    "navRodDarken60": "#73211e",
-                                    "navRodDarken80": "#582c28",
-                                    "navRodLighten20": "#cf3333",
-                                    "navRodLighten40": "#db6666",
-                                    "navRodLighten60": "#e79999",
-                                    "navRodLighten80": "#f3cccc",
-                                    "orangeFocus": "#FFBD66",
-                                    "orangeFocusDarken20": "#d8a25b",
-                                    "orangeFocusDarken40": "#b18751",
-                                    "orangeFocusDarken60": "#8b6d46",
-                                    "orangeFocusDarken80": "#64523c",
-                                    "orangeFocusLighten20": "#ffca84",
-                                    "orangeFocusLighten40": "#ffd7a3",
-                                    "orangeFocusLighten60": "#ffe4c1",
-                                    "orangeFocusLighten80": "#fff1e0",
-                                    "padding-base-horizontal": "12px",
-                                    "padding-base-vertical": "6px",
-                                    "padding-large-horizontal": "16px",
-                                    "padding-large-vertical": "10px",
-                                    "padding-small-horizontal": "10px",
-                                    "padding-small-vertical": "5px",
-                                    "padding-xs-horizontal": "5px",
-                                    "padding-xs-vertical": "1px",
-                                    "pinkErrorBg": "#F3E3E3",
-                                    "redError": "#BA3A26",
-                                    "redErrorDarken20": "#a13928",
-                                    "redErrorDarken40": "#88392a",
-                                    "redErrorDarken60": "#6f382d",
-                                    "redErrorDarken80": "#56382f",
-                                    "redErrorLighten20": "#c76151",
-                                    "redErrorLighten40": "#d5887c",
-                                    "redErrorLighten60": "#e3b0a8",
-                                    "redErrorLighten80": "#f1d7d3",
-                                    "screen-desktop": "992px",
-                                    "screen-lg": "1200px",
-                                    "screen-lg-desktop": "1200px",
-                                    "screen-lg-min": "1200px",
-                                    "screen-md": "992px",
-                                    "screen-md-max": "(@screen-lg-min - 1)",
-                                    "screen-md-min": "992px",
-                                    "screen-sm": "768px",
-                                    "screen-sm-max": "(@screen-md-min - 1)",
-                                    "screen-sm-min": "768px",
-                                    "screen-tablet": "768px",
-                                    "screen-xs-max": "(@screen-sm-min - 1)",
-                                    "type": "theme",
-                                    "white": "#FFFFFF",
-                                  }
-                                }
-                              >
-                                <ForwardRef
-                                  overlay={
-                                    <span>
-                                      Norge
-                                    </span>
-                                  }
-                                  placement="top"
-                                  trigger={
-                                    Array [
-                                      "hover",
-                                    ]
-                                  }
-                                >
-                                  <e
-                                    action={
-                                      Array [
-                                        "hover",
-                                      ]
-                                    }
-                                    afterPopupVisibleChange={[Function]}
-                                    autoDestroy={false}
-                                    blurDelay={0.15}
-                                    builtinPlacements={
-                                      Object {
-                                        "bottom": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tc",
-                                            "bc",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "bottomLeft": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tl",
-                                            "bl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "bottomRight": Object {
-                                          "offset": Array [
-                                            0,
-                                            4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tr",
-                                            "br",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "left": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "cr",
-                                            "cl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "leftBottom": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "br",
-                                            "bl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "leftTop": Object {
-                                          "offset": Array [
-                                            -4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tr",
-                                            "tl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "right": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "cl",
-                                            "cr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "rightBottom": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bl",
-                                            "br",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "rightTop": Object {
-                                          "offset": Array [
-                                            4,
-                                            0,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "tl",
-                                            "tr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "top": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bc",
-                                            "tc",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "topLeft": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "bl",
-                                            "tl",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                        "topRight": Object {
-                                          "offset": Array [
-                                            0,
-                                            -4,
-                                          ],
-                                          "overflow": Object {
-                                            "adjustX": 1,
-                                            "adjustY": 1,
-                                          },
-                                          "points": Array [
-                                            "br",
-                                            "tr",
-                                          ],
-                                          "targetOffset": Array [
-                                            0,
-                                            0,
-                                          ],
-                                        },
-                                      }
-                                    }
-                                    defaultPopupVisible={false}
-                                    destroyPopupOnHide={false}
-                                    focusDelay={0}
-                                    getDocument={[Function]}
-                                    getPopupClassNameFromAlign={[Function]}
-                                    hideAction={Array []}
-                                    mask={false}
-                                    maskClosable={true}
-                                    mouseEnterDelay={0}
-                                    mouseLeaveDelay={0.1}
-                                    onPopupAlign={[Function]}
-                                    onPopupVisibleChange={[Function]}
-                                    overlay={
-                                      <span>
-                                        Norge
-                                      </span>
-                                    }
-                                    popup={[Function]}
-                                    popupAlign={Object {}}
-                                    popupClassName=""
-                                    popupPlacement="top"
-                                    popupStyle={Object {}}
-                                    prefixCls="rc-tooltip"
-                                    showAction={Array []}
-                                  >
-                                    <styled.div
-                                      className="size-S type-circle"
-                                      key="trigger"
-                                      onMouseEnter={[Function]}
-                                      onMouseLeave={[Function]}
-                                      style={Object {}}
-                                    >
-                                      <div
-                                        className="NSHWL size-S type-circle"
-                                        onMouseEnter={[Function]}
-                                        onMouseLeave={[Function]}
-                                        style={Object {}}
-                                      >
-                                        <img
-                                          alt="Norge"
-                                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3E %3Crect width='1100' height='800' fill='%23ef2b2d'/%3E %3Crect width='200' height='800' x='300' fill='%23fff'/%3E %3Crect width='1100' height='200' y='300' fill='%23fff'/%3E %3Crect width='100' height='800' x='350' fill='%23002868'/%3E %3Crect width='1100' height='100' y='350' fill='%23002868'/%3E %3C/svg%3E"
-                                          style={Object {}}
-                                        />
-                                      </div>
-                                    </styled.div>
-                                  </e>
-                                </ForwardRef>
-                              </Dt>
-                            </pd>
-                            <Styled(Normaltekst)>
-                              <Normaltekst
-                                className="c22 c23"
-                              >
-                                <TypografiBase
-                                  className="c22 c23"
-                                  type="normaltekst"
-                                >
-                                  <p
-                                    className="typo-normal c22 c23"
-                                  >
-                                    NO:DEMONO01
-                                  </p>
-                                </TypografiBase>
-                              </Normaltekst>
-                            </Styled(Normaltekst)>
-                          </div>
-                        </styled.div>
-                      </div>
-                    </styled.div>
-                  </InstitutionList>
-                </div>
-              </styled.div>
-              <styled.div
-                data-test-id="a-buc-c-sedheader__actions-id"
+          <div
+            className="panel c0 c1 c2 c3"
+          >
+            <styled.div>
+              <div
+                className="c4 c5"
               >
-                <div
-                  className="c24 c25"
+                <styled.div>
+                  <div
+                    className="c6 c7"
+                  >
+                    <Element
+                      data-test-id="a-buc-c-sedheader__name-id"
+                    >
+                      <TypografiBase
+                        data-test-id="a-buc-c-sedheader__name-id"
+                        type="element"
+                      >
+                        <p
+                          className="typo-element"
+                          data-test-id="a-buc-c-sedheader__name-id"
+                        >
+                          P2000
+                           - buc:buc-P2000
+                        </p>
+                      </TypografiBase>
+                    </Element>
+                    <styled.div>
+                      <div
+                        className="c8 c9"
+                      >
+                        <Component
+                          overlay={
+                            <Normaltekst>
+                              ui:firstVersion
+                              29.05.2019
+                            </Normaltekst>
+                          }
+                          placement="top"
+                          trigger={
+                            Array [
+                              "hover",
+                            ]
+                          }
+                        >
+                          <div
+                            data-test-id="mock-tooltip"
+                          >
+                            <SEDStatus
+                              data-test-id="a-buc-c-sedheader__status-id"
+                              highContrast={false}
+                              status="received"
+                            >
+                              <Se
+                                highContrast={false}
+                              >
+                                <Component
+                                  theme={
+                                    Object {
+                                      "alternative-background-color": "#E9E7E7",
+                                      "black": "#000000",
+                                      "border-radius-base": "4px",
+                                      "border-radius-large": "6px",
+                                      "border-radius-small": "2px",
+                                      "container-desktop": "(940px + @grid-gutter-width)",
+                                      "container-large-desktop": "(1140px + @grid-gutter-width)",
+                                      "container-lg": "(1140px + @grid-gutter-width)",
+                                      "container-md": "(940px + @grid-gutter-width)",
+                                      "container-sm": "(720px + @grid-gutter-width)",
+                                      "container-tablet": "(720px + @grid-gutter-width)",
+                                      "fokusFarge": "#254a6c",
+                                      "grayBackground": "#E9E7E7",
+                                      "grayIcon": "#B7B1A9",
+                                      "grayInactive": "#78706A",
+                                      "grayModia": "#333333",
+                                      "grid-columns": "12",
+                                      "grid-float-breakpoint": "768px",
+                                      "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+                                      "grid-gutter-width": "16px",
+                                      "inverted-font-color": "#FFFFFF",
+                                      "line-height-large": "1.3333333",
+                                      "line-height-small": "1.5",
+                                      "main-active-color": "#a3dff3",
+                                      "main-background-color": "#FFFFFF",
+                                      "main-border-color": "#78706A",
+                                      "main-border-radius": "4px",
+                                      "main-disabled-color": "#B7B1A9",
+                                      "main-error-color": "#BA3A26",
+                                      "main-focus-color": "#254a6c",
+                                      "main-font-color": "#3E3832",
+                                      "main-hover-color": "#e0f4fb",
+                                      "main-interactive-color": "#0067C5",
+                                      "main-success-color": "#06893A",
+                                      "main-warning-color": "#FF9100",
+                                      "navBla": "#0067C5",
+                                      "navBlaDarken20": "#0c5da7",
+                                      "navBlaDarken40": "#18548a",
+                                      "navBlaDarken60": "#254a6c",
+                                      "navBlaDarken80": "#31414f",
+                                      "navBlaLighten20": "#3385d0",
+                                      "navBlaLighten40": "#66a3dc",
+                                      "navBlaLighten60": "#99c2e7",
+                                      "navBlaLighten80": "#cce0f3",
+                                      "navDypBla": "#005B82",
+                                      "navDypBlaDarken20": "#0c5472",
+                                      "navDypBlaDarken40": "#184d62",
+                                      "navDypBlaDarken60": "#254652",
+                                      "navDypBlaDarken80": "#313f42",
+                                      "navDypBlaLighten20": "#337b9b",
+                                      "navDypBlaLighten40": "#669cb4",
+                                      "navDypBlaLighten60": "#99bdcd",
+                                      "navDypBlaLighten80": "#ccdee6",
+                                      "navGra20": "#C6C2BF",
+                                      "navGra40": "#B7B1A9",
+                                      "navGra60": "#78706A",
+                                      "navGra80": "#59514B",
+                                      "navGronn": "#06893A",
+                                      "navGronnDarken20": "#117838",
+                                      "navGronnDarken40": "#1c6836",
+                                      "navGronnDarken60": "#275835",
+                                      "navGronnDarken80": "#324833",
+                                      "navGronnLighten20": "#37a061",
+                                      "navGronnLighten40": "#69b888",
+                                      "navGronnLighten60": "#9bcfb0",
+                                      "navGronnLighten80": "#cde7d7",
+                                      "navLilla": "#634689",
+                                      "navLillaDarken20": "#5b4377",
+                                      "navLillaDarken40": "#544066",
+                                      "navLillaDarken60": "#4c3d54",
+                                      "navLillaDarken80": "#453a43",
+                                      "navLillaLighten20": "#826ba0",
+                                      "navLillaLighten40": "#a190b8",
+                                      "navLillaLighten60": "#c0b5cf",
+                                      "navLillaLighten80": "#dfdae7",
+                                      "navLimeGronn": "#A2AD00",
+                                      "navLimeGronnDarken20": "#8e950a",
+                                      "navLimeGronnDarken40": "#7a7e14",
+                                      "navLimeGronnDarken60": "#66661e",
+                                      "navLimeGronnDarken80": "#524f28",
+                                      "navLimeGronnLighten20": "#b4bd33",
+                                      "navLimeGronnLighten40": "#c7cd66",
+                                      "navLimeGronnLighten60": "#d9de99",
+                                      "navLimeGronnLighten80": "#eceecc",
+                                      "navLysBla": "#66CBEC",
+                                      "navLysBlaDarken20": "#5eadc6",
+                                      "navLysBlaDarken40": "#5690a1",
+                                      "navLysBlaDarken60": "#4e727c",
+                                      "navLysBlaDarken80": "#465557",
+                                      "navLysBlaLighten20": "#84d5ef",
+                                      "navLysBlaLighten40": "#a3dff3",
+                                      "navLysBlaLighten60": "#c1eaf7",
+                                      "navLysBlaLighten80": "#e0f4fb",
+                                      "navLysGra": "#E9E7E7",
+                                      "navMorkGra": "#3E3832",
+                                      "navOransje": "#FF9100",
+                                      "navOransjeDarken20": "#d87f0a",
+                                      "navOransjeDarken40": "#b16d14",
+                                      "navOransjeDarken60": "#8b5b1e",
+                                      "navOransjeDarken80": "#644928",
+                                      "navOransjeLighten20": "#ffa733",
+                                      "navOransjeLighten40": "#ffbd66",
+                                      "navOransjeLighten60": "#ffd399",
+                                      "navOransjeLighten80": "#ffe9cc",
+                                      "navRod": "#C30000",
+                                      "navRodDarken20": "#a80b0a",
+                                      "navRodDarken40": "#8d1614",
+                                      "navRodDarken60": "#73211e",
+                                      "navRodDarken80": "#582c28",
+                                      "navRodLighten20": "#cf3333",
+                                      "navRodLighten40": "#db6666",
+                                      "navRodLighten60": "#e79999",
+                                      "navRodLighten80": "#f3cccc",
+                                      "orangeFocus": "#FFBD66",
+                                      "orangeFocusDarken20": "#d8a25b",
+                                      "orangeFocusDarken40": "#b18751",
+                                      "orangeFocusDarken60": "#8b6d46",
+                                      "orangeFocusDarken80": "#64523c",
+                                      "orangeFocusLighten20": "#ffca84",
+                                      "orangeFocusLighten40": "#ffd7a3",
+                                      "orangeFocusLighten60": "#ffe4c1",
+                                      "orangeFocusLighten80": "#fff1e0",
+                                      "padding-base-horizontal": "12px",
+                                      "padding-base-vertical": "6px",
+                                      "padding-large-horizontal": "16px",
+                                      "padding-large-vertical": "10px",
+                                      "padding-small-horizontal": "10px",
+                                      "padding-small-vertical": "5px",
+                                      "padding-xs-horizontal": "5px",
+                                      "padding-xs-vertical": "1px",
+                                      "pinkErrorBg": "#F3E3E3",
+                                      "redError": "#BA3A26",
+                                      "redErrorDarken20": "#a13928",
+                                      "redErrorDarken40": "#88392a",
+                                      "redErrorDarken60": "#6f382d",
+                                      "redErrorDarken80": "#56382f",
+                                      "redErrorLighten20": "#c76151",
+                                      "redErrorLighten40": "#d5887c",
+                                      "redErrorLighten60": "#e3b0a8",
+                                      "redErrorLighten80": "#f1d7d3",
+                                      "screen-desktop": "992px",
+                                      "screen-lg": "1200px",
+                                      "screen-lg-desktop": "1200px",
+                                      "screen-lg-min": "1200px",
+                                      "screen-md": "992px",
+                                      "screen-md-max": "(@screen-lg-min - 1)",
+                                      "screen-md-min": "992px",
+                                      "screen-sm": "768px",
+                                      "screen-sm-max": "(@screen-md-min - 1)",
+                                      "screen-sm-min": "768px",
+                                      "screen-tablet": "768px",
+                                      "screen-xs-max": "(@screen-sm-min - 1)",
+                                      "type": "theme",
+                                      "white": "#FFFFFF",
+                                    }
+                                  }
+                                >
+                                  <Styled(EtikettBase)
+                                    className="received"
+                                    type="info"
+                                  >
+                                    <EtikettBase
+                                      className="c10 c11 received"
+                                      mini={false}
+                                      type="info"
+                                    >
+                                      <div
+                                        className="etikett c10 c11 received etikett--info"
+                                      >
+                                        <TypografiBase
+                                          tag="span"
+                                          type="normaltekst"
+                                        >
+                                          <span
+                                            className="typo-normal"
+                                          >
+                                            buc:status-received
+                                          </span>
+                                        </TypografiBase>
+                                      </div>
+                                    </EtikettBase>
+                                  </Styled(EtikettBase)>
+                                </Component>
+                              </Se>
+                            </SEDStatus>
+                          </div>
+                        </Component>
+                        <styled.div
+                          date-size="0.5"
+                        >
+                          <div
+                            className="c12 c13"
+                          />
+                        </styled.div>
+                        <styled.div>
+                          <div
+                            className="c14 c15"
+                          >
+                            <Normaltekst
+                              data-test-id="a-buc-c-sedheader__version-date-id"
+                            >
+                              <TypografiBase
+                                data-test-id="a-buc-c-sedheader__version-date-id"
+                                type="normaltekst"
+                              >
+                                <p
+                                  className="typo-normal"
+                                  data-test-id="a-buc-c-sedheader__version-date-id"
+                                >
+                                  29.05.2019
+                                </p>
+                              </TypografiBase>
+                            </Normaltekst>
+                            <Normaltekst
+                              data-test-id="a-buc-c-sedheader__version-id"
+                            >
+                              <TypografiBase
+                                data-test-id="a-buc-c-sedheader__version-id"
+                                type="normaltekst"
+                              >
+                                <p
+                                  className="typo-normal"
+                                  data-test-id="a-buc-c-sedheader__version-id"
+                                >
+                                  ui:version
+                                  : 
+                                  5
+                                </p>
+                              </TypografiBase>
+                            </Normaltekst>
+                          </div>
+                        </styled.div>
+                      </div>
+                    </styled.div>
+                  </div>
+                </styled.div>
+                <styled.div>
+                  <div
+                    className="c16 c17"
+                  >
+                    <InstitutionList
+                      data-test-id="a-buc-c-sedheader__institutions-id"
+                      institutions={
+                        Array [
+                          Object {
+                            "acronym": "DEMONO02",
+                            "country": "NO",
+                            "institution": "NO:DEMONO02",
+                            "name": "Norwegian institution 02",
+                          },
+                        ]
+                      }
+                      locale="nb"
+                      type="separated"
+                    >
+                      <styled.div
+                        key="NO"
+                      >
+                        <div
+                          className="c18 c19"
+                        >
+                          <styled.div
+                            data-test-id="a-buc-c-institutionlist__div-id"
+                            key="NO:DEMONO02"
+                          >
+                            <div
+                              className="c20 c21"
+                              data-test-id="a-buc-c-institutionlist__div-id"
+                            >
+                              <pd
+                                country="NO"
+                                label="Norge"
+                                size="S"
+                                type="circle"
+                              >
+                                <Dt
+                                  theme={
+                                    Object {
+                                      "alternative-background-color": "#E9E7E7",
+                                      "black": "#000000",
+                                      "border-radius-base": "4px",
+                                      "border-radius-large": "6px",
+                                      "border-radius-small": "2px",
+                                      "container-desktop": "(940px + @grid-gutter-width)",
+                                      "container-large-desktop": "(1140px + @grid-gutter-width)",
+                                      "container-lg": "(1140px + @grid-gutter-width)",
+                                      "container-md": "(940px + @grid-gutter-width)",
+                                      "container-sm": "(720px + @grid-gutter-width)",
+                                      "container-tablet": "(720px + @grid-gutter-width)",
+                                      "fokusFarge": "#254a6c",
+                                      "grayBackground": "#E9E7E7",
+                                      "grayIcon": "#B7B1A9",
+                                      "grayInactive": "#78706A",
+                                      "grayModia": "#333333",
+                                      "grid-columns": "12",
+                                      "grid-float-breakpoint": "768px",
+                                      "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+                                      "grid-gutter-width": "16px",
+                                      "inverted-font-color": "#FFFFFF",
+                                      "line-height-large": "1.3333333",
+                                      "line-height-small": "1.5",
+                                      "main-active-color": "#a3dff3",
+                                      "main-background-color": "#FFFFFF",
+                                      "main-border-color": "#78706A",
+                                      "main-border-radius": "4px",
+                                      "main-disabled-color": "#B7B1A9",
+                                      "main-error-color": "#BA3A26",
+                                      "main-focus-color": "#254a6c",
+                                      "main-font-color": "#3E3832",
+                                      "main-hover-color": "#e0f4fb",
+                                      "main-interactive-color": "#0067C5",
+                                      "main-success-color": "#06893A",
+                                      "main-warning-color": "#FF9100",
+                                      "navBla": "#0067C5",
+                                      "navBlaDarken20": "#0c5da7",
+                                      "navBlaDarken40": "#18548a",
+                                      "navBlaDarken60": "#254a6c",
+                                      "navBlaDarken80": "#31414f",
+                                      "navBlaLighten20": "#3385d0",
+                                      "navBlaLighten40": "#66a3dc",
+                                      "navBlaLighten60": "#99c2e7",
+                                      "navBlaLighten80": "#cce0f3",
+                                      "navDypBla": "#005B82",
+                                      "navDypBlaDarken20": "#0c5472",
+                                      "navDypBlaDarken40": "#184d62",
+                                      "navDypBlaDarken60": "#254652",
+                                      "navDypBlaDarken80": "#313f42",
+                                      "navDypBlaLighten20": "#337b9b",
+                                      "navDypBlaLighten40": "#669cb4",
+                                      "navDypBlaLighten60": "#99bdcd",
+                                      "navDypBlaLighten80": "#ccdee6",
+                                      "navGra20": "#C6C2BF",
+                                      "navGra40": "#B7B1A9",
+                                      "navGra60": "#78706A",
+                                      "navGra80": "#59514B",
+                                      "navGronn": "#06893A",
+                                      "navGronnDarken20": "#117838",
+                                      "navGronnDarken40": "#1c6836",
+                                      "navGronnDarken60": "#275835",
+                                      "navGronnDarken80": "#324833",
+                                      "navGronnLighten20": "#37a061",
+                                      "navGronnLighten40": "#69b888",
+                                      "navGronnLighten60": "#9bcfb0",
+                                      "navGronnLighten80": "#cde7d7",
+                                      "navLilla": "#634689",
+                                      "navLillaDarken20": "#5b4377",
+                                      "navLillaDarken40": "#544066",
+                                      "navLillaDarken60": "#4c3d54",
+                                      "navLillaDarken80": "#453a43",
+                                      "navLillaLighten20": "#826ba0",
+                                      "navLillaLighten40": "#a190b8",
+                                      "navLillaLighten60": "#c0b5cf",
+                                      "navLillaLighten80": "#dfdae7",
+                                      "navLimeGronn": "#A2AD00",
+                                      "navLimeGronnDarken20": "#8e950a",
+                                      "navLimeGronnDarken40": "#7a7e14",
+                                      "navLimeGronnDarken60": "#66661e",
+                                      "navLimeGronnDarken80": "#524f28",
+                                      "navLimeGronnLighten20": "#b4bd33",
+                                      "navLimeGronnLighten40": "#c7cd66",
+                                      "navLimeGronnLighten60": "#d9de99",
+                                      "navLimeGronnLighten80": "#eceecc",
+                                      "navLysBla": "#66CBEC",
+                                      "navLysBlaDarken20": "#5eadc6",
+                                      "navLysBlaDarken40": "#5690a1",
+                                      "navLysBlaDarken60": "#4e727c",
+                                      "navLysBlaDarken80": "#465557",
+                                      "navLysBlaLighten20": "#84d5ef",
+                                      "navLysBlaLighten40": "#a3dff3",
+                                      "navLysBlaLighten60": "#c1eaf7",
+                                      "navLysBlaLighten80": "#e0f4fb",
+                                      "navLysGra": "#E9E7E7",
+                                      "navMorkGra": "#3E3832",
+                                      "navOransje": "#FF9100",
+                                      "navOransjeDarken20": "#d87f0a",
+                                      "navOransjeDarken40": "#b16d14",
+                                      "navOransjeDarken60": "#8b5b1e",
+                                      "navOransjeDarken80": "#644928",
+                                      "navOransjeLighten20": "#ffa733",
+                                      "navOransjeLighten40": "#ffbd66",
+                                      "navOransjeLighten60": "#ffd399",
+                                      "navOransjeLighten80": "#ffe9cc",
+                                      "navRod": "#C30000",
+                                      "navRodDarken20": "#a80b0a",
+                                      "navRodDarken40": "#8d1614",
+                                      "navRodDarken60": "#73211e",
+                                      "navRodDarken80": "#582c28",
+                                      "navRodLighten20": "#cf3333",
+                                      "navRodLighten40": "#db6666",
+                                      "navRodLighten60": "#e79999",
+                                      "navRodLighten80": "#f3cccc",
+                                      "orangeFocus": "#FFBD66",
+                                      "orangeFocusDarken20": "#d8a25b",
+                                      "orangeFocusDarken40": "#b18751",
+                                      "orangeFocusDarken60": "#8b6d46",
+                                      "orangeFocusDarken80": "#64523c",
+                                      "orangeFocusLighten20": "#ffca84",
+                                      "orangeFocusLighten40": "#ffd7a3",
+                                      "orangeFocusLighten60": "#ffe4c1",
+                                      "orangeFocusLighten80": "#fff1e0",
+                                      "padding-base-horizontal": "12px",
+                                      "padding-base-vertical": "6px",
+                                      "padding-large-horizontal": "16px",
+                                      "padding-large-vertical": "10px",
+                                      "padding-small-horizontal": "10px",
+                                      "padding-small-vertical": "5px",
+                                      "padding-xs-horizontal": "5px",
+                                      "padding-xs-vertical": "1px",
+                                      "pinkErrorBg": "#F3E3E3",
+                                      "redError": "#BA3A26",
+                                      "redErrorDarken20": "#a13928",
+                                      "redErrorDarken40": "#88392a",
+                                      "redErrorDarken60": "#6f382d",
+                                      "redErrorDarken80": "#56382f",
+                                      "redErrorLighten20": "#c76151",
+                                      "redErrorLighten40": "#d5887c",
+                                      "redErrorLighten60": "#e3b0a8",
+                                      "redErrorLighten80": "#f1d7d3",
+                                      "screen-desktop": "992px",
+                                      "screen-lg": "1200px",
+                                      "screen-lg-desktop": "1200px",
+                                      "screen-lg-min": "1200px",
+                                      "screen-md": "992px",
+                                      "screen-md-max": "(@screen-lg-min - 1)",
+                                      "screen-md-min": "992px",
+                                      "screen-sm": "768px",
+                                      "screen-sm-max": "(@screen-md-min - 1)",
+                                      "screen-sm-min": "768px",
+                                      "screen-tablet": "768px",
+                                      "screen-xs-max": "(@screen-sm-min - 1)",
+                                      "type": "theme",
+                                      "white": "#FFFFFF",
+                                    }
+                                  }
+                                >
+                                  <ForwardRef
+                                    overlay={
+                                      <span>
+                                        Norge
+                                      </span>
+                                    }
+                                    placement="top"
+                                    trigger={
+                                      Array [
+                                        "hover",
+                                      ]
+                                    }
+                                  >
+                                    <e
+                                      action={
+                                        Array [
+                                          "hover",
+                                        ]
+                                      }
+                                      afterPopupVisibleChange={[Function]}
+                                      autoDestroy={false}
+                                      blurDelay={0.15}
+                                      builtinPlacements={
+                                        Object {
+                                          "bottom": Object {
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tc",
+                                              "bc",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "bottomLeft": Object {
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tl",
+                                              "bl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "bottomRight": Object {
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tr",
+                                              "br",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "left": Object {
+                                            "offset": Array [
+                                              -4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "cr",
+                                              "cl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "leftBottom": Object {
+                                            "offset": Array [
+                                              -4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "br",
+                                              "bl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "leftTop": Object {
+                                            "offset": Array [
+                                              -4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tr",
+                                              "tl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "right": Object {
+                                            "offset": Array [
+                                              4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "cl",
+                                              "cr",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "rightBottom": Object {
+                                            "offset": Array [
+                                              4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "bl",
+                                              "br",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "rightTop": Object {
+                                            "offset": Array [
+                                              4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tl",
+                                              "tr",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "top": Object {
+                                            "offset": Array [
+                                              0,
+                                              -4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "bc",
+                                              "tc",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "topLeft": Object {
+                                            "offset": Array [
+                                              0,
+                                              -4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "bl",
+                                              "tl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "topRight": Object {
+                                            "offset": Array [
+                                              0,
+                                              -4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "br",
+                                              "tr",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                        }
+                                      }
+                                      defaultPopupVisible={false}
+                                      destroyPopupOnHide={false}
+                                      focusDelay={0}
+                                      getDocument={[Function]}
+                                      getPopupClassNameFromAlign={[Function]}
+                                      hideAction={Array []}
+                                      mask={false}
+                                      maskClosable={true}
+                                      mouseEnterDelay={0}
+                                      mouseLeaveDelay={0.1}
+                                      onPopupAlign={[Function]}
+                                      onPopupVisibleChange={[Function]}
+                                      overlay={
+                                        <span>
+                                          Norge
+                                        </span>
+                                      }
+                                      popup={[Function]}
+                                      popupAlign={Object {}}
+                                      popupClassName=""
+                                      popupPlacement="top"
+                                      popupStyle={Object {}}
+                                      prefixCls="rc-tooltip"
+                                      showAction={Array []}
+                                    >
+                                      <styled.div
+                                        className="size-S type-circle"
+                                        key="trigger"
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
+                                        style={Object {}}
+                                      >
+                                        <div
+                                          className="NSHWL size-S type-circle"
+                                          onMouseEnter={[Function]}
+                                          onMouseLeave={[Function]}
+                                          style={Object {}}
+                                        >
+                                          <img
+                                            alt="Norge"
+                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3E %3Crect width='1100' height='800' fill='%23ef2b2d'/%3E %3Crect width='200' height='800' x='300' fill='%23fff'/%3E %3Crect width='1100' height='200' y='300' fill='%23fff'/%3E %3Crect width='100' height='800' x='350' fill='%23002868'/%3E %3Crect width='1100' height='100' y='350' fill='%23002868'/%3E %3C/svg%3E"
+                                            style={Object {}}
+                                          />
+                                        </div>
+                                      </styled.div>
+                                    </e>
+                                  </ForwardRef>
+                                </Dt>
+                              </pd>
+                              <Styled(Normaltekst)>
+                                <Normaltekst
+                                  className="c22 c23"
+                                >
+                                  <TypografiBase
+                                    className="c22 c23"
+                                    type="normaltekst"
+                                  >
+                                    <p
+                                      className="typo-normal c22 c23"
+                                    >
+                                      NO:DEMONO02
+                                    </p>
+                                  </TypografiBase>
+                                </Normaltekst>
+                              </Styled(Normaltekst)>
+                            </div>
+                          </styled.div>
+                        </div>
+                      </styled.div>
+                    </InstitutionList>
+                  </div>
+                </styled.div>
+                <styled.div>
+                  <div
+                    className="c16 c17"
+                  >
+                    <InstitutionList
+                      data-test-id="a-buc-c-sedheader__institutions-id"
+                      institutions={
+                        Array [
+                          Object {
+                            "acronym": "DEMONO01",
+                            "country": "NO",
+                            "institution": "NO:DEMONO01",
+                            "name": "Norwegian institution 01",
+                          },
+                        ]
+                      }
+                      locale="nb"
+                      type="separated"
+                    >
+                      <styled.div
+                        key="NO"
+                      >
+                        <div
+                          className="c18 c19"
+                        >
+                          <styled.div
+                            data-test-id="a-buc-c-institutionlist__div-id"
+                            key="NO:DEMONO01"
+                          >
+                            <div
+                              className="c20 c21"
+                              data-test-id="a-buc-c-institutionlist__div-id"
+                            >
+                              <pd
+                                country="NO"
+                                label="Norge"
+                                size="S"
+                                type="circle"
+                              >
+                                <Dt
+                                  theme={
+                                    Object {
+                                      "alternative-background-color": "#E9E7E7",
+                                      "black": "#000000",
+                                      "border-radius-base": "4px",
+                                      "border-radius-large": "6px",
+                                      "border-radius-small": "2px",
+                                      "container-desktop": "(940px + @grid-gutter-width)",
+                                      "container-large-desktop": "(1140px + @grid-gutter-width)",
+                                      "container-lg": "(1140px + @grid-gutter-width)",
+                                      "container-md": "(940px + @grid-gutter-width)",
+                                      "container-sm": "(720px + @grid-gutter-width)",
+                                      "container-tablet": "(720px + @grid-gutter-width)",
+                                      "fokusFarge": "#254a6c",
+                                      "grayBackground": "#E9E7E7",
+                                      "grayIcon": "#B7B1A9",
+                                      "grayInactive": "#78706A",
+                                      "grayModia": "#333333",
+                                      "grid-columns": "12",
+                                      "grid-float-breakpoint": "768px",
+                                      "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
+                                      "grid-gutter-width": "16px",
+                                      "inverted-font-color": "#FFFFFF",
+                                      "line-height-large": "1.3333333",
+                                      "line-height-small": "1.5",
+                                      "main-active-color": "#a3dff3",
+                                      "main-background-color": "#FFFFFF",
+                                      "main-border-color": "#78706A",
+                                      "main-border-radius": "4px",
+                                      "main-disabled-color": "#B7B1A9",
+                                      "main-error-color": "#BA3A26",
+                                      "main-focus-color": "#254a6c",
+                                      "main-font-color": "#3E3832",
+                                      "main-hover-color": "#e0f4fb",
+                                      "main-interactive-color": "#0067C5",
+                                      "main-success-color": "#06893A",
+                                      "main-warning-color": "#FF9100",
+                                      "navBla": "#0067C5",
+                                      "navBlaDarken20": "#0c5da7",
+                                      "navBlaDarken40": "#18548a",
+                                      "navBlaDarken60": "#254a6c",
+                                      "navBlaDarken80": "#31414f",
+                                      "navBlaLighten20": "#3385d0",
+                                      "navBlaLighten40": "#66a3dc",
+                                      "navBlaLighten60": "#99c2e7",
+                                      "navBlaLighten80": "#cce0f3",
+                                      "navDypBla": "#005B82",
+                                      "navDypBlaDarken20": "#0c5472",
+                                      "navDypBlaDarken40": "#184d62",
+                                      "navDypBlaDarken60": "#254652",
+                                      "navDypBlaDarken80": "#313f42",
+                                      "navDypBlaLighten20": "#337b9b",
+                                      "navDypBlaLighten40": "#669cb4",
+                                      "navDypBlaLighten60": "#99bdcd",
+                                      "navDypBlaLighten80": "#ccdee6",
+                                      "navGra20": "#C6C2BF",
+                                      "navGra40": "#B7B1A9",
+                                      "navGra60": "#78706A",
+                                      "navGra80": "#59514B",
+                                      "navGronn": "#06893A",
+                                      "navGronnDarken20": "#117838",
+                                      "navGronnDarken40": "#1c6836",
+                                      "navGronnDarken60": "#275835",
+                                      "navGronnDarken80": "#324833",
+                                      "navGronnLighten20": "#37a061",
+                                      "navGronnLighten40": "#69b888",
+                                      "navGronnLighten60": "#9bcfb0",
+                                      "navGronnLighten80": "#cde7d7",
+                                      "navLilla": "#634689",
+                                      "navLillaDarken20": "#5b4377",
+                                      "navLillaDarken40": "#544066",
+                                      "navLillaDarken60": "#4c3d54",
+                                      "navLillaDarken80": "#453a43",
+                                      "navLillaLighten20": "#826ba0",
+                                      "navLillaLighten40": "#a190b8",
+                                      "navLillaLighten60": "#c0b5cf",
+                                      "navLillaLighten80": "#dfdae7",
+                                      "navLimeGronn": "#A2AD00",
+                                      "navLimeGronnDarken20": "#8e950a",
+                                      "navLimeGronnDarken40": "#7a7e14",
+                                      "navLimeGronnDarken60": "#66661e",
+                                      "navLimeGronnDarken80": "#524f28",
+                                      "navLimeGronnLighten20": "#b4bd33",
+                                      "navLimeGronnLighten40": "#c7cd66",
+                                      "navLimeGronnLighten60": "#d9de99",
+                                      "navLimeGronnLighten80": "#eceecc",
+                                      "navLysBla": "#66CBEC",
+                                      "navLysBlaDarken20": "#5eadc6",
+                                      "navLysBlaDarken40": "#5690a1",
+                                      "navLysBlaDarken60": "#4e727c",
+                                      "navLysBlaDarken80": "#465557",
+                                      "navLysBlaLighten20": "#84d5ef",
+                                      "navLysBlaLighten40": "#a3dff3",
+                                      "navLysBlaLighten60": "#c1eaf7",
+                                      "navLysBlaLighten80": "#e0f4fb",
+                                      "navLysGra": "#E9E7E7",
+                                      "navMorkGra": "#3E3832",
+                                      "navOransje": "#FF9100",
+                                      "navOransjeDarken20": "#d87f0a",
+                                      "navOransjeDarken40": "#b16d14",
+                                      "navOransjeDarken60": "#8b5b1e",
+                                      "navOransjeDarken80": "#644928",
+                                      "navOransjeLighten20": "#ffa733",
+                                      "navOransjeLighten40": "#ffbd66",
+                                      "navOransjeLighten60": "#ffd399",
+                                      "navOransjeLighten80": "#ffe9cc",
+                                      "navRod": "#C30000",
+                                      "navRodDarken20": "#a80b0a",
+                                      "navRodDarken40": "#8d1614",
+                                      "navRodDarken60": "#73211e",
+                                      "navRodDarken80": "#582c28",
+                                      "navRodLighten20": "#cf3333",
+                                      "navRodLighten40": "#db6666",
+                                      "navRodLighten60": "#e79999",
+                                      "navRodLighten80": "#f3cccc",
+                                      "orangeFocus": "#FFBD66",
+                                      "orangeFocusDarken20": "#d8a25b",
+                                      "orangeFocusDarken40": "#b18751",
+                                      "orangeFocusDarken60": "#8b6d46",
+                                      "orangeFocusDarken80": "#64523c",
+                                      "orangeFocusLighten20": "#ffca84",
+                                      "orangeFocusLighten40": "#ffd7a3",
+                                      "orangeFocusLighten60": "#ffe4c1",
+                                      "orangeFocusLighten80": "#fff1e0",
+                                      "padding-base-horizontal": "12px",
+                                      "padding-base-vertical": "6px",
+                                      "padding-large-horizontal": "16px",
+                                      "padding-large-vertical": "10px",
+                                      "padding-small-horizontal": "10px",
+                                      "padding-small-vertical": "5px",
+                                      "padding-xs-horizontal": "5px",
+                                      "padding-xs-vertical": "1px",
+                                      "pinkErrorBg": "#F3E3E3",
+                                      "redError": "#BA3A26",
+                                      "redErrorDarken20": "#a13928",
+                                      "redErrorDarken40": "#88392a",
+                                      "redErrorDarken60": "#6f382d",
+                                      "redErrorDarken80": "#56382f",
+                                      "redErrorLighten20": "#c76151",
+                                      "redErrorLighten40": "#d5887c",
+                                      "redErrorLighten60": "#e3b0a8",
+                                      "redErrorLighten80": "#f1d7d3",
+                                      "screen-desktop": "992px",
+                                      "screen-lg": "1200px",
+                                      "screen-lg-desktop": "1200px",
+                                      "screen-lg-min": "1200px",
+                                      "screen-md": "992px",
+                                      "screen-md-max": "(@screen-lg-min - 1)",
+                                      "screen-md-min": "992px",
+                                      "screen-sm": "768px",
+                                      "screen-sm-max": "(@screen-md-min - 1)",
+                                      "screen-sm-min": "768px",
+                                      "screen-tablet": "768px",
+                                      "screen-xs-max": "(@screen-sm-min - 1)",
+                                      "type": "theme",
+                                      "white": "#FFFFFF",
+                                    }
+                                  }
+                                >
+                                  <ForwardRef
+                                    overlay={
+                                      <span>
+                                        Norge
+                                      </span>
+                                    }
+                                    placement="top"
+                                    trigger={
+                                      Array [
+                                        "hover",
+                                      ]
+                                    }
+                                  >
+                                    <e
+                                      action={
+                                        Array [
+                                          "hover",
+                                        ]
+                                      }
+                                      afterPopupVisibleChange={[Function]}
+                                      autoDestroy={false}
+                                      blurDelay={0.15}
+                                      builtinPlacements={
+                                        Object {
+                                          "bottom": Object {
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tc",
+                                              "bc",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "bottomLeft": Object {
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tl",
+                                              "bl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "bottomRight": Object {
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tr",
+                                              "br",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "left": Object {
+                                            "offset": Array [
+                                              -4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "cr",
+                                              "cl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "leftBottom": Object {
+                                            "offset": Array [
+                                              -4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "br",
+                                              "bl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "leftTop": Object {
+                                            "offset": Array [
+                                              -4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tr",
+                                              "tl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "right": Object {
+                                            "offset": Array [
+                                              4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "cl",
+                                              "cr",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "rightBottom": Object {
+                                            "offset": Array [
+                                              4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "bl",
+                                              "br",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "rightTop": Object {
+                                            "offset": Array [
+                                              4,
+                                              0,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tl",
+                                              "tr",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "top": Object {
+                                            "offset": Array [
+                                              0,
+                                              -4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "bc",
+                                              "tc",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "topLeft": Object {
+                                            "offset": Array [
+                                              0,
+                                              -4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "bl",
+                                              "tl",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                          "topRight": Object {
+                                            "offset": Array [
+                                              0,
+                                              -4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "br",
+                                              "tr",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          },
+                                        }
+                                      }
+                                      defaultPopupVisible={false}
+                                      destroyPopupOnHide={false}
+                                      focusDelay={0}
+                                      getDocument={[Function]}
+                                      getPopupClassNameFromAlign={[Function]}
+                                      hideAction={Array []}
+                                      mask={false}
+                                      maskClosable={true}
+                                      mouseEnterDelay={0}
+                                      mouseLeaveDelay={0.1}
+                                      onPopupAlign={[Function]}
+                                      onPopupVisibleChange={[Function]}
+                                      overlay={
+                                        <span>
+                                          Norge
+                                        </span>
+                                      }
+                                      popup={[Function]}
+                                      popupAlign={Object {}}
+                                      popupClassName=""
+                                      popupPlacement="top"
+                                      popupStyle={Object {}}
+                                      prefixCls="rc-tooltip"
+                                      showAction={Array []}
+                                    >
+                                      <styled.div
+                                        className="size-S type-circle"
+                                        key="trigger"
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
+                                        style={Object {}}
+                                      >
+                                        <div
+                                          className="NSHWL size-S type-circle"
+                                          onMouseEnter={[Function]}
+                                          onMouseLeave={[Function]}
+                                          style={Object {}}
+                                        >
+                                          <img
+                                            alt="Norge"
+                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3E %3Crect width='1100' height='800' fill='%23ef2b2d'/%3E %3Crect width='200' height='800' x='300' fill='%23fff'/%3E %3Crect width='1100' height='200' y='300' fill='%23fff'/%3E %3Crect width='100' height='800' x='350' fill='%23002868'/%3E %3Crect width='1100' height='100' y='350' fill='%23002868'/%3E %3C/svg%3E"
+                                            style={Object {}}
+                                          />
+                                        </div>
+                                      </styled.div>
+                                    </e>
+                                  </ForwardRef>
+                                </Dt>
+                              </pd>
+                              <Styled(Normaltekst)>
+                                <Normaltekst
+                                  className="c22 c23"
+                                >
+                                  <TypografiBase
+                                    className="c22 c23"
+                                    type="normaltekst"
+                                  >
+                                    <p
+                                      className="typo-normal c22 c23"
+                                    >
+                                      NO:DEMONO01
+                                    </p>
+                                  </TypografiBase>
+                                </Normaltekst>
+                              </Styled(Normaltekst)>
+                            </div>
+                          </styled.div>
+                        </div>
+                      </styled.div>
+                    </InstitutionList>
+                  </div>
+                </styled.div>
+                <styled.div
                   data-test-id="a-buc-c-sedheader__actions-id"
                 >
-                  <Component
-                    overlay={
-                      <span>
-                        buc:form-youHaveXAttachmentsInSed
-                      </span>
-                    }
-                    placement="top"
-                    trigger={
-                      Array [
-                        "hover",
-                      ]
-                    }
+                  <div
+                    className="c24 c25"
+                    data-test-id="a-buc-c-sedheader__actions-id"
                   >
-                    <div
-                      data-test-id="mock-tooltip"
+                    <Component
+                      overlay={
+                        <span>
+                          buc:form-youHaveXAttachmentsInSed
+                        </span>
+                      }
+                      placement="top"
+                      trigger={
+                        Array [
+                          "hover",
+                        ]
+                      }
                     >
-                      <styled.div
-                        data-test-id="a-buc-c-sedheader__actions-attachments"
+                      <div
+                        data-test-id="mock-tooltip"
                       >
-                        <div
-                          className=""
+                        <styled.div
                           data-test-id="a-buc-c-sedheader__actions-attachments"
                         >
-                          <FilledPaperClipIcon>
-                            <svg
-                              contentScriptType="text/ecmascript"
-                              contentStyleType="text/css"
-                              enableBackground="new 0 0 24 24"
-                              height="30px"
-                              id="Filled_Version"
-                              preserveAspectRatio="xMidYMid meet"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="30px"
-                              x="0px"
-                              xmlns="http://www.w3.org/2000/svg"
-                              y="0px"
-                              zoomAndPan="magnify"
-                            >
-                              <g
-                                fill="#3e3832"
+                          <div
+                            className=""
+                            data-test-id="a-buc-c-sedheader__actions-attachments"
+                          >
+                            <FilledPaperClipIcon>
+                              <svg
+                                contentScriptType="text/ecmascript"
+                                contentStyleType="text/css"
+                                enableBackground="new 0 0 24 24"
+                                height="30px"
+                                id="Filled_Version"
+                                preserveAspectRatio="xMidYMid meet"
+                                version="1.1"
+                                viewBox="0 0 24 24"
+                                width="30px"
+                                x="0px"
+                                xmlns="http://www.w3.org/2000/svg"
+                                y="0px"
+                                zoomAndPan="magnify"
                               >
                                 <g
                                   fill="#3e3832"
                                 >
-                                  <path
-                                    d="M11,24c-2.896,0-5-2.313-5-5.5V7c0-3.99,2.795-7,6.5-7C16.206,0,19,3.01,19,7v8.498c0,0.552-0.447,1-1,1    c-0.552,0-1-0.448-1-1V7c0-2.897-1.893-5-4.5-5S8,4.103,8,7v11.5c0,1.743,0.928,3.5,3,3.5s3-1.757,3-3.5V9.498    c0-0.602-0.146-2-1.5-2c-1.354,0-1.5,1.398-1.5,2v7.5c0,0.552-0.447,1-1,1c-0.552,0-1-0.448-1-1v-7.5c0-2.393,1.407-4,3.5-4    c2.094,0,3.5,1.607,3.5,4V18.5C16,21.688,13.897,24,11,24z"
+                                  <g
                                     fill="#3e3832"
-                                  />
+                                  >
+                                    <path
+                                      d="M11,24c-2.896,0-5-2.313-5-5.5V7c0-3.99,2.795-7,6.5-7C16.206,0,19,3.01,19,7v8.498c0,0.552-0.447,1-1,1    c-0.552,0-1-0.448-1-1V7c0-2.897-1.893-5-4.5-5S8,4.103,8,7v11.5c0,1.743,0.928,3.5,3,3.5s3-1.757,3-3.5V9.498    c0-0.602-0.146-2-1.5-2c-1.354,0-1.5,1.398-1.5,2v7.5c0,0.552-0.447,1-1,1c-0.552,0-1-0.448-1-1v-7.5c0-2.393,1.407-4,3.5-4    c2.094,0,3.5,1.607,3.5,4V18.5C16,21.688,13.897,24,11,24z"
+                                      fill="#3e3832"
+                                    />
+                                  </g>
                                 </g>
-                              </g>
-                            </svg>
-                          </FilledPaperClipIcon>
-                        </div>
-                      </styled.div>
-                    </div>
-                  </Component>
-                  <Styled(Flatknapp)
-                    data-amplitude="buc.edit.besvarSed"
-                    data-test-id="a-buc-c-sedheader__answer-button-id"
-                    disabled={false}
-                    mini={true}
-                    onClick={[Function]}
-                  >
-                    <Flatknapp
-                      className="c26 c27"
+                              </svg>
+                            </FilledPaperClipIcon>
+                          </div>
+                        </styled.div>
+                      </div>
+                    </Component>
+                    <Styled(o)
                       data-amplitude="buc.edit.besvarSed"
                       data-test-id="a-buc-c-sedheader__answer-button-id"
                       disabled={false}
                       mini={true}
                       onClick={[Function]}
                     >
-                      <KnappBase
-                        autoDisableVedSpinner={false}
+                      <o
                         className="c26 c27"
                         data-amplitude="buc.edit.besvarSed"
                         data-test-id="a-buc-c-sedheader__answer-button-id"
                         disabled={false}
-                        htmlType="submit"
-                        inaktivKlasseVedDisabled={false}
-                        kompakt={false}
                         mini={true}
                         onClick={[Function]}
-                        spinner={false}
-                        type="flat"
                       >
-                        <button
-                          className="knapp c26 c27 knapp--flat knapp--mini"
+                        <d
+                          autoDisableVedSpinner={false}
+                          className="c26 c27"
                           data-amplitude="buc.edit.besvarSed"
                           data-test-id="a-buc-c-sedheader__answer-button-id"
                           disabled={false}
+                          htmlType="submit"
+                          inaktivKlasseVedDisabled={false}
+                          kompakt={false}
+                          mini={true}
                           onClick={[Function]}
-                          type="submit"
+                          spinner={false}
+                          type="flat"
                         >
-                          buc:form-answerSED
-                        </button>
-                      </KnappBase>
-                    </Flatknapp>
-                  </Styled(Flatknapp)>
-                </div>
-              </styled.div>
-            </div>
-          </styled.div>
-        </div>
-      </Panel>
-    </Styled(Styled(Panel))>
-  </Component>
+                          <button
+                            className="knapp c26 c27 knapp--flat knapp--mini"
+                            data-amplitude="buc.edit.besvarSed"
+                            data-test-id="a-buc-c-sedheader__answer-button-id"
+                            disabled={false}
+                            onClick={[Function]}
+                            type="submit"
+                          >
+                            buc:form-answerSED
+                          </button>
+                        </d>
+                      </o>
+                    </Styled(o)>
+                  </div>
+                </styled.div>
+              </div>
+            </styled.div>
+          </div>
+        </l>
+      </Styled(Styled(l))>
+    </Component>
+  </Se>
 </SEDHeader>
 `;

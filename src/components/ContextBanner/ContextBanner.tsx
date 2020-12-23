@@ -1,7 +1,7 @@
 import { BUCMode } from 'applications/BUC'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import ExternalLink from 'assets/icons/line-version-logout'
-import { HighContrastLink, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import NavHighContrast, { HighContrastLink, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { PesysContext } from 'declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
@@ -15,7 +15,7 @@ import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export const DivWithLinks = styled.div`
   padding: 0.5rem 2rem;
@@ -89,7 +89,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   }, [_mounted, pesysContext, sakType])
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <Content>
         <Context>
           <BUCWebSocket
@@ -140,7 +140,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           </HighContrastLink>
         </DivWithLinks>
       </Content>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

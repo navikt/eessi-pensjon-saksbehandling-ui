@@ -1,6 +1,6 @@
 import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
 import classNames from 'classnames'
-import { fadeIn } from 'components/keyframes'
+import { fadeIn } from 'nav-hoykontrast'
 import { AlertError, AlertStatus } from 'declarations/components'
 import { AlertErrorPropType } from 'declarations/components.pt'
 import _ from 'lodash'

@@ -42,7 +42,7 @@ exports[`components/Alert/Alert Render: match snapshot 1`] = `
   max-width: none !important;
 }
 
-ui-fss.g1[id="c0"] {
+ui-fss.g27[id="c0"] {
   content: "c1,";
 }
 
@@ -53,7 +53,7 @@ ui-fss.g1[id="c0"] {
   cursor: pointer;
 }
 
-ui-fss.g2[id="c2"] {
+ui-fss.g28[id="c2"] {
   content: "c3,";
 }
 

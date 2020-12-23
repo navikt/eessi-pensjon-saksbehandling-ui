@@ -1,11 +1,12 @@
 import classNames from 'classnames'
 import { Labels } from 'declarations/app.d'
 import EtikettBase from 'nav-frontend-etiketter'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
+import NavHighContrast from 'nav-hoykontrast'
 
 export interface SEDStatusProps {
   className ?: string
@@ -55,11 +56,11 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
   const tagType: StatusType =
     Object.prototype.hasOwnProperty.call(statusList, status) ? (statusList[status] as StatusType)! : (statusList.unknown as StatusType)!
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <Etikett className={classNames(status, className)} type={tagType}>
         {t('buc:status-' + status)}
       </Etikett>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

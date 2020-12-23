@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['components/WaitingPanel/WaitingPanel Render: match snapshot 1'] = `
+exports[`components/WaitingPanel/WaitingPanel Render: match snapshot 1`] = `
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -26,7 +26,7 @@ exports['components/WaitingPanel/WaitingPanel Render: match snapshot 1'] = `
   vertical-align: top;
 }
 
-ui-fss.g19[id="c0"] {
+ui-fss.g27[id="c0"] {
   content: "c1,";
 }
 
@@ -90,4 +90,4 @@ ui-fss.g19[id="c0"] {
     </div>
   </styled.div>
 </WaitingPanel>
-`
+`;

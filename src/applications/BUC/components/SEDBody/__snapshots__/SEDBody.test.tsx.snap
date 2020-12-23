@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/SEDBody/SEDBody Render: match snapshot 1`] = `
+.c4 {
+  background-color: inherit;
+}
+
+ui-fss.g13[id="c3"] {
+  content: "c4,";
+}
+
 .c1 {
   margin-bottom: 1rem;
 }
@@ -9,16 +17,8 @@ exports[`applications/BUC/components/SEDBody/SEDBody Render: match snapshot 1`] 
   margin-bottom: 2rem;
 }
 
-ui-fss.g4[id="c0"] {
+ui-fss.g26[id="c0"] {
   content: "c1,c2,";
-}
-
-.c4 {
-  background-color: inherit;
-}
-
-ui-fss.g7[id="c3"] {
-  content: "c4,";
 }
 
 <SEDBody
@@ -1531,34 +1531,40 @@ ui-fss.g7[id="c3"] {
           className="c0 c1"
         />
       </styled.div>
-      <Styled(KnappBase)
+      <Styled(o)
         data-test-id="a-buc-c-sedbody__show-table-button-id"
         onClick={[Function]}
       >
-        <KnappBase
-          autoDisableVedSpinner={false}
+        <o
           className="c3 c4"
           data-test-id="a-buc-c-sedbody__show-table-button-id"
-          disabled={false}
-          htmlType="submit"
-          inaktivKlasseVedDisabled={false}
-          kompakt={false}
-          mini={false}
           onClick={[Function]}
-          spinner={false}
-          type="standard"
         >
-          <button
-            className="knapp c3 c4 knapp--standard"
+          <d
+            autoDisableVedSpinner={false}
+            className="c3 c4"
             data-test-id="a-buc-c-sedbody__show-table-button-id"
             disabled={false}
+            htmlType="submit"
+            inaktivKlasseVedDisabled={false}
+            kompakt={false}
+            mini={false}
             onClick={[Function]}
-            type="submit"
+            spinner={false}
+            type="standard"
           >
-            ui:showAttachments
-          </button>
-        </KnappBase>
-      </Styled(KnappBase)>
+            <button
+              className="knapp c3 c4 knapp--standard"
+              data-test-id="a-buc-c-sedbody__show-table-button-id"
+              disabled={false}
+              onClick={[Function]}
+              type="submit"
+            >
+              ui:showAttachments
+            </button>
+          </d>
+        </o>
+      </Styled(o)>
       <styled.div>
         <div
           className="c0 c1"

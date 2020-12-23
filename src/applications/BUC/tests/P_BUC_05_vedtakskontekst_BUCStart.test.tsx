@@ -60,7 +60,6 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     OG kan bestille SED P8000 i EP for denne BUC-en
    */
   it('EP-943 Scenario 1: Opprette P_BUC_05 - vedtakskontekst', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -79,7 +78,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -120,7 +119,6 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     Slik at P8000 kan preutfylles med riktig informasjon
    */
   it('EP-943 Scenario 2: Opprette P_BUC_05 - vedtakskontekst - etterlatteytelser (én avdøde)', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -139,7 +137,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -159,14 +157,14 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
-      avdod:  {
+      avdod: {
         aktoerId: '2865434801175',
         etternavn: 'BLYANT',
         fnr: '12345678902',
         fornavn: 'FRODIG',
         fulltNavn: 'BLYANT FRODIG',
         mellomnavn: null,
-        relasjon: 'REPA',
+        relasjon: 'REPA'
       },
       buc: 'P_BUC_05',
       person: undefined
@@ -190,7 +188,6 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     Slik at P8000 kan preutfylles med riktig informasjon
   */
   it('EP-943 Scenario 3: Opprette P_BUC_05 - vedtakskontekst - barnep (to avdøde)', () => {
-
     (initialMockProps.onBucChanged as jest.Mock).mockReset();
     (createBuc as jest.Mock).mockReset()
 
@@ -209,7 +206,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
-    let select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -233,5 +230,4 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     // create buc is not called
     expect(createBuc).not.toHaveBeenCalled()
   })
-
 })

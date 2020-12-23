@@ -1,7 +1,7 @@
 import { BUCHeaderDiv, IconsDiv } from 'applications/BUC/components/BUCHeader/BUCHeader'
 import LoadingImage from 'components/Loading/LoadingImage'
 import LoadingText from 'components/Loading/LoadingText'
-import { HighContrastPanel, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastPanel, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import React from 'react'
 import styled from 'styled-components'
 

@@ -1,8 +1,8 @@
 import { Element } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
+import NavHighContrast from 'nav-hoykontrast'
 
 export const ActionsDiv = styled.div`
   flex: 2;
@@ -36,7 +36,7 @@ const SEDPanelHeader: React.FC<SEDPanelHeaderProps> = ({
   const { t } = useTranslation()
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <SEDPanelHeaderDiv>
         <SedDiv>
           <Element>{t('buc:form-sed')}</Element>
@@ -51,7 +51,7 @@ const SEDPanelHeader: React.FC<SEDPanelHeaderProps> = ({
           <Element>{t('buc:form-actions')}</Element>
         </ActionsDiv>
       </SEDPanelHeaderDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

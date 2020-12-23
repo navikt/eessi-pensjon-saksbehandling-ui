@@ -14,7 +14,7 @@ import {
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
-import {
+import NavHighContrast, {
   Column,
   HighContrastFeiloppsummering,
   HighContrastFlatknapp,
@@ -22,7 +22,7 @@ import {
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
-} from 'components/StyledComponents'
+} from 'nav-hoykontrast'
 import * as constants from 'constants/constants'
 import {
   AllowedLocaleString,
@@ -53,13 +53,11 @@ import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select'
-import { ThemeProvider } from 'styled-components'
 
 export interface BUCStartProps {
   aktoerId: string
@@ -143,8 +141,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   // show avdod select for P_BUC_02, P_BUC_05, P_BUC_10 and when there are avdods
   const bucNeedsAvdod = (): boolean => bucsThatSupportAvdod(_buc) && avdodExists() &&
-    (_buc === 'P_BUC_10' ? pesysContext === constants.VEDTAKSKONTEKST &&
-      (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) : true)
+    (_buc === 'P_BUC_10'
+      ? pesysContext === constants.VEDTAKSKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+      : true
+    )
 
   // show krav dato for P_BUC_10 criteria
   const bucNeedsKravDato = (buc: string | null | undefined): boolean => {
@@ -317,7 +317,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
             label: getOptionLabel(label),
             value: value
           }
-        }).sort(sort) : []
+        }).sort(sort)
+      : []
   }
 
   const getOptionLabel = (value: string): string => {
@@ -421,7 +422,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [_isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <div data-test-id='a-buc-c-bucstart'>
         <Row>
           <Column>
@@ -589,7 +590,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </>
         )}
       </div>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

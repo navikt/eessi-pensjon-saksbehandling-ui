@@ -1,4 +1,4 @@
-import { rotating } from 'components/keyframes'
+import { rotating } from 'nav-hoykontrast'
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'

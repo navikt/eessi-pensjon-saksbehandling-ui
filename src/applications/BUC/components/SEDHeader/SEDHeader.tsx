@@ -2,8 +2,8 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
-import { slideInFromLeft } from 'components/keyframes'
-import { HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import NavHighContrast, { slideInFromLeft, HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+
 import { AllowedLocaleString } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
@@ -12,13 +12,12 @@ import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -42,7 +41,7 @@ export const SEDHeaderPanel = styled(HighContrastPanel)`
   padding: 0rem;
   transform: translateX(-20px);
   opacity: 0;
-  animation: ${slideInFromLeft} 0.2s forwards;
+  animation: ${slideInFromLeft(20)} 0.2s forwards;
   border: none;
 `
 const SEDListInstitutionsDiv = styled.div`
@@ -131,7 +130,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <SEDHeaderPanel
         style={style}
         className={className}
@@ -224,7 +223,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </SEDListActionsDiv>
         </SEDHeaderContent>
       </SEDHeaderPanel>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

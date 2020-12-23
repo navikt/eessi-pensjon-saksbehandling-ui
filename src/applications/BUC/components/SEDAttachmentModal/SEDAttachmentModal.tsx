@@ -6,12 +6,11 @@ import { AlertStatus } from 'declarations/components'
 import { JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemsFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
-import { theme, themeHighContrast } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { ThemeProvider } from 'styled-components'
+import NavHighContrast from 'nav-hoykontrast'
 
 export interface SEDAttachmentModalProps {
   highContrast: boolean
@@ -58,7 +57,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   }
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <Modal
         highContrast={highContrast}
         icon={<Document />}
@@ -94,7 +93,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
         }}
         onModalClose={onModalClose}
       />
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 

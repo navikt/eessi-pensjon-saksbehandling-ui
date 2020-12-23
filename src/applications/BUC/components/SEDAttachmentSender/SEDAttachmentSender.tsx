@@ -1,4 +1,4 @@
-import { HighContrastKnapp, HorizontalSeparatorDiv } from 'components/StyledComponents'
+import { HighContrastKnapp, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import { IS_TEST } from 'constants/environment'
 import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFile } from 'declarations/buc'
 import { SEDAttachmentPayloadPropType } from 'declarations/buc.pt'

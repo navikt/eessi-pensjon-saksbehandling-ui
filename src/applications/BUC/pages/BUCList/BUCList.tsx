@@ -13,9 +13,9 @@ import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/
 import { BUCMode } from 'applications/BUC/index'
 import MagnifyingGlass from 'assets/icons/MagnifyingGlass'
 import classNames from 'classnames'
-import { animationClose, animationOpen, slideInFromLeft } from 'components/keyframes'
-import {
-  HighContrastExpandingPanel,
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import NavHighContrast, {
+  animationClose, animationOpen, slideInFromLeft,
   HighContrastHovedknapp,
   HighContrastInput,
   HighContrastKnapp,
@@ -23,7 +23,8 @@ import {
   HighContrastPanel,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
-} from 'components/StyledComponents'
+} from 'nav-hoykontrast'
+
 import { BRUKERKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
 import { AllowedLocaleString, Loading, PesysContext } from 'declarations/app.d'
@@ -45,12 +46,12 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
+import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 export const BUCListDiv = styled.div``
 const BUCListHeader = styled.div`
@@ -103,12 +104,12 @@ export const BUCStartDiv = styled.div`
   &.close {
     will-change: max-height, height;
     max-height: 0;
-    animation: ${animationClose} 400ms ease;
+    animation: ${animationClose(150)} 400ms ease;
   }
   &.open {
     will-change: max-height, height;
     max-height: 50em;
-    animation: ${animationOpen} 400ms ease;
+    animation: ${animationOpen(150)} 400ms ease;
   }
 `
 export const BUCLoadingDiv = styled.div``
@@ -291,7 +292,7 @@ const BUCList: React.FC<BUCListProps> = ({
   }, [institutionList, bucs, dispatch, _mounted])
 
   return (
-    <ThemeProvider theme={highContrast ? themeHighContrast : theme}>
+    <NavHighContrast highContrast={highContrast}>
       <BUCListDiv
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -372,7 +373,7 @@ const BUCList: React.FC<BUCListProps> = ({
                   key={index}
                   className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
                   style={{ animationDelay: (0.2 * index) + 's' }}
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.preventDefault()
                     e.stopPropagation()
                     onBUCEdit(buc)
@@ -392,7 +393,7 @@ const BUCList: React.FC<BUCListProps> = ({
               <VerticalSeparatorDiv data-size='2' />
               <BadBucDiv>
                 <>
-                  <HighContrastExpandingPanel
+                  <ExpandingPanel
                     highContrast={highContrast}
                     collapseProps={{ id: 'a-buc-c-buclist__no-buc-id' }}
                     className={classNames({ highContrast: highContrast })}
@@ -436,7 +437,7 @@ const BUCList: React.FC<BUCListProps> = ({
                         </HighContrastHovedknapp>
                       </FlexDiv>
                     </>
-                  </HighContrastExpandingPanel>
+                  </ExpandingPanel>
                   <VerticalSeparatorDiv data-size='2' />
                 </>
               </BadBucDiv>
@@ -445,7 +446,7 @@ const BUCList: React.FC<BUCListProps> = ({
         )}
         <BUCFooter />
       </BUCListDiv>
-    </ThemeProvider>
+    </NavHighContrast>
   )
 }
 
