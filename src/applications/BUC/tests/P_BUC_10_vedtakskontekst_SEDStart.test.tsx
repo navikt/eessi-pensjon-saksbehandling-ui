@@ -167,10 +167,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
     wrapper.update()
-    expect(initialMockProps.onSedChanged).toHaveBeenCalledWith({
-      label: 'P15000 - buc:buc-P15000',
-      value: 'P15000'
-    })
+    expect(initialMockProps.onSedChanged).toHaveBeenCalledWith('P15000')
     // does not show avdodFnr
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
@@ -232,10 +229,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
     wrapper.update()
-    expect(initialMockProps.onSedChanged).toHaveBeenCalledWith({
-      label: 'P15000 - buc:buc-P15000',
-      value: 'P15000'
-    })
+    expect(initialMockProps.onSedChanged).toHaveBeenCalledWith('P15000')
     // does show avdodFnr as read-only
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeTruthy()
@@ -298,10 +292,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
     wrapper.update()
-    expect(initialMockProps.onSedChanged).toHaveBeenCalledWith({
-      label: 'P15000 - buc:buc-P15000',
-      value: 'P15000'
-    })
+    expect(initialMockProps.onSedChanged).toHaveBeenCalledWith('P15000')
     // does show avdodFnr as read-only
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeTruthy()

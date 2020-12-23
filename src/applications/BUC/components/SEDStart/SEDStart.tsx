@@ -126,7 +126,7 @@ export interface SEDStartProps {
   initialAttachments ?: JoarkBrowserItems
   initialSed ?: string | undefined
   initialSendingAttachments ?: boolean
-  onSedChanged?: (option: ValueType<Option, false> | null | undefined) => void
+  onSedChanged?: (newSed: string | null | undefined) => void
   onSedCreated: () => void
   onSedCancelled: () => void
   replySed: Sed | undefined
@@ -565,28 +565,33 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }
 
+  const handleSedChange = useCallback((newSed: string) => {
+    setSed(newSed)
+    // reset all validations, to clear validations of extra options that may be hidden now
+    setValidation({
+      sed: validateSed(newSed)
+    })
+    if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
+      const countries: CountryRawList = getParticipantCountriesWithoutNorway()
+      fetchInstitutionsForSelectedCountries(countries)
+      setInstitutions(getParticipantInstitutionsWithoutNorway())
+    }
+    if (sedNeedsKravOm.indexOf(newSed) >= 0) {
+      setDefaultKravOm()
+    }
+    if (sedNeedsKravdato.indexOf(newSed) >= 0) {
+      setDefaultKravDato()
+    }
+    if (onSedChanged) {
+      onSedChanged(newSed)
+    }
+  }, [])
+
   const onSedChange = (option: ValueType<Option, false> | null | undefined): void => {
     if (option) {
       const newSed: string | undefined = option.value
-
-      setSed(newSed)
-      // reset all validations, to clear validations of extra options that may be hidden now
-      setValidation({
-        sed: validateSed(newSed)
-      })
-      if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
-        const countries: CountryRawList = getParticipantCountriesWithoutNorway()
-        fetchInstitutionsForSelectedCountries(countries)
-        setInstitutions(getParticipantInstitutionsWithoutNorway())
-      }
-      if (sedNeedsKravOm.indexOf(newSed) >= 0) {
-        setDefaultKravOm()
-      }
-      if (sedNeedsKravdato.indexOf(newSed) >= 0) {
-        setDefaultKravDato()
-      }
-      if (onSedChanged) {
-        onSedChanged(option)
+      if (newSed) {
+        handleSedChange(newSed)
       }
     }
   }
@@ -656,7 +661,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const resetSedForm = useCallback((): void => {
-    setSed(undefined)
     dispatch(resetSed())
     setSed(undefined)
     setInstitutions([])
@@ -770,7 +774,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!_mounted) {
       dispatch(!replySed ? getSedList(_buc as ValidBuc) : setSedList([replySed.type]))
       if (replySed) {
-        setSed(replySed.type)
+        handleSedChange(replySed.type)
       }
       if (_buc && _buc.type !== null && !_.isEmpty(_countries)) {
         _countries.forEach(country => {
@@ -786,7 +790,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   useEffect(() => {
     dispatch(!replySed ? getSedList(_buc as ValidBuc) : setSedList([replySed.type]))
     if (replySed) {
-      setSed(replySed.type)
+      handleSedChange(replySed.type)
     }
   }, [replySed])
 
@@ -826,7 +830,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
-      setSed(sedList[0])
+      handleSedChange(sedList[0])
     }
   }, [sedList, _sed, setSed])
 
