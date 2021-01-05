@@ -846,7 +846,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
 
     if (_.isEmpty(_kravDato) && !_.isEmpty((_buc as ValidBuc).addedParams?.kravDato)) {
-      setKravDato((_buc as ValidBuc).addedParams?.kravDato!)
+      // on payload, kravDato is 2020-12-15. Here, we will use 15-12-2020.
+      const bucKravDato = (_buc as ValidBuc).addedParams?.kravDato!.split('-').reverse().join('-')
+      if (bucKravDato) {
+        setKravDato(bucKravDato)
+      }
     }
   }, [_avdod, _avdodFnr, _buc, _kravDato, personAvdods, sedSupportsAvdod])
 
