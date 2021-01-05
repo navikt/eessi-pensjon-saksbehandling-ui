@@ -718,7 +718,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.referanseTilPerson = _avdodOrSoker
       }
       if (!_.isEmpty(_kravDato)) {
-        payload.kravDato = _kravDato
+        payload.kravDato = _kravDato.split('-').reverse().join('-')
       }
       if (_kravOm) {
         payload.kravOm = _kravOm

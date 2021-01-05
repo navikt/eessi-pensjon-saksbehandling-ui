@@ -254,7 +254,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
         payload.avdod = _avdod
       }
       if (bucNeedsKravDato(_buc)) {
-        payload.kravDato = _kravDato
+        // change 15-12-2020 to 2020-12-15
+        payload.kravDato = _kravDato.split('-').reverse().join('-')
       }
       dispatch(createBuc(payload))
     }
