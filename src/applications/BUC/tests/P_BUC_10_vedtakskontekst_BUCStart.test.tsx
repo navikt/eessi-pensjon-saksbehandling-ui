@@ -168,7 +168,7 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
         mellomnavn: null,
         relasjon: 'REPA'
       },
-      kravDato: '15-12-2020',
+      kravDato: '2020-12-15',
       buc: 'P_BUC_10',
       person: undefined
     })

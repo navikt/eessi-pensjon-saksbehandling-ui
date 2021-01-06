@@ -65,7 +65,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
       }],
       seds: [],
       addedParams: {
-        kravDato: '15-12-2020',
+        kravDato: '2020-12-15',
         subject: {
           avdod: {
             fnr: '12345678902'
@@ -104,7 +104,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
       }],
       seds: [],
       addedParams: {
-        kravDato: '15-12-2020',
+        kravDato: '2020-12-15',
         subject: {
           avdod: {
             fnr: '12345678902'

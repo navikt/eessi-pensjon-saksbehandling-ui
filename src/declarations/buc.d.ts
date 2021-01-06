@@ -95,7 +95,7 @@ export interface NewSedPayload {
   euxCaseId: string
   institutions: Institutions
   kravDato?: string
-  kravOm?: string
+  kravType?: SakTypeValue
   sakId: string
   sed: string
   subject?: BUCSubject

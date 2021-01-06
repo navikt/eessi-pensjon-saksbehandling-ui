@@ -172,6 +172,13 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   vedtakId: state.app.params.vedtakId
 })
 
+type KravOmCode = {[k in KravOmValue]: SakTypeValue}
+const kravOmCode: KravOmCode = {
+  'Alderspensjon': SakTypeMap.ALDER,
+  'Etterlatteytelser': SakTypeMap.GJENLEV,
+  'Uføretrygd': SakTypeMap.UFOREP
+}
+
 export const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId,
   bucs,
@@ -721,7 +728,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.kravDato = _kravDato.split('-').reverse().join('-')
       }
       if (_kravOm) {
-        payload.kravOm = _kravOm
+        payload.kravType = kravOmCode[_kravOm]
       }
       if ((_buc as ValidBuc)?.addedParams?.subject) {
         payload.subject = (_buc as ValidBuc)?.addedParams?.subject

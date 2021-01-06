@@ -26,7 +26,7 @@
   "private": true,
   "dependencies": {
     "@sentry/browser": "^5.29.2",
-    "amplitude-js": "^7.3.3",
+    "amplitude-js": "^7.4.0",
     "classnames": "^2.2.6",
     "core-js": "^3.8.2",
     "filopplasting": "^1.0.4",
