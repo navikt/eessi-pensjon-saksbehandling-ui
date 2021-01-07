@@ -52,7 +52,7 @@ import {
   PesysContext,
   Validation
 } from 'declarations/app.d'
-import { KravOmValue } from 'declarations/buc'
+import { KravOmValue, SakTypeKey } from 'declarations/buc'
 import {
   AvdodOrSokerValue,
   Buc,
@@ -728,7 +728,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.kravDato = _kravDato.split('-').reverse().join('-')
       }
       if (_kravOm) {
-        payload.kravType = kravOmCode[_kravOm]
+        payload.kravType = kravOmCode[_kravOm] as SakTypeKey
       }
       if ((_buc as ValidBuc)?.addedParams?.subject) {
         payload.subject = (_buc as ValidBuc)?.addedParams?.subject
