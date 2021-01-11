@@ -34,6 +34,7 @@ import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
+import mockKravDato from 'mocks/buc/kravDato'
 import mockInstitutions from 'mocks/buc/institutions'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
@@ -207,6 +208,24 @@ export const fetchBucsWithVedtakId: ActionCreator<ThunkResult<ActionWithPayload<
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
       failure: types.BUC_GET_BUCS_FAILURE
+    }
+  })
+}
+
+export const fetchKravDato: ActionCreator<ThunkResult<ActionWithPayload<any>>> = ({
+  sakId,
+  aktoerId,
+  vedtakId
+}): ThunkResult<ActionWithPayload<any>> => {
+  return call({
+    url: vedtakId ?
+      sprintf(urls.BUC_GET_KRAVDATO_WITH_VEDTAKID_URL, { vedtakId: vedtakId }) :
+      sprintf(urls.BUC_GET_KRAVDATO_WITHOUT_VEDTAKID_URL, { sakId: sakId, aktoerId: aktoerId }),
+    expectedPayload: mockKravDato,
+    type: {
+      request: types.BUC_GET_KRAVDATO_REQUEST,
+      success: types.BUC_GET_KRAVDATO_SUCCESS,
+      failure: types.BUC_GET_KRAVDATO_FAILURE
     }
   })
 }

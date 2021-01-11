@@ -172,6 +172,18 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_INSTITUTION_LIST_FAILURE, 'gettingInstitutionList')
   })
 
+  it('BUC_GET_KRAVDATO_REQUEST', () => {
+    simulateRequest(types.BUC_GET_KRAVDATO_REQUEST, 'gettingKravDato')
+  })
+
+  it('BUC_GET_KRAVDATO_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_KRAVDATO_SUCCESS, 'gettingKravDato')
+  })
+
+  it('BUC_GET_KRAVDATO_FAILURE', () => {
+    simulateFailure(types.BUC_GET_KRAVDATO_FAILURE, 'gettingKravDato')
+  })
+
   it('BUC_GET_PARTICIPANTS_REQUEST', () => {
     simulateRequest(types.BUC_GET_PARTICIPANTS_REQUEST, 'gettingBucDeltakere')
   })

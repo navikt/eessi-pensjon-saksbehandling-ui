@@ -15,6 +15,7 @@ export const initialLoadingState: LoadingState = {
   gettingBucList: false,
   gettingBUCinfo: false,
   gettingCountryList: false,
+  gettingKravDato: false,
   gettingInstitutionList: false,
   gettingPersonInfo: false,
   gettingPersonAvdodInfo: false,
@@ -207,6 +208,19 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingInstitutionList: false
+      }
+
+    case types.BUC_GET_KRAVDATO_REQUEST:
+      return {
+        ...state,
+        gettingKravDato: true
+      }
+
+    case types.BUC_GET_KRAVDATO_FAILURE:
+    case types.BUC_GET_KRAVDATO_SUCCESS:
+      return {
+        ...state,
+        gettingKravDato: false
       }
 
     case types.BUC_GET_PARTICIPANTS_REQUEST:

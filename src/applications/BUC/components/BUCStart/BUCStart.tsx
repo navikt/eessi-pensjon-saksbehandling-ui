@@ -1,6 +1,6 @@
 import {
   cleanNewlyCreatedBuc,
-  createBuc,
+  createBuc, fetchKravDato,
   getBucList,
   getSubjectAreaList,
   getTagList,
@@ -58,7 +58,13 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select'
+import styled from 'styled-components'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 
+const FlexDiv = styled.div`
+  display: flex;
+  align-items: flex-end;
+`
 export interface BUCStartProps {
   aktoerId: string
   initialCreatingBucInfo?: boolean
@@ -76,6 +82,7 @@ export interface BUCStartSelector {
   currentBuc: string | undefined
   featureToggles: FeatureToggles
   highContrast: boolean
+  kravDato: string | null | undefined
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
@@ -86,6 +93,7 @@ export interface BUCStartSelector {
   sakType: SakTypeValue | undefined
   subjectAreaList?: SubjectAreaRawList | undefined
   tagList?: TagRawList | undefined
+  vedtakId: string | undefined
 }
 
 const mapState = (state: State): BUCStartSelector => ({
@@ -96,6 +104,7 @@ const mapState = (state: State): BUCStartSelector => ({
   currentBuc: state.buc.currentBuc,
   featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
+  kravDato: state.buc.kravDato,
   loading: state.loading,
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
@@ -105,7 +114,8 @@ const mapState = (state: State): BUCStartSelector => ({
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue | undefined,
   subjectAreaList: state.buc.subjectAreaList,
-  tagList: state.buc.tagList
+  tagList: state.buc.tagList,
+  vedtakId: state.app.params.vedtakId
 })
 
 const BUCStart: React.FC<BUCStartProps> = ({
@@ -117,17 +127,16 @@ const BUCStart: React.FC<BUCStartProps> = ({
   onBucCancelled
 }: BUCStartProps): JSX.Element | null => {
   const {
-    bucList, bucParam, bucs, bucsInfo, currentBuc, featureToggles, highContrast,
-    loading, locale, newlyCreatedBuc, person, personAvdods,
-    pesysContext, sakId, sakType, subjectAreaList, tagList
+    bucList, bucParam, bucs, bucsInfo, currentBuc, featureToggles,
+    highContrast, kravDato, loading, locale, newlyCreatedBuc, person, personAvdods,
+    pesysContext, sakId, sakType, subjectAreaList, tagList, vedtakId
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
 
   const { t } = useTranslation()
   const dispatch = useDispatch()
-
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
-  const [_kravDato, setKravDato] = useState<string>('')
+  const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
   const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
   const [_showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
@@ -228,10 +237,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return hasNoValidationErrors(validation)
   }
 
-  const setDefaultKravDato = () => {
-    setKravDato('15-12-2020')
-  }
-
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     dispatch(cleanNewlyCreatedBuc())
     if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
@@ -284,7 +289,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
       setBuc(thisBuc)
       updateValidation('buc', validateBuc(thisBuc))
       if (bucNeedsKravDato(thisBuc)) {
-        setDefaultKravDato()
+        setKravDato('')
+        dispatch(fetchKravDato({
+          sakId: sakId,
+          aktoerId: aktoerId,
+          vedtakId: vedtakId
+        }))
       }
       if (onBucChanged) {
         onBucChanged(option)
@@ -422,6 +432,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }, [_isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
 
+  useEffect(() => {
+    if (kravDato) {
+      const bucKravDato = kravDato.split('-').reverse().join('-')
+      setKravDato(bucKravDato)
+    }
+  }, [kravDato])
+
   return (
     <NavHighContrast highContrast={highContrast}>
       <div data-test-id='a-buc-c-bucstart'>
@@ -488,16 +505,27 @@ const BUCStart: React.FC<BUCStartProps> = ({
             {bucNeedsKravDato(_buc) && (
               <>
                 <VerticalSeparatorDiv />
-                <HighContrastInput
-                  data-test-id='a-buc-c-bucstart__kravDato-input-id'
-                  id='a-buc-c-bucstart__kravDato-input-id'
-                  label={t('buc:form-kravDato')}
-                  bredde='fullbredde'
-                  value={_kravDato}
-                  onChange={onKravDatoChange}
-                  placeholder={t('buc:form-kravDatoPlaceholder')}
-                  feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
-                />
+                <FlexDiv>
+                  <HighContrastInput
+                    data-test-id='a-buc-c-bucstart__kravDato-input-id'
+                    id='a-buc-c-bucstart__kravDato-input-id'
+                    label={t('buc:form-kravDato')}
+                    bredde='fullbredde'
+                    value={_kravDato}
+                    onChange={onKravDatoChange}
+                    placeholder={t('buc:form-kravDatoPlaceholder')}
+                    feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
+                  />
+                  {loading.gettingKravDato ?
+                    (
+                      <>
+                        <HorizontalSeparatorDiv />
+                        <WaitingPanel size='S' oneLine={true}/>
+                      </>
+                    ):
+                    undefined
+                  }
+                </FlexDiv>
               </>
             )}
           </Column>

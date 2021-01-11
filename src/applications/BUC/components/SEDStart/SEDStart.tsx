@@ -1,7 +1,7 @@
 import {
   createReplySed,
   createSavingAttachmentJob,
-  createSed,
+  createSed, fetchKravDato,
   getCountryList,
   getInstitutionsListForBucAndCountry,
   getSedList,
@@ -103,6 +103,7 @@ const AlertDiv = styled.div`
 `
 const FlexDiv = styled.div`
    display: flex;
+   align-items: flex-end;
 `
 const FullWidthDiv = styled.div`
   width: 100%;
@@ -139,6 +140,7 @@ export interface SEDStartSelector {
   highContrast: boolean
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames | undefined
+  kravDato: string | null | undefined,
   loading: Loading
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
@@ -159,6 +161,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   institutionNames: state.buc.institutionNames,
+  kravDato: state.buc.kravDato,
   loading: state.loading,
   locale: state.ui.locale,
   personAvdods: state.app.personAvdods,
@@ -193,7 +196,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   replySed
 } : SEDStartProps): JSX.Element => {
   const {
-    attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, loading,
+    attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, kravDato, loading,
     locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -260,7 +263,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_institutions, setInstitutions] = useState<InstitutionRawList>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
-  const [_kravDato, setKravDato] = useState<string>('')
+  const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_kravOm, setKravOm] = useState<KravOmValue | undefined>(undefined)
   const [_mounted, setMounted] = useState<boolean>(false)
   const _notHostInstitution = (institution: Institution) : boolean => institution.institution !== 'NO:DEMO001'
@@ -564,14 +567,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setKravOm('Etterlatteytelser')
   }
 
-  const setDefaultKravDato = () => {
-    if (pesysContext === constants.VEDTAKSKONTEKST && (
-      (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
-    )) {
-      setKravDato('15-12-2020')
-    }
-  }
-
   const handleSedChange = useCallback((newSed: string) => {
     setSed(newSed)
     // reset all validations, to clear validations of extra options that may be hidden now
@@ -587,7 +582,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setDefaultKravOm()
     }
     if (sedNeedsKravdato.indexOf(newSed) >= 0) {
-      setDefaultKravDato()
+      setKravDato('')
+      dispatch(fetchKravDato({
+        sakId: sakId,
+        aktoerId: aktoerId,
+        vedtakId: vedtakId
+      }))
     }
     if (onSedChanged) {
       onSedChanged(newSed)
@@ -860,6 +860,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
     }
   }, [_avdod, _avdodFnr, _buc, _kravDato, personAvdods, sedSupportsAvdod])
+
+  useEffect(() => {
+    if (kravDato && _.isEmpty(_kravDato) && _.isEmpty((_buc as ValidBuc).addedParams?.kravDato)) {
+      const bucKravDato = kravDato.split('-').reverse().join('-')
+      setKravDato(bucKravDato)
+    }
+  }, [_buc, kravDato])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return <div />

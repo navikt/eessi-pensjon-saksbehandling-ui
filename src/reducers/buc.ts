@@ -39,6 +39,7 @@ export interface BucState {
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
+  kravDato: string | null | undefined
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames
   mode: BUCMode
@@ -68,6 +69,7 @@ export const initialBucState: BucState = {
   currentSed: undefined,
   institutionList: undefined,
   institutionNames: {},
+  kravDato: undefined,
   mode: 'buclist' as BUCMode,
   newlyCreatedBuc: undefined,
   newlyCreatedSed: undefined,
@@ -159,6 +161,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         currentBuc: newBuc.caseId,
         sed: undefined,
         bucs: bucs,
+        kravDato: undefined,
         newlyCreatedBuc: newBuc,
         savingAttachmentsJob: undefined,
         sedsWithAttachments: newSedsWithAttachments
@@ -386,6 +389,24 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         countryList: undefined
+      }
+
+    case types.BUC_GET_KRAVDATO_REQUEST:
+      return {
+        ...state,
+        kravDato: undefined
+      }
+
+    case types.BUC_GET_KRAVDATO_FAILURE:
+      return {
+        ...state,
+        kravDato: null
+      }
+
+    case types.BUC_GET_KRAVDATO_SUCCESS:
+      return {
+        ...state,
+        kravDato: (action as ActionWithPayload).payload.kravDato
       }
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS: {
