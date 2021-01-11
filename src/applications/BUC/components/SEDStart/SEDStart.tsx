@@ -177,9 +177,9 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
 
 type KravOmCode = {[k in KravOmValue]: SakTypeKey}
 const kravOmCode: KravOmCode = {
-  'Alderspensjon': 'ALDER',
-  'Etterlatteytelser': 'GJENLEV',
-  'Uføretrygd': 'UFOREP'
+  Alderspensjon: 'ALDER',
+  Etterlatteytelser: 'GJENLEV',
+  Uføretrygd: 'UFOREP'
 }
 
 export const SEDStart: React.FC<SEDStartProps> = ({

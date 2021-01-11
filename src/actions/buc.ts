@@ -218,9 +218,9 @@ export const fetchKravDato: ActionCreator<ThunkResult<ActionWithPayload<any>>> =
   vedtakId
 }): ThunkResult<ActionWithPayload<any>> => {
   return call({
-    url: vedtakId ?
-      sprintf(urls.BUC_GET_KRAVDATO_WITH_VEDTAKID_URL, { vedtakId: vedtakId }) :
-      sprintf(urls.BUC_GET_KRAVDATO_WITHOUT_VEDTAKID_URL, { sakId: sakId, aktoerId: aktoerId }),
+    url: vedtakId
+      ? sprintf(urls.BUC_GET_KRAVDATO_WITH_VEDTAKID_URL, { vedtakId: vedtakId })
+      : sprintf(urls.BUC_GET_KRAVDATO_WITHOUT_VEDTAKID_URL, { sakId: sakId, aktoerId: aktoerId }),
     expectedPayload: mockKravDato,
     type: {
       request: types.BUC_GET_KRAVDATO_REQUEST,

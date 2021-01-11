@@ -516,15 +516,14 @@ const BUCStart: React.FC<BUCStartProps> = ({
                     placeholder={t('buc:form-kravDatoPlaceholder')}
                     feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
                   />
-                  {loading.gettingKravDato ?
-                    (
+                  {loading.gettingKravDato
+                    ? (
                       <>
                         <HorizontalSeparatorDiv />
-                        <WaitingPanel size='S' oneLine={true}/>
+                        <WaitingPanel size='S' oneLine />
                       </>
-                    ):
-                    undefined
-                  }
+                      )
+                    : undefined}
                 </FlexDiv>
               </>
             )}
