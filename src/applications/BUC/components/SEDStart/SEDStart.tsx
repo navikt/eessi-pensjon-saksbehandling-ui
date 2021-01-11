@@ -276,7 +276,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   // norway as case owner (except some mock institutions that should simulate foreign institutions)
   const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' &&
-    (_buc?.creator?.institution !== 'NO:NAVAT05' && _buc?.creator?.institution !== 'NO:NAVAT08' && _buc?.creator?.institution !== 'NO:NAVAT06')
+    (_buc?.creator?.institution !== 'NO:NAVAT06' && _buc?.creator?.institution !== 'NO:NAVAT08')
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
