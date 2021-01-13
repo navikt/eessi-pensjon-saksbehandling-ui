@@ -133,7 +133,7 @@
   "form-filterSED"                    : "Filtrer SED på navn, mottaker",
   "form-fnr"                          : "Fødselsnummer",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
-  "form-kravDato"                     : "Krav dato",
+  "form-kravDato"                     : "Kravdato",
   "form-kravDatoPlaceholder"          : "DD-MM-ÅÅÅÅ",
   "form-kravOm"                       : "Krav om",
   "form-invalidContext"               : "Ikke i vedtakskontekst",
@@ -237,7 +237,7 @@
   "tag-inntektsavkortetGrunnytelse" : "Inntektsavkortet grunnytelse",
   "tag-avvikendeMedlemskap"         : "Avvikende medlemskap",
 
-  "validation-badKravDato"          : "Ugyldig krav dato, vennligst bruk DD-MM-ÅÅÅÅ",
+  "validation-badKravDato"          : "Ugyldig kravdato, vennligst bruk DD-MM-ÅÅÅÅ",
   "validation-chooseAvdod"          : "Velg avdød",
   "validation-badAvdodFnr"          : "Ugyldig avdødes f.nr./d.nr.",
   "validation-chooseAvdodFnr"       : "Velg avdødes f.nr./d.nr.",
