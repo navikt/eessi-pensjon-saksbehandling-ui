@@ -988,15 +988,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 legend={t('buc:form-kravOm')}
                 name='kravOm'
                 radios={[
-                  { label: t('buc:form-alderspensjon'), value: 'Alderspensjon' },
                   {
+                    label: t('buc:form-alderspensjon'),
+                    value: 'Alderspensjon',
+                    disabled: (sakType === SakTypeMap.UFOREP)
+                  }, {
                     label: t('buc:form-etterletteytelser'),
                     value: 'Etterlatteytelser',
-                    disabled: (
-                      (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
-                    )
-                  },
-                  { label: t('buc:form-uføretrygd'), value: 'Uføretrygd' }
+                    disabled: (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
+                  }, {
+                    label: t('buc:form-uføretrygd'),
+                    value: 'Uføretrygd',
+                    disabled: (sakType === SakTypeMap.ALDER)
+                }
                 ]}
                 onChange={onKravOmChange}
               />
