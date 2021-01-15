@@ -994,8 +994,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     disabled: (sakType === SakTypeMap.UFOREP)
                   }, {
                     label: t('buc:form-etterletteytelser'),
-                    value: 'Etterlatteytelser',
-                    disabled: (sakType === SakTypeMap.ALDER) || (sakType === SakTypeMap.UFOREP)
+                    value: 'Etterlatteytelser'
                   }, {
                     label: t('buc:form-uføretrygd'),
                     value: 'Uføretrygd',
