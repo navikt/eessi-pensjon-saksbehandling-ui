@@ -322,6 +322,7 @@ export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (
   return call({
     url: sprintf(urls.BUC_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
     expectedPayload: mockSakType,
+    cascadeFailureError: true,
     type: {
       request: types.BUC_GET_SAKTYPE_REQUEST,
       success: types.BUC_GET_SAKTYPE_SUCCESS,
