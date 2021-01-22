@@ -1,7 +1,8 @@
 import {
   createReplySed,
   createSavingAttachmentJob,
-  createSed, fetchKravDato,
+  createSed,
+  fetchKravDato,
   getCountryList,
   getInstitutionsListForBucAndCountry,
   getSedList,
@@ -141,6 +142,7 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames | undefined
   kravDato: string | null | undefined,
+  kravId: string | undefined,
   loading: Loading
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
@@ -162,6 +164,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   institutionList: state.buc.institutionList,
   institutionNames: state.buc.institutionNames,
   kravDato: state.buc.kravDato,
+  kravId: state.app.params.kravId,
   loading: state.loading,
   locale: state.ui.locale,
   personAvdods: state.app.personAvdods,
@@ -196,8 +199,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   replySed
 } : SEDStartProps): JSX.Element => {
   const {
-    attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, kravDato, loading,
-    locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
+    attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, kravId, kravDato,
+    loading, locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -586,6 +589,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       dispatch(fetchKravDato({
         sakId: sakId,
         aktoerId: aktoerId,
+        kravId: kravId,
         vedtakId: vedtakId
       }))
     }

@@ -1,6 +1,7 @@
 import {
   cleanNewlyCreatedBuc,
-  createBuc, fetchKravDato,
+  createBuc,
+  fetchKravDato,
   getBucList,
   getSubjectAreaList,
   getTagList,
@@ -83,6 +84,7 @@ export interface BUCStartSelector {
   featureToggles: FeatureToggles
   highContrast: boolean
   kravDato: string | null | undefined
+  kravId: string | undefined
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
@@ -105,6 +107,7 @@ const mapState = (state: State): BUCStartSelector => ({
   featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   kravDato: state.buc.kravDato,
+  kravId: state.app.params.kravId,
   loading: state.loading,
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
@@ -128,7 +131,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucList, bucParam, bucs, bucsInfo, currentBuc, featureToggles,
-    highContrast, kravDato, loading, locale, newlyCreatedBuc, person, personAvdods,
+    highContrast, kravDato, kravId, loading, locale, newlyCreatedBuc, person, personAvdods,
     pesysContext, sakId, sakType, subjectAreaList, tagList, vedtakId
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
 
@@ -293,6 +296,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         dispatch(fetchKravDato({
           sakId: sakId,
           aktoerId: aktoerId,
+          kravId: kravId,
           vedtakId: vedtakId
         }))
       }
