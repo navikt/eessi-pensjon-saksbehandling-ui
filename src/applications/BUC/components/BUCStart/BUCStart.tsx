@@ -95,7 +95,6 @@ export interface BUCStartSelector {
   sakType: SakTypeValue | undefined
   subjectAreaList?: SubjectAreaRawList | undefined
   tagList?: TagRawList | undefined
-  vedtakId: string | undefined
 }
 
 const mapState = (state: State): BUCStartSelector => ({
@@ -117,8 +116,7 @@ const mapState = (state: State): BUCStartSelector => ({
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue | undefined,
   subjectAreaList: state.buc.subjectAreaList,
-  tagList: state.buc.tagList,
-  vedtakId: state.app.params.vedtakId
+  tagList: state.buc.tagList
 })
 
 const BUCStart: React.FC<BUCStartProps> = ({
@@ -132,7 +130,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const {
     bucList, bucParam, bucs, bucsInfo, currentBuc, featureToggles,
     highContrast, kravDato, kravId, loading, locale, newlyCreatedBuc, person, personAvdods,
-    pesysContext, sakId, sakType, subjectAreaList, tagList, vedtakId
+    pesysContext, sakId, sakType, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
 
   const { t } = useTranslation()
