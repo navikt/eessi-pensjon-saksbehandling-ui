@@ -296,8 +296,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         dispatch(fetchKravDato({
           sakId: sakId,
           aktoerId: aktoerId,
-          kravId: kravId,
-          vedtakId: vedtakId
+          kravId: kravId
         }))
       }
       if (onBucChanged) {

@@ -589,8 +589,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       dispatch(fetchKravDato({
         sakId: sakId,
         aktoerId: aktoerId,
-        kravId: kravId,
-        vedtakId: vedtakId
+        kravId: kravId
       }))
     }
     if (onSedChanged) {

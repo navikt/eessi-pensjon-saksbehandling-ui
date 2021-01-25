@@ -47,8 +47,7 @@ export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs/%(sakId)s'
 export const BUC_GET_SINGLE_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 
 // PensjonController
-export const BUC_GET_KRAVDATO_WITH_VEDTAKID_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/vedtak/%(vedtakId)s'
-export const BUC_GET_KRAVDATO_WITHOUT_VEDTAKID_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'
+export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'
 export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
 // SedController
