@@ -315,6 +315,19 @@ const BUCStart: React.FC<BUCStartProps> = ({
     setKravDato(newKravDato)
   }
 
+  const getOptionLabel = (value: string): string => {
+    let label: string = value
+    const description: string = getBucTypeLabel({
+      t: t,
+      locale: locale,
+      type: value
+    })
+    if (description !== 'buc-' + value) {
+      label += ' - ' + description
+    }
+    return label
+  }
+
   const renderOptions = (options: Array<Option | string> | undefined, sort?: (a: Option, b: Option) => number): Options => {
     return options
       ? options.map((el: Option | string) => {
@@ -335,19 +348,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const bucListOptions = renderOptions(bucList, valueSorter)
-
-  const getOptionLabel = (value: string): string => {
-    let label: string = value
-    const description: string = getBucTypeLabel({
-      t: t,
-      locale: locale,
-      type: value
-    })
-    if (description !== 'buc-' + value) {
-      label += ' - ' + description
-    }
-    return label
-  }
 
   const tagObjectList: Tags = tagList
     ? tagList.map(tag => {
