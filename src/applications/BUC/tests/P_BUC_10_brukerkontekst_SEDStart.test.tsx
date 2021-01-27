@@ -149,12 +149,10 @@ describe('P_BUC_10 for SEDStart, brukerkontekst,', () => {
     // does not show avdodFnr
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
-    // does show kravDato
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeTruthy()
-    // does show kravOm
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeTruthy()
-    // prefills with Alderspensjon
-    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\'] input[aria-checked=true]').props().value).toEqual('Alderspensjon')
+    // does not show kravDato
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
+    // does not show kravOm
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
 
     // does not show avdodOrSoker
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
@@ -162,8 +160,7 @@ describe('P_BUC_10 for SEDStart, brukerkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs instituion and country and krav dato (not prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseKravDato'
+      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
     )
   })
 
@@ -208,12 +205,10 @@ describe('P_BUC_10 for SEDStart, brukerkontekst,', () => {
     // does not show avdodFnr
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
-    // does show kravDato
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeTruthy()
-    // does show kravOm
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeTruthy()
-    // prefills with Alderspensjon
-    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\'] input[aria-checked=true]').props().value).toEqual('Etterlatteytelser')
+    // does not show kravDato
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
+    // does not show kravOm
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
 
     // does not show avdodOrSoker
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
@@ -222,7 +217,7 @@ describe('P_BUC_10 for SEDStart, brukerkontekst,', () => {
     // needs institution and country and avdodFnr and krav dato (not prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseAvdodFnr' + 'buc:validation-chooseKravDato'
+      'buc:validation-chooseAvdodFnr'
     )
   })
 })

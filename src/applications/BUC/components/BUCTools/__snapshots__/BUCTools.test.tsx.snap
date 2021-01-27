@@ -41,9 +41,10 @@ ui-fss.g17[id="c0"] {
   background: #FFFFFF;
   border-width: 1px;
   border-style: solid;
+  border-color: #78706A;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: white;
+  border-bottom-color: #FFFFFF;
 }
 
 .c5 .nav-frontend-tabs__tab-inner {

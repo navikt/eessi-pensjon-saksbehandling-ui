@@ -88,13 +88,17 @@ ui-fss.g28[id="c2"] {
             suksess
           </span>
           <Icon
+            aria-label="suksess-ikon"
             kind="ok-sirkel-fyll"
+            role="img"
             size="1.5em"
           >
             <svg
+              aria-label="suksess-ikon"
               focusable="false"
               height="1.5em"
               kind="ok-sirkel-fyll"
+              role="img"
               viewBox="0 0 24 24"
               width="1.5em"
             >

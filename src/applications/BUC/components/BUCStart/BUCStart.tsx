@@ -159,8 +159,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
   // show krav dato for P_BUC_10 criteria
   const bucNeedsKravDato = (buc: string | null | undefined): boolean => {
     return !!(buc === 'P_BUC_10' && avdodExists() &&
-      pesysContext === constants.VEDTAKSKONTEKST &&
-      (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+        sakId && aktoerId && kravId &&
+        pesysContext === constants.VEDTAKSKONTEKST &&
+        (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
     )
   }
 
@@ -333,6 +334,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
       : []
   }
 
+  const bucListOptions = renderOptions(bucList, valueSorter)
+
   const getOptionLabel = (value: string): string => {
     let label: string = value
     const description: string = getBucTypeLabel({
@@ -478,9 +481,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 isSearchable
                 menuPortalTarget={document.getElementById('main')}
                 onChange={onBucChange}
-                options={renderOptions(bucList, valueSorter)}
+                options={bucListOptions}
                 placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
-                value={_.find(bucList, (b: Option) => b.value === _buc) as ValueType<Option, false>}
+                value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
               />
             </>
             {bucNeedsAvdod() && (

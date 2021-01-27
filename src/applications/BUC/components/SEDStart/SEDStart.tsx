@@ -92,7 +92,7 @@ import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { GroupType, ValueType } from 'react-select'
+import { GroupTypeBase, ValueType } from 'react-select'
 import styled from 'styled-components'
 
 const AlertDiv = styled.div`
@@ -297,9 +297,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'H070', 'H121']
 
-  const sedNeedsKravOm = ['P15000']
+  const sedNeedsKravOm = (sed: string) => kravId && ['P15000'].indexOf(sed) >= 0
 
-  const sedNeedsKravdato = ['P15000']
+  const sedNeedsKravdato = (sed: string) => kravId && ['P15000'].indexOf(sed) >= 0
 
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
@@ -375,7 +375,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
     : []
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
-  const _institutionObjectList: Array<GroupType<Option>> = []
+  const _institutionObjectList: Array<GroupTypeBase<Option>> = []
   let _institutionValueList: Options = []
 
   if (institutionList) {
@@ -581,10 +581,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
     }
-    if (sedNeedsKravOm.indexOf(newSed) >= 0) {
+    if (sedNeedsKravOm(newSed)) {
       setDefaultKravOm()
     }
-    if (sedNeedsKravdato.indexOf(newSed) >= 0) {
+    if (sedNeedsKravdato(newSed)) {
       setKravDato('')
       dispatch(fetchKravDato({
         sakId: sakId,
@@ -693,10 +693,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (sedNeedsAvdodBrukerQuestion()) {
       validation.avdodorsoker = validateAvdodOrSoker(_avdodOrSoker)
     }
-    if (_sed && sedNeedsKravdato.indexOf(_sed) >= 0) {
+    if (_sed && sedNeedsKravdato(_sed)) {
       validation.kravDato = validateKravDato(_kravDato)
     }
-    if (_sed && sedNeedsKravOm.indexOf(_sed) >= 0) {
+    if (_sed && sedNeedsKravOm(_sed)) {
       validation.kravOm = validateKravOm(_kravOm)
     }
     setValidation(validation)
@@ -966,7 +966,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          {_sed && sedNeedsKravdato.indexOf(_sed) >= 0 && (
+          {_sed && sedNeedsKravdato(_sed) && (
             <>
               <VerticalSeparatorDiv />
               <HighContrastInput
@@ -981,7 +981,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          {_sed && sedNeedsKravOm.indexOf(_sed) >= 0 && (
+          {_sed && sedNeedsKravOm(_sed) && (
             <>
               <VerticalSeparatorDiv />
               <HighContrastRadioPanelGroup
@@ -1002,7 +1002,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     label: t('buc:form-uføretrygd'),
                     value: 'Uføretrygd',
                     disabled: (sakType === SakTypeMap.ALDER)
-                }
+                  }
                 ]}
                 onChange={onKravOmChange}
               />

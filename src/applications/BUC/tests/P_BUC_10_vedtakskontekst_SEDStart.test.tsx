@@ -11,6 +11,7 @@ jest.mock('actions/buc', () => ({
   createReplySed: jest.fn(),
   createSavingAttachmentJob: jest.fn(),
   createSed: jest.fn(),
+  fetchKravDato: jest.fn(),
   getCountryList: jest.fn(),
   getInstitutionsListForBucAndCountry: jest.fn(),
   getSedList: jest.fn(),
@@ -27,6 +28,9 @@ const defaultSelector: SEDStartSelector = {
   featureToggles: mockFeatureToggles,
   highContrast: false,
   institutionList: {},
+  institutionNames: {},
+  kravId: '123',
+  kravDato: undefined,
   loading: {},
   locale: 'nb',
   personAvdods: mockPersonAvdods(1),
@@ -37,7 +41,7 @@ const defaultSelector: SEDStartSelector = {
   sed: undefined,
   sedsWithAttachments: {},
   sedList: undefined,
-  vedtakId: undefined
+  vedtakId: '123'
 }
 
 describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {

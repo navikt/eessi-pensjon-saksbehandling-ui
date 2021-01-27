@@ -23,6 +23,8 @@ const defaultSelector: BUCStartSelector = {
   currentBuc: undefined,
   featureToggles: mockFeatureToggles,
   highContrast: false,
+  kravId: '123',
+  kravDato: undefined,
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   newlyCreatedBuc: undefined,

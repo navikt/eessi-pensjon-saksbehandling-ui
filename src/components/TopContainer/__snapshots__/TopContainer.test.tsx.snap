@@ -910,13 +910,17 @@ ui-fss.g62[id="c24"] {
                       feil
                     </span>
                     <Icon
+                      aria-label="feil-ikon"
                       kind="feil-sirkel-fyll"
+                      role="img"
                       size="1.5em"
                     >
                       <svg
+                        aria-label="feil-ikon"
                         focusable="false"
                         height="1.5em"
                         kind="feil-sirkel-fyll"
+                        role="img"
                         viewBox="0 0 24 24"
                         width="1.5em"
                       >

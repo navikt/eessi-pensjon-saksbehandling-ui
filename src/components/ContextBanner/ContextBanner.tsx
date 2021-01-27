@@ -10,7 +10,7 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
-import { EtikettLiten } from 'nav-frontend-typografi'
+import { Element } from 'nav-frontend-typografi'
 import { theme, themeHighContrast, themeKeys } from 'nav-styled-component-theme'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -41,7 +41,7 @@ export const Context = styled.div`
    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
  }
 `
-export const Tag = styled(EtikettLiten)`
+export const Tag = styled(Element)`
  padding: 0rem 0.5rem;
  margin-left: 0.25rem;
  margin-right: 0.25rem;

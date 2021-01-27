@@ -20,7 +20,7 @@ import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
 import _ from 'lodash'
-import { EtikettLiten } from 'nav-frontend-typografi'
+import { Element } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -375,7 +375,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             id: 'tema',
             label: t('ui:tema'),
             type: 'string',
-            renderCell: (item: any, value: any) => <EtikettLiten>{value}</EtikettLiten>
+            renderCell: (item: any, value: any) => <Element>{value}</Element>
           }, {
             id: 'title',
             label: t('ui:title'),

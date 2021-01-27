@@ -13,7 +13,8 @@ import mockPersonAvdods from 'mocks/app/personAvdod'
 
 jest.mock('actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),
-  createBuc: jest.fn()
+  createBuc: jest.fn(),
+  fetchKravDato: jest.fn()
 }))
 
 const defaultSelector: BUCStartSelector = {
@@ -24,6 +25,7 @@ const defaultSelector: BUCStartSelector = {
   currentBuc: undefined,
   featureToggles: mockFeatureToggles,
   highContrast: false,
+  kravId: '123',
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   newlyCreatedBuc: undefined,
@@ -153,7 +155,9 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeTruthy()
     // keep kravDato input hidden
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeTruthy()
-    // click forward button
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']').hostNodes().simulate('change', {target: {value: '15-12-2020'}})
+    wrapper.update()
+      // click forward button
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
     // no validation errors
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
@@ -229,7 +233,7 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     // no validation errors
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseAvdod'
+      'buc:form-feiloppsummering' + 'buc:validation-chooseAvdod' + 'buc:validation-chooseKravDato'
     )
     // create buc is not called
     expect(createBuc).not.toHaveBeenCalled()
