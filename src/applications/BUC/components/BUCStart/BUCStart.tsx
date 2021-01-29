@@ -152,7 +152,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
   // show avdod select for P_BUC_02, P_BUC_05, P_BUC_10 and when there are avdods
   const bucNeedsAvdod = (): boolean => bucsThatSupportAvdod(_buc) && avdodExists() &&
     (_buc === 'P_BUC_10'
-      ? pesysContext === constants.VEDTAKSKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+      ? pesysContext === constants.VEDTAKSKONTEKST && (
+        sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
+        sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
       : true
     )
 
@@ -161,7 +163,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return !!(buc === 'P_BUC_10' && avdodExists() &&
         sakId && aktoerId && kravId &&
         pesysContext === constants.VEDTAKSKONTEKST &&
-        (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+        (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
+          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
     )
   }
 
