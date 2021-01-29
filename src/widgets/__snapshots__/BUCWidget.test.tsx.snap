@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['widgets/BUCWidget Renders 1'] = `
+exports[`widgets/BUCWidget Renders 1`] = `
 <BUCWidget
   highContrast={false}
   labels={Object {}}
@@ -39,7 +39,6 @@ exports['widgets/BUCWidget Renders 1'] = `
     <ResizeDetector
       handleHeight={true}
       handleWidth={true}
-      nodeType="div"
       onResize={
         [MockFunction] {
           "calls": Array [
@@ -53,11 +52,6 @@ exports['widgets/BUCWidget Renders 1'] = `
           ],
         }
       }
-      querySelector={null}
-      refreshRate={1000}
-      skipOnMount={false}
-      targetDomEl={null}
-      targetRef={null}
     >
       <div />
     </ResizeDetector>
@@ -71,4 +65,4 @@ exports['widgets/BUCWidget Renders 1'] = `
     </Component>
   </div>
 </BUCWidget>
-`
+`;

@@ -719,10 +719,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.vedtakId = _vedtakId
       }
       if (sedSupportsAvdod() && avdodExists()) {
-        payload.avdodFnr = _avdod?.fnr
+        payload.avdodfnr = _avdod?.fnr
       }
       if (sedNeedsAvdodFnrInput() && _avdodFnr) {
-        payload.avdodFnr = _avdodFnr
+        payload.avdodfnr = _avdodFnr
       }
       if (sedNeedsAvdodBrukerQuestion()) {
         payload.referanseTilPerson = _avdodOrSoker

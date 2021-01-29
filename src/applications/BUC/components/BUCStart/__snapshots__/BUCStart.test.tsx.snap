@@ -1806,7 +1806,6 @@ ui-fss.g31[id="c9"] {
                     ]
                   }
                   placeholder="buc:form-chooseBuc"
-                  value="P_BUC_01"
                 >
                   <div
                     data-test-id="a-buc-c-bucstart__buc-select-id"
@@ -1867,7 +1866,6 @@ ui-fss.g31[id="c9"] {
                           "singleValue": [Function],
                         }
                       }
-                      value="P_BUC_01"
                     >
                       <Select
                         backspaceRemovesValue={true}
@@ -1957,7 +1955,7 @@ ui-fss.g31[id="c9"] {
                         }
                         tabIndex="0"
                         tabSelectsValue={true}
-                        value="P_BUC_01"
+                        value={null}
                       >
                         <SelectContainer
                           className=""
@@ -2095,7 +2093,7 @@ ui-fss.g31[id="c9"] {
                               },
                               "tabIndex": "0",
                               "tabSelectsValue": true,
-                              "value": "P_BUC_01",
+                              "value": null,
                             }
                           }
                           setValue={[Function]}
@@ -2287,7 +2285,7 @@ ui-fss.g31[id="c9"] {
                                     },
                                     "tabIndex": "0",
                                     "tabSelectsValue": true,
-                                    "value": "P_BUC_01",
+                                    "value": null,
                                   }
                                 }
                                 setValue={[Function]}
@@ -2486,7 +2484,7 @@ ui-fss.g31[id="c9"] {
                                           },
                                           "tabIndex": "0",
                                           "tabSelectsValue": true,
-                                          "value": "P_BUC_01",
+                                          "value": null,
                                         }
                                       }
                                       setValue={[Function]}
@@ -2671,7 +2669,7 @@ ui-fss.g31[id="c9"] {
                                                 },
                                                 "tabIndex": "0",
                                                 "tabSelectsValue": true,
-                                                "value": "P_BUC_01",
+                                                "value": null,
                                               }
                                             }
                                             setValue={[Function]}
@@ -2829,7 +2827,7 @@ ui-fss.g31[id="c9"] {
                                                 },
                                                 "tabIndex": "0",
                                                 "tabSelectsValue": true,
-                                                "value": "P_BUC_01",
+                                                "value": null,
                                               }
                                             }
                                             spellCheck="false"
@@ -3100,7 +3098,7 @@ ui-fss.g31[id="c9"] {
                                           },
                                           "tabIndex": "0",
                                           "tabSelectsValue": true,
-                                          "value": "P_BUC_01",
+                                          "value": null,
                                         }
                                       }
                                       setValue={[Function]}
@@ -3280,7 +3278,7 @@ ui-fss.g31[id="c9"] {
                                                 },
                                                 "tabIndex": "0",
                                                 "tabSelectsValue": true,
-                                                "value": "P_BUC_01",
+                                                "value": null,
                                               }
                                             }
                                             setValue={[Function]}
@@ -3471,7 +3469,7 @@ ui-fss.g31[id="c9"] {
                                                 },
                                                 "tabIndex": "0",
                                                 "tabSelectsValue": true,
-                                                "value": "P_BUC_01",
+                                                "value": null,
                                               }
                                             }
                                             setValue={[Function]}

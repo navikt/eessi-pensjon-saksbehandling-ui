@@ -314,16 +314,16 @@ ui-fss.g32[id="c4"] {
                   />
                 </NavFrontendChevron>
               </HoyreChevron>
-              <Styled(EtikettLiten)>
-                <EtikettLiten
+              <Styled(Element)>
+                <Element
                   className="c4 c5"
                 >
                   <TypografiBase
                     className="c4 c5"
-                    type="etikettLiten"
+                    type="element"
                   >
                     <p
-                      className="typo-etikett-liten c4 c5"
+                      className="typo-element c4 c5"
                     >
                       <span>
                         ui:youComeFrom
@@ -342,18 +342,18 @@ ui-fss.g32[id="c4"] {
                       .
                     </p>
                   </TypografiBase>
-                </EtikettLiten>
-              </Styled(EtikettLiten)>
-              <Styled(EtikettLiten)>
-                <EtikettLiten
+                </Element>
+              </Styled(Element)>
+              <Styled(Element)>
+                <Element
                   className="c4 c5"
                 >
                   <TypografiBase
                     className="c4 c5"
-                    type="etikettLiten"
+                    type="element"
                   >
                     <p
-                      className="typo-etikett-liten c4 c5"
+                      className="typo-element c4 c5"
                     >
                       <span>
                         buc:form-caseType
@@ -372,8 +372,8 @@ ui-fss.g32[id="c4"] {
                       </strong>
                     </p>
                   </TypografiBase>
-                </EtikettLiten>
-              </Styled(EtikettLiten)>
+                </Element>
+              </Styled(Element)>
             </div>
           </styled.div>
           <styled.div>

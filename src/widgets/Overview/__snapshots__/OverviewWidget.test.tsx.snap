@@ -41,7 +41,6 @@ exports[`widgets/OverviewWidget Render: match snapshot 1`] = `
     <ResizeDetector
       handleHeight={true}
       handleWidth={true}
-      nodeType="div"
       onResize={
         [MockFunction] {
           "calls": Array [
@@ -55,12 +54,8 @@ exports[`widgets/OverviewWidget Render: match snapshot 1`] = `
           ],
         }
       }
-      querySelector={null}
       refreshMode="debounce"
       refreshRate={50}
-      skipOnMount={false}
-      targetDomEl={null}
-      targetRef={null}
     >
       <div />
     </ResizeDetector>

@@ -16,6 +16,13 @@ Enzyme.configure({ adapter: new Adapter() });
 HTMLCanvasElement.prototype.getContext = jest.fn()
 window.scrollTo = jest.fn()
 
+class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+window.ResizeObserver = ResizeObserver
+
 const crypto = require('crypto')
 
 Object.defineProperty(global.self, 'crypto', {

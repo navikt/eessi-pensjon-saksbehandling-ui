@@ -90,7 +90,7 @@ export interface NewBucPayload {
 
 export interface NewSedPayload {
   aktoerId: string
-  avdodFnr?: string
+  avdodfnr?: string
   buc: string
   euxCaseId: string
   institutions: Institutions

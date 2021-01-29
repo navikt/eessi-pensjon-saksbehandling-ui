@@ -106,7 +106,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     return serverErrorMessage ? t(serverErrorMessage) : undefined
   }
 
-  const onResize = (width: number): void => {
+  const onResize = (width: any): void => {
     if (width < 768 && size !== 'sm') {
       dispatch(setWidthSize('sm'))
       return
@@ -128,15 +128,16 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   return (
     <NavHighContrast highContrast={highContrast}>
-      <ErrorBoundary
+
+      <div role='application'>
+        <ErrorBoundary
         renderError={({ error }: any) => <Error type='internalError' error={error} />}
       >
-        <div role='application'>
           <ReactResizeDetector
             handleWidth
             onResize={onResize}
-          />
-        </div>
+          >
+
         <Header
           highContrast={highContrast}
           username={username}
@@ -179,7 +180,10 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           params={params}
           footerOpen={footerOpen}
         />
+          </ReactResizeDetector>
       </ErrorBoundary>
+
+      </div>
     </NavHighContrast>
   )
 }

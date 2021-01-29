@@ -24,8 +24,9 @@ const OverviewWidget: WidgetFC<WidgetProps> = ({
         refreshMode='debounce'
         refreshRate={50}
         onResize={onResize}
-      />
-      <Overview highContrast={highContrast} onUpdate={onUpdate} widget={widget} />
+      >
+        <Overview highContrast={highContrast} onUpdate={onUpdate} widget={widget} />
+      </ReactResizeDetector>
     </div>
   )
 }

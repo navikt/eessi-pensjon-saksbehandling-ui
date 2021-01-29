@@ -23,12 +23,13 @@ const BUCWidget: WidgetFC<WidgetProps> = ({
         handleWidth
         handleHeight
         onResize={onResize}
-      />
-      <Buc
-        allowFullScreen={_.get(widget, 'options.allowFullScreen')}
-        onRestoreFocus={onRestoreFocus}
-        onFullFocus={onFullFocus}
-      />
+      >
+        <Buc
+          allowFullScreen={_.get(widget, 'options.allowFullScreen')}
+          onRestoreFocus={onRestoreFocus}
+          onFullFocus={onFullFocus}
+        />
+      </ReactResizeDetector>
     </div>
   )
 }
