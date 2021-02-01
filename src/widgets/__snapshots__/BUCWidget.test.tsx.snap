@@ -53,16 +53,20 @@ exports[`widgets/BUCWidget Renders 1`] = `
         }
       }
     >
-      <div />
+      <Component
+        onFullFocus={[MockFunction]}
+        onRestoreFocus={[MockFunction]}
+        targetRef={
+          Object {
+            "current": null,
+          }
+        }
+      >
+        <div
+          className="mock-a-buc"
+        />
+      </Component>
     </ResizeDetector>
-    <Component
-      onFullFocus={[MockFunction]}
-      onRestoreFocus={[MockFunction]}
-    >
-      <div
-        className="mock-a-buc"
-      />
-    </Component>
   </div>
 </BUCWidget>
 `;

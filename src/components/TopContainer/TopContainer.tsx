@@ -131,57 +131,57 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
       <div role='application'>
         <ErrorBoundary
-        renderError={({ error }: any) => <Error type='internalError' error={error} />}
-      >
+          renderError={({ error }: any) => <Error type='internalError' error={error} />}
+        >
           <ReactResizeDetector
             handleWidth
             onResize={onResize}
           >
 
-        <Header
-          highContrast={highContrast}
-          username={username}
-          gettingUserInfo={gettingUserInfo}
-          isLoggingOut={isLoggingOut}
-        />
-        <Alert
-          type='client'
-          message={getClientErrorMessage()}
-          status={clientErrorStatus}
-          error={error}
-          onClose={onClear}
-        />
-        <Alert
-          type='server'
-          message={getServerErrorMessage()}
-          error={error}
-          onClose={onClear}
-        />
-        {modal !== undefined && (
-          <Modal
-            appElement={(document.getElementById('main') || document.body)}
-            highContrast={highContrast}
-            modal={modal}
-            onModalClose={handleModalClose}
-          />
-        )}
-        <SessionMonitor
-          expirationTime={expirationTime!}
-        />
-        <Main
-          id='main'
-          role='main'
-          className={className}
-        >
-          {children}
-        </Main>
-        <Footer
-          highContrast={highContrast}
-          params={params}
-          footerOpen={footerOpen}
-        />
+            <Header
+              highContrast={highContrast}
+              username={username}
+              gettingUserInfo={gettingUserInfo}
+              isLoggingOut={isLoggingOut}
+            />
+            <Alert
+              type='client'
+              message={getClientErrorMessage()}
+              status={clientErrorStatus}
+              error={error}
+              onClose={onClear}
+            />
+            <Alert
+              type='server'
+              message={getServerErrorMessage()}
+              error={error}
+              onClose={onClear}
+            />
+            {modal !== undefined && (
+              <Modal
+                appElement={(document.getElementById('main') || document.body)}
+                highContrast={highContrast}
+                modal={modal}
+                onModalClose={handleModalClose}
+              />
+            )}
+            <SessionMonitor
+              expirationTime={expirationTime!}
+            />
+            <Main
+              id='main'
+              role='main'
+              className={className}
+            >
+              {children}
+            </Main>
+            <Footer
+              highContrast={highContrast}
+              params={params}
+              footerOpen={footerOpen}
+            />
           </ReactResizeDetector>
-      </ErrorBoundary>
+        </ErrorBoundary>
 
       </div>
     </NavHighContrast>

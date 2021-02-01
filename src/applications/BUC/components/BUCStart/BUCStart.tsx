@@ -153,7 +153,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const bucNeedsAvdod = (): boolean => bucsThatSupportAvdod(_buc) && avdodExists() &&
     (_buc === 'P_BUC_10'
       ? pesysContext === constants.VEDTAKSKONTEKST && (
-        sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
+          sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
         sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
       : true
     )

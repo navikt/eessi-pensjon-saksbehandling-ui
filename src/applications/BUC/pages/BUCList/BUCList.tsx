@@ -327,6 +327,11 @@ const BUCList: React.FC<BUCListProps> = ({
               onBucCreated={() => {
                 setNewBucPanelOpen(false)
                 setMode('sednew', 'forward')
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: 'smooth'
+                })
               }}
               onBucCancelled={() => setNewBucPanelOpen(false)}
             />

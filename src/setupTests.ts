@@ -17,9 +17,9 @@ HTMLCanvasElement.prototype.getContext = jest.fn()
 window.scrollTo = jest.fn()
 
 class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  observe () {}
+  unobserve () {}
+  disconnect () {}
 }
 window.ResizeObserver = ResizeObserver
 
