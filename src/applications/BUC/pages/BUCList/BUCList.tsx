@@ -221,6 +221,11 @@ const BUCList: React.FC<BUCListProps> = ({
     getSeds(buc.caseId!)
     dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit' as BUCMode, 'forward')
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
   }
 
   const getSeds = (bucId: string): void => {
