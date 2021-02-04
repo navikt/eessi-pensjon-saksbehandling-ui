@@ -103,7 +103,7 @@ interface SedSender {
   acronym: string
 }
 
-export interface SEDP5000Row {
+export interface SEDP5000OverviewRow {
   key: string
   land: string
   acronym: string
@@ -120,7 +120,7 @@ export interface SEDP5000Row {
   informasjonOmBeregning: string
 }
 
-export type SEDP5000Rows = Array<SEDP5000Row>
+export type SEDP5000OverviewRows = Array<SEDP5000OverviewRow>
 
 const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   highContrast, locale, seds, sedContent
@@ -133,8 +133,8 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
-  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): SEDP5000Rows => {
-    const res: SEDP5000Rows = []
+  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): SEDP5000OverviewRows => {
+    const res: SEDP5000OverviewRows = []
     const sender: SedSender | undefined = getSedSender(sedId)
     const medlemskap = sedContent.pensjon?.medlemskap
     if (medlemskap) {
@@ -155,7 +155,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             relevantForYtelse: m.relevans || '-',
             ordning: m.ordning || '-',
             informasjonOmBeregning: m.beregning || '-'
-          } as SEDP5000Row)
+          } as SEDP5000OverviewRow)
         }
       })
     }
@@ -180,8 +180,8 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     return undefined
   }
 
-  const getItems = (): SEDP5000Rows => {
-    let res: SEDP5000Rows = []
+  const getItems = (): SEDP5000OverviewRows => {
+    let res: SEDP5000OverviewRows = []
     Object.keys(_activeSeds).forEach((key: string) => {
       if (_activeSeds[key]) {
         res = res.concat(convertRawP5000toRow(key, sedContent[key]))
@@ -208,7 +208,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   }
 
   const prepareContent = (): void => {
-    standardLogger('buc.edit.tools.P5000.print.button')
+    standardLogger('buc.edit.tools.P5000.overview.print.button')
     setPrintDialogOpen(true)
   }
 
@@ -223,7 +223,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   }
 
   const itemsPerPageChanged = (e: any): void => {
-    standardLogger('buc.edit.tools.P5000.itemsPerPage.select', { value: e.target.value })
+    standardLogger('buc.edit.tools.P5000.overview.itemsPerPage.select', { value: e.target.value })
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
@@ -311,7 +311,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           selectable={false}
           sortable
           onColumnSort={(sort: any) => {
-            standardLogger('buc.edit.tools.P5000.sort', { sort: sort })
+            standardLogger('buc.edit.tools.P5000.overview.sort', { sort: sort })
             setTableSort(sort)
           }}
           itemsPerPage={_itemsPerPage}

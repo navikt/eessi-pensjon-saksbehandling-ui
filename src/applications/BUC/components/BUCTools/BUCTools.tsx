@@ -133,7 +133,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const displayP5000OverviewTable = useCallback(() => {
     setTimeWithP5000Modal(new Date())
     setModal({
-      modalTitle: t('buc:P5000-title'),
+      modalTitle: t('buc:P5000-overview-title'),
       modalContent: (
         <SEDP5000Overview
           highContrast={highContrast}
@@ -148,7 +148,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const displayP5000SummaryTable = useCallback(() => {
     setTimeWithP5000Modal(new Date())
     setModal({
-      modalTitle: t('buc:P5000-title'),
+      modalTitle: t('buc:P5000-summary-title'),
       modalContent: (
         <SEDP5000Summary
           highContrast={highContrast}

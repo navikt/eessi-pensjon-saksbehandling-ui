@@ -190,7 +190,8 @@
   "loading-subjectAreaList"       : "Laster fagområde...",
   "loading-tagList"               : "Laster merknader...",
 
-  "P5000-title"                 : "Perioder for P5000",
+  "P5000-overview-title"          : "Perioder for P5000",
+  "P5000-summary-title"           : "Summering av norske trygdetidsperioder for P5000",
 
   "relasjon-EKTE"  : "Ektefelle",
   "relasjon-BARN"  : "Barn",
