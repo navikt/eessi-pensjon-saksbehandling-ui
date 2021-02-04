@@ -21,7 +21,6 @@ export interface AppState {
 }
 
 const initialFeatureToggles: FeatureToggles = {
-  P_BUC_10_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0
 }

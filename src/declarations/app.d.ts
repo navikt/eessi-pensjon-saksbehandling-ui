@@ -5,7 +5,6 @@ import { OptionTypeBase } from 'react-select'
 export type AllowedLocaleString = 'en' | 'nb'
 
 export type Feature =
-  | 'P_BUC_10_VISIBLE' // See P_BUC_10 in new BUCs
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
   | 'NR_AVDOD' // for mock purposes
 
