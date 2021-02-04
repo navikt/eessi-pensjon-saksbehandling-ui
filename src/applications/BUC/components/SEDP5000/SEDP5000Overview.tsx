@@ -122,7 +122,7 @@ export interface SEDP5000Row {
 
 export type SEDP5000Rows = Array<SEDP5000Row>
 
-const SEDP5000: React.FC<SEDP5000Props> = ({
+const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   highContrast, locale, seds, sedContent
 }: SEDP5000Props) => {
   const { t } = useTranslation()
@@ -417,11 +417,11 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   )
 }
 
-SEDP5000.propTypes = {
+SEDP5000Overview.propTypes = {
   highContrast: PT.bool.isRequired,
   locale: PT.oneOf<AllowedLocaleString>(['en', 'nb']).isRequired,
   seds: SedsPropType.isRequired,
   sedContent: PT.any.isRequired
 }
 
-export default SEDP5000
+export default SEDP5000Overview

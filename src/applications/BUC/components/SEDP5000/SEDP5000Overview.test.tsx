@@ -4,7 +4,7 @@ import _ from 'lodash'
 import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
 import TableSorter from 'tabell'
-import SEDP5000, { SEDP5000Container, SEDP5000Props } from './SEDP5000'
+import SEDP5000Overview, { SEDP5000Container, SEDP5000Props } from './SEDP5000Overview'
 import mockSedP50001 from 'mocks/buc/sed_P5000_1'
 import mockSedP50002 from 'mocks/buc/sed_P5000_2'
 
@@ -22,7 +22,7 @@ describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<SEDP5000 {...initialMockProps} />)
+    wrapper = mount(<SEDP5000Overview {...initialMockProps} />)
   })
 
   afterEach(() => {

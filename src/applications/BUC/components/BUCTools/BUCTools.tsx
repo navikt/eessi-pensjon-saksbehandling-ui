@@ -1,6 +1,7 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
+import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
+import SEDP5000Summary from 'applications/BUC/components/SEDP5000/SEDP5000Summary'
 import Trashcan from 'assets/icons/Trashcan'
 import NavHighContrast, {
   slideInFromRight,
@@ -8,6 +9,7 @@ import NavHighContrast, {
   HighContrastPanel,
   HighContrastTabs,
   HighContrastTextArea,
+  HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
@@ -54,6 +56,10 @@ const CommentDiv = styled.div`
   margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
+`
+const FlexDiv = styled.div`
+  display: flex;
+
 `
 const P5000Div = styled.div`
   margin-bottom: 1rem;
@@ -111,6 +117,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [_comment, setComment] = useState< string | null | undefined >('')
   const [_fetchingP5000, setFetchingP5000] = useState<Seds>([])
   const [_modal, setModal] = useState<ModalContent | undefined>(undefined)
+  const [_modalType, setModalType] = useState<string | undefined>(undefined)
   const [_originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
   const [_timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
@@ -123,12 +130,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     return buc.seds.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')
   }, [buc])
 
-  const displayP5000table = useCallback(() => {
+  const displayP5000OverviewTable = useCallback(() => {
     setTimeWithP5000Modal(new Date())
     setModal({
       modalTitle: t('buc:P5000-title'),
       modalContent: (
-        <SEDP5000
+        <SEDP5000Overview
           highContrast={highContrast}
           seds={getP5000()!}
           sedContent={sedContent}
@@ -137,6 +144,22 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       )
     })
   }, [getP5000, highContrast, locale, sedContent, setModal, t])
+
+  const displayP5000SummaryTable = useCallback(() => {
+    setTimeWithP5000Modal(new Date())
+    setModal({
+      modalTitle: t('buc:P5000-title'),
+      modalContent: (
+        <SEDP5000Summary
+          highContrast={highContrast}
+          seds={getP5000()!}
+          sedContent={sedContent}
+          locale={locale}
+        />
+      )
+    })
+  }, [getP5000, highContrast, locale, sedContent, setModal, t])
+
 
   const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     if (tagsList) {
@@ -213,6 +236,19 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     const p5000s = getP5000()
     if (p5000s) {
       setFetchingP5000(p5000s)
+      setModalType('overview')
+      p5000s.forEach(sed => {
+        dispatch(getSed(buc.caseId!, sed))
+      })
+    }
+  }
+
+  const onGettingP5000SummaryClick = (e: React.MouseEvent): void => {
+    buttonLogger(e)
+    const p5000s = getP5000()
+    if (p5000s) {
+      setFetchingP5000(p5000s)
+      setModalType('summary')
       p5000s.forEach(sed => {
         dispatch(getSed(buc.caseId!, sed))
       })
@@ -263,11 +299,16 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         const newFetchingP5000 = _.filter(_fetchingP5000, sed => !_.includes(commonSeds, sed.id))
         setFetchingP5000(newFetchingP5000)
         if (_.isEmpty(newFetchingP5000)) {
-          displayP5000table()
+          if (_modalType === 'overview') {
+            displayP5000OverviewTable()
+          }
+          if (_modalType === 'summary') {
+            displayP5000SummaryTable()
+          }
         }
       }
     }
-  }, [displayP5000table, _fetchingP5000, sedContent, setModal])
+  }, [displayP5000OverviewTable, displayP5000SummaryTable, _fetchingP5000, sedContent, setModal])
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -297,6 +338,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     onModalClose={onModalClose}
                   />
                 )}
+                <FlexDiv>
+
                 <HighContrastKnapp
                   data-amplitude='buc.edit.tools.P5000.view'
                   data-test-id='a-buc-c-buctools__P5000-button-id'
@@ -306,6 +349,17 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 >
                   {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
                 </HighContrastKnapp>
+                <HorizontalSeparatorDiv data-size='0.5'/>
+                <HighContrastKnapp
+                  data-amplitude='buc.edit.tools.P5000.summary.view'
+                  data-test-id='a-buc-c-buctools__P5000-summary-button-id'
+                  disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
+                  spinner={!_.isEmpty(_fetchingP5000)}
+                  onClick={onGettingP5000SummaryClick}
+                >
+                  {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
+                </HighContrastKnapp>
+                </FlexDiv>
               </P5000Div>
             )}
             {tabs[_activeTab].key === 'tags' && (
