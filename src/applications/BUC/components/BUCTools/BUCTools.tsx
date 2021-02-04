@@ -160,7 +160,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
-
   const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     if (tagsList) {
       if (_.isFunction(onTagChange)) {
@@ -340,25 +339,25 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 )}
                 <FlexDiv>
 
-                <HighContrastKnapp
-                  data-amplitude='buc.edit.tools.P5000.view'
-                  data-test-id='a-buc-c-buctools__P5000-button-id'
-                  disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                  spinner={!_.isEmpty(_fetchingP5000)}
-                  onClick={onGettingP5000sClick}
-                >
-                  {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
-                </HighContrastKnapp>
-                <HorizontalSeparatorDiv data-size='0.5'/>
-                <HighContrastKnapp
-                  data-amplitude='buc.edit.tools.P5000.summary.view'
-                  data-test-id='a-buc-c-buctools__P5000-summary-button-id'
-                  disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                  spinner={!_.isEmpty(_fetchingP5000)}
-                  onClick={onGettingP5000SummaryClick}
-                >
-                  {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
-                </HighContrastKnapp>
+                  <HighContrastKnapp
+                    data-amplitude='buc.edit.tools.P5000.view'
+                    data-test-id='a-buc-c-buctools__P5000-button-id'
+                    disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
+                    spinner={!_.isEmpty(_fetchingP5000)}
+                    onClick={onGettingP5000sClick}
+                  >
+                    {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+                  </HighContrastKnapp>
+                  <HorizontalSeparatorDiv data-size='0.5' />
+                  <HighContrastKnapp
+                    data-amplitude='buc.edit.tools.P5000.summary.view'
+                    data-test-id='a-buc-c-buctools__P5000-summary-button-id'
+                    disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
+                    spinner={!_.isEmpty(_fetchingP5000)}
+                    onClick={onGettingP5000SummaryClick}
+                  >
+                    {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
+                  </HighContrastKnapp>
                 </FlexDiv>
               </P5000Div>
             )}

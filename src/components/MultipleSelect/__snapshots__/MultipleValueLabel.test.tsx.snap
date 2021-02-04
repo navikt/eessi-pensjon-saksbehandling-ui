@@ -32,6 +32,11 @@ ui-fss.g2[id="c0"] {
   }
 >
   <MultiValueGeneric
+    data={
+      Object {
+        "label": "mockLabel",
+      }
+    }
     data-test-id="c-multipleselect-multivaluelabel"
   >
     <div>

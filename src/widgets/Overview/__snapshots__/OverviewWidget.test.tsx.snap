@@ -57,27 +57,31 @@ exports[`widgets/OverviewWidget Render: match snapshot 1`] = `
       refreshMode="debounce"
       refreshRate={50}
     >
-      <div />
-    </ResizeDetector>
-    <Component
-      highContrast={false}
-      onUpdate={[MockFunction]}
-      widget={
-        Object {
-          "i": "i",
-          "options": Object {
-            "collapsed": false,
-          },
-          "title": "Overview",
-          "type": "overview",
-          "visible": true,
+      <Component
+        highContrast={false}
+        onUpdate={[MockFunction]}
+        targetRef={
+          Object {
+            "current": null,
+          }
         }
-      }
-    >
-      <div
-        className="mock-w-overview"
-      />
-    </Component>
+        widget={
+          Object {
+            "i": "i",
+            "options": Object {
+              "collapsed": false,
+            },
+            "title": "Overview",
+            "type": "overview",
+            "visible": true,
+          }
+        }
+      >
+        <div
+          className="mock-w-overview"
+        />
+      </Component>
+    </ResizeDetector>
   </div>
 </OverviewWidget>
 `;

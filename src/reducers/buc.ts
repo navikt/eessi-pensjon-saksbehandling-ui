@@ -1,7 +1,7 @@
 import { BUCMode } from 'applications/BUC'
 import { bucsThatSupportAvdod } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import * as types from 'constants/actionTypes'
-import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
+import { VEDTAKSKONTEKST } from 'constants/constants'
 import { RinaUrl } from 'declarations/app.d'
 import {
   Buc,
@@ -323,8 +323,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           excludedBucs.push('P_BUC_10')
         }
 
-        // Brukerkontekst does not have kravId. KravId is necessary for P_BUC_10's P15000.
-        if (excludedBucs.indexOf('P_BUC_10') < 0 && pesysContext === BRUKERKONTEKST) {
+        // only VEDTAKSKONTEKST should see P_BUC_10
+        if (excludedBucs.indexOf('P_BUC_10') < 0 && pesysContext !== VEDTAKSKONTEKST) {
           excludedBucs.push('P_BUC_10')
         }
       }

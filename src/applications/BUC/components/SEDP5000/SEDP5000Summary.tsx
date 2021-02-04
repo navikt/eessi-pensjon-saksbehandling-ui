@@ -90,8 +90,8 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const { t } = useTranslation()
   const { height } = useWindowDimensions()
   const componentRef = useRef(null)
-  const [_activeSeds, ] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
-  const [_itemsPerPage, ] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
+  const [_activeSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
+  const [_itemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
@@ -104,12 +104,12 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
         if (!_.isNil(m)) {
           res.push({
             key: sedId + '-' + i,
-            'sec51aar': m.sum?.aar || '-',
-            'sec51maned': m.sum?.maaneder || '-',
-            'sec51dager': (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
-            'sec52aar': m.sum?.aar || '-',
-            'sec52maned': m.sum?.maaneder || '-',
-            'sec52dager': (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
+            sec51aar: m.sum?.aar || '-',
+            sec51maned: m.sum?.maaneder || '-',
+            sec51dager: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
+            sec52aar: m.sum?.aar || '-',
+            sec52maned: m.sum?.maaneder || '-',
+            sec52dager: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
             type: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym
           } as SEDP5000SummaryRow)
         }

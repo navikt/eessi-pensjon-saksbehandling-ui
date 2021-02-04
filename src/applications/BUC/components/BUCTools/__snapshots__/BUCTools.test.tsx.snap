@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/BUCTools/BUCTools Render: match snapshot 1`] = `
-.c13 {
+.c15 {
   background-color: inherit;
   color: #0067C5;
   border-color: #0067C5;
 }
 
-.c13:hover:not(:disabled) {
+.c15:hover:not(:disabled) {
   background-color: #0067C5;
   color: #FFFFFF;
 }
 
-.c13:hover:not(:disabled) svg path {
+.c15:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
 }
 
-.c13 svg path {
+.c15 svg path {
   stroke: #0067C5;
 }
 
-ui-fss.g13[id="c12"] {
-  content: "c13,";
+ui-fss.g13[id="c14"] {
+  content: "c15,";
 }
 
 .c2 {
@@ -56,6 +56,15 @@ ui-fss.g19[id="c4"] {
   content: "c5,";
 }
 
+.c17 {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+ui-fss.g22[id="c16"] {
+  content: "c17,";
+}
+
 .c11 {
   margin-bottom: 0.5rem;
 }
@@ -73,15 +82,26 @@ ui-fss.g26[id="c10"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g67[id="c1"] {
+ui-fss.g74[id="c1"] {
   content: "c3,";
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+ui-fss.g76[id="c12"] {
+  content: "c13,";
 }
 
 .c9 {
   margin-bottom: 1rem;
 }
 
-ui-fss.g69[id="c8"] {
+ui-fss.g77[id="c8"] {
   content: "c9,";
 }
 
@@ -90,7 +110,7 @@ ui-fss.g69[id="c8"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g70[id="c6"] {
+ui-fss.g78[id="c6"] {
   content: "c7,";
 }
 
@@ -1807,48 +1827,104 @@ ui-fss.g70[id="c6"] {
                         data-size="0.5"
                       />
                     </styled.div>
-                    <Styled(o)
-                      data-amplitude="buc.edit.tools.P5000.view"
-                      data-test-id="a-buc-c-buctools__P5000-button-id"
-                      disabled={false}
-                      onClick={[Function]}
-                      spinner={false}
-                    >
-                      <o
+                    <styled.div>
+                      <div
                         className="c12 c13"
-                        data-amplitude="buc.edit.tools.P5000.view"
-                        data-test-id="a-buc-c-buctools__P5000-button-id"
-                        disabled={false}
-                        onClick={[Function]}
-                        spinner={false}
                       >
-                        <d
-                          autoDisableVedSpinner={false}
-                          className="c12 c13"
+                        <Styled(o)
                           data-amplitude="buc.edit.tools.P5000.view"
                           data-test-id="a-buc-c-buctools__P5000-button-id"
                           disabled={false}
-                          htmlType="submit"
-                          inaktivKlasseVedDisabled={false}
-                          kompakt={false}
-                          mini={false}
                           onClick={[Function]}
                           spinner={false}
-                          type="standard"
                         >
-                          <button
-                            className="knapp c12 c13 knapp--standard"
+                          <o
+                            className="c14 c15"
                             data-amplitude="buc.edit.tools.P5000.view"
                             data-test-id="a-buc-c-buctools__P5000-button-id"
                             disabled={false}
                             onClick={[Function]}
-                            type="submit"
+                            spinner={false}
                           >
-                            buc:form-seeP5000s
-                          </button>
-                        </d>
-                      </o>
-                    </Styled(o)>
+                            <d
+                              autoDisableVedSpinner={false}
+                              className="c14 c15"
+                              data-amplitude="buc.edit.tools.P5000.view"
+                              data-test-id="a-buc-c-buctools__P5000-button-id"
+                              disabled={false}
+                              htmlType="submit"
+                              inaktivKlasseVedDisabled={false}
+                              kompakt={false}
+                              mini={false}
+                              onClick={[Function]}
+                              spinner={false}
+                              type="standard"
+                            >
+                              <button
+                                className="knapp c14 c15 knapp--standard"
+                                data-amplitude="buc.edit.tools.P5000.view"
+                                data-test-id="a-buc-c-buctools__P5000-button-id"
+                                disabled={false}
+                                onClick={[Function]}
+                                type="submit"
+                              >
+                                buc:form-seeP5000s
+                              </button>
+                            </d>
+                          </o>
+                        </Styled(o)>
+                        <styled.div
+                          data-size="0.5"
+                        >
+                          <div
+                            className="c16 c17"
+                            data-size="0.5"
+                          />
+                        </styled.div>
+                        <Styled(o)
+                          data-amplitude="buc.edit.tools.P5000.summary.view"
+                          data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                          disabled={false}
+                          onClick={[Function]}
+                          spinner={false}
+                        >
+                          <o
+                            className="c14 c15"
+                            data-amplitude="buc.edit.tools.P5000.summary.view"
+                            data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                            disabled={false}
+                            onClick={[Function]}
+                            spinner={false}
+                          >
+                            <d
+                              autoDisableVedSpinner={false}
+                              className="c14 c15"
+                              data-amplitude="buc.edit.tools.P5000.summary.view"
+                              data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                              disabled={false}
+                              htmlType="submit"
+                              inaktivKlasseVedDisabled={false}
+                              kompakt={false}
+                              mini={false}
+                              onClick={[Function]}
+                              spinner={false}
+                              type="standard"
+                            >
+                              <button
+                                className="knapp c14 c15 knapp--standard"
+                                data-amplitude="buc.edit.tools.P5000.summary.view"
+                                data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                                disabled={false}
+                                onClick={[Function]}
+                                type="submit"
+                              >
+                                buc:form-seeP5000summary
+                              </button>
+                            </d>
+                          </o>
+                        </Styled(o)>
+                      </div>
+                    </styled.div>
                   </div>
                 </styled.div>
               </div>
