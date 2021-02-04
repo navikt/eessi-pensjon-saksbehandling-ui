@@ -310,7 +310,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const excludedBucs: Array<string> = []
 
       const pesysContext = _.get((action as ActionWithPayload), 'context.pesysContext')
-      const featureToggles = _.get((action as ActionWithPayload), 'context.featureToggles')
 
       const sakTypeAllowingPBUC05notVedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Barnepensjon', 'Generell', 'Gjenlevendeytelse', 'Omsorgsopptjening', 'Uføretrygd']
       const sakTypeAllowingPBUC05vedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Barnepensjon', 'Gjenlevendeytelse', 'Omsorgsopptjening', 'Uføretrygd']
@@ -318,23 +317,13 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const sakTypeAllowingPBUC05 = pesysContext === VEDTAKSKONTEKST ? sakTypeAllowingPBUC05vedtakscontext : sakTypeAllowingPBUC05notVedtakscontext
       const sakType: SakTypeValue |undefined = (action as ActionWithPayload).context.sakType
 
-      if (featureToggles.P_BUC_10_VISIBLE === false) {
-        if (excludedBucs.indexOf('P_BUC_10') < 0) {
-          excludedBucs.push('P_BUC_10')
-        }
-
-        // only VEDTAKSKONTEKST should see P_BUC_10
-        if (excludedBucs.indexOf('P_BUC_10') < 0 && pesysContext !== VEDTAKSKONTEKST) {
-          excludedBucs.push('P_BUC_10')
-        }
+      if (pesysContext !== VEDTAKSKONTEKST) {
+        excludedBucs.push('P_BUC_02')
+        excludedBucs.push('P_BUC_10')
       }
 
       if (sakType && sakTypeAllowingPBUC05.indexOf(sakType) < 0) {
         excludedBucs.push('P_BUC_05')
-      }
-
-      if (pesysContext !== VEDTAKSKONTEKST) {
-        excludedBucs.push('P_BUC_02')
       }
 
       return {

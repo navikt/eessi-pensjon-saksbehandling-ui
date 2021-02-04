@@ -1,5 +1,4 @@
 import * as types from 'constants/actionTypes'
-import { VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc, BucsInfo, Participant, Sed } from 'declarations/buc'
 import mockBucs from 'mocks/buc/bucs'
 import mockJoarkItems from 'mocks/joark/items'
@@ -325,41 +324,6 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       bucs: null
-    })
-  })
-
-  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_10 true', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_BUC_LIST_SUCCESS,
-        payload: ['mockPayload', 'P_BUC_10'],
-        context: {
-          pesysContext: VEDTAKSKONTEKST,
-          featureToggles: {
-            P_BUC_10_VISIBLE: true
-          }
-        }
-      })
-    ).toEqual({
-      ...initialBucState,
-      bucList: ['mockPayload', 'P_BUC_10']
-    })
-  })
-
-  it('BUC_GET_BUC_LIST_SUCCESS: Feature toggle P_BUC_10 false', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_BUC_LIST_SUCCESS,
-        payload: ['mockPayload', 'P_BUC_10'],
-        context: {
-          featureToggles: {
-            P_BUC_10_VISIBLE: false
-          }
-        }
-      })
-    ).toEqual({
-      ...initialBucState,
-      bucList: ['mockPayload']
     })
   })
 
