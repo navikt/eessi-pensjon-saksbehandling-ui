@@ -14,7 +14,7 @@ import {
 } from 'actions/buc'
 import {
   bucsThatSupportAvdod,
-  getBucTypeLabel,
+  getBucTypeLabel, getFnr,
   labelSorter,
   renderAvdodName,
   sedAttachmentSorter,
@@ -28,6 +28,7 @@ import Alert from 'components/Alert/Alert'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
+import { PersonPDL } from 'declarations/person'
 import {
   Column,
   HighContrastFeiloppsummering,
@@ -80,7 +81,7 @@ import { BucsPropType, SedPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { PersonAvdodPDL, PersonAvdodsPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import CountryData, { Country, CountryList } from 'land-verktoy'
 import CountrySelect from 'landvelger'
@@ -145,7 +146,8 @@ export interface SEDStartSelector {
   kravId: string | undefined,
   loading: Loading
   locale: AllowedLocaleString
-  personAvdods: PersonAvdods | undefined
+  person: PersonPDL | undefined
+  personAvdods: PersonAvdodsPDL | undefined
   pesysContext: PesysContext | undefined
   sakId?: string
   sakType: SakTypeValue | undefined
@@ -167,6 +169,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   kravId: state.app.params.kravId,
   loading: state.loading,
   locale: state.ui.locale,
+  person: state.app.person,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
@@ -200,7 +203,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element => {
   const {
     attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, kravId, kravDato,
-    loading, locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
+    loading, locale, person, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -254,7 +257,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       : []
   }
 
-  const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
+  const [_avdod, setAvdod] = useState<PersonAvdodPDL | null | undefined>(undefined)
   const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
   const [_avdodOrSoker, setAvdodOrSoker] = useState<AvdodOrSokerValue | undefined>(undefined)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
@@ -339,7 +342,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         )
       )
     )
-    //  console.log(answer, sedSupportsAvdod(), avdodExists(), pesysContext, _buc.type, isNorwayCaseOwner(), sedNeedsAvdodBrukerQuestion())
     return answer
   }
 
@@ -718,8 +720,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (_vedtakId) {
         payload.vedtakId = _vedtakId
       }
-      if (sedSupportsAvdod() && avdodExists()) {
-        payload.avdodfnr = _avdod?.fnr
+      if (sedSupportsAvdod() && _avdod && avdodExists()) {
+        payload.avdodfnr = getFnr(_avdod)
       }
       if (sedNeedsAvdodFnrInput() && _avdodFnr) {
         payload.avdodfnr = _avdodFnr
@@ -846,9 +848,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject) {
-      let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p =>
-        p.fnr === (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
-      )
+      let avdod: PersonAvdodPDL | undefined | null = _.find(personAvdods, p => {
+        const avdodFnr = getFnr(p)
+        const needleFnr = (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
+        return avdodFnr === needleFnr
+      })
       if (avdod === undefined) {
         avdod = null
       }
@@ -947,7 +951,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 </label>
                 <HorizontalSeparatorDiv />
                 <Normaltekst>
-                  {renderAvdodName(_avdod, t)}
+                  {renderAvdodName(_avdod, person, t)}
                 </Normaltekst>
               </FlexDiv>
             </>

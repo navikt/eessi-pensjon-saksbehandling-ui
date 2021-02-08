@@ -1,5 +1,5 @@
 import { BUCMode } from 'applications/BUC'
-import { bucsThatSupportAvdod } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucsThatSupportAvdod, getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { RinaUrl } from 'declarations/app.d'
@@ -137,10 +137,10 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       if (bucsThatSupportAvdod(newBuc.type) && person && avdod) {
         newBuc.addedParams.subject = {
           gjenlevende: {
-            fnr: person.aktoer.ident.ident
+            fnr: getFnr(person)
           },
           avdod: {
-            fnr: avdod.fnr!
+            fnr: getFnr(avdod)
           }
         } as BUCSubject
       }

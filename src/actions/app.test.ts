@@ -37,7 +37,7 @@ describe('actions/app', () => {
         success: types.APP_PERSONINFO_AVDOD_SUCCESS,
         failure: types.APP_PERSONINFO_AVDOD_FAILURE
       },
-      url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
+      url: sprintf(urls.PERSON_PDL_AVDOD_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
     }))
   })
 
@@ -50,7 +50,7 @@ describe('actions/app', () => {
         success: types.APP_PERSONINFO_SUCCESS,
         failure: types.APP_PERSONINFO_FAILURE
       },
-      url: sprintf(urls.PERSON_URL, { aktoerId: mockAktoerId })
+      url: sprintf(urls.PERSON_PDL_INFO_URL, { aktoerId: mockAktoerId })
     }))
   })
 

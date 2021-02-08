@@ -3,7 +3,7 @@ import mann from 'assets/icons/icon-mann.png'
 import ukjent from 'assets/icons/icon-ukjent.png'
 import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
-import { Person } from 'declarations/person'
+import { PersonPDL } from 'declarations/person'
 import { PersonPropType } from 'declarations/person.pt'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
@@ -12,6 +12,7 @@ import PT from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import PersonLoading from 'widgets/Overview/PersonLoading'
+import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 
 export const Title = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ export const Title = styled.div`
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
-  person?: Person
+  person?: PersonPDL
 }
 
 const PersonTitle: React.FC<PersonTitleProps> = ({
@@ -38,14 +39,14 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
     )
   }
 
-  if (_.get(person, 'foedselsdato.foedselsdato')) {
-    birthDate = moment(person.foedselsdato.foedselsdato)
+  if (_.get(person, 'foedsel.foedselsdato')) {
+    birthDate = moment(person.foedsel.foedselsdato)
     if (birthDate) {
       birthDate = birthDate.toDate()
     }
   }
-  if (_.get(person, 'doedsdato.doedsdato')) {
-    deathDate = moment(person.doedsdato.doedsdato)
+  if (_.get(person, 'doedsfall.doedsdato')) {
+    deathDate = moment(person.doedsfall?.doedsdato)
     if (deathDate) {
       deathDate = deathDate.toDate()
     }
@@ -55,10 +56,11 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
 
   let kind: string = 'nav-unknown-icon'
   let src = ukjent
-  if (person.kjoenn.kjoenn.value === 'K') {
+
+  if (person.kjoenn?.kjoenn === 'KVINNE') {
     kind = 'nav-woman-icon'
     src = kvinne
-  } else if (person.kjoenn.kjoenn.value === 'M') {
+  } else if (person.kjoenn?.kjoenn === 'MANN') {
     kind = 'nav-man-icon'
     src = mann
   }
@@ -74,7 +76,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
       />
       <HorizontalSeparatorDiv />
       <Systemtittel>
-        {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
+        {person.navn?.sammensattNavn} ({age}) - {getFnr(person)}
       </Systemtittel>
     </Title>
   )

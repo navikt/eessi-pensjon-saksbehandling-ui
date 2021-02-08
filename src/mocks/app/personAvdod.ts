@@ -1,3 +1,135 @@
+const avdod1 = {
+  identer: [
+    {
+      ident: 'personFarFnr',
+      gruppe: 'FOLKEREGISTERIDENT'
+    },
+    {
+      ident: 'personFarAktoerId',
+      gruppe: 'AKTORID'
+    }
+  ],
+  navn: {
+    fornavn: 'AVDØD1',
+    mellomnavn: null,
+    etternavn: 'SAKS',
+    sammensattNavn: 'AVDØD1 SAKS'
+  },
+  adressebeskyttelse: [
+    'UGRADERT'
+  ],
+  bostedsadresse: null,
+  oppholdsadresse: null,
+  statsborgerskap: [
+    {
+      land: 'NOR',
+      gyldigFraOgMed: '1980-02-09',
+      gyldigTilOgMed: null
+    }
+  ],
+  foedsel: {
+    foedselsdato: '1980-02-09',
+    foedeland: null,
+    foedested: null,
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  geografiskTilknytning: null,
+  kjoenn: {
+    kjoenn: 'MANN',
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  doedsfall: {
+    doedsdato: '2020-01-01',
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  familierelasjoner: [
+    {
+      relatertPersonsIdent: 'personFnr',
+      relatertPersonsRolle: 'BARN',
+      minRolleForPerson: 'FAR'
+    }
+  ],
+  sivilstand: [
+    {
+      type: 'GIFT',
+      gyldigFraOgMed: '2007-10-10',
+      relatertVedSivilstand: '20047520887'
+    }
+  ]
+}
+
+const avdod2 = {
+  identer: [
+    {
+      ident: 'personMorFnr',
+      gruppe: 'FOLKEREGISTERIDENT'
+    },
+    {
+      ident: 'pesonMorAktoerId',
+      gruppe: 'AKTORID'
+    }
+  ],
+  navn: {
+    fornavn: 'AVDØD2',
+    mellomnavn: null,
+    etternavn: 'SAKS',
+    sammensattNavn: 'AVDØD2 SAKS'
+  },
+  adressebeskyttelse: [
+    'UGRADERT'
+  ],
+  bostedsadresse: null,
+  oppholdsadresse: null,
+  statsborgerskap: [
+    {
+      land: 'NOR',
+      gyldigFraOgMed: '1980-02-09',
+      gyldigTilOgMed: null
+    }
+  ],
+  foedsel: {
+    foedselsdato: '1980-02-09',
+    foedeland: null,
+    foedested: null,
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  geografiskTilknytning: null,
+  kjoenn: {
+    kjoenn: 'MANN',
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  doedsfall: {
+    doedsdato: '2020-01-01',
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  familierelasjoner: [
+    {
+      relatertPersonsIdent: 'personFnr',
+      relatertPersonsRolle: 'BARN',
+      minRolleForPerson: 'MOR'
+    }
+  ],
+  sivilstand: [
+    {
+      type: 'GIFT',
+      gyldigFraOgMed: '2007-10-10',
+      relatertVedSivilstand: '20047520887'
+    }
+  ]
+}
+
 export default (nrAvdod: number | undefined) => {
   let whichOne = 0
   if (nrAvdod !== undefined) {
@@ -12,34 +144,10 @@ export default (nrAvdod: number | undefined) => {
     return []
   }
   if (whichOne === 1) {
-    return [{
-      fnr: '12345678902',
-      aktoerId: '2865434801175',
-      fulltNavn: 'BLYANT FRODIG',
-      fornavn: 'FRODIG',
-      mellomnavn: null,
-      etternavn: 'BLYANT',
-      relasjon: 'REPA'
-    }]
+    return [avdod1]
   }
   if (whichOne === 2) {
-    return [{
-      fnr: '12345678902',
-      aktoerId: '2865434801175',
-      fulltNavn: 'BLYANT FRODIG MOR',
-      fornavn: 'FRODIG',
-      mellomnavn: 'BLYANT',
-      etternavn: 'MOR',
-      relasjon: 'MOR'
-    }, {
-      fnr: '12345678903',
-      aktoerId: '2865434801175',
-      fulltNavn: 'BLYANT FRODIG FAR',
-      fornavn: 'FRODIG',
-      mellomnavn: 'BLYANT',
-      etternavn: 'FAR',
-      relasjon: 'FAR'
-    }]
+    return [avdod1, avdod2]
   }
   return undefined
 }

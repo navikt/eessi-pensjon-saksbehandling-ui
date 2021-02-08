@@ -2,6 +2,7 @@ import { Buc, Sed } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { Labels, T } from 'declarations/app.d'
 import Mustache from 'mustache'
+import person from 'mocks/app/person'
 import personAvdod from 'mocks/app/personAvdod'
 import joarkItems from 'mocks/joark/items'
 import { countrySorter, renderAvdodName, sedAttachmentSorter } from './BUCUtils'
@@ -121,7 +122,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
   })
 
   it('renderAvdodName()', () => {
-    expect(renderAvdodName(personAvdod(1)![0], t)).toEqual('FRODIG BLYANT - 12345678902 (Repa)')
+    expect(renderAvdodName(personAvdod(1)![0], person, t)).toEqual('AVDØD1 SAKS - personFarFnr (---)')
   })
 
   it('sedAttachmentSorter()', () => {

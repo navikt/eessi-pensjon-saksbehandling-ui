@@ -272,10 +272,10 @@ ui-fss.g38[id="c14"] {
       "addedParams": Object {
         "subject": Object {
           "avdod": Object {
-            "fnr": "12345678902",
+            "fnr": "personFarFnr",
           },
           "gjenlevende": Object {
-            "fnr": "12345678901",
+            "fnr": "personFnr",
           },
         },
       },
@@ -1917,7 +1917,7 @@ ui-fss.g38[id="c14"] {
                                   data-test-id="a-buc-c-sedheader__version-id"
                                 >
                                   ui:version
-                                  : 
+                                  :
                                   5
                                 </p>
                               </TypografiBase>

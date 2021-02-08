@@ -34,222 +34,98 @@ ui-fss.g31[id="c0"] {
   gettingPersonInfo={false}
   person={
     Object {
-      "aktoer": Object {
-        "ident": Object {
-          "ident": "27072942618",
-          "type": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
-            "value": "FNR",
-          },
-        },
-      },
-      "bankkonto": null,
+      "adressebeskyttelse": Array [
+        "UGRADERT",
+      ],
       "bostedsadresse": Object {
-        "strukturertAdresse": Object {
-          "bolignummer": null,
-          "gatenavn": "KJEMPEBAKKENVEIEN",
-          "gatenummer": null,
-          "husbokstav": null,
-          "husnummer": 12,
-          "kommunenummer": "1201",
-          "landkode": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
-            "value": "NOR",
-          },
-          "poststed": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Postnummer",
-            "value": "5036",
-          },
-          "tilleggsadresse": null,
-          "tilleggsadresseType": "Offisiell adresse",
+        "gyldigFraOgMed": "2020-01-01",
+        "gyldigTilOgMed": "2021-01-01",
+        "utenlandskAdresse": Object {
+          "landkode": "SE",
+        },
+        "vegadresse": Object {
+          "adressenavn": "Adressenavn",
+          "husbokstav": "A",
+          "husnummer": "00",
+          "postnummer": "0768",
         },
       },
-      "diskresjonskode": null,
-      "doedsdato": Object {
-        "doedsdato": "2018-05-19T22:00:00.000+0000",
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-      },
-      "endretAv": null,
-      "endringstidspunkt": null,
-      "endringstype": null,
-      "foedested": null,
-      "foedselsdato": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "foedselsdato": "1929-07-26T13:00:00.000+0000",
-      },
-      "geografiskTilknytning": Object {
-        "geografiskTilknytning": "0213",
-      },
-      "gjeldendePostadressetype": Object {
-        "kodeRef": null,
-        "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Postadressetyper",
-        "value": "POSTADRESSE",
-      },
-      "harFraRolleI": Array [
+      "doedsfall": null,
+      "familierelasjoner": Array [
         Object {
-          "endretAv": null,
-          "endringstidspunkt": null,
-          "endringstype": null,
-          "harSammeBosted": false,
-          "tilPerson": Object {
-            "aktoer": Object {
-              "ident": Object {
-                "ident": "27066349360",
-                "type": Object {
-                  "kodeRef": null,
-                  "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
-                  "value": "FNR",
-                },
-              },
-            },
-            "bostedsadresse": null,
-            "diskresjonskode": null,
-            "doedsdato": null,
-            "foedselsdato": null,
-            "harFraRolleI": Array [],
-            "kjoenn": null,
-            "personnavn": Object {
-              "endretAv": null,
-              "endringstidspunkt": null,
-              "endringstype": null,
-              "etternavn": "ELQUAZZANI",
-              "fornavn": "SEAFORA-MASK",
-              "mellomnavn": null,
-              "sammensattNavn": "ELQUAZZANI SEAFORA-MASK",
-            },
-            "personstatus": null,
-            "postadresse": null,
-            "sivilstand": null,
-            "statsborgerskap": null,
-          },
-          "tilRolle": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner",
-            "value": "BARN",
-          },
+          "minRolleForPerson": "FAR",
+          "relatertPersonsIdent": "personBarnFnr",
+          "relatertPersonsRolle": "BARN",
         },
         Object {
-          "endretAv": null,
-          "endringstidspunkt": null,
-          "endringstype": null,
-          "harSammeBosted": false,
-          "tilPerson": Object {
-            "aktoer": Object {
-              "ident": Object {
-                "ident": "25076029647",
-                "type": Object {
-                  "kodeRef": null,
-                  "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
-                  "value": "FNR",
-                },
-              },
-            },
-            "bostedsadresse": null,
-            "diskresjonskode": null,
-            "doedsdato": null,
-            "foedselsdato": null,
-            "harFraRolleI": Array [],
-            "kjoenn": null,
-            "personnavn": Object {
-              "endretAv": null,
-              "endringstidspunkt": null,
-              "endringstype": null,
-              "etternavn": "KAEWYOO",
-              "fornavn": "KAROLI-MASK",
-              "mellomnavn": null,
-              "sammensattNavn": "KAEWYOO KAROLI-MASK",
-            },
-            "personstatus": null,
-            "postadresse": null,
-            "sivilstand": null,
-            "statsborgerskap": null,
-          },
-          "tilRolle": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner",
-            "value": "BARN",
-          },
+          "minRolleForPerson": "BARN",
+          "relatertPersonsIdent": "personFarFnr",
+          "relatertPersonsRolle": "FAR",
+        },
+        Object {
+          "minRolleForPerson": "BARN",
+          "relatertPersonsIdent": "personMorFnr",
+          "relatertPersonsRolle": "MOR",
+        },
+      ],
+      "foedsel": Object {
+        "foedeland": null,
+        "foedested": null,
+        "foedselsdato": "1980-02-09",
+        "folkeregistermetadata": Object {
+          "gyldighetstidspunkt": "2020-10-12T11:40:56",
+        },
+      },
+      "geografiskTilknytning": null,
+      "identer": Array [
+        Object {
+          "gruppe": "FOLKEREGISTERIDENT",
+          "ident": "personFnr",
+        },
+        Object {
+          "gruppe": "AKTORID",
+          "ident": "personAktoerId",
         },
       ],
       "kjoenn": Object {
-        "kjoenn": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Kj_c3_b8nnstyper",
-          "value": "K",
+        "folkeregistermetadata": Object {
+          "gyldighetstidspunkt": "2020-10-12T11:40:56",
         },
+        "kjoenn": "MANN",
       },
-      "kontaktinformasjon": Array [],
-      "maalform": null,
-      "midlertidigPostadresse": null,
-      "personnavn": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "etternavn": "HØYSÆTHER",
-        "fornavn": "NAZAKMIR-MASK",
+      "navn": Object {
+        "etternavn": "SAKS",
+        "fornavn": "LEALAUS",
         "mellomnavn": null,
-        "sammensattNavn": "HØYSÆTHER NAZAKMIR-MASK",
+        "sammensattNavn": "LEALAUS SAKS",
       },
-      "personstatus": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "personstatus": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personstatuser",
-          "value": "DØD",
+      "oppholdsadresse": Object {
+        "gyldigFraOgMed": "2022-01-01",
+        "gyldigTilOgMed": "2023-01-01",
+        "utenlandskAdresse": Object {
+          "landkode": "FI",
+        },
+        "vegadresse": Object {
+          "adressenavn": "Adressenavn2",
+          "husbokstav": "B",
+          "husnummer": "01",
+          "postnummer": "0768",
         },
       },
-      "postadresse": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "ustrukturertAdresse": Object {
-          "adresselinje1": "NYACHAE",
-          "adresselinje2": "S-BHF ORANIENBURGER STR.",
-          "adresselinje3": "20095",
-          "adresselinje4": null,
-          "landkode": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
-            "value": "SWE",
-          },
-          "postnr": null,
-          "poststed": null,
+      "sivilstand": Array [
+        Object {
+          "gyldigFraOgMed": "2007-10-10",
+          "relatertVedSivilstand": "20047520887",
+          "type": "GIFT",
         },
-      },
-      "sikkerhetstiltak": null,
-      "sivilstand": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "fomGyldighetsperiode": "2006-06-18T22:00:00.000+0000",
-        "sivilstand": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Sivilstander",
-          "value": "ENKE",
+      ],
+      "statsborgerskap": Array [
+        Object {
+          "gyldigFraOgMed": "1980-02-09",
+          "gyldigTilOgMed": null,
+          "land": "NOR",
         },
-        "tomGyldighetsperiode": null,
-      },
-      "statsborgerskap": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "land": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
-          "value": "DNK",
-        },
-      },
-      "tilrettelagtKommunikasjon": Array [],
-      "vergeListe": Array [],
+      ],
     }
   }
 >
@@ -258,10 +134,10 @@ ui-fss.g31[id="c0"] {
       className="c0 c1"
     >
       <img
-        alt="nav-woman-icon"
-        className="dead"
+        alt="nav-man-icon"
+        className=""
         data-test-id="w-persontitle__img"
-        src="icon-kvinne.png"
+        src="icon-mann.png"
         width={40}
       />
       <styled.div>
@@ -276,11 +152,11 @@ ui-fss.g31[id="c0"] {
           <h2
             className="typo-systemtittel"
           >
-            HØYSÆTHER NAZAKMIR-MASK
+            LEALAUS SAKS
              (
-            89
+            41
             ) - 
-            27072942618
+            personFnr
           </h2>
         </TypografiBase>
       </Systemtittel>

@@ -605,13 +605,69 @@ ui-fss.g35[id="c8"] {
                               personAvdods={
                                 Array [
                                   Object {
-                                    "aktoerId": "2865434801175",
-                                    "etternavn": "BLYANT",
-                                    "fnr": "12345678902",
-                                    "fornavn": "FRODIG",
-                                    "fulltNavn": "BLYANT FRODIG",
-                                    "mellomnavn": null,
-                                    "relasjon": "REPA",
+                                    "adressebeskyttelse": Array [
+                                      "UGRADERT",
+                                    ],
+                                    "bostedsadresse": null,
+                                    "doedsfall": Object {
+                                      "doedsdato": "2020-01-01",
+                                      "folkeregistermetadata": Object {
+                                        "gyldighetstidspunkt": "2020-10-12T11:40:56",
+                                      },
+                                    },
+                                    "familierelasjoner": Array [
+                                      Object {
+                                        "minRolleForPerson": "FAR",
+                                        "relatertPersonsIdent": "personFnr",
+                                        "relatertPersonsRolle": "BARN",
+                                      },
+                                    ],
+                                    "foedsel": Object {
+                                      "foedeland": null,
+                                      "foedested": null,
+                                      "foedselsdato": "1980-02-09",
+                                      "folkeregistermetadata": Object {
+                                        "gyldighetstidspunkt": "2020-10-12T11:40:56",
+                                      },
+                                    },
+                                    "geografiskTilknytning": null,
+                                    "identer": Array [
+                                      Object {
+                                        "gruppe": "FOLKEREGISTERIDENT",
+                                        "ident": "personFarFnr",
+                                      },
+                                      Object {
+                                        "gruppe": "AKTORID",
+                                        "ident": "personFarAktoerId",
+                                      },
+                                    ],
+                                    "kjoenn": Object {
+                                      "folkeregistermetadata": Object {
+                                        "gyldighetstidspunkt": "2020-10-12T11:40:56",
+                                      },
+                                      "kjoenn": "MANN",
+                                    },
+                                    "navn": Object {
+                                      "etternavn": "SAKS",
+                                      "fornavn": "AVDØD1",
+                                      "mellomnavn": null,
+                                      "sammensattNavn": "AVDØD1 SAKS",
+                                    },
+                                    "oppholdsadresse": null,
+                                    "sivilstand": Array [
+                                      Object {
+                                        "gyldigFraOgMed": "2007-10-10",
+                                        "relatertVedSivilstand": "20047520887",
+                                        "type": "GIFT",
+                                      },
+                                    ],
+                                    "statsborgerskap": Array [
+                                      Object {
+                                        "gyldigFraOgMed": "1980-02-09",
+                                        "gyldigTilOgMed": null,
+                                        "land": "NOR",
+                                      },
+                                    ],
                                   },
                                 ]
                               }

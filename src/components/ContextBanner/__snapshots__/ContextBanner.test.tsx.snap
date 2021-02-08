@@ -109,7 +109,10 @@ ui-fss.g31[id="c2"] {
   padding: 0rem 0.5rem;
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -297,7 +300,6 @@ ui-fss.g32[id="c4"] {
             >
               <Component
                 avdodFnr=""
-                fnr="27072942618"
               >
                 <div
                   className="websocket"

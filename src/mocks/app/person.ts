@@ -1,176 +1,94 @@
 export default {
-  person: {
-    diskresjonskode: null,
-    bostedsadresse: {
-      strukturertAdresse: {
-        landkode: {
-          value: 'NOR',
-          kodeRef: null,
-          kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Landkoder'
-        },
-        tilleggsadresse: null,
-        tilleggsadresseType: 'Offisiell adresse',
-        poststed: { value: '5036', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Postnummer' },
-        bolignummer: null,
-        kommunenummer: '1201',
-        gatenummer: null,
-        gatenavn: 'KJEMPEBAKKENVEIEN',
-        husnummer: 12,
-        husbokstav: null
-      }
+  identer: [
+    {
+      ident: 'personFnr',
+      gruppe: 'FOLKEREGISTERIDENT'
     },
-    sivilstand: {
-      sivilstand: {
-        value: 'ENKE',
-        kodeRef: null,
-        kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Sivilstander'
-      },
-      tomGyldighetsperiode: null,
-      fomGyldighetsperiode: '2006-06-18T22:00:00.000+0000',
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
+    {
+      ident: 'personAktoerId',
+      gruppe: 'AKTORID'
+    }
+  ],
+  navn: {
+    fornavn: 'LEALAUS',
+    mellomnavn: null,
+    etternavn: 'SAKS',
+    sammensattNavn: 'LEALAUS SAKS'
+  },
+  adressebeskyttelse: [
+    'UGRADERT'
+  ],
+  bostedsadresse: {
+    gyldigFraOgMed: '2020-01-01',
+    gyldigTilOgMed: '2021-01-01',
+    utenlandskAdresse: {
+      landkode: 'SE'
     },
-    statsborgerskap: {
-      land: { value: 'DNK', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Landkoder' },
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
+    vegadresse: {
+      adressenavn: 'Adressenavn',
+      husnummer: '00',
+      husbokstav: 'A',
+      postnummer: '0768'
+    }
+  },
+  oppholdsadresse: {
+    gyldigFraOgMed: '2022-01-01',
+    gyldigTilOgMed: '2023-01-01',
+    utenlandskAdresse: {
+      landkode: 'FI'
     },
-    harFraRolleI: [{
-      harSammeBosted: false,
-      tilRolle: { value: 'BARN', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Familierelasjoner' },
-      tilPerson: {
-        diskresjonskode: null,
-        bostedsadresse: null,
-        sivilstand: null,
-        statsborgerskap: null,
-        harFraRolleI: [],
-        aktoer: {
-          ident: {
-            ident: '27066349360',
-            type: { value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter' }
-          }
-        },
-        kjoenn: null,
-        personnavn: {
-          etternavn: 'ELQUAZZANI',
-          fornavn: 'SEAFORA-MASK',
-          mellomnavn: null,
-          sammensattNavn: 'ELQUAZZANI SEAFORA-MASK',
-          endringstidspunkt: null,
-          endretAv: null,
-          endringstype: null
-        },
-        personstatus: null,
-        postadresse: null,
-        doedsdato: null,
-        foedselsdato: null
-      },
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
-    }, {
-      harSammeBosted: false,
-      tilRolle: { value: 'BARN', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Familierelasjoner' },
-      tilPerson: {
-        diskresjonskode: null,
-        bostedsadresse: null,
-        sivilstand: null,
-        statsborgerskap: null,
-        harFraRolleI: [],
-        aktoer: {
-          ident: {
-            ident: '25076029647',
-            type: { value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter' }
-          }
-        },
-        kjoenn: null,
-        personnavn: {
-          etternavn: 'KAEWYOO',
-          fornavn: 'KAROLI-MASK',
-          mellomnavn: null,
-          sammensattNavn: 'KAEWYOO KAROLI-MASK',
-          endringstidspunkt: null,
-          endretAv: null,
-          endringstype: null
-        },
-        personstatus: null,
-        postadresse: null,
-        doedsdato: null,
-        foedselsdato: null
-      },
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
-    }],
-    aktoer: {
-      ident: {
-        ident: '27072942618',
-        type: { value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter' }
-      }
-    },
-    kjoenn: { kjoenn: { value: 'K', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Kj_c3_b8nnstyper' } },
-    personnavn: {
-      etternavn: 'HØYSÆTHER',
-      fornavn: 'NAZAKMIR-MASK',
-      mellomnavn: null,
-      sammensattNavn: 'HØYSÆTHER NAZAKMIR-MASK',
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
-    },
-    personstatus: {
-      personstatus: {
-        value: 'DØD',
-        kodeRef: null,
-        kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personstatuser'
-      },
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
-    },
-    postadresse: {
-      ustrukturertAdresse: {
-        landkode: {
-          value: 'SWE',
-          kodeRef: null,
-          kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Landkoder'
-        },
-        adresselinje1: 'NYACHAE',
-        adresselinje2: 'S-BHF ORANIENBURGER STR.',
-        adresselinje3: '20095',
-        adresselinje4: null,
-        postnr: null,
-        poststed: null
-      },
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
-    },
-    doedsdato: { doedsdato: '2018-05-19T22:00:00.000+0000', endringstidspunkt: null, endretAv: null, endringstype: null },
-    foedselsdato: {
-      foedselsdato: '1929-07-26T13:00:00.000+0000',
-      endringstidspunkt: null,
-      endretAv: null,
-      endringstype: null
-    },
+    vegadresse: {
+      adressenavn: 'Adressenavn2',
+      husnummer: '01',
+      husbokstav: 'B',
+      postnummer: '0768'
+    }
+  },
+  statsborgerskap: [
+    {
+      land: 'NOR',
+      gyldigFraOgMed: '1980-02-09',
+      gyldigTilOgMed: null
+    }
+  ],
+  foedsel: {
+    foedselsdato: '1980-02-09',
+    foedeland: null,
     foedested: null,
-    gjeldendePostadressetype: {
-      value: 'POSTADRESSE',
-      kodeRef: null,
-      kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Postadressetyper'
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  geografiskTilknytning: null,
+  kjoenn: {
+    kjoenn: 'MANN',
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
+    }
+  },
+  doedsfall: null,
+  familierelasjoner: [
+    {
+      relatertPersonsIdent: 'personBarnFnr',
+      relatertPersonsRolle: 'BARN',
+      minRolleForPerson: 'FAR'
     },
-    geografiskTilknytning: { geografiskTilknytning: '0213' },
-    midlertidigPostadresse: null,
-    vergeListe: [],
-    kontaktinformasjon: [],
-    bankkonto: null,
-    tilrettelagtKommunikasjon: [],
-    sikkerhetstiltak: null,
-    maalform: null,
-    endringstidspunkt: null,
-    endretAv: null,
-    endringstype: null
-  }
+    {
+      relatertPersonsIdent: 'personFarFnr',
+      relatertPersonsRolle: 'FAR',
+      minRolleForPerson: 'BARN'
+    },
+    {
+      relatertPersonsIdent: 'personMorFnr',
+      relatertPersonsRolle: 'MOR',
+      minRolleForPerson: 'BARN'
+    }
+  ],
+  sivilstand: [
+    {
+      type: 'GIFT',
+      gyldigFraOgMed: '2007-10-10',
+      relatertVedSivilstand: '20047520887'
+    }
+  ]
 }

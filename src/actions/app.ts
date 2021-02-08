@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { ParamPayload, UserInfoPayload } from 'declarations/app.d'
-import { Person, PersonAvdods } from 'declarations/person.d'
+import { PersonPDL, PersonAvdodsPDL } from 'declarations/person.d'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import mockPerson from 'mocks/app/person'
 import mockPersonAvdod from 'mocks/app/personAvdod'
@@ -30,13 +30,13 @@ export const logout: ActionCreator<Action> = (): Action => {
   }
 }
 
-export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonAvdods>>> = (
+export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonAvdodsPDL>>> = (
   aktoerId: string,
   vedtakId: string,
   nrAvdod: number | undefined
-): ThunkResult<ActionWithPayload<PersonAvdods>> => {
+): ThunkResult<ActionWithPayload<PersonAvdodsPDL>> => {
   return call({
-    url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
+    url: sprintf(urls.PERSON_PDL_AVDOD_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
     expectedPayload: /* istanbul ignore next */ mockPersonAvdod(nrAvdod),
     type: {
       request: types.APP_PERSONINFO_AVDOD_REQUEST,
@@ -46,11 +46,11 @@ export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload<Per
   })
 }
 
-export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload<Person>>> = (
+export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonPDL>>> = (
   aktoerId: string
-): ThunkResult<ActionWithPayload<Person>> => {
+): ThunkResult<ActionWithPayload<PersonPDL>> => {
   return call({
-    url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
+    url: sprintf(urls.PERSON_PDL_INFO_URL, { aktoerId: aktoerId }),
     expectedPayload: mockPerson,
     type: {
       request: types.APP_PERSONINFO_REQUEST,

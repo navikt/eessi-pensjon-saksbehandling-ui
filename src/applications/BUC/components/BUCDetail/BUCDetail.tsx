@@ -1,19 +1,24 @@
-import { bucsThatSupportAvdod, getBucTypeLabel, renderAvdodName } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import {
+  bucsThatSupportAvdod,
+  getBucTypeLabel,
+  getFnr,
+  renderAvdodName
+} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import NavHighContrast, { HighContrastLink, slideInFromRight } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
 import { Buc, Institutions, ValidBuc } from 'declarations/buc'
 import { BucPropType } from 'declarations/buc.pt'
+import { PersonPDL } from 'declarations/person'
+import { PersonAvdodPDL, PersonAvdodsPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
-import { PersonAvdodsPropType } from 'declarations/person.pt'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import AlertStripe from 'nav-frontend-alertstriper'
 import { Element, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
+import NavHighContrast, { HighContrastLink, slideInFromRight } from 'nav-hoykontrast'
 import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
@@ -56,7 +61,8 @@ const Properties = styled.dl`
 export interface BUCDetailProps {
   buc: Buc
   className ?: string
-  personAvdods: PersonAvdods | undefined
+  person: PersonPDL | undefined
+  personAvdods: PersonAvdodsPDL | undefined
 }
 
 export interface BUCDetailSelector {
@@ -72,14 +78,16 @@ const mapState = (state: State): BUCDetailSelector => ({
 })
 
 const BUCDetail: React.FC<BUCDetailProps> = ({
-  buc, className, personAvdods
+  buc, className, person, personAvdods
 }: BUCDetailProps): JSX.Element => {
   const { highContrast, locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
   const { t } = useTranslation()
 
-  const avdod: PersonAvdod | undefined = _.find(personAvdods, (p: PersonAvdod) => (
-    p.fnr === (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
-  ))
+  const avdod: PersonAvdodPDL | undefined = _.find(personAvdods, p => {
+    const avdodFnr = getFnr(p)
+    const needleFnr = (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
+    return avdodFnr === needleFnr
+  })
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -179,7 +187,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   {avdod
                     ? (
                       <Normaltekst>
-                        {renderAvdodName(avdod, t)}
+                        {renderAvdodName(avdod, person, t)}
                       </Normaltekst>
                       )
                     : (
@@ -211,7 +219,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
 BUCDetail.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
-  personAvdods: PersonAvdodsPropType.isRequired
+  personAvdods: PT.any.isRequired
 }
 
 export default BUCDetail

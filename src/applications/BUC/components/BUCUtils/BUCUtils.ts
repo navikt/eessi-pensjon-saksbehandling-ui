@@ -1,7 +1,7 @@
 import * as constants from 'constants/constants'
 import { JoarkBrowserItem } from 'declarations/joark.d'
 import { AllowedLocaleString, Option, PesysContext, T } from 'declarations/app.d'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { PersonAvdodPDL, PersonAvdodsPDL, PersonPDL } from 'declarations/person.d'
 import CountryData, { Country, CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'declarations/buc'
@@ -55,9 +55,15 @@ export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): stri
   return t('buc:buc-P3000_XX', { country: countryLabel?.label || t('ui:unknownLand') })
 }
 
+export const getFnr = (p: PersonPDL | null | undefined): string | undefined => _.find(p?.identer, i => i.gruppe === 'FOLKEREGISTERIDENT')?.ident
+
+export const getRelasjonTilPerson = (p: PersonPDL | null | undefined, needle: string | undefined) => _.find(p?.familierelasjoner, r => r.relatertPersonsIdent === needle)?.relatertPersonsRolle
+
+export const getRelasjonTilAvdod = (pa: PersonAvdodPDL | null | undefined, needle: string | undefined) => _.find(pa?.familierelasjoner, r => r.relatertPersonsIdent === needle)?.minRolleForPerson
+
 export const labelSorter = (a: Option, b: Option) => a.label.localeCompare(b.label)
 
-export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvdods | undefined) =>
+export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvdodsPDL | undefined) =>
   (buc: Buc) => {
     if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && (
       // 'NO:NAVAT08' in test environment should be read as a foreign institution
@@ -72,11 +78,16 @@ export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvd
     return true
   }
 
-export const renderAvdodName = (avdod: PersonAvdod | null | undefined, t: Function) => {
-  return avdod?.fornavn +
-    (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-    (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-    ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')'
+export const renderAvdodName = (avdod: PersonAvdodPDL | null | undefined, person: PersonPDL | null | undefined, t: Function): string | undefined => {
+  if (!avdod || !person) {
+    return undefined
+  }
+  const fnr = getFnr(avdod)
+  const personFnr = getFnr(person)
+  return avdod?.navn?.fornavn +
+    (avdod?.navn?.mellomnavn ? ' ' + avdod?.navn?.mellomnavn : '') +
+    (avdod?.navn?.etternavn ? ' ' + avdod?.navn?.etternavn : '') +
+    ' - ' + fnr + ' (' + t('buc:relasjon-' + getRelasjonTilAvdod(avdod, personFnr)) + ')'
 }
 
 export const sedAttachmentSorter = (a: JoarkBrowserItem, b: JoarkBrowserItem): number => {

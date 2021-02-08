@@ -1343,10 +1343,10 @@ const mockBuc = [
     addedParams: {
       subject: {
         gjenlevende: {
-          fnr: '12345678901'
+          fnr: 'personFnr'
         },
         avdod: {
-          fnr: '12345678902'
+          fnr: 'personFarFnr'
         }
       }
     },
@@ -2442,10 +2442,10 @@ const mockBuc = [
     addedParams: {
       subject: {
         gjenlevende: {
-          fnr: '12345678901'
+          fnr: 'personFnr'
         },
         avdod: {
-          fnr: '12345678902'
+          fnr: 'personMorFnr'
         }
       }
     },

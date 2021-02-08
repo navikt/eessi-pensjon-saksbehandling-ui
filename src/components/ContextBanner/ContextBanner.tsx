@@ -1,13 +1,13 @@
 import { BUCMode } from 'applications/BUC'
+import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import ExternalLink from 'assets/icons/line-version-logout'
 import NavHighContrast, { HighContrastLink, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { PesysContext } from 'declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
-import { Person } from 'declarations/person.d'
+import { PersonPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
-import _ from 'lodash'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { Element } from 'nav-frontend-typografi'
@@ -45,7 +45,7 @@ export const Tag = styled(Element)`
  padding: 0rem 0.5rem;
  margin-left: 0.25rem;
  margin-right: 0.25rem;
- display: block;
+ display: flex;
  align-items: center;
 `
 
@@ -56,7 +56,7 @@ export interface ContextBannerProps {
 
 export interface ContextBannerSelector {
   gettingSakType: boolean
-  person: Person | undefined
+  person: PersonPDL | undefined
   pesysContext?: PesysContext
   sakType?: SakTypeValue
 }
@@ -93,7 +93,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
       <Content>
         <Context>
           <BUCWebSocket
-            fnr={_.get(person, 'aktoer.ident.ident')}
+            fnr={getFnr(person)}
             avdodFnr=''
           />
           <HoyreChevron />

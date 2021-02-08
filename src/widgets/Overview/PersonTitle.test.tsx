@@ -7,7 +7,7 @@ describe('widgets/Overview/PersonTitle', () => {
   let wrapper: ReactWrapper
   const initialMockProps: PersonTitleProps = {
     gettingPersonInfo: false,
-    person: mockPerson.person
+    person: mockPerson
   }
 
   beforeEach(() => {
@@ -30,21 +30,21 @@ describe('widgets/Overview/PersonTitle', () => {
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(Title)).toBeTruthy()
-    expect(wrapper.find(Title).find('img').props().alt).toEqual('nav-woman-icon')
-    expect(wrapper.find(Title).find('h2').render().text()).toEqual('HØYSÆTHER NAZAKMIR-MASK (89) - 27072942618')
+    expect(wrapper.find(Title).find('img').props().alt).toEqual('nav-man-icon')
+    expect(wrapper.find(Title).find('h2').render().text()).toEqual('LEALAUS SAKS (41) - personFnr')
   })
 
   it('Render: different person icons', () => {
-    mockPerson.person.kjoenn.kjoenn.value = 'M'
-    wrapper.setProps({ person: mockPerson.person })
+    mockPerson.kjoenn.kjoenn = 'MANN'
+    wrapper.setProps({ person: mockPerson })
     expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-man-icon')
 
-    mockPerson.person.kjoenn.kjoenn.value = 'X'
-    wrapper.setProps({ person: mockPerson.person })
+    mockPerson.kjoenn.kjoenn = 'XXX'
+    wrapper.setProps({ person: mockPerson })
     expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-unknown-icon')
 
-    mockPerson.person.kjoenn.kjoenn.value = 'K'
-    wrapper.setProps({ person: mockPerson.person })
+    mockPerson.kjoenn.kjoenn = 'KVINNE'
+    wrapper.setProps({ person: mockPerson })
     expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-woman-icon')
   })
 })

@@ -2,7 +2,7 @@ import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import { Feature, FeatureToggles, Params, PesysContext } from 'declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
-import { PersonAvdods, Person } from 'declarations/person.d'
+import { PersonPDL, PersonAvdodsPDL } from 'declarations/person.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
@@ -13,8 +13,8 @@ export interface AppState {
   loggedIn: boolean | undefined
   loggedTime: Date | undefined
   params: Params
-  person: Person | undefined
-  personAvdods: PersonAvdods | undefined
+  person: PersonPDL | undefined
+  personAvdods: PersonAvdodsPDL | undefined
   pesysContext: PesysContext | undefined
   username: string | undefined
   userRole: string | undefined
@@ -94,7 +94,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
 
       return {
         ...state,
-        person: action.payload.person
+        person: action.payload
       }
 
     case types.APP_PERSONINFO_AVDOD_SUCCESS:

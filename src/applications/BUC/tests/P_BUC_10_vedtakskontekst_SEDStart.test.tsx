@@ -5,6 +5,7 @@ import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import React from 'react'
 import { stageSelector } from 'setupTests'
+import mockPerson from 'mocks/app/person'
 import mockPersonAvdods from 'mocks/app/personAvdod'
 
 jest.mock('actions/buc', () => ({
@@ -33,6 +34,7 @@ const defaultSelector: SEDStartSelector = {
   kravDato: undefined,
   loading: {},
   locale: 'nb',
+  person: mockPerson,
   personAvdods: mockPersonAvdods(1),
   pesysContext: BRUKERKONTEKST,
   sakId: '123',
@@ -72,10 +74,10 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
         kravDato: '2020-12-15',
         subject: {
           avdod: {
-            fnr: '12345678902'
+            fnr: 'personFarFnr'
           },
           gjenlevende: {
-            fnr: '12345678901'
+            fnr: 'personFnr'
           }
         }
       },
@@ -111,10 +113,10 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
         kravDato: '2020-12-15',
         subject: {
           avdod: {
-            fnr: '12345678902'
+            fnr: 'personFarFnr'
           },
           gjenlevende: {
-            fnr: '12345678901'
+            fnr: 'personFnr'
           }
         }
       },

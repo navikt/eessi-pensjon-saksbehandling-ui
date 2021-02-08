@@ -1,13 +1,14 @@
 import {
   bucsThatSupportAvdod,
   countrySorter,
-  getBucTypeLabel,
+  getBucTypeLabel, getFnr,
   renderAvdodName,
   sedFilter
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import ProblemCircleIcon from 'assets/icons/report-problem-circle'
 import classNames from 'classnames'
+import { PersonAvdodPDL, PersonAvdodsPDL, PersonPDL } from 'declarations/person'
 import NavHighContrast, { Column, Row } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
@@ -15,7 +16,6 @@ import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, ValidB
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import { FlagItems, FlagList } from 'flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
@@ -113,7 +113,8 @@ export interface BUCHeaderSelector {
   highContrast: boolean
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
-  personAvdods: PersonAvdods | undefined
+  person: PersonPDL | undefined,
+  personAvdods: PersonAvdodsPDL | undefined
   rinaUrl: RinaUrl | undefined
   size: WidthSize | undefined
 }
@@ -123,6 +124,7 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
   highContrast: state.ui.highContrast,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
+  person: state.app.person,
   personAvdods: state.app.personAvdods,
   rinaUrl: state.buc.rinaUrl,
   size: state.ui.size
@@ -131,7 +133,7 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
 const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo, newBuc
 }: BUCHeaderProps): JSX.Element => {
-  const { highContrast, institutionNames, locale, personAvdods, rinaUrl, size }: BUCHeaderSelector =
+  const { highContrast, institutionNames, locale, person, personAvdods, rinaUrl, size }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const [_flagSize, setFlagSize] = useState<string>('XL')
@@ -168,9 +170,11 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
 
   const flagItems: FlagItems = _.isArray(buc.deltakere) ? generateFlagItems() : []
 
-  const avdod: PersonAvdod | undefined = _.find(personAvdods, p =>
-    p.fnr === (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
-  )
+  const avdod: PersonAvdodPDL | undefined = _.find(personAvdods, p => {
+    const avdodFnr = getFnr(p)
+    const needleFnr = (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
+    return avdodFnr === needleFnr
+  })
 
   const onRinaLinkClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     linkLogger(e)
@@ -266,7 +270,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   {t('ui:deceased') + ': '}
                 </RowText>
                 <Normaltekst>
-                  {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr}
+                  {avdod ? renderAvdodName(avdod, person, t) : (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr}
                 </Normaltekst>
               </PropertyDiv>
             )}

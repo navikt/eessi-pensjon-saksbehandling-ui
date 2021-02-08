@@ -9,7 +9,7 @@ describe('widgets/Overview/PersonPanel', () => {
   const initialMockProps: PersonPanelProps = {
     highContrast: false,
     locale: 'nb',
-    person: mockPerson.person,
+    person: mockPerson,
     personAvdods: personAvdod(1)
   }
 
@@ -35,23 +35,23 @@ describe('widgets/Overview/PersonPanel', () => {
     expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').hostNodes().render().text()).toEqual(
-      'ui:bostedsadresse:' + 'KJEMPEBAKKENVEIEN' + '12' + '5036' + 'BERGEN')
+      'ui:bostedsadresse:' + '2020-01-01 - 2021-01-01' + 'Adressenavn' + '00' + 'A' + '0768' + 'OSLO')
 
     expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-birthdate').hostNodes().render().text()).toEqual(
-      'ui:birthdate:' + '26.07.1929')
+      'ui:birthdate:' + '09.02.1980')
 
     expect(wrapper.find('svg[kind="nav-work"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-nationality').hostNodes().render().text()).toEqual(
-      'ui:nationality:' + 'Danmark')
+      'ui:nationality:' + 'Norge (1980-02-09)')
   })
 
   it('Render: Empty value renders not registered', () => {
     wrapper.setProps({
       person: {
-        ...mockPerson.person,
+        ...mockPerson,
         bostedsadresse: null,
-        foedselsdato: null
+        foedsel: {}
       }
     })
     expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
@@ -63,24 +63,7 @@ describe('widgets/Overview/PersonPanel', () => {
   })
 
   it('Render: gets dates converted properly', () => {
-    wrapper.setProps({
-      person: {
-        ...mockPerson.person,
-        sivilstand: {
-          sivilstand: {
-            value: 'MOCK',
-            kodeRef: null,
-            kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Sivilstander'
-          },
-          fomGyldighetsperiode: '1970-01-01T09:00:00.000+0000',
-          tomGyldighetsperiode: '1980-12-31T09:00:00.000+0000',
-          endringstidspunkt: null,
-          endretAv: null,
-          endringstype: null
-        }
-      }
-    })
     expect(wrapper.find('#w-overview-personPanel__element-marital-status').hostNodes().render().text()).toEqual(
-      'ui:marital-status:ui:widget-overview-maritalstatus-Mock (01.01.1970 - 31.12.1980)')
+      'ui:marital-status:ui:widget-overview-maritalstatus-Gift (10.10.2007)')
   })
 })

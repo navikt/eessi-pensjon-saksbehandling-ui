@@ -4,6 +4,7 @@ import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockPersonAvdods from 'mocks/app/personAvdod'
+import mockPerson from 'mocks/app/person'
 import React from 'react'
 import { stageSelector } from 'setupTests'
 
@@ -67,10 +68,10 @@ describe('P_BUC_05 for SEDStart, vedtakskontekst,', () => {
       addedParams: {
         subject: {
           avdod: {
-            fnr: '12345678902'
+            fnr: 'personFarFnr'
           },
           gjenlevende: {
-            fnr: '12345678901'
+            fnr: 'personFnr'
           }
         }
       },
@@ -105,10 +106,10 @@ describe('P_BUC_05 for SEDStart, vedtakskontekst,', () => {
       addedParams: {
         subject: {
           avdod: {
-            fnr: '12345678902'
+            fnr: 'personFarFnr'
           },
           gjenlevende: {
-            fnr: '12345678901'
+            fnr: 'personFnr'
           }
         }
       },
@@ -203,6 +204,7 @@ describe('P_BUC_05 for SEDStart, vedtakskontekst,', () => {
       pesysContext: VEDTAKSKONTEKST,
       sakType: SakTypeMap.GJENLEV,
       sedList: ['P2000', 'P8000'],
+      person: mockPerson,
       personAvdods: mockPersonAvdods(1)
     })
 

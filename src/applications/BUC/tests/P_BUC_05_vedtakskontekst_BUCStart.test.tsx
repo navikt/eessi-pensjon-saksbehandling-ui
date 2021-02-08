@@ -157,15 +157,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
-      avdod: {
-        aktoerId: '2865434801175',
-        etternavn: 'BLYANT',
-        fnr: '12345678902',
-        fornavn: 'FRODIG',
-        fulltNavn: 'BLYANT FRODIG',
-        mellomnavn: null,
-        relasjon: 'REPA'
-      },
+      avdod: mockPersonAvdods(1)![0],
       buc: 'P_BUC_05',
       person: undefined
     })

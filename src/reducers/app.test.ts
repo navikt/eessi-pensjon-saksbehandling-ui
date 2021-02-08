@@ -58,12 +58,14 @@ describe('reducers/app', () => {
       appReducer(initialAppState, {
         type: types.APP_PERSONINFO_SUCCESS,
         payload: {
-          person: 'mockPayload'
+          foo: 'mockPayload'
         }
       })
     ).toEqual({
       ...initialAppState,
-      person: 'mockPayload'
+      person: {
+        foo: 'mockPayload'
+      }
     })
   })
 

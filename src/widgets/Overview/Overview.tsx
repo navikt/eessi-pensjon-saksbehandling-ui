@@ -3,9 +3,10 @@ import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import * as constants from 'constants/constants'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { PersonPDL } from 'declarations/person'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
-import { PersonAvdods } from 'declarations/person.d'
+import { PersonAvdodsPDL } from 'declarations/person.d'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
@@ -28,8 +29,8 @@ export interface OverviewSelector {
   featureToggles: FeatureToggles
   gettingPersonInfo: boolean
   locale: AllowedLocaleString
-  person: any,
-  personAvdods: PersonAvdods | undefined,
+  person?: PersonPDL,
+  personAvdods: PersonAvdodsPDL | undefined,
   pesysContext: PesysContext | undefined,
   vedtakId: string
 }

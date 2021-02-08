@@ -11,19 +11,12 @@ import {
 import {
   bucsThatSupportAvdod,
   getBucTypeLabel,
+  getFnr,
   valueSorter
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
-import NavHighContrast, {
-  Column,
-  HighContrastFeiloppsummering,
-  HighContrastFlatknapp,
-  HighContrastHovedknapp, HighContrastInput,
-  HorizontalSeparatorDiv,
-  Row,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import {
   AllowedLocaleString,
@@ -38,7 +31,8 @@ import {
   Buc,
   BUCRawList,
   Bucs,
-  BucsInfo, SakTypeMap,
+  BucsInfo,
+  SakTypeMap,
   SakTypeValue,
   SaveBucsInfoProps,
   SubjectAreaRawList,
@@ -46,21 +40,29 @@ import {
   TagRawList,
   Tags
 } from 'declarations/buc.d'
-
-import { Person, PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { PersonAvdodPDL, PersonAvdodsPDL, PersonPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
+import NavHighContrast, {
+  Column,
+  HighContrastFeiloppsummering,
+  HighContrastFlatknapp,
+  HighContrastHovedknapp,
+  HighContrastInput,
+  HorizontalSeparatorDiv,
+  Row,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select'
 import styled from 'styled-components'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 
 const FlexDiv = styled.div`
   display: flex;
@@ -88,8 +90,8 @@ export interface BUCStartSelector {
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
-  person: Person | undefined
-  personAvdods: PersonAvdods | undefined
+  person: PersonPDL | undefined
+  personAvdods: PersonAvdodsPDL | undefined
   pesysContext: PesysContext | undefined
   sakId: string
   sakType: SakTypeValue | undefined
@@ -135,7 +137,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
+  const [_avdod, setAvdod] = useState<PersonAvdodPDL | undefined>(undefined)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
@@ -182,7 +184,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const validateAvdod = (avdod: PersonAvdod | undefined): FeiloppsummeringFeil | undefined => {
+  const validateAvdod = (avdod: PersonAvdodPDL | undefined): FeiloppsummeringFeil | undefined => {
     if (!avdod) {
       return {
         skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
@@ -363,19 +365,25 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onAvdodChange = (option: ValueType<Option, false>): void => {
     if (option) {
-      const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
-        (avdod: PersonAvdod) => avdod.fnr === option.value
+      const thisAvdod: PersonAvdodPDL | undefined = _.find(personAvdods,
+        (avdod: PersonAvdodPDL) => {
+          const id: string | undefined = getFnr(avdod)
+          return id === option.value
+        }
       )
       setAvdod(thisAvdod)
       updateValidation('avdod', validateAvdod(thisAvdod))
     }
   }
 
-  const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
-    return personAvdods?.map((avdod: PersonAvdod) => ({
-      label: avdod.fulltNavn + ' (' + avdod.fnr + ')',
-      value: avdod.fnr
-    })) || []
+  const renderAvdodOptions = (personAvdods: PersonAvdodsPDL | undefined): Options => {
+    return personAvdods?.map((avdod: PersonAvdodPDL) => {
+      const fnr: string | undefined = getFnr(avdod)
+      return {
+        label: avdod.navn?.sammensattNavn + ' (' + fnr + ')',
+        value: fnr!
+      }
+    }) || []
   }
 
   const avdodOptions: Options = renderAvdodOptions(personAvdods)
@@ -418,8 +426,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
         tags: _tags.map(t => t.value),
         buc: buc
       } as SaveBucsInfoProps
-      if (bucNeedsAvdod()) {
-        payload.avdod = _avdod?.fnr
+      if (bucNeedsAvdod() && _avdod) {
+        payload.avdod = getFnr(_avdod)
       }
       if (bucNeedsKravDato(newlyCreatedBuc.type)) {
         payload.kravDato = _kravDato
@@ -505,7 +513,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   onChange={onAvdodChange}
                   options={avdodOptions}
                   placeholder={t('buc:form-chooseAvdod')}
-                  value={_.find(avdodOptions, (f: any) => f.value === _avdod?.fnr) || null}
+                  value={_.find(avdodOptions, (f: any) => getFnr(_avdod) === f.value) || null}
                 />
               </>
             )}

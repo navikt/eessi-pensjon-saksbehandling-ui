@@ -8,7 +8,6 @@ import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
 import { WidthSize } from 'declarations/app.d'
 import { AlertStatus, ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
-import { Person } from 'declarations/person.d'
 import _ from 'lodash'
 import { themeKeys } from 'nav-styled-component-theme'
 import Error from 'pages/Error/Error'
@@ -45,7 +44,6 @@ export interface TopContainerSelector {
   error: any | undefined
   expirationTime: Date | undefined
   params: {[k: string] : string}
-  person: Person | undefined
   username: string | undefined
   gettingUserInfo: boolean
   isLoggingOut: boolean
@@ -64,7 +62,6 @@ const mapState = (state: State): TopContainerSelector => ({
 
   expirationTime: state.app.expirationTime,
   params: state.app.params,
-  person: state.app.person,
   username: state.app.username,
 
   gettingUserInfo: state.loading.gettingUserInfo,

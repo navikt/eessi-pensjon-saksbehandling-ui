@@ -7,7 +7,7 @@ import LineHome from 'assets/icons/line-version-home-3'
 import PersonIcon from 'assets/icons/line-version-person-2'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from 'nav-hoykontrast'
-import { PersonAvdods } from 'declarations/person.d'
+import { PersonAvdodsPDL } from 'declarations/person.d'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
@@ -18,6 +18,7 @@ import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { getFnr, getRelasjonTilPerson } from 'applications/BUC/components/BUCUtils/BUCUtils'
 
 const Element = styled.div`
   display: flex;
@@ -42,7 +43,7 @@ export interface PersonPanelProps {
   highContrast: boolean
   locale: string
   person: any
-  personAvdods: PersonAvdods | undefined
+  personAvdods: PersonAvdodsPDL | undefined
 }
 
 const PersonPanel: React.FC<PersonPanelProps> = ({
@@ -57,13 +58,12 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     return null
   }
 
-  let dateString = ''
   let birthDateString
   let deathDateString
-  let nationality
-  let maritalStatus
+  let nationality: Array<string> = []
+  let maritalStatus: Array<string> = []
   let bostedsadresse: Array<JSX.Element | string> = []
-  let postadresse: Array<JSX.Element | string> = []
+  let oppholdsadresse: Array<JSX.Element | string> = []
 
   const renderEntity = (label: string, value: any): JSX.Element => {
     let _value
@@ -80,7 +80,9 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
         id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
       >
         <Undertekst>
-          <strong>{t(label)}</strong>:
+          <strong>
+            {t(label)}
+          </strong>:
         </Undertekst>
         <HorizontalSeparatorDiv />
         <Normaltekst>
@@ -112,50 +114,75 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     return nationality ? nationality.label : null
   }
 
-  if (_.get(person, 'sivilstand.fomGyldighetsperiode')) {
-    dateString = moment(person.sivilstand.fomGyldighetsperiode).format('DD.MM.YYYY')
+  if (_.get(person, 'foedsel.foedselsdato')) {
+    birthDateString = moment(person.foedsel.foedselsdato).format('DD.MM.YYYY')
   }
-  if (_.get(person, 'sivilstand.tomGyldighetsperiode')) {
-    dateString += ' - ' + moment(person.sivilstand.tomGyldighetsperiode).format('DD.MM.YYYY')
+  if (_.get(person, 'doedsfall.doedsdato')) {
+    deathDateString = moment(person.doedsfall.doedsdato).format('DD.MM.YYYY')
   }
-  if (_.get(person, 'foedselsdato.foedselsdato')) {
-    birthDateString = moment(person.foedselsdato.foedselsdato).format('DD.MM.YYYY')
-  }
-  if (_.get(person, 'doedsdato.doedsdato')) {
-    deathDateString = moment(person.doedsdato.doedsdato).format('DD.MM.YYYY')
-  }
-  if (_.get(person, 'statsborgerskap.land.value')) {
-    nationality = getCountry(person.statsborgerskap.land.value)
-  }
-
-  if (_.get(person, 'sivilstand.sivilstand.value')) {
-    maritalStatus = person.sivilstand.sivilstand.value.toLowerCase()
-    maritalStatus = maritalStatus.charAt(0).toUpperCase() + maritalStatus.slice(1)
+  if (!_.isEmpty(person.statsborgerskap)) {
+    nationality = person.statsborgerskap.map((l: any) => {
+      let label = getCountry(l.land)
+      label += ' (' + l.gyldigFraOgMed
+      if (l.gyldigTilOgMed) {
+        label += ' - ' + l.gyldigTilOgMed
+      }
+      return label + ')'
+    })
   }
 
-  const zipCode = _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value')
+  if (!_.isEmpty(person.sivilstand)) {
+    maritalStatus = person.sivilstand.map((s: any) => {
+      let type = s.type.toLowerCase()
+      type = type.charAt(0).toUpperCase() + type.slice(1)
+      let dateString = ''
+      if (s.gyldigFraOgMed) {
+        dateString = moment(s.gyldigFraOgMed).format('DD.MM.YYYY')
+      }
+      if (s.gyldigTilOgMed) {
+        dateString += ' - ' + moment(s.gyldigTilOgMed).format('DD.MM.YYYY')
+      }
+      const label = t('ui:widget-overview-maritalstatus-' + type) +
+        (type !== 'Null' && type !== 'Ugif' && dateString
+          ? ' (' + dateString + ')'
+          : '')
+      return label
+    })
+  }
 
-  if (_.get(person, 'bostedsadresse.strukturertAdresse')) {
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <HorizontalSeparatorSpan key={0} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br key={1} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br key={2} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <HorizontalSeparatorSpan key={3} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={4} />)
-    bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={5} />)
+  let zipCode = ''
+  if (_.get(person, 'bostedsadresse.vegadresse')) {
+    let dates = _.get(person, 'bostedsadresse.gyldigFraOgMed') + ' - '
+    if (_.get(person, 'bostedsadresse.gyldigTilOgMed')) {
+      dates += _.get(person, 'bostedsadresse.gyldigTilOgMed')
+    }
+    bostedsadresse = addAddressLine(bostedsadresse, dates, t('ui:fram-og-til'), <br key={0} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.adressenavn'), t('ui:adressenavn'), <HorizontalSeparatorSpan key={1} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.husnummer'), t('ui:husnummer'), <HorizontalSeparatorSpan key={2} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.husbokstav'), t('ui:husbokstav'), <br key={3} />)
+    zipCode = _.get(person, 'bostedsadresse.vegadresse.postnummer')
     if (zipCode) {
-      bostedsadresse = addAddressLine(bostedsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={6} />)
+      bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={4} />)
+      bostedsadresse = addAddressLine(bostedsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={5} />)
     }
   }
 
-  if (_.get(person, 'postadresse.ustrukturertAdresse')) {
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje1'), t('ui:adresse'), <br key={0} />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje2'), t('ui:adresse'), <br key={1} />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje3'), t('ui:adresse'), <br key={2} />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje4'), t('ui:adresse'), <br key={3} />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.postnr'), t('ui:postnummer'), <HorizontalSeparatorSpan key={4} />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.poststed'), t('ui:poststed'), <br key={5} />)
-    postadresse = addAddressLine(postadresse, getCountry(_.get(person, 'postadresse.ustrukturertAdresse.landkode.value')), t('ui:country'), <br key={6} />)
+  if (_.get(person, 'oppholdsadresse.vegadresse')) {
+    let dates = _.get(person, 'oppholdsadresse.gyldigFraOgMed') + ' - '
+    if (_.get(person, 'oppholdsadresse.gyldigTilOgMed')) {
+      dates += _.get(person, 'oppholdsadresse.gyldigTilOgMed')
+    }
+    oppholdsadresse = addAddressLine(oppholdsadresse, dates, t('ui:fram-og-til'), <br key={0} />)
+    oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.adressenavn'), t('ui:adressenavn'), <HorizontalSeparatorSpan key={1} />)
+    oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.husnummer'), t('ui:husnummer'), <HorizontalSeparatorSpan key={2} />)
+    oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.husbokstav'), t('ui:husbokstav'), <br key={3} />)
+    zipCode = _.get(person, 'oppholdsadresse.vegadresse.postnummer')
+    if (zipCode) {
+      oppholdsadresse = addAddressLine(oppholdsadresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={4} />)
+      oppholdsadresse = addAddressLine(oppholdsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={5} />)
+    }
   }
+
   return (
     <PersonPanelDiv>
       <MarginRow>
@@ -180,17 +207,12 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
         <MarginColumn>
           <LineExpandedGlobe color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
-          {renderEntity('ui:postadresse', postadresse)}
+          {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
         </MarginColumn>
         <MarginColumn>
           <LineHeartCircle color={highContrast ? 'white' : 'black'} />
           <HorizontalSeparatorDiv />
-          {renderEntity('ui:marital-status',
-            t('ui:widget-overview-maritalstatus-' + maritalStatus) +
-            (maritalStatus !== 'Null' && maritalStatus !== 'Ugif' && dateString
-              ? ' (' + dateString + ')'
-              : '')
-          )}
+          {renderEntity('ui:marital-status', maritalStatus)}
         </MarginColumn>
         <MarginColumn />
       </MarginRow>
@@ -207,20 +229,24 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
               </Undertekst>
               <div>
                 {personAvdods && personAvdods.length > 0
-                  ? personAvdods.map(avdod => (
-                    <Element
-                      key={avdod?.fnr}
-                      id='w-overview-personPanel__element-deceased'
-                    >
-                      <HorizontalSeparatorDiv />
-                      <Normaltekst>
-                        {avdod?.fornavn +
-                        (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                        (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                        ' - ' + avdod?.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
-                      </Normaltekst>
-                    </Element>
-                    ))
+                  ? personAvdods.map(avdod => {
+                      const avdodsFnr = getFnr(avdod)
+                      const relasjon = getRelasjonTilPerson(person, avdodsFnr)
+                      return (
+                        <Element
+                          key={avdodsFnr}
+                          id='w-overview-personPanel__element-deceased'
+                        >
+                          <HorizontalSeparatorDiv />
+                          <Normaltekst>
+                            {avdod?.navn?.fornavn +
+                          (avdod?.navn?.mellomnavn ? ' ' + avdod?.navn?.mellomnavn : '') +
+                          (avdod?.navn?.etternavn ? ' ' + avdod?.navn?.etternavn : '') +
+                          ' - ' + avdodsFnr + ' (' + t('buc:relasjon-' + relasjon) + ')'}
+                          </Normaltekst>
+                        </Element>
+                      )
+                    })
                   : (
                     <Element
                       key='noAvdod'

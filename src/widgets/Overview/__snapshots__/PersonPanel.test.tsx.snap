@@ -112,234 +112,166 @@ ui-fss.g30[id="c5"] {
   locale="nb"
   person={
     Object {
-      "aktoer": Object {
-        "ident": Object {
-          "ident": "27072942618",
-          "type": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
-            "value": "FNR",
-          },
-        },
-      },
-      "bankkonto": null,
+      "adressebeskyttelse": Array [
+        "UGRADERT",
+      ],
       "bostedsadresse": Object {
-        "strukturertAdresse": Object {
-          "bolignummer": null,
-          "gatenavn": "KJEMPEBAKKENVEIEN",
-          "gatenummer": null,
-          "husbokstav": null,
-          "husnummer": 12,
-          "kommunenummer": "1201",
-          "landkode": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
-            "value": "NOR",
-          },
-          "poststed": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Postnummer",
-            "value": "5036",
-          },
-          "tilleggsadresse": null,
-          "tilleggsadresseType": "Offisiell adresse",
+        "gyldigFraOgMed": "2020-01-01",
+        "gyldigTilOgMed": "2021-01-01",
+        "utenlandskAdresse": Object {
+          "landkode": "SE",
+        },
+        "vegadresse": Object {
+          "adressenavn": "Adressenavn",
+          "husbokstav": "A",
+          "husnummer": "00",
+          "postnummer": "0768",
         },
       },
-      "diskresjonskode": null,
-      "doedsdato": Object {
-        "doedsdato": "2018-05-19T22:00:00.000+0000",
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-      },
-      "endretAv": null,
-      "endringstidspunkt": null,
-      "endringstype": null,
-      "foedested": null,
-      "foedselsdato": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "foedselsdato": "1929-07-26T13:00:00.000+0000",
-      },
-      "geografiskTilknytning": Object {
-        "geografiskTilknytning": "0213",
-      },
-      "gjeldendePostadressetype": Object {
-        "kodeRef": null,
-        "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Postadressetyper",
-        "value": "POSTADRESSE",
-      },
-      "harFraRolleI": Array [
+      "doedsfall": null,
+      "familierelasjoner": Array [
         Object {
-          "endretAv": null,
-          "endringstidspunkt": null,
-          "endringstype": null,
-          "harSammeBosted": false,
-          "tilPerson": Object {
-            "aktoer": Object {
-              "ident": Object {
-                "ident": "27066349360",
-                "type": Object {
-                  "kodeRef": null,
-                  "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
-                  "value": "FNR",
-                },
-              },
-            },
-            "bostedsadresse": null,
-            "diskresjonskode": null,
-            "doedsdato": null,
-            "foedselsdato": null,
-            "harFraRolleI": Array [],
-            "kjoenn": null,
-            "personnavn": Object {
-              "endretAv": null,
-              "endringstidspunkt": null,
-              "endringstype": null,
-              "etternavn": "ELQUAZZANI",
-              "fornavn": "SEAFORA-MASK",
-              "mellomnavn": null,
-              "sammensattNavn": "ELQUAZZANI SEAFORA-MASK",
-            },
-            "personstatus": null,
-            "postadresse": null,
-            "sivilstand": null,
-            "statsborgerskap": null,
-          },
-          "tilRolle": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner",
-            "value": "BARN",
-          },
+          "minRolleForPerson": "FAR",
+          "relatertPersonsIdent": "personBarnFnr",
+          "relatertPersonsRolle": "BARN",
         },
         Object {
-          "endretAv": null,
-          "endringstidspunkt": null,
-          "endringstype": null,
-          "harSammeBosted": false,
-          "tilPerson": Object {
-            "aktoer": Object {
-              "ident": Object {
-                "ident": "25076029647",
-                "type": Object {
-                  "kodeRef": null,
-                  "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter",
-                  "value": "FNR",
-                },
-              },
-            },
-            "bostedsadresse": null,
-            "diskresjonskode": null,
-            "doedsdato": null,
-            "foedselsdato": null,
-            "harFraRolleI": Array [],
-            "kjoenn": null,
-            "personnavn": Object {
-              "endretAv": null,
-              "endringstidspunkt": null,
-              "endringstype": null,
-              "etternavn": "KAEWYOO",
-              "fornavn": "KAROLI-MASK",
-              "mellomnavn": null,
-              "sammensattNavn": "KAEWYOO KAROLI-MASK",
-            },
-            "personstatus": null,
-            "postadresse": null,
-            "sivilstand": null,
-            "statsborgerskap": null,
-          },
-          "tilRolle": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner",
-            "value": "BARN",
-          },
+          "minRolleForPerson": "BARN",
+          "relatertPersonsIdent": "personFarFnr",
+          "relatertPersonsRolle": "FAR",
+        },
+        Object {
+          "minRolleForPerson": "BARN",
+          "relatertPersonsIdent": "personMorFnr",
+          "relatertPersonsRolle": "MOR",
+        },
+      ],
+      "foedsel": Object {
+        "foedeland": null,
+        "foedested": null,
+        "foedselsdato": "1980-02-09",
+        "folkeregistermetadata": Object {
+          "gyldighetstidspunkt": "2020-10-12T11:40:56",
+        },
+      },
+      "geografiskTilknytning": null,
+      "identer": Array [
+        Object {
+          "gruppe": "FOLKEREGISTERIDENT",
+          "ident": "personFnr",
+        },
+        Object {
+          "gruppe": "AKTORID",
+          "ident": "personAktoerId",
         },
       ],
       "kjoenn": Object {
-        "kjoenn": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Kj_c3_b8nnstyper",
-          "value": "K",
+        "folkeregistermetadata": Object {
+          "gyldighetstidspunkt": "2020-10-12T11:40:56",
         },
+        "kjoenn": "MANN",
       },
-      "kontaktinformasjon": Array [],
-      "maalform": null,
-      "midlertidigPostadresse": null,
-      "personnavn": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "etternavn": "HØYSÆTHER",
-        "fornavn": "NAZAKMIR-MASK",
+      "navn": Object {
+        "etternavn": "SAKS",
+        "fornavn": "LEALAUS",
         "mellomnavn": null,
-        "sammensattNavn": "HØYSÆTHER NAZAKMIR-MASK",
+        "sammensattNavn": "LEALAUS SAKS",
       },
-      "personstatus": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "personstatus": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personstatuser",
-          "value": "DØD",
+      "oppholdsadresse": Object {
+        "gyldigFraOgMed": "2022-01-01",
+        "gyldigTilOgMed": "2023-01-01",
+        "utenlandskAdresse": Object {
+          "landkode": "FI",
+        },
+        "vegadresse": Object {
+          "adressenavn": "Adressenavn2",
+          "husbokstav": "B",
+          "husnummer": "01",
+          "postnummer": "0768",
         },
       },
-      "postadresse": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "ustrukturertAdresse": Object {
-          "adresselinje1": "NYACHAE",
-          "adresselinje2": "S-BHF ORANIENBURGER STR.",
-          "adresselinje3": "20095",
-          "adresselinje4": null,
-          "landkode": Object {
-            "kodeRef": null,
-            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
-            "value": "SWE",
-          },
-          "postnr": null,
-          "poststed": null,
+      "sivilstand": Array [
+        Object {
+          "gyldigFraOgMed": "2007-10-10",
+          "relatertVedSivilstand": "20047520887",
+          "type": "GIFT",
         },
-      },
-      "sikkerhetstiltak": null,
-      "sivilstand": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "fomGyldighetsperiode": "2006-06-18T22:00:00.000+0000",
-        "sivilstand": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Sivilstander",
-          "value": "ENKE",
+      ],
+      "statsborgerskap": Array [
+        Object {
+          "gyldigFraOgMed": "1980-02-09",
+          "gyldigTilOgMed": null,
+          "land": "NOR",
         },
-        "tomGyldighetsperiode": null,
-      },
-      "statsborgerskap": Object {
-        "endretAv": null,
-        "endringstidspunkt": null,
-        "endringstype": null,
-        "land": Object {
-          "kodeRef": null,
-          "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Landkoder",
-          "value": "DNK",
-        },
-      },
-      "tilrettelagtKommunikasjon": Array [],
-      "vergeListe": Array [],
+      ],
     }
   }
   personAvdods={
     Array [
       Object {
-        "aktoerId": "2865434801175",
-        "etternavn": "BLYANT",
-        "fnr": "12345678902",
-        "fornavn": "FRODIG",
-        "fulltNavn": "BLYANT FRODIG",
-        "mellomnavn": null,
-        "relasjon": "REPA",
+        "adressebeskyttelse": Array [
+          "UGRADERT",
+        ],
+        "bostedsadresse": null,
+        "doedsfall": Object {
+          "doedsdato": "2020-01-01",
+          "folkeregistermetadata": Object {
+            "gyldighetstidspunkt": "2020-10-12T11:40:56",
+          },
+        },
+        "familierelasjoner": Array [
+          Object {
+            "minRolleForPerson": "FAR",
+            "relatertPersonsIdent": "personFnr",
+            "relatertPersonsRolle": "BARN",
+          },
+        ],
+        "foedsel": Object {
+          "foedeland": null,
+          "foedested": null,
+          "foedselsdato": "1980-02-09",
+          "folkeregistermetadata": Object {
+            "gyldighetstidspunkt": "2020-10-12T11:40:56",
+          },
+        },
+        "geografiskTilknytning": null,
+        "identer": Array [
+          Object {
+            "gruppe": "FOLKEREGISTERIDENT",
+            "ident": "personFarFnr",
+          },
+          Object {
+            "gruppe": "AKTORID",
+            "ident": "personFarAktoerId",
+          },
+        ],
+        "kjoenn": Object {
+          "folkeregistermetadata": Object {
+            "gyldighetstidspunkt": "2020-10-12T11:40:56",
+          },
+          "kjoenn": "MANN",
+        },
+        "navn": Object {
+          "etternavn": "SAKS",
+          "fornavn": "AVDØD1",
+          "mellomnavn": null,
+          "sammensattNavn": "AVDØD1 SAKS",
+        },
+        "oppholdsadresse": null,
+        "sivilstand": Array [
+          Object {
+            "gyldigFraOgMed": "2007-10-10",
+            "relatertVedSivilstand": "20047520887",
+            "type": "GIFT",
+          },
+        ],
+        "statsborgerskap": Array [
+          Object {
+            "gyldigFraOgMed": "1980-02-09",
+            "gyldigTilOgMed": null,
+            "land": "NOR",
+          },
+        ],
       },
     ]
   }
@@ -432,10 +364,10 @@ ui-fss.g30[id="c5"] {
                         className="typo-normal"
                       >
                         <ForwardRef(Tooltip)
-                          key="ui:gatenavnKJEMPEBAKKENVEIEN"
+                          key="ui:fram-og-til2020-01-01 - 2021-01-01"
                           overlay={
                             <span>
-                              ui:gatenavn
+                              ui:fram-og-til
                             </span>
                           }
                           placement="top"
@@ -688,7 +620,7 @@ ui-fss.g30[id="c5"] {
                             onPopupVisibleChange={[Function]}
                             overlay={
                               <span>
-                                ui:gatenavn
+                                ui:fram-og-til
                               </span>
                             }
                             popup={[Function]}
@@ -704,19 +636,299 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              KJEMPEBAKKENVEIEN
+                              2020-01-01 - 2021-01-01
+                            </span>
+                          </Trigger>
+                        </ForwardRef(Tooltip)>
+                        <br
+                          key="0"
+                        />
+                        <ForwardRef(Tooltip)
+                          key="ui:adressenavnAdressenavn"
+                          overlay={
+                            <span>
+                              ui:adressenavn
+                            </span>
+                          }
+                          placement="top"
+                          trigger={
+                            Array [
+                              "hover",
+                            ]
+                          }
+                        >
+                          <Trigger
+                            action={
+                              Array [
+                                "hover",
+                              ]
+                            }
+                            afterPopupVisibleChange={[Function]}
+                            autoDestroy={false}
+                            blurDelay={0.15}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            defaultPopupVisible={false}
+                            destroyPopupOnHide={false}
+                            focusDelay={0}
+                            getDocument={[Function]}
+                            getPopupClassNameFromAlign={[Function]}
+                            hideAction={Array []}
+                            mask={false}
+                            maskClosable={true}
+                            mouseEnterDelay={0}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onPopupVisibleChange={[Function]}
+                            overlay={
+                              <span>
+                                ui:adressenavn
+                              </span>
+                            }
+                            popup={[Function]}
+                            popupAlign={Object {}}
+                            popupClassName=""
+                            popupPlacement="top"
+                            popupStyle={Object {}}
+                            prefixCls="rc-tooltip"
+                            showAction={Array []}
+                          >
+                            <span
+                              key="trigger"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                            >
+                              Adressenavn
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
                         <styled.span
-                          key="0"
+                          key="1"
                         >
                           <span
                             className="c12 c13"
                           />
                         </styled.span>
                         <ForwardRef(Tooltip)
-                          key="ui:husnummer12"
+                          key="ui:husnummer00"
                           overlay={
                             <span>
                               ui:husnummer
@@ -988,15 +1200,299 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              12
+                              00
+                            </span>
+                          </Trigger>
+                        </ForwardRef(Tooltip)>
+                        <styled.span
+                          key="2"
+                        >
+                          <span
+                            className="c12 c13"
+                          />
+                        </styled.span>
+                        <ForwardRef(Tooltip)
+                          key="ui:husbokstavA"
+                          overlay={
+                            <span>
+                              ui:husbokstav
+                            </span>
+                          }
+                          placement="top"
+                          trigger={
+                            Array [
+                              "hover",
+                            ]
+                          }
+                        >
+                          <Trigger
+                            action={
+                              Array [
+                                "hover",
+                              ]
+                            }
+                            afterPopupVisibleChange={[Function]}
+                            autoDestroy={false}
+                            blurDelay={0.15}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            defaultPopupVisible={false}
+                            destroyPopupOnHide={false}
+                            focusDelay={0}
+                            getDocument={[Function]}
+                            getPopupClassNameFromAlign={[Function]}
+                            hideAction={Array []}
+                            mask={false}
+                            maskClosable={true}
+                            mouseEnterDelay={0}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onPopupVisibleChange={[Function]}
+                            overlay={
+                              <span>
+                                ui:husbokstav
+                              </span>
+                            }
+                            popup={[Function]}
+                            popupAlign={Object {}}
+                            popupClassName=""
+                            popupPlacement="top"
+                            popupStyle={Object {}}
+                            prefixCls="rc-tooltip"
+                            showAction={Array []}
+                          >
+                            <span
+                              key="trigger"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                            >
+                              A
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
                         <br
-                          key="2"
+                          key="3"
                         />
                         <ForwardRef(Tooltip)
-                          key="ui:poststed5036"
+                          key="ui:poststed0768"
                           overlay={
                             <span>
                               ui:poststed
@@ -1268,19 +1764,19 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              5036
+                              0768
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
                         <styled.span
-                          key="5"
+                          key="4"
                         >
                           <span
                             className="c12 c13"
                           />
                         </styled.span>
                         <ForwardRef(Tooltip)
-                          key="ui:cityBERGEN"
+                          key="ui:cityOSLO"
                           overlay={
                             <span>
                               ui:city
@@ -1552,12 +2048,12 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              BERGEN
+                              OSLO
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
                         <br
-                          key="6"
+                          key="5"
                         />
                       </p>
                     </TypografiBase>
@@ -1664,7 +2160,7 @@ ui-fss.g30[id="c5"] {
                       <p
                         className="typo-normal"
                       >
-                        26.07.1929
+                        09.02.1980
                       </p>
                     </TypografiBase>
                   </Normaltekst>
@@ -1741,7 +2237,7 @@ ui-fss.g30[id="c5"] {
                       <p
                         className="typo-normal"
                       >
-                        Danmark
+                        Norge (1980-02-09)
                       </p>
                     </TypografiBase>
                   </Normaltekst>
@@ -1795,11 +2291,11 @@ ui-fss.g30[id="c5"] {
                 />
               </styled.div>
               <styled.div
-                id="w-overview-personPanel__element-postadresse"
+                id="w-overview-personPanel__element-oppholdsadresse"
               >
                 <div
                   className="c10 c11"
-                  id="w-overview-personPanel__element-postadresse"
+                  id="w-overview-personPanel__element-oppholdsadresse"
                 >
                   <Undertekst>
                     <TypografiBase
@@ -1809,7 +2305,7 @@ ui-fss.g30[id="c5"] {
                         className="typo-undertekst"
                       >
                         <strong>
-                          ui:postadresse
+                          ui:oppholdsadresse
                         </strong>
                         :
                       </p>
@@ -1828,10 +2324,10 @@ ui-fss.g30[id="c5"] {
                         className="typo-normal"
                       >
                         <ForwardRef(Tooltip)
-                          key="ui:adresseNYACHAE"
+                          key="ui:fram-og-til2022-01-01 - 2023-01-01"
                           overlay={
                             <span>
-                              ui:adresse
+                              ui:fram-og-til
                             </span>
                           }
                           placement="top"
@@ -2084,7 +2580,7 @@ ui-fss.g30[id="c5"] {
                             onPopupVisibleChange={[Function]}
                             overlay={
                               <span>
-                                ui:adresse
+                                ui:fram-og-til
                               </span>
                             }
                             popup={[Function]}
@@ -2100,7 +2596,7 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              NYACHAE
+                              2022-01-01 - 2023-01-01
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
@@ -2108,10 +2604,10 @@ ui-fss.g30[id="c5"] {
                           key="0"
                         />
                         <ForwardRef(Tooltip)
-                          key="ui:adresseS-BHF ORANIENBURGER STR."
+                          key="ui:adressenavnAdressenavn2"
                           overlay={
                             <span>
-                              ui:adresse
+                              ui:adressenavn
                             </span>
                           }
                           placement="top"
@@ -2364,7 +2860,7 @@ ui-fss.g30[id="c5"] {
                             onPopupVisibleChange={[Function]}
                             overlay={
                               <span>
-                                ui:adresse
+                                ui:adressenavn
                               </span>
                             }
                             popup={[Function]}
@@ -2380,18 +2876,22 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              S-BHF ORANIENBURGER STR.
+                              Adressenavn2
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
-                        <br
+                        <styled.span
                           key="1"
-                        />
+                        >
+                          <span
+                            className="c12 c13"
+                          />
+                        </styled.span>
                         <ForwardRef(Tooltip)
-                          key="ui:adresse20095"
+                          key="ui:husnummer01"
                           overlay={
                             <span>
-                              ui:adresse
+                              ui:husnummer
                             </span>
                           }
                           placement="top"
@@ -2644,7 +3144,7 @@ ui-fss.g30[id="c5"] {
                             onPopupVisibleChange={[Function]}
                             overlay={
                               <span>
-                                ui:adresse
+                                ui:husnummer
                               </span>
                             }
                             popup={[Function]}
@@ -2660,18 +3160,22 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              20095
+                              01
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
-                        <br
+                        <styled.span
                           key="2"
-                        />
+                        >
+                          <span
+                            className="c12 c13"
+                          />
+                        </styled.span>
                         <ForwardRef(Tooltip)
-                          key="ui:countrySverige"
+                          key="ui:husbokstavB"
                           overlay={
                             <span>
-                              ui:country
+                              ui:husbokstav
                             </span>
                           }
                           placement="top"
@@ -2924,7 +3428,7 @@ ui-fss.g30[id="c5"] {
                             onPopupVisibleChange={[Function]}
                             overlay={
                               <span>
-                                ui:country
+                                ui:husbokstav
                               </span>
                             }
                             popup={[Function]}
@@ -2940,12 +3444,576 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              Sverige
+                              B
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
                         <br
-                          key="6"
+                          key="3"
+                        />
+                        <ForwardRef(Tooltip)
+                          key="ui:poststed0768"
+                          overlay={
+                            <span>
+                              ui:poststed
+                            </span>
+                          }
+                          placement="top"
+                          trigger={
+                            Array [
+                              "hover",
+                            ]
+                          }
+                        >
+                          <Trigger
+                            action={
+                              Array [
+                                "hover",
+                              ]
+                            }
+                            afterPopupVisibleChange={[Function]}
+                            autoDestroy={false}
+                            blurDelay={0.15}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            defaultPopupVisible={false}
+                            destroyPopupOnHide={false}
+                            focusDelay={0}
+                            getDocument={[Function]}
+                            getPopupClassNameFromAlign={[Function]}
+                            hideAction={Array []}
+                            mask={false}
+                            maskClosable={true}
+                            mouseEnterDelay={0}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onPopupVisibleChange={[Function]}
+                            overlay={
+                              <span>
+                                ui:poststed
+                              </span>
+                            }
+                            popup={[Function]}
+                            popupAlign={Object {}}
+                            popupClassName=""
+                            popupPlacement="top"
+                            popupStyle={Object {}}
+                            prefixCls="rc-tooltip"
+                            showAction={Array []}
+                          >
+                            <span
+                              key="trigger"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                            >
+                              0768
+                            </span>
+                          </Trigger>
+                        </ForwardRef(Tooltip)>
+                        <styled.span
+                          key="4"
+                        >
+                          <span
+                            className="c12 c13"
+                          />
+                        </styled.span>
+                        <ForwardRef(Tooltip)
+                          key="ui:cityOSLO"
+                          overlay={
+                            <span>
+                              ui:city
+                            </span>
+                          }
+                          placement="top"
+                          trigger={
+                            Array [
+                              "hover",
+                            ]
+                          }
+                        >
+                          <Trigger
+                            action={
+                              Array [
+                                "hover",
+                              ]
+                            }
+                            afterPopupVisibleChange={[Function]}
+                            autoDestroy={false}
+                            blurDelay={0.15}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            defaultPopupVisible={false}
+                            destroyPopupOnHide={false}
+                            focusDelay={0}
+                            getDocument={[Function]}
+                            getPopupClassNameFromAlign={[Function]}
+                            hideAction={Array []}
+                            mask={false}
+                            maskClosable={true}
+                            mouseEnterDelay={0}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onPopupVisibleChange={[Function]}
+                            overlay={
+                              <span>
+                                ui:city
+                              </span>
+                            }
+                            popup={[Function]}
+                            popupAlign={Object {}}
+                            popupClassName=""
+                            popupPlacement="top"
+                            popupStyle={Object {}}
+                            prefixCls="rc-tooltip"
+                            showAction={Array []}
+                          >
+                            <span
+                              key="trigger"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                            >
+                              OSLO
+                            </span>
+                          </Trigger>
+                        </ForwardRef(Tooltip)>
+                        <br
+                          key="5"
                         />
                       </p>
                     </TypografiBase>
@@ -3028,7 +4096,7 @@ ui-fss.g30[id="c5"] {
                       <p
                         className="typo-normal"
                       >
-                        ui:widget-overview-maritalstatus-Enke (19.06.2006)
+                        ui:widget-overview-maritalstatus-Gift (10.10.2007)
                       </p>
                     </TypografiBase>
                   </Normaltekst>
@@ -3097,7 +4165,7 @@ ui-fss.g30[id="c5"] {
               <div>
                 <styled.div
                   id="w-overview-personPanel__element-deceased"
-                  key="12345678902"
+                  key="personFarFnr"
                 >
                   <div
                     className="c10 c11"
@@ -3115,7 +4183,7 @@ ui-fss.g30[id="c5"] {
                         <p
                           className="typo-normal"
                         >
-                          FRODIG BLYANT - 12345678902 (buc:relasjon-REPA)
+                          AVDØD1 SAKS - personFarFnr (buc:relasjon-FAR)
                         </p>
                       </TypografiBase>
                     </Normaltekst>
@@ -3127,108 +4195,7 @@ ui-fss.g30[id="c5"] {
           <Styled(styled.div)>
             <div
               className="c4 c5 c6 c7"
-            >
-              <ExpandedCalendar
-                color="black"
-              >
-                <svg
-                  contentScriptType="text/ecmascript"
-                  contentStyleType="text/css"
-                  height={24}
-                  id="Layer_1"
-                  preserveAspectRatio="xMidYMid meet"
-                  version="1.1"
-                  viewBox="0 0 24 24"
-                  width={24}
-                  x="0px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0px"
-                  zoomAndPan="magnify"
-                >
-                  <path
-                    d="M4.5,2.5h-4v21h23v-21h-4"
-                    fill="none"
-                    stroke="black"
-                  />
-                  <rect
-                    fill="none"
-                    height="4"
-                    stroke="black"
-                    width="3"
-                    x="4.5"
-                    y="0.5"
-                  />
-                  <rect
-                    fill="none"
-                    height="4"
-                    stroke="black"
-                    width="3"
-                    x="16.5"
-                    y="0.5"
-                  />
-                  <line
-                    fill="none"
-                    stroke="black"
-                    x1="7.5"
-                    x2="16.5"
-                    y1="2.5"
-                    y2="2.5"
-                  />
-                  <line
-                    fill="none"
-                    stroke="black"
-                    x1="0.5"
-                    x2="23.5"
-                    y1="7.5"
-                    y2="7.5"
-                  />
-                </svg>
-              </ExpandedCalendar>
-              <styled.div>
-                <div
-                  className="c8 c9"
-                />
-              </styled.div>
-              <styled.div
-                id="w-overview-personPanel__element-deathdate"
-              >
-                <div
-                  className="c10 c11"
-                  id="w-overview-personPanel__element-deathdate"
-                >
-                  <Undertekst>
-                    <TypografiBase
-                      type="undertekst"
-                    >
-                      <p
-                        className="typo-undertekst"
-                      >
-                        <strong>
-                          ui:deathdate
-                        </strong>
-                        :
-                      </p>
-                    </TypografiBase>
-                  </Undertekst>
-                  <styled.div>
-                    <div
-                      className="c8 c9"
-                    />
-                  </styled.div>
-                  <Normaltekst>
-                    <TypografiBase
-                      type="normaltekst"
-                    >
-                      <p
-                        className="typo-normal"
-                      >
-                        20.05.2018
-                      </p>
-                    </TypografiBase>
-                  </Normaltekst>
-                </div>
-              </styled.div>
-            </div>
+            />
           </Styled(styled.div)>
           <Styled(styled.div)>
             <div

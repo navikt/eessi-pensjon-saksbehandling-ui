@@ -9,6 +9,7 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
+import { PersonPDL } from 'declarations/person'
 import {
   animationClose, animationOpen,
   Column,
@@ -23,7 +24,7 @@ import {
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString } from 'declarations/app.d'
-import { PersonAvdods } from 'declarations/person.d'
+import { PersonAvdodsPDL } from 'declarations/person.d'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
@@ -92,7 +93,8 @@ export interface BUCEditSelector {
   locale: AllowedLocaleString,
   newlyCreatedSed: Sed | undefined,
   newlyCreatedSedTime: number | undefined
-  personAvdods: PersonAvdods | undefined
+  person: PersonPDL | undefined
+  personAvdods: PersonAvdodsPDL | undefined
   replySed: Sed | undefined
 }
 
@@ -106,6 +108,7 @@ const mapState = (state: State): BUCEditSelector => ({
   locale: state.ui.locale,
   newlyCreatedSed: state.buc.newlyCreatedSed,
   newlyCreatedSedTime: state.buc.newlyCreatedSedTime,
+  person: state.app.person,
   personAvdods: state.app.personAvdods,
   replySed: state.buc.replySed
 })
@@ -115,7 +118,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 }: BUCEditProps): JSX.Element => {
   const {
     aktoerId, bucs, currentBuc, currentSed, bucsInfo, highContrast, locale,
-    newlyCreatedSed, newlyCreatedSedTime, personAvdods, replySed
+    newlyCreatedSed, newlyCreatedSedTime, person, personAvdods, replySed
   }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -319,6 +322,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         <WidgetDiv>
           <BUCDetail
             buc={buc!}
+            person={person}
             personAvdods={personAvdods}
           />
           <VerticalSeparatorDiv />

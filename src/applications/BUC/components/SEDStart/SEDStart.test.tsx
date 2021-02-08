@@ -154,7 +154,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     expect(createSed).toHaveBeenCalledWith(mockBucList[mockCurrentBuc], {
       aktoerId: '123',
-      avdodfnr: '12345678902',
+      avdodfnr: 'personFarFnr',
       buc: 'P_BUC_02',
       euxCaseId: '195440',
       institutions: [],
@@ -162,10 +162,10 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       sed: 'P2000',
       subject: {
         avdod: {
-          fnr: '12345678902'
+          fnr: 'personFarFnr'
         },
         gjenlevende: {
-          fnr: '12345678901'
+          fnr: 'personFnr'
         }
       }
     })
