@@ -50,7 +50,7 @@ describe('actions/app', () => {
         success: types.APP_PERSONINFO_SUCCESS,
         failure: types.APP_PERSONINFO_FAILURE
       },
-      url: sprintf(urls.PERSON_PDL_INFO_URL, { aktoerId: mockAktoerId })
+      url: sprintf(urls.PERSON_PDL_URL, { aktoerId: mockAktoerId })
     }))
   })
 

@@ -34,7 +34,7 @@ export const API_JOARK_GET_URL = SAF_URL + '/hentdokument/%(journalpostId)s/%(do
 export const API_JOARK_ATTACHMENT_URL = SAF_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(journalpostId)s/%(dokumentInfoId)s/%(variantformat)s'
 
 // PersonController
-export const PERSON_PDL_INFO_URL = PER_URL + '/pdl/info/%(aktoerId)s'
+export const PERSON_PDL_URL = PER_URL + '/pdl/%(aktoerId)s'
 export const PERSON_PDL_AVDOD_URL = PER_URL + '/pdl/%(aktoerId)s/avdode/vedtak/%(vedtakId)s'
 
 // BucController

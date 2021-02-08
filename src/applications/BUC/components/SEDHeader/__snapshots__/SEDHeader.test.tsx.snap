@@ -1917,7 +1917,7 @@ ui-fss.g38[id="c14"] {
                                   data-test-id="a-buc-c-sedheader__version-id"
                                 >
                                   ui:version
-                                  :
+                                  : 
                                   5
                                 </p>
                               </TypografiBase>

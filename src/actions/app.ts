@@ -50,7 +50,7 @@ export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonPD
   aktoerId: string
 ): ThunkResult<ActionWithPayload<PersonPDL>> => {
   return call({
-    url: sprintf(urls.PERSON_PDL_INFO_URL, { aktoerId: aktoerId }),
+    url: sprintf(urls.PERSON_PDL_URL, { aktoerId: aktoerId }),
     expectedPayload: mockPerson,
     type: {
       request: types.APP_PERSONINFO_REQUEST,
