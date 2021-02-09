@@ -1,11 +1,9 @@
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { AllowedLocaleString } from 'declarations/app.d'
-import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
+import { SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
-import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import moment from 'moment'
 import NavHighContrast, { HighContrastKnapp } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
@@ -13,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import TableSorter, { Sort } from 'tabell'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import * as labels from './SEDP5000.labels'
 
 export const ButtonsDiv = styled.div`
@@ -54,21 +53,11 @@ export const SEDP5000Header = styled.div`
   align-items: flex-end;
 `
 
-type ActiveSeds = {[k: string]: boolean}
-
 export interface SEDP5000Props {
   highContrast: boolean
   locale: AllowedLocaleString
   seds: Seds
   sedContent: SedContentMap
-}
-
-interface SedSender {
-  date: string
-  country: string
-  countryLabel: string
-  institution: string
-  acronym: string
 }
 
 export interface SEDP5000SummaryRow {
@@ -85,64 +74,70 @@ export interface SEDP5000SummaryRow {
 export type SEDP5000SummaryRows = Array<SEDP5000SummaryRow>
 
 const SEDP5000Overview: React.FC<SEDP5000Props> = ({
-  highContrast, locale, seds, sedContent
+  highContrast, sedContent
 }: SEDP5000Props) => {
   const { t } = useTranslation()
   const { height } = useWindowDimensions()
   const componentRef = useRef(null)
-  const [_activeSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
   const [_itemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
-  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): SEDP5000SummaryRows => {
+  const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000SummaryRows => {
     const res: SEDP5000SummaryRows = []
-    const sender: SedSender | undefined = getSedSender(sedId)
-    const medlemskap = sedContent.pensjon?.medlemskap
-    if (medlemskap) {
-      medlemskap.forEach((m: any, i: number) => {
-        if (!_.isNil(m)) {
-          res.push({
-            key: sedId + '-' + i,
-            sec51aar: m.sum?.aar || '-',
-            sec51maned: m.sum?.maaneder || '-',
-            sec51dager: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
-            sec52aar: m.sum?.aar || '-',
-            sec52maned: m.sum?.maaneder || '-',
-            sec52dager: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
-            type: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym
-          } as SEDP5000SummaryRow)
-        }
+
+    const data: any = {
+      '11': {
+        '5_1': {
+          aar: 0, maaneder: 0, dager: 0
+        },
+        '5_2': {
+          aar: 0, maaneder: 0, dager: 0
+        },
+      },
+      '30': {
+        '5_1': {
+          aar: 0, maaneder: 0, dager: 0
+        },
+        '5_2': {
+          aar: 0, maaneder: 0, dager: 0
+        },
+      }
+    };
+
+    const ks: any = Object.keys(sedContent)
+
+    ks.forEach((k: string) => {
+      const medlemskap = sedContent[k].pensjon?.medlemskap
+      if (medlemskap) {
+        medlemskap.forEach((m: any) => {
+          if (!_.isNil(m)) {
+            if (m.type === '11' || m.type === '30') {
+              data[m.type]['5_1'].aar = data[m.type]['5_1'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
+              data[m.type]['5_1'].maaneder = data[m.type]['5_1'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
+              data[m.type]['5_1'].dager = data[m.type]['5_1'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
+              data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
+              data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
+              data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
+            }
+          }
+        })
+      }
+    });
+
+    ['11', '30'].forEach(type => {
+      res.push({
+        key: type,
+        sec51aar: data[type]['5_1']['aar'],
+        sec51maned: data[type]['5_1']['maaneder'],
+        sec51dager: data[type]['5_1']['dager'],
+        sec52aar: data[type]['5_2']['aar'],
+        sec52maned: data[type]['5_2']['maaneder'],
+        sec52dager: data[type]['5_2']['dager'],
+        type: t('buc:P5000-category-' + type)
       })
-    }
-    return res
-  }
-
-  const getSedSender = (sedId: string): SedSender | undefined => {
-    const sed = _.find(seds, { id: sedId })
-    if (!sed) {
-      return undefined
-    }
-    const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
-    if (sender) {
-      return {
-        date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
-        countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
-        country: sender.organisation.countryCode,
-        institution: sender.organisation.name,
-        acronym: sender.organisation.acronym || '-'
-      }
-    }
-    return undefined
-  }
-
-  const getItems = (): SEDP5000SummaryRows => {
-    let res: SEDP5000SummaryRows = []
-    Object.keys(_activeSeds).forEach((key: string) => {
-      if (_activeSeds[key]) {
-        res = res.concat(convertRawP5000toRow(key, sedContent[key]))
-      }
     })
+
     return res
   }
 
@@ -158,7 +153,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     setPrintDialogOpen(false)
   }
 
-  const items = getItems()
+  const items = convertRawP5000toRow(sedContent)
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -166,7 +161,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
         <TableSorter
           highContrast={highContrast}
           items={items}
-          searchable
+          searchable={false}
           selectable={false}
           sortable
           onColumnSort={(sort: any) => {
@@ -176,6 +171,16 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           itemsPerPage={_itemsPerPage}
           labels={labels}
           compact
+          categories={[{
+            colSpan: 1,
+            label: ''
+          }, {
+            colSpan: 3,
+            label: t('buc:P5000-5-1-title')
+          }, {
+            colSpan: 3,
+            label: t('buc:P5000-5-2-title')
+          }]}
           columns={[
             { id: 'type', label: t('ui:type'), type: 'string' },
             { id: 'sec51aar', label: t('ui:year'), type: 'string' },
@@ -201,6 +206,16 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               itemsPerPage={9999}
               labels={labels}
               compact
+              categories={[{
+                colSpan: 1,
+                label: ''
+              }, {
+                colSpan: 3,
+                label: 'sdfdsfsdf'
+              }, {
+                colSpan: 3,
+                label: 'sdfdsfsdfdf2'
+              }]}
               columns={[
                 { id: 'type', label: t('ui:type'), type: 'string' },
                 { id: 'sec51aar', label: t('ui:year'), type: 'string' },
@@ -213,6 +228,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             />
           </div>
         </HiddenDiv>
+        <VerticalSeparatorDiv data-size='2'/>
         <ButtonsDiv>
           <ReactToPrint
             documentTitle='P5000Summary'

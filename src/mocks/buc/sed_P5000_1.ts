@@ -109,7 +109,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: null,
       periode: null
     }, {
@@ -128,7 +128,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: null,
       periode: null
     }],
@@ -148,7 +148,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -171,7 +171,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -194,7 +194,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -217,7 +217,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -240,7 +240,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -263,7 +263,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -286,7 +286,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -309,7 +309,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -332,7 +332,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -355,7 +355,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -378,7 +378,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -401,7 +401,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -424,7 +424,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -447,7 +447,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -470,7 +470,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -493,7 +493,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -516,7 +516,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -539,7 +539,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -562,7 +562,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -585,7 +585,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -608,7 +608,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -631,7 +631,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -654,7 +654,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -677,7 +677,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -700,7 +700,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -723,7 +723,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -746,7 +746,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -769,7 +769,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -792,7 +792,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: '1',
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2000-02-01',
@@ -815,7 +815,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: '111',
       periode: {
         fom: '2006-08-16',
@@ -839,7 +839,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: null,
       periode: null
     }, {
@@ -858,7 +858,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '10',
+      type: '30',
       beregning: null,
       periode: null
     }],
