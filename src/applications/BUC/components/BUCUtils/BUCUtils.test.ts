@@ -2,7 +2,6 @@ import { Buc, Sed } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { Labels, T } from 'declarations/app.d'
 import Mustache from 'mustache'
-import person from 'mocks/app/person'
 import personAvdod from 'mocks/app/personAvdod'
 import joarkItems from 'mocks/joark/items'
 import { countrySorter, renderAvdodName, sedAttachmentSorter } from './BUCUtils'
@@ -19,7 +18,8 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
       const translations: Labels = {
         'buc:buc-P2000': 'Krav om uføretrygd',
         'buc:buc-P3000_XX': 'Landspesifikk informasjon til {{country}}',
-        'buc:relasjon-REPA': 'Repa',
+        'buc:relasjon-FAR': 'Far',
+        'buc:relasjon-MOR': 'Mor',
         'ui:unknownLand': 'ukjent land'
       }
       return Mustache.render(translations[label] || '---', vars)
@@ -51,7 +51,9 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     sakType: 'Alderspensjon',
     creator: {
       institution: 'mockInstitution',
-      country: 'mockCountry'
+      country: 'mockCountry',
+      name: 'mockName',
+      acronym: 'mockAcronym'
     },
     startDate: 1,
     lastUpdate: 2,
@@ -122,7 +124,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
   })
 
   it('renderAvdodName()', () => {
-    expect(renderAvdodName(personAvdod(1)![0], person, t)).toEqual('AVDØD1 SAKS - personFarFnr (---)')
+    expect(renderAvdodName(personAvdod(1)![0], t)).toEqual('MOR AVDØD1 - personFarFnr (Mor)')
   })
 
   it('sedAttachmentSorter()', () => {

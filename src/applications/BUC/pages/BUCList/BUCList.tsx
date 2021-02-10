@@ -40,7 +40,7 @@ import {
   SakTypeValue,
   Sed
 } from 'declarations/buc.d'
-import { PersonAvdodsPDL } from 'declarations/person.d'
+import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
@@ -141,7 +141,7 @@ export interface BUCListSelector {
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
-  personAvdods: PersonAvdodsPDL | undefined
+  personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakType: SakTypeValue | undefined
 }

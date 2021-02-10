@@ -14,7 +14,7 @@ import {
 } from 'actions/buc'
 import {
   bucsThatSupportAvdod,
-  getBucTypeLabel, getFnr,
+  getBucTypeLabel,
   labelSorter,
   renderAvdodName,
   sedAttachmentSorter,
@@ -28,7 +28,6 @@ import Alert from 'components/Alert/Alert'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
-import { PersonPDL } from 'declarations/person'
 import {
   Column,
   HighContrastFeiloppsummering,
@@ -81,7 +80,7 @@ import { BucsPropType, SedPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 
-import { PersonAvdodPDL, PersonAvdodsPDL } from 'declarations/person.d'
+import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import CountryData, { Country, CountryList } from 'land-verktoy'
 import CountrySelect from 'landvelger'
@@ -146,8 +145,7 @@ export interface SEDStartSelector {
   kravId: string | undefined,
   loading: Loading
   locale: AllowedLocaleString
-  person: PersonPDL | undefined
-  personAvdods: PersonAvdodsPDL | undefined
+  personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId?: string
   sakType: SakTypeValue | undefined
@@ -169,7 +167,6 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   kravId: state.app.params.kravId,
   loading: state.loading,
   locale: state.ui.locale,
-  person: state.app.person,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
@@ -203,7 +200,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element => {
   const {
     attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, kravId, kravDato,
-    loading, locale, person, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
+    loading, locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -257,7 +254,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       : []
   }
 
-  const [_avdod, setAvdod] = useState<PersonAvdodPDL | null | undefined>(undefined)
+  const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
   const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
   const [_avdodOrSoker, setAvdodOrSoker] = useState<AvdodOrSokerValue | undefined>(undefined)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
@@ -721,7 +718,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.vedtakId = _vedtakId
       }
       if (sedSupportsAvdod() && _avdod && avdodExists()) {
-        payload.avdodfnr = getFnr(_avdod)
+        payload.avdodfnr = _avdod.fnr
       }
       if (sedNeedsAvdodFnrInput() && _avdodFnr) {
         payload.avdodfnr = _avdodFnr
@@ -848,8 +845,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject) {
-      let avdod: PersonAvdodPDL | undefined | null = _.find(personAvdods, p => {
-        const avdodFnr = getFnr(p)
+      let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p => {
+        const avdodFnr = p.fnr
         const needleFnr = (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
         return avdodFnr === needleFnr
       })
@@ -951,7 +948,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 </label>
                 <HorizontalSeparatorDiv />
                 <Normaltekst>
-                  {renderAvdodName(_avdod, person, t)}
+                  {renderAvdodName(_avdod, t)}
                 </Normaltekst>
               </FlexDiv>
             </>

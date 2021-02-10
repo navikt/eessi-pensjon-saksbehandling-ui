@@ -7,7 +7,7 @@ import LineHome from 'assets/icons/line-version-home-3'
 import PersonIcon from 'assets/icons/line-version-person-2'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from 'nav-hoykontrast'
-import { PersonAvdodsPDL } from 'declarations/person.d'
+import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
@@ -18,7 +18,6 @@ import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { getFnr, getRelasjonTilPerson } from 'applications/BUC/components/BUCUtils/BUCUtils'
 
 const Element = styled.div`
   display: flex;
@@ -43,7 +42,7 @@ export interface PersonPanelProps {
   highContrast: boolean
   locale: string
   person: any
-  personAvdods: PersonAvdodsPDL | undefined
+  personAvdods: PersonAvdods | undefined
 }
 
 const PersonPanel: React.FC<PersonPanelProps> = ({
@@ -229,24 +228,20 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
               </Undertekst>
               <div>
                 {personAvdods && personAvdods.length > 0
-                  ? personAvdods.map(avdod => {
-                      const avdodsFnr = getFnr(avdod)
-                      const relasjon = getRelasjonTilPerson(person, avdodsFnr)
-                      return (
-                        <Element
-                          key={avdodsFnr}
-                          id='w-overview-personPanel__element-deceased'
-                        >
-                          <HorizontalSeparatorDiv />
-                          <Normaltekst>
-                            {avdod?.navn?.fornavn +
-                          (avdod?.navn?.mellomnavn ? ' ' + avdod?.navn?.mellomnavn : '') +
-                          (avdod?.navn?.etternavn ? ' ' + avdod?.navn?.etternavn : '') +
-                          ' - ' + avdodsFnr + ' (' + t('buc:relasjon-' + relasjon) + ')'}
-                          </Normaltekst>
-                        </Element>
-                      )
-                    })
+                  ? personAvdods.map((avdod: PersonAvdod) => (
+                    <Element
+                      key={avdod.fnr}
+                      id='w-overview-personPanel__element-deceased'
+                    >
+                      <HorizontalSeparatorDiv />
+                      <Normaltekst>
+                        {avdod?.fornavn +
+                      (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                      (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                      ' - ' + avdod.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
+                      </Normaltekst>
+                    </Element>
+                    ))
                   : (
                     <Element
                       key='noAvdod'

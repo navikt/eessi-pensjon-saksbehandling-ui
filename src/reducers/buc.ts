@@ -140,7 +140,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
             fnr: getFnr(person)
           },
           avdod: {
-            fnr: getFnr(avdod)
+            fnr: avdod.fnr
           }
         } as BUCSubject
       }

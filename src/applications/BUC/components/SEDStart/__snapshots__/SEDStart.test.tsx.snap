@@ -96,7 +96,7 @@ ui-fss.g29[id="c6"] {
   border: 1px solid #BA3A26;
 }
 
-ui-fss.g71[id="c13"] {
+ui-fss.g72[id="c13"] {
   content: "c14,";
 }
 
@@ -111,7 +111,7 @@ ui-fss.g71[id="c13"] {
   align-items: flex-end;
 }
 
-ui-fss.g84[id="c9"] {
+ui-fss.g85[id="c9"] {
   content: "c10,";
 }
 
@@ -125,7 +125,7 @@ ui-fss.g84[id="c9"] {
   flex-direction: column;
 }
 
-ui-fss.g88[id="c0"] {
+ui-fss.g89[id="c0"] {
   content: "c1,";
 }
 
@@ -5549,7 +5549,9 @@ ui-fss.g88[id="c0"] {
                     >
                       <p
                         className="typo-normal"
-                      />
+                      >
+                        MOR AVDØD1 - personFarFnr (buc:relasjon-MOR)
+                      </p>
                     </TypografiBase>
                   </Normaltekst>
                 </div>

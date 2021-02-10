@@ -410,7 +410,7 @@ ui-fss.g57[id="c8"] {
         </Component>
       </Se>
     </Modal>
-    <ut
+    <Dt
       columns={
         Array [
           Object {
@@ -704,7 +704,7 @@ ui-fss.g57[id="c8"] {
                     className="c8 c9"
                   >
                     <div />
-                    <o>
+                    <i>
                       <s
                         type="normaltekst"
                       >
@@ -714,7 +714,7 @@ ui-fss.g57[id="c8"] {
                           Ingen ui:attachments vist
                         </p>
                       </s>
-                    </o>
+                    </i>
                     <g
                       currentPage={1}
                       highContrast={false}
@@ -729,7 +729,7 @@ ui-fss.g57[id="c8"] {
           </div>
         </styled.div>
       </Component>
-    </ut>
+    </Dt>
   </div>
 </JoarkBrowser>
 `;

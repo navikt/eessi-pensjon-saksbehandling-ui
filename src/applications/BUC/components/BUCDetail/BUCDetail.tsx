@@ -1,7 +1,6 @@
 import {
   bucsThatSupportAvdod,
   getBucTypeLabel,
-  getFnr,
   renderAvdodName
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
@@ -10,8 +9,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
 import { Buc, Institutions, ValidBuc } from 'declarations/buc'
 import { BucPropType } from 'declarations/buc.pt'
-import { PersonPDL } from 'declarations/person'
-import { PersonAvdodPDL, PersonAvdodsPDL } from 'declarations/person.d'
+import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
@@ -61,8 +59,7 @@ const Properties = styled.dl`
 export interface BUCDetailProps {
   buc: Buc
   className ?: string
-  person: PersonPDL | undefined
-  personAvdods: PersonAvdodsPDL | undefined
+  personAvdods: PersonAvdods | undefined
 }
 
 export interface BUCDetailSelector {
@@ -78,13 +75,13 @@ const mapState = (state: State): BUCDetailSelector => ({
 })
 
 const BUCDetail: React.FC<BUCDetailProps> = ({
-  buc, className, person, personAvdods
+  buc, className, personAvdods
 }: BUCDetailProps): JSX.Element => {
   const { highContrast, locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
   const { t } = useTranslation()
 
-  const avdod: PersonAvdodPDL | undefined = _.find(personAvdods, p => {
-    const avdodFnr = getFnr(p)
+  const avdod: PersonAvdod | undefined = _.find(personAvdods, p => {
+    const avdodFnr = p.fnr
     const needleFnr = (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
     return avdodFnr === needleFnr
   })
@@ -187,7 +184,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   {avdod
                     ? (
                       <Normaltekst>
-                        {renderAvdodName(avdod, person, t)}
+                        {renderAvdodName(avdod, t)}
                       </Normaltekst>
                       )
                     : (

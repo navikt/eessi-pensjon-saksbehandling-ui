@@ -11,7 +11,6 @@ import {
 import {
   bucsThatSupportAvdod,
   getBucTypeLabel,
-  getFnr,
   valueSorter
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
@@ -40,7 +39,7 @@ import {
   TagRawList,
   Tags
 } from 'declarations/buc.d'
-import { PersonAvdodPDL, PersonAvdodsPDL, PersonPDL } from 'declarations/person.d'
+import { PersonAvdod, PersonAvdods, PersonPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
@@ -91,7 +90,7 @@ export interface BUCStartSelector {
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
   person: PersonPDL | undefined
-  personAvdods: PersonAvdodsPDL | undefined
+  personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string
   sakType: SakTypeValue | undefined
@@ -137,7 +136,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [_avdod, setAvdod] = useState<PersonAvdodPDL | undefined>(undefined)
+  const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
@@ -184,7 +183,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const validateAvdod = (avdod: PersonAvdodPDL | undefined): FeiloppsummeringFeil | undefined => {
+  const validateAvdod = (avdod: PersonAvdod | undefined): FeiloppsummeringFeil | undefined => {
     if (!avdod) {
       return {
         skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
@@ -365,9 +364,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const onAvdodChange = (option: ValueType<Option, false>): void => {
     if (option) {
-      const thisAvdod: PersonAvdodPDL | undefined = _.find(personAvdods,
-        (avdod: PersonAvdodPDL) => {
-          const id: string | undefined = getFnr(avdod)
+      const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
+        (avdod: PersonAvdod) => {
+          const id: string | undefined = avdod.fnr
           return id === option.value
         }
       )
@@ -376,11 +375,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }
   }
 
-  const renderAvdodOptions = (personAvdods: PersonAvdodsPDL | undefined): Options => {
-    return personAvdods?.map((avdod: PersonAvdodPDL) => {
-      const fnr: string | undefined = getFnr(avdod)
+  const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
+    return personAvdods?.map((avdod: PersonAvdod) => {
+      const fnr: string | undefined = avdod.fnr
       return {
-        label: avdod.navn?.sammensattNavn + ' (' + fnr + ')',
+        label: avdod.fulltNavn + ' (' + fnr + ')',
         value: fnr!
       }
     }) || []
@@ -427,7 +426,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         buc: buc
       } as SaveBucsInfoProps
       if (bucNeedsAvdod() && _avdod) {
-        payload.avdod = getFnr(_avdod)
+        payload.avdod = _avdod.fnr
       }
       if (bucNeedsKravDato(newlyCreatedBuc.type)) {
         payload.kravDato = _kravDato
@@ -513,7 +512,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   onChange={onAvdodChange}
                   options={avdodOptions}
                   placeholder={t('buc:form-chooseAvdod')}
-                  value={_.find(avdodOptions, (f: any) => getFnr(_avdod) === f.value) || null}
+                  value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
                 />
               </>
             )}

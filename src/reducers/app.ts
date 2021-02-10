@@ -2,7 +2,7 @@ import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import { Feature, FeatureToggles, Params, PesysContext } from 'declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
-import { PersonPDL, PersonAvdodsPDL } from 'declarations/person.d'
+import { PersonPDL, PersonAvdods } from 'declarations/person.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
@@ -14,7 +14,7 @@ export interface AppState {
   loggedTime: Date | undefined
   params: Params
   person: PersonPDL | undefined
-  personAvdods: PersonAvdodsPDL | undefined
+  personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   username: string | undefined
   userRole: string | undefined

@@ -1,133 +1,21 @@
 const avdod1 = {
-  identer: [
-    {
-      ident: 'personFarFnr',
-      gruppe: 'FOLKEREGISTERIDENT'
-    },
-    {
-      ident: 'personFarAktoerId',
-      gruppe: 'AKTORID'
-    }
-  ],
-  navn: {
-    fornavn: 'AVDØD1',
-    mellomnavn: null,
-    etternavn: 'SAKS',
-    sammensattNavn: 'AVDØD1 SAKS'
-  },
-  adressebeskyttelse: [
-    'UGRADERT'
-  ],
-  bostedsadresse: null,
-  oppholdsadresse: null,
-  statsborgerskap: [
-    {
-      land: 'NOR',
-      gyldigFraOgMed: '1980-02-09',
-      gyldigTilOgMed: null
-    }
-  ],
-  foedsel: {
-    foedselsdato: '1980-02-09',
-    foedeland: null,
-    foedested: null,
-    folkeregistermetadata: {
-      gyldighetstidspunkt: '2020-10-12T11:40:56'
-    }
-  },
-  geografiskTilknytning: null,
-  kjoenn: {
-    kjoenn: 'MANN',
-    folkeregistermetadata: {
-      gyldighetstidspunkt: '2020-10-12T11:40:56'
-    }
-  },
-  doedsfall: {
-    doedsdato: '2020-01-01',
-    folkeregistermetadata: {
-      gyldighetstidspunkt: '2020-10-12T11:40:56'
-    }
-  },
-  familierelasjoner: [
-    {
-      relatertPersonsIdent: 'personFnr',
-      relatertPersonsRolle: 'BARN',
-      minRolleForPerson: 'FAR'
-    }
-  ],
-  sivilstand: [
-    {
-      type: 'GIFT',
-      gyldigFraOgMed: '2007-10-10',
-      relatertVedSivilstand: '20047520887'
-    }
-  ]
+  fnr: 'personFarFnr',
+  aktoerId: '2865434801175',
+  fulltNavn: 'MOR AVDØD1',
+  fornavn: 'MOR',
+  mellomnavn: null,
+  etternavn: 'AVDØD1',
+  relasjon: 'MOR'
 }
 
 const avdod2 = {
-  identer: [
-    {
-      ident: 'personMorFnr',
-      gruppe: 'FOLKEREGISTERIDENT'
-    },
-    {
-      ident: 'pesonMorAktoerId',
-      gruppe: 'AKTORID'
-    }
-  ],
-  navn: {
-    fornavn: 'AVDØD2',
-    mellomnavn: null,
-    etternavn: 'SAKS',
-    sammensattNavn: 'AVDØD2 SAKS'
-  },
-  adressebeskyttelse: [
-    'UGRADERT'
-  ],
-  bostedsadresse: null,
-  oppholdsadresse: null,
-  statsborgerskap: [
-    {
-      land: 'NOR',
-      gyldigFraOgMed: '1980-02-09',
-      gyldigTilOgMed: null
-    }
-  ],
-  foedsel: {
-    foedselsdato: '1980-02-09',
-    foedeland: null,
-    foedested: null,
-    folkeregistermetadata: {
-      gyldighetstidspunkt: '2020-10-12T11:40:56'
-    }
-  },
-  geografiskTilknytning: null,
-  kjoenn: {
-    kjoenn: 'MANN',
-    folkeregistermetadata: {
-      gyldighetstidspunkt: '2020-10-12T11:40:56'
-    }
-  },
-  doedsfall: {
-    doedsdato: '2020-01-01',
-    folkeregistermetadata: {
-      gyldighetstidspunkt: '2020-10-12T11:40:56'
-    }
-  },
-  familierelasjoner: [
-    {
-      relatertPersonsIdent: 'personFnr',
-      relatertPersonsRolle: 'BARN',
-      minRolleForPerson: 'MOR'
-    }
-  ],
-  sivilstand: [
-    {
-      type: 'GIFT',
-      gyldigFraOgMed: '2007-10-10',
-      relatertVedSivilstand: '20047520887'
-    }
-  ]
+  fnr: 'personMorFnr',
+  aktoerId: '2865434801175',
+  fulltNavn: 'FAR AVDØD2',
+  fornavn: 'FAR',
+  mellomnavn: null,
+  etternavn: 'AVDØD2',
+  relasjon: 'FAR'
 }
 
 export default (nrAvdod: number | undefined) => {

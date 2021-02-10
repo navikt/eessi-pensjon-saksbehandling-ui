@@ -6,7 +6,7 @@ import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { PersonPDL } from 'declarations/person'
 import { State } from 'declarations/reducers'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
-import { PersonAvdodsPDL } from 'declarations/person.d'
+import { PersonAvdods } from 'declarations/person.d'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
@@ -30,7 +30,7 @@ export interface OverviewSelector {
   gettingPersonInfo: boolean
   locale: AllowedLocaleString
   person?: PersonPDL,
-  personAvdods: PersonAvdodsPDL | undefined,
+  personAvdods: PersonAvdods | undefined,
   pesysContext: PesysContext | undefined,
   vedtakId: string
 }

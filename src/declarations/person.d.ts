@@ -148,11 +148,7 @@ export interface PersonPDL {
   sivilstand: Array<Sivilstand>
 }
 
-export type PersonAvdodPDL = PersonPDL
-
-export type PersonAvdodsPDL = Array<PersonAvdodPDL>
-
-/* export interface PersonAvdod {
+export interface PersonAvdod {
   aktoerId: string
   etternavn: string
   fnr: string
@@ -163,4 +159,3 @@ export type PersonAvdodsPDL = Array<PersonAvdodPDL>
 }
 
 export type PersonAvdods = Array<PersonAvdod>
-*/
