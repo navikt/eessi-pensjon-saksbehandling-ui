@@ -118,7 +118,9 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
 
     Object.keys(data).sort(
       (a, b) => (parseInt(a, 10) - parseInt(b, 10))
-    ).forEach(type => {
+    ).forEach((type: string) => {
+      // @ts-ignore
+      const label = labels.type[type]
       res.push({
         key: type,
         sec51aar: data[type]['5_1'].aar,
@@ -127,7 +129,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
         sec52aar: data[type]['5_2'].aar,
         sec52maned: data[type]['5_2'].maaneder,
         sec52dager: data[type]['5_2'].dager,
-        type: t('buc:P5000-category-' + type)
+        type: label + '[' + type + ']'
       })
     })
 
