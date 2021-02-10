@@ -103,15 +103,15 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                 aar: 0, maaneder: 0, dager: 0
               }
             }
-            if (m.type !== '45') {
-              data[m.type]['5_1'].aar = data[m.type]['5_1'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-              data[m.type]['5_1'].maaneder = data[m.type]['5_1'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-              data[m.type]['5_1'].dager = data[m.type]['5_1'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
-            }
-            data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-            data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-            data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
           }
+          if (m.type !== '45') {
+            data[m.type]['5_1'].aar = data[m.type]['5_1'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
+            data[m.type]['5_1'].maaneder = data[m.type]['5_1'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
+            data[m.type]['5_1'].dager = data[m.type]['5_1'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
+          }
+          data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
+          data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
+          data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
         }
       })
     })
@@ -129,7 +129,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
         sec52aar: data[type]['5_2'].aar,
         sec52maned: data[type]['5_2'].maaneder,
         sec52dager: data[type]['5_2'].dager,
-        type: label + '[' + type + ']'
+        type: label + ' [' + type + ']'
       })
     })
 
