@@ -4,14 +4,14 @@ import { SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import NavHighContrast, { HighContrastKnapp } from 'nav-hoykontrast'
+import NavHighContrast, { HighContrastKnapp, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import TableSorter, { Sort } from 'tabell'
-import { VerticalSeparatorDiv } from 'nav-hoykontrast'
+
 import * as labels from './SEDP5000.labels'
 
 export const ButtonsDiv = styled.div`
@@ -45,6 +45,9 @@ export const SEDP5000Checkboxes = styled.div`
 export const SEDP5000Container = styled.div`
   margin-top: 1rem;
   min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 export const SEDP5000Header = styled.div`
   display: flex;
@@ -60,7 +63,7 @@ export interface SEDP5000Props {
   sedContent: SedContentMap
 }
 
-export interface SEDP5000SummaryRow {
+export interface SEDP5000SumRow {
   key: string
   type: string
   sec51aar: string
@@ -71,7 +74,7 @@ export interface SEDP5000SummaryRow {
   sec52dager: string
 }
 
-export type SEDP5000SummaryRows = Array<SEDP5000SummaryRow>
+export type SEDP5000SumRows = Array<SEDP5000SumRow>
 
 const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   highContrast, sedContent
@@ -83,57 +86,47 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
-  const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000SummaryRows => {
-    const res: SEDP5000SummaryRows = []
+  const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000SumRows => {
+    const res: SEDP5000SumRows = []
+    const data: any = {}
 
-    const data: any = {
-      '11': {
-        '5_1': {
-          aar: 0, maaneder: 0, dager: 0
-        },
-        '5_2': {
-          aar: 0, maaneder: 0, dager: 0
-        },
-      },
-      '30': {
-        '5_1': {
-          aar: 0, maaneder: 0, dager: 0
-        },
-        '5_2': {
-          aar: 0, maaneder: 0, dager: 0
-        },
-      }
-    };
-
-    const ks: any = Object.keys(sedContent)
-
-    ks.forEach((k: string) => {
+    Object.keys(sedContent).forEach((k: string) => {
       const medlemskap = sedContent[k].pensjon?.medlemskap
-      if (medlemskap) {
-        medlemskap.forEach((m: any) => {
-          if (!_.isNil(m)) {
-            if (m.type === '11' || m.type === '30') {
+      medlemskap?.forEach((m: any) => {
+        if (!_.isNil(m) && m.type) {
+          if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
+            data[m.type] = {
+              '5_1': {
+                aar: 0, maaneder: 0, dager: 0
+              },
+              '5_2': {
+                aar: 0, maaneder: 0, dager: 0
+              }
+            }
+            if (m.type !== '45') {
               data[m.type]['5_1'].aar = data[m.type]['5_1'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
               data[m.type]['5_1'].maaneder = data[m.type]['5_1'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
               data[m.type]['5_1'].dager = data[m.type]['5_1'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
-              data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-              data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-              data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
             }
+            data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
+            data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
+            data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
           }
-        })
-      }
-    });
+        }
+      })
+    })
 
-    ['11', '30'].forEach(type => {
+    Object.keys(data).sort(
+      (a, b) => (parseInt(a, 10) - parseInt(b, 10))
+    ).forEach(type => {
       res.push({
         key: type,
-        sec51aar: data[type]['5_1']['aar'],
-        sec51maned: data[type]['5_1']['maaneder'],
-        sec51dager: data[type]['5_1']['dager'],
-        sec52aar: data[type]['5_2']['aar'],
-        sec52maned: data[type]['5_2']['maaneder'],
-        sec52dager: data[type]['5_2']['dager'],
+        sec51aar: data[type]['5_1'].aar,
+        sec51maned: data[type]['5_1'].maaneder,
+        sec51dager: data[type]['5_1'].dager,
+        sec52aar: data[type]['5_2'].aar,
+        sec52maned: data[type]['5_2'].maaneder,
+        sec52dager: data[type]['5_2'].dager,
         type: t('buc:P5000-category-' + type)
       })
     })
@@ -228,10 +221,10 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             />
           </div>
         </HiddenDiv>
-        <VerticalSeparatorDiv data-size='2'/>
+        <VerticalSeparatorDiv data-size='2' />
         <ButtonsDiv>
           <ReactToPrint
-            documentTitle='P5000Summary'
+            documentTitle='P5000Sum'
             onAfterPrint={afterPrintOut}
             onBeforePrint={beforePrintOut}
             onBeforeGetContent={prepareContent}

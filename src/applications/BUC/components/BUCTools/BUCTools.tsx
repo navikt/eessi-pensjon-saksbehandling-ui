@@ -1,7 +1,7 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
-import SEDP5000Summary from 'applications/BUC/components/SEDP5000/SEDP5000Summary'
+import SEDP5000Sum from 'applications/BUC/components/SEDP5000/SEDP5000Sum'
 import Trashcan from 'assets/icons/Trashcan'
 import NavHighContrast, {
   slideInFromRight,
@@ -145,12 +145,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
-  const displayP5000SummaryTable = useCallback(() => {
+  const displayP5000SumTable = useCallback(() => {
     setTimeWithP5000Modal(new Date())
     setModal({
       modalTitle: t('buc:P5000-summary-title'),
       modalContent: (
-        <SEDP5000Summary
+        <SEDP5000Sum
           highContrast={highContrast}
           seds={getP5000()!}
           sedContent={sedContent}
@@ -242,7 +242,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
-  const onGettingP5000SummaryClick = (e: React.MouseEvent): void => {
+  const onGettingP5000SumClick = (e: React.MouseEvent): void => {
     buttonLogger(e)
     const p5000s = getP5000()
     if (p5000s) {
@@ -302,12 +302,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             displayP5000OverviewTable()
           }
           if (_modalType === 'summary') {
-            displayP5000SummaryTable()
+            displayP5000SumTable()
           }
         }
       }
     }
-  }, [displayP5000OverviewTable, displayP5000SummaryTable, _fetchingP5000, sedContent, setModal])
+  }, [displayP5000OverviewTable, displayP5000SumTable, _fetchingP5000, sedContent, setModal])
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -354,7 +354,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     data-test-id='a-buc-c-buctools__P5000-summary-button-id'
                     disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
                     spinner={!_.isEmpty(_fetchingP5000)}
-                    onClick={onGettingP5000SummaryClick}
+                    onClick={onGettingP5000SumClick}
                   >
                     {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
                   </HighContrastKnapp>
