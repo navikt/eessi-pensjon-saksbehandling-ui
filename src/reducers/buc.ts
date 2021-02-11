@@ -319,7 +319,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       if (pesysContext !== VEDTAKSKONTEKST) {
         excludedBucs.push('P_BUC_02')
-        excludedBucs.push('P_BUC_10')
       }
 
       if (sakType && sakTypeAllowingPBUC05.indexOf(sakType) < 0) {

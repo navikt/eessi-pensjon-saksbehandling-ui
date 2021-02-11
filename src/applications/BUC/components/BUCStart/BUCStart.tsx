@@ -159,13 +159,21 @@ const BUCStart: React.FC<BUCStartProps> = ({
       : true
     )
 
-  // show krav dato for P_BUC_10 criteria
-  const bucNeedsKravDato = (buc: string | null | undefined): boolean => {
+  // fetch krav dato for P_BUC_10 criteria
+  const bucNeedsKravDatoAndCanFetchIt = (buc: string | null | undefined): boolean => {
     return !!(buc === 'P_BUC_10' && avdodExists() &&
         sakId && aktoerId && kravId &&
         pesysContext === constants.VEDTAKSKONTEKST &&
         (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
           sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
+    )
+  }
+
+  // show krav dato for P_BUC_10
+  const bucNeedsKravDato = (buc: string | null | undefined): boolean => {
+    return !!(buc === 'P_BUC_10' && sakId && aktoerId &&
+      (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
+        sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
     )
   }
 
@@ -294,7 +302,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       const thisBuc: string = option.value
       setBuc(thisBuc)
       updateValidation('buc', validateBuc(thisBuc))
-      if (bucNeedsKravDato(thisBuc)) {
+      if (bucNeedsKravDatoAndCanFetchIt(thisBuc)) {
         setKravDato('')
         dispatch(fetchKravDato({
           sakId: sakId,
