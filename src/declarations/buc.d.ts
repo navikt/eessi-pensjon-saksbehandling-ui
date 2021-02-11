@@ -84,7 +84,8 @@ export interface InstitutionNames {
 export interface NewBucPayload {
   buc: string
   person: Person
-  avdod: PersonAvdod
+  avdod?: PersonAvdod
+  avdodfnr?: string
   kravDato?: string
 }
 

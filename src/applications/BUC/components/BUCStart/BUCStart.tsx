@@ -8,11 +8,7 @@ import {
   resetBuc,
   saveBucsInfo
 } from 'actions/buc'
-import {
-  bucsThatSupportAvdod,
-  getBucTypeLabel,
-  valueSorter
-} from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
@@ -31,6 +27,7 @@ import {
   BUCRawList,
   Bucs,
   BucsInfo,
+  NewBucPayload,
   SakTypeMap,
   SakTypeValue,
   SaveBucsInfoProps,
@@ -137,6 +134,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
+  const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
   const [_buc, setBuc] = useState<string | undefined>(bucParam)
   const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
@@ -151,13 +149,30 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
   // show avdod select for P_BUC_02, P_BUC_05, P_BUC_10 and when there are avdods
-  const bucNeedsAvdod = (): boolean => bucsThatSupportAvdod(_buc) && avdodExists() &&
-    (_buc === 'P_BUC_10'
-      ? pesysContext === constants.VEDTAKSKONTEKST && (
+  const bucNeedsAvdod = (): boolean => {
+    return (
+      bucsThatSupportAvdod(_buc) && avdodExists() &&
+      (_buc === 'P_BUC_10'
+          ? pesysContext === constants.VEDTAKSKONTEKST && (
           sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
-        sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
-      : true
+          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
+          : true
+      )
     )
+  }
+
+  // when for some reason bucNeedsAvdod fails but we are still in P_BUC_10 (like having no avdød and in other contexts)
+  // then we can punch in the avdods fnr
+  const bucNeedsAvdodButWeHaveNone = (): boolean => {
+    return (
+      !bucNeedsAvdod() &&
+      (_buc === 'P_BUC_10' && (
+          sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
+          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP
+        )
+      )
+    )
+  }
 
   // fetch krav dato for P_BUC_10 criteria
   const bucNeedsKravDatoAndCanFetchIt = (buc: string | null | undefined): boolean => {
@@ -196,6 +211,22 @@ const BUCStart: React.FC<BUCStartProps> = ({
       return {
         skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
         feilmelding: t('buc:validation-chooseAvdod')
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+  }
+
+  const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
+    if (!avdodFnr) {
+      return {
+        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
+        feilmelding: t('buc:validation-chooseAvdodFnr')
+      } as FeiloppsummeringFeil
+    }
+    if (!(avdodFnr.length === 11 && avdodFnr.match(/\d{11}/))) {
+      return {
+        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
+        feilmelding: t('buc:validation-badAvdodFnr')
       } as FeiloppsummeringFeil
     }
     return undefined
@@ -244,6 +275,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (bucNeedsAvdod()) {
       validation.avdod = validateAvdod(_avdod)
     }
+    if (bucNeedsAvdodButWeHaveNone()) {
+      validation.avdodFnr = validateAvdodFnr(_avdodFnr)
+    }
     if (bucNeedsKravDato(_buc)) {
       validation.kravDato = validateKravDato(_kravDato)
     }
@@ -265,12 +299,15 @@ const BUCStart: React.FC<BUCStartProps> = ({
         buc: _buc
       })
       setIsCreatingBuc(true)
-      const payload: any = {
-        buc: _buc,
-        person: person
+      const payload: NewBucPayload = {
+        buc: _buc!,
+        person: person!
       }
       if (bucNeedsAvdod()) {
         payload.avdod = _avdod
+      }
+      if (bucNeedsAvdodButWeHaveNone()) {
+        payload.avdodfnr = _avdodFnr
       }
       if (bucNeedsKravDato(_buc)) {
         // change 15-12-2020 to 2020-12-15
@@ -381,6 +418,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
       setAvdod(thisAvdod)
       updateValidation('avdod', validateAvdod(thisAvdod))
     }
+  }
+
+  const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const avdodFnr = e.target.value
+    setAvdodFnr(avdodFnr)
+    updateValidation('avdodFnr', validateAvdodFnr(avdodFnr))
   }
 
   const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
@@ -521,6 +564,21 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   options={avdodOptions}
                   placeholder={t('buc:form-chooseAvdod')}
                   value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
+                />
+              </>
+            )}
+            {bucNeedsAvdodButWeHaveNone() && (
+              <>
+                <VerticalSeparatorDiv />
+                <HighContrastInput
+                  data-test-id='a-buc-c-bucstart__avdod-input-id'
+                  id='a-buc-c-bucstart__avdod-input-id'
+                  label={t('buc:form-avdod')}
+                  bredde='fullbredde'
+                  value={_avdodFnr}
+                  onChange={onAvdodFnrChange}
+                  placeholder={t('buc:form-chooseAvdod')}
+                  feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
                 />
               </>
             )}

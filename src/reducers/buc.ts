@@ -124,6 +124,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       const person = (action as ActionWithPayload).context.person
       const avdod = (action as ActionWithPayload).context.avdod
+      const avdodfnr = (action as ActionWithPayload).context.avdodfnr
       const kravDato = (action as ActionWithPayload).context.kravDato
 
       if (!newBuc.addedParams) {
@@ -140,7 +141,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
             fnr: getFnr(person)
           },
           avdod: {
-            fnr: avdod.fnr
+            fnr: avdod ? avdod.fnr : avdodfnr
           }
         } as BUCSubject
       }

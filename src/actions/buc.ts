@@ -60,6 +60,7 @@ export const createBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> 
     // create SED either just displays them, or decides if should ask for them again
     context: {
       avdod: params.avdod,
+      avdodfnr: params.avdodfnr,
       person: params.person,
       kravDato: params.kravDato
     },

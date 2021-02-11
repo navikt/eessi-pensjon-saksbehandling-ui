@@ -321,21 +321,25 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     const answer = (
       sedSupportsAvdod() &&
       !avdodExists() &&
-      pesysContext !== constants.VEDTAKSKONTEKST &&
       (
-        (_buc.type === 'P_BUC_02'
-          ? !isNorwayCaseOwner()
-          : (_buc.type === 'P_BUC_05'
-              ? (
-                  isNorwayCaseOwner()
-                    ? sedNeedsAvdodBrukerQuestion()
-                    : (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+        (
+          _buc.type === 'P_BUC_10' && _sed === 'P15000' && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+        )
+        ||
+        (
+          pesysContext !== constants.VEDTAKSKONTEKST &&
+          (
+            (_buc.type === 'P_BUC_02' ?
+            !isNorwayCaseOwner() :
+              (_buc.type === 'P_BUC_05' ?
+                (isNorwayCaseOwner() ?
+                  sedNeedsAvdodBrukerQuestion() :
+                    (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
                 )
-              : (_buc.type === 'P_BUC_10'
-                  ? _sed === 'P15000' && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
-                  : false
-                )
+                :  false
+              )
             )
+          )
         )
       )
     )
