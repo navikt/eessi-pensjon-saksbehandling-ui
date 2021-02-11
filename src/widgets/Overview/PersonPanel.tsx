@@ -117,19 +117,19 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     return beginDate + ' - ' + endDate
   }
 
-  const getAddress = (person: any, category: string): Array<JSX.Element | string>  => {
+  const getAddress = (person: any, category: string): Array<JSX.Element | string> => {
     if (!_.get(person, category + '.vegadresse')) {
       return []
     }
     let adresse: Array<JSX.Element | string> = []
-    let husnummer = _.get(person, category + '.vegadresse.husnummer')
-    let husbokstav = _.get(person, category + '.vegadresse.husbokstav')
+    const husnummer = _.get(person, category + '.vegadresse.husnummer')
+    const husbokstav = _.get(person, category + '.vegadresse.husbokstav')
     adresse = addAddressLine(adresse, getDates(person, category), t('ui:fram-og-til'), <br key={0} />)
     adresse = addAddressLine(adresse, _.get(person, category + '.vegadresse.adressenavn'), t('ui:adressenavn'),
-      husnummer || husbokstav ? <HorizontalSeparatorSpan key={1} /> : <br key={1}/>)
-    adresse = addAddressLine(adresse, husnummer, t('ui:husnummer'),husbokstav ? <HorizontalSeparatorSpan key={2} /> : <br key={2} />)
+      husnummer || husbokstav ? <HorizontalSeparatorSpan key={1} /> : <br key={1} />)
+    adresse = addAddressLine(adresse, husnummer, t('ui:husnummer'), husbokstav ? <HorizontalSeparatorSpan key={2} /> : <br key={2} />)
     adresse = addAddressLine(adresse, husbokstav, t('ui:husbokstav'), <br key={3} />)
-    let zipCode = _.get(person, category + '.vegadresse.postnummer')
+    const zipCode = _.get(person, category + '.vegadresse.postnummer')
     if (zipCode) {
       adresse = addAddressLine(adresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={4} />)
       adresse = addAddressLine(adresse, PostalCodes.get(zipCode), t('ui:city'), <br key={5} />)
@@ -145,8 +145,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   let deathDateString
   let nationality: Array<string> = []
   let maritalStatus: Array<string> = []
-  let bostedsadresse: Array<JSX.Element | string> = getAddress(person, 'bostedsadresse')
-  let oppholdsadresse: Array<JSX.Element | string> = getAddress(person, 'oppholdsadresse')
+  const bostedsadresse: Array<JSX.Element | string> = getAddress(person, 'bostedsadresse')
+  const oppholdsadresse: Array<JSX.Element | string> = getAddress(person, 'oppholdsadresse')
 
   if (_.get(person, 'foedsel.foedselsdato')) {
     birthDateString = moment(person.foedsel.foedselsdato).format('DD.MM.YYYY')
@@ -166,7 +166,6 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       return label + ')'
     })
   }
-
 
   if (!_.isEmpty(person.sivilstand)) {
     maritalStatus = person.sivilstand.map((s: any) => {

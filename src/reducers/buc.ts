@@ -135,7 +135,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         newBuc.addedParams.kravDato = kravDato
       }
 
-      if (bucsThatSupportAvdod(newBuc.type) && person && avdod) {
+      if (bucsThatSupportAvdod(newBuc.type) && person) {
         newBuc.addedParams.subject = {
           gjenlevende: {
             fnr: getFnr(person)

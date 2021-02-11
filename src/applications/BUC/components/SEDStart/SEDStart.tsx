@@ -297,9 +297,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'H070', 'H121']
 
-  const sedNeedsKravOm = (sed: string) => kravId && ['P15000'].indexOf(sed) >= 0
+  const sedNeedsKravOm = (sed: string) => ['P15000'].indexOf(sed) >= 0
 
-  const sedNeedsKravdato = (sed: string) => kravId && ['P15000'].indexOf(sed) >= 0
+  const sedNeedsKravdato = (sed: string) => ['P15000'].indexOf(sed) >= 0
 
   const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
@@ -324,20 +324,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       (
         (
           _buc.type === 'P_BUC_10' && _sed === 'P15000' && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
-        )
-        ||
+        ) ||
         (
           pesysContext !== constants.VEDTAKSKONTEKST &&
           (
-            (_buc.type === 'P_BUC_02' ?
-            !isNorwayCaseOwner() :
-              (_buc.type === 'P_BUC_05' ?
-                (isNorwayCaseOwner() ?
-                  sedNeedsAvdodBrukerQuestion() :
-                    (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+            (_buc.type === 'P_BUC_02'
+              ? !isNorwayCaseOwner()
+              : (_buc.type === 'P_BUC_05'
+                  ? (isNorwayCaseOwner()
+                      ? sedNeedsAvdodBrukerQuestion()
+                      : (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+                    )
+                  : false
                 )
-                :  false
-              )
             )
           )
         )
@@ -589,11 +588,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
     if (sedNeedsKravdato(newSed)) {
       setKravDato('')
-      dispatch(fetchKravDato({
-        sakId: sakId,
-        aktoerId: aktoerId,
-        kravId: kravId
-      }))
+      if (kravId) {
+        dispatch(fetchKravDato({
+          sakId: sakId,
+          aktoerId: aktoerId,
+          kravId: kravId
+        }))
+      }
     }
     if (onSedChanged) {
       onSedChanged(newSed)
@@ -849,13 +850,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject) {
-      let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p => {
-        const avdodFnr = p.fnr
-        const needleFnr = (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
-        return avdodFnr === needleFnr
-      })
+      const needleFnr = (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
+      let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p => p.fnr === needleFnr)
       if (avdod === undefined) {
         avdod = null
+        // backup plan: use fnrs in input fields
+        setAvdodFnr((_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr)
       }
       setAvdod(avdod)
     }
