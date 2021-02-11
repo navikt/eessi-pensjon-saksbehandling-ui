@@ -308,7 +308,7 @@ ui-fss.g30[id="c5"] {
                         className="typo-normal"
                       >
                         <ForwardRef(Tooltip)
-                          key="ui:fram-og-til2020-01-01 - 2021-01-01"
+                          key="ui:fram-og-til01.01.2020 - 01.01.2021"
                           overlay={
                             <span>
                               ui:fram-og-til
@@ -580,7 +580,7 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              2020-01-01 - 2021-01-01
+                              01.01.2020 - 01.01.2021
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>
@@ -2181,7 +2181,7 @@ ui-fss.g30[id="c5"] {
                       <p
                         className="typo-normal"
                       >
-                        Norge (1980-02-09)
+                        Norge (09.02.1980)
                       </p>
                     </TypografiBase>
                   </Normaltekst>
@@ -2268,7 +2268,7 @@ ui-fss.g30[id="c5"] {
                         className="typo-normal"
                       >
                         <ForwardRef(Tooltip)
-                          key="ui:fram-og-til2022-01-01 - 2023-01-01"
+                          key="ui:fram-og-til01.01.2022 - 01.01.2023"
                           overlay={
                             <span>
                               ui:fram-og-til
@@ -2540,7 +2540,7 @@ ui-fss.g30[id="c5"] {
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                             >
-                              2022-01-01 - 2023-01-01
+                              01.01.2022 - 01.01.2023
                             </span>
                           </Trigger>
                         </ForwardRef(Tooltip)>

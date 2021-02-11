@@ -35,7 +35,7 @@ describe('widgets/Overview/PersonPanel', () => {
     expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').hostNodes().render().text()).toEqual(
-      'ui:bostedsadresse:' + '2020-01-01 - 2021-01-01' + 'Adressenavn' + '00' + 'A' + '0768' + 'OSLO')
+      'ui:bostedsadresse:' + '01.01.2020 - 01.01.2021' + 'Adressenavn' + '00' + 'A' + '0768' + 'OSLO')
 
     expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-birthdate').hostNodes().render().text()).toEqual(
@@ -43,7 +43,7 @@ describe('widgets/Overview/PersonPanel', () => {
 
     expect(wrapper.find('svg[kind="nav-work"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-nationality').hostNodes().render().text()).toEqual(
-      'ui:nationality:' + 'Norge (1980-02-09)')
+      'ui:nationality:' + 'Norge (09.02.1980)')
   })
 
   it('Render: Empty value renders not registered', () => {

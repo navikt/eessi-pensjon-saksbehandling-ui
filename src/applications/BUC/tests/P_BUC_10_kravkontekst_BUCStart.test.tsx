@@ -76,6 +76,7 @@ describe('P_BUC_10 for BUCStart, kravkontekst', () => {
     // initial form inputs
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
 
     // select P_BUC_02
@@ -91,8 +92,11 @@ describe('P_BUC_10 for BUCStart, kravkontekst', () => {
 
     // show avdod fnr select
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
-    // keep kravDato input hidden
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']')).toBeTruthy()
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']').hostNodes().simulate('change', {target: {value: '12345678901'} })
+    // show kravDato
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeTruthy()
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']').hostNodes().simulate('change', {target: {value: '01-01-2000'} })
     // click forward button
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
     // no validation errors
@@ -100,7 +104,9 @@ describe('P_BUC_10 for BUCStart, kravkontekst', () => {
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
       buc: 'P_BUC_10',
-      person: undefined
+      person: undefined,
+      avdodfnr: "12345678901",
+      kravDato: "2000-01-01"
     })
   })
 
@@ -150,8 +156,12 @@ describe('P_BUC_10 for BUCStart, kravkontekst', () => {
 
     // show avdod fnr select
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']')).toBeTruthy()
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']').hostNodes().simulate('change', {target: {value: '12345678901'}})
+
     // keep kravDato input hidden
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeTruthy()
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']').hostNodes().simulate('change', {target: {value: '01-01-2000'} })
     // click forward button
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
     // no validation errors
@@ -159,7 +169,9 @@ describe('P_BUC_10 for BUCStart, kravkontekst', () => {
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
       buc: 'P_BUC_10',
-      person: undefined
+      person: undefined,
+      avdodfnr: '12345678901',
+      kravDato: '2000-01-01'
     })
   })
 })
