@@ -130,6 +130,21 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     })
   }
 
+  const getDates = (person: any, category: string): string => {
+    let beginDate = _.get(person, category + '.gyldigFraOgMed') + ' - '
+    if (beginDate) {
+      beginDate = moment(beginDate).format('DD.MM.YYYY')
+    }
+    let endDate = ''
+    if (_.get(person, category + '.gyldigTilOgMed')) {
+      endDate = _.get(person, category + '.gyldigTilOgMed')
+      if (endDate) {
+        endDate = moment(endDate).format('DD.MM.YYYY')
+      }
+    }
+    return beginDate + ' - ' + endDate
+  }
+
   if (!_.isEmpty(person.sivilstand)) {
     maritalStatus = person.sivilstand.map((s: any) => {
       let type = s.type.toLowerCase()
@@ -150,12 +165,9 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   }
 
   let zipCode = ''
+
   if (_.get(person, 'bostedsadresse.vegadresse')) {
-    let dates = _.get(person, 'bostedsadresse.gyldigFraOgMed') + ' - '
-    if (_.get(person, 'bostedsadresse.gyldigTilOgMed')) {
-      dates += _.get(person, 'bostedsadresse.gyldigTilOgMed')
-    }
-    bostedsadresse = addAddressLine(bostedsadresse, dates, t('ui:fram-og-til'), <br key={0} />)
+    bostedsadresse = addAddressLine(bostedsadresse, getDates(person, 'bostedsadresse'), t('ui:fram-og-til'), <br key={0} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.adressenavn'), t('ui:adressenavn'), <HorizontalSeparatorSpan key={1} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.husnummer'), t('ui:husnummer'), <HorizontalSeparatorSpan key={2} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.husbokstav'), t('ui:husbokstav'), <br key={3} />)
@@ -167,11 +179,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   }
 
   if (_.get(person, 'oppholdsadresse.vegadresse')) {
-    let dates = _.get(person, 'oppholdsadresse.gyldigFraOgMed') + ' - '
-    if (_.get(person, 'oppholdsadresse.gyldigTilOgMed')) {
-      dates += _.get(person, 'oppholdsadresse.gyldigTilOgMed')
-    }
-    oppholdsadresse = addAddressLine(oppholdsadresse, dates, t('ui:fram-og-til'), <br key={0} />)
+    oppholdsadresse = addAddressLine(oppholdsadresse,  getDates(person, 'oppholdsadresse'), t('ui:fram-og-til'), <br key={0} />)
     oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.adressenavn'), t('ui:adressenavn'), <HorizontalSeparatorSpan key={1} />)
     oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.husnummer'), t('ui:husnummer'), <HorizontalSeparatorSpan key={2} />)
     oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.husbokstav'), t('ui:husbokstav'), <br key={3} />)

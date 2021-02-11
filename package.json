@@ -26,7 +26,7 @@
   "private": true,
   "dependencies": {
     "@sentry/browser": "^6.1.0",
-    "amplitude-js": "^7.4.1",
+    "amplitude-js": "^7.4.2",
     "classnames": "^2.2.6",
     "core-js": "^3.8.3",
     "filopplasting": "^1.0.4",
@@ -148,7 +148,7 @@
     "redux-thunk": "^2.3.0",
     "standardx": "^7.0.0",
     "ts-jest": "^26.5.1",
-    "typescript": "^4.1.4"
+    "typescript": "^4.1.5"
   },
   "resolutions": {
     "node-notifier": "=8.0.1",
