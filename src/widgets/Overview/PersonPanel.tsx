@@ -53,17 +53,6 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
 }: PersonPanelProps): JSX.Element | null => {
   const { t } = useTranslation()
 
-  if (!person) {
-    return null
-  }
-
-  let birthDateString
-  let deathDateString
-  let nationality: Array<string> = []
-  let maritalStatus: Array<string> = []
-  let bostedsadresse: Array<JSX.Element | string> = []
-  let oppholdsadresse: Array<JSX.Element | string> = []
-
   const renderEntity = (label: string, value: any): JSX.Element => {
     let _value
     if (!value) {
@@ -113,25 +102,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     return nationality ? nationality.label : null
   }
 
-  if (_.get(person, 'foedsel.foedselsdato')) {
-    birthDateString = moment(person.foedsel.foedselsdato).format('DD.MM.YYYY')
-  }
-  if (_.get(person, 'doedsfall.doedsdato')) {
-    deathDateString = moment(person.doedsfall.doedsdato).format('DD.MM.YYYY')
-  }
-  if (!_.isEmpty(person.statsborgerskap)) {
-    nationality = person.statsborgerskap.map((l: any) => {
-      let label = getCountry(l.land)
-      label += ' (' + l.gyldigFraOgMed
-      if (l.gyldigTilOgMed) {
-        label += ' - ' + l.gyldigTilOgMed
-      }
-      return label + ')'
-    })
-  }
-
   const getDates = (person: any, category: string): string => {
-    let beginDate = _.get(person, category + '.gyldigFraOgMed') + ' - '
+    let beginDate = _.get(person, category + '.gyldigFraOgMed')
     if (beginDate) {
       beginDate = moment(beginDate).format('DD.MM.YYYY')
     }
@@ -144,6 +116,57 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     }
     return beginDate + ' - ' + endDate
   }
+
+  const getAddress = (person: any, category: string): Array<JSX.Element | string>  => {
+    if (!_.get(person, category + '.vegadresse')) {
+      return []
+    }
+    let adresse: Array<JSX.Element | string> = []
+    let husnummer = _.get(person, category + '.vegadresse.husnummer')
+    let husbokstav = _.get(person, category + '.vegadresse.husbokstav')
+    adresse = addAddressLine(adresse, getDates(person, category), t('ui:fram-og-til'), <br key={0} />)
+    adresse = addAddressLine(adresse, _.get(person, category + '.vegadresse.adressenavn'), t('ui:adressenavn'),
+      husnummer || husbokstav ? <HorizontalSeparatorSpan key={1} /> : <br key={1}/>)
+    adresse = addAddressLine(adresse, husnummer, t('ui:husnummer'),husbokstav ? <HorizontalSeparatorSpan key={2} /> : <br key={2} />)
+    adresse = addAddressLine(adresse, husbokstav, t('ui:husbokstav'), <br key={3} />)
+    let zipCode = _.get(person, category + '.vegadresse.postnummer')
+    if (zipCode) {
+      adresse = addAddressLine(adresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={4} />)
+      adresse = addAddressLine(adresse, PostalCodes.get(zipCode), t('ui:city'), <br key={5} />)
+    }
+    return adresse
+  }
+
+  if (!person) {
+    return null
+  }
+
+  let birthDateString
+  let deathDateString
+  let nationality: Array<string> = []
+  let maritalStatus: Array<string> = []
+  let bostedsadresse: Array<JSX.Element | string> = getAddress(person, 'bostedsadresse')
+  let oppholdsadresse: Array<JSX.Element | string> = getAddress(person, 'oppholdsadresse')
+
+  if (_.get(person, 'foedsel.foedselsdato')) {
+    birthDateString = moment(person.foedsel.foedselsdato).format('DD.MM.YYYY')
+  }
+  if (_.get(person, 'doedsfall.doedsdato')) {
+    deathDateString = moment(person.doedsfall.doedsdato).format('DD.MM.YYYY')
+  }
+  if (!_.isEmpty(person.statsborgerskap)) {
+    nationality = person.statsborgerskap.map((l: any) => {
+      let label = getCountry(l.land)
+      if (l.gyldigFraOgMed) {
+        label += ' (' + moment(l.gyldigFraOgMed).format('DD.MM.YYYY')
+      }
+      if (l.gyldigTilOgMed) {
+        label += ' - ' + moment(l.gyldigTilOgMed).format('DD.MM.YYYY')
+      }
+      return label + ')'
+    })
+  }
+
 
   if (!_.isEmpty(person.sivilstand)) {
     maritalStatus = person.sivilstand.map((s: any) => {
@@ -162,32 +185,6 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
           : '')
       return label
     })
-  }
-
-  let zipCode = ''
-
-  if (_.get(person, 'bostedsadresse.vegadresse')) {
-    bostedsadresse = addAddressLine(bostedsadresse, getDates(person, 'bostedsadresse'), t('ui:fram-og-til'), <br key={0} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.adressenavn'), t('ui:adressenavn'), <HorizontalSeparatorSpan key={1} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.husnummer'), t('ui:husnummer'), <HorizontalSeparatorSpan key={2} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.vegadresse.husbokstav'), t('ui:husbokstav'), <br key={3} />)
-    zipCode = _.get(person, 'bostedsadresse.vegadresse.postnummer')
-    if (zipCode) {
-      bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={4} />)
-      bostedsadresse = addAddressLine(bostedsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={5} />)
-    }
-  }
-
-  if (_.get(person, 'oppholdsadresse.vegadresse')) {
-    oppholdsadresse = addAddressLine(oppholdsadresse,  getDates(person, 'oppholdsadresse'), t('ui:fram-og-til'), <br key={0} />)
-    oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.adressenavn'), t('ui:adressenavn'), <HorizontalSeparatorSpan key={1} />)
-    oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.husnummer'), t('ui:husnummer'), <HorizontalSeparatorSpan key={2} />)
-    oppholdsadresse = addAddressLine(oppholdsadresse, _.get(person, 'oppholdsadresse.vegadresse.husbokstav'), t('ui:husbokstav'), <br key={3} />)
-    zipCode = _.get(person, 'oppholdsadresse.vegadresse.postnummer')
-    if (zipCode) {
-      oppholdsadresse = addAddressLine(oppholdsadresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={4} />)
-      oppholdsadresse = addAddressLine(oppholdsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={5} />)
-    }
   }
 
   return (
