@@ -422,13 +422,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [_validation])
 
   const validateKravDato = (kravDato: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!kravDato || kravDato?.length === 0) {
+    if ((!kravDato || kravDato?.length === 0) && pesysContext === VEDTAKSKONTEKST) {
       return {
         feilmelding: t('buc:validation-chooseKravDato'),
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
       } as FeiloppsummeringFeil
     }
-    if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
+    if (kravDato && !kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
         feilmelding: t('buc:validation-badKravDato')
@@ -484,7 +484,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!avdodFnr) {
+    if (!avdodFnr && (pesysContext === VEDTAKSKONTEKST || _buc.type !== 'P_BUC_10')) {
       return {
         feilmelding: t('buc:validation-chooseAvdodFnr'),
         skjemaelementId: 'a-buc-c-sedstart__avdod-input-id'

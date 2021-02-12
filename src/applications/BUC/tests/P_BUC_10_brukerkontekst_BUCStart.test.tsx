@@ -90,11 +90,11 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
     // show avdod fnr select
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']')).toBeTruthy()
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']').hostNodes().simulate('change', {target: {value: '12345678901'}})
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']').hostNodes().simulate('change', { target: { value: '12345678901' } })
     wrapper.update()
     // show kravDato
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeTruthy()
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']').hostNodes().simulate('change', {target: {value: '01-01-2000'}})
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']').hostNodes().simulate('change', { target: { value: '01-01-2000' } })
     wrapper.update()
 
     // click forward button
@@ -158,11 +158,11 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
     // show avdod fnr select
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']')).toBeTruthy()
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']').hostNodes().simulate('change', {target: {value: '12345678901'}})
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__avdod-input-id\']').hostNodes().simulate('change', { target: { value: '12345678901' } })
 
     // show kravDato
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeTruthy()
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']').hostNodes().simulate('change', {target: {value: '01-01-2000'}})
+    wrapper.find('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']').hostNodes().simulate('change', { target: { value: '01-01-2000' } })
 
     // click forward button
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')

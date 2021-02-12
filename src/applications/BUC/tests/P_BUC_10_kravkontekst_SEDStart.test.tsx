@@ -166,8 +166,7 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs institution and country and krav dato (not prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseKravDato'
+      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
     )
   })
 
@@ -225,8 +224,7 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs institution and country and avdodFnr and krav dato (not prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseAvdodFnr' + 'buc:validation-chooseKravDato'
+      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
     )
   })
 })
