@@ -323,7 +323,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       !avdodExists() &&
       (
         (
-          _buc.type === 'P_BUC_10' && _sed === 'P15000' && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+          _buc.type === 'P_BUC_10' && _sed === 'P15000'
         ) ||
         (
           pesysContext !== constants.VEDTAKSKONTEKST &&
@@ -484,7 +484,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!avdodFnr && (pesysContext === VEDTAKSKONTEKST || _buc.type !== 'P_BUC_10')) {
+    if (!avdodFnr && (pesysContext === VEDTAKSKONTEKST)) {
       return {
         feilmelding: t('buc:validation-chooseAvdodFnr'),
         skjemaelementId: 'a-buc-c-sedstart__avdod-input-id'
@@ -850,14 +850,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (sedSupportsAvdod() && _avdod === undefined && (_buc as ValidBuc).addedParams?.subject) {
-      const needleFnr = (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
-      let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p => p.fnr === needleFnr)
-      if (avdod === undefined) {
-        avdod = null
-        // backup plan: use fnrs in input fields
-        setAvdodFnr((_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr)
+      const needleFnr: string | undefined = (_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
+      if (needleFnr) {
+        let avdod: PersonAvdod | undefined | null = _.find(personAvdods, p => p.fnr === needleFnr)
+        if (avdod === undefined) {
+          avdod = null
+          // backup plan: use fnrs in input fields
+          setAvdodFnr((_buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr)
+        }
+        setAvdod(avdod)
       }
-      setAvdod(avdod)
     }
 
     if (_.isEmpty(_kravDato) && !_.isEmpty((_buc as ValidBuc).addedParams?.kravDato)) {

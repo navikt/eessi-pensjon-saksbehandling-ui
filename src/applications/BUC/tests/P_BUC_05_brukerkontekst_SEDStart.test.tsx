@@ -210,7 +210,7 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     // needs instituion and country
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseAvdodFnr' + 'buc:validation-chooseAvdodOrSoker'
+      'buc:validation-chooseAvdodOrSoker'
     )
   })
 
@@ -265,7 +265,7 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     // needs instituion and country
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseAvdodFnr' + 'buc:validation-chooseAvdodOrSoker'
+       'buc:validation-chooseAvdodOrSoker'
     )
   })
 })

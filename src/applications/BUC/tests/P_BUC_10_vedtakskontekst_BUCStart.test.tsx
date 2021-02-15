@@ -231,7 +231,7 @@ describe('P_BUC_10 for BUCStart, vedtakkontekst', () => {
     // no validation errors
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseAvdod' + 'buc:validation-chooseKravDato'
+      'buc:form-feiloppsummering' + 'buc:validation-chooseAvdod'
     )
     // create buc is not called
     expect(createBuc).not.toHaveBeenCalled()

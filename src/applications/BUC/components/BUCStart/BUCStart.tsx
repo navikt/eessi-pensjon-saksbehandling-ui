@@ -217,13 +217,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!avdodFnr) {
-      return {
-        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
-        feilmelding: t('buc:validation-chooseAvdodFnr')
-      } as FeiloppsummeringFeil
-    }
-    if (!(avdodFnr.length === 11 && avdodFnr.match(/\d{11}/))) {
+    if (avdodFnr && !(avdodFnr.length === 11 && avdodFnr.match(/\d{11}/))) {
       return {
         skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
         feilmelding: t('buc:validation-badAvdodFnr')
@@ -253,13 +247,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const validateKravDato = (kravDato: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!kravDato || kravDato?.length === 0) {
-      return {
-        feilmelding: t('buc:validation-chooseKravDato'),
-        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
-      } as FeiloppsummeringFeil
-    }
-    if (!kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
+    if (kravDato && !kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
         feilmelding: t('buc:validation-badKravDato')
@@ -306,10 +294,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
       if (bucNeedsAvdod()) {
         payload.avdod = _avdod
       }
-      if (bucNeedsAvdodButWeHaveNone()) {
+      if (bucNeedsAvdodButWeHaveNone() && _avdodFnr) {
         payload.avdodfnr = _avdodFnr
       }
-      if (bucNeedsKravDato(_buc)) {
+      if (bucNeedsKravDato(_buc) && _kravDato) {
         // change 15-12-2020 to 2020-12-15
         payload.kravDato = _kravDato.split('-').reverse().join('-')
       }

@@ -174,8 +174,8 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     select.simulate('keyDown', { key: 'Enter' })
     wrapper.update()
     expect(initialMockProps.onSedChanged).toHaveBeenCalledWith('P15000')
-    // does not show avdodFnr
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
+    // does show avdodFnr
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeTruthy()
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
     // does show kravDato
     expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeTruthy()
