@@ -565,7 +565,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   bredde='fullbredde'
                   value={_avdodFnr}
                   onChange={onAvdodFnrChange}
-                  placeholder={t('buc:form-chooseAvdod')}
+                  placeholder={t('buc:form-fnrdnr')}
                   feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
                 />
               </>

@@ -100,7 +100,7 @@ ui-fss.g27[id="c0"] {
   color: #FFFFFF !important;
 }
 
-ui-fss.g53[id="c2"] {
+ui-fss.g79[id="c2"] {
   content: "c3,";
 }
 
@@ -108,7 +108,7 @@ ui-fss.g53[id="c2"] {
   position: relative;
 }
 
-ui-fss.g54[id="c4"] {
+ui-fss.g80[id="c4"] {
   content: "c5,";
 }
 
@@ -116,7 +116,7 @@ ui-fss.g54[id="c4"] {
   width: 100%;
 }
 
-ui-fss.g56[id="c6"] {
+ui-fss.g82[id="c6"] {
   content: "c7,";
 }
 
@@ -138,7 +138,7 @@ ui-fss.g56[id="c6"] {
   align-items: center;
 }
 
-ui-fss.g57[id="c8"] {
+ui-fss.g83[id="c8"] {
   content: "c9,";
 }
 

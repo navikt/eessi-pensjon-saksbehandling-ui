@@ -132,6 +132,7 @@
   "form-feiloppsummering"             : "For å gå videre må du rette opp følgende:",
   "form-filterSED"                    : "Filtrer SED på navn, mottaker",
   "form-fnr"                          : "Fødselsnummer",
+  "form-fnrdnr"                       : "f.nr./d.nr.",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
   "form-kravDato"                     : "Kravdato",
   "form-kravDatoPlaceholder"          : "DD-MM-ÅÅÅÅ",
