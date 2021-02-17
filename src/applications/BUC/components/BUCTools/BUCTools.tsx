@@ -31,7 +31,7 @@ import {
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, Loading } from 'declarations/app.d'
+import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
@@ -87,6 +87,7 @@ export interface BUCToolsProps {
 
 export interface BUCToolsSelector {
   bucsInfo?: BucsInfo | undefined
+  featureToggles: FeatureToggles
   highContrast: boolean
   loading: Loading
   locale: AllowedLocaleString
@@ -96,6 +97,7 @@ export interface BUCToolsSelector {
 
 const mapState = (state: State): BUCToolsSelector => ({
   bucsInfo: state.buc.bucsInfo,
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
@@ -107,7 +109,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId, buc, bucInfo, className, initialTab = 0, onTagChange
 }: BUCToolsProps): JSX.Element => {
   const {
-    highContrast, loading, locale, bucsInfo, sedContent, tagList
+    bucsInfo, featureToggles, highContrast, loading, locale, sedContent, tagList
   }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -348,16 +350,20 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   >
                     {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
                   </HighContrastKnapp>
-                  <HorizontalSeparatorDiv data-size='0.5' />
-                  <HighContrastKnapp
-                    data-amplitude='buc.edit.tools.P5000.summary.view'
-                    data-test-id='a-buc-c-buctools__P5000-summary-button-id'
-                    disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                    spinner={!_.isEmpty(_fetchingP5000)}
-                    onClick={onGettingP5000SumClick}
-                  >
-                    {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
-                  </HighContrastKnapp>
+                  {featureToggles?.P5000_SOMMER_VISIBLE && (
+                    <>
+                      <HorizontalSeparatorDiv data-size='0.5'/>
+                      <HighContrastKnapp
+                        data-amplitude='buc.edit.tools.P5000.summary.view'
+                        data-test-id='a-buc-c-buctools__P5000-summary-button-id'
+                        disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
+                        spinner={!_.isEmpty(_fetchingP5000)}
+                        onClick={onGettingP5000SumClick}
+                      >
+                      {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
+                      </HighContrastKnapp>
+                    </>
+                  )}
                 </FlexDiv>
               </P5000Div>
             )}

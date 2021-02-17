@@ -1,3 +1,5 @@
 import { FeatureToggles } from 'declarations/app.d'
 
-export default {} as FeatureToggles
+export default {
+  P5000_SOMMER_VISIBLE: true
+} as FeatureToggles
