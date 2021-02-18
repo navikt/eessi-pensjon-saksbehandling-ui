@@ -585,11 +585,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
             fileName: name,
             mimeType: 'application/pdf',
             documentId: md5('documentId' + date),
-            lastUpdate: {
-              year: (action as ActionWithPayload).context.joarkBrowserItem.date.getFullYear(),
-              dayOfMonth: (action as ActionWithPayload).context.joarkBrowserItem.date.getDate(),
-              monthValue: (action as ActionWithPayload).context.joarkBrowserItem.date.getMonth() + 1
-            },
+            lastUpdate: (action as ActionWithPayload).context.joarkBrowserItem.date.getTime(),
             medical: false
           }
           sed.attachments.push(newSedAttachment)

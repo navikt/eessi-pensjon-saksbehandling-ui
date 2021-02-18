@@ -76,11 +76,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         key: att.id,
         type: 'sed',
         title: att.name,
-        date: new Date(
-          att.lastUpdate.year,
-          att.lastUpdate.monthValue - 1,
-          att.lastUpdate.dayOfMonth
-        ),
+        date: new Date(att.lastUpdate),
         hasSubrows: false,
         disabled: false,
         dokumentInfoId: att.documentId,

@@ -194,7 +194,7 @@ export interface SEDAttachment {
   fileName: string
   mimeType: string
   documentId: string
-  lastUpdate: any
+  lastUpdate: number
   medical: boolean
 }
 export type SEDAttachments = Array<SEDAttachment>

@@ -56,6 +56,15 @@ ui-fss.g19[id="c4"] {
   content: "c5,";
 }
 
+.c17 {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+ui-fss.g22[id="c16"] {
+  content: "c17,";
+}
+
 .c11 {
   margin-bottom: 0.5rem;
 }
@@ -1860,6 +1869,56 @@ ui-fss.g79[id="c6"] {
                                 type="submit"
                               >
                                 buc:form-seeP5000s
+                              </button>
+                            </d>
+                          </o>
+                        </Styled(o)>
+                        <styled.div
+                          data-size="0.5"
+                        >
+                          <div
+                            className="c16 c17"
+                            data-size="0.5"
+                          />
+                        </styled.div>
+                        <Styled(o)
+                          data-amplitude="buc.edit.tools.P5000.summary.view"
+                          data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                          disabled={false}
+                          onClick={[Function]}
+                          spinner={false}
+                        >
+                          <o
+                            className="c14 c15"
+                            data-amplitude="buc.edit.tools.P5000.summary.view"
+                            data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                            disabled={false}
+                            onClick={[Function]}
+                            spinner={false}
+                          >
+                            <d
+                              autoDisableVedSpinner={false}
+                              className="c14 c15"
+                              data-amplitude="buc.edit.tools.P5000.summary.view"
+                              data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                              disabled={false}
+                              htmlType="submit"
+                              inaktivKlasseVedDisabled={false}
+                              kompakt={false}
+                              mini={false}
+                              onClick={[Function]}
+                              spinner={false}
+                              type="standard"
+                            >
+                              <button
+                                className="knapp c14 c15 knapp--standard"
+                                data-amplitude="buc.edit.tools.P5000.summary.view"
+                                data-test-id="a-buc-c-buctools__P5000-summary-button-id"
+                                disabled={false}
+                                onClick={[Function]}
+                                type="submit"
+                              >
+                                buc:form-seeP5000summary
                               </button>
                             </d>
                           </o>

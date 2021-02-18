@@ -35,7 +35,7 @@ export const SEDAttachmentPropType = PT.shape({
   fileName: PT.string.isRequired,
   mimeType: PT.string.isRequired,
   documentId: PT.string.isRequired,
-  lastUpdate: PT.oneOfType([PT.number, DatePropType]).isRequired,
+  lastUpdate: PT.number.isRequired,
   medical: PT.bool.isRequired
 })
 

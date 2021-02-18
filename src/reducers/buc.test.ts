@@ -937,11 +937,7 @@ describe('reducers/buc', () => {
               name: '4_mockVariant.pdf',
               fileName: '4_mockVariant.pdf',
               mimeType: 'application/pdf',
-              lastUpdate: {
-                dayOfMonth: 1,
-                monthValue: 2,
-                year: 1970
-              },
+              lastUpdate: 2674800000,
               medical: false
             }]
           }]

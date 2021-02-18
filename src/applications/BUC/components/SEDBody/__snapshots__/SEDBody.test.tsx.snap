@@ -1496,7 +1496,7 @@ ui-fss.g26[id="c0"] {
         existingItems={
           Array [
             Object {
-              "date": 2019-05-19T22:00:00.000Z,
+              "date": Date { NaN },
               "disabled": false,
               "dokumentInfoId": "cac9db2726d54f2c9b51d1562b7b0a79",
               "hasSubrows": false,
