@@ -21,7 +21,7 @@ export interface AppState {
 }
 
 const initialFeatureToggles: FeatureToggles = {
-  P5000_SOMMER_VISIBLE: true,
+  P5000_SUMMER_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0
 }

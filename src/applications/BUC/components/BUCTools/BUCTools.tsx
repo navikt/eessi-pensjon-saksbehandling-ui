@@ -350,7 +350,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   >
                     {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
                   </HighContrastKnapp>
-                  {featureToggles?.P5000_SOMMER_VISIBLE && (
+                  {featureToggles?.P5000_SUMMER_VISIBLE && (
                     <>
                       <HorizontalSeparatorDiv data-size='0.5'/>
                       <HighContrastKnapp
