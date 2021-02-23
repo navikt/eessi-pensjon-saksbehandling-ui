@@ -9,11 +9,11 @@ import { rotating } from 'nav-hoykontrast'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import _ from 'lodash'
-import Popover, { PopoverOrientering } from 'nav-frontend-popover'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import Tooltip from 'rc-tooltip'
 
 export interface BucWebSocketProps {
   fnr: string | undefined
@@ -58,8 +58,6 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   const dispatch = useDispatch()
 
   const [_log, setLog] = useState<Array<JSX.Element>>([])
-  const [_popoverOpen, setPopoverOpen] = useState<boolean>(false)
-  const [_popoverAnchor, setPopoverAnchor] = useState<HTMLElement | undefined>(undefined)
   const [_simpleLog, setSimpleLog] = useState<Array<string>>([])
   const [_status, setStatus] = useState<string>(NOTCONNECTED)
   const [_websocketConnection, setWebsocketConnection] = useState(undefined)
@@ -163,23 +161,12 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 
   const Icon = getAnchor()
 
-  const onIconClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    if (!_popoverOpen) {
-      console.log(_simpleLog.join('\n'))
-    }
-    setPopoverAnchor(_popoverOpen ? undefined : e.currentTarget)
-    setPopoverOpen(!_popoverOpen)
-  }
-
   return (
     <BUCWebsocketDiv title={'websocket: ' + _status}>
-      <Icon size={24} onClick={onIconClick} />
-      <Popover
-        orientering={PopoverOrientering.Under}
-        ankerEl={_popoverAnchor}
-      >
-        {_log}
-      </Popover>
+      <Tooltip
+        placement='top' trigger={['click']} overlay={(<>{_log}</>)}>
+        <Icon size={24} onClick={() => console.log(_simpleLog.join('\n'))} />
+      </Tooltip>
     </BUCWebsocketDiv>
   )
 }

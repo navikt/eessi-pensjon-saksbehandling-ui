@@ -271,6 +271,16 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         if (seds) {
           seds.forEach((sed: Sed) => {
             sedsWithAttachments[sed.type] = sed.allowsAttachments
+            sed?.participants?.forEach((p) => {
+              if (!_.isNil(p.organisation.id) && !institutionNames[p.organisation.id]) {
+                institutionNames[p.organisation.id] = {
+                  country: p.organisation.countryCode,
+                  institution: p.organisation.id,
+                  name: p.organisation.name,
+                  acronym: p.organisation.acronym!
+                }
+              }
+            })
           })
         }
 

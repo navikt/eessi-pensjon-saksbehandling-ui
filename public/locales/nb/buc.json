@@ -175,7 +175,7 @@
   "form-youHaveXAttachmentsInSed"     : "SED-en har {{attachments}} vedlegg",
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
 
-
+  "help-avdodFnr"                 : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
 
   "loading-buc"                   : "Laster BUC...",
   "loading-bucList"               : "Laster BUC-er...",

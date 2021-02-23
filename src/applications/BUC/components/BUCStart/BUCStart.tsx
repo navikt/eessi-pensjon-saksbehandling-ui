@@ -9,10 +9,13 @@ import {
   saveBucsInfo
 } from 'actions/buc'
 import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import HelpIcon from 'assets/icons/HelpIcon'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
+import { themeKeys } from 'nav-styled-component-theme'
+import Tooltip from 'rc-tooltip'
 import {
   AllowedLocaleString,
   FeatureToggles,
@@ -63,6 +66,9 @@ import styled from 'styled-components'
 const FlexDiv = styled.div`
   display: flex;
   align-items: flex-end;
+  .flex-2 {
+     flex: 2;
+  }
 `
 export interface BUCStartProps {
   aktoerId: string
@@ -116,6 +122,29 @@ const mapState = (state: State): BUCStartSelector => ({
   subjectAreaList: state.buc.subjectAreaList,
   tagList: state.buc.tagList
 })
+
+const HelpDiv = styled.div`
+  margin-bottom: 0.5rem;
+  .hjelpetekst__ikon {
+    width: 32px;
+    height: 32px;
+    border-radius: 15px;
+  }
+  button {
+     padding: 0px !important;
+     border: 0px !important;
+  }
+  button:hover {
+    outline: 0;
+    color: ${({theme}) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    background: ${({theme}) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    .hjelpetekst__ikon {
+      fill: ${({theme}) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+      background: ${({theme}) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    }
+  }
+
+`
 
 const BUCStart: React.FC<BUCStartProps> = ({
   aktoerId,
@@ -558,16 +587,27 @@ const BUCStart: React.FC<BUCStartProps> = ({
             {bucNeedsAvdodButWeHaveNone() && (
               <>
                 <VerticalSeparatorDiv />
-                <HighContrastInput
-                  data-test-id='a-buc-c-bucstart__avdod-input-id'
-                  id='a-buc-c-bucstart__avdod-input-id'
-                  label={t('buc:form-avdod')}
-                  bredde='fullbredde'
-                  value={_avdodFnr}
-                  onChange={onAvdodFnrChange}
-                  placeholder={t('buc:form-fnrdnr')}
-                  feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
-                />
+                <FlexDiv>
+                  <HighContrastInput
+                    className='flex-2'
+                    data-test-id='a-buc-c-bucstart__avdod-input-id'
+                    id='a-buc-c-bucstart__avdod-input-id'
+                    label={t('buc:form-avdod')}
+                    bredde='fullbredde'
+                    value={_avdodFnr}
+                    onChange={onAvdodFnrChange}
+                    placeholder={t('buc:form-fnrdnr')}
+                    feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
+                  />
+                  <HorizontalSeparatorDiv data-size='0.5'/>
+                  <HelpDiv>
+                    <Tooltip placement='top' trigger={['click']} overlay={<span>{t('buc:help-avdodFnr')}</span>}>
+                    <HighContrastFlatknapp mini kompakt>
+                      <HelpIcon className="hjelpetekst__ikon" />
+                    </HighContrastFlatknapp>
+                    </Tooltip>
+                  </HelpDiv>
+                </FlexDiv>
               </>
             )}
             {bucNeedsKravDato(_buc) && (
