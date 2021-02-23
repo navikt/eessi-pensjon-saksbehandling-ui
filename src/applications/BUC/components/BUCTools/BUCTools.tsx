@@ -352,7 +352,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   </HighContrastKnapp>
                   {featureToggles?.P5000_SUMMER_VISIBLE && (
                     <>
-                      <HorizontalSeparatorDiv data-size='0.5'/>
+                      <HorizontalSeparatorDiv data-size='0.5' />
                       <HighContrastKnapp
                         data-amplitude='buc.edit.tools.P5000.summary.view'
                         data-test-id='a-buc-c-buctools__P5000-summary-button-id'
@@ -360,7 +360,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                         spinner={!_.isEmpty(_fetchingP5000)}
                         onClick={onGettingP5000SumClick}
                       >
-                      {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
+                        {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
                       </HighContrastKnapp>
                     </>
                   )}
