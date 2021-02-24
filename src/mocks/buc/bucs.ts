@@ -1282,6 +1282,74 @@ const mockBuc = [
           date: 1571818174000
         },
         allowsAttachments: true
+      },
+      {
+        id: 'fd55d46e6ab741838d3a8e1735d33f1c',
+        parentDocumentId: null,
+        type: 'X100',
+        status: 'received',
+        creationDate: 1571818174000,
+        lastUpdate: 1571818174000,
+        displayName: 'Reminder',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              address: {
+                country: 'DE',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: '2018-08-26T22:00:00.000+0000',
+              registryNumber: null,
+              acronym: 'DEDEMO01',
+              countryCode: 'DE',
+              contactMethods: null,
+              name: 'DE DEMO 01',
+              location: null,
+              assignedBUCs: null,
+              id: 'DE:DEDEMO01',
+              accessPoint: null
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: '2018-08-26T22:00:00.000+0000',
+              registryNumber: null,
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAV ACCEPTANCE TEST 07',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVAT07',
+              accessPoint: null
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818174000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818174000
+        },
+        allowsAttachments: true
       }
     ],
     error: null
