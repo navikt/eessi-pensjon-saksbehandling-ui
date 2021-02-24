@@ -2,6 +2,7 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
+import AlertStripe from 'nav-frontend-alertstriper'
 import NavHighContrast, { slideInFromLeft, HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 
 import { AllowedLocaleString } from 'declarations/app.d'
@@ -222,6 +223,15 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             )}
           </SEDListActionsDiv>
         </SEDHeaderContent>
+        {sed.type === 'X100' &&
+        _.find(sed.participants, p => p.role === 'Sender')?.organisation.countryCode === 'DE' && (
+          <AlertStripe
+            data-test-id='a-buc-c-sedheader__x100'
+            type='advarsel'
+          >
+            {t('buc:alert-X100')}
+          </AlertStripe>
+        )}
       </SEDHeaderPanel>
     </NavHighContrast>
   )
