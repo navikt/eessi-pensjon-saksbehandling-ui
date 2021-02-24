@@ -10,16 +10,6 @@ jest.mock('applications/BUC/websocket/WebSocket', () => ({ title, children }: an
   <div title={title} className='websocket'>{children}</div>
 ))
 
-jest.mock('nav-frontend-popover', () => ({
-  __esModule: true, // this property makes it work
-  default: ({ children }: any) => (
-    <div className='mock-popover'>{children}</div>
-  ),
-  PopoverOrientering: {
-    Under: 'Under'
-  }
-}))
-
 const mockPesysContext = VEDTAKSKONTEKST
 const mockSakType = 'Generell'
 

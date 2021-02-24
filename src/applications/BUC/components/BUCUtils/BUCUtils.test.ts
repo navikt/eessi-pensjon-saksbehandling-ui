@@ -156,33 +156,33 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     const CORRECT_ORDER = -1
     const WRONG_ORDER_WILL_SWAP = 1
     expect(BUCUtils.sedSorter(
-      { ...mockSed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' },
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' }
+      { ...mockSed, lastUpdate: new Date(2010, 1, 2).getTime(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'P1000' }
     )).toEqual(CORRECT_ORDER)
 
     expect(BUCUtils.sedSorter(
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
-      { ...mockSed, lastUpdate: new Date(2010, 1, 2).getDate(), type: 'P1000' }
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 2).getTime(), type: 'P1000' }
     )).toEqual(WRONG_ORDER_WILL_SWAP)
 
     expect(BUCUtils.sedSorter(
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'P2000' }
     )).toEqual(CORRECT_ORDER)
 
     expect(BUCUtils.sedSorter(
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P10000' },
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P2000' }
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'P10000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'P2000' }
     )).toEqual(WRONG_ORDER_WILL_SWAP)
 
     expect(BUCUtils.sedSorter(
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'P1000' },
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' }
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'P1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'X1000' }
     )).toEqual(CORRECT_ORDER)
 
     expect(BUCUtils.sedSorter(
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'X1000' },
-      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getDate(), type: 'H1000' }
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'X1000' },
+      { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'H1000' }
     )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 })

@@ -136,11 +136,11 @@ const HelpDiv = styled.div`
   }
   button:hover {
     outline: 0;
-    color: ${({theme}) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
-    background: ${({theme}) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+    color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    background: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     .hjelpetekst__ikon {
-      fill: ${({theme}) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
-      background: ${({theme}) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
+      fill: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+      background: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     }
   }
 
@@ -599,12 +599,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
                     placeholder={t('buc:form-fnrdnr')}
                     feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
                   />
-                  <HorizontalSeparatorDiv data-size='0.5'/>
+                  <HorizontalSeparatorDiv data-size='0.5' />
                   <HelpDiv>
                     <Tooltip placement='top' trigger={['click']} overlay={<span>{t('buc:help-avdodFnr')}</span>}>
-                    <HighContrastFlatknapp mini kompakt>
-                      <HelpIcon className="hjelpetekst__ikon" />
-                    </HighContrastFlatknapp>
+                      <HighContrastFlatknapp mini kompakt>
+                        <HelpIcon className='hjelpetekst__ikon' />
+                      </HighContrastFlatknapp>
                     </Tooltip>
                   </HelpDiv>
                 </FlexDiv>

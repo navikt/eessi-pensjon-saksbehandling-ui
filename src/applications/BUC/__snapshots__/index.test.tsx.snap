@@ -84,7 +84,7 @@ ui-fss.g26[id="c0"] {
   transform: translateX(20%);
 }
 
-ui-fss.g205[id="c6"] {
+ui-fss.g206[id="c6"] {
   content: "c7,";
 }
 
@@ -119,7 +119,7 @@ ui-fss.g205[id="c6"] {
   transition: transform 100ms ease-out;
 }
 
-ui-fss.g206[id="c2"] {
+ui-fss.g207[id="c2"] {
   content: "c3,";
 }
 
@@ -132,7 +132,7 @@ ui-fss.g206[id="c2"] {
   overflow: hidden;
 }
 
-ui-fss.g208[id="c4"] {
+ui-fss.g209[id="c4"] {
   content: "c5,";
 }
 

@@ -99,20 +99,7 @@ const mockBuc = [
           fileName: 'balrog.png',
           mimeType: 'image/png',
           documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
-          lastUpdate: {
-            year: 2019,
-            month: 'MAY',
-            chronology: {
-              id: 'ISO',
-              calendarType: 'iso8601'
-            },
-            dayOfMonth: 20,
-            dayOfWeek: 'MONDAY',
-            era: 'CE',
-            dayOfYear: 140,
-            leapYear: false,
-            monthValue: 5
-          },
+          lastUpdate: 1571818175000,
           medical: false
         }],
         version: '1',
@@ -594,20 +581,7 @@ const mockBuc = [
           fileName: 'balrog.png',
           mimeType: 'image/png',
           documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
-          lastUpdate: {
-            year: 2019,
-            month: 'MAY',
-            chronology: {
-              id: 'ISO',
-              calendarType: 'iso8601'
-            },
-            dayOfMonth: 20,
-            dayOfWeek: 'MONDAY',
-            era: 'CE',
-            dayOfYear: 140,
-            leapYear: false,
-            monthValue: 5
-          },
+          lastUpdate: 1571818175000,
           medical: false
         }, {
           id: '58828e7ff57943779ab7b24c522b1a3d',
@@ -615,20 +589,7 @@ const mockBuc = [
           fileName: '491399765_ARKIV.pdf',
           mimeType: 'application/pdf',
           documentId: 'cac9db2726d54f2c9b51d1562b7b0a7a',
-          lastUpdate: {
-            year: 2019,
-            month: 'JUN',
-            chronology: {
-              id: 'ISO',
-              calendarType: 'iso8601'
-            },
-            dayOfMonth: 20,
-            dayOfWeek: 'MONDAY',
-            era: 'CE',
-            dayOfYear: 140,
-            leapYear: false,
-            monthValue: 5
-          },
+          lastUpdate: 1571818175000,
           medical: false
         }],
         version: '1',
@@ -1449,20 +1410,7 @@ const mockBuc = [
           fileName: 'balrog.png',
           mimeType: 'image/png',
           documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
-          lastUpdate: {
-            year: 2019,
-            month: 'MAY',
-            chronology: {
-              id: 'ISO',
-              calendarType: 'iso8601'
-            },
-            dayOfMonth: 20,
-            dayOfWeek: 'MONDAY',
-            era: 'CE',
-            dayOfYear: 140,
-            leapYear: false,
-            monthValue: 5
-          },
+          lastUpdate: 1571818175000,
           medical: false
         }],
         version: '5',
@@ -1537,20 +1485,7 @@ const mockBuc = [
           fileName: 'balrog.png',
           mimeType: 'image/png',
           documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
-          lastUpdate: {
-            year: 2019,
-            month: 'MAY',
-            chronology: {
-              id: 'ISO',
-              calendarType: 'iso8601'
-            },
-            dayOfMonth: 20,
-            dayOfWeek: 'MONDAY',
-            era: 'CE',
-            dayOfYear: 140,
-            leapYear: false,
-            monthValue: 5
-          },
+          lastUpdate: 1571818175000,
           medical: false
         }],
         version: '4',

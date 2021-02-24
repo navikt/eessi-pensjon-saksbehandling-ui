@@ -164,7 +164,8 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   return (
     <BUCWebsocketDiv title={'websocket: ' + _status}>
       <Tooltip
-        placement='top' trigger={['click']} overlay={(<>{_log}</>)}>
+        placement='top' trigger={['click']} overlay={(<div className='logs'>{_log}</div>)}
+      >
         <Icon size={24} onClick={() => console.log(_simpleLog.join('\n'))} />
       </Tooltip>
     </BUCWebsocketDiv>

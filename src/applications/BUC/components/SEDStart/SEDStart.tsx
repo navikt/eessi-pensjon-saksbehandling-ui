@@ -1001,14 +1001,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   {
                     label: t('buc:form-alderspensjon'),
                     value: 'Alderspensjon',
-                    disabled: (sakType === SakTypeMap.UFOREP)
+                    disabled: (sakType === SakTypeMap.UFOREP || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
                   }, {
                     label: t('buc:form-etterletteytelser'),
                     value: 'Etterlatteytelser'
                   }, {
                     label: t('buc:form-uføretrygd'),
                     value: 'Uføretrygd',
-                    disabled: (sakType === SakTypeMap.ALDER)
+                    disabled: (sakType === SakTypeMap.ALDER || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
                   }
                 ]}
                 onChange={onKravOmChange}

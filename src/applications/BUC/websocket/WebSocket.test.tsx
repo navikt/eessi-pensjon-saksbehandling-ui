@@ -2,20 +2,9 @@ import { fetchSingleBuc } from 'actions/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import { Server, WebSocket } from 'mock-socket'
-import Popover from 'nav-frontend-popover'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 import BucWebSocket, { BUCWebsocketDiv, BucWebSocketProps } from './WebSocket'
-
-jest.mock('nav-frontend-popover', () => ({
-  __esModule: true, // this property makes it work
-  default: ({ children }: any) => (
-    <div className='mock-popover'>{children}</div>
-  ),
-  PopoverOrientering: {
-    Under: 'Under'
-  }
-}))
 
 jest.mock('constants/urls', () => ({
   WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
@@ -54,7 +43,6 @@ describe('applications/BUC/websocket/WebSocket', () => {
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(BUCWebsocketDiv)).toBeTruthy()
-    expect(wrapper.exists(Popover)).toBeTruthy()
   })
 
   it('Handling: Connects in a while', async () => {
@@ -62,7 +50,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
       return new Promise((resolve) => {
         setTimeout(() => {
           wrapper.update()
-          const logs = wrapper.find('.mock-popover span.log')
+          const logs = wrapper.find('div.logs span.log')
           expect(logs.length).toBe(5)
           expect(_(logs.at(0).render().html()).endsWith('Got fnr 123 avdodFnr 456, starting websocket connection')).toBeTruthy()
           expect(_(logs.at(1).render().html()).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
@@ -82,7 +70,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
           mockSocket.send(JSON.stringify({ bucUpdated: { caseId: '123' } }))
           setTimeout(() => {
             wrapper.update()
-            const logs = wrapper.find('.mock-popover span.log')
+            const logs = wrapper.find('div.logs span.log')
             expect(logs.length).toBe(6)
             expect(_(logs.at(5).render().html()).endsWith('Updating buc 123')).toBeTruthy()
             expect(fetchSingleBuc).toHaveBeenCalledWith('123')

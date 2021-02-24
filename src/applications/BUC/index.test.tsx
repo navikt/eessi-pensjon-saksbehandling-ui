@@ -21,8 +21,6 @@ import { stageSelector } from 'setupTests'
 
 jest.mock('applications/BUC/components/BUCDetail/BUCDetail', () => () => (<div className='a-buc-bucdetail' />))
 
-jest.mock('nav-frontend-popover', () => ({ children }: any) => (<div className='mock-popover'>{children}</div>))
-
 jest.mock('actions/buc', () => ({
   fetchBucs: jest.fn(),
   fetchBucsWithVedtakId: jest.fn(),
