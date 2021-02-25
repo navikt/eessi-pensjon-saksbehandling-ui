@@ -1928,10 +1928,10 @@ ui-fss.g38[id="c14"] {
                                 size="S"
                                 type="circle"
                               >
-                                <Te
+                                <Be
                                   highContrast={false}
                                 >
-                                  <Ne
+                                  <Re
                                     theme={
                                       Object {
                                         "alternative-background-color": "#E9E7E7",
@@ -2380,8 +2380,8 @@ ui-fss.g38[id="c14"] {
                                         </styled.div>
                                       </t>
                                     </ForwardRef(Cd)>
-                                  </Ne>
-                                </Te>
+                                  </Re>
+                                </Be>
                               </Bd>
                               <Styled(Normaltekst)>
                                 <Normaltekst
@@ -2445,10 +2445,10 @@ ui-fss.g38[id="c14"] {
                                 size="S"
                                 type="circle"
                               >
-                                <Te
+                                <Be
                                   highContrast={false}
                                 >
-                                  <Ne
+                                  <Re
                                     theme={
                                       Object {
                                         "alternative-background-color": "#E9E7E7",
@@ -2897,8 +2897,8 @@ ui-fss.g38[id="c14"] {
                                         </styled.div>
                                       </t>
                                     </ForwardRef(Cd)>
-                                  </Ne>
-                                </Te>
+                                  </Re>
+                                </Be>
                               </Bd>
                               <Styled(Normaltekst)>
                                 <Normaltekst

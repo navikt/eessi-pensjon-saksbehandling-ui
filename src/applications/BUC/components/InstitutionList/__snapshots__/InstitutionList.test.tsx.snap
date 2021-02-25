@@ -80,10 +80,10 @@ ui-fss.g3[id="c4"] {
             size="S"
             type="circle"
           >
-            <Te
+            <Be
               highContrast={false}
             >
-              <Ne
+              <Re
                 theme={
                   Object {
                     "alternative-background-color": "#E9E7E7",
@@ -532,8 +532,8 @@ ui-fss.g3[id="c4"] {
                     </styled.div>
                   </t>
                 </ForwardRef(Cd)>
-              </Ne>
-            </Te>
+              </Re>
+            </Be>
           </Bd>
           <Styled(Normaltekst)>
             <Normaltekst

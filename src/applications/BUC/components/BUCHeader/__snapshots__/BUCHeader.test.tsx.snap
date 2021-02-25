@@ -1977,10 +1977,10 @@ ui-fss.g41[id="c8"] {
                                   size="S"
                                   type="circle"
                                 >
-                                  <Te
+                                  <Be
                                     highContrast={false}
                                   >
-                                    <Ne
+                                    <Re
                                       theme={
                                         Object {
                                           "alternative-background-color": "#E9E7E7",
@@ -2429,8 +2429,8 @@ ui-fss.g41[id="c8"] {
                                           </styled.div>
                                         </t>
                                       </ForwardRef(Cd)>
-                                    </Ne>
-                                  </Te>
+                                    </Re>
+                                  </Be>
                                 </Bd>
                                 <Styled(Normaltekst)>
                                   <Normaltekst
@@ -2572,10 +2572,10 @@ ui-fss.g41[id="c8"] {
                         tooltip={true}
                         type="circle"
                       >
-                        <Te
+                        <Be
                           highContrast={false}
                         >
-                          <Ne
+                          <Re
                             theme={
                               Object {
                                 "alternative-background-color": "#E9E7E7",
@@ -3036,8 +3036,8 @@ ui-fss.g41[id="c8"] {
                                 </styled.div>
                               </t>
                             </ForwardRef(Cd)>
-                          </Ne>
-                        </Te>
+                          </Re>
+                        </Be>
                       </Bd>
                     </Styled(Bd)>
                     <Styled(Bd)
@@ -3067,10 +3067,10 @@ ui-fss.g41[id="c8"] {
                         tooltip={true}
                         type="circle"
                       >
-                        <Te
+                        <Be
                           highContrast={false}
                         >
-                          <Ne
+                          <Re
                             theme={
                               Object {
                                 "alternative-background-color": "#E9E7E7",
@@ -3531,8 +3531,8 @@ ui-fss.g41[id="c8"] {
                                 </styled.div>
                               </t>
                             </ForwardRef(Cd)>
-                          </Ne>
-                        </Te>
+                          </Re>
+                        </Be>
                       </Bd>
                     </Styled(Bd)>
                     <Styled(Bd)
@@ -3562,10 +3562,10 @@ ui-fss.g41[id="c8"] {
                         tooltip={true}
                         type="circle"
                       >
-                        <Te
+                        <Be
                           highContrast={false}
                         >
-                          <Ne
+                          <Re
                             theme={
                               Object {
                                 "alternative-background-color": "#E9E7E7",
@@ -4026,8 +4026,8 @@ ui-fss.g41[id="c8"] {
                                 </styled.div>
                               </t>
                             </ForwardRef(Cd)>
-                          </Ne>
-                        </Te>
+                          </Re>
+                        </Be>
                       </Bd>
                     </Styled(Bd)>
                     <Styled(Bd)
@@ -4057,10 +4057,10 @@ ui-fss.g41[id="c8"] {
                         tooltip={true}
                         type="circle"
                       >
-                        <Te
+                        <Be
                           highContrast={false}
                         >
-                          <Ne
+                          <Re
                             theme={
                               Object {
                                 "alternative-background-color": "#E9E7E7",
@@ -4521,8 +4521,8 @@ ui-fss.g41[id="c8"] {
                                 </styled.div>
                               </t>
                             </ForwardRef(Cd)>
-                          </Ne>
-                        </Te>
+                          </Re>
+                        </Be>
                       </Bd>
                     </Styled(Bd)>
                   </FlagList>
