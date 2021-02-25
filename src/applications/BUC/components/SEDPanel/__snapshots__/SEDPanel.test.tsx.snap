@@ -1647,7 +1647,7 @@ ui-fss.g28[id="c4"] {
   }
   style={Object {}}
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -3286,6 +3286,6 @@ ui-fss.g28[id="c4"] {
         </l>
       </Styled(Styled(l))>
     </Component>
-  </Se>
+  </Ge>
 </SEDPanel>
 `;

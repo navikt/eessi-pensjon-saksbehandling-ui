@@ -302,7 +302,7 @@ ui-fss.g62[id="c24"] {
 <TopContainer
   header="mockHeader"
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -489,7 +489,7 @@ ui-fss.g62[id="c24"] {
                 }
                 username="mockUsername"
               >
-                <Se
+                <Ge
                   highContrast={false}
                 >
                   <Component
@@ -872,7 +872,7 @@ ui-fss.g62[id="c24"] {
                       </header>
                     </styled.header>
                   </Component>
-                </Se>
+                </Ge>
               </Header>
               <Alert
                 message="mockErrorMessage"
@@ -1046,7 +1046,7 @@ ui-fss.g62[id="c24"] {
                   }
                 }
               >
-                <Se
+                <Ge
                   highContrast={false}
                 >
                   <Component
@@ -1235,13 +1235,13 @@ ui-fss.g62[id="c24"] {
                       </footer>
                     </styled.footer>
                   </Component>
-                </Se>
+                </Ge>
               </Footer>
             </ResizeDetector>
           </div>
         </ErrorBoundary>
       </div>
     </Component>
-  </Se>
+  </Ge>
 </TopContainer>
 `;

@@ -158,7 +158,7 @@ ui-fss.g83[id="c8"] {
       highContrast={false}
       onModalClose={[Function]}
     >
-      <Se
+      <Ge
         highContrast={false}
       >
         <Component
@@ -408,7 +408,7 @@ ui-fss.g83[id="c8"] {
             </Modal>
           </Styled(Modal)>
         </Component>
-      </Se>
+      </Ge>
     </Modal>
     <Dt
       columns={

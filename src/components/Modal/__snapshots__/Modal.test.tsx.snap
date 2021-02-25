@@ -173,7 +173,7 @@ ui-fss.g35[id="c2"] {
   }
   onModalClose={[MockFunction]}
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -825,6 +825,6 @@ ui-fss.g35[id="c2"] {
         </Modal>
       </Styled(Modal)>
     </Component>
-  </Se>
+  </Ge>
 </Modal>
 `;

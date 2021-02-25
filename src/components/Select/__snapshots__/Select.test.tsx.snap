@@ -323,13 +323,13 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                       },
                       "alignItems": "center",
                       "backgroundColor": "#FFFFFF",
-                      "borderColor": "#78706A",
+                      "borderColor": "#78706a",
                       "borderRadius": "4px",
                       "borderStyle": "solid",
                       "borderWidth": "1px",
                       "boxShadow": null,
                       "boxSizing": "border-box",
-                      "color": "#3E3832",
+                      "color": "#3e3832",
                       "cursor": "default",
                       "display": "flex",
                       "flexWrap": "wrap",
@@ -345,7 +345,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                   onTouchEnd={[Function]}
                 >
                   <div
-                    className=" css-lt1bvz-control"
+                    className=" css-1aj5usi-control"
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
@@ -1028,7 +1028,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                               css={
                                 Object {
                                   "alignSelf": "stretch",
-                                  "backgroundColor": "#78706A",
+                                  "backgroundColor": "#78706a",
                                   "boxSizing": "border-box",
                                   "label": "indicatorSeparator",
                                   "marginBottom": 8,
@@ -1038,7 +1038,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                               }
                             >
                               <span
-                                className=" css-1hhc12r-indicatorSeparator"
+                                className=" css-vd4mzp-indicatorSeparator"
                               />
                             </EmotionCssPropInternal>
                           </IndicatorSeparator>

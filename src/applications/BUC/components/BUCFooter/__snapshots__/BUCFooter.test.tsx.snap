@@ -51,7 +51,7 @@ ui-fss.g28[id="c0"] {
 }
 
 <BUCFooter>
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -252,10 +252,10 @@ ui-fss.g28[id="c0"] {
                   />
                 </styled.div>
                 <LogoutIcon
-                  color="#0067C5"
+                  color="#0067c5"
                 >
                   <svg
-                    color="#0067C5"
+                    color="#0067c5"
                     contentScriptType="text/ecmascript"
                     contentStyleType="text/css"
                     enableBackground="new 0 0 24 24"
@@ -271,7 +271,7 @@ ui-fss.g28[id="c0"] {
                     zoomAndPan="magnify"
                   >
                     <g
-                      fill="#0067C5"
+                      fill="#0067c5"
                     >
                       <path
                         d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
@@ -288,6 +288,6 @@ ui-fss.g28[id="c0"] {
         </div>
       </styled.div>
     </Component>
-  </Se>
+  </Ge>
 </BUCFooter>
 `;

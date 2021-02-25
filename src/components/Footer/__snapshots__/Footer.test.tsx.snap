@@ -172,7 +172,7 @@ ui-fss.g33[id="c14"] {
   highContrast={false}
   params={Object {}}
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -556,6 +556,6 @@ ui-fss.g33[id="c14"] {
         </footer>
       </styled.footer>
     </Component>
-  </Se>
+  </Ge>
 </Footer>
 `;

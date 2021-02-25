@@ -1586,6 +1586,74 @@ ui-fss.g41[id="c8"] {
           "type": "X009",
           "version": "1",
         },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818174000,
+          "displayName": "Reminder",
+          "firstVersion": Object {
+            "date": 1571818174000,
+            "id": "1",
+          },
+          "id": "fd55d46e6ab741838d3a8e1735d33f1c",
+          "lastUpdate": 1571818174000,
+          "lastVersion": Object {
+            "date": 1571818174000,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "DEDEMO01",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "DE",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "DE",
+                "id": "DE:DEDEMO01",
+                "location": null,
+                "name": "DE DEMO 01",
+                "registryNumber": null,
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "accessPoint": null,
+                "acronym": "NAVAT07",
+                "activeSince": "2018-08-26T22:00:00.000+0000",
+                "address": Object {
+                  "country": "NO",
+                  "postalCode": null,
+                  "region": null,
+                  "street": null,
+                  "town": null,
+                },
+                "assignedBUCs": null,
+                "contactMethods": null,
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "location": null,
+                "name": "NAV ACCEPTANCE TEST 07",
+                "registryNumber": null,
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+          ],
+          "status": "received",
+          "type": "X100",
+          "version": "1",
+        },
       ],
       "startDate": 1571818162145,
       "status": "open",
@@ -1609,7 +1677,7 @@ ui-fss.g41[id="c8"] {
   }
   newBuc={true}
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -4739,7 +4807,7 @@ ui-fss.g41[id="c8"] {
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
                         >
-                          9
+                          10
                         </div>
                       </styled.div>
                     </Trigger>
@@ -5050,6 +5118,6 @@ ui-fss.g41[id="c8"] {
         </div>
       </styled.div>
     </Component>
-  </Se>
+  </Ge>
 </BUCHeader>
 `;

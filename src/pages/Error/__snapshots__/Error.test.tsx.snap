@@ -237,7 +237,7 @@ ui-fss.g32[id="c2"] {
               id="p-error__content-error-id"
               onOpen={[Function]}
             >
-              <Se
+              <Ge
                 highContrast={false}
               >
                 <Component
@@ -447,7 +447,7 @@ ui-fss.g32[id="c2"] {
                     </div>
                   </styled.div>
                 </Component>
-              </Se>
+              </Ge>
             </ExpandingPanel>
           </Styled(ExpandingPanel)>
           <div

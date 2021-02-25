@@ -1426,7 +1426,7 @@ ui-fss.g38[id="c14"] {
     }
   }
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -1647,7 +1647,7 @@ ui-fss.g38[id="c14"] {
                               highContrast={false}
                               status="received"
                             >
-                              <Se
+                              <Ge
                                 highContrast={false}
                               >
                                 <Component
@@ -1836,7 +1836,7 @@ ui-fss.g38[id="c14"] {
                                     </EtikettBase>
                                   </Styled(EtikettBase)>
                                 </Component>
-                              </Se>
+                              </Ge>
                             </SEDStatus>
                           </div>
                         </Component>
@@ -3037,6 +3037,6 @@ ui-fss.g38[id="c14"] {
         </l>
       </Styled(Styled(l))>
     </Component>
-  </Se>
+  </Ge>
 </SEDHeader>
 `;

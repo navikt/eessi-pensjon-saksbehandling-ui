@@ -152,7 +152,7 @@ ui-fss.g35[id="c18"] {
   highContrast={false}
   username="testUser"
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -535,6 +535,6 @@ ui-fss.g35[id="c18"] {
         </header>
       </styled.header>
     </Component>
-  </Se>
+  </Ge>
 </Header>
 `;

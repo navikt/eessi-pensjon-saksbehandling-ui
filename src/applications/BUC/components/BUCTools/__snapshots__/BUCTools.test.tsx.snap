@@ -1502,7 +1502,7 @@ ui-fss.g79[id="c6"] {
   initialTab={0}
   onTagChange={[MockFunction]}
 >
-  <Se
+  <Ge
     highContrast={false}
   >
     <Component
@@ -1962,6 +1962,6 @@ ui-fss.g79[id="c6"] {
         </l>
       </Styled(Styled(l))>
     </Component>
-  </Se>
+  </Ge>
 </BUCTools>
 `;
