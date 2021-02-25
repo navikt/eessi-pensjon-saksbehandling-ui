@@ -483,10 +483,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return undefined
   }
 
-  const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
-    return undefined
-  }
-
   const validateKravOm = (kravOm: string | undefined): FeiloppsummeringFeil | undefined => {
     if (!kravOm) {
       return {
@@ -551,7 +547,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newAvdodFnr: string | undefined = e.target.value
     setAvdodFnr(newAvdodFnr)
-    updateValidation('avdodFnr', validateAvdodFnr(newAvdodFnr))
   }
 
   const setDefaultKravOm = () => {
@@ -684,9 +679,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
     if (_sed && sedNeedsVedtakId.indexOf(_sed) >= 0) {
       validation.vedtakid = validateVedtakId(_vedtakId)
-    }
-    if (sedNeedsAvdodFnrInput()) {
-      validation.avdodFnr = validateAvdodFnr(_avdodFnr)
     }
     if (sedNeedsAvdodBrukerQuestion()) {
       validation.avdodorsoker = validateAvdodOrSoker(_avdodOrSoker)
