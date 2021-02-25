@@ -484,12 +484,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const validateAvdodFnr = (avdodFnr: string | undefined): FeiloppsummeringFeil | undefined => {
-    if (!avdodFnr && (pesysContext === VEDTAKSKONTEKST)) {
-      return {
-        feilmelding: t('buc:validation-chooseAvdodFnr'),
-        skjemaelementId: 'a-buc-c-sedstart__avdod-input-id'
-      } as FeiloppsummeringFeil
-    }
     return undefined
   }
 
