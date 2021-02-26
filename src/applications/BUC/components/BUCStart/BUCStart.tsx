@@ -14,7 +14,6 @@ import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { themeKeys } from 'nav-styled-component-theme'
 import Tooltip from 'rc-tooltip'
 import {
   AllowedLocaleString,
@@ -47,6 +46,7 @@ import AlertStripe from 'nav-frontend-alertstriper'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
+  themeKeys,
   Column,
   HighContrastFeiloppsummering,
   HighContrastFlatknapp,

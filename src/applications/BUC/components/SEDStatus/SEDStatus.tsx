@@ -1,12 +1,11 @@
 import classNames from 'classnames'
 import { Labels } from 'declarations/app.d'
 import EtikettBase from 'nav-frontend-etiketter'
-import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import NavHighContrast from 'nav-hoykontrast'
+import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
 
 export interface SEDStatusProps {
   className ?: string

@@ -13,7 +13,7 @@ exports[`components/MultipleSelect/MultipleValueRemove Render: match snapshot 1`
   background-color: transparent !important;
 }
 
-ui-fss.g1[id="c0"] {
+ui-fss.g28[id="c0"] {
   content: "c1,";
 }
 

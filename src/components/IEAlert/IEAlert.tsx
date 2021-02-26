@@ -1,5 +1,4 @@
-import NavHighContrast, { HighContrastLink } from 'nav-hoykontrast'
-import { themeKeys } from 'nav-styled-component-theme'
+import NavHighContrast, { themeKeys, HighContrastLink } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'

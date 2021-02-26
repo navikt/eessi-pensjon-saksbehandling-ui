@@ -1,10 +1,9 @@
-import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React from 'react'
 import { OptionProps, OptionTypeBase } from 'react-select'
 import { Checkbox } from 'nav-frontend-skjema'
 import styled from 'styled-components'
-import NavHighContrast from 'nav-hoykontrast'
+import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
 
 export type MultipleOptionProps = OptionProps<OptionTypeBase, true>
 

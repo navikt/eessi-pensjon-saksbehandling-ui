@@ -1,11 +1,9 @@
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import NavHighContrast, { slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
-
+import NavHighContrast, { themeKeys, slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
-import { themeKeys } from 'nav-styled-component-theme'
 import React from 'react'
 import styled from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'

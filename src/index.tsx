@@ -23,7 +23,58 @@ import thunk from 'redux-thunk'
 import { unregister } from 'registerServiceWorker'
 import i18n from './i18n'
 import * as reducers from './reducers'
-import 'index.css'
+import { createGlobalStyle } from 'styled-components'
+
+import 'nav-frontend-alertstriper-style/dist/main.css'
+import 'nav-frontend-chevron-style/dist/main.css'
+import 'nav-frontend-core/dist/main.css'
+import 'nav-frontend-ekspanderbartpanel-style/dist/main.css'
+import 'nav-frontend-knapper-style/dist/main.css'
+import 'nav-frontend-lenkepanel-style/dist/main.css'
+import 'nav-frontend-lenker-style/dist/main.css'
+import 'nav-frontend-lukknapp-style/dist/main.css'
+import 'nav-frontend-modal-style/dist/main.css'
+import 'nav-frontend-paneler-style/dist/main.css'
+import 'nav-frontend-skjema-style/dist/main.css'
+import 'nav-frontend-spinner-style/dist/main.css'
+import 'nav-frontend-tabs-style/dist/main.css'
+import 'nav-frontend-tabell-style/dist/main.css'
+import 'nav-frontend-typografi-style/dist/main.css'
+import 'nav-frontend-veileder-style/dist/main.css'
+import './index.css'
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100%;
+  }
+
+  body {
+    background-color: rgb(233, 231, 231);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100vh;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+  }
+
+  pre {
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+  }
+
+  code.block {
+    display: block;
+    white-space: pre-wrap
+  }
+
+  dd {
+    margin-bottom: .5rem;
+    margin-left: 0;
+  }
+
+  ol {
+    list-style-type: decimal;
+}
+`
 
 // IE11
 if (Number && isFinite && !Number.isFinite) {
@@ -46,6 +97,7 @@ const renderErrorPage = (type: string) => {
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyle />
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <Suspense fallback={<span>...</span>}>

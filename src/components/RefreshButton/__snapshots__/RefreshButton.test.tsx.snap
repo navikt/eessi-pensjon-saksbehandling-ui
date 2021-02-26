@@ -7,7 +7,7 @@ exports[`components/RefreshButton Render: match snapshot 1`] = `
   animation: fvtopB 2s linear infinite;
 }
 
-ui-fss.g27[id="c0"] {
+ui-fss.g28[id="c0"] {
   content: "c1,";
 }
 

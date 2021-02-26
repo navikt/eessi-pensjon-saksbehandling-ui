@@ -1,10 +1,16 @@
 import ExternalLink from 'assets/icons/line-version-logout'
-import NavHighContrast, { HighContrastLink, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/app.d'
+import { State } from 'declarations/reducers'
 import { linkLogger } from 'metrics/loggers'
-import { theme, themeKeys, themeHighContrast, Theme } from 'nav-styled-component-theme'
+import NavHighContrast, {
+  HighContrastLink,
+  HorizontalSeparatorDiv,
+  theme,
+  Theme,
+  themeHighContrast,
+  themeKeys
+} from 'nav-hoykontrast'
 import PT from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'

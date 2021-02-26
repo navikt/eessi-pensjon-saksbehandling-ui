@@ -16,6 +16,7 @@ import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import NavHighContrast, {
   animationClose, animationOpen, slideInFromLeft,
+  themeKeys,
   HighContrastHovedknapp,
   HighContrastInput,
   HighContrastKnapp,
@@ -46,7 +47,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
-import { themeKeys } from 'nav-styled-component-theme'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
