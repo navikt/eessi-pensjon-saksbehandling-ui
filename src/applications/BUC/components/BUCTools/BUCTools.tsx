@@ -11,6 +11,7 @@ import NavHighContrast, {
   HighContrastTextArea,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
+  , theme, themeHighContrast, themeKeys
 } from 'nav-hoykontrast'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Modal from 'components/Modal/Modal'
@@ -35,7 +36,7 @@ import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { theme, themeHighContrast, themeKeys } from 'nav-hoykontrast'
+
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

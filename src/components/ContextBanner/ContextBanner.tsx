@@ -2,7 +2,7 @@ import { BUCMode } from 'applications/BUC'
 import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import ExternalLink from 'assets/icons/line-version-logout'
-import NavHighContrast, { HighContrastLink, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import NavHighContrast, { HighContrastLink, HorizontalSeparatorDiv, theme, themeHighContrast, themeKeys } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { PesysContext } from 'declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
@@ -11,7 +11,7 @@ import { State } from 'declarations/reducers'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { Element } from 'nav-frontend-typografi'
-import { theme, themeHighContrast, themeKeys } from 'nav-hoykontrast'
+
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -97,19 +97,25 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             avdodFnr=''
           />
           <HoyreChevron />
+          {pesysContext && (
+            <Tag>
+              <span>{t('ui:youComeFrom')}</span>
+              <HorizontalSeparatorDiv data-size='0.25' />
+              <strong>{pesysContext}</strong>.
+            </Tag>
+          )}
           <Tag>
-            <span>{t('ui:youComeFrom')}</span>
-            <HorizontalSeparatorDiv data-size='0.25' />
-            <strong>{pesysContext}</strong>.
-          </Tag>
-          <Tag>
-            <span>{t('buc:form-caseType')}: </span>
-            <HorizontalSeparatorDiv data-size='0.25' />
+            {sakType && (
+              <>
+                <span>{t('buc:form-caseType')}: </span>
+                <HorizontalSeparatorDiv data-size='0.25' />
+              </>
+            )}
             {gettingSakType && (
               <WaitingPanel size='S' oneLine />
             )}
-            {sakType && (
-              <strong>{Object.values(SakTypeMap).indexOf(sakType) >= 0 ? sakType : t('ui:unknown')}</strong>
+            {sakType && Object.values(SakTypeMap).indexOf(sakType) >= 0 && (
+              <strong>{sakType}</strong>
             )}
           </Tag>
 

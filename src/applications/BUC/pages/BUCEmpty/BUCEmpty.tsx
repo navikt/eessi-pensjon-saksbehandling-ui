@@ -10,11 +10,12 @@ import NavHighContrast, {
   HighContrastKnapp,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
+  , themeKeys
 } from 'nav-hoykontrast'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/app.d'
 import { standardLogger } from 'metrics/loggers'
-import { themeKeys } from 'nav-hoykontrast'
+
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
