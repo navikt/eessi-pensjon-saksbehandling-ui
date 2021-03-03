@@ -1,20 +1,12 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import SEDP5000Other from 'applications/BUC/components/SEDP5000/SEDP5000Other'
 import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
 import SEDP5000Sum from 'applications/BUC/components/SEDP5000/SEDP5000Sum'
 import Trashcan from 'assets/icons/Trashcan'
-import NavHighContrast, {
-  slideInFromRight,
-  HighContrastKnapp,
-  HighContrastPanel,
-  HighContrastTabs,
-  HighContrastTextArea,
-  HorizontalSeparatorDiv,
-  VerticalSeparatorDiv
-  , theme, themeHighContrast, themeKeys
-} from 'nav-hoykontrast'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Modal from 'components/Modal/Modal'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
 
 import {
   Buc,
@@ -32,10 +24,21 @@ import {
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import NavHighContrast, {
+  HighContrastKnapp,
+  HighContrastPanel,
+  HighContrastTabs,
+  HighContrastTextArea,
+  HorizontalSeparatorDiv,
+  slideInFromRight,
+  theme,
+  themeHighContrast,
+  themeKeys,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -163,6 +166,21 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
+  const displayP5000OtherTable = useCallback(() => {
+    setTimeWithP5000Modal(new Date())
+    setModal({
+      modalTitle: t('buc:P5000-other-title'),
+      modalContent: (
+        <SEDP5000Other
+          highContrast={highContrast}
+          seds={getP5000()!}
+          sedContent={sedContent}
+          locale={locale}
+        />
+      )
+    })
+  }, [getP5000, highContrast, locale, sedContent, setModal, t])
+
   const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     if (tagsList) {
       if (_.isFunction(onTagChange)) {
@@ -257,6 +275,18 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
+  const onGettingP5000OtherClick = (e: React.MouseEvent): void => {
+    buttonLogger(e)
+    const p5000s = getP5000()
+    if (p5000s) {
+      setFetchingP5000(p5000s)
+      setModalType('other')
+      p5000s.forEach(sed => {
+        dispatch(getSed(buc.caseId!, sed))
+      })
+    }
+  }
+
   const tabs = [{
     label: t('buc:form-labelP5000'),
     key: 'P5000'
@@ -307,10 +337,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           if (_modalType === 'summary') {
             displayP5000SumTable()
           }
+          if (_modalType === 'other') {
+            displayP5000OtherTable()
+          }
         }
       }
     }
-  }, [displayP5000OverviewTable, displayP5000SumTable, _fetchingP5000, sedContent, setModal])
+  }, [displayP5000OverviewTable, displayP5000OtherTable, displayP5000SumTable, _fetchingP5000, sedContent, setModal])
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -341,7 +374,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   />
                 )}
                 <FlexDiv>
-
                   <HighContrastKnapp
                     data-amplitude='buc.edit.tools.P5000.view'
                     data-test-id='a-buc-c-buctools__P5000-button-id'
@@ -366,6 +398,23 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     </>
                   )}
                 </FlexDiv>
+
+                {featureToggles?.P5000_SUMMER_VISIBLE && (
+                  <>
+                    <HorizontalSeparatorDiv />
+                    <FlexDiv>
+                      <HighContrastKnapp
+                        data-amplitude='buc.edit.tools.P5000.other.view'
+                        data-test-id='a-buc-c-buctools__P5000-other-button-id'
+                        disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
+                        spinner={!_.isEmpty(_fetchingP5000)}
+                        onClick={onGettingP5000OtherClick}
+                      >
+                        {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000other')}
+                      </HighContrastKnapp>
+                    </FlexDiv>
+                  </>
+                )}
               </P5000Div>
             )}
             {tabs[_activeTab].key === 'tags' && (

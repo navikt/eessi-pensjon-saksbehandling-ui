@@ -64,17 +64,7 @@ const BUCListHeader = styled.div`
 export const BadBucDiv = styled.div`
   width: 100%;
   padding: 0rem;
-  .alertstripe--advarsel {
-    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-    border-style: solid;
-    border-color: ${({ theme }) => theme.navOransjeDarken20};
-    background-color: ${({ theme }) => theme.navOransjeLighten80};
-    color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
-    div {
-      font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-      line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    }
-  }
+
   .alertstripe__tekst {
     max-width: 100% !important;
   }
@@ -83,6 +73,7 @@ export const BucLenkePanel = styled(HighContrastLenkepanelBase)`
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
+  background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   margin-bottom: 1rem;
   &.new {
     background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};

@@ -22,7 +22,7 @@ const ModalDiv = styled(ReactModal)`
   margin-bottom: 0;
   z-index: 1010;
   color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
 `
 const OverlayStyle = createGlobalStyle`
   modal__overlay {

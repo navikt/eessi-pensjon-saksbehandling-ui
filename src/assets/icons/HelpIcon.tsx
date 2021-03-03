@@ -3,7 +3,8 @@ import React from 'react'
 const HelpIcon: React.FC<any> = (props: any) => (
   <svg
     focusable='false'
-    height='20' width='20'
+    height={props.height || '20'}
+    width={props.width || '20'}
     viewBox='-2 -2 22 22'
     {...props}
   >

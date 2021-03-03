@@ -61,7 +61,7 @@ ui-fss.g28[id="c0"] {
               "id": "mockId",
               "selectProps": Object {
                 "theme": Object {
-                  "alternative-background-color": "#e9e7e7",
+                  "alternative-background-color": "#FFFFFF",
                   "black": "#000000",
                   "border-radius-base": "4px",
                   "border-radius-large": "6px",
@@ -84,15 +84,16 @@ ui-fss.g28[id="c0"] {
                   "inverted-font-color": "#FFFFFF",
                   "line-height-large": "1.3333333",
                   "line-height-small": "1.5",
-                  "main-active-color": "#c2eaf7",
-                  "main-background-color": "#FFFFFF",
+                  "main-active-color": "#66a4dc",
+                  "main-background-color": "#f1f1f1",
                   "main-border-color": "#78706a",
                   "main-border-radius": "4px",
-                  "main-disabled-color": "#b7b1a9",
+                  "main-border-width": "1px",
+                  "main-disabled-color": "#78706a",
                   "main-error-color": "#ba3a26",
                   "main-focus-color": "#19548a",
                   "main-font-color": "#3e3832",
-                  "main-hover-color": "#85d5f0",
+                  "main-hover-color": "#cce1f3",
                   "main-interactive-color": "#0067c5",
                   "main-success-color": "#06893a",
                   "main-warning-color": "#ff9100",
@@ -253,7 +254,7 @@ ui-fss.g28[id="c0"] {
       "id": "mockId",
       "selectProps": Object {
         "theme": Object {
-          "alternative-background-color": "#e9e7e7",
+          "alternative-background-color": "#FFFFFF",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -276,15 +277,16 @@ ui-fss.g28[id="c0"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#c2eaf7",
-          "main-background-color": "#FFFFFF",
+          "main-active-color": "#66a4dc",
+          "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
-          "main-disabled-color": "#b7b1a9",
+          "main-border-width": "1px",
+          "main-disabled-color": "#78706a",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#85d5f0",
+          "main-hover-color": "#cce1f3",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -421,11 +423,11 @@ ui-fss.g28[id="c0"] {
     onClick={[Function]}
     role="button"
   >
-    <Xe>
+    <W>
       <Component
         theme={
           Object {
-            "alternative-background-color": "#e9e7e7",
+            "alternative-background-color": "#FFFFFF",
             "black": "#000000",
             "border-radius-base": "4px",
             "border-radius-large": "6px",
@@ -448,15 +450,16 @@ ui-fss.g28[id="c0"] {
             "inverted-font-color": "#FFFFFF",
             "line-height-large": "1.3333333",
             "line-height-small": "1.5",
-            "main-active-color": "#c2eaf7",
-            "main-background-color": "#FFFFFF",
+            "main-active-color": "#66a4dc",
+            "main-background-color": "#f1f1f1",
             "main-border-color": "#78706a",
             "main-border-radius": "4px",
-            "main-disabled-color": "#b7b1a9",
+            "main-border-width": "1px",
+            "main-disabled-color": "#78706a",
             "main-error-color": "#ba3a26",
             "main-focus-color": "#19548a",
             "main-font-color": "#3e3832",
-            "main-hover-color": "#85d5f0",
+            "main-hover-color": "#cce1f3",
             "main-interactive-color": "#0067c5",
             "main-success-color": "#06893a",
             "main-warning-color": "#ff9100",
@@ -621,7 +624,7 @@ ui-fss.g28[id="c0"] {
           </Checkbox>
         </Styled(Checkbox)>
       </Component>
-    </Xe>
+    </W>
   </div>
 </MultipleOption>
 `;

@@ -24,7 +24,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
 `
 

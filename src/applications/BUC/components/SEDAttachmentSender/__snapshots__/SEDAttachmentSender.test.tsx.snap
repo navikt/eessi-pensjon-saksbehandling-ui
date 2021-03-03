@@ -366,7 +366,7 @@ ui-fss.g28[id="c0"] {
           mini={true}
           onClick={[Function]}
         >
-          <d
+          <c
             autoDisableVedSpinner={false}
             className="c4 c5"
             data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
@@ -388,7 +388,7 @@ ui-fss.g28[id="c0"] {
             >
               ui:cancel
             </button>
-          </d>
+          </c>
         </o>
       </Styled(o)>
     </div>

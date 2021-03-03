@@ -39,14 +39,22 @@ ui-fss.g9[id="c0"] {
   border-color: #0067c5;
 }
 
+.c15:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c15:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
 }
 
 .c15:disabled {
-  background-color: #b7b1a9;
+  background-color: #78706a;
   color: #3e3832;
   border: none;
+}
+
+.c15 svg {
+  color: #0067c5;
 }
 
 .c15 svg path {
@@ -73,13 +81,21 @@ ui-fss.g13[id="c14"] {
   color: #FFFFFF;
 }
 
+.c12:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c12:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
 }
 
 .c12:disabled {
   color: #FFFFFF;
-  background-color: #b7b1a9;
+  background-color: #78706a;
+}
+
+.c12 svg {
+  color: #0067c5;
 }
 
 .c12 svg path {
@@ -137,13 +153,13 @@ ui-fss.g32[id="c9"] {
   onBucCancelled={[MockFunction]}
   onBucCreated={[MockFunction]}
 >
-  <Xe
+  <W
     highContrast={false}
   >
     <Component
       theme={
         Object {
-          "alternative-background-color": "#e9e7e7",
+          "alternative-background-color": "#FFFFFF",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -166,15 +182,16 @@ ui-fss.g32[id="c9"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#c2eaf7",
-          "main-background-color": "#FFFFFF",
+          "main-active-color": "#66a4dc",
+          "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
-          "main-disabled-color": "#b7b1a9",
+          "main-border-width": "1px",
+          "main-disabled-color": "#78706a",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#85d5f0",
+          "main-hover-color": "#cce1f3",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -386,6 +403,7 @@ ui-fss.g32[id="c9"] {
                           "menu": [Function],
                           "menuList": [Function],
                           "option": [Function],
+                          "placeholder": [Function],
                           "singleValue": [Function],
                         }
                       }
@@ -449,6 +467,7 @@ ui-fss.g32[id="c9"] {
                             "menu": [Function],
                             "menuList": [Function],
                             "option": [Function],
+                            "placeholder": [Function],
                             "singleValue": [Function],
                           }
                         }
@@ -545,6 +564,7 @@ ui-fss.g32[id="c9"] {
                                 "menu": [Function],
                                 "menuList": [Function],
                                 "option": [Function],
+                                "placeholder": [Function],
                                 "singleValue": [Function],
                               },
                               "tabIndex": "0",
@@ -692,6 +712,7 @@ ui-fss.g32[id="c9"] {
                                       "menu": [Function],
                                       "menuList": [Function],
                                       "option": [Function],
+                                      "placeholder": [Function],
                                       "singleValue": [Function],
                                     },
                                     "tabIndex": "0",
@@ -846,6 +867,7 @@ ui-fss.g32[id="c9"] {
                                             "menu": [Function],
                                             "menuList": [Function],
                                             "option": [Function],
+                                            "placeholder": [Function],
                                             "singleValue": [Function],
                                           },
                                           "tabIndex": "0",
@@ -990,6 +1012,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -1131,6 +1154,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -1357,6 +1381,7 @@ ui-fss.g32[id="c9"] {
                                             "menu": [Function],
                                             "menuList": [Function],
                                             "option": [Function],
+                                            "placeholder": [Function],
                                             "singleValue": [Function],
                                           },
                                           "tabIndex": "0",
@@ -1492,6 +1517,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -1638,6 +1664,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -1865,6 +1892,7 @@ ui-fss.g32[id="c9"] {
                           "menu": [Function],
                           "menuList": [Function],
                           "option": [Function],
+                          "placeholder": [Function],
                           "singleValue": [Function],
                         }
                       }
@@ -1952,6 +1980,7 @@ ui-fss.g32[id="c9"] {
                             "menu": [Function],
                             "menuList": [Function],
                             "option": [Function],
+                            "placeholder": [Function],
                             "singleValue": [Function],
                           }
                         }
@@ -2091,6 +2120,7 @@ ui-fss.g32[id="c9"] {
                                 "menu": [Function],
                                 "menuList": [Function],
                                 "option": [Function],
+                                "placeholder": [Function],
                                 "singleValue": [Function],
                               },
                               "tabIndex": "0",
@@ -2283,6 +2313,7 @@ ui-fss.g32[id="c9"] {
                                       "menu": [Function],
                                       "menuList": [Function],
                                       "option": [Function],
+                                      "placeholder": [Function],
                                       "singleValue": [Function],
                                     },
                                     "tabIndex": "0",
@@ -2482,6 +2513,7 @@ ui-fss.g32[id="c9"] {
                                             "menu": [Function],
                                             "menuList": [Function],
                                             "option": [Function],
+                                            "placeholder": [Function],
                                             "singleValue": [Function],
                                           },
                                           "tabIndex": "0",
@@ -2667,6 +2699,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -2712,7 +2745,7 @@ ui-fss.g32[id="c9"] {
                                               css={
                                                 Object {
                                                   "boxSizing": "border-box",
-                                                  "color": "hsl(0, 0%, 50%)",
+                                                  "color": "#78706a",
                                                   "label": "placeholder",
                                                   "marginLeft": 2,
                                                   "marginRight": 2,
@@ -2723,7 +2756,7 @@ ui-fss.g32[id="c9"] {
                                               }
                                             >
                                               <div
-                                                className=" css-1wa3eu0-placeholder"
+                                                className=" css-1page0z-placeholder"
                                               >
                                                 buc:form-chooseBuc
                                               </div>
@@ -2825,6 +2858,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -3096,6 +3130,7 @@ ui-fss.g32[id="c9"] {
                                             "menu": [Function],
                                             "menuList": [Function],
                                             "option": [Function],
+                                            "placeholder": [Function],
                                             "singleValue": [Function],
                                           },
                                           "tabIndex": "0",
@@ -3276,6 +3311,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -3467,6 +3503,7 @@ ui-fss.g32[id="c9"] {
                                                   "menu": [Function],
                                                   "menuList": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -3643,13 +3680,13 @@ ui-fss.g32[id="c9"] {
                   placeholder="buc:form-tagPlaceholder"
                   values={Array []}
                 >
-                  <Xe
+                  <W
                     highContrast={false}
                   >
                     <Component
                       theme={
                         Object {
-                          "alternative-background-color": "#e9e7e7",
+                          "alternative-background-color": "#FFFFFF",
                           "black": "#000000",
                           "border-radius-base": "4px",
                           "border-radius-large": "6px",
@@ -3672,15 +3709,16 @@ ui-fss.g32[id="c9"] {
                           "inverted-font-color": "#FFFFFF",
                           "line-height-large": "1.3333333",
                           "line-height-small": "1.5",
-                          "main-active-color": "#c2eaf7",
-                          "main-background-color": "#FFFFFF",
+                          "main-active-color": "#66a4dc",
+                          "main-background-color": "#f1f1f1",
                           "main-border-color": "#78706a",
                           "main-border-radius": "4px",
-                          "main-disabled-color": "#b7b1a9",
+                          "main-border-width": "1px",
+                          "main-disabled-color": "#78706a",
                           "main-error-color": "#ba3a26",
                           "main-focus-color": "#19548a",
                           "main-font-color": "#3e3832",
-                          "main-hover-color": "#85d5f0",
+                          "main-hover-color": "#cce1f3",
                           "main-interactive-color": "#0067c5",
                           "main-success-color": "#06893a",
                           "main-warning-color": "#ff9100",
@@ -3909,7 +3947,7 @@ ui-fss.g32[id="c9"] {
                               Object {
                                 "highContrast": false,
                                 "theme": Object {
-                                  "alternative-background-color": "#e9e7e7",
+                                  "alternative-background-color": "#FFFFFF",
                                   "black": "#000000",
                                   "border-radius-base": "4px",
                                   "border-radius-large": "6px",
@@ -3932,15 +3970,16 @@ ui-fss.g32[id="c9"] {
                                   "inverted-font-color": "#FFFFFF",
                                   "line-height-large": "1.3333333",
                                   "line-height-small": "1.5",
-                                  "main-active-color": "#c2eaf7",
-                                  "main-background-color": "#FFFFFF",
+                                  "main-active-color": "#66a4dc",
+                                  "main-background-color": "#f1f1f1",
                                   "main-border-color": "#78706a",
                                   "main-border-radius": "4px",
-                                  "main-disabled-color": "#b7b1a9",
+                                  "main-border-width": "1px",
+                                  "main-disabled-color": "#78706a",
                                   "main-error-color": "#ba3a26",
                                   "main-focus-color": "#19548a",
                                   "main-font-color": "#3e3832",
-                                  "main-hover-color": "#85d5f0",
+                                  "main-hover-color": "#cce1f3",
                                   "main-interactive-color": "#0067c5",
                                   "main-success-color": "#06893a",
                                   "main-warning-color": "#ff9100",
@@ -4079,6 +4118,7 @@ ui-fss.g32[id="c9"] {
                                 "multiValue": [Function],
                                 "multiValueRemove": [Function],
                                 "option": [Function],
+                                "placeholder": [Function],
                                 "singleValue": [Function],
                               }
                             }
@@ -4174,7 +4214,7 @@ ui-fss.g32[id="c9"] {
                                 Object {
                                   "highContrast": false,
                                   "theme": Object {
-                                    "alternative-background-color": "#e9e7e7",
+                                    "alternative-background-color": "#FFFFFF",
                                     "black": "#000000",
                                     "border-radius-base": "4px",
                                     "border-radius-large": "6px",
@@ -4197,15 +4237,16 @@ ui-fss.g32[id="c9"] {
                                     "inverted-font-color": "#FFFFFF",
                                     "line-height-large": "1.3333333",
                                     "line-height-small": "1.5",
-                                    "main-active-color": "#c2eaf7",
-                                    "main-background-color": "#FFFFFF",
+                                    "main-active-color": "#66a4dc",
+                                    "main-background-color": "#f1f1f1",
                                     "main-border-color": "#78706a",
                                     "main-border-radius": "4px",
-                                    "main-disabled-color": "#b7b1a9",
+                                    "main-border-width": "1px",
+                                    "main-disabled-color": "#78706a",
                                     "main-error-color": "#ba3a26",
                                     "main-focus-color": "#19548a",
                                     "main-font-color": "#3e3832",
-                                    "main-hover-color": "#85d5f0",
+                                    "main-hover-color": "#cce1f3",
                                     "main-interactive-color": "#0067c5",
                                     "main-success-color": "#06893a",
                                     "main-warning-color": "#ff9100",
@@ -4344,6 +4385,7 @@ ui-fss.g32[id="c9"] {
                                   "multiValue": [Function],
                                   "multiValueRemove": [Function],
                                   "option": [Function],
+                                  "placeholder": [Function],
                                   "singleValue": [Function],
                                 }
                               }
@@ -4466,7 +4508,7 @@ ui-fss.g32[id="c9"] {
                                     "selectProps": Object {
                                       "highContrast": false,
                                       "theme": Object {
-                                        "alternative-background-color": "#e9e7e7",
+                                        "alternative-background-color": "#FFFFFF",
                                         "black": "#000000",
                                         "border-radius-base": "4px",
                                         "border-radius-large": "6px",
@@ -4489,15 +4531,16 @@ ui-fss.g32[id="c9"] {
                                         "inverted-font-color": "#FFFFFF",
                                         "line-height-large": "1.3333333",
                                         "line-height-small": "1.5",
-                                        "main-active-color": "#c2eaf7",
-                                        "main-background-color": "#FFFFFF",
+                                        "main-active-color": "#66a4dc",
+                                        "main-background-color": "#f1f1f1",
                                         "main-border-color": "#78706a",
                                         "main-border-radius": "4px",
-                                        "main-disabled-color": "#b7b1a9",
+                                        "main-border-width": "1px",
+                                        "main-disabled-color": "#78706a",
                                         "main-error-color": "#ba3a26",
                                         "main-focus-color": "#19548a",
                                         "main-font-color": "#3e3832",
-                                        "main-hover-color": "#85d5f0",
+                                        "main-hover-color": "#cce1f3",
                                         "main-interactive-color": "#0067c5",
                                         "main-success-color": "#06893a",
                                         "main-warning-color": "#ff9100",
@@ -4634,6 +4677,7 @@ ui-fss.g32[id="c9"] {
                                       "multiValue": [Function],
                                       "multiValueRemove": [Function],
                                       "option": [Function],
+                                      "placeholder": [Function],
                                       "singleValue": [Function],
                                     },
                                     "tabIndex": "0",
@@ -4678,7 +4722,7 @@ ui-fss.g32[id="c9"] {
                                   className="multipleSelect"
                                   css={
                                     Object {
-                                      "backgroundColor": "#FFFFFF",
+                                      "backgroundColor": "#f1f1f1",
                                       "borderColor": "1px solid #78706a",
                                       "borderRadius": "4px",
                                       "boxShadow": "none",
@@ -4692,7 +4736,7 @@ ui-fss.g32[id="c9"] {
                                   onKeyDown={[Function]}
                                 >
                                   <div
-                                    className="multipleSelect css-jufpr-container"
+                                    className="multipleSelect css-1blil62-container"
                                     onKeyDown={[Function]}
                                   >
                                     <Control
@@ -4811,7 +4855,7 @@ ui-fss.g32[id="c9"] {
                                           "selectProps": Object {
                                             "highContrast": false,
                                             "theme": Object {
-                                              "alternative-background-color": "#e9e7e7",
+                                              "alternative-background-color": "#FFFFFF",
                                               "black": "#000000",
                                               "border-radius-base": "4px",
                                               "border-radius-large": "6px",
@@ -4834,15 +4878,16 @@ ui-fss.g32[id="c9"] {
                                               "inverted-font-color": "#FFFFFF",
                                               "line-height-large": "1.3333333",
                                               "line-height-small": "1.5",
-                                              "main-active-color": "#c2eaf7",
-                                              "main-background-color": "#FFFFFF",
+                                              "main-active-color": "#66a4dc",
+                                              "main-background-color": "#f1f1f1",
                                               "main-border-color": "#78706a",
                                               "main-border-radius": "4px",
-                                              "main-disabled-color": "#b7b1a9",
+                                              "main-border-width": "1px",
+                                              "main-disabled-color": "#78706a",
                                               "main-error-color": "#ba3a26",
                                               "main-focus-color": "#19548a",
                                               "main-font-color": "#3e3832",
-                                              "main-hover-color": "#85d5f0",
+                                              "main-hover-color": "#cce1f3",
                                               "main-interactive-color": "#0067c5",
                                               "main-success-color": "#06893a",
                                               "main-warning-color": "#ff9100",
@@ -4979,6 +5024,7 @@ ui-fss.g32[id="c9"] {
                                             "multiValue": [Function],
                                             "multiValueRemove": [Function],
                                             "option": [Function],
+                                            "placeholder": [Function],
                                             "singleValue": [Function],
                                           },
                                           "tabIndex": "0",
@@ -5161,7 +5207,7 @@ ui-fss.g32[id="c9"] {
                                                 "selectProps": Object {
                                                   "highContrast": false,
                                                   "theme": Object {
-                                                    "alternative-background-color": "#e9e7e7",
+                                                    "alternative-background-color": "#FFFFFF",
                                                     "black": "#000000",
                                                     "border-radius-base": "4px",
                                                     "border-radius-large": "6px",
@@ -5184,15 +5230,16 @@ ui-fss.g32[id="c9"] {
                                                     "inverted-font-color": "#FFFFFF",
                                                     "line-height-large": "1.3333333",
                                                     "line-height-small": "1.5",
-                                                    "main-active-color": "#c2eaf7",
-                                                    "main-background-color": "#FFFFFF",
+                                                    "main-active-color": "#66a4dc",
+                                                    "main-background-color": "#f1f1f1",
                                                     "main-border-color": "#78706a",
                                                     "main-border-radius": "4px",
-                                                    "main-disabled-color": "#b7b1a9",
+                                                    "main-border-width": "1px",
+                                                    "main-disabled-color": "#78706a",
                                                     "main-error-color": "#ba3a26",
                                                     "main-focus-color": "#19548a",
                                                     "main-font-color": "#3e3832",
-                                                    "main-hover-color": "#85d5f0",
+                                                    "main-hover-color": "#cce1f3",
                                                     "main-interactive-color": "#0067c5",
                                                     "main-success-color": "#06893a",
                                                     "main-warning-color": "#ff9100",
@@ -5329,6 +5376,7 @@ ui-fss.g32[id="c9"] {
                                                   "multiValue": [Function],
                                                   "multiValueRemove": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -5476,7 +5524,7 @@ ui-fss.g32[id="c9"] {
                                                   "selectProps": Object {
                                                     "highContrast": false,
                                                     "theme": Object {
-                                                      "alternative-background-color": "#e9e7e7",
+                                                      "alternative-background-color": "#FFFFFF",
                                                       "black": "#000000",
                                                       "border-radius-base": "4px",
                                                       "border-radius-large": "6px",
@@ -5499,15 +5547,16 @@ ui-fss.g32[id="c9"] {
                                                       "inverted-font-color": "#FFFFFF",
                                                       "line-height-large": "1.3333333",
                                                       "line-height-small": "1.5",
-                                                      "main-active-color": "#c2eaf7",
-                                                      "main-background-color": "#FFFFFF",
+                                                      "main-active-color": "#66a4dc",
+                                                      "main-background-color": "#f1f1f1",
                                                       "main-border-color": "#78706a",
                                                       "main-border-radius": "4px",
-                                                      "main-disabled-color": "#b7b1a9",
+                                                      "main-border-width": "1px",
+                                                      "main-disabled-color": "#78706a",
                                                       "main-error-color": "#ba3a26",
                                                       "main-focus-color": "#19548a",
                                                       "main-font-color": "#3e3832",
-                                                      "main-hover-color": "#85d5f0",
+                                                      "main-hover-color": "#cce1f3",
                                                       "main-interactive-color": "#0067c5",
                                                       "main-success-color": "#06893a",
                                                       "main-warning-color": "#ff9100",
@@ -5644,6 +5693,7 @@ ui-fss.g32[id="c9"] {
                                                     "multiValue": [Function],
                                                     "multiValueRemove": [Function],
                                                     "option": [Function],
+                                                    "placeholder": [Function],
                                                     "singleValue": [Function],
                                                   },
                                                   "tabIndex": "0",
@@ -5789,7 +5839,7 @@ ui-fss.g32[id="c9"] {
                                                     "selectProps": Object {
                                                       "highContrast": false,
                                                       "theme": Object {
-                                                        "alternative-background-color": "#e9e7e7",
+                                                        "alternative-background-color": "#FFFFFF",
                                                         "black": "#000000",
                                                         "border-radius-base": "4px",
                                                         "border-radius-large": "6px",
@@ -5812,15 +5862,16 @@ ui-fss.g32[id="c9"] {
                                                         "inverted-font-color": "#FFFFFF",
                                                         "line-height-large": "1.3333333",
                                                         "line-height-small": "1.5",
-                                                        "main-active-color": "#c2eaf7",
-                                                        "main-background-color": "#FFFFFF",
+                                                        "main-active-color": "#66a4dc",
+                                                        "main-background-color": "#f1f1f1",
                                                         "main-border-color": "#78706a",
                                                         "main-border-radius": "4px",
-                                                        "main-disabled-color": "#b7b1a9",
+                                                        "main-border-width": "1px",
+                                                        "main-disabled-color": "#78706a",
                                                         "main-error-color": "#ba3a26",
                                                         "main-focus-color": "#19548a",
                                                         "main-font-color": "#3e3832",
-                                                        "main-hover-color": "#85d5f0",
+                                                        "main-hover-color": "#cce1f3",
                                                         "main-interactive-color": "#0067c5",
                                                         "main-success-color": "#06893a",
                                                         "main-warning-color": "#ff9100",
@@ -5957,6 +6008,7 @@ ui-fss.g32[id="c9"] {
                                                       "multiValue": [Function],
                                                       "multiValueRemove": [Function],
                                                       "option": [Function],
+                                                      "placeholder": [Function],
                                                       "singleValue": [Function],
                                                     },
                                                     "tabIndex": "0",
@@ -6127,7 +6179,7 @@ ui-fss.g32[id="c9"] {
                                                           "selectProps": Object {
                                                             "highContrast": false,
                                                             "theme": Object {
-                                                              "alternative-background-color": "#e9e7e7",
+                                                              "alternative-background-color": "#FFFFFF",
                                                               "black": "#000000",
                                                               "border-radius-base": "4px",
                                                               "border-radius-large": "6px",
@@ -6150,15 +6202,16 @@ ui-fss.g32[id="c9"] {
                                                               "inverted-font-color": "#FFFFFF",
                                                               "line-height-large": "1.3333333",
                                                               "line-height-small": "1.5",
-                                                              "main-active-color": "#c2eaf7",
-                                                              "main-background-color": "#FFFFFF",
+                                                              "main-active-color": "#66a4dc",
+                                                              "main-background-color": "#f1f1f1",
                                                               "main-border-color": "#78706a",
                                                               "main-border-radius": "4px",
-                                                              "main-disabled-color": "#b7b1a9",
+                                                              "main-border-width": "1px",
+                                                              "main-disabled-color": "#78706a",
                                                               "main-error-color": "#ba3a26",
                                                               "main-focus-color": "#19548a",
                                                               "main-font-color": "#3e3832",
-                                                              "main-hover-color": "#85d5f0",
+                                                              "main-hover-color": "#cce1f3",
                                                               "main-interactive-color": "#0067c5",
                                                               "main-success-color": "#06893a",
                                                               "main-warning-color": "#ff9100",
@@ -6295,6 +6348,7 @@ ui-fss.g32[id="c9"] {
                                                             "multiValue": [Function],
                                                             "multiValueRemove": [Function],
                                                             "option": [Function],
+                                                            "placeholder": [Function],
                                                             "singleValue": [Function],
                                                           },
                                                           "tabIndex": "0",
@@ -6445,7 +6499,7 @@ ui-fss.g32[id="c9"] {
                                                             "selectProps": Object {
                                                               "highContrast": false,
                                                               "theme": Object {
-                                                                "alternative-background-color": "#e9e7e7",
+                                                                "alternative-background-color": "#FFFFFF",
                                                                 "black": "#000000",
                                                                 "border-radius-base": "4px",
                                                                 "border-radius-large": "6px",
@@ -6468,15 +6522,16 @@ ui-fss.g32[id="c9"] {
                                                                 "inverted-font-color": "#FFFFFF",
                                                                 "line-height-large": "1.3333333",
                                                                 "line-height-small": "1.5",
-                                                                "main-active-color": "#c2eaf7",
-                                                                "main-background-color": "#FFFFFF",
+                                                                "main-active-color": "#66a4dc",
+                                                                "main-background-color": "#f1f1f1",
                                                                 "main-border-color": "#78706a",
                                                                 "main-border-radius": "4px",
-                                                                "main-disabled-color": "#b7b1a9",
+                                                                "main-border-width": "1px",
+                                                                "main-disabled-color": "#78706a",
                                                                 "main-error-color": "#ba3a26",
                                                                 "main-focus-color": "#19548a",
                                                                 "main-font-color": "#3e3832",
-                                                                "main-hover-color": "#85d5f0",
+                                                                "main-hover-color": "#cce1f3",
                                                                 "main-interactive-color": "#0067c5",
                                                                 "main-success-color": "#06893a",
                                                                 "main-warning-color": "#ff9100",
@@ -6613,6 +6668,7 @@ ui-fss.g32[id="c9"] {
                                                               "multiValue": [Function],
                                                               "multiValueRemove": [Function],
                                                               "option": [Function],
+                                                              "placeholder": [Function],
                                                               "singleValue": [Function],
                                                             },
                                                             "tabIndex": "0",
@@ -6782,7 +6838,7 @@ ui-fss.g32[id="c9"] {
                                                                 "selectProps": Object {
                                                                   "highContrast": false,
                                                                   "theme": Object {
-                                                                    "alternative-background-color": "#e9e7e7",
+                                                                    "alternative-background-color": "#FFFFFF",
                                                                     "black": "#000000",
                                                                     "border-radius-base": "4px",
                                                                     "border-radius-large": "6px",
@@ -6805,15 +6861,16 @@ ui-fss.g32[id="c9"] {
                                                                     "inverted-font-color": "#FFFFFF",
                                                                     "line-height-large": "1.3333333",
                                                                     "line-height-small": "1.5",
-                                                                    "main-active-color": "#c2eaf7",
-                                                                    "main-background-color": "#FFFFFF",
+                                                                    "main-active-color": "#66a4dc",
+                                                                    "main-background-color": "#f1f1f1",
                                                                     "main-border-color": "#78706a",
                                                                     "main-border-radius": "4px",
-                                                                    "main-disabled-color": "#b7b1a9",
+                                                                    "main-border-width": "1px",
+                                                                    "main-disabled-color": "#78706a",
                                                                     "main-error-color": "#ba3a26",
                                                                     "main-focus-color": "#19548a",
                                                                     "main-font-color": "#3e3832",
-                                                                    "main-hover-color": "#85d5f0",
+                                                                    "main-hover-color": "#cce1f3",
                                                                     "main-interactive-color": "#0067c5",
                                                                     "main-success-color": "#06893a",
                                                                     "main-warning-color": "#ff9100",
@@ -6950,6 +7007,7 @@ ui-fss.g32[id="c9"] {
                                                                   "multiValue": [Function],
                                                                   "multiValueRemove": [Function],
                                                                   "option": [Function],
+                                                                  "placeholder": [Function],
                                                                   "singleValue": [Function],
                                                                 },
                                                                 "tabIndex": "0",
@@ -6995,7 +7053,7 @@ ui-fss.g32[id="c9"] {
                                                               css={
                                                                 Object {
                                                                   "boxSizing": "border-box",
-                                                                  "color": "hsl(0, 0%, 50%)",
+                                                                  "color": "#78706a",
                                                                   "label": "placeholder",
                                                                   "marginLeft": 2,
                                                                   "marginRight": 2,
@@ -7012,7 +7070,7 @@ ui-fss.g32[id="c9"] {
                                                               }
                                                             >
                                                               <div
-                                                                className="multipleSelect__placeholder css-1wa3eu0-placeholder"
+                                                                className="multipleSelect__placeholder css-1page0z-placeholder"
                                                                 style={
                                                                   Object {
                                                                     "opacity": 1,
@@ -7130,7 +7188,7 @@ ui-fss.g32[id="c9"] {
                                                           "selectProps": Object {
                                                             "highContrast": false,
                                                             "theme": Object {
-                                                              "alternative-background-color": "#e9e7e7",
+                                                              "alternative-background-color": "#FFFFFF",
                                                               "black": "#000000",
                                                               "border-radius-base": "4px",
                                                               "border-radius-large": "6px",
@@ -7153,15 +7211,16 @@ ui-fss.g32[id="c9"] {
                                                               "inverted-font-color": "#FFFFFF",
                                                               "line-height-large": "1.3333333",
                                                               "line-height-small": "1.5",
-                                                              "main-active-color": "#c2eaf7",
-                                                              "main-background-color": "#FFFFFF",
+                                                              "main-active-color": "#66a4dc",
+                                                              "main-background-color": "#f1f1f1",
                                                               "main-border-color": "#78706a",
                                                               "main-border-radius": "4px",
-                                                              "main-disabled-color": "#b7b1a9",
+                                                              "main-border-width": "1px",
+                                                              "main-disabled-color": "#78706a",
                                                               "main-error-color": "#ba3a26",
                                                               "main-focus-color": "#19548a",
                                                               "main-font-color": "#3e3832",
-                                                              "main-hover-color": "#85d5f0",
+                                                              "main-hover-color": "#cce1f3",
                                                               "main-interactive-color": "#0067c5",
                                                               "main-success-color": "#06893a",
                                                               "main-warning-color": "#ff9100",
@@ -7298,6 +7357,7 @@ ui-fss.g32[id="c9"] {
                                                             "multiValue": [Function],
                                                             "multiValueRemove": [Function],
                                                             "option": [Function],
+                                                            "placeholder": [Function],
                                                             "singleValue": [Function],
                                                           },
                                                           "tabIndex": "0",
@@ -7439,7 +7499,7 @@ ui-fss.g32[id="c9"] {
                                                             "selectProps": Object {
                                                               "highContrast": false,
                                                               "theme": Object {
-                                                                "alternative-background-color": "#e9e7e7",
+                                                                "alternative-background-color": "#FFFFFF",
                                                                 "black": "#000000",
                                                                 "border-radius-base": "4px",
                                                                 "border-radius-large": "6px",
@@ -7462,15 +7522,16 @@ ui-fss.g32[id="c9"] {
                                                                 "inverted-font-color": "#FFFFFF",
                                                                 "line-height-large": "1.3333333",
                                                                 "line-height-small": "1.5",
-                                                                "main-active-color": "#c2eaf7",
-                                                                "main-background-color": "#FFFFFF",
+                                                                "main-active-color": "#66a4dc",
+                                                                "main-background-color": "#f1f1f1",
                                                                 "main-border-color": "#78706a",
                                                                 "main-border-radius": "4px",
-                                                                "main-disabled-color": "#b7b1a9",
+                                                                "main-border-width": "1px",
+                                                                "main-disabled-color": "#78706a",
                                                                 "main-error-color": "#ba3a26",
                                                                 "main-focus-color": "#19548a",
                                                                 "main-font-color": "#3e3832",
-                                                                "main-hover-color": "#85d5f0",
+                                                                "main-hover-color": "#cce1f3",
                                                                 "main-interactive-color": "#0067c5",
                                                                 "main-success-color": "#06893a",
                                                                 "main-warning-color": "#ff9100",
@@ -7607,6 +7668,7 @@ ui-fss.g32[id="c9"] {
                                                               "multiValue": [Function],
                                                               "multiValueRemove": [Function],
                                                               "option": [Function],
+                                                              "placeholder": [Function],
                                                               "singleValue": [Function],
                                                             },
                                                             "tabIndex": "0",
@@ -7866,7 +7928,7 @@ ui-fss.g32[id="c9"] {
                                                 "selectProps": Object {
                                                   "highContrast": false,
                                                   "theme": Object {
-                                                    "alternative-background-color": "#e9e7e7",
+                                                    "alternative-background-color": "#FFFFFF",
                                                     "black": "#000000",
                                                     "border-radius-base": "4px",
                                                     "border-radius-large": "6px",
@@ -7889,15 +7951,16 @@ ui-fss.g32[id="c9"] {
                                                     "inverted-font-color": "#FFFFFF",
                                                     "line-height-large": "1.3333333",
                                                     "line-height-small": "1.5",
-                                                    "main-active-color": "#c2eaf7",
-                                                    "main-background-color": "#FFFFFF",
+                                                    "main-active-color": "#66a4dc",
+                                                    "main-background-color": "#f1f1f1",
                                                     "main-border-color": "#78706a",
                                                     "main-border-radius": "4px",
-                                                    "main-disabled-color": "#b7b1a9",
+                                                    "main-border-width": "1px",
+                                                    "main-disabled-color": "#78706a",
                                                     "main-error-color": "#ba3a26",
                                                     "main-focus-color": "#19548a",
                                                     "main-font-color": "#3e3832",
-                                                    "main-hover-color": "#85d5f0",
+                                                    "main-hover-color": "#cce1f3",
                                                     "main-interactive-color": "#0067c5",
                                                     "main-success-color": "#06893a",
                                                     "main-warning-color": "#ff9100",
@@ -8034,6 +8097,7 @@ ui-fss.g32[id="c9"] {
                                                   "multiValue": [Function],
                                                   "multiValueRemove": [Function],
                                                   "option": [Function],
+                                                  "placeholder": [Function],
                                                   "singleValue": [Function],
                                                 },
                                                 "tabIndex": "0",
@@ -8197,7 +8261,7 @@ ui-fss.g32[id="c9"] {
                                                       "selectProps": Object {
                                                         "highContrast": false,
                                                         "theme": Object {
-                                                          "alternative-background-color": "#e9e7e7",
+                                                          "alternative-background-color": "#FFFFFF",
                                                           "black": "#000000",
                                                           "border-radius-base": "4px",
                                                           "border-radius-large": "6px",
@@ -8220,15 +8284,16 @@ ui-fss.g32[id="c9"] {
                                                           "inverted-font-color": "#FFFFFF",
                                                           "line-height-large": "1.3333333",
                                                           "line-height-small": "1.5",
-                                                          "main-active-color": "#c2eaf7",
-                                                          "main-background-color": "#FFFFFF",
+                                                          "main-active-color": "#66a4dc",
+                                                          "main-background-color": "#f1f1f1",
                                                           "main-border-color": "#78706a",
                                                           "main-border-radius": "4px",
-                                                          "main-disabled-color": "#b7b1a9",
+                                                          "main-border-width": "1px",
+                                                          "main-disabled-color": "#78706a",
                                                           "main-error-color": "#ba3a26",
                                                           "main-focus-color": "#19548a",
                                                           "main-font-color": "#3e3832",
-                                                          "main-hover-color": "#85d5f0",
+                                                          "main-hover-color": "#cce1f3",
                                                           "main-interactive-color": "#0067c5",
                                                           "main-success-color": "#06893a",
                                                           "main-warning-color": "#ff9100",
@@ -8365,6 +8430,7 @@ ui-fss.g32[id="c9"] {
                                                         "multiValue": [Function],
                                                         "multiValueRemove": [Function],
                                                         "option": [Function],
+                                                        "placeholder": [Function],
                                                         "singleValue": [Function],
                                                       },
                                                       "tabIndex": "0",
@@ -8539,7 +8605,7 @@ ui-fss.g32[id="c9"] {
                                                       "selectProps": Object {
                                                         "highContrast": false,
                                                         "theme": Object {
-                                                          "alternative-background-color": "#e9e7e7",
+                                                          "alternative-background-color": "#FFFFFF",
                                                           "black": "#000000",
                                                           "border-radius-base": "4px",
                                                           "border-radius-large": "6px",
@@ -8562,15 +8628,16 @@ ui-fss.g32[id="c9"] {
                                                           "inverted-font-color": "#FFFFFF",
                                                           "line-height-large": "1.3333333",
                                                           "line-height-small": "1.5",
-                                                          "main-active-color": "#c2eaf7",
-                                                          "main-background-color": "#FFFFFF",
+                                                          "main-active-color": "#66a4dc",
+                                                          "main-background-color": "#f1f1f1",
                                                           "main-border-color": "#78706a",
                                                           "main-border-radius": "4px",
-                                                          "main-disabled-color": "#b7b1a9",
+                                                          "main-border-width": "1px",
+                                                          "main-disabled-color": "#78706a",
                                                           "main-error-color": "#ba3a26",
                                                           "main-focus-color": "#19548a",
                                                           "main-font-color": "#3e3832",
-                                                          "main-hover-color": "#85d5f0",
+                                                          "main-hover-color": "#cce1f3",
                                                           "main-interactive-color": "#0067c5",
                                                           "main-success-color": "#06893a",
                                                           "main-warning-color": "#ff9100",
@@ -8707,6 +8774,7 @@ ui-fss.g32[id="c9"] {
                                                         "multiValue": [Function],
                                                         "multiValueRemove": [Function],
                                                         "option": [Function],
+                                                        "placeholder": [Function],
                                                         "singleValue": [Function],
                                                       },
                                                       "tabIndex": "0",
@@ -8825,7 +8893,7 @@ ui-fss.g32[id="c9"] {
                         </div>
                       </styled.div>
                     </Component>
-                  </Xe>
+                  </W>
                 </MultipleSelect>
               </div>
             </styled.div>
@@ -8857,7 +8925,7 @@ ui-fss.g32[id="c9"] {
               onClick={[Function]}
               spinner={false}
             >
-              <d
+              <c
                 autoDisableVedSpinner={false}
                 className="c11 c12"
                 data-amplitude="buc.new.create"
@@ -8881,7 +8949,7 @@ ui-fss.g32[id="c9"] {
                 >
                   buc:form-createCaseinRINA
                 </button>
-              </d>
+              </c>
             </o>
           </Styled(o)>
           <styled.div>
@@ -8900,7 +8968,7 @@ ui-fss.g32[id="c9"] {
               data-test-id="a-buc-c-bucstart__cancel-button-id"
               onClick={[Function]}
             >
-              <d
+              <c
                 autoDisableVedSpinner={false}
                 className="c14 c15"
                 data-amplitude="buc.new.cancel"
@@ -8924,7 +8992,7 @@ ui-fss.g32[id="c9"] {
                 >
                   ui:cancel
                 </button>
-              </d>
+              </c>
             </o>
           </Styled(o)>
         </div>
@@ -8935,6 +9003,6 @@ ui-fss.g32[id="c9"] {
         </styled.div>
       </div>
     </Component>
-  </Xe>
+  </W>
 </BUCStart>
 `;

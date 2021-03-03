@@ -19,6 +19,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
           "menu": [Function],
           "menuList": [Function],
           "option": [Function],
+          "placeholder": [Function],
           "singleValue": [Function],
         }
       }
@@ -71,6 +72,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
             "menu": [Function],
             "menuList": [Function],
             "option": [Function],
+            "placeholder": [Function],
             "singleValue": [Function],
           }
         }
@@ -147,6 +149,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                 "menu": [Function],
                 "menuList": [Function],
                 "option": [Function],
+                "placeholder": [Function],
                 "singleValue": [Function],
               },
               "tabIndex": "0",
@@ -274,6 +277,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                       "menu": [Function],
                       "menuList": [Function],
                       "option": [Function],
+                      "placeholder": [Function],
                       "singleValue": [Function],
                     },
                     "tabIndex": "0",
@@ -410,6 +414,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                             "menu": [Function],
                             "menuList": [Function],
                             "option": [Function],
+                            "placeholder": [Function],
                             "singleValue": [Function],
                           },
                           "tabIndex": "0",
@@ -532,6 +537,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                                   "menu": [Function],
                                   "menuList": [Function],
                                   "option": [Function],
+                                  "placeholder": [Function],
                                   "singleValue": [Function],
                                 },
                                 "tabIndex": "0",
@@ -577,7 +583,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                               css={
                                 Object {
                                   "boxSizing": "border-box",
-                                  "color": "hsl(0, 0%, 50%)",
+                                  "color": "#78706a",
                                   "label": "placeholder",
                                   "marginLeft": 2,
                                   "marginRight": 2,
@@ -588,7 +594,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                               }
                             >
                               <div
-                                className=" css-1wa3eu0-placeholder"
+                                className=" css-1page0z-placeholder"
                               >
                                 Select...
                               </div>
@@ -658,6 +664,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                                   "menu": [Function],
                                   "menuList": [Function],
                                   "option": [Function],
+                                  "placeholder": [Function],
                                   "singleValue": [Function],
                                 },
                                 "tabIndex": "0",
@@ -866,6 +873,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                             "menu": [Function],
                             "menuList": [Function],
                             "option": [Function],
+                            "placeholder": [Function],
                             "singleValue": [Function],
                           },
                           "tabIndex": "0",
@@ -983,6 +991,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                                   "menu": [Function],
                                   "menuList": [Function],
                                   "option": [Function],
+                                  "placeholder": [Function],
                                   "singleValue": [Function],
                                 },
                                 "tabIndex": "0",
@@ -1111,6 +1120,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                                   "menu": [Function],
                                   "menuList": [Function],
                                   "option": [Function],
+                                  "placeholder": [Function],
                                   "singleValue": [Function],
                                 },
                                 "tabIndex": "0",

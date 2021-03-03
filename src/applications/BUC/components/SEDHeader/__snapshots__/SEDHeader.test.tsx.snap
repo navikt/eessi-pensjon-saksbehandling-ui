@@ -56,14 +56,22 @@ ui-fss.g3[id="c22"] {
   border-color: #0067c5;
 }
 
+.c27:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c27:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
 }
 
 .c27:disabled {
-  background-color: #b7b1a9;
+  background-color: #78706a;
   color: #3e3832;
   border: none;
+}
+
+.c27 svg {
+  color: #0067c5;
 }
 
 .c27 svg path {
@@ -1426,13 +1434,13 @@ ui-fss.g39[id="c14"] {
     }
   }
 >
-  <Xe
+  <W
     highContrast={false}
   >
     <Component
       theme={
         Object {
-          "alternative-background-color": "#e9e7e7",
+          "alternative-background-color": "#FFFFFF",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -1455,15 +1463,16 @@ ui-fss.g39[id="c14"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#c2eaf7",
-          "main-background-color": "#FFFFFF",
+          "main-active-color": "#66a4dc",
+          "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
-          "main-disabled-color": "#b7b1a9",
+          "main-border-width": "1px",
+          "main-disabled-color": "#78706a",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#85d5f0",
+          "main-hover-color": "#cce1f3",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -1649,13 +1658,13 @@ ui-fss.g39[id="c14"] {
                               highContrast={false}
                               status="received"
                             >
-                              <Xe
+                              <W
                                 highContrast={false}
                               >
                                 <Component
                                   theme={
                                     Object {
-                                      "alternative-background-color": "#e9e7e7",
+                                      "alternative-background-color": "#FFFFFF",
                                       "black": "#000000",
                                       "border-radius-base": "4px",
                                       "border-radius-large": "6px",
@@ -1678,15 +1687,16 @@ ui-fss.g39[id="c14"] {
                                       "inverted-font-color": "#FFFFFF",
                                       "line-height-large": "1.3333333",
                                       "line-height-small": "1.5",
-                                      "main-active-color": "#c2eaf7",
-                                      "main-background-color": "#FFFFFF",
+                                      "main-active-color": "#66a4dc",
+                                      "main-background-color": "#f1f1f1",
                                       "main-border-color": "#78706a",
                                       "main-border-radius": "4px",
-                                      "main-disabled-color": "#b7b1a9",
+                                      "main-border-width": "1px",
+                                      "main-disabled-color": "#78706a",
                                       "main-error-color": "#ba3a26",
                                       "main-focus-color": "#19548a",
                                       "main-font-color": "#3e3832",
-                                      "main-hover-color": "#85d5f0",
+                                      "main-hover-color": "#cce1f3",
                                       "main-interactive-color": "#0067c5",
                                       "main-success-color": "#06893a",
                                       "main-warning-color": "#ff9100",
@@ -1840,7 +1850,7 @@ ui-fss.g39[id="c14"] {
                                     </EtikettBase>
                                   </Styled(EtikettBase)>
                                 </Component>
-                              </Xe>
+                              </W>
                             </SEDStatus>
                           </div>
                         </Component>
@@ -3010,7 +3020,7 @@ ui-fss.g39[id="c14"] {
                         mini={true}
                         onClick={[Function]}
                       >
-                        <d
+                        <c
                           autoDisableVedSpinner={false}
                           className="c26 c27"
                           data-amplitude="buc.edit.besvarSed"
@@ -3034,7 +3044,7 @@ ui-fss.g39[id="c14"] {
                           >
                             buc:form-answerSED
                           </button>
-                        </d>
+                        </c>
                       </o>
                     </Styled(o)>
                   </div>
@@ -3045,6 +3055,6 @@ ui-fss.g39[id="c14"] {
         </s>
       </Styled(Styled(s))>
     </Component>
-  </Xe>
+  </W>
 </SEDHeader>
 `;

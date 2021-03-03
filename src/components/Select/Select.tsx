@@ -28,7 +28,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             borderStyle: 'solid',
             borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
             color: _theme[themeKeys.MAIN_FONT_COLOR],
-            backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
+            backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
           }),
           singleValue: (styles: any) => ({
             ...styles,
@@ -47,7 +47,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
             borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
             borderStyle: 'solid',
-            backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
+            backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
           }),
           option: (styles: any, { isDisabled, isFocused, isSelected }) => ({
             ...styles,
@@ -62,8 +62,14 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
               ? _theme[themeKeys.MAIN_FOCUS_COLOR]
               : isSelected
                 ? _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
-                : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
-          })
+                : _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
+          }),
+          placeholder: (styles: any) => {
+            return {
+              ...styles,
+              color: _theme[themeKeys.GRAYINACTIVE]
+            }
+          }
         }}
         {...props}
       />

@@ -33,7 +33,7 @@ export const SEDPanelContainer = styled(HighContrastPanel)`
 export const SEDPanelDiv = styled.div`
   padding: 1rem;
   border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
-  background: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
 `
 export const SEDPanelExpandingPanel = styled(ExpandingPanel)`
   border: none;

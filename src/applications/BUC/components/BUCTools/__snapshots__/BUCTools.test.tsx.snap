@@ -12,8 +12,16 @@ exports[`applications/BUC/components/BUCTools/BUCTools Render: match snapshot 1`
   color: #FFFFFF;
 }
 
+.c15:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c15:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
+}
+
+.c15 svg {
+  color: #0067c5;
 }
 
 .c15 svg path {
@@ -61,8 +69,13 @@ ui-fss.g20[id="c4"] {
   margin-left: 0.5rem;
 }
 
+.c18 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
 ui-fss.g23[id="c16"] {
-  content: "c17,";
+  content: "c17,c18,";
 }
 
 .c11 {
@@ -82,7 +95,7 @@ ui-fss.g27[id="c10"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g128[id="c1"] {
+ui-fss.g136[id="c1"] {
   content: "c3,";
 }
 
@@ -93,7 +106,7 @@ ui-fss.g128[id="c1"] {
   display: flex;
 }
 
-ui-fss.g130[id="c12"] {
+ui-fss.g138[id="c12"] {
   content: "c13,";
 }
 
@@ -101,7 +114,7 @@ ui-fss.g130[id="c12"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g131[id="c8"] {
+ui-fss.g139[id="c8"] {
   content: "c9,";
 }
 
@@ -110,7 +123,7 @@ ui-fss.g131[id="c8"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g132[id="c6"] {
+ui-fss.g140[id="c6"] {
   content: "c7,";
 }
 
@@ -1502,13 +1515,13 @@ ui-fss.g132[id="c6"] {
   initialTab={0}
   onTagChange={[MockFunction]}
 >
-  <Xe
+  <W
     highContrast={false}
   >
     <Component
       theme={
         Object {
-          "alternative-background-color": "#e9e7e7",
+          "alternative-background-color": "#FFFFFF",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -1531,15 +1544,16 @@ ui-fss.g132[id="c6"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#c2eaf7",
-          "main-background-color": "#FFFFFF",
+          "main-active-color": "#66a4dc",
+          "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
-          "main-disabled-color": "#b7b1a9",
+          "main-border-width": "1px",
+          "main-disabled-color": "#78706a",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#85d5f0",
+          "main-hover-color": "#cce1f3",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -1877,7 +1891,7 @@ ui-fss.g132[id="c6"] {
                             onClick={[Function]}
                             spinner={false}
                           >
-                            <d
+                            <c
                               autoDisableVedSpinner={false}
                               className="c14 c15"
                               data-amplitude="buc.edit.tools.P5000.view"
@@ -1901,7 +1915,7 @@ ui-fss.g132[id="c6"] {
                               >
                                 buc:form-seeP5000s
                               </button>
-                            </d>
+                            </c>
                           </o>
                         </Styled(o)>
                         <styled.div
@@ -1927,7 +1941,7 @@ ui-fss.g132[id="c6"] {
                             onClick={[Function]}
                             spinner={false}
                           >
-                            <d
+                            <c
                               autoDisableVedSpinner={false}
                               className="c14 c15"
                               data-amplitude="buc.edit.tools.P5000.summary.view"
@@ -1951,7 +1965,60 @@ ui-fss.g132[id="c6"] {
                               >
                                 buc:form-seeP5000summary
                               </button>
-                            </d>
+                            </c>
+                          </o>
+                        </Styled(o)>
+                      </div>
+                    </styled.div>
+                    <styled.div>
+                      <div
+                        className="c16 c18"
+                      />
+                    </styled.div>
+                    <styled.div>
+                      <div
+                        className="c12 c13"
+                      >
+                        <Styled(o)
+                          data-amplitude="buc.edit.tools.P5000.other.view"
+                          data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                          disabled={false}
+                          onClick={[Function]}
+                          spinner={false}
+                        >
+                          <o
+                            className="c14 c15"
+                            data-amplitude="buc.edit.tools.P5000.other.view"
+                            data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                            disabled={false}
+                            onClick={[Function]}
+                            spinner={false}
+                          >
+                            <c
+                              autoDisableVedSpinner={false}
+                              className="c14 c15"
+                              data-amplitude="buc.edit.tools.P5000.other.view"
+                              data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                              disabled={false}
+                              htmlType="submit"
+                              inaktivKlasseVedDisabled={false}
+                              kompakt={false}
+                              mini={false}
+                              onClick={[Function]}
+                              spinner={false}
+                              type="standard"
+                            >
+                              <button
+                                className="knapp c14 c15 knapp--standard"
+                                data-amplitude="buc.edit.tools.P5000.other.view"
+                                data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                                disabled={false}
+                                onClick={[Function]}
+                                type="submit"
+                              >
+                                buc:form-seeP5000other
+                              </button>
+                            </c>
                           </o>
                         </Styled(o)>
                       </div>
@@ -1964,6 +2031,6 @@ ui-fss.g132[id="c6"] {
         </s>
       </Styled(Styled(s))>
     </Component>
-  </Xe>
+  </W>
 </BUCTools>
 `;

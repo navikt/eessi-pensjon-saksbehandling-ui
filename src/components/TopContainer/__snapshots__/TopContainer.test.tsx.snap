@@ -120,7 +120,7 @@ ui-fss.g30[id="c26"] {
 
 .c29 .footerButtonClosed:hover {
   cursor: pointer;
-  background-color: #e9e7e7;
+  background-color: #FFFFFF;
 }
 
 .c29 .footerButtonOpen {
@@ -134,7 +134,7 @@ ui-fss.g30[id="c26"] {
 
 .c29 .footerButtonOpen:hover {
   cursor: pointer;
-  background-color: #e9e7e7;
+  background-color: #FFFFFF;
 }
 
 ui-fss.g31[id="c28"] {
@@ -291,7 +291,7 @@ ui-fss.g47[id="c18"] {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 0;
-  background-color: #e9e7e7;
+  background-color: #f1f1f1;
   color: #3e3832;
 }
 
@@ -302,13 +302,13 @@ ui-fss.g63[id="c24"] {
 <TopContainer
   header="mockHeader"
 >
-  <Xe
+  <W
     highContrast={false}
   >
     <Component
       theme={
         Object {
-          "alternative-background-color": "#e9e7e7",
+          "alternative-background-color": "#FFFFFF",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -331,15 +331,16 @@ ui-fss.g63[id="c24"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#c2eaf7",
-          "main-background-color": "#FFFFFF",
+          "main-active-color": "#66a4dc",
+          "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
-          "main-disabled-color": "#b7b1a9",
+          "main-border-width": "1px",
+          "main-disabled-color": "#78706a",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#85d5f0",
+          "main-hover-color": "#cce1f3",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -491,13 +492,13 @@ ui-fss.g63[id="c24"] {
                 }
                 username="mockUsername"
               >
-                <Xe
+                <W
                   highContrast={false}
                 >
                   <Component
                     theme={
                       Object {
-                        "alternative-background-color": "#e9e7e7",
+                        "alternative-background-color": "#FFFFFF",
                         "black": "#000000",
                         "border-radius-base": "4px",
                         "border-radius-large": "6px",
@@ -520,15 +521,16 @@ ui-fss.g63[id="c24"] {
                         "inverted-font-color": "#FFFFFF",
                         "line-height-large": "1.3333333",
                         "line-height-small": "1.5",
-                        "main-active-color": "#c2eaf7",
-                        "main-background-color": "#FFFFFF",
+                        "main-active-color": "#66a4dc",
+                        "main-background-color": "#f1f1f1",
                         "main-border-color": "#78706a",
                         "main-border-radius": "4px",
-                        "main-disabled-color": "#b7b1a9",
+                        "main-border-width": "1px",
+                        "main-disabled-color": "#78706a",
                         "main-error-color": "#ba3a26",
                         "main-focus-color": "#19548a",
                         "main-font-color": "#3e3832",
-                        "main-hover-color": "#85d5f0",
+                        "main-hover-color": "#cce1f3",
                         "main-interactive-color": "#0067c5",
                         "main-success-color": "#06893a",
                         "main-warning-color": "#ff9100",
@@ -876,7 +878,7 @@ ui-fss.g63[id="c24"] {
                       </header>
                     </styled.header>
                   </Component>
-                </Xe>
+                </W>
               </Header>
               <Alert
                 message="mockErrorMessage"
@@ -1050,13 +1052,13 @@ ui-fss.g63[id="c24"] {
                   }
                 }
               >
-                <Xe
+                <W
                   highContrast={false}
                 >
                   <Component
                     theme={
                       Object {
-                        "alternative-background-color": "#e9e7e7",
+                        "alternative-background-color": "#FFFFFF",
                         "black": "#000000",
                         "border-radius-base": "4px",
                         "border-radius-large": "6px",
@@ -1079,15 +1081,16 @@ ui-fss.g63[id="c24"] {
                         "inverted-font-color": "#FFFFFF",
                         "line-height-large": "1.3333333",
                         "line-height-small": "1.5",
-                        "main-active-color": "#c2eaf7",
-                        "main-background-color": "#FFFFFF",
+                        "main-active-color": "#66a4dc",
+                        "main-background-color": "#f1f1f1",
                         "main-border-color": "#78706a",
                         "main-border-radius": "4px",
-                        "main-disabled-color": "#b7b1a9",
+                        "main-border-width": "1px",
+                        "main-disabled-color": "#78706a",
                         "main-error-color": "#ba3a26",
                         "main-focus-color": "#19548a",
                         "main-font-color": "#3e3832",
-                        "main-hover-color": "#85d5f0",
+                        "main-hover-color": "#cce1f3",
                         "main-interactive-color": "#0067c5",
                         "main-success-color": "#06893a",
                         "main-warning-color": "#ff9100",
@@ -1241,13 +1244,13 @@ ui-fss.g63[id="c24"] {
                       </footer>
                     </styled.footer>
                   </Component>
-                </Xe>
+                </W>
               </Footer>
             </ResizeDetector>
           </div>
         </ErrorBoundary>
       </div>
     </Component>
-  </Xe>
+  </W>
 </TopContainer>
 `;

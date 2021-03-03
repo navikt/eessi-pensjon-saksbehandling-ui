@@ -112,7 +112,7 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
               borderStyle: 'solid',
               borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
               color: _theme[themeKeys.MAIN_FONT_COLOR],
-              backgroundColor: isDisabled ? _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR] : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
+              backgroundColor: isDisabled ? _theme[themeKeys.MAIN_DISABLED_COLOR] : _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
             }),
             indicatorSeparator: (styles: any) => ({
               ...styles,
@@ -129,7 +129,7 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
               borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
               borderStyle: 'solid',
               padding: '0.25rem',
-              backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR],
+              backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR],
               color: _theme[themeKeys.MAIN_FONT_COLOR],
               alignItems: 'center',
               flexDirection: 'row',
@@ -144,8 +144,9 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
               borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
               borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
               borderStyle: 'solid',
-              backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR]
+              backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
             }),
+            menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
             option: (styles: any, { isFocused, isSelected }: any) => ({
               ...styles,
               padding: '0.5rem',
@@ -158,9 +159,14 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
                 ? _theme[themeKeys.MAIN_FOCUS_COLOR]
                 : isSelected
                   ? _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
-                  : _theme[themeKeys.MAIN_BACKGROUND_COLOR]
+                  : _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
             }),
-            menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
+            placeholder: (styles: any) => {
+              return {
+                ...styles,
+                color: _theme[themeKeys.GRAYINACTIVE]
+              }
+            },
             singleValue: (styles: any) => ({
               ...styles,
               color: _theme[themeKeys.MAIN_FONT_COLOR]

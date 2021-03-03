@@ -17,13 +17,21 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Render: mat
   color: #FFFFFF;
 }
 
+.c13:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c13:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
 }
 
 .c13:disabled {
   color: #FFFFFF;
-  background-color: #b7b1a9;
+  background-color: #78706a;
+}
+
+.c13 svg {
+  color: #0067c5;
 }
 
 .c13 svg path {
@@ -45,8 +53,16 @@ ui-fss.g11[id="c12"] {
   color: #FFFFFF;
 }
 
+.c15:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c15:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
+}
+
+.c15 svg {
+  color: #0067c5;
 }
 
 .c15 svg path {
@@ -172,13 +188,13 @@ ui-fss.g36[id="c4"] {
   }
   tableId="test-id"
 >
-  <Xe
+  <W
     highContrast={false}
   >
     <Component
       theme={
         Object {
-          "alternative-background-color": "#e9e7e7",
+          "alternative-background-color": "#FFFFFF",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -201,15 +217,16 @@ ui-fss.g36[id="c4"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#c2eaf7",
-          "main-background-color": "#FFFFFF",
+          "main-active-color": "#66a4dc",
+          "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
-          "main-disabled-color": "#b7b1a9",
+          "main-border-width": "1px",
+          "main-disabled-color": "#78706a",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#85d5f0",
+          "main-hover-color": "#cce1f3",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -384,13 +401,13 @@ ui-fss.g36[id="c4"] {
         }
         onModalClose={[MockFunction]}
       >
-        <Xe
+        <W
           highContrast={false}
         >
           <Component
             theme={
               Object {
-                "alternative-background-color": "#e9e7e7",
+                "alternative-background-color": "#FFFFFF",
                 "black": "#000000",
                 "border-radius-base": "4px",
                 "border-radius-large": "6px",
@@ -413,15 +430,16 @@ ui-fss.g36[id="c4"] {
                 "inverted-font-color": "#FFFFFF",
                 "line-height-large": "1.3333333",
                 "line-height-small": "1.5",
-                "main-active-color": "#c2eaf7",
-                "main-background-color": "#FFFFFF",
+                "main-active-color": "#66a4dc",
+                "main-background-color": "#f1f1f1",
                 "main-border-color": "#78706a",
                 "main-border-radius": "4px",
-                "main-disabled-color": "#b7b1a9",
+                "main-border-width": "1px",
+                "main-disabled-color": "#78706a",
                 "main-error-color": "#ba3a26",
                 "main-focus-color": "#19548a",
                 "main-font-color": "#3e3832",
-                "main-hover-color": "#85d5f0",
+                "main-hover-color": "#cce1f3",
                 "main-interactive-color": "#0067c5",
                 "main-success-color": "#06893a",
                 "main-warning-color": "#ff9100",
@@ -592,13 +610,21 @@ ui-fss.g36[id="c4"] {
   color: #FFFFFF;
 }
 
+.c13:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c13:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
 }
 
 .c13:disabled {
   color: #FFFFFF;
-  background-color: #b7b1a9;
+  background-color: #78706a;
+}
+
+.c13 svg {
+  color: #0067c5;
 }
 
 .c13 svg path {
@@ -620,8 +646,16 @@ ui-fss.g11[id="c12"] {
   color: #FFFFFF;
 }
 
+.c15:hover:not(:disabled) svg {
+  color: #FFFFFF;
+}
+
 .c15:hover:not(:disabled) svg path {
   stroke: #FFFFFF;
+}
+
+.c15 svg {
+  color: #0067c5;
 }
 
 .c15 svg path {
@@ -1074,7 +1108,7 @@ ui-fss.g36[id="c4"] {
                                     id="c-modal__button-id-0"
                                     onClick={[Function]}
                                   >
-                                    <d
+                                    <c
                                       autoDisableVedSpinner={false}
                                       className="c12 c13"
                                       data-test-id="c-modal__button-id-0"
@@ -1098,7 +1132,7 @@ ui-fss.g36[id="c4"] {
                                       >
                                         buc:form-addSelectedAttachments
                                       </button>
-                                    </d>
+                                    </c>
                                   </o>
                                 </Styled(o)>
                               </div>
@@ -1123,7 +1157,7 @@ ui-fss.g36[id="c4"] {
                                     id="c-modal__button-id-1"
                                     onClick={[Function]}
                                   >
-                                    <d
+                                    <c
                                       autoDisableVedSpinner={false}
                                       className="c14 c15"
                                       data-test-id="c-modal__button-id-1"
@@ -1147,7 +1181,7 @@ ui-fss.g36[id="c4"] {
                                       >
                                         ui:cancel
                                       </button>
-                                    </d>
+                                    </c>
                                   </o>
                                 </Styled(o)>
                               </div>
@@ -1161,9 +1195,9 @@ ui-fss.g36[id="c4"] {
               </Modal>
             </Styled(Modal)>
           </Component>
-        </Xe>
+        </W>
       </Modal>
     </Component>
-  </Xe>
+  </W>
 </SEDAttachmentModal>
 `;
