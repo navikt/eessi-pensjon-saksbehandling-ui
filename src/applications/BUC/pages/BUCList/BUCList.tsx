@@ -76,7 +76,7 @@ export const BucLenkePanel = styled(HighContrastLenkepanelBase)`
   background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   margin-bottom: 1rem;
   &.new {
-    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN80] : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN20] : theme[themeKeys.NAVLIMEGRONNLIGHTEN20]};
   }
   &:hover {
     border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};

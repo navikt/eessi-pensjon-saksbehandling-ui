@@ -232,6 +232,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
     case types.BUC_CURRENTBUC_SET: {
       const isNewlyCreatedBuc = state.newlyCreatedBuc && state.newlyCreatedBuc.caseId === (action as ActionWithPayload).payload
+
       return {
         ...state,
         newlyCreatedBuc: isNewlyCreatedBuc ? undefined : state.newlyCreatedBuc,

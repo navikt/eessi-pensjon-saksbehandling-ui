@@ -74,6 +74,7 @@
     "ok-got-it" : "Ok",
     "oppholdsadresse" : "Oppholdsadresse",
     "optional": "Valgtfri",
+    "pleaseWaitXSeconds": "Vennligst vent {{cooldown}} sekund(er)",
     "postadresse" : "Postadresse",
     "poststed" : "Poststed",
     "preview" : "Forhåndsvisning",

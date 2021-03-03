@@ -204,6 +204,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const [_timer, setTimer] = useState<any>(undefined)
+  const [_bucIdForCooldown, setBucIdForCooldown] = useState<string | undefined>(undefined)
+  const [_bucCooldown, setBucCooldown] = useState<number | undefined>(undefined)
+  const bucCooldownInSeconds = 10
 
   const prefill = (prop: string): RawList => {
     const institutions: Array<any> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
@@ -857,12 +861,43 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }, [_avdod, _avdodFnr, _buc, _kravDato, personAvdods, sedSupportsAvdod])
 
+  const setCooldownTimeout = (secondsLeft: number) => {
+    setBucCooldown(secondsLeft)
+    const timer = setTimeout(() => {
+      if (secondsLeft! < 0) {
+        clearTimeout(_timer)
+        setTimer(undefined)
+      } else {
+        setCooldownTimeout(secondsLeft - 1)
+      }
+    }, 1000)
+    setTimer(timer)
+  }
+
   useEffect(() => {
     if (kravDato && _.isEmpty(_kravDato) && _.isEmpty((_buc as ValidBuc).addedParams?.kravDato)) {
       const bucKravDato = kravDato.split('-').reverse().join('-')
       setKravDato(bucKravDato)
     }
   }, [_buc, kravDato])
+
+  useEffect(() => {
+    let howOldIsBucInMilliSeconds: number | undefined
+    let secondsLeft: number | undefined
+
+    if (_bucIdForCooldown === undefined || (_bucIdForCooldown !== _buc.caseId)) {
+      setBucIdForCooldown(_buc.caseId!)
+      if (_buc && _buc.lastUpdate) {
+        howOldIsBucInMilliSeconds = (new Date().getTime() - _buc.lastUpdate)
+        secondsLeft = Math.ceil((bucCooldownInSeconds * 1000 - howOldIsBucInMilliSeconds) / 1000)
+      }
+      console.log('How old ? ' + howOldIsBucInMilliSeconds + ', secsleft ' + secondsLeft)
+      // We need a cooldown for X x
+      if (_.isNumber(secondsLeft) && secondsLeft > 0) {
+        setCooldownTimeout(secondsLeft)
+      }
+    }
+  }, [_buc])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return <div />
@@ -1084,16 +1119,18 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <HighContrastHovedknapp
               data-amplitude='sed.new.create'
               data-test-id='a-buc-c-sedstart__forward-button-id'
-              disabled={loading.creatingSed || _sendingAttachments}
-              spinner={loading.creatingSed || _sendingAttachments}
+              disabled={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
+              spinner={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
               onClick={onForwardButtonClick}
             >
               {loading.creatingSed
                 ? t('buc:loading-creatingSED')
                 : _sendingAttachments
                   ? t('buc:loading-sendingSEDattachments')
-                  : t('buc:form-orderSED')}
-            </HighContrastHovedknapp>'
+                  : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                      ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
+                      : t('buc:form-orderSED')}
+            </HighContrastHovedknapp>
             <HorizontalSeparatorDiv />
             <HighContrastFlatknapp
               data-amplitude='sed.new.cancel'
