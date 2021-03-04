@@ -23,7 +23,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
         styles={{
           control: (styles: any) => ({
             ...styles,
-            borderWidth: props.feil ? '2px' : _theme.type === 'themeHighContrast' ? '2px' : '1px',
+            borderWidth: props.feil ? '2px' : _theme[themeKeys.MAIN_BORDER_WIDTH],
             borderColor: props.feil ? _theme[themeKeys.REDERROR] : _theme[themeKeys.MAIN_BORDER_COLOR],
             borderStyle: 'solid',
             borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
@@ -44,8 +44,8 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
           }),
           menuList: (styles: any) => ({
             ...styles,
-            borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-            borderColor: _theme.type === 'themeHighContrast' ? _theme.white : _theme.navGra60,
+            borderWidth: _theme[themeKeys.MAIN_BORDER_WIDTH],
+            borderColor:  _theme[themeKeys.MAIN_BORDER_COLOR],
             borderStyle: 'solid',
             backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
           }),
