@@ -205,7 +205,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   // fetch krav dato for P_BUC_10 criteria
   const bucNeedsKravDatoAndCanFetchIt = (buc: string | null | undefined): boolean => {
-    return !!(buc === 'P_BUC_10' && avdodExists() &&
+    return !!(buc === 'P_BUC_10' &&
         sakId && aktoerId && kravId &&
         pesysContext === constants.VEDTAKSKONTEKST &&
         (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||

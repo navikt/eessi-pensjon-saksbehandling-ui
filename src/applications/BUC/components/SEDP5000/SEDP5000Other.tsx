@@ -7,6 +7,7 @@ import { SedsPropType } from 'declarations/buc.pt'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import { Checkbox } from 'nav-frontend-skjema'
+import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
@@ -14,7 +15,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
-import TableSorter, { Item, Sort } from 'tabell'
+import TableSorter, { Item, RenderEditableOptions, Sort } from 'tabell'
 
 import * as labels from './SEDP5000.labels'
 
@@ -98,11 +99,69 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const [_checkbox42, setCheckbox42] = useState<boolean>(false)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
+  const [_ytelseOption, setYtelseOption] = useState<any | undefined>(undefined)
   const [_items, setItems] = useState<SEDP5000OtherRows | undefined>(undefined)
 
-  const x = (x: any) => {
-    setItems(x)
+  const ytelsestypeOptions = [
+    {label: '[00] Annet', value: '00'},
+    {label: '[01] Annen delvis', value: '01'},
+    {label: '[10] Alderspensjon', value: '10'},
+    {label: '[11] Delvis alderspensjon', value: '11'},
+    {label: '[20] Etterlattepensjon', value: '20'},
+    {label: '[21] Etterlattepensjon delvis', value: '21'},
+    {label: '[30] Uførepensjon', value: '30'},
+    {label: '[31] Uførepensjon delvis', value: '31'}
+  ]
+
+  const typeOptions = [
+    {value: '10', label: '[10] Pliktige avgiftsperioder'},
+    {value: '11', label: '[11] Pliktige avgiftsperioder - ansatt'},
+    {value: '12', label: '[12] Pliktige avgiftsperioder - selvstendig næringsdrivende'},
+    {value: '13', label: '[13] Pliktige avgiftsperioder - arbeidsledig'},
+    {value: '20', label: '[20] Frivillige avgiftsperioder'},
+    {value: '21', label: '[21] Frivillige avgiftsperioder - ansatt'},
+    {value: '22', label: '[22] Frivillige avgiftsperioder - selvstendig'},
+    {value: '23', label: '[23] Frivillige avgiftsperioder - arbeidsledig'},
+    {value: '30', label: '[30] Bosettingingsperioder'},
+    {value: '40', label: '[40] Likestilte perioder: uten nærmere spesifisering'},
+    {value: '41', label: '[41] Likestilte perioder: perioder med sykdom/arbeidsuførhet'},
+    {value: '42', label: '[42] Likestilte perioder: perioder med arbeidsledighet uten ytelser'},
+    {value: '43', label: '[43] Likestilte perioder: perioder med militærtjeneste'},
+    {value: '44', label: '[44] Likestilte perioder: perioder med opplæring eller utdanning'},
+    {value: '45', label: '[45] Likestilte perioder: perioder med omsorg for barn'},
+    {value: '46', label: '[46] Likestilte perioder: perioder med pensjon'},
+    {value: '47', label: '[47] Likestilte perioder: perioder med svangerskaps- eller fødselspermisjon'},
+    {value: '48', label: '[48] Likestilte perioder: perioder med førtidspensjon'},
+    {value: '49', label: '[49] Likestilte perioder: perioder med arbeidsledighet med dagpenger'},
+    {value: '50', label: '[50] Likestilte perioder: perioder hvor det er blitt innvilget uføretrygd'},
+    {value: '51', label: '[51] Likestilte perioder: perioder med omsorg for pleietrengende'},
+    {value: '52', label: '[52] Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon'}
+  ]
+
+  const renderTypeSelect = (options: RenderEditableOptions) => {
+    return (
+      <Select
+        className='sedP5000Other-type-select'
+        highContrast={highContrast}
+        label='Ytelsestype (4.1)'
+        options={typeOptions}
+        onChange={(e) => options.onChange(e!.value)}
+        selectedValue={_ytelseOption}
+    />
+    )
   }
+
+  const renderOrdningSelect = (options: RenderEditableOptions) => {
+    if (options.defaultValue !== '00') {
+      options.onChange('00')
+    }
+    return (
+      <Normaltekst>
+        00
+      </Normaltekst>
+    )
+  }
+
   const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000OtherRows => {
     const res: SEDP5000OtherRows = []
     const data: any = {}
@@ -138,7 +197,6 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
         type: label + ' [' + type + ']'
       })
     })
-
     return res
   }
 
@@ -164,7 +222,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             e.stopPropagation()
             let newItems = _.cloneDeep(items)
             newItems = _.filter(newItems, i => i.key !== item.key)
-            x(newItems)
+            setItems(newItems)
           }}
         >
           <Trashcan />
@@ -175,7 +233,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
 
   useEffect(() => {
     if (_items === undefined) {
-      x(convertRawP5000toRow(sedContent))
+      setItems(convertRawP5000toRow(sedContent))
     }
   }, [_items, sedContent])
 
@@ -196,7 +254,9 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                 className='sedP5000Other-select'
                 highContrast={highContrast}
                 label='Ytelsestype (4.1)'
-                options={[{ label: 'Alderspensjon', value: 'Alderspensjon' }]}
+                options={ytelsestypeOptions}
+                onChange={setYtelseOption}
+                selectedValue={_ytelseOption}
               />
             </FullWidthDiv>
             <HorizontalSeparatorDiv />
@@ -237,13 +297,13 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             standardLogger('buc.edit.tools.P5000.other.sort', { sort: sort })
             setTableSort(sort)
           }}
-          onRowAdded={(item: any) => {
-            const newItems = _.cloneDeep(_items)
+          onRowAdded={(item, context) => {
+            const newItems = _.cloneDeep(context.items)
             newItems.unshift({
               ...item,
               key: '' + new Date().getTime()
             })
-            x(newItems)
+            setItems(newItems)
           }}
           itemsPerPage={25}
           labels={labels}
@@ -259,15 +319,15 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             label: ''
           }]}
           columns={[
-            { id: 'type', label: t('buc:p5000-type-43113'), type: 'string' },
-            { id: 'startdato', label: t('ui:startDate'), type: 'string' },
-            { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
-            { id: 'dag', label: t('ui:day'), type: 'string' },
-            { id: 'mnd', label: t('ui:month'), type: 'string' },
-            { id: 'aar', label: t('ui:year'), type: 'string' },
-            { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
-            { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
-            { id: 'ordning', label: t('ui:scheme'), type: 'string' },
+            { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderEditable: renderTypeSelect, editTextValidation: '\\.+' },
+            { id: 'startdato', label: t('ui:startDate'), type: 'string', editTextValidation: '\\d{2}\\.\\d{2}\\.\\d{4}' },
+            { id: 'sluttdato', label: t('ui:endDate'), type: 'string', editTextValidation: '\\d{2}\\.\\d{2}\\.\\d{4}' },
+            { id: 'dag', label: t('ui:day'), type: 'string', editTextValidation: '\\d+'},
+            { id: 'mnd', label: t('ui:month'), type: 'string', editTextValidation: '\\d+'},
+            { id: 'aar', label: t('ui:year'), type: 'string', editTextValidation: '\\d+'},
+            { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string', editTextValidation: '.+' },
+            { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', editTextValidation: '.+' },
+            { id: 'ordning', label: t('ui:scheme'), type: 'string', renderEditable: renderOrdningSelect },
             { id: 'buttons', label: '', type: 'buttons', renderCell: renderButtonsCell }
           ]}
         />
