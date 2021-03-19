@@ -6,7 +6,7 @@ exports[`components/TopContainer Render: match snapshot 1`] = `
   margin-left: 1rem;
 }
 
-ui-fss.g23[id="c14"] {
+ui-fss.g25[id="c14"] {
   content: "c15,";
 }
 
@@ -51,7 +51,7 @@ ui-fss.g23[id="c14"] {
   max-width: none !important;
 }
 
-ui-fss.g28[id="c20"] {
+ui-fss.g30[id="c20"] {
   content: "c21,";
 }
 
@@ -62,7 +62,7 @@ ui-fss.g28[id="c20"] {
   cursor: pointer;
 }
 
-ui-fss.g29[id="c22"] {
+ui-fss.g31[id="c22"] {
   content: "c23,";
 }
 
@@ -95,7 +95,7 @@ ui-fss.g29[id="c22"] {
   height: 10px;
 }
 
-ui-fss.g30[id="c26"] {
+ui-fss.g32[id="c26"] {
   content: "c27,";
 }
 
@@ -137,7 +137,7 @@ ui-fss.g30[id="c26"] {
   background-color: #FFFFFF;
 }
 
-ui-fss.g31[id="c28"] {
+ui-fss.g33[id="c28"] {
   content: "c29,";
 }
 
@@ -160,7 +160,7 @@ ui-fss.g31[id="c28"] {
   line-height: inherit;
 }
 
-ui-fss.g39[id="c2"] {
+ui-fss.g41[id="c2"] {
   content: "c3,";
 }
 
@@ -187,7 +187,7 @@ ui-fss.g39[id="c2"] {
   flex-shrink: 0;
 }
 
-ui-fss.g40[id="c0"] {
+ui-fss.g42[id="c0"] {
   content: "c1,";
 }
 
@@ -196,7 +196,7 @@ ui-fss.g40[id="c0"] {
   color: #FFFFFF;
 }
 
-ui-fss.g41[id="c8"] {
+ui-fss.g43[id="c8"] {
   content: "c9,";
 }
 
@@ -205,7 +205,7 @@ ui-fss.g41[id="c8"] {
   padding: 0.3em;
 }
 
-ui-fss.g42[id="c16"] {
+ui-fss.g44[id="c16"] {
   content: "c17,";
 }
 
@@ -213,7 +213,7 @@ ui-fss.g42[id="c16"] {
   color: white;
 }
 
-ui-fss.g43[id="c12"] {
+ui-fss.g45[id="c12"] {
   content: "c13,";
 }
 
@@ -228,7 +228,7 @@ ui-fss.g43[id="c12"] {
   margin-left: 1rem;
 }
 
-ui-fss.g44[id="c4"] {
+ui-fss.g46[id="c4"] {
   content: "c5,";
 }
 
@@ -242,7 +242,7 @@ ui-fss.g44[id="c4"] {
   padding-left: 15px;
 }
 
-ui-fss.g45[id="c6"] {
+ui-fss.g47[id="c6"] {
   content: "c7,";
 }
 
@@ -264,7 +264,7 @@ ui-fss.g45[id="c6"] {
   align-items: center;
 }
 
-ui-fss.g46[id="c10"] {
+ui-fss.g48[id="c10"] {
   content: "c11,";
 }
 
@@ -275,7 +275,7 @@ ui-fss.g46[id="c10"] {
   color: #FFFFFF;
 }
 
-ui-fss.g47[id="c18"] {
+ui-fss.g49[id="c18"] {
   content: "c19,";
 }
 
@@ -295,20 +295,21 @@ ui-fss.g47[id="c18"] {
   color: #3e3832;
 }
 
-ui-fss.g63[id="c24"] {
+ui-fss.g65[id="c24"] {
   content: "c25,";
 }
 
 <TopContainer
   header="mockHeader"
 >
-  <W
+  <q
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
+          "alternative-hover-color": "#cce1f3",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -331,16 +332,16 @@ ui-fss.g63[id="c24"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#66a4dc",
+          "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#78706a",
+          "main-disabled-color": "#b7b1a9",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#cce1f3",
+          "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -492,13 +493,14 @@ ui-fss.g63[id="c24"] {
                 }
                 username="mockUsername"
               >
-                <W
+                <q
                   highContrast={false}
                 >
                   <Component
                     theme={
                       Object {
                         "alternative-background-color": "#FFFFFF",
+                        "alternative-hover-color": "#cce1f3",
                         "black": "#000000",
                         "border-radius-base": "4px",
                         "border-radius-large": "6px",
@@ -521,16 +523,16 @@ ui-fss.g63[id="c24"] {
                         "inverted-font-color": "#FFFFFF",
                         "line-height-large": "1.3333333",
                         "line-height-small": "1.5",
-                        "main-active-color": "#66a4dc",
+                        "main-active-color": "#005b82",
                         "main-background-color": "#f1f1f1",
                         "main-border-color": "#78706a",
                         "main-border-radius": "4px",
                         "main-border-width": "1px",
-                        "main-disabled-color": "#78706a",
+                        "main-disabled-color": "#b7b1a9",
                         "main-error-color": "#ba3a26",
                         "main-focus-color": "#19548a",
                         "main-font-color": "#3e3832",
-                        "main-hover-color": "#cce1f3",
+                        "main-hover-color": "#0074df",
                         "main-interactive-color": "#0067c5",
                         "main-success-color": "#06893a",
                         "main-warning-color": "#ff9100",
@@ -878,7 +880,7 @@ ui-fss.g63[id="c24"] {
                       </header>
                     </styled.header>
                   </Component>
-                </W>
+                </q>
               </Header>
               <Alert
                 message="mockErrorMessage"
@@ -1052,13 +1054,14 @@ ui-fss.g63[id="c24"] {
                   }
                 }
               >
-                <W
+                <q
                   highContrast={false}
                 >
                   <Component
                     theme={
                       Object {
                         "alternative-background-color": "#FFFFFF",
+                        "alternative-hover-color": "#cce1f3",
                         "black": "#000000",
                         "border-radius-base": "4px",
                         "border-radius-large": "6px",
@@ -1081,16 +1084,16 @@ ui-fss.g63[id="c24"] {
                         "inverted-font-color": "#FFFFFF",
                         "line-height-large": "1.3333333",
                         "line-height-small": "1.5",
-                        "main-active-color": "#66a4dc",
+                        "main-active-color": "#005b82",
                         "main-background-color": "#f1f1f1",
                         "main-border-color": "#78706a",
                         "main-border-radius": "4px",
                         "main-border-width": "1px",
-                        "main-disabled-color": "#78706a",
+                        "main-disabled-color": "#b7b1a9",
                         "main-error-color": "#ba3a26",
                         "main-focus-color": "#19548a",
                         "main-font-color": "#3e3832",
-                        "main-hover-color": "#cce1f3",
+                        "main-hover-color": "#0074df",
                         "main-interactive-color": "#0067c5",
                         "main-success-color": "#06893a",
                         "main-warning-color": "#ff9100",
@@ -1244,13 +1247,13 @@ ui-fss.g63[id="c24"] {
                       </footer>
                     </styled.footer>
                   </Component>
-                </W>
+                </q>
               </Footer>
             </ResizeDetector>
           </div>
         </ErrorBoundary>
       </div>
     </Component>
-  </W>
+  </q>
 </TopContainer>
 `;

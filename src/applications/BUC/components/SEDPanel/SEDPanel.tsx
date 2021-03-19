@@ -22,11 +22,11 @@ export const SEDPanelContainer = styled(HighContrastPanel)`
   &.new .ekspanderbartPanel__hode,
   &.new .ekspanderbartPanel__hode div:not(.etikett) {
     background: ${({ theme }) => theme.type === 'themeHighContrast'
-      ? theme[themeKeys.NAVLIMEGRONNDARKEN80]
-      : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+      ? theme[themeKeys.NAVLIMEGRONNDARKEN20]
+      : theme[themeKeys.NAVLIMEGRONNLIGHTEN20]} !important;
   }
   &.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
-    background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
+    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]} !important;
   }
 `
 export const SEDPanelDiv = styled.div`
@@ -37,7 +37,7 @@ export const SEDPanelDiv = styled.div`
 export const SEDPanelExpandingPanel = styled(ExpandingPanel)`
   border: none;
   .ekspanderbartPanel__hode:hover {
-    background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]} !important;
+    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]} !important;
     .panel {
       background: transparent;
     }

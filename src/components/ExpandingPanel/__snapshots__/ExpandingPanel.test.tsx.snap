@@ -32,6 +32,12 @@ exports[`components/ExpandingPanel/ExpandingPanel Render: match snapshot 1`] = `
   background-color: #FFFFFF;
 }
 
+.c1 .ekspanderbartPanel__hode:focus,
+.c1 .ekspanderbartPanel__hode--focus {
+  box-shadow: 0 0 0 3px #19548a !important;
+  outline: none;
+}
+
 .c1 .ekspanderbartPanel__hode {
   background-color: #FFFFFF;
 }
@@ -72,13 +78,14 @@ ui-fss.g8[id="c0"] {
   open={false}
   renderContentWhenClosed={false}
 >
-  <W
+  <q
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
+          "alternative-hover-color": "#cce1f3",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -101,16 +108,16 @@ ui-fss.g8[id="c0"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#66a4dc",
+          "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#78706a",
+          "main-disabled-color": "#b7b1a9",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#cce1f3",
+          "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -285,6 +292,6 @@ ui-fss.g8[id="c0"] {
         </div>
       </styled.div>
     </Component>
-  </W>
+  </q>
 </ExpandingPanel>
 `;

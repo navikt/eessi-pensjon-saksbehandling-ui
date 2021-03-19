@@ -37,8 +37,8 @@ export const BUCHeaderDiv = styled.div`
   width: 100%;
   &.new .ekspanderbartPanel__hode {
     background: ${({ theme }) => theme.type === 'themeHighContrast'
-    ? theme[themeKeys.NAVLIMEGRONNDARKEN80]
-    : theme[themeKeys.NAVLIMEGRONNLIGHTEN80]};
+    ? theme[themeKeys.NAVLIMEGRONNDARKEN20]
+    : theme[themeKeys.NAVLIMEGRONNLIGHTEN20]} !important;
   }
 `
 const FlexRow = styled(Row)`

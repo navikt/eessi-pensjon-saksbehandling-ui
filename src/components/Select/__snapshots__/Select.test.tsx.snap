@@ -25,6 +25,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
       }
     >
       <Select
+        aria-live="polite"
         backspaceRemovesValue={true}
         blurInputOnSelect={true}
         captureMenuScroll={false}
@@ -101,6 +102,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
           selectOption={[Function]}
           selectProps={
             Object {
+              "aria-live": "polite",
               "backspaceRemovesValue": true,
               "blurInputOnSelect": true,
               "captureMenuScroll": false,
@@ -207,6 +209,141 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
               className=" css-2b097c-container"
               onKeyDown={[Function]}
             >
+              <LiveRegion
+                ariaSelection={null}
+                clearValue={[Function]}
+                cx={[Function]}
+                focusableOptions={Array []}
+                focusedOption={null}
+                focusedValue={null}
+                getStyles={[Function]}
+                getValue={[Function]}
+                hasValue={false}
+                isFocused={false}
+                isMulti={false}
+                isRtl={false}
+                options={Array []}
+                selectOption={[Function]}
+                selectProps={
+                  Object {
+                    "aria-live": "polite",
+                    "backspaceRemovesValue": true,
+                    "blurInputOnSelect": true,
+                    "captureMenuScroll": false,
+                    "className": "",
+                    "closeMenuOnScroll": false,
+                    "closeMenuOnSelect": true,
+                    "components": Object {},
+                    "controlShouldRenderValue": true,
+                    "escapeClearsValue": false,
+                    "feil": undefined,
+                    "filterOption": [Function],
+                    "formatGroupLabel": [Function],
+                    "getOptionLabel": [Function],
+                    "getOptionValue": [Function],
+                    "highContrast": false,
+                    "inputId": undefined,
+                    "inputValue": "",
+                    "isDisabled": false,
+                    "isLoading": false,
+                    "isMulti": false,
+                    "isOptionDisabled": [Function],
+                    "isRtl": false,
+                    "isSearchable": true,
+                    "loadingMessage": [Function],
+                    "maxMenuHeight": 300,
+                    "menuIsOpen": false,
+                    "menuPlacement": "bottom",
+                    "menuPosition": "absolute",
+                    "menuShouldBlockScroll": false,
+                    "menuShouldScrollIntoView": true,
+                    "minMenuHeight": 140,
+                    "noOptionsMessage": [Function],
+                    "onChange": [Function],
+                    "onInputChange": [Function],
+                    "onMenuClose": [Function],
+                    "onMenuOpen": [Function],
+                    "openMenuOnClick": true,
+                    "openMenuOnFocus": false,
+                    "options": Array [],
+                    "pageSize": 5,
+                    "placeholder": "Select...",
+                    "screenReaderStatus": [Function],
+                    "styles": Object {
+                      "control": [Function],
+                      "indicatorSeparator": [Function],
+                      "menu": [Function],
+                      "menuList": [Function],
+                      "option": [Function],
+                      "placeholder": [Function],
+                      "singleValue": [Function],
+                    },
+                    "tabIndex": "0",
+                    "tabSelectsValue": true,
+                    "value": null,
+                  }
+                }
+                selectValue={Array []}
+                setValue={[Function]}
+                theme={
+                  Object {
+                    "borderRadius": 4,
+                    "colors": Object {
+                      "danger": "#DE350B",
+                      "dangerLight": "#FFBDAD",
+                      "neutral0": "hsl(0, 0%, 100%)",
+                      "neutral10": "hsl(0, 0%, 90%)",
+                      "neutral20": "hsl(0, 0%, 80%)",
+                      "neutral30": "hsl(0, 0%, 70%)",
+                      "neutral40": "hsl(0, 0%, 60%)",
+                      "neutral5": "hsl(0, 0%, 95%)",
+                      "neutral50": "hsl(0, 0%, 50%)",
+                      "neutral60": "hsl(0, 0%, 40%)",
+                      "neutral70": "hsl(0, 0%, 30%)",
+                      "neutral80": "hsl(0, 0%, 20%)",
+                      "neutral90": "hsl(0, 0%, 10%)",
+                      "primary": "#2684FF",
+                      "primary25": "#DEEBFF",
+                      "primary50": "#B2D4FF",
+                      "primary75": "#4C9AFF",
+                    },
+                    "spacing": Object {
+                      "baseUnit": 4,
+                      "controlHeight": 38,
+                      "menuGutter": 8,
+                    },
+                  }
+                }
+              >
+                <A11yText
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                >
+                  <EmotionCssPropInternal
+                    __EMOTION_LABEL_PLEASE_DO_NOT_USE__="A11yText"
+                    __EMOTION_TYPE_PLEASE_DO_NOT_USE__="span"
+                    aria-atomic="false"
+                    aria-live="polite"
+                    aria-relevant="additions text"
+                    css={
+                      Object {
+                        "map": "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkExMXlUZXh0LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFJIiwiZmlsZSI6IkExMXlUZXh0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQGZsb3dcbi8qKiBAanN4IGpzeCAqL1xuaW1wb3J0IHsgdHlwZSBFbGVtZW50Q29uZmlnIH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsganN4IH0gZnJvbSAnQGVtb3Rpb24vcmVhY3QnO1xuXG4vLyBBc3Npc3RpdmUgdGV4dCB0byBkZXNjcmliZSB2aXN1YWwgZWxlbWVudHMuIEhpZGRlbiBmb3Igc2lnaHRlZCB1c2Vycy5cbmNvbnN0IEExMXlUZXh0ID0gKHByb3BzOiBFbGVtZW50Q29uZmlnPCdzcGFuJz4pID0+IChcbiAgPHNwYW5cbiAgICBjc3M9e3tcbiAgICAgIGxhYmVsOiAnYTExeVRleHQnLFxuICAgICAgekluZGV4OiA5OTk5LFxuICAgICAgYm9yZGVyOiAwLFxuICAgICAgY2xpcDogJ3JlY3QoMXB4LCAxcHgsIDFweCwgMXB4KScsXG4gICAgICBoZWlnaHQ6IDEsXG4gICAgICB3aWR0aDogMSxcbiAgICAgIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICAgICAgb3ZlcmZsb3c6ICdoaWRkZW4nLFxuICAgICAgcGFkZGluZzogMCxcbiAgICAgIHdoaXRlU3BhY2U6ICdub3dyYXAnLFxuICAgIH19XG4gICAgey4uLnByb3BzfVxuICAvPlxuKTtcblxuZXhwb3J0IGRlZmF1bHQgQTExeVRleHQ7XG4iXX0= */",
+                        "name": "1f43avz-a11yText-A11yText",
+                        "styles": "label:a11yText;z-index:9999;border:0;clip:rect(1px, 1px, 1px, 1px);height:1px;width:1px;position:absolute;overflow:hidden;padding:0;white-space:nowrap;label:A11yText;",
+                        "toString": [Function],
+                      }
+                    }
+                  >
+                    <span
+                      aria-atomic="false"
+                      aria-live="polite"
+                      aria-relevant="additions text"
+                      className="css-1f43avz-a11yText-A11yText"
+                    />
+                  </EmotionCssPropInternal>
+                </A11yText>
+              </LiveRegion>
               <Control
                 clearValue={[Function]}
                 cx={[Function]}
@@ -229,6 +366,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                 selectOption={[Function]}
                 selectProps={
                   Object {
+                    "aria-live": "polite",
                     "backspaceRemovesValue": true,
                     "blurInputOnSelect": true,
                     "captureMenuScroll": false,
@@ -366,6 +504,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                       selectOption={[Function]}
                       selectProps={
                         Object {
+                          "aria-live": "polite",
                           "backspaceRemovesValue": true,
                           "blurInputOnSelect": true,
                           "captureMenuScroll": false,
@@ -489,6 +628,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                             selectOption={[Function]}
                             selectProps={
                               Object {
+                                "aria-live": "polite",
                                 "backspaceRemovesValue": true,
                                 "blurInputOnSelect": true,
                                 "captureMenuScroll": false,
@@ -605,17 +745,25 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                             autoCapitalize="none"
                             autoComplete="off"
                             autoCorrect="off"
+                            clearValue={[Function]}
                             cx={[Function]}
                             getStyles={[Function]}
+                            getValue={[Function]}
+                            hasValue={false}
                             id="react-select-2-input"
                             innerRef={[Function]}
                             isDisabled={false}
                             isHidden={false}
+                            isMulti={false}
+                            isRtl={false}
                             onBlur={[Function]}
                             onChange={[Function]}
                             onFocus={[Function]}
+                            options={Array []}
+                            selectOption={[Function]}
                             selectProps={
                               Object {
+                                "aria-live": "polite",
                                 "backspaceRemovesValue": true,
                                 "blurInputOnSelect": true,
                                 "captureMenuScroll": false,
@@ -672,6 +820,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                                 "value": null,
                               }
                             }
+                            setValue={[Function]}
                             spellCheck="false"
                             tabIndex="0"
                             theme={
@@ -825,6 +974,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                       selectOption={[Function]}
                       selectProps={
                         Object {
+                          "aria-live": "polite",
                           "backspaceRemovesValue": true,
                           "blurInputOnSelect": true,
                           "captureMenuScroll": false,
@@ -943,6 +1093,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                             selectOption={[Function]}
                             selectProps={
                               Object {
+                                "aria-live": "polite",
                                 "backspaceRemovesValue": true,
                                 "blurInputOnSelect": true,
                                 "captureMenuScroll": false,
@@ -1072,6 +1223,7 @@ exports[`components/Select/Select Render: match snapshot 1`] = `
                             selectOption={[Function]}
                             selectProps={
                               Object {
+                                "aria-live": "polite",
                                 "backspaceRemovesValue": true,
                                 "blurInputOnSelect": true,
                                 "captureMenuScroll": false,

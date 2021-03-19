@@ -8,7 +8,7 @@ exports[`applications/BUC/components/SEDPanelHeader/SEDPanelHeader Render: match
   width: 100%;
 }
 
-ui-fss.g28[id="c6"] {
+ui-fss.g30[id="c6"] {
   content: "c7,";
 }
 
@@ -19,7 +19,7 @@ ui-fss.g28[id="c6"] {
   width: 100%;
 }
 
-ui-fss.g29[id="c2"] {
+ui-fss.g31[id="c2"] {
   content: "c3,";
 }
 
@@ -39,7 +39,7 @@ ui-fss.g29[id="c2"] {
   padding-right: 1rem;
 }
 
-ui-fss.g30[id="c0"] {
+ui-fss.g32[id="c0"] {
   content: "c1,";
 }
 
@@ -50,20 +50,21 @@ ui-fss.g30[id="c0"] {
   width: 100%;
 }
 
-ui-fss.g31[id="c4"] {
+ui-fss.g33[id="c4"] {
   content: "c5,";
 }
 
 <SEDPanelHeader
   highContrast={false}
 >
-  <W
+  <q
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
+          "alternative-hover-color": "#cce1f3",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -86,16 +87,16 @@ ui-fss.g31[id="c4"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#66a4dc",
+          "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#78706a",
+          "main-disabled-color": "#b7b1a9",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#cce1f3",
+          "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -298,6 +299,6 @@ ui-fss.g31[id="c4"] {
         </div>
       </styled.div>
     </Component>
-  </W>
+  </q>
 </SEDPanelHeader>
 `;

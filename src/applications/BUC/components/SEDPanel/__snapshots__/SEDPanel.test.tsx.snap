@@ -32,14 +32,14 @@ ui-fss.g17[id="c0"] {
 
 .c3.new .ekspanderbartPanel__hode,
 .c3.new .ekspanderbartPanel__hode div:not(.etikett) {
-  background: #b5bd33;
+  background: #ecefcc !important;
 }
 
 .c3.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
   background: #cce1f3 !important;
 }
 
-ui-fss.g28[id="c1"] {
+ui-fss.g30[id="c1"] {
   content: "c3,";
 }
 
@@ -49,7 +49,7 @@ ui-fss.g28[id="c1"] {
   background: #FFFFFF;
 }
 
-ui-fss.g29[id="c4"] {
+ui-fss.g31[id="c4"] {
   content: "c5,";
 }
 
@@ -1647,13 +1647,14 @@ ui-fss.g29[id="c4"] {
   }
   style={Object {}}
 >
-  <W
+  <q
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
+          "alternative-hover-color": "#cce1f3",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -1676,16 +1677,16 @@ ui-fss.g29[id="c4"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#66a4dc",
+          "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#78706a",
+          "main-disabled-color": "#b7b1a9",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#cce1f3",
+          "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -3289,6 +3290,6 @@ ui-fss.g29[id="c4"] {
         </s>
       </Styled(Styled(s))>
     </Component>
-  </W>
+  </q>
 </SEDPanel>
 `;

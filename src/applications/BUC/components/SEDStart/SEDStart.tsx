@@ -891,7 +891,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         howOldIsBucInMilliSeconds = (new Date().getTime() - _buc.lastUpdate)
         secondsLeft = Math.ceil((bucCooldownInSeconds * 1000 - howOldIsBucInMilliSeconds) / 1000)
       }
-      console.log('How old ? ' + howOldIsBucInMilliSeconds + ', secsleft ' + secondsLeft)
       // We need a cooldown for X x
       if (_.isNumber(secondsLeft) && secondsLeft > 0) {
         setCooldownTimeout(secondsLeft)

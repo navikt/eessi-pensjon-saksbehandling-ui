@@ -2,7 +2,44 @@
 
 exports[`applications/BUC/components/SEDBody/SEDBody Render: match snapshot 1`] = `
 .c4 {
-  background-color: inherit;
+  background-color: inherit !important;
+  color: !important;
+  border-color: !important;
+}
+
+.c4:hover:not(:disabled) {
+  background-color: !important;
+  color: !important;
+}
+
+.c4:hover:not(:disabled) svg {
+  color: !important;
+}
+
+.c4:hover:not(:disabled) svg path {
+  stroke: !important;
+}
+
+.c4:disabled {
+  color: !important;
+  background-color: !important;
+  border-color: !important;
+}
+
+.c4:disabled svg {
+  color: !important;
+}
+
+.c4:disabled svg path {
+  stroke: !important;
+}
+
+.c4:not(:disabled) svg {
+  color: !important;
+}
+
+.c4:not(:disabled) svg path {
+  stroke: !important;
 }
 
 ui-fss.g13[id="c3"] {
@@ -17,7 +54,7 @@ ui-fss.g13[id="c3"] {
   margin-bottom: 2rem;
 }
 
-ui-fss.g27[id="c0"] {
+ui-fss.g29[id="c0"] {
   content: "c1,c2,";
 }
 

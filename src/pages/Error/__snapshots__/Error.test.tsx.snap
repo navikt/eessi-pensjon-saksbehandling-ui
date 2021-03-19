@@ -32,6 +32,12 @@ exports[`pages/Error Render: match snapshot 1`] = `
   background-color: #FFFFFF;
 }
 
+.c11 .ekspanderbartPanel__hode:focus,
+.c11 .ekspanderbartPanel__hode--focus {
+  box-shadow: 0 0 0 3px #19548a !important;
+  outline: none;
+}
+
 .c11 .ekspanderbartPanel__hode {
   background-color: #FFFFFF;
 }
@@ -61,7 +67,7 @@ ui-fss.g8[id="c10"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g27[id="c4"] {
+ui-fss.g29[id="c4"] {
   content: "c5,c14,";
 }
 
@@ -71,7 +77,7 @@ ui-fss.g27[id="c4"] {
   text-align: center;
 }
 
-ui-fss.g28[id="c6"] {
+ui-fss.g30[id="c6"] {
   content: "c7,";
 }
 
@@ -96,7 +102,7 @@ ui-fss.g28[id="c6"] {
   justify-content: center;
 }
 
-ui-fss.g29[id="c0"] {
+ui-fss.g31[id="c0"] {
   content: "c1,";
 }
 
@@ -104,7 +110,7 @@ ui-fss.g29[id="c0"] {
   min-width: 50%;
 }
 
-ui-fss.g30[id="c8"] {
+ui-fss.g32[id="c8"] {
   content: "c9,";
 }
 
@@ -115,7 +121,7 @@ ui-fss.g30[id="c8"] {
   border-bottom: 1px solid;
 }
 
-ui-fss.g31[id="c12"] {
+ui-fss.g33[id="c12"] {
   content: "c13,";
 }
 
@@ -123,7 +129,7 @@ ui-fss.g31[id="c12"] {
   height: 110px;
 }
 
-ui-fss.g33[id="c2"] {
+ui-fss.g35[id="c2"] {
   content: "c3,";
 }
 
@@ -237,13 +243,14 @@ ui-fss.g33[id="c2"] {
               id="p-error__content-error-id"
               onOpen={[Function]}
             >
-              <W
+              <q
                 highContrast={false}
               >
                 <Component
                   theme={
                     Object {
                       "alternative-background-color": "#FFFFFF",
+                      "alternative-hover-color": "#cce1f3",
                       "black": "#000000",
                       "border-radius-base": "4px",
                       "border-radius-large": "6px",
@@ -266,16 +273,16 @@ ui-fss.g33[id="c2"] {
                       "inverted-font-color": "#FFFFFF",
                       "line-height-large": "1.3333333",
                       "line-height-small": "1.5",
-                      "main-active-color": "#66a4dc",
+                      "main-active-color": "#005b82",
                       "main-background-color": "#f1f1f1",
                       "main-border-color": "#78706a",
                       "main-border-radius": "4px",
                       "main-border-width": "1px",
-                      "main-disabled-color": "#78706a",
+                      "main-disabled-color": "#b7b1a9",
                       "main-error-color": "#ba3a26",
                       "main-focus-color": "#19548a",
                       "main-font-color": "#3e3832",
-                      "main-hover-color": "#cce1f3",
+                      "main-hover-color": "#0074df",
                       "main-interactive-color": "#0067c5",
                       "main-success-color": "#06893a",
                       "main-warning-color": "#ff9100",
@@ -450,7 +457,7 @@ ui-fss.g33[id="c2"] {
                     </div>
                   </styled.div>
                 </Component>
-              </W>
+              </q>
             </ExpandingPanel>
           </Styled(ExpandingPanel)>
           <div

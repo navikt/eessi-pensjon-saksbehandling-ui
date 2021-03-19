@@ -2,30 +2,44 @@
 
 exports[`applications/BUC/components/BUCTools/BUCTools Render: match snapshot 1`] = `
 .c15 {
-  background-color: inherit;
-  color: #0067c5;
-  border-color: #0067c5;
+  background-color: inherit !important;
+  color: #0067c5 !important;
+  border-color: #0067c5 !important;
 }
 
 .c15:hover:not(:disabled) {
-  background-color: #0067c5;
-  color: #FFFFFF;
+  background-color: #0074df !important;
+  color: #FFFFFF !important;
 }
 
 .c15:hover:not(:disabled) svg {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .c15:hover:not(:disabled) svg path {
-  stroke: #FFFFFF;
+  stroke: #FFFFFF !important;
 }
 
-.c15 svg {
-  color: #0067c5;
+.c15:disabled {
+  color: #FFFFFF !important;
+  background-color: #b7b1a9 !important;
+  border-color: #b7b1a9 !important;
 }
 
-.c15 svg path {
-  stroke: #0067c5;
+.c15:disabled svg {
+  color: #FFFFFF !important;
+}
+
+.c15:disabled svg path {
+  stroke: #FFFFFF !important;
+}
+
+.c15:not(:disabled) svg {
+  color: #0067c5 !important;
+}
+
+.c15:not(:disabled) svg path {
+  stroke: #0067c5 !important;
 }
 
 ui-fss.g13[id="c14"] {
@@ -60,7 +74,7 @@ ui-fss.g17[id="c0"] {
   background: none;
 }
 
-ui-fss.g20[id="c4"] {
+ui-fss.g22[id="c4"] {
   content: "c5,";
 }
 
@@ -74,7 +88,7 @@ ui-fss.g20[id="c4"] {
   margin-left: 1rem;
 }
 
-ui-fss.g23[id="c16"] {
+ui-fss.g25[id="c16"] {
   content: "c17,c18,";
 }
 
@@ -82,7 +96,7 @@ ui-fss.g23[id="c16"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g27[id="c10"] {
+ui-fss.g29[id="c10"] {
   content: "c11,";
 }
 
@@ -95,7 +109,7 @@ ui-fss.g27[id="c10"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g136[id="c1"] {
+ui-fss.g139[id="c1"] {
   content: "c3,";
 }
 
@@ -106,7 +120,7 @@ ui-fss.g136[id="c1"] {
   display: flex;
 }
 
-ui-fss.g138[id="c12"] {
+ui-fss.g141[id="c12"] {
   content: "c13,";
 }
 
@@ -114,7 +128,7 @@ ui-fss.g138[id="c12"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g139[id="c8"] {
+ui-fss.g142[id="c8"] {
   content: "c9,";
 }
 
@@ -123,7 +137,7 @@ ui-fss.g139[id="c8"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g140[id="c6"] {
+ui-fss.g143[id="c6"] {
   content: "c7,";
 }
 
@@ -1515,13 +1529,14 @@ ui-fss.g140[id="c6"] {
   initialTab={0}
   onTagChange={[MockFunction]}
 >
-  <W
+  <q
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
+          "alternative-hover-color": "#cce1f3",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -1544,16 +1559,16 @@ ui-fss.g140[id="c6"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#66a4dc",
+          "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#78706a",
+          "main-disabled-color": "#b7b1a9",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#cce1f3",
+          "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -2031,6 +2046,6 @@ ui-fss.g140[id="c6"] {
         </s>
       </Styled(Styled(s))>
     </Component>
-  </W>
+  </q>
 </BUCTools>
 `;

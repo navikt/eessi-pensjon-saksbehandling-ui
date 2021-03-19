@@ -15,6 +15,7 @@ import mockTagsList from 'mocks/buc/tagsList'
 import { Feiloppsummering } from 'nav-frontend-skjema'
 import { stageSelector } from 'setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
+import React from 'react'
 
 jest.mock('actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),

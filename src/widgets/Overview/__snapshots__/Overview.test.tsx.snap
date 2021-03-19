@@ -32,6 +32,12 @@ exports[`widgets/Overview/Overview Render: match snapshot 1`] = `
   background-color: #FFFFFF;
 }
 
+.c1 .ekspanderbartPanel__hode:focus,
+.c1 .ekspanderbartPanel__hode--focus {
+  box-shadow: 0 0 0 3px #19548a !important;
+  outline: none;
+}
+
 .c1 .ekspanderbartPanel__hode {
   background-color: #FFFFFF;
 }
@@ -58,7 +64,7 @@ ui-fss.g8[id="c0"] {
   margin-left: 1rem;
 }
 
-ui-fss.g23[id="c6"] {
+ui-fss.g25[id="c6"] {
   content: "c7,";
 }
 
@@ -74,7 +80,7 @@ ui-fss.g23[id="c6"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g33[id="c4"] {
+ui-fss.g35[id="c4"] {
   content: "c5,";
 }
 
@@ -88,7 +94,7 @@ ui-fss.g33[id="c4"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g34[id="c10"] {
+ui-fss.g36[id="c10"] {
   content: "c11,";
 }
 
@@ -106,7 +112,7 @@ ui-fss.g34[id="c10"] {
   flex: 1;
 }
 
-ui-fss.g35[id="c2"] {
+ui-fss.g37[id="c2"] {
   content: "c3,";
 }
 
@@ -116,7 +122,7 @@ ui-fss.g35[id="c2"] {
   width: 100%;
 }
 
-ui-fss.g36[id="c8"] {
+ui-fss.g38[id="c8"] {
   content: "c9,";
 }
 
@@ -136,13 +142,14 @@ ui-fss.g36[id="c8"] {
     }
   }
 >
-  <W
+  <q
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
+          "alternative-hover-color": "#cce1f3",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -165,16 +172,16 @@ ui-fss.g36[id="c8"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#66a4dc",
+          "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#78706a",
+          "main-disabled-color": "#b7b1a9",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#cce1f3",
+          "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -324,13 +331,14 @@ ui-fss.g36[id="c8"] {
           onOpen={[Function]}
           open={true}
         >
-          <W
+          <q
             highContrast={false}
           >
             <Component
               theme={
                 Object {
                   "alternative-background-color": "#FFFFFF",
+                  "alternative-hover-color": "#cce1f3",
                   "black": "#000000",
                   "border-radius-base": "4px",
                   "border-radius-large": "6px",
@@ -353,16 +361,16 @@ ui-fss.g36[id="c8"] {
                   "inverted-font-color": "#FFFFFF",
                   "line-height-large": "1.3333333",
                   "line-height-small": "1.5",
-                  "main-active-color": "#66a4dc",
+                  "main-active-color": "#005b82",
                   "main-background-color": "#f1f1f1",
                   "main-border-color": "#78706a",
                   "main-border-radius": "4px",
                   "main-border-width": "1px",
-                  "main-disabled-color": "#78706a",
+                  "main-disabled-color": "#b7b1a9",
                   "main-error-color": "#ba3a26",
                   "main-focus-color": "#19548a",
                   "main-font-color": "#3e3832",
-                  "main-hover-color": "#cce1f3",
+                  "main-hover-color": "#0074df",
                   "main-interactive-color": "#0067c5",
                   "main-success-color": "#06893a",
                   "main-warning-color": "#ff9100",
@@ -630,10 +638,10 @@ ui-fss.g36[id="c8"] {
                 </div>
               </styled.div>
             </Component>
-          </W>
+          </q>
         </ExpandingPanel>
       </div>
     </Component>
-  </W>
+  </q>
 </Overview>
 `;

@@ -91,10 +91,10 @@ ui-fss.g9[id="c2"] {
 }
 
 .c1.new .ekspanderbartPanel__hode {
-  background: #b5bd33;
+  background: #ecefcc !important;
 }
 
-ui-fss.g32[id="c0"] {
+ui-fss.g34[id="c0"] {
   content: "c1,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g32[id="c0"] {
   justify-content: space-between;
 }
 
-ui-fss.g33[id="c10"] {
+ui-fss.g35[id="c10"] {
   content: "c11,";
 }
 
@@ -118,7 +118,7 @@ ui-fss.g33[id="c10"] {
   width: 100%;
 }
 
-ui-fss.g34[id="c3"] {
+ui-fss.g36[id="c3"] {
   content: "c5,";
 }
 
@@ -142,7 +142,7 @@ ui-fss.g34[id="c3"] {
   flex: 2;
 }
 
-ui-fss.g35[id="c26"] {
+ui-fss.g37[id="c26"] {
   content: "c27,";
 }
 
@@ -152,7 +152,7 @@ ui-fss.g35[id="c26"] {
   flex: 1;
 }
 
-ui-fss.g36[id="c12"] {
+ui-fss.g38[id="c12"] {
   content: "c13,";
 }
 
@@ -181,7 +181,7 @@ ui-fss.g36[id="c12"] {
   font-size: 1.5rem;
 }
 
-ui-fss.g37[id="c28"] {
+ui-fss.g39[id="c28"] {
   content: "c29,";
 }
 
@@ -197,7 +197,7 @@ ui-fss.g37[id="c28"] {
   margin: 0.2rem 0rem;
 }
 
-ui-fss.g38[id="c14"] {
+ui-fss.g40[id="c14"] {
   content: "c15,";
 }
 
@@ -207,7 +207,7 @@ ui-fss.g38[id="c14"] {
   color: #0067c5 !important;
 }
 
-ui-fss.g39[id="c24"] {
+ui-fss.g41[id="c24"] {
   content: "c25,";
 }
 
@@ -216,7 +216,7 @@ ui-fss.g39[id="c24"] {
   padding-right: 0.5rem;
 }
 
-ui-fss.g40[id="c16"] {
+ui-fss.g42[id="c16"] {
   content: "c17,";
 }
 
@@ -235,7 +235,7 @@ ui-fss.g40[id="c16"] {
   align-items: center;
 }
 
-ui-fss.g41[id="c30"] {
+ui-fss.g43[id="c30"] {
   content: "c31,";
 }
 
@@ -244,7 +244,7 @@ ui-fss.g41[id="c30"] {
   width: 100%;
 }
 
-ui-fss.g42[id="c8"] {
+ui-fss.g44[id="c8"] {
   content: "c9,";
 }
 
@@ -1677,13 +1677,14 @@ ui-fss.g42[id="c8"] {
   }
   newBuc={true}
 >
-  <W
+  <q
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
+          "alternative-hover-color": "#cce1f3",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -1706,16 +1707,16 @@ ui-fss.g42[id="c8"] {
           "inverted-font-color": "#FFFFFF",
           "line-height-large": "1.3333333",
           "line-height-small": "1.5",
-          "main-active-color": "#66a4dc",
+          "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
           "main-border-color": "#78706a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#78706a",
+          "main-disabled-color": "#b7b1a9",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
           "main-font-color": "#3e3832",
-          "main-hover-color": "#cce1f3",
+          "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
@@ -5131,6 +5132,6 @@ ui-fss.g42[id="c8"] {
         </div>
       </styled.div>
     </Component>
-  </W>
+  </q>
 </BUCHeader>
 `;

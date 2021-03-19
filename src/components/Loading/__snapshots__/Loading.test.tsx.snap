@@ -13,7 +13,7 @@ exports[`components/Loading/LoadingImage Render: match snapshot 1`] = `
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g28[id="c0"] {
+ui-fss.g30[id="c0"] {
   content: "c1,";
 }
 
@@ -39,7 +39,7 @@ exports[`components/Loading/LoadingText Render: match snapshot 1`] = `
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g28[id="c0"] {
+ui-fss.g30[id="c0"] {
   content: "c1,";
 }
 

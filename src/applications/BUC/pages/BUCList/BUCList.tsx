@@ -76,13 +76,14 @@ export const BucLenkePanel = styled(HighContrastLenkepanelBase)`
   background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   margin-bottom: 1rem;
   &.new {
-    background: ${({ theme }) => theme.type === 'themeHighContrast' ? theme[themeKeys.NAVLIMEGRONNDARKEN20] : theme[themeKeys.NAVLIMEGRONNLIGHTEN20]};
+    background: ${({ theme }) => theme.type === 'themeHighContrast' ?
+  theme[themeKeys.NAVLIMEGRONNDARKEN20] : theme[themeKeys.NAVLIMEGRONNLIGHTEN20]} !important;
   }
   &:hover {
     border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
     border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
     border-style: solid;
-    background: ${({ theme }) => theme[themeKeys.MAIN_HOVER_COLOR]};
+    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]};
   }
 `
 const BUCNewDiv = styled(HighContrastPanel)`
