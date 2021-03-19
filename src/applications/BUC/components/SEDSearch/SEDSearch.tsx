@@ -3,7 +3,7 @@ import NavHighContrast, { HighContrastInput, HighContrastPanel } from 'nav-hoyko
 import { Option, Options } from 'declarations/app'
 import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ValueType } from 'react-select'
 import styled, { createGlobalStyle } from 'styled-components'

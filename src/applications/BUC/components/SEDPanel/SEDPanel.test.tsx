@@ -3,7 +3,6 @@ import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
-import React from 'react'
 import SEDPanel, { SEDPanelDiv, SEDPanelExpandingPanel, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
 
 jest.mock('applications/BUC/components/SEDHeader/SEDHeader', () => ({ children }: any) => (

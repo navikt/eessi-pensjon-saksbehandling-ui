@@ -13,7 +13,7 @@ import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
 import Pages from 'pages'
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
@@ -24,6 +24,7 @@ import { unregister } from 'registerServiceWorker'
 import i18n from './i18n'
 import * as reducers from './reducers'
 import { createGlobalStyle } from 'styled-components'
+import React from 'react'
 
 import 'nav-frontend-alertstriper-style/dist/main.css'
 import 'nav-frontend-chevron-style/dist/main.css'
@@ -77,9 +78,9 @@ const GlobalStyle = createGlobalStyle`
 `
 
 // IE11
-if (Number && isFinite && !Number.isFinite) {
+/*if (Number && isFinite && !Number.isFinite) {
   Number.isFinite = isFinite
-}
+}*/
 
 const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
 

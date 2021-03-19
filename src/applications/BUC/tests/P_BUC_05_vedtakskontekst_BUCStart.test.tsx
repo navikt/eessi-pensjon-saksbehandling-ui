@@ -8,7 +8,6 @@ import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockPersonAvdods from 'mocks/app/personAvdod'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 
 jest.mock('actions/buc', () => ({

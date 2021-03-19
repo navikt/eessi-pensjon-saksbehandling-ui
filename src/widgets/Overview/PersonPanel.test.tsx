@@ -1,6 +1,5 @@
 import { mount, ReactWrapper } from 'enzyme'
 import personAvdod from 'mocks/app/personAvdod'
-import React from 'react'
 import mockPerson from 'mocks/app/person'
 import PersonPanel, { PersonPanelDiv, PersonPanelProps } from './PersonPanel'
 

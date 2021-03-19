@@ -81,7 +81,7 @@
     "nav-frontend-veileder-style": "^2.0.29",
     "nav-frontend-veilederpanel": "^1.0.3",
     "nav-frontend-veilederpanel-style": "^1.0.3",
-    "nav-hoykontrast": "^1.1.5",
+    "nav-hoykontrast": "^1.2.0",
     "print-js": "^1.6.0",
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
@@ -107,7 +107,7 @@
     "@types/amplitude-js": "^7.0.1",
     "@types/classnames": "^2.2.11",
     "@types/enzyme": "^3.10.8",
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^26.0.21",
     "@types/lodash": "^4.14.168",
     "@types/md5": "^2.3.0",
     "@types/mustache": "^4.1.1",
@@ -127,7 +127,6 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.1",
     "es6-promise": "^4.2.8",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -145,8 +144,8 @@
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
     "standardx": "^7.0.0",
-    "ts-jest": "^26.5.3",
-    "typescript": "^4.1.5"
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
   },
   "resolutions": {
     "node-notifier": "=8.0.1",

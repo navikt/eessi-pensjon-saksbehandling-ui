@@ -1,5 +1,3 @@
-import React from 'react'
-
 const EmailSend: React.FC<any> = (props: any) => (
   <svg
     zoomAndPan='magnify'

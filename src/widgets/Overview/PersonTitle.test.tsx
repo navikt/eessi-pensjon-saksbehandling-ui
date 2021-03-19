@@ -1,4 +1,3 @@
-import React from 'react'
 import PersonTitle, { PersonTitleProps, Title } from './PersonTitle'
 import { mount, ReactWrapper } from 'enzyme'
 import mockPerson from 'mocks/app/person'

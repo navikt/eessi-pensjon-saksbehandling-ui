@@ -4,7 +4,6 @@ import { mount, ReactWrapper } from 'enzyme'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
 import moment from 'moment'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import BUCDetail, { BUCDetailProps, BUCDetailSelector } from './BUCDetail'
 

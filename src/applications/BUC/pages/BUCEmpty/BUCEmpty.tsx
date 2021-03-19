@@ -15,9 +15,8 @@ import NavHighContrast, {
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/app.d'
 import { standardLogger } from 'metrics/loggers'
-
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'

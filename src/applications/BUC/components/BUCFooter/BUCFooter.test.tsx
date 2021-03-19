@@ -1,6 +1,5 @@
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import BUCFooter, { BUCFooterDiv, BUCFooterProps, BUCFooterSelector } from './BUCFooter'
 

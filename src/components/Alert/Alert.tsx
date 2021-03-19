@@ -6,7 +6,6 @@ import { AlertErrorPropType } from 'declarations/components.pt'
 import _ from 'lodash'
 import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper'
 import PT from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 export type AlertStatusClasses = {[status in AlertStatus]: AlertStripeType}

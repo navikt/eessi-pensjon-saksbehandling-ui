@@ -1,7 +1,6 @@
 import { BUCMode } from 'applications/BUC'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 

@@ -1,7 +1,6 @@
 import { SavingAttachmentsJob } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import ProgressBar from 'fremdriftslinje'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSender'
 import joarkBrowserItems from 'mocks/joark/items'

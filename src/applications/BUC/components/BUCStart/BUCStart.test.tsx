@@ -13,7 +13,6 @@ import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
 import { Feiloppsummering } from 'nav-frontend-skjema'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
 

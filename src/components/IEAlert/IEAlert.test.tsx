@@ -1,6 +1,5 @@
 import { AlertDiv, IEAlertProps } from 'components/IEAlert/IEAlert'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import IEAlert from './IEAlert'
 
 describe('components/IEAlert/IEAlert', () => {

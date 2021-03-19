@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import EESSIPensjonVeileder from './EESSIPensjonVeileder'
 
 describe('components/EESSIPensjonVeileder/EESSIPensjonVeileder', () => {

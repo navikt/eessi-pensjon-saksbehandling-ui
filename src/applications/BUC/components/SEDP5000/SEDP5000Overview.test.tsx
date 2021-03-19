@@ -1,7 +1,6 @@
 import { Sed, Seds } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
-import React from 'react'
 import mockBucs from 'mocks/buc/bucs'
 import TableSorter from 'tabell'
 import SEDP5000Overview, { SEDP5000Container, SEDP5000Props } from './SEDP5000Overview'

@@ -6,7 +6,6 @@ import NavHighContrast, { themeKeys, HorizontalSeparatorDiv } from 'nav-hoykontr
 import * as routes from 'constants/routes'
 import PT from 'prop-types'
 import AdvarselTrekant from 'assets/icons/advarsel-trekant'
-import React from 'react'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'

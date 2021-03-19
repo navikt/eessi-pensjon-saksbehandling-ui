@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import SEDSearch, { SEDSearchProps } from './SEDSearch'
 
 describe('applications/BUC/components/SEDSearch/SEDSearch', () => {

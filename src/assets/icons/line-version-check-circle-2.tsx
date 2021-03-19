@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CheckCircle: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript'

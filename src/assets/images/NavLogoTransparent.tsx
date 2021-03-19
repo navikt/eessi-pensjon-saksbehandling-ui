@@ -1,5 +1,3 @@
-import React from 'react'
-
 const NavLogoTransparent: React.FC<any> = (props: any) => (
   <svg
     width={(props.width || props.size || 269)} height={(props.height || props.size || 169)}

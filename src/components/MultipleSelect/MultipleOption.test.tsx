@@ -1,6 +1,5 @@
 import { mount, ReactWrapper } from 'enzyme'
 import { theme } from 'nav-hoykontrast'
-import React from 'react'
 import MultipleOption, { MultipleOptionProps } from './MultipleOption'
 
 describe('components/MultipleSelect/MultipleOption', () => {

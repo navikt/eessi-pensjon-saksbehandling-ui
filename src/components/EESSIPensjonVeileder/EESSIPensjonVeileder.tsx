@@ -1,4 +1,3 @@
-import React from 'react'
 import PT from 'prop-types'
 import SmilendeOrangeVeileder from './veileder/navPensjonSmilendeOrangeVeileder.png'
 import TristOrangeVeileder from './veileder/navPensjonTristOrangeVeileder.png'

@@ -1,5 +1,4 @@
 import { WidgetProps } from 'nav-dashboard'
-import React from 'react'
 import BUCWidget from './BUCWidget'
 import { mount, ReactWrapper } from 'enzyme'
 

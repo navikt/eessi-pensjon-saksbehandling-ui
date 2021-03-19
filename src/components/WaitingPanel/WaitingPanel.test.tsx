@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import WaitingPanel, { WaitingPanelDiv } from './WaitingPanel'
 
 describe('components/WaitingPanel/WaitingPanel', () => {

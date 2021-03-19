@@ -1,6 +1,5 @@
 import { setStatusParam } from 'actions/app'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import BUCEmpty, { BUCEmptyArtwork, BUCEmptyDiv, BUCEmptyProps } from './BUCEmpty'
 

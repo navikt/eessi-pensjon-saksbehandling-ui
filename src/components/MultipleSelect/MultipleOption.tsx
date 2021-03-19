@@ -1,5 +1,4 @@
 import PT from 'prop-types'
-import React from 'react'
 import { OptionProps, OptionTypeBase } from 'react-select'
 import { Checkbox } from 'nav-frontend-skjema'
 import styled from 'styled-components'

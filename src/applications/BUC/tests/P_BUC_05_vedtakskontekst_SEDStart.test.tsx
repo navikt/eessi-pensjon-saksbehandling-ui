@@ -5,7 +5,6 @@ import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockPersonAvdods from 'mocks/app/personAvdod'
 import mockPerson from 'mocks/app/person'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 
 jest.mock('actions/buc', () => ({

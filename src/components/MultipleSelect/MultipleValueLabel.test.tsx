@@ -1,6 +1,5 @@
 import MultipleValueLabel from 'components/MultipleSelect/MultipleValueLabel'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 
 describe('components/MultipleSelect/MultipleValueLabel', () => {
   let wrapper: ReactWrapper

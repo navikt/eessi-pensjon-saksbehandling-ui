@@ -1,6 +1,5 @@
 import { WidgetProps } from 'nav-dashboard'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import OverviewWidget from './OverviewWidget'
 
 jest.mock('widgets/Overview/Overview', () => () => (<div className='mock-w-overview' />))

@@ -9,7 +9,6 @@ import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import BUCEdit, { BUCEditDiv, BUCEditProps } from './BUCEdit'
 

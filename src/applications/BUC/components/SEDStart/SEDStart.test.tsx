@@ -13,7 +13,6 @@ import mockFeatureToggles from 'mocks/app/featureToggles'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
 import mockItems from 'mocks/joark/items'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import { SEDStart, SEDStartDiv, SEDStartProps, SEDStartSelector } from './SEDStart'
 

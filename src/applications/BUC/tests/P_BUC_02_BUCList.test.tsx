@@ -8,7 +8,6 @@ import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { mount, ReactWrapper } from 'enzyme'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 
 jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)

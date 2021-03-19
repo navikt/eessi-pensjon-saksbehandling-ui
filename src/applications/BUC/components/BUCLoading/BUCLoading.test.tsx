@@ -1,6 +1,5 @@
 import { BUCHeaderDiv } from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import BUCLoading from './BUCLoading'
 
 describe('applications/BUC/components/BUCLoading/BUCLoading', () => {

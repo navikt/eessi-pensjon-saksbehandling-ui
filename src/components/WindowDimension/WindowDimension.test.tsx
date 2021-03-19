@@ -1,6 +1,5 @@
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 
 describe('components/WindowDimension/WindowDimension', () => {
   const MockElement: React.FC<any> = () => {

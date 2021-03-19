@@ -4,7 +4,6 @@ import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import NavHighContrast, { themeKeys, slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
-import React from 'react'
 import styled from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
 

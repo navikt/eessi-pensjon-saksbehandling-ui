@@ -4,7 +4,6 @@ import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockPersonAvdods from 'mocks/app/personAvdod'
 import moment from 'moment'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import BucHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 

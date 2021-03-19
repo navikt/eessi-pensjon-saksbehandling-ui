@@ -1,8 +1,6 @@
-
 import LoadingImage, { ImageDiv } from 'components/Loading/LoadingImage'
 import { TextDiv } from 'components/Loading/LoadingText'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 
 describe('components/Loading/LoadingImage', () => {
   let wrapper: ReactWrapper

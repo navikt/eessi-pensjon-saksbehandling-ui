@@ -2,7 +2,7 @@ import Buc from 'applications/BUC/'
 import { WidgetFC, WidgetProps } from 'nav-dashboard'
 import _ from 'lodash'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
 const BUCWidget: WidgetFC<WidgetProps> = ({

@@ -1,7 +1,6 @@
 import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import Footer, { FooterProps } from './Footer'
 

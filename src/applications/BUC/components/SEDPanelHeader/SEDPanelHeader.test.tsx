@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import SEDPanelHeader, { ActionsDiv, SedDiv, SEDPanelHeaderDiv } from './SEDPanelHeader'
 
 describe('applications/BUC/components/SEDPanelHeader/SEDPanelHeader', () => {

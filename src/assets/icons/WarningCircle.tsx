@@ -1,5 +1,3 @@
-import React from 'react'
-
 const WarningCircle: React.FC<any> = (props: any) => (
   <svg {...props} kind='advarsel-sirkel-fyll' focusable='false' height='1.5em' width='1.5em' viewBox='0 0 24 24'>
     <g fill='none' fillRule='evenodd'>

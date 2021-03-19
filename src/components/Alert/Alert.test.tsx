@@ -1,6 +1,5 @@
 import { AlertStatus } from 'declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import Alert, { AlertProps } from './Alert'
 
 describe('components/Alert/Alert', () => {

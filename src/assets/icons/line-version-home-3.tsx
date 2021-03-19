@@ -1,5 +1,3 @@
-import React from 'react'
-
 const HomeIcon: React.FC<any> = (props: any) => (
   <svg
     contentScriptType='text/ecmascript'

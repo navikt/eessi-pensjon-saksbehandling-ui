@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
 import styled from 'styled-components'
 

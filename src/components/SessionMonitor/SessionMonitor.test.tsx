@@ -1,6 +1,5 @@
 import { openModal } from 'actions/ui'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import SessionMonitor, { SessionMonitorProps } from './SessionMonitor'
 

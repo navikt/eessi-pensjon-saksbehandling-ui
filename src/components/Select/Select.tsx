@@ -1,6 +1,5 @@
 import { Option } from 'declarations/app'
 import Feiloppsummering from 'nav-frontend-skjema/lib/feiloppsummering'
-import React from 'react'
 import { Feilmelding } from 'nav-frontend-typografi'
 import { theme, themeKeys, themeHighContrast } from 'nav-hoykontrast'
 import classNames from 'classnames'
@@ -45,7 +44,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
           menuList: (styles: any) => ({
             ...styles,
             borderWidth: _theme[themeKeys.MAIN_BORDER_WIDTH],
-            borderColor:  _theme[themeKeys.MAIN_BORDER_COLOR],
+            borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
             borderStyle: 'solid',
             backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
           }),

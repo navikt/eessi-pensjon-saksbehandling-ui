@@ -2,7 +2,6 @@ import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import * as routes from 'constants/routes'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import Header, { HeaderProps } from './Header'
 

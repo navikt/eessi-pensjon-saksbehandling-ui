@@ -1,7 +1,6 @@
 import { getJoarkItemPreview, listJoarkItems } from 'actions/joark'
 import { JoarkPoster } from 'declarations/joark'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import mockJoark from 'mocks/joark/joark'
 import mockJoarkProcessed from 'mocks/joark/joarkAsItems'
 import { stageSelector } from 'setupTests'

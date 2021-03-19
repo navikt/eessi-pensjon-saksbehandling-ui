@@ -3,7 +3,6 @@ import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import Spinner from 'nav-frontend-spinner'
 import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 export const WaitingPanelDiv = styled.div`

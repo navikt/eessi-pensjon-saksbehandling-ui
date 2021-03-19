@@ -4,7 +4,6 @@ import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import personAvdod from 'mocks/app/personAvdod'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 
 jest.mock('actions/buc', () => ({

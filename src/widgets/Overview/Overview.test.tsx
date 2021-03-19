@@ -3,7 +3,6 @@ import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import personAvdod from 'mocks/app/personAvdod'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import { Overview, OverviewProps, OverviewSelector } from './Overview'
 

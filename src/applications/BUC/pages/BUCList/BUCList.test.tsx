@@ -8,7 +8,6 @@ import _ from 'lodash'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import BUCList, {
   BadBucDiv,

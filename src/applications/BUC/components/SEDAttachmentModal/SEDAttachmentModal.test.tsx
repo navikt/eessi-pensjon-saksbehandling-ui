@@ -1,6 +1,5 @@
 import { mount, ReactWrapper } from 'enzyme'
 import joarkBrowserItems from 'mocks/joark/items'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import SEDAttachmentModal, { SEDAttachmentModalProps } from './SEDAttachmentModal'
 

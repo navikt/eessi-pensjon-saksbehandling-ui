@@ -6,7 +6,6 @@ import SEDHeader, {
 import { Buc, Bucs, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
-import React from 'react'
 import _ from 'lodash'
 import { stageSelector } from 'setupTests'
 

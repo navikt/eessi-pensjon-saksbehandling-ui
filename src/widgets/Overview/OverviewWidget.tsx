@@ -1,6 +1,6 @@
 import { WidgetFC, WidgetProps } from 'nav-dashboard'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import Overview from './Overview'
 

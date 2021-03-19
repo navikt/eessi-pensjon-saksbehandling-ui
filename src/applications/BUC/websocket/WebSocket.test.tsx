@@ -2,7 +2,6 @@ import { fetchSingleBuc } from 'actions/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import { Server, WebSocket } from 'mock-socket'
-import React from 'react'
 import { act } from 'react-dom/test-utils'
 import BucWebSocket, { BUCWebsocketDiv, BucWebSocketProps } from './WebSocket'
 

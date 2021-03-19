@@ -48,7 +48,7 @@ import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metric
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'

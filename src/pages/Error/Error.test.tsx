@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import { Error as PageError, ErrorPageDiv, ErrorPageProps, ErrorPageSelector, ErrorPanel } from './Error'
 

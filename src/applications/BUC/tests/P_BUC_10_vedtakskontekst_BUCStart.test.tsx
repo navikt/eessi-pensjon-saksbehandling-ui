@@ -7,7 +7,6 @@ import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import mockPersonAvdods from 'mocks/app/personAvdod'
 

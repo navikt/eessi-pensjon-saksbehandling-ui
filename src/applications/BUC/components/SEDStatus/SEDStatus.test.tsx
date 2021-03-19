@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import SEDStatus, { Etikett, SEDStatusProps } from './SEDStatus'
 
 describe('applications/BUC/components/SEDStatus/SEDStatus', () => {

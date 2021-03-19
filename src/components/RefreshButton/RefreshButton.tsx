@@ -1,5 +1,4 @@
 import { rotating } from 'nav-hoykontrast'
-import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import styled from 'styled-components'

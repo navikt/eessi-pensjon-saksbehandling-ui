@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { OptionTypeBase } from 'react-select'
 import MultipleSelect, { MultipleSelectProps } from './MultipleSelect'
 

@@ -1,6 +1,5 @@
 import { mount, ReactWrapper } from 'enzyme'
 import { HighContrastExpandingPanel } from 'nav-hoykontrast'
-import React from 'react'
 import ExpandingPanel, { ExpandingPanelProps } from './ExpandingPanel'
 
 describe('components/ExpandingPanel/ExpandingPanel', () => {

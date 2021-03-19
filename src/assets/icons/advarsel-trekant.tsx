@@ -1,5 +1,3 @@
-import React from 'react'
-
 const AdvarselTrekant: React.FC<any> = (props: any) => (
   <svg {...props} viewBox='0 0 23 23' xmlns='http://www.w3.org/2000/svg'>
     <title>Advarsel</title>

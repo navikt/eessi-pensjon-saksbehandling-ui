@@ -1,7 +1,6 @@
 import BucWebSocket from 'applications/BUC/websocket/WebSocket'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { mount, ReactWrapper } from 'enzyme'
-import React from 'react'
 import { stageSelector } from 'setupTests'
 import mockPerson from 'mocks/app/person'
 import ContextBanner, { Context, ContextBannerProps, ContextBannerSelector, DivWithLinks, Tag } from './ContextBanner'

@@ -1,4 +1,3 @@
-import React from 'react'
 import LineExpandedCalendar from 'assets/icons/line-version-expanded-calendar-3'
 import LineExpandedGlobe from 'assets/icons/line-version-expanded-globe-2'
 import LineHandbag from 'assets/icons/line-version-handbag-3'

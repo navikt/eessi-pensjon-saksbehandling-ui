@@ -7,7 +7,7 @@ import Lukknapp from 'nav-frontend-lukknapp'
 import ReactModal from 'react-modal'
 import { Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import styled, { createGlobalStyle } from 'styled-components'
 

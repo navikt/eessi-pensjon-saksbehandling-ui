@@ -1,7 +1,6 @@
 import Select from 'components/Select/Select'
 import { mount, ReactWrapper } from 'enzyme'
 import ReactSelect from 'react-select'
-import React from 'react'
 
 describe('components/Select/Select', () => {
   let wrapper: ReactWrapper
