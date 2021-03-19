@@ -8,7 +8,7 @@ import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import NavHighContrast, { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import NavHighContrast, { HighContrastKnapp, HighContrastInput, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useEffect, useRef, useState } from 'react'
@@ -138,20 +138,47 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     { value: '52', label: '[52] Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon' }
   ]
 
-  const renderTypeSelect = (options: RenderEditableOptions) => {
+  const renderEditType = (options: RenderEditableOptions) => {
     return (
       <Select
+        key={'c-tableSorter__edit-type-select-key-' + options.defaultValue}
+        id={'c-tableSorter__edit-type-select-id'}
         className='sedP5000Other-type-select'
         highContrast={highContrast}
         label='Ytelsestype (4.1)'
+        feil={options.feil}
         options={typeOptions}
-        onChange={(e) => options.onChange(e!.value)}
-        selectedValue={_ytelseOption}
+        onChange={(e) => {
+          console.log(e)
+          setYtelseOption(e!.value)
+          options.onChange(e!.value)
+        }}
+        defaultValue={_.find(typeOptions, o => o.value === options.defaultValue)}
+        selectedValue={options.defaultValue}
       />
     )
   }
 
-  const renderOrdningSelect = (options: RenderEditableOptions) => {
+  const renderTypeCell = (item: any, value: any) => {
+    return <Normaltekst>
+      {_.find(typeOptions, t => t.value === value)?.label || 'Ukjent'}
+    </Normaltekst>
+  }
+
+  const dateTransform = (s: string) => {
+    let r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
+    if (r !== null) {
+      const matchedYear = parseInt(r[3])
+      const currentYear = new Date().getFullYear().toString()
+      const startPartOfYear = parseInt(currentYear.substring(0,2)) // 2021 => 20
+      const endPartOfYear = parseInt(currentYear.substring(2)) // 2021 => 21
+      const fullYear = matchedYear < endPartOfYear ? `${startPartOfYear}${matchedYear}` : `${startPartOfYear - 1}${matchedYear}`
+      return r[1] + '.' + r[2] + '.' + fullYear
+    }
+    return s
+  }
+
+  const renderEditOrdning = (options: RenderEditableOptions) => {
     if (options.defaultValue !== '00') {
       options.onChange('00')
     }
@@ -159,6 +186,74 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
       <Normaltekst>
         00
       </Normaltekst>
+    )
+  }
+
+  const renderEditYtelse = (options: RenderEditableOptions) => {
+    let valueToShow = options.defaultValue
+    if (options.values && (options.values['type'] === '43' || options.values['type'] === '45')) {
+      if (options.defaultValue !== '') {
+        options.onChange('')
+        valueToShow = ''
+      }
+    } else {
+      if (options.defaultValue !== '111') {
+        valueToShow = '111'
+        options.onChange('111')
+      }
+    }
+
+    return (
+      <Normaltekst>
+        {valueToShow}
+      </Normaltekst>
+    )
+  }
+
+
+  const renderEditDager = (options: RenderEditableOptions) => {
+    if (options.defaultValue !== '7') {
+      options.onChange('7')
+    }
+    return (
+      <Normaltekst>
+        7
+      </Normaltekst>
+    )
+  }
+
+  const renderEditAar = (options: RenderEditableOptions) => {
+    if (options.defaultValue !== '0' && (options.context as any).checkbox42) {
+      options.onChange('0')
+    }
+    if (options.defaultValue === '0' && !(options.context as any).checkbox42) {
+      options.onChange('')
+    }
+    return (
+      <HighContrastInput
+        id={'c-tableSorter__edit-aar-input-id'}
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        onChange={(e: any) => options.onChange(e.target.value)}
+        value={options.defaultValue}
+      />
+    )
+  }
+
+  const renderEditBeregning = (options: RenderEditableOptions) => {
+    if (!options.defaultValue) {
+      options.onChange('111')
+    }
+    return (
+      <HighContrastInput
+        id={'c-tableSorter__edit-beregning-input-id'}
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        onChange={(e: any) => options.onChange(e.target.value)}
+        value={options.defaultValue || '111'}
+      />
     )
   }
 
@@ -190,11 +285,10 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
       (a, b) => (parseInt(a, 10) - parseInt(b, 10))
     ).forEach((type: string) => {
       // @ts-ignore
-      const label = labels.type[type]
       res.push({
         ...data[type],
         key: type + '' + new Date().getTime(),
-        type: label + ' [' + type + ']'
+        type: type
       })
     })
     return res
@@ -287,7 +381,8 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           highContrast={highContrast}
           items={_items}
           context={{
-            items: _items
+            items: _items,
+            checkbox42: _checkbox42
           }}
           editable
           searchable={false}
@@ -319,15 +414,28 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             label: ''
           }]}
           columns={[
-            { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderEditable: renderTypeSelect, editTextValidation: '\\.+' },
-            { id: 'startdato', label: t('ui:startDate'), type: 'string', editTextValidation: '\\d{2}\\.\\d{2}\\.\\d{4}' },
-            { id: 'sluttdato', label: t('ui:endDate'), type: 'string', editTextValidation: '\\d{2}\\.\\d{2}\\.\\d{4}' },
-            { id: 'dag', label: t('ui:day'), type: 'string', editTextValidation: '\\d+' },
-            { id: 'mnd', label: t('ui:month'), type: 'string', editTextValidation: '\\d+' },
-            { id: 'aar', label: t('ui:year'), type: 'string', editTextValidation: '\\d+' },
-            { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string', editTextValidation: '.+' },
-            { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', editTextValidation: '.+' },
-            { id: 'ordning', label: t('ui:scheme'), type: 'string', renderEditable: renderOrdningSelect },
+            { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', edit: {
+              render: renderEditType, validation: '.+'
+            }, renderCell: renderTypeCell},
+            { id: 'startdato', label: t('ui:startDate'), type: 'string', edit: {
+              validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
+              placeholder: 'DD.MM.ÅÅÅÅ/DDMMÅÅ',
+              validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
+                transform: dateTransform
+            }},
+            { id: 'sluttdato', label: t('ui:endDate'), type: 'string', edit: {
+              validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
+              placeholder: 'DD-MM-ÅÅÅÅ/DDMMÅÅ',
+              validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
+              transform: dateTransform
+            }},
+            { id: 'dag', label: t('ui:day'), type: 'string', edit: { render: renderEditDager } },
+            { id: 'mnd', label: t('ui:month'), type: 'string', edit: { validation: '\\d+'} },
+            { id: 'aar', label: t('ui:year'), type: 'string', edit: { validation: '\\d+', render: renderEditAar} },
+            { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string', edit: { render: renderEditYtelse } },
+            { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', edit: {
+              validation: '.+', render: renderEditBeregning} },
+            { id: 'ordning', label: t('ui:scheme'), type: 'string', edit: {render: renderEditOrdning } },
             { id: 'buttons', label: '', type: 'buttons', renderCell: renderButtonsCell }
           ]}
         />

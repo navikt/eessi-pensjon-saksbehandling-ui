@@ -1,12 +1,11 @@
 import { Option } from 'declarations/app'
-import Feiloppsummering from 'nav-frontend-skjema/lib/feiloppsummering'
 import { Feilmelding } from 'nav-frontend-typografi'
 import { theme, themeKeys, themeHighContrast } from 'nav-hoykontrast'
 import classNames from 'classnames'
 import ReactSelect, { Props } from 'react-select'
 
 interface SelectProps extends Props<Option> {
-  feil?: Feiloppsummering
+  feil?: string
   highContrast: boolean
   'data-test-id'?: string
 }
