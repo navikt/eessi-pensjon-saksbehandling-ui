@@ -6,6 +6,7 @@ import { SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
+import moment from 'moment'
 import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, { HighContrastKnapp, HighContrastInput, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
@@ -267,14 +268,16 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
         if (!_.isNil(m) && m.type) {
           if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
             data[m.type] = {
-              startdato: '09.04.1994',
-              sluttdato: '09.04.1994',
-              dag: '2',
-              mnd: '8',
-              aar: '11',
-              ytelse: '111',
-              beregning: '111',
-              ordning: '00'
+              key: m.type + '' + new Date().getTime(),
+              type: m.type || '-',
+              startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
+              sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
+              aar: m.sum?.aar || '0',
+              mnd: m.sum?.maaneder || '0',
+              dag: (m.sum?.dager?.nr || '0'),
+              ytelse: m.relevans || '-',
+              ordning: m.ordning || '-',
+              beregning: m.beregning || '-'
             }
           }
         }
@@ -284,12 +287,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     Object.keys(data).sort(
       (a, b) => (parseInt(a, 10) - parseInt(b, 10))
     ).forEach((type: string) => {
-      // @ts-ignore
-      res.push({
-        ...data[type],
-        key: type + '' + new Date().getTime(),
-        type: type
-      })
+      res.push(data[type])
     })
     return res
   }
