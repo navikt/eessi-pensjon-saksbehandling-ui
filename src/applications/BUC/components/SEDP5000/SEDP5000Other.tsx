@@ -270,8 +270,8 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             data[m.type] = {
               key: m.type + '' + new Date().getTime(),
               type: m.type || '-',
-              startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
-              sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
+              startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
+              sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
               aar: m.sum?.aar || '0',
               mnd: m.sum?.maaneder || '0',
               dag: (m.sum?.dager?.nr || '0'),

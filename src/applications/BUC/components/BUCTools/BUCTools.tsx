@@ -4,8 +4,10 @@ import SEDP5000Other from 'applications/BUC/components/SEDP5000/SEDP5000Other'
 import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
 import SEDP5000Sum from 'applications/BUC/components/SEDP5000/SEDP5000Sum'
 import Trashcan from 'assets/icons/Trashcan'
+import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
 
 import {
@@ -66,11 +68,15 @@ const FlexDiv = styled.div`
 
 `
 const P5000Div = styled.div`
+  position: relative;
   margin-bottom: 1rem;
+  &.loading {
+    background-color: rgba(128,128,128,0.5);
+  }
 `
 const PaddedTabContent = styled.div`
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 `
 const RemoveComment = styled.div`
   cursor: pointer;
@@ -78,6 +84,12 @@ const RemoveComment = styled.div`
 export const TextArea = styled(HighContrastTextArea)`
   min-height: 150px;
   width: 100%;
+`
+export const SpinnerDiv = styled.div`
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  right: 0;
 `
 
 export interface BUCToolsProps {
@@ -360,7 +372,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           />
           <PaddedTabContent>
             {tabs[_activeTab].key === 'P5000' && (
-              <P5000Div>
+              <P5000Div className={classNames({loading: !_.isEmpty(_fetchingP5000)})}>
+                {!_.isEmpty(_fetchingP5000) && (
+                <SpinnerDiv>
+                  <WaitingPanel/>
+                </SpinnerDiv>
+                )}
                 <Undertittel>
                   {t('buc:form-titleP5000')}
                 </Undertittel>
@@ -378,10 +395,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     data-amplitude='buc.edit.tools.P5000.view'
                     data-test-id='a-buc-c-buctools__P5000-button-id'
                     disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                    spinner={!_.isEmpty(_fetchingP5000)}
                     onClick={onGettingP5000sClick}
                   >
-                    {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000s')}
+                    {t('buc:form-seeP5000s')}
                   </HighContrastKnapp>
                   {featureToggles?.P5000_SUMMER_VISIBLE && (
                     <>
@@ -390,30 +406,25 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                         data-amplitude='buc.edit.tools.P5000.summary.view'
                         data-test-id='a-buc-c-buctools__P5000-summary-button-id'
                         disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                        spinner={!_.isEmpty(_fetchingP5000)}
                         onClick={onGettingP5000SumClick}
                       >
-                        {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000summary')}
+                        {t('buc:form-seeP5000summary')}
                       </HighContrastKnapp>
                     </>
                   )}
                 </FlexDiv>
-
+                <VerticalSeparatorDiv/>
                 {featureToggles?.P5000_SUMMER_VISIBLE && (
-                  <>
-                    <HorizontalSeparatorDiv />
-                    <FlexDiv>
-                      <HighContrastKnapp
-                        data-amplitude='buc.edit.tools.P5000.other.view'
-                        data-test-id='a-buc-c-buctools__P5000-other-button-id'
-                        disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                        spinner={!_.isEmpty(_fetchingP5000)}
-                        onClick={onGettingP5000OtherClick}
-                      >
-                        {!_.isEmpty(_fetchingP5000) ? t('ui:loading') : t('buc:form-seeP5000other')}
-                      </HighContrastKnapp>
-                    </FlexDiv>
-                  </>
+                  <FlexDiv>
+                    <HighContrastKnapp
+                      data-amplitude='buc.edit.tools.P5000.other.view'
+                      data-test-id='a-buc-c-buctools__P5000-other-button-id'
+                      disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
+                      onClick={onGettingP5000OtherClick}
+                    >
+                      {t('buc:form-seeP5000other')}
+                    </HighContrastKnapp>
+                  </FlexDiv>
                 )}
               </P5000Div>
             )}
