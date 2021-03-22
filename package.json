@@ -149,7 +149,8 @@
   },
   "resolutions": {
     "node-notifier": "=8.0.1",
-    "immer": ">=8.0.1"
+    "is-svg": ">=4.2.2",
+    "react-dev-utils": ">=11.0.4"
   },
   "browserslist": [
     ">0.2%",
