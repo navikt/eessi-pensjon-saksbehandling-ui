@@ -243,7 +243,7 @@ ui-fss.g35[id="c2"] {
               id="p-error__content-error-id"
               onOpen={[Function]}
             >
-              <q
+              <J
                 highContrast={false}
               >
                 <Component
@@ -457,7 +457,7 @@ ui-fss.g35[id="c2"] {
                     </div>
                   </styled.div>
                 </Component>
-              </q>
+              </J>
             </ExpandingPanel>
           </Styled(ExpandingPanel)>
           <div

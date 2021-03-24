@@ -57,7 +57,7 @@ ui-fss.g33[id="c4"] {
 <SEDPanelHeader
   highContrast={false}
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -299,6 +299,6 @@ ui-fss.g33[id="c4"] {
         </div>
       </styled.div>
     </Component>
-  </q>
+  </J>
 </SEDPanelHeader>
 `;

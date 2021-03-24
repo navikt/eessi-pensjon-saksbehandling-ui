@@ -3,11 +3,7 @@ import { JoarkFilePropType } from 'declarations/joark.pt'
 import PT from 'prop-types'
 
 export const AddressPropType = PT.shape({
-  country: PT.string.isRequired,
-  town: PT.string,
-  street: PT.string,
-  postalCode: PT.string,
-  region: PT.string
+  country: PT.string.isRequired
 })
 
 export const AvdodPropType = PT.shape({
@@ -42,17 +38,10 @@ export const SEDAttachmentPropType = PT.shape({
 export const SEDAttachmentsPropType = PT.arrayOf(SEDAttachmentPropType.isRequired)
 
 export const OrganisationPropType = PT.shape({
-  address: AddressPropType.isRequired,
-  activeSince: PT.oneOfType([PT.number, PT.string]).isRequired,
-  registryNumber: PT.any,
   acronym: PT.string.isRequired,
   countryCode: PT.string.isRequired,
-  contactMethods: PT.any,
   name: PT.string.isRequired,
-  location: PT.any,
-  assignedBUCs: PT.any,
-  id: PT.string.isRequired,
-  accessPoint: PT.any
+  id: PT.string.isRequired
 })
 
 export const ParticipantPropType = PT.shape({

@@ -194,7 +194,7 @@ ui-fss.g36[id="c14"] {
   highContrast={false}
   params={Object {}}
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -582,6 +582,6 @@ ui-fss.g36[id="c14"] {
         </footer>
       </styled.footer>
     </Component>
-  </q>
+  </J>
 </Footer>
 `;

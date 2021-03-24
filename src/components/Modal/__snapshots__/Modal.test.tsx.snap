@@ -216,7 +216,7 @@ ui-fss.g38[id="c2"] {
   }
   onModalClose={[MockFunction]}
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -915,6 +915,6 @@ ui-fss.g38[id="c2"] {
         </Modal>
       </Styled(Modal)>
     </Component>
-  </q>
+  </J>
 </Modal>
 `;

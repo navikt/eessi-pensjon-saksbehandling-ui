@@ -128,9 +128,6 @@ describe('reducers/buc', () => {
 
     const mockParticipant = {
       organisation: {
-        address: {
-          country: 'NO'
-        },
         countryCode: 'NO',
         id: 'foo',
         name: ''
@@ -199,9 +196,6 @@ describe('reducers/buc', () => {
 
     const mockParticipant = {
       organisation: {
-        address: {
-          country: 'NO'
-        },
         countryCode: 'NO',
         id: 'foo',
         name: ''

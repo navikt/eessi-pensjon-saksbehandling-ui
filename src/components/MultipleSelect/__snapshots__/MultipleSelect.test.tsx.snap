@@ -80,7 +80,7 @@ ui-fss.g34[id="c0"] {
     ]
   }
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -7431,6 +7431,6 @@ ui-fss.g34[id="c0"] {
         </div>
       </styled.div>
     </Component>
-  </q>
+  </J>
 </MultipleSelect>
 `;

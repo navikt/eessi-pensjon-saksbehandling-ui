@@ -372,11 +372,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           />
           <PaddedTabContent>
             {tabs[_activeTab].key === 'P5000' && (
-              <P5000Div className={classNames({loading: !_.isEmpty(_fetchingP5000)})}>
+              <P5000Div className={classNames({ loading: !_.isEmpty(_fetchingP5000) })}>
                 {!_.isEmpty(_fetchingP5000) && (
-                <SpinnerDiv>
-                  <WaitingPanel/>
-                </SpinnerDiv>
+                  <SpinnerDiv>
+                    <WaitingPanel />
+                  </SpinnerDiv>
                 )}
                 <Undertittel>
                   {t('buc:form-titleP5000')}
@@ -413,7 +413,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     </>
                   )}
                 </FlexDiv>
-                <VerticalSeparatorDiv/>
+                <VerticalSeparatorDiv />
                 {featureToggles?.P5000_SUMMER_VISIBLE && (
                   <FlexDiv>
                     <HighContrastKnapp

@@ -425,7 +425,7 @@ ui-fss.g30[id="c0"] {
     onClick={[Function]}
     role="button"
   >
-    <q>
+    <J>
       <Component
         theme={
           Object {
@@ -627,7 +627,7 @@ ui-fss.g30[id="c0"] {
           </Checkbox>
         </Styled(Checkbox)>
       </Component>
-    </q>
+    </J>
   </div>
 </MultipleOption>
 `;

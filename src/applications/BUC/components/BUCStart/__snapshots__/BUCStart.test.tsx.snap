@@ -170,7 +170,7 @@ ui-fss.g34[id="c9"] {
   onBucCancelled={[MockFunction]}
   onBucCreated={[MockFunction]}
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -4128,7 +4128,7 @@ ui-fss.g34[id="c9"] {
                   placeholder="buc:form-tagPlaceholder"
                   values={Array []}
                 >
-                  <q
+                  <J
                     highContrast={false}
                   >
                     <Component
@@ -9760,7 +9760,7 @@ ui-fss.g34[id="c9"] {
                         </div>
                       </styled.div>
                     </Component>
-                  </q>
+                  </J>
                 </MultipleSelect>
               </div>
             </styled.div>
@@ -9870,6 +9870,6 @@ ui-fss.g34[id="c9"] {
         </styled.div>
       </div>
     </Component>
-  </q>
+  </J>
 </BUCStart>
 `;

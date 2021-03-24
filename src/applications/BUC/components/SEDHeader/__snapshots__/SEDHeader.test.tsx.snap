@@ -368,46 +368,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEMONO02",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMONO02",
-                "location": null,
                 "name": "Norwegian institution 02",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": true,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEMONO01",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMONO01",
-                "location": null,
                 "name": "Norwegian institution 01",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -445,46 +419,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEMONO02",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMONO02",
-                "location": null,
                 "name": "Norwegin institution 02",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEMONO01",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMONO01",
-                "location": null,
                 "name": "Norwegian institution 01",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -511,46 +459,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
@@ -577,46 +499,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -643,46 +539,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -709,46 +579,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -775,46 +619,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -841,46 +659,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -907,46 +699,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -973,46 +739,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1039,46 +779,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1105,46 +819,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1171,46 +859,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1237,46 +899,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": true,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1303,46 +939,20 @@ ui-fss.g41[id="c14"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12348",
-                "activeSince": 1518476400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO002",
-                "location": null,
                 "name": "DEMO002",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "12347",
-                "activeSince": 1508450400000,
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:DEMO001",
-                "location": null,
                 "name": "DEMO001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1387,46 +997,20 @@ ui-fss.g41[id="c14"] {
       "participants": Array [
         Object {
           "organisation": Object {
-            "accessPoint": null,
             "acronym": "DEMONO02",
-            "activeSince": 1518476400000,
-            "address": Object {
-              "country": "NO",
-              "postalCode": null,
-              "region": null,
-              "street": null,
-              "town": null,
-            },
-            "assignedBUCs": null,
-            "contactMethods": null,
             "countryCode": "NO",
             "id": "NO:DEMONO02",
-            "location": null,
             "name": "Norwegian institution 02",
-            "registryNumber": null,
           },
           "role": "Sender",
           "selected": true,
         },
         Object {
           "organisation": Object {
-            "accessPoint": null,
             "acronym": "DEMONO01",
-            "activeSince": 1508450400000,
-            "address": Object {
-              "country": "NO",
-              "postalCode": null,
-              "region": null,
-              "street": null,
-              "town": null,
-            },
-            "assignedBUCs": null,
-            "contactMethods": null,
             "countryCode": "NO",
             "id": "NO:DEMONO01",
-            "location": null,
             "name": "Norwegian institution 01",
-            "registryNumber": null,
           },
           "role": "Receiver",
           "selected": false,
@@ -1438,7 +1022,7 @@ ui-fss.g41[id="c14"] {
     }
   }
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -1663,7 +1247,7 @@ ui-fss.g41[id="c14"] {
                               highContrast={false}
                               status="received"
                             >
-                              <q
+                              <J
                                 highContrast={false}
                               >
                                 <Component
@@ -1856,7 +1440,7 @@ ui-fss.g41[id="c14"] {
                                     </EtikettBase>
                                   </Styled(EtikettBase)>
                                 </Component>
-                              </q>
+                              </J>
                             </SEDStatus>
                           </div>
                         </Component>
@@ -3061,6 +2645,6 @@ ui-fss.g41[id="c14"] {
         </s>
       </Styled(Styled(s))>
     </Component>
-  </q>
+  </J>
 </SEDHeader>
 `;

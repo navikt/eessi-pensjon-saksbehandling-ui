@@ -101,7 +101,7 @@ ui-fss.g30[id="c0"] {
 }
 
 .c3 .tabell__tr--disabled td {
-  background: #78706a !important;
+  background: #b7b1a9 !important;
   color: #f1f1f1 !important;
 }
 
@@ -109,7 +109,7 @@ ui-fss.g30[id="c0"] {
   color: #f1f1f1 !important;
 }
 
-ui-fss.g134[id="c2"] {
+ui-fss.g135[id="c2"] {
   content: "c3,";
 }
 
@@ -117,7 +117,7 @@ ui-fss.g134[id="c2"] {
   position: relative;
 }
 
-ui-fss.g135[id="c4"] {
+ui-fss.g136[id="c4"] {
   content: "c5,";
 }
 
@@ -125,7 +125,7 @@ ui-fss.g135[id="c4"] {
   width: 100%;
 }
 
-ui-fss.g137[id="c6"] {
+ui-fss.g138[id="c6"] {
   content: "c7,";
 }
 
@@ -147,7 +147,7 @@ ui-fss.g137[id="c6"] {
   align-items: center;
 }
 
-ui-fss.g138[id="c8"] {
+ui-fss.g139[id="c8"] {
   content: "c9,";
 }
 
@@ -167,7 +167,7 @@ ui-fss.g138[id="c8"] {
       highContrast={false}
       onModalClose={[Function]}
     >
-      <q
+      <J
         highContrast={false}
       >
         <Component
@@ -421,7 +421,7 @@ ui-fss.g138[id="c8"] {
             </Modal>
           </Styled(Modal)>
         </Component>
-      </q>
+      </J>
     </Modal>
     <jt
       columns={
@@ -484,6 +484,7 @@ ui-fss.g138[id="c8"] {
           theme={
             Object {
               "alternative-background-color": "#FFFFFF",
+              "alternative-hover-color": "#cce1f3",
               "black": "#000000",
               "border-radius-base": "4px",
               "border-radius-large": "6px",
@@ -506,16 +507,16 @@ ui-fss.g138[id="c8"] {
               "inverted-font-color": "#FFFFFF",
               "line-height-large": "1.3333333",
               "line-height-small": "1.5",
-              "main-active-color": "#66a4dc",
+              "main-active-color": "#005b82",
               "main-background-color": "#f1f1f1",
               "main-border-color": "#78706a",
               "main-border-radius": "4px",
               "main-border-width": "1px",
-              "main-disabled-color": "#78706a",
+              "main-disabled-color": "#b7b1a9",
               "main-error-color": "#ba3a26",
               "main-focus-color": "#19548a",
               "main-font-color": "#3e3832",
-              "main-hover-color": "#cce1f3",
+              "main-hover-color": "#0074df",
               "main-interactive-color": "#0067c5",
               "main-success-color": "#06893a",
               "main-warning-color": "#ff9100",

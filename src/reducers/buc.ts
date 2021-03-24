@@ -188,9 +188,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           newSed.participants.push({
             role: 'Sender',
             organisation: {
-              address: {
-                country: bucs[state.currentBuc!].creator!.country
-              },
               countryCode: bucs[state.currentBuc!].creator!.country,
               name: bucs[state.currentBuc!].creator!.name || '',
               id: bucs[state.currentBuc!].creator!.institution
@@ -204,9 +201,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
             newSed.participants.push({
               role: 'Receiver',
               organisation: {
-                address: {
-                  country: inst.country
-                },
                 countryCode: inst.country,
                 name: inst.name || '',
                 id: inst.institution

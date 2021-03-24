@@ -49,46 +49,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: true
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -125,112 +99,47 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }, {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'IT',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'DEMOIT01',
               countryCode: 'IT',
-              contactMethods: null,
               name: 'Italian institution 001',
-              location: null,
-              assignedBUCs: null,
-              id: 'IT:DEMOIT01',
-              accessPoint: null
+              id: 'IT:DEMOIT01'
             },
             selected: false
           }, {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'ES',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'DEMOES01',
               countryCode: 'ES',
-              contactMethods: null,
               name: 'Spanish institution 01',
-              location: null,
-              assignedBUCs: null,
-              id: 'ES:DEMOES01',
-              accessPoint: null
+              id: 'ES:DEMOES01'
             },
             selected: false
           }, {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'FR',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'DEMOFR01',
               countryCode: 'FR',
-              contactMethods: null,
               name: 'French insstitution 01',
-              location: null,
-              assignedBUCs: null,
-              id: 'FR:DEMOFR01',
-              accessPoint: null
+              id: 'FR:DEMOFR01'
             },
             selected: false
           }
@@ -259,46 +168,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -327,46 +210,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -395,46 +252,20 @@ const mockBuc = [
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           },
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           }
@@ -463,46 +294,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -531,46 +336,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -615,46 +394,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -683,46 +436,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -751,46 +478,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -819,46 +520,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: true
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -887,46 +562,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -955,46 +604,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -1023,46 +646,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -1091,46 +688,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -1159,46 +730,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -1227,46 +772,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT08',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 08',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT08',
-              accessPoint: null
+              id: 'NO:NAVAT08'
             },
             selected: false
           }
@@ -1295,46 +814,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'DE',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'DEDEMO01',
               countryCode: 'DE',
-              contactMethods: null,
               name: 'DE DEMO 01',
-              location: null,
-              assignedBUCs: null,
-              id: 'DE:DEDEMO01',
-              accessPoint: null
+              id: 'DE:DEDEMO01'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: '2018-08-26T22:00:00.000+0000',
-              registryNumber: null,
               acronym: 'NAVAT07',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV ACCEPTANCE TEST 07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAVAT07',
-              accessPoint: null
+              id: 'NO:NAVAT07'
             },
             selected: false
           }
@@ -1428,46 +921,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: 'DEMONO02',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'Norwegian institution 02',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMONO02',
-              accessPoint: null
+              id: 'NO:DEMONO02'
             },
             selected: true
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: 'DEMONO01',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'Norwegian institution 01',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMONO01',
-              accessPoint: null
+              id: 'NO:DEMONO01'
             },
             selected: false
           }
@@ -1503,46 +970,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: 'DEMONO02',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'Norwegin institution 02',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMONO02',
-              accessPoint: null
+              id: 'NO:DEMONO02'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: 'DEMONO01',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'Norwegian institution 01',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMONO01',
-              accessPoint: null
+              id: 'NO:DEMONO01'
             },
             selected: false
           }
@@ -1577,46 +1018,20 @@ const mockBuc = [
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           },
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           }
@@ -1643,46 +1058,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -1709,46 +1098,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -1775,46 +1138,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -1841,46 +1178,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -1907,46 +1218,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -1973,46 +1258,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -2039,46 +1298,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -2105,46 +1338,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -2171,46 +1378,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -2237,46 +1418,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -2303,46 +1458,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: true
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -2369,46 +1498,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO002',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO002',
-              accessPoint: null
+              id: 'NO:DEMO002'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'DEMO001',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:DEMO001',
-              accessPoint: null
+              id: 'NO:DEMO001'
             },
             selected: false
           }
@@ -2501,46 +1604,20 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              address: {
-                country: 'SE',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1518476400000,
-              registryNumber: null,
               acronym: '12348',
               countryCode: 'SE',
-              contactMethods: null,
               name: 'Swedish institution demo 01',
-              location: null,
-              assignedBUCs: null,
-              id: 'SE:DEMO001',
-              accessPoint: null
+              id: 'SE:DEMO001'
             },
             selected: true
           },
           {
             role: 'Receiver',
             organisation: {
-              address: {
-                country: 'NO',
-                town: null,
-                street: null,
-                postalCode: null,
-                region: null
-              },
-              activeSince: 1508450400000,
-              registryNumber: null,
               acronym: '12347',
               countryCode: 'NO',
-              contactMethods: null,
               name: 'NAV07',
-              location: null,
-              assignedBUCs: null,
-              id: 'NO:NAV07',
-              accessPoint: null
+              id: 'NO:NAV07'
             },
             selected: false
           }
@@ -2596,45 +1673,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -2660,45 +1711,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -2724,45 +1749,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -2788,45 +1787,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -2852,45 +1825,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -2916,45 +1863,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -2996,45 +1917,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: true
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3060,45 +1955,19 @@ const mockBuc = [
       participants: [{
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }, {
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }],
@@ -3124,45 +1993,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: true
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3188,45 +2031,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3252,45 +2069,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3316,45 +2107,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3380,45 +2145,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3444,45 +2183,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3508,45 +2221,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3572,45 +2259,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3636,45 +2297,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3700,45 +2335,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: '12348',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1508450400000,
-          registryNumber: null,
           acronym: '12347',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],
@@ -3820,45 +2429,19 @@ const mockBuc = [
       participants: [{
         role: 'Sender',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: 'DEMO002',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO002',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO002',
-          accessPoint: null
+          id: 'NO:DEMO002'
         },
         selected: false
       }, {
         role: 'Receiver',
         organisation: {
-          address: {
-            country: 'NO',
-            town: null,
-            street: null,
-            postalCode: null,
-            region: null
-          },
-          activeSince: 1518476400000,
-          registryNumber: null,
           acronym: 'DEMO001',
           countryCode: 'NO',
-          contactMethods: null,
           name: 'DEMO001',
-          location: null,
-          assignedBUCs: null,
-          id: 'NO:DEMO001',
-          accessPoint: null
+          id: 'NO:DEMO001'
         },
         selected: false
       }],

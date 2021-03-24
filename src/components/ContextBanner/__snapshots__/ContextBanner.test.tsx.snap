@@ -141,7 +141,7 @@ ui-fss.g35[id="c4"] {
   highContrast={false}
   mode="buclist"
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -540,6 +540,6 @@ ui-fss.g35[id="c4"] {
         </div>
       </styled.div>
     </Component>
-  </q>
+  </J>
 </ContextBanner>
 `;

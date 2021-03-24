@@ -143,7 +143,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     return (
       <Select
         key={'c-tableSorter__edit-type-select-key-' + options.defaultValue}
-        id={'c-tableSorter__edit-type-select-id'}
+        id='c-tableSorter__edit-type-select-id'
         className='sedP5000Other-type-select'
         highContrast={highContrast}
         label='Ytelsestype (4.1)'
@@ -161,17 +161,19 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   }
 
   const renderTypeCell = (item: any, value: any) => {
-    return <Normaltekst>
-      {_.find(typeOptions, t => t.value === value)?.label || 'Ukjent'}
-    </Normaltekst>
+    return (
+      <Normaltekst>
+        {_.find(typeOptions, t => t.value === value)?.label || 'Ukjent'}
+      </Normaltekst>
+    )
   }
 
   const dateTransform = (s: string) => {
-    let r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
+    const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
     if (r !== null) {
       const matchedYear = parseInt(r[3])
       const currentYear = new Date().getFullYear().toString()
-      const startPartOfYear = parseInt(currentYear.substring(0,2)) // 2021 => 20
+      const startPartOfYear = parseInt(currentYear.substring(0, 2)) // 2021 => 20
       const endPartOfYear = parseInt(currentYear.substring(2)) // 2021 => 21
       const fullYear = matchedYear < endPartOfYear ? `${startPartOfYear}${matchedYear}` : `${startPartOfYear - 1}${matchedYear}`
       return r[1] + '.' + r[2] + '.' + fullYear
@@ -192,7 +194,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
 
   const renderEditYtelse = (options: RenderEditableOptions) => {
     let valueToShow = options.defaultValue
-    if (options.values && (options.values['type'] === '43' || options.values['type'] === '45')) {
+    if (options.values && (options.values.type === '43' || options.values.type === '45')) {
       if (options.defaultValue !== '') {
         options.onChange('')
         valueToShow = ''
@@ -210,7 +212,6 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
       </Normaltekst>
     )
   }
-
 
   const renderEditDager = (options: RenderEditableOptions) => {
     if (options.defaultValue !== '7') {
@@ -232,7 +233,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     }
     return (
       <HighContrastInput
-        id={'c-tableSorter__edit-aar-input-id'}
+        id='c-tableSorter__edit-aar-input-id'
         className='c-tableSorter__edit-input'
         label=''
         feil={options.feil}
@@ -248,7 +249,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     }
     return (
       <HighContrastInput
-        id={'c-tableSorter__edit-beregning-input-id'}
+        id='c-tableSorter__edit-beregning-input-id'
         className='c-tableSorter__edit-input'
         label=''
         feil={options.feil}
@@ -412,28 +413,48 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             label: ''
           }]}
           columns={[
-            { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', edit: {
-              render: renderEditType, validation: '.+'
-            }, renderCell: renderTypeCell},
-            { id: 'startdato', label: t('ui:startDate'), type: 'string', edit: {
-              validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
-              placeholder: 'DD.MM.ÅÅÅÅ/DDMMÅÅ',
-              validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
+            {
+              id: 'type',
+              label: t('buc:p5000-type-43113'),
+              type: 'string',
+              edit: {
+                render: renderEditType, validation: '.+'
+              },
+              renderCell: renderTypeCell
+            },
+            {
+              id: 'startdato',
+              label: t('ui:startDate'),
+              type: 'string',
+              edit: {
+                validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
+                placeholder: 'DD.MM.ÅÅÅÅ/DDMMÅÅ',
+                validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
                 transform: dateTransform
-            }},
-            { id: 'sluttdato', label: t('ui:endDate'), type: 'string', edit: {
-              validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
-              placeholder: 'DD-MM-ÅÅÅÅ/DDMMÅÅ',
-              validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
-              transform: dateTransform
-            }},
+              }
+            },
+            {
+              id: 'sluttdato',
+              label: t('ui:endDate'),
+              type: 'string',
+              edit: {
+                validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
+                placeholder: 'DD-MM-ÅÅÅÅ/DDMMÅÅ',
+                validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
+                transform: dateTransform
+              }
+            },
             { id: 'dag', label: t('ui:day'), type: 'string', edit: { render: renderEditDager } },
-            { id: 'mnd', label: t('ui:month'), type: 'string', edit: { validation: '\\d+'} },
-            { id: 'aar', label: t('ui:year'), type: 'string', edit: { validation: '\\d+', render: renderEditAar} },
+            { id: 'mnd', label: t('ui:month'), type: 'string', edit: { validation: '\\d+' } },
+            { id: 'aar', label: t('ui:year'), type: 'string', edit: { validation: '\\d+', render: renderEditAar } },
             { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string', edit: { render: renderEditYtelse } },
-            { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', edit: {
-              validation: '.+', render: renderEditBeregning} },
-            { id: 'ordning', label: t('ui:scheme'), type: 'string', edit: {render: renderEditOrdning } },
+            {
+              id: 'beregning',
+              label: t('ui:calculationInformation'),
+              type: 'string',
+              edit: { validation: '.+', render: renderEditBeregning }
+            },
+            { id: 'ordning', label: t('ui:scheme'), type: 'string', edit: { render: renderEditOrdning } },
             { id: 'buttons', label: '', type: 'buttons', renderCell: renderButtonsCell }
           ]}
         />

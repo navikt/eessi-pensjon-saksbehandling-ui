@@ -255,7 +255,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                     </RowText>
                     )
                   : (
-                    <WaitingPanel size='S' oneLine/>
+                    <WaitingPanel size='S' oneLine />
                     )}
               </PropertyDiv>
             )}

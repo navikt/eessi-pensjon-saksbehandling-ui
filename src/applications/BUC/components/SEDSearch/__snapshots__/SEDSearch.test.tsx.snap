@@ -87,7 +87,7 @@ ui-fss.g37[id="c7"] {
   onSearch={[MockFunction]}
   onStatusSearch={[MockFunction]}
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -344,7 +344,7 @@ ui-fss.g37[id="c7"] {
                   placeholder="buc:form-searchForStatus"
                   values={Array []}
                 >
-                  <q
+                  <J
                     highContrast={false}
                   >
                     <Component
@@ -6188,7 +6188,7 @@ ui-fss.g37[id="c7"] {
                         </div>
                       </styled.div>
                     </Component>
-                  </q>
+                  </J>
                 </MultipleSelect>
               </div>
             </styled.div>
@@ -6196,6 +6196,6 @@ ui-fss.g37[id="c7"] {
         </s>
       </Styled(Styled(s))>
     </Component>
-  </q>
+  </J>
 </SEDSearch>
 `;

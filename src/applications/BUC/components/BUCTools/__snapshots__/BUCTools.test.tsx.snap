@@ -83,21 +83,20 @@ ui-fss.g22[id="c4"] {
   margin-left: 0.5rem;
 }
 
-.c18 {
-  display: inline-block;
-  margin-left: 1rem;
-}
-
 ui-fss.g25[id="c16"] {
-  content: "c17,c18,";
+  content: "c17,";
 }
 
 .c11 {
   margin-bottom: 0.5rem;
 }
 
+.c18 {
+  margin-bottom: 1rem;
+}
+
 ui-fss.g29[id="c10"] {
-  content: "c11,";
+  content: "c11,c18,";
 }
 
 .c3 {
@@ -109,7 +108,7 @@ ui-fss.g29[id="c10"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g139[id="c1"] {
+ui-fss.g141[id="c1"] {
   content: "c3,";
 }
 
@@ -120,24 +119,29 @@ ui-fss.g139[id="c1"] {
   display: flex;
 }
 
-ui-fss.g141[id="c12"] {
+ui-fss.g143[id="c12"] {
   content: "c13,";
 }
 
 .c9 {
+  position: relative;
   margin-bottom: 1rem;
 }
 
-ui-fss.g142[id="c8"] {
+.c9.loading {
+  background-color: rgba(128,128,128,0.5);
+}
+
+ui-fss.g144[id="c8"] {
   content: "c9,";
 }
 
 .c7 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
-ui-fss.g143[id="c6"] {
+ui-fss.g145[id="c6"] {
   content: "c7,";
 }
 
@@ -212,46 +216,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": true,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -280,115 +258,50 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEMOIT01",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "IT",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "IT",
                 "id": "IT:DEMOIT01",
-                "location": null,
                 "name": "Italian institution 001",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEMOES01",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "ES",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "ES",
                 "id": "ES:DEMOES01",
-                "location": null,
                 "name": "Spanish institution 01",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEMOFR01",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "FR",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "FR",
                 "id": "FR:DEMOFR01",
-                "location": null,
                 "name": "French insstitution 01",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -417,46 +330,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -485,46 +372,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -553,46 +414,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
@@ -621,46 +456,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -708,46 +517,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -776,46 +559,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -844,46 +601,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -912,46 +643,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -980,46 +685,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": true,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1048,46 +727,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1116,46 +769,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1184,46 +811,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1252,46 +853,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1320,46 +895,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1388,46 +937,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT08",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT08",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 08",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1456,46 +979,20 @@ ui-fss.g143[id="c6"] {
           "participants": Array [
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "DEDEMO01",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "DE",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "DE",
                 "id": "DE:DEDEMO01",
-                "location": null,
                 "name": "DE DEMO 01",
-                "registryNumber": null,
               },
               "role": "Sender",
               "selected": false,
             },
             Object {
               "organisation": Object {
-                "accessPoint": null,
                 "acronym": "NAVAT07",
-                "activeSince": "2018-08-26T22:00:00.000+0000",
-                "address": Object {
-                  "country": "NO",
-                  "postalCode": null,
-                  "region": null,
-                  "street": null,
-                  "town": null,
-                },
-                "assignedBUCs": null,
-                "contactMethods": null,
                 "countryCode": "NO",
                 "id": "NO:NAVAT07",
-                "location": null,
                 "name": "NAV ACCEPTANCE TEST 07",
-                "registryNumber": null,
               },
               "role": "Receiver",
               "selected": false,
@@ -1529,7 +1026,7 @@ ui-fss.g143[id="c6"] {
   initialTab={0}
   onTagChange={[MockFunction]}
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -1864,7 +1361,9 @@ ui-fss.g143[id="c6"] {
               <div
                 className="c6 c7"
               >
-                <styled.div>
+                <styled.div
+                  className=""
+                >
                   <div
                     className="c8 c9"
                   >
@@ -1896,7 +1395,6 @@ ui-fss.g143[id="c6"] {
                           data-test-id="a-buc-c-buctools__P5000-button-id"
                           disabled={false}
                           onClick={[Function]}
-                          spinner={false}
                         >
                           <o
                             className="c14 c15"
@@ -1904,7 +1402,6 @@ ui-fss.g143[id="c6"] {
                             data-test-id="a-buc-c-buctools__P5000-button-id"
                             disabled={false}
                             onClick={[Function]}
-                            spinner={false}
                           >
                             <c
                               autoDisableVedSpinner={false}
@@ -1946,7 +1443,6 @@ ui-fss.g143[id="c6"] {
                           data-test-id="a-buc-c-buctools__P5000-summary-button-id"
                           disabled={false}
                           onClick={[Function]}
-                          spinner={false}
                         >
                           <o
                             className="c14 c15"
@@ -1954,7 +1450,6 @@ ui-fss.g143[id="c6"] {
                             data-test-id="a-buc-c-buctools__P5000-summary-button-id"
                             disabled={false}
                             onClick={[Function]}
-                            spinner={false}
                           >
                             <c
                               autoDisableVedSpinner={false}
@@ -1987,7 +1482,7 @@ ui-fss.g143[id="c6"] {
                     </styled.div>
                     <styled.div>
                       <div
-                        className="c16 c18"
+                        className="c10 c18"
                       />
                     </styled.div>
                     <styled.div>
@@ -1999,7 +1494,6 @@ ui-fss.g143[id="c6"] {
                           data-test-id="a-buc-c-buctools__P5000-other-button-id"
                           disabled={false}
                           onClick={[Function]}
-                          spinner={false}
                         >
                           <o
                             className="c14 c15"
@@ -2007,7 +1501,6 @@ ui-fss.g143[id="c6"] {
                             data-test-id="a-buc-c-buctools__P5000-other-button-id"
                             disabled={false}
                             onClick={[Function]}
-                            spinner={false}
                           >
                             <c
                               autoDisableVedSpinner={false}
@@ -2046,6 +1539,6 @@ ui-fss.g143[id="c6"] {
         </s>
       </Styled(Styled(s))>
     </Component>
-  </q>
+  </J>
 </BUCTools>
 `;

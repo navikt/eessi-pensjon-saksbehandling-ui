@@ -33,7 +33,7 @@ ui-fss.g30[id="c0"] {
   highContrast={false}
   status="new"
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -226,6 +226,6 @@ ui-fss.g30[id="c0"] {
         </EtikettBase>
       </Styled(EtikettBase)>
     </Component>
-  </q>
+  </J>
 </SEDStatus>
 `;

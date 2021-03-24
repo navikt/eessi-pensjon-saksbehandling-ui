@@ -4,10 +4,6 @@ import { Person, PersonAvdod } from 'declarations/person.d'
 
 export interface Address {
   country: string
-  town?: string | null
-  street?: string| null
-  postalCode?: string| null
-  region?: string| null
 }
 
 export interface Avdod {
@@ -105,17 +101,10 @@ export interface NewSedPayload {
 }
 
 export interface Organisation {
-  address: Address
-  activeSince?: string | number
-  registryNumber?: any
   acronym?: string
   countryCode: string
-  contactMethods?: any
   name: string
-  location?: any
-  assignedBUCs?: any
   id: string
-  accessPoint?: any
 }
 
 export interface Participant {

@@ -152,7 +152,7 @@ ui-fss.g38[id="c18"] {
   highContrast={false}
   username="testUser"
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -539,6 +539,6 @@ ui-fss.g38[id="c18"] {
         </header>
       </styled.header>
     </Component>
-  </q>
+  </J>
 </Header>
 `;

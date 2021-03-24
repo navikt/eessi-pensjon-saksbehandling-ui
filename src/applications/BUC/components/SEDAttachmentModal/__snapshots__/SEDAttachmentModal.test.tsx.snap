@@ -215,7 +215,7 @@ ui-fss.g38[id="c4"] {
   }
   tableId="test-id"
 >
-  <q
+  <J
     highContrast={false}
   >
     <Component
@@ -429,7 +429,7 @@ ui-fss.g38[id="c4"] {
         }
         onModalClose={[MockFunction]}
       >
-        <q
+        <J
           highContrast={false}
         >
           <Component
@@ -1251,9 +1251,9 @@ ui-fss.g38[id="c4"] {
               </Modal>
             </Styled(Modal)>
           </Component>
-        </q>
+        </J>
       </Modal>
     </Component>
-  </q>
+  </J>
 </SEDAttachmentModal>
 `;
