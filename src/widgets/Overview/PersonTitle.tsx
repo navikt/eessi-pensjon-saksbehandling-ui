@@ -6,7 +6,7 @@ import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import { PersonPDL } from 'declarations/person'
 import { PersonPropType } from 'declarations/person.pt'
 import _ from 'lodash'
-import moment, { Moment } from 'moment'
+import moment from 'moment'
 import { Systemtittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import styled from 'styled-components'
@@ -29,8 +29,10 @@ export interface PersonTitleProps {
 const PersonTitle: React.FC<PersonTitleProps> = ({
   gettingPersonInfo, person
 }: PersonTitleProps): JSX.Element => {
-  let birthDate: Date | Moment | undefined
-  let deathDate: Date | Moment | undefined
+  let birthDate: Date | undefined
+  let deathDate: Date | undefined
+  let endDate: Date
+  let age: number = 0
 
   if (!person || gettingPersonInfo) {
     return (
@@ -39,19 +41,16 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   }
 
   if (_.get(person, 'foedsel.foedselsdato')) {
-    birthDate = moment(person.foedsel.foedselsdato)
-    if (birthDate) {
-      birthDate = birthDate.toDate()
-    }
+    birthDate = moment(person.foedsel.foedselsdato)?.toDate()
   }
   if (_.get(person, 'doedsfall.doedsdato')) {
-    deathDate = moment(person.doedsfall?.doedsdato)
-    if (deathDate) {
-      deathDate = deathDate.toDate()
-    }
+    deathDate = moment(person.doedsfall?.doedsdato)?.toDate()
   }
 
-  const age: number = (deathDate ? (deathDate as Date).getFullYear() : new Date().getFullYear()) - (birthDate as Date).getFullYear()
+  endDate = deathDate || new Date()
+  if (birthDate && endDate) {
+    age = moment(endDate).diff(moment(birthDate), 'years')
+  }
 
   let kind: string = 'nav-unknown-icon'
   let src = ukjent
