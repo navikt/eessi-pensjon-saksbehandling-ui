@@ -266,5 +266,7 @@
   "validation-chooseVedtakId"       : "Velg en vedtak ID",
   "validation-invalidVedtakId"      : "Ugyldig vedtak ID",
   "validation-noAktoerId"           : "Ingen aktørId",
-  "validation-noSakId"              : "Ingen sakId"
+  "validation-noSakId"              : "Ingen sakId",
+
+  "warning-filteredBucs" : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk."
 }

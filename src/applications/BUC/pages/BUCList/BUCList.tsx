@@ -233,6 +233,15 @@ const BUCList: React.FC<BUCListProps> = ({
     }
   }
 
+  let filteredBucs = null
+  let pBuc02filteredBucs = null
+  let sortedBucs = null
+  if (bucs !== null && bucs !== undefined) {
+    filteredBucs = Object.keys(bucs).map(key => bucs[key]).filter(bucFilter)
+    pBuc02filteredBucs = filteredBucs.filter(pbuc02filter(pesysContext, personAvdods))
+    sortedBucs = pBuc02filteredBucs.sort(bucSorter)
+  }
+
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !loading.gettingBUCinfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
@@ -343,7 +352,7 @@ const BUCList: React.FC<BUCListProps> = ({
             <BUCLoading />
           </BUCLoadingDiv>
         )}
-        {bucs === null && (
+        {sortedBucs === null && (
           <>
             <VerticalSeparatorDiv data-size='2' />
             <Normaltekst>
@@ -351,12 +360,19 @@ const BUCList: React.FC<BUCListProps> = ({
             </Normaltekst>
           </>
         )}
-        {!loading.gettingBUCs && !_.isNil(bucs) && !_.isEmpty(bucs) &&
-          Object.keys(bucs).map(key => bucs[key])
-            .filter(bucFilter)
-            .filter(pbuc02filter(pesysContext, personAvdods))
-            .sort(bucSorter)
-            .map((buc: Buc, index: number) => {
+        {!loading.gettingBUCs && !_.isNil(filteredBucs) && !_.isNil(pBuc02filteredBucs) && filteredBucs.length !== pBuc02filteredBucs.length && (
+          <>
+            <VerticalSeparatorDiv/>
+            <BadBucDiv>
+              <Alertstripe type='advarsel'>
+                {t('buc:warning-filteredBucs')}
+              </Alertstripe>
+            </BadBucDiv>
+            <VerticalSeparatorDiv/>
+          </>
+        )}
+        {!loading.gettingBUCs && !_.isNil(sortedBucs) && !_.isEmpty(sortedBucs) &&
+          sortedBucs.map((buc: Buc, index: number) => {
               if (buc.error) {
                 return (
                   <BadBucDiv key={index}>
