@@ -17,6 +17,7 @@ import ReactResizeDetector from 'react-resize-detector'
 import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
 import styled from 'styled-components'
 import useErrorBoundary from 'use-error-boundary'
+import {IS_PRODUCTION} from 'constants/environment'
 
 const Main = styled.main`
   flex: 1 1 auto;
@@ -170,11 +171,13 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             >
               {children}
             </Main>
-            <Footer
-              highContrast={highContrast}
-              params={params}
-              footerOpen={footerOpen}
-            />
+            {!IS_PRODUCTION && (
+              <Footer
+                highContrast={highContrast}
+                params={params}
+                footerOpen={footerOpen}
+              />
+            )}
           </ReactResizeDetector>
         </ErrorBoundary>
 
