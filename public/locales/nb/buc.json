@@ -100,6 +100,7 @@
   "form-avdod"                        : "Avdød",
   "form-avdodFnr"                     : "Avdødes f.nr./d.nr.",
   "form-avdodorsøker"                 : "Hjem gjelder henvendelsen?",
+  "form-areYouSure"                   : "Er du sikker?",
   "form-areYouSureDeleteComment"      : "Er du sikker på at du vil slette kommentaren?",
   "form-BUCtools"                     : "Verktøy",
   "form-P5000-warning"                : "Det finnes tilleggsperioder uten start- og sluttdato i denne P5000. Disse periodene finner du i P5000 som er lagret i dokumentoversikten.",

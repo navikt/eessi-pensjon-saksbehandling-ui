@@ -7,9 +7,15 @@ import { SedsPropType } from 'declarations/buc.pt'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import NavHighContrast, { HighContrastKnapp, HighContrastInput, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import NavHighContrast, {
+  HighContrastInput,
+  HighContrastKnapp,
+  HighContrastRadio,
+  HighContrastRadioGroup,
+  HorizontalSeparatorDiv,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useEffect, useRef, useState } from 'react'
@@ -24,7 +30,7 @@ export const ButtonsDiv = styled.div`
   margin-top: '1.5rem;
   margin-bottom: '1.5rem;
 `
-export const CheckboxLabel = styled.div`
+export const Flex = styled.div`
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
@@ -33,6 +39,10 @@ export const FlexDiv = styled.div`
   display: flex;
   flex: 1;
   align-items: flex-end;
+  justify-content: space-between;
+`
+export const FlexCenterDiv = styled(FlexDiv)`
+  align-items: center;
   justify-content: space-between;
 `
 export const FullWidthDiv = styled.div`
@@ -70,6 +80,9 @@ export const SEDP5000Header = styled.div`
   flex-direction: row;
   align-items: center;
 `
+export const OneLineSpan = styled.span`
+  white-space: nowrap;
+`
 
 export interface SEDP5000Props {
   highContrast: boolean
@@ -97,7 +110,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
 }: SEDP5000Props) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
-  const [_checkbox42, setCheckbox42] = useState<boolean>(false)
+  const [_checkbox42, setCheckbox42] = useState<string | undefined>(undefined)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_ytelseOption, setYtelseOption] = useState<any | undefined>(undefined)
@@ -214,15 +227,36 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   }
 
   const renderEditDager = (options: RenderEditableOptions) => {
-    if (options.defaultValue !== '7') {
-      options.onChange('7')
+    if (options.defaultValue !== '0/7') {
+      options.onChange('0/7')
     }
     return (
       <Normaltekst>
-        7
+        0/7
       </Normaltekst>
     )
   }
+
+
+  const renderEditManed = (options: RenderEditableOptions) => {
+    if (options.defaultValue !== '0' && (options.context as any).checkbox42) {
+      options.onChange('0')
+    }
+    if (options.defaultValue === '0' && !(options.context as any).checkbox42) {
+      options.onChange('')
+    }
+    return (
+      <HighContrastInput
+        id='c-tableSorter__edit-maned-input-id'
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        onChange={(e: any) => options.onChange(e.target.value)}
+        value={options.defaultValue}
+      />
+    )
+  }
+
 
   const renderEditAar = (options: RenderEditableOptions) => {
     if (options.defaultValue !== '0' && (options.context as any).checkbox42) {
@@ -275,7 +309,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
               aar: m.sum?.aar || '0',
               mnd: m.sum?.maaneder || '0',
-              dag: (m.sum?.dager?.nr || '0'),
+              dag: (m.sum?.dager?.nr || '0') + '/7',
               ytelse: m.relevans || '-',
               ordning: m.ordning || '-',
               beregning: m.beregning || '-'
@@ -313,9 +347,12 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           onClick={(e: any) => {
             e.preventDefault()
             e.stopPropagation()
-            let newItems = _.cloneDeep(items)
-            newItems = _.filter(newItems, i => i.key !== item.key)
-            setItems(newItems)
+            const answer = window.confirm(t('buc:form-areYouSure'))
+            if (answer) {
+              let newItems = _.cloneDeep(items)
+              newItems = _.filter(newItems, i => i.key !== item.key)
+              setItems(newItems)
+            }
           }}
         >
           <Trashcan />
@@ -338,7 +375,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     <NavHighContrast highContrast={highContrast}>
       <SEDP5000Container>
         <SEDP5000Header>
-          <FlexDiv>
+          <FlexCenterDiv>
             <FullWidthDiv>
               <label className='skjemaelement__label'>
                 {t('buc:p5000-4-1-title')}
@@ -353,26 +390,38 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               />
             </FullWidthDiv>
             <HorizontalSeparatorDiv />
-            <Checkbox
-              data-test-id='a-buc-c-sedp5000other__checkbox'
-              checked={_checkbox42}
-              id='a-buc-c-sedp5000_other__checkbox'
-              onChange={() => setCheckbox42(!_checkbox42)}
-              label={(
-                <CheckboxLabel>
-                  <span>
-                    {t('buc:p5000-4-2-title')}
-                  </span>
-                </CheckboxLabel>
+            <HighContrastRadioGroup
+              legend={(
+                <>
+                <OneLineSpan>
+                  {t('buc:p5000-4-2-title')}
+                </OneLineSpan>
+                </>
               )}
-            />
+             >
+              <Flex>
+                <HighContrastRadio
+                name={'42'}
+                checked={_checkbox42 === 'ja'}
+                label={t('ui:yes')}
+                onClick={() => setCheckbox42('ja')}
+              />
+              <HorizontalSeparatorDiv/>
+              <HighContrastRadio
+                name={'42'}
+                checked={_checkbox42 === 'nei'}
+                label={t('ui:no')}
+                onClick={() => setCheckbox42('nei')}
+              />
+              </Flex>
+            </HighContrastRadioGroup>
             <HorizontalSeparatorDiv />
             <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('help')}</span>}>
               <div style={{ minWidth: '28px' }}>
                 <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
               </div>
             </Tooltip>
-          </FlexDiv>
+          </FlexCenterDiv>
           <FlexDiv />
         </SEDP5000Header>
         <VerticalSeparatorDiv data-size='0.5'>&nbsp;</VerticalSeparatorDiv>
@@ -439,13 +488,13 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               type: 'string',
               edit: {
                 validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
-                placeholder: 'DD-MM-ÅÅÅÅ/DDMMÅÅ',
+                placeholder: 'DD.MM.ÅÅÅÅ/DDMMÅÅ',
                 validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
                 transform: dateTransform
               }
             },
             { id: 'dag', label: t('ui:day'), type: 'string', edit: { render: renderEditDager } },
-            { id: 'mnd', label: t('ui:month'), type: 'string', edit: { validation: '\\d+' } },
+            { id: 'mnd', label: t('ui:month'), type: 'string', edit: { validation: '\\d+', render: renderEditManed } },
             { id: 'aar', label: t('ui:year'), type: 'string', edit: { validation: '\\d+', render: renderEditAar } },
             { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string', edit: { render: renderEditYtelse } },
             {
@@ -485,7 +534,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                 label: ''
               }]}
               columns={[
-                { id: 'type', label: t('buc:p5000_type_43113'), type: 'string' },
+                { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderTypeCell },
                 { id: 'startdato', label: t('ui:startDate'), type: 'string' },
                 { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
                 { id: 'dag', label: t('ui:day'), type: 'string' },
