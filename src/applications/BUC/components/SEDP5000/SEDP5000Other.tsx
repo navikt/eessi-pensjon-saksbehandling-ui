@@ -6,7 +6,8 @@ import { SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
+import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
   HighContrastInput,
@@ -48,7 +49,6 @@ export const FlexCenterDiv = styled(FlexDiv)`
 export const FullWidthDiv = styled.div`
   width: 100%;
 `
-
 export const HiddenDiv = styled.div`
   display: none;
 `
@@ -95,15 +95,21 @@ export interface SEDP5000OtherRow extends Item {
   type: string
   startdato: string
   sluttdato: string
-  dag: string
-  mnd: string
-  aar: string
+  dag: number
+  mnd: number
+  aar: number
   ytelse: string
   beregning: string
   ordning: string
 }
 
 export type SEDP5000OtherRows = Array<SEDP5000OtherRow>
+
+export interface DatePieces {
+  years: number
+  months: number
+  days: number
+}
 
 const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   highContrast, sedContent
@@ -115,6 +121,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_ytelseOption, setYtelseOption] = useState<any | undefined>(undefined)
   const [_items, setItems] = useState<SEDP5000OtherRows | undefined>(undefined)
+  const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
 
   const ytelsestypeOptions = [
     { label: '[00] Annet', value: '00' },
@@ -152,36 +159,36 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     { value: '52', label: '[52] Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon' }
   ]
 
-  const renderEditType = (options: RenderEditableOptions) => {
+  const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
       <Select
-        key={'c-tableSorter__edit-type-select-key-' + options.defaultValue}
+        key={'c-tableSorter__edit-type-select-key-' + options.value}
         id='c-tableSorter__edit-type-select-id'
         className='sedP5000Other-type-select'
         highContrast={highContrast}
-        label='Ytelsestype (4.1)'
         feil={options.feil}
         options={typeOptions}
         onChange={(e) => {
-          console.log(e)
           setYtelseOption(e!.value)
-          options.onChange(e!.value)
+          options.setValue({
+            'type': e!.value
+          })
         }}
-        defaultValue={_.find(typeOptions, o => o.value === options.defaultValue)}
-        selectedValue={options.defaultValue}
+        defaultValue={_.find(typeOptions, o => o.value === options.value)}
+        selectedValue={_.find(typeOptions, o => o.value === options.value)}
       />
     )
   }
 
-  const renderTypeCell = (item: any, value: any) => {
+  const renderType = (item: any, value: any) => {
     return (
       <Normaltekst>
-        {_.find(typeOptions, t => t.value === value)?.label || 'Ukjent'}
+        {_.find(typeOptions, t => t.value === value)?.label || t('buc:status-unknown')}
       </Normaltekst>
     )
   }
 
-  const dateTransform = (s: string) => {
+  const dateTransform = (s: string): string => {
     const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
     if (r !== null) {
       const matchedYear = parseInt(r[3])
@@ -194,31 +201,173 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     return s
   }
 
-  const renderEditOrdning = (options: RenderEditableOptions) => {
-    if (options.defaultValue !== '00') {
-      options.onChange('00')
+  const calculateDateDiff = (rawStartDato: string | undefined, rawSluttDato: string | undefined): DatePieces | null => {
+    let startdato: Moment | undefined = undefined
+    let sluttdato: Moment | undefined = undefined
+    let validStartDato: string | undefined = undefined
+    let validSluttDato: string | undefined = undefined
+
+    if (rawStartDato?.match('^\\d{6}$')) {
+      validStartDato = dateTransform(rawStartDato)
+    }
+    if (rawSluttDato?.match('^\\d{6}$')) {
+      validSluttDato = dateTransform(rawSluttDato)
+    }
+    if (rawStartDato?.match('(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})')) {
+      validStartDato = rawStartDato
+    }
+    if (rawSluttDato?.match('(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})')) {
+      validSluttDato = rawSluttDato
+    }
+    if (!validSluttDato || !validStartDato) {
+      return null
+    }
+    startdato = moment(validStartDato, 'DD.MM.YYYYY')
+    sluttdato = moment(validSluttDato, 'DD.MM.YYYYY')
+
+    let years = sluttdato.diff(startdato, 'years')
+    startdato.add(years, 'years')
+    let months = sluttdato.diff(startdato, 'months')
+    startdato.add(months, 'months')
+    let days = sluttdato.diff(startdato, 'days')
+    return {
+      years: years,
+      months: months,
+      days: days
+    }
+  }
+
+  const renderStartDatoEdit = (options: RenderEditableOptions) => {
+
+    const maybeDoSomePrefill = (e: string) => {
+      let dates: DatePieces | null = calculateDateDiff(e, options.values.sluttdato)
+      if (dates) {
+        console.log('setting ' + dates.years + ' to aar')
+        options.setValue({
+          dag: dates.days,
+          aar: dates.years,
+          mnd: dates.months
+        })
+      }
+    }
+
+    return (
+      <HighContrastInput
+        id='c-tableSorter__edit-startdato-input-id'
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        placeholder={t('buc:placeholder-date2')}
+        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          startdato: e.target.value
+        })}
+        value={options.value}
+      />
+    )
+  }
+
+  const rendersluttDatoEdit = (options: RenderEditableOptions) => {
+
+    const maybeDoSomePrefill = (e: string) => {
+      let dates: DatePieces | null = calculateDateDiff(options.values.startdato, e)
+      if (dates) {
+        console.log('setting ' + dates.years + ' to aar')
+        options.setValue({
+          dag: dates.days,
+          aar: dates.years,
+          mnd: dates.months
+        })
+      }
     }
     return (
+      <HighContrastInput
+        id='c-tableSorter__edit-sluttdato-input-id'
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        placeholder={t('buc:placeholder-date2')}
+        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          sluttdato: e.target.value
+        })}
+        value={options.value}
+      />
+    )
+  }
+
+  const renderDager = (item: any) => {
+    return (
       <Normaltekst>
-        00
+        {item.dag + '/7'}
       </Normaltekst>
     )
   }
 
-  const renderEditYtelse = (options: RenderEditableOptions) => {
-    let valueToShow = options.defaultValue
-    if (options.values && (options.values.type === '43' || options.values.type === '45')) {
-      if (options.defaultValue !== '') {
-        options.onChange('')
+  const renderDagerEdit = (options: RenderEditableOptions) => {
+    return (
+      <HighContrastInput
+        type='number'
+        id='c-tableSorter__edit-dag-input-id'
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          dag: parseInt(e.target.value)
+        })}
+        value={options.value}
+      />
+    )
+  }
+
+  const renderManedEdit = (options: RenderEditableOptions) => {
+    return (
+      <HighContrastInput
+        type='number'
+        id='c-tableSorter__edit-maned-input-id'
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          mnd: parseInt(e.target.value)
+        })}
+        value={options.value}
+      />
+    )
+  }
+
+  const renderAarEdit = (options: RenderEditableOptions) => {
+     return (
+      <HighContrastInput
+        type='number'
+        id='c-tableSorter__edit-aar-input-id'
+        className='c-tableSorter__edit-input'
+        label=''
+        feil={options.feil}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          aar: parseInt(e.target.value)
+        })}
+        value={options.value}
+      />
+    )
+  }
+
+  const renderYtelseEdit = (options: RenderEditableOptions) => {
+    let valueToShow = options.value
+    if (options.values && !_.isNil(options.values.type)) {
+      if ((options.values.type === '43' || options.values.type === '45') && options.value !== '') {
+        options.setValue({
+          ytelse: ''
+        })
         valueToShow = ''
       }
-    } else {
-      if (options.defaultValue !== '111') {
+      if (!(options.values.type === '43' || options.values.type === '45') && options.value === '') {
+        options.setValue({
+          ytelse: '111'
+        })
         valueToShow = '111'
-        options.onChange('111')
       }
     }
-
     return (
       <Normaltekst>
         {valueToShow}
@@ -226,103 +375,75 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     )
   }
 
-  const renderEditDager = (options: RenderEditableOptions) => {
-    if (options.defaultValue !== '0/7') {
-      options.onChange('0/7')
-    }
-    return (
-      <Normaltekst>
-        0/7
-      </Normaltekst>
-    )
-  }
-
-
-  const renderEditManed = (options: RenderEditableOptions) => {
-    if (options.defaultValue !== '0' && (options.context as any).checkbox42) {
-      options.onChange('0')
-    }
-    if (options.defaultValue === '0' && !(options.context as any).checkbox42) {
-      options.onChange('')
-    }
-    return (
-      <HighContrastInput
-        id='c-tableSorter__edit-maned-input-id'
-        className='c-tableSorter__edit-input'
-        label=''
-        feil={options.feil}
-        onChange={(e: any) => options.onChange(e.target.value)}
-        value={options.defaultValue}
-      />
-    )
-  }
-
-
-  const renderEditAar = (options: RenderEditableOptions) => {
-    if (options.defaultValue !== '0' && (options.context as any).checkbox42) {
-      options.onChange('0')
-    }
-    if (options.defaultValue === '0' && !(options.context as any).checkbox42) {
-      options.onChange('')
-    }
-    return (
-      <HighContrastInput
-        id='c-tableSorter__edit-aar-input-id'
-        className='c-tableSorter__edit-input'
-        label=''
-        feil={options.feil}
-        onChange={(e: any) => options.onChange(e.target.value)}
-        value={options.defaultValue}
-      />
-    )
-  }
-
-  const renderEditBeregning = (options: RenderEditableOptions) => {
-    if (!options.defaultValue) {
-      options.onChange('111')
-    }
+  const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
       <HighContrastInput
         id='c-tableSorter__edit-beregning-input-id'
         className='c-tableSorter__edit-input'
         label=''
         feil={options.feil}
-        onChange={(e: any) => options.onChange(e.target.value)}
-        value={options.defaultValue || '111'}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          beregning: e.target.value
+        })}
+        value={options.value}
       />
+    )
+  }
+
+  const renderOrdningEdit = (options: RenderEditableOptions) => {
+    return (
+      <Normaltekst>
+        {options.value}
+      </Normaltekst>
     )
   }
 
   const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000OtherRows => {
     const res: SEDP5000OtherRows = []
-    const data: any = {}
 
     Object.keys(sedContent).forEach((k: string) => {
       const medlemskap = sedContent[k].pensjon?.medlemskap
       medlemskap?.forEach((m: any) => {
         if (!_.isNil(m) && m.type) {
-          if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
-            data[m.type] = {
-              key: m.type + '' + new Date().getTime(),
-              type: m.type || '-',
-              startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
-              sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
-              aar: m.sum?.aar || '0',
-              mnd: m.sum?.maaneder || '0',
-              dag: (m.sum?.dager?.nr || '0') + '/7',
-              ytelse: m.relevans || '-',
-              ordning: m.ordning || '-',
-              beregning: m.beregning || '-'
-            }
-          }
+          let item = {
+            type: m.type,
+            startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
+            sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
+            aar: parseInt(m.sum?.aar) || 0,
+            mnd: parseInt(m.sum?.maaneder) || 0,
+            dag: parseInt(m.sum?.dager?.nr || 0),
+            ytelse: m.relevans || '-',
+            ordning: m.ordning || '-',
+            beregning: m.beregning || '-'
+          } as SEDP5000OtherRow
+          item.key = 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
+          res.push(item)
         }
       })
     })
 
-    Object.keys(data).sort(
-      (a, b) => (parseInt(a, 10) - parseInt(b, 10))
-    ).forEach((type: string) => {
-      res.push(data[type])
+    return res.sort(
+      (a, b) => (parseInt(a.type, 10) - parseInt(b.type, 10))
+    )
+  }
+
+  const sumItems = (items: SEDP5000OtherRows): SEDP5000OtherRows => {
+    const res: SEDP5000OtherRows = []
+    items.forEach((it) => {
+      const found: number = _.findIndex(res, d => d.type === it.type)
+      if (found === -1) {
+        res.push({
+          ...it,
+          key: 'sum-' + it.type + '-' + it.startdato + '-' + it.sluttdato
+        })
+      } else {
+        res[found].aar += it.aar
+        res[found].mnd += it.mnd
+        res[found].dag += it.dag
+        res[found].startdato = moment(it.startdato, 'DD.MM.YYYY').isSameOrBefore(moment(res[found].startdato, 'DD.MM.YYYY')) ? it.startdato : res[found].startdato
+        res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
+        res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
+      }
     })
     return res
   }
@@ -338,7 +459,10 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     setPrintDialogOpen(false)
   }
 
-  const renderButtonsCell = (item: any, value: any, { items }: any): JSX.Element => {
+  const renderButtons = (item: any, value: any, { seeAsSum, items }: any): JSX.Element => {
+    if (seeAsSum) {
+      return <div/>
+    }
     return (
       <ButtonsDiv>
         <HighContrastKnapp
@@ -363,7 +487,8 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
 
   useEffect(() => {
     if (_items === undefined) {
-      setItems(convertRawP5000toRow(sedContent))
+      let newItems = convertRawP5000toRow(sedContent)
+      setItems(newItems)
     }
   }, [_items, sedContent])
 
@@ -377,42 +502,38 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
         <SEDP5000Header>
           <FlexCenterDiv>
             <FullWidthDiv>
-              <label className='skjemaelement__label'>
-                {t('buc:p5000-4-1-title')}
-              </label>
               <Select
                 className='sedP5000Other-select'
                 highContrast={highContrast}
-                label='Ytelsestype (4.1)'
+                label={t('buc:p5000-4-1-title')}
                 options={ytelsestypeOptions}
                 onChange={setYtelseOption}
                 selectedValue={_ytelseOption}
+                defaultValue={_ytelseOption}
               />
             </FullWidthDiv>
             <HorizontalSeparatorDiv />
             <HighContrastRadioGroup
               legend={(
-                <>
                 <OneLineSpan>
                   {t('buc:p5000-4-2-title')}
                 </OneLineSpan>
-                </>
               )}
              >
               <Flex>
                 <HighContrastRadio
-                name={'42'}
-                checked={_checkbox42 === 'ja'}
-                label={t('ui:yes')}
-                onClick={() => setCheckbox42('ja')}
-              />
-              <HorizontalSeparatorDiv/>
-              <HighContrastRadio
-                name={'42'}
-                checked={_checkbox42 === 'nei'}
-                label={t('ui:no')}
-                onClick={() => setCheckbox42('nei')}
-              />
+                  name={'42'}
+                  checked={_checkbox42 === 'ja'}
+                  label={t('ui:yes')}
+                  onClick={() => setCheckbox42('ja')}
+                />
+                <HorizontalSeparatorDiv/>
+                <HighContrastRadio
+                  name={'42'}
+                  checked={_checkbox42 === 'nei'}
+                  label={t('ui:no')}
+                  onClick={() => setCheckbox42('nei')}
+                />
               </Flex>
             </HighContrastRadioGroup>
             <HorizontalSeparatorDiv />
@@ -422,14 +543,21 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               </div>
             </Tooltip>
           </FlexCenterDiv>
-          <FlexDiv />
+          <HorizontalSeparatorDiv/>
+          <FlexDiv>
+            <Checkbox
+              label={t('buc:form-seePeriodsAsSum')}
+              checked={_seeAsSum}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeeAsSum(e.target.checked)}
+            />
+          </FlexDiv>
         </SEDP5000Header>
-        <VerticalSeparatorDiv data-size='0.5'>&nbsp;</VerticalSeparatorDiv>
         <TableSorter
           highContrast={highContrast}
-          items={_items}
+          items={_seeAsSum ? sumItems(_items) : _items}
           context={{
             items: _items,
+            seeAsSum: _seeAsSum,
             checkbox42: _checkbox42
           }}
           editable
@@ -444,7 +572,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             const newItems = _.cloneDeep(context.items)
             newItems.unshift({
               ...item,
-              key: '' + new Date().getTime()
+              key: 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
             })
             setItems(newItems)
           }}
@@ -467,18 +595,19 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               label: t('buc:p5000-type-43113'),
               type: 'string',
               edit: {
-                render: renderEditType, validation: '.+'
+                render: renderTypeEdit,
+                validation: '.+'
               },
-              renderCell: renderTypeCell
+              renderCell: renderType
             },
             {
               id: 'startdato',
               label: t('ui:startDate'),
               type: 'string',
               edit: {
+                render: renderStartDatoEdit,
                 validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
-                placeholder: 'DD.MM.ÅÅÅÅ/DDMMÅÅ',
-                validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
+                validationMessage: t('buc:validation-badDate2'),
                 transform: dateTransform
               }
             },
@@ -487,24 +616,77 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               label: t('ui:endDate'),
               type: 'string',
               edit: {
+                render: rendersluttDatoEdit,
                 validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
-                placeholder: 'DD.MM.ÅÅÅÅ/DDMMÅÅ',
-                validationMessage: 'Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ',
+                placeholder: t('buc:placeholder-date2'),
+                validationMessage: t('buc:validation-badDate2'),
                 transform: dateTransform
               }
             },
-            { id: 'dag', label: t('ui:day'), type: 'string', edit: { render: renderEditDager } },
-            { id: 'mnd', label: t('ui:month'), type: 'string', edit: { validation: '\\d+', render: renderEditManed } },
-            { id: 'aar', label: t('ui:year'), type: 'string', edit: { validation: '\\d+', render: renderEditAar } },
-            { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string', edit: { render: renderEditYtelse } },
+            {
+              id: 'dag',
+              label: t('ui:day'),
+              type: 'number',
+              renderCell: renderDager,
+              edit: {
+                defaultValue: 0,
+                render: renderDagerEdit
+              }
+            },
+            {
+              id: 'mnd',
+              label: t('ui:month'),
+              type: 'number',
+              edit: {
+                defaultValue: 0,
+                validation: '\\d+',
+                render: renderManedEdit
+              }
+            },
+            {
+              id: 'aar',
+              label: t('ui:year'),
+              type: 'number',
+              edit: {
+                defaultValue: 0,
+                validation: '\\d+',
+                render: renderAarEdit
+              }
+            },
+            {
+              id: 'ytelse',
+              label: t('buc:p5000-ytelse'),
+              type: 'string',
+              edit: {
+                defaultValue: '111',
+                render: renderYtelseEdit
+              }
+              },
             {
               id: 'beregning',
               label: t('ui:calculationInformation'),
               type: 'string',
-              edit: { validation: '.+', render: renderEditBeregning }
+              edit: {
+                defaultValue: '111',
+                validation: '.+',
+                render: renderBeregningEdit
+              }
             },
-            { id: 'ordning', label: t('ui:scheme'), type: 'string', edit: { render: renderEditOrdning } },
-            { id: 'buttons', label: '', type: 'buttons', renderCell: renderButtonsCell }
+            {
+              id: 'ordning',
+              label: t('ui:scheme'),
+              type: 'string',
+              edit: {
+                defaultValue: '00',
+                render: renderOrdningEdit
+              }
+            },
+            {
+              id: 'buttons',
+              label: '',
+              type: 'buttons',
+              renderCell: renderButtons
+            }
           ]}
         />
         <HiddenDiv>
@@ -513,7 +695,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               // important to it re-renders when sorting changes
               key={JSON.stringify(_tableSort)}
               className='print-version'
-              items={_items}
+              items={_seeAsSum ?  sumItems(_items) : _items}
               editable={false}
               animatable={false}
               searchable={false}
@@ -534,7 +716,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                 label: ''
               }]}
               columns={[
-                { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderTypeCell },
+                { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
                 { id: 'startdato', label: t('ui:startDate'), type: 'string' },
                 { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
                 { id: 'dag', label: t('ui:day'), type: 'string' },
