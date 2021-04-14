@@ -23,7 +23,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
-import TableSorter, { Item, RenderEditableOptions, Sort } from 'tabell'
+import TableSorter, { Context, Item, RenderEditableOptions, Sort } from 'tabell'
 
 import * as labels from './SEDP5000.labels'
 
@@ -111,12 +111,18 @@ export interface DatePieces {
   days: number
 }
 
+export interface TableContext extends Context {
+  items: SEDP5000OtherRows
+  seeAsSum: boolean,
+  forsikringElklerBosetningsperioder: boolean
+}
+
 const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   highContrast, sedContent
 }: SEDP5000Props) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
-  const [_checkbox42, setCheckbox42] = useState<string | undefined>(undefined)
+  const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<boolean>(true)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_ytelseOption, setYtelseOption] = useState<any | undefined>(undefined)
@@ -191,12 +197,17 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const dateTransform = (s: string): string => {
     const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
     if (r !== null) {
-      const matchedYear = parseInt(r[3])
-      const currentYear = new Date().getFullYear().toString()
-      const startPartOfYear = parseInt(currentYear.substring(0, 2)) // 2021 => 20
-      const endPartOfYear = parseInt(currentYear.substring(2)) // 2021 => 21
-      const fullYear = matchedYear < endPartOfYear ? `${startPartOfYear}${matchedYear}` : `${startPartOfYear - 1}${matchedYear}`
-      return r[1] + '.' + r[2] + '.' + fullYear
+      const matchedDay = r[1]
+      const matchedMonth = r[2]
+      const matchedYear = r[3]
+      const matchedYearInt = parseInt(matchedYear)
+      const currentYear = new Date().getFullYear().toString() // "2010"
+      const startPartOfYear = currentYear.substring(0, 2) // "2010" => "20"
+      const startPartOfYearInt = parseInt(startPartOfYear) // "20" => 20
+      const endPartOfYear = currentYear.substring(2) // "2010" => "10"
+      const endPartOfYearInt = parseInt(endPartOfYear) // "10" => 10
+      const fullYear = matchedYearInt < endPartOfYearInt ? `${startPartOfYear}${matchedYear}` : `${startPartOfYearInt - 1}${matchedYear}`
+      return `${matchedDay}.${matchedMonth}.${fullYear}`
     }
     return s
   }
@@ -237,64 +248,54 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     }
   }
 
-  const renderStartDatoEdit = (options: RenderEditableOptions) => {
-
-    const maybeDoSomePrefill = (e: string) => {
-      let dates: DatePieces | null = calculateDateDiff(e, options.values.sluttdato)
-      if (dates) {
-        console.log('setting ' + dates.years + ' to aar')
+  const maybeDoSomePrefill = (startdato: string, sluttdato: string, options: RenderEditableOptions<TableContext>) => {
+    let dates: DatePieces | null = calculateDateDiff(startdato, sluttdato)
+    if (dates) {
+      if (options.context.forsikringElklerBosetningsperioder) {
         options.setValue({
           dag: dates.days,
           aar: dates.years,
           mnd: dates.months
         })
-      }
-    }
-
-    return (
-      <HighContrastInput
-        id='c-tableSorter__edit-startdato-input-id'
-        className='c-tableSorter__edit-input'
-        label=''
-        feil={options.feil}
-        placeholder={t('buc:placeholder-date2')}
-        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(e.target.value)}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          startdato: e.target.value
-        })}
-        value={options.value}
-      />
-    )
-  }
-
-  const rendersluttDatoEdit = (options: RenderEditableOptions) => {
-
-    const maybeDoSomePrefill = (e: string) => {
-      let dates: DatePieces | null = calculateDateDiff(options.values.startdato, e)
-      if (dates) {
-        console.log('setting ' + dates.years + ' to aar')
+      } else {
         options.setValue({
-          dag: dates.days,
-          aar: dates.years,
-          mnd: dates.months
+          dag: 0,
+          aar: 0,
+          mnd: 0
         })
       }
     }
-    return (
-      <HighContrastInput
-        id='c-tableSorter__edit-sluttdato-input-id'
-        className='c-tableSorter__edit-input'
-        label=''
-        feil={options.feil}
-        placeholder={t('buc:placeholder-date2')}
-        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(e.target.value)}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          sluttdato: e.target.value
-        })}
-        value={options.value}
-      />
-    )
   }
+
+  const renderStartDatoEdit = (options: RenderEditableOptions<TableContext>) => (
+    <HighContrastInput
+      id='c-tableSorter__edit-startdato-input-id'
+      className='c-tableSorter__edit-input'
+      label=''
+      feil={options.feil}
+      placeholder={t('buc:placeholder-date2')}
+      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(e.target.value, options.values.sluttdato, options)}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+        startdato: e.target.value
+      })}
+      value={options.value}
+    />
+  )
+
+  const rendersluttDatoEdit = (options: RenderEditableOptions<TableContext>) => (
+    <HighContrastInput
+      id='c-tableSorter__edit-sluttdato-input-id'
+      className='c-tableSorter__edit-input'
+      label=''
+      feil={options.feil}
+      placeholder={t('buc:placeholder-date2')}
+      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(options.values.startdato, e.target.value, options)}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+        sluttdato: e.target.value
+      })}
+      value={options.value}
+    />
+  )
 
   const renderDager = (item: any) => {
     return (
@@ -523,16 +524,16 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               <Flex>
                 <HighContrastRadio
                   name={'42'}
-                  checked={_checkbox42 === 'ja'}
+                  checked={_forsikringElklerBosetningsperioder === true}
                   label={t('ui:yes')}
-                  onClick={() => setCheckbox42('ja')}
+                  onClick={() => setForsikringElklerBosetningsperioder(true)}
                 />
                 <HorizontalSeparatorDiv/>
                 <HighContrastRadio
                   name={'42'}
-                  checked={_checkbox42 === 'nei'}
+                  checked={_forsikringElklerBosetningsperioder === false}
                   label={t('ui:no')}
-                  onClick={() => setCheckbox42('nei')}
+                  onClick={() => setForsikringElklerBosetningsperioder(false)}
                 />
               </Flex>
             </HighContrastRadioGroup>
@@ -558,7 +559,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           context={{
             items: _items,
             seeAsSum: _seeAsSum,
-            checkbox42: _checkbox42
+            forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
           }}
           editable
           searchable={false}
@@ -719,9 +720,9 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                 { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
                 { id: 'startdato', label: t('ui:startDate'), type: 'string' },
                 { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
-                { id: 'dag', label: t('ui:day'), type: 'string' },
-                { id: 'mnd', label: t('ui:month'), type: 'string' },
-                { id: 'aar', label: t('ui:year'), type: 'string' },
+                { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
+                { id: 'mnd', label: t('ui:month'), type: 'number' },
+                { id: 'aar', label: t('ui:year'), type: 'number' },
                 { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
                 { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
                 { id: 'ordning', label: t('ui:scheme'), type: 'string' }

@@ -53,6 +53,9 @@ const BUCToolsPanel = styled(HighContrastPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight(20)} 0.3s forwards;
+  .loading {
+    background-color: rgba(128,128,128,0.25);
+  }
 `
 const CommentDiv = styled.div`
   border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
@@ -70,9 +73,6 @@ const FlexDiv = styled.div`
 const P5000Div = styled.div`
   position: relative;
   margin-bottom: 1rem;
-  &.loading {
-    background-color: rgba(128,128,128,0.5);
-  }
 `
 const PaddedTabContent = styled.div`
   padding-top: 1rem;
@@ -370,9 +370,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             tabs={tabs}
             defaultAktiv={_activeTab}
           />
-          <PaddedTabContent>
+          <PaddedTabContent className={classNames({ loading: !_.isEmpty(_fetchingP5000) })}>
             {tabs[_activeTab].key === 'P5000' && (
-              <P5000Div className={classNames({ loading: !_.isEmpty(_fetchingP5000) })}>
+              <P5000Div >
                 {!_.isEmpty(_fetchingP5000) && (
                   <SpinnerDiv>
                     <WaitingPanel />
