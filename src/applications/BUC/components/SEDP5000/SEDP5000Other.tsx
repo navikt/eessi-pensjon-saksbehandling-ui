@@ -218,17 +218,17 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     let validStartDato: string | undefined = undefined
     let validSluttDato: string | undefined = undefined
 
-    if (rawStartDato?.match('^\\d{6}$')) {
-      validStartDato = dateTransform(rawStartDato)
+    if (rawStartDato?.trim().match('^[0-3][0-9][0-1][0-9]{3}$')) {
+      validStartDato = dateTransform(rawStartDato?.trim())
     }
-    if (rawSluttDato?.match('^\\d{6}$')) {
-      validSluttDato = dateTransform(rawSluttDato)
+    if (rawSluttDato?.trim().match('^[0-3][0-9][0-1][0-9]{3}$')) {
+      validSluttDato = dateTransform(rawSluttDato.trim())
     }
-    if (rawStartDato?.match('(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})')) {
-      validStartDato = rawStartDato
+    if (rawStartDato?.trim().match('^[0-3][0-9]\\.[0-1][0-9]\\.\\d{4}$')) {
+      validStartDato = rawStartDato.trim()
     }
-    if (rawSluttDato?.match('(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})')) {
-      validSluttDato = rawSluttDato
+    if (rawSluttDato?.trim().match('^[0-3][0-9]\\.[0-1][0-9]\\.\\d{4}$')) {
+      validSluttDato = rawSluttDato.trim()
     }
     if (!validSluttDato || !validStartDato) {
       return null
@@ -607,7 +607,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               type: 'string',
               edit: {
                 render: renderStartDatoEdit,
-                validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
+                validation: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                 validationMessage: t('buc:validation-badDate2'),
                 transform: dateTransform
               }
@@ -618,7 +618,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               type: 'string',
               edit: {
                 render: rendersluttDatoEdit,
-                validation: '(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})',
+                validation: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                 placeholder: t('buc:placeholder-date2'),
                 validationMessage: t('buc:validation-badDate2'),
                 transform: dateTransform
