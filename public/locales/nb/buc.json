@@ -256,6 +256,8 @@
   "tag-inntektsavkortetGrunnytelse" : "Inntektsavkortet grunnytelse",
   "tag-avvikendeMedlemskap"         : "Avvikende medlemskap",
 
+  "validation-addPositiveNumber"    : "Skriv et positivt tall",
+  "validation-addBeregning"         : "Legg til beregningen",
   "validation-badKravDato"          : "Ugyldig kravdato, vennligst bruk DD-MM-ÅÅÅÅ",
   "validation-chooseAvdod"          : "Velg avdød",
   "validation-badAvdodFnr"          : "Ugyldig avdødes f.nr./d.nr.",
@@ -268,6 +270,7 @@
   "validation-chooseKravOm"         : "Velg krav om",
   "validation-chooseSed"            : "Velg en SED",
   "validation-chooseSubjectArea"    : "Velg et fagområde",
+  "validation-chooseType"           : "Velg en type",
   "validation-chooseVedtakId"       : "Velg en vedtak ID",
   "validation-invalidVedtakId"      : "Ugyldig vedtak ID",
   "validation-noAktoerId"           : "Ingen aktørId",

@@ -677,7 +677,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               type: 'string',
               edit: {
                 render: renderTypeEdit,
-                validation: '.+'
+                validation: [{
+                  pattern: '^.+$',
+                  message: t('buc:validation-chooseType')
+                }]
               },
               renderCell: renderType
             },
@@ -687,8 +690,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               type: 'string',
               edit: {
                 render: renderStartDatoEdit,
-                validation: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
-                validationMessage: t('buc:validation-badDate2'),
+                validation: [{
+                  pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                  message: t('buc:validation-badDate2')
+                }],
                 transform: dateTransform
               }
             },
@@ -698,9 +703,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               type: 'string',
               edit: {
                 render: rendersluttDatoEdit,
-                validation: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                validation: [{
+                  pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                  message: t('buc:validation-badDate2')
+                }],
                 placeholder: t('buc:placeholder-date2'),
-                validationMessage: t('buc:validation-badDate2'),
                 transform: dateTransform
               }
             },
@@ -711,7 +718,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               renderCell: renderDager,
               edit: {
                 defaultValue: 0,
-                render: renderDagerEdit
+                render: renderDagerEdit,
+                validation: [{
+                  pattern: '^\\d+$',
+                  message: t('buc:validation-addPositiveNumber')
+                }]
               }
             },
             {
@@ -720,7 +731,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               type: 'number',
               edit: {
                 defaultValue: 0,
-                validation: '\\d+',
+                validation: [{
+                  pattern: '^\\d+$',
+                  message: t('buc:validation-addPositiveNumber')
+                }],
                 render: renderManedEdit
               }
             },
@@ -730,7 +744,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               type: 'number',
               edit: {
                 defaultValue: 0,
-                validation: '\\d+',
+                validation: [{
+                  pattern: '^\\d+$',
+                  message: t('buc:validation-addPositiveNumber')
+                }],
                 render: renderAarEdit
               }
             },
@@ -749,7 +766,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               type: 'string',
               edit: {
                 defaultValue: '111',
-                validation: '.+',
+                validation: [{
+                  pattern: '^.+$',
+                  message: t('buc:validation-addBeregning')
+                }],
                 render: renderBeregningEdit
               }
             },
