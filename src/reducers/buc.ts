@@ -54,6 +54,7 @@ export interface BucState {
   sedContent: SedContentMap
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
+  sentP5000info: any,
   subjectAreaList: Array<string> | undefined
   tagList: Array<string> | undefined
 }
@@ -82,6 +83,7 @@ export const initialBucState: BucState = {
   sedContent: {},
   sedList: undefined,
   sedsWithAttachments: {},
+  sentP5000info: undefined,
   subjectAreaList: undefined,
   tagList: undefined
 }
@@ -91,6 +93,24 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.APP_CLEAR_DATA: {
       return initialBucState
     }
+
+    case types.BUC_P5000_SEND_REQUEST:
+      return {
+        ...state,
+        sentP5000info: undefined
+      }
+
+    case types.BUC_P5000_SEND_SUCCESS:
+      return {
+        ...state,
+        sentP5000info: (action as ActionWithPayload).payload
+      }
+
+    case types.BUC_P5000_SEND_FAILURE:
+      return {
+        ...state,
+        sentP5000info: null
+      }
 
     case types.BUC_BUC_RESET:
       return {

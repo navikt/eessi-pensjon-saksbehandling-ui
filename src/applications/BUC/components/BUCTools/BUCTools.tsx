@@ -1,6 +1,6 @@
 import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDP5000Other from 'applications/BUC/components/SEDP5000/SEDP5000Other'
+import SEDP5000Edit from 'applications/BUC/components/SEDP5000/SEDP5000Edit'
 import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
 import SEDP5000Sum from 'applications/BUC/components/SEDP5000/SEDP5000Sum'
 import Trashcan from 'assets/icons/Trashcan'
@@ -178,16 +178,16 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
-  const displayP5000OtherTable = useCallback(() => {
+  const displayP5000EditTable = useCallback(() => {
     setTimeWithP5000Modal(new Date())
     setModal({
-      modalTitle: t('buc:P5000-other-title'),
+      modalTitle: t('buc:P5000-edit-title'),
       modalContent: (
-        <SEDP5000Other
+        <SEDP5000Edit
           highContrast={highContrast}
           seds={getP5000()!}
+          caseId={buc.caseId!}
           sedContent={sedContent}
-          locale={locale}
         />
       )
     })
@@ -287,12 +287,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
-  const onGettingP5000OtherClick = (e: React.MouseEvent): void => {
+  const onGettingP5000EditClick = (e: React.MouseEvent): void => {
     buttonLogger(e)
     const p5000s = getP5000()
     if (p5000s) {
       setFetchingP5000(p5000s)
-      setModalType('other')
+      setModalType('edit')
       p5000s.forEach(sed => {
         dispatch(getSed(buc.caseId!, sed))
       })
@@ -349,13 +349,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           if (_modalType === 'summary') {
             displayP5000SumTable()
           }
-          if (_modalType === 'other') {
-            displayP5000OtherTable()
+          if (_modalType === 'edit') {
+            displayP5000EditTable()
           }
         }
       }
     }
-  }, [displayP5000OverviewTable, displayP5000OtherTable, displayP5000SumTable, _fetchingP5000, sedContent, setModal])
+  }, [displayP5000OverviewTable, displayP5000EditTable, displayP5000SumTable, _fetchingP5000, sedContent, setModal])
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -417,12 +417,12 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 {featureToggles?.P5000_SUMMER_VISIBLE && (
                   <FlexDiv>
                     <HighContrastKnapp
-                      data-amplitude='buc.edit.tools.P5000.other.view'
-                      data-test-id='a-buc-c-buctools__P5000-other-button-id'
+                      data-amplitude='buc.edit.tools.P5000.edit.view'
+                      data-test-id='a-buc-c-buctools__P5000-edit-button-id'
                       disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                      onClick={onGettingP5000OtherClick}
+                      onClick={onGettingP5000EditClick}
                     >
-                      {t('buc:form-seeP5000other')}
+                      {t('buc:form-seeP5000edit')}
                     </HighContrastKnapp>
                   </FlexDiv>
                 )}

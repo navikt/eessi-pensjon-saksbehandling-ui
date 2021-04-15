@@ -467,6 +467,25 @@ export const sendAttachmentToSed: ActionCreator<ThunkResult<Action>> = (
   })
 }
 
+export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
+  caseId: string, documentId: string, payload: any
+): ThunkResult<Action> => {
+  return call({
+    url: sprintf(urls.BUC_PUT_SED_URL, { caseId: caseId, documentId: documentId }),
+    method: 'PUT',
+    body: payload,
+    cascadeFailureError: true,
+    expectedPayload: { success: true },
+    context: {},
+    type: {
+      request: types.BUC_P5000_SEND_REQUEST,
+      success: types.BUC_P5000_SEND_SUCCESS,
+      failure: types.BUC_P5000_SEND_FAILURE
+    }
+  })
+}
+
+
 export const setMode: ActionCreator<ActionWithPayload<BUCMode>> = (
   mode: BUCMode
 ): ActionWithPayload<BUCMode> => ({

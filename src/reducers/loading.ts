@@ -29,7 +29,8 @@ export const initialLoadingState: LoadingState = {
   loadingJoarkList: false,
   loadingJoarkPreviewFile: false,
   rinaUrl: false,
-  savingBucsInfo: false
+  savingBucsInfo: false,
+  sendingP5000info: false
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: Action = { type: '' }) => {
@@ -103,6 +104,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingUserInfo: false
+      }
+
+    case types.BUC_P5000_SEND_REQUEST:
+
+      return {
+        ...state,
+        sendingP5000info: true
+      }
+
+    case types.BUC_P5000_SEND_SUCCESS:
+    case types.BUC_P5000_SEND_FAILURE:
+
+      return {
+        ...state,
+        sendingP5000info: false
       }
 
       // BUC

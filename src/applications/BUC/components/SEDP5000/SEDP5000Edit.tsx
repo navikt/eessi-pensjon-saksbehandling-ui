@@ -1,13 +1,16 @@
+import { sendP5000toRina } from 'actions/buc'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'
-import { AllowedLocaleString } from 'declarations/app.d'
+import { Validation } from 'declarations/app.d'
 import { SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
-import { Checkbox } from 'nav-frontend-skjema'
+import Alertstripe from 'nav-frontend-alertstriper'
+import { Checkbox, FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
   HighContrastInput,
@@ -21,6 +24,7 @@ import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import TableSorter, { Context, Item, RenderEditableOptions, Sort } from 'tabell'
@@ -28,8 +32,10 @@ import TableSorter, { Context, Item, RenderEditableOptions, Sort } from 'tabell'
 import * as labels from './SEDP5000.labels'
 
 export const ButtonsDiv = styled.div`
+  display: flex;
   margin-top: '1.5rem;
   margin-bottom: '1.5rem;
+  align-items: flex-start;
 `
 export const Flex = styled.div`
   display: flex;
@@ -84,14 +90,14 @@ export const OneLineSpan = styled.span`
   white-space: nowrap;
 `
 
-export interface SEDP5000Props {
+export interface SEDP5000EditProps {
+  caseId: string
   highContrast: boolean
-  locale: AllowedLocaleString
   seds: Seds
   sedContent: SedContentMap
 }
 
-export interface SEDP5000OtherRow extends Item {
+export interface SEDP5000EditRow extends Item {
   type: string
   startdato: string
   sluttdato: string
@@ -103,7 +109,7 @@ export interface SEDP5000OtherRow extends Item {
   ordning: string
 }
 
-export type SEDP5000OtherRows = Array<SEDP5000OtherRow>
+export type SEDP5000EditRows = Array<SEDP5000EditRow>
 
 export interface DatePieces {
   years: number
@@ -112,22 +118,30 @@ export interface DatePieces {
 }
 
 export interface TableContext extends Context {
-  items: SEDP5000OtherRows
+  items: SEDP5000EditRows
   seeAsSum: boolean,
   forsikringElklerBosetningsperioder: boolean
 }
 
-const SEDP5000Overview: React.FC<SEDP5000Props> = ({
-  highContrast, sedContent
-}: SEDP5000Props) => {
+const mapState = (state: State): any => ({
+  sentP5000info: state.buc.sentP5000info,
+  sendingP5000info: state.loading.sendingP5000info
+})
+
+const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
+  caseId, highContrast, seds, sedContent
+}: SEDP5000EditProps) => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const { sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
   const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<boolean>(true)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [_ytelseOption, setYtelseOption] = useState<any | undefined>(undefined)
-  const [_items, setItems] = useState<SEDP5000OtherRows | undefined>(undefined)
+  const [_ytelseOption, _setYtelseOption] = useState<any | undefined>(undefined)
+  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(undefined)
   const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
+  const [_validation, setValidation] = useState<Validation>({})
 
   const ytelsestypeOptions = [
     { label: '[00] Annet', value: '00' },
@@ -170,12 +184,11 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
       <Select
         key={'c-tableSorter__edit-type-select-key-' + options.value}
         id='c-tableSorter__edit-type-select-id'
-        className='sedP5000Other-type-select'
+        className='sedP5000Edit-type-select'
         highContrast={highContrast}
         feil={options.feil}
         options={typeOptions}
         onChange={(e) => {
-          setYtelseOption(e!.value)
           options.setValue({
             'type': e!.value
           })
@@ -399,8 +412,13 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     )
   }
 
-  const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000OtherRows => {
-    const res: SEDP5000OtherRows = []
+  const setYtelseOption = (o: any) => {
+    resetValidation('sedP5000Edit-ytelse-select')
+    _setYtelseOption(o)
+  }
+
+  const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000EditRows => {
+    const res: SEDP5000EditRows = []
 
     Object.keys(sedContent).forEach((k: string) => {
       const medlemskap = sedContent[k].pensjon?.medlemskap
@@ -416,7 +434,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             ytelse: m.relevans || '-',
             ordning: m.ordning || '-',
             beregning: m.beregning || '-'
-          } as SEDP5000OtherRow
+          } as SEDP5000EditRow
           item.key = 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
           res.push(item)
         }
@@ -428,8 +446,8 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     )
   }
 
-  const sumItems = (items: SEDP5000OtherRows): SEDP5000OtherRows => {
-    const res: SEDP5000OtherRows = []
+  const sumItems = (items: SEDP5000EditRows): SEDP5000EditRows => {
+    const res: SEDP5000EditRows = []
     items.forEach((it) => {
       const found: number = _.findIndex(res, d => d.type === it.type)
       if (found === -1) {
@@ -486,6 +504,67 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     )
   }
 
+  const handleOverforTilRina = () => {
+
+    if(performValidation()) {
+      let payload: any = {
+        sed: 'P5000',
+        sedGVer: '4',
+        sedVer: '1',
+        pensjon: {
+          medlemskap: _items?.map(item => {
+            let medlemskap: any = {}
+            medlemskap.relevans = item.ytelse   /// ???
+            medlemskap.ordning = item.ordning
+            medlemskap.land = 'NO'
+            medlemskap.sum = {
+              kvaltal: null,
+              aar: '' + item.aar,
+              uker: null,
+              dager: {
+                nr: '' + item.dag,
+                type: '7'
+              },
+              maaneder: '' + item.mnd
+            }
+            medlemskap.yrke = null
+            medlemskap.gyldigperiode = null
+            medlemskap.type = item.type
+            medlemskap.beregning = item.beregning
+            medlemskap.periode = {
+              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
+            }
+            medlemskap.enkeltkrav = {
+              krav: _ytelseOption.value
+            }
+            return medlemskap
+          })
+        }
+      }
+      dispatch(sendP5000toRina(caseId, seds[0].id, payload))
+    }
+  }
+
+  const resetValidation = (key: string): void => {
+    setValidation({
+      ..._validation,
+      [key]: undefined
+    })
+  }
+
+  const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
+
+  const performValidation = (): boolean => {
+    const newValidation: Validation = {}
+    newValidation['sedP5000Edit-ytelse-select'] = _ytelseOption ? undefined: {
+      feilmelding: t('buc:error-noYtelse'),
+      skjemaelementId: 'sedP5000Edit-ytelse-select'
+    } as FeiloppsummeringFeil
+    setValidation(newValidation)
+    return hasNoValidationErrors(newValidation)
+  }
+
   useEffect(() => {
     if (_items === undefined) {
       let newItems = convertRawP5000toRow(sedContent)
@@ -504,8 +583,10 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           <FlexCenterDiv>
             <FullWidthDiv>
               <Select
-                className='sedP5000Other-select'
+                className='sedP5000Edit-ytelse-select'
+                feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
                 highContrast={highContrast}
+                id={'sedP5000Edit-ytelse-select'}
                 label={t('buc:p5000-4-1-title')}
                 options={ytelsestypeOptions}
                 onChange={setYtelseOption}
@@ -566,7 +647,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           selectable={false}
           sortable
           onColumnSort={(sort: any) => {
-            standardLogger('buc.edit.tools.P5000.other.sort', { sort: sort })
+            standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })
             setTableSort(sort)
           }}
           onRowAdded={(item, context) => {
@@ -750,21 +831,33 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           />
           <HorizontalSeparatorDiv />
           <HighContrastKnapp
-            onCLick={() => {}}
+            disabled={sendingP5000info}
+            spinner={sendingP5000info}
+            onClick={handleOverforTilRina}
           >
-            {t('buc:form-send-to-RINA')}
+            { sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
           </HighContrastKnapp>
+          <HorizontalSeparatorDiv />
+          {sentP5000info === null && (
+            <Alertstripe type='advarsel'>
+              {t('buc:warning-failedP5000Sending')}
+            </Alertstripe>
+          )}
+          {!_.isNil(sentP5000info) && (
+            <Alertstripe type='suksess'>
+              {t('buc:warning-okP5000Sending')}
+            </Alertstripe>
+          )}
         </ButtonsDiv>
       </SEDP5000Container>
     </NavHighContrast>
   )
 }
 
-SEDP5000Overview.propTypes = {
+SEDP5000Edit.propTypes = {
   highContrast: PT.bool.isRequired,
-  locale: PT.oneOf<AllowedLocaleString>(['en', 'nb']).isRequired,
   seds: SedsPropType.isRequired,
   sedContent: PT.any.isRequired
 }
 
-export default SEDP5000Overview
+export default SEDP5000Edit
