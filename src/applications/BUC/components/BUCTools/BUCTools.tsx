@@ -7,8 +7,9 @@ import Trashcan from 'assets/icons/Trashcan'
 import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import SEDLoadSave from 'components/SEDLoadSave/SEDLoadSave'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
+import { AllowedLocaleString, FeatureToggles, Loading, P5000EditLocalStorageContent } from 'declarations/app.d'
 
 import {
   Buc,
@@ -53,8 +54,8 @@ const BUCToolsPanel = styled(HighContrastPanel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight(20)} 0.3s forwards;
-  .loading {
-    background-color: rgba(128,128,128,0.25);
+  &.loading {
+    background-color: rgba(128,128,128,0.2);
   }
 `
 const CommentDiv = styled.div`
@@ -360,7 +361,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   return (
     <NavHighContrast highContrast={highContrast}>
       <BUCToolsPanel
-        className={className}
+        className={classNames(className, { loading: !_.isEmpty(_fetchingP5000) })}
         data-test-id='a-buc-c-buctools__panel-id'
       >
         <>
@@ -370,7 +371,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             tabs={tabs}
             defaultAktiv={_activeTab}
           />
-          <PaddedTabContent className={classNames({ loading: !_.isEmpty(_fetchingP5000) })}>
+          <PaddedTabContent>
             {tabs[_activeTab].key === 'P5000' && (
               <P5000Div>
                 {!_.isEmpty(_fetchingP5000) && (
@@ -426,6 +427,25 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     </HighContrastKnapp>
                   </FlexDiv>
                 )}
+                <VerticalSeparatorDiv />
+                <SEDLoadSave
+                  highContrast={highContrast}
+                  storageKey='sedp5000'
+                  onLoad={(content: P5000EditLocalStorageContent) => {
+                    setModal({
+                      modalTitle: t('buc:P5000-edit-title'),
+                      modalContent: (
+                        <SEDP5000Edit
+                          highContrast={highContrast}
+                          seds={getP5000()!}
+                          initialItems={content.items}
+                          initialYtelseOption={content.ytelseOption}
+                          caseId={buc.caseId!}
+                        />
+                      )
+                    })
+                  }}
+                />
               </P5000Div>
             )}
             {tabs[_activeTab].key === 'tags' && (

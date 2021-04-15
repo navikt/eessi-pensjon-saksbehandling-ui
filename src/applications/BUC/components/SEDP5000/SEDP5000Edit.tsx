@@ -1,6 +1,7 @@
 import { sendP5000toRina } from 'actions/buc'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
+import SaveSEDModal from 'components/SaveSEDModal/SaveSEDModal'
 import Select from 'components/Select/Select'
 import { Validation } from 'declarations/app.d'
 import { SedContentMap, Seds } from 'declarations/buc'
@@ -90,13 +91,6 @@ export const OneLineSpan = styled.span`
   white-space: nowrap;
 `
 
-export interface SEDP5000EditProps {
-  caseId: string
-  highContrast: boolean
-  seds: Seds
-  sedContent: SedContentMap
-}
-
 export interface SEDP5000EditRow extends Item {
   type: string
   startdato: string
@@ -128,8 +122,22 @@ const mapState = (state: State): any => ({
   sendingP5000info: state.loading.sendingP5000info
 })
 
+export interface SEDP5000EditProps {
+  caseId: string
+  highContrast: boolean
+  initialItems?: SEDP5000EditRows
+  initialYtelseOption?: string
+  seds: Seds
+  sedContent?: SedContentMap
+}
+
 const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
-  caseId, highContrast, seds, sedContent
+  caseId,
+  highContrast,
+  initialItems = undefined,
+  initialYtelseOption = undefined,
+  seds,
+  sedContent = undefined
 }: SEDP5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -138,10 +146,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<boolean>(true)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [_ytelseOption, _setYtelseOption] = useState<any | undefined>(undefined)
-  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(undefined)
+  const [_ytelseOption, _setYtelseOption] = useState<any | undefined>(initialYtelseOption)
+  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(initialItems)
   const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
   const [_validation, setValidation] = useState<Validation>({})
+  const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
 
   const ytelsestypeOptions = [
     { label: '[00] Annet', value: '00' },
@@ -565,7 +574,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   useEffect(() => {
-    if (_items === undefined) {
+    if (_items === undefined && !_.isNil(sedContent)) {
       const newItems = convertRawP5000toRow(sedContent)
       setItems(newItems)
     }
@@ -577,6 +586,17 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   return (
     <NavHighContrast highContrast={highContrast}>
+      {_viewSaveSedModal && (
+        <SaveSEDModal
+          highContrast={highContrast}
+          localStorageContent={{
+            items: _items,
+            ytelseOption: _ytelseOption
+          }}
+          storageKey='sedp5000'
+          onModalClose={() => setViewSaveSedModal(false)}
+        />
+      )}
       <SEDP5000Container>
         <SEDP5000Header>
           <FlexCenterDiv>
@@ -855,6 +875,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             onClick={handleOverforTilRina}
           >
             {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+          </HighContrastKnapp>
+          <HorizontalSeparatorDiv />
+          <HighContrastKnapp
+            onClick={() => setViewSaveSedModal(true)}
+          >
+            {t('ui:save')}
           </HighContrastKnapp>
           <HorizontalSeparatorDiv />
           {sentP5000info === null && (

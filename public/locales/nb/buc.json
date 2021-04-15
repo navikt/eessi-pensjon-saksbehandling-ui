@@ -206,6 +206,10 @@
   "p5000-4-1-title"               : "Ytelsestype (4.1)",
   "p5000-type-43113"              : "Type (4.3.1.1.3)",
   "p5000-ytelse"                  : "Gir rett til ytelse",
+  "p5000-no-saved-entries"        : "Ingen lagrede P5000s",
+  "p5000-saved-entries"           : "Lagrede P5000s",
+  "p5000-saved-svarsed-draft"     : "Lagret P5000 med navn {{name}}, dato {{date}}",
+  "p5000-save"                    : "Lagre P5000",
 
   "placeholder-date2" : "DD.MM.ÅÅÅÅ/DDMMÅÅ",
 
@@ -274,6 +278,7 @@
   "validation-chooseVedtakId"       : "Velg en vedtak ID",
   "validation-invalidVedtakId"      : "Ugyldig vedtak ID",
   "validation-noAktoerId"           : "Ingen aktørId",
+  "validation-noName"               : "Ingen navn",
   "validation-noSakId"              : "Ingen sakId",
   "validation-badDate2"             : "Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ",
 

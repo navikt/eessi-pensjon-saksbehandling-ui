@@ -46,3 +46,14 @@ export interface UserInfoPayload {
 export type Validation = {[key: string]: FeiloppsummeringFeil | undefined}
 
 export type WidthSize = 'sm' | 'md' | 'lg'
+
+export interface LocalStorageEntry<CustomLocalStorageContent extends any = any> {
+  name: string
+  date: string
+  content: CustomLocalStorageContent
+}
+
+export interface P5000EditLocalStorageContent {
+  items: Array<any>
+  ytelseOption: any
+}
