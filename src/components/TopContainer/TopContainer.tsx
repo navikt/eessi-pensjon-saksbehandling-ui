@@ -17,7 +17,7 @@ import ReactResizeDetector from 'react-resize-detector'
 import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
 import styled from 'styled-components'
 import useErrorBoundary from 'use-error-boundary'
-import {IS_PRODUCTION} from 'constants/environment'
+import { IS_PRODUCTION } from 'constants/environment'
 
 const Main = styled.main`
   flex: 1 1 auto;

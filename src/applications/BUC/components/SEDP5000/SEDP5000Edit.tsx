@@ -190,7 +190,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         options={typeOptions}
         onChange={(e) => {
           options.setValue({
-            'type': e!.value
+            type: e!.value
           })
         }}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
@@ -226,10 +226,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const calculateDateDiff = (rawStartDato: string | undefined, rawSluttDato: string | undefined): DatePieces | null => {
-    let startdato: Moment | undefined = undefined
-    let sluttdato: Moment | undefined = undefined
-    let validStartDato: string | undefined = undefined
-    let validSluttDato: string | undefined = undefined
+    let validStartDato: string | undefined
+    let validSluttDato: string | undefined
 
     if (rawStartDato?.trim().match('^[0-3][0-9][0-1][0-9]{3}$')) {
       validStartDato = dateTransform(rawStartDato?.trim())
@@ -246,14 +244,14 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     if (!validSluttDato || !validStartDato) {
       return null
     }
-    startdato = moment(validStartDato, 'DD.MM.YYYYY')
-    sluttdato = moment(validSluttDato, 'DD.MM.YYYYY')
+    const startdato: Moment | undefined = moment(validStartDato, 'DD.MM.YYYYY')
+    const sluttdato: Moment | undefined = moment(validSluttDato, 'DD.MM.YYYYY')
 
-    let years = sluttdato.diff(startdato, 'years')
+    const years = sluttdato.diff(startdato, 'years')
     startdato.add(years, 'years')
-    let months = sluttdato.diff(startdato, 'months')
+    const months = sluttdato.diff(startdato, 'months')
     startdato.add(months, 'months')
-    let days = sluttdato.diff(startdato, 'days')
+    const days = sluttdato.diff(startdato, 'days')
     return {
       years: years,
       months: months,
@@ -262,7 +260,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const maybeDoSomePrefill = (startdato: string, sluttdato: string, options: RenderEditableOptions<TableContext>) => {
-    let dates: DatePieces | null = calculateDateDiff(startdato, sluttdato)
+    const dates: DatePieces | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
       if (options.context.forsikringElklerBosetningsperioder) {
         options.setValue({
@@ -351,7 +349,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const renderAarEdit = (options: RenderEditableOptions) => {
-     return (
+    return (
       <HighContrastInput
         type='number'
         id='c-tableSorter__edit-aar-input-id'
@@ -424,7 +422,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       const medlemskap = sedContent[k].pensjon?.medlemskap
       medlemskap?.forEach((m: any) => {
         if (!_.isNil(m) && m.type) {
-          let item = {
+          const item = {
             type: m.type,
             startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
             sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
@@ -480,7 +478,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const renderButtons = (item: any, value: any, { seeAsSum, items }: any): JSX.Element => {
     if (seeAsSum) {
-      return <div/>
+      return <div />
     }
     return (
       <ButtonsDiv>
@@ -505,16 +503,15 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const handleOverforTilRina = () => {
-
-    if(performValidation()) {
-      let payload: any = {
+    if (performValidation()) {
+      const payload: any = {
         sed: 'P5000',
         sedGVer: '4',
         sedVer: '1',
         pensjon: {
           medlemskap: _items?.map(item => {
-            let medlemskap: any = {}
-            medlemskap.relevans = item.ytelse   /// ???
+            const medlemskap: any = {}
+            medlemskap.relevans = item.ytelse /// ???
             medlemskap.ordning = item.ordning
             medlemskap.land = 'NO'
             medlemskap.sum = {
@@ -557,17 +554,19 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const performValidation = (): boolean => {
     const newValidation: Validation = {}
-    newValidation['sedP5000Edit-ytelse-select'] = _ytelseOption ? undefined: {
-      feilmelding: t('buc:error-noYtelse'),
-      skjemaelementId: 'sedP5000Edit-ytelse-select'
-    } as FeiloppsummeringFeil
+    newValidation['sedP5000Edit-ytelse-select'] = _ytelseOption
+      ? undefined
+      : {
+        feilmelding: t('buc:error-noYtelse'),
+        skjemaelementId: 'sedP5000Edit-ytelse-select'
+      } as FeiloppsummeringFeil
     setValidation(newValidation)
     return hasNoValidationErrors(newValidation)
   }
 
   useEffect(() => {
     if (_items === undefined) {
-      let newItems = convertRawP5000toRow(sedContent)
+      const newItems = convertRawP5000toRow(sedContent)
       setItems(newItems)
     }
   }, [_items, sedContent])
@@ -586,7 +585,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 className='sedP5000Edit-ytelse-select'
                 feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
                 highContrast={highContrast}
-                id={'sedP5000Edit-ytelse-select'}
+                id='sedP5000Edit-ytelse-select'
                 label={t('buc:p5000-4-1-title')}
                 options={ytelsestypeOptions}
                 onChange={setYtelseOption}
@@ -601,17 +600,17 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   {t('buc:p5000-4-2-title')}
                 </OneLineSpan>
               )}
-             >
+            >
               <Flex>
                 <HighContrastRadio
-                  name={'42'}
+                  name='42'
                   checked={_forsikringElklerBosetningsperioder === true}
                   label={t('ui:yes')}
                   onClick={() => setForsikringElklerBosetningsperioder(true)}
                 />
-                <HorizontalSeparatorDiv/>
+                <HorizontalSeparatorDiv />
                 <HighContrastRadio
-                  name={'42'}
+                  name='42'
                   checked={_forsikringElklerBosetningsperioder === false}
                   label={t('ui:no')}
                   onClick={() => setForsikringElklerBosetningsperioder(false)}
@@ -625,7 +624,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               </div>
             </Tooltip>
           </FlexCenterDiv>
-          <HorizontalSeparatorDiv/>
+          <HorizontalSeparatorDiv />
           <FlexDiv>
             <Checkbox
               label={t('buc:form-seePeriodsAsSum')}
@@ -743,7 +742,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 defaultValue: '111',
                 render: renderYtelseEdit
               }
-              },
+            },
             {
               id: 'beregning',
               label: t('ui:calculationInformation'),
@@ -777,7 +776,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               // important to it re-renders when sorting changes
               key={JSON.stringify(_tableSort)}
               className='print-version'
-              items={_seeAsSum ?  sumItems(_items) : _items}
+              items={_seeAsSum ? sumItems(_items) : _items}
               editable={false}
               animatable={false}
               searchable={false}
@@ -835,7 +834,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             spinner={sendingP5000info}
             onClick={handleOverforTilRina}
           >
-            { sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+            {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
           </HighContrastKnapp>
           <HorizontalSeparatorDiv />
           {sentP5000info === null && (

@@ -485,7 +485,6 @@ export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
   })
 }
 
-
 export const setMode: ActionCreator<ActionWithPayload<BUCMode>> = (
   mode: BUCMode
 ): ActionWithPayload<BUCMode> => ({

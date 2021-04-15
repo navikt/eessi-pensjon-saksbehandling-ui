@@ -181,7 +181,7 @@ ui-fss.g154[id="c13"] {
   align-items: flex-end;
 }
 
-ui-fss.g194[id="c9"] {
+ui-fss.g196[id="c9"] {
   content: "c10,";
 }
 
@@ -195,7 +195,7 @@ ui-fss.g194[id="c9"] {
   flex-direction: column;
 }
 
-ui-fss.g198[id="c0"] {
+ui-fss.g200[id="c0"] {
   content: "c1,";
 }
 
@@ -4382,7 +4382,7 @@ ui-fss.g198[id="c0"] {
                   className="c6 c8"
                 />
               </styled.div>
-              <Dn
+              <En
                 aria-describedby="help-country"
                 ariaLabel="ui:country"
                 closeMenuOnSelect={false}
@@ -4400,13 +4400,14 @@ ui-fss.g198[id="c0"] {
                 placeholder="buc:form-chooseCountry"
                 values={Array []}
               >
-                <Ke
+                <Component
                   highContrast={false}
                 >
                   <Component
                     theme={
                       Object {
-                        "alternative-background-color": "#e9e7e7",
+                        "alternative-background-color": "#FFFFFF",
+                        "alternative-hover-color": "#cce1f3",
                         "black": "#000000",
                         "border-radius-base": "4px",
                         "border-radius-large": "6px",
@@ -4429,15 +4430,16 @@ ui-fss.g198[id="c0"] {
                         "inverted-font-color": "#FFFFFF",
                         "line-height-large": "1.3333333",
                         "line-height-small": "1.5",
-                        "main-active-color": "#c2eaf7",
-                        "main-background-color": "#FFFFFF",
+                        "main-active-color": "#005b82",
+                        "main-background-color": "#f1f1f1",
                         "main-border-color": "#78706a",
                         "main-border-radius": "4px",
+                        "main-border-width": "1px",
                         "main-disabled-color": "#b7b1a9",
                         "main-error-color": "#ba3a26",
                         "main-focus-color": "#19548a",
                         "main-font-color": "#3e3832",
-                        "main-hover-color": "#85d5f0",
+                        "main-hover-color": "#0074df",
                         "main-interactive-color": "#0067c5",
                         "main-success-color": "#06893a",
                         "main-warning-color": "#ff9100",
@@ -4626,6 +4628,7 @@ ui-fss.g198[id="c0"] {
                         >
                           <t
                             aria-label="ui:country"
+                            aria-live="polite"
                             backspaceRemovesValue={true}
                             blurInputOnSelect={true}
                             captureMenuScroll={false}
@@ -4723,6 +4726,7 @@ ui-fss.g198[id="c0"] {
                               selectProps={
                                 Object {
                                   "aria-label": "ui:country",
+                                  "aria-live": "polite",
                                   "backspaceRemovesValue": true,
                                   "blurInputOnSelect": true,
                                   "captureMenuScroll": false,
@@ -4830,7 +4834,7 @@ ui-fss.g198[id="c0"] {
                                 className="c-countrySelect__select"
                                 css={
                                   Object {
-                                    "backgroundColor": "#FFFFFF",
+                                    "backgroundColor": "#f1f1f1",
                                     "borderColor": "1px solid #78706a",
                                     "borderRadius": "4px",
                                     "boxShadow": "none",
@@ -4844,9 +4848,156 @@ ui-fss.g198[id="c0"] {
                                 onKeyDown={[Function]}
                               >
                                 <div
-                                  className="c-countrySelect__select css-jufpr-container"
+                                  className="c-countrySelect__select css-1blil62-container"
                                   onKeyDown={[Function]}
                                 >
+                                  <at
+                                    ariaSelection={null}
+                                    clearValue={[Function]}
+                                    cx={[Function]}
+                                    focusableOptions={Array []}
+                                    focusedValue={null}
+                                    getStyles={[Function]}
+                                    getValue={[Function]}
+                                    hasValue={false}
+                                    isFocused={false}
+                                    isMulti={true}
+                                    isRtl={false}
+                                    options={Array []}
+                                    selectOption={[Function]}
+                                    selectProps={
+                                      Object {
+                                        "aria-label": "ui:country",
+                                        "aria-live": "polite",
+                                        "backspaceRemovesValue": true,
+                                        "blurInputOnSelect": true,
+                                        "captureMenuScroll": false,
+                                        "className": "c-countrySelect__select",
+                                        "classNamePrefix": "c-countrySelect__select",
+                                        "closeMenuOnScroll": false,
+                                        "closeMenuOnSelect": false,
+                                        "components": Object {
+                                          "MultiValueLabel": [Function],
+                                          "MultiValueRemove": [Function],
+                                          "Option": [Function],
+                                          "SingleValue": [Function],
+                                        },
+                                        "controlShouldRenderValue": true,
+                                        "escapeClearsValue": false,
+                                        "filterOption": [Function],
+                                        "formatGroupLabel": [Function],
+                                        "getOptionLabel": [Function],
+                                        "getOptionValue": [Function],
+                                        "inputId": "a-buc-c-sedstart__country-select-id",
+                                        "inputValue": "",
+                                        "isDisabled": false,
+                                        "isLoading": false,
+                                        "isMulti": true,
+                                        "isOptionDisabled": [Function],
+                                        "isRtl": false,
+                                        "isSearchable": true,
+                                        "loadingMessage": [Function],
+                                        "maxMenuHeight": 300,
+                                        "menuIsOpen": false,
+                                        "menuPlacement": "bottom",
+                                        "menuPortalTarget": undefined,
+                                        "menuPosition": "absolute",
+                                        "menuShouldBlockScroll": false,
+                                        "menuShouldScrollIntoView": true,
+                                        "minMenuHeight": 140,
+                                        "multi": false,
+                                        "noOptionsMessage": [Function],
+                                        "onChange": [Function],
+                                        "onInputChange": [Function],
+                                        "onMenuClose": [Function],
+                                        "onMenuOpen": [Function],
+                                        "openMenuOnClick": true,
+                                        "openMenuOnFocus": false,
+                                        "options": Array [],
+                                        "pageSize": 5,
+                                        "placeholder": "buc:form-chooseCountry",
+                                        "screenReaderStatus": [Function],
+                                        "selectProps": Object {
+                                          "flagType": "circle",
+                                          "flags": true,
+                                          "highContrast": false,
+                                          "id": "a-buc-c-sedstart__country-select-id",
+                                          "type": undefined,
+                                        },
+                                        "styles": Object {
+                                          "container": [Function],
+                                          "control": [Function],
+                                          "indicatorSeparator": [Function],
+                                          "menu": [Function],
+                                          "menuPortal": [Function],
+                                          "multiValue": [Function],
+                                          "multiValueRemove": [Function],
+                                          "option": [Function],
+                                          "placeholder": [Function],
+                                        },
+                                        "tabIndex": "0",
+                                        "tabSelectsValue": false,
+                                        "value": null,
+                                      }
+                                    }
+                                    selectValue={Array []}
+                                    setValue={[Function]}
+                                    theme={
+                                      Object {
+                                        "borderRadius": 4,
+                                        "colors": Object {
+                                          "danger": "#DE350B",
+                                          "dangerLight": "#FFBDAD",
+                                          "neutral0": "hsl(0, 0%, 100%)",
+                                          "neutral10": "hsl(0, 0%, 90%)",
+                                          "neutral20": "hsl(0, 0%, 80%)",
+                                          "neutral30": "hsl(0, 0%, 70%)",
+                                          "neutral40": "hsl(0, 0%, 60%)",
+                                          "neutral5": "hsl(0, 0%, 95%)",
+                                          "neutral50": "hsl(0, 0%, 50%)",
+                                          "neutral60": "hsl(0, 0%, 40%)",
+                                          "neutral70": "hsl(0, 0%, 30%)",
+                                          "neutral80": "hsl(0, 0%, 20%)",
+                                          "neutral90": "hsl(0, 0%, 10%)",
+                                          "primary": "#2684FF",
+                                          "primary25": "#DEEBFF",
+                                          "primary50": "#B2D4FF",
+                                          "primary75": "#4C9AFF",
+                                        },
+                                        "spacing": Object {
+                                          "baseUnit": 4,
+                                          "controlHeight": 38,
+                                          "menuGutter": 8,
+                                        },
+                                      }
+                                    }
+                                  >
+                                    <$a
+                                      aria-atomic="false"
+                                      aria-live="polite"
+                                      aria-relevant="additions text"
+                                    >
+                                      <ForwardRef
+                                        __EMOTION_TYPE_PLEASE_DO_NOT_USE__="span"
+                                        aria-atomic="false"
+                                        aria-live="polite"
+                                        aria-relevant="additions text"
+                                        css={
+                                          Object {
+                                            "name": "7pg0cj-a11yText",
+                                            "styles": "label:a11yText;z-index:9999;border:0;clip:rect(1px, 1px, 1px, 1px);height:1px;width:1px;position:absolute;overflow:hidden;padding:0;white-space:nowrap",
+                                          }
+                                        }
+                                      >
+                                        <span
+                                          aria-atomic="false"
+                                          aria-live="polite"
+                                          aria-relevant="additions text"
+                                          className="css-7pg0cj-a11yText"
+                                        />
+                                      </ForwardRef>
+                                    </$a>
+                                  </at>
                                   <Control
                                     clearValue={[Function]}
                                     cx={[Function]}
@@ -4870,6 +5021,7 @@ ui-fss.g198[id="c0"] {
                                     selectProps={
                                       Object {
                                         "aria-label": "ui:country",
+                                        "aria-live": "polite",
                                         "backspaceRemovesValue": true,
                                         "blurInputOnSelect": true,
                                         "captureMenuScroll": false,
@@ -5025,6 +5177,7 @@ ui-fss.g198[id="c0"] {
                                           selectProps={
                                             Object {
                                               "aria-label": "ui:country",
+                                              "aria-live": "polite",
                                               "backspaceRemovesValue": true,
                                               "blurInputOnSelect": true,
                                               "captureMenuScroll": false,
@@ -5163,6 +5316,7 @@ ui-fss.g198[id="c0"] {
                                                 selectProps={
                                                   Object {
                                                     "aria-label": "ui:country",
+                                                    "aria-live": "polite",
                                                     "backspaceRemovesValue": true,
                                                     "blurInputOnSelect": true,
                                                     "captureMenuScroll": false,
@@ -5271,7 +5425,7 @@ ui-fss.g198[id="c0"] {
                                                   css={
                                                     Object {
                                                       "boxSizing": "border-box",
-                                                      "color": "#3e3832",
+                                                      "color": "#78706a",
                                                       "label": "placeholder",
                                                       "marginLeft": 2,
                                                       "marginRight": 2,
@@ -5282,7 +5436,7 @@ ui-fss.g198[id="c0"] {
                                                   }
                                                 >
                                                   <div
-                                                    className="c-countrySelect__select__placeholder css-11uqlk6-placeholder"
+                                                    className="c-countrySelect__select__placeholder css-1page0z-placeholder"
                                                   >
                                                     buc:form-chooseCountry
                                                   </div>
@@ -5294,18 +5448,26 @@ ui-fss.g198[id="c0"] {
                                                 autoCapitalize="none"
                                                 autoComplete="off"
                                                 autoCorrect="off"
+                                                clearValue={[Function]}
                                                 cx={[Function]}
                                                 getStyles={[Function]}
+                                                getValue={[Function]}
+                                                hasValue={false}
                                                 id="a-buc-c-sedstart__country-select-id"
                                                 innerRef={[Function]}
                                                 isDisabled={false}
                                                 isHidden={false}
+                                                isMulti={true}
+                                                isRtl={false}
                                                 onBlur={[Function]}
                                                 onChange={[Function]}
                                                 onFocus={[Function]}
+                                                options={Array []}
+                                                selectOption={[Function]}
                                                 selectProps={
                                                   Object {
                                                     "aria-label": "ui:country",
+                                                    "aria-live": "polite",
                                                     "backspaceRemovesValue": true,
                                                     "blurInputOnSelect": true,
                                                     "captureMenuScroll": false,
@@ -5377,6 +5539,7 @@ ui-fss.g198[id="c0"] {
                                                     "value": null,
                                                   }
                                                 }
+                                                setValue={[Function]}
                                                 spellCheck="false"
                                                 tabIndex="0"
                                                 theme={
@@ -5532,6 +5695,7 @@ ui-fss.g198[id="c0"] {
                                           selectProps={
                                             Object {
                                               "aria-label": "ui:country",
+                                              "aria-live": "polite",
                                               "backspaceRemovesValue": true,
                                               "blurInputOnSelect": true,
                                               "captureMenuScroll": false,
@@ -5665,6 +5829,7 @@ ui-fss.g198[id="c0"] {
                                                 selectProps={
                                                   Object {
                                                     "aria-label": "ui:country",
+                                                    "aria-live": "polite",
                                                     "backspaceRemovesValue": true,
                                                     "blurInputOnSelect": true,
                                                     "captureMenuScroll": false,
@@ -5809,6 +5974,7 @@ ui-fss.g198[id="c0"] {
                                                 selectProps={
                                                   Object {
                                                     "aria-label": "ui:country",
+                                                    "aria-live": "polite",
                                                     "backspaceRemovesValue": true,
                                                     "blurInputOnSelect": true,
                                                     "captureMenuScroll": false,
@@ -5937,8 +6103,8 @@ ui-fss.g198[id="c0"] {
                                                     onMouseDown={[Function]}
                                                     onTouchEnd={[Function]}
                                                   >
-                                                    <Da>
-                                                      <La
+                                                    <Ta>
+                                                      <Pa
                                                         size={20}
                                                       >
                                                         <ForwardRef
@@ -5968,8 +6134,8 @@ ui-fss.g198[id="c0"] {
                                                             />
                                                           </svg>
                                                         </ForwardRef>
-                                                      </La>
-                                                    </Da>
+                                                      </Pa>
+                                                    </Ta>
                                                   </div>
                                                 </ForwardRef>
                                               </DropdownIndicator>
@@ -5987,8 +6153,8 @@ ui-fss.g198[id="c0"] {
                       </div>
                     </styled.div>
                   </Component>
-                </Ke>
-              </Dn>
+                </Component>
+              </En>
               <styled.div>
                 <div
                   className="c6 c8"

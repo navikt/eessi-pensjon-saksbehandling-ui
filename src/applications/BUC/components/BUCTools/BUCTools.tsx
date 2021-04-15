@@ -372,7 +372,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           />
           <PaddedTabContent className={classNames({ loading: !_.isEmpty(_fetchingP5000) })}>
             {tabs[_activeTab].key === 'P5000' && (
-              <P5000Div >
+              <P5000Div>
                 {!_.isEmpty(_fetchingP5000) && (
                   <SpinnerDiv>
                     <WaitingPanel />

@@ -31,7 +31,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
 }: PersonTitleProps): JSX.Element => {
   let birthDate: Date | undefined
   let deathDate: Date | undefined
-  let endDate: Date
+
   let age: number = 0
 
   if (!person || gettingPersonInfo) {
@@ -47,7 +47,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
     deathDate = moment(person.doedsfall?.doedsdato)?.toDate()
   }
 
-  endDate = deathDate || new Date()
+  const endDate: Date = deathDate || new Date()
   if (birthDate && endDate) {
     age = moment(endDate).diff(moment(birthDate), 'years')
   }

@@ -108,7 +108,11 @@ ui-fss.g29[id="c10"] {
   animation: dgjvLb 0.3s forwards;
 }
 
-ui-fss.g141[id="c1"] {
+.c3 .loading {
+  background-color: rgba(128,128,128,0.25);
+}
+
+ui-fss.g143[id="c1"] {
   content: "c3,";
 }
 
@@ -119,7 +123,7 @@ ui-fss.g141[id="c1"] {
   display: flex;
 }
 
-ui-fss.g143[id="c12"] {
+ui-fss.g145[id="c12"] {
   content: "c13,";
 }
 
@@ -128,11 +132,7 @@ ui-fss.g143[id="c12"] {
   margin-bottom: 1rem;
 }
 
-.c9.loading {
-  background-color: rgba(128,128,128,0.5);
-}
-
-ui-fss.g144[id="c8"] {
+ui-fss.g146[id="c8"] {
   content: "c9,";
 }
 
@@ -141,7 +141,7 @@ ui-fss.g144[id="c8"] {
   padding-bottom: 1rem;
 }
 
-ui-fss.g145[id="c6"] {
+ui-fss.g147[id="c6"] {
   content: "c7,";
 }
 
@@ -1357,13 +1357,13 @@ ui-fss.g145[id="c6"] {
                 </l>
               </l>
             </Styled(l)>
-            <styled.div>
+            <styled.div
+              className=""
+            >
               <div
                 className="c6 c7"
               >
-                <styled.div
-                  className=""
-                >
+                <styled.div>
                   <div
                     className="c8 c9"
                   >
@@ -1490,23 +1490,23 @@ ui-fss.g145[id="c6"] {
                         className="c12 c13"
                       >
                         <Styled(o)
-                          data-amplitude="buc.edit.tools.P5000.other.view"
-                          data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                          data-amplitude="buc.edit.tools.P5000.edit.view"
+                          data-test-id="a-buc-c-buctools__P5000-edit-button-id"
                           disabled={false}
                           onClick={[Function]}
                         >
                           <o
                             className="c14 c15"
-                            data-amplitude="buc.edit.tools.P5000.other.view"
-                            data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                            data-amplitude="buc.edit.tools.P5000.edit.view"
+                            data-test-id="a-buc-c-buctools__P5000-edit-button-id"
                             disabled={false}
                             onClick={[Function]}
                           >
                             <c
                               autoDisableVedSpinner={false}
                               className="c14 c15"
-                              data-amplitude="buc.edit.tools.P5000.other.view"
-                              data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                              data-amplitude="buc.edit.tools.P5000.edit.view"
+                              data-test-id="a-buc-c-buctools__P5000-edit-button-id"
                               disabled={false}
                               htmlType="submit"
                               inaktivKlasseVedDisabled={false}
@@ -1518,13 +1518,13 @@ ui-fss.g145[id="c6"] {
                             >
                               <button
                                 className="knapp c14 c15 knapp--standard"
-                                data-amplitude="buc.edit.tools.P5000.other.view"
-                                data-test-id="a-buc-c-buctools__P5000-other-button-id"
+                                data-amplitude="buc.edit.tools.P5000.edit.view"
+                                data-test-id="a-buc-c-buctools__P5000-edit-button-id"
                                 disabled={false}
                                 onClick={[Function]}
                                 type="submit"
                               >
-                                buc:form-seeP5000other
+                                buc:form-seeP5000edit
                               </button>
                             </c>
                           </o>

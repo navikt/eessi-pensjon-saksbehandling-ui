@@ -362,50 +362,50 @@ const BUCList: React.FC<BUCListProps> = ({
         )}
         {!loading.gettingBUCs && !_.isNil(filteredBucs) && !_.isNil(pBuc02filteredBucs) && filteredBucs.length !== pBuc02filteredBucs.length && (
           <>
-            <VerticalSeparatorDiv/>
+            <VerticalSeparatorDiv />
             <BadBucDiv>
               <Alertstripe type='advarsel'>
                 {t('buc:warning-filteredBucs')}
               </Alertstripe>
             </BadBucDiv>
-            <VerticalSeparatorDiv/>
+            <VerticalSeparatorDiv />
           </>
         )}
         {!loading.gettingBUCs && !_.isNil(sortedBucs) && !_.isEmpty(sortedBucs) &&
           sortedBucs.map((buc: Buc, index: number) => {
-              if (buc.error) {
-                return (
-                  <BadBucDiv key={index}>
-                    <Alertstripe type='advarsel'>
-                      {buc.error}
-                    </Alertstripe>
-                  </BadBucDiv>
-                )
-              }
-              const bucId: string = buc.caseId!
-              const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
+            if (buc.error) {
               return (
-                <BucLenkePanel
-                  href='#'
-                  border
-                  data-test-id={'a-buc-p-buclist__buc-' + bucId}
-                  key={index}
-                  className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
-                  style={{ animationDelay: (0.2 * index) + 's' }}
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    onBUCEdit(buc)
-                  }}
-                >
-                  <BUCHeader
-                    buc={buc}
-                    newBuc={(newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false}
-                    bucInfo={bucInfo}
-                  />
-                </BucLenkePanel>
+                <BadBucDiv key={index}>
+                  <Alertstripe type='advarsel'>
+                    {buc.error}
+                  </Alertstripe>
+                </BadBucDiv>
               )
-            })}
+            }
+            const bucId: string = buc.caseId!
+            const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
+            return (
+              <BucLenkePanel
+                href='#'
+                border
+                data-test-id={'a-buc-p-buclist__buc-' + bucId}
+                key={index}
+                className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
+                style={{ animationDelay: (0.2 * index) + 's' }}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  onBUCEdit(buc)
+                }}
+              >
+                <BUCHeader
+                  buc={buc}
+                  newBuc={(newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false}
+                  bucInfo={bucInfo}
+                />
+              </BucLenkePanel>
+            )
+          })}
         {!loading.gettingBUCs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
