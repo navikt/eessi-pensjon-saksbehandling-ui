@@ -309,7 +309,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       label=''
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
-      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(options.values.startdato, e.target.value, options)}
+      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(
+        options.values.startdato, e.target.value, options
+      )}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
         sluttdato: e.target.value
       })}
@@ -320,12 +322,23 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const renderDager = (item: any) => {
     return (
       <Normaltekst>
-        {item.dag + '/7'}
+        {item.dag}
       </Normaltekst>
     )
   }
 
-  const renderDagerEdit = (options: RenderEditableOptions) => {
+  const maybeDoSomeMonthAndYearUpdate = (dayString: string, options: RenderEditableOptions<TableContext>) => {
+    let day = parseInt(dayString)
+    if (options.values.startdato && day > 31) {
+      let sluttdato = moment(options.values.startdato, 'DD.MM.YYYY')
+      if (sluttdato) {
+        sluttdato.add(day, 'days')
+        maybeDoSomePrefill(options.values.startdato, sluttdato.format('DD.MM.YYYY'), options)
+      }
+    }
+  }
+
+  const renderDagerEdit = (options: RenderEditableOptions<TableContext>) => {
     return (
       <HighContrastInput
         type='number'
@@ -333,6 +346,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         className='c-tableSorter__edit-input'
         label=''
         feil={options.feil}
+        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomeMonthAndYearUpdate(
+          e.target.value, options
+        )}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
           dag: parseInt(e.target.value)
         })}

@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react'
+import { debounce } from 'lodash'
 
 const useWindowDimensions = () => {
-  const getWindowDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window
-    return { width, height }
-  }
-  const [_windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
+  const [width, setWidth] = useState(window.innerWidth)
+  const [height, setHeight] = useState(window.innerHeight)
 
   useEffect(() => {
-    function handleResize () {
-      setWindowDimensions(getWindowDimensions())
-    }
+    const handleResize = debounce(() => {
+      setWidth(window.innerWidth)
+      setHeight(window.innerHeight)
+    }, 100)
 
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
   }, [])
 
-  return _windowDimensions
+  return {
+    width: width,
+    height: height
+  }
 }
 
 export default useWindowDimensions

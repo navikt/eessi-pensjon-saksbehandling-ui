@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import NavHighContrast, { HighContrastKnapp, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
@@ -82,7 +82,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const { t } = useTranslation()
   const { height } = useWindowDimensions()
   const componentRef = useRef(null)
-  const [_itemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
+  const [_itemsPerPage, setItemsPerPage] = useState<number>(0)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
@@ -149,6 +149,11 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   }
 
   const items = convertRawP5000toRow(sedContent)
+
+  useEffect(() => {
+    const itemsPerPage = height < 800 ? 10 : height < 1200 ? 20 : 30
+    setItemsPerPage(itemsPerPage)
+  }, [height])
 
   return (
     <NavHighContrast highContrast={highContrast}>

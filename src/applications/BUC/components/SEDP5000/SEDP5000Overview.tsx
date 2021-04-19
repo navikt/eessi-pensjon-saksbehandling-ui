@@ -13,7 +13,7 @@ import moment from 'moment'
 import { Checkbox, Select } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
@@ -128,7 +128,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const { height } = useWindowDimensions()
   const componentRef = useRef(null)
   const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
-  const [_itemsPerPage, setItemsPerPage] = useState<number>(height < 800 ? 10 : height < 1200 ? 20 : 30)
+  const [_itemsPerPage, setItemsPerPage] = useState<number>(0)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
@@ -230,6 +230,11 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
+  useEffect(() => {
+    const itemsPerPage = height < 800 ? 10 : height < 1200 ? 20 : 30
+    setItemsPerPage(itemsPerPage)
+  }, [height])
+
   return (
     <NavHighContrast highContrast={highContrast}>
       <SEDP5000Container>
@@ -298,7 +303,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               <option value='10'>10</option>
               <option value='15'>15</option>
               <option value='20'>20</option>
-              <option value='25'>25</option>
+              <option value='30'>30</option>
               <option value='50'>50</option>
               <option value='all'>{t('ui:all')}</option>
             </CustomSelect>
