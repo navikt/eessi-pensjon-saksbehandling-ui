@@ -128,7 +128,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const { height } = useWindowDimensions()
   const componentRef = useRef(null)
   const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
-  const [_itemsPerPage, setItemsPerPage] = useState<number>(height < 800 ? 15 : height < 1200 ? 20 : 25)
+  const [_itemsPerPage, setItemsPerPage] = useState<number>(height < 800 ? 10 : height < 1200 ? 20 : 30)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
@@ -295,9 +295,11 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               onChange={itemsPerPageChanged}
               value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
             >
+              <option value='10'>10</option>
               <option value='15'>15</option>
               <option value='20'>20</option>
               <option value='25'>25</option>
+              <option value='50'>50</option>
               <option value='all'>{t('ui:all')}</option>
             </CustomSelect>
           </FlexDiv>

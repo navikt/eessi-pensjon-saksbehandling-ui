@@ -1,6 +1,8 @@
 /* istanbul ignore next */
 import { Sed } from 'declarations/buc'
-import mockSedP50001 from 'mocks/buc/sed_P5000_1'
-import mockSedP50002 from 'mocks/buc/sed_P5000_2'
 
-export default (sed: Sed) => (sed.creationDate % 2 !== 0 ? mockSedP50001 : mockSedP50002)
+export default async (sed: Sed, type: string = 'small') => {
+  const which = sed.creationDate % 2 !== 0 ? 1 : 2
+  const m = await import('mocks/buc/sed_P5000_' + type + '' + which)
+  return m.default
+}
