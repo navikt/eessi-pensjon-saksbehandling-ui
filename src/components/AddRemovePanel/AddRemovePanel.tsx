@@ -30,8 +30,8 @@ const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
 }: AddRemovePanelProps): JSX.Element => {
   const { t } = useTranslation()
 
-  return candidateForDeletion ?
-    (
+  return candidateForDeletion
+    ? (
       <FlexCenterDiv className={classNames('slideInFromRight', { nolabel: marginTop })}>
         <Normaltekst>
           {t('ui:are-you-sure')}
@@ -53,8 +53,8 @@ const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
           {t('ui:no')}
         </HighContrastFlatknapp>
       </FlexCenterDiv>
-    ) :
-    (
+      )
+    : (
       <div className={classNames({ nolabel: marginTop })}>
         <HighContrastFlatknapp
           mini
@@ -78,7 +78,7 @@ const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
           </>
         )}
       </div>
-    )
+      )
 }
 
 export default AddRemovePanel

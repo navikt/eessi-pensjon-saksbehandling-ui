@@ -534,7 +534,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <Select
                 data-test-id='a-buc-c-bucstart__subjectarea-select-id'
                 defaultValue={{ label: _subjectArea, value: _subjectArea }}
-                feil={_validation.subjectArea ? t(_validation.subjectArea.feilmelding) : undefined}
+                feil={_validation?.subjectArea?.feilmelding}
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__subjectarea-select-id'
                 isLoading={loading.gettingSubjectAreaList}
@@ -552,7 +552,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               </label>
               <Select
                 data-test-id='a-buc-c-bucstart__buc-select-id'
-                feil={_validation.buc ? t(_validation.buc.feilmelding) : undefined}
+                feil={_validation?.buc?.feilmelding}
                 highContrast={highContrast}
                 id='a-buc-c-bucstart__buc-select-id'
                 isLoading={loading.gettingBucList}

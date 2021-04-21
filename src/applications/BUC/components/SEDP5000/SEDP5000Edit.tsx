@@ -256,6 +256,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     const startdato: Moment | undefined = moment(validStartDato, 'DD.MM.YYYYY')
     const sluttdato: Moment | undefined = moment(validSluttDato, 'DD.MM.YYYYY')
 
+    // make the diff calculation include the starting day,
+    // so the diff between 01.01.YYYY and 02.01.YYYY is 2 days, not 1
+    startdato.add(-1, 'days')
+
     const years = sluttdato.diff(startdato, 'years')
     startdato.add(years, 'years')
     const months = sluttdato.diff(startdato, 'months')
@@ -328,9 +332,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const maybeDoSomeMonthAndYearUpdate = (dayString: string, options: RenderEditableOptions<TableContext>) => {
-    let day = parseInt(dayString)
+    const day = parseInt(dayString)
     if (options.values.startdato && day > 31) {
-      let sluttdato = moment(options.values.startdato, 'DD.MM.YYYY')
+      const sluttdato = moment(options.values.startdato, 'DD.MM.YYYY')
       if (sluttdato) {
         sluttdato.add(day, 'days')
         maybeDoSomePrefill(options.values.startdato, sluttdato.format('DD.MM.YYYY'), options)
