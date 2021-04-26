@@ -208,7 +208,7 @@
   "p5000-ytelse"                  : "Gir rett til ytelse",
   "p5000-no-saved-entries"        : "Ingen lagrede P5000s",
   "p5000-saved-entries"           : "Lagrede P5000s",
-  "p5000-saved-svarsed-draft"     : "Lagret P5000 med navn {{name}}, dato {{date}}",
+  "p5000-saved-svarsed-draft"     : "Lagret P5000 til saksId {{caseId}}",
   "p5000-save"                    : "Lagre P5000",
 
   "placeholder-date2" : "DD.MM.ÅÅÅÅ/DDMMÅÅ",

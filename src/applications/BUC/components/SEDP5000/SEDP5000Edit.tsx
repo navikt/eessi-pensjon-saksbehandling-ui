@@ -1,9 +1,8 @@
 import { sendP5000toRina } from 'actions/buc'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
-import SaveSEDModal from 'components/SaveSEDModal/SaveSEDModal'
 import Select from 'components/Select/Select'
-import { Validation } from 'declarations/app.d'
+import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent, Validation } from 'declarations/app.d'
 import { SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -150,7 +149,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_items, setItems] = useState<SEDP5000EditRows | undefined>(initialItems)
   const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
   const [_validation, setValidation] = useState<Validation>({})
-  const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
+  const [_onSaving, _setOnSaving] = useState<boolean>(false)
+  const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
 
   const ytelsestypeOptions = [
     { label: '[00] Annet', value: '00' },
@@ -606,6 +606,35 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return hasNoValidationErrors(newValidation)
   }
 
+  const onSave = () => {
+    _setOnSaving(true)
+
+    let payload = {
+      items: _items,
+      ytelseOption: _ytelseOption
+    }
+    let storageKey = 'sedp5000'
+
+    const items: string | null = window.localStorage.getItem(storageKey)
+    let savedEntries: LocalStorageEntry<P5000EditLocalStorageContent>
+    if (_.isString(items)) {
+      savedEntries = JSON.parse(items)
+    } else {
+      savedEntries = {} as LocalStorageEntry<P5000EditLocalStorageContent>
+    }
+
+    const dateString = new Date().toDateString()
+    savedEntries[caseId] = {
+      name: caseId,
+      date: dateString,
+      content: payload
+    } as LocalStorageValue<P5000EditLocalStorageContent>
+
+    window.localStorage.setItem(storageKey, JSON.stringify(savedEntries, null, 2))
+    _setSavedP5000Info(true)
+    _setOnSaving(false)
+  }
+
   useEffect(() => {
     if (_items === undefined && !_.isNil(sedContent)) {
       const newItems = convertRawP5000toRow(sedContent)
@@ -619,17 +648,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   return (
     <NavHighContrast highContrast={highContrast}>
-      {_viewSaveSedModal && (
-        <SaveSEDModal
-          highContrast={highContrast}
-          localStorageContent={{
-            items: _items,
-            ytelseOption: _ytelseOption
-          }}
-          storageKey='sedp5000'
-          onModalClose={() => setViewSaveSedModal(false)}
-        />
-      )}
       <SEDP5000Container>
         <SEDP5000Header>
           <FlexCenterDiv>
@@ -911,20 +929,29 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           </HighContrastKnapp>
           <HorizontalSeparatorDiv />
           <HighContrastKnapp
-            onClick={() => setViewSaveSedModal(true)}
+            onClick={onSave}
+            disabled={_onSaving}
+            spinner={_onSaving}
           >
-            {t('ui:save')}
+            {_onSaving ? t('ui:saving') :  t('ui:save')}
           </HighContrastKnapp>
           <HorizontalSeparatorDiv />
-          {sentP5000info === null && (
+          {sentP5000info === null ? (
             <Alertstripe type='advarsel'>
               {t('buc:warning-failedP5000Sending')}
             </Alertstripe>
-          )}
-          {!_.isNil(sentP5000info) && (
-            <Alertstripe type='suksess'>
-              {t('buc:warning-okP5000Sending')}
-            </Alertstripe>
+          ) : (
+            _savedP5000Info === true ? (
+              <Alertstripe type='suksess'>
+                {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
+              </Alertstripe>
+            ) : (
+              !_.isNil(sentP5000info) ? (
+                <Alertstripe type='suksess'>
+                  {t('buc:warning-okP5000Sending')}
+                </Alertstripe>
+              ) : null
+            )
           )}
         </ButtonsDiv>
       </SEDP5000Container>

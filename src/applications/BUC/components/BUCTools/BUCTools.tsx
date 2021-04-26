@@ -429,6 +429,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 )}
                 <VerticalSeparatorDiv />
                 <SEDLoadSave
+                  caseId={buc.caseId!}
                   highContrast={highContrast}
                   storageKey='sedp5000'
                   onLoad={(content: P5000EditLocalStorageContent) => {
