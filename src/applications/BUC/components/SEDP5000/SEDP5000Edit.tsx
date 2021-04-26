@@ -258,13 +258,26 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
     // make the diff calculation include the starting day,
     // so the diff between 01.01.YYYY and 02.01.YYYY is 2 days, not 1
-    startdato.add(-1, 'days')
+    //startdato.add(-1, 'days')
 
-    const years = sluttdato.diff(startdato, 'years')
+    let years = sluttdato.diff(startdato, 'years')
     startdato.add(years, 'years')
-    const months = sluttdato.diff(startdato, 'months')
+    let months = sluttdato.diff(startdato, 'months')
     startdato.add(months, 'months')
-    const days = sluttdato.diff(startdato, 'days')
+    let days = sluttdato.diff(startdato, 'days')
+
+    // from 01.01.1970 to 31.12.1079 --> convert 30/11/8 d/m/y to 0/0/9
+    // from 01.05.1995 to 31.12.2017 --> convert 30/7/22 d/y/m to 0/8/22
+    if (days === 30) {
+      days = 0
+      months += 1
+    }
+
+    if (months === 12) {
+      months = 0
+      years += 1
+    }
+
     return {
       years: years,
       months: months,
