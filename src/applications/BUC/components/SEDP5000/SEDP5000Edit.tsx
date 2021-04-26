@@ -130,6 +130,17 @@ export interface SEDP5000EditProps {
   sedContent?: SedContentMap
 }
 
+export const ytelsestypeOptions = [
+  { label: '[00] Annet', value: '00' },
+  { label: '[01] Annen delvis', value: '01' },
+  { label: '[10] Alderspensjon', value: '10' },
+  { label: '[11] Delvis alderspensjon', value: '11' },
+  { label: '[20] Etterlattepensjon', value: '20' },
+  { label: '[21] Etterlattepensjon delvis', value: '21' },
+  { label: '[30] Uførepensjon', value: '30' },
+  { label: '[31] Uførepensjon delvis', value: '31' }
+]
+
 const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   caseId,
   highContrast,
@@ -145,23 +156,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<boolean>(true)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [_ytelseOption, _setYtelseOption] = useState<any | undefined>(initialYtelseOption)
+  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(initialYtelseOption)
   const [_items, setItems] = useState<SEDP5000EditRows | undefined>(initialItems)
   const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
   const [_validation, setValidation] = useState<Validation>({})
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
-
-  const ytelsestypeOptions = [
-    { label: '[00] Annet', value: '00' },
-    { label: '[01] Annen delvis', value: '01' },
-    { label: '[10] Alderspensjon', value: '10' },
-    { label: '[11] Delvis alderspensjon', value: '11' },
-    { label: '[20] Etterlattepensjon', value: '20' },
-    { label: '[21] Etterlattepensjon delvis', value: '21' },
-    { label: '[30] Uførepensjon', value: '30' },
-    { label: '[31] Uførepensjon delvis', value: '31' }
-  ]
 
   const typeOptions = [
     { value: '10', label: '[10] Pliktige avgiftsperioder' },
@@ -197,11 +197,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         highContrast={highContrast}
         feil={options.feil}
         options={typeOptions}
-        onChange={(e) => {
-          options.setValue({
-            type: e!.value
-          })
-        }}
+        onChange={(e) => options.setValue({type: e!.value})}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
         selectedValue={_.find(typeOptions, o => o.value === options.value)}
       />
@@ -454,7 +450,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const setYtelseOption = (o: any) => {
     resetValidation('sedP5000Edit-ytelse-select')
-    _setYtelseOption(o)
+    _setYtelseOption(o?.value ?? '')
   }
 
   const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000EditRows => {
@@ -575,13 +571,15 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
             }
             medlemskap.enkeltkrav = {
-              krav: _ytelseOption.value
+              krav: _ytelseOption
             }
             return medlemskap
           })
         }
       }
-      dispatch(sendP5000toRina(caseId, seds[0].id, payload))
+      if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
+        dispatch(sendP5000toRina(caseId, seds[0].id, payload))
+      }
     }
   }
 
@@ -660,8 +658,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 label={t('buc:p5000-4-1-title')}
                 options={ytelsestypeOptions}
                 onChange={setYtelseOption}
-                selectedValue={_ytelseOption}
-                defaultValue={_ytelseOption}
+                selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
+                defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
               />
             </FullWidthDiv>
             <HorizontalSeparatorDiv />

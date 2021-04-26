@@ -1,16 +1,14 @@
+import { ytelsestypeOptions } from 'applications/BUC/components/SEDP5000/SEDP5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
-import { Etikett, FlexBaseDiv, FlexCenterDiv, PileDiv } from 'components/StyledComponents'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { LocalStorageEntry } from 'declarations/app'
+import { Etikett, FlexBaseDiv, PileDiv } from 'components/StyledComponents'
+import { LocalStorageEntry, P5000EditLocalStorageContent } from 'declarations/app'
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
-import NavHighContrast, {
-  HighContrastFlatknapp,
-  HorizontalSeparatorDiv,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+import NavHighContrast, { HighContrastFlatknapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { OptionTypeBase } from 'react-select'
+import styled from 'styled-components'
 
 interface SEDLoadSaveProps {
   caseId: string
@@ -19,6 +17,11 @@ interface SEDLoadSaveProps {
   storageKey: string
 }
 
+const FlexDiv = styled.div`
+  display: flex;
+  align-items: baseline;
+`
+
 const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent extends any>({
   caseId,
   highContrast,
@@ -26,13 +29,11 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
   storageKey
 }: SEDLoadSaveProps) => {
   const [_savedEntries, setSavedEntries] = useState<LocalStorageEntry<CustomLocalStorageContent> | null | undefined>(undefined)
-  const [_loadingSavedItems, setLoadingSavedItems] = useState<boolean>(false)
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
   const { t } = useTranslation()
 
-  const loadReplySeds = async () => {
-    setLoadingSavedItems(true)
-    const items: string | null = await window.localStorage.getItem(storageKey)
+  const loadReplySeds = () => {
+    const items: string | null = window.localStorage.getItem(storageKey)
     let savedEntries: LocalStorageEntry<CustomLocalStorageContent> | null | undefined
     if (_.isString(items)) {
       savedEntries = JSON.parse(items)
@@ -40,15 +41,14 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
       savedEntries = {}
     }
     setSavedEntries(savedEntries)
-    setLoadingSavedItems(false)
   }
 
-  const onRemove = async (key: string) => {
+  const onRemove = (key: string) => {
     const newReplySeds = _.cloneDeep(_savedEntries)
     if (!_.isNil(newReplySeds)) {
       delete newReplySeds[key]
       setSavedEntries(newReplySeds)
-      await window.localStorage.setItem(storageKey, JSON.stringify(newReplySeds))
+      window.localStorage.setItem(storageKey, JSON.stringify(newReplySeds))
     }
   }
 
@@ -66,45 +66,39 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
   }
 
   useEffect(() => {
-    if (_savedEntries === undefined && !_loadingSavedItems) {
+    if (_savedEntries === undefined) {
       loadReplySeds()
-      setLoadingSavedItems(true)
     }
-  }, [_savedEntries, _loadingSavedItems])
+  }, [_savedEntries])
 
   return (
     <NavHighContrast highContrast={highContrast}>
-
       <PileDiv>
-        {_loadingSavedItems && (<WaitingPanel />)}
-        {_savedEntries === null || _.isEmpty(_savedEntries)
-          ? (
-            <Normaltekst>
-              {t('buc:p5000-no-saved-entries')}
-            </Normaltekst>
-            )
-          : (
-            <Normaltekst>
-              {t('buc:p5000-saved-entries')}
-            </Normaltekst>
-            )}
+        {!_.isEmpty(_savedEntries) && (
+          <Normaltekst>
+            {t('buc:p5000-saved-entries')}
+          </Normaltekst>
+        )}
         <VerticalSeparatorDiv />
         {_savedEntries && _savedEntries[caseId] && (
           <div key={_savedEntries[caseId].name}>
             <Etikett style={{ padding: '0.5rem' }}>
               <PileDiv>
-                <FlexCenterDiv>
-                  <FlexBaseDiv>
+                <PileDiv>
+                  <FlexDiv>
                     <UndertekstBold>
-                      {t('buc:form-rinaCaseNumber') + ': '}
+                      {t('buc:p5000-4-1-title') + ': '}
                     </UndertekstBold>
                     <HorizontalSeparatorDiv data-size='0.5' />
                     <Normaltekst>
-                      {_savedEntries[caseId].name}
+                      {(_savedEntries[caseId]?.content as P5000EditLocalStorageContent)
+                        .ytelseOption ?
+                        _.find(ytelsestypeOptions, (o: OptionTypeBase) => (
+                          o?.value === (_savedEntries[caseId]?.content as P5000EditLocalStorageContent)?.ytelseOption
+                        ))?.label : '-'}
                     </Normaltekst>
-                  </FlexBaseDiv>
-                  <HorizontalSeparatorDiv />
-                  <FlexBaseDiv>
+                  </FlexDiv>
+                  <FlexDiv>
                     <UndertekstBold>
                       {t('ui:date') + ': '}
                     </UndertekstBold>
@@ -112,8 +106,8 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
                     <Normaltekst>
                       {_savedEntries[caseId].date}
                     </Normaltekst>
-                  </FlexBaseDiv>
-                </FlexCenterDiv>
+                  </FlexDiv>
+                </PileDiv>
                 <VerticalSeparatorDiv data-size='0.5' />
                 <FlexBaseDiv>
                   <HighContrastFlatknapp
