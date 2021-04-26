@@ -161,7 +161,7 @@
   "form-searchOtherBUCs-description"  : "Her kan du skrive inn avdødes f.nr./d.nr. for å hente frem tidligere opprettet P_BUC_05 med tilhørende utkast av P8000.",
   "form-searchOtherBUCs-placeholder"  : "Skriv inn avdødes f.nr/d.nr.",
   "form-sed"                          : "SED",
-  "form-seeP5000s"                    : "Se oversikt",
+  "form-seeP5000s"                    : "Se P5000 tabeller",
   "form-seeP5000summary"              : "Se summer",
   "form-seeP5000edit"                 : "Registrer ny(e) periode(r)",
   "form-seePeriodsAsSum"              : "Somme perioder og gruppe etter Type",

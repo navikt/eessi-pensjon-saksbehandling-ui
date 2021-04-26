@@ -1,14 +1,10 @@
-import { getSed, getTagList, saveBucsInfo } from 'actions/buc'
+import { getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDP5000Edit from 'applications/BUC/components/SEDP5000/SEDP5000Edit'
-import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
-import SEDP5000Sum from 'applications/BUC/components/SEDP5000/SEDP5000Sum'
+import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
+import { BUCMode } from 'applications/BUC/index'
 import Trashcan from 'assets/icons/Trashcan'
-import classNames from 'classnames'
-import Modal from 'components/Modal/Modal'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import SEDLoadSave from 'components/SEDLoadSave/SEDLoadSave'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, FeatureToggles, Loading, P5000EditLocalStorageContent } from 'declarations/app.d'
 
 import {
@@ -18,18 +14,17 @@ import {
   Comment,
   Comments,
   SedContentMap,
-  Seds,
   Tag,
   TagRawList,
   Tags,
   ValidBuc
 } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger } from 'metrics/loggers'
 import useLocalStorage from 'metrics/useLocalStorage'
+import { HoyreChevron } from 'nav-frontend-chevron'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import NavHighContrast, {
   HighContrastKnapp,
@@ -50,6 +45,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select'
 import styled from 'styled-components'
+
 
 const BUCToolsPanel = styled(HighContrastPanel)`
   opacity: 0;
@@ -101,6 +97,7 @@ export interface BUCToolsProps {
   className?: string
   initialTab?: number
   onTagChange?: (tagList: Tags) => void
+  setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
 export interface BUCToolsSelector {
@@ -124,10 +121,10 @@ const mapState = (state: State): BUCToolsSelector => ({
 })
 
 const BUCTools: React.FC<BUCToolsProps> = ({
-  aktoerId, buc, bucInfo, className, initialTab = 0, onTagChange
+  aktoerId, buc, bucInfo, initialTab = 0, onTagChange, setMode
 }: BUCToolsProps): JSX.Element => {
   const {
-    bucsInfo, featureToggles, highContrast, loading, locale, sedContent, tagList
+    bucsInfo, highContrast, loading, tagList
   }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -135,68 +132,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [_activeTab, setActiveTab] = useState<number>(initialTab)
   const [_allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [_comment, setComment] = useState< string | null | undefined >('')
-  const [_fetchingP5000, setFetchingP5000] = useState<Seds>([])
-  const [_modal, setModal] = useState<ModalContent | undefined>(undefined)
-  const [_modalType, setModalType] = useState<string | undefined>(undefined)
+
   const [_originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
-  const [_timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
+
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
   const _theme = highContrast ? themeHighContrast : theme
   const [_p5000Storage, _setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('sedp5000')
 
-  const getP5000 = useCallback(() => {
-    if (!buc.seds) {
-      return undefined
-    }
-    return buc.seds.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')
-  }, [buc])
-
-  const displayP5000OverviewTable = useCallback(() => {
-    setTimeWithP5000Modal(new Date())
-    setModal({
-      modalTitle: t('buc:P5000-overview-title'),
-      modalContent: (
-        <SEDP5000Overview
-          highContrast={highContrast}
-          seds={getP5000()!}
-          sedContent={sedContent}
-          locale={locale}
-        />
-      )
-    })
-  }, [getP5000, highContrast, locale, sedContent, setModal, t])
-
-  const displayP5000SumTable = useCallback(() => {
-    setTimeWithP5000Modal(new Date())
-    setModal({
-      modalTitle: t('buc:P5000-summary-title'),
-      modalContent: (
-        <SEDP5000Sum
-          highContrast={highContrast}
-          seds={getP5000()!}
-          sedContent={sedContent}
-          locale={locale}
-        />
-      )
-    })
-  }, [getP5000, highContrast, locale, sedContent, setModal, t])
-
-  const displayP5000EditTable = useCallback(() => {
-    setTimeWithP5000Modal(new Date())
-    setModal({
-      modalTitle: t('buc:P5000-edit-title'),
-      modalContent: (
-        <SEDP5000Edit
-          highContrast={highContrast}
-          seds={getP5000()!}
-          caseId={buc.caseId!}
-          sedContent={sedContent}
-          p5000Storage={_p5000Storage}
-          setP5000Storage={_setP5000Storage}
-        />
-      )
-    })
-  }, [getP5000, highContrast, locale, sedContent, setModal, t])
 
   const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     if (tagsList) {
@@ -257,52 +199,18 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
-  const onModalClose = () => {
-    if (_timeWithP5000Modal) {
-      timeLogger('buc.edit.tools.P5000', _timeWithP5000Modal)
-    }
-    setModal(undefined)
-  }
-
-  const hasP5000s = (): boolean => {
-    return !_.isEmpty(getP5000())
-  }
-
-  const onGettingP5000sClick = (e: React.MouseEvent): void => {
+  const onGettingP5000Click = (e: React.MouseEvent): void => {
     buttonLogger(e)
-    const p5000s = getP5000()
-    if (p5000s) {
-      setFetchingP5000(p5000s)
-      setModalType('overview')
-      p5000s.forEach(sed => {
-        dispatch(getSed(buc.caseId!, sed))
-      })
-    }
+    setMode('p5000', 'forward', undefined, (
+      <SEDP5000
+        buc={buc}
+        setMode={setMode}
+        p5000Storage={_p5000Storage}
+        setP5000Storage={_setP5000Storage}
+      />
+    ))
   }
 
-  const onGettingP5000SumClick = (e: React.MouseEvent): void => {
-    buttonLogger(e)
-    const p5000s = getP5000()
-    if (p5000s) {
-      setFetchingP5000(p5000s)
-      setModalType('summary')
-      p5000s.forEach(sed => {
-        dispatch(getSed(buc.caseId!, sed))
-      })
-    }
-  }
-
-  const onGettingP5000EditClick = (e: React.MouseEvent): void => {
-    buttonLogger(e)
-    const p5000s = getP5000()
-    if (p5000s) {
-      setFetchingP5000(p5000s)
-      setModalType('edit')
-      p5000s.forEach(sed => {
-        dispatch(getSed(buc.caseId!, sed))
-      })
-    }
-  }
 
   const tabs = [{
     label: t('buc:form-labelP5000'),
@@ -314,6 +222,17 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     label: t('buc:form-commentForBUC'),
     key: 'comments'
   }]
+
+  const hasP5000s = (): boolean => {
+    return !_.isEmpty(getP5000())
+  }
+
+  const getP5000 = useCallback(() => {
+    if (!buc.seds) {
+      return undefined
+    }
+    return buc.seds.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')
+  }, [buc])
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -339,33 +258,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }, [bucInfo, t, _tags])
 
-  useEffect(() => {
-    if (!_.isEmpty(_fetchingP5000)) {
-      const myDocumentIds = _fetchingP5000.map(sed => sed.id)
-      const loadedSeds = Object.keys(sedContent)
-      const commonSeds = _.intersection(myDocumentIds, loadedSeds)
-      if (!_.isEmpty(commonSeds)) {
-        const newFetchingP5000 = _.filter(_fetchingP5000, sed => !_.includes(commonSeds, sed.id))
-        setFetchingP5000(newFetchingP5000)
-        if (_.isEmpty(newFetchingP5000)) {
-          if (_modalType === 'overview') {
-            displayP5000OverviewTable()
-          }
-          if (_modalType === 'summary') {
-            displayP5000SumTable()
-          }
-          if (_modalType === 'edit') {
-            displayP5000EditTable()
-          }
-        }
-      }
-    }
-  }, [displayP5000OverviewTable, displayP5000EditTable, displayP5000SumTable, _fetchingP5000, sedContent, setModal])
 
   return (
     <NavHighContrast highContrast={highContrast}>
       <BUCToolsPanel
-        className={classNames(className, { loading: !_.isEmpty(_fetchingP5000) })}
         data-test-id='a-buc-c-buctools__panel-id'
       >
         <>
@@ -378,59 +274,22 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           <PaddedTabContent>
             {tabs[_activeTab].key === 'P5000' && (
               <P5000Div>
-                {!_.isEmpty(_fetchingP5000) && (
-                  <SpinnerDiv>
-                    <WaitingPanel />
-                  </SpinnerDiv>
-                )}
                 <Undertittel>
                   {t('buc:form-titleP5000')}
                 </Undertittel>
-                <VerticalSeparatorDiv data-size='0.5' />
-                {_modal && (
-                  <Modal
-                    highContrast={highContrast}
-                    data-test-id='a-buc-c-buctools__modal-id'
-                    modal={_modal}
-                    onModalClose={onModalClose}
-                  />
-                )}
+                <VerticalSeparatorDiv />
                 <FlexDiv>
                   <HighContrastKnapp
                     data-amplitude='buc.edit.tools.P5000.view'
                     data-test-id='a-buc-c-buctools__P5000-button-id'
-                    disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                    onClick={onGettingP5000sClick}
+                    disabled={!hasP5000s()}
+                    onClick={onGettingP5000Click}
                   >
                     {t('buc:form-seeP5000s')}
+                    <HorizontalSeparatorDiv data-size='0.3'/>
+                    <HoyreChevron/>
                   </HighContrastKnapp>
-                  {featureToggles?.P5000_SUMMER_VISIBLE && (
-                    <>
-                      <HorizontalSeparatorDiv data-size='0.5' />
-                      <HighContrastKnapp
-                        data-amplitude='buc.edit.tools.P5000.summary.view'
-                        data-test-id='a-buc-c-buctools__P5000-summary-button-id'
-                        disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                        onClick={onGettingP5000SumClick}
-                      >
-                        {t('buc:form-seeP5000summary')}
-                      </HighContrastKnapp>
-                    </>
-                  )}
                 </FlexDiv>
-                <VerticalSeparatorDiv />
-                {featureToggles?.P5000_SUMMER_VISIBLE && (
-                  <FlexDiv>
-                    <HighContrastKnapp
-                      data-amplitude='buc.edit.tools.P5000.edit.view'
-                      data-test-id='a-buc-c-buctools__P5000-edit-button-id'
-                      disabled={!hasP5000s() || !_.isEmpty(_fetchingP5000)}
-                      onClick={onGettingP5000EditClick}
-                    >
-                      {t('buc:form-seeP5000edit')}
-                    </HighContrastKnapp>
-                  </FlexDiv>
-                )}
                 <VerticalSeparatorDiv />
                 <SEDLoadSave
                   caseId={buc.caseId!}
@@ -438,20 +297,16 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   p5000Storage={_p5000Storage}
                   setP5000Storage={_setP5000Storage}
                   onLoad={(content: P5000EditLocalStorageContent) => {
-                    setModal({
-                      modalTitle: t('buc:P5000-edit-title'),
-                      modalContent: (
-                        <SEDP5000Edit
-                          highContrast={highContrast}
-                          seds={getP5000()!}
-                          initialItems={content.items}
-                          initialYtelseOption={content.ytelseOption}
-                          caseId={buc.caseId!}
-                          p5000Storage={_p5000Storage}
-                          setP5000Storage={_setP5000Storage}
-                        />
-                      )
-                    })
+                    setMode('p5000', 'forward', undefined, (
+                      <SEDP5000
+                        buc={buc}
+                        setMode={setMode}
+                        initialItems={content.items}
+                        initialYtelseOption={content.ytelseOption}
+                        p5000Storage={_p5000Storage}
+                        setP5000Storage={_setP5000Storage}
+                      />
+                    ))
                   }}
                 />
               </P5000Div>

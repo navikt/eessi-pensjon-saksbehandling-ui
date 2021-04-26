@@ -44,7 +44,6 @@ export const SEDP5000Checkboxes = styled.div`
 `
 export const SEDP5000Container = styled.div`
   margin-top: 1rem;
-  min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;

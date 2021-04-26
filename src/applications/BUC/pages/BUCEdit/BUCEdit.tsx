@@ -79,7 +79,7 @@ export interface BUCEditProps {
   initialSearch?: string
   initialSedNew?: 'none' | 'open' | 'close'
   initialStatusSearch?: Tags
-  setMode: (mode: BUCMode, s: string, callback?: () => void) => void
+  setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
 export interface BUCEditSelector {
@@ -326,6 +326,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             aktoerId={aktoerId!}
             buc={buc!}
             bucInfo={bucInfo}
+            setMode={setMode}
           />
           <VerticalSeparatorDiv />
         </WidgetDiv>

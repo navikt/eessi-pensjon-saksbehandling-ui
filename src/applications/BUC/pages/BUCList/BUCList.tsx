@@ -121,7 +121,7 @@ const HiddenDiv = styled.div`
 
 export interface BUCListProps {
   initialBucNew?: boolean
-  setMode: (mode: BUCMode, s: string, callback?: any) => void
+  setMode: (mode: BUCMode, s: string, callback?: any, content ?: JSX.Element) => void
 }
 
 export interface BUCListSelector {
