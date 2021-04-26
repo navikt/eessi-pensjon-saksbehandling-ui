@@ -126,6 +126,8 @@ export interface SEDP5000EditProps {
   highContrast: boolean
   initialItems?: SEDP5000EditRows
   initialYtelseOption?: string
+  p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
+  setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
   seds: Seds
   sedContent?: SedContentMap
 }
@@ -146,8 +148,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   highContrast,
   initialItems = undefined,
   initialYtelseOption = undefined,
+  p5000Storage,
+  setP5000Storage,
   seds,
-  sedContent = undefined
+  sedContent = undefined,
+
 }: SEDP5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -611,24 +616,15 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       items: _items,
       ytelseOption: _ytelseOption
     }
-    let storageKey = 'sedp5000'
 
-    const items: string | null = window.localStorage.getItem(storageKey)
-    let savedEntries: LocalStorageEntry<P5000EditLocalStorageContent>
-    if (_.isString(items)) {
-      savedEntries = JSON.parse(items)
-    } else {
-      savedEntries = {} as LocalStorageEntry<P5000EditLocalStorageContent>
-    }
-
-    const dateString = new Date().toDateString()
-    savedEntries[caseId] = {
+    const dateString = new Date().toLocaleString()
+    const newP5000Storage = _.cloneDeep(p5000Storage)
+    newP5000Storage[caseId] = {
       name: caseId,
       date: dateString,
       content: payload
     } as LocalStorageValue<P5000EditLocalStorageContent>
-
-    window.localStorage.setItem(storageKey, JSON.stringify(savedEntries, null, 2))
+    setP5000Storage(newP5000Storage)
     _setSavedP5000Info(true)
     _setOnSaving(false)
   }

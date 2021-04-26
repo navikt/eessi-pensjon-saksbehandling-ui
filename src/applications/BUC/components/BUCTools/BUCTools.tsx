@@ -29,6 +29,7 @@ import { ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeLogger } from 'metrics/loggers'
+import useLocalStorage from 'metrics/useLocalStorage'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import NavHighContrast, {
   HighContrastKnapp,
@@ -141,6 +142,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [_timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
   const _theme = highContrast ? themeHighContrast : theme
+  const [_p5000Storage, _setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('sedp5000')
 
   const getP5000 = useCallback(() => {
     if (!buc.seds) {
@@ -189,6 +191,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           seds={getP5000()!}
           caseId={buc.caseId!}
           sedContent={sedContent}
+          p5000Storage={_p5000Storage}
+          setP5000Storage={_setP5000Storage}
         />
       )
     })
@@ -431,7 +435,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 <SEDLoadSave
                   caseId={buc.caseId!}
                   highContrast={highContrast}
-                  storageKey='sedp5000'
+                  p5000Storage={_p5000Storage}
+                  setP5000Storage={_setP5000Storage}
                   onLoad={(content: P5000EditLocalStorageContent) => {
                     setModal({
                       modalTitle: t('buc:P5000-edit-title'),
@@ -442,6 +447,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                           initialItems={content.items}
                           initialYtelseOption={content.ytelseOption}
                           caseId={buc.caseId!}
+                          p5000Storage={_p5000Storage}
+                          setP5000Storage={_setP5000Storage}
                         />
                       )
                     })

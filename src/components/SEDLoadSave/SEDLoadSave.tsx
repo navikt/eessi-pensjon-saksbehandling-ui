@@ -5,7 +5,7 @@ import { LocalStorageEntry, P5000EditLocalStorageContent } from 'declarations/ap
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, { HighContrastFlatknapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OptionTypeBase } from 'react-select'
 import styled from 'styled-components'
@@ -14,7 +14,8 @@ interface SEDLoadSaveProps {
   caseId: string
   highContrast: boolean
   onLoad: (content: any) => void
-  storageKey: string
+  p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
+  setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
 }
 
 const FlexDiv = styled.div`
@@ -22,37 +23,25 @@ const FlexDiv = styled.div`
   align-items: baseline;
 `
 
-const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent extends any>({
+const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   caseId,
   highContrast,
   onLoad,
-  storageKey
+  p5000Storage,
+  setP5000Storage
 }: SEDLoadSaveProps) => {
-  const [_savedEntries, setSavedEntries] = useState<LocalStorageEntry<CustomLocalStorageContent> | null | undefined>(undefined)
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
   const { t } = useTranslation()
 
-  const loadReplySeds = () => {
-    const items: string | null = window.localStorage.getItem(storageKey)
-    let savedEntries: LocalStorageEntry<CustomLocalStorageContent> | null | undefined
-    if (_.isString(items)) {
-      savedEntries = JSON.parse(items)
-    } else {
-      savedEntries = {}
-    }
-    setSavedEntries(savedEntries)
-  }
-
   const onRemove = (key: string) => {
-    const newReplySeds = _.cloneDeep(_savedEntries)
-    if (!_.isNil(newReplySeds)) {
-      delete newReplySeds[key]
-      setSavedEntries(newReplySeds)
-      window.localStorage.setItem(storageKey, JSON.stringify(newReplySeds))
+    const newP5000Storage = _.cloneDeep(p5000Storage)
+    if (!_.isNil(newP5000Storage)) {
+      delete newP5000Storage[key]
+      setP5000Storage(newP5000Storage)
     }
   }
 
-  const onDownload = async (content: CustomLocalStorageContent, caseId: string) => {
+  const onDownload = async (content: P5000EditLocalStorageContent, caseId: string) => {
     const fileName = caseId + '.json'
     const json = JSON.stringify(content)
     const blob = new Blob([json], { type: 'application/json' })
@@ -65,23 +54,17 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
     document.body.removeChild(link)
   }
 
-  useEffect(() => {
-    if (_savedEntries === undefined) {
-      loadReplySeds()
-    }
-  }, [_savedEntries])
-
   return (
     <NavHighContrast highContrast={highContrast}>
       <PileDiv>
-        {!_.isEmpty(_savedEntries) && (
+        {!_.isEmpty(p5000Storage[caseId]) && (
           <Normaltekst>
             {t('buc:p5000-saved-entries')}
           </Normaltekst>
         )}
         <VerticalSeparatorDiv />
-        {_savedEntries && _savedEntries[caseId] && (
-          <div key={_savedEntries[caseId].name}>
+        {p5000Storage && p5000Storage[caseId] && (
+          <div key={p5000Storage[caseId].name}>
             <Etikett style={{ padding: '0.5rem' }}>
               <PileDiv>
                 <PileDiv>
@@ -91,10 +74,10 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
                     </UndertekstBold>
                     <HorizontalSeparatorDiv data-size='0.5' />
                     <Normaltekst>
-                      {(_savedEntries[caseId]?.content as P5000EditLocalStorageContent)
+                      {(p5000Storage[caseId]?.content as P5000EditLocalStorageContent)
                         .ytelseOption ?
                         _.find(ytelsestypeOptions, (o: OptionTypeBase) => (
-                          o?.value === (_savedEntries[caseId]?.content as P5000EditLocalStorageContent)?.ytelseOption
+                          o?.value === (p5000Storage[caseId]?.content as P5000EditLocalStorageContent)?.ytelseOption
                         ))?.label : '-'}
                     </Normaltekst>
                   </FlexDiv>
@@ -104,7 +87,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
                     </UndertekstBold>
                     <HorizontalSeparatorDiv data-size='0.5' />
                     <Normaltekst>
-                      {_savedEntries[caseId].date}
+                      {p5000Storage[caseId].date}
                     </Normaltekst>
                   </FlexDiv>
                 </PileDiv>
@@ -113,14 +96,14 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = <CustomLocalStorageContent exten
                   <HighContrastFlatknapp
                     mini
                     kompakt
-                    onClick={() => onLoad(_savedEntries[caseId].content)}
+                    onClick={() => onLoad(p5000Storage[caseId].content)}
                   >
                     {t('ui:load')}
                   </HighContrastFlatknapp>
                   <HighContrastFlatknapp
                     mini
                     kompakt
-                    onClick={() => onDownload(_savedEntries[caseId].content, caseId)}
+                    onClick={() => onDownload(p5000Storage[caseId].content, caseId)}
                   >
                     {t('ui:download')}
                   </HighContrastFlatknapp>
