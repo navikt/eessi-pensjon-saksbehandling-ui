@@ -1,19 +1,23 @@
 import WarningCircle from 'assets/icons/WarningCircle'
 import Alert from 'components/Alert/Alert'
-import NavHighContrast, { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv, themeKeys } from 'nav-hoykontrast'
-import useWindowDimensions from 'components/WindowDimension/WindowDimension'
+import { AllowedLocaleString } from 'declarations/app.d'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
-import { AllowedLocaleString } from 'declarations/app.d'
 import Flag from 'flagg-ikoner'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { Checkbox, Select } from 'nav-frontend-skjema'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
+import NavHighContrast, {
+  HighContrastKnapp,
+  HorizontalSeparatorDiv,
+  themeKeys,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
@@ -60,7 +64,7 @@ export const PrintableTableSorter = styled(TableSorter)`
     }
   }
 `
-export const SEDP5000Checkboxes = styled.div`
+export const PileDiv = styled.div`
   display: flex;
   flex-direction: column;
 `
@@ -125,10 +129,9 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   highContrast, locale, seds, sedContent
 }: SEDP5000Props) => {
   const { t } = useTranslation()
-  const { height } = useWindowDimensions()
   const componentRef = useRef(null)
   const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
-  const [_itemsPerPage, setItemsPerPage] = useState<number>(0)
+  const [_itemsPerPage, setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
@@ -230,16 +233,15 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
-  useEffect(() => {
-    const itemsPerPage = height < 800 ? 10 : height < 1200 ? 20 : 30
-    setItemsPerPage(itemsPerPage)
-  }, [height])
-
   return (
     <NavHighContrast highContrast={highContrast}>
       <SEDP5000Container>
         <SEDP5000Header>
-          <SEDP5000Checkboxes>
+          <PileDiv>
+            <UndertekstBold>
+              {t('buc:p5000-active-seds')}:
+            </UndertekstBold>
+            <VerticalSeparatorDiv data-size='0.5' />
             {Object.keys(_activeSeds).map(sedId => {
               const sender: SedSender | undefined = getSedSender(sedId)
               return (
@@ -264,6 +266,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                               size='XS'
                               type='circle'
                             />
+                            <HorizontalSeparatorDiv data-size='0.2'/>
                             <span>{sender?.countryLabel}</span>
                             <SeparatorSpan>-</SeparatorSpan>
                             <span>{sender?.institution}</span>
@@ -281,9 +284,9 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                 />
               )
             })}
-          </SEDP5000Checkboxes>
-          <FlexDiv>
-            {warning && (
+          </PileDiv>
+          {warning && (
+            <FlexDiv style={{flex: '2'}}>
               <MarginDiv>
                 <Alert
                   type='client'
@@ -292,7 +295,9 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
                   message={t('buc:form-P5000-warning')}
                 />
               </MarginDiv>
-            )}
+            </FlexDiv>
+          )}
+          <PileDiv>
             <CustomSelect
               bredde='l'
               id='itemsPerPage'
@@ -307,9 +312,30 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
               <option value='50'>50</option>
               <option value='all'>{t('ui:all')}</option>
             </CustomSelect>
-          </FlexDiv>
+            <VerticalSeparatorDiv/>
+            <ButtonsDiv>
+              <ReactToPrint
+                documentTitle='P5000'
+                onAfterPrint={afterPrintOut}
+                onBeforePrint={beforePrintOut}
+                onBeforeGetContent={prepareContent}
+                trigger={() =>
+                  <HighContrastKnapp
+                    disabled={_printDialogOpen}
+                    spinner={_printDialogOpen}
+                  >
+                    {t('ui:print')}
+                  </HighContrastKnapp>}
+                content={() => {
+                  return componentRef.current
+                }}
+              />
+            </ButtonsDiv>
+          </PileDiv>
         </SEDP5000Header>
-        <VerticalSeparatorDiv data-size='0.5'>&nbsp;</VerticalSeparatorDiv>
+        <VerticalSeparatorDiv/>
+        <hr/>
+        <VerticalSeparatorDiv/>
         <TableSorter
           highContrast={highContrast}
           items={items}
@@ -400,24 +426,6 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             />
           </div>
         </HiddenDiv>
-        <ButtonsDiv>
-          <ReactToPrint
-            documentTitle='P5000'
-            onAfterPrint={afterPrintOut}
-            onBeforePrint={beforePrintOut}
-            onBeforeGetContent={prepareContent}
-            trigger={() =>
-              <HighContrastKnapp
-                disabled={_printDialogOpen}
-                spinner={_printDialogOpen}
-              >
-                {t('ui:print')}
-              </HighContrastKnapp>}
-            content={() => {
-              return componentRef.current
-            }}
-          />
-        </ButtonsDiv>
       </SEDP5000Container>
     </NavHighContrast>
   )

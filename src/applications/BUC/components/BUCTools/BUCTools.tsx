@@ -23,7 +23,6 @@ import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import useLocalStorage from 'metrics/useLocalStorage'
 import { HoyreChevron } from 'nav-frontend-chevron'
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import NavHighContrast, {
@@ -40,7 +39,7 @@ import NavHighContrast, {
 } from 'nav-hoykontrast'
 
 import PT from 'prop-types'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select'
@@ -97,6 +96,8 @@ export interface BUCToolsProps {
   className?: string
   initialTab?: number
   onTagChange?: (tagList: Tags) => void
+  p5000Storage: any
+  setP5000Storage: any
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
@@ -121,7 +122,14 @@ const mapState = (state: State): BUCToolsSelector => ({
 })
 
 const BUCTools: React.FC<BUCToolsProps> = ({
-  aktoerId, buc, bucInfo, initialTab = 0, onTagChange, setMode
+  aktoerId,
+  buc,
+  bucInfo,
+  initialTab = 0,
+  onTagChange,
+  p5000Storage,
+  setP5000Storage,
+  setMode
 }: BUCToolsProps): JSX.Element => {
   const {
     bucsInfo, highContrast, loading, tagList
@@ -137,8 +145,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
   const _theme = highContrast ? themeHighContrast : theme
-  const [_p5000Storage, _setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('sedp5000')
-
 
   const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
     if (tagsList) {
@@ -205,8 +211,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       <SEDP5000
         buc={buc}
         setMode={setMode}
-        p5000Storage={_p5000Storage}
-        setP5000Storage={_setP5000Storage}
+        p5000Storage={p5000Storage}
+        setP5000Storage={setP5000Storage}
+        seeEdit={false}
       />
     ))
   }
@@ -223,16 +230,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     key: 'comments'
   }]
 
-  const hasP5000s = (): boolean => {
-    return !_.isEmpty(getP5000())
-  }
-
-  const getP5000 = useCallback(() => {
-    if (!buc.seds) {
-      return undefined
-    }
-    return buc.seds.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')
-  }, [buc])
+  const hasP5000s = (): boolean => (!_.isEmpty(buc?.seds?.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')))
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -294,8 +292,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 <SEDLoadSave
                   caseId={buc.caseId!}
                   highContrast={highContrast}
-                  p5000Storage={_p5000Storage}
-                  setP5000Storage={_setP5000Storage}
+                  p5000Storage={p5000Storage}
+                  setP5000Storage={setP5000Storage}
                   onLoad={(content: P5000EditLocalStorageContent) => {
                     setMode('p5000', 'forward', undefined, (
                       <SEDP5000
@@ -303,8 +301,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                         setMode={setMode}
                         initialItems={content.items}
                         initialYtelseOption={content.ytelseOption}
-                        p5000Storage={_p5000Storage}
-                        setP5000Storage={_setP5000Storage}
+                        p5000Storage={p5000Storage}
+                        setP5000Storage={setP5000Storage}
                       />
                     ))
                   }}

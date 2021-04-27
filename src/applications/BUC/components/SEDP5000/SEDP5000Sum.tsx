@@ -1,12 +1,18 @@
-import useWindowDimensions from 'components/WindowDimension/WindowDimension'
+import { PileDiv } from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
+import { FlexDiv } from 'components/StyledComponents'
 import { AllowedLocaleString } from 'declarations/app.d'
-import { SedContentMap, Seds } from 'declarations/buc'
+import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
+import Flag from 'flagg-ikoner'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import NavHighContrast, { HighContrastKnapp, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import moment from 'moment'
+import { Checkbox } from 'nav-frontend-skjema'
+import { UndertekstBold } from 'nav-frontend-typografi'
+import NavHighContrast, { HighContrastKnapp,HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
@@ -54,7 +60,17 @@ export const SEDP5000Header = styled.div`
   justify-content: space-between;
   align-items: flex-end;
 `
-
+const SeparatorSpan = styled.span`
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+`
+const CustomCheckbox = styled(Checkbox)`
+  margin-bottom: 0.5rem;
+`
+const Sender = styled.div`
+  display: flex;
+  align-items: center;
+`
 export interface SEDP5000Props {
   highContrast: boolean
   locale: AllowedLocaleString
@@ -74,45 +90,56 @@ export interface SEDP5000SumRow {
 }
 
 export type SEDP5000SumRows = Array<SEDP5000SumRow>
+type ActiveSeds = {[k: string]: boolean}
+interface SedSender {
+  date: string
+  country: string
+  countryLabel: string
+  institution: string
+  acronym: string
+}
 
-const SEDP5000Overview: React.FC<SEDP5000Props> = ({
-  highContrast, sedContent
+const SEDP5000Sum: React.FC<SEDP5000Props> = ({
+  highContrast, locale, seds, sedContent
 }: SEDP5000Props) => {
   const { t } = useTranslation()
-  const { height } = useWindowDimensions()
   const componentRef = useRef(null)
-  const [_itemsPerPage, setItemsPerPage] = useState<number>(0)
+  const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
+  const [_itemsPerPage, ] = useState<number>(30)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
-  const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000SumRows => {
+  const changeActiveSed = (sedId: string): void => {
+    const newActiveSeds = _.cloneDeep(_activeSeds)
+    newActiveSeds[sedId] = !_activeSeds[sedId]
+    setActiveSeds(newActiveSeds)
+  }
+
+  const convertRawP5000toRow = (sedContent: SedContent): SEDP5000SumRows => {
     const res: SEDP5000SumRows = []
     const data: any = {}
-
-    Object.keys(sedContent).forEach((k: string) => {
-      const medlemskap = sedContent[k].pensjon?.medlemskap
-      medlemskap?.forEach((m: any) => {
-        if (!_.isNil(m) && m.type) {
-          if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
-            data[m.type] = {
-              '5_1': {
-                aar: 0, maaneder: 0, dager: 0
-              },
-              '5_2': {
-                aar: 0, maaneder: 0, dager: 0
-              }
+    const medlemskap = sedContent?.pensjon?.medlemskap
+    medlemskap?.forEach((m: any) => {
+      if (!_.isNil(m) && m.type) {
+        if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
+          data[m.type] = {
+            '5_1': {
+              aar: 0, maaneder: 0, dager: 0
+            },
+            '5_2': {
+              aar: 0, maaneder: 0, dager: 0
             }
           }
-          if (m.type !== '45') {
-            data[m.type]['5_1'].aar = data[m.type]['5_1'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-            data[m.type]['5_1'].maaneder = data[m.type]['5_1'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-            data[m.type]['5_1'].dager = data[m.type]['5_1'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
-          }
-          data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-          data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-          data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
         }
-      })
+        if (m.type !== '45') {
+          data[m.type]['5_1'].aar = data[m.type]['5_1'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
+          data[m.type]['5_1'].maaneder = data[m.type]['5_1'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
+          data[m.type]['5_1'].dager = data[m.type]['5_1'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
+        }
+        data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
+        data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
+        data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
+      }
     })
 
     Object.keys(data).sort(
@@ -135,6 +162,34 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     return res
   }
 
+  const getSedSender = (sedId: string): SedSender | undefined => {
+    const sed = _.find(seds, { id: sedId })
+    if (!sed) {
+      return undefined
+    }
+    const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
+    if (sender) {
+      return {
+        date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
+        countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
+        country: sender.organisation.countryCode,
+        institution: sender.organisation.name,
+        acronym: sender.organisation.acronym || '-'
+      }
+    }
+    return undefined
+  }
+
+  const getItems = (): SEDP5000SumRows => {
+    let res: SEDP5000SumRows = []
+    Object.keys(_activeSeds).forEach((key: string) => {
+      if (_activeSeds[key]) {
+        res = res.concat(convertRawP5000toRow(sedContent[key]))
+      }
+    })
+    return res
+  }
+
   const beforePrintOut = (): void => {
   }
 
@@ -147,16 +202,79 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
     setPrintDialogOpen(false)
   }
 
-  const items = convertRawP5000toRow(sedContent)
-
-  useEffect(() => {
-    const itemsPerPage = height < 800 ? 10 : height < 1200 ? 20 : 30
-    setItemsPerPage(itemsPerPage)
-  }, [height])
+  const items = getItems()
 
   return (
     <NavHighContrast highContrast={highContrast}>
       <SEDP5000Container>
+        <SEDP5000Header>
+          <PileDiv>
+            <UndertekstBold>
+              {t('buc:p5000-active-seds')}:
+            </UndertekstBold>
+            <VerticalSeparatorDiv data-size='0.5' />
+            {Object.keys(_activeSeds).map(sedId => {
+              const sender: SedSender | undefined = getSedSender(sedId)
+              return (
+                <CustomCheckbox
+                  data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                  checked={_activeSeds[sedId]}
+                  key={sedId}
+                  id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                  onChange={() => changeActiveSed(sedId)}
+                  label={(
+                    <CheckboxLabel>
+                      <span>
+                        {t('buc:form-dateP5000', { date: sender?.date })}
+                      </span>
+                      <SeparatorSpan>-</SeparatorSpan>
+                      {sender
+                        ? (
+                          <Sender>
+                            <Flag
+                              country={sender?.country}
+                              label={sender?.countryLabel}
+                              size='XS'
+                              type='circle'
+                            />
+                            <HorizontalSeparatorDiv data-size='0.2'/>
+                            <span>{sender?.countryLabel}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
+                            <span>{sender?.institution}</span>
+                          </Sender>
+                        )
+                        : sedId}
+
+                    </CheckboxLabel>
+                  )}
+                />
+              )
+            })}
+          </PileDiv>
+          <FlexDiv>
+            <ButtonsDiv>
+              <ReactToPrint
+                documentTitle='P5000Sum'
+                onAfterPrint={afterPrintOut}
+                onBeforePrint={beforePrintOut}
+                onBeforeGetContent={prepareContent}
+                trigger={() =>
+                  <HighContrastKnapp
+                    disabled={_printDialogOpen}
+                    spinner={_printDialogOpen}
+                  >
+                    {t('ui:print')}
+                  </HighContrastKnapp>}
+                content={() => {
+                  return componentRef.current
+                }}
+              />
+            </ButtonsDiv>
+          </FlexDiv>
+        </SEDP5000Header>
+        <VerticalSeparatorDiv/>
+        <hr/>
+        <VerticalSeparatorDiv/>
         <TableSorter
           highContrast={highContrast}
           items={items}
@@ -175,10 +293,10 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
             label: ''
           }, {
             colSpan: 3,
-            label: t('buc:P5000-5-1-title')
+            label: t('buc:p5000-5-1-title')
           }, {
             colSpan: 3,
-            label: t('buc:P5000-5-2-title')
+            label: t('buc:p5000-5-2-title')
           }]}
           columns={[
             { id: 'type', label: t('ui:type'), type: 'string' },
@@ -228,34 +346,16 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
           </div>
         </HiddenDiv>
         <VerticalSeparatorDiv data-size='2' />
-        <ButtonsDiv>
-          <ReactToPrint
-            documentTitle='P5000Sum'
-            onAfterPrint={afterPrintOut}
-            onBeforePrint={beforePrintOut}
-            onBeforeGetContent={prepareContent}
-            trigger={() =>
-              <HighContrastKnapp
-                disabled={_printDialogOpen}
-                spinner={_printDialogOpen}
-              >
-                {t('ui:print')}
-              </HighContrastKnapp>}
-            content={() => {
-              return componentRef.current
-            }}
-          />
-        </ButtonsDiv>
       </SEDP5000Container>
     </NavHighContrast>
   )
 }
 
-SEDP5000Overview.propTypes = {
+SEDP5000Sum.propTypes = {
   highContrast: PT.bool.isRequired,
   locale: PT.oneOf<AllowedLocaleString>(['en', 'nb']).isRequired,
   seds: SedsPropType.isRequired,
   sedContent: PT.any.isRequired
 }
 
-export default SEDP5000Overview
+export default SEDP5000Sum

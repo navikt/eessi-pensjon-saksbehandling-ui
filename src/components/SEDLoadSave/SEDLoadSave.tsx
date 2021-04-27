@@ -41,19 +41,6 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
     }
   }
 
-  const onDownload = async (content: P5000EditLocalStorageContent, caseId: string) => {
-    const fileName = caseId + '.json'
-    const json = JSON.stringify(content)
-    const blob = new Blob([json], { type: 'application/json' })
-    const href = await URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = href
-    link.download = fileName
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
   return (
     <NavHighContrast highContrast={highContrast}>
       <PileDiv>
@@ -99,13 +86,6 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     onClick={() => onLoad(p5000Storage[caseId].content)}
                   >
                     {t('ui:load')}
-                  </HighContrastFlatknapp>
-                  <HighContrastFlatknapp
-                    mini
-                    kompakt
-                    onClick={() => onDownload(p5000Storage[caseId].content, caseId)}
-                  >
-                    {t('ui:download')}
                   </HighContrastFlatknapp>
                   <AddRemovePanel
                     existingItem

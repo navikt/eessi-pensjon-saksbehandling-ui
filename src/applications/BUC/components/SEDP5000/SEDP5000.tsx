@@ -1,4 +1,3 @@
-//import {  timeLogger } from 'metrics/loggers'
 import { getSed } from 'actions/buc'
 import { BUCMode } from 'applications/BUC'
 import { SpinnerDiv } from 'applications/BUC/components/BUCTools/BUCTools'
@@ -15,13 +14,17 @@ import _ from 'lodash'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import { Undertittel } from 'nav-frontend-typografi'
 import { HighContrastLink, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 export interface SEDP5000Props {
   buc: Buc
   p5000Storage: any
+  sed?: Sed,
+  seeOversikt?: boolean
+  seeSummer?: boolean
+  seeEdit?: boolean
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   setP5000Storage: any
   initialItems?: any
@@ -42,11 +45,15 @@ const mapState = (state: State): SEDP5000Selector => ({
 
 const SEDP5000: React.FC<SEDP5000Props> = ({
   buc,
-  setMode,
-  p5000Storage,
-  setP5000Storage,
   initialItems = undefined,
-  initialYtelseOption = undefined
+  initialYtelseOption = undefined,
+  p5000Storage,
+  sed = undefined,
+  seeOversikt = true,
+  seeSummer = true,
+  seeEdit = true,
+  setMode,
+  setP5000Storage
 }: SEDP5000Props): JSX.Element => {
 
   const { t } = useTranslation()
@@ -57,52 +64,71 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   }: SEDP5000Selector = useSelector<State, SEDP5000Selector>(mapState)
 
   const [_fetchingP5000, setFetchingP5000] = useState<Seds | undefined>(undefined)
-  //const [_timeWithP5000Modal, setTimeWithP5000Modal] = useState<Date | undefined>(undefined)
   const [_ready, setReady] = useState<boolean>(false)
+  const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
+  const [_buc, _setBuc] = useState<Buc>(buc)
+  const [_sed, _setSed] = useState<Sed | undefined>(sed)
 
-  const getP5000 = useCallback((): Seds | undefined => {
+  const getP5000 = (buc: Buc, sed: Sed | undefined): Seds | undefined => {
+    if (sed) {
+      return [sed]
+    }
     if (!buc.seds) {
       return undefined
     }
-    return buc.seds
+    const seds: Seds | undefined = buc.seds
       .filter(sedFilter)
       .filter((sed: Sed) => sed.type === 'P5000' && sed.status !== 'cancelled')
-  }, [buc])
+
+    return seds
+  }
 
   useEffect(() => {
-
-    if (_fetchingP5000 === undefined) {
-      const p5000s: Seds | undefined = getP5000()
-      if (p5000s) {
-        setFetchingP5000(p5000s)
-        p5000s.forEach(sed => {
-          dispatch(getSed(buc.caseId!, sed))
-        })
-      }
+    if ((buc.caseId !== _buc.caseId) || (sed?.id !== _sed?.id)) {
+      _setBuc(buc)
+      _setSed(sed)
+      console.log('get P5000')
+      const seds = getP5000(buc, sed)
+      _setSeds(seds)
     }
+  }, [buc, _buc, sed, _sed])
 
-    if (!_.isEmpty(_fetchingP5000)) {
-      const myDocumentIds = _fetchingP5000!.map((sed: Sed) => sed.id)
-      const loadedSeds = Object.keys(sedContent)
-      const commonSeds = _.intersection(myDocumentIds, loadedSeds)
-      if (!_.isEmpty(commonSeds)) {
-        const newFetchingP5000 = _.filter(_fetchingP5000, sed => !_.includes(commonSeds, sed.id))
-        setFetchingP5000(newFetchingP5000)
+  useEffect(() => {
+    if (!_ready) {
+      if (_fetchingP5000 === undefined) {
+        const seds: Seds | undefined = getP5000(buc, sed)
+        _setSeds(seds)
+        if (seds) {
+          setFetchingP5000(seds)
+          seds.forEach(sed => {
+            dispatch(getSed(buc.caseId!, sed))
+          })
+        }
       }
-    } else {
-      setReady(true)
+
+      if (!_.isEmpty(_fetchingP5000)) {
+        const myDocumentIds = _fetchingP5000!.map((sed: Sed) => sed.id)
+        const loadedSeds = Object.keys(sedContent)
+        const commonSeds = _.intersection(myDocumentIds, loadedSeds)
+        if (!_.isEmpty(commonSeds)) {
+          const newFetchingP5000 = _.filter(_fetchingP5000, sed => !_.includes(commonSeds, sed.id))
+          setFetchingP5000(newFetchingP5000)
+        }
+      } else {
+        setReady(true)
+      }
     }
 
   }, [_fetchingP5000, sedContent])
 
-  /*
+/*
   useEffect(() => {
     setTimeWithP5000Modal(new Date())
     return () => {
       timeLogger('buc.edit.tools.P5000', _timeWithP5000Modal!)
     }
-  }, [])*/
-
+  }, [])
+*/
 
   if (!_ready) {
     return (
@@ -113,7 +139,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   }
 
   return (
-    <>
+    <div key={_seds?.map(s => s.id).join(',')}>
       <div style={{display: 'inline-block'}}>
         <HighContrastLink
           href='#'
@@ -127,64 +153,73 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
         </HighContrastLink>
       </div>
       <VerticalSeparatorDiv data-size='2'/>
-      <ExpandingPanel
-        highContrast={highContrast}
-        heading={(
-          <Undertittel>
-            {t('buc:P5000-overview-title')}
-          </Undertittel>
-        )}
-      >
-        <SEDP5000Overview
-        highContrast={highContrast}
-        seds={getP5000()!}
-        sedContent={sedContent}
-        locale={locale}
-        />
-      </ExpandingPanel>
-      <VerticalSeparatorDiv data-size='3'/>
-
-      <ExpandingPanel
-        highContrast={highContrast}
-        heading={(
-          <Undertittel>
-            {t('buc:P5000-summary-title')}
-          </Undertittel>
-        )}
-      >
-        <SEDP5000Sum
-          highContrast={highContrast}
-          seds={getP5000()!}
-          sedContent={sedContent}
-          locale={locale}
-        />
-      </ExpandingPanel>
-
-      <VerticalSeparatorDiv data-size='3'/>
-
-      <ExpandingPanel
-        highContrast={highContrast}
-        heading={(
-          <Undertittel>
-            {t('buc:P5000-edit-title')}
-          </Undertittel>
-        )}
-      >
-        <SEDP5000Edit
-          caseId={buc.caseId!}
-          highContrast={highContrast}
-          seds={getP5000()!}
-          sedContent={sedContent}
-          p5000Storage={p5000Storage}
-          setP5000Storage={setP5000Storage}
-          initialItems={initialItems}
-          initialYtelseOption={initialYtelseOption}
-        />
-      </ExpandingPanel>
-
-      </>
-    )
+      {seeOversikt && (
+        <>
+          <ExpandingPanel
+            highContrast={highContrast}
+            heading={(
+              <Undertittel>
+                {t('buc:p5000-overview-title')}
+              </Undertittel>
+            )}
+          >
+            <SEDP5000Overview
+            highContrast={highContrast}
+            seds={_seds!}
+            sedContent={sedContent}
+            locale={locale}
+            />
+          </ExpandingPanel>
+          <VerticalSeparatorDiv data-size='3'/>
+        </>
+      )}
+      {seeSummer && (
+        <>
+          <ExpandingPanel
+            highContrast={highContrast}
+            heading={(
+              <Undertittel>
+                {t('buc:p5000-summary-title')}
+              </Undertittel>
+            )}
+          >
+            <SEDP5000Sum
+              highContrast={highContrast}
+              locale={locale}
+              seds={_seds!}
+              sedContent={sedContent}
+            />
+          </ExpandingPanel>
+          <VerticalSeparatorDiv data-size='3'/>
+        </>
+      )}
+      {seeEdit && (
+        <>
+          <ExpandingPanel
+            highContrast={highContrast}
+            heading={(
+              <Undertittel>
+                {t('buc:p5000-edit-title')}
+              </Undertittel>
+            )}
+          >
+            <SEDP5000Edit
+              key={Object.keys(sedContent).join(',')}
+              caseId={buc.caseId!}
+              highContrast={highContrast}
+              initialItems={initialItems}
+              initialYtelseOption={initialYtelseOption}
+              locale={locale}
+              p5000Storage={p5000Storage}
+              seds={_seds!}
+              sedContentMap={sedContent}
+              setP5000Storage={setP5000Storage}
+            />
+          </ExpandingPanel>
+        </>
+      )}
+    </div>
+  )
 }
-
 
 export default SEDP5000

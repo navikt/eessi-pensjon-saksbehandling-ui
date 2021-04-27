@@ -3,15 +3,17 @@ import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'
 import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent, Validation } from 'declarations/app.d'
-import { SedContentMap, Seds } from 'declarations/buc'
+import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
+import Flag, { AllowedLocaleString } from 'flagg-ikoner'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Checkbox, FeiloppsummeringFeil } from 'nav-frontend-skjema'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
   HighContrastInput,
   HighContrastKnapp,
@@ -45,6 +47,8 @@ export const Flex = styled.div`
 export const FlexDiv = styled.div`
   display: flex;
   flex: 1;
+`
+export const FlexEndDiv = styled(FlexDiv)`
   align-items: flex-end;
   justify-content: space-between;
 `
@@ -70,7 +74,7 @@ export const PrintableTableSorter = styled(TableSorter)`
     }
   }
 `
-export const SEDP5000Checkboxes = styled.div`
+export const PileDiv = styled.div`
   display: flex;
   flex-direction: column;
 `
@@ -89,7 +93,14 @@ export const SEDP5000Header = styled.div`
 export const OneLineSpan = styled.span`
   white-space: nowrap;
 `
-
+const Sender = styled.div`
+  display: flex;
+  align-items: center;
+`
+const SeparatorSpan = styled.span`
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+`
 export interface SEDP5000EditRow extends Item {
   type: string
   startdato: string
@@ -116,6 +127,14 @@ export interface TableContext extends Context {
   forsikringElklerBosetningsperioder: boolean
 }
 
+interface SedSender {
+  date: string
+  country: string
+  countryLabel: string
+  institution: string
+  acronym: string
+}
+
 const mapState = (state: State): any => ({
   sentP5000info: state.buc.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info
@@ -126,10 +145,11 @@ export interface SEDP5000EditProps {
   highContrast: boolean
   initialItems?: SEDP5000EditRows
   initialYtelseOption?: string
+  locale: AllowedLocaleString,
   p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
   setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
   seds: Seds
-  sedContent?: SedContentMap
+  sedContentMap: SedContentMap
 }
 
 export const ytelsestypeOptions = [
@@ -148,11 +168,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   highContrast,
   initialItems = undefined,
   initialYtelseOption = undefined,
+  locale,
   p5000Storage,
   setP5000Storage,
   seds,
-  sedContent = undefined,
-
+  sedContentMap
 }: SEDP5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -167,6 +187,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_validation, setValidation] = useState<Validation>({})
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
+  const [_sedSender, _setSedSender] = useState<SedSender | undefined>(undefined)
 
   const typeOptions = [
     { value: '10', label: '[10] Pliktige avgiftsperioder' },
@@ -458,28 +479,25 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     _setYtelseOption(o?.value ?? '')
   }
 
-  const convertRawP5000toRow = (sedContent: SedContentMap): SEDP5000EditRows => {
+  const convertRawP5000toRow = (sedContent: SedContent): SEDP5000EditRows => {
     const res: SEDP5000EditRows = []
-
-    Object.keys(sedContent).forEach((k: string) => {
-      const medlemskap = sedContent[k].pensjon?.medlemskap
-      medlemskap?.forEach((m: any) => {
-        if (!_.isNil(m) && m.type) {
-          const item = {
-            type: m.type,
-            startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
-            sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
-            aar: parseInt(m.sum?.aar) || 0,
-            mnd: parseInt(m.sum?.maaneder) || 0,
-            dag: parseInt(m.sum?.dager?.nr || 0),
-            ytelse: m.relevans || '-',
-            ordning: m.ordning || '-',
-            beregning: m.beregning || '-'
-          } as SEDP5000EditRow
-          item.key = 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
-          res.push(item)
-        }
-      })
+    const medlemskap = sedContent?.pensjon?.medlemskap
+    medlemskap?.forEach((m: any) => {
+      if (!_.isNil(m) && m.type) {
+        const item = {
+          type: m.type,
+          startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
+          sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
+          aar: parseInt(m.sum?.aar) || 0,
+          mnd: parseInt(m.sum?.maaneder) || 0,
+          dag: parseInt(m.sum?.dager?.nr || 0),
+          ytelse: m.relevans || '-',
+          ordning: m.ordning || '-',
+          beregning: m.beregning || '-'
+        } as SEDP5000EditRow
+        item.key = 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
+        res.push(item)
+      }
     })
 
     return res.sort(
@@ -517,6 +535,24 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const afterPrintOut = (): void => {
     setPrintDialogOpen(false)
+  }
+
+  const getSedSender = (sedId: string): SedSender | undefined => {
+    const sed = _.find(seds, { id: sedId })
+    if (!sed) {
+      return undefined
+    }
+    const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
+    if (sender) {
+      return {
+        date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
+        countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
+        country: sender.organisation.countryCode,
+        institution: sender.organisation.name,
+        acronym: sender.organisation.acronym || '-'
+      }
+    }
+    return undefined
   }
 
   const renderButtons = (item: any, value: any, { seeAsSum, items }: any): JSX.Element => {
@@ -630,11 +666,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   useEffect(() => {
-    if (_items === undefined && !_.isNil(sedContent)) {
-      const newItems = convertRawP5000toRow(sedContent)
-      setItems(newItems)
-    }
-  }, [_items, sedContent])
+    const newItems: SEDP5000EditRows = convertRawP5000toRow(sedContentMap[seds[0].id])
+    setItems(newItems)
+    _setSedSender(getSedSender(seds[0].id))
+  }, [seds])
 
   if (_items === undefined) {
     return <div />
@@ -643,7 +678,37 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   return (
     <NavHighContrast highContrast={highContrast}>
       <SEDP5000Container>
-        <SEDP5000Header>
+        <PileDiv>
+          <FlexDiv>
+            <UndertekstBold>
+              {t('buc:p5000-active-seds')}:
+            </UndertekstBold>
+            <HorizontalSeparatorDiv/>
+            <FlexDiv>
+              {_sedSender && (
+                <>
+                  <span>
+                    {t('buc:form-dateP5000', { date: _sedSender?.date })}
+                  </span>
+                  <SeparatorSpan>-</SeparatorSpan>
+                  <Sender>
+                    <Flag
+                      country={_sedSender?.country}
+                      label={_sedSender?.countryLabel}
+                      size='XS'
+                      type='circle'
+                    />
+                    <HorizontalSeparatorDiv data-size='0.2'/>
+                    <span>{_sedSender?.countryLabel}</span>
+                    <SeparatorSpan>-</SeparatorSpan>
+                    <span>{_sedSender?.institution}</span>
+                  </Sender>
+                </>
+              )}
+            </FlexDiv>
+          </FlexDiv>
+          <VerticalSeparatorDiv/>
+          <SEDP5000Header>
           <FlexCenterDiv>
             <FullWidthDiv>
               <Select
@@ -690,14 +755,70 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             </Tooltip>
           </FlexCenterDiv>
           <HorizontalSeparatorDiv />
-          <FlexDiv>
+          <PileDiv>
             <Checkbox
               label={t('buc:form-seePeriodsAsSum')}
               checked={_seeAsSum}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeeAsSum(e.target.checked)}
             />
-          </FlexDiv>
+            <VerticalSeparatorDiv/>
+            <ButtonsDiv>
+              <ReactToPrint
+                documentTitle='P5000Sum'
+                onAfterPrint={afterPrintOut}
+                onBeforePrint={beforePrintOut}
+                onBeforeGetContent={prepareContent}
+                trigger={() =>
+                  <HighContrastKnapp
+                    disabled={_printDialogOpen}
+                    spinner={_printDialogOpen}
+                  >
+                    {t('ui:print')}
+                  </HighContrastKnapp>}
+                content={() => {
+                  return componentRef.current
+                }}
+              />
+              <HorizontalSeparatorDiv />
+              <HighContrastKnapp
+                disabled={sendingP5000info}
+                spinner={sendingP5000info}
+                onClick={handleOverforTilRina}
+              >
+                {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+              </HighContrastKnapp>
+              <HorizontalSeparatorDiv />
+              <HighContrastKnapp
+                onClick={onSave}
+                disabled={_onSaving}
+                spinner={_onSaving}
+              >
+                {_onSaving ? t('ui:saving') :  t('ui:save')}
+              </HighContrastKnapp>
+              <HorizontalSeparatorDiv />
+              {sentP5000info === null ? (
+                <Alertstripe type='advarsel'>
+                  {t('buc:warning-failedP5000Sending')}
+                </Alertstripe>
+              ) : (
+                _savedP5000Info === true ? (
+                  <Alertstripe type='suksess'>
+                    {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
+                  </Alertstripe>
+                ) : (
+                  !_.isNil(sentP5000info) ? (
+                    <Alertstripe type='suksess'>
+                      {t('buc:warning-okP5000Sending')}
+                    </Alertstripe>
+                  ) : null
+                )
+              )}
+            </ButtonsDiv>
+          </PileDiv>
         </SEDP5000Header>
+        <VerticalSeparatorDiv/>
+        <hr style={{width: '100%'}}/>
+        <VerticalSeparatorDiv/>
         <TableSorter
           highContrast={highContrast}
           items={_seeAsSum ? sumItems(_items) : _items}
@@ -895,59 +1016,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             />
           </div>
         </HiddenDiv>
-        <VerticalSeparatorDiv data-size='2' />
-        <ButtonsDiv>
-          <ReactToPrint
-            documentTitle='P5000Sum'
-            onAfterPrint={afterPrintOut}
-            onBeforePrint={beforePrintOut}
-            onBeforeGetContent={prepareContent}
-            trigger={() =>
-              <HighContrastKnapp
-                disabled={_printDialogOpen}
-                spinner={_printDialogOpen}
-              >
-                {t('ui:print')}
-              </HighContrastKnapp>}
-            content={() => {
-              return componentRef.current
-            }}
-          />
-          <HorizontalSeparatorDiv />
-          <HighContrastKnapp
-            disabled={sendingP5000info}
-            spinner={sendingP5000info}
-            onClick={handleOverforTilRina}
-          >
-            {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-          </HighContrastKnapp>
-          <HorizontalSeparatorDiv />
-          <HighContrastKnapp
-            onClick={onSave}
-            disabled={_onSaving}
-            spinner={_onSaving}
-          >
-            {_onSaving ? t('ui:saving') :  t('ui:save')}
-          </HighContrastKnapp>
-          <HorizontalSeparatorDiv />
-          {sentP5000info === null ? (
-            <Alertstripe type='advarsel'>
-              {t('buc:warning-failedP5000Sending')}
-            </Alertstripe>
-          ) : (
-            _savedP5000Info === true ? (
-              <Alertstripe type='suksess'>
-                {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
-              </Alertstripe>
-            ) : (
-              !_.isNil(sentP5000info) ? (
-                <Alertstripe type='suksess'>
-                  {t('buc:warning-okP5000Sending')}
-                </Alertstripe>
-              ) : null
-            )
-          )}
-        </ButtonsDiv>
+        </PileDiv>
       </SEDP5000Container>
     </NavHighContrast>
   )
@@ -956,7 +1025,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 SEDP5000Edit.propTypes = {
   highContrast: PT.bool.isRequired,
   seds: SedsPropType.isRequired,
-  sedContent: PT.any.isRequired
+  sedContentMap: PT.any.isRequired
 }
 
 export default SEDP5000Edit

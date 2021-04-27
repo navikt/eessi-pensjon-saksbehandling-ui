@@ -51,12 +51,13 @@ export interface SEDPanelProps {
   highContrast: boolean
   newSed: boolean
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
+  onP5000Edit: (sed: Sed) => void
   sed: Sed
   style: React.CSSProperties
 }
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
-  aktoerId, buc, className, highContrast, newSed, onSEDNew, sed, style
+  aktoerId, buc, className, highContrast, newSed, onSEDNew, onP5000Edit, sed, style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
@@ -71,6 +72,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
               <SEDHeader
                 buc={buc}
                 onSEDNew={onSEDNew}
+                onP5000Edit={onP5000Edit}
                 sed={sed}
                 style={style}
               />
@@ -85,6 +87,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                   buc={buc}
                   onSEDNew={onSEDNew}
                   sed={sed}
+                  onP5000Edit={onP5000Edit}
                 />
               }
             >

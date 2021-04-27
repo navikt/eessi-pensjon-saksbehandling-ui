@@ -3,12 +3,14 @@ import { resetNewSed, setCurrentBuc, setCurrentSed } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
+import useLocalStorage from 'metrics/useLocalStorage'
 import {
   animationClose, animationOpen,
   Column,
@@ -22,7 +24,7 @@ import {
 
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString } from 'declarations/app.d'
+import { AllowedLocaleString, P5000EditLocalStorageContent } from 'declarations/app.d'
 import { PersonAvdods } from 'declarations/person.d'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
@@ -125,6 +127,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const bucInfo: BucInfo = buc && bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
   const [loggedTime] = useState<Date>(new Date())
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
+  const [_p5000Storage, _setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('sedp5000')
   const [_search, setSearch] = useState<string | undefined>(initialSearch)
   const [_startSed, setStartSed] = useState<string>(initialSedNew)
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
@@ -216,6 +219,18 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     onSEDNew(buc!, undefined, undefined)
   }
 
+  const onP5000Edit = (sed: Sed) => {
+    setMode('p5000', 'forward', undefined, (
+      <SEDP5000
+        buc={buc!}
+        sed={sed}
+        setMode={setMode}
+        p5000Storage={_p5000Storage}
+        setP5000Storage={_setP5000Storage}
+      />
+    ))
+  }
+
   const onBackLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     e.stopPropagation()
@@ -305,6 +320,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     ((Date.now() - newlyCreatedSedTime) < 5 * 60 * 1000)
                     ) || false}
                     onSEDNew={onSEDNew}
+                    onP5000Edit={onP5000Edit}
                   />
                 </div>
               ))
@@ -327,6 +343,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             buc={buc!}
             bucInfo={bucInfo}
             setMode={setMode}
+            p5000Storage={_p5000Storage}
+            setP5000Storage={_setP5000Storage}
           />
           <VerticalSeparatorDiv />
         </WidgetDiv>

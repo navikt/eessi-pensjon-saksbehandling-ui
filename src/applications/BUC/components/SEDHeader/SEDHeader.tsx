@@ -3,6 +3,7 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import AlertStripe from 'nav-frontend-alertstriper'
+import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron'
 import NavHighContrast, { slideInFromLeft, HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 
 import { AllowedLocaleString } from 'declarations/app.d'
@@ -50,6 +51,7 @@ const SEDListInstitutionsDiv = styled.div`
   flex-direction: column;
   display: flex;
   align-items: flex-start;
+  padding: 0.3rem;
 `
 const SEDListStatusDiv = styled.div`
   display: flex;
@@ -75,6 +77,7 @@ export interface SEDHeaderProps {
   buc: Buc
   className ?: string
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
+  onP5000Edit: (sed: Sed) => void
   sed: Sed
   style?: React.CSSProperties
 }
@@ -90,7 +93,7 @@ const mapState = (state: State): SEDListSelector => ({
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
-  buc, className, onSEDNew, sed, style
+  buc, className, onSEDNew, onP5000Edit, sed, style
 }: SEDHeaderProps): JSX.Element => {
   const { highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
@@ -218,6 +221,19 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 onClick={onReplySed}
               >
                 {t('buc:form-answerSED')}
+              </HighContrastFlatknapp>
+            )}
+
+            {sed.type === 'P5000' && (
+              <HighContrastFlatknapp
+                mini
+                data-amplitude='buc.edit.p5000'
+                data-test-id='a-buc-c-sedheader__p5000-button-id'
+                onClick={() => onP5000Edit(sed)}
+              >
+                {t('buc:form-seeP5000edit')}
+                <HorizontalSeparatorDiv data-size='0.3'/>
+                <HoyreChevron/>
               </HighContrastFlatknapp>
             )}
           </SEDListActionsDiv>
