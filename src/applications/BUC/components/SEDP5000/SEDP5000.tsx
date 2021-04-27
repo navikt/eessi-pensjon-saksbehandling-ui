@@ -27,8 +27,7 @@ export interface SEDP5000Props {
   seeEdit?: boolean
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   setP5000Storage: any
-  initialItems?: any
-  initialYtelseOption?: any
+  fromStorage?: any
 }
 
 export interface SEDP5000Selector {
@@ -45,8 +44,7 @@ const mapState = (state: State): SEDP5000Selector => ({
 
 const SEDP5000: React.FC<SEDP5000Props> = ({
   buc,
-  initialItems = undefined,
-  initialYtelseOption = undefined,
+  fromStorage = undefined,
   p5000Storage,
   sed = undefined,
   seeOversikt = true,
@@ -207,8 +205,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
               key={Object.keys(sedContent).join(',')}
               caseId={buc.caseId!}
               highContrast={highContrast}
-              initialItems={initialItems}
-              initialYtelseOption={initialYtelseOption}
+              fromStorage={fromStorage}
               locale={locale}
               p5000Storage={p5000Storage}
               seds={_seds!}

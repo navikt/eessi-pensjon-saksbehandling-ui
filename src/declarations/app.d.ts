@@ -47,10 +47,10 @@ export type Validation = {[key: string]: FeiloppsummeringFeil | undefined}
 
 export type WidthSize = 'sm' | 'md' | 'lg'
 
-export type LocalStorageEntry<CustomLocalStorageContent extends any = any> = {[k in string]: LocalStorageValue<CustomLocalStorageContent>}
+export type LocalStorageEntry<CustomLocalStorageContent extends any = any> = {[k in string]: Array<LocalStorageValue<CustomLocalStorageContent>>}
 
 export interface LocalStorageValue<CustomLocalStorageContent extends any = any> {
-  name: string
+  id: string
   date: string
   content: CustomLocalStorageContent
 }

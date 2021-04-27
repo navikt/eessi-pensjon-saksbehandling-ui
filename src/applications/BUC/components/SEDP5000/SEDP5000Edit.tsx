@@ -143,9 +143,8 @@ const mapState = (state: State): any => ({
 export interface SEDP5000EditProps {
   caseId: string
   highContrast: boolean
-  initialItems?: SEDP5000EditRows
-  initialYtelseOption?: string
-  locale: AllowedLocaleString,
+  fromStorage?: LocalStorageValue<P5000EditLocalStorageContent>
+  locale: AllowedLocaleString
   p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
   setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
   seds: Seds
@@ -166,8 +165,7 @@ export const ytelsestypeOptions = [
 const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   caseId,
   highContrast,
-  initialItems = undefined,
-  initialYtelseOption = undefined,
+  fromStorage = undefined,
   locale,
   p5000Storage,
   setP5000Storage,
@@ -181,8 +179,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<boolean>(true)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(initialYtelseOption)
-  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(initialItems)
+  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(fromStorage?.content.ytelseOption)
+  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(fromStorage?.content.items)
+  const [_sedId, ] = useState<string | undefined>(fromStorage?.id || seds[0]?.id || undefined)
   const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
   const [_validation, setValidation] = useState<Validation>({})
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
@@ -619,7 +618,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         }
       }
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-        dispatch(sendP5000toRina(caseId, seds[0].id, payload))
+        dispatch(sendP5000toRina(caseId, _sedId, payload))
       }
     }
   }
@@ -647,29 +646,40 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const onSave = () => {
     _setOnSaving(true)
-
-    let payload = {
-      items: _items,
-      ytelseOption: _ytelseOption
+    const newEntry = {
+      id: _sedId!,
+      date: new Date().toLocaleString(),
+      content: {
+        items: _items,
+        ytelseOption: _ytelseOption
+      }
+    } as LocalStorageValue<P5000EditLocalStorageContent>
+    const newP5000Storage = _.cloneDeep(p5000Storage)
+    if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
+      let entries: Array<LocalStorageValue<P5000EditLocalStorageContent>> = _.cloneDeep(newP5000Storage[caseId])
+      const index: number = _.findIndex(entries, e => e.id === _sedId)
+      if (index >= 0) {
+        entries[index] = newEntry
+      } else {
+        entries = entries.concat(newEntry)
+      }
+      newP5000Storage[caseId] = entries
+    } else {
+      newP5000Storage[caseId] = [newEntry] as Array<LocalStorageValue<P5000EditLocalStorageContent>>
     }
 
-    const dateString = new Date().toLocaleString()
-    const newP5000Storage = _.cloneDeep(p5000Storage)
-    newP5000Storage[caseId] = {
-      name: caseId,
-      date: dateString,
-      content: payload
-    } as LocalStorageValue<P5000EditLocalStorageContent>
     setP5000Storage(newP5000Storage)
     _setSavedP5000Info(true)
     _setOnSaving(false)
   }
 
   useEffect(() => {
-    const newItems: SEDP5000EditRows = convertRawP5000toRow(sedContentMap[seds[0].id])
-    setItems(newItems)
-    _setSedSender(getSedSender(seds[0].id))
-  }, [seds])
+    if (_sedId) {
+      const newItems: SEDP5000EditRows = convertRawP5000toRow(sedContentMap[_sedId])
+      setItems(newItems)
+      _setSedSender(getSedSender(_sedId))
+    }
+  }, [seds, _sedId])
 
   if (_items === undefined) {
     return <div />
