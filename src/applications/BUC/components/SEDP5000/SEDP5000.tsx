@@ -1,4 +1,4 @@
-import { getSed } from 'actions/buc'
+import { getSed, resetSentP5000info } from 'actions/buc'
 import { BUCMode } from 'applications/BUC'
 import { SpinnerDiv } from 'applications/BUC/components/BUCTools/BUCTools'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -12,7 +12,7 @@ import { Buc, Sed, SedContentMap, Seds } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { VenstreChevron } from 'nav-frontend-chevron'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import { HighContrastLink, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -81,6 +81,11 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
     return seds
   }
 
+  const onBackClick = () => {
+    dispatch(resetSentP5000info())
+    setMode('bucedit', 'back')
+  }
+
   useEffect(() => {
     if ((buc.caseId !== _buc.caseId) || (sed?.id !== _sed?.id)) {
       _setBuc(buc)
@@ -141,7 +146,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
       <div style={{display: 'inline-block'}}>
         <HighContrastLink
           href='#'
-          onClick={() => setMode('bucedit', 'back')}
+          onClick={onBackClick}
         >
           <VenstreChevron />
           <HorizontalSeparatorDiv data-size='0.25' />
@@ -191,7 +196,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           <VerticalSeparatorDiv data-size='3'/>
         </>
       )}
-      {seeEdit && (
+      {seeEdit ? (
         <>
           <ExpandingPanel
             highContrast={highContrast}
@@ -202,7 +207,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             )}
           >
             <SEDP5000Edit
-              key={Object.keys(sedContent).join(',')}
+              key={_seds!.map(s => s.id).join(',')}
               caseId={buc.caseId!}
               highContrast={highContrast}
               fromStorage={fromStorage}
@@ -214,6 +219,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             />
           </ExpandingPanel>
         </>
+      ) : (
+        <Normaltekst>
+          {t('buc:p5000-to-see-p5000edit')}
+        </Normaltekst>
       )}
     </div>
   )
