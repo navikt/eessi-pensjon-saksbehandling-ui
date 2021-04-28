@@ -53,7 +53,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   setMode,
   setP5000Storage
 }: SEDP5000Props): JSX.Element => {
-
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -87,7 +86,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   }
 
   const renderBackLink = () => (
-    <div style={{display: 'inline-block'}}>
+    <div style={{ display: 'inline-block' }}>
       <HighContrastLink
         href='#'
         onClick={onBackClick}
@@ -95,8 +94,8 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
         <VenstreChevron />
         <HorizontalSeparatorDiv data-size='0.25' />
         <span>
-              {t('ui:back')}
-            </span>
+          {t('ui:back')}
+        </span>
       </HighContrastLink>
     </div>
   )
@@ -136,10 +135,9 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
         setReady(true)
       }
     }
-
   }, [_fetchingP5000, sedContent])
 
-/*
+  /*
   useEffect(() => {
     setTimeWithP5000Modal(new Date())
     return () => {
@@ -161,10 +159,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
       {seeOversikt && (
         <>
           {renderBackLink()}
-          <VerticalSeparatorDiv data-size='2'/>
+          <VerticalSeparatorDiv data-size='2' />
           <ExpandingPanel
             open
-            renderContentWhenClosed={true}
+            renderContentWhenClosed
             highContrast={highContrast}
             heading={(
               <Undertittel>
@@ -173,22 +171,22 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             )}
           >
             <SEDP5000Overview
-            highContrast={highContrast}
-            seds={_seds!}
-            sedContent={sedContent}
-            locale={locale}
+              highContrast={highContrast}
+              seds={_seds!}
+              sedContent={sedContent}
+              locale={locale}
             />
           </ExpandingPanel>
-          <VerticalSeparatorDiv data-size='3'/>
+          <VerticalSeparatorDiv data-size='3' />
         </>
       )}
       {seeSummer && (
         <>
           {renderBackLink()}
-          <VerticalSeparatorDiv data-size='2'/>
+          <VerticalSeparatorDiv data-size='2' />
           <ExpandingPanel
             open
-            renderContentWhenClosed={true}
+            renderContentWhenClosed
             highContrast={highContrast}
             heading={(
               <Undertittel>
@@ -203,41 +201,43 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
               sedContent={sedContent}
             />
           </ExpandingPanel>
-          <VerticalSeparatorDiv data-size='3'/>
+          <VerticalSeparatorDiv data-size='3' />
         </>
       )}
-      {seeEdit ? (
-        <>
-          {renderBackLink()}
-          <VerticalSeparatorDiv data-size='2'/>
-          <ExpandingPanel
-            open
-            renderContentWhenClosed={true}
-            highContrast={highContrast}
-            heading={(
-              <Undertittel>
-                {t('buc:p5000-edit-title')}
-              </Undertittel>
-            )}
-          >
-            <SEDP5000Edit
-              key={_seds!.map(s => s.id).join(',')}
-              caseId={buc.caseId!}
+      {seeEdit
+        ? (
+          <>
+            {renderBackLink()}
+            <VerticalSeparatorDiv data-size='2' />
+            <ExpandingPanel
+              open
+              renderContentWhenClosed
               highContrast={highContrast}
-              fromStorage={fromStorage}
-              locale={locale}
-              p5000Storage={p5000Storage}
-              seds={_seds!}
-              sedContentMap={sedContent}
-              setP5000Storage={setP5000Storage}
-            />
-          </ExpandingPanel>
-        </>
-      ) : (
-        <Normaltekst>
-          {t('buc:p5000-to-see-p5000edit')}
-        </Normaltekst>
-      )}
+              heading={(
+                <Undertittel>
+                  {t('buc:p5000-edit-title')}
+                </Undertittel>
+            )}
+            >
+              <SEDP5000Edit
+                key={_seds!.map(s => s.id).join(',')}
+                caseId={buc.caseId!}
+                highContrast={highContrast}
+                fromStorage={fromStorage}
+                locale={locale}
+                p5000Storage={p5000Storage}
+                seds={_seds!}
+                sedContentMap={sedContent}
+                setP5000Storage={setP5000Storage}
+              />
+            </ExpandingPanel>
+          </>
+          )
+        : (
+          <Normaltekst>
+            {t('buc:p5000-to-see-p5000edit')}
+          </Normaltekst>
+          )}
     </div>
   )
 }

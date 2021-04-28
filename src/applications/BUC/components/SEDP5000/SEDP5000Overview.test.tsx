@@ -3,14 +3,14 @@ import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
 import TableSorter from 'tabell'
-import SEDP5000Overview, { SEDP5000Container, SEDP5000Props } from './SEDP5000Overview'
+import SEDP5000Overview, { SEDP5000Container, SEDP5000OverviewProps } from './SEDP5000Overview'
 import mockSedP50001 from 'mocks/buc/sed_P5000_1'
 import mockSedP50002 from 'mocks/buc/sed_P5000_2'
 
 describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
   let wrapper: ReactWrapper
 
-  const initialMockProps: SEDP5000Props = {
+  const initialMockProps: SEDP5000OverviewProps = {
     highContrast: false,
     locale: 'nb',
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,

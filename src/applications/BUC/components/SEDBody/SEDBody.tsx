@@ -66,7 +66,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   highContrast,
   initialSeeAttachmentPanel = false,
   initialSendingAttachments = false,
-  onAttachmentsSubmit, sed,
+  onAttachmentsSubmit, sed
 }: SEDBodyProps): JSX.Element => {
   const { attachmentsError }: SEDBodySelector = useSelector<State, SEDBodySelector>(mapState)
   const { t } = useTranslation()

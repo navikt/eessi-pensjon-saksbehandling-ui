@@ -1,8 +1,19 @@
-import { PileDiv } from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
-import { FlexDiv } from 'components/StyledComponents'
+import {
+  FlexCenterDiv,
+  FlexDiv,
+  FlexEndDiv,
+  FlexStartDiv,
+  HiddenDiv,
+  PileDiv,
+  PileCenterDiv,
+  PrintableTableSorter,
+  SEDP5000Header,
+  SeparatorSpan
+} from 'components/StyledComponents'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
+import { ActiveSeds, SedSender } from 'declarations/p5000'
 import Flag from 'flagg-ikoner'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
@@ -10,67 +21,14 @@ import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { Checkbox } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
-import NavHighContrast, { HighContrastKnapp,HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import NavHighContrast, { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
-import styled from 'styled-components'
 import TableSorter, { Sort } from 'tabell'
-
 import * as labels from './SEDP5000.labels'
 
-export const ButtonsDiv = styled.div`
-  margin-top: '1.5rem;
-  margin-bottom: '1.5rem;
-`
-export const CheckboxLabel = styled.div`
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-`
-export const HiddenDiv = styled.div`
-  display: none;
-`
-export const PrintableTableSorter = styled(TableSorter)`
-  width: 100%;
-  margin-top: 0.5rem;
-  @media print {
-    @page {
-      size: A4 landscape;
-    }
-    td {
-      padding: 0.5rem;
-    }
-  }
-`
-export const SEDP5000Checkboxes = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export const SEDP5000Container = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-export const SEDP5000Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-`
-const SeparatorSpan = styled.span`
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-`
-const CustomCheckbox = styled(Checkbox)`
-  margin-bottom: 0.5rem;
-`
-const Sender = styled.div`
-  display: flex;
-  align-items: center;
-`
 export interface SEDP5000Props {
   highContrast: boolean
   locale: AllowedLocaleString
@@ -90,14 +48,6 @@ export interface SEDP5000SumRow {
 }
 
 export type SEDP5000SumRows = Array<SEDP5000SumRow>
-type ActiveSeds = {[k: string]: boolean}
-interface SedSender {
-  date: string
-  country: string
-  countryLabel: string
-  institution: string
-  acronym: string
-}
 
 const SEDP5000Sum: React.FC<SEDP5000Props> = ({
   highContrast, locale, seds, sedContent
@@ -105,7 +55,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
   const { t } = useTranslation()
   const componentRef = useRef(null)
   const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
-  const [_itemsPerPage, ] = useState<number>(30)
+  const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
@@ -206,7 +156,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
 
   return (
     <NavHighContrast highContrast={highContrast}>
-      <SEDP5000Container>
+      <PileCenterDiv>
         <SEDP5000Header>
           <PileDiv>
             <UndertekstBold>
@@ -216,43 +166,45 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
             {Object.keys(_activeSeds).map(sedId => {
               const sender: SedSender | undefined = getSedSender(sedId)
               return (
-                <CustomCheckbox
-                  data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
-                  checked={_activeSeds[sedId]}
-                  key={sedId}
-                  id={'a-buc-c-sedp5000__checkbox-' + sedId}
-                  onChange={() => changeActiveSed(sedId)}
-                  label={(
-                    <CheckboxLabel>
-                      <span>
-                        {t('buc:form-dateP5000', { date: sender?.date })}
-                      </span>
-                      <SeparatorSpan>-</SeparatorSpan>
-                      {sender
-                        ? (
-                          <Sender>
-                            <Flag
-                              country={sender?.country}
-                              label={sender?.countryLabel}
-                              size='XS'
-                              type='circle'
-                            />
-                            <HorizontalSeparatorDiv data-size='0.2'/>
-                            <span>{sender?.countryLabel}</span>
-                            <SeparatorSpan>-</SeparatorSpan>
-                            <span>{sender?.institution}</span>
-                          </Sender>
-                        )
-                        : sedId}
-
-                    </CheckboxLabel>
-                  )}
-                />
+                <div key={sedId}>
+                  <Checkbox
+                    data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                    checked={_activeSeds[sedId]}
+                    key={sedId}
+                    id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                    onChange={() => changeActiveSed(sedId)}
+                    label={(
+                      <FlexEndDiv>
+                        <span>
+                          {t('buc:form-dateP5000', { date: sender?.date })}
+                        </span>
+                        <SeparatorSpan>-</SeparatorSpan>
+                        {sender
+                          ? (
+                            <FlexCenterDiv>
+                              <Flag
+                                country={sender?.country}
+                                label={sender?.countryLabel}
+                                size='XS'
+                                type='circle'
+                              />
+                              <HorizontalSeparatorDiv data-size='0.2' />
+                              <span>{sender?.countryLabel}</span>
+                              <SeparatorSpan>-</SeparatorSpan>
+                              <span>{sender?.institution}</span>
+                            </FlexCenterDiv>
+                            )
+                          : sedId}
+                      </FlexEndDiv>
+                    )}
+                  />
+                  <VerticalSeparatorDiv data-size='0.5' />
+                </div>
               )
             })}
           </PileDiv>
           <FlexDiv>
-            <ButtonsDiv>
+            <FlexStartDiv>
               <ReactToPrint
                 documentTitle='P5000Sum'
                 onAfterPrint={afterPrintOut}
@@ -269,12 +221,12 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
                   return componentRef.current
                 }}
               />
-            </ButtonsDiv>
+            </FlexStartDiv>
           </FlexDiv>
         </SEDP5000Header>
-        <VerticalSeparatorDiv/>
-        <hr/>
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
+        <hr />
+        <VerticalSeparatorDiv />
         <TableSorter
           highContrast={highContrast}
           items={items}
@@ -346,7 +298,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
           </div>
         </HiddenDiv>
         <VerticalSeparatorDiv data-size='2' />
-      </SEDP5000Container>
+      </PileCenterDiv>
     </NavHighContrast>
   )
 }

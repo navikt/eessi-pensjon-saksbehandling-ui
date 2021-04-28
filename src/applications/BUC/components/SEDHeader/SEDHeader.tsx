@@ -5,18 +5,25 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { BUCMode } from 'applications/BUC/index'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import SEDLoadSave from 'components/SEDLoadSave/SEDLoadSave'
-import AlertStripe from 'nav-frontend-alertstriper'
-import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron'
-import NavHighContrast, { slideInFromLeft, HighContrastFlatknapp, HighContrastPanel, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { PileDiv } from 'components/StyledComponents'
 
-import { AllowedLocaleString, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app.d'
+import { AllowedLocaleString } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
+import AlertStripe from 'nav-frontend-alertstriper'
+import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron'
 import { Element, Normaltekst } from 'nav-frontend-typografi'
+import NavHighContrast, {
+  HighContrastFlatknapp,
+  HighContrastPanel,
+  HorizontalSeparatorDiv,
+  slideInFromLeft,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
@@ -99,15 +106,15 @@ const mapState = (state: State): SEDListSelector => ({
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
-   buc,
-   className,
-   onSEDNew,
-   onP5000Edit,
-   setMode,
-   p5000Storage,
-   setP5000Storage,
-   sed,
-   style
+  buc,
+  className,
+  onSEDNew,
+  onP5000Edit,
+  setMode,
+  p5000Storage,
+  setP5000Storage,
+  sed,
+  style
 }: SEDHeaderProps): JSX.Element => {
   const { highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
@@ -145,6 +152,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     buttonLogger(e)
     onSEDNew(buc, sed, followUpSed)
   }
+
+  const P5000Draft: Sed | undefined = (
+    sed.type === 'P5000' &&
+    !!p5000Storage &&
+    !!p5000Storage[buc.caseId!] &&
+    _.find(p5000Storage[buc.caseId!], (_sed: Sed) => _sed.id === sed.id)
+  )
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -239,38 +253,51 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             )}
 
             {sed.type === 'P5000' && (
-
-              <HighContrastFlatknapp
-                mini
-                data-amplitude='buc.edit.p5000'
-                data-test-id='a-buc-c-sedheader__p5000-button-id'
-                onClick={() => onP5000Edit(sed)}
-              >
-                {t('buc:form-seeP5000edit')}
-                <HorizontalSeparatorDiv data-size='0.3'/>
-                <HoyreChevron/>
-              </HighContrastFlatknapp>
+              <PileDiv>
+                <HighContrastFlatknapp
+                  mini
+                  data-amplitude='buc.edit.p5000'
+                  data-test-id='a-buc-c-sedheader__p5000-button-id'
+                  onClick={() => onP5000Edit(sed)}
+                >
+                  {t('buc:form-seeP5000edit')}
+                  <HorizontalSeparatorDiv data-size='0.3' />
+                  <HoyreChevron />
+                </HighContrastFlatknapp>
+                <VerticalSeparatorDiv />
+                {P5000Draft && (
+                  <HighContrastFlatknapp
+                    mini
+                    data-amplitude='buc.edit.p5000'
+                    data-test-id='a-buc-c-sedheader__p5000-button-id'
+                    onClick={() => {
+                      setMode('p5000', 'forward', undefined, (
+                        <SEDP5000
+                          buc={buc}
+                          setMode={setMode}
+                          fromStorage={P5000Draft}
+                          p5000Storage={p5000Storage}
+                          setP5000Storage={setP5000Storage}
+                        />
+                      ))
+                    }}
+                  >
+                    {t('ui:load-draft')}
+                    <HorizontalSeparatorDiv data-size='0.3' />
+                    <HoyreChevron />
+                  </HighContrastFlatknapp>
+                )}
+              </PileDiv>
             )}
           </SEDListActionsDiv>
         </SEDHeaderContent>
-        {sed.type === 'P5000' && (
+        {P5000Draft && (
           <SEDLoadSave
             buc={buc}
             sedId={sed.id}
             highContrast={highContrast}
             p5000Storage={p5000Storage}
             setP5000Storage={setP5000Storage}
-            onLoad={(sed: LocalStorageValue<P5000EditLocalStorageContent>) => {
-              setMode('p5000', 'forward', undefined, (
-                <SEDP5000
-                  buc={buc}
-                  setMode={setMode}
-                  fromStorage={sed}
-                  p5000Storage={p5000Storage}
-                  setP5000Storage={setP5000Storage}
-                />
-              ))
-            }}
           />
         )}
         {sed.type === 'X100' &&

@@ -3,9 +3,24 @@ import { SEDP5000EditValidate, SEDP5000EditValidationProps } from 'applications/
 import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'
+import {
+  FlexCenterDiv,
+  FlexDiv,
+  FlexEndDiv,
+  FlexStartDiv,
+  FullWidthDiv,
+  HiddenDiv,
+  OneLineSpan,
+  PileCenterDiv,
+  PileDiv,
+  PrintableTableSorter,
+  SEDP5000Header,
+  SeparatorSpan
+} from 'components/StyledComponents'
 import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app.d'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
+import { SedSender } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import Flag, { AllowedLocaleString } from 'flagg-ikoner'
 import useValidation from 'hooks/useValidation'
@@ -30,81 +45,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import styled from 'styled-components'
 import TableSorter, { Context, Item, RenderEditableOptions, Sort } from 'tabell'
-
 import * as labels from './SEDP5000.labels'
 
-export const ButtonsDiv = styled.div`
-  display: flex;
-  margin-top: '1.5rem;
-  margin-bottom: '1.5rem;
-  align-items: flex-start;
-`
-export const Flex = styled.div`
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-`
-export const FlexDiv = styled.div`
-  display: flex;
-  flex: 1;
-`
-export const FlexEndDiv = styled(FlexDiv)`
-  align-items: flex-end;
-  justify-content: space-between;
-`
-export const FlexCenterDiv = styled(FlexDiv)`
-  align-items: center;
-  justify-content: space-between;
-`
-export const FullWidthDiv = styled.div`
-  width: 100%;
-`
-export const HiddenDiv = styled.div`
-  display: none;
-`
-export const PrintableTableSorter = styled(TableSorter)`
-  width: 100%;
-  margin-top: 0.5rem;
-  @media print {
-    @page {
-      size: A4 landscape;
-    }
-    td {
-      padding: 0.5rem;
-    }
-  }
-`
-export const PileDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export const SEDP5000Container = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-export const SEDP5000Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-export const OneLineSpan = styled.span`
-  white-space: nowrap;
-`
-const Sender = styled.div`
-  display: flex;
-  align-items: center;
-`
-const SeparatorSpan = styled.span`
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-`
-const AlertstripeDiv = styled.div`
-  width: 100%;
-`
 export interface SEDP5000EditRow extends Item {
   type: string
   startdato: string
@@ -129,14 +72,6 @@ export interface TableContext extends Context {
   items: SEDP5000EditRows
   seeAsSum: boolean,
   forsikringElklerBosetningsperioder: boolean
-}
-
-interface SedSender {
-  date: string
-  country: string
-  countryLabel: string
-  institution: string
-  acronym: string
 }
 
 const mapState = (state: State): any => ({
@@ -230,7 +165,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         feil={options.feil}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e) => options.setValue({type: e!.value})}
+        onChange={(e) => options.setValue({ type: e!.value })}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
         selectedValue={_.find(typeOptions, o => o.value === options.value)}
       />
@@ -287,7 +222,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
     // make the diff calculation include the starting day,
     // so the diff between 01.01.YYYY and 02.01.YYYY is 2 days, not 1
-    //startdato.add(-1, 'days')
+    // startdato.add(-1, 'days')
 
     let years = sluttdato.diff(startdato, 'years')
     startdato.add(years, 'years')
@@ -567,7 +502,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       return <div />
     }
     return (
-      <ButtonsDiv>
+      <FlexStartDiv>
         <HighContrastKnapp
           kompakt
           mini
@@ -584,7 +519,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         >
           <Trashcan />
         </HighContrastKnapp>
-      </ButtonsDiv>
+      </FlexStartDiv>
     )
   }
 
@@ -595,7 +530,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     }
     const valid: boolean = performValidation(data)
     if (valid) {
-
       const sedId = getSedId()
       if (sedId) {
         const newSedContent: SedContent = _.cloneDeep(sedContentMap[sedId])
@@ -639,7 +573,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const addEntryToP5000Storage = (newEntry: LocalStorageValue<P5000EditLocalStorageContent>):
     LocalStorageEntry<P5000EditLocalStorageContent> => {
-
     const newP5000Storage = _.cloneDeep(p5000Storage)
     if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
       let entries: Array<LocalStorageValue<P5000EditLocalStorageContent>> = _.cloneDeep(newP5000Storage[caseId])
@@ -661,7 +594,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
       const index: number = _.findIndex(newP5000Storage[caseId], e => e.id === sedId)
       if (index >= 0) {
-       newP5000Storage[caseId].splice(index, 1)
+        newP5000Storage[caseId].splice(index, 1)
       }
       if (newP5000Storage[caseId].length === 0) {
         delete newP5000Storage[caseId]
@@ -705,7 +638,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     }
   }, [fromStorage, seds, getSedId])
 
-
   useEffect(() => {
     if (!_.isNil(sentP5000info) &&
       p5000Storage && p5000Storage[caseId] &&
@@ -722,13 +654,14 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   return (
     <NavHighContrast highContrast={highContrast}>
-      <SEDP5000Container>
+      <VerticalSeparatorDiv />
+      <PileCenterDiv>
         <PileDiv>
           <FlexDiv>
             <UndertekstBold>
               {t('buc:p5000-active-seds')}:
             </UndertekstBold>
-            <HorizontalSeparatorDiv/>
+            <HorizontalSeparatorDiv />
             <FlexDiv>
               {_sedSender && (
                 <>
@@ -736,339 +669,343 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                     {t('buc:form-dateP5000', { date: _sedSender?.date })}
                   </span>
                   <SeparatorSpan>-</SeparatorSpan>
-                  <Sender>
+                  <FlexCenterDiv>
                     <Flag
                       country={_sedSender?.country}
                       label={_sedSender?.countryLabel}
                       size='XS'
                       type='circle'
                     />
-                    <HorizontalSeparatorDiv data-size='0.2'/>
+                    <HorizontalSeparatorDiv data-size='0.2' />
                     <span>{_sedSender?.countryLabel}</span>
                     <SeparatorSpan>-</SeparatorSpan>
                     <span>{_sedSender?.institution}</span>
-                  </Sender>
+                  </FlexCenterDiv>
                 </>
               )}
             </FlexDiv>
           </FlexDiv>
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           <SEDP5000Header>
-          <FlexCenterDiv>
-            <FullWidthDiv>
-              <Select
-                key={getSedId() + '-' + _ytelseOption}
-                className='sedP5000Edit-ytelse-select'
-                feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
-                highContrast={highContrast}
-                id='sedP5000Edit-ytelse-select'
-                label={t('buc:p5000-4-1-title')}
-                menuPortalTarget={document.body}
-                options={ytelsestypeOptions}
-                onChange={setYtelseOption}
-                selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
-                defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
-              />
-            </FullWidthDiv>
-            <HorizontalSeparatorDiv />
-            <HighContrastRadioGroup
-              legend={(
-                <OneLineSpan>
-                  {t('buc:p5000-4-2-title')}
-                </OneLineSpan>
+            <FlexCenterDiv>
+              <FullWidthDiv>
+                <Select
+                  key={getSedId() + '-' + _ytelseOption}
+                  className='sedP5000Edit-ytelse-select'
+                  feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
+                  highContrast={highContrast}
+                  id='sedP5000Edit-ytelse-select'
+                  label={t('buc:p5000-4-1-title')}
+                  menuPortalTarget={document.body}
+                  options={ytelsestypeOptions}
+                  onChange={setYtelseOption}
+                  selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
+                  defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
+                />
+              </FullWidthDiv>
+              <HorizontalSeparatorDiv />
+              <HighContrastRadioGroup
+                legend={(
+                  <OneLineSpan>
+                    {t('buc:p5000-4-2-title')}
+                  </OneLineSpan>
               )}
-            >
-              <Flex>
-                <HighContrastRadio
-                  name='42'
-                  checked={_forsikringElklerBosetningsperioder === true}
-                  label={t('ui:yes')}
-                  onClick={() => setForsikringElklerBosetningsperioder(true)}
+              >
+                <FlexEndDiv>
+                  <HighContrastRadio
+                    name='42'
+                    checked={_forsikringElklerBosetningsperioder === true}
+                    label={t('ui:yes')}
+                    onClick={() => setForsikringElklerBosetningsperioder(true)}
+                  />
+                  <HorizontalSeparatorDiv />
+                  <HighContrastRadio
+                    name='42'
+                    checked={_forsikringElklerBosetningsperioder === false}
+                    label={t('ui:no')}
+                    onClick={() => setForsikringElklerBosetningsperioder(false)}
+                  />
+                </FlexEndDiv>
+              </HighContrastRadioGroup>
+              <HorizontalSeparatorDiv />
+              <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('help')}</span>}>
+                <div style={{ minWidth: '28px' }}>
+                  <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                </div>
+              </Tooltip>
+            </FlexCenterDiv>
+            <HorizontalSeparatorDiv />
+            <PileDiv>
+              <Checkbox
+                label={t('buc:form-seePeriodsAsSum')}
+                checked={_seeAsSum}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeeAsSum(e.target.checked)}
+              />
+              <VerticalSeparatorDiv />
+              <FlexStartDiv>
+                <ReactToPrint
+                  documentTitle='P5000Sum'
+                  onAfterPrint={afterPrintOut}
+                  onBeforePrint={beforePrintOut}
+                  onBeforeGetContent={prepareContent}
+                  trigger={() =>
+                    <HighContrastKnapp
+                      disabled={_printDialogOpen}
+                      spinner={_printDialogOpen}
+                    >
+                      {t('ui:print')}
+                    </HighContrastKnapp>}
+                  content={() => componentRef.current}
                 />
                 <HorizontalSeparatorDiv />
-                <HighContrastRadio
-                  name='42'
-                  checked={_forsikringElklerBosetningsperioder === false}
-                  label={t('ui:no')}
-                  onClick={() => setForsikringElklerBosetningsperioder(false)}
-                />
-              </Flex>
-            </HighContrastRadioGroup>
-            <HorizontalSeparatorDiv />
-            <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('help')}</span>}>
-              <div style={{ minWidth: '28px' }}>
-                <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-              </div>
-            </Tooltip>
-          </FlexCenterDiv>
-          <HorizontalSeparatorDiv />
-          <PileDiv>
-            <Checkbox
-              label={t('buc:form-seePeriodsAsSum')}
-              checked={_seeAsSum}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeeAsSum(e.target.checked)}
-            />
-            <VerticalSeparatorDiv/>
-            <ButtonsDiv>
-              <ReactToPrint
-                documentTitle='P5000Sum'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                onBeforeGetContent={prepareContent}
-                trigger={() =>
-                  <HighContrastKnapp
-                    disabled={_printDialogOpen}
-                    spinner={_printDialogOpen}
-                  >
-                    {t('ui:print')}
-                  </HighContrastKnapp>}
-                content={() => {
-                  return componentRef.current
-                }}
-              />
-              <HorizontalSeparatorDiv />
-              <HighContrastKnapp
-                disabled={sendingP5000info}
-                spinner={sendingP5000info}
-                onClick={handleOverforTilRina}
-              >
-                {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-              </HighContrastKnapp>
-              <HorizontalSeparatorDiv />
-              <HighContrastKnapp
-                onClick={onSave}
-                disabled={_onSaving}
-                spinner={_onSaving}
-              >
-                {_onSaving ? t('ui:saving') :  t('ui:save')}
-              </HighContrastKnapp>
-            </ButtonsDiv>
-            <VerticalSeparatorDiv/>
-            <FlexDiv>
-              <AlertstripeDiv>
-              {sentP5000info === null ? (
-                <Alertstripe type='advarsel'>
-                  {t('buc:warning-failedP5000Sending')}
-                </Alertstripe>
-              ) : (
-                _savedP5000Info === true ? (
-                  <Alertstripe type='suksess'>
-                    {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
-                  </Alertstripe>
-                ) : (
-                  !_.isNil(sentP5000info) ? (
-                    <Alertstripe type='suksess'>
-                      {t('buc:warning-okP5000Sending')}
-                    </Alertstripe>
-                  ) : null
-                )
-              )}
-              </AlertstripeDiv>
-            </FlexDiv>
-          </PileDiv>
-        </SEDP5000Header>
-        <VerticalSeparatorDiv/>
-        <hr style={{width: '100%'}}/>
-        <VerticalSeparatorDiv/>
-        <TableSorter
-          highContrast={highContrast}
-          items={_seeAsSum ? sumItems(_items) : _items}
-          context={{
-            items: _items,
-            seeAsSum: _seeAsSum,
-            forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
-          }}
-          editable
-          searchable={false}
-          selectable={false}
-          sortable
-          onColumnSort={(sort: any) => {
-            standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })
-            setTableSort(sort)
-          }}
-          onRowAdded={(item, context) => {
-            const newItems = _.cloneDeep(context.items)
-            newItems.unshift({
-              ...item,
-              key: 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
-            })
-            setItems(newItems)
-          }}
-          itemsPerPage={25}
-          labels={labels}
-          compact
-          categories={[{
-            colSpan: 3,
-            label: ''
-          }, {
-            colSpan: 3,
-            label: t('buc:Periodesum')
-          }, {
-            colSpan: 4,
-            label: ''
-          }]}
-          columns={[
-            {
-              id: 'type',
-              label: t('buc:p5000-type-43113'),
-              type: 'string',
-              edit: {
-                render: renderTypeEdit,
-                validation: [{
-                  pattern: '^.+$',
-                  message: t('buc:validation-chooseType')
-                }]
+                <HighContrastKnapp
+                  disabled={sendingP5000info}
+                  spinner={sendingP5000info}
+                  onClick={handleOverforTilRina}
+                >
+                  {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+                </HighContrastKnapp>
+                <HorizontalSeparatorDiv />
+                <HighContrastKnapp
+                  onClick={onSave}
+                  disabled={_onSaving}
+                  spinner={_onSaving}
+                >
+                  {_onSaving ? t('ui:saving') : t('ui:save')}
+                </HighContrastKnapp>
+              </FlexStartDiv>
+              <VerticalSeparatorDiv />
+              <FlexDiv>
+                <FullWidthDiv>
+                  {sentP5000info === null
+                    ? (
+                      <Alertstripe type='advarsel'>
+                        {t('buc:warning-failedP5000Sending')}
+                      </Alertstripe>
+                      )
+                    : (
+                        _savedP5000Info === true
+                          ? (
+                            <Alertstripe type='suksess'>
+                              {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
+                            </Alertstripe>
+                            )
+                          : (
+                              !_.isNil(sentP5000info)
+                                ? (
+                                  <Alertstripe type='suksess'>
+                                    {t('buc:warning-okP5000Sending')}
+                                  </Alertstripe>
+                                  )
+                                : null
+                            )
+                      )}
+                </FullWidthDiv>
+              </FlexDiv>
+            </PileDiv>
+          </SEDP5000Header>
+          <VerticalSeparatorDiv />
+          <hr style={{ width: '100%' }} />
+          <VerticalSeparatorDiv />
+          <TableSorter
+            highContrast={highContrast}
+            items={_seeAsSum ? sumItems(_items) : _items}
+            context={{
+              items: _items,
+              seeAsSum: _seeAsSum,
+              forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
+            }}
+            editable
+            searchable={false}
+            selectable={false}
+            sortable
+            onColumnSort={(sort: any) => {
+              standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })
+              setTableSort(sort)
+            }}
+            onRowAdded={(item, context) => {
+              const newItems = _.cloneDeep(context.items)
+              newItems.unshift({
+                ...item,
+                key: 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
+              })
+              setItems(newItems)
+            }}
+            itemsPerPage={25}
+            labels={labels}
+            compact
+            categories={[{
+              colSpan: 3,
+              label: ''
+            }, {
+              colSpan: 3,
+              label: t('buc:Periodesum')
+            }, {
+              colSpan: 4,
+              label: ''
+            }]}
+            columns={[
+              {
+                id: 'type',
+                label: t('buc:p5000-type-43113'),
+                type: 'string',
+                edit: {
+                  render: renderTypeEdit,
+                  validation: [{
+                    pattern: '^.+$',
+                    message: t('buc:validation-chooseType')
+                  }]
+                },
+                renderCell: renderType
               },
-              renderCell: renderType
-            },
-            {
-              id: 'startdato',
-              label: t('ui:startDate'),
-              type: 'string',
-              edit: {
-                render: renderStartDatoEdit,
-                validation: [{
-                  pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
-                  message: t('buc:validation-badDate2')
-                }],
-                transform: dateTransform
+              {
+                id: 'startdato',
+                label: t('ui:startDate'),
+                type: 'string',
+                edit: {
+                  render: renderStartDatoEdit,
+                  validation: [{
+                    pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                    message: t('buc:validation-badDate2')
+                  }],
+                  transform: dateTransform
+                }
+              },
+              {
+                id: 'sluttdato',
+                label: t('ui:endDate'),
+                type: 'string',
+                edit: {
+                  render: rendersluttDatoEdit,
+                  validation: [{
+                    pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                    message: t('buc:validation-badDate2')
+                  }],
+                  placeholder: t('buc:placeholder-date2'),
+                  transform: dateTransform
+                }
+              },
+              {
+                id: 'dag',
+                label: t('ui:day'),
+                type: 'number',
+                renderCell: renderDager,
+                edit: {
+                  defaultValue: 0,
+                  render: renderDagerEdit,
+                  validation: [{
+                    pattern: '^\\d+$',
+                    message: t('buc:validation-addPositiveNumber')
+                  }]
+                }
+              },
+              {
+                id: 'mnd',
+                label: t('ui:month'),
+                type: 'number',
+                edit: {
+                  defaultValue: 0,
+                  validation: [{
+                    pattern: '^\\d+$',
+                    message: t('buc:validation-addPositiveNumber')
+                  }],
+                  render: renderManedEdit
+                }
+              },
+              {
+                id: 'aar',
+                label: t('ui:year'),
+                type: 'number',
+                edit: {
+                  defaultValue: 0,
+                  validation: [{
+                    pattern: '^\\d+$',
+                    message: t('buc:validation-addPositiveNumber')
+                  }],
+                  render: renderAarEdit
+                }
+              },
+              {
+                id: 'ytelse',
+                label: t('buc:p5000-ytelse'),
+                type: 'string',
+                edit: {
+                  defaultValue: '111',
+                  render: renderYtelseEdit
+                }
+              },
+              {
+                id: 'beregning',
+                label: t('ui:calculationInformation'),
+                type: 'string',
+                edit: {
+                  defaultValue: '111',
+                  validation: [{
+                    pattern: '^.+$',
+                    message: t('buc:validation-addBeregning')
+                  }],
+                  render: renderBeregningEdit
+                }
+              },
+              {
+                id: 'ordning',
+                label: t('ui:scheme'),
+                type: 'string',
+                edit: {
+                  defaultValue: '00',
+                  render: renderOrdningEdit
+                }
+              },
+              {
+                id: 'buttons',
+                label: '',
+                type: 'buttons',
+                renderCell: renderButtons
               }
-            },
-            {
-              id: 'sluttdato',
-              label: t('ui:endDate'),
-              type: 'string',
-              edit: {
-                render: rendersluttDatoEdit,
-                validation: [{
-                  pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
-                  message: t('buc:validation-badDate2')
-                }],
-                placeholder: t('buc:placeholder-date2'),
-                transform: dateTransform
-              }
-            },
-            {
-              id: 'dag',
-              label: t('ui:day'),
-              type: 'number',
-              renderCell: renderDager,
-              edit: {
-                defaultValue: 0,
-                render: renderDagerEdit,
-                validation: [{
-                  pattern: '^\\d+$',
-                  message: t('buc:validation-addPositiveNumber')
-                }]
-              }
-            },
-            {
-              id: 'mnd',
-              label: t('ui:month'),
-              type: 'number',
-              edit: {
-                defaultValue: 0,
-                validation: [{
-                  pattern: '^\\d+$',
-                  message: t('buc:validation-addPositiveNumber')
-                }],
-                render: renderManedEdit
-              }
-            },
-            {
-              id: 'aar',
-              label: t('ui:year'),
-              type: 'number',
-              edit: {
-                defaultValue: 0,
-                validation: [{
-                  pattern: '^\\d+$',
-                  message: t('buc:validation-addPositiveNumber')
-                }],
-                render: renderAarEdit
-              }
-            },
-            {
-              id: 'ytelse',
-              label: t('buc:p5000-ytelse'),
-              type: 'string',
-              edit: {
-                defaultValue: '111',
-                render: renderYtelseEdit
-              }
-            },
-            {
-              id: 'beregning',
-              label: t('ui:calculationInformation'),
-              type: 'string',
-              edit: {
-                defaultValue: '111',
-                validation: [{
-                  pattern: '^.+$',
-                  message: t('buc:validation-addBeregning')
-                }],
-                render: renderBeregningEdit
-              }
-            },
-            {
-              id: 'ordning',
-              label: t('ui:scheme'),
-              type: 'string',
-              edit: {
-                defaultValue: '00',
-                render: renderOrdningEdit
-              }
-            },
-            {
-              id: 'buttons',
-              label: '',
-              type: 'buttons',
-              renderCell: renderButtons
-            }
-          ]}
-        />
-        <HiddenDiv>
-          <div ref={componentRef} id='printJS-form'>
-            <PrintableTableSorter
+            ]}
+          />
+          <HiddenDiv>
+            <div ref={componentRef} id='printJS-form'>
+              <PrintableTableSorter
               // important to it re-renders when sorting changes
-              key={JSON.stringify(_tableSort)}
-              className='print-version'
-              items={_seeAsSum ? sumItems(_items) : _items}
-              editable={false}
-              animatable={false}
-              searchable={false}
-              selectable={false}
-              sortable
-              sort={_tableSort}
-              itemsPerPage={9999}
-              labels={labels}
-              compact
-              categories={[{
-                colSpan: 3,
-                label: ''
-              }, {
-                colSpan: 3,
-                label: t('buc:Periodesum')
-              }, {
-                colSpan: 4,
-                label: ''
-              }]}
-              columns={[
-                { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
-                { id: 'startdato', label: t('ui:startDate'), type: 'string' },
-                { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
-                { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
-                { id: 'mnd', label: t('ui:month'), type: 'number' },
-                { id: 'aar', label: t('ui:year'), type: 'number' },
-                { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
-                { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
-                { id: 'ordning', label: t('ui:scheme'), type: 'string' }
-              ]}
-            />
-          </div>
-        </HiddenDiv>
+                key={JSON.stringify(_tableSort)}
+                className='print-version'
+                items={_seeAsSum ? sumItems(_items) : _items}
+                editable={false}
+                animatable={false}
+                searchable={false}
+                selectable={false}
+                sortable
+                sort={_tableSort}
+                itemsPerPage={9999}
+                labels={labels}
+                compact
+                categories={[{
+                  colSpan: 3,
+                  label: ''
+                }, {
+                  colSpan: 3,
+                  label: t('buc:Periodesum')
+                }, {
+                  colSpan: 4,
+                  label: ''
+                }]}
+                columns={[
+                  { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
+                  { id: 'startdato', label: t('ui:startDate'), type: 'string' },
+                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
+                  { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
+                  { id: 'mnd', label: t('ui:month'), type: 'number' },
+                  { id: 'aar', label: t('ui:year'), type: 'number' },
+                  { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
+                  { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
+                  { id: 'ordning', label: t('ui:scheme'), type: 'string' }
+                ]}
+              />
+            </div>
+          </HiddenDiv>
         </PileDiv>
-      </SEDP5000Container>
+      </PileCenterDiv>
     </NavHighContrast>
   )
 }

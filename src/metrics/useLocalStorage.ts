@@ -8,16 +8,16 @@ const useLocalStorage = <CustomLocalStorageContent extends any = any>(key: strin
   saveStorageState: (it: LocalStorageEntry<CustomLocalStorageContent>) => void
 ] => {
   const [state, setState] = useState<LocalStorageEntry<CustomLocalStorageContent>>(() => {
-      const items: string | null = window.localStorage.getItem(key)
-      let savedEntries: LocalStorageEntry<CustomLocalStorageContent>
-      if (_.isString(items)) {
-        savedEntries = JSON.parse(items)
-      } else {
-        savedEntries = {} as LocalStorageEntry<CustomLocalStorageContent>
-      }
-      console.log('read from local storage')
-      return savedEntries
+    const items: string | null = window.localStorage.getItem(key)
+    let savedEntries: LocalStorageEntry<CustomLocalStorageContent>
+    if (_.isString(items)) {
+      savedEntries = JSON.parse(items)
+    } else {
+      savedEntries = {} as LocalStorageEntry<CustomLocalStorageContent>
     }
+    console.log('read from local storage')
+    return savedEntries
+  }
   )
 
   const saveStorageState = (it: LocalStorageEntry<CustomLocalStorageContent>) => {

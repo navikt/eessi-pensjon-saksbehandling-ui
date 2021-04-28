@@ -61,18 +61,18 @@ export interface SEDPanelProps {
 }
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
-   aktoerId,
-   buc,
-   className,
-   highContrast,
-   newSed,
-   onSEDNew,
-   onP5000Edit,
-   setMode,
-   p5000Storage,
-   setP5000Storage,
-   sed,
-   style
+  aktoerId,
+  buc,
+  className,
+  highContrast,
+  newSed,
+  onSEDNew,
+  onP5000Edit,
+  setMode,
+  p5000Storage,
+  setP5000Storage,
+  sed,
+  style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)

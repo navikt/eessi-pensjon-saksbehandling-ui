@@ -44,7 +44,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select'
 import styled from 'styled-components'
 
-
 const BUCToolsPanel = styled(HighContrastPanel)`
   opacity: 0;
   transform: translateX(20px);
@@ -217,7 +216,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     ))
   }
 
-
   const tabs = [{
     label: t('buc:form-labelP5000'),
     key: 'P5000'
@@ -255,7 +253,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }, [bucInfo, t, _tags])
 
-
   return (
     <NavHighContrast highContrast={highContrast}>
       <BUCToolsPanel
@@ -283,8 +280,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     onClick={onGettingP5000Click}
                   >
                     {t('buc:form-seeP5000s')}
-                    <HorizontalSeparatorDiv data-size='0.3'/>
-                    <HoyreChevron/>
+                    <HorizontalSeparatorDiv data-size='0.3' />
+                    <HoyreChevron />
                   </HighContrastKnapp>
                 </FlexDiv>
               </P5000Div>

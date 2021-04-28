@@ -5,7 +5,7 @@ import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } fr
 import { Buc } from 'declarations/buc'
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
-import NavHighContrast, { HighContrastFlatknapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import NavHighContrast, { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OptionTypeBase } from 'react-select'
@@ -14,7 +14,6 @@ import styled from 'styled-components'
 interface SEDLoadSaveProps {
   buc: Buc
   highContrast: boolean
-  onLoad: (content: any) => void
   p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
   sedId: string
   setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
@@ -29,7 +28,6 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   buc,
   highContrast,
   sedId,
-  onLoad,
   p5000Storage,
   setP5000Storage
 }: SEDLoadSaveProps) => {
@@ -37,7 +35,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   const { t } = useTranslation()
 
   const onRemove = (caseId: string, sedId: string) => {
-    let newP5000Storage = _.cloneDeep(p5000Storage)
+    const newP5000Storage = _.cloneDeep(p5000Storage)
     if (!_.isNil(newP5000Storage)) {
       let newValue = _.cloneDeep(p5000Storage[caseId])
       newValue = _.filter(newValue, n => n.id !== sedId)
@@ -53,19 +51,17 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   return (
     <NavHighContrast highContrast={highContrast}>
       <PileDiv>
-        {!_.isEmpty(p5000Storage[buc.caseId!]) && (
-          <Normaltekst>
-            {t('buc:p5000-saved-entries')}
-          </Normaltekst>
-        )}
-        <VerticalSeparatorDiv />
         {p5000Storage && p5000Storage[buc.caseId!] && p5000Storage[buc.caseId!]
-          .filter((sed => sed.id === sedId))
-          .map((sed: LocalStorageValue<P5000EditLocalStorageContent> ) => (
-            <FlexDiv>
-              <Etikett style={{ padding: '0.5rem', display: 'flex'}}>
-                <div key={sed.id}>
+          .filter(sed => sed.id === sedId)
+          .map((sed: LocalStorageValue<P5000EditLocalStorageContent>) => (
+            <FlexDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
+              <Etikett style={{ padding: '0.5rem', display: 'flex' }}>
+                <FlexDiv style={{ alignItems: 'center' }} key={sed.id}>
                   <PileDiv>
+                    <Normaltekst>
+                      {t('buc:p5000-saved-entries')}
+                    </Normaltekst>
+                    <VerticalSeparatorDiv data-size='0.3' />
                     <FlexDiv>
                       <UndertekstBold>
                         {t('buc:p5000-4-1-title') + ': '}
@@ -73,13 +69,14 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       <HorizontalSeparatorDiv data-size='0.5' />
                       <Normaltekst>
                         {(sed.content as P5000EditLocalStorageContent)
-                          .ytelseOption ?
-                          _.find(ytelsestypeOptions, (o: OptionTypeBase) => (
-                            o?.value === (sed.content as P5000EditLocalStorageContent)?.ytelseOption
-                          ))?.label : '-'}
+                          .ytelseOption
+                          ? _.find(ytelsestypeOptions, (o: OptionTypeBase) => (
+                              o?.value === (sed.content as P5000EditLocalStorageContent)?.ytelseOption
+                            ))?.label
+                          : '-'}
                       </Normaltekst>
                     </FlexDiv>
-                    <VerticalSeparatorDiv data-size='0.3'/>
+                    <VerticalSeparatorDiv data-size='0.3' />
                     <FlexDiv>
                       <UndertekstBold>
                         {t('ui:date') + ': '}
@@ -89,16 +86,19 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                         {sed.date}
                       </Normaltekst>
                     </FlexDiv>
+                    <VerticalSeparatorDiv data-size='0.3' />
+                    <FlexDiv>
+                      <UndertekstBold>
+                        {t('ui:rows') + ': '}
+                      </UndertekstBold>
+                      <HorizontalSeparatorDiv data-size='0.5' />
+                      <Normaltekst>
+                        {sed.content?.items?.length}
+                      </Normaltekst>
+                    </FlexDiv>
                   </PileDiv>
-                  <VerticalSeparatorDiv data-size='0.5' />
+                  <HorizontalSeparatorDiv />
                   <FlexBaseDiv>
-                    <HighContrastFlatknapp
-                      mini
-                      kompakt
-                      onClick={() => onLoad(sed)}
-                    >
-                      {t('ui:load')}
-                    </HighContrastFlatknapp>
                     <AddRemovePanel
                       existingItem
                       candidateForDeletion={_confirmDelete}
@@ -107,12 +107,11 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       onCancelRemove={() => setConfirmDelete(false)}
                     />
                   </FlexBaseDiv>
-                </div>
+                </FlexDiv>
               </Etikett>
-              <div/>
             </FlexDiv>
           )
-        )}
+          )}
       </PileDiv>
     </NavHighContrast>
   )

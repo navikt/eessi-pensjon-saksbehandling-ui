@@ -14,7 +14,6 @@ export const SEDP5000EditValidate = (
     ytelseOption
   }: SEDP5000EditValidationProps
 ): boolean => {
-
   let hasErrors: boolean = false
   if (_.isEmpty(ytelseOption)) {
     v['sedP5000Edit-ytelse-select'] = {
