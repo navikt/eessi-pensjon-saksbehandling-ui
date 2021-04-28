@@ -594,43 +594,41 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     }
     const valid: boolean = performValidation(data)
     if (valid) {
-      const payload: any = {
-        sed: 'P5000',
-        sedGVer: '4',
-        sedVer: '1',
-        pensjon: {
-          medlemskap: _items?.map(item => {
-            const medlemskap: any = {}
-            medlemskap.relevans = item.ytelse /// ???
-            medlemskap.ordning = item.ordning
-            medlemskap.land = 'NO'
-            medlemskap.sum = {
-              kvaltal: null,
-              aar: '' + item.aar,
-              uker: null,
-              dager: {
-                nr: '' + item.dag,
-                type: '7'
-              },
-              maaneder: '' + item.mnd
-            }
-            medlemskap.yrke = null
-            medlemskap.gyldigperiode = null
-            medlemskap.type = item.type
-            medlemskap.beregning = item.beregning
-            medlemskap.periode = {
-              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
-            }
-            medlemskap.enkeltkrav = {
-              krav: _ytelseOption
-            }
-            return medlemskap
-          })
+
+      const sedId = getSedId()
+      if (sedId) {
+        const newSedContent: SedContent = _.cloneDeep(sedContentMap[sedId])
+        newSedContent.pensjon.medlemskap = _items?.map(item => {
+          const medlemskap: any = {}
+          medlemskap.relevans = item.ytelse /// ???
+          medlemskap.ordning = item.ordning
+          medlemskap.land = 'NO'
+          medlemskap.sum = {
+            kvaltal: null,
+            aar: '' + item.aar,
+            uker: null,
+            dager: {
+              nr: '' + item.dag,
+              type: '7'
+            },
+            maaneder: '' + item.mnd
+          }
+          medlemskap.yrke = null
+          medlemskap.gyldigperiode = null
+          medlemskap.type = item.type
+          medlemskap.beregning = item.beregning
+          medlemskap.periode = {
+            fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+            tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
+          }
+          medlemskap.enkeltkrav = {
+            krav: _ytelseOption
+          }
+          return medlemskap
+        })
+        if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
+          dispatch(sendP5000toRina(caseId, getSedId(), newSedContent))
         }
-      }
-      if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-        dispatch(sendP5000toRina(caseId, getSedId(), payload))
       }
     }
   }
