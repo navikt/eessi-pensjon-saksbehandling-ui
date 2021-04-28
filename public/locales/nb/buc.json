@@ -212,6 +212,7 @@
   "p5000-saved-entries"           : "Under arbeid",
   "p5000-saved-svarsed-draft"     : "Lagret P5000 til saksId {{caseId}}",
   "p5000-save"                    : "Lagre P5000",
+  "p5000-to-see-p5000edit"        : "Dette er en oversiktsside for alle P5000-er. For å redigere en P5000, må du klikke 'rediger' på en P5000 SED-rad.",
 
   "placeholder-date2" : "DD.MM.ÅÅÅÅ/DDMMÅÅ",
 
@@ -286,5 +287,5 @@
 
   "warning-filteredBucs"       : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-failedP5000Sending" : "Feil med overføring P5000 data til Rina",
-  "warning-okP5000Sending"     : "Overføring P5000 data til Rina var vellykket"
+  "warning-okP5000Sending"     : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet."
 }

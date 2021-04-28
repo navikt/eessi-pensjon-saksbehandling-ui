@@ -108,9 +108,11 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       <Normaltekst>
                         {sender ? (
                           <>
+                            <span>{sender?.date}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
                             <span>{sender?.countryLabel}</span>
                             <SeparatorSpan>-</SeparatorSpan>
-                            <span>{sender?.institution}</span>
+                            <span>{sender?.acronym}</span>
                           </>
                         ) : (
                           <Normaltekst>

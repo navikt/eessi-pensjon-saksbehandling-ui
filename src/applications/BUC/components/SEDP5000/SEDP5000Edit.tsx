@@ -1,18 +1,20 @@
 import { sendP5000toRina } from 'actions/buc'
+import { SEDP5000EditValidate, SEDP5000EditValidationProps } from 'applications/BUC/components/SEDP5000/validation'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'
-import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent, Validation } from 'declarations/app.d'
+import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app.d'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import Flag, { AllowedLocaleString } from 'flagg-ikoner'
+import useValidation from 'hooks/useValidation'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
 import Alertstripe from 'nav-frontend-alertstriper'
-import { Checkbox, FeiloppsummeringFeil } from 'nav-frontend-skjema'
+import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
   HighContrastInput,
@@ -24,7 +26,7 @@ import NavHighContrast, {
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
@@ -100,6 +102,9 @@ const Sender = styled.div`
 const SeparatorSpan = styled.span`
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+`
+const AlertstripeDiv = styled.div`
+  width: 100%;
 `
 export interface SEDP5000EditRow extends Item {
   type: string
@@ -181,12 +186,15 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(fromStorage?.content.ytelseOption)
   const [_items, setItems] = useState<SEDP5000EditRows | undefined>(fromStorage?.content.items)
-  const [_sedId, ] = useState<string | undefined>(fromStorage?.id || seds[0]?.id || undefined)
   const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
-  const [_validation, setValidation] = useState<Validation>({})
+  const [_validation, resetValidation, performValidation] = useValidation<SEDP5000EditValidationProps>({}, SEDP5000EditValidate)
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
   const [_sedSender, _setSedSender] = useState<SedSender | undefined>(undefined)
+
+  const getSedId = useCallback((): string | undefined => {
+    return fromStorage?.id || seds[0]?.id || undefined
+  }, [fromStorage, seds])
 
   const typeOptions = [
     { value: '10', label: '[10] Pliktige avgiftsperioder' },
@@ -581,7 +589,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const handleOverforTilRina = () => {
-    if (performValidation()) {
+    _setSavedP5000Info(false)
+    const data: SEDP5000EditValidationProps = {
+      ytelseOption: _ytelseOption
+    }
+    const valid: boolean = performValidation(data)
+    if (valid) {
       const payload: any = {
         sed: 'P5000',
         sedGVer: '4',
@@ -618,46 +631,18 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         }
       }
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-        dispatch(sendP5000toRina(caseId, _sedId, payload))
+        dispatch(sendP5000toRina(caseId, getSedId(), payload))
       }
     }
   }
 
-  const resetValidation = (key: string): void => {
-    setValidation({
-      ..._validation,
-      [key]: undefined
-    })
-  }
+  const addEntryToP5000Storage = (newEntry: LocalStorageValue<P5000EditLocalStorageContent>):
+    LocalStorageEntry<P5000EditLocalStorageContent> => {
 
-  const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
-
-  const performValidation = (): boolean => {
-    const newValidation: Validation = {}
-    newValidation['sedP5000Edit-ytelse-select'] = _ytelseOption
-      ? undefined
-      : {
-        feilmelding: t('buc:error-noYtelse'),
-        skjemaelementId: 'sedP5000Edit-ytelse-select'
-      } as FeiloppsummeringFeil
-    setValidation(newValidation)
-    return hasNoValidationErrors(newValidation)
-  }
-
-  const onSave = () => {
-    _setOnSaving(true)
-    const newEntry = {
-      id: _sedId!,
-      date: new Date().toLocaleString(),
-      content: {
-        items: _items,
-        ytelseOption: _ytelseOption
-      }
-    } as LocalStorageValue<P5000EditLocalStorageContent>
     const newP5000Storage = _.cloneDeep(p5000Storage)
     if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
       let entries: Array<LocalStorageValue<P5000EditLocalStorageContent>> = _.cloneDeep(newP5000Storage[caseId])
-      const index: number = _.findIndex(entries, e => e.id === _sedId)
+      const index: number = _.findIndex(entries, e => e.id === getSedId())
       if (index >= 0) {
         entries[index] = newEntry
       } else {
@@ -667,19 +652,58 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     } else {
       newP5000Storage[caseId] = [newEntry] as Array<LocalStorageValue<P5000EditLocalStorageContent>>
     }
+    return newP5000Storage
+  }
 
+  const removeEntryFromP5000Storage = (sedId: string) => {
+    const newP5000Storage = _.cloneDeep(p5000Storage)
+    if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
+      const index: number = _.findIndex(newP5000Storage[caseId], e => e.id === sedId)
+      if (index >= 0) {
+       newP5000Storage[caseId].splice(index, 1)
+      }
+      if (newP5000Storage[caseId].length === 0) {
+        delete newP5000Storage[caseId]
+      }
+    }
+    return newP5000Storage
+  }
+
+  const onSave = () => {
+    _setOnSaving(true)
+    const newEntry = {
+      id: getSedId()!,
+      date: new Date().toLocaleString(),
+      content: {
+        items: _items,
+        ytelseOption: _ytelseOption
+      }
+    } as LocalStorageValue<P5000EditLocalStorageContent>
+    const newP5000Storage = addEntryToP5000Storage(newEntry)
     setP5000Storage(newP5000Storage)
     _setSavedP5000Info(true)
     _setOnSaving(false)
   }
 
   useEffect(() => {
+    const _sedId = getSedId()
     if (_sedId) {
       const newItems: SEDP5000EditRows = convertRawP5000toRow(sedContentMap[_sedId])
       setItems(newItems)
       _setSedSender(getSedSender(_sedId))
     }
-  }, [seds, _sedId])
+  }, [seds, getSedId])
+
+
+  useEffect(() => {
+    if (!_.isNil(sentP5000info) &&
+      p5000Storage && p5000Storage[caseId] &&
+    _.find(p5000Storage[caseId], c => c.id === getSedId()) !== undefined
+    ) {
+      const newP5000Storage = removeEntryFromP5000Storage(getSedId()!)
+      setP5000Storage(newP5000Storage)
+    }
+  }, [sentP5000info, caseId, getSedId])
 
   if (_items === undefined) {
     return <div />
@@ -805,7 +829,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               >
                 {_onSaving ? t('ui:saving') :  t('ui:save')}
               </HighContrastKnapp>
-              <HorizontalSeparatorDiv />
+            </ButtonsDiv>
+            <VerticalSeparatorDiv/>
+            <FlexDiv>
+              <AlertstripeDiv>
               {sentP5000info === null ? (
                 <Alertstripe type='advarsel'>
                   {t('buc:warning-failedP5000Sending')}
@@ -823,7 +850,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   ) : null
                 )
               )}
-            </ButtonsDiv>
+              </AlertstripeDiv>
+            </FlexDiv>
           </PileDiv>
         </SEDP5000Header>
         <VerticalSeparatorDiv/>

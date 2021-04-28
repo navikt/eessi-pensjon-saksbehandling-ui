@@ -94,6 +94,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return initialBucState
     }
 
+    case types.BUC_P5000_SEND_RESET:
     case types.BUC_P5000_SEND_REQUEST:
       return {
         ...state,

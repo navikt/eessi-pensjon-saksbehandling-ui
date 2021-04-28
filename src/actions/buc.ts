@@ -400,6 +400,10 @@ export const resetSedAttachments: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_ATTACHMENTS_RESET
 })
 
+export const resetSentP5000info : ActionCreator<Action> = (): Action => ({
+  type: types.BUC_P5000_SEND_RESET
+})
+
 export const saveBucsInfo: ActionCreator<ThunkResult<Action>> = ({
   aktoerId, avdod, buc, bucsInfo = { bucs: {} }, comment, tags
 }: SaveBucsInfoProps): ThunkResult<Action> => {
