@@ -4,9 +4,7 @@ import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
 import { BUCMode } from 'applications/BUC/index'
 import Trashcan from 'assets/icons/Trashcan'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import SEDLoadSave from 'components/SEDLoadSave/SEDLoadSave'
-import { LocalStorageValue } from 'declarations/app'
-import { AllowedLocaleString, FeatureToggles, Loading, P5000EditLocalStorageContent } from 'declarations/app.d'
+import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
 
 import {
   Buc,
@@ -289,25 +287,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     <HoyreChevron/>
                   </HighContrastKnapp>
                 </FlexDiv>
-                <VerticalSeparatorDiv />
-                <SEDLoadSave
-                  seds={buc?.seds}
-                  caseId={buc.caseId!}
-                  highContrast={highContrast}
-                  p5000Storage={p5000Storage}
-                  setP5000Storage={setP5000Storage}
-                  onLoad={(sed: LocalStorageValue<P5000EditLocalStorageContent>) => {
-                    setMode('p5000', 'forward', undefined, (
-                      <SEDP5000
-                        buc={buc}
-                        setMode={setMode}
-                        fromStorage={sed}
-                        p5000Storage={p5000Storage}
-                        setP5000Storage={setP5000Storage}
-                      />
-                    ))
-                  }}
-                />
               </P5000Div>
             )}
             {tabs[_activeTab].key === 'tags' && (

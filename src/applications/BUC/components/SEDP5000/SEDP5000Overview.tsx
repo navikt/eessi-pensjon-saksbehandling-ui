@@ -70,7 +70,6 @@ export const PileDiv = styled.div`
 `
 export const SEDP5000Container = styled.div`
   margin-top: 1rem;
-  min-height: 500px;
 `
 export const SEDP5000Header = styled.div`
   display: flex;
@@ -138,7 +137,7 @@ const SEDP5000Overview: React.FC<SEDP5000Props> = ({
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): SEDP5000OverviewRows => {
     const res: SEDP5000OverviewRows = []
     const sender: SedSender | undefined = getSedSender(sedId)
-    const medlemskap = sedContent.pensjon?.medlemskap
+    const medlemskap = sedContent?.pensjon?.medlemskap
     if (medlemskap) {
       medlemskap.forEach((m: any, i: number) => {
         if (!_.isNil(m)) {

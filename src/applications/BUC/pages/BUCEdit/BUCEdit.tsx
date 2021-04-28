@@ -319,8 +319,11 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     newlyCreatedSed.id === sed.id &&
                     ((Date.now() - newlyCreatedSedTime) < 5 * 60 * 1000)
                     ) || false}
+                    setMode={setMode}
                     onSEDNew={onSEDNew}
                     onP5000Edit={onP5000Edit}
+                    p5000Storage={_p5000Storage}
+                    setP5000Storage={_setP5000Storage}
                   />
                 </div>
               ))

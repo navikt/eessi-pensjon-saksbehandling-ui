@@ -26,5 +26,4 @@ export const Etikett = styled.div`
   border: ${(props: any) => props['data-border'] === true ? '1px solid ' + props.theme[themeKeys.MAIN_BORDER_COLOR] : 'none'};
   border-radius: 5px;
   display: inline-block;
-  width: 100%;
 `

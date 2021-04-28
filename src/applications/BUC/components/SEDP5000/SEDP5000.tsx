@@ -86,6 +86,21 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
     setMode('bucedit', 'back')
   }
 
+  const renderBackLink = () => (
+    <div style={{display: 'inline-block'}}>
+      <HighContrastLink
+        href='#'
+        onClick={onBackClick}
+      >
+        <VenstreChevron />
+        <HorizontalSeparatorDiv data-size='0.25' />
+        <span>
+              {t('ui:back')}
+            </span>
+      </HighContrastLink>
+    </div>
+  )
+
   useEffect(() => {
     if ((buc.caseId !== _buc.caseId) || (sed?.id !== _sed?.id)) {
       _setBuc(buc)
@@ -143,22 +158,12 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
 
   return (
     <div key={_seds?.map(s => s.id).join(',')}>
-      <div style={{display: 'inline-block'}}>
-        <HighContrastLink
-          href='#'
-          onClick={onBackClick}
-        >
-          <VenstreChevron />
-          <HorizontalSeparatorDiv data-size='0.25' />
-          <span>
-              {t('ui:back')}
-            </span>
-        </HighContrastLink>
-      </div>
-      <VerticalSeparatorDiv data-size='2'/>
       {seeOversikt && (
         <>
+          {renderBackLink()}
+          <VerticalSeparatorDiv data-size='2'/>
           <ExpandingPanel
+            open
             highContrast={highContrast}
             heading={(
               <Undertittel>
@@ -178,7 +183,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
       )}
       {seeSummer && (
         <>
+          {renderBackLink()}
+          <VerticalSeparatorDiv data-size='2'/>
           <ExpandingPanel
+            open
             highContrast={highContrast}
             heading={(
               <Undertittel>
@@ -198,7 +206,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
       )}
       {seeEdit ? (
         <>
+          {renderBackLink()}
+          <VerticalSeparatorDiv data-size='2'/>
           <ExpandingPanel
+            open
             highContrast={highContrast}
             heading={(
               <Undertittel>

@@ -337,7 +337,7 @@ export const getSed: ActionCreator<ThunkResult<ActionWithPayload<SEDP5000Payload
     url: sprintf(urls.BUC_GET_SED_URL, { caseId: caseId, documentId: sed.id }),
     cascadeFailureError: true,
     context: sed,
-    expectedPayload: mockSed(sed, 'large'),
+    expectedPayload: mockSed(sed, 'small'),
     type: {
       request: types.BUC_GET_SED_REQUEST,
       success: types.BUC_GET_SED_SUCCESS,

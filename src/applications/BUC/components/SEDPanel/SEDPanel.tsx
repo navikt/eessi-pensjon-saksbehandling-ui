@@ -1,4 +1,5 @@
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
+import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import NavHighContrast, { themeKeys, slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
@@ -52,12 +53,26 @@ export interface SEDPanelProps {
   newSed: boolean
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
   onP5000Edit: (sed: Sed) => void
+  setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
+  p5000Storage: any
+  setP5000Storage: any
   sed: Sed
   style: React.CSSProperties
 }
 
 const SEDPanel: React.FC<SEDPanelProps> = ({
-  aktoerId, buc, className, highContrast, newSed, onSEDNew, onP5000Edit, sed, style
+   aktoerId,
+   buc,
+   className,
+   highContrast,
+   newSed,
+   onSEDNew,
+   onP5000Edit,
+   setMode,
+   p5000Storage,
+   setP5000Storage,
+   sed,
+   style
 }: SEDPanelProps): JSX.Element => {
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
@@ -73,6 +88,9 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                 buc={buc}
                 onSEDNew={onSEDNew}
                 onP5000Edit={onP5000Edit}
+                setMode={setMode}
+                p5000Storage={p5000Storage}
+                setP5000Storage={setP5000Storage}
                 sed={sed}
                 style={style}
               />
@@ -86,8 +104,11 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                 <SEDHeader
                   buc={buc}
                   onSEDNew={onSEDNew}
-                  sed={sed}
                   onP5000Edit={onP5000Edit}
+                  setMode={setMode}
+                  p5000Storage={p5000Storage}
+                  setP5000Storage={setP5000Storage}
+                  sed={sed}
                 />
               }
             >

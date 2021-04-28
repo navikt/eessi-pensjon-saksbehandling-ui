@@ -82,7 +82,6 @@ export const PileDiv = styled.div`
 `
 export const SEDP5000Container = styled.div`
   margin-top: 1rem;
-  min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -184,8 +183,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<boolean>(true)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(fromStorage?.content.ytelseOption)
-  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(fromStorage?.content.items)
+  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(undefined)
+  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(undefined)
   const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
   const [_validation, resetValidation, performValidation] = useValidation<SEDP5000EditValidationProps>({}, SEDP5000EditValidate)
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
@@ -685,14 +684,24 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     _setOnSaving(false)
   }
 
+  // when I swap from P5000 Seds (and have a different sed ID), need to refresh items / senders
+  // only if we are not loading from storage
   useEffect(() => {
-    const _sedId = getSedId()
-    if (_sedId) {
-      const newItems: SEDP5000EditRows = convertRawP5000toRow(sedContentMap[_sedId])
-      setItems(newItems)
-      _setSedSender(getSedSender(_sedId))
+    if (fromStorage) {
+      console.log('Getting from storage')
+      setItems(fromStorage.content.items)
+      _setYtelseOption(fromStorage?.content.ytelseOption)
+      _setSedSender(getSedSender(fromStorage.id))
+    } else {
+      const _sedId = getSedId()
+      if (_sedId) {
+        console.log('Getting from sedContent')
+        const newItems: SEDP5000EditRows = convertRawP5000toRow(sedContentMap[_sedId])
+        setItems(newItems)
+        _setSedSender(getSedSender(_sedId))
+      }
     }
-  }, [seds, getSedId])
+  }, [fromStorage, seds, getSedId])
 
 
   useEffect(() => {
@@ -746,6 +755,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           <FlexCenterDiv>
             <FullWidthDiv>
               <Select
+                key={getSedId() + '-' + _ytelseOption}
                 className='sedP5000Edit-ytelse-select'
                 feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
                 highContrast={highContrast}
