@@ -229,6 +229,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         highContrast={highContrast}
         feil={options.feil}
         options={typeOptions}
+        menuPortalTarget={document.body}
         onChange={(e) => options.setValue({type: e!.value})}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
         selectedValue={_.find(typeOptions, o => o.value === options.value)}
@@ -759,6 +760,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 highContrast={highContrast}
                 id='sedP5000Edit-ytelse-select'
                 label={t('buc:p5000-4-1-title')}
+                menuPortalTarget={document.body}
                 options={ytelsestypeOptions}
                 onChange={setYtelseOption}
                 selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}

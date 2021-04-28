@@ -164,6 +164,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           <VerticalSeparatorDiv data-size='2'/>
           <ExpandingPanel
             open
+            renderContentWhenClosed={true}
             highContrast={highContrast}
             heading={(
               <Undertittel>
@@ -187,6 +188,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           <VerticalSeparatorDiv data-size='2'/>
           <ExpandingPanel
             open
+            renderContentWhenClosed={true}
             highContrast={highContrast}
             heading={(
               <Undertittel>
@@ -210,6 +212,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           <VerticalSeparatorDiv data-size='2'/>
           <ExpandingPanel
             open
+            renderContentWhenClosed={true}
             highContrast={highContrast}
             heading={(
               <Undertittel>
