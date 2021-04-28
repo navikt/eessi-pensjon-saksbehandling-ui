@@ -599,6 +599,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       const sedId = getSedId()
       if (sedId) {
         const newSedContent: SedContent = _.cloneDeep(sedContentMap[sedId])
+        if (_.isNil(newSedContent.pensjon)) {
+          newSedContent.pensjon = {}
+        }
         newSedContent.pensjon.medlemskap = _items?.map(item => {
           const medlemskap: any = {}
           medlemskap.relevans = item.ytelse /// ???
