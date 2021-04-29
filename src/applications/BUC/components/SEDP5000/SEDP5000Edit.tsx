@@ -706,8 +706,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   menuPortalTarget={document.body}
                   options={ytelsestypeOptions}
                   onChange={setYtelseOption}
-                  selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
-                  defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption)}
+                  selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                  defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
                 />
               </FullWidthDiv>
               <HorizontalSeparatorDiv />
