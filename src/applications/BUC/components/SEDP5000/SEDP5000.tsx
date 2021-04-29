@@ -112,7 +112,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
 
   useEffect(() => {
     if (!_ready) {
-      if (_fetchingP5000 === undefined) {
+      if (_.isNull(_fetchingP5000)) {
         const seds: Seds | undefined = getP5000(buc, sed)
         _setSeds(seds)
         if (seds) {
@@ -123,16 +123,18 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
         }
       }
 
-      if (!_.isEmpty(_fetchingP5000)) {
-        const myDocumentIds = _fetchingP5000!.map((sed: Sed) => sed.id)
-        const loadedSeds = Object.keys(sedContent)
-        const commonSeds = _.intersection(myDocumentIds, loadedSeds)
-        if (!_.isEmpty(commonSeds)) {
-          const newFetchingP5000 = _.filter(_fetchingP5000, sed => !_.includes(commonSeds, sed.id))
-          setFetchingP5000(newFetchingP5000)
+      if (_.isArray(_fetchingP5000)) {
+        if (!_.isEmpty(_fetchingP5000)) {
+          const myDocumentIds = _fetchingP5000!.map((sed: Sed) => sed.id)
+          const loadedSeds = Object.keys(sedContent)
+          const commonSeds = _.intersection(myDocumentIds, loadedSeds)
+          if (!_.isEmpty(commonSeds)) {
+            const newFetchingP5000 = _.filter(_fetchingP5000, sed => !_.includes(commonSeds, sed.id))
+            setFetchingP5000(newFetchingP5000)
+          }
+        } else {
+          setReady(true)
         }
-      } else {
-        setReady(true)
       }
     }
   }, [_fetchingP5000, sedContent])
