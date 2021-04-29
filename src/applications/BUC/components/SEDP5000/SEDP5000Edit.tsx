@@ -26,6 +26,7 @@ import Flag, { AllowedLocaleString } from 'flagg-ikoner'
 import useValidation from 'hooks/useValidation'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
+import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -619,6 +620,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     _setOnSaving(false)
   }
 
+  const tableSorterKey = md5(
+    JSON.stringify(_tableSort) + '-' +
+    JSON.stringify( (_items ?? '') + '-' +
+      (_ytelseOption ?? '')
+    ))
+
   // when I swap from P5000 Seds (and have a different sed ID), need to refresh items / senders
   // only if we are not loading from storage
   useEffect(() => {
@@ -808,6 +815,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
           <TableSorter
+            key={tableSorterKey}
             highContrast={highContrast}
             items={_seeAsSum ? sumItems(_items) : _items}
             context={{
@@ -968,7 +976,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             <div ref={componentRef} id='printJS-form'>
               <PrintableTableSorter
               // important to it re-renders when sorting changes
-                key={JSON.stringify(_tableSort)}
+                key={tableSorterKey}
                 className='print-version'
                 items={_seeAsSum ? sumItems(_items) : _items}
                 editable={false}
