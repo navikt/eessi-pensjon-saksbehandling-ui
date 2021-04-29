@@ -222,7 +222,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             )}
             >
               <SEDP5000Edit
-                key={_seds!.map(s => s.id).join(',')}
+                key={'seds' + _seds!.map(s => s.id).join(',') + 'fromstorage' + fromStorage?.id + 'sedContent' + Object.keys(sedContent).join(',')}
                 caseId={buc.caseId!}
                 highContrast={highContrast}
                 fromStorage={fromStorage}
