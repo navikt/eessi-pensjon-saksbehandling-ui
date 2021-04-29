@@ -1012,6 +1012,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               />
             </div>
           </HiddenDiv>
+          <VerticalSeparatorDiv data-size='3'/>
         </PileDiv>
       </PileCenterDiv>
     </NavHighContrast>

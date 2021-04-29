@@ -112,7 +112,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
 
   useEffect(() => {
     if (!_ready) {
-      if (_.isNull(_fetchingP5000)) {
+      if (_.isNil(_fetchingP5000)) {
         const seds: Seds | undefined = getP5000(buc, sed)
         _setSeds(seds)
         if (seds) {

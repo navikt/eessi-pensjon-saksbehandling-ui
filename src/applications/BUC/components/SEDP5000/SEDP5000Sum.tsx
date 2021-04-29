@@ -297,7 +297,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
             />
           </div>
         </HiddenDiv>
-        <VerticalSeparatorDiv data-size='2' />
+        <VerticalSeparatorDiv data-size='3' />
       </PileCenterDiv>
     </NavHighContrast>
   )
