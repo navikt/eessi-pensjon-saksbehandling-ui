@@ -28,7 +28,7 @@ export const type = {
   49: 'Likestilte perioder: perioder med arbeidsledighet med dagpenger',
   50: 'Likestilte perioder: periode hvor det er blitt iinnvilget uføretrygd',
   51: 'Likestilte perioder: perioder med omsorg for pleietrengende',
-  52: 'Likevestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon'
+  52: 'Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon'
 }
 
 export const relevantForYtelse = {
