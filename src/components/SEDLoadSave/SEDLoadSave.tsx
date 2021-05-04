@@ -1,6 +1,6 @@
 import { ytelsestypeOptions } from 'applications/BUC/components/SEDP5000/SEDP5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
-import { Etikett, FlexBaseDiv, PileDiv } from 'components/StyledComponents'
+import { Etikett, FlexBaseDiv, FlexBaselineDiv, PileDiv } from 'components/StyledComponents'
 import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import _ from 'lodash'
@@ -9,7 +9,6 @@ import NavHighContrast, { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'n
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OptionTypeBase } from 'react-select'
-import styled from 'styled-components'
 
 interface SEDLoadSaveProps {
   buc: Buc
@@ -18,11 +17,6 @@ interface SEDLoadSaveProps {
   sedId: string
   setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
 }
-
-const FlexDiv = styled.div`
-  display: flex;
-  align-items: baseline;
-`
 
 const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   buc,
@@ -54,15 +48,15 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
         {p5000Storage && p5000Storage[buc.caseId!] && p5000Storage[buc.caseId!]
           .filter(sed => sed.id === sedId)
           .map((sed: LocalStorageValue<P5000EditLocalStorageContent>) => (
-            <FlexDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
+            <FlexBaselineDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
               <Etikett style={{ padding: '0.5rem', display: 'flex' }}>
-                <FlexDiv style={{ alignItems: 'center' }} key={sed.id}>
+                <FlexBaselineDiv style={{ alignItems: 'center' }} key={sed.id}>
                   <PileDiv>
                     <Normaltekst>
                       {t('buc:p5000-saved-entries')}
                     </Normaltekst>
                     <VerticalSeparatorDiv data-size='0.3' />
-                    <FlexDiv>
+                    <FlexBaselineDiv>
                       <UndertekstBold>
                         {t('buc:p5000-4-1-title') + ': '}
                       </UndertekstBold>
@@ -75,9 +69,9 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                             ))?.label
                           : '-'}
                       </Normaltekst>
-                    </FlexDiv>
+                    </FlexBaselineDiv>
                     <VerticalSeparatorDiv data-size='0.3' />
-                    <FlexDiv>
+                    <FlexBaselineDiv>
                       <UndertekstBold>
                         {t('ui:date') + ': '}
                       </UndertekstBold>
@@ -85,9 +79,9 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       <Normaltekst>
                         {sed.date}
                       </Normaltekst>
-                    </FlexDiv>
+                    </FlexBaselineDiv>
                     <VerticalSeparatorDiv data-size='0.3' />
-                    <FlexDiv>
+                    <FlexBaselineDiv>
                       <UndertekstBold>
                         {t('ui:rows') + ': '}
                       </UndertekstBold>
@@ -95,7 +89,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       <Normaltekst>
                         {sed.content?.items?.length}
                       </Normaltekst>
-                    </FlexDiv>
+                    </FlexBaselineDiv>
                   </PileDiv>
                   <HorizontalSeparatorDiv />
                   <FlexBaseDiv>
@@ -107,9 +101,9 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       onCancelRemove={() => setConfirmDelete(false)}
                     />
                   </FlexBaseDiv>
-                </FlexDiv>
+                </FlexBaselineDiv>
               </Etikett>
-            </FlexDiv>
+            </FlexBaselineDiv>
           )
           )}
       </PileDiv>

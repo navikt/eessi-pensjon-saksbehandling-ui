@@ -258,20 +258,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   mini
                   data-amplitude='buc.edit.p5000'
                   data-test-id='a-buc-c-sedheader__p5000-button-id'
-                  onClick={() => onP5000Edit(sed)}
-                >
-                  {t('buc:form-seeP5000edit')}
-                  <HorizontalSeparatorDiv data-size='0.3' />
-                  <HoyreChevron />
-                </HighContrastFlatknapp>
-                <VerticalSeparatorDiv />
-                {P5000Draft && (
-                  <HighContrastFlatknapp
-                    mini
-                    data-amplitude='buc.edit.p5000'
-                    data-test-id='a-buc-c-sedheader__p5000-button-id'
-                    onClick={() => {
-                      setMode('p5000', 'forward', undefined, (
+                  onClick={() => {
+                    P5000Draft
+                      ? setMode('p5000', 'forward', undefined, (
                         <SEDP5000
                           buc={buc}
                           setMode={setMode}
@@ -279,14 +268,15 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                           p5000Storage={p5000Storage}
                           setP5000Storage={setP5000Storage}
                         />
-                      ))
-                    }}
-                  >
-                    {t('ui:load-draft')}
-                    <HorizontalSeparatorDiv data-size='0.3' />
-                    <HoyreChevron />
-                  </HighContrastFlatknapp>
-                )}
+                        ))
+                      : onP5000Edit(sed)
+                  }}
+                >
+                  {P5000Draft ? t('buc:p5000-rediger') : t('buc:p5000-registrert')}
+                  <HorizontalSeparatorDiv data-size='0.3' />
+                  <HoyreChevron />
+                </HighContrastFlatknapp>
+                <VerticalSeparatorDiv />
               </PileDiv>
             )}
           </SEDListActionsDiv>

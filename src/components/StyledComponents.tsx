@@ -22,6 +22,10 @@ export const FlexBaseDiv = styled(FlexDiv)`
   align-items: baseline;
   justify-content: space-between;
 `
+export const FlexBaselineDiv = styled.div`
+  display: flex;
+  align-items: baseline;
+`
 export const FlexCenterDiv = styled(FlexDiv)`
   align-items: center;
   justify-content: space-between;

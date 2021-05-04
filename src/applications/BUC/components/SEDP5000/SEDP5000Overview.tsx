@@ -375,7 +375,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
             />
           </div>
         </HiddenDiv>
-        <VerticalSeparatorDiv data-size='3'/>
+        <VerticalSeparatorDiv data-size='3' />
       </PileCenterDiv>
     </NavHighContrast>
   )

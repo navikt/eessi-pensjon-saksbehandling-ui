@@ -163,7 +163,6 @@
   "form-sed"                          : "SED",
   "form-seeP5000s"                    : "Se P5000 tabeller",
   "form-seeP5000summary"              : "Se summer",
-  "form-seeP5000edit"                 : "Rediger",
   "form-seePeriodsAsSum"              : "Somme perioder og gruppe etter Type",
   "form-selectAgainAttachments"       : "Velg igjen vedlegg",
   "form-sender"                       : "Avsender",
@@ -201,7 +200,7 @@
   "p5000-active-seds"             : "Synlige SED-er",
   "p5000-overview-title"          : "Perioder for P5000",
   "p5000-summary-title"           : "Summering av norske trygdetidsperioder for P5000",
-  "p5000-edit-title"              : "Perioder for P5000 (kapittel 4)",
+  "p5000-edit-title"              : "Registrere perioder for P5000 (kapittel 4)",
   "p5000-5-1-title"               : "5.1 «Relevans for ytelse»",
   "p5000-5-2-title"               : "5.2 «Informasjon om beregning»",
   "p5000-4-2-title"               : "Forsikring/bosetningsperioder (4.2)",
@@ -213,6 +212,8 @@
   "p5000-saved-svarsed-draft"     : "Lagret P5000 til saksId {{caseId}}",
   "p5000-save"                    : "Lagre P5000",
   "p5000-to-see-p5000edit"        : "Dette er en oversiktsside for alle P5000-er. For å redigere en P5000, må du klikke 'rediger' på en P5000 SED-rad.",
+  "p5000-rediger"                 : "Se/rediger periode(r)",
+  "p5000-registrert"              : "Registrer periode(r)",
 
   "placeholder-date2" : "DD.MM.ÅÅÅÅ/DDMMÅÅ",
 

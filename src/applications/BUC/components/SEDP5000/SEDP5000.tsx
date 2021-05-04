@@ -158,6 +158,40 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
 
   return (
     <div key={_seds?.map(s => s.id).join(',')}>
+      {seeEdit
+        ? (
+          <>
+            {renderBackLink()}
+            <VerticalSeparatorDiv data-size='2' />
+            <ExpandingPanel
+              open
+              renderContentWhenClosed
+              highContrast={highContrast}
+              heading={(
+                <Undertittel>
+                  {t('buc:p5000-edit-title')}
+                </Undertittel>
+              )}
+            >
+              <SEDP5000Edit
+                key={'seds' + _seds!.map(s => s.id).join(',') + 'fromstorage' + fromStorage?.id + 'sedContent' + Object.keys(sedContent).join(',')}
+                caseId={buc.caseId!}
+                highContrast={highContrast}
+                fromStorage={fromStorage}
+                locale={locale}
+                p5000Storage={p5000Storage}
+                seds={_seds!}
+                sedContentMap={sedContent}
+                setP5000Storage={setP5000Storage}
+              />
+            </ExpandingPanel>
+          </>
+          )
+        : (
+          <Normaltekst>
+            {t('buc:p5000-to-see-p5000edit')}
+          </Normaltekst>
+          )}
       {seeOversikt && (
         <>
           {renderBackLink()}
@@ -206,40 +240,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           <VerticalSeparatorDiv data-size='3' />
         </>
       )}
-      {seeEdit
-        ? (
-          <>
-            {renderBackLink()}
-            <VerticalSeparatorDiv data-size='2' />
-            <ExpandingPanel
-              open
-              renderContentWhenClosed
-              highContrast={highContrast}
-              heading={(
-                <Undertittel>
-                  {t('buc:p5000-edit-title')}
-                </Undertittel>
-            )}
-            >
-              <SEDP5000Edit
-                key={'seds' + _seds!.map(s => s.id).join(',') + 'fromstorage' + fromStorage?.id + 'sedContent' + Object.keys(sedContent).join(',')}
-                caseId={buc.caseId!}
-                highContrast={highContrast}
-                fromStorage={fromStorage}
-                locale={locale}
-                p5000Storage={p5000Storage}
-                seds={_seds!}
-                sedContentMap={sedContent}
-                setP5000Storage={setP5000Storage}
-              />
-            </ExpandingPanel>
-          </>
-          )
-        : (
-          <Normaltekst>
-            {t('buc:p5000-to-see-p5000edit')}
-          </Normaltekst>
-          )}
     </div>
   )
 }

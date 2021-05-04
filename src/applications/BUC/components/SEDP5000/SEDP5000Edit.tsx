@@ -622,7 +622,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const tableSorterKey = md5(
     JSON.stringify(_tableSort) + '-' +
-    JSON.stringify( (_items ?? '') + '-' +
+    JSON.stringify((_items ?? '') + '-' +
       (_ytelseOption ?? '')
     ))
 
@@ -1012,7 +1012,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               />
             </div>
           </HiddenDiv>
-          <VerticalSeparatorDiv data-size='3'/>
+          <VerticalSeparatorDiv data-size='3' />
         </PileDiv>
       </PileCenterDiv>
     </NavHighContrast>
