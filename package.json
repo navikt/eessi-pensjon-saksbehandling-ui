@@ -126,6 +126,7 @@
     "enzyme-to-json": "^3.6.2",
     "es6-promise": "^4.2.8",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "fast-xml-parser": "^3.19.0",
     "identity-obj-proxy": "^3.0.0",
     "jest-styled-components": "^7.0.4",
     "mock-socket": "^9.0.3",
