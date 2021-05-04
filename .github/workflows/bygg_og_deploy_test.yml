@@ -38,7 +38,6 @@ jobs:
       - name: 'Bygg'
         run: |
           npm install
-          npm run build:css
           npm run build
 
       # BYGGER DOCKER CONTAINER

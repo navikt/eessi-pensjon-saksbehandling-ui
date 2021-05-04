@@ -36,7 +36,6 @@ jobs:
       - name: 'Bygg'
         run: |
           npm install
-          npm run build:css
           npm run build
 
       - name: 'Build and publish Docker image'
