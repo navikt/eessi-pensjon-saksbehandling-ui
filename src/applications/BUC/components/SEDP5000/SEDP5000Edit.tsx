@@ -464,6 +464,18 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         res[found].startdato = moment(it.startdato, 'DD.MM.YYYY').isSameOrBefore(moment(res[found].startdato, 'DD.MM.YYYY')) ? it.startdato : res[found].startdato
         res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
         res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
+        if ((res[found].dag) >= 30) {
+          const extraMonths = Math.floor(res[found].dag/30)
+          const remainingDays = (res[found].dag) % 30
+          res[found].dag = remainingDays
+          res[found].mnd += extraMonths
+        }
+        if ((res[found].mnd) >= 12) {
+          const extraYears = Math.floor(res[found].mnd/12)
+          const remainingMonths = (res[found].mnd) % 12
+          res[found].mnd = remainingMonths
+          res[found].aar += extraYears
+        }
       }
     })
     return res
