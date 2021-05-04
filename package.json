@@ -5,9 +5,8 @@
   "description": "EESSI Pensjon Saksbehandling UI",
   "scripts": {
     "npx": "npx npm-force-resolutions",
-    "build": "npm run build:js && npm run build:git",
-    "build:git": "export GIT_VERSION=`git describe --always` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
-    "build:js": "cross-env NODE_OPTIONS=--max-old-space-size=8192 react-scripts build",
+    "postbuild": "export GIT_VERSION=`git describe --always` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 react-scripts build",
     "lint": "standardx './src/**/*.ts' './src/**/*.tsx'",
     "lint:fix": "standardx './src/**/*.ts' './src/**/*.tsx' --fix",
     "start": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts start",
