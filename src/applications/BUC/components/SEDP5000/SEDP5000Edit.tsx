@@ -13,8 +13,8 @@ import {
   OneLineSpan,
   PileCenterDiv,
   PileDiv,
+  PileEndDiv,
   PrintableTableSorter,
-  SEDP5000Header,
   SeparatorSpan
 } from 'components/StyledComponents'
 import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app.d'
@@ -33,7 +33,10 @@ import Alertstripe from 'nav-frontend-alertstriper'
 import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
+  Row,
+  Column,
   HighContrastInput,
+  HighContrastHovedknapp,
   HighContrastKnapp,
   HighContrastRadio,
   HighContrastRadioGroup,
@@ -705,7 +708,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             </FlexDiv>
           </FlexDiv>
           <VerticalSeparatorDiv />
-          <SEDP5000Header>
+          <Row>
+            <Column>
             <FlexCenterDiv>
               <FullWidthDiv>
                 <Select
@@ -752,9 +756,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
                 </div>
               </Tooltip>
+              <HorizontalSeparatorDiv />
             </FlexCenterDiv>
-            <HorizontalSeparatorDiv />
-            <PileDiv>
+            </Column>
+            <Column>
+            <PileEndDiv>
               <Checkbox
                 label={t('buc:form-seePeriodsAsSum')}
                 checked={_seeAsSum}
@@ -762,6 +768,22 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               />
               <VerticalSeparatorDiv />
               <FlexStartDiv>
+                <HighContrastHovedknapp
+                  disabled={sendingP5000info}
+                  spinner={sendingP5000info}
+                  onClick={handleOverforTilRina}
+                >
+                  {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+                </HighContrastHovedknapp>
+                <HorizontalSeparatorDiv />
+                <HighContrastKnapp
+                  onClick={onSave}
+                  disabled={_onSaving}
+                  spinner={_onSaving}
+                >
+                  {_onSaving ? t('ui:saving') : t('ui:save')}
+                </HighContrastKnapp>
+                <HorizontalSeparatorDiv />
                 <ReactToPrint
                   documentTitle='P5000Sum'
                   onAfterPrint={afterPrintOut}
@@ -776,22 +798,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                     </HighContrastKnapp>}
                   content={() => componentRef.current}
                 />
-                <HorizontalSeparatorDiv />
-                <HighContrastKnapp
-                  disabled={sendingP5000info}
-                  spinner={sendingP5000info}
-                  onClick={handleOverforTilRina}
-                >
-                  {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-                </HighContrastKnapp>
-                <HorizontalSeparatorDiv />
-                <HighContrastKnapp
-                  onClick={onSave}
-                  disabled={_onSaving}
-                  spinner={_onSaving}
-                >
-                  {_onSaving ? t('ui:saving') : t('ui:save')}
-                </HighContrastKnapp>
               </FlexStartDiv>
               <VerticalSeparatorDiv />
               <FlexDiv>
@@ -821,8 +827,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                       )}
                 </FullWidthDiv>
               </FlexDiv>
-            </PileDiv>
-          </SEDP5000Header>
+            </PileEndDiv>
+            </Column>
+          </Row>
           <VerticalSeparatorDiv />
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />

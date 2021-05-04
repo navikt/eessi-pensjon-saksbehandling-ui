@@ -1,13 +1,10 @@
 import {
   FlexCenterDiv,
-  FlexDiv,
   FlexEndDiv,
-  FlexStartDiv,
   HiddenDiv,
-  PileDiv,
   PileCenterDiv,
+  PileDiv,
   PrintableTableSorter,
-  SEDP5000Header,
   SeparatorSpan
 } from 'components/StyledComponents'
 import { AllowedLocaleString } from 'declarations/app.d'
@@ -21,7 +18,13 @@ import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { Checkbox } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
-import NavHighContrast, { HighContrastKnapp, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import NavHighContrast, {
+  Column,
+  HighContrastKnapp,
+  HorizontalSeparatorDiv,
+  Row,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -183,7 +186,8 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
   return (
     <NavHighContrast highContrast={highContrast}>
       <PileCenterDiv>
-        <SEDP5000Header>
+        <Row>
+          <Column>
           <PileDiv>
             <UndertekstBold>
               {t('buc:p5000-active-seds')}:
@@ -229,27 +233,28 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
               )
             })}
           </PileDiv>
-          <FlexDiv>
-            <FlexStartDiv>
-              <ReactToPrint
-                documentTitle='P5000Sum'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                onBeforeGetContent={prepareContent}
-                trigger={() =>
-                  <HighContrastKnapp
-                    disabled={_printDialogOpen}
-                    spinner={_printDialogOpen}
-                  >
-                    {t('ui:print')}
-                  </HighContrastKnapp>}
-                content={() => {
-                  return componentRef.current
-                }}
-              />
-            </FlexStartDiv>
-          </FlexDiv>
-        </SEDP5000Header>
+          </Column>
+          <Column>
+          <FlexEndDiv style={{flexDirection: 'row-reverse'}}>
+            <ReactToPrint
+              documentTitle='P5000Sum'
+              onAfterPrint={afterPrintOut}
+              onBeforePrint={beforePrintOut}
+              onBeforeGetContent={prepareContent}
+              trigger={() =>
+                <HighContrastKnapp
+                  disabled={_printDialogOpen}
+                  spinner={_printDialogOpen}
+                >
+                  {t('ui:print')}
+                </HighContrastKnapp>}
+              content={() => {
+                return componentRef.current
+              }}
+            />
+          </FlexEndDiv>
+          </Column>
+        </Row>
         <VerticalSeparatorDiv />
         <hr />
         <VerticalSeparatorDiv />

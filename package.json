@@ -81,7 +81,7 @@
     "nav-frontend-veileder-style": "^2.1.1",
     "nav-frontend-veilederpanel": "^1.1.2",
     "nav-frontend-veilederpanel-style": "^1.1.1",
-    "nav-hoykontrast": "^1.2.6",
+    "nav-hoykontrast": "^1.2.7",
     "print-js": "^1.6.0",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",

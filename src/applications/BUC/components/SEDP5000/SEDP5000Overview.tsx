@@ -1,15 +1,14 @@
 import WarningCircle from 'assets/icons/WarningCircle'
 import Alert from 'components/Alert/Alert'
 import {
-  FlexDiv,
   FlexCenterDiv,
   FlexEndDiv,
   FlexStartDiv,
   HiddenDiv,
   PileCenterDiv,
   PileDiv,
+  PileEndDiv,
   PrintableTableSorter,
-  SEDP5000Header,
   SeparatorSpan
 } from 'components/StyledComponents'
 import { AllowedLocaleString } from 'declarations/app.d'
@@ -24,6 +23,7 @@ import moment from 'moment'
 import { Checkbox, Select } from 'nav-frontend-skjema'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
+  Column, Row,
   HighContrastKnapp,
   HorizontalSeparatorDiv,
   themeKeys,
@@ -182,7 +182,8 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
     <NavHighContrast highContrast={highContrast}>
       <VerticalSeparatorDiv />
       <PileCenterDiv>
-        <SEDP5000Header>
+        <Row>
+          <Column>
           <PileDiv>
             <UndertekstBold>
               {t('buc:p5000-active-seds')}:
@@ -234,8 +235,9 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
               )
             })}
           </PileDiv>
+          </Column>
           {warning && (
-            <FlexDiv style={{ flex: '2' }}>
+            <Column data-flex='2'>
               <HorizontalSeparatorDiv />
               <Alert
                 type='client'
@@ -244,9 +246,10 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                 message={t('buc:form-P5000-warning')}
               />
               <HorizontalSeparatorDiv />
-            </FlexDiv>
+            </Column>
           )}
-          <PileDiv>
+          <Column>
+            <PileEndDiv>
             <CustomSelect
               bredde='l'
               id='itemsPerPage'
@@ -280,8 +283,9 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                 }}
               />
             </FlexStartDiv>
-          </PileDiv>
-        </SEDP5000Header>
+          </PileEndDiv>
+          </Column>
+        </Row>
         <VerticalSeparatorDiv />
         <hr />
         <VerticalSeparatorDiv />

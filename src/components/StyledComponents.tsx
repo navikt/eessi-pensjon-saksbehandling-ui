@@ -15,6 +15,9 @@ export const PileDiv = styled.div`
 export const PileCenterDiv = styled(PileDiv)`
  justify-content: center;
 `
+export const PileEndDiv = styled(PileDiv)`
+ align-items: flex-end;
+`
 export const FlexStartDiv = styled(FlexDiv)`
  align-items: flex-start;
 `
@@ -68,4 +71,3 @@ export const PrintableTableSorter = styled(TableSorter)`
     }
   }
 `
-export const SEDP5000Header = styled(FlexCenterDiv)``
