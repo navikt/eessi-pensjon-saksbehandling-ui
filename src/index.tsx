@@ -41,7 +41,6 @@ import 'nav-frontend-tabs-style/dist/main.css'
 import 'nav-frontend-tabell-style/dist/main.css'
 import 'nav-frontend-typografi-style/dist/main.css'
 import 'nav-frontend-veileder-style/dist/main.css'
-import './index.css'
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -73,7 +72,32 @@ const GlobalStyle = createGlobalStyle`
 
   ol {
     list-style-type: decimal;
-}
+  }
+
+  .etikett {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 4px;
+  }
+  .etikett--advarsel {
+    background-color: #e3b0a8;
+    border: 1px solid #ba3a26;
+  }
+  .etikett--suksess {
+    background-color: #9bd0b0;
+    border: 1px solid #06893a;
+  }
+  .etikett--fokus {
+    background-color: #ffd399;
+    border: 1px solid #d87f0a;
+  }
+  .etikett--info {
+    background-color: #c2eaf7;
+    border: 1px solid #5690a2;
+  }
+  .etikett--mini {
+    padding: 1px 8px;
+  }
 `
 
 // IE11
