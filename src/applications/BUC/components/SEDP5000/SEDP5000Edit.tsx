@@ -30,7 +30,6 @@ import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
 import Alertstripe from 'nav-frontend-alertstriper'
-import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
   Row,
@@ -74,7 +73,6 @@ export interface DatePieces {
 
 export interface TableContext extends Context {
   items: SEDP5000EditRows
-  seeAsSum: boolean,
   forsikringElklerBosetningsperioder: boolean
 }
 
@@ -124,7 +122,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(undefined)
   const [_items, setItems] = useState<SEDP5000EditRows | undefined>(undefined)
-  const [_seeAsSum, setSeeAsSum] = useState<boolean>(false)
   const [_validation, resetValidation, performValidation] = useValidation<SEDP5000EditValidationProps>({}, SEDP5000EditValidate)
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
@@ -451,7 +448,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     )
   }
 
-  const sumItems = (items: SEDP5000EditRows): SEDP5000EditRows => {
+  const sumItems = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
     const res: SEDP5000EditRows = []
     items.forEach((it) => {
       const found: number = _.findIndex(res, d => d.type === it.type)
@@ -513,10 +510,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return undefined
   }
 
-  const renderButtons = (item: any, value: any, { seeAsSum, items }: any): JSX.Element => {
-    if (seeAsSum) {
-      return <div />
-    }
+  const renderButtons = (item: any, value: any, { items }: any): JSX.Element => {
     return (
       <FlexStartDiv>
         <HighContrastKnapp
@@ -528,7 +522,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             const answer = window.confirm(t('buc:form-areYouSure'))
             if (answer) {
               let newItems = _.cloneDeep(items)
-              newItems = _.filter(newItems, i => i.key !== item.key)
+              newItems = _.filter(newItems, i => i.type !== item.type)
               setItems(newItems)
             }
           }}
@@ -552,7 +546,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         if (_.isNil(newSedContent.pensjon)) {
           newSedContent.pensjon = {}
         }
-        newSedContent.pensjon.medlemskap = _items?.map(item => {
+        newSedContent.pensjon.medlemskap = sumItems(_items)?.map(item => {
           const medlemskap: any = {}
           medlemskap.relevans = item.ytelse /// ???
           medlemskap.ordning = item.ordning
@@ -761,11 +755,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             </Column>
             <Column>
             <PileEndDiv>
-              <Checkbox
-                label={t('buc:form-seePeriodsAsSum')}
-                checked={_seeAsSum}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeeAsSum(e.target.checked)}
-              />
               <VerticalSeparatorDiv />
               <FlexStartDiv>
                 <HighContrastHovedknapp
@@ -836,10 +825,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           <TableSorter
             key={tableSorterKey}
             highContrast={highContrast}
-            items={_seeAsSum ? sumItems(_items) : _items}
+            items={sumItems(_items)}
             context={{
               items: _items,
-              seeAsSum: _seeAsSum,
               forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
             }}
             editable
@@ -997,7 +985,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               // important to it re-renders when sorting changes
                 key={tableSorterKey}
                 className='print-version'
-                items={_seeAsSum ? sumItems(_items) : _items}
+                items={sumItems(_items)}
                 editable={false}
                 animatable={false}
                 searchable={false}
