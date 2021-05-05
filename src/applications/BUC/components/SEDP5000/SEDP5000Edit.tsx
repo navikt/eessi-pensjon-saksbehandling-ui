@@ -671,6 +671,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return <div />
   }
 
+  const canSendOrSave = !!_ytelseOption && _items.length > 0
+
   return (
     <NavHighContrast highContrast={highContrast}>
       <VerticalSeparatorDiv />
@@ -761,7 +763,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 <VerticalSeparatorDiv />
                 <FlexStartDiv>
                   <HighContrastHovedknapp
-                    disabled={sendingP5000info}
+                    disabled={sendingP5000info || !canSendOrSave}
                     spinner={sendingP5000info}
                     onClick={handleOverforTilRina}
                   >
@@ -770,7 +772,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   <HorizontalSeparatorDiv />
                   <HighContrastKnapp
                     onClick={onSave}
-                    disabled={_onSaving}
+                    disabled={_onSaving || !canSendOrSave}
                     spinner={_onSaving}
                   >
                     {_onSaving ? t('ui:saving') : t('ui:save')}
