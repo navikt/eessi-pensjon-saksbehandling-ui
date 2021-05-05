@@ -546,6 +546,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         if (_.isNil(newSedContent.pensjon)) {
           newSedContent.pensjon = {}
         }
+        if (_.isNil(newSedContent.pensjon.medlemskapboarbeid)) {
+          newSedContent.pensjon.medlemskapboarbeid = {}
+        }
         newSedContent.pensjon.medlemskapboarbeid.medlemskap = sumItems(_items)?.map(item => {
           const medlemskap: any = {}
           medlemskap.relevans = item.ytelse /// ???
