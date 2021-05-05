@@ -424,7 +424,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const convertRawP5000toRow = (sedContent: SedContent): SEDP5000EditRows => {
     const res: SEDP5000EditRows = []
-    const medlemskap = sedContent?.pensjon?.medlemskap
+    const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
     medlemskap?.forEach((m: any) => {
       if (!_.isNil(m) && m.type) {
         const item = {
@@ -465,13 +465,13 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
         res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
         if ((res[found].dag) >= 30) {
-          const extraMonths = Math.floor(res[found].dag/30)
+          const extraMonths = Math.floor(res[found].dag / 30)
           const remainingDays = (res[found].dag) % 30
           res[found].dag = remainingDays
           res[found].mnd += extraMonths
         }
         if ((res[found].mnd) >= 12) {
-          const extraYears = Math.floor(res[found].mnd/12)
+          const extraYears = Math.floor(res[found].mnd / 12)
           const remainingMonths = (res[found].mnd) % 12
           res[found].mnd = remainingMonths
           res[found].aar += extraYears
@@ -546,7 +546,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         if (_.isNil(newSedContent.pensjon)) {
           newSedContent.pensjon = {}
         }
-        newSedContent.pensjon.medlemskap = sumItems(_items)?.map(item => {
+        newSedContent.pensjon.medlemskapboarbeid.medlemskap = sumItems(_items)?.map(item => {
           const medlemskap: any = {}
           medlemskap.relevans = item.ytelse /// ???
           medlemskap.ordning = item.ordning
@@ -569,11 +569,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
             tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
           }
-          medlemskap.enkeltkrav = {
-            krav: _ytelseOption
-          }
           return medlemskap
         })
+        newSedContent.pensjon.medlemskapboarbeid.enkeltkrav = {
+          krav: _ytelseOption
+        }
         if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
           dispatch(sendP5000toRina(caseId, getSedId(), newSedContent))
         }
@@ -704,119 +704,119 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           <VerticalSeparatorDiv />
           <Row>
             <Column>
-            <FlexCenterDiv>
-              <FullWidthDiv>
-                <Select
-                  key={getSedId() + '-' + _ytelseOption}
-                  className='sedP5000Edit-ytelse-select'
-                  feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
-                  highContrast={highContrast}
-                  id='sedP5000Edit-ytelse-select'
-                  label={t('buc:p5000-4-1-title')}
-                  menuPortalTarget={document.body}
-                  options={ytelsestypeOptions}
-                  onChange={setYtelseOption}
-                  selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
-                  defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
-                />
-              </FullWidthDiv>
-              <HorizontalSeparatorDiv />
-              <HighContrastRadioGroup
-                legend={(
-                  <OneLineSpan>
-                    {t('buc:p5000-4-2-title')}
-                  </OneLineSpan>
+              <FlexCenterDiv>
+                <FullWidthDiv>
+                  <Select
+                    key={getSedId() + '-' + _ytelseOption}
+                    className='sedP5000Edit-ytelse-select'
+                    feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
+                    highContrast={highContrast}
+                    id='sedP5000Edit-ytelse-select'
+                    label={t('buc:p5000-4-1-title')}
+                    menuPortalTarget={document.body}
+                    options={ytelsestypeOptions}
+                    onChange={setYtelseOption}
+                    selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                    defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                  />
+                </FullWidthDiv>
+                <HorizontalSeparatorDiv />
+                <HighContrastRadioGroup
+                  legend={(
+                    <OneLineSpan>
+                      {t('buc:p5000-4-2-title')}
+                    </OneLineSpan>
               )}
-              >
-                <FlexEndDiv>
-                  <HighContrastRadio
-                    name='42'
-                    checked={_forsikringElklerBosetningsperioder === true}
-                    label={t('ui:yes')}
-                    onClick={() => setForsikringElklerBosetningsperioder(true)}
-                  />
-                  <HorizontalSeparatorDiv />
-                  <HighContrastRadio
-                    name='42'
-                    checked={_forsikringElklerBosetningsperioder === false}
-                    label={t('ui:no')}
-                    onClick={() => setForsikringElklerBosetningsperioder(false)}
-                  />
-                </FlexEndDiv>
-              </HighContrastRadioGroup>
-              <HorizontalSeparatorDiv />
-              <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('help')}</span>}>
-                <div style={{ minWidth: '28px' }}>
-                  <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                </div>
-              </Tooltip>
-              <HorizontalSeparatorDiv />
-            </FlexCenterDiv>
+                >
+                  <FlexEndDiv>
+                    <HighContrastRadio
+                      name='42'
+                      checked={_forsikringElklerBosetningsperioder === true}
+                      label={t('ui:yes')}
+                      onClick={() => setForsikringElklerBosetningsperioder(true)}
+                    />
+                    <HorizontalSeparatorDiv />
+                    <HighContrastRadio
+                      name='42'
+                      checked={_forsikringElklerBosetningsperioder === false}
+                      label={t('ui:no')}
+                      onClick={() => setForsikringElklerBosetningsperioder(false)}
+                    />
+                  </FlexEndDiv>
+                </HighContrastRadioGroup>
+                <HorizontalSeparatorDiv />
+                <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('help')}</span>}>
+                  <div style={{ minWidth: '28px' }}>
+                    <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                  </div>
+                </Tooltip>
+                <HorizontalSeparatorDiv />
+              </FlexCenterDiv>
             </Column>
             <Column>
-            <PileEndDiv>
-              <VerticalSeparatorDiv />
-              <FlexStartDiv>
-                <HighContrastHovedknapp
-                  disabled={sendingP5000info}
-                  spinner={sendingP5000info}
-                  onClick={handleOverforTilRina}
-                >
-                  {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-                </HighContrastHovedknapp>
-                <HorizontalSeparatorDiv />
-                <HighContrastKnapp
-                  onClick={onSave}
-                  disabled={_onSaving}
-                  spinner={_onSaving}
-                >
-                  {_onSaving ? t('ui:saving') : t('ui:save')}
-                </HighContrastKnapp>
-                <HorizontalSeparatorDiv />
-                <ReactToPrint
-                  documentTitle='P5000Sum'
-                  onAfterPrint={afterPrintOut}
-                  onBeforePrint={beforePrintOut}
-                  onBeforeGetContent={prepareContent}
-                  trigger={() =>
-                    <HighContrastKnapp
-                      disabled={_printDialogOpen}
-                      spinner={_printDialogOpen}
-                    >
-                      {t('ui:print')}
-                    </HighContrastKnapp>}
-                  content={() => componentRef.current}
-                />
-              </FlexStartDiv>
-              <VerticalSeparatorDiv />
-              <FlexDiv>
-                <FullWidthDiv>
-                  {sentP5000info === null
-                    ? (
-                      <Alertstripe type='advarsel'>
-                        {t('buc:warning-failedP5000Sending')}
-                      </Alertstripe>
-                      )
-                    : (
-                        _savedP5000Info === true
-                          ? (
-                            <Alertstripe type='suksess'>
-                              {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
-                            </Alertstripe>
-                            )
-                          : (
-                              !_.isNil(sentP5000info)
-                                ? (
-                                  <Alertstripe type='suksess'>
-                                    {t('buc:warning-okP5000Sending')}
-                                  </Alertstripe>
-                                  )
-                                : null
-                            )
-                      )}
-                </FullWidthDiv>
-              </FlexDiv>
-            </PileEndDiv>
+              <PileEndDiv>
+                <VerticalSeparatorDiv />
+                <FlexStartDiv>
+                  <HighContrastHovedknapp
+                    disabled={sendingP5000info}
+                    spinner={sendingP5000info}
+                    onClick={handleOverforTilRina}
+                  >
+                    {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+                  </HighContrastHovedknapp>
+                  <HorizontalSeparatorDiv />
+                  <HighContrastKnapp
+                    onClick={onSave}
+                    disabled={_onSaving}
+                    spinner={_onSaving}
+                  >
+                    {_onSaving ? t('ui:saving') : t('ui:save')}
+                  </HighContrastKnapp>
+                  <HorizontalSeparatorDiv />
+                  <ReactToPrint
+                    documentTitle='P5000Sum'
+                    onAfterPrint={afterPrintOut}
+                    onBeforePrint={beforePrintOut}
+                    onBeforeGetContent={prepareContent}
+                    trigger={() =>
+                      <HighContrastKnapp
+                        disabled={_printDialogOpen}
+                        spinner={_printDialogOpen}
+                      >
+                        {t('ui:print')}
+                      </HighContrastKnapp>}
+                    content={() => componentRef.current}
+                  />
+                </FlexStartDiv>
+                <VerticalSeparatorDiv />
+                <FlexDiv>
+                  <FullWidthDiv>
+                    {sentP5000info === null
+                      ? (
+                        <Alertstripe type='advarsel'>
+                          {t('buc:warning-failedP5000Sending')}
+                        </Alertstripe>
+                        )
+                      : (
+                          _savedP5000Info === true
+                            ? (
+                              <Alertstripe type='suksess'>
+                                {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
+                              </Alertstripe>
+                              )
+                            : (
+                                !_.isNil(sentP5000info)
+                                  ? (
+                                    <Alertstripe type='suksess'>
+                                      {t('buc:warning-okP5000Sending')}
+                                    </Alertstripe>
+                                    )
+                                  : null
+                              )
+                        )}
+                  </FullWidthDiv>
+                </FlexDiv>
+              </PileEndDiv>
             </Column>
           </Row>
           <VerticalSeparatorDiv />

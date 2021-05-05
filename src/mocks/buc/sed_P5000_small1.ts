@@ -132,53 +132,59 @@ export default {
       beregning: null,
       periode: null
     }],
-    medlemskap: [{
-      relevans: '111',
-      ordning: '00',
-      land: null,
-      sum: {
-        kvaltal: null,
-        aar: '04',
-        uker: null,
-        dager: {
-          nr: null,
-          type: '7'
-        },
-        maaneder: '04'
+    medlemskapboarbeid: {
+      enkeltkrav: {
+        krav: '10'
       },
-      yrke: null,
-      gyldigperiode: '1',
-      type: '30',
-      beregning: '111',
-      periode: {
-        fom: '2000-02-01',
-        tom: '2004-05-31',
-        extra: null
-      }
-    }, {
-      relevans: '111',
-      ordning: '00',
-      land: null,
-      sum: {
-        kvaltal: null,
-        aar: '03',
-        uker: null,
-        dager: {
-          nr: null,
-          type: '7'
+      gyldigperiode: '0',
+      medlemskap: [{
+        relevans: '111',
+        ordning: '00',
+        land: null,
+        sum: {
+          kvaltal: null,
+          aar: '04',
+          uker: null,
+          dager: {
+            nr: null,
+            type: '7'
+          },
+          maaneder: '04'
         },
-        maaneder: '08'
-      },
-      yrke: null,
-      gyldigperiode: null,
-      type: '30',
-      beregning: '111',
-      periode: {
-        fom: '2006-08-16',
-        tom: '2010-05-11',
-        extra: null
-      }
-    }],
+        yrke: null,
+        gyldigperiode: '1',
+        type: '30',
+        beregning: '111',
+        periode: {
+          fom: '2000-02-01',
+          tom: '2004-05-31',
+          extra: null
+        }
+      }, {
+        relevans: '111',
+        ordning: '00',
+        land: null,
+        sum: {
+          kvaltal: null,
+          aar: '03',
+          uker: null,
+          dager: {
+            nr: null,
+            type: '7'
+          },
+          maaneder: '08'
+        },
+        yrke: null,
+        gyldigperiode: null,
+        type: '30',
+        beregning: '111',
+        periode: {
+          fom: '2006-08-16',
+          tom: '2010-05-11',
+          extra: null
+        }
+      }]
+    },
     trygdetid: [{
       relevans: null,
       ordning: null,

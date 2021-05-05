@@ -83,7 +83,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
   const convertRawP5000toRow = (sedId: string, sedContent: SedContent): SEDP5000OverviewRows => {
     const res: SEDP5000OverviewRows = []
     const sender: SedSender | undefined = getSedSender(sedId)
-    const medlemskap = sedContent?.pensjon?.medlemskap
+    const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
     if (medlemskap) {
       medlemskap.forEach((m: any, i: number) => {
         if (!_.isNil(m)) {
@@ -184,57 +184,57 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
       <PileCenterDiv>
         <Row>
           <Column>
-          <PileDiv>
-            <UndertekstBold>
-              {t('buc:p5000-active-seds')}:
-            </UndertekstBold>
-            <VerticalSeparatorDiv data-size='0.5' />
-            {Object.keys(_activeSeds).map(sedId => {
-              const sender: SedSender | undefined = getSedSender(sedId)
-              return (
-                <div key={sedId}>
-                  <Checkbox
-                    data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
-                    checked={_activeSeds[sedId]}
-                    key={sedId}
-                    id={'a-buc-c-sedp5000__checkbox-' + sedId}
-                    onChange={() => changeActiveSed(sedId)}
-                    label={(
-                      <FlexEndDiv>
-                        <span>
-                          {t('buc:form-dateP5000', { date: sender?.date })}
-                        </span>
-                        <SeparatorSpan>-</SeparatorSpan>
-                        {sender
-                          ? (
-                            <FlexCenterDiv>
-                              <Flag
-                                country={sender?.country}
-                                label={sender?.countryLabel}
-                                size='XS'
-                                type='circle'
-                              />
-                              <HorizontalSeparatorDiv data-size='0.2' />
-                              <span>{sender?.countryLabel}</span>
-                              <SeparatorSpan>-</SeparatorSpan>
-                              <span>{sender?.institution}</span>
-                            </FlexCenterDiv>
-                            )
-                          : sedId}
-                        {emptyPeriodReport[sedId] && (
-                          <>
-                            <HorizontalSeparatorDiv data-size='0.5' />
-                            <WarningCircle />
-                          </>
-                        )}
-                      </FlexEndDiv>
+            <PileDiv>
+              <UndertekstBold>
+                {t('buc:p5000-active-seds')}:
+              </UndertekstBold>
+              <VerticalSeparatorDiv data-size='0.5' />
+              {Object.keys(_activeSeds).map(sedId => {
+                const sender: SedSender | undefined = getSedSender(sedId)
+                return (
+                  <div key={sedId}>
+                    <Checkbox
+                      data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      checked={_activeSeds[sedId]}
+                      key={sedId}
+                      id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      onChange={() => changeActiveSed(sedId)}
+                      label={(
+                        <FlexEndDiv>
+                          <span>
+                            {t('buc:form-dateP5000', { date: sender?.date })}
+                          </span>
+                          <SeparatorSpan>-</SeparatorSpan>
+                          {sender
+                            ? (
+                              <FlexCenterDiv>
+                                <Flag
+                                  country={sender?.country}
+                                  label={sender?.countryLabel}
+                                  size='XS'
+                                  type='circle'
+                                />
+                                <HorizontalSeparatorDiv data-size='0.2' />
+                                <span>{sender?.countryLabel}</span>
+                                <SeparatorSpan>-</SeparatorSpan>
+                                <span>{sender?.institution}</span>
+                              </FlexCenterDiv>
+                              )
+                            : sedId}
+                          {emptyPeriodReport[sedId] && (
+                            <>
+                              <HorizontalSeparatorDiv data-size='0.5' />
+                              <WarningCircle />
+                            </>
+                          )}
+                        </FlexEndDiv>
                   )}
-                  />
-                  <VerticalSeparatorDiv data-size='0.5' />
-                </div>
-              )
-            })}
-          </PileDiv>
+                    />
+                    <VerticalSeparatorDiv data-size='0.5' />
+                  </div>
+                )
+              })}
+            </PileDiv>
           </Column>
           {warning && (
             <Column data-flex='2'>
@@ -250,40 +250,40 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
           )}
           <Column>
             <PileEndDiv>
-            <CustomSelect
-              bredde='l'
-              id='itemsPerPage'
-              label={t('ui:itemsPerPage')}
-              onChange={itemsPerPageChanged}
-              value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
-            >
-              <option value='10'>10</option>
-              <option value='15'>15</option>
-              <option value='20'>20</option>
-              <option value='30'>30</option>
-              <option value='50'>50</option>
-              <option value='all'>{t('ui:all')}</option>
-            </CustomSelect>
-            <VerticalSeparatorDiv />
-            <FlexStartDiv>
-              <ReactToPrint
-                documentTitle='P5000'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                onBeforeGetContent={prepareContent}
-                trigger={() =>
-                  <HighContrastKnapp
-                    disabled={_printDialogOpen}
-                    spinner={_printDialogOpen}
-                  >
-                    {t('ui:print')}
-                  </HighContrastKnapp>}
-                content={() => {
-                  return componentRef.current
-                }}
-              />
-            </FlexStartDiv>
-          </PileEndDiv>
+              <CustomSelect
+                bredde='l'
+                id='itemsPerPage'
+                label={t('ui:itemsPerPage')}
+                onChange={itemsPerPageChanged}
+                value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
+              >
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+                <option value='30'>30</option>
+                <option value='50'>50</option>
+                <option value='all'>{t('ui:all')}</option>
+              </CustomSelect>
+              <VerticalSeparatorDiv />
+              <FlexStartDiv>
+                <ReactToPrint
+                  documentTitle='P5000'
+                  onAfterPrint={afterPrintOut}
+                  onBeforePrint={beforePrintOut}
+                  onBeforeGetContent={prepareContent}
+                  trigger={() =>
+                    <HighContrastKnapp
+                      disabled={_printDialogOpen}
+                      spinner={_printDialogOpen}
+                    >
+                      {t('ui:print')}
+                    </HighContrastKnapp>}
+                  content={() => {
+                    return componentRef.current
+                  }}
+                />
+              </FlexStartDiv>
+            </PileEndDiv>
           </Column>
         </Row>
         <VerticalSeparatorDiv />

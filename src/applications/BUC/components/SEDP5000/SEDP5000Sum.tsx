@@ -71,7 +71,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
   const convertRawP5000toRow = (sedContent: SedContent): SEDP5000SumRows => {
     const res: SEDP5000SumRows = []
     const data: any = {}
-    const medlemskap = sedContent?.pensjon?.medlemskap
+    const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
     medlemskap?.forEach((m: any) => {
       if (!_.isNil(m) && m.type) {
         if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
@@ -90,14 +90,14 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
           data[m.type]['5_1'].dager += (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
 
           if (data[m.type]['5_1'].dager >= 30) {
-            const extraMonths = Math.floor(data[m.type]['5_1'].dager/30)
+            const extraMonths = Math.floor(data[m.type]['5_1'].dager / 30)
             const remainingDays = (data[m.type]['5_1'].dager) % 30
             data[m.type]['5_1'].dager = remainingDays
             data[m.type]['5_1'].maaneder += extraMonths
           }
           if (data[m.type]['5_1'].maaneder >= 12) {
-            const extraYears = Math.floor(data[m.type]['5_1'].maaneder /12)
-            const remainingMonths = (data[m.type]['5_1'].maaneder ) % 12
+            const extraYears = Math.floor(data[m.type]['5_1'].maaneder / 12)
+            const remainingMonths = (data[m.type]['5_1'].maaneder) % 12
             data[m.type]['5_1'].maaneder = remainingMonths
             data[m.type]['5_1'].aar += extraYears
           }
@@ -107,14 +107,14 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
         data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
 
         if (data[m.type]['5_2'].dager >= 30) {
-          const extraMonths = Math.floor(data[m.type]['5_2'].dager/30)
+          const extraMonths = Math.floor(data[m.type]['5_2'].dager / 30)
           const remainingDays = (data[m.type]['5_2'].dager) % 30
           data[m.type]['5_2'].dager = remainingDays
           data[m.type]['5_2'].maaneder += extraMonths
         }
         if (data[m.type]['5_2'].maaneder >= 12) {
-          const extraYears = Math.floor(data[m.type]['5_2'].maaneder /12)
-          const remainingMonths = (data[m.type]['5_2'].maaneder ) % 12
+          const extraYears = Math.floor(data[m.type]['5_2'].maaneder / 12)
+          const remainingMonths = (data[m.type]['5_2'].maaneder) % 12
           data[m.type]['5_2'].maaneder = remainingMonths
           data[m.type]['5_2'].aar += extraYears
         }
@@ -188,71 +188,71 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
       <PileCenterDiv>
         <Row>
           <Column>
-          <PileDiv>
-            <UndertekstBold>
-              {t('buc:p5000-active-seds')}:
-            </UndertekstBold>
-            <VerticalSeparatorDiv data-size='0.5' />
-            {Object.keys(_activeSeds).map(sedId => {
-              const sender: SedSender | undefined = getSedSender(sedId)
-              return (
-                <div key={sedId}>
-                  <Checkbox
-                    data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
-                    checked={_activeSeds[sedId]}
-                    key={sedId}
-                    id={'a-buc-c-sedp5000__checkbox-' + sedId}
-                    onChange={() => changeActiveSed(sedId)}
-                    label={(
-                      <FlexEndDiv>
-                        <span>
-                          {t('buc:form-dateP5000', { date: sender?.date })}
-                        </span>
-                        <SeparatorSpan>-</SeparatorSpan>
-                        {sender
-                          ? (
-                            <FlexCenterDiv>
-                              <Flag
-                                country={sender?.country}
-                                label={sender?.countryLabel}
-                                size='XS'
-                                type='circle'
-                              />
-                              <HorizontalSeparatorDiv data-size='0.2' />
-                              <span>{sender?.countryLabel}</span>
-                              <SeparatorSpan>-</SeparatorSpan>
-                              <span>{sender?.institution}</span>
-                            </FlexCenterDiv>
-                            )
-                          : sedId}
-                      </FlexEndDiv>
+            <PileDiv>
+              <UndertekstBold>
+                {t('buc:p5000-active-seds')}:
+              </UndertekstBold>
+              <VerticalSeparatorDiv data-size='0.5' />
+              {Object.keys(_activeSeds).map(sedId => {
+                const sender: SedSender | undefined = getSedSender(sedId)
+                return (
+                  <div key={sedId}>
+                    <Checkbox
+                      data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      checked={_activeSeds[sedId]}
+                      key={sedId}
+                      id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      onChange={() => changeActiveSed(sedId)}
+                      label={(
+                        <FlexEndDiv>
+                          <span>
+                            {t('buc:form-dateP5000', { date: sender?.date })}
+                          </span>
+                          <SeparatorSpan>-</SeparatorSpan>
+                          {sender
+                            ? (
+                              <FlexCenterDiv>
+                                <Flag
+                                  country={sender?.country}
+                                  label={sender?.countryLabel}
+                                  size='XS'
+                                  type='circle'
+                                />
+                                <HorizontalSeparatorDiv data-size='0.2' />
+                                <span>{sender?.countryLabel}</span>
+                                <SeparatorSpan>-</SeparatorSpan>
+                                <span>{sender?.institution}</span>
+                              </FlexCenterDiv>
+                              )
+                            : sedId}
+                        </FlexEndDiv>
                     )}
-                  />
-                  <VerticalSeparatorDiv data-size='0.5' />
-                </div>
-              )
-            })}
-          </PileDiv>
+                    />
+                    <VerticalSeparatorDiv data-size='0.5' />
+                  </div>
+                )
+              })}
+            </PileDiv>
           </Column>
           <Column>
-          <FlexEndDiv style={{flexDirection: 'row-reverse'}}>
-            <ReactToPrint
-              documentTitle='P5000Sum'
-              onAfterPrint={afterPrintOut}
-              onBeforePrint={beforePrintOut}
-              onBeforeGetContent={prepareContent}
-              trigger={() =>
-                <HighContrastKnapp
-                  disabled={_printDialogOpen}
-                  spinner={_printDialogOpen}
-                >
-                  {t('ui:print')}
-                </HighContrastKnapp>}
-              content={() => {
-                return componentRef.current
-              }}
-            />
-          </FlexEndDiv>
+            <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
+              <ReactToPrint
+                documentTitle='P5000Sum'
+                onAfterPrint={afterPrintOut}
+                onBeforePrint={beforePrintOut}
+                onBeforeGetContent={prepareContent}
+                trigger={() =>
+                  <HighContrastKnapp
+                    disabled={_printDialogOpen}
+                    spinner={_printDialogOpen}
+                  >
+                    {t('ui:print')}
+                  </HighContrastKnapp>}
+                content={() => {
+                  return componentRef.current
+                }}
+              />
+            </FlexEndDiv>
           </Column>
         </Row>
         <VerticalSeparatorDiv />

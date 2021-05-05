@@ -45,637 +45,643 @@ export default {
       type: '11',
       relevans: '100'
     }],
-    medlemskap: [{
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
+    medlemskapboarbeid: {
+      enkeltkrav: {
+        krav: '10'
       },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+      gyldigperiode: '0',
+      medlemskap: [{
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }, {
-      periode: {
-        tom: '1995-04-27',
-        fom: '1985-05-06'
-      },
-      sum: {
-        dager: {
-          type: '5',
-          nr: '3'
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
         },
-        maaneder: '120',
-        kvartal: '0',
-        uker: '2',
-        aar: '10'
-      },
-      land: 'SE',
-      gyldigperiode: '1',
-      ordning: '01',
-      beregning: '100',
-      type: '11',
-      yrke: '3323'
-    }, {
-      periode: {
-        tom: '2011-05-27',
-        fom: '1996-05-14'
-      },
-      sum: {
-        dager: {
-          nr: '122',
-          type: '7'
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
         },
-        aar: '222',
-        kvartal: '2',
-        maaneder: '121',
-        uker: '33'
-      },
-      ordning: '01',
-      land: 'SE',
-      beregning: '100',
-      relevans: '100',
-      type: '11',
-      yrke: '3313'
-    }],
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
+        },
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
+        },
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
+        },
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
+        },
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
+        },
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
+        },
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
+        },
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
+        },
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
+        },
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
+        },
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
+        },
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
+        },
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }, {
+        periode: {
+          tom: '1995-04-27',
+          fom: '1985-05-06'
+        },
+        sum: {
+          dager: {
+            type: '5',
+            nr: '3'
+          },
+          maaneder: '120',
+          kvartal: '0',
+          uker: '2',
+          aar: '10'
+        },
+        land: 'SE',
+        gyldigperiode: '1',
+        ordning: '01',
+        beregning: '100',
+        type: '11',
+        yrke: '3323'
+      }, {
+        periode: {
+          tom: '2011-05-27',
+          fom: '1996-05-14'
+        },
+        sum: {
+          dager: {
+            nr: '122',
+            type: '7'
+          },
+          aar: '222',
+          kvartal: '2',
+          maaneder: '121',
+          uker: '33'
+        },
+        ordning: '01',
+        land: 'SE',
+        beregning: '100',
+        relevans: '100',
+        type: '11',
+        yrke: '3313'
+      }]
+    },
     trygdetid: [{
       sum: {
         uker: '33',
