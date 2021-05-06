@@ -99,7 +99,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           {pesysContext && (
             <Tag>
               <span>{t('ui:youComeFrom')}</span>
-              <HorizontalSeparatorDiv data-size='0.25' />
+              <HorizontalSeparatorDiv size='0.25' />
               <strong>{pesysContext}</strong>.
             </Tag>
           )}
@@ -107,7 +107,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             {sakType && (
               <>
                 <span>{t('buc:form-caseType')}: </span>
-                <HorizontalSeparatorDiv data-size='0.25' />
+                <HorizontalSeparatorDiv size='0.25' />
               </>
             )}
             {gettingSakType && (
@@ -127,7 +127,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
           >
             {t('ui:lawsource')}
-            <HorizontalSeparatorDiv data-size='0.5' />
+            <HorizontalSeparatorDiv size='0.5' />
             <ExternalLink color={linkColor} />
           </HighContrastLink>
           <SeparatorSpan>
@@ -140,7 +140,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
           >
             {t('ui:help')}
-            <HorizontalSeparatorDiv data-size='0.5' />
+            <HorizontalSeparatorDiv size='0.5' />
             <ExternalLink color={linkColor} />
           </HighContrastLink>
         </DivWithLinks>

@@ -1,11 +1,16 @@
 import { ytelsestypeOptions } from 'applications/BUC/components/SEDP5000/SEDP5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
-import { Etikett, FlexBaseDiv, FlexBaselineDiv, PileDiv } from 'components/StyledComponents'
+import { Etikett } from 'components/StyledComponents'
 import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
-import NavHighContrast, { HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import NavHighContrast, {
+  FlexBaseDiv,
+  HorizontalSeparatorDiv,
+  PileDiv,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OptionTypeBase } from 'react-select'
@@ -48,19 +53,19 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
         {p5000Storage && p5000Storage[buc.caseId!] && p5000Storage[buc.caseId!]
           .filter(sed => sed.id === sedId)
           .map((sed: LocalStorageValue<P5000EditLocalStorageContent>) => (
-            <FlexBaselineDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
+            <FlexBaseDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
               <Etikett style={{ padding: '0.5rem', display: 'flex' }}>
-                <FlexBaselineDiv style={{ alignItems: 'center' }} key={sed.id}>
+                <FlexBaseDiv style={{ alignItems: 'center' }} key={sed.id}>
                   <PileDiv>
                     <Normaltekst>
                       {t('buc:p5000-saved-entries')}
                     </Normaltekst>
-                    <VerticalSeparatorDiv data-size='0.3' />
-                    <FlexBaselineDiv>
+                    <VerticalSeparatorDiv size='0.3' />
+                    <FlexBaseDiv>
                       <UndertekstBold>
                         {t('buc:p5000-4-1-title') + ': '}
                       </UndertekstBold>
-                      <HorizontalSeparatorDiv data-size='0.5' />
+                      <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
                         {(sed.content as P5000EditLocalStorageContent)
                           .ytelseOption
@@ -69,27 +74,27 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                             ))?.label
                           : '-'}
                       </Normaltekst>
-                    </FlexBaselineDiv>
-                    <VerticalSeparatorDiv data-size='0.3' />
-                    <FlexBaselineDiv>
+                    </FlexBaseDiv>
+                    <VerticalSeparatorDiv size='0.3' />
+                    <FlexBaseDiv>
                       <UndertekstBold>
                         {t('ui:date') + ': '}
                       </UndertekstBold>
-                      <HorizontalSeparatorDiv data-size='0.5' />
+                      <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
                         {sed.date}
                       </Normaltekst>
-                    </FlexBaselineDiv>
-                    <VerticalSeparatorDiv data-size='0.3' />
-                    <FlexBaselineDiv>
+                    </FlexBaseDiv>
+                    <VerticalSeparatorDiv size='0.3' />
+                    <FlexBaseDiv>
                       <UndertekstBold>
                         {t('ui:rows') + ': '}
                       </UndertekstBold>
-                      <HorizontalSeparatorDiv data-size='0.5' />
+                      <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
                         {sed.content?.items?.length}
                       </Normaltekst>
-                    </FlexBaselineDiv>
+                    </FlexBaseDiv>
                   </PileDiv>
                   <HorizontalSeparatorDiv />
                   <FlexBaseDiv>
@@ -101,9 +106,9 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       onCancelRemove={() => setConfirmDelete(false)}
                     />
                   </FlexBaseDiv>
-                </FlexBaselineDiv>
+                </FlexBaseDiv>
               </Etikett>
-            </FlexBaselineDiv>
+            </FlexBaseDiv>
           )
           )}
       </PileDiv>

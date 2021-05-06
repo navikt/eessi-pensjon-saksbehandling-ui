@@ -5,8 +5,6 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { BUCMode } from 'applications/BUC/index'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import SEDLoadSave from 'components/SEDLoadSave/SEDLoadSave'
-import { PileDiv } from 'components/StyledComponents'
-
 import { AllowedLocaleString } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
@@ -21,6 +19,7 @@ import NavHighContrast, {
   HighContrastFlatknapp,
   HighContrastPanel,
   HorizontalSeparatorDiv,
+  PileDiv,
   slideInFromLeft,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
@@ -273,7 +272,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   }}
                 >
                   {P5000Draft ? t('buc:p5000-rediger') : t('buc:p5000-registrert')}
-                  <HorizontalSeparatorDiv data-size='0.3' />
+                  <HorizontalSeparatorDiv size='0.3' />
                   <HoyreChevron />
                 </HighContrastFlatknapp>
                 <VerticalSeparatorDiv />

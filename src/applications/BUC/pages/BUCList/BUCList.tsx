@@ -354,7 +354,7 @@ const BUCList: React.FC<BUCListProps> = ({
         )}
         {sortedBucs === null && (
           <>
-            <VerticalSeparatorDiv data-size='2' />
+            <VerticalSeparatorDiv size='2' />
             <Normaltekst>
               {t('buc:error-noBucs')}
             </Normaltekst>
@@ -409,7 +409,7 @@ const BUCList: React.FC<BUCListProps> = ({
         {!loading.gettingBUCs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
-              <VerticalSeparatorDiv data-size='2' />
+              <VerticalSeparatorDiv size='2' />
               <BadBucDiv>
                 <>
                   <ExpandingPanel
@@ -457,10 +457,10 @@ const BUCList: React.FC<BUCListProps> = ({
                       </FlexDiv>
                     </>
                   </ExpandingPanel>
-                  <VerticalSeparatorDiv data-size='2' />
+                  <VerticalSeparatorDiv size='2' />
                 </>
               </BadBucDiv>
-              <VerticalSeparatorDiv data-size='2' />
+              <VerticalSeparatorDiv size='2' />
             </>
         )}
         <BUCFooter />

@@ -255,7 +255,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           onClick={onBackLinkClick}
         >
           <VenstreChevron />
-          <HorizontalSeparatorDiv data-size='0.25' />
+          <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}
           </span>
@@ -307,7 +307,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               .sort(sedSorter as (a: Sed, b: Sed) => number)
               .map((sed, index) => (
                 <div key={sed.id}>
-                  <VerticalSeparatorDiv data-size='0.5' />
+                  <VerticalSeparatorDiv size='0.5' />
                   <SEDPanel
                     aktoerId={aktoerId!}
                     highContrast={highContrast}

@@ -926,7 +926,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       )}
       <Row>
         <Column>
-          <VerticalSeparatorDiv data-size='2' />
+          <VerticalSeparatorDiv size='2' />
           <>
             <label className='skjemaelement__label'>
               {t('buc:form-sed')}
@@ -1091,7 +1091,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t('buc:form-chooseInstitution')}
                 values={_institutionValueList}
               />
-              <VerticalSeparatorDiv data-size='2' />
+              <VerticalSeparatorDiv size='2' />
               <label className='skjemaelement__label'>
                 {t('buc:form-chosenInstitutions')}
               </label>
@@ -1114,7 +1114,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             </>
           )}
           <Column>
-            <VerticalSeparatorDiv data-size='1.5' />
+            <VerticalSeparatorDiv size='1.5' />
             <HighContrastHovedknapp
               data-amplitude='sed.new.create'
               data-test-id='a-buc-c-sedstart__forward-button-id'
@@ -1138,14 +1138,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             >
               {t('ui:cancel')}
             </HighContrastFlatknapp>
-            <VerticalSeparatorDiv data-size='1.5' />
+            <VerticalSeparatorDiv size='1.5' />
           </Column>
         </Column>
         <HorizontalSeparatorDiv />
         <Column>
           {sedCanHaveAttachments() && (
             <>
-              <VerticalSeparatorDiv data-size='2' />
+              <VerticalSeparatorDiv size='2' />
               <label className='skjemaelement__label'>
                 {t('ui:attachments')}
               </label>
@@ -1204,7 +1204,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       </Row>
       {!hasNoValidationErrors(_validation) && (
         <>
-          <VerticalSeparatorDiv data-size='2' />
+          <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
               <HighContrastFeiloppsummering
@@ -1213,7 +1213,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 tittel={t('buc:form-feiloppsummering')}
               />
             </Column>
-            <HorizontalSeparatorDiv data-size='2' />
+            <HorizontalSeparatorDiv size='2' />
             <Column />
           </Row>
         </>

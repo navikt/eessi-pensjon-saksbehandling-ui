@@ -181,7 +181,9 @@
   "form-youHaveXAttachmentsInSed"     : "SED-en har {{attachments}} vedlegg",
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
 
-  "help-avdodFnr"                 : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
+  "help-avdodFnr" : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
+  "help-p5000-1"  : "Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1) og kryss \"Nei\" her (4.2). ",
+  "help-p5000-2"  : "Klikk deretter på \"Overfør til Rina\". Nødvendige felt i kapittel 4/5 i P5000 vil da bli pre-utfylt, og den er klar til sending.",
 
   "loading-buc"                   : "Laster BUC...",
   "loading-bucList"               : "Laster BUC-er...",

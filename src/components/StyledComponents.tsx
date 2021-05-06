@@ -4,46 +4,6 @@ import {
 } from 'nav-hoykontrast'
 import TableSorter from 'tabell'
 
-export const FlexDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-export const PileDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export const PileCenterDiv = styled(PileDiv)`
- justify-content: center;
-`
-export const PileEndDiv = styled(PileDiv)`
- align-items: flex-end;
-`
-export const FlexStartDiv = styled(FlexDiv)`
- align-items: flex-start;
-`
-export const FlexBaseDiv = styled(FlexDiv)`
-  align-items: baseline;
-  justify-content: space-between;
-`
-export const FlexBaselineDiv = styled.div`
-  display: flex;
-  align-items: baseline;
-`
-export const FlexCenterDiv = styled(FlexDiv)`
-  align-items: center;
-  justify-content: space-between;
-`
-export const FlexEndDiv = styled(FlexDiv)`
- align-items: flex-end;
- flex-wrap: wrap;
- justify-content: space-between;
-`
-export const FullWidthDiv = styled.div`
-  width: 100%;
-`
-export const HiddenDiv = styled.div`
-  display: none;
-`
 export const Etikett = styled.div`
   padding: 0.25rem;
   color:  ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]} !important;

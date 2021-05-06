@@ -59,7 +59,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
               target='rinaWindow'
             >
               {t('ui:goToRina')}
-              <HorizontalSeparatorDiv data-size='0.5' />
+              <HorizontalSeparatorDiv size='0.5' />
               <ExternalLink color={linkColor} />
             </HighContrastLink>
             )

@@ -4,16 +4,7 @@ import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'
 import {
-  FlexCenterDiv,
-  FlexDiv,
-  FlexEndDiv,
-  FlexStartDiv,
-  FullWidthDiv,
-  HiddenDiv,
   OneLineSpan,
-  PileCenterDiv,
-  PileDiv,
-  PileEndDiv,
   PrintableTableSorter,
   SeparatorSpan
 } from 'components/StyledComponents'
@@ -32,15 +23,24 @@ import moment, { Moment } from 'moment'
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
-  Row,
   Column,
-  HighContrastInput,
   HighContrastHovedknapp,
+  HighContrastInput,
   HighContrastKnapp,
   HighContrastRadio,
   HighContrastRadioGroup,
   HorizontalSeparatorDiv,
-  VerticalSeparatorDiv
+  VerticalSeparatorDiv,
+  AlignEndRow,
+  FlexCenterDiv,
+  FlexDiv,
+  FlexEndDiv,
+  FlexStartDiv,
+  FullWidthDiv,
+  HiddenDiv,
+  PileCenterDiv,
+  PileDiv,
+  PileEndDiv,
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
@@ -697,7 +697,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                       size='XS'
                       type='circle'
                     />
-                    <HorizontalSeparatorDiv data-size='0.2' />
+                    <HorizontalSeparatorDiv size='0.2' />
                     <span>{_sedSender?.countryLabel}</span>
                     <SeparatorSpan>-</SeparatorSpan>
                     <span>{_sedSender?.institution}</span>
@@ -707,7 +707,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             </FlexDiv>
           </FlexDiv>
           <VerticalSeparatorDiv />
-          <Row>
+          <AlignEndRow>
             <Column>
               <FlexCenterDiv>
                 <FullWidthDiv>
@@ -750,7 +750,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   </FlexEndDiv>
                 </HighContrastRadioGroup>
                 <HorizontalSeparatorDiv />
-                <Tooltip placement='top' trigger={['hover']} overlay={<span>{t('help')}</span>}>
+                <Tooltip placement='top' trigger={['hover']} overlay={(
+                  <>
+                    <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
+                    <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
+                  </>
+                )}>
                   <div style={{ minWidth: '28px' }}>
                     <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
                   </div>
@@ -823,7 +828,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 </FlexDiv>
               </PileEndDiv>
             </Column>
-          </Row>
+          </AlignEndRow>
           <VerticalSeparatorDiv />
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
@@ -1024,7 +1029,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               />
             </div>
           </HiddenDiv>
-          <VerticalSeparatorDiv data-size='3' />
+          <VerticalSeparatorDiv size='3' />
         </PileDiv>
       </PileCenterDiv>
     </NavHighContrast>

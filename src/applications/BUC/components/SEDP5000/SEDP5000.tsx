@@ -92,7 +92,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
         onClick={onBackClick}
       >
         <VenstreChevron />
-        <HorizontalSeparatorDiv data-size='0.25' />
+        <HorizontalSeparatorDiv size='0.25' />
         <span>
           {t('ui:back')}
         </span>
@@ -162,7 +162,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
         ? (
           <>
             {renderBackLink()}
-            <VerticalSeparatorDiv data-size='2' />
+            <VerticalSeparatorDiv size='2' />
             <ExpandingPanel
               open
               renderContentWhenClosed
@@ -195,7 +195,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
       {seeOversikt && (
         <>
           {renderBackLink()}
-          <VerticalSeparatorDiv data-size='2' />
+          <VerticalSeparatorDiv size='2' />
           <ExpandingPanel
             open
             renderContentWhenClosed
@@ -213,13 +213,13 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
               locale={locale}
             />
           </ExpandingPanel>
-          <VerticalSeparatorDiv data-size='3' />
+          <VerticalSeparatorDiv size='3' />
         </>
       )}
       {seeSummer && (
         <>
           {renderBackLink()}
-          <VerticalSeparatorDiv data-size='2' />
+          <VerticalSeparatorDiv size='2' />
           <ExpandingPanel
             open
             renderContentWhenClosed
@@ -237,7 +237,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
               sedContent={sedContent}
             />
           </ExpandingPanel>
-          <VerticalSeparatorDiv data-size='3' />
+          <VerticalSeparatorDiv size='3' />
         </>
       )}
     </div>

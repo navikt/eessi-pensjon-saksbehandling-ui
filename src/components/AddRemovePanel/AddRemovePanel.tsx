@@ -1,9 +1,8 @@
 import Add from 'assets/icons/Tilsette'
 import Trashcan from 'assets/icons/Trashcan'
 import classNames from 'classnames'
-import { FlexCenterDiv } from 'components/StyledComponents'
 import { Normaltekst } from 'nav-frontend-typografi'
-import { HighContrastFlatknapp, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { FlexCenterDiv, HighContrastFlatknapp, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -36,7 +35,7 @@ const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
         <Normaltekst>
           {t('ui:are-you-sure')}
         </Normaltekst>
-        <HorizontalSeparatorDiv data-size='0.5' />
+        <HorizontalSeparatorDiv size='0.5' />
         <HighContrastFlatknapp
           mini
           kompakt
@@ -44,7 +43,7 @@ const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
         >
           {t('ui:yes')}
         </HighContrastFlatknapp>
-        <HorizontalSeparatorDiv data-size='0.5' />
+        <HorizontalSeparatorDiv size='0.5' />
         <HighContrastFlatknapp
           mini
           kompakt
@@ -62,7 +61,7 @@ const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
           onClick={existingItem ? onBeginRemove : onAddNew}
         >
           {!existingItem ? <Add /> : <Trashcan />}
-          <HorizontalSeparatorDiv data-size='0.5' />
+          <HorizontalSeparatorDiv size='0.5' />
           {!existingItem ? t('ui:add') : t('ui:remove')}
         </HighContrastFlatknapp>
         {!existingItem && (

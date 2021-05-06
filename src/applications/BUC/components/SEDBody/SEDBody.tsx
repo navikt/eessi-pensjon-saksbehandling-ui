@@ -187,7 +187,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       <Undertittel>
         {t('ui:attachments')}
       </Undertittel>
-      <VerticalSeparatorDiv data-size='2' />
+      <VerticalSeparatorDiv size='2' />
       {!_.isEmpty(_items) && (
         <JoarkBrowser
           data-test-id='a-buc-c-sedbody__attachments-id'

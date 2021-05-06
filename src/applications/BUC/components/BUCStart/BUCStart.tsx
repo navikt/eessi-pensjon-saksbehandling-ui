@@ -526,7 +526,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       <div data-test-id='a-buc-c-bucstart'>
         <Row>
           <Column>
-            <VerticalSeparatorDiv data-size='2' />
+            <VerticalSeparatorDiv size='2' />
             <>
               <label className='skjemaelement__label'>
                 {t('buc:form-subjectArea')}
@@ -599,7 +599,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                     placeholder={t('buc:form-fnrdnr')}
                     feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
                   />
-                  <HorizontalSeparatorDiv data-size='0.5' />
+                  <HorizontalSeparatorDiv size='0.5' />
                   <HelpDiv>
                     <Tooltip placement='top' trigger={['click']} overlay={<span>{t('buc:help-avdodFnr')}</span>}>
                       <HighContrastFlatknapp mini kompakt>
@@ -636,9 +636,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
               </>
             )}
           </Column>
-          <HorizontalSeparatorDiv data-size='2' />
+          <HorizontalSeparatorDiv size='2' />
           <Column>
-            <VerticalSeparatorDiv data-size='2' />
+            <VerticalSeparatorDiv size='2' />
             <MultipleSelect<Tag>
               ariaLabel={t('buc:form-tagsForBUC')}
               aria-describedby='help-tags'
@@ -668,7 +668,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         </Row>
         {_showWarningBuc && (
           <>
-            <VerticalSeparatorDiv data-size='2' />
+            <VerticalSeparatorDiv size='2' />
             <Row>
               <Column>
                 <AlertStripe
@@ -680,12 +680,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   </Normaltekst>
                 </AlertStripe>
               </Column>
-              <HorizontalSeparatorDiv data-size='2' />
+              <HorizontalSeparatorDiv size='2' />
               <Column />
             </Row>
           </>
         )}
-        <VerticalSeparatorDiv data-size='2' />
+        <VerticalSeparatorDiv size='2' />
         <div data-test-id='a-buc-c-bucstart__buttons-id'>
           <HighContrastHovedknapp
             data-amplitude='buc.new.create'
@@ -711,7 +711,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         <VerticalSeparatorDiv />
         {!hasNoValidationErrors(_validation) && (
           <>
-            <VerticalSeparatorDiv data-size='2' />
+            <VerticalSeparatorDiv size='2' />
             <Row>
               <Column>
                 <HighContrastFeiloppsummering
@@ -720,7 +720,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}
                 />
               </Column>
-              <HorizontalSeparatorDiv data-size='2' />
+              <HorizontalSeparatorDiv size='2' />
               <Column />
             </Row>
           </>

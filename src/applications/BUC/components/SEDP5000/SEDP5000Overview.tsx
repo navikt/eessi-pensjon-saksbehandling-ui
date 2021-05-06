@@ -1,16 +1,6 @@
 import WarningCircle from 'assets/icons/WarningCircle'
 import Alert from 'components/Alert/Alert'
-import {
-  FlexCenterDiv,
-  FlexEndDiv,
-  FlexStartDiv,
-  HiddenDiv,
-  PileCenterDiv,
-  PileDiv,
-  PileEndDiv,
-  PrintableTableSorter,
-  SeparatorSpan
-} from 'components/StyledComponents'
+import { PrintableTableSorter, SeparatorSpan } from 'components/StyledComponents'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
@@ -23,9 +13,17 @@ import moment from 'moment'
 import { Checkbox, Select } from 'nav-frontend-skjema'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
-  Column, Row,
+  Column,
+  FlexCenterDiv,
+  FlexEndSpacedDiv,
+  FlexStartDiv,
+  HiddenDiv,
   HighContrastKnapp,
   HorizontalSeparatorDiv,
+  PileCenterDiv,
+  PileDiv,
+  PileEndDiv,
+  Row,
   themeKeys,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
@@ -188,7 +186,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
               <UndertekstBold>
                 {t('buc:p5000-active-seds')}:
               </UndertekstBold>
-              <VerticalSeparatorDiv data-size='0.5' />
+              <VerticalSeparatorDiv size='0.5' />
               {Object.keys(_activeSeds).map(sedId => {
                 const sender: SedSender | undefined = getSedSender(sedId)
                 return (
@@ -200,7 +198,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                       id={'a-buc-c-sedp5000__checkbox-' + sedId}
                       onChange={() => changeActiveSed(sedId)}
                       label={(
-                        <FlexEndDiv>
+                        <FlexEndSpacedDiv style={{flexWrap: 'wrap'}}>
                           <span>
                             {t('buc:form-dateP5000', { date: sender?.date })}
                           </span>
@@ -214,7 +212,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                                   size='XS'
                                   type='circle'
                                 />
-                                <HorizontalSeparatorDiv data-size='0.2' />
+                                <HorizontalSeparatorDiv size='0.2' />
                                 <span>{sender?.countryLabel}</span>
                                 <SeparatorSpan>-</SeparatorSpan>
                                 <span>{sender?.institution}</span>
@@ -223,31 +221,19 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                             : sedId}
                           {emptyPeriodReport[sedId] && (
                             <>
-                              <HorizontalSeparatorDiv data-size='0.5' />
+                              <HorizontalSeparatorDiv size='0.5' />
                               <WarningCircle />
                             </>
                           )}
-                        </FlexEndDiv>
+                        </FlexEndSpacedDiv>
                   )}
                     />
-                    <VerticalSeparatorDiv data-size='0.5' />
+                    <VerticalSeparatorDiv size='0.5' />
                   </div>
                 )
               })}
             </PileDiv>
           </Column>
-          {warning && (
-            <Column data-flex='2'>
-              <HorizontalSeparatorDiv />
-              <Alert
-                type='client'
-                fixed={false}
-                status='WARNING'
-                message={t('buc:form-P5000-warning')}
-              />
-              <HorizontalSeparatorDiv />
-            </Column>
-          )}
           <Column>
             <PileEndDiv>
               <CustomSelect
@@ -287,6 +273,23 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
           </Column>
         </Row>
         <VerticalSeparatorDiv />
+        {warning && (
+          <>
+            <Row>
+              <Column>
+                <Alert
+                  type='client'
+                  fixed={false}
+                  status='WARNING'
+                  message={t('buc:form-P5000-warning')}
+                />
+                <HorizontalSeparatorDiv />
+              </Column>
+              <Column/>
+            </Row>
+          <VerticalSeparatorDiv/>
+        </>
+        )}
         <hr />
         <VerticalSeparatorDiv />
         <TableSorter
@@ -379,7 +382,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
             />
           </div>
         </HiddenDiv>
-        <VerticalSeparatorDiv data-size='3' />
+        <VerticalSeparatorDiv size='3' />
       </PileCenterDiv>
     </NavHighContrast>
   )

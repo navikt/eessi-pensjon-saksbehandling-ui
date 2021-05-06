@@ -89,7 +89,7 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
           mood='trist'
           data-test-id='p-error__veileder-id'
         />
-        <VerticalSeparatorDiv data-size='2' />
+        <VerticalSeparatorDiv size='2' />
         <Title data-test-id='p-error__title-id'>
           {title}
         </Title>

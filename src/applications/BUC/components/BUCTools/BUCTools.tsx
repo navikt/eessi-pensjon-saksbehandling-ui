@@ -280,7 +280,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     onClick={onGettingP5000Click}
                   >
                     {t('buc:form-seeP5000s')}
-                    <HorizontalSeparatorDiv data-size='0.3' />
+                    <HorizontalSeparatorDiv size='0.3' />
                     <HoyreChevron />
                   </HighContrastKnapp>
                 </FlexDiv>
@@ -288,11 +288,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             )}
             {tabs[_activeTab].key === 'tags' && (
               <>
-                <VerticalSeparatorDiv data-size='0.5' />
+                <VerticalSeparatorDiv size='0.5' />
                 <Normaltekst>
                   {t('buc:form-tagsForBUC-description')}
                 </Normaltekst>
-                <VerticalSeparatorDiv data-size='0.5' />
+                <VerticalSeparatorDiv size='0.5' />
                 {_tags && !_.isEmpty(_tags) && (
                   <>
                     <dt>
@@ -307,7 +307,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     </dd>
                   </>
                 )}
-                <VerticalSeparatorDiv data-size='0.5' />
+                <VerticalSeparatorDiv size='0.5' />
                 <MultipleSelect<Tag>
                   ariaLabel={t('buc:form-tagsForBUC')}
                   aria-describedby='help-tags'
@@ -324,7 +324,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             )}
             {tabs[_activeTab].key === 'comments' && (
               <>
-                <VerticalSeparatorDiv data-size='0.5' />
+                <VerticalSeparatorDiv size='0.5' />
                 <Element>
                   {t('ui:comment')}
                 </Element>
@@ -352,7 +352,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                       {t('ui:noCommentsYet')}
                     </Normaltekst>
                     )}
-                <VerticalSeparatorDiv data-size='0.5' />
+                <VerticalSeparatorDiv size='0.5' />
                 <TextArea
                   data-test-id='a-buc-c-buctools__comment-textarea-id'
                   className='skjemaelement__input'

@@ -1,12 +1,4 @@
-import {
-  FlexCenterDiv,
-  FlexEndDiv,
-  HiddenDiv,
-  PileCenterDiv,
-  PileDiv,
-  PrintableTableSorter,
-  SeparatorSpan
-} from 'components/StyledComponents'
+import { PrintableTableSorter, SeparatorSpan } from 'components/StyledComponents'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
@@ -20,8 +12,13 @@ import { Checkbox } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
   Column,
+  FlexCenterDiv,
+  FlexEndSpacedDiv,
+  HiddenDiv,
   HighContrastKnapp,
   HorizontalSeparatorDiv,
+  PileCenterDiv,
+  PileDiv,
   Row,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
@@ -192,7 +189,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
               <UndertekstBold>
                 {t('buc:p5000-active-seds')}:
               </UndertekstBold>
-              <VerticalSeparatorDiv data-size='0.5' />
+              <VerticalSeparatorDiv size='0.5' />
               {Object.keys(_activeSeds).map(sedId => {
                 const sender: SedSender | undefined = getSedSender(sedId)
                 return (
@@ -204,7 +201,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
                       id={'a-buc-c-sedp5000__checkbox-' + sedId}
                       onChange={() => changeActiveSed(sedId)}
                       label={(
-                        <FlexEndDiv>
+                        <FlexEndSpacedDiv>
                           <span>
                             {t('buc:form-dateP5000', { date: sender?.date })}
                           </span>
@@ -218,24 +215,24 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
                                   size='XS'
                                   type='circle'
                                 />
-                                <HorizontalSeparatorDiv data-size='0.2' />
+                                <HorizontalSeparatorDiv size='0.2' />
                                 <span>{sender?.countryLabel}</span>
                                 <SeparatorSpan>-</SeparatorSpan>
                                 <span>{sender?.institution}</span>
                               </FlexCenterDiv>
                               )
                             : sedId}
-                        </FlexEndDiv>
+                        </FlexEndSpacedDiv>
                     )}
                     />
-                    <VerticalSeparatorDiv data-size='0.5' />
+                    <VerticalSeparatorDiv size='0.5' />
                   </div>
                 )
               })}
             </PileDiv>
           </Column>
           <Column>
-            <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
+            <FlexEndSpacedDiv style={{ flexDirection: 'row-reverse' }}>
               <ReactToPrint
                 documentTitle='P5000Sum'
                 onAfterPrint={afterPrintOut}
@@ -252,7 +249,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
                   return componentRef.current
                 }}
               />
-            </FlexEndDiv>
+            </FlexEndSpacedDiv>
           </Column>
         </Row>
         <VerticalSeparatorDiv />
@@ -328,7 +325,7 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
             />
           </div>
         </HiddenDiv>
-        <VerticalSeparatorDiv data-size='3' />
+        <VerticalSeparatorDiv size='3' />
       </PileCenterDiv>
     </NavHighContrast>
   )
