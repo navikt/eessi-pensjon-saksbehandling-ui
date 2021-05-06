@@ -320,10 +320,33 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     }
   }
 
+  const checkForBosetningsperioder = (options: RenderEditableOptions<TableContext>, what: string) => {
+    let _value: string | number
+    if (options.context.forsikringElklerBosetningsperioder) {
+        if (_.isNil(options.value) || options.value === 0) {
+          _value = ''
+        } else {
+          _value = options.value
+        }
+     } else {
+      if (_.isNil( options.value) || options.value === '') {
+        _value = 0
+      } else {
+        _value = options.value
+      }
+    }
+    if (_value !== options.value) {
+      options.setValue({
+        [what]: _value
+      })
+    }
+    return _value
+  }
+
   const renderDagerEdit = (options: RenderEditableOptions<TableContext>) => {
+    let value = checkForBosetningsperioder(options, 'dag')
     return (
       <HighContrastInput
-        type='number'
         id='c-tableSorter__edit-dag-input-id'
         className='c-tableSorter__edit-input'
         label=''
@@ -332,41 +355,42 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           e.target.value, options
         )}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          dag: parseInt(e.target.value)
+          dag: isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)
         })}
-        value={options.value}
+        value={value}
       />
     )
   }
 
-  const renderManedEdit = (options: RenderEditableOptions) => {
+  const renderManedEdit = (options: RenderEditableOptions<TableContext>) => {
+    let value = checkForBosetningsperioder(options, 'mnd')
+
     return (
       <HighContrastInput
-        type='number'
         id='c-tableSorter__edit-maned-input-id'
         className='c-tableSorter__edit-input'
         label=''
         feil={options.feil}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          mnd: parseInt(e.target.value)
+          mnd: isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)
         })}
-        value={options.value}
+        value={value}
       />
     )
   }
 
-  const renderAarEdit = (options: RenderEditableOptions) => {
+  const renderAarEdit = (options: RenderEditableOptions<TableContext>) => {
+    let value = checkForBosetningsperioder(options, 'aar')
     return (
       <HighContrastInput
-        type='number'
         id='c-tableSorter__edit-aar-input-id'
         className='c-tableSorter__edit-input'
         label=''
         feil={options.feil}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          aar: parseInt(e.target.value)
+          aar: isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)
         })}
-        value={options.value}
+        value={value}
       />
     )
   }
@@ -448,7 +472,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     )
   }
 
-  const sumItems = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
+  /*const sumItems = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
     const res: SEDP5000EditRows = []
     items.forEach((it) => {
       const found: number = _.findIndex(res, d => d.type === it.type)
@@ -479,7 +503,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       }
     })
     return res
-  }
+  }*/
 
   const beforePrintOut = (): void => {}
 
@@ -522,7 +546,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
             const answer = window.confirm(t('buc:form-areYouSure'))
             if (answer) {
               let newItems = _.cloneDeep(items)
-              newItems = _.filter(newItems, i => i.type !== item.type)
+              newItems = _.filter(newItems, i => i.key !== item.key)
               setItems(newItems)
             }
           }}
@@ -549,7 +573,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         if (_.isNil(newSedContent.pensjon.medlemskapboarbeid)) {
           newSedContent.pensjon.medlemskapboarbeid = {}
         }
-        newSedContent.pensjon.medlemskapboarbeid.medlemskap = sumItems(_items)?.map(item => {
+        newSedContent.pensjon.medlemskapboarbeid.medlemskap = _items?.map(item => {
           const medlemskap: any = {}
           medlemskap.relevans = item.ytelse /// ???
           medlemskap.ordning = item.ordning
@@ -671,7 +695,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return <div />
   }
 
-  const canSendOrSave = !!_ytelseOption && _items.length > 0
+  const canSave = _items.length > 0
+  const canSend = !!_ytelseOption && _items.length > 0
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -768,7 +793,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 <VerticalSeparatorDiv />
                 <FlexStartDiv>
                   <HighContrastHovedknapp
-                    disabled={sendingP5000info || !canSendOrSave}
+                    disabled={sendingP5000info || !canSend}
                     spinner={sendingP5000info}
                     onClick={handleOverforTilRina}
                   >
@@ -777,7 +802,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   <HorizontalSeparatorDiv />
                   <HighContrastKnapp
                     onClick={onSave}
-                    disabled={_onSaving || !canSendOrSave}
+                    disabled={_onSaving || !canSave}
                     spinner={_onSaving}
                   >
                     {_onSaving ? t('ui:saving') : t('ui:save')}
@@ -835,7 +860,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           <TableSorter
             key={tableSorterKey}
             highContrast={highContrast}
-            items={sumItems(_items)}
+            items={_items}
             context={{
               items: _items,
               forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
@@ -913,7 +938,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               {
                 id: 'dag',
                 label: t('ui:day'),
-                type: 'number',
+                type: 'string',
                 renderCell: renderDager,
                 edit: {
                   defaultValue: 0,
@@ -927,7 +952,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               {
                 id: 'mnd',
                 label: t('ui:month'),
-                type: 'number',
+                type: 'string',
                 edit: {
                   defaultValue: 0,
                   validation: [{
@@ -940,7 +965,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               {
                 id: 'aar',
                 label: t('ui:year'),
-                type: 'number',
+                type: 'string',
                 edit: {
                   defaultValue: 0,
                   validation: [{
@@ -995,7 +1020,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               // important to it re-renders when sorting changes
                 key={tableSorterKey}
                 className='print-version'
-                items={sumItems(_items)}
+                items={_items}
                 editable={false}
                 animatable={false}
                 searchable={false}
@@ -1029,9 +1054,9 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               />
             </div>
           </HiddenDiv>
-          <VerticalSeparatorDiv size='3' />
         </PileDiv>
       </PileCenterDiv>
+      <VerticalSeparatorDiv size='3' />
     </NavHighContrast>
   )
 }
