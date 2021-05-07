@@ -46,18 +46,6 @@ ui-fss.g3[id="c22"] {
   content: "c23,";
 }
 
-.c7 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-ui-fss.g5[id="c6"] {
-  content: "c7,";
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -70,8 +58,20 @@ ui-fss.g5[id="c6"] {
   flex-direction: column;
 }
 
-ui-fss.g9[id="c2"] {
+ui-fss.g24[id="c2"] {
   content: "c4,";
+}
+
+.c7 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+ui-fss.g28[id="c6"] {
+  content: "c7,";
 }
 
 .c1 {
@@ -94,7 +94,7 @@ ui-fss.g9[id="c2"] {
   background: #ecefcc !important;
 }
 
-ui-fss.g34[id="c0"] {
+ui-fss.g52[id="c0"] {
   content: "c1,";
 }
 
@@ -110,7 +110,7 @@ ui-fss.g34[id="c0"] {
   justify-content: space-between;
 }
 
-ui-fss.g35[id="c10"] {
+ui-fss.g53[id="c10"] {
   content: "c11,";
 }
 
@@ -118,7 +118,7 @@ ui-fss.g35[id="c10"] {
   width: 100%;
 }
 
-ui-fss.g36[id="c3"] {
+ui-fss.g54[id="c3"] {
   content: "c5,";
 }
 
@@ -142,7 +142,7 @@ ui-fss.g36[id="c3"] {
   flex: 2;
 }
 
-ui-fss.g37[id="c26"] {
+ui-fss.g55[id="c26"] {
   content: "c27,";
 }
 
@@ -152,14 +152,14 @@ ui-fss.g37[id="c26"] {
   flex: 1;
 }
 
-ui-fss.g38[id="c12"] {
+ui-fss.g56[id="c12"] {
   content: "c13,";
 }
 
 .c29 {
   border-width: 3px;
   border-style: solid;
-  border-color: #3e3832;
+  border-color: #262626;
   border-radius: 50px;
   min-width: 50px;
   min-height: 50px;
@@ -181,7 +181,7 @@ ui-fss.g38[id="c12"] {
   font-size: 1.5rem;
 }
 
-ui-fss.g39[id="c28"] {
+ui-fss.g57[id="c28"] {
   content: "c29,";
 }
 
@@ -197,7 +197,7 @@ ui-fss.g39[id="c28"] {
   margin: 0.2rem 0rem;
 }
 
-ui-fss.g40[id="c14"] {
+ui-fss.g58[id="c14"] {
   content: "c15,";
 }
 
@@ -207,7 +207,7 @@ ui-fss.g40[id="c14"] {
   color: #0067c5 !important;
 }
 
-ui-fss.g41[id="c24"] {
+ui-fss.g59[id="c24"] {
   content: "c25,";
 }
 
@@ -216,7 +216,7 @@ ui-fss.g41[id="c24"] {
   padding-right: 0.5rem;
 }
 
-ui-fss.g42[id="c16"] {
+ui-fss.g60[id="c16"] {
   content: "c17,";
 }
 
@@ -235,7 +235,7 @@ ui-fss.g42[id="c16"] {
   align-items: center;
 }
 
-ui-fss.g43[id="c30"] {
+ui-fss.g61[id="c30"] {
   content: "c31,";
 }
 
@@ -244,7 +244,7 @@ ui-fss.g43[id="c30"] {
   width: 100%;
 }
 
-ui-fss.g44[id="c8"] {
+ui-fss.g62[id="c8"] {
   content: "c9,";
 }
 
@@ -1170,7 +1170,7 @@ ui-fss.g44[id="c8"] {
   }
   newBuc={true}
 >
-  <J
+  <me
     highContrast={false}
   >
     <Component
@@ -1189,9 +1189,9 @@ ui-fss.g44[id="c8"] {
           "container-sm": "(720px + @grid-gutter-width)",
           "container-tablet": "(720px + @grid-gutter-width)",
           "fokusFarge": "#19548a",
-          "grayBackground": "#e9e7e7",
-          "grayIcon": "#b7b1a9",
-          "grayInactive": "#78706a",
+          "grayBackground": "#f1f1f1",
+          "grayIcon": "#a0a0a0",
+          "grayInactive": "#6a6a6a",
           "grayModia": "#333333",
           "grid-columns": "12",
           "grid-float-breakpoint": "768px",
@@ -1202,13 +1202,13 @@ ui-fss.g44[id="c8"] {
           "line-height-small": "1.5",
           "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
-          "main-border-color": "#78706a",
+          "main-border-color": "#6a6a6a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#b7b1a9",
+          "main-disabled-color": "#a0a0a0",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
-          "main-font-color": "#3e3832",
+          "main-font-color": "#262626",
           "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
@@ -1232,10 +1232,10 @@ ui-fss.g44[id="c8"] {
           "navDypBlaLighten40": "#99bdcd",
           "navDypBlaLighten60": "#669db4",
           "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c6c2bf",
-          "navGra40": "#b7b1a9",
-          "navGra60": "#78706a",
-          "navGra80": "#59514b",
+          "navGra20": "#c9c9c9",
+          "navGra40": "#a0a0a0",
+          "navGra60": "#6a6a6a",
+          "navGra80": "#4f4f4f",
           "navGraBakgrunn": "#f1f1f1",
           "navGronn": "#06893a",
           "navGronnDarken20": "#334834",
@@ -1273,8 +1273,8 @@ ui-fss.g44[id="c8"] {
           "navLysBlaLighten40": "#c2eaf7",
           "navLysBlaLighten60": "#a3e0f4",
           "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#e9e7e7",
-          "navMorkGra": "#3e3832",
+          "navLysGra": "#f1f1f1",
+          "navMorkGra": "#262626",
           "navOransje": "#ff9100",
           "navOransjeDarken20": "#654a28",
           "navOransjeDarken40": "#8b5c1e",
@@ -1468,19 +1468,20 @@ ui-fss.g44[id="c8"] {
                                 className="c20 c21 noMargin"
                                 data-test-id="a-buc-c-institutionlist__div-id"
                               >
-                                <Bd
+                                <Td
                                   country="NO"
                                   label="Norge"
                                   size="S"
                                   type="circle"
                                 >
-                                  <Ie
+                                  <Component
                                     highContrast={false}
                                   >
-                                    <Re
+                                    <Pe
                                       theme={
                                         Object {
-                                          "alternative-background-color": "#e9e7e7",
+                                          "alternative-background-color": "#FFFFFF",
+                                          "alternative-hover-color": "#cce1f3",
                                           "black": "#000000",
                                           "border-radius-base": "4px",
                                           "border-radius-large": "6px",
@@ -1491,7 +1492,7 @@ ui-fss.g44[id="c8"] {
                                           "container-md": "(940px + @grid-gutter-width)",
                                           "container-sm": "(720px + @grid-gutter-width)",
                                           "container-tablet": "(720px + @grid-gutter-width)",
-                                          "fokusFarge": "#01b19d",
+                                          "fokusFarge": "#19548a",
                                           "grayBackground": "#e9e7e7",
                                           "grayIcon": "#b7b1a9",
                                           "grayInactive": "#78706a",
@@ -1503,107 +1504,108 @@ ui-fss.g44[id="c8"] {
                                           "inverted-font-color": "#FFFFFF",
                                           "line-height-large": "1.3333333",
                                           "line-height-small": "1.5",
-                                          "main-active-color": "#43dfNaN",
-                                          "main-background-color": "#FFFFFF",
+                                          "main-active-color": "#005b82",
+                                          "main-background-color": "#f1f1f1",
                                           "main-border-color": "#78706a",
                                           "main-border-radius": "4px",
+                                          "main-border-width": "1px",
                                           "main-disabled-color": "#b7b1a9",
                                           "main-error-color": "#ba3a26",
-                                          "main-focus-color": "#01b19d",
+                                          "main-focus-color": "#19548a",
                                           "main-font-color": "#3e3832",
-                                          "main-hover-color": "#20f4NaN",
+                                          "main-hover-color": "#0074df",
                                           "main-interactive-color": "#0067c5",
                                           "main-success-color": "#06893a",
                                           "main-warning-color": "#ff9100",
                                           "navBakgrunn": "#ffffff",
                                           "navBla": "#0067c5",
-                                          "navBlaDarken20": "#007fb7",
-                                          "navBlaDarken40": "#0198aa",
-                                          "navBlaDarken60": "#01b19d",
-                                          "navBlaDarken80": "#02ca90",
-                                          "navBlaLighten20": "#0385NaN",
-                                          "navBlaLighten40": "#06a3NaN",
-                                          "navBlaLighten60": "#09c2NaN",
-                                          "navBlaLighten80": "#0ce0NaN",
+                                          "navBlaDarken20": "#32414f",
+                                          "navBlaDarken40": "#254b6d",
+                                          "navBlaDarken60": "#19548a",
+                                          "navBlaDarken80": "#0c5ea8",
+                                          "navBlaLighten20": "#cce1f3",
+                                          "navBlaLighten40": "#99c2e8",
+                                          "navBlaLighten60": "#66a4dc",
+                                          "navBlaLighten80": "#3385d1",
                                           "navDypBla": "#005b82",
-                                          "navDypBlaDarken20": "#007682",
-                                          "navDypBlaDarken40": "#019182",
-                                          "navDypBlaDarken60": "#01ac82",
-                                          "navDypBlaDarken80": "#02c782",
-                                          "navDypBlaLighten20": "#037bNaN",
-                                          "navDypBlaLighten40": "#069cNaN",
-                                          "navDypBlaLighten60": "#09bdNaN",
-                                          "navDypBlaLighten80": "#0cdeNaN",
+                                          "navDypBlaDarken20": "#323f42",
+                                          "navDypBlaDarken40": "#254652",
+                                          "navDypBlaDarken60": "#194d62",
+                                          "navDypBlaDarken80": "#0c5472",
+                                          "navDypBlaLighten20": "#ccdee6",
+                                          "navDypBlaLighten40": "#99bdcd",
+                                          "navDypBlaLighten60": "#669db4",
+                                          "navDypBlaLighten80": "#337c9b",
                                           "navGra20": "#c6c2bf",
                                           "navGra40": "#b7b1a9",
                                           "navGra60": "#78706a",
                                           "navGra80": "#59514b",
                                           "navGraBakgrunn": "#f1f1f1",
                                           "navGronn": "#06893a",
-                                          "navGronnDarken20": "#059b48",
-                                          "navGronnDarken40": "#04ad57",
-                                          "navGronnDarken60": "#04bf65",
-                                          "navGronnDarken80": "#03d174",
-                                          "navGronnLighten20": "#07a0NaN",
-                                          "navGronnLighten40": "#09b8NaN",
-                                          "navGronnLighten60": "#0bcfNaN",
-                                          "navGronnLighten80": "#0de7NaN",
+                                          "navGronnDarken20": "#334834",
+                                          "navGronnDarken40": "#285835",
+                                          "navGronnDarken60": "#1c6937",
+                                          "navGronnDarken80": "#117938",
+                                          "navGronnLighten20": "#cde7d8",
+                                          "navGronnLighten40": "#9bd0b0",
+                                          "navGronnLighten60": "#6ab889",
+                                          "navGronnLighten80": "#38a161",
                                           "navLilla": "#634689",
-                                          "navLillaDarken20": "#4f6587",
-                                          "navLillaDarken40": "#3c8486",
-                                          "navLillaDarken60": "#29a485",
-                                          "navLillaDarken80": "#16c384",
-                                          "navLillaLighten20": "#526bNaN",
-                                          "navLillaLighten40": "#4190NaN",
-                                          "navLillaLighten60": "#30b5NaN",
-                                          "navLillaLighten80": "#1fdaNaN",
+                                          "navLillaDarken20": "#453b43",
+                                          "navLillaDarken40": "#4d3e55",
+                                          "navLillaDarken60": "#544066",
+                                          "navLillaDarken80": "#5c4378",
+                                          "navLillaLighten20": "#e0dae7",
+                                          "navLillaLighten40": "#c1b5d0",
+                                          "navLillaLighten60": "#a190b8",
+                                          "navLillaLighten80": "#826ba1",
                                           "navLimeGronn": "#a2ad00",
-                                          "navLimeGronnDarken20": "#82b71a",
-                                          "navLimeGronnDarken40": "#62c234",
-                                          "navLimeGronnDarken60": "#42cd4e",
-                                          "navLimeGronnDarken80": "#22d868",
-                                          "navLimeGronnLighten20": "#84bdNaN",
-                                          "navLimeGronnLighten40": "#67cdNaN",
-                                          "navLimeGronnLighten60": "#49deNaN",
-                                          "navLimeGronnLighten80": "#2ceeNaN",
+                                          "navLimeGronnDarken20": "#524f28",
+                                          "navLimeGronnDarken40": "#66671e",
+                                          "navLimeGronnDarken60": "#7a7e14",
+                                          "navLimeGronnDarken80": "#8e960a",
+                                          "navLimeGronnLighten20": "#ecefcc",
+                                          "navLimeGronnLighten40": "#dade99",
+                                          "navLimeGronnLighten60": "#c7ce66",
+                                          "navLimeGronnLighten80": "#b5bd33",
                                           "navLysBla": "#66cbec",
-                                          "navLysBlaDarken20": "#52cfd7",
-                                          "navLysBlaDarken40": "#3ed4c2",
-                                          "navLysBlaDarken60": "#2ad9ad",
-                                          "navLysBlaDarken80": "#16de98",
-                                          "navLysBlaLighten20": "#54d5NaN",
-                                          "navLysBlaLighten40": "#43dfNaN",
-                                          "navLysBlaLighten60": "#31eaNaN",
-                                          "navLysBlaLighten80": "#20f4NaN",
+                                          "navLysBlaDarken20": "#465557",
+                                          "navLysBlaDarken40": "#4e737c",
+                                          "navLysBlaDarken60": "#5690a2",
+                                          "navLysBlaDarken80": "#5eaec7",
+                                          "navLysBlaLighten20": "#e0f5fb",
+                                          "navLysBlaLighten40": "#c2eaf7",
+                                          "navLysBlaLighten60": "#a3e0f4",
+                                          "navLysBlaLighten80": "#85d5f0",
                                           "navLysGra": "#e9e7e7",
                                           "navMorkGra": "#3e3832",
                                           "navOransje": "#ff9100",
-                                          "navOransjeDarken20": "#cca11a",
-                                          "navOransjeDarken40": "#9ab134",
-                                          "navOransjeDarken60": "#67c24e",
-                                          "navOransjeDarken80": "#35d268",
-                                          "navOransjeLighten20": "#cfa7NaN",
-                                          "navOransjeLighten40": "#9fbdNaN",
-                                          "navOransjeLighten60": "#6fd3NaN",
-                                          "navOransjeLighten80": "#3fe9NaN",
+                                          "navOransjeDarken20": "#654a28",
+                                          "navOransjeDarken40": "#8b5c1e",
+                                          "navOransjeDarken60": "#b26d14",
+                                          "navOransjeDarken80": "#d87f0a",
+                                          "navOransjeLighten20": "#ffe9cc",
+                                          "navOransjeLighten40": "#ffd399",
+                                          "navOransjeLighten60": "#ffbd66",
+                                          "navOransjeLighten80": "#ffa733",
                                           "navRod": "#c30000",
-                                          "navRodDarken20": "#9c2d1a",
-                                          "navRodDarken40": "#765a34",
-                                          "navRodDarken60": "#4f884e",
-                                          "navRodDarken80": "#29b568",
-                                          "navRodLighten20": "#9f33NaN",
-                                          "navRodLighten40": "#7b66NaN",
-                                          "navRodLighten60": "#5799NaN",
-                                          "navRodLighten80": "#33ccNaN",
+                                          "navRodDarken20": "#592d28",
+                                          "navRodDarken40": "#73221e",
+                                          "navRodDarken60": "#8e1614",
+                                          "navRodDarken80": "#a80b0a",
+                                          "navRodLighten20": "#f3cccc",
+                                          "navRodLighten40": "#e79999",
+                                          "navRodLighten60": "#db6666",
+                                          "navRodLighten80": "#cf3333",
                                           "orangeFocus": "#ffbd66",
-                                          "orangeFocusDarken20": "#ccc46b",
-                                          "orangeFocusDarken40": "#9acc71",
-                                          "orangeFocusDarken60": "#67d377",
-                                          "orangeFocusDarken80": "#35db7d",
-                                          "orangeFocusLighten20": "#cfcaNaN",
-                                          "orangeFocusLighten40": "#9fd7NaN",
-                                          "orangeFocusLighten60": "#6fe4NaN",
-                                          "orangeFocusLighten80": "#3ff1NaN",
+                                          "orangeFocusDarken20": "#65533c",
+                                          "orangeFocusDarken40": "#8b6d47",
+                                          "orangeFocusDarken60": "#b28851",
+                                          "orangeFocusDarken80": "#d8a25c",
+                                          "orangeFocusLighten20": "#fff2e0",
+                                          "orangeFocusLighten40": "#ffe5c2",
+                                          "orangeFocusLighten60": "#ffd7a3",
+                                          "orangeFocusLighten80": "#ffca85",
                                           "padding-base-horizontal": "12px",
                                           "padding-base-vertical": "6px",
                                           "padding-large-horizontal": "16px",
@@ -1614,14 +1616,14 @@ ui-fss.g44[id="c8"] {
                                           "padding-xs-vertical": "1px",
                                           "pinkErrorBg": "#f3e3e3",
                                           "redError": "#ba3a26",
-                                          "redErrorDarken20": "#955b38",
-                                          "redErrorDarken40": "#707d4b",
-                                          "redErrorDarken60": "#4c9f5d",
-                                          "redErrorDarken80": "#27c170",
-                                          "redErrorLighten20": "#9761NaN",
-                                          "redErrorLighten40": "#7588NaN",
-                                          "redErrorLighten60": "#53b0NaN",
-                                          "redErrorLighten80": "#31d7NaN",
+                                          "redErrorDarken20": "#573830",
+                                          "redErrorDarken40": "#70392d",
+                                          "redErrorDarken60": "#88392b",
+                                          "redErrorDarken80": "#a13a28",
+                                          "redErrorLighten20": "#f1d8d4",
+                                          "redErrorLighten40": "#e3b0a8",
+                                          "redErrorLighten60": "#d6897d",
+                                          "redErrorLighten80": "#c86151",
                                           "screen-desktop": "992px",
                                           "screen-lg": "1200px",
                                           "screen-lg-desktop": "1200px",
@@ -1639,7 +1641,7 @@ ui-fss.g44[id="c8"] {
                                         }
                                       }
                                     >
-                                      <ForwardRef(Cd)
+                                      <ForwardRef(Ad)
                                         overlay={
                                           <span>
                                             Norge
@@ -1907,30 +1909,38 @@ ui-fss.g44[id="c8"] {
                                           showAction={Array []}
                                         >
                                           <styled.div
-                                            className="size-S type-circle"
+                                            className="size-S type-circle animate wave"
                                             key="trigger"
                                             onMouseEnter={[Function]}
                                             onMouseLeave={[Function]}
                                             style={Object {}}
                                           >
                                             <div
-                                              className="eAknCK size-S type-circle"
+                                              className="hxgtkf size-S type-circle animate wave"
                                               onMouseEnter={[Function]}
                                               onMouseLeave={[Function]}
                                               style={Object {}}
                                             >
-                                              <img
-                                                alt="Norge"
-                                                src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
-                                                style={Object {}}
-                                              />
+                                              <styled.div
+                                                className="size-S type-circle"
+                                              >
+                                                <div
+                                                  className="JXIdR size-S type-circle"
+                                                >
+                                                  <img
+                                                    alt="Norge"
+                                                    src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
+                                                    style={Object {}}
+                                                  />
+                                                </div>
+                                              </styled.div>
                                             </div>
                                           </styled.div>
                                         </t>
-                                      </ForwardRef(Cd)>
-                                    </Re>
-                                  </Ie>
-                                </Bd>
+                                      </ForwardRef(Ad)>
+                                    </Pe>
+                                  </Component>
+                                </Td>
                                 <Styled(Normaltekst)>
                                   <Normaltekst
                                     className="c22 c23"
@@ -2044,7 +2054,7 @@ ui-fss.g44[id="c8"] {
                     type="circle"
                     wrapper={false}
                   >
-                    <Styled(Bd)
+                    <Styled(Td)
                       className="animate"
                       country="NO"
                       key="0"
@@ -2057,9 +2067,10 @@ ui-fss.g44[id="c8"] {
                       }
                       tooltip={true}
                       type="circle"
+                      wave={true}
                     >
-                      <Bd
-                        className="izBVou animate"
+                      <Td
+                        className="iYxMPu animate"
                         country="NO"
                         label="NO:NAVAT07"
                         size="XL"
@@ -2070,14 +2081,16 @@ ui-fss.g44[id="c8"] {
                         }
                         tooltip={true}
                         type="circle"
+                        wave={true}
                       >
-                        <Ie
+                        <Component
                           highContrast={false}
                         >
-                          <Re
+                          <Pe
                             theme={
                               Object {
-                                "alternative-background-color": "#e9e7e7",
+                                "alternative-background-color": "#FFFFFF",
+                                "alternative-hover-color": "#cce1f3",
                                 "black": "#000000",
                                 "border-radius-base": "4px",
                                 "border-radius-large": "6px",
@@ -2088,7 +2101,7 @@ ui-fss.g44[id="c8"] {
                                 "container-md": "(940px + @grid-gutter-width)",
                                 "container-sm": "(720px + @grid-gutter-width)",
                                 "container-tablet": "(720px + @grid-gutter-width)",
-                                "fokusFarge": "#01b19d",
+                                "fokusFarge": "#19548a",
                                 "grayBackground": "#e9e7e7",
                                 "grayIcon": "#b7b1a9",
                                 "grayInactive": "#78706a",
@@ -2100,107 +2113,108 @@ ui-fss.g44[id="c8"] {
                                 "inverted-font-color": "#FFFFFF",
                                 "line-height-large": "1.3333333",
                                 "line-height-small": "1.5",
-                                "main-active-color": "#43dfNaN",
-                                "main-background-color": "#FFFFFF",
+                                "main-active-color": "#005b82",
+                                "main-background-color": "#f1f1f1",
                                 "main-border-color": "#78706a",
                                 "main-border-radius": "4px",
+                                "main-border-width": "1px",
                                 "main-disabled-color": "#b7b1a9",
                                 "main-error-color": "#ba3a26",
-                                "main-focus-color": "#01b19d",
+                                "main-focus-color": "#19548a",
                                 "main-font-color": "#3e3832",
-                                "main-hover-color": "#20f4NaN",
+                                "main-hover-color": "#0074df",
                                 "main-interactive-color": "#0067c5",
                                 "main-success-color": "#06893a",
                                 "main-warning-color": "#ff9100",
                                 "navBakgrunn": "#ffffff",
                                 "navBla": "#0067c5",
-                                "navBlaDarken20": "#007fb7",
-                                "navBlaDarken40": "#0198aa",
-                                "navBlaDarken60": "#01b19d",
-                                "navBlaDarken80": "#02ca90",
-                                "navBlaLighten20": "#0385NaN",
-                                "navBlaLighten40": "#06a3NaN",
-                                "navBlaLighten60": "#09c2NaN",
-                                "navBlaLighten80": "#0ce0NaN",
+                                "navBlaDarken20": "#32414f",
+                                "navBlaDarken40": "#254b6d",
+                                "navBlaDarken60": "#19548a",
+                                "navBlaDarken80": "#0c5ea8",
+                                "navBlaLighten20": "#cce1f3",
+                                "navBlaLighten40": "#99c2e8",
+                                "navBlaLighten60": "#66a4dc",
+                                "navBlaLighten80": "#3385d1",
                                 "navDypBla": "#005b82",
-                                "navDypBlaDarken20": "#007682",
-                                "navDypBlaDarken40": "#019182",
-                                "navDypBlaDarken60": "#01ac82",
-                                "navDypBlaDarken80": "#02c782",
-                                "navDypBlaLighten20": "#037bNaN",
-                                "navDypBlaLighten40": "#069cNaN",
-                                "navDypBlaLighten60": "#09bdNaN",
-                                "navDypBlaLighten80": "#0cdeNaN",
+                                "navDypBlaDarken20": "#323f42",
+                                "navDypBlaDarken40": "#254652",
+                                "navDypBlaDarken60": "#194d62",
+                                "navDypBlaDarken80": "#0c5472",
+                                "navDypBlaLighten20": "#ccdee6",
+                                "navDypBlaLighten40": "#99bdcd",
+                                "navDypBlaLighten60": "#669db4",
+                                "navDypBlaLighten80": "#337c9b",
                                 "navGra20": "#c6c2bf",
                                 "navGra40": "#b7b1a9",
                                 "navGra60": "#78706a",
                                 "navGra80": "#59514b",
                                 "navGraBakgrunn": "#f1f1f1",
                                 "navGronn": "#06893a",
-                                "navGronnDarken20": "#059b48",
-                                "navGronnDarken40": "#04ad57",
-                                "navGronnDarken60": "#04bf65",
-                                "navGronnDarken80": "#03d174",
-                                "navGronnLighten20": "#07a0NaN",
-                                "navGronnLighten40": "#09b8NaN",
-                                "navGronnLighten60": "#0bcfNaN",
-                                "navGronnLighten80": "#0de7NaN",
+                                "navGronnDarken20": "#334834",
+                                "navGronnDarken40": "#285835",
+                                "navGronnDarken60": "#1c6937",
+                                "navGronnDarken80": "#117938",
+                                "navGronnLighten20": "#cde7d8",
+                                "navGronnLighten40": "#9bd0b0",
+                                "navGronnLighten60": "#6ab889",
+                                "navGronnLighten80": "#38a161",
                                 "navLilla": "#634689",
-                                "navLillaDarken20": "#4f6587",
-                                "navLillaDarken40": "#3c8486",
-                                "navLillaDarken60": "#29a485",
-                                "navLillaDarken80": "#16c384",
-                                "navLillaLighten20": "#526bNaN",
-                                "navLillaLighten40": "#4190NaN",
-                                "navLillaLighten60": "#30b5NaN",
-                                "navLillaLighten80": "#1fdaNaN",
+                                "navLillaDarken20": "#453b43",
+                                "navLillaDarken40": "#4d3e55",
+                                "navLillaDarken60": "#544066",
+                                "navLillaDarken80": "#5c4378",
+                                "navLillaLighten20": "#e0dae7",
+                                "navLillaLighten40": "#c1b5d0",
+                                "navLillaLighten60": "#a190b8",
+                                "navLillaLighten80": "#826ba1",
                                 "navLimeGronn": "#a2ad00",
-                                "navLimeGronnDarken20": "#82b71a",
-                                "navLimeGronnDarken40": "#62c234",
-                                "navLimeGronnDarken60": "#42cd4e",
-                                "navLimeGronnDarken80": "#22d868",
-                                "navLimeGronnLighten20": "#84bdNaN",
-                                "navLimeGronnLighten40": "#67cdNaN",
-                                "navLimeGronnLighten60": "#49deNaN",
-                                "navLimeGronnLighten80": "#2ceeNaN",
+                                "navLimeGronnDarken20": "#524f28",
+                                "navLimeGronnDarken40": "#66671e",
+                                "navLimeGronnDarken60": "#7a7e14",
+                                "navLimeGronnDarken80": "#8e960a",
+                                "navLimeGronnLighten20": "#ecefcc",
+                                "navLimeGronnLighten40": "#dade99",
+                                "navLimeGronnLighten60": "#c7ce66",
+                                "navLimeGronnLighten80": "#b5bd33",
                                 "navLysBla": "#66cbec",
-                                "navLysBlaDarken20": "#52cfd7",
-                                "navLysBlaDarken40": "#3ed4c2",
-                                "navLysBlaDarken60": "#2ad9ad",
-                                "navLysBlaDarken80": "#16de98",
-                                "navLysBlaLighten20": "#54d5NaN",
-                                "navLysBlaLighten40": "#43dfNaN",
-                                "navLysBlaLighten60": "#31eaNaN",
-                                "navLysBlaLighten80": "#20f4NaN",
+                                "navLysBlaDarken20": "#465557",
+                                "navLysBlaDarken40": "#4e737c",
+                                "navLysBlaDarken60": "#5690a2",
+                                "navLysBlaDarken80": "#5eaec7",
+                                "navLysBlaLighten20": "#e0f5fb",
+                                "navLysBlaLighten40": "#c2eaf7",
+                                "navLysBlaLighten60": "#a3e0f4",
+                                "navLysBlaLighten80": "#85d5f0",
                                 "navLysGra": "#e9e7e7",
                                 "navMorkGra": "#3e3832",
                                 "navOransje": "#ff9100",
-                                "navOransjeDarken20": "#cca11a",
-                                "navOransjeDarken40": "#9ab134",
-                                "navOransjeDarken60": "#67c24e",
-                                "navOransjeDarken80": "#35d268",
-                                "navOransjeLighten20": "#cfa7NaN",
-                                "navOransjeLighten40": "#9fbdNaN",
-                                "navOransjeLighten60": "#6fd3NaN",
-                                "navOransjeLighten80": "#3fe9NaN",
+                                "navOransjeDarken20": "#654a28",
+                                "navOransjeDarken40": "#8b5c1e",
+                                "navOransjeDarken60": "#b26d14",
+                                "navOransjeDarken80": "#d87f0a",
+                                "navOransjeLighten20": "#ffe9cc",
+                                "navOransjeLighten40": "#ffd399",
+                                "navOransjeLighten60": "#ffbd66",
+                                "navOransjeLighten80": "#ffa733",
                                 "navRod": "#c30000",
-                                "navRodDarken20": "#9c2d1a",
-                                "navRodDarken40": "#765a34",
-                                "navRodDarken60": "#4f884e",
-                                "navRodDarken80": "#29b568",
-                                "navRodLighten20": "#9f33NaN",
-                                "navRodLighten40": "#7b66NaN",
-                                "navRodLighten60": "#5799NaN",
-                                "navRodLighten80": "#33ccNaN",
+                                "navRodDarken20": "#592d28",
+                                "navRodDarken40": "#73221e",
+                                "navRodDarken60": "#8e1614",
+                                "navRodDarken80": "#a80b0a",
+                                "navRodLighten20": "#f3cccc",
+                                "navRodLighten40": "#e79999",
+                                "navRodLighten60": "#db6666",
+                                "navRodLighten80": "#cf3333",
                                 "orangeFocus": "#ffbd66",
-                                "orangeFocusDarken20": "#ccc46b",
-                                "orangeFocusDarken40": "#9acc71",
-                                "orangeFocusDarken60": "#67d377",
-                                "orangeFocusDarken80": "#35db7d",
-                                "orangeFocusLighten20": "#cfcaNaN",
-                                "orangeFocusLighten40": "#9fd7NaN",
-                                "orangeFocusLighten60": "#6fe4NaN",
-                                "orangeFocusLighten80": "#3ff1NaN",
+                                "orangeFocusDarken20": "#65533c",
+                                "orangeFocusDarken40": "#8b6d47",
+                                "orangeFocusDarken60": "#b28851",
+                                "orangeFocusDarken80": "#d8a25c",
+                                "orangeFocusLighten20": "#fff2e0",
+                                "orangeFocusLighten40": "#ffe5c2",
+                                "orangeFocusLighten60": "#ffd7a3",
+                                "orangeFocusLighten80": "#ffca85",
                                 "padding-base-horizontal": "12px",
                                 "padding-base-vertical": "6px",
                                 "padding-large-horizontal": "16px",
@@ -2211,14 +2225,14 @@ ui-fss.g44[id="c8"] {
                                 "padding-xs-vertical": "1px",
                                 "pinkErrorBg": "#f3e3e3",
                                 "redError": "#ba3a26",
-                                "redErrorDarken20": "#955b38",
-                                "redErrorDarken40": "#707d4b",
-                                "redErrorDarken60": "#4c9f5d",
-                                "redErrorDarken80": "#27c170",
-                                "redErrorLighten20": "#9761NaN",
-                                "redErrorLighten40": "#7588NaN",
-                                "redErrorLighten60": "#53b0NaN",
-                                "redErrorLighten80": "#31d7NaN",
+                                "redErrorDarken20": "#573830",
+                                "redErrorDarken40": "#70392d",
+                                "redErrorDarken60": "#88392b",
+                                "redErrorDarken80": "#a13a28",
+                                "redErrorLighten20": "#f1d8d4",
+                                "redErrorLighten40": "#e3b0a8",
+                                "redErrorLighten60": "#d6897d",
+                                "redErrorLighten80": "#c86151",
                                 "screen-desktop": "992px",
                                 "screen-lg": "1200px",
                                 "screen-lg-desktop": "1200px",
@@ -2236,7 +2250,7 @@ ui-fss.g44[id="c8"] {
                               }
                             }
                           >
-                            <ForwardRef(Cd)
+                            <ForwardRef(Ad)
                               overlay={
                                 <span>
                                   NO:NAVAT07
@@ -2504,7 +2518,7 @@ ui-fss.g44[id="c8"] {
                                 showAction={Array []}
                               >
                                 <styled.div
-                                  className="izBVou animate size-XL type-circle"
+                                  className="iYxMPu animate size-XL type-circle animate wave"
                                   key="trigger"
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
@@ -2515,7 +2529,7 @@ ui-fss.g44[id="c8"] {
                                   }
                                 >
                                   <div
-                                    className="eAknCK izBVou animate size-XL type-circle"
+                                    className="hxgtkf iYxMPu animate size-XL type-circle animate wave"
                                     onMouseEnter={[Function]}
                                     onMouseLeave={[Function]}
                                     style={
@@ -2524,24 +2538,32 @@ ui-fss.g44[id="c8"] {
                                       }
                                     }
                                   >
-                                    <img
-                                      alt="NO:NAVAT07"
-                                      src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
-                                      style={
-                                        Object {
-                                          "animationDelay": "0s",
-                                        }
-                                      }
-                                    />
+                                    <styled.div
+                                      className="size-XL type-circle"
+                                    >
+                                      <div
+                                        className="JXIdR size-XL type-circle"
+                                      >
+                                        <img
+                                          alt="NO:NAVAT07"
+                                          src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
+                                          style={
+                                            Object {
+                                              "animationDelay": "0s",
+                                            }
+                                          }
+                                        />
+                                      </div>
+                                    </styled.div>
                                   </div>
                                 </styled.div>
                               </t>
-                            </ForwardRef(Cd)>
-                          </Re>
-                        </Ie>
-                      </Bd>
-                    </Styled(Bd)>
-                    <Styled(Bd)
+                            </ForwardRef(Ad)>
+                          </Pe>
+                        </Component>
+                      </Td>
+                    </Styled(Td)>
+                    <Styled(Td)
                       className="animate"
                       country="FR"
                       key="1"
@@ -2554,9 +2576,10 @@ ui-fss.g44[id="c8"] {
                       }
                       tooltip={true}
                       type="circle"
+                      wave={true}
                     >
-                      <Bd
-                        className="izBVou animate"
+                      <Td
+                        className="iYxMPu animate"
                         country="FR"
                         label="FR:DEMOFR01"
                         size="XL"
@@ -2567,14 +2590,16 @@ ui-fss.g44[id="c8"] {
                         }
                         tooltip={true}
                         type="circle"
+                        wave={true}
                       >
-                        <Ie
+                        <Component
                           highContrast={false}
                         >
-                          <Re
+                          <Pe
                             theme={
                               Object {
-                                "alternative-background-color": "#e9e7e7",
+                                "alternative-background-color": "#FFFFFF",
+                                "alternative-hover-color": "#cce1f3",
                                 "black": "#000000",
                                 "border-radius-base": "4px",
                                 "border-radius-large": "6px",
@@ -2585,7 +2610,7 @@ ui-fss.g44[id="c8"] {
                                 "container-md": "(940px + @grid-gutter-width)",
                                 "container-sm": "(720px + @grid-gutter-width)",
                                 "container-tablet": "(720px + @grid-gutter-width)",
-                                "fokusFarge": "#01b19d",
+                                "fokusFarge": "#19548a",
                                 "grayBackground": "#e9e7e7",
                                 "grayIcon": "#b7b1a9",
                                 "grayInactive": "#78706a",
@@ -2597,107 +2622,108 @@ ui-fss.g44[id="c8"] {
                                 "inverted-font-color": "#FFFFFF",
                                 "line-height-large": "1.3333333",
                                 "line-height-small": "1.5",
-                                "main-active-color": "#43dfNaN",
-                                "main-background-color": "#FFFFFF",
+                                "main-active-color": "#005b82",
+                                "main-background-color": "#f1f1f1",
                                 "main-border-color": "#78706a",
                                 "main-border-radius": "4px",
+                                "main-border-width": "1px",
                                 "main-disabled-color": "#b7b1a9",
                                 "main-error-color": "#ba3a26",
-                                "main-focus-color": "#01b19d",
+                                "main-focus-color": "#19548a",
                                 "main-font-color": "#3e3832",
-                                "main-hover-color": "#20f4NaN",
+                                "main-hover-color": "#0074df",
                                 "main-interactive-color": "#0067c5",
                                 "main-success-color": "#06893a",
                                 "main-warning-color": "#ff9100",
                                 "navBakgrunn": "#ffffff",
                                 "navBla": "#0067c5",
-                                "navBlaDarken20": "#007fb7",
-                                "navBlaDarken40": "#0198aa",
-                                "navBlaDarken60": "#01b19d",
-                                "navBlaDarken80": "#02ca90",
-                                "navBlaLighten20": "#0385NaN",
-                                "navBlaLighten40": "#06a3NaN",
-                                "navBlaLighten60": "#09c2NaN",
-                                "navBlaLighten80": "#0ce0NaN",
+                                "navBlaDarken20": "#32414f",
+                                "navBlaDarken40": "#254b6d",
+                                "navBlaDarken60": "#19548a",
+                                "navBlaDarken80": "#0c5ea8",
+                                "navBlaLighten20": "#cce1f3",
+                                "navBlaLighten40": "#99c2e8",
+                                "navBlaLighten60": "#66a4dc",
+                                "navBlaLighten80": "#3385d1",
                                 "navDypBla": "#005b82",
-                                "navDypBlaDarken20": "#007682",
-                                "navDypBlaDarken40": "#019182",
-                                "navDypBlaDarken60": "#01ac82",
-                                "navDypBlaDarken80": "#02c782",
-                                "navDypBlaLighten20": "#037bNaN",
-                                "navDypBlaLighten40": "#069cNaN",
-                                "navDypBlaLighten60": "#09bdNaN",
-                                "navDypBlaLighten80": "#0cdeNaN",
+                                "navDypBlaDarken20": "#323f42",
+                                "navDypBlaDarken40": "#254652",
+                                "navDypBlaDarken60": "#194d62",
+                                "navDypBlaDarken80": "#0c5472",
+                                "navDypBlaLighten20": "#ccdee6",
+                                "navDypBlaLighten40": "#99bdcd",
+                                "navDypBlaLighten60": "#669db4",
+                                "navDypBlaLighten80": "#337c9b",
                                 "navGra20": "#c6c2bf",
                                 "navGra40": "#b7b1a9",
                                 "navGra60": "#78706a",
                                 "navGra80": "#59514b",
                                 "navGraBakgrunn": "#f1f1f1",
                                 "navGronn": "#06893a",
-                                "navGronnDarken20": "#059b48",
-                                "navGronnDarken40": "#04ad57",
-                                "navGronnDarken60": "#04bf65",
-                                "navGronnDarken80": "#03d174",
-                                "navGronnLighten20": "#07a0NaN",
-                                "navGronnLighten40": "#09b8NaN",
-                                "navGronnLighten60": "#0bcfNaN",
-                                "navGronnLighten80": "#0de7NaN",
+                                "navGronnDarken20": "#334834",
+                                "navGronnDarken40": "#285835",
+                                "navGronnDarken60": "#1c6937",
+                                "navGronnDarken80": "#117938",
+                                "navGronnLighten20": "#cde7d8",
+                                "navGronnLighten40": "#9bd0b0",
+                                "navGronnLighten60": "#6ab889",
+                                "navGronnLighten80": "#38a161",
                                 "navLilla": "#634689",
-                                "navLillaDarken20": "#4f6587",
-                                "navLillaDarken40": "#3c8486",
-                                "navLillaDarken60": "#29a485",
-                                "navLillaDarken80": "#16c384",
-                                "navLillaLighten20": "#526bNaN",
-                                "navLillaLighten40": "#4190NaN",
-                                "navLillaLighten60": "#30b5NaN",
-                                "navLillaLighten80": "#1fdaNaN",
+                                "navLillaDarken20": "#453b43",
+                                "navLillaDarken40": "#4d3e55",
+                                "navLillaDarken60": "#544066",
+                                "navLillaDarken80": "#5c4378",
+                                "navLillaLighten20": "#e0dae7",
+                                "navLillaLighten40": "#c1b5d0",
+                                "navLillaLighten60": "#a190b8",
+                                "navLillaLighten80": "#826ba1",
                                 "navLimeGronn": "#a2ad00",
-                                "navLimeGronnDarken20": "#82b71a",
-                                "navLimeGronnDarken40": "#62c234",
-                                "navLimeGronnDarken60": "#42cd4e",
-                                "navLimeGronnDarken80": "#22d868",
-                                "navLimeGronnLighten20": "#84bdNaN",
-                                "navLimeGronnLighten40": "#67cdNaN",
-                                "navLimeGronnLighten60": "#49deNaN",
-                                "navLimeGronnLighten80": "#2ceeNaN",
+                                "navLimeGronnDarken20": "#524f28",
+                                "navLimeGronnDarken40": "#66671e",
+                                "navLimeGronnDarken60": "#7a7e14",
+                                "navLimeGronnDarken80": "#8e960a",
+                                "navLimeGronnLighten20": "#ecefcc",
+                                "navLimeGronnLighten40": "#dade99",
+                                "navLimeGronnLighten60": "#c7ce66",
+                                "navLimeGronnLighten80": "#b5bd33",
                                 "navLysBla": "#66cbec",
-                                "navLysBlaDarken20": "#52cfd7",
-                                "navLysBlaDarken40": "#3ed4c2",
-                                "navLysBlaDarken60": "#2ad9ad",
-                                "navLysBlaDarken80": "#16de98",
-                                "navLysBlaLighten20": "#54d5NaN",
-                                "navLysBlaLighten40": "#43dfNaN",
-                                "navLysBlaLighten60": "#31eaNaN",
-                                "navLysBlaLighten80": "#20f4NaN",
+                                "navLysBlaDarken20": "#465557",
+                                "navLysBlaDarken40": "#4e737c",
+                                "navLysBlaDarken60": "#5690a2",
+                                "navLysBlaDarken80": "#5eaec7",
+                                "navLysBlaLighten20": "#e0f5fb",
+                                "navLysBlaLighten40": "#c2eaf7",
+                                "navLysBlaLighten60": "#a3e0f4",
+                                "navLysBlaLighten80": "#85d5f0",
                                 "navLysGra": "#e9e7e7",
                                 "navMorkGra": "#3e3832",
                                 "navOransje": "#ff9100",
-                                "navOransjeDarken20": "#cca11a",
-                                "navOransjeDarken40": "#9ab134",
-                                "navOransjeDarken60": "#67c24e",
-                                "navOransjeDarken80": "#35d268",
-                                "navOransjeLighten20": "#cfa7NaN",
-                                "navOransjeLighten40": "#9fbdNaN",
-                                "navOransjeLighten60": "#6fd3NaN",
-                                "navOransjeLighten80": "#3fe9NaN",
+                                "navOransjeDarken20": "#654a28",
+                                "navOransjeDarken40": "#8b5c1e",
+                                "navOransjeDarken60": "#b26d14",
+                                "navOransjeDarken80": "#d87f0a",
+                                "navOransjeLighten20": "#ffe9cc",
+                                "navOransjeLighten40": "#ffd399",
+                                "navOransjeLighten60": "#ffbd66",
+                                "navOransjeLighten80": "#ffa733",
                                 "navRod": "#c30000",
-                                "navRodDarken20": "#9c2d1a",
-                                "navRodDarken40": "#765a34",
-                                "navRodDarken60": "#4f884e",
-                                "navRodDarken80": "#29b568",
-                                "navRodLighten20": "#9f33NaN",
-                                "navRodLighten40": "#7b66NaN",
-                                "navRodLighten60": "#5799NaN",
-                                "navRodLighten80": "#33ccNaN",
+                                "navRodDarken20": "#592d28",
+                                "navRodDarken40": "#73221e",
+                                "navRodDarken60": "#8e1614",
+                                "navRodDarken80": "#a80b0a",
+                                "navRodLighten20": "#f3cccc",
+                                "navRodLighten40": "#e79999",
+                                "navRodLighten60": "#db6666",
+                                "navRodLighten80": "#cf3333",
                                 "orangeFocus": "#ffbd66",
-                                "orangeFocusDarken20": "#ccc46b",
-                                "orangeFocusDarken40": "#9acc71",
-                                "orangeFocusDarken60": "#67d377",
-                                "orangeFocusDarken80": "#35db7d",
-                                "orangeFocusLighten20": "#cfcaNaN",
-                                "orangeFocusLighten40": "#9fd7NaN",
-                                "orangeFocusLighten60": "#6fe4NaN",
-                                "orangeFocusLighten80": "#3ff1NaN",
+                                "orangeFocusDarken20": "#65533c",
+                                "orangeFocusDarken40": "#8b6d47",
+                                "orangeFocusDarken60": "#b28851",
+                                "orangeFocusDarken80": "#d8a25c",
+                                "orangeFocusLighten20": "#fff2e0",
+                                "orangeFocusLighten40": "#ffe5c2",
+                                "orangeFocusLighten60": "#ffd7a3",
+                                "orangeFocusLighten80": "#ffca85",
                                 "padding-base-horizontal": "12px",
                                 "padding-base-vertical": "6px",
                                 "padding-large-horizontal": "16px",
@@ -2708,14 +2734,14 @@ ui-fss.g44[id="c8"] {
                                 "padding-xs-vertical": "1px",
                                 "pinkErrorBg": "#f3e3e3",
                                 "redError": "#ba3a26",
-                                "redErrorDarken20": "#955b38",
-                                "redErrorDarken40": "#707d4b",
-                                "redErrorDarken60": "#4c9f5d",
-                                "redErrorDarken80": "#27c170",
-                                "redErrorLighten20": "#9761NaN",
-                                "redErrorLighten40": "#7588NaN",
-                                "redErrorLighten60": "#53b0NaN",
-                                "redErrorLighten80": "#31d7NaN",
+                                "redErrorDarken20": "#573830",
+                                "redErrorDarken40": "#70392d",
+                                "redErrorDarken60": "#88392b",
+                                "redErrorDarken80": "#a13a28",
+                                "redErrorLighten20": "#f1d8d4",
+                                "redErrorLighten40": "#e3b0a8",
+                                "redErrorLighten60": "#d6897d",
+                                "redErrorLighten80": "#c86151",
                                 "screen-desktop": "992px",
                                 "screen-lg": "1200px",
                                 "screen-lg-desktop": "1200px",
@@ -2733,7 +2759,7 @@ ui-fss.g44[id="c8"] {
                               }
                             }
                           >
-                            <ForwardRef(Cd)
+                            <ForwardRef(Ad)
                               overlay={
                                 <span>
                                   FR:DEMOFR01
@@ -3001,7 +3027,7 @@ ui-fss.g44[id="c8"] {
                                 showAction={Array []}
                               >
                                 <styled.div
-                                  className="izBVou animate size-XL type-circle"
+                                  className="iYxMPu animate size-XL type-circle animate wave"
                                   key="trigger"
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
@@ -3012,7 +3038,7 @@ ui-fss.g44[id="c8"] {
                                   }
                                 >
                                   <div
-                                    className="eAknCK izBVou animate size-XL type-circle"
+                                    className="hxgtkf iYxMPu animate size-XL type-circle animate wave"
                                     onMouseEnter={[Function]}
                                     onMouseLeave={[Function]}
                                     style={
@@ -3021,24 +3047,32 @@ ui-fss.g44[id="c8"] {
                                       }
                                     }
                                   >
-                                    <img
-                                      alt="FR:DEMOFR01"
-                                      src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3e%3cpath fill='%23ED2939' d='M0 0h3v2H0z'/%3e%3cpath fill='%23fff' d='M0 0h2v2H0z'/%3e%3cpath fill='%23002395' d='M0 0h1v2H0z'/%3e%3c/svg%3e"
-                                      style={
-                                        Object {
-                                          "animationDelay": "0.05s",
-                                        }
-                                      }
-                                    />
+                                    <styled.div
+                                      className="size-XL type-circle"
+                                    >
+                                      <div
+                                        className="JXIdR size-XL type-circle"
+                                      >
+                                        <img
+                                          alt="FR:DEMOFR01"
+                                          src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3e%3cpath fill='%23ED2939' d='M0 0h3v2H0z'/%3e%3cpath fill='%23fff' d='M0 0h2v2H0z'/%3e%3cpath fill='%23002395' d='M0 0h1v2H0z'/%3e%3c/svg%3e"
+                                          style={
+                                            Object {
+                                              "animationDelay": "0.05s",
+                                            }
+                                          }
+                                        />
+                                      </div>
+                                    </styled.div>
                                   </div>
                                 </styled.div>
                               </t>
-                            </ForwardRef(Cd)>
-                          </Re>
-                        </Ie>
-                      </Bd>
-                    </Styled(Bd)>
-                    <Styled(Bd)
+                            </ForwardRef(Ad)>
+                          </Pe>
+                        </Component>
+                      </Td>
+                    </Styled(Td)>
+                    <Styled(Td)
                       className="animate"
                       country="GB"
                       key="2"
@@ -3051,9 +3085,10 @@ ui-fss.g44[id="c8"] {
                       }
                       tooltip={true}
                       type="circle"
+                      wave={true}
                     >
-                      <Bd
-                        className="izBVou animate"
+                      <Td
+                        className="iYxMPu animate"
                         country="GB"
                         label="GB:DEMOGB01"
                         size="XL"
@@ -3064,14 +3099,16 @@ ui-fss.g44[id="c8"] {
                         }
                         tooltip={true}
                         type="circle"
+                        wave={true}
                       >
-                        <Ie
+                        <Component
                           highContrast={false}
                         >
-                          <Re
+                          <Pe
                             theme={
                               Object {
-                                "alternative-background-color": "#e9e7e7",
+                                "alternative-background-color": "#FFFFFF",
+                                "alternative-hover-color": "#cce1f3",
                                 "black": "#000000",
                                 "border-radius-base": "4px",
                                 "border-radius-large": "6px",
@@ -3082,7 +3119,7 @@ ui-fss.g44[id="c8"] {
                                 "container-md": "(940px + @grid-gutter-width)",
                                 "container-sm": "(720px + @grid-gutter-width)",
                                 "container-tablet": "(720px + @grid-gutter-width)",
-                                "fokusFarge": "#01b19d",
+                                "fokusFarge": "#19548a",
                                 "grayBackground": "#e9e7e7",
                                 "grayIcon": "#b7b1a9",
                                 "grayInactive": "#78706a",
@@ -3094,107 +3131,108 @@ ui-fss.g44[id="c8"] {
                                 "inverted-font-color": "#FFFFFF",
                                 "line-height-large": "1.3333333",
                                 "line-height-small": "1.5",
-                                "main-active-color": "#43dfNaN",
-                                "main-background-color": "#FFFFFF",
+                                "main-active-color": "#005b82",
+                                "main-background-color": "#f1f1f1",
                                 "main-border-color": "#78706a",
                                 "main-border-radius": "4px",
+                                "main-border-width": "1px",
                                 "main-disabled-color": "#b7b1a9",
                                 "main-error-color": "#ba3a26",
-                                "main-focus-color": "#01b19d",
+                                "main-focus-color": "#19548a",
                                 "main-font-color": "#3e3832",
-                                "main-hover-color": "#20f4NaN",
+                                "main-hover-color": "#0074df",
                                 "main-interactive-color": "#0067c5",
                                 "main-success-color": "#06893a",
                                 "main-warning-color": "#ff9100",
                                 "navBakgrunn": "#ffffff",
                                 "navBla": "#0067c5",
-                                "navBlaDarken20": "#007fb7",
-                                "navBlaDarken40": "#0198aa",
-                                "navBlaDarken60": "#01b19d",
-                                "navBlaDarken80": "#02ca90",
-                                "navBlaLighten20": "#0385NaN",
-                                "navBlaLighten40": "#06a3NaN",
-                                "navBlaLighten60": "#09c2NaN",
-                                "navBlaLighten80": "#0ce0NaN",
+                                "navBlaDarken20": "#32414f",
+                                "navBlaDarken40": "#254b6d",
+                                "navBlaDarken60": "#19548a",
+                                "navBlaDarken80": "#0c5ea8",
+                                "navBlaLighten20": "#cce1f3",
+                                "navBlaLighten40": "#99c2e8",
+                                "navBlaLighten60": "#66a4dc",
+                                "navBlaLighten80": "#3385d1",
                                 "navDypBla": "#005b82",
-                                "navDypBlaDarken20": "#007682",
-                                "navDypBlaDarken40": "#019182",
-                                "navDypBlaDarken60": "#01ac82",
-                                "navDypBlaDarken80": "#02c782",
-                                "navDypBlaLighten20": "#037bNaN",
-                                "navDypBlaLighten40": "#069cNaN",
-                                "navDypBlaLighten60": "#09bdNaN",
-                                "navDypBlaLighten80": "#0cdeNaN",
+                                "navDypBlaDarken20": "#323f42",
+                                "navDypBlaDarken40": "#254652",
+                                "navDypBlaDarken60": "#194d62",
+                                "navDypBlaDarken80": "#0c5472",
+                                "navDypBlaLighten20": "#ccdee6",
+                                "navDypBlaLighten40": "#99bdcd",
+                                "navDypBlaLighten60": "#669db4",
+                                "navDypBlaLighten80": "#337c9b",
                                 "navGra20": "#c6c2bf",
                                 "navGra40": "#b7b1a9",
                                 "navGra60": "#78706a",
                                 "navGra80": "#59514b",
                                 "navGraBakgrunn": "#f1f1f1",
                                 "navGronn": "#06893a",
-                                "navGronnDarken20": "#059b48",
-                                "navGronnDarken40": "#04ad57",
-                                "navGronnDarken60": "#04bf65",
-                                "navGronnDarken80": "#03d174",
-                                "navGronnLighten20": "#07a0NaN",
-                                "navGronnLighten40": "#09b8NaN",
-                                "navGronnLighten60": "#0bcfNaN",
-                                "navGronnLighten80": "#0de7NaN",
+                                "navGronnDarken20": "#334834",
+                                "navGronnDarken40": "#285835",
+                                "navGronnDarken60": "#1c6937",
+                                "navGronnDarken80": "#117938",
+                                "navGronnLighten20": "#cde7d8",
+                                "navGronnLighten40": "#9bd0b0",
+                                "navGronnLighten60": "#6ab889",
+                                "navGronnLighten80": "#38a161",
                                 "navLilla": "#634689",
-                                "navLillaDarken20": "#4f6587",
-                                "navLillaDarken40": "#3c8486",
-                                "navLillaDarken60": "#29a485",
-                                "navLillaDarken80": "#16c384",
-                                "navLillaLighten20": "#526bNaN",
-                                "navLillaLighten40": "#4190NaN",
-                                "navLillaLighten60": "#30b5NaN",
-                                "navLillaLighten80": "#1fdaNaN",
+                                "navLillaDarken20": "#453b43",
+                                "navLillaDarken40": "#4d3e55",
+                                "navLillaDarken60": "#544066",
+                                "navLillaDarken80": "#5c4378",
+                                "navLillaLighten20": "#e0dae7",
+                                "navLillaLighten40": "#c1b5d0",
+                                "navLillaLighten60": "#a190b8",
+                                "navLillaLighten80": "#826ba1",
                                 "navLimeGronn": "#a2ad00",
-                                "navLimeGronnDarken20": "#82b71a",
-                                "navLimeGronnDarken40": "#62c234",
-                                "navLimeGronnDarken60": "#42cd4e",
-                                "navLimeGronnDarken80": "#22d868",
-                                "navLimeGronnLighten20": "#84bdNaN",
-                                "navLimeGronnLighten40": "#67cdNaN",
-                                "navLimeGronnLighten60": "#49deNaN",
-                                "navLimeGronnLighten80": "#2ceeNaN",
+                                "navLimeGronnDarken20": "#524f28",
+                                "navLimeGronnDarken40": "#66671e",
+                                "navLimeGronnDarken60": "#7a7e14",
+                                "navLimeGronnDarken80": "#8e960a",
+                                "navLimeGronnLighten20": "#ecefcc",
+                                "navLimeGronnLighten40": "#dade99",
+                                "navLimeGronnLighten60": "#c7ce66",
+                                "navLimeGronnLighten80": "#b5bd33",
                                 "navLysBla": "#66cbec",
-                                "navLysBlaDarken20": "#52cfd7",
-                                "navLysBlaDarken40": "#3ed4c2",
-                                "navLysBlaDarken60": "#2ad9ad",
-                                "navLysBlaDarken80": "#16de98",
-                                "navLysBlaLighten20": "#54d5NaN",
-                                "navLysBlaLighten40": "#43dfNaN",
-                                "navLysBlaLighten60": "#31eaNaN",
-                                "navLysBlaLighten80": "#20f4NaN",
+                                "navLysBlaDarken20": "#465557",
+                                "navLysBlaDarken40": "#4e737c",
+                                "navLysBlaDarken60": "#5690a2",
+                                "navLysBlaDarken80": "#5eaec7",
+                                "navLysBlaLighten20": "#e0f5fb",
+                                "navLysBlaLighten40": "#c2eaf7",
+                                "navLysBlaLighten60": "#a3e0f4",
+                                "navLysBlaLighten80": "#85d5f0",
                                 "navLysGra": "#e9e7e7",
                                 "navMorkGra": "#3e3832",
                                 "navOransje": "#ff9100",
-                                "navOransjeDarken20": "#cca11a",
-                                "navOransjeDarken40": "#9ab134",
-                                "navOransjeDarken60": "#67c24e",
-                                "navOransjeDarken80": "#35d268",
-                                "navOransjeLighten20": "#cfa7NaN",
-                                "navOransjeLighten40": "#9fbdNaN",
-                                "navOransjeLighten60": "#6fd3NaN",
-                                "navOransjeLighten80": "#3fe9NaN",
+                                "navOransjeDarken20": "#654a28",
+                                "navOransjeDarken40": "#8b5c1e",
+                                "navOransjeDarken60": "#b26d14",
+                                "navOransjeDarken80": "#d87f0a",
+                                "navOransjeLighten20": "#ffe9cc",
+                                "navOransjeLighten40": "#ffd399",
+                                "navOransjeLighten60": "#ffbd66",
+                                "navOransjeLighten80": "#ffa733",
                                 "navRod": "#c30000",
-                                "navRodDarken20": "#9c2d1a",
-                                "navRodDarken40": "#765a34",
-                                "navRodDarken60": "#4f884e",
-                                "navRodDarken80": "#29b568",
-                                "navRodLighten20": "#9f33NaN",
-                                "navRodLighten40": "#7b66NaN",
-                                "navRodLighten60": "#5799NaN",
-                                "navRodLighten80": "#33ccNaN",
+                                "navRodDarken20": "#592d28",
+                                "navRodDarken40": "#73221e",
+                                "navRodDarken60": "#8e1614",
+                                "navRodDarken80": "#a80b0a",
+                                "navRodLighten20": "#f3cccc",
+                                "navRodLighten40": "#e79999",
+                                "navRodLighten60": "#db6666",
+                                "navRodLighten80": "#cf3333",
                                 "orangeFocus": "#ffbd66",
-                                "orangeFocusDarken20": "#ccc46b",
-                                "orangeFocusDarken40": "#9acc71",
-                                "orangeFocusDarken60": "#67d377",
-                                "orangeFocusDarken80": "#35db7d",
-                                "orangeFocusLighten20": "#cfcaNaN",
-                                "orangeFocusLighten40": "#9fd7NaN",
-                                "orangeFocusLighten60": "#6fe4NaN",
-                                "orangeFocusLighten80": "#3ff1NaN",
+                                "orangeFocusDarken20": "#65533c",
+                                "orangeFocusDarken40": "#8b6d47",
+                                "orangeFocusDarken60": "#b28851",
+                                "orangeFocusDarken80": "#d8a25c",
+                                "orangeFocusLighten20": "#fff2e0",
+                                "orangeFocusLighten40": "#ffe5c2",
+                                "orangeFocusLighten60": "#ffd7a3",
+                                "orangeFocusLighten80": "#ffca85",
                                 "padding-base-horizontal": "12px",
                                 "padding-base-vertical": "6px",
                                 "padding-large-horizontal": "16px",
@@ -3205,14 +3243,14 @@ ui-fss.g44[id="c8"] {
                                 "padding-xs-vertical": "1px",
                                 "pinkErrorBg": "#f3e3e3",
                                 "redError": "#ba3a26",
-                                "redErrorDarken20": "#955b38",
-                                "redErrorDarken40": "#707d4b",
-                                "redErrorDarken60": "#4c9f5d",
-                                "redErrorDarken80": "#27c170",
-                                "redErrorLighten20": "#9761NaN",
-                                "redErrorLighten40": "#7588NaN",
-                                "redErrorLighten60": "#53b0NaN",
-                                "redErrorLighten80": "#31d7NaN",
+                                "redErrorDarken20": "#573830",
+                                "redErrorDarken40": "#70392d",
+                                "redErrorDarken60": "#88392b",
+                                "redErrorDarken80": "#a13a28",
+                                "redErrorLighten20": "#f1d8d4",
+                                "redErrorLighten40": "#e3b0a8",
+                                "redErrorLighten60": "#d6897d",
+                                "redErrorLighten80": "#c86151",
                                 "screen-desktop": "992px",
                                 "screen-lg": "1200px",
                                 "screen-lg-desktop": "1200px",
@@ -3230,7 +3268,7 @@ ui-fss.g44[id="c8"] {
                               }
                             }
                           >
-                            <ForwardRef(Cd)
+                            <ForwardRef(Ad)
                               overlay={
                                 <span>
                                   GB:DEMOGB01
@@ -3498,7 +3536,7 @@ ui-fss.g44[id="c8"] {
                                 showAction={Array []}
                               >
                                 <styled.div
-                                  className="izBVou animate size-XL type-circle"
+                                  className="iYxMPu animate size-XL type-circle animate wave"
                                   key="trigger"
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
@@ -3509,7 +3547,7 @@ ui-fss.g44[id="c8"] {
                                   }
                                 >
                                   <div
-                                    className="eAknCK izBVou animate size-XL type-circle"
+                                    className="hxgtkf iYxMPu animate size-XL type-circle animate wave"
                                     onMouseEnter={[Function]}
                                     onMouseLeave={[Function]}
                                     style={
@@ -3518,24 +3556,32 @@ ui-fss.g44[id="c8"] {
                                       }
                                     }
                                   >
-                                    <img
-                                      alt="GB:DEMOGB01"
-                                      src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cclipPath id='a'%3e%3cpath d='M0 0v30h60V0z'/%3e%3c/clipPath%3e%3cclipPath id='b'%3e%3cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3e%3c/clipPath%3e%3cg clip-path='url(%23a)'%3e%3cpath d='M0 0v30h60V0z' fill='%23012169'/%3e%3cpath d='M0 0l60 30m0-30L0 30' stroke='%23fff' stroke-width='6'/%3e%3cpath d='M0 0l60 30m0-30L0 30' clip-path='url(%23b)' stroke='%23C8102E' stroke-width='4'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3e%3c/g%3e%3c/svg%3e"
-                                      style={
-                                        Object {
-                                          "animationDelay": "0.1s",
-                                        }
-                                      }
-                                    />
+                                    <styled.div
+                                      className="size-XL type-circle"
+                                    >
+                                      <div
+                                        className="JXIdR size-XL type-circle"
+                                      >
+                                        <img
+                                          alt="GB:DEMOGB01"
+                                          src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cclipPath id='a'%3e%3cpath d='M0 0v30h60V0z'/%3e%3c/clipPath%3e%3cclipPath id='b'%3e%3cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3e%3c/clipPath%3e%3cg clip-path='url(%23a)'%3e%3cpath d='M0 0v30h60V0z' fill='%23012169'/%3e%3cpath d='M0 0l60 30m0-30L0 30' stroke='%23fff' stroke-width='6'/%3e%3cpath d='M0 0l60 30m0-30L0 30' clip-path='url(%23b)' stroke='%23C8102E' stroke-width='4'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3e%3c/g%3e%3c/svg%3e"
+                                          style={
+                                            Object {
+                                              "animationDelay": "0.1s",
+                                            }
+                                          }
+                                        />
+                                      </div>
+                                    </styled.div>
                                   </div>
                                 </styled.div>
                               </t>
-                            </ForwardRef(Cd)>
-                          </Re>
-                        </Ie>
-                      </Bd>
-                    </Styled(Bd)>
-                    <Styled(Bd)
+                            </ForwardRef(Ad)>
+                          </Pe>
+                        </Component>
+                      </Td>
+                    </Styled(Td)>
+                    <Styled(Td)
                       className="animate"
                       country="UK"
                       key="3"
@@ -3548,9 +3594,10 @@ ui-fss.g44[id="c8"] {
                       }
                       tooltip={true}
                       type="circle"
+                      wave={true}
                     >
-                      <Bd
-                        className="izBVou animate"
+                      <Td
+                        className="iYxMPu animate"
                         country="UK"
                         label="UK:DEMOUK01"
                         size="XL"
@@ -3561,14 +3608,16 @@ ui-fss.g44[id="c8"] {
                         }
                         tooltip={true}
                         type="circle"
+                        wave={true}
                       >
-                        <Ie
+                        <Component
                           highContrast={false}
                         >
-                          <Re
+                          <Pe
                             theme={
                               Object {
-                                "alternative-background-color": "#e9e7e7",
+                                "alternative-background-color": "#FFFFFF",
+                                "alternative-hover-color": "#cce1f3",
                                 "black": "#000000",
                                 "border-radius-base": "4px",
                                 "border-radius-large": "6px",
@@ -3579,7 +3628,7 @@ ui-fss.g44[id="c8"] {
                                 "container-md": "(940px + @grid-gutter-width)",
                                 "container-sm": "(720px + @grid-gutter-width)",
                                 "container-tablet": "(720px + @grid-gutter-width)",
-                                "fokusFarge": "#01b19d",
+                                "fokusFarge": "#19548a",
                                 "grayBackground": "#e9e7e7",
                                 "grayIcon": "#b7b1a9",
                                 "grayInactive": "#78706a",
@@ -3591,107 +3640,108 @@ ui-fss.g44[id="c8"] {
                                 "inverted-font-color": "#FFFFFF",
                                 "line-height-large": "1.3333333",
                                 "line-height-small": "1.5",
-                                "main-active-color": "#43dfNaN",
-                                "main-background-color": "#FFFFFF",
+                                "main-active-color": "#005b82",
+                                "main-background-color": "#f1f1f1",
                                 "main-border-color": "#78706a",
                                 "main-border-radius": "4px",
+                                "main-border-width": "1px",
                                 "main-disabled-color": "#b7b1a9",
                                 "main-error-color": "#ba3a26",
-                                "main-focus-color": "#01b19d",
+                                "main-focus-color": "#19548a",
                                 "main-font-color": "#3e3832",
-                                "main-hover-color": "#20f4NaN",
+                                "main-hover-color": "#0074df",
                                 "main-interactive-color": "#0067c5",
                                 "main-success-color": "#06893a",
                                 "main-warning-color": "#ff9100",
                                 "navBakgrunn": "#ffffff",
                                 "navBla": "#0067c5",
-                                "navBlaDarken20": "#007fb7",
-                                "navBlaDarken40": "#0198aa",
-                                "navBlaDarken60": "#01b19d",
-                                "navBlaDarken80": "#02ca90",
-                                "navBlaLighten20": "#0385NaN",
-                                "navBlaLighten40": "#06a3NaN",
-                                "navBlaLighten60": "#09c2NaN",
-                                "navBlaLighten80": "#0ce0NaN",
+                                "navBlaDarken20": "#32414f",
+                                "navBlaDarken40": "#254b6d",
+                                "navBlaDarken60": "#19548a",
+                                "navBlaDarken80": "#0c5ea8",
+                                "navBlaLighten20": "#cce1f3",
+                                "navBlaLighten40": "#99c2e8",
+                                "navBlaLighten60": "#66a4dc",
+                                "navBlaLighten80": "#3385d1",
                                 "navDypBla": "#005b82",
-                                "navDypBlaDarken20": "#007682",
-                                "navDypBlaDarken40": "#019182",
-                                "navDypBlaDarken60": "#01ac82",
-                                "navDypBlaDarken80": "#02c782",
-                                "navDypBlaLighten20": "#037bNaN",
-                                "navDypBlaLighten40": "#069cNaN",
-                                "navDypBlaLighten60": "#09bdNaN",
-                                "navDypBlaLighten80": "#0cdeNaN",
+                                "navDypBlaDarken20": "#323f42",
+                                "navDypBlaDarken40": "#254652",
+                                "navDypBlaDarken60": "#194d62",
+                                "navDypBlaDarken80": "#0c5472",
+                                "navDypBlaLighten20": "#ccdee6",
+                                "navDypBlaLighten40": "#99bdcd",
+                                "navDypBlaLighten60": "#669db4",
+                                "navDypBlaLighten80": "#337c9b",
                                 "navGra20": "#c6c2bf",
                                 "navGra40": "#b7b1a9",
                                 "navGra60": "#78706a",
                                 "navGra80": "#59514b",
                                 "navGraBakgrunn": "#f1f1f1",
                                 "navGronn": "#06893a",
-                                "navGronnDarken20": "#059b48",
-                                "navGronnDarken40": "#04ad57",
-                                "navGronnDarken60": "#04bf65",
-                                "navGronnDarken80": "#03d174",
-                                "navGronnLighten20": "#07a0NaN",
-                                "navGronnLighten40": "#09b8NaN",
-                                "navGronnLighten60": "#0bcfNaN",
-                                "navGronnLighten80": "#0de7NaN",
+                                "navGronnDarken20": "#334834",
+                                "navGronnDarken40": "#285835",
+                                "navGronnDarken60": "#1c6937",
+                                "navGronnDarken80": "#117938",
+                                "navGronnLighten20": "#cde7d8",
+                                "navGronnLighten40": "#9bd0b0",
+                                "navGronnLighten60": "#6ab889",
+                                "navGronnLighten80": "#38a161",
                                 "navLilla": "#634689",
-                                "navLillaDarken20": "#4f6587",
-                                "navLillaDarken40": "#3c8486",
-                                "navLillaDarken60": "#29a485",
-                                "navLillaDarken80": "#16c384",
-                                "navLillaLighten20": "#526bNaN",
-                                "navLillaLighten40": "#4190NaN",
-                                "navLillaLighten60": "#30b5NaN",
-                                "navLillaLighten80": "#1fdaNaN",
+                                "navLillaDarken20": "#453b43",
+                                "navLillaDarken40": "#4d3e55",
+                                "navLillaDarken60": "#544066",
+                                "navLillaDarken80": "#5c4378",
+                                "navLillaLighten20": "#e0dae7",
+                                "navLillaLighten40": "#c1b5d0",
+                                "navLillaLighten60": "#a190b8",
+                                "navLillaLighten80": "#826ba1",
                                 "navLimeGronn": "#a2ad00",
-                                "navLimeGronnDarken20": "#82b71a",
-                                "navLimeGronnDarken40": "#62c234",
-                                "navLimeGronnDarken60": "#42cd4e",
-                                "navLimeGronnDarken80": "#22d868",
-                                "navLimeGronnLighten20": "#84bdNaN",
-                                "navLimeGronnLighten40": "#67cdNaN",
-                                "navLimeGronnLighten60": "#49deNaN",
-                                "navLimeGronnLighten80": "#2ceeNaN",
+                                "navLimeGronnDarken20": "#524f28",
+                                "navLimeGronnDarken40": "#66671e",
+                                "navLimeGronnDarken60": "#7a7e14",
+                                "navLimeGronnDarken80": "#8e960a",
+                                "navLimeGronnLighten20": "#ecefcc",
+                                "navLimeGronnLighten40": "#dade99",
+                                "navLimeGronnLighten60": "#c7ce66",
+                                "navLimeGronnLighten80": "#b5bd33",
                                 "navLysBla": "#66cbec",
-                                "navLysBlaDarken20": "#52cfd7",
-                                "navLysBlaDarken40": "#3ed4c2",
-                                "navLysBlaDarken60": "#2ad9ad",
-                                "navLysBlaDarken80": "#16de98",
-                                "navLysBlaLighten20": "#54d5NaN",
-                                "navLysBlaLighten40": "#43dfNaN",
-                                "navLysBlaLighten60": "#31eaNaN",
-                                "navLysBlaLighten80": "#20f4NaN",
+                                "navLysBlaDarken20": "#465557",
+                                "navLysBlaDarken40": "#4e737c",
+                                "navLysBlaDarken60": "#5690a2",
+                                "navLysBlaDarken80": "#5eaec7",
+                                "navLysBlaLighten20": "#e0f5fb",
+                                "navLysBlaLighten40": "#c2eaf7",
+                                "navLysBlaLighten60": "#a3e0f4",
+                                "navLysBlaLighten80": "#85d5f0",
                                 "navLysGra": "#e9e7e7",
                                 "navMorkGra": "#3e3832",
                                 "navOransje": "#ff9100",
-                                "navOransjeDarken20": "#cca11a",
-                                "navOransjeDarken40": "#9ab134",
-                                "navOransjeDarken60": "#67c24e",
-                                "navOransjeDarken80": "#35d268",
-                                "navOransjeLighten20": "#cfa7NaN",
-                                "navOransjeLighten40": "#9fbdNaN",
-                                "navOransjeLighten60": "#6fd3NaN",
-                                "navOransjeLighten80": "#3fe9NaN",
+                                "navOransjeDarken20": "#654a28",
+                                "navOransjeDarken40": "#8b5c1e",
+                                "navOransjeDarken60": "#b26d14",
+                                "navOransjeDarken80": "#d87f0a",
+                                "navOransjeLighten20": "#ffe9cc",
+                                "navOransjeLighten40": "#ffd399",
+                                "navOransjeLighten60": "#ffbd66",
+                                "navOransjeLighten80": "#ffa733",
                                 "navRod": "#c30000",
-                                "navRodDarken20": "#9c2d1a",
-                                "navRodDarken40": "#765a34",
-                                "navRodDarken60": "#4f884e",
-                                "navRodDarken80": "#29b568",
-                                "navRodLighten20": "#9f33NaN",
-                                "navRodLighten40": "#7b66NaN",
-                                "navRodLighten60": "#5799NaN",
-                                "navRodLighten80": "#33ccNaN",
+                                "navRodDarken20": "#592d28",
+                                "navRodDarken40": "#73221e",
+                                "navRodDarken60": "#8e1614",
+                                "navRodDarken80": "#a80b0a",
+                                "navRodLighten20": "#f3cccc",
+                                "navRodLighten40": "#e79999",
+                                "navRodLighten60": "#db6666",
+                                "navRodLighten80": "#cf3333",
                                 "orangeFocus": "#ffbd66",
-                                "orangeFocusDarken20": "#ccc46b",
-                                "orangeFocusDarken40": "#9acc71",
-                                "orangeFocusDarken60": "#67d377",
-                                "orangeFocusDarken80": "#35db7d",
-                                "orangeFocusLighten20": "#cfcaNaN",
-                                "orangeFocusLighten40": "#9fd7NaN",
-                                "orangeFocusLighten60": "#6fe4NaN",
-                                "orangeFocusLighten80": "#3ff1NaN",
+                                "orangeFocusDarken20": "#65533c",
+                                "orangeFocusDarken40": "#8b6d47",
+                                "orangeFocusDarken60": "#b28851",
+                                "orangeFocusDarken80": "#d8a25c",
+                                "orangeFocusLighten20": "#fff2e0",
+                                "orangeFocusLighten40": "#ffe5c2",
+                                "orangeFocusLighten60": "#ffd7a3",
+                                "orangeFocusLighten80": "#ffca85",
                                 "padding-base-horizontal": "12px",
                                 "padding-base-vertical": "6px",
                                 "padding-large-horizontal": "16px",
@@ -3702,14 +3752,14 @@ ui-fss.g44[id="c8"] {
                                 "padding-xs-vertical": "1px",
                                 "pinkErrorBg": "#f3e3e3",
                                 "redError": "#ba3a26",
-                                "redErrorDarken20": "#955b38",
-                                "redErrorDarken40": "#707d4b",
-                                "redErrorDarken60": "#4c9f5d",
-                                "redErrorDarken80": "#27c170",
-                                "redErrorLighten20": "#9761NaN",
-                                "redErrorLighten40": "#7588NaN",
-                                "redErrorLighten60": "#53b0NaN",
-                                "redErrorLighten80": "#31d7NaN",
+                                "redErrorDarken20": "#573830",
+                                "redErrorDarken40": "#70392d",
+                                "redErrorDarken60": "#88392b",
+                                "redErrorDarken80": "#a13a28",
+                                "redErrorLighten20": "#f1d8d4",
+                                "redErrorLighten40": "#e3b0a8",
+                                "redErrorLighten60": "#d6897d",
+                                "redErrorLighten80": "#c86151",
                                 "screen-desktop": "992px",
                                 "screen-lg": "1200px",
                                 "screen-lg-desktop": "1200px",
@@ -3727,7 +3777,7 @@ ui-fss.g44[id="c8"] {
                               }
                             }
                           >
-                            <ForwardRef(Cd)
+                            <ForwardRef(Ad)
                               overlay={
                                 <span>
                                   UK:DEMOUK01
@@ -3995,7 +4045,7 @@ ui-fss.g44[id="c8"] {
                                 showAction={Array []}
                               >
                                 <styled.div
-                                  className="izBVou animate size-XL type-circle"
+                                  className="iYxMPu animate size-XL type-circle animate wave"
                                   key="trigger"
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
@@ -4006,7 +4056,7 @@ ui-fss.g44[id="c8"] {
                                   }
                                 >
                                   <div
-                                    className="eAknCK izBVou animate size-XL type-circle"
+                                    className="hxgtkf iYxMPu animate size-XL type-circle animate wave"
                                     onMouseEnter={[Function]}
                                     onMouseLeave={[Function]}
                                     style={
@@ -4015,23 +4065,31 @@ ui-fss.g44[id="c8"] {
                                       }
                                     }
                                   >
-                                    <img
-                                      alt="UK:DEMOUK01"
-                                      src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cclipPath id='a'%3e%3cpath d='M0 0v30h60V0z'/%3e%3c/clipPath%3e%3cclipPath id='b'%3e%3cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3e%3c/clipPath%3e%3cg clip-path='url(%23a)'%3e%3cpath d='M0 0v30h60V0z' fill='%23012169'/%3e%3cpath d='M0 0l60 30m0-30L0 30' stroke='%23fff' stroke-width='6'/%3e%3cpath d='M0 0l60 30m0-30L0 30' clip-path='url(%23b)' stroke='%23C8102E' stroke-width='4'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3e%3c/g%3e%3c/svg%3e"
-                                      style={
-                                        Object {
-                                          "animationDelay": "0.15000000000000002s",
-                                        }
-                                      }
-                                    />
+                                    <styled.div
+                                      className="size-XL type-circle"
+                                    >
+                                      <div
+                                        className="JXIdR size-XL type-circle"
+                                      >
+                                        <img
+                                          alt="UK:DEMOUK01"
+                                          src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cclipPath id='a'%3e%3cpath d='M0 0v30h60V0z'/%3e%3c/clipPath%3e%3cclipPath id='b'%3e%3cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3e%3c/clipPath%3e%3cg clip-path='url(%23a)'%3e%3cpath d='M0 0v30h60V0z' fill='%23012169'/%3e%3cpath d='M0 0l60 30m0-30L0 30' stroke='%23fff' stroke-width='6'/%3e%3cpath d='M0 0l60 30m0-30L0 30' clip-path='url(%23b)' stroke='%23C8102E' stroke-width='4'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3e%3cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3e%3c/g%3e%3c/svg%3e"
+                                          style={
+                                            Object {
+                                              "animationDelay": "0.15000000000000002s",
+                                            }
+                                          }
+                                        />
+                                      </div>
+                                    </styled.div>
                                   </div>
                                 </styled.div>
                               </t>
-                            </ForwardRef(Cd)>
-                          </Re>
-                        </Ie>
-                      </Bd>
-                    </Styled(Bd)>
+                            </ForwardRef(Ad)>
+                          </Pe>
+                        </Component>
+                      </Td>
+                    </Styled(Td)>
                   </FlagList>
                   <ForwardRef(Tooltip)
                     overlay={
@@ -4625,6 +4683,6 @@ ui-fss.g44[id="c8"] {
         </div>
       </styled.div>
     </Component>
-  </J>
+  </me>
 </BUCHeader>
 `;

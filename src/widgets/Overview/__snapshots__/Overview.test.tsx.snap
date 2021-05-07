@@ -6,7 +6,7 @@ exports[`widgets/Overview/Overview Render: match snapshot 1`] = `
   background-color: #FFFFFF;
   border-width: 1px;
   border-style: solid;
-  border-color: #78706a;
+  border-color: #6a6a6a;
 }
 
 .c1.ekspanderbartPanel--apen .ReactCollapse--collapse {
@@ -47,7 +47,7 @@ exports[`widgets/Overview/Overview Render: match snapshot 1`] = `
 }
 
 .c1 .ekspanderbartPanel__indikator {
-  color: #3e3832;
+  color: #262626;
 }
 
 .c1 p {
@@ -55,7 +55,7 @@ exports[`widgets/Overview/Overview Render: match snapshot 1`] = `
   line-height: inherit;
 }
 
-ui-fss.g8[id="c0"] {
+ui-fss.g1[id="c0"] {
   content: "c1,";
 }
 
@@ -64,7 +64,7 @@ ui-fss.g8[id="c0"] {
   margin-left: 1rem;
 }
 
-ui-fss.g25[id="c6"] {
+ui-fss.g30[id="c6"] {
   content: "c7,";
 }
 
@@ -80,7 +80,7 @@ ui-fss.g25[id="c6"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g35[id="c4"] {
+ui-fss.g53[id="c4"] {
   content: "c5,";
 }
 
@@ -94,7 +94,7 @@ ui-fss.g35[id="c4"] {
   background-image: linear-gradient(45deg,hsla(90,90%,90%,.15) 25%,transparent 0,transparent 50%,hsla(90,90%,90%,.15) 0,hsla(90,90%,90%,.15) 75%,transparent 0,transparent);
 }
 
-ui-fss.g36[id="c10"] {
+ui-fss.g54[id="c10"] {
   content: "c11,";
 }
 
@@ -112,7 +112,7 @@ ui-fss.g36[id="c10"] {
   flex: 1;
 }
 
-ui-fss.g37[id="c2"] {
+ui-fss.g55[id="c2"] {
   content: "c3,";
 }
 
@@ -122,7 +122,7 @@ ui-fss.g37[id="c2"] {
   width: 100%;
 }
 
-ui-fss.g38[id="c8"] {
+ui-fss.g56[id="c8"] {
   content: "c9,";
 }
 
@@ -142,7 +142,7 @@ ui-fss.g38[id="c8"] {
     }
   }
 >
-  <J
+  <me
     highContrast={false}
   >
     <Component
@@ -161,9 +161,9 @@ ui-fss.g38[id="c8"] {
           "container-sm": "(720px + @grid-gutter-width)",
           "container-tablet": "(720px + @grid-gutter-width)",
           "fokusFarge": "#19548a",
-          "grayBackground": "#e9e7e7",
-          "grayIcon": "#b7b1a9",
-          "grayInactive": "#78706a",
+          "grayBackground": "#f1f1f1",
+          "grayIcon": "#a0a0a0",
+          "grayInactive": "#6a6a6a",
           "grayModia": "#333333",
           "grid-columns": "12",
           "grid-float-breakpoint": "768px",
@@ -174,13 +174,13 @@ ui-fss.g38[id="c8"] {
           "line-height-small": "1.5",
           "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
-          "main-border-color": "#78706a",
+          "main-border-color": "#6a6a6a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#b7b1a9",
+          "main-disabled-color": "#a0a0a0",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
-          "main-font-color": "#3e3832",
+          "main-font-color": "#262626",
           "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
@@ -204,10 +204,10 @@ ui-fss.g38[id="c8"] {
           "navDypBlaLighten40": "#99bdcd",
           "navDypBlaLighten60": "#669db4",
           "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c6c2bf",
-          "navGra40": "#b7b1a9",
-          "navGra60": "#78706a",
-          "navGra80": "#59514b",
+          "navGra20": "#c9c9c9",
+          "navGra40": "#a0a0a0",
+          "navGra60": "#6a6a6a",
+          "navGra80": "#4f4f4f",
           "navGraBakgrunn": "#f1f1f1",
           "navGronn": "#06893a",
           "navGronnDarken20": "#334834",
@@ -245,8 +245,8 @@ ui-fss.g38[id="c8"] {
           "navLysBlaLighten40": "#c2eaf7",
           "navLysBlaLighten60": "#a3e0f4",
           "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#e9e7e7",
-          "navMorkGra": "#3e3832",
+          "navLysGra": "#f1f1f1",
+          "navMorkGra": "#262626",
           "navOransje": "#ff9100",
           "navOransjeDarken20": "#654a28",
           "navOransjeDarken40": "#8b5c1e",
@@ -331,7 +331,7 @@ ui-fss.g38[id="c8"] {
           onOpen={[Function]}
           open={true}
         >
-          <J
+          <me
             highContrast={false}
           >
             <Component
@@ -350,9 +350,9 @@ ui-fss.g38[id="c8"] {
                   "container-sm": "(720px + @grid-gutter-width)",
                   "container-tablet": "(720px + @grid-gutter-width)",
                   "fokusFarge": "#19548a",
-                  "grayBackground": "#e9e7e7",
-                  "grayIcon": "#b7b1a9",
-                  "grayInactive": "#78706a",
+                  "grayBackground": "#f1f1f1",
+                  "grayIcon": "#a0a0a0",
+                  "grayInactive": "#6a6a6a",
                   "grayModia": "#333333",
                   "grid-columns": "12",
                   "grid-float-breakpoint": "768px",
@@ -363,13 +363,13 @@ ui-fss.g38[id="c8"] {
                   "line-height-small": "1.5",
                   "main-active-color": "#005b82",
                   "main-background-color": "#f1f1f1",
-                  "main-border-color": "#78706a",
+                  "main-border-color": "#6a6a6a",
                   "main-border-radius": "4px",
                   "main-border-width": "1px",
-                  "main-disabled-color": "#b7b1a9",
+                  "main-disabled-color": "#a0a0a0",
                   "main-error-color": "#ba3a26",
                   "main-focus-color": "#19548a",
-                  "main-font-color": "#3e3832",
+                  "main-font-color": "#262626",
                   "main-hover-color": "#0074df",
                   "main-interactive-color": "#0067c5",
                   "main-success-color": "#06893a",
@@ -393,10 +393,10 @@ ui-fss.g38[id="c8"] {
                   "navDypBlaLighten40": "#99bdcd",
                   "navDypBlaLighten60": "#669db4",
                   "navDypBlaLighten80": "#337c9b",
-                  "navGra20": "#c6c2bf",
-                  "navGra40": "#b7b1a9",
-                  "navGra60": "#78706a",
-                  "navGra80": "#59514b",
+                  "navGra20": "#c9c9c9",
+                  "navGra40": "#a0a0a0",
+                  "navGra60": "#6a6a6a",
+                  "navGra80": "#4f4f4f",
                   "navGraBakgrunn": "#f1f1f1",
                   "navGronn": "#06893a",
                   "navGronnDarken20": "#334834",
@@ -434,8 +434,8 @@ ui-fss.g38[id="c8"] {
                   "navLysBlaLighten40": "#c2eaf7",
                   "navLysBlaLighten60": "#a3e0f4",
                   "navLysBlaLighten80": "#85d5f0",
-                  "navLysGra": "#e9e7e7",
-                  "navMorkGra": "#3e3832",
+                  "navLysGra": "#f1f1f1",
+                  "navMorkGra": "#262626",
                   "navOransje": "#ff9100",
                   "navOransjeDarken20": "#654a28",
                   "navOransjeDarken40": "#8b5c1e",
@@ -638,10 +638,10 @@ ui-fss.g38[id="c8"] {
                 </div>
               </styled.div>
             </Component>
-          </J>
+          </me>
         </ExpandingPanel>
       </div>
     </Component>
-  </J>
+  </me>
 </Overview>
 `;

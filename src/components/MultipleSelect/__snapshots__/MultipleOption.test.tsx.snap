@@ -9,7 +9,7 @@ exports[`components/MultipleSelect/MultipleOption Render: match snapshot 1`] = `
   color: #FFFFFF !important;
 }
 
-ui-fss.g30[id="c0"] {
+ui-fss.g48[id="c0"] {
   content: "c1,";
 }
 
@@ -74,9 +74,9 @@ ui-fss.g30[id="c0"] {
                   "container-sm": "(720px + @grid-gutter-width)",
                   "container-tablet": "(720px + @grid-gutter-width)",
                   "fokusFarge": "#19548a",
-                  "grayBackground": "#e9e7e7",
-                  "grayIcon": "#b7b1a9",
-                  "grayInactive": "#78706a",
+                  "grayBackground": "#f1f1f1",
+                  "grayIcon": "#a0a0a0",
+                  "grayInactive": "#6a6a6a",
                   "grayModia": "#333333",
                   "grid-columns": "12",
                   "grid-float-breakpoint": "768px",
@@ -87,13 +87,13 @@ ui-fss.g30[id="c0"] {
                   "line-height-small": "1.5",
                   "main-active-color": "#005b82",
                   "main-background-color": "#f1f1f1",
-                  "main-border-color": "#78706a",
+                  "main-border-color": "#6a6a6a",
                   "main-border-radius": "4px",
                   "main-border-width": "1px",
-                  "main-disabled-color": "#b7b1a9",
+                  "main-disabled-color": "#a0a0a0",
                   "main-error-color": "#ba3a26",
                   "main-focus-color": "#19548a",
-                  "main-font-color": "#3e3832",
+                  "main-font-color": "#262626",
                   "main-hover-color": "#0074df",
                   "main-interactive-color": "#0067c5",
                   "main-success-color": "#06893a",
@@ -117,10 +117,10 @@ ui-fss.g30[id="c0"] {
                   "navDypBlaLighten40": "#99bdcd",
                   "navDypBlaLighten60": "#669db4",
                   "navDypBlaLighten80": "#337c9b",
-                  "navGra20": "#c6c2bf",
-                  "navGra40": "#b7b1a9",
-                  "navGra60": "#78706a",
-                  "navGra80": "#59514b",
+                  "navGra20": "#c9c9c9",
+                  "navGra40": "#a0a0a0",
+                  "navGra60": "#6a6a6a",
+                  "navGra80": "#4f4f4f",
                   "navGraBakgrunn": "#f1f1f1",
                   "navGronn": "#06893a",
                   "navGronnDarken20": "#334834",
@@ -158,8 +158,8 @@ ui-fss.g30[id="c0"] {
                   "navLysBlaLighten40": "#c2eaf7",
                   "navLysBlaLighten60": "#a3e0f4",
                   "navLysBlaLighten80": "#85d5f0",
-                  "navLysGra": "#e9e7e7",
-                  "navMorkGra": "#3e3832",
+                  "navLysGra": "#f1f1f1",
+                  "navMorkGra": "#262626",
                   "navOransje": "#ff9100",
                   "navOransjeDarken20": "#654a28",
                   "navOransjeDarken40": "#8b5c1e",
@@ -268,9 +268,9 @@ ui-fss.g30[id="c0"] {
           "container-sm": "(720px + @grid-gutter-width)",
           "container-tablet": "(720px + @grid-gutter-width)",
           "fokusFarge": "#19548a",
-          "grayBackground": "#e9e7e7",
-          "grayIcon": "#b7b1a9",
-          "grayInactive": "#78706a",
+          "grayBackground": "#f1f1f1",
+          "grayIcon": "#a0a0a0",
+          "grayInactive": "#6a6a6a",
           "grayModia": "#333333",
           "grid-columns": "12",
           "grid-float-breakpoint": "768px",
@@ -281,13 +281,13 @@ ui-fss.g30[id="c0"] {
           "line-height-small": "1.5",
           "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
-          "main-border-color": "#78706a",
+          "main-border-color": "#6a6a6a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#b7b1a9",
+          "main-disabled-color": "#a0a0a0",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
-          "main-font-color": "#3e3832",
+          "main-font-color": "#262626",
           "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
@@ -311,10 +311,10 @@ ui-fss.g30[id="c0"] {
           "navDypBlaLighten40": "#99bdcd",
           "navDypBlaLighten60": "#669db4",
           "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c6c2bf",
-          "navGra40": "#b7b1a9",
-          "navGra60": "#78706a",
-          "navGra80": "#59514b",
+          "navGra20": "#c9c9c9",
+          "navGra40": "#a0a0a0",
+          "navGra60": "#6a6a6a",
+          "navGra80": "#4f4f4f",
           "navGraBakgrunn": "#f1f1f1",
           "navGronn": "#06893a",
           "navGronnDarken20": "#334834",
@@ -352,8 +352,8 @@ ui-fss.g30[id="c0"] {
           "navLysBlaLighten40": "#c2eaf7",
           "navLysBlaLighten60": "#a3e0f4",
           "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#e9e7e7",
-          "navMorkGra": "#3e3832",
+          "navLysGra": "#f1f1f1",
+          "navMorkGra": "#262626",
           "navOransje": "#ff9100",
           "navOransjeDarken20": "#654a28",
           "navOransjeDarken40": "#8b5c1e",
@@ -425,7 +425,7 @@ ui-fss.g30[id="c0"] {
     onClick={[Function]}
     role="button"
   >
-    <J>
+    <me>
       <Component
         theme={
           Object {
@@ -442,9 +442,9 @@ ui-fss.g30[id="c0"] {
             "container-sm": "(720px + @grid-gutter-width)",
             "container-tablet": "(720px + @grid-gutter-width)",
             "fokusFarge": "#19548a",
-            "grayBackground": "#e9e7e7",
-            "grayIcon": "#b7b1a9",
-            "grayInactive": "#78706a",
+            "grayBackground": "#f1f1f1",
+            "grayIcon": "#a0a0a0",
+            "grayInactive": "#6a6a6a",
             "grayModia": "#333333",
             "grid-columns": "12",
             "grid-float-breakpoint": "768px",
@@ -455,13 +455,13 @@ ui-fss.g30[id="c0"] {
             "line-height-small": "1.5",
             "main-active-color": "#005b82",
             "main-background-color": "#f1f1f1",
-            "main-border-color": "#78706a",
+            "main-border-color": "#6a6a6a",
             "main-border-radius": "4px",
             "main-border-width": "1px",
-            "main-disabled-color": "#b7b1a9",
+            "main-disabled-color": "#a0a0a0",
             "main-error-color": "#ba3a26",
             "main-focus-color": "#19548a",
-            "main-font-color": "#3e3832",
+            "main-font-color": "#262626",
             "main-hover-color": "#0074df",
             "main-interactive-color": "#0067c5",
             "main-success-color": "#06893a",
@@ -485,10 +485,10 @@ ui-fss.g30[id="c0"] {
             "navDypBlaLighten40": "#99bdcd",
             "navDypBlaLighten60": "#669db4",
             "navDypBlaLighten80": "#337c9b",
-            "navGra20": "#c6c2bf",
-            "navGra40": "#b7b1a9",
-            "navGra60": "#78706a",
-            "navGra80": "#59514b",
+            "navGra20": "#c9c9c9",
+            "navGra40": "#a0a0a0",
+            "navGra60": "#6a6a6a",
+            "navGra80": "#4f4f4f",
             "navGraBakgrunn": "#f1f1f1",
             "navGronn": "#06893a",
             "navGronnDarken20": "#334834",
@@ -526,8 +526,8 @@ ui-fss.g30[id="c0"] {
             "navLysBlaLighten40": "#c2eaf7",
             "navLysBlaLighten60": "#a3e0f4",
             "navLysBlaLighten80": "#85d5f0",
-            "navLysGra": "#e9e7e7",
-            "navMorkGra": "#3e3832",
+            "navLysGra": "#f1f1f1",
+            "navMorkGra": "#262626",
             "navOransje": "#ff9100",
             "navOransjeDarken20": "#654a28",
             "navOransjeDarken40": "#8b5c1e",
@@ -627,7 +627,7 @@ ui-fss.g30[id="c0"] {
           </Checkbox>
         </Styled(Checkbox)>
       </Component>
-    </J>
+    </me>
   </div>
 </MultipleOption>
 `;

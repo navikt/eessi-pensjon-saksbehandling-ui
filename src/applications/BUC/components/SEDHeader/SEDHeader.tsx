@@ -5,7 +5,7 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { BUCMode } from 'applications/BUC/index'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import SEDLoadSave from 'components/SEDLoadSave/SEDLoadSave'
-import { AllowedLocaleString } from 'declarations/app.d'
+import { AllowedLocaleString, FeatureToggles } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -97,11 +97,13 @@ export interface SEDHeaderProps {
 export interface SEDListSelector {
   highContrast: boolean
   locale: AllowedLocaleString
+  featureToggles: FeatureToggles
 }
 
 const mapState = (state: State): SEDListSelector => ({
   highContrast: state.ui.highContrast,
-  locale: state.ui.locale
+  locale: state.ui.locale,
+  featureToggles: state.app.featureToggles
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
@@ -115,7 +117,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   sed,
   style
 }: SEDHeaderProps): JSX.Element => {
-  const { highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { featureToggles, highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSed: Sed | undefined = buc.seds!.find(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent')
 
@@ -251,7 +253,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </HighContrastFlatknapp>
             )}
 
-            {sed.type === 'P5000' && (
+            {sed.type === 'P5000' && featureToggles.P5000_SUMMER_VISIBLE && (
               <PileDiv>
                 <HighContrastFlatknapp
                   mini
@@ -280,7 +282,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             )}
           </SEDListActionsDiv>
         </SEDHeaderContent>
-        {P5000Draft && (
+        {featureToggles.P5000_SUMMER_VISIBLE && P5000Draft && (
           <SEDLoadSave
             buc={buc}
             sedId={sed.id}

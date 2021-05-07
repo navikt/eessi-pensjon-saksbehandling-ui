@@ -7,7 +7,7 @@ import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overv
 import SEDP5000Sum from 'applications/BUC/components/SEDP5000/SEDP5000Sum'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { AllowedLocaleString } from 'declarations/app'
+import { AllowedLocaleString, FeatureToggles } from 'declarations/app'
 import { Buc, Sed, SedContentMap, Seds } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -34,12 +34,14 @@ export interface SEDP5000Selector {
   highContrast: boolean
   locale: AllowedLocaleString
   sedContent: SedContentMap
+  featureToggles: FeatureToggles
 }
 
 const mapState = (state: State): SEDP5000Selector => ({
   highContrast: state.ui.highContrast,
   locale: state.ui.locale,
-  sedContent: state.buc.sedContent
+  sedContent: state.buc.sedContent,
+  featureToggles: state.app.featureToggles
 })
 
 const SEDP5000: React.FC<SEDP5000Props> = ({
@@ -57,7 +59,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   const dispatch = useDispatch()
 
   const {
-    highContrast, locale, sedContent
+    highContrast, locale, sedContent, featureToggles
   }: SEDP5000Selector = useSelector<State, SEDP5000Selector>(mapState)
 
   const [_fetchingP5000, setFetchingP5000] = useState<Seds | undefined>(undefined)
@@ -158,7 +160,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
 
   return (
     <div key={_seds?.map(s => s.id).join(',')}>
-      {seeEdit
+      {featureToggles.P5000_SUMMER_VISIBLE && seeEdit
         ? (
           <>
             {renderBackLink()}
@@ -187,11 +189,11 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             </ExpandingPanel>
           </>
           )
-        : (
+        : (featureToggles.P5000_SUMMER_VISIBLE && (
           <Normaltekst>
             {t('buc:p5000-to-see-p5000edit')}
           </Normaltekst>
-          )}
+          ))}
       {seeOversikt && (
         <>
           {renderBackLink()}
@@ -216,7 +218,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           <VerticalSeparatorDiv size='3' />
         </>
       )}
-      {seeSummer && (
+      {featureToggles.P5000_SUMMER_VISIBLE && seeSummer && (
         <>
           {renderBackLink()}
           <VerticalSeparatorDiv size='2' />

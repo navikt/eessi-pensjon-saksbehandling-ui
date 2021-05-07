@@ -1,35 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/BUCStart/BUCStart Render: match snapshot 1`] = `
-.c3 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-ui-fss.g5[id="c2"] {
-  content: "c3,";
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-ui-fss.g9[id="c0"] {
-  content: "c1,";
-}
-
 .c15 {
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
   color: #0067c5;
   background-color: transparent;
 }
@@ -45,8 +19,8 @@ ui-fss.g9[id="c0"] {
 
 .c15:disabled {
   color: #FFFFFF !important;
-  background-color: #b7b1a9 !important;
-  border-color: #b7b1a9 !important;
+  background-color: #a0a0a0 !important;
+  border-color: #a0a0a0 !important;
 }
 
 .c15:disabled svg {
@@ -65,7 +39,7 @@ ui-fss.g9[id="c0"] {
   stroke: #0067c5 !important;
 }
 
-ui-fss.g13[id="c14"] {
+ui-fss.g6[id="c14"] {
   content: "c15,";
 }
 
@@ -74,6 +48,8 @@ ui-fss.g13[id="c14"] {
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
   background-color: #0067c5 !important;
   color: #FFFFFF !important;
   border-color: #0067c5 !important;
@@ -99,8 +75,8 @@ ui-fss.g13[id="c14"] {
 
 .c12:disabled {
   color: #FFFFFF !important;
-  background-color: #b7b1a9 !important;
-  border-color: #b7b1a9 !important;
+  background-color: #a0a0a0 !important;
+  border-color: #a0a0a0 !important;
 }
 
 .c12:disabled svg {
@@ -119,8 +95,36 @@ ui-fss.g13[id="c14"] {
   stroke: #FFFFFF !important;
 }
 
-ui-fss.g14[id="c11"] {
+ui-fss.g7[id="c11"] {
   content: "c12,";
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g24[id="c0"] {
+  content: "c1,";
+}
+
+.c3 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+ui-fss.g28[id="c2"] {
+  content: "c3,";
 }
 
 .c8 {
@@ -133,7 +137,7 @@ ui-fss.g14[id="c11"] {
   margin-left: 1rem;
 }
 
-ui-fss.g28[id="c7"] {
+ui-fss.g33[id="c7"] {
   content: "c8,c13,";
 }
 
@@ -145,7 +149,7 @@ ui-fss.g28[id="c7"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g32[id="c4"] {
+ui-fss.g34[id="c4"] {
   content: "c5,c6,";
 }
 
@@ -153,7 +157,7 @@ ui-fss.g32[id="c4"] {
   border: 1px solid #ba3a26;
 }
 
-ui-fss.g34[id="c9"] {
+ui-fss.g52[id="c9"] {
   content: "c10,";
 }
 
@@ -170,7 +174,7 @@ ui-fss.g34[id="c9"] {
   onBucCancelled={[MockFunction]}
   onBucCreated={[MockFunction]}
 >
-  <J
+  <me
     highContrast={false}
   >
     <Component
@@ -189,9 +193,9 @@ ui-fss.g34[id="c9"] {
           "container-sm": "(720px + @grid-gutter-width)",
           "container-tablet": "(720px + @grid-gutter-width)",
           "fokusFarge": "#19548a",
-          "grayBackground": "#e9e7e7",
-          "grayIcon": "#b7b1a9",
-          "grayInactive": "#78706a",
+          "grayBackground": "#f1f1f1",
+          "grayIcon": "#a0a0a0",
+          "grayInactive": "#6a6a6a",
           "grayModia": "#333333",
           "grid-columns": "12",
           "grid-float-breakpoint": "768px",
@@ -202,13 +206,13 @@ ui-fss.g34[id="c9"] {
           "line-height-small": "1.5",
           "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
-          "main-border-color": "#78706a",
+          "main-border-color": "#6a6a6a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#b7b1a9",
+          "main-disabled-color": "#a0a0a0",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
-          "main-font-color": "#3e3832",
+          "main-font-color": "#262626",
           "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
@@ -232,10 +236,10 @@ ui-fss.g34[id="c9"] {
           "navDypBlaLighten40": "#99bdcd",
           "navDypBlaLighten60": "#669db4",
           "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c6c2bf",
-          "navGra40": "#b7b1a9",
-          "navGra60": "#78706a",
-          "navGra80": "#59514b",
+          "navGra20": "#c9c9c9",
+          "navGra40": "#a0a0a0",
+          "navGra60": "#6a6a6a",
+          "navGra80": "#4f4f4f",
           "navGraBakgrunn": "#f1f1f1",
           "navGronn": "#06893a",
           "navGronnDarken20": "#334834",
@@ -273,8 +277,8 @@ ui-fss.g34[id="c9"] {
           "navLysBlaLighten40": "#c2eaf7",
           "navLysBlaLighten60": "#a3e0f4",
           "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#e9e7e7",
-          "navMorkGra": "#3e3832",
+          "navLysGra": "#f1f1f1",
+          "navMorkGra": "#262626",
           "navOransje": "#ff9100",
           "navOransjeDarken20": "#654a28",
           "navOransjeDarken40": "#8b5c1e",
@@ -349,11 +353,11 @@ ui-fss.g34[id="c9"] {
                 className="c2 c3"
               >
                 <styled.div
-                  data-size="2"
+                  size="2"
                 >
                   <div
                     className="c4 c5"
-                    data-size="2"
+                    size="2"
                   />
                 </styled.div>
                 <label
@@ -946,13 +950,13 @@ ui-fss.g34[id="c9"] {
                                       },
                                       "alignItems": "center",
                                       "backgroundColor": "#FFFFFF",
-                                      "borderColor": "#78706a",
+                                      "borderColor": "#6a6a6a",
                                       "borderRadius": "4px",
                                       "borderStyle": "solid",
                                       "borderWidth": "1px",
                                       "boxShadow": null,
                                       "boxSizing": "border-box",
-                                      "color": "#3e3832",
+                                      "color": "#262626",
                                       "cursor": "default",
                                       "display": "flex",
                                       "flexWrap": "wrap",
@@ -968,7 +972,7 @@ ui-fss.g34[id="c9"] {
                                   onTouchEnd={[Function]}
                                 >
                                   <div
-                                    className=" css-1aj5usi-control"
+                                    className=" css-1lzhyy9-control"
                                     onMouseDown={[Function]}
                                     onTouchEnd={[Function]}
                                   >
@@ -1244,7 +1248,7 @@ ui-fss.g34[id="c9"] {
                                               css={
                                                 Object {
                                                   "boxSizing": "border-box",
-                                                  "color": "#3e3832",
+                                                  "color": "#262626",
                                                   "label": "singleValue",
                                                   "marginLeft": 2,
                                                   "marginRight": 2,
@@ -1259,7 +1263,7 @@ ui-fss.g34[id="c9"] {
                                               }
                                             >
                                               <div
-                                                className=" css-hjnbyy-singleValue"
+                                                className=" css-4u8221-singleValue"
                                               >
                                                 Pensjon
                                               </div>
@@ -1767,7 +1771,7 @@ ui-fss.g34[id="c9"] {
                                               css={
                                                 Object {
                                                   "alignSelf": "stretch",
-                                                  "backgroundColor": "#78706a",
+                                                  "backgroundColor": "#6a6a6a",
                                                   "boxSizing": "border-box",
                                                   "label": "indicatorSeparator",
                                                   "marginBottom": 8,
@@ -1777,7 +1781,7 @@ ui-fss.g34[id="c9"] {
                                               }
                                             >
                                               <span
-                                                className=" css-vd4mzp-indicatorSeparator"
+                                                className=" css-1ryedm8-indicatorSeparator"
                                               />
                                             </EmotionCssPropInternal>
                                           </IndicatorSeparator>
@@ -2766,13 +2770,13 @@ ui-fss.g34[id="c9"] {
                                       },
                                       "alignItems": "center",
                                       "backgroundColor": "#FFFFFF",
-                                      "borderColor": "#78706a",
+                                      "borderColor": "#6a6a6a",
                                       "borderRadius": "4px",
                                       "borderStyle": "solid",
                                       "borderWidth": "1px",
                                       "boxShadow": null,
                                       "boxSizing": "border-box",
-                                      "color": "#3e3832",
+                                      "color": "#262626",
                                       "cursor": "default",
                                       "display": "flex",
                                       "flexWrap": "wrap",
@@ -2788,7 +2792,7 @@ ui-fss.g34[id="c9"] {
                                   onTouchEnd={[Function]}
                                 >
                                   <div
-                                    className=" css-1aj5usi-control"
+                                    className=" css-1lzhyy9-control"
                                     onMouseDown={[Function]}
                                     onTouchEnd={[Function]}
                                   >
@@ -3150,7 +3154,7 @@ ui-fss.g34[id="c9"] {
                                               css={
                                                 Object {
                                                   "boxSizing": "border-box",
-                                                  "color": "#78706a",
+                                                  "color": "#6a6a6a",
                                                   "label": "placeholder",
                                                   "marginLeft": 2,
                                                   "marginRight": 2,
@@ -3161,7 +3165,7 @@ ui-fss.g34[id="c9"] {
                                               }
                                             >
                                               <div
-                                                className=" css-1page0z-placeholder"
+                                                className=" css-14a0ybe-placeholder"
                                               >
                                                 buc:form-chooseBuc
                                               </div>
@@ -3804,7 +3808,7 @@ ui-fss.g34[id="c9"] {
                                               css={
                                                 Object {
                                                   "alignSelf": "stretch",
-                                                  "backgroundColor": "#78706a",
+                                                  "backgroundColor": "#6a6a6a",
                                                   "boxSizing": "border-box",
                                                   "label": "indicatorSeparator",
                                                   "marginBottom": 8,
@@ -3814,7 +3818,7 @@ ui-fss.g34[id="c9"] {
                                               }
                                             >
                                               <span
-                                                className=" css-vd4mzp-indicatorSeparator"
+                                                className=" css-1ryedm8-indicatorSeparator"
                                               />
                                             </EmotionCssPropInternal>
                                           </IndicatorSeparator>
@@ -4072,11 +4076,11 @@ ui-fss.g34[id="c9"] {
               </div>
             </styled.div>
             <styled.div
-              data-size="2"
+              size="2"
             >
               <div
                 className="c7 c8"
-                data-size="2"
+                size="2"
               />
             </styled.div>
             <styled.div>
@@ -4084,11 +4088,11 @@ ui-fss.g34[id="c9"] {
                 className="c2 c3"
               >
                 <styled.div
-                  data-size="2"
+                  size="2"
                 >
                   <div
                     className="c4 c5"
-                    data-size="2"
+                    size="2"
                   />
                 </styled.div>
                 <MultipleSelect
@@ -4128,7 +4132,7 @@ ui-fss.g34[id="c9"] {
                   placeholder="buc:form-tagPlaceholder"
                   values={Array []}
                 >
-                  <J
+                  <me
                     highContrast={false}
                   >
                     <Component
@@ -4147,9 +4151,9 @@ ui-fss.g34[id="c9"] {
                           "container-sm": "(720px + @grid-gutter-width)",
                           "container-tablet": "(720px + @grid-gutter-width)",
                           "fokusFarge": "#19548a",
-                          "grayBackground": "#e9e7e7",
-                          "grayIcon": "#b7b1a9",
-                          "grayInactive": "#78706a",
+                          "grayBackground": "#f1f1f1",
+                          "grayIcon": "#a0a0a0",
+                          "grayInactive": "#6a6a6a",
                           "grayModia": "#333333",
                           "grid-columns": "12",
                           "grid-float-breakpoint": "768px",
@@ -4160,13 +4164,13 @@ ui-fss.g34[id="c9"] {
                           "line-height-small": "1.5",
                           "main-active-color": "#005b82",
                           "main-background-color": "#f1f1f1",
-                          "main-border-color": "#78706a",
+                          "main-border-color": "#6a6a6a",
                           "main-border-radius": "4px",
                           "main-border-width": "1px",
-                          "main-disabled-color": "#b7b1a9",
+                          "main-disabled-color": "#a0a0a0",
                           "main-error-color": "#ba3a26",
                           "main-focus-color": "#19548a",
-                          "main-font-color": "#3e3832",
+                          "main-font-color": "#262626",
                           "main-hover-color": "#0074df",
                           "main-interactive-color": "#0067c5",
                           "main-success-color": "#06893a",
@@ -4190,10 +4194,10 @@ ui-fss.g34[id="c9"] {
                           "navDypBlaLighten40": "#99bdcd",
                           "navDypBlaLighten60": "#669db4",
                           "navDypBlaLighten80": "#337c9b",
-                          "navGra20": "#c6c2bf",
-                          "navGra40": "#b7b1a9",
-                          "navGra60": "#78706a",
-                          "navGra80": "#59514b",
+                          "navGra20": "#c9c9c9",
+                          "navGra40": "#a0a0a0",
+                          "navGra60": "#6a6a6a",
+                          "navGra80": "#4f4f4f",
                           "navGraBakgrunn": "#f1f1f1",
                           "navGronn": "#06893a",
                           "navGronnDarken20": "#334834",
@@ -4231,8 +4235,8 @@ ui-fss.g34[id="c9"] {
                           "navLysBlaLighten40": "#c2eaf7",
                           "navLysBlaLighten60": "#a3e0f4",
                           "navLysBlaLighten80": "#85d5f0",
-                          "navLysGra": "#e9e7e7",
-                          "navMorkGra": "#3e3832",
+                          "navLysGra": "#f1f1f1",
+                          "navMorkGra": "#262626",
                           "navOransje": "#ff9100",
                           "navOransjeDarken20": "#654a28",
                           "navOransjeDarken40": "#8b5c1e",
@@ -4409,9 +4413,9 @@ ui-fss.g34[id="c9"] {
                                   "container-sm": "(720px + @grid-gutter-width)",
                                   "container-tablet": "(720px + @grid-gutter-width)",
                                   "fokusFarge": "#19548a",
-                                  "grayBackground": "#e9e7e7",
-                                  "grayIcon": "#b7b1a9",
-                                  "grayInactive": "#78706a",
+                                  "grayBackground": "#f1f1f1",
+                                  "grayIcon": "#a0a0a0",
+                                  "grayInactive": "#6a6a6a",
                                   "grayModia": "#333333",
                                   "grid-columns": "12",
                                   "grid-float-breakpoint": "768px",
@@ -4422,13 +4426,13 @@ ui-fss.g34[id="c9"] {
                                   "line-height-small": "1.5",
                                   "main-active-color": "#005b82",
                                   "main-background-color": "#f1f1f1",
-                                  "main-border-color": "#78706a",
+                                  "main-border-color": "#6a6a6a",
                                   "main-border-radius": "4px",
                                   "main-border-width": "1px",
-                                  "main-disabled-color": "#b7b1a9",
+                                  "main-disabled-color": "#a0a0a0",
                                   "main-error-color": "#ba3a26",
                                   "main-focus-color": "#19548a",
-                                  "main-font-color": "#3e3832",
+                                  "main-font-color": "#262626",
                                   "main-hover-color": "#0074df",
                                   "main-interactive-color": "#0067c5",
                                   "main-success-color": "#06893a",
@@ -4452,10 +4456,10 @@ ui-fss.g34[id="c9"] {
                                   "navDypBlaLighten40": "#99bdcd",
                                   "navDypBlaLighten60": "#669db4",
                                   "navDypBlaLighten80": "#337c9b",
-                                  "navGra20": "#c6c2bf",
-                                  "navGra40": "#b7b1a9",
-                                  "navGra60": "#78706a",
-                                  "navGra80": "#59514b",
+                                  "navGra20": "#c9c9c9",
+                                  "navGra40": "#a0a0a0",
+                                  "navGra60": "#6a6a6a",
+                                  "navGra80": "#4f4f4f",
                                   "navGraBakgrunn": "#f1f1f1",
                                   "navGronn": "#06893a",
                                   "navGronnDarken20": "#334834",
@@ -4493,8 +4497,8 @@ ui-fss.g34[id="c9"] {
                                   "navLysBlaLighten40": "#c2eaf7",
                                   "navLysBlaLighten60": "#a3e0f4",
                                   "navLysBlaLighten80": "#85d5f0",
-                                  "navLysGra": "#e9e7e7",
-                                  "navMorkGra": "#3e3832",
+                                  "navLysGra": "#f1f1f1",
+                                  "navMorkGra": "#262626",
                                   "navOransje": "#ff9100",
                                   "navOransjeDarken20": "#654a28",
                                   "navOransjeDarken40": "#8b5c1e",
@@ -4678,9 +4682,9 @@ ui-fss.g34[id="c9"] {
                                     "container-sm": "(720px + @grid-gutter-width)",
                                     "container-tablet": "(720px + @grid-gutter-width)",
                                     "fokusFarge": "#19548a",
-                                    "grayBackground": "#e9e7e7",
-                                    "grayIcon": "#b7b1a9",
-                                    "grayInactive": "#78706a",
+                                    "grayBackground": "#f1f1f1",
+                                    "grayIcon": "#a0a0a0",
+                                    "grayInactive": "#6a6a6a",
                                     "grayModia": "#333333",
                                     "grid-columns": "12",
                                     "grid-float-breakpoint": "768px",
@@ -4691,13 +4695,13 @@ ui-fss.g34[id="c9"] {
                                     "line-height-small": "1.5",
                                     "main-active-color": "#005b82",
                                     "main-background-color": "#f1f1f1",
-                                    "main-border-color": "#78706a",
+                                    "main-border-color": "#6a6a6a",
                                     "main-border-radius": "4px",
                                     "main-border-width": "1px",
-                                    "main-disabled-color": "#b7b1a9",
+                                    "main-disabled-color": "#a0a0a0",
                                     "main-error-color": "#ba3a26",
                                     "main-focus-color": "#19548a",
-                                    "main-font-color": "#3e3832",
+                                    "main-font-color": "#262626",
                                     "main-hover-color": "#0074df",
                                     "main-interactive-color": "#0067c5",
                                     "main-success-color": "#06893a",
@@ -4721,10 +4725,10 @@ ui-fss.g34[id="c9"] {
                                     "navDypBlaLighten40": "#99bdcd",
                                     "navDypBlaLighten60": "#669db4",
                                     "navDypBlaLighten80": "#337c9b",
-                                    "navGra20": "#c6c2bf",
-                                    "navGra40": "#b7b1a9",
-                                    "navGra60": "#78706a",
-                                    "navGra80": "#59514b",
+                                    "navGra20": "#c9c9c9",
+                                    "navGra40": "#a0a0a0",
+                                    "navGra60": "#6a6a6a",
+                                    "navGra80": "#4f4f4f",
                                     "navGraBakgrunn": "#f1f1f1",
                                     "navGronn": "#06893a",
                                     "navGronnDarken20": "#334834",
@@ -4762,8 +4766,8 @@ ui-fss.g34[id="c9"] {
                                     "navLysBlaLighten40": "#c2eaf7",
                                     "navLysBlaLighten60": "#a3e0f4",
                                     "navLysBlaLighten80": "#85d5f0",
-                                    "navLysGra": "#e9e7e7",
-                                    "navMorkGra": "#3e3832",
+                                    "navLysGra": "#f1f1f1",
+                                    "navMorkGra": "#262626",
                                     "navOransje": "#ff9100",
                                     "navOransjeDarken20": "#654a28",
                                     "navOransjeDarken40": "#8b5c1e",
@@ -4974,9 +4978,9 @@ ui-fss.g34[id="c9"] {
                                         "container-sm": "(720px + @grid-gutter-width)",
                                         "container-tablet": "(720px + @grid-gutter-width)",
                                         "fokusFarge": "#19548a",
-                                        "grayBackground": "#e9e7e7",
-                                        "grayIcon": "#b7b1a9",
-                                        "grayInactive": "#78706a",
+                                        "grayBackground": "#f1f1f1",
+                                        "grayIcon": "#a0a0a0",
+                                        "grayInactive": "#6a6a6a",
                                         "grayModia": "#333333",
                                         "grid-columns": "12",
                                         "grid-float-breakpoint": "768px",
@@ -4987,13 +4991,13 @@ ui-fss.g34[id="c9"] {
                                         "line-height-small": "1.5",
                                         "main-active-color": "#005b82",
                                         "main-background-color": "#f1f1f1",
-                                        "main-border-color": "#78706a",
+                                        "main-border-color": "#6a6a6a",
                                         "main-border-radius": "4px",
                                         "main-border-width": "1px",
-                                        "main-disabled-color": "#b7b1a9",
+                                        "main-disabled-color": "#a0a0a0",
                                         "main-error-color": "#ba3a26",
                                         "main-focus-color": "#19548a",
-                                        "main-font-color": "#3e3832",
+                                        "main-font-color": "#262626",
                                         "main-hover-color": "#0074df",
                                         "main-interactive-color": "#0067c5",
                                         "main-success-color": "#06893a",
@@ -5017,10 +5021,10 @@ ui-fss.g34[id="c9"] {
                                         "navDypBlaLighten40": "#99bdcd",
                                         "navDypBlaLighten60": "#669db4",
                                         "navDypBlaLighten80": "#337c9b",
-                                        "navGra20": "#c6c2bf",
-                                        "navGra40": "#b7b1a9",
-                                        "navGra60": "#78706a",
-                                        "navGra80": "#59514b",
+                                        "navGra20": "#c9c9c9",
+                                        "navGra40": "#a0a0a0",
+                                        "navGra60": "#6a6a6a",
+                                        "navGra80": "#4f4f4f",
                                         "navGraBakgrunn": "#f1f1f1",
                                         "navGronn": "#06893a",
                                         "navGronnDarken20": "#334834",
@@ -5058,8 +5062,8 @@ ui-fss.g34[id="c9"] {
                                         "navLysBlaLighten40": "#c2eaf7",
                                         "navLysBlaLighten60": "#a3e0f4",
                                         "navLysBlaLighten80": "#85d5f0",
-                                        "navLysGra": "#e9e7e7",
-                                        "navMorkGra": "#3e3832",
+                                        "navLysGra": "#f1f1f1",
+                                        "navMorkGra": "#262626",
                                         "navOransje": "#ff9100",
                                         "navOransjeDarken20": "#654a28",
                                         "navOransjeDarken40": "#8b5c1e",
@@ -5177,7 +5181,7 @@ ui-fss.g34[id="c9"] {
                                   css={
                                     Object {
                                       "backgroundColor": "#f1f1f1",
-                                      "borderColor": "1px solid #78706a",
+                                      "borderColor": "1px solid #6a6a6a",
                                       "borderRadius": "4px",
                                       "boxShadow": "none",
                                       "boxSizing": "border-box",
@@ -5190,7 +5194,7 @@ ui-fss.g34[id="c9"] {
                                   onKeyDown={[Function]}
                                 >
                                   <div
-                                    className="multipleSelect css-1blil62-container"
+                                    className="multipleSelect css-ndepij-container"
                                     onKeyDown={[Function]}
                                   >
                                     <LiveRegion
@@ -5318,9 +5322,9 @@ ui-fss.g34[id="c9"] {
                                               "container-sm": "(720px + @grid-gutter-width)",
                                               "container-tablet": "(720px + @grid-gutter-width)",
                                               "fokusFarge": "#19548a",
-                                              "grayBackground": "#e9e7e7",
-                                              "grayIcon": "#b7b1a9",
-                                              "grayInactive": "#78706a",
+                                              "grayBackground": "#f1f1f1",
+                                              "grayIcon": "#a0a0a0",
+                                              "grayInactive": "#6a6a6a",
                                               "grayModia": "#333333",
                                               "grid-columns": "12",
                                               "grid-float-breakpoint": "768px",
@@ -5331,13 +5335,13 @@ ui-fss.g34[id="c9"] {
                                               "line-height-small": "1.5",
                                               "main-active-color": "#005b82",
                                               "main-background-color": "#f1f1f1",
-                                              "main-border-color": "#78706a",
+                                              "main-border-color": "#6a6a6a",
                                               "main-border-radius": "4px",
                                               "main-border-width": "1px",
-                                              "main-disabled-color": "#b7b1a9",
+                                              "main-disabled-color": "#a0a0a0",
                                               "main-error-color": "#ba3a26",
                                               "main-focus-color": "#19548a",
-                                              "main-font-color": "#3e3832",
+                                              "main-font-color": "#262626",
                                               "main-hover-color": "#0074df",
                                               "main-interactive-color": "#0067c5",
                                               "main-success-color": "#06893a",
@@ -5361,10 +5365,10 @@ ui-fss.g34[id="c9"] {
                                               "navDypBlaLighten40": "#99bdcd",
                                               "navDypBlaLighten60": "#669db4",
                                               "navDypBlaLighten80": "#337c9b",
-                                              "navGra20": "#c6c2bf",
-                                              "navGra40": "#b7b1a9",
-                                              "navGra60": "#78706a",
-                                              "navGra80": "#59514b",
+                                              "navGra20": "#c9c9c9",
+                                              "navGra40": "#a0a0a0",
+                                              "navGra60": "#6a6a6a",
+                                              "navGra80": "#4f4f4f",
                                               "navGraBakgrunn": "#f1f1f1",
                                               "navGronn": "#06893a",
                                               "navGronnDarken20": "#334834",
@@ -5402,8 +5406,8 @@ ui-fss.g34[id="c9"] {
                                               "navLysBlaLighten40": "#c2eaf7",
                                               "navLysBlaLighten60": "#a3e0f4",
                                               "navLysBlaLighten80": "#85d5f0",
-                                              "navLysGra": "#e9e7e7",
-                                              "navMorkGra": "#3e3832",
+                                              "navLysGra": "#f1f1f1",
+                                              "navMorkGra": "#262626",
                                               "navOransje": "#ff9100",
                                               "navOransjeDarken20": "#654a28",
                                               "navOransjeDarken40": "#8b5c1e",
@@ -5674,9 +5678,9 @@ ui-fss.g34[id="c9"] {
                                               "container-sm": "(720px + @grid-gutter-width)",
                                               "container-tablet": "(720px + @grid-gutter-width)",
                                               "fokusFarge": "#19548a",
-                                              "grayBackground": "#e9e7e7",
-                                              "grayIcon": "#b7b1a9",
-                                              "grayInactive": "#78706a",
+                                              "grayBackground": "#f1f1f1",
+                                              "grayIcon": "#a0a0a0",
+                                              "grayInactive": "#6a6a6a",
                                               "grayModia": "#333333",
                                               "grid-columns": "12",
                                               "grid-float-breakpoint": "768px",
@@ -5687,13 +5691,13 @@ ui-fss.g34[id="c9"] {
                                               "line-height-small": "1.5",
                                               "main-active-color": "#005b82",
                                               "main-background-color": "#f1f1f1",
-                                              "main-border-color": "#78706a",
+                                              "main-border-color": "#6a6a6a",
                                               "main-border-radius": "4px",
                                               "main-border-width": "1px",
-                                              "main-disabled-color": "#b7b1a9",
+                                              "main-disabled-color": "#a0a0a0",
                                               "main-error-color": "#ba3a26",
                                               "main-focus-color": "#19548a",
-                                              "main-font-color": "#3e3832",
+                                              "main-font-color": "#262626",
                                               "main-hover-color": "#0074df",
                                               "main-interactive-color": "#0067c5",
                                               "main-success-color": "#06893a",
@@ -5717,10 +5721,10 @@ ui-fss.g34[id="c9"] {
                                               "navDypBlaLighten40": "#99bdcd",
                                               "navDypBlaLighten60": "#669db4",
                                               "navDypBlaLighten80": "#337c9b",
-                                              "navGra20": "#c6c2bf",
-                                              "navGra40": "#b7b1a9",
-                                              "navGra60": "#78706a",
-                                              "navGra80": "#59514b",
+                                              "navGra20": "#c9c9c9",
+                                              "navGra40": "#a0a0a0",
+                                              "navGra60": "#6a6a6a",
+                                              "navGra80": "#4f4f4f",
                                               "navGraBakgrunn": "#f1f1f1",
                                               "navGronn": "#06893a",
                                               "navGronnDarken20": "#334834",
@@ -5758,8 +5762,8 @@ ui-fss.g34[id="c9"] {
                                               "navLysBlaLighten40": "#c2eaf7",
                                               "navLysBlaLighten60": "#a3e0f4",
                                               "navLysBlaLighten80": "#85d5f0",
-                                              "navLysGra": "#e9e7e7",
-                                              "navMorkGra": "#3e3832",
+                                              "navLysGra": "#f1f1f1",
+                                              "navMorkGra": "#262626",
                                               "navOransje": "#ff9100",
                                               "navOransjeDarken20": "#654a28",
                                               "navOransjeDarken40": "#8b5c1e",
@@ -5881,13 +5885,13 @@ ui-fss.g34[id="c9"] {
                                             },
                                             "alignItems": "center",
                                             "backgroundColor": "#FFFFFF",
-                                            "borderColor": "#78706a",
+                                            "borderColor": "#6a6a6a",
                                             "borderRadius": "4px",
                                             "borderStyle": "solid",
                                             "borderWidth": "1px",
                                             "boxShadow": null,
                                             "boxSizing": "border-box",
-                                            "color": "#3e3832",
+                                            "color": "#262626",
                                             "cursor": "default",
                                             "display": "flex",
                                             "flexWrap": "wrap",
@@ -5903,7 +5907,7 @@ ui-fss.g34[id="c9"] {
                                         onTouchEnd={[Function]}
                                       >
                                         <div
-                                          className="multipleSelect__control css-1aj5usi-control"
+                                          className="multipleSelect__control css-1lzhyy9-control"
                                           onMouseDown={[Function]}
                                           onTouchEnd={[Function]}
                                         >
@@ -6028,9 +6032,9 @@ ui-fss.g34[id="c9"] {
                                                     "container-sm": "(720px + @grid-gutter-width)",
                                                     "container-tablet": "(720px + @grid-gutter-width)",
                                                     "fokusFarge": "#19548a",
-                                                    "grayBackground": "#e9e7e7",
-                                                    "grayIcon": "#b7b1a9",
-                                                    "grayInactive": "#78706a",
+                                                    "grayBackground": "#f1f1f1",
+                                                    "grayIcon": "#a0a0a0",
+                                                    "grayInactive": "#6a6a6a",
                                                     "grayModia": "#333333",
                                                     "grid-columns": "12",
                                                     "grid-float-breakpoint": "768px",
@@ -6041,13 +6045,13 @@ ui-fss.g34[id="c9"] {
                                                     "line-height-small": "1.5",
                                                     "main-active-color": "#005b82",
                                                     "main-background-color": "#f1f1f1",
-                                                    "main-border-color": "#78706a",
+                                                    "main-border-color": "#6a6a6a",
                                                     "main-border-radius": "4px",
                                                     "main-border-width": "1px",
-                                                    "main-disabled-color": "#b7b1a9",
+                                                    "main-disabled-color": "#a0a0a0",
                                                     "main-error-color": "#ba3a26",
                                                     "main-focus-color": "#19548a",
-                                                    "main-font-color": "#3e3832",
+                                                    "main-font-color": "#262626",
                                                     "main-hover-color": "#0074df",
                                                     "main-interactive-color": "#0067c5",
                                                     "main-success-color": "#06893a",
@@ -6071,10 +6075,10 @@ ui-fss.g34[id="c9"] {
                                                     "navDypBlaLighten40": "#99bdcd",
                                                     "navDypBlaLighten60": "#669db4",
                                                     "navDypBlaLighten80": "#337c9b",
-                                                    "navGra20": "#c6c2bf",
-                                                    "navGra40": "#b7b1a9",
-                                                    "navGra60": "#78706a",
-                                                    "navGra80": "#59514b",
+                                                    "navGra20": "#c9c9c9",
+                                                    "navGra40": "#a0a0a0",
+                                                    "navGra60": "#6a6a6a",
+                                                    "navGra80": "#4f4f4f",
                                                     "navGraBakgrunn": "#f1f1f1",
                                                     "navGronn": "#06893a",
                                                     "navGronnDarken20": "#334834",
@@ -6112,8 +6116,8 @@ ui-fss.g34[id="c9"] {
                                                     "navLysBlaLighten40": "#c2eaf7",
                                                     "navLysBlaLighten60": "#a3e0f4",
                                                     "navLysBlaLighten80": "#85d5f0",
-                                                    "navLysGra": "#e9e7e7",
-                                                    "navMorkGra": "#3e3832",
+                                                    "navLysGra": "#f1f1f1",
+                                                    "navMorkGra": "#262626",
                                                     "navOransje": "#ff9100",
                                                     "navOransjeDarken20": "#654a28",
                                                     "navOransjeDarken40": "#8b5c1e",
@@ -6347,9 +6351,9 @@ ui-fss.g34[id="c9"] {
                                                       "container-sm": "(720px + @grid-gutter-width)",
                                                       "container-tablet": "(720px + @grid-gutter-width)",
                                                       "fokusFarge": "#19548a",
-                                                      "grayBackground": "#e9e7e7",
-                                                      "grayIcon": "#b7b1a9",
-                                                      "grayInactive": "#78706a",
+                                                      "grayBackground": "#f1f1f1",
+                                                      "grayIcon": "#a0a0a0",
+                                                      "grayInactive": "#6a6a6a",
                                                       "grayModia": "#333333",
                                                       "grid-columns": "12",
                                                       "grid-float-breakpoint": "768px",
@@ -6360,13 +6364,13 @@ ui-fss.g34[id="c9"] {
                                                       "line-height-small": "1.5",
                                                       "main-active-color": "#005b82",
                                                       "main-background-color": "#f1f1f1",
-                                                      "main-border-color": "#78706a",
+                                                      "main-border-color": "#6a6a6a",
                                                       "main-border-radius": "4px",
                                                       "main-border-width": "1px",
-                                                      "main-disabled-color": "#b7b1a9",
+                                                      "main-disabled-color": "#a0a0a0",
                                                       "main-error-color": "#ba3a26",
                                                       "main-focus-color": "#19548a",
-                                                      "main-font-color": "#3e3832",
+                                                      "main-font-color": "#262626",
                                                       "main-hover-color": "#0074df",
                                                       "main-interactive-color": "#0067c5",
                                                       "main-success-color": "#06893a",
@@ -6390,10 +6394,10 @@ ui-fss.g34[id="c9"] {
                                                       "navDypBlaLighten40": "#99bdcd",
                                                       "navDypBlaLighten60": "#669db4",
                                                       "navDypBlaLighten80": "#337c9b",
-                                                      "navGra20": "#c6c2bf",
-                                                      "navGra40": "#b7b1a9",
-                                                      "navGra60": "#78706a",
-                                                      "navGra80": "#59514b",
+                                                      "navGra20": "#c9c9c9",
+                                                      "navGra40": "#a0a0a0",
+                                                      "navGra60": "#6a6a6a",
+                                                      "navGra80": "#4f4f4f",
                                                       "navGraBakgrunn": "#f1f1f1",
                                                       "navGronn": "#06893a",
                                                       "navGronnDarken20": "#334834",
@@ -6431,8 +6435,8 @@ ui-fss.g34[id="c9"] {
                                                       "navLysBlaLighten40": "#c2eaf7",
                                                       "navLysBlaLighten60": "#a3e0f4",
                                                       "navLysBlaLighten80": "#85d5f0",
-                                                      "navLysGra": "#e9e7e7",
-                                                      "navMorkGra": "#3e3832",
+                                                      "navLysGra": "#f1f1f1",
+                                                      "navMorkGra": "#262626",
                                                       "navOransje": "#ff9100",
                                                       "navOransjeDarken20": "#654a28",
                                                       "navOransjeDarken40": "#8b5c1e",
@@ -6664,9 +6668,9 @@ ui-fss.g34[id="c9"] {
                                                         "container-sm": "(720px + @grid-gutter-width)",
                                                         "container-tablet": "(720px + @grid-gutter-width)",
                                                         "fokusFarge": "#19548a",
-                                                        "grayBackground": "#e9e7e7",
-                                                        "grayIcon": "#b7b1a9",
-                                                        "grayInactive": "#78706a",
+                                                        "grayBackground": "#f1f1f1",
+                                                        "grayIcon": "#a0a0a0",
+                                                        "grayInactive": "#6a6a6a",
                                                         "grayModia": "#333333",
                                                         "grid-columns": "12",
                                                         "grid-float-breakpoint": "768px",
@@ -6677,13 +6681,13 @@ ui-fss.g34[id="c9"] {
                                                         "line-height-small": "1.5",
                                                         "main-active-color": "#005b82",
                                                         "main-background-color": "#f1f1f1",
-                                                        "main-border-color": "#78706a",
+                                                        "main-border-color": "#6a6a6a",
                                                         "main-border-radius": "4px",
                                                         "main-border-width": "1px",
-                                                        "main-disabled-color": "#b7b1a9",
+                                                        "main-disabled-color": "#a0a0a0",
                                                         "main-error-color": "#ba3a26",
                                                         "main-focus-color": "#19548a",
-                                                        "main-font-color": "#3e3832",
+                                                        "main-font-color": "#262626",
                                                         "main-hover-color": "#0074df",
                                                         "main-interactive-color": "#0067c5",
                                                         "main-success-color": "#06893a",
@@ -6707,10 +6711,10 @@ ui-fss.g34[id="c9"] {
                                                         "navDypBlaLighten40": "#99bdcd",
                                                         "navDypBlaLighten60": "#669db4",
                                                         "navDypBlaLighten80": "#337c9b",
-                                                        "navGra20": "#c6c2bf",
-                                                        "navGra40": "#b7b1a9",
-                                                        "navGra60": "#78706a",
-                                                        "navGra80": "#59514b",
+                                                        "navGra20": "#c9c9c9",
+                                                        "navGra40": "#a0a0a0",
+                                                        "navGra60": "#6a6a6a",
+                                                        "navGra80": "#4f4f4f",
                                                         "navGraBakgrunn": "#f1f1f1",
                                                         "navGronn": "#06893a",
                                                         "navGronnDarken20": "#334834",
@@ -6748,8 +6752,8 @@ ui-fss.g34[id="c9"] {
                                                         "navLysBlaLighten40": "#c2eaf7",
                                                         "navLysBlaLighten60": "#a3e0f4",
                                                         "navLysBlaLighten80": "#85d5f0",
-                                                        "navLysGra": "#e9e7e7",
-                                                        "navMorkGra": "#3e3832",
+                                                        "navLysGra": "#f1f1f1",
+                                                        "navMorkGra": "#262626",
                                                         "navOransje": "#ff9100",
                                                         "navOransjeDarken20": "#654a28",
                                                         "navOransjeDarken40": "#8b5c1e",
@@ -7006,9 +7010,9 @@ ui-fss.g34[id="c9"] {
                                                               "container-sm": "(720px + @grid-gutter-width)",
                                                               "container-tablet": "(720px + @grid-gutter-width)",
                                                               "fokusFarge": "#19548a",
-                                                              "grayBackground": "#e9e7e7",
-                                                              "grayIcon": "#b7b1a9",
-                                                              "grayInactive": "#78706a",
+                                                              "grayBackground": "#f1f1f1",
+                                                              "grayIcon": "#a0a0a0",
+                                                              "grayInactive": "#6a6a6a",
                                                               "grayModia": "#333333",
                                                               "grid-columns": "12",
                                                               "grid-float-breakpoint": "768px",
@@ -7019,13 +7023,13 @@ ui-fss.g34[id="c9"] {
                                                               "line-height-small": "1.5",
                                                               "main-active-color": "#005b82",
                                                               "main-background-color": "#f1f1f1",
-                                                              "main-border-color": "#78706a",
+                                                              "main-border-color": "#6a6a6a",
                                                               "main-border-radius": "4px",
                                                               "main-border-width": "1px",
-                                                              "main-disabled-color": "#b7b1a9",
+                                                              "main-disabled-color": "#a0a0a0",
                                                               "main-error-color": "#ba3a26",
                                                               "main-focus-color": "#19548a",
-                                                              "main-font-color": "#3e3832",
+                                                              "main-font-color": "#262626",
                                                               "main-hover-color": "#0074df",
                                                               "main-interactive-color": "#0067c5",
                                                               "main-success-color": "#06893a",
@@ -7049,10 +7053,10 @@ ui-fss.g34[id="c9"] {
                                                               "navDypBlaLighten40": "#99bdcd",
                                                               "navDypBlaLighten60": "#669db4",
                                                               "navDypBlaLighten80": "#337c9b",
-                                                              "navGra20": "#c6c2bf",
-                                                              "navGra40": "#b7b1a9",
-                                                              "navGra60": "#78706a",
-                                                              "navGra80": "#59514b",
+                                                              "navGra20": "#c9c9c9",
+                                                              "navGra40": "#a0a0a0",
+                                                              "navGra60": "#6a6a6a",
+                                                              "navGra80": "#4f4f4f",
                                                               "navGraBakgrunn": "#f1f1f1",
                                                               "navGronn": "#06893a",
                                                               "navGronnDarken20": "#334834",
@@ -7090,8 +7094,8 @@ ui-fss.g34[id="c9"] {
                                                               "navLysBlaLighten40": "#c2eaf7",
                                                               "navLysBlaLighten60": "#a3e0f4",
                                                               "navLysBlaLighten80": "#85d5f0",
-                                                              "navLysGra": "#e9e7e7",
-                                                              "navMorkGra": "#3e3832",
+                                                              "navLysGra": "#f1f1f1",
+                                                              "navMorkGra": "#262626",
                                                               "navOransje": "#ff9100",
                                                               "navOransjeDarken20": "#654a28",
                                                               "navOransjeDarken40": "#8b5c1e",
@@ -7328,9 +7332,9 @@ ui-fss.g34[id="c9"] {
                                                                 "container-sm": "(720px + @grid-gutter-width)",
                                                                 "container-tablet": "(720px + @grid-gutter-width)",
                                                                 "fokusFarge": "#19548a",
-                                                                "grayBackground": "#e9e7e7",
-                                                                "grayIcon": "#b7b1a9",
-                                                                "grayInactive": "#78706a",
+                                                                "grayBackground": "#f1f1f1",
+                                                                "grayIcon": "#a0a0a0",
+                                                                "grayInactive": "#6a6a6a",
                                                                 "grayModia": "#333333",
                                                                 "grid-columns": "12",
                                                                 "grid-float-breakpoint": "768px",
@@ -7341,13 +7345,13 @@ ui-fss.g34[id="c9"] {
                                                                 "line-height-small": "1.5",
                                                                 "main-active-color": "#005b82",
                                                                 "main-background-color": "#f1f1f1",
-                                                                "main-border-color": "#78706a",
+                                                                "main-border-color": "#6a6a6a",
                                                                 "main-border-radius": "4px",
                                                                 "main-border-width": "1px",
-                                                                "main-disabled-color": "#b7b1a9",
+                                                                "main-disabled-color": "#a0a0a0",
                                                                 "main-error-color": "#ba3a26",
                                                                 "main-focus-color": "#19548a",
-                                                                "main-font-color": "#3e3832",
+                                                                "main-font-color": "#262626",
                                                                 "main-hover-color": "#0074df",
                                                                 "main-interactive-color": "#0067c5",
                                                                 "main-success-color": "#06893a",
@@ -7371,10 +7375,10 @@ ui-fss.g34[id="c9"] {
                                                                 "navDypBlaLighten40": "#99bdcd",
                                                                 "navDypBlaLighten60": "#669db4",
                                                                 "navDypBlaLighten80": "#337c9b",
-                                                                "navGra20": "#c6c2bf",
-                                                                "navGra40": "#b7b1a9",
-                                                                "navGra60": "#78706a",
-                                                                "navGra80": "#59514b",
+                                                                "navGra20": "#c9c9c9",
+                                                                "navGra40": "#a0a0a0",
+                                                                "navGra60": "#6a6a6a",
+                                                                "navGra80": "#4f4f4f",
                                                                 "navGraBakgrunn": "#f1f1f1",
                                                                 "navGronn": "#06893a",
                                                                 "navGronnDarken20": "#334834",
@@ -7412,8 +7416,8 @@ ui-fss.g34[id="c9"] {
                                                                 "navLysBlaLighten40": "#c2eaf7",
                                                                 "navLysBlaLighten60": "#a3e0f4",
                                                                 "navLysBlaLighten80": "#85d5f0",
-                                                                "navLysGra": "#e9e7e7",
-                                                                "navMorkGra": "#3e3832",
+                                                                "navLysGra": "#f1f1f1",
+                                                                "navMorkGra": "#262626",
                                                                 "navOransje": "#ff9100",
                                                                 "navOransjeDarken20": "#654a28",
                                                                 "navOransjeDarken40": "#8b5c1e",
@@ -7669,9 +7673,9 @@ ui-fss.g34[id="c9"] {
                                                                     "container-sm": "(720px + @grid-gutter-width)",
                                                                     "container-tablet": "(720px + @grid-gutter-width)",
                                                                     "fokusFarge": "#19548a",
-                                                                    "grayBackground": "#e9e7e7",
-                                                                    "grayIcon": "#b7b1a9",
-                                                                    "grayInactive": "#78706a",
+                                                                    "grayBackground": "#f1f1f1",
+                                                                    "grayIcon": "#a0a0a0",
+                                                                    "grayInactive": "#6a6a6a",
                                                                     "grayModia": "#333333",
                                                                     "grid-columns": "12",
                                                                     "grid-float-breakpoint": "768px",
@@ -7682,13 +7686,13 @@ ui-fss.g34[id="c9"] {
                                                                     "line-height-small": "1.5",
                                                                     "main-active-color": "#005b82",
                                                                     "main-background-color": "#f1f1f1",
-                                                                    "main-border-color": "#78706a",
+                                                                    "main-border-color": "#6a6a6a",
                                                                     "main-border-radius": "4px",
                                                                     "main-border-width": "1px",
-                                                                    "main-disabled-color": "#b7b1a9",
+                                                                    "main-disabled-color": "#a0a0a0",
                                                                     "main-error-color": "#ba3a26",
                                                                     "main-focus-color": "#19548a",
-                                                                    "main-font-color": "#3e3832",
+                                                                    "main-font-color": "#262626",
                                                                     "main-hover-color": "#0074df",
                                                                     "main-interactive-color": "#0067c5",
                                                                     "main-success-color": "#06893a",
@@ -7712,10 +7716,10 @@ ui-fss.g34[id="c9"] {
                                                                     "navDypBlaLighten40": "#99bdcd",
                                                                     "navDypBlaLighten60": "#669db4",
                                                                     "navDypBlaLighten80": "#337c9b",
-                                                                    "navGra20": "#c6c2bf",
-                                                                    "navGra40": "#b7b1a9",
-                                                                    "navGra60": "#78706a",
-                                                                    "navGra80": "#59514b",
+                                                                    "navGra20": "#c9c9c9",
+                                                                    "navGra40": "#a0a0a0",
+                                                                    "navGra60": "#6a6a6a",
+                                                                    "navGra80": "#4f4f4f",
                                                                     "navGraBakgrunn": "#f1f1f1",
                                                                     "navGronn": "#06893a",
                                                                     "navGronnDarken20": "#334834",
@@ -7753,8 +7757,8 @@ ui-fss.g34[id="c9"] {
                                                                     "navLysBlaLighten40": "#c2eaf7",
                                                                     "navLysBlaLighten60": "#a3e0f4",
                                                                     "navLysBlaLighten80": "#85d5f0",
-                                                                    "navLysGra": "#e9e7e7",
-                                                                    "navMorkGra": "#3e3832",
+                                                                    "navLysGra": "#f1f1f1",
+                                                                    "navMorkGra": "#262626",
                                                                     "navOransje": "#ff9100",
                                                                     "navOransjeDarken20": "#654a28",
                                                                     "navOransjeDarken40": "#8b5c1e",
@@ -7872,7 +7876,7 @@ ui-fss.g34[id="c9"] {
                                                               css={
                                                                 Object {
                                                                   "boxSizing": "border-box",
-                                                                  "color": "#78706a",
+                                                                  "color": "#6a6a6a",
                                                                   "label": "placeholder",
                                                                   "marginLeft": 2,
                                                                   "marginRight": 2,
@@ -7889,7 +7893,7 @@ ui-fss.g34[id="c9"] {
                                                               }
                                                             >
                                                               <div
-                                                                className="multipleSelect__placeholder css-1page0z-placeholder"
+                                                                className="multipleSelect__placeholder css-14a0ybe-placeholder"
                                                                 style={
                                                                   Object {
                                                                     "opacity": 1,
@@ -8039,9 +8043,9 @@ ui-fss.g34[id="c9"] {
                                                               "container-sm": "(720px + @grid-gutter-width)",
                                                               "container-tablet": "(720px + @grid-gutter-width)",
                                                               "fokusFarge": "#19548a",
-                                                              "grayBackground": "#e9e7e7",
-                                                              "grayIcon": "#b7b1a9",
-                                                              "grayInactive": "#78706a",
+                                                              "grayBackground": "#f1f1f1",
+                                                              "grayIcon": "#a0a0a0",
+                                                              "grayInactive": "#6a6a6a",
                                                               "grayModia": "#333333",
                                                               "grid-columns": "12",
                                                               "grid-float-breakpoint": "768px",
@@ -8052,13 +8056,13 @@ ui-fss.g34[id="c9"] {
                                                               "line-height-small": "1.5",
                                                               "main-active-color": "#005b82",
                                                               "main-background-color": "#f1f1f1",
-                                                              "main-border-color": "#78706a",
+                                                              "main-border-color": "#6a6a6a",
                                                               "main-border-radius": "4px",
                                                               "main-border-width": "1px",
-                                                              "main-disabled-color": "#b7b1a9",
+                                                              "main-disabled-color": "#a0a0a0",
                                                               "main-error-color": "#ba3a26",
                                                               "main-focus-color": "#19548a",
-                                                              "main-font-color": "#3e3832",
+                                                              "main-font-color": "#262626",
                                                               "main-hover-color": "#0074df",
                                                               "main-interactive-color": "#0067c5",
                                                               "main-success-color": "#06893a",
@@ -8082,10 +8086,10 @@ ui-fss.g34[id="c9"] {
                                                               "navDypBlaLighten40": "#99bdcd",
                                                               "navDypBlaLighten60": "#669db4",
                                                               "navDypBlaLighten80": "#337c9b",
-                                                              "navGra20": "#c6c2bf",
-                                                              "navGra40": "#b7b1a9",
-                                                              "navGra60": "#78706a",
-                                                              "navGra80": "#59514b",
+                                                              "navGra20": "#c9c9c9",
+                                                              "navGra40": "#a0a0a0",
+                                                              "navGra60": "#6a6a6a",
+                                                              "navGra80": "#4f4f4f",
                                                               "navGraBakgrunn": "#f1f1f1",
                                                               "navGronn": "#06893a",
                                                               "navGronnDarken20": "#334834",
@@ -8123,8 +8127,8 @@ ui-fss.g34[id="c9"] {
                                                               "navLysBlaLighten40": "#c2eaf7",
                                                               "navLysBlaLighten60": "#a3e0f4",
                                                               "navLysBlaLighten80": "#85d5f0",
-                                                              "navLysGra": "#e9e7e7",
-                                                              "navMorkGra": "#3e3832",
+                                                              "navLysGra": "#f1f1f1",
+                                                              "navMorkGra": "#262626",
                                                               "navOransje": "#ff9100",
                                                               "navOransjeDarken20": "#654a28",
                                                               "navOransjeDarken40": "#8b5c1e",
@@ -8371,9 +8375,9 @@ ui-fss.g34[id="c9"] {
                                                                 "container-sm": "(720px + @grid-gutter-width)",
                                                                 "container-tablet": "(720px + @grid-gutter-width)",
                                                                 "fokusFarge": "#19548a",
-                                                                "grayBackground": "#e9e7e7",
-                                                                "grayIcon": "#b7b1a9",
-                                                                "grayInactive": "#78706a",
+                                                                "grayBackground": "#f1f1f1",
+                                                                "grayIcon": "#a0a0a0",
+                                                                "grayInactive": "#6a6a6a",
                                                                 "grayModia": "#333333",
                                                                 "grid-columns": "12",
                                                                 "grid-float-breakpoint": "768px",
@@ -8384,13 +8388,13 @@ ui-fss.g34[id="c9"] {
                                                                 "line-height-small": "1.5",
                                                                 "main-active-color": "#005b82",
                                                                 "main-background-color": "#f1f1f1",
-                                                                "main-border-color": "#78706a",
+                                                                "main-border-color": "#6a6a6a",
                                                                 "main-border-radius": "4px",
                                                                 "main-border-width": "1px",
-                                                                "main-disabled-color": "#b7b1a9",
+                                                                "main-disabled-color": "#a0a0a0",
                                                                 "main-error-color": "#ba3a26",
                                                                 "main-focus-color": "#19548a",
-                                                                "main-font-color": "#3e3832",
+                                                                "main-font-color": "#262626",
                                                                 "main-hover-color": "#0074df",
                                                                 "main-interactive-color": "#0067c5",
                                                                 "main-success-color": "#06893a",
@@ -8414,10 +8418,10 @@ ui-fss.g34[id="c9"] {
                                                                 "navDypBlaLighten40": "#99bdcd",
                                                                 "navDypBlaLighten60": "#669db4",
                                                                 "navDypBlaLighten80": "#337c9b",
-                                                                "navGra20": "#c6c2bf",
-                                                                "navGra40": "#b7b1a9",
-                                                                "navGra60": "#78706a",
-                                                                "navGra80": "#59514b",
+                                                                "navGra20": "#c9c9c9",
+                                                                "navGra40": "#a0a0a0",
+                                                                "navGra60": "#6a6a6a",
+                                                                "navGra80": "#4f4f4f",
                                                                 "navGraBakgrunn": "#f1f1f1",
                                                                 "navGronn": "#06893a",
                                                                 "navGronnDarken20": "#334834",
@@ -8455,8 +8459,8 @@ ui-fss.g34[id="c9"] {
                                                                 "navLysBlaLighten40": "#c2eaf7",
                                                                 "navLysBlaLighten60": "#a3e0f4",
                                                                 "navLysBlaLighten80": "#85d5f0",
-                                                                "navLysGra": "#e9e7e7",
-                                                                "navMorkGra": "#3e3832",
+                                                                "navLysGra": "#f1f1f1",
+                                                                "navMorkGra": "#262626",
                                                                 "navOransje": "#ff9100",
                                                                 "navOransjeDarken20": "#654a28",
                                                                 "navOransjeDarken40": "#8b5c1e",
@@ -8803,9 +8807,9 @@ ui-fss.g34[id="c9"] {
                                                     "container-sm": "(720px + @grid-gutter-width)",
                                                     "container-tablet": "(720px + @grid-gutter-width)",
                                                     "fokusFarge": "#19548a",
-                                                    "grayBackground": "#e9e7e7",
-                                                    "grayIcon": "#b7b1a9",
-                                                    "grayInactive": "#78706a",
+                                                    "grayBackground": "#f1f1f1",
+                                                    "grayIcon": "#a0a0a0",
+                                                    "grayInactive": "#6a6a6a",
                                                     "grayModia": "#333333",
                                                     "grid-columns": "12",
                                                     "grid-float-breakpoint": "768px",
@@ -8816,13 +8820,13 @@ ui-fss.g34[id="c9"] {
                                                     "line-height-small": "1.5",
                                                     "main-active-color": "#005b82",
                                                     "main-background-color": "#f1f1f1",
-                                                    "main-border-color": "#78706a",
+                                                    "main-border-color": "#6a6a6a",
                                                     "main-border-radius": "4px",
                                                     "main-border-width": "1px",
-                                                    "main-disabled-color": "#b7b1a9",
+                                                    "main-disabled-color": "#a0a0a0",
                                                     "main-error-color": "#ba3a26",
                                                     "main-focus-color": "#19548a",
-                                                    "main-font-color": "#3e3832",
+                                                    "main-font-color": "#262626",
                                                     "main-hover-color": "#0074df",
                                                     "main-interactive-color": "#0067c5",
                                                     "main-success-color": "#06893a",
@@ -8846,10 +8850,10 @@ ui-fss.g34[id="c9"] {
                                                     "navDypBlaLighten40": "#99bdcd",
                                                     "navDypBlaLighten60": "#669db4",
                                                     "navDypBlaLighten80": "#337c9b",
-                                                    "navGra20": "#c6c2bf",
-                                                    "navGra40": "#b7b1a9",
-                                                    "navGra60": "#78706a",
-                                                    "navGra80": "#59514b",
+                                                    "navGra20": "#c9c9c9",
+                                                    "navGra40": "#a0a0a0",
+                                                    "navGra60": "#6a6a6a",
+                                                    "navGra80": "#4f4f4f",
                                                     "navGraBakgrunn": "#f1f1f1",
                                                     "navGronn": "#06893a",
                                                     "navGronnDarken20": "#334834",
@@ -8887,8 +8891,8 @@ ui-fss.g34[id="c9"] {
                                                     "navLysBlaLighten40": "#c2eaf7",
                                                     "navLysBlaLighten60": "#a3e0f4",
                                                     "navLysBlaLighten80": "#85d5f0",
-                                                    "navLysGra": "#e9e7e7",
-                                                    "navMorkGra": "#3e3832",
+                                                    "navLysGra": "#f1f1f1",
+                                                    "navMorkGra": "#262626",
                                                     "navOransje": "#ff9100",
                                                     "navOransjeDarken20": "#654a28",
                                                     "navOransjeDarken40": "#8b5c1e",
@@ -9138,9 +9142,9 @@ ui-fss.g34[id="c9"] {
                                                           "container-sm": "(720px + @grid-gutter-width)",
                                                           "container-tablet": "(720px + @grid-gutter-width)",
                                                           "fokusFarge": "#19548a",
-                                                          "grayBackground": "#e9e7e7",
-                                                          "grayIcon": "#b7b1a9",
-                                                          "grayInactive": "#78706a",
+                                                          "grayBackground": "#f1f1f1",
+                                                          "grayIcon": "#a0a0a0",
+                                                          "grayInactive": "#6a6a6a",
                                                           "grayModia": "#333333",
                                                           "grid-columns": "12",
                                                           "grid-float-breakpoint": "768px",
@@ -9151,13 +9155,13 @@ ui-fss.g34[id="c9"] {
                                                           "line-height-small": "1.5",
                                                           "main-active-color": "#005b82",
                                                           "main-background-color": "#f1f1f1",
-                                                          "main-border-color": "#78706a",
+                                                          "main-border-color": "#6a6a6a",
                                                           "main-border-radius": "4px",
                                                           "main-border-width": "1px",
-                                                          "main-disabled-color": "#b7b1a9",
+                                                          "main-disabled-color": "#a0a0a0",
                                                           "main-error-color": "#ba3a26",
                                                           "main-focus-color": "#19548a",
-                                                          "main-font-color": "#3e3832",
+                                                          "main-font-color": "#262626",
                                                           "main-hover-color": "#0074df",
                                                           "main-interactive-color": "#0067c5",
                                                           "main-success-color": "#06893a",
@@ -9181,10 +9185,10 @@ ui-fss.g34[id="c9"] {
                                                           "navDypBlaLighten40": "#99bdcd",
                                                           "navDypBlaLighten60": "#669db4",
                                                           "navDypBlaLighten80": "#337c9b",
-                                                          "navGra20": "#c6c2bf",
-                                                          "navGra40": "#b7b1a9",
-                                                          "navGra60": "#78706a",
-                                                          "navGra80": "#59514b",
+                                                          "navGra20": "#c9c9c9",
+                                                          "navGra40": "#a0a0a0",
+                                                          "navGra60": "#6a6a6a",
+                                                          "navGra80": "#4f4f4f",
                                                           "navGraBakgrunn": "#f1f1f1",
                                                           "navGronn": "#06893a",
                                                           "navGronnDarken20": "#334834",
@@ -9222,8 +9226,8 @@ ui-fss.g34[id="c9"] {
                                                           "navLysBlaLighten40": "#c2eaf7",
                                                           "navLysBlaLighten60": "#a3e0f4",
                                                           "navLysBlaLighten80": "#85d5f0",
-                                                          "navLysGra": "#e9e7e7",
-                                                          "navMorkGra": "#3e3832",
+                                                          "navLysGra": "#f1f1f1",
+                                                          "navMorkGra": "#262626",
                                                           "navOransje": "#ff9100",
                                                           "navOransjeDarken20": "#654a28",
                                                           "navOransjeDarken40": "#8b5c1e",
@@ -9341,7 +9345,7 @@ ui-fss.g34[id="c9"] {
                                                     css={
                                                       Object {
                                                         "alignSelf": "stretch",
-                                                        "backgroundColor": "#78706a",
+                                                        "backgroundColor": "#6a6a6a",
                                                         "boxSizing": "border-box",
                                                         "label": "indicatorSeparator",
                                                         "marginBottom": 8,
@@ -9351,7 +9355,7 @@ ui-fss.g34[id="c9"] {
                                                     }
                                                   >
                                                     <span
-                                                      className="multipleSelect__indicator-separator css-vd4mzp-indicatorSeparator"
+                                                      className="multipleSelect__indicator-separator css-1ryedm8-indicatorSeparator"
                                                     />
                                                   </EmotionCssPropInternal>
                                                 </IndicatorSeparator>
@@ -9484,9 +9488,9 @@ ui-fss.g34[id="c9"] {
                                                           "container-sm": "(720px + @grid-gutter-width)",
                                                           "container-tablet": "(720px + @grid-gutter-width)",
                                                           "fokusFarge": "#19548a",
-                                                          "grayBackground": "#e9e7e7",
-                                                          "grayIcon": "#b7b1a9",
-                                                          "grayInactive": "#78706a",
+                                                          "grayBackground": "#f1f1f1",
+                                                          "grayIcon": "#a0a0a0",
+                                                          "grayInactive": "#6a6a6a",
                                                           "grayModia": "#333333",
                                                           "grid-columns": "12",
                                                           "grid-float-breakpoint": "768px",
@@ -9497,13 +9501,13 @@ ui-fss.g34[id="c9"] {
                                                           "line-height-small": "1.5",
                                                           "main-active-color": "#005b82",
                                                           "main-background-color": "#f1f1f1",
-                                                          "main-border-color": "#78706a",
+                                                          "main-border-color": "#6a6a6a",
                                                           "main-border-radius": "4px",
                                                           "main-border-width": "1px",
-                                                          "main-disabled-color": "#b7b1a9",
+                                                          "main-disabled-color": "#a0a0a0",
                                                           "main-error-color": "#ba3a26",
                                                           "main-focus-color": "#19548a",
-                                                          "main-font-color": "#3e3832",
+                                                          "main-font-color": "#262626",
                                                           "main-hover-color": "#0074df",
                                                           "main-interactive-color": "#0067c5",
                                                           "main-success-color": "#06893a",
@@ -9527,10 +9531,10 @@ ui-fss.g34[id="c9"] {
                                                           "navDypBlaLighten40": "#99bdcd",
                                                           "navDypBlaLighten60": "#669db4",
                                                           "navDypBlaLighten80": "#337c9b",
-                                                          "navGra20": "#c6c2bf",
-                                                          "navGra40": "#b7b1a9",
-                                                          "navGra60": "#78706a",
-                                                          "navGra80": "#59514b",
+                                                          "navGra20": "#c9c9c9",
+                                                          "navGra40": "#a0a0a0",
+                                                          "navGra60": "#6a6a6a",
+                                                          "navGra80": "#4f4f4f",
                                                           "navGraBakgrunn": "#f1f1f1",
                                                           "navGronn": "#06893a",
                                                           "navGronnDarken20": "#334834",
@@ -9568,8 +9572,8 @@ ui-fss.g34[id="c9"] {
                                                           "navLysBlaLighten40": "#c2eaf7",
                                                           "navLysBlaLighten60": "#a3e0f4",
                                                           "navLysBlaLighten80": "#85d5f0",
-                                                          "navLysGra": "#e9e7e7",
-                                                          "navMorkGra": "#3e3832",
+                                                          "navLysGra": "#f1f1f1",
+                                                          "navMorkGra": "#262626",
                                                           "navOransje": "#ff9100",
                                                           "navOransjeDarken20": "#654a28",
                                                           "navOransjeDarken40": "#8b5c1e",
@@ -9760,18 +9764,18 @@ ui-fss.g34[id="c9"] {
                         </div>
                       </styled.div>
                     </Component>
-                  </J>
+                  </me>
                 </MultipleSelect>
               </div>
             </styled.div>
           </div>
         </styled.div>
         <styled.div
-          data-size="2"
+          size="2"
         >
           <div
             className="c4 c5"
-            data-size="2"
+            size="2"
           />
         </styled.div>
         <div
@@ -9870,6 +9874,6 @@ ui-fss.g34[id="c9"] {
         </styled.div>
       </div>
     </Component>
-  </J>
+  </me>
 </BUCStart>
 `;

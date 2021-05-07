@@ -34,7 +34,7 @@ exports[`components/ContextBanner/ContextBanner Render: match snapshot 1`] = `
   stroke: #FFFFFF !important;
 }
 
-ui-fss.g16[id="c10"] {
+ui-fss.g9[id="c10"] {
   content: "c11,";
 }
 
@@ -48,7 +48,7 @@ ui-fss.g16[id="c10"] {
   margin-left: 0.5rem;
 }
 
-ui-fss.g25[id="c6"] {
+ui-fss.g30[id="c6"] {
   content: "c7,c12,";
 }
 
@@ -63,7 +63,7 @@ ui-fss.g25[id="c6"] {
   flex-direction: row-reverse;
 }
 
-ui-fss.g31[id="c8"] {
+ui-fss.g49[id="c8"] {
   content: "c9,";
 }
 
@@ -71,7 +71,7 @@ ui-fss.g31[id="c8"] {
   padding: 0rem 0.5rem;
 }
 
-ui-fss.g32[id="c13"] {
+ui-fss.g50[id="c13"] {
   content: "c14,";
 }
 
@@ -94,7 +94,7 @@ ui-fss.g32[id="c13"] {
   background-color: white;
 }
 
-ui-fss.g33[id="c0"] {
+ui-fss.g51[id="c0"] {
   content: "c1,";
 }
 
@@ -115,7 +115,7 @@ ui-fss.g33[id="c0"] {
   line-height: inherit;
 }
 
-ui-fss.g34[id="c2"] {
+ui-fss.g52[id="c2"] {
   content: "c3,";
 }
 
@@ -133,7 +133,7 @@ ui-fss.g34[id="c2"] {
   align-items: center;
 }
 
-ui-fss.g35[id="c4"] {
+ui-fss.g53[id="c4"] {
   content: "c5,";
 }
 
@@ -141,7 +141,7 @@ ui-fss.g35[id="c4"] {
   highContrast={false}
   mode="buclist"
 >
-  <J
+  <me
     highContrast={false}
   >
     <Component
@@ -160,9 +160,9 @@ ui-fss.g35[id="c4"] {
           "container-sm": "(720px + @grid-gutter-width)",
           "container-tablet": "(720px + @grid-gutter-width)",
           "fokusFarge": "#19548a",
-          "grayBackground": "#e9e7e7",
-          "grayIcon": "#b7b1a9",
-          "grayInactive": "#78706a",
+          "grayBackground": "#f1f1f1",
+          "grayIcon": "#a0a0a0",
+          "grayInactive": "#6a6a6a",
           "grayModia": "#333333",
           "grid-columns": "12",
           "grid-float-breakpoint": "768px",
@@ -173,13 +173,13 @@ ui-fss.g35[id="c4"] {
           "line-height-small": "1.5",
           "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
-          "main-border-color": "#78706a",
+          "main-border-color": "#6a6a6a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#b7b1a9",
+          "main-disabled-color": "#a0a0a0",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
-          "main-font-color": "#3e3832",
+          "main-font-color": "#262626",
           "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
@@ -203,10 +203,10 @@ ui-fss.g35[id="c4"] {
           "navDypBlaLighten40": "#99bdcd",
           "navDypBlaLighten60": "#669db4",
           "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c6c2bf",
-          "navGra40": "#b7b1a9",
-          "navGra60": "#78706a",
-          "navGra80": "#59514b",
+          "navGra20": "#c9c9c9",
+          "navGra40": "#a0a0a0",
+          "navGra60": "#6a6a6a",
+          "navGra80": "#4f4f4f",
           "navGraBakgrunn": "#f1f1f1",
           "navGronn": "#06893a",
           "navGronnDarken20": "#334834",
@@ -244,8 +244,8 @@ ui-fss.g35[id="c4"] {
           "navLysBlaLighten40": "#c2eaf7",
           "navLysBlaLighten60": "#a3e0f4",
           "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#e9e7e7",
-          "navMorkGra": "#3e3832",
+          "navLysGra": "#f1f1f1",
+          "navMorkGra": "#262626",
           "navOransje": "#ff9100",
           "navOransjeDarken20": "#654a28",
           "navOransjeDarken40": "#8b5c1e",
@@ -349,11 +349,11 @@ ui-fss.g35[id="c4"] {
                         ui:youComeFrom
                       </span>
                       <styled.div
-                        data-size="0.25"
+                        size="0.25"
                       >
                         <div
                           className="c6 c7"
-                          data-size="0.25"
+                          size="0.25"
                         />
                       </styled.div>
                       <strong>
@@ -380,11 +380,11 @@ ui-fss.g35[id="c4"] {
                         : 
                       </span>
                       <styled.div
-                        data-size="0.25"
+                        size="0.25"
                       >
                         <div
                           className="c6 c7"
-                          data-size="0.25"
+                          size="0.25"
                         />
                       </styled.div>
                       <strong>
@@ -423,11 +423,11 @@ ui-fss.g35[id="c4"] {
                   >
                     ui:lawsource
                     <styled.div
-                      data-size="0.5"
+                      size="0.5"
                     >
                       <div
                         className="c6 c12"
-                        data-size="0.5"
+                        size="0.5"
                       />
                     </styled.div>
                     <LogoutIcon
@@ -494,11 +494,11 @@ ui-fss.g35[id="c4"] {
                   >
                     ui:help
                     <styled.div
-                      data-size="0.5"
+                      size="0.5"
                     >
                       <div
                         className="c6 c12"
-                        data-size="0.5"
+                        size="0.5"
                       />
                     </styled.div>
                     <LogoutIcon
@@ -540,6 +540,6 @@ ui-fss.g35[id="c4"] {
         </div>
       </styled.div>
     </Component>
-  </J>
+  </me>
 </ContextBanner>
 `;

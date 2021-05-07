@@ -40,7 +40,7 @@ import NavHighContrast, {
   HiddenDiv,
   PileCenterDiv,
   PileDiv,
-  PileEndDiv,
+  PileEndDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
@@ -323,13 +323,13 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const checkForBosetningsperioder = (options: RenderEditableOptions<TableContext>, what: string) => {
     let _value: string | number
     if (options.context.forsikringElklerBosetningsperioder) {
-        if (_.isNil(options.value) || options.value === 0) {
-          _value = ''
-        } else {
-          _value = options.value
-        }
-     } else {
-      if (_.isNil( options.value) || options.value === '') {
+      if (_.isNil(options.value) || options.value === 0) {
+        _value = ''
+      } else {
+        _value = options.value
+      }
+    } else {
+      if (_.isNil(options.value) || options.value === '') {
         _value = 0
       } else {
         _value = options.value
@@ -344,7 +344,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const renderDagerEdit = (options: RenderEditableOptions<TableContext>) => {
-    let value = checkForBosetningsperioder(options, 'dag')
+    const value = checkForBosetningsperioder(options, 'dag')
     return (
       <HighContrastInput
         id='c-tableSorter__edit-dag-input-id'
@@ -363,7 +363,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const renderManedEdit = (options: RenderEditableOptions<TableContext>) => {
-    let value = checkForBosetningsperioder(options, 'mnd')
+    const value = checkForBosetningsperioder(options, 'mnd')
 
     return (
       <HighContrastInput
@@ -380,7 +380,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const renderAarEdit = (options: RenderEditableOptions<TableContext>) => {
-    let value = checkForBosetningsperioder(options, 'aar')
+    const value = checkForBosetningsperioder(options, 'aar')
     return (
       <HighContrastInput
         id='c-tableSorter__edit-aar-input-id'
@@ -472,7 +472,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     )
   }
 
-  /*const sumItems = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
+  /* const sumItems = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
     const res: SEDP5000EditRows = []
     items.forEach((it) => {
       const found: number = _.findIndex(res, d => d.type === it.type)
@@ -503,7 +503,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       }
     })
     return res
-  }*/
+  } */
 
   const beforePrintOut = (): void => {}
 
@@ -775,12 +775,14 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   </FlexEndDiv>
                 </HighContrastRadioGroup>
                 <HorizontalSeparatorDiv />
-                <Tooltip placement='top' trigger={['hover']} overlay={(
-                  <>
-                    <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
-                    <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
-                  </>
-                )}>
+                <Tooltip
+                  placement='top' trigger={['hover']} overlay={(
+                    <>
+                      <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
+                      <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
+                    </>
+                )}
+                >
                   <div style={{ minWidth: '28px' }}>
                     <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
                   </div>

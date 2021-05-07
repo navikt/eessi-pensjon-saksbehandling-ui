@@ -198,7 +198,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                       id={'a-buc-c-sedp5000__checkbox-' + sedId}
                       onChange={() => changeActiveSed(sedId)}
                       label={(
-                        <FlexEndSpacedDiv style={{flexWrap: 'wrap'}}>
+                        <FlexEndSpacedDiv style={{ flexWrap: 'wrap' }}>
                           <span>
                             {t('buc:form-dateP5000', { date: sender?.date })}
                           </span>
@@ -285,10 +285,10 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                 />
                 <HorizontalSeparatorDiv />
               </Column>
-              <Column/>
+              <Column />
             </Row>
-          <VerticalSeparatorDiv/>
-        </>
+            <VerticalSeparatorDiv />
+          </>
         )}
         <hr />
         <VerticalSeparatorDiv />

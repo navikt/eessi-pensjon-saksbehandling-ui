@@ -13,7 +13,7 @@ exports[`components/MultipleSelect/MultipleValueRemove Render: match snapshot 1`
   background-color: transparent !important;
 }
 
-ui-fss.g30[id="c0"] {
+ui-fss.g48[id="c0"] {
   content: "c1,";
 }
 
@@ -35,9 +35,9 @@ ui-fss.g30[id="c0"] {
           "container-sm": "(720px + @grid-gutter-width)",
           "container-tablet": "(720px + @grid-gutter-width)",
           "fokusFarge": "#19548a",
-          "grayBackground": "#e9e7e7",
-          "grayIcon": "#b7b1a9",
-          "grayInactive": "#78706a",
+          "grayBackground": "#f1f1f1",
+          "grayIcon": "#a0a0a0",
+          "grayInactive": "#6a6a6a",
           "grayModia": "#333333",
           "grid-columns": "12",
           "grid-float-breakpoint": "768px",
@@ -48,13 +48,13 @@ ui-fss.g30[id="c0"] {
           "line-height-small": "1.5",
           "main-active-color": "#005b82",
           "main-background-color": "#f1f1f1",
-          "main-border-color": "#78706a",
+          "main-border-color": "#6a6a6a",
           "main-border-radius": "4px",
           "main-border-width": "1px",
-          "main-disabled-color": "#b7b1a9",
+          "main-disabled-color": "#a0a0a0",
           "main-error-color": "#ba3a26",
           "main-focus-color": "#19548a",
-          "main-font-color": "#3e3832",
+          "main-font-color": "#262626",
           "main-hover-color": "#0074df",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
@@ -78,10 +78,10 @@ ui-fss.g30[id="c0"] {
           "navDypBlaLighten40": "#99bdcd",
           "navDypBlaLighten60": "#669db4",
           "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c6c2bf",
-          "navGra40": "#b7b1a9",
-          "navGra60": "#78706a",
-          "navGra80": "#59514b",
+          "navGra20": "#c9c9c9",
+          "navGra40": "#a0a0a0",
+          "navGra60": "#6a6a6a",
+          "navGra80": "#4f4f4f",
           "navGraBakgrunn": "#f1f1f1",
           "navGronn": "#06893a",
           "navGronnDarken20": "#334834",
@@ -119,8 +119,8 @@ ui-fss.g30[id="c0"] {
           "navLysBlaLighten40": "#c2eaf7",
           "navLysBlaLighten60": "#a3e0f4",
           "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#e9e7e7",
-          "navMorkGra": "#3e3832",
+          "navLysGra": "#f1f1f1",
+          "navMorkGra": "#262626",
           "navOransje": "#ff9100",
           "navOransjeDarken20": "#654a28",
           "navOransjeDarken40": "#8b5c1e",
@@ -199,7 +199,7 @@ ui-fss.g30[id="c0"] {
       style={Object {}}
     >
       <FilledVersionRemoveCircle
-        color="#3e3832"
+        color="#262626"
         style={
           Object {
             "visibility": "visible",
@@ -207,7 +207,7 @@ ui-fss.g30[id="c0"] {
         }
       >
         <svg
-          color="#3e3832"
+          color="#262626"
           contentScriptType="text/ecmascript"
           contentStyleType="text/css"
           enableBackground="new 0 0 24 24"
@@ -229,7 +229,7 @@ ui-fss.g30[id="c0"] {
         >
           <path
             d="M11.499,0C5.17,0,0.012,5.148,0,11.477c-0.006,3.072,1.184,5.962,3.352,8.139c2.168,2.176,5.054,3.378,8.126,3.384H11.5  c6.328,0,11.487-5.149,11.5-11.479C23.012,5.181,17.863,0.012,11.499,0z M11.5,22.5L11.5,22.5L11.5,22.5L11.5,22.5z M16.088,15.398  c0.194,0.195,0.193,0.512-0.002,0.707c-0.098,0.098-0.225,0.146-0.353,0.146c-0.127,0-0.256-0.049-0.354-0.146l-3.882-3.898  l-3.896,3.882c-0.098,0.098-0.226,0.146-0.354,0.146c-0.128,0-0.255-0.049-0.353-0.146c-0.195-0.196-0.195-0.513,0.001-0.707  l3.897-3.882L6.91,7.602C6.715,7.406,6.716,7.09,6.912,6.896C7.107,6.699,7.424,6.7,7.619,6.897l3.881,3.897l3.896-3.881  c0.195-0.195,0.513-0.195,0.707,0.001c0.195,0.195,0.195,0.512-0.001,0.707l-3.896,3.882L16.088,15.398z"
-            fill="#3e3832"
+            fill="#262626"
           />
         </svg>
       </FilledVersionRemoveCircle>

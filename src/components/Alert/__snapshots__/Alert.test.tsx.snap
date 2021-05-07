@@ -3,8 +3,8 @@
 exports[`components/Alert/Alert Render: match snapshot 1`] = `
 .c1 {
   opacity: 0;
-  -webkit-animation: jIkTRE 1s forwards;
-  animation: jIkTRE 1s forwards;
+  -webkit-animation: kGLwuF 1s forwards;
+  animation: kGLwuF 1s forwards;
   position: relative;
 }
 
@@ -42,7 +42,7 @@ exports[`components/Alert/Alert Render: match snapshot 1`] = `
   max-width: none !important;
 }
 
-ui-fss.g30[id="c0"] {
+ui-fss.g48[id="c0"] {
   content: "c1,";
 }
 
@@ -53,7 +53,7 @@ ui-fss.g30[id="c0"] {
   cursor: pointer;
 }
 
-ui-fss.g31[id="c2"] {
+ui-fss.g49[id="c2"] {
   content: "c3,";
 }
 

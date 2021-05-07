@@ -12,7 +12,7 @@ exports[`pages/IndexPage Render: match snapshot 1`] = `
   padding: 0rem 1rem;
 }
 
-ui-fss.g332[id="c0"] {
+ui-fss.g333[id="c0"] {
   content: "c1,";
 }
 
