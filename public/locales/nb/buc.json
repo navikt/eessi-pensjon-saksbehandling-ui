@@ -182,8 +182,8 @@
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
 
   "help-avdodFnr" : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
-  "help-p5000-1"  : "Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1) og kryss \"Nei\" her (4.2). ",
-  "help-p5000-2"  : "Klikk deretter på \"Overfør til Rina\". Nødvendige felt i kapittel 4/5 i P5000 vil da bli pre-utfylt, og den er klar til sending.",
+  "help-p5000-1"  : " Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1), kryss \"Nei\" her (4.2), og klikk «Lagre».",
+  "help-p5000-2"  : "Når du klikker på \"Overfør til Rina\" vil nødvendige felt i kapittel 4/5 i P5000 bli pre-utfylt.",
 
   "loading-buc"                   : "Laster BUC...",
   "loading-bucList"               : "Laster BUC-er...",
@@ -286,7 +286,7 @@
   "validation-noAktoerId"           : "Ingen aktørId",
   "validation-noName"               : "Ingen navn",
   "validation-noSakId"              : "Ingen sakId",
-  "validation-badDate2"             : "Vennligst bruk DD-MM-ÅÅÅÅ eller DDMMÅÅ",
+  "validation-badDate2"             : "Vennligst bruk DD.MM.ÅÅÅÅ eller DDMMÅÅ",
 
   "warning-filteredBucs"       : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-failedP5000Sending" : "Feil med overføring P5000 data til Rina",
