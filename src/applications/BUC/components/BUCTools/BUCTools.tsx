@@ -130,7 +130,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   setMode
 }: BUCToolsProps): JSX.Element => {
   const {
-    bucsInfo, highContrast, loading, tagList
+    bucsInfo, featureToggles, highContrast, loading, tagList
   }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -279,7 +279,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     disabled={!hasP5000s()}
                     onClick={onGettingP5000Click}
                   >
-                    {t('buc:form-seeP5000s')}
+                    {featureToggles.P5000_SUMMER_VISIBLE ? t('buc:form-seeP5000s') : t('buc:form-viewP5000s') }
+
+
                     <HorizontalSeparatorDiv size='0.3' />
                     <HoyreChevron />
                   </HighContrastKnapp>
