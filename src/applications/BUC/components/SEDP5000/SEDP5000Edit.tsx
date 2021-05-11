@@ -320,11 +320,24 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     }
   }
 
-  const checkForBosetningsperioder = (options: RenderEditableOptions<TableContext>, what: string) => {
+  const checkForBosetningsperioder = (options: RenderEditableOptions<TableContext>, what: string, others: Array<string>) => {
     let _value: string | number
+    /*
+      if forsikringElklerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
+      BUT if we have non-0 values in the other fields, leave it as 0 if it was 0
+
+      if forsikringElklerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''
+     */
+
     if (options.context.forsikringElklerBosetningsperioder) {
       if (_.isNil(options.value) || options.value === 0) {
-        _value = ''
+
+        if ( (!_.isNil(options.values[others[0]]) && options.values[others[0]] > 0) ||
+          (!_.isNil(options.values[others[1]]) && options.values[others[1]] > 0)) {
+          _value = options.value
+        }   else {
+          _value = ''
+        }
       } else {
         _value = options.value
       }
@@ -344,7 +357,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const renderDagerEdit = (options: RenderEditableOptions<TableContext>) => {
-    const value = checkForBosetningsperioder(options, 'dag')
+    const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
       <HighContrastInput
         id='c-tableSorter__edit-dag-input-id'
@@ -357,13 +370,13 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
           dag: isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)
         })}
-        value={value}
+        value={'' + value}
       />
     )
   }
 
   const renderManedEdit = (options: RenderEditableOptions<TableContext>) => {
-    const value = checkForBosetningsperioder(options, 'mnd')
+    const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
 
     return (
       <HighContrastInput
@@ -374,13 +387,13 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
           mnd: isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)
         })}
-        value={value}
+        value={'' + value}
       />
     )
   }
 
   const renderAarEdit = (options: RenderEditableOptions<TableContext>) => {
-    const value = checkForBosetningsperioder(options, 'aar')
+    const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
       <HighContrastInput
         id='c-tableSorter__edit-aar-input-id'
@@ -390,7 +403,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
           aar: isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)
         })}
-        value={value}
+        value={'' + value}
       />
     )
   }
@@ -917,6 +930,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 edit: {
                   render: renderStartDatoEdit,
                   validation: [{
+                    mandatory: (context: TableContext) => (!!context.forsikringElklerBosetningsperioder),
                     pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                     message: t('buc:validation-badDate2')
                   }],
@@ -930,6 +944,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 edit: {
                   render: rendersluttDatoEdit,
                   validation: [{
+                    mandatory: (context: TableContext) => (!!context.forsikringElklerBosetningsperioder),
                     pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                     message: t('buc:validation-badDate2')
                   }],
