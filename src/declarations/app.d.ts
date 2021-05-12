@@ -57,5 +57,6 @@ export interface LocalStorageValue<CustomLocalStorageContent extends any = any> 
 
 export interface P5000EditLocalStorageContent {
   items: Array<any>
-  ytelseOption: any
+  ytelseOption: string | undefined
+  forsikringElklerBosetningsperioder: '0' | '1'
 }

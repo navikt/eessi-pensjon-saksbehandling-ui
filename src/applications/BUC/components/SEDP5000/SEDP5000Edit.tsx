@@ -73,7 +73,7 @@ export interface DatePieces {
 
 export interface TableContext extends Context {
   items: SEDP5000EditRows
-  forsikringElklerBosetningsperioder: boolean
+  forsikringElklerBosetningsperioder: string
 }
 
 const mapState = (state: State): any => ({
@@ -117,7 +117,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const dispatch = useDispatch()
   const { sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
-  const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<boolean>(true)
+  const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<string>('1')
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(undefined)
@@ -253,7 +253,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const maybeDoSomePrefill = (startdato: string, sluttdato: string, options: RenderEditableOptions<TableContext>) => {
     const dates: DatePieces | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
-      if (options.context.forsikringElklerBosetningsperioder) {
+      if (options.context.forsikringElklerBosetningsperioder === '1') {
         options.setValue({
           dag: dates.days,
           aar: dates.years,
@@ -329,13 +329,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       if forsikringElklerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''
      */
 
-    if (options.context.forsikringElklerBosetningsperioder) {
+    if (options.context.forsikringElklerBosetningsperioder === '1') {
       if (_.isNil(options.value) || options.value === 0) {
-
-        if ( (!_.isNil(options.values[others[0]]) && options.values[others[0]] > 0) ||
+        if ((!_.isNil(options.values[others[0]]) && options.values[others[0]] > 0) ||
           (!_.isNil(options.values[others[1]]) && options.values[others[1]] > 0)) {
           _value = options.value
-        }   else {
+        } else {
           _value = ''
         }
       } else {
@@ -573,7 +572,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const handleOverforTilRina = () => {
     _setSavedP5000Info(false)
     const data: SEDP5000EditValidationProps = {
-      ytelseOption: _ytelseOption
+      ytelseOption: _ytelseOption!,
+      forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
     }
     const valid: boolean = performValidation(data)
     if (valid) {
@@ -611,6 +611,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           }
           return medlemskap
         })
+        newSedContent.pensjon.medlemskapboarbeid.gyldigperiode = _forsikringElklerBosetningsperioder
         newSedContent.pensjon.medlemskapboarbeid.enkeltkrav = {
           krav: _ytelseOption
         }
@@ -660,7 +661,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       date: new Date().toLocaleString(),
       content: {
         items: _items,
-        ytelseOption: _ytelseOption
+        ytelseOption: _ytelseOption,
+        forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
       }
     } as LocalStorageValue<P5000EditLocalStorageContent>
     const newP5000Storage = addEntryToP5000Storage(newEntry)
@@ -672,7 +674,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const tableSorterKey = md5(
     JSON.stringify(_tableSort) + '-' +
     JSON.stringify((_items ?? '') + '-' +
-      (_ytelseOption ?? '')
+      (_ytelseOption ?? '') + '-' + _forsikringElklerBosetningsperioder
     ))
 
   // when I swap from P5000 Seds (and have a different sed ID), need to refresh items / senders
@@ -709,7 +711,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const canSave = _items.length > 0
-  const canSend = !!_ytelseOption && _items.length > 0
+  const canSend = !!_ytelseOption && !!_forsikringElklerBosetningsperioder && _items.length > 0
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -750,7 +752,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
               <FlexCenterDiv>
                 <FullWidthDiv>
                   <Select
-                    key={getSedId() + '-' + _ytelseOption}
+                    key={getSedId() + '-' + _ytelseOption + '-' + _forsikringElklerBosetningsperioder}
                     className='sedP5000Edit-ytelse-select'
                     feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
                     highContrast={highContrast}
@@ -774,16 +776,16 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                   <FlexEndDiv>
                     <HighContrastRadio
                       name='42'
-                      checked={_forsikringElklerBosetningsperioder === true}
+                      checked={_forsikringElklerBosetningsperioder === '1'}
                       label={t('ui:yes')}
-                      onClick={() => setForsikringElklerBosetningsperioder(true)}
+                      onClick={() => setForsikringElklerBosetningsperioder('1')}
                     />
                     <HorizontalSeparatorDiv />
                     <HighContrastRadio
                       name='42'
-                      checked={_forsikringElklerBosetningsperioder === false}
+                      checked={_forsikringElklerBosetningsperioder === '0'}
                       label={t('ui:no')}
-                      onClick={() => setForsikringElklerBosetningsperioder(false)}
+                      onClick={() => setForsikringElklerBosetningsperioder('0')}
                     />
                   </FlexEndDiv>
                 </HighContrastRadioGroup>
@@ -930,7 +932,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 edit: {
                   render: renderStartDatoEdit,
                   validation: [{
-                    mandatory: (context: TableContext) => (!!context.forsikringElklerBosetningsperioder),
+                    mandatory: (context: TableContext) => (context.forsikringElklerBosetningsperioder === '1'),
                     pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                     message: t('buc:validation-badDate2')
                   }],
@@ -944,7 +946,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 edit: {
                   render: rendersluttDatoEdit,
                   validation: [{
-                    mandatory: (context: TableContext) => (!!context.forsikringElklerBosetningsperioder),
+                    mandatory: (context: TableContext) => (context.forsikringElklerBosetningsperioder === '1'),
                     pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                     message: t('buc:validation-badDate2')
                   }],

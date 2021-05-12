@@ -78,6 +78,16 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     <VerticalSeparatorDiv size='0.3' />
                     <FlexBaseDiv>
                       <UndertekstBold>
+                        {t('buc:p5000-4-2-title') + ': '}
+                      </UndertekstBold>
+                      <HorizontalSeparatorDiv size='0.5' />
+                      <Normaltekst>
+                        {(sed.content as P5000EditLocalStorageContent).forsikringElklerBosetningsperioder}
+                      </Normaltekst>
+                    </FlexBaseDiv>
+                    <VerticalSeparatorDiv size='0.3' />
+                    <FlexBaseDiv>
+                      <UndertekstBold>
                         {t('ui:date') + ': '}
                       </UndertekstBold>
                       <HorizontalSeparatorDiv size='0.5' />

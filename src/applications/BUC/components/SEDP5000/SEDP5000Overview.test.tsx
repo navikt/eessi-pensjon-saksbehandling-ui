@@ -4,8 +4,8 @@ import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
 import TableSorter from 'tabell'
 import SEDP5000Overview, { SEDP5000Container, SEDP5000OverviewProps } from './SEDP5000Overview'
-import mockSedP50001 from 'mocks/buc/sed_P5000_1'
-import mockSedP50002 from 'mocks/buc/sed_P5000_2'
+import mockSedP50001 from 'mocks/buc/sed_P5000_small_1'
+import mockSedP50002 from 'mocks/buc/sed_P5000_small_2'
 
 describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
   let wrapper: ReactWrapper
