@@ -23,7 +23,7 @@ const DocWidget: WidgetFC<WidgetProps> = ({
         handleHeight
         onResize={onResize}
       >
-        <Doc/>
+        <Doc />
       </ReactResizeDetector>
     </div>
   )

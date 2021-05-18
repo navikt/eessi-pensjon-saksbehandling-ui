@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 const Doc = () => {
-
-  let params: any = useParams()
+  const params: any = useParams()
   const { t } = useTranslation()
   return (
     <HighContrastPanel>
@@ -28,7 +27,6 @@ const Doc = () => {
     </HighContrastPanel>
 
   )
-
 }
 
 export default Doc

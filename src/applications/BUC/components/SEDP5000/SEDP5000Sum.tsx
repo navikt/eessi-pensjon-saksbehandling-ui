@@ -261,21 +261,21 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
             </FlexEndSpacedDiv>
           </Column>
         </Row>
-        <VerticalSeparatorDiv/>
-        { sakType === SakTypeMap.GJENLEV && (
+        <VerticalSeparatorDiv />
+        {sakType === SakTypeMap.GJENLEV && (
           <>
-          <Row>
-          <Column>
-            <Alertstripe type='advarsel'>
-              {t('buc:warning-P5000SumGjenlevende')}
-            </Alertstripe>
-          </Column>
-          <Column/>
-          </Row>
-          <VerticalSeparatorDiv />
+            <Row>
+              <Column>
+                <Alertstripe type='advarsel'>
+                  {t('buc:warning-P5000SumGjenlevende')}
+                </Alertstripe>
+              </Column>
+              <Column />
+            </Row>
+            <VerticalSeparatorDiv />
           </>
-          )}
-        <hr style={{width: '100%'}}/>
+        )}
+        <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <TableSorter
           highContrast={highContrast}

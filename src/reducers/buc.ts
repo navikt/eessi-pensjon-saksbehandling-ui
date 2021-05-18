@@ -253,7 +253,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         newlyCreatedBuc: isNewlyCreatedBuc ? undefined : state.newlyCreatedBuc,
         currentBuc: (action as ActionWithPayload).payload,
-        countryList: undefined,
+        countryList: undefined
       }
     }
 
