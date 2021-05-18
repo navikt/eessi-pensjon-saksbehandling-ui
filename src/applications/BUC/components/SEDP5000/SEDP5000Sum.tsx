@@ -1,13 +1,15 @@
 import { PrintableTableSorter, SeparatorSpan } from 'components/StyledComponents'
 import { AllowedLocaleString } from 'declarations/app.d'
-import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
+import { Participant, SakTypeMap, SakTypeValue, SedContent, SedContentMap, Seds } from 'declarations/buc.d'
 import { SedsPropType } from 'declarations/buc.pt'
 import { ActiveSeds, SedSender } from 'declarations/p5000'
+import { State } from 'declarations/reducers'
 import Flag from 'flagg-ikoner'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
+import Alertstripe from 'nav-frontend-alertstriper'
 import { Checkbox } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
 import NavHighContrast, {
@@ -25,6 +27,7 @@ import NavHighContrast, {
 import PT from 'prop-types'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import TableSorter, { Sort } from 'tabell'
 import * as labels from './SEDP5000.labels'
@@ -47,12 +50,18 @@ export interface SEDP5000SumRow {
   sec52dager: string
 }
 
+const mapState = (state: State): any => ({
+  sakType: state.app.params.sakType as SakTypeValue
+})
+
 export type SEDP5000SumRows = Array<SEDP5000SumRow>
 
 const SEDP5000Sum: React.FC<SEDP5000Props> = ({
   highContrast, locale, seds, sedContent
 }: SEDP5000Props) => {
   const { t } = useTranslation()
+
+  const { sakType } = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
   const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
   const [_itemsPerPage] = useState<number>(30)
@@ -252,8 +261,21 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
             </FlexEndSpacedDiv>
           </Column>
         </Row>
-        <VerticalSeparatorDiv />
-        <hr />
+        <VerticalSeparatorDiv/>
+        { sakType === SakTypeMap.GJENLEV && (
+          <>
+          <Row>
+          <Column>
+            <Alertstripe type='advarsel'>
+              {t('buc:warning-P5000SumGjenlevende')}
+            </Alertstripe>
+          </Column>
+          <Column/>
+          </Row>
+          <VerticalSeparatorDiv />
+          </>
+          )}
+        <hr style={{width: '100%'}}/>
         <VerticalSeparatorDiv />
         <TableSorter
           highContrast={highContrast}

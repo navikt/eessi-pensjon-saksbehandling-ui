@@ -290,7 +290,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
             <VerticalSeparatorDiv />
           </>
         )}
-        <hr />
+        <hr style={{width: '100%'}}/>
         <VerticalSeparatorDiv />
         <TableSorter
           highContrast={highContrast}

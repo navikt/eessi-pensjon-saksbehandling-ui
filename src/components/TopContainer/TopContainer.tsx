@@ -27,7 +27,11 @@ const Main = styled.main`
   background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
   color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
 `
-
+const TopContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+ height: 100%;
+`
 export interface TopContainerProps {
   className?: string
   children?: JSX.Element | Array<JSX.Element | null>
@@ -125,7 +129,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   return (
     <NavHighContrast highContrast={highContrast}>
 
-      <div role='application'>
+      <TopContainerDiv role='application'>
         <ErrorBoundary
           renderError={({ error }: any) => <Error type='internalError' error={error} />}
         >
@@ -181,7 +185,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           </ReactResizeDetector>
         </ErrorBoundary>
 
-      </div>
+      </TopContainerDiv>
     </NavHighContrast>
   )
 }
