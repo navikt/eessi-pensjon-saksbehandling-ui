@@ -182,6 +182,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         currentBuc: newBuc.caseId,
         sed: undefined,
+        countryList: undefined,
         bucs: bucs,
         kravDato: undefined,
         newlyCreatedBuc: newBuc,
@@ -251,7 +252,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         newlyCreatedBuc: isNewlyCreatedBuc ? undefined : state.newlyCreatedBuc,
-        currentBuc: (action as ActionWithPayload).payload
+        currentBuc: (action as ActionWithPayload).payload,
+        countryList: undefined,
       }
     }
 
@@ -404,11 +406,16 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_COUNTRY_LIST_REQUEST:
+      return {
+        ...state,
+        countryList: undefined
+      }
+
     case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
       return {
         ...state,
-        countryList: undefined
+        countryList: null
       }
 
     case types.BUC_GET_KRAVDATO_REQUEST:

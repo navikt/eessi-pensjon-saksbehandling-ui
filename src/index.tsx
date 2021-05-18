@@ -130,8 +130,9 @@ ReactDOM.render(
               <Route path={routes.NOT_LOGGED} render={renderErrorPage('notLogged')} />
               <Route path={routes.NOT_INVITED} render={renderErrorPage('notInvited')} />
               <Route path={routes.FORBIDDEN} render={renderErrorPage('forbidden')} />
-              <Route path={routes.ROOT + ':PATH+'} render={renderErrorPage('error')} />
+              <AuthenticatedRoute path={routes.DOC} component={Pages.DocPage} />
               <AuthenticatedRoute path={routes.ROOT} component={Pages.IndexPage} />
+              <Route path={routes.ROOT + ':PATH+'} render={renderErrorPage('error')} />
               <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
             </Switch>
           </Router>

@@ -264,6 +264,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const _buc: Buc = _.cloneDeep(bucs[currentBuc!])
+  const _type: string | undefined = _buc?.type
   const [_countries, setCountries] = useState<CountryRawList>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('countryCode') : [])
   const _countryData: CountryList = CountryData.getCountryInstance(locale)
@@ -291,7 +292,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 
   // SEDs that use avdod
-  const sedSupportsAvdod = useCallback((): boolean => bucsThatSupportAvdod(_buc.type), [_buc])
+  const sedSupportsAvdod = useCallback((): boolean => bucsThatSupportAvdod(_type), [_buc])
 
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
@@ -305,7 +306,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsKravdato = (sed: string) => ['P15000'].indexOf(sed) >= 0
 
-  const sedNeedsAvdodBrukerQuestion = (): boolean => _buc.type === 'P_BUC_05' && _sed === 'P8000' &&
+  const sedNeedsAvdodBrukerQuestion = (): boolean => _type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
       ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
       : (personAvdods?.length === 1
@@ -327,14 +328,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       !avdodExists() &&
       (
         (
-          _buc.type === 'P_BUC_10' && _sed === 'P15000'
+          _type === 'P_BUC_10' && _sed === 'P15000'
         ) ||
         (
           pesysContext !== constants.VEDTAKSKONTEKST &&
           (
-            (_buc.type === 'P_BUC_02'
+            (_type === 'P_BUC_02'
               ? !isNorwayCaseOwner()
-              : (_buc.type === 'P_BUC_05'
+              : (_type === 'P_BUC_05'
                   ? (isNorwayCaseOwner()
                       ? sedNeedsAvdodBrukerQuestion()
                       : (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
@@ -530,7 +531,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     const addedCountries: CountryRawList = newCountries.filter(country => !oldCountriesList.includes(country))
     const removedCountries: CountryRawList = oldCountriesList.filter(country => !newCountries.includes(country))
 
-    addedCountries.forEach(country => dispatch(getInstitutionsListForBucAndCountry(_buc.type!, country)))
+    addedCountries.forEach(country => dispatch(getInstitutionsListForBucAndCountry(_type!, country)))
     removedCountries.forEach(country => {
       const newInstitutions: InstitutionRawList = _institutions.filter(item => {
         const [_country] = item.split(':')
@@ -703,7 +704,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       const institutions: Institutions = convertInstitutionIDsToInstitutionObjects()
       const payload: NewSedPayload = {
         sakId: sakId!,
-        buc: _buc.type!,
+        buc: _type!,
         sed: _sed!,
         institutions: institutions,
         aktoerId: aktoerId!,
@@ -769,10 +770,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [_attachmentsSent, dispatch, onSedCreated, resetJoarkAttachments, resetSedForm])
 
   useEffect(() => {
-    if (_.isEmpty(countryList) && _buc && _buc.type && !loading.gettingCountryList) {
-      dispatch(getCountryList(_buc.type))
+    if (countryList === undefined && !_.isNil(_type) && !loading.gettingCountryList) {
+      dispatch(getCountryList(_type))
     }
-  }, [countryList, dispatch, loading, _buc])
+  }, [countryList, dispatch, loading.gettingCountryList, _type])
 
   useEffect(() => {
     if (!_mounted) {
