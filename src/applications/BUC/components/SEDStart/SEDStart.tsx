@@ -264,7 +264,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(false)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const _buc: Buc = _.cloneDeep(bucs[currentBuc!])
-  const _type: string | undefined = _buc?.type
+  const _type: string | null | undefined = _buc?.type
   const [_countries, setCountries] = useState<CountryRawList>(
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('countryCode') : [])
   const _countryData: CountryList = CountryData.getCountryInstance(locale)
