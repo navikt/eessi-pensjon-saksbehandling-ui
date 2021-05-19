@@ -519,6 +519,43 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return res
   }
 
+
+  const sumItemsForTrygdetid = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
+    const res: SEDP5000EditRows = []
+    items.forEach((it) => {
+      if (it.type && it.type !== '45') {
+        const found: number = _.findIndex(res, d => d.type === it.type)
+        if (found === -1) {
+          res.push({
+            ...it,
+            key: 'sum-' + it.type + '-' + it.startdato + '-' + it.sluttdato
+          })
+        } else {
+          res[found].aar += it.aar
+          res[found].mnd += it.mnd
+          res[found].dag += it.dag
+          res[found].startdato = moment(it.startdato, 'DD.MM.YYYY').isSameOrBefore(moment(res[found].startdato, 'DD.MM.YYYY')) ? it.startdato : res[found].startdato
+          res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
+          res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
+          if ((res[found].dag) >= 30) {
+            const extraMonths = Math.floor(res[found].dag / 30)
+            const remainingDays = (res[found].dag) % 30
+            res[found].dag = remainingDays
+            res[found].mnd += extraMonths
+          }
+          if ((res[found].mnd) >= 12) {
+            const extraYears = Math.floor(res[found].mnd / 12)
+            const remainingMonths = (res[found].mnd) % 12
+            res[found].mnd = remainingMonths
+            res[found].aar += extraYears
+          }
+        }
+      }
+    })
+    return res
+  }
+
+
   const beforePrintOut = (): void => {}
 
   const prepareContent = (): void => {
@@ -592,7 +629,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           const medlemskap: any = {}
           medlemskap.relevans = item.ytelse /// ???
           medlemskap.ordning = item.ordning
-          medlemskap.ordning = item.ordning
           medlemskap.land = 'NO'
           medlemskap.sum = {
             kvaltal: null,
@@ -608,9 +644,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           medlemskap.gyldigperiode = null
           medlemskap.type = item.type
           medlemskap.beregning = item.beregning
-          medlemskap.periode = {
-            fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-            tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
+          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
+            medlemskap.periode = {
+              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
+            }
           }
           return medlemskap
         })
@@ -638,14 +676,48 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           medlemskap.gyldigperiode = null
           medlemskap.type = item.type
           medlemskap.beregning = item.beregning
-          medlemskap.periode = {
-            fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-            tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
+          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
+            medlemskap.periode = {
+              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
+            }
           }
           return medlemskap
         })
         newSedContent.pensjon.medlemskapTotal.gyldigperiode = _forsikringElklerBosetningsperioder
         newSedContent.pensjon.medlemskapTotal.enkeltkrav = {
+          krav: _ytelseOption
+        }
+
+        newSedContent.pensjon.trygdetid = sumItemsForTrygdetid(_items)?.map(item => {
+          const medlemskap: any = {}
+          medlemskap.relevans = item.ytelse /// ???
+          medlemskap.ordning = item.ordning
+          medlemskap.land = 'NO'
+          medlemskap.sum = {
+            kvaltal: null,
+            aar: '' + item.aar,
+            uker: null,
+            dager: {
+              nr: '' + item.dag,
+              type: '7'
+            },
+            maaneder: '' + item.mnd
+          }
+          medlemskap.yrke = null
+          medlemskap.gyldigperiode = null
+          medlemskap.type = item.type
+          medlemskap.beregning = item.beregning
+          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
+            medlemskap.periode = {
+              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
+            }
+          }
+          return medlemskap
+        })
+        newSedContent.pensjon.trygdetid.gyldigperiode = _forsikringElklerBosetningsperioder
+        newSedContent.pensjon.trygdetid.enkeltkrav = {
           krav: _ytelseOption
         }
 

@@ -103,7 +103,7 @@ export default {
         uker: null,
         dager: {
           nr: null,
-          type: '7'
+          type: '45'
         },
         maaneder: null
       },
@@ -128,7 +128,7 @@ export default {
       },
       yrke: null,
       gyldigperiode: null,
-      type: '30',
+      type: '45',
       beregning: null,
       periode: null
     }],
@@ -176,7 +176,7 @@ export default {
         },
         yrke: null,
         gyldigperiode: null,
-        type: '30',
+        type: '45',
         beregning: '111',
         periode: {
           fom: '2006-08-16',
@@ -185,45 +185,7 @@ export default {
         }
       }]
     },
-    trygdetid: [{
-      relevans: null,
-      ordning: null,
-      land: null,
-      sum: {
-        kvaltal: null,
-        aar: '05',
-        uker: null,
-        dager: {
-          nr: null,
-          type: '7'
-        },
-        maaneder: null
-      },
-      yrke: null,
-      gyldigperiode: null,
-      type: '30',
-      beregning: null,
-      periode: null
-    }, {
-      relevans: null,
-      ordning: null,
-      land: null,
-      sum: {
-        kvaltal: null,
-        aar: '05',
-        uker: null,
-        dager: {
-          nr: null,
-          type: '7'
-        },
-        maaneder: null
-      },
-      yrke: null,
-      gyldigperiode: null,
-      type: '30',
-      beregning: null,
-      periode: null
-    }],
+    trygdetid: [],
     institusjonennaaikkesoektompensjon: null,
     utsettelse: null,
     vedlegg: null,
