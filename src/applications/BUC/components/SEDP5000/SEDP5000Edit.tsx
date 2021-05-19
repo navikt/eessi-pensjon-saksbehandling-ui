@@ -816,8 +816,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return <div />
   }
 
-  const canSave = _items.length > 0
-  const canSend = !!_ytelseOption && !!_forsikringElklerBosetningsperioder && _items.length > 0
+  const canSave = (_forsikringElklerBosetningsperioder === '1') ? _items.length > 0 : true
+  const canSend = canSave && !!_ytelseOption
 
   return (
     <NavHighContrast highContrast={highContrast}>
