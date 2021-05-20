@@ -1,13 +1,13 @@
 import { getSed, resetSentP5000info } from 'actions/buc'
 import { BUCMode } from 'applications/BUC'
-import { SpinnerDiv } from 'applications/BUC/components/BUCTools/BUCTools'
+import { SpinnerDiv } from 'components/StyledComponents'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDP5000Edit from 'applications/BUC/components/SEDP5000/SEDP5000Edit'
-import SEDP5000Overview from 'applications/BUC/components/SEDP5000/SEDP5000Overview'
-import SEDP5000Sum from 'applications/BUC/components/SEDP5000/SEDP5000Sum'
+import SEDP5000Edit from './SEDP5000Edit'
+import SEDP5000Overview from './SEDP5000Overview'
+import SEDP5000Sum from './SEDP5000Sum'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { AllowedLocaleString, FeatureToggles } from 'declarations/app'
+import { AllowedLocaleString, FeatureToggles, LocalStorageEntry, P5000EditLocalStorageContent } from 'declarations/app'
 import { Buc, Sed, SedContentMap, Seds } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export interface SEDP5000Props {
   buc: Buc
-  p5000Storage: any
+  p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
   sed?: Sed,
   seeOversikt?: boolean
   seeSummer?: boolean
@@ -106,7 +106,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
     if ((buc.caseId !== _buc.caseId) || (sed?.id !== _sed?.id)) {
       _setBuc(buc)
       _setSed(sed)
-      console.log('get P5000')
       const seds = getP5000(buc, sed)
       _setSeds(seds)
     }
@@ -141,15 +140,6 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
     }
   }, [_fetchingP5000, sedContent])
 
-  /*
-  useEffect(() => {
-    setTimeWithP5000Modal(new Date())
-    return () => {
-      timeLogger('buc.edit.tools.P5000', _timeWithP5000Modal!)
-    }
-  }, [])
-*/
-
   if (!_ready) {
     return (
       <SpinnerDiv>
@@ -163,6 +153,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
       {featureToggles.P5000_SUMMER_VISIBLE && seeEdit
         ? (
           <>
+            <VerticalSeparatorDiv size='3' />
             {renderBackLink()}
             <VerticalSeparatorDiv size='2' />
             <ExpandingPanel
@@ -176,10 +167,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
               )}
             >
               <SEDP5000Edit
-                key={'seds' + _seds!.map(s => s.id).join(',') + 'fromstorage' + fromStorage?.id + 'sedContent' + Object.keys(sedContent).join(',')}
+                key={'SEDP5000Edit' + _seds!.map(s => s.id).join(',') + 'fromstorage' + fromStorage?.id + 'sedContent' + Object.keys(sedContent).join(',')}
                 caseId={buc.caseId!}
-                highContrast={highContrast}
                 fromStorage={fromStorage}
+                highContrast={highContrast}
                 locale={locale}
                 p5000Storage={p5000Storage}
                 seds={_seds!}
@@ -196,6 +187,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           ))}
       {seeOversikt && (
         <>
+          <VerticalSeparatorDiv size='3' />
           {renderBackLink()}
           <VerticalSeparatorDiv size='2' />
           <ExpandingPanel
@@ -210,16 +202,17 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           >
             <SEDP5000Overview
               highContrast={highContrast}
+              key={'SEDP5000Overview' + _seds!.map(s => s.id).join(',') + 'sedContent' + Object.keys(sedContent).join(',')}
+              locale={locale}
               seds={_seds!}
               sedContent={sedContent}
-              locale={locale}
             />
           </ExpandingPanel>
-          <VerticalSeparatorDiv size='3' />
         </>
       )}
       {featureToggles.P5000_SUMMER_VISIBLE && seeSummer && (
         <>
+          <VerticalSeparatorDiv size='3' />
           {renderBackLink()}
           <VerticalSeparatorDiv size='2' />
           <ExpandingPanel
@@ -234,12 +227,12 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           >
             <SEDP5000Sum
               highContrast={highContrast}
+              key={'SEDP5000Sum' + _seds!.map(s => s.id).join(',') + 'sedContent' + Object.keys(sedContent).join(',')}
               locale={locale}
               seds={_seds!}
               sedContent={sedContent}
             />
           </ExpandingPanel>
-          <VerticalSeparatorDiv size='3' />
         </>
       )}
     </div>

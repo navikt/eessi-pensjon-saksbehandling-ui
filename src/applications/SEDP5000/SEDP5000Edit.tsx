@@ -1,5 +1,5 @@
 import { sendP5000toRina } from 'actions/buc'
-import { SEDP5000EditValidate, SEDP5000EditValidationProps } from 'applications/BUC/components/SEDP5000/validation'
+import { SEDP5000EditValidate, SEDP5000EditValidationProps } from './validation'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'

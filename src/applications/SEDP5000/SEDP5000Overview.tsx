@@ -73,6 +73,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
 }: SEDP5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
+
   const [_activeSeds, setActiveSeds] = useState<ActiveSeds>(_.mapValues(_.keyBy(seds, 'id'), () => true))
   const [_itemsPerPage, setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
@@ -192,10 +193,10 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
                 return (
                   <div key={sedId}>
                     <Checkbox
-                      data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      data-test-id={'a-buc-c-sedp5000overview__checkbox-' + sedId}
                       checked={_activeSeds[sedId]}
-                      key={sedId}
-                      id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      key={'a-buc-c-sedp5000overview__checkbox-' + sedId}
+                      id={'a-buc-c-sedp5000overview__checkbox-' + sedId}
                       onChange={() => changeActiveSed(sedId)}
                       label={(
                         <FlexEndSpacedDiv style={{ flexWrap: 'wrap' }}>

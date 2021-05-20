@@ -1,4 +1,4 @@
-import { ytelsestypeOptions } from 'applications/BUC/components/SEDP5000/SEDP5000Edit'
+import { ytelsestypeOptions } from '../SEDP5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import { Etikett } from 'components/StyledComponents'
 import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app'

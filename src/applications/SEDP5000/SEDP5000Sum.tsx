@@ -204,10 +204,10 @@ const SEDP5000Sum: React.FC<SEDP5000Props> = ({
                 return (
                   <div key={sedId}>
                     <Checkbox
-                      data-test-id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      data-test-id={'a-buc-c-sedp5000sum__checkbox-' + sedId}
                       checked={_activeSeds[sedId]}
-                      key={sedId}
-                      id={'a-buc-c-sedp5000__checkbox-' + sedId}
+                      key={'a-buc-c-sedp5000sum__checkbox-' + sedId}
+                      id={'a-buc-c-sedp5000sum__checkbox-' + sedId}
                       onChange={() => changeActiveSed(sedId)}
                       label={(
                         <FlexEndSpacedDiv>

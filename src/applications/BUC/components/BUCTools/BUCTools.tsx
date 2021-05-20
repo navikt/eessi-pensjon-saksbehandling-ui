@@ -1,6 +1,6 @@
 import { getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDP5000 from 'applications/BUC/components/SEDP5000/SEDP5000'
+import SEDP5000 from 'applications/SEDP5000/SEDP5000'
 import { BUCMode } from 'applications/BUC/index'
 import Trashcan from 'assets/icons/Trashcan'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
@@ -79,12 +79,6 @@ const RemoveComment = styled.div`
 export const TextArea = styled(HighContrastTextArea)`
   min-height: 150px;
   width: 100%;
-`
-export const SpinnerDiv = styled.div`
-  position: absolute;
-  top: 3rem;
-  left: 0;
-  right: 0;
 `
 
 export interface BUCToolsProps {
