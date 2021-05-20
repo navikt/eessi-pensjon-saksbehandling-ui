@@ -94,6 +94,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupTypeBase, ValueType } from 'react-select'
 import styled from 'styled-components'
+import moment from 'moment'
 
 const AlertDiv = styled.div`
   display: flex;
@@ -437,6 +438,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       return {
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
         feilmelding: t('buc:validation-badKravDato')
+      } as FeiloppsummeringFeil
+    }
+    if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
+      return {
+        feilmelding: t('buc:validation-invalidKravDato'),
+        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
       } as FeiloppsummeringFeil
     }
     return undefined

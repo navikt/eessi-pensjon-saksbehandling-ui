@@ -519,7 +519,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return res
   }
 
-
   const sumItemsForTrygdetid = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
     const res: SEDP5000EditRows = []
     items.forEach((it) => {
@@ -554,7 +553,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     })
     return res
   }
-
 
   const beforePrintOut = (): void => {}
 

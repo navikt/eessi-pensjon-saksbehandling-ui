@@ -14,6 +14,7 @@ import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
+import moment from 'moment'
 import Tooltip from 'rc-tooltip'
 import {
   AllowedLocaleString,
@@ -280,6 +281,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
       return {
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
         feilmelding: t('buc:validation-badKravDato')
+      } as FeiloppsummeringFeil
+    }
+    if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
+      return {
+        feilmelding: t('buc:validation-invalidKravDato'),
+        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
       } as FeiloppsummeringFeil
     }
     return undefined

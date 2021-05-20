@@ -284,6 +284,7 @@
   "validation-chooseSubjectArea"    : "Velg et fagområde",
   "validation-chooseType"           : "Velg en type",
   "validation-chooseVedtakId"       : "Velg en vedtak ID",
+  "validation-invalidKravDato"      : "Ugyldig krav dato",
   "validation-invalidVedtakId"      : "Ugyldig vedtak ID",
   "validation-noAktoerId"           : "Ingen aktørId",
   "validation-noName"               : "Ingen navn",
