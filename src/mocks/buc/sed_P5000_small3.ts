@@ -14,8 +14,8 @@ export default {
       "far" : null,
       "person" : {
       "pin" : [ {
-        "institusjonsnavn" : null,
-        "institusjonsid" : null,
+        "institusjonsnavn" : "The Norwegian Labour and Welfare Administration",
+        "institusjonsid" : "NO:889640782",
         "sektor" : null,
         "identifikator" : "19014825137",
         "land" : "NO",
@@ -32,17 +32,32 @@ export default {
         "statsborgerskap" : [ {
         "land" : "DE"
       } ],
-        "etternavn" : "MULLER",
-        "fornavn" : "MANFRED WERNER K",
+        "etternavn" : "MÜLLER",
+        "fornavn" : "MANFRED WERNER KURT",
         "kjoenn" : "M",
-        "foedested" : null,
-        "foedselsdato" : "1948-01-19",
+        "foedested" : {
+        "by" : "Unknown",
+          "land" : "DE",
+          "region" : null
+      },
+      "foedselsdato" : "1948-01-19",
         "sivilstand" : null,
         "relasjontilavdod" : null,
         "rolle" : null
     },
-    "adresse" : null,
-      "arbeidsforhold" : null,
+    "adresse" : {
+      "gate" : "OUDE HAEGEVELDE 9",
+        "bygning" : "2150 BORSBEEK",
+        "by" : "BELGIA",
+        "postnummer" : null,
+        "region" : null,
+        "land" : "BE",
+        "kontaktpersonadresse" : null,
+        "datoforadresseendring" : null,
+        "postadresse" : null,
+        "startdato" : null
+    },
+    "arbeidsforhold" : null,
       "bank" : null
   },
   "brukere" : null,
@@ -61,9 +76,9 @@ export default {
     "sum" : {
       "kvartal" : null,
       "aar" : "11",
-      "uker" : "00",
+      "uker" : null,
       "dager" : {
-        "nr" : null,
+        "nr" : "00",
         "type" : "7"
       },
       "maaneder" : "00"
@@ -76,38 +91,38 @@ export default {
     "periode" : null,
     "enkeltkrav" : null
   } ],
-    "medlemskapAnnen" : [ {
-    "relevans" : "010",
-    "ordning" : "01",
-    "land" : "NO",
+    "medlemskapAnnen" : null,
+    "medlemskapTotal" : [ {
+    "relevans" : "111",
+    "ordning" : null,
+    "land" : null,
     "sum" : {
       "kvartal" : null,
-      "aar" : "11",
+      "aar" : "21",
       "uker" : null,
       "dager" : {
-        "nr" : null,
+        "nr" : "13",
         "type" : "7"
       },
-      "maaneder" : "00"
+      "maaneder" : "03"
     },
-    "yrke" : "0000",
+    "yrke" : null,
     "gyldigperiode" : null,
-    "type" : "11",
-    "beregning" : "010",
+    "type" : "30",
+    "beregning" : null,
     "informasjonskalkulering" : null,
     "periode" : null,
     "enkeltkrav" : null
-  } ],
-    "medlemskapTotal" : [ {
-    "relevans" : "010",
+  }, {
+    "relevans" : "111",
     "ordning" : null,
     "land" : null,
     "sum" : {
       "kvartal" : null,
       "aar" : "06",
-      "uker" : "19",
+      "uker" : null,
       "dager" : {
-        "nr" : null,
+        "nr" : "19",
         "type" : "7"
       },
       "maaneder" : "08"
@@ -128,23 +143,48 @@ export default {
     },
     "gyldigperiode" : "1",
       "medlemskap" : [ {
-      "relevans" : "010",
+      "relevans" : "111",
+      "ordning" : "05",
+      "land" : "NO",
+      "sum" : {
+        "kvartal" : null,
+        "aar" : "21",
+        "uker" : null,
+        "dager" : {
+          "nr" : "13",
+          "type" : "7"
+        },
+        "maaneder" : "03"
+      },
+      "yrke" : null,
+      "gyldigperiode" : null,
+      "type" : "30",
+      "beregning" : "111",
+      "informasjonskalkulering" : null,
+      "periode" : {
+        "fom" : "1991-06-30",
+        "tom" : "2012-10-12",
+        "extra" : null
+      },
+      "enkeltkrav" : null
+    }, {
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "00",
-        "uker" : "06",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "06",
           "type" : "7"
         },
         "maaneder" : "06"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1986-01-01",
@@ -153,23 +193,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "01",
-        "uker" : "00",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "00",
           "type" : "7"
         },
         "maaneder" : "00"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1987-01-01",
@@ -178,23 +218,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "00",
-        "uker" : "26",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "26",
           "type" : "7"
         },
         "maaneder" : "11"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1988-01-01",
@@ -203,23 +243,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "00",
-        "uker" : "25",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "25",
           "type" : "7"
         },
         "maaneder" : "02"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1989-04-18",
@@ -228,23 +268,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "00",
-        "uker" : "27",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "27",
           "type" : "7"
         },
         "maaneder" : "05"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1991-01-01",
@@ -253,23 +293,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "00",
-        "uker" : "00",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "00",
           "type" : "7"
         },
         "maaneder" : "04"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1994-08-01",
@@ -278,23 +318,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "00",
-        "uker" : "26",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "26",
           "type" : "7"
         },
         "maaneder" : "03"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1995-01-01",
@@ -303,23 +343,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "00",
-        "uker" : "04",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "04",
           "type" : "7"
         },
         "maaneder" : "11"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1996-01-01",
@@ -328,23 +368,23 @@ export default {
       },
       "enkeltkrav" : null
     }, {
-      "relevans" : "010",
+      "relevans" : "111",
       "ordning" : "01",
       "land" : "NO",
       "sum" : {
         "kvartal" : null,
         "aar" : "01",
-        "uker" : "25",
+        "uker" : null,
         "dager" : {
-          "nr" : null,
+          "nr" : "25",
           "type" : "7"
         },
         "maaneder" : "10"
       },
-      "yrke" : "0000",
+      "yrke" : null,
       "gyldigperiode" : null,
       "type" : "11",
-      "beregning" : "010",
+      "beregning" : "111",
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1998-06-02",

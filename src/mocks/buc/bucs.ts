@@ -677,6 +677,48 @@ const mockBuc = [
         allowsAttachments: false
       },
       {
+        id: '40578cf8bf9f45a7819a39987c6c8fd4',
+        parentDocumentId: null,
+        type: 'P5000',
+        status: 'received',
+        creationDate: 1571234189234,
+        lastUpdate: 1571547188033,
+        displayName: 'Insurance/residence periods',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571547188033
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571547188033
+        },
+        allowsAttachments: false
+      },
+      {
         id: '51d9d9277ab847008bc88c1b31b34865',
         parentDocumentId: null,
         type: 'P8000',
