@@ -1,22 +1,38 @@
 import { getSed, resetSentP5000info } from 'actions/buc'
 import { BUCMode } from 'applications/BUC'
-import { SpinnerDiv } from 'components/StyledComponents'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDP5000Edit from './SEDP5000Edit'
-import SEDP5000Overview from './SEDP5000Overview'
-import SEDP5000Sum from './SEDP5000Sum'
+import WarningCircle from 'assets/icons/WarningCircle'
+import Alert from 'components/Alert/Alert'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, FeatureToggles, LocalStorageEntry, P5000EditLocalStorageContent } from 'declarations/app'
-import { Buc, Sed, SedContentMap, Seds } from 'declarations/buc'
+import { Buc, Participant, Sed, SedContentMap, Seds } from 'declarations/buc'
+import { ActiveSeds, EmptyPeriodsReport, SedSender } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
+import Flag from 'flagg-ikoner'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
+import moment from 'moment'
 import { VenstreChevron } from 'nav-frontend-chevron'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { HighContrastLink, HorizontalSeparatorDiv, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { Checkbox } from 'nav-frontend-skjema'
+import { Normaltekst, UndertekstBold, Undertittel } from 'nav-frontend-typografi'
+import {
+  Column,
+  FlexCenterDiv,
+  FlexEndSpacedDiv,
+  HighContrastLink,
+  HorizontalSeparatorDiv,
+  PileDiv,
+  Row,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import SEDP5000Edit from './SEDP5000Edit'
+import SEDP5000Overview from './SEDP5000Overview'
+import SEDP5000Sum from './SEDP5000Sum'
 
 export interface SEDP5000Props {
   buc: Buc
@@ -65,6 +81,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   const [_fetchingP5000, setFetchingP5000] = useState<Seds | undefined>(undefined)
   const [_ready, setReady] = useState<boolean>(false)
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
+  const [_activeSeds, setActiveSeds] = useState<ActiveSeds>( {})
   const [_buc, _setBuc] = useState<Buc>(buc)
   const [_sed, _setSed] = useState<Sed | undefined>(sed)
 
@@ -102,6 +119,47 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
     </div>
   )
 
+  const changeActiveSed = (sedId: string): void => {
+    const newActiveSeds = _.cloneDeep(_activeSeds) as ActiveSeds
+    newActiveSeds[sedId] = !_activeSeds[sedId]
+    setActiveSeds(newActiveSeds)
+  }
+
+  const getSedSender = (sedId: string): SedSender | undefined => {
+    const sed = _.find(_seds, { id: sedId })
+    if (!sed) {
+      return undefined
+    }
+    const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
+    if (sender) {
+      return {
+        date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
+        countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
+        country: sender.organisation.countryCode,
+        institution: sender.organisation.name,
+        acronym: sender.organisation.acronym || '-'
+      }
+    }
+    return undefined
+  }
+
+  const getEmptyPeriodsReport = (): EmptyPeriodsReport => {
+    const res: EmptyPeriodsReport = {}
+    Object.keys(_activeSeds).forEach((key: string) => {
+      if (_activeSeds[key]) {
+        res[key] = sedContent[key]?.pensjon?.medlemskapAnnen?.length > 0
+      }
+    })
+    return res
+  }
+
+  const hasEmptyPeriods = (emptyPeriodsReport: EmptyPeriodsReport): boolean => {
+    return Object.values(emptyPeriodsReport).indexOf(true) >= 0
+  }
+
+  const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
+  const warning = hasEmptyPeriods(emptyPeriodReport)
+
   useEffect(() => {
     if ((buc.caseId !== _buc.caseId) || (sed?.id !== _sed?.id)) {
       _setBuc(buc)
@@ -134,6 +192,7 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             setFetchingP5000(newFetchingP5000)
           }
         } else {
+          setActiveSeds(_.mapValues(_.keyBy(_seds, 'id'), () => true))
           setReady(true)
         }
       }
@@ -150,6 +209,74 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
 
   return (
     <div key={_seds?.map(s => s.id).join(',')}>
+
+    <Row>
+
+      <Column>
+        <PileDiv>
+          <UndertekstBold>
+            {t('buc:p5000-active-seds')}:
+          </UndertekstBold>
+          <VerticalSeparatorDiv size='0.5' />
+          {Object.keys(_activeSeds).map(sedId => {
+            const sender: SedSender | undefined = getSedSender(sedId)
+            return (
+              <div key={sedId}>
+                <Checkbox
+                  data-test-id={'a-buc-c-sedp5000overview__checkbox-' + sedId}
+                  checked={_activeSeds[sedId]}
+                  key={'a-buc-c-sedp5000overview__checkbox-' + sedId}
+                  id={'a-buc-c-sedp5000overview__checkbox-' + sedId}
+                  onChange={() => changeActiveSed(sedId)}
+                  label={(
+                    <FlexEndSpacedDiv style={{ flexWrap: 'wrap' }}>
+                          <span>
+                            {t('buc:form-dateP5000', { date: sender?.date })}
+                          </span>
+                      <SeparatorSpan>-</SeparatorSpan>
+                      {sender
+                        ? (
+                          <FlexCenterDiv>
+                            <Flag
+                              country={sender?.country}
+                              label={sender?.countryLabel}
+                              size='XS'
+                              type='circle'
+                            />
+                            <HorizontalSeparatorDiv size='0.2' />
+                            <span>{sender?.countryLabel}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
+                            <span>{sender?.institution}</span>
+                          </FlexCenterDiv>
+                        )
+                        : sedId}
+                      {emptyPeriodReport[sedId] && (
+                        <>
+                          <HorizontalSeparatorDiv size='0.5' />
+                          <WarningCircle />
+                        </>
+                      )}
+                    </FlexEndSpacedDiv>
+                  )}
+                />
+                <VerticalSeparatorDiv size='0.5' />
+              </div>
+            )
+          })}
+        </PileDiv>
+      </Column>
+      <Column>
+        {warning && (
+          <Alert
+            type='client'
+            fixed={false}
+            status='WARNING'
+            message={t('buc:form-P5000-warning')}
+          />
+        )}
+      </Column>
+    </Row>
+    <VerticalSeparatorDiv size='2'/>
       {featureToggles.P5000_SUMMER_VISIBLE && seeEdit
         ? (
           <>
@@ -201,10 +328,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             )}
           >
             <SEDP5000Overview
+              activeSeds={_activeSeds}
+              getSedSender={getSedSender}
               highContrast={highContrast}
               key={'SEDP5000Overview' + _seds!.map(s => s.id).join(',') + 'sedContent' + Object.keys(sedContent).join(',')}
-              locale={locale}
-              seds={_seds!}
               sedContent={sedContent}
             />
           </ExpandingPanel>
@@ -226,10 +353,9 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             )}
           >
             <SEDP5000Sum
+              activeSeds={_activeSeds}
               highContrast={highContrast}
               key={'SEDP5000Sum' + _seds!.map(s => s.id).join(',') + 'sedContent' + Object.keys(sedContent).join(',')}
-              locale={locale}
-              seds={_seds!}
               sedContent={sedContent}
             />
           </ExpandingPanel>
