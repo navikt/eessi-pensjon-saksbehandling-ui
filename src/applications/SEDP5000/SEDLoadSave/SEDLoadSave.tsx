@@ -1,7 +1,8 @@
+import useLocalStorage from 'hooks/useLocalStorage'
 import { ytelsestypeOptions } from '../SEDP5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import { Etikett } from 'components/StyledComponents'
-import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app'
+import { LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
@@ -18,19 +19,16 @@ import { OptionTypeBase } from 'react-select'
 interface SEDLoadSaveProps {
   buc: Buc
   highContrast: boolean
-  p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
   sedId: string
-  setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
 }
 
 const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   buc,
   highContrast,
-  sedId,
-  p5000Storage,
-  setP5000Storage
+  sedId
 }: SEDLoadSaveProps) => {
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
+  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('sedp5000')
   const { t } = useTranslation()
 
   const onRemove = (caseId: string, sedId: string) => {

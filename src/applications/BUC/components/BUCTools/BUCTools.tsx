@@ -88,8 +88,6 @@ export interface BUCToolsProps {
   className?: string
   initialTab?: number
   onTagChange?: (tagList: Tags) => void
-  p5000Storage: any
-  setP5000Storage: any
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
@@ -119,8 +117,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   bucInfo,
   initialTab = 0,
   onTagChange,
-  p5000Storage,
-  setP5000Storage,
   setMode
 }: BUCToolsProps): JSX.Element => {
   const {
@@ -203,9 +199,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       <SEDP5000
         buc={buc}
         setMode={setMode}
-        p5000Storage={p5000Storage}
-        setP5000Storage={setP5000Storage}
-        seeEdit={false}
+        context='overview'
       />
     ))
   }

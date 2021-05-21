@@ -1,46 +1,40 @@
 import { sendP5000toRina } from 'actions/buc'
-import { SEDP5000EditValidate, SEDP5000EditValidationProps } from './validation'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'
-import {
-  OneLineSpan,
-  PrintableTableSorter,
-  SeparatorSpan
-} from 'components/StyledComponents'
+import { OneLineSpan, PrintableTableSorter } from 'components/StyledComponents'
 import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app.d'
-import { Participant, SedContent, SedContentMap, Seds } from 'declarations/buc'
+import { SedContent, SedContentMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
-import { SedSender } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
-import Flag, { AllowedLocaleString } from 'flagg-ikoner'
+import { AllowedLocaleString } from 'flagg-ikoner'
+import useLocalStorage from 'hooks/useLocalStorage'
 import useValidation from 'hooks/useValidation'
-import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
 import Alertstripe from 'nav-frontend-alertstriper'
-import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
+import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
-  Column,
-  HighContrastHovedknapp,
-  HighContrastInput,
-  HighContrastKnapp,
-  HighContrastRadio,
-  HighContrastRadioGroup,
-  HorizontalSeparatorDiv,
-  VerticalSeparatorDiv,
   AlignEndRow,
+  Column,
   FlexCenterDiv,
   FlexDiv,
   FlexEndDiv,
   FlexStartDiv,
   FullWidthDiv,
   HiddenDiv,
+  HighContrastHovedknapp,
+  HighContrastInput,
+  HighContrastKnapp,
+  HighContrastRadio,
+  HighContrastRadioGroup,
+  HorizontalSeparatorDiv,
   PileCenterDiv,
   PileDiv,
-  PileEndDiv
+  PileEndDiv,
+  VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
@@ -50,6 +44,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import TableSorter, { Context, Item, RenderEditableOptions, Sort } from 'tabell'
 import * as labels from './SEDP5000.labels'
+import { SEDP5000EditValidate, SEDP5000EditValidationProps } from './validation'
 
 export interface SEDP5000EditRow extends Item {
   type: string
@@ -86,10 +81,8 @@ export interface SEDP5000EditProps {
   highContrast: boolean
   fromStorage?: LocalStorageValue<P5000EditLocalStorageContent>
   locale: AllowedLocaleString
-  p5000Storage: LocalStorageEntry<P5000EditLocalStorageContent>
-  setP5000Storage: (it: LocalStorageEntry<P5000EditLocalStorageContent>) => void
   seds: Seds
-  sedContentMap: SedContentMap
+  sedOriginalContent: SedContentMap
 }
 
 export const ytelsestypeOptions = [
@@ -107,11 +100,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   caseId,
   highContrast,
   fromStorage = undefined,
-  locale,
-  p5000Storage,
-  setP5000Storage,
   seds,
-  sedContentMap
+  sedOriginalContent
 }: SEDP5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -125,7 +115,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_validation, resetValidation, performValidation] = useValidation<SEDP5000EditValidationProps>({}, SEDP5000EditValidate)
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
-  const [_sedSender, _setSedSender] = useState<SedSender | undefined>(undefined)
+  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('sedp5000')
 
   const getSedId = useCallback((): string | undefined => {
     return fromStorage?.id || seds[0]?.id || undefined
@@ -565,24 +555,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     setPrintDialogOpen(false)
   }
 
-  const getSedSender = (sedId: string): SedSender | undefined => {
-    const sed = _.find(seds, { id: sedId })
-    if (!sed) {
-      return undefined
-    }
-    const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
-    if (sender) {
-      return {
-        date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
-        countryLabel: CountryData.getCountryInstance(locale).findByValue(sender.organisation.countryCode).label,
-        country: sender.organisation.countryCode,
-        institution: sender.organisation.name,
-        acronym: sender.organisation.acronym || '-'
-      }
-    }
-    return undefined
-  }
-
   const renderButtons = (item: any, value: any, { items }: any): JSX.Element => {
     return (
       <FlexStartDiv>
@@ -616,7 +588,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     if (valid) {
       const sedId = getSedId()
       if (sedId) {
-        const newSedContent: SedContent = _.cloneDeep(sedContentMap[sedId])
+        const newSedContent: SedContent = _.cloneDeep(sedOriginalContent[sedId])
         if (_.isNil(newSedContent.pensjon)) {
           newSedContent.pensjon = {}
         }
@@ -788,14 +760,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       console.log('Getting from storage')
       setItems(fromStorage.content.items)
       _setYtelseOption(fromStorage?.content.ytelseOption)
-      _setSedSender(getSedSender(fromStorage.id))
     } else {
       const _sedId = getSedId()
       if (_sedId) {
         console.log('Getting from sedContent')
-        const newItems: SEDP5000EditRows = convertRawP5000toRow(sedContentMap[_sedId])
+        const newItems: SEDP5000EditRows = convertRawP5000toRow(sedOriginalContent[_sedId])
         setItems(newItems)
-        _setSedSender(getSedSender(_sedId))
       }
     }
   }, [fromStorage, seds, getSedId])
@@ -822,35 +792,6 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       <VerticalSeparatorDiv />
       <PileCenterDiv>
         <PileDiv>
-          <FlexDiv>
-            <UndertekstBold>
-              {t('buc:p5000-active-seds')}:
-            </UndertekstBold>
-            <HorizontalSeparatorDiv />
-            <FlexDiv>
-              {_sedSender && (
-                <>
-                  <span>
-                    {t('buc:form-dateP5000', { date: _sedSender?.date })}
-                  </span>
-                  <SeparatorSpan>-</SeparatorSpan>
-                  <FlexCenterDiv>
-                    <Flag
-                      country={_sedSender?.country}
-                      label={_sedSender?.countryLabel}
-                      size='XS'
-                      type='circle'
-                    />
-                    <HorizontalSeparatorDiv size='0.2' />
-                    <span>{_sedSender?.countryLabel}</span>
-                    <SeparatorSpan>-</SeparatorSpan>
-                    <span>{_sedSender?.institution}</span>
-                  </FlexCenterDiv>
-                </>
-              )}
-            </FlexDiv>
-          </FlexDiv>
-          <VerticalSeparatorDiv />
           <AlignEndRow>
             <Column>
               <FlexCenterDiv>
@@ -1188,7 +1129,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 SEDP5000Edit.propTypes = {
   highContrast: PT.bool.isRequired,
   seds: SedsPropType.isRequired,
-  sedContentMap: PT.any.isRequired
+  sedOriginalContent: PT.any.isRequired
 }
 
 export default SEDP5000Edit

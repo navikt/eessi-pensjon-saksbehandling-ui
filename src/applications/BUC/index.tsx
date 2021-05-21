@@ -27,7 +27,6 @@ import styled from 'styled-components'
 
 const transition = 1000
 const timeout = 1001
-const zoomOutTransition = 100
 
 const AnimatableDiv = styled.div`
   flex: 1;
@@ -115,17 +114,6 @@ export const ContainerDiv = styled.div`
   width: 100%;
   display: block;
   overflow: hidden;
-  will-change: transform;
-  &.shrink {
-    transform: scale(0.98);
-    transform-origin: center center;
-    transition: transform ${zoomOutTransition}ms ease-in;
-  }
-  &:not(.shrink) {
-    transform: scale(1);
-    transform-origin: center center;
-    transition: transform ${zoomOutTransition}ms ease-out;
-  }
 `
 const WaitingPanelDiv = styled.div`
   flex: 1;
@@ -456,7 +444,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <VerticalSeparatorDiv />
-      <ContainerDiv className={classNames({ shrink: animating })}>
+      <ContainerDiv>
         <WindowDiv>
           <AnimatableDiv
             key='animatableDivA'

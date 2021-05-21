@@ -1,10 +1,10 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import SEDP5000 from 'applications/SEDP5000/SEDP5000'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { BUCMode } from 'applications/BUC/index'
-import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import SEDLoadSave from 'applications/SEDP5000/SEDLoadSave/SEDLoadSave'
+import SEDP5000 from 'applications/SEDP5000/SEDP5000'
+import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import { AllowedLocaleString, FeatureToggles } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
@@ -86,10 +86,8 @@ export interface SEDHeaderProps {
   buc: Buc
   className ?: string
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
-  onP5000Edit: (sed: Sed) => void
-  setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   p5000Storage: any
-  setP5000Storage: any
+  setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   sed: Sed
   style?: React.CSSProperties
 }
@@ -110,10 +108,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc,
   className,
   onSEDNew,
-  onP5000Edit,
-  setMode,
   p5000Storage,
-  setP5000Storage,
+  setMode,
   sed,
   style
 }: SEDHeaderProps): JSX.Element => {
@@ -156,9 +152,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 
   const P5000Draft: Sed | undefined = (
     sed.type === 'P5000' &&
-    !!p5000Storage &&
-    !!p5000Storage[buc.caseId!] &&
-    _.find(p5000Storage[buc.caseId!], (_sed: Sed) => _sed.id === sed.id)
+    !_.isNil(p5000Storage) &&
+    !_.isNil(p5000Storage[buc.caseId!]) ?
+    _.find(p5000Storage[buc.caseId!], (_sed: Sed) => _sed.id === sed.id) as Sed | undefined : undefined
   )
 
   return (
@@ -259,19 +255,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   mini
                   data-amplitude='buc.edit.p5000'
                   data-test-id='a-buc-c-sedheader__p5000-button-id'
-                  onClick={() => {
-                    P5000Draft
-                      ? setMode('p5000', 'forward', undefined, (
-                        <SEDP5000
-                          buc={buc}
-                          setMode={setMode}
-                          fromStorage={P5000Draft}
-                          p5000Storage={p5000Storage}
-                          setP5000Storage={setP5000Storage}
-                        />
-                        ))
-                      : onP5000Edit(sed)
-                  }}
+                  onClick={() => setMode('p5000', 'forward', undefined, (
+                    <SEDP5000
+                      buc={buc}
+                      context={P5000Draft ? 'editFromStorage' : 'edit'}
+                      setMode={setMode}
+                      sed={sed}
+                    />
+                  ))}
                 >
                   {P5000Draft ? t('buc:p5000-rediger') : t('buc:p5000-registrert')}
                   <HorizontalSeparatorDiv size='0.3' />
@@ -287,8 +278,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             buc={buc}
             sedId={sed.id}
             highContrast={highContrast}
-            p5000Storage={p5000Storage}
-            setP5000Storage={setP5000Storage}
           />
         )}
         {sed.type === 'X100' &&

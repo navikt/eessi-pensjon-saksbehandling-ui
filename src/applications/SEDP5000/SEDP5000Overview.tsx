@@ -36,7 +36,7 @@ export interface SEDP5000OverviewProps {
   activeSeds: ActiveSeds
   getSedSender: (sedId: string) => SedSender | undefined
   highContrast: boolean
-  sedContent: SedContentMap
+  sedOriginalContent: SedContentMap
 }
 
 export interface SEDP5000OverviewRow {
@@ -59,7 +59,7 @@ export interface SEDP5000OverviewRow {
 export type SEDP5000OverviewRows = Array<SEDP5000OverviewRow>
 
 const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
-  activeSeds, getSedSender, highContrast, sedContent
+  activeSeds, getSedSender, highContrast, sedOriginalContent
 }: SEDP5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -102,7 +102,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
     let res: SEDP5000OverviewRows = []
     Object.keys(activeSeds).forEach((key: string) => {
       if (activeSeds[key]) {
-        res = res.concat(convertRawP5000toRow(key, sedContent[key]))
+        res = res.concat(convertRawP5000toRow(key, sedOriginalContent[key]))
       }
     })
     return res
@@ -273,7 +273,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
 
 SEDP5000Overview.propTypes = {
   highContrast: PT.bool.isRequired,
-  sedContent: PT.any.isRequired
+  sedOriginalContent: PT.any.isRequired
 }
 
 export default SEDP5000Overview

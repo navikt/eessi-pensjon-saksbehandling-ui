@@ -52,10 +52,8 @@ export interface SEDPanelProps {
   highContrast: boolean
   newSed: boolean
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
-  onP5000Edit: (sed: Sed) => void
-  setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   p5000Storage: any
-  setP5000Storage: any
+  setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   sed: Sed
   style: React.CSSProperties
 }
@@ -67,10 +65,8 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   highContrast,
   newSed,
   onSEDNew,
-  onP5000Edit,
-  setMode,
   p5000Storage,
-  setP5000Storage,
+  setMode,
   sed,
   style
 }: SEDPanelProps): JSX.Element => {
@@ -87,10 +83,8 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
               <SEDHeader
                 buc={buc}
                 onSEDNew={onSEDNew}
-                onP5000Edit={onP5000Edit}
-                setMode={setMode}
                 p5000Storage={p5000Storage}
-                setP5000Storage={setP5000Storage}
+                setMode={setMode}
                 sed={sed}
                 style={style}
               />
@@ -104,10 +98,8 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                 <SEDHeader
                   buc={buc}
                   onSEDNew={onSEDNew}
-                  onP5000Edit={onP5000Edit}
-                  setMode={setMode}
                   p5000Storage={p5000Storage}
-                  setP5000Storage={setP5000Storage}
+                  setMode={setMode}
                   sed={sed}
                 />
               }

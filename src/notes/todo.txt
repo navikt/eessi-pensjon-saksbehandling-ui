@@ -1,0 +1,39 @@
+1. Status for periode: lagret og overført til RINA
+
+2. Mer fokus på «Lagre» i EP, og avvente overføring til RINA.
+  - use help
+
+3. Ha noe som forteller sb at periodene er lagret,
+og vil ligge der senere (ikke miste registrerte perioder i lunsjen..)
+
+4. Redigerknapp utenfor hver periode i registrer-boksen
+
+5. Kunne endre periode som allerede er overført til RINA og sendt (hente opp tidligere registrert-knapp?)
+
+6. Boks 2: Status for SED: utkast, sendt, mottatt
+
+Ta tilbake knapp for sum perioder i EP, og også kunne redigere sum, samt fordele på 5.1 og 5.2, og disse kunne bli overført til kap. 5 i SED
+
+Ta med Land-kolonne i summering av perioder-boksen
+
+Lage klart skille mellom det som jobbes med i EP (registrering av perioder) og det som hentes fra RINA.
+
+Kunne jobbe med registrering i EP undervegs, slik som med vedleggene  Utsagn fra Lola
+
+Kunne hente inn reg. P5000-data fra annen SED/BUC til registreringsboksen?
+
+Tekstendringer:
+
+Fjerne parenteser rundt «kapittel 5» i overskrift summering
+
+Overskrift i boks to endres til «P5000-perioder (kapittel 4) for involverte land»
+
+
+
+Valideringer:
+
+Periode: Sjekke at startdato < sluttdato - sjekket og notert i EP-1143 (får varsel om å reg. positivt tall under dag, mnd. og år)
+
+Kan man overføre samme periode flere ganger? - sjekket og notert i EP-1143 (dette går per i dag)
+
+Kun gyldige datoer skal kunne brukes - sjekket og notert i EP-1143 (får teknisk feil, og melding om å melde i Porten. Lagt inn ønske om å få varsel om ugyldig dato)

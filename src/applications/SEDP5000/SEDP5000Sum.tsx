@@ -25,7 +25,7 @@ import * as labels from './SEDP5000.labels'
 export interface SEDP5000SumProps {
   activeSeds: ActiveSeds
   highContrast: boolean
-  sedContent: SedContentMap
+  sedOriginalContent: SedContentMap
 }
 
 export interface SEDP5000SumRow {
@@ -46,7 +46,7 @@ const mapState = (state: State): any => ({
 export type SEDP5000SumRows = Array<SEDP5000SumRow>
 
 const SEDP5000Sum: React.FC<SEDP5000SumProps> = ({
-  activeSeds, highContrast,  sedContent
+  activeSeds, highContrast, sedOriginalContent
 }: SEDP5000SumProps) => {
   const { t } = useTranslation()
 
@@ -133,7 +133,7 @@ const SEDP5000Sum: React.FC<SEDP5000SumProps> = ({
     let res: SEDP5000SumRows = []
     Object.keys(activeSeds).forEach((key: string) => {
       if (activeSeds[key]) {
-        res = res.concat(convertRawP5000toRow(sedContent[key]))
+        res = res.concat(convertRawP5000toRow(sedOriginalContent[key]))
       }
     })
     return res
@@ -273,7 +273,7 @@ const SEDP5000Sum: React.FC<SEDP5000SumProps> = ({
 
 SEDP5000Sum.propTypes = {
   highContrast: PT.bool.isRequired,
-  sedContent: PT.any.isRequired
+  sedOriginalContent: PT.any.isRequired
 }
 
 export default SEDP5000Sum
