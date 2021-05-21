@@ -14,19 +14,19 @@ import classNames from 'classnames'
 
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { AllowedLocaleString, Loading, PesysContext, RinaUrl } from 'declarations/app.d'
-import { Bucs, BucsInfo, SakTypeValue } from 'declarations/buc'
+import { BUCMode, Loading, PesysContext, RinaUrl } from 'declarations/app.d'
+import { Bucs, SakTypeValue } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
-import { fadeIn, fadeOut, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-const transition = 1000
-const timeout = 1001
+const transition = 500
+const timeout = 501
 
 const AnimatableDiv = styled.div`
   flex: 1;
@@ -51,15 +51,14 @@ const AnimatableDiv = styled.div`
   }
 
   &.A_going_to_right {
-    animation: ${fadeIn} ${transition}ms forwards;
+
     transform: translateX(0%);
   }
   &.B_going_to_right {
-    animation: ${fadeOut} ${transition}ms forwards;
+
     transform: translateX(20%);
   }
   &.C_going_to_right {
-    animation: ${fadeOut} ${transition}ms forwards;
     transform: translateX(40%);
   }
 
@@ -75,14 +74,11 @@ const AnimatableDiv = styled.div`
 
   &.A_going_to_middle {
     transform: translateX(-120%);
-    animation: ${fadeOut} ${transition}ms forwards;
   }
   &.B_going_to_middle {
-    animation: ${fadeIn} ${transition}ms forwards;
     transform: translateX(-100%);
   }
   &.C_going_to_middle {
-    animation: ${fadeIn} ${transition}ms forwards;
     transform: translateX(-100%);
   }
 
@@ -98,14 +94,11 @@ const AnimatableDiv = styled.div`
 
   &.A_going_to_left {
     transform: translateX(-240%);
-    animation: ${fadeOut} ${transition}ms forwards;
   }
   &.B_going_to_left {
-    animation: ${fadeIn} ${transition}ms forwards;
     transform: translateX(-220%);
   }
   &.C_going_to_left {
-    animation: ${fadeIn} ${transition}ms forwards;
     transform: translateX(-200%);
   }
 
@@ -136,15 +129,10 @@ export interface BUCIndexProps {
   waitForMount?: boolean
 }
 
-export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p5000'
-
 export interface BUCIndexSelector {
   aktoerId: string | undefined
   bucs: Bucs | undefined
-  bucsInfo: BucsInfo | undefined
-  currentBuc: string | undefined
   loading: Loading
-  locale: AllowedLocaleString
   pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | undefined
@@ -155,10 +143,7 @@ export interface BUCIndexSelector {
 const mapState = (state: State): BUCIndexSelector => ({
   aktoerId: state.app.params.aktoerId,
   bucs: state.buc.bucs,
-  bucsInfo: state.buc.bucsInfo,
-  currentBuc: state.buc.currentBuc,
   loading: state.loading,
-  locale: state.ui.locale,
   pesysContext: state.app.pesysContext,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
@@ -187,8 +172,6 @@ export enum Slide {
   C_GOING_TO_RIGHT
 }
 
-export const BUCIndexDiv = styled.div``
-
 export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
   waitForMount = true
@@ -196,9 +179,11 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   const { aktoerId, bucs, loading, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
+
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
+
   const [positionA, setPositionA] = useState<Slide>(Slide.LEFT)
   const [positionB, setPositionB] = useState<Slide>(Slide.MIDDLE)
   const [positionC, setPositionC] = useState<Slide>(Slide.RIGHT)
@@ -206,6 +191,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   const [contentB, setContentB] = useState<any>(null)
   const [contentC, setContentC] = useState<any>(null)
   const [animating, setAnimating] = useState<boolean>(false)
+
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
@@ -235,15 +221,16 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     </div>
   )
 
-  const _setMode = useCallback((newMode: BUCMode, from: string, callback?: () => void, content?: JSX.Element) => {
+  const changeMode = useCallback((newMode: BUCMode, from: string, callback?: () => void, content?: JSX.Element) => {
+    dispatch(setMode(newMode))
     if (animating) {
       return
     }
     if (newMode === 'bucnew') {
-      setContentA(<BUCList setMode={_setMode} initialBucNew />)
+      setContentA(<BUCList setMode={changeMode} initialBucNew />)
     }
     if (newMode === 'buclist') {
-      setContentA(<BUCList setMode={_setMode} />)
+      setContentA(<BUCList setMode={changeMode} />)
     }
     if (newMode === 'buclist' || newMode === 'bucnew') {
       if (!from || from === 'none') {
@@ -260,7 +247,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setPositionC(Slide.C_GOING_TO_RIGHT)
         setAnimating(true)
         setTimeout(() => {
-          console.log('Timeout end')
           setPositionA(Slide.LEFT)
           setPositionB(Slide.MIDDLE)
           setPositionC(Slide.RIGHT)
@@ -273,10 +259,10 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     }
     if (newMode === 'bucedit' || newMode === 'sednew') {
       if (newMode === 'bucedit') {
-        setContentB(<BUCEdit key={new Date().getTime()} setMode={_setMode} initialSedNew='none' />)
+        setContentB(<BUCEdit setMode={changeMode} initialSedNew='none' />)
       }
       if (newMode === 'sednew') {
-        setContentB(<BUCEdit key={new Date().getTime()} setMode={_setMode} initialSedNew='open' />)
+        setContentB(<BUCEdit setMode={changeMode} initialSedNew='open' />)
       }
       if (!from || from === 'none') {
         setPositionA(Slide.ALT_LEFT)
@@ -292,7 +278,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setPositionC(Slide.C_GOING_TO_MIDDLE)
         setAnimating(true)
         setTimeout(() => {
-          console.log('Timeout end')
           setPositionA(Slide.ALT_LEFT)
           setPositionB(Slide.ALT_MIDDLE)
           setPositionC(Slide.ALT_RIGHT)
@@ -308,7 +293,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setPositionC(Slide.C_GOING_TO_MIDDLE)
         setAnimating(true)
         setTimeout(() => {
-          console.log('Timeout end')
           setPositionA(Slide.ALT_LEFT)
           setPositionB(Slide.ALT_MIDDLE)
           setPositionC(Slide.ALT_RIGHT)
@@ -338,16 +322,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         }, timeout)
       }
     }
-    /*
-    if (allowFullScreen) {
-      if (newMode === 'bucnew' || newMode === 'sednew') {
-        onFullFocus()
-      } else {
-        onRestoreFocus()
-      }
-    } */
-    dispatch(setMode(newMode))
-  }, [animating, dispatch])//, allowFullScreen, onFullFocus, onRestoreFocus])
+  }, [animating, dispatch])
 
   useEffect(() => {
     if (!_mounted) {
@@ -361,17 +336,17 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setNoParams(true)
       } else {
         setNoParams(false)
-        _setMode('buclist', 'none')
+        changeMode('buclist', 'none')
       }
     }
-  }, [dispatch, aktoerId, EmptyBuc, _mounted, rinaUrl, sakId, _setMode, WaitingDiv])
+  }, [dispatch, aktoerId, EmptyBuc, _mounted, rinaUrl, sakId, changeMode, WaitingDiv])
 
   useEffect(() => {
     if (_mounted && _noParams && sakId && aktoerId) {
       setNoParams(false)
-      setContentA(<BUCList setMode={_setMode} />)
+      setContentA(<BUCList setMode={changeMode} />)
     }
-  }, [aktoerId, sakId, _mounted, _noParams, _setMode])
+  }, [aktoerId, sakId, _mounted, _noParams, changeMode])
 
   useEffect(() => {
     return () => {
@@ -394,7 +369,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (bucs && !_bucs) {
-      Object.keys(bucs).forEach(bucId => {
+      Object.keys(bucs)?.forEach(bucId => {
         if (bucs[bucId].type && _.isNil(bucs[bucId].institusjon)) {
           dispatch(fetchBucParticipants(bucId))
         }
@@ -438,7 +413,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   })
 
   return (
-    <BUCIndexDiv
+    <div
       key='bucIndexDiv'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -466,7 +441,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           </AnimatableDiv>
         </WindowDiv>
       </ContainerDiv>
-    </BUCIndexDiv>
+    </div>
   )
 }
 

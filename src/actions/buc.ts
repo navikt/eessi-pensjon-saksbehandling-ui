@@ -1,15 +1,16 @@
-import { BUCMode } from 'applications/BUC'
 import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { FeatureToggles, PesysContext } from 'declarations/app.d'
+import { BUCMode, FeatureToggles, PesysContext } from 'declarations/app.d'
 import {
   Buc,
   BUCRawList,
   Bucs,
   BucsInfoRawList,
-  CountryRawList, Institutions, NewBucPayload,
+  CountryRawList,
+  Institutions,
+  NewBucPayload,
   NewSedPayload,
   Participants,
   RinaUrlPayload,
@@ -34,8 +35,8 @@ import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
-import mockKravDato from 'mocks/buc/kravDato'
 import mockInstitutions from 'mocks/buc/institutions'
+import mockKravDato from 'mocks/buc/kravDato'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
 import mockSed from 'mocks/buc/sed'

@@ -4,6 +4,8 @@ import { OptionTypeBase } from 'react-select'
 
 export type AllowedLocaleString = 'en' | 'nb'
 
+export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p5000'
+
 export type Feature =
   'P5000_SUMMER_VISIBLE'
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED

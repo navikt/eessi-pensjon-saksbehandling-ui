@@ -1,10 +1,9 @@
 import { getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDP5000 from 'applications/SEDP5000/SEDP5000'
-import { BUCMode } from 'applications/BUC/index'
 import Trashcan from 'assets/icons/Trashcan'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { AllowedLocaleString, FeatureToggles, Loading } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode, FeatureToggles, Loading } from 'declarations/app.d'
 
 import {
   Buc,

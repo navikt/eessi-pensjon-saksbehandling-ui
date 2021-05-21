@@ -1,7 +1,7 @@
-import { BUCMode } from 'applications/BUC'
 import ContextBanner from 'components/ContextBanner/ContextBanner'
 import IEAlert from 'components/IEAlert/IEAlert'
 import TopContainer from 'components/TopContainer/TopContainer'
+import { BUCMode } from 'declarations/app'
 import { State } from 'declarations/reducers'
 import { timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'

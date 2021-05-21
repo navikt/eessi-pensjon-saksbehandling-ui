@@ -7,7 +7,6 @@ import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
-import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import useLocalStorage from 'hooks/useLocalStorage'
 import {
@@ -23,7 +22,7 @@ import {
 
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, P5000EditLocalStorageContent } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode, P5000EditLocalStorageContent } from 'declarations/app.d'
 import { PersonAvdods } from 'declarations/person.d'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'

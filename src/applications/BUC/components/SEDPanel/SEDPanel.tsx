@@ -1,7 +1,7 @@
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { BUCMode } from 'applications/BUC/index'
 import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
+import { BUCMode } from 'declarations/app'
 import NavHighContrast, { themeKeys, slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'

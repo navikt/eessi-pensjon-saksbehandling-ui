@@ -10,7 +10,6 @@ import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { BUCMode } from 'applications/BUC/index'
 import MagnifyingGlass from 'assets/icons/MagnifyingGlass'
 import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
@@ -28,7 +27,7 @@ import NavHighContrast, {
 
 import { BRUKERKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
-import { AllowedLocaleString, Loading, PesysContext } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode, Loading, PesysContext } from 'declarations/app.d'
 import {
   Buc,
   BucInfo,

@@ -1,8 +1,7 @@
-import { BUCMode } from 'applications/BUC'
 import { bucsThatSupportAvdod, getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
-import { RinaUrl } from 'declarations/app.d'
+import { BUCMode, RinaUrl } from 'declarations/app.d'
 import {
   Buc,
   Bucs,
