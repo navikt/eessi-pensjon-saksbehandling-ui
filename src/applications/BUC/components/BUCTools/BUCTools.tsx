@@ -1,6 +1,6 @@
 import { getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDP5000 from 'applications/SEDP5000/SEDP5000'
+import P5000 from 'applications/P5000/P5000'
 import Trashcan from 'assets/icons/Trashcan'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { AllowedLocaleString, BUCMode, FeatureToggles, Loading } from 'declarations/app.d'
@@ -195,7 +195,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const onGettingP5000Click = (e: React.MouseEvent): void => {
     buttonLogger(e)
     setMode('p5000', 'forward', undefined, (
-      <SEDP5000
+      <P5000
         buc={buc}
         setMode={setMode}
         context='overview'

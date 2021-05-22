@@ -3,25 +3,25 @@ import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
 import TableSorter from 'tabell'
-import SEDP5000Overview, { SEDP5000Container, SEDP5000OverviewProps } from './SEDP5000Overview'
-import mockSedP50001 from 'mocks/buc/sed_P5000_small_1'
-import mockSedP50002 from 'mocks/buc/sed_P5000_small_2'
+import P5000Overview, { P5000Container, P5000OverviewProps } from './P5000Overview'
+import mockP50001 from 'mocks/buc/sed_P5000_small_1'
+import mockP50002 from 'mocks/buc/sed_P5000_small_2'
 
-describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
+describe('applications/BUC/components/P5000/P5000', () => {
   let wrapper: ReactWrapper
 
-  const initialMockProps: SEDP5000OverviewProps = {
+  const initialMockProps: P5000OverviewProps = {
     highContrast: false,
     locale: 'nb',
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
     sedContent: {
-      '60578cf8bf9f45a7819a39987c6c8fd4': mockSedP50001,
-      '50578cf8bf9f45a7819a39987c6c8fd4': mockSedP50002
+      '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,
+      '50578cf8bf9f45a7819a39987c6c8fd4': mockP50002
     }
   }
 
   beforeEach(() => {
-    wrapper = mount(<SEDP5000Overview {...initialMockProps} />)
+    wrapper = mount(<P5000Overview {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -34,9 +34,9 @@ describe('applications/BUC/components/SEDP5000/SEDP5000', () => {
   })
 
   it('Render: Has proper HTML structure', () => {
-    expect(wrapper.exists(SEDP5000Container)).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedp5000__checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedp5000__checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
+    expect(wrapper.exists(P5000Container)).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
     expect(wrapper.exists(TableSorter)).toBeTruthy()
     expect(wrapper.find('.tabell:not(.print-version) th').hostNodes().map(it => it.render().text())).toEqual([
       '', 'ui:country', 'ui:_institution', 'ui:type', 'ui:startDate', 'ui:endDate', 'ui:year', 'ui:quarter', 'ui:month',

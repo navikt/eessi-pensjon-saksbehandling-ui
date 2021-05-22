@@ -20,15 +20,15 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import TableSorter, { Sort } from 'tabell'
-import * as labels from './SEDP5000.labels'
+import * as labels from './P5000.labels'
 
-export interface SEDP5000SumProps {
+export interface P5000SumProps {
   activeSeds: ActiveSeds
   highContrast: boolean
   sedOriginalContent: SedContentMap
 }
 
-export interface SEDP5000SumRow {
+export interface P5000SumRow {
   key: string
   type: string
   sec51aar: string
@@ -43,11 +43,11 @@ const mapState = (state: State): any => ({
   sakType: state.app.params.sakType as SakTypeValue
 })
 
-export type SEDP5000SumRows = Array<SEDP5000SumRow>
+export type P5000SumRows = Array<P5000SumRow>
 
-const SEDP5000Sum: React.FC<SEDP5000SumProps> = ({
+const P5000Sum: React.FC<P5000SumProps> = ({
   activeSeds, highContrast, sedOriginalContent
-}: SEDP5000SumProps) => {
+}: P5000SumProps) => {
   const { t } = useTranslation()
 
   const { sakType } = useSelector<State, any>(mapState)
@@ -56,8 +56,8 @@ const SEDP5000Sum: React.FC<SEDP5000SumProps> = ({
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
-  const convertRawP5000toRow = (sedContent: SedContent): SEDP5000SumRows => {
-    const res: SEDP5000SumRows = []
+  const convertRawP5000toRow = (sedContent: SedContent): P5000SumRows => {
+    const res: P5000SumRows = []
     const data: any = {}
     const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
     medlemskap?.forEach((m: any) => {
@@ -129,8 +129,8 @@ const SEDP5000Sum: React.FC<SEDP5000SumProps> = ({
     return res
   }
 
-  const getItems = (): SEDP5000SumRows => {
-    let res: SEDP5000SumRows = []
+  const getItems = (): P5000SumRows => {
+    let res: P5000SumRows = []
     Object.keys(activeSeds).forEach((key: string) => {
       if (activeSeds[key]) {
         res = res.concat(convertRawP5000toRow(sedOriginalContent[key]))
@@ -271,9 +271,9 @@ const SEDP5000Sum: React.FC<SEDP5000SumProps> = ({
   )
 }
 
-SEDP5000Sum.propTypes = {
+P5000Sum.propTypes = {
   highContrast: PT.bool.isRequired,
   sedOriginalContent: PT.any.isRequired
 }
 
-export default SEDP5000Sum
+export default P5000Sum

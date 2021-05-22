@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import TableSorter, { Sort } from 'tabell'
-import * as labels from './SEDP5000.labels'
+import * as labels from './P5000.labels'
 
 const CustomSelect = styled(Select)`
   select {
@@ -32,14 +32,14 @@ const CustomSelect = styled(Select)`
   }
 `
 
-export interface SEDP5000OverviewProps {
+export interface P5000OverviewProps {
   activeSeds: ActiveSeds
   getSedSender: (sedId: string) => SedSender | undefined
   highContrast: boolean
   sedOriginalContent: SedContentMap
 }
 
-export interface SEDP5000OverviewRow {
+export interface P5000OverviewRow {
   key: string
   land: string
   acronym: string
@@ -56,11 +56,11 @@ export interface SEDP5000OverviewRow {
   informasjonOmBeregning: string
 }
 
-export type SEDP5000OverviewRows = Array<SEDP5000OverviewRow>
+export type P5000OverviewRows = Array<P5000OverviewRow>
 
-const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
+const P5000Overview: React.FC<P5000OverviewProps> = ({
   activeSeds, getSedSender, highContrast, sedOriginalContent
-}: SEDP5000OverviewProps) => {
+}: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
 
@@ -68,8 +68,8 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
 
-  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): SEDP5000OverviewRows => {
-    const res: SEDP5000OverviewRows = []
+  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): P5000OverviewRows => {
+    const res: P5000OverviewRows = []
     const sender: SedSender | undefined = getSedSender(sedId)
     const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
     if (medlemskap) {
@@ -90,7 +90,7 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
             relevantForYtelse: m.relevans || '-',
             ordning: m.ordning || '-',
             informasjonOmBeregning: m.beregning || '-'
-          } as SEDP5000OverviewRow)
+          } as P5000OverviewRow)
         }
       })
     }
@@ -98,8 +98,8 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
   }
 
 
-  const getItems = (): SEDP5000OverviewRows => {
-    let res: SEDP5000OverviewRows = []
+  const getItems = (): P5000OverviewRows => {
+    let res: P5000OverviewRows = []
     Object.keys(activeSeds).forEach((key: string) => {
       if (activeSeds[key]) {
         res = res.concat(convertRawP5000toRow(key, sedOriginalContent[key]))
@@ -271,9 +271,9 @@ const SEDP5000Overview: React.FC<SEDP5000OverviewProps> = ({
   )
 }
 
-SEDP5000Overview.propTypes = {
+P5000Overview.propTypes = {
   highContrast: PT.bool.isRequired,
   sedOriginalContent: PT.any.isRequired
 }
 
-export default SEDP5000Overview
+export default P5000Overview

@@ -10,21 +10,21 @@ export default {
     "land" : "NO"
   } ],
     "bruker" : {
-    "mor" : null,
+      "mor" : null,
       "far" : null,
       "person" : {
       "pin" : [ {
         "institusjonsnavn" : "The Norwegian Labour and Welfare Administration",
         "institusjonsid" : "NO:889640782",
         "sektor" : null,
-        "identifikator" : "19014825137",
+        "identifikator" : "12345678901",
         "land" : "NO",
         "institusjon" : null
       }, {
         "institusjonsnavn" : null,
         "institusjonsid" : null,
         "sektor" : null,
-        "identifikator" : "10 190148 M 005",
+        "identifikator" : "1000000000001",
         "land" : "DE",
         "institusjon" : null
       } ],
@@ -32,22 +32,22 @@ export default {
         "statsborgerskap" : [ {
         "land" : "DE"
       } ],
-        "etternavn" : "MÜLLER",
-        "fornavn" : "MANFRED WERNER KURT",
+        "etternavn" : "VON RICHTOFEN",
+        "fornavn" : "MANFRED",
         "kjoenn" : "M",
         "foedested" : {
         "by" : "Unknown",
           "land" : "DE",
           "region" : null
       },
-      "foedselsdato" : "1948-01-19",
+      "foedselsdato" : "1948-01-01",
         "sivilstand" : null,
         "relasjontilavdod" : null,
         "rolle" : null
     },
     "adresse" : {
-      "gate" : "OUDE HAEGEVELDE 9",
-        "bygning" : "2150 BORSBEEK",
+      "gate" : "GATE 34",
+        "bygning" : "2000 BRUSSELS",
         "by" : "BELGIA",
         "postnummer" : null,
         "region" : null,

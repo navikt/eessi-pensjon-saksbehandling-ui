@@ -217,17 +217,6 @@ export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
   variantformat: string | undefined
 }
 
-export interface SEDP5000Payload {
-  sed: string
-  sedGVer: string
-  sedVer: string
-  nav: any
-  pensjon: any
-  trygdetid: any
-  ignore: any
-  horisontal: any
-}
-
 export type SedType = 'sed'
 export type SedNewType = 'sednew'
 

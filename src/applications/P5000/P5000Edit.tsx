@@ -43,10 +43,10 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import TableSorter, { Context, Item, RenderEditableOptions, Sort } from 'tabell'
-import * as labels from './SEDP5000.labels'
-import { SEDP5000EditValidate, SEDP5000EditValidationProps } from './validation'
+import * as labels from './P5000.labels'
+import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
-export interface SEDP5000EditRow extends Item {
+export interface P5000EditRow extends Item {
   type: string
   startdato: string
   sluttdato: string
@@ -58,7 +58,7 @@ export interface SEDP5000EditRow extends Item {
   ordning: string
 }
 
-export type SEDP5000EditRows = Array<SEDP5000EditRow>
+export type P5000EditRows = Array<P5000EditRow>
 
 export interface DatePieces {
   years: number
@@ -67,7 +67,7 @@ export interface DatePieces {
 }
 
 export interface TableContext extends Context {
-  items: SEDP5000EditRows
+  items: P5000EditRows
   forsikringElklerBosetningsperioder: string
 }
 
@@ -76,7 +76,7 @@ const mapState = (state: State): any => ({
   sendingP5000info: state.loading.sendingP5000info
 })
 
-export interface SEDP5000EditProps {
+export interface P5000EditProps {
   caseId: string
   highContrast: boolean
   fromStorage?: LocalStorageValue<P5000EditLocalStorageContent>
@@ -96,13 +96,13 @@ export const ytelsestypeOptions = [
   { label: '[31] Uførepensjon delvis', value: '31' }
 ]
 
-const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
+const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
   highContrast,
   fromStorage = undefined,
   seds,
   sedOriginalContent
-}: SEDP5000EditProps) => {
+}: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
@@ -111,11 +111,11 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(undefined)
-  const [_items, setItems] = useState<SEDP5000EditRows | undefined>(undefined)
-  const [_validation, resetValidation, performValidation] = useValidation<SEDP5000EditValidationProps>({}, SEDP5000EditValidate)
+  const [_items, setItems] = useState<P5000EditRows | undefined>(undefined)
+  const [_validation, resetValidation, performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
-  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('sedp5000')
+  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('P5000')
 
   const getSedId = useCallback((): string | undefined => {
     return fromStorage?.id || seds[0]?.id || undefined
@@ -151,7 +151,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       <Select
         key={'c-tableSorter__edit-type-select-key-' + options.value}
         id='c-tableSorter__edit-type-select-id'
-        className='sedP5000Edit-type-select'
+        className='P5000Edit-type-select'
         highContrast={highContrast}
         feil={options.feil}
         options={typeOptions}
@@ -444,12 +444,12 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   }
 
   const setYtelseOption = (o: any) => {
-    resetValidation('sedP5000Edit-ytelse-select')
+    resetValidation('P5000Edit-ytelse-select')
     _setYtelseOption(o?.value ?? '')
   }
 
-  const convertRawP5000toRow = (sedContent: SedContent): SEDP5000EditRows => {
-    const res: SEDP5000EditRows = []
+  const convertRawP5000toRow = (sedContent: SedContent): P5000EditRows => {
+    const res: P5000EditRows = []
     const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
     medlemskap?.forEach((m: any) => {
       if (!_.isNil(m) && m.type) {
@@ -463,7 +463,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
           ytelse: m.relevans || '-',
           ordning: m.ordning || '-',
           beregning: m.beregning || '-'
-        } as SEDP5000EditRow
+        } as P5000EditRow
         item.key = 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
         res.push(item)
       }
@@ -474,8 +474,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     )
   }
 
-  const sumItems = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
-    const res: SEDP5000EditRows = []
+  const sumItems = (items: P5000EditRows = []): P5000EditRows => {
+    const res: P5000EditRows = []
     items.forEach((it) => {
       if (it.type) {
         const found: number = _.findIndex(res, d => d.type === it.type)
@@ -509,8 +509,8 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
     return res
   }
 
-  const sumItemsForTrygdetid = (items: SEDP5000EditRows = []): SEDP5000EditRows => {
-    const res: SEDP5000EditRows = []
+  const sumItemsForTrygdetid = (items: P5000EditRows = []): P5000EditRows => {
+    const res: P5000EditRows = []
     items.forEach((it) => {
       if (it.type && it.type !== '45') {
         const found: number = _.findIndex(res, d => d.type === it.type)
@@ -580,7 +580,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
 
   const handleOverforTilRina = () => {
     _setSavedP5000Info(false)
-    const data: SEDP5000EditValidationProps = {
+    const data: P5000EditValidationProps = {
       ytelseOption: _ytelseOption!,
       forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
     }
@@ -764,7 +764,7 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
       const _sedId = getSedId()
       if (_sedId) {
         console.log('Getting from sedContent')
-        const newItems: SEDP5000EditRows = convertRawP5000toRow(sedOriginalContent[_sedId])
+        const newItems: P5000EditRows = convertRawP5000toRow(sedOriginalContent[_sedId])
         setItems(newItems)
       }
     }
@@ -798,10 +798,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
                 <FullWidthDiv>
                   <Select
                     key={getSedId() + '-' + _ytelseOption + '-' + _forsikringElklerBosetningsperioder}
-                    className='sedP5000Edit-ytelse-select'
-                    feil={_validation['sedP5000Edit-ytelse-select']?.feilmelding}
+                    className='P5000Edit-ytelse-select'
+                    feil={_validation['P5000Edit-ytelse-select']?.feilmelding}
                     highContrast={highContrast}
-                    id='sedP5000Edit-ytelse-select'
+                    id='P5000Edit-ytelse-select'
                     label={t('buc:p5000-4-1-title')}
                     menuPortalTarget={document.body}
                     options={ytelsestypeOptions}
@@ -1126,10 +1126,10 @@ const SEDP5000Edit: React.FC<SEDP5000EditProps> = ({
   )
 }
 
-SEDP5000Edit.propTypes = {
+P5000Edit.propTypes = {
   highContrast: PT.bool.isRequired,
   seds: SedsPropType.isRequired,
   sedOriginalContent: PT.any.isRequired
 }
 
-export default SEDP5000Edit
+export default P5000Edit

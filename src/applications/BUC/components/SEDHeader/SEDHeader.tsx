@@ -1,8 +1,8 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import SEDLoadSave from 'applications/SEDP5000/SEDLoadSave/SEDLoadSave'
-import SEDP5000 from 'applications/SEDP5000/SEDP5000'
+import SEDLoadSave from 'applications/P5000/SEDLoadSave/SEDLoadSave'
+import P5000 from 'applications/P5000/P5000'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import { AllowedLocaleString, BUCMode, FeatureToggles } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
@@ -255,9 +255,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   data-amplitude='buc.edit.p5000'
                   data-test-id='a-buc-c-sedheader__p5000-button-id'
                   onClick={() => setMode('p5000', 'forward', undefined, (
-                    <SEDP5000
+                    <P5000
                       buc={buc}
-                      context={P5000Draft ? 'editFromStorage' : 'edit'}
+                      context='edit'
                       setMode={setMode}
                       sed={sed}
                     />

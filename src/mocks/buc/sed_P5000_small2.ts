@@ -17,14 +17,14 @@ export default {
         "institusjonsnavn" : null,
         "institusjonsid" : null,
         "sektor" : null,
-        "identifikator" : "19014825137",
+        "identifikator" : "12345678901",
         "land" : "NO",
         "institusjon" : null
       }, {
         "institusjonsnavn" : null,
         "institusjonsid" : null,
         "sektor" : null,
-        "identifikator" : "10 190148 M 005",
+        "identifikator" : "100000000001",
         "land" : "DE",
         "institusjon" : null
       } ],
@@ -32,11 +32,11 @@ export default {
         "statsborgerskap" : [ {
         "land" : "DE"
       } ],
-        "etternavn" : "MULLER",
-        "fornavn" : "MANFRED WERNER K",
+        "etternavn" : "VON RICHTOFEN",
+        "fornavn" : "MANFRED",
         "kjoenn" : "M",
         "foedested" : null,
-        "foedselsdato" : "1948-01-19",
+        "foedselsdato" : "1948-01-01",
         "sivilstand" : null,
         "relasjontilavdod" : null,
         "rolle" : null

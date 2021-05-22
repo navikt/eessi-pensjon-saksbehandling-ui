@@ -30,49 +30,48 @@ import {
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import SEDP5000Edit from './SEDP5000Edit'
-import SEDP5000Overview from './SEDP5000Overview'
-import SEDP5000Sum from './SEDP5000Sum'
+import P5000Edit from './P5000Edit'
+import P5000Overview from './P5000Overview'
+import P5000Sum from './P5000Sum'
 
-export interface SEDP5000Props {
+export interface P5000Props {
   buc: Buc
-  context: 'editFromStorage' | 'edit' | 'overview'
+  context: 'edit' | 'overview'
   sed?: Sed,
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
-export interface SEDP5000Selector {
+export interface P5000Selector {
   highContrast: boolean
   locale: AllowedLocaleString
   sedOriginalContent: SedContentMap
   featureToggles: FeatureToggles
 }
 
-const mapState = (state: State): SEDP5000Selector => ({
+const mapState = (state: State): P5000Selector => ({
   highContrast: state.ui.highContrast,
   locale: state.ui.locale,
   sedOriginalContent: state.buc.sedContent,
   featureToggles: state.app.featureToggles
 })
 
-const SEDP5000: React.FC<SEDP5000Props> = ({
+const P5000: React.FC<P5000Props> = ({
   buc,
   context,
   sed = undefined,
   setMode
-}: SEDP5000Props): JSX.Element => {
+}: P5000Props): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
   const {
     highContrast, locale, sedOriginalContent, featureToggles
-  }: SEDP5000Selector = useSelector<State, SEDP5000Selector>(mapState)
+  }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
   const [_activeSeds, setActiveSeds] = useState<ActiveSeds>( {})
   const [_fetchingP5000, setFetchingP5000] = useState<Seds | undefined>(undefined)
   const [_ready, setReady] = useState<boolean>(false)
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
-  //const [sedModifiedContent, setSedModifiedContent] = useState<SedContentMap>(sedOriginalContent)
 
   // select which P5000 SEDs we want to see
   const getP5000 = (buc: Buc, sed: Sed | undefined): Seds | undefined => {
@@ -240,10 +239,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
               return (
                 <div key={sedId}>
                   <Checkbox
-                    data-test-id={'a-buc-c-sedp5000overview__checkbox-' + sedId}
+                    data-test-id={'a-buc-c-P5000overview__checkbox-' + sedId}
                     checked={_activeSeds[sedId]}
-                    key={'a-buc-c-sedp5000overview__checkbox-' + sedId}
-                    id={'a-buc-c-sedp5000overview__checkbox-' + sedId}
+                    key={'a-buc-c-P5000overview__checkbox-' + sedId}
+                    id={'a-buc-c-P5000overview__checkbox-' + sedId}
                     onChange={() => changeActiveSed(sedId)}
                     label={(
                       <FlexEndSpacedDiv style={{ flexWrap: 'wrap' }}>
@@ -306,8 +305,8 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
             </Undertittel>
             <VerticalSeparatorDiv/>
               <HighContrastPanel>
-                <SEDP5000Edit
-                key={'SEDP5000Edit-' + _seds!.map(s => s.id).join(',') + '-context-' + context}
+                <P5000Edit
+                key={'P5000Edit-' + _seds!.map(s => s.id).join(',') + '-context-' + context}
                 caseId={buc.caseId!}
                 highContrast={highContrast}
                 locale={locale}
@@ -332,11 +331,11 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           </Undertittel>
           <VerticalSeparatorDiv />
           <HighContrastPanel>
-            <SEDP5000Overview
+            <P5000Overview
               activeSeds={_activeSeds}
               getSedSender={getSedSender}
               highContrast={highContrast}
-              key={'SEDP5000Overview-' + _seds!.map(s => s.id).join(',') + '-context-' + context}
+              key={'P5000Overview-' + _seds!.map(s => s.id).join(',') + '-context-' + context}
               sedOriginalContent={sedOriginalContent}
             />
           </HighContrastPanel>
@@ -351,10 +350,10 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
           </Undertittel>
           <VerticalSeparatorDiv/>
            <HighContrastPanel>
-             <SEDP5000Sum
+             <P5000Sum
               activeSeds={_activeSeds}
               highContrast={highContrast}
-              key={'SEDP5000Sum' + _seds!.map(s => s.id).join(',') + 'sedOriginalContent' + Object.keys(sedOriginalContent).join(',')}
+              key={'P5000Sum' + _seds!.map(s => s.id).join(',') + 'sedOriginalContent' + Object.keys(sedOriginalContent).join(',')}
               sedOriginalContent={sedOriginalContent}
             />
            </HighContrastPanel>
@@ -364,4 +363,4 @@ const SEDP5000: React.FC<SEDP5000Props> = ({
   )
 }
 
-export default SEDP5000
+export default P5000

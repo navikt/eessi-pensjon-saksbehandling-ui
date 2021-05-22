@@ -6,8 +6,8 @@ import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockBucs from 'mocks/buc/bucs'
 import mockTagList from 'mocks/buc/tagsList'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
-import mockSedP50001 from 'mocks/buc/sed_P5000_1'
-import mockSedP50002 from 'mocks/buc/sed_P5000_2'
+import mockP50001 from 'mocks/buc/sed_P5000_1'
+import mockP50002 from 'mocks/buc/sed_P5000_2'
 import { stageSelector } from 'setupTests'
 import BUCTools, { BUCToolsProps, TextArea } from './BUCTools'
 import allTags from 'constants/tagsList'
@@ -25,8 +25,8 @@ const defaultSelector = {
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   sedContent: {
-    '60578cf8bf9f45a7819a39987c6c8fd4': mockSedP50001,
-    '50578cf8bf9f45a7819a39987c6c8fd4': mockSedP50002
+    '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,
+    '50578cf8bf9f45a7819a39987c6c8fd4': mockP50002
   } as SedContentMap,
   tagList: mockTagList as TagRawList
 }
