@@ -1,3 +1,11 @@
+import { Item } from 'tabell'
+
+export type P5000Context = 'edit' | 'overview'
+
+export type P5000PeriodStatus = 'rina' | 'edited' | 'new'
+
+export type P5000SourceStatus = 'rina' | 'storage'
+
 export interface SedSender {
   date: string
   country: string
@@ -5,8 +13,6 @@ export interface SedSender {
   institution: string
   acronym: string
 }
-
-export type ActiveSeds = {[k: string]: boolean}
 
 export type EmptyPeriodsReport = {[k: string]: boolean}
 
@@ -16,38 +22,28 @@ export interface P5000PeriodInterval {
   extra : string |  null
 }
 
-export interface P5000Payload {
-  sed: string
-  sedGVer: string
-  sedVer: string
-  nav: any
-  pensjon: any
-  trygdetid: any
-  ignore: any
-  horisontal: any
-}
-
 export interface P5000Period {
+  key ?: string
   relevans : string | null,
-    ordning : string | null,
-    land : string | null,
-    sum : {
+  ordning : string | null,
+  land : string | null,
+  sum : {
     kvartal : string | null,
-      aar : string | null,
-      uker : string | null,
-      dager : {
+    aar : string | null,
+    uker : string | null,
+    dager : {
       nr : string | null,
-        type : string | null,
+      type : string | null,
     },
     maaneder : string | null
   },
   yrke : string | null,
-    gyldigperiode : string | null,
-    type : string | null,
-    beregning : string | null,
-    informasjonskalkulering : string | null,
-    periode : P5000PeriodInterval | null,
-    enkeltkrav : string | null,
+  gyldigperiode : string | null,
+  type : string | null,
+  beregning : string | null,
+  informasjonskalkulering : string | null,
+  periode : P5000PeriodInterval | null,
+  enkeltkrav : string | null
 }
 
 export interface P5000SED {
@@ -56,10 +52,10 @@ export interface P5000SED {
   sedVer: string
   nav: {
     eessisak: Array<{
-      "institusjonsid" : string
-      "institusjonsnavn" : string
-      "saksnummer" : string
-      "land" : string
+      institusjonsid : string
+      institusjonsnavn : string
+      saksnummer : string
+      land : string
     }>
     bruker : {
       mor : string | null
@@ -127,4 +123,41 @@ export interface P5000SED {
       medlemskap : Array<P5000Period>
     }
   }
+}
+
+export interface P5000ListRow extends Item {
+  key: string
+  status: P5000PeriodStatus
+  land: string
+  acronym: string
+  type: string
+  startdato: string
+  sluttdato: string
+  aar: string
+  kvartal: string
+  mnd: string
+  uker: string
+  dag: string
+  relevantForYtelse: string
+  ordning: string
+  informasjonOmBeregning: string
+}
+
+export type P5000ListRows = Array<P5000ListRow>
+
+export interface P5000SumRow extends Item {
+  key: string
+  type: string
+  sec51aar: string
+  sec51mnd: string
+  sec51dag: string
+  sec52aar: string
+  sec52mnd: string
+  sec52dag: string
+}
+
+export type P5000SumRows = Array<P5000SumRow>
+
+export interface P5000TableContext {
+  forsikringEllerBosetningsperioder: string | undefined
 }

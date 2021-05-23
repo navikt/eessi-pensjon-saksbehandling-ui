@@ -1,4 +1,5 @@
 import { bucsThatSupportAvdod, getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { generateKey } from 'applications/P5000/conversion'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { BUCMode, RinaUrl } from 'declarations/app.d'
@@ -12,17 +13,18 @@ import {
   InstitutionNames,
   Institutions,
   NewSedPayload,
+  P5000FromRinaMap,
   Participant,
   Participants,
   SakTypeValue,
   SavingAttachmentsJob,
   Sed,
   SEDAttachment,
-  SedContentMap,
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
+import { P5000Period } from 'declarations/p5000'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import md5 from 'md5'
@@ -50,7 +52,7 @@ export interface BucState {
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
-  sedContent: SedContentMap
+  p5000FromRinaMap: P5000FromRinaMap
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
   sentP5000info: any,
@@ -79,7 +81,7 @@ export const initialBucState: BucState = {
   rinaUrl: undefined,
   savingAttachmentsJob: undefined,
   sed: undefined,
-  sedContent: {},
+  p5000FromRinaMap: {},
   sedList: undefined,
   sedsWithAttachments: {},
   sentP5000info: undefined,
@@ -120,7 +122,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         replySed: undefined,
         sed: undefined,
         savingAttachmentsJob: undefined,
-        sedContent: {}
+        p5000FromRinaMap: {}
       }
 
     case types.BUC_CREATE_BUC_REQUEST:
@@ -513,11 +515,16 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_SED_SUCCESS: {
-      const newSedContent = _.cloneDeep(state.sedContent)
-      newSedContent[(action as ActionWithPayload).context.id] = (action as ActionWithPayload).payload
+      const newp5000FromRina = _.cloneDeep(state.p5000FromRinaMap)
+      let payload = (action as ActionWithPayload).payload
+      payload?.pensjon?.medlemskapboarbeid?.medlemskap?.map((p: P5000Period) => ({
+        ...p,
+        key: generateKey(p)
+      }))
+      newp5000FromRina[(action as ActionWithPayload).context.id] = payload
       return {
         ...state,
-        sedContent: newSedContent
+        p5000FromRinaMap: newp5000FromRina
       }
     }
 
@@ -577,7 +584,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         currentSed: undefined,
         countryList: undefined,
         institutionList: undefined,
-        sedContent: {}
+        p5000FromRinaMap: {}
       }
 
     case types.BUC_SED_ATTACHMENTS_RESET: {

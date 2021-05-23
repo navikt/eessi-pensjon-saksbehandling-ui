@@ -98,6 +98,19 @@ const GlobalStyle = createGlobalStyle`
   .etikett--mini {
     padding: 1px 8px;
   }
+
+  .print-version {
+    width: 100%;
+    margin-top: 0.5rem;
+    @media print {
+      @page {
+        size: A4 landscape;
+      }
+      td {
+        padding: 0.5rem;
+      }
+    }
+  }
 `
 
 // IE11

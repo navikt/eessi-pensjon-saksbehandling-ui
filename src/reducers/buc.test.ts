@@ -35,7 +35,7 @@ describe('reducers/buc', () => {
           saved: [],
           saving: undefined
         },
-        sedContent: {}
+        p5000FromRinaMap: {}
       }, {
         type: types.BUC_BUC_RESET,
         payload: 'mockPayload'
@@ -589,7 +589,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        sedContent: {
+        p5000FromRinaMap: {
           1: 'somePayload'
         }
       }, {
@@ -601,7 +601,7 @@ describe('reducers/buc', () => {
       })
     ).toEqual({
       ...initialBucState,
-      sedContent: {
+      p5000FromRinaMap: {
         1: 'somePayload',
         2: 'mockPayload'
       }

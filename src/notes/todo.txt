@@ -41,3 +41,8 @@ When your changes are successgully sent to Rina, the working copy will be delete
 ???
 Kunne hente inn reg. P5000-data fra annen SED/BUC til registreringsboksen?
 
+
+
+-- separei dagerEnhet para dag, dagtype
+- sort table default: new, depois edited, depois rina
+- tenho de fazer as funções para quando a P5000Sum é editada

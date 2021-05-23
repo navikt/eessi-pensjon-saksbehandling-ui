@@ -1,8 +1,6 @@
-import { PrintableTableSorter } from 'components/StyledComponents'
-import { SakTypeMap, SakTypeValue, SedContent, SedContentMap } from 'declarations/buc.d'
-import { ActiveSeds } from 'declarations/p5000'
+import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
+import { P5000Context, P5000SED, P5000SumRow } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
-import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import NavHighContrast, {
@@ -19,139 +17,45 @@ import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import TableSorter, { Sort } from 'tabell'
-import * as labels from './P5000.labels'
+import Table, { Sort } from 'tabell'
+import { convertP5000SEDTotalsToP5000SumRows } from './conversion'
 
 export interface P5000SumProps {
-  activeSeds: ActiveSeds
+  context: P5000Context
   highContrast: boolean
-  sedOriginalContent: SedContentMap
-}
-
-export interface P5000SumRow {
-  key: string
-  type: string
-  sec51aar: string
-  sec51maned: string
-  sec51dager: string
-  sec52aar: string
-  sec52maned: string
-  sec52dager: string
+  p5000FromRinaMap: P5000FromRinaMap
+  p5000FromStorage: P5000SED | undefined
+  saveP5000ToStorage: ((newSed: P5000SED) => void) | undefined
+  seds: Seds
 }
 
 const mapState = (state: State): any => ({
   sakType: state.app.params.sakType as SakTypeValue
 })
 
-export type P5000SumRows = Array<P5000SumRow>
-
 const P5000Sum: React.FC<P5000SumProps> = ({
-  activeSeds, highContrast, sedOriginalContent
+  context, highContrast, p5000FromRinaMap, p5000FromStorage, //saveP5000ToStorage,
+  seds
 }: P5000SumProps) => {
   const { t } = useTranslation()
-
   const { sakType } = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
+
   const [_itemsPerPage] = useState<number>(30)
-  const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
-  const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
+  const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
+  const [items, sourceStatus] = convertP5000SEDTotalsToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
-  const convertRawP5000toRow = (sedContent: SedContent): P5000SumRows => {
-    const res: P5000SumRows = []
-    const data: any = {}
-    const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
-    medlemskap?.forEach((m: any) => {
-      if (!_.isNil(m) && m.type) {
-        if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
-          data[m.type] = {
-            '5_1': {
-              aar: 0, maaneder: 0, dager: 0
-            },
-            '5_2': {
-              aar: 0, maaneder: 0, dager: 0
-            }
-          }
-        }
-        if (m.type !== '45') {
-          data[m.type]['5_1'].aar += (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-          data[m.type]['5_1'].maaneder += (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-          data[m.type]['5_1'].dager += (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
-
-          if (data[m.type]['5_1'].dager >= 30) {
-            const extraMonths = Math.floor(data[m.type]['5_1'].dager / 30)
-            const remainingDays = (data[m.type]['5_1'].dager) % 30
-            data[m.type]['5_1'].dager = remainingDays
-            data[m.type]['5_1'].maaneder += extraMonths
-          }
-          if (data[m.type]['5_1'].maaneder >= 12) {
-            const extraYears = Math.floor(data[m.type]['5_1'].maaneder / 12)
-            const remainingMonths = (data[m.type]['5_1'].maaneder) % 12
-            data[m.type]['5_1'].maaneder = remainingMonths
-            data[m.type]['5_1'].aar += extraYears
-          }
-        }
-        data[m.type]['5_2'].aar = data[m.type]['5_2'].aar + (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-        data[m.type]['5_2'].maaneder = data[m.type]['5_2'].maaneder + (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-        data[m.type]['5_2'].dager = data[m.type]['5_2'].dager + (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
-
-        if (data[m.type]['5_2'].dager >= 30) {
-          const extraMonths = Math.floor(data[m.type]['5_2'].dager / 30)
-          const remainingDays = (data[m.type]['5_2'].dager) % 30
-          data[m.type]['5_2'].dager = remainingDays
-          data[m.type]['5_2'].maaneder += extraMonths
-        }
-        if (data[m.type]['5_2'].maaneder >= 12) {
-          const extraYears = Math.floor(data[m.type]['5_2'].maaneder / 12)
-          const remainingMonths = (data[m.type]['5_2'].maaneder) % 12
-          data[m.type]['5_2'].maaneder = remainingMonths
-          data[m.type]['5_2'].aar += extraYears
-        }
-      }
-    })
-
-    Object.keys(data).sort(
-      (a, b) => (parseInt(a, 10) - parseInt(b, 10))
-    ).forEach((type: string) => {
-      // @ts-ignore
-      const label = labels.type[type]
-      res.push({
-        key: type,
-        sec51aar: data[type]['5_1'].aar,
-        sec51maned: data[type]['5_1'].maaneder,
-        sec51dager: data[type]['5_1'].dager,
-        sec52aar: data[type]['5_2'].aar,
-        sec52maned: data[type]['5_2'].maaneder,
-        sec52dager: data[type]['5_2'].dager,
-        type: label + ' [' + type + ']'
-      })
-    })
-
-    return res
-  }
-
-  const getItems = (): P5000SumRows => {
-    let res: P5000SumRows = []
-    Object.keys(activeSeds).forEach((key: string) => {
-      if (activeSeds[key]) {
-        res = res.concat(convertRawP5000toRow(sedOriginalContent[key]))
-      }
-    })
-    return res
-  }
-
-  const beforePrintOut = (): void => {
-  }
+  const beforePrintOut = (): void => {}
 
   const prepareContent = (): void => {
     standardLogger('buc.edit.tools.P5000.summary.print.button')
-    setPrintDialogOpen(true)
+    _setPrintDialogOpen(true)
   }
 
   const afterPrintOut = (): void => {
-    setPrintDialogOpen(false)
+    _setPrintDialogOpen(false)
   }
-
-  const items = getItems()
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -195,18 +99,19 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         )}
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
-        <TableSorter
+        <Table<P5000SumRow>
           highContrast={highContrast}
           items={items}
           searchable={false}
           selectable={false}
-          sortable
+          editable={context === 'edit'}
+          sortable={false}
           onColumnSort={(sort: any) => {
             standardLogger('buc.edit.tools.P5000.summary.sort', { sort: sort })
-            setTableSort(sort)
+            _setTableSort(sort)
           }}
           itemsPerPage={_itemsPerPage}
-          labels={labels}
+          labels={{}}
           compact
           categories={[{
             colSpan: 1,
@@ -228,9 +133,12 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             { id: 'sec52dager', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' }
           ]}
         />
+        <VerticalSeparatorDiv/>
+        {t('buc:p5000-source-status-' + sourceStatus)}
+        <VerticalSeparatorDiv/>
         <HiddenDiv>
           <div ref={componentRef} id='printJS-form'>
-            <PrintableTableSorter
+            <Table<P5000SumRow>
               // important to it re-renders when sorting changes
               key={JSON.stringify(_tableSort)}
               className='print-version'
@@ -238,10 +146,11 @@ const P5000Sum: React.FC<P5000SumProps> = ({
               animatable={false}
               searchable={false}
               selectable={false}
-              sortable
+              editable={false}
+              sortable={false}
               sort={_tableSort}
               itemsPerPage={9999}
-              labels={labels}
+              labels={{}}
               compact
               categories={[{
                 colSpan: 1,
@@ -273,7 +182,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
 P5000Sum.propTypes = {
   highContrast: PT.bool.isRequired,
-  sedOriginalContent: PT.any.isRequired
+  p5000FromRinaMap: PT.any.isRequired
 }
 
 export default P5000Sum

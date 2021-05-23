@@ -1,5 +1,5 @@
 import { getTagList, saveBucsInfo, getSed } from 'actions/buc'
-import { Buc, BucInfo, BucsInfo, Comment, Comments, SedContentMap, TagRawList } from 'declarations/buc.d'
+import { Buc, BucInfo, BucsInfo, Comment, Comments, P5000FromRinaMap, TagRawList } from 'declarations/buc.d'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -24,10 +24,10 @@ const defaultSelector = {
   highContrast: false,
   loading: {},
   locale: 'nb' as AllowedLocaleString,
-  sedContent: {
+  p5000FromRinaMap: {
     '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,
     '50578cf8bf9f45a7819a39987c6c8fd4': mockP50002
-  } as SedContentMap,
+  } as P5000FromRinaMap,
   tagList: mockTagList as TagRawList
 }
 

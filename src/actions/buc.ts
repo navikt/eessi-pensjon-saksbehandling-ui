@@ -24,7 +24,7 @@ import {
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { P5000Payload } from 'declarations/p5000'
+import { P5000SED } from 'declarations/p5000'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
@@ -331,9 +331,9 @@ export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (
   })
 }
 
-export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000Payload>>> = (
+export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
   caseId: string, sed: Sed
-): ThunkResult<ActionWithPayload<P5000Payload>> => {
+): ThunkResult<ActionWithPayload<P5000SED>> => {
   return call({
     url: sprintf(urls.BUC_GET_SED_URL, { caseId: caseId, documentId: sed.id }),
     cascadeFailureError: true,

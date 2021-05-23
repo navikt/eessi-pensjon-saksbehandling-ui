@@ -224,9 +224,9 @@ export type SedsWithAttachmentsMap = {[k: string]: boolean}
 
 export type Seds = Array<Sed>
 
-export type SedContent = any
+export type p5000FromRinaMap = any
 
-export type SedContentMap = {[k: string]: SedContent}
+export type P5000FromRinaMap = {[k: string]: p5000FromRinaMap}
 
 export interface Tag extends Option {}
 

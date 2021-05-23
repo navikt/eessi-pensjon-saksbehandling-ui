@@ -8,6 +8,7 @@ import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelH
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import classNames from 'classnames'
+import { P5000SED } from 'declarations/p5000'
 import useLocalStorage from 'hooks/useLocalStorage'
 import {
   animationClose, animationOpen,
@@ -22,7 +23,7 @@ import {
 
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString, BUCMode, P5000EditLocalStorageContent } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode } from 'declarations/app.d'
 import { PersonAvdods } from 'declarations/person.d'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
@@ -129,7 +130,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_startSed, setStartSed] = useState<string>(initialSedNew)
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [p5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('P5000')
+  const [p5000Storage] = useLocalStorage<P5000SED>('P5000')
 
   useEffect(() => {
     standardLogger('buc.edit.entrance')

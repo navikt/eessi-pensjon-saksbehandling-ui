@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {
   themeKeys
 } from 'nav-hoykontrast'
-import TableSorter from 'tabell'
 
 export const Etikett = styled.div`
   padding: 0.25rem;
@@ -18,18 +17,6 @@ export const OneLineSpan = styled.span`
 export const SeparatorSpan = styled.span`
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-`
-export const PrintableTableSorter = styled(TableSorter)`
-  width: 100%;
-  margin-top: 0.5rem;
-  @media print {
-    @page {
-      size: A4 landscape;
-    }
-    td {
-      padding: 0.5rem;
-    }
-  }
 `
 export const SpinnerDiv = styled.div`
   position: absolute;

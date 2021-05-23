@@ -14,7 +14,7 @@ describe('applications/BUC/components/P5000/P5000', () => {
     highContrast: false,
     locale: 'nb',
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
-    sedContent: {
+    p5000FromRinaMap: {
       '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,
       '50578cf8bf9f45a7819a39987c6c8fd4': mockP50002
     }

@@ -1,17 +1,14 @@
 import { sendP5000toRina } from 'actions/buc'
 import HelpIcon from 'assets/icons/HelpIcon'
-import Trashcan from 'assets/icons/Trashcan'
 import Select from 'components/Select/Select'
-import { OneLineSpan, PrintableTableSorter } from 'components/StyledComponents'
-import { LocalStorageEntry, LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app.d'
-import { SedContent, SedContentMap, Seds } from 'declarations/buc'
+import { OneLineSpan } from 'components/StyledComponents'
+import { Options } from 'declarations/app.d'
+import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
+import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
-import { AllowedLocaleString } from 'flagg-ikoner'
-import useLocalStorage from 'hooks/useLocalStorage'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
-import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -34,41 +31,31 @@ import NavHighContrast, {
   PileCenterDiv,
   PileDiv,
   PileEndDiv,
+  themeKeys,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import TableSorter, { Context, Item, RenderEditableOptions, Sort } from 'tabell'
-import * as labels from './P5000.labels'
+import styled from 'styled-components'
+import Table, { RenderEditableOptions, Sort } from 'tabell'
+import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
-export interface P5000EditRow extends Item {
-  type: string
-  startdato: string
-  sluttdato: string
-  dag: number
-  mnd: number
-  aar: number
-  ytelse: string
-  beregning: string
-  ordning: string
-}
-
-export type P5000EditRows = Array<P5000EditRow>
+const CustomSelect = styled(Select)`
+  select {
+    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  }
+`
 
 export interface DatePieces {
   years: number
   months: number
   days: number
-}
-
-export interface TableContext extends Context {
-  items: P5000EditRows
-  forsikringElklerBosetningsperioder: string
 }
 
 const mapState = (state: State): any => ({
@@ -79,13 +66,14 @@ const mapState = (state: State): any => ({
 export interface P5000EditProps {
   caseId: string
   highContrast: boolean
-  fromStorage?: LocalStorageValue<P5000EditLocalStorageContent>
-  locale: AllowedLocaleString
   seds: Seds
-  sedOriginalContent: SedContentMap
+  p5000FromRinaMap: P5000FromRinaMap
+  p5000FromStorage: P5000SED | undefined
+  saveP5000ToStorage: ((newSed: P5000SED) => void) | undefined
+  removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
 
-export const ytelsestypeOptions = [
+export const ytelsestypeOptions: Options = [
   { label: '[00] Annet', value: '00' },
   { label: '[01] Annen delvis', value: '01' },
   { label: '[10] Alderspensjon', value: '10' },
@@ -96,61 +84,58 @@ export const ytelsestypeOptions = [
   { label: '[31] Uførepensjon delvis', value: '31' }
 ]
 
+const typeOptions: Options = [
+  { value: '10', label: '[10] Pliktige avgiftsperioder' },
+  { value: '11', label: '[11] Pliktige avgiftsperioder - ansatt' },
+  { value: '12', label: '[12] Pliktige avgiftsperioder - selvstendig næringsdrivende' },
+  { value: '13', label: '[13] Pliktige avgiftsperioder - arbeidsledig' },
+  { value: '20', label: '[20] Frivillige avgiftsperioder' },
+  { value: '21', label: '[21] Frivillige avgiftsperioder - ansatt' },
+  { value: '22', label: '[22] Frivillige avgiftsperioder - selvstendig' },
+  { value: '23', label: '[23] Frivillige avgiftsperioder - arbeidsledig' },
+  { value: '30', label: '[30] Bosettingingsperioder' },
+  { value: '40', label: '[40] Likestilte perioder: uten nærmere spesifisering' },
+  { value: '41', label: '[41] Likestilte perioder: perioder med sykdom/arbeidsuførhet' },
+  { value: '42', label: '[42] Likestilte perioder: perioder med arbeidsledighet uten ytelser' },
+  { value: '43', label: '[43] Likestilte perioder: perioder med militærtjeneste' },
+  { value: '44', label: '[44] Likestilte perioder: perioder med opplæring eller utdanning' },
+  { value: '45', label: '[45] Likestilte perioder: perioder med omsorg for barn' },
+  { value: '46', label: '[46] Likestilte perioder: perioder med pensjon' },
+  { value: '47', label: '[47] Likestilte perioder: perioder med svangerskaps- eller fødselspermisjon' },
+  { value: '48', label: '[48] Likestilte perioder: perioder med førtidspensjon' },
+  { value: '49', label: '[49] Likestilte perioder: perioder med arbeidsledighet med dagpenger' },
+  { value: '50', label: '[50] Likestilte perioder: perioder hvor det er blitt innvilget uføretrygd' },
+  { value: '51', label: '[51] Likestilte perioder: perioder med omsorg for pleietrengende' },
+  { value: '52', label: '[52] Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon' }
+]
+
 const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
   highContrast,
-  fromStorage = undefined,
-  seds,
-  sedOriginalContent
+  seds, // always array with 1 element
+  p5000FromRinaMap,
+  p5000FromStorage,
+  saveP5000ToStorage,
+  removeP5000FromStorage
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
-  const [_forsikringElklerBosetningsperioder, setForsikringElklerBosetningsperioder] = useState<string>('1')
-  const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
-  const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(undefined)
-  const [_items, setItems] = useState<P5000EditRows | undefined>(undefined)
-  const [_validation, resetValidation, performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
+
+  const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage)
+  const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_onSaving, _setOnSaving] = useState<boolean>(false)
+  const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
-  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('P5000')
-
-  const getSedId = useCallback((): string | undefined => {
-    return fromStorage?.id || seds[0]?.id || undefined
-  }, [fromStorage, seds])
-
-  const typeOptions = [
-    { value: '10', label: '[10] Pliktige avgiftsperioder' },
-    { value: '11', label: '[11] Pliktige avgiftsperioder - ansatt' },
-    { value: '12', label: '[12] Pliktige avgiftsperioder - selvstendig næringsdrivende' },
-    { value: '13', label: '[13] Pliktige avgiftsperioder - arbeidsledig' },
-    { value: '20', label: '[20] Frivillige avgiftsperioder' },
-    { value: '21', label: '[21] Frivillige avgiftsperioder - ansatt' },
-    { value: '22', label: '[22] Frivillige avgiftsperioder - selvstendig' },
-    { value: '23', label: '[23] Frivillige avgiftsperioder - arbeidsledig' },
-    { value: '30', label: '[30] Bosettingingsperioder' },
-    { value: '40', label: '[40] Likestilte perioder: uten nærmere spesifisering' },
-    { value: '41', label: '[41] Likestilte perioder: perioder med sykdom/arbeidsuførhet' },
-    { value: '42', label: '[42] Likestilte perioder: perioder med arbeidsledighet uten ytelser' },
-    { value: '43', label: '[43] Likestilte perioder: perioder med militærtjeneste' },
-    { value: '44', label: '[44] Likestilte perioder: perioder med opplæring eller utdanning' },
-    { value: '45', label: '[45] Likestilte perioder: perioder med omsorg for barn' },
-    { value: '46', label: '[46] Likestilte perioder: perioder med pensjon' },
-    { value: '47', label: '[47] Likestilte perioder: perioder med svangerskaps- eller fødselspermisjon' },
-    { value: '48', label: '[48] Likestilte perioder: perioder med førtidspensjon' },
-    { value: '49', label: '[49] Likestilte perioder: perioder med arbeidsledighet med dagpenger' },
-    { value: '50', label: '[50] Likestilte perioder: perioder hvor det er blitt innvilget uføretrygd' },
-    { value: '51', label: '[51] Likestilte perioder: perioder med omsorg for pleietrengende' },
-    { value: '52', label: '[52] Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon' }
-  ]
+  const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
 
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
       <Select
-        key={'c-tableSorter__edit-type-select-key-' + options.value}
-        id='c-tableSorter__edit-type-select-id'
+        key={'c-table__edit-type-select-key-' + options.value}
+        id='c-table__edit-type-select-id'
         className='P5000Edit-type-select'
         highContrast={highContrast}
         feil={options.feil}
@@ -240,10 +225,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }
 
-  const maybeDoSomePrefill = (startdato: string, sluttdato: string, options: RenderEditableOptions<TableContext>) => {
+  const maybeDoSomePrefill = (startdato: string, sluttdato: string, options: RenderEditableOptions<P5000TableContext>) => {
     const dates: DatePieces | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
-      if (options.context.forsikringElklerBosetningsperioder === '1') {
+      if (options.context.forsikringEllerBosetningsperioder === '1') {
         options.setValue({
           dag: dates.days,
           aar: dates.years,
@@ -259,10 +244,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }
 
-  const renderStartDatoEdit = (options: RenderEditableOptions<TableContext>) => (
+  const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
     <HighContrastInput
-      id='c-tableSorter__edit-startdato-input-id'
-      className='c-tableSorter__edit-input'
+      id='c-table__edit-startdato-input-id'
+      className='c-table__edit-input'
       label=''
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
@@ -274,10 +259,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     />
   )
 
-  const rendersluttDatoEdit = (options: RenderEditableOptions<TableContext>) => (
+  const rendersluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
     <HighContrastInput
-      id='c-tableSorter__edit-sluttdato-input-id'
-      className='c-tableSorter__edit-input'
+      id='c-table__edit-sluttdato-input-id'
+      className='c-table__edit-input'
       label=''
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
@@ -299,7 +284,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const maybeDoSomeMonthAndYearUpdate = (dayString: string, options: RenderEditableOptions<TableContext>) => {
+  const maybeDoSomeMonthAndYearUpdate = (dayString: string, options: RenderEditableOptions<P5000TableContext>) => {
     const day = parseInt(dayString)
     if (options.values.startdato && day > 31) {
       const sluttdato = moment(options.values.startdato, 'DD.MM.YYYY')
@@ -310,16 +295,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }
 
-  const checkForBosetningsperioder = (options: RenderEditableOptions<TableContext>, what: string, others: Array<string>) => {
+  const checkForBosetningsperioder = (options: RenderEditableOptions<P5000TableContext>, what: string, others: Array<string>) => {
     let _value: string | number
     /*
-      if forsikringElklerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
+      if forsikringEllerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
       BUT if we have non-0 values in the other fields, leave it as 0 if it was 0
 
-      if forsikringElklerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''
+      if forsikringEllerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''
      */
 
-    if (options.context.forsikringElklerBosetningsperioder === '1') {
+    if (options.context.forsikringEllerBosetningsperioder === '1') {
       if (_.isNil(options.value) || options.value === 0) {
         if ((!_.isNil(options.values[others[0]]) && options.values[others[0]] > 0) ||
           (!_.isNil(options.values[others[1]]) && options.values[others[1]] > 0)) {
@@ -345,12 +330,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return _value
   }
 
-  const renderDagerEdit = (options: RenderEditableOptions<TableContext>) => {
+  const renderDagerEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
       <HighContrastInput
-        id='c-tableSorter__edit-dag-input-id'
-        className='c-tableSorter__edit-input'
+        id='c-table__edit-dag-input-id'
+        className='c-table__edit-input'
         label=''
         feil={options.feil}
         onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomeMonthAndYearUpdate(
@@ -364,13 +349,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderManedEdit = (options: RenderEditableOptions<TableContext>) => {
+  const renderManedEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
 
     return (
       <HighContrastInput
-        id='c-tableSorter__edit-maned-input-id'
-        className='c-tableSorter__edit-input'
+        id='c-table__edit-maned-input-id'
+        className='c-table__edit-input'
         label=''
         feil={options.feil}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
@@ -381,12 +366,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderAarEdit = (options: RenderEditableOptions<TableContext>) => {
+  const renderAarEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
       <HighContrastInput
-        id='c-tableSorter__edit-aar-input-id'
-        className='c-tableSorter__edit-input'
+        id='c-table__edit-aar-input-id'
+        className='c-table__edit-input'
         label=''
         feil={options.feil}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
@@ -423,8 +408,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
       <HighContrastInput
-        id='c-tableSorter__edit-beregning-input-id'
-        className='c-tableSorter__edit-input'
+        id='c-table__edit-beregning-input-id'
+        className='c-table__edit-input'
         label=''
         feil={options.feil}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
@@ -444,348 +429,93 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const setYtelseOption = (o: any) => {
-    resetValidation('P5000Edit-ytelse-select')
-    _setYtelseOption(o?.value ?? '')
+    _resetValidation('P5000Edit-ytelse-select')
+
+    let newP5000FromStorage: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
+    if (!_.isNil(newP5000FromStorage)) {
+      _.set(newP5000FromStorage, 'pensjon.medlemskapboarbeid.enkeltkrav', {
+        krav: o?.value
+      })
+      if (!_.isNil(saveP5000ToStorage)) {
+        saveP5000ToStorage(newP5000FromStorage)
+      }
+    }
   }
 
-  const convertRawP5000toRow = (sedContent: SedContent): P5000EditRows => {
-    const res: P5000EditRows = []
-    const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
-    medlemskap?.forEach((m: any) => {
-      if (!_.isNil(m) && m.type) {
-        const item = {
-          type: m.type,
-          startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
-          sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').format('DD.MM.YYYY') : '-',
-          aar: parseInt(m.sum?.aar) || 0,
-          mnd: parseInt(m.sum?.maaneder) || 0,
-          dag: parseInt(m.sum?.dager?.nr || 0),
-          ytelse: m.relevans || '-',
-          ordning: m.ordning || '-',
-          beregning: m.beregning || '-'
-        } as P5000EditRow
-        item.key = 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
-        res.push(item)
+  const setForsikringEllerBosetningsperioder = (value: string) => {
+    _resetValidation('P5000Edit-forsikring-select')
+    let newP5000FromStorage: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
+    if (!_.isNil(newP5000FromStorage)) {
+      _.set(newP5000FromStorage, 'pensjon.medlemskapboarbeid.gyldigperiode', value)
+      if (!_.isNil(saveP5000ToStorage)) {
+        saveP5000ToStorage(newP5000FromStorage)
       }
-    })
-
-    return res.sort(
-      (a, b) => (parseInt(a.type, 10) - parseInt(b.type, 10))
-    )
+    }
   }
 
-  const sumItems = (items: P5000EditRows = []): P5000EditRows => {
-    const res: P5000EditRows = []
-    items.forEach((it) => {
-      if (it.type) {
-        const found: number = _.findIndex(res, d => d.type === it.type)
-        if (found === -1) {
-          res.push({
-            ...it,
-            key: 'sum-' + it.type + '-' + it.startdato + '-' + it.sluttdato
-          })
-        } else {
-          res[found].aar += it.aar
-          res[found].mnd += it.mnd
-          res[found].dag += it.dag
-          res[found].startdato = moment(it.startdato, 'DD.MM.YYYY').isSameOrBefore(moment(res[found].startdato, 'DD.MM.YYYY')) ? it.startdato : res[found].startdato
-          res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
-          res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
-          if ((res[found].dag) >= 30) {
-            const extraMonths = Math.floor(res[found].dag / 30)
-            const remainingDays = (res[found].dag) % 30
-            res[found].dag = remainingDays
-            res[found].mnd += extraMonths
-          }
-          if ((res[found].mnd) >= 12) {
-            const extraYears = Math.floor(res[found].mnd / 12)
-            const remainingMonths = (res[found].mnd) % 12
-            res[found].mnd = remainingMonths
-            res[found].aar += extraYears
-          }
-        }
-      }
-    })
-    return res
-  }
-
-  const sumItemsForTrygdetid = (items: P5000EditRows = []): P5000EditRows => {
-    const res: P5000EditRows = []
-    items.forEach((it) => {
-      if (it.type && it.type !== '45') {
-        const found: number = _.findIndex(res, d => d.type === it.type)
-        if (found === -1) {
-          res.push({
-            ...it,
-            key: 'sum-' + it.type + '-' + it.startdato + '-' + it.sluttdato
-          })
-        } else {
-          res[found].aar += it.aar
-          res[found].mnd += it.mnd
-          res[found].dag += it.dag
-          res[found].startdato = moment(it.startdato, 'DD.MM.YYYY').isSameOrBefore(moment(res[found].startdato, 'DD.MM.YYYY')) ? it.startdato : res[found].startdato
-          res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
-          res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
-          if ((res[found].dag) >= 30) {
-            const extraMonths = Math.floor(res[found].dag / 30)
-            const remainingDays = (res[found].dag) % 30
-            res[found].dag = remainingDays
-            res[found].mnd += extraMonths
-          }
-          if ((res[found].mnd) >= 12) {
-            const extraYears = Math.floor(res[found].mnd / 12)
-            const remainingMonths = (res[found].mnd) % 12
-            res[found].mnd = remainingMonths
-            res[found].aar += extraYears
-          }
-        }
-      }
-    })
-    return res
+  const itemsPerPageChanged = (e: any): void => {
+    _setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
   const beforePrintOut = (): void => {}
 
   const prepareContent = (): void => {
     standardLogger('buc.edit.tools.P5000.summary.print.button')
-    setPrintDialogOpen(true)
+    _setPrintDialogOpen(true)
   }
 
   const afterPrintOut = (): void => {
-    setPrintDialogOpen(false)
+    _setPrintDialogOpen(false)
   }
 
-  const renderButtons = (item: any, value: any, { items }: any): JSX.Element => {
-    return (
-      <FlexStartDiv>
-        <HighContrastKnapp
-          kompakt
-          mini
-          onClick={(e: any) => {
-            e.preventDefault()
-            e.stopPropagation()
-            const answer = window.confirm(t('buc:form-areYouSure'))
-            if (answer) {
-              let newItems = _.cloneDeep(items)
-              newItems = _.filter(newItems, i => i.key !== item.key)
-              setItems(newItems)
-            }
-          }}
-        >
-          <Trashcan />
-        </HighContrastKnapp>
-      </FlexStartDiv>
-    )
+  const onRowsChanged = (items: P5000ListRows) => {
+    console.log('rows changed')
+    onSave(items)
   }
 
   const handleOverforTilRina = () => {
     _setSavedP5000Info(false)
-    const data: P5000EditValidationProps = {
-      ytelseOption: _ytelseOption!,
-      forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
-    }
-    const valid: boolean = performValidation(data)
+
+    const valid: boolean = _performValidation({
+      p5000sed: p5000FromStorage!
+    })
+
+
     if (valid) {
-      const sedId = getSedId()
-      if (sedId) {
-        const newSedContent: SedContent = _.cloneDeep(sedOriginalContent[sedId])
-        if (_.isNil(newSedContent.pensjon)) {
-          newSedContent.pensjon = {}
-        }
-        if (_.isNil(newSedContent.pensjon.medlemskapboarbeid)) {
-          newSedContent.pensjon.medlemskapboarbeid = {}
-        }
-        newSedContent.pensjon.medlemskapboarbeid.medlemskap = _items?.map(item => {
-          const medlemskap: any = {}
-          medlemskap.relevans = item.ytelse /// ???
-          medlemskap.ordning = item.ordning
-          medlemskap.land = 'NO'
-          medlemskap.sum = {
-            kvaltal: null,
-            aar: '' + item.aar,
-            uker: null,
-            dager: {
-              nr: '' + item.dag,
-              type: '7'
-            },
-            maaneder: '' + item.mnd
-          }
-          medlemskap.yrke = null
-          medlemskap.gyldigperiode = null
-          medlemskap.type = item.type
-          medlemskap.beregning = item.beregning
-          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
-            medlemskap.periode = {
-              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
-            }
-          }
-          return medlemskap
-        })
-        newSedContent.pensjon.medlemskapboarbeid.gyldigperiode = _forsikringElklerBosetningsperioder
-        newSedContent.pensjon.medlemskapboarbeid.enkeltkrav = {
-          krav: _ytelseOption
-        }
-
-        newSedContent.pensjon.medlemskapTotal = sumItems(_items)?.map(item => {
-          const medlemskap: any = {}
-          medlemskap.relevans = item.ytelse /// ???
-          medlemskap.ordning = item.ordning
-          medlemskap.land = 'NO'
-          medlemskap.sum = {
-            kvaltal: null,
-            aar: '' + item.aar,
-            uker: null,
-            dager: {
-              nr: '' + item.dag,
-              type: '7'
-            },
-            maaneder: '' + item.mnd
-          }
-          medlemskap.yrke = null
-          medlemskap.gyldigperiode = null
-          medlemskap.type = item.type
-          medlemskap.beregning = item.beregning
-          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
-            medlemskap.periode = {
-              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
-            }
-          }
-          return medlemskap
-        })
-        newSedContent.pensjon.medlemskapTotal.gyldigperiode = _forsikringElklerBosetningsperioder
-        newSedContent.pensjon.medlemskapTotal.enkeltkrav = {
-          krav: _ytelseOption
-        }
-
-        newSedContent.pensjon.trygdetid = sumItemsForTrygdetid(_items)?.map(item => {
-          const medlemskap: any = {}
-          medlemskap.relevans = item.ytelse /// ???
-          medlemskap.ordning = item.ordning
-          medlemskap.land = 'NO'
-          medlemskap.sum = {
-            kvaltal: null,
-            aar: '' + item.aar,
-            uker: null,
-            dager: {
-              nr: '' + item.dag,
-              type: '7'
-            },
-            maaneder: '' + item.mnd
-          }
-          medlemskap.yrke = null
-          medlemskap.gyldigperiode = null
-          medlemskap.type = item.type
-          medlemskap.beregning = item.beregning
-          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
-            medlemskap.periode = {
-              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
-            }
-          }
-          return medlemskap
-        })
-        newSedContent.pensjon.trygdetid.gyldigperiode = _forsikringElklerBosetningsperioder
-        newSedContent.pensjon.trygdetid.enkeltkrav = {
-          krav: _ytelseOption
-        }
-
-        if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-          dispatch(sendP5000toRina(caseId, getSedId(), newSedContent))
-        }
+      if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
+        dispatch(sendP5000toRina(caseId, seds[0].id, p5000FromStorage))
       }
     }
   }
 
-  const addEntryToP5000Storage = (newEntry: LocalStorageValue<P5000EditLocalStorageContent>):
-    LocalStorageEntry<P5000EditLocalStorageContent> => {
-    const newP5000Storage = _.cloneDeep(p5000Storage)
-    if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
-      let entries: Array<LocalStorageValue<P5000EditLocalStorageContent>> = _.cloneDeep(newP5000Storage[caseId])
-      const index: number = _.findIndex(entries, e => e.id === getSedId())
-      if (index >= 0) {
-        entries[index] = newEntry
-      } else {
-        entries = entries.concat(newEntry)
-      }
-      newP5000Storage[caseId] = entries
-    } else {
-      newP5000Storage[caseId] = [newEntry] as Array<LocalStorageValue<P5000EditLocalStorageContent>>
-    }
-    return newP5000Storage
-  }
-
-  const removeEntryFromP5000Storage = (sedId: string) => {
-    const newP5000Storage = _.cloneDeep(p5000Storage)
-    if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
-      const index: number = _.findIndex(newP5000Storage[caseId], e => e.id === sedId)
-      if (index >= 0) {
-        newP5000Storage[caseId].splice(index, 1)
-      }
-      if (newP5000Storage[caseId].length === 0) {
-        delete newP5000Storage[caseId]
-      }
-    }
-    return newP5000Storage
-  }
-
-  const onSave = () => {
+  const onSave = (items: P5000ListRows) => {
     _setOnSaving(true)
-    const newEntry = {
-      id: getSedId()!,
-      date: new Date().toLocaleString(),
-      content: {
-        items: _items,
-        ytelseOption: _ytelseOption,
-        forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
-      }
-    } as LocalStorageValue<P5000EditLocalStorageContent>
-    const newP5000Storage = addEntryToP5000Storage(newEntry)
-    setP5000Storage(newP5000Storage)
+    const newP5000forStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(items, p5000FromStorage!)
+    if (saveP5000ToStorage) {
+      saveP5000ToStorage(newP5000forStorage)
+    }
     _setSavedP5000Info(true)
     _setOnSaving(false)
   }
 
-  const tableSorterKey = md5(
-    JSON.stringify(_tableSort) + '-' +
-    JSON.stringify((_items ?? '') + '-' +
-      (_ytelseOption ?? '') + '-' + _forsikringElklerBosetningsperioder
-    ))
 
-  // when I swap from P5000 Seds (and have a different sed ID), need to refresh items / senders
-  // only if we are not loading from storage
   useEffect(() => {
-    if (fromStorage) {
-      console.log('Getting from storage')
-      setItems(fromStorage.content.items)
-      _setYtelseOption(fromStorage?.content.ytelseOption)
-    } else {
-      const _sedId = getSedId()
-      if (_sedId) {
-        console.log('Getting from sedContent')
-        const newItems: P5000EditRows = convertRawP5000toRow(sedOriginalContent[_sedId])
-        setItems(newItems)
+    if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
+      if (removeP5000FromStorage) {
+        removeP5000FromStorage(seds[0].id)
       }
     }
-  }, [fromStorage, seds, getSedId])
-
-  useEffect(() => {
-    if (!_.isNil(sentP5000info) &&
-      p5000Storage && p5000Storage[caseId] &&
-    _.find(p5000Storage[caseId], c => c.id === getSedId()) !== undefined
-    ) {
-      const newP5000Storage = removeEntryFromP5000Storage(getSedId()!)
-      setP5000Storage(newP5000Storage)
-    }
-  }, [sentP5000info, caseId, getSedId])
+  }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
 
   if (_items === undefined) {
     return <div />
   }
 
-  const canSave = (_forsikringElklerBosetningsperioder === '1') ? _items.length > 0 : true
-  const canSend = canSave && !!_ytelseOption
+  const _forsikringEllerBosetningsperioder = p5000FromStorage?.pensjon.medlemskapboarbeid.gyldigperiode
+  const _ytelseOption = p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav
+  const canSave = (_forsikringEllerBosetningsperioder === '1') ? _items.length > 0 : true
+  const canSend = canSave && !!p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav
+  const key = seds[0].id + _forsikringEllerBosetningsperioder + _ytelseOption
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -797,7 +527,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               <FlexCenterDiv>
                 <FullWidthDiv>
                   <Select
-                    key={getSedId() + '-' + _ytelseOption + '-' + _forsikringElklerBosetningsperioder}
+                    key={key}
                     className='P5000Edit-ytelse-select'
                     feil={_validation['P5000Edit-ytelse-select']?.feilmelding}
                     highContrast={highContrast}
@@ -806,8 +536,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     menuPortalTarget={document.body}
                     options={ytelsestypeOptions}
                     onChange={setYtelseOption}
-                    selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
-                    defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                    selectedValue={_.find(ytelsestypeOptions, y => y.value === p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav) ?? null}
+                    defaultValue={_.find(ytelsestypeOptions, y => y.value === p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav) ?? null}
                   />
                 </FullWidthDiv>
                 <HorizontalSeparatorDiv />
@@ -821,16 +551,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   <FlexEndDiv>
                     <HighContrastRadio
                       name='42'
-                      checked={_forsikringElklerBosetningsperioder === '1'}
+                      checked={_forsikringEllerBosetningsperioder === '1'}
                       label={t('ui:yes')}
-                      onClick={() => setForsikringElklerBosetningsperioder('1')}
+                      onClick={() => setForsikringEllerBosetningsperioder('1')}
                     />
                     <HorizontalSeparatorDiv />
                     <HighContrastRadio
                       name='42'
-                      checked={_forsikringElklerBosetningsperioder === '0'}
+                      checked={_forsikringEllerBosetningsperioder === '0'}
                       label={t('ui:no')}
-                      onClick={() => setForsikringElklerBosetningsperioder('0')}
+                      onClick={() => setForsikringEllerBosetningsperioder('0')}
                     />
                   </FlexEndDiv>
                 </HighContrastRadioGroup>
@@ -848,6 +578,21 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   </div>
                 </Tooltip>
                 <HorizontalSeparatorDiv />
+                <CustomSelect
+                  bredde='l'
+                  id='itemsPerPage'
+                  label={t('ui:itemsPerPage')}
+                  onChange={itemsPerPageChanged}
+                  value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
+                >
+                  <option value='10'>10</option>
+                  <option value='15'>15</option>
+                  <option value='20'>20</option>
+                  <option value='30'>30</option>
+                  <option value='50'>50</option>
+                  <option value='all'>{t('ui:all')}</option>
+                </CustomSelect>
+
               </FlexCenterDiv>
             </Column>
             <Column>
@@ -919,13 +664,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <VerticalSeparatorDiv />
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
-          <TableSorter
-            key={tableSorterKey}
+          <Table<P5000ListRow,P5000TableContext>
             highContrast={highContrast}
             items={_items}
             context={{
-              items: _items,
-              forsikringElklerBosetningsperioder: _forsikringElklerBosetningsperioder
+              forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
             }}
             editable
             searchable={false}
@@ -933,18 +676,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             sortable
             onColumnSort={(sort: any) => {
               standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })
-              setTableSort(sort)
+              _setTableSort(sort)
             }}
-            onRowAdded={(item, context) => {
-              const newItems = _.cloneDeep(context.items)
-              newItems.unshift({
-                ...item,
-                key: 'raw-' + item.type + '-' + item.startdato + '-' + item.sluttdato
-              })
-              setItems(newItems)
-            }}
+            onRowsChanged={onRowsChanged}
             itemsPerPage={25}
-            labels={labels}
+            labels={{}}
             compact
             categories={[{
               colSpan: 3,
@@ -964,8 +700,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   render: renderTypeEdit,
                   validation: [{
-                    mandatory: (context: TableContext) => (context.forsikringElklerBosetningsperioder === '1'),
-                    pattern: '^.+$',
+                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
+                    test: '^.+$',
                     message: t('buc:validation-chooseType')
                   }]
                 },
@@ -978,8 +714,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   render: renderStartDatoEdit,
                   validation: [{
-                    mandatory: (context: TableContext) => (context.forsikringElklerBosetningsperioder === '1'),
-                    pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
+                    test: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                     message: t('buc:validation-badDate2')
                   }],
                   transform: dateTransform
@@ -992,8 +728,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   render: rendersluttDatoEdit,
                   validation: [{
-                    mandatory: (context: TableContext) => (context.forsikringElklerBosetningsperioder === '1'),
-                    pattern: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
+                    test: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
                     message: t('buc:validation-badDate2')
                   }],
                   placeholder: t('buc:placeholder-date2'),
@@ -1009,7 +745,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   defaultValue: 0,
                   render: renderDagerEdit,
                   validation: [{
-                    pattern: '^\\d+$',
+                    test: '^\\d+$',
                     message: t('buc:validation-addPositiveNumber')
                   }]
                 }
@@ -1021,7 +757,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   defaultValue: 0,
                   validation: [{
-                    pattern: '^\\d+$',
+                    test: '^\\d+$',
                     message: t('buc:validation-addPositiveNumber')
                   }],
                   render: renderManedEdit
@@ -1034,7 +770,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   defaultValue: 0,
                   validation: [{
-                    pattern: '^\\d+$',
+                    test: '^\\d+$',
                     message: t('buc:validation-addPositiveNumber')
                   }],
                   render: renderAarEdit
@@ -1056,7 +792,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   defaultValue: '111',
                   validation: [{
-                    pattern: '^.+$',
+                    test: '^.+$',
                     message: t('buc:validation-addBeregning')
                   }],
                   render: renderBeregningEdit
@@ -1074,16 +810,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {
                 id: 'buttons',
                 label: '',
-                type: 'buttons',
-                renderCell: renderButtons
+                type: 'buttons'
               }
             ]}
           />
+          <VerticalSeparatorDiv/>
+          {t('buc:p5000-source-status-' + sourceStatus)}
+          <VerticalSeparatorDiv/>
           <HiddenDiv>
             <div ref={componentRef} id='printJS-form'>
-              <PrintableTableSorter
+              <Table
               // important to it re-renders when sorting changes
-                key={tableSorterKey}
                 className='print-version'
                 items={_items}
                 editable={false}
@@ -1093,7 +830,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 sortable
                 sort={_tableSort}
                 itemsPerPage={9999}
-                labels={labels}
+                labels={{}}
                 compact
                 categories={[{
                   colSpan: 3,
@@ -1129,7 +866,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 P5000Edit.propTypes = {
   highContrast: PT.bool.isRequired,
   seds: SedsPropType.isRequired,
-  sedOriginalContent: PT.any.isRequired
+  p5000FromRinaMap: PT.any.isRequired
 }
 
 export default P5000Edit

@@ -1,30 +1,31 @@
 import { Validation } from 'declarations/app'
+import { P5000SED } from 'declarations/p5000'
 import { TFunction } from 'react-i18next'
 import _ from 'lodash'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 
 export interface P5000EditValidationProps {
-  ytelseOption: string
-  forsikringElklerBosetningsperioder: string
+  p5000sed: P5000SED
 }
 
 export const P5000EditValidate = (
   v: Validation,
   t: TFunction,
   {
-    ytelseOption,
-    forsikringElklerBosetningsperioder
+    p5000sed
   }: P5000EditValidationProps
 ): boolean => {
   let hasErrors: boolean = false
-  if (_.isEmpty(ytelseOption)) {
+
+
+  if (_.isEmpty(p5000sed?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)) {
     v['P5000Edit-ytelse'] = {
       feilmelding: t('buc:error-noYtelse'),
       skjemaelementId: 'P5000Edit-ytelse'
     } as FeiloppsummeringFeil
     hasErrors = true
   }
-  if (_.isEmpty(forsikringElklerBosetningsperioder)) {
+  if (_.isEmpty(p5000sed?.pensjon?.medlemskapboarbeid?.gyldigperiode)) {
     v['P5000Edit-forsikringElklerBosetningsperioder'] = {
       feilmelding: t('buc:error-noForsikringElklerBosetningsperioder'),
       skjemaelementId: 'P5000Edit-forsikringElklerBosetningsperioder'

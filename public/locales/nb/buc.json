@@ -218,6 +218,8 @@
   "p5000-to-see-p5000edit"        : "Dette er en oversiktsside for alle P5000-er. For å redigere en P5000, må du klikke 'rediger' på en P5000 SED-rad.",
   "p5000-rediger"                 : "Se/rediger periode(r)",
   "p5000-registrert"              : "Registrer periode(r)",
+  "p5000-source-status-rina"      : "Viste perioder er fra RINA",
+  "p5000-source-status-storage"   : "Viste perioder er fra arbeidskopi",
 
   "placeholder-date2" : "DD.MM.ÅÅÅÅ/DDMMÅÅ",
 

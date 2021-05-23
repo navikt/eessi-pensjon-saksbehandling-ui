@@ -11,7 +11,7 @@ import {
   BucsInfo,
   Comment,
   Comments,
-  SedContentMap,
+  P5000FromRinaMap,
   Tag,
   TagRawList,
   Tags,
@@ -96,7 +96,7 @@ export interface BUCToolsSelector {
   highContrast: boolean
   loading: Loading
   locale: AllowedLocaleString
-  sedContent: SedContentMap
+  p5000FromRinaMap: P5000FromRinaMap
   tagList?: TagRawList | undefined
 }
 
@@ -106,7 +106,7 @@ const mapState = (state: State): BUCToolsSelector => ({
   highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
-  sedContent: state.buc.sedContent,
+  p5000FromRinaMap: state.buc.p5000FromRinaMap,
   tagList: state.buc.tagList
 })
 

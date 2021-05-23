@@ -1,6 +1,5 @@
-import { PrintableTableSorter } from 'components/StyledComponents'
-import { SedContent, SedContentMap } from 'declarations/buc'
-import { ActiveSeds, SedSender } from 'declarations/p5000'
+import { P5000FromRinaMap, Seds } from 'declarations/buc'
+import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -22,113 +21,90 @@ import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
-import TableSorter, { Sort } from 'tabell'
-import * as labels from './P5000.labels'
+import Table, { Sort } from 'tabell'
+import { convertP5000SEDToP5000ListRows } from './conversion'
 
 const CustomSelect = styled(Select)`
   select {
     color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-    background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   }
 `
 
 export interface P5000OverviewProps {
-  activeSeds: ActiveSeds
-  getSedSender: (sedId: string) => SedSender | undefined
+  context: P5000Context
   highContrast: boolean
-  sedOriginalContent: SedContentMap
+  p5000FromRinaMap: P5000FromRinaMap
+  p5000FromStorage: P5000SED | undefined
+  seds: Seds
 }
-
-export interface P5000OverviewRow {
-  key: string
-  land: string
-  acronym: string
-  type: string
-  startdato: string
-  sluttdato: string
-  år: string
-  kvartal: string
-  måned: string
-  uker: string
-  dagerEnhet: string
-  relevantForYtelse: string
-  ordning: string
-  informasjonOmBeregning: string
-}
-
-export type P5000OverviewRows = Array<P5000OverviewRow>
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
-  activeSeds, getSedSender, highContrast, sedOriginalContent
+  context, highContrast, p5000FromRinaMap, p5000FromStorage, seds
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
 
-  const [_itemsPerPage, setItemsPerPage] = useState<number>(30)
-  const [_printDialogOpen, setPrintDialogOpen] = useState<boolean>(false)
-  const [_tableSort, setTableSort] = useState<Sort>({ column: '', order: 'none' })
+  const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
+  const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
+  const [items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
-  const convertRawP5000toRow = (sedId: string, sedContent: SedContent): P5000OverviewRows => {
-    const res: P5000OverviewRows = []
-    const sender: SedSender | undefined = getSedSender(sedId)
-    const medlemskap = sedContent?.pensjon?.medlemskapboarbeid?.medlemskap
-    if (medlemskap) {
-      medlemskap.forEach((m: any, i: number) => {
-        if (!_.isNil(m)) {
-          res.push({
-            key: sedId + '-' + i,
-            land: sender!.countryLabel || '-',
-            acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
-            type: m.type || '-',
-            startdato: m.periode?.fom ? moment(m.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
-            sluttdato: m.periode?.tom ? moment(m.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
-            år: m.sum?.aar || '-',
-            kvartal: m.sum?.kvartal || '-',
-            måned: m.sum?.maaneder || '-',
-            uker: m.sum?.uker || '-',
-            dagerEnhet: (m.sum?.dager?.nr || '-') + '/' + (m.sum?.dager?.type || '-'),
-            relevantForYtelse: m.relevans || '-',
-            ordning: m.ordning || '-',
-            informasjonOmBeregning: m.beregning || '-'
-          } as P5000OverviewRow)
-        }
-      })
-    }
-    return res
-  }
-
-
-  const getItems = (): P5000OverviewRows => {
-    let res: P5000OverviewRows = []
-    Object.keys(activeSeds).forEach((key: string) => {
-      if (activeSeds[key]) {
-        res = res.concat(convertRawP5000toRow(key, sedOriginalContent[key]))
-      }
-    })
-    return res
-  }
-
-
-
-  const beforePrintOut = (): void => {
-  }
+  const beforePrintOut = (): void => {}
 
   const prepareContent = (): void => {
     standardLogger('buc.edit.tools.P5000.overview.print.button')
-    setPrintDialogOpen(true)
+    _setPrintDialogOpen(true)
   }
 
   const afterPrintOut = (): void => {
-    setPrintDialogOpen(false)
+    _setPrintDialogOpen(false)
   }
 
   const itemsPerPageChanged = (e: any): void => {
     standardLogger('buc.edit.tools.P5000.overview.itemsPerPage.select', { value: e.target.value })
-    setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
+    _setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
-  const items = getItems()
+  const renderDateCell = (item: P5000ListRow, value: any) => (
+    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+  )
 
+  const renderDagCell = (item: P5000ListRow) => (
+    <Normaltekst>{item.dag + '/' + item.dagtype}</Normaltekst>
+  )
+
+  let columns = [
+    { id: 'status', label: t('ui:status'), type: 'string' },
+    { id: 'land', label: t('ui:country'), type: 'string' },
+    { id: 'acronym', label: t('ui:_institution'), type: 'string' },
+    { id: 'type', label: t('ui:type'), type: 'string' },
+    {
+      id: 'startdato',
+      label: t('ui:startDate'),
+      type: 'date',
+      renderCell: renderDateCell
+    },
+    {
+      id: 'sluttdato',
+      label: t('ui:endDate'),
+      type: 'date',
+      renderCell: renderDateCell
+    },
+    { id: 'aar', label: t('ui:year'), type: 'string' },
+    { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
+    { id: 'mnd', label: t('ui:month'), type: 'string' },
+    { id: 'uker', label: t('ui:week'), type: 'string' },
+    { id: 'dag', label: t('ui:days') + '/' + t('ui:unit'), type: 'string',
+      renderCell: renderDagCell },
+    { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
+    { id: 'ordning', label: t('ui:scheme'), type: 'string' },
+    { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
+  ]
+
+  if (context === 'overview') {
+    columns.splice(0, 1) // remove status column
+  }
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -175,7 +151,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <VerticalSeparatorDiv />
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
-        <TableSorter
+        <Table<P5000ListRow>
           highContrast={highContrast}
           items={items}
           searchable
@@ -183,44 +159,19 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           sortable
           onColumnSort={(sort: any) => {
             standardLogger('buc.edit.tools.P5000.overview.sort', { sort: sort })
-            setTableSort(sort)
+            _setTableSort(sort)
           }}
           itemsPerPage={_itemsPerPage}
-          labels={labels}
+          labels={{}}
           compact
-          columns={[
-            { id: 'land', label: t('ui:country'), type: 'string' },
-            { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-            { id: 'type', label: t('ui:type'), type: 'string' },
-            {
-              id: 'startdato',
-              label: t('ui:startDate'),
-              type: 'date',
-              renderCell: (item: any, value: any) => (
-                <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-              )
-            },
-            {
-              id: 'sluttdato',
-              label: t('ui:endDate'),
-              type: 'date',
-              renderCell: (item: any, value: any) => (
-                <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-              )
-            },
-            { id: 'år', label: t('ui:year'), type: 'string' },
-            { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
-            { id: 'måned', label: t('ui:month'), type: 'string' },
-            { id: 'uker', label: t('ui:week'), type: 'string' },
-            { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-            { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
-            { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-            { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
-          ]}
+          columns={columns}
         />
+        <VerticalSeparatorDiv/>
+        {t('buc:p5000-source-status-' + sourceStatus)}
+        <VerticalSeparatorDiv/>
         <HiddenDiv>
           <div ref={componentRef} id='printJS-form'>
-            <PrintableTableSorter
+            <Table<P5000ListRow>
               // important to it re-renders when sorting changes
               key={JSON.stringify(_tableSort)}
               className='print-version'
@@ -231,37 +182,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               sortable
               sort={_tableSort}
               itemsPerPage={9999}
-              labels={labels}
+              labels={{}}
               compact
-              columns={[
-                { id: 'land', label: t('ui:country'), type: 'string' },
-                { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-                { id: 'type', label: t('ui:type'), type: 'string' },
-                {
-                  id: 'startdato',
-                  label: t('ui:startDate'),
-                  type: 'date',
-                  renderCell: (item: any, value: any) => (
-                    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-                  )
-                },
-                {
-                  id: 'sluttdato',
-                  label: t('ui:endDate'),
-                  type: 'date',
-                  renderCell: (item: any, value: any) => (
-                    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
-                  )
-                },
-                { id: 'år', label: t('ui:year'), type: 'string' },
-                { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
-                { id: 'måned', label: t('ui:month'), type: 'string' },
-                { id: 'uker', label: t('ui:week'), type: 'string' },
-                { id: 'dagerEnhet', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-                { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
-                { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-                { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
-              ]}
+              columns={columns}
             />
           </div>
         </HiddenDiv>
@@ -273,7 +196,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
 P5000Overview.propTypes = {
   highContrast: PT.bool.isRequired,
-  sedOriginalContent: PT.any.isRequired
+  p5000FromRinaMap: PT.any.isRequired
 }
 
 export default P5000Overview

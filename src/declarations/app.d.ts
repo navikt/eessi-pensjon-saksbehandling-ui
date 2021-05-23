@@ -56,9 +56,3 @@ export interface LocalStorageValue<CustomLocalStorageContent extends any = any> 
   date: string
   content: CustomLocalStorageContent
 }
-
-export interface P5000EditLocalStorageContent {
-  items: Array<any>
-  ytelseOption: string | undefined
-  forsikringElklerBosetningsperioder: '0' | '1'
-}

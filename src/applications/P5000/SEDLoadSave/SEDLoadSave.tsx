@@ -2,7 +2,7 @@ import useLocalStorage from 'hooks/useLocalStorage'
 import { ytelsestypeOptions } from '../P5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import { Etikett } from 'components/StyledComponents'
-import { LocalStorageValue, P5000EditLocalStorageContent } from 'declarations/app'
+import { LocalStorageValue } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
@@ -15,6 +15,7 @@ import NavHighContrast, {
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OptionTypeBase } from 'react-select'
+import { P5000SED } from 'declarations/p5000'
 
 interface SEDLoadSaveProps {
   buc: Buc
@@ -28,7 +29,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   sedId
 }: SEDLoadSaveProps) => {
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
-  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000EditLocalStorageContent>('P5000')
+  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000SED>('P5000')
   const { t } = useTranslation()
 
   const onRemove = (caseId: string, sedId: string) => {
@@ -50,7 +51,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
       <PileDiv>
         {p5000Storage && p5000Storage[buc.caseId!] && p5000Storage[buc.caseId!]
           .filter(sed => sed.id === sedId)
-          .map((sed: LocalStorageValue<P5000EditLocalStorageContent>) => (
+          .map((sed: LocalStorageValue<P5000SED>) => (
             <FlexBaseDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
               <Etikett style={{ padding: '0.5rem', display: 'flex' }}>
                 <FlexBaseDiv style={{ alignItems: 'center' }} key={sed.id}>
@@ -65,12 +66,9 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       </UndertekstBold>
                       <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
-                        {(sed.content as P5000EditLocalStorageContent)
-                          .ytelseOption
-                          ? _.find(ytelsestypeOptions, (o: OptionTypeBase) => (
-                              o?.value === (sed.content as P5000EditLocalStorageContent)?.ytelseOption
-                            ))?.label
-                          : '-'}
+                        {_.find(ytelsestypeOptions, (o: OptionTypeBase) => (
+                           o?.value === (sed.content as P5000SED)?.pensjon.medlemskapboarbeid.enkeltkrav.krav
+                        ))?.label ?? '-'}
                       </Normaltekst>
                     </FlexBaseDiv>
                     <VerticalSeparatorDiv size='0.3' />
@@ -80,7 +78,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       </UndertekstBold>
                       <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
-                        {(sed.content as P5000EditLocalStorageContent).forsikringElklerBosetningsperioder}
+                        {(sed.content as P5000SED).pensjon.medlemskapboarbeid.gyldigperiode}
                       </Normaltekst>
                     </FlexBaseDiv>
                     <VerticalSeparatorDiv size='0.3' />
@@ -100,7 +98,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       </UndertekstBold>
                       <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
-                        {sed.content?.items?.length}
+                        {sed.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
                       </Normaltekst>
                     </FlexBaseDiv>
                   </PileDiv>
