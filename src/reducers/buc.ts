@@ -13,23 +13,23 @@ import {
   InstitutionNames,
   Institutions,
   NewSedPayload,
-  P5000FromRinaMap,
   Participant,
   Participants,
   SakTypeValue,
   SavingAttachmentsJob,
   Sed,
   SEDAttachment,
+  P5000FromRinaMap,
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
-import { P5000Period } from 'declarations/p5000'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { Action } from 'redux'
+import { P5000Period } from 'declarations/p5000'
 
 export interface BucState {
   attachmentsError: boolean
@@ -517,10 +517,12 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_SED_SUCCESS: {
       const newp5000FromRina = _.cloneDeep(state.p5000FromRinaMap)
       let payload = (action as ActionWithPayload).payload
-      payload?.pensjon?.medlemskapboarbeid?.medlemskap?.map((p: P5000Period) => ({
-        ...p,
-        key: generateKey(p)
-      }))
+      payload?.pensjon?.medlemskapboarbeid?.medlemskap?.forEach((p: P5000Period, index: number) => {
+        payload.pensjon.medlemskapboarbeid.medlemskap[index] = {
+          ...p,
+          key: generateKey(p)
+        }
+      })
       newp5000FromRina[(action as ActionWithPayload).context.id] = payload
       return {
         ...state,

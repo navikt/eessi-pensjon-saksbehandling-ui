@@ -1,6 +1,9 @@
+import { typeOptions } from 'applications/P5000/P5000Edit'
+import Select from 'components/Select/Select'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
+import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import NavHighContrast, {
@@ -17,7 +20,7 @@ import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import Table, { Sort } from 'tabell'
+import Table, { RenderEditableOptions, Sort } from 'tabell'
 import { convertP5000SEDTotalsToP5000SumRows } from './conversion'
 
 export interface P5000SumProps {
@@ -46,6 +49,44 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [items, sourceStatus] = convertP5000SEDTotalsToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
+  const renderTypeEdit = (options: RenderEditableOptions) => {
+    return (
+      <Select
+        key={'c-table__edit-type-select-key-' + options.value}
+        id='c-table__edit-type-select-id'
+        className='P5000Edit-type-select'
+        highContrast={highContrast}
+        feil={options.feil}
+        options={typeOptions}
+        menuPortalTarget={document.body}
+        onChange={(e) => options.setValue({ type: e!.value })}
+        defaultValue={_.find(typeOptions, o => o.value === options.value)}
+        selectedValue={_.find(typeOptions, o => o.value === options.value)}
+      />
+    )
+  }
+
+  let columns = [
+    { id: 'type', label: t('ui:type'), type: 'string', edit: {
+        render: renderTypeEdit,
+        validation: [{
+          mandatory: false,
+          test: '^.+$',
+          message: t('buc:validation-chooseType')
+        }]
+      }
+    },
+    { id: 'sec51aar', label: t('ui:year'), type: 'string' },
+    { id: 'sec51mnd', label: t('ui:month'), type: 'string' },
+    { id: 'sec51dag', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
+    { id: 'sec52aar', label: t('ui:year'), type: 'string' },
+    { id: 'sec52mnd', label: t('ui:month'), type: 'string' },
+    { id: 'sec52dag', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' }
+  ]
+
+  if (context === 'edit') {
+    columns = columns.concat({id: 'buttons', type: 'buttons', label: ''})
+  }
   const beforePrintOut = (): void => {}
 
   const prepareContent = (): void => {
@@ -123,15 +164,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             colSpan: 3,
             label: t('buc:p5000-5-2-title')
           }]}
-          columns={[
-            { id: 'type', label: t('ui:type'), type: 'string' },
-            { id: 'sec51aar', label: t('ui:year'), type: 'string' },
-            { id: 'sec51maned', label: t('ui:month'), type: 'string' },
-            { id: 'sec51dager', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-            { id: 'sec52aar', label: t('ui:year'), type: 'string' },
-            { id: 'sec52maned', label: t('ui:month'), type: 'string' },
-            { id: 'sec52dager', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' }
-          ]}
+          columns={columns}
         />
         <VerticalSeparatorDiv/>
         {t('buc:p5000-source-status-' + sourceStatus)}
@@ -162,15 +195,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                 colSpan: 3,
                 label: 'sdfdsfsdfdf2'
               }]}
-              columns={[
-                { id: 'type', label: t('ui:type'), type: 'string' },
-                { id: 'sec51aar', label: t('ui:year'), type: 'string' },
-                { id: 'sec51maned', label: t('ui:month'), type: 'string' },
-                { id: 'sec51dager', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
-                { id: 'sec52aar', label: t('ui:year'), type: 'string' },
-                { id: 'sec52maned', label: t('ui:month'), type: 'string' },
-                { id: 'sec52dager', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' }
-              ]}
+              columns={columns}
             />
           </div>
         </HiddenDiv>

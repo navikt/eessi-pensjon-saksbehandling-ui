@@ -4,7 +4,7 @@ import {
   P5000ListRows,
   P5000Period, P5000PeriodStatus,
   P5000SED, P5000SourceStatus,
-  P5000SumRows,
+  P5000SumRows, P5000UpdatePayload,
   SedSender
 } from 'declarations/p5000'
 import { P5000FromRinaMap, Participant, Sed, Seds } from 'declarations/buc'
@@ -33,8 +33,13 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
 }
 
 export const generateKey = (m: P5000Period): string => (
-  md5('type' + m.type + 'fom' + m.periode?.fom + 'tom' + m.periode?.tom + 'aar' + m.sum?.aar +
-    'mnd' + m.sum?.maaneder + 'dag' + m.sum?.dager?.nr + 'yt' + m.relevans + 'ord' + m.ordning + 'ber' + m.beregning)
+  md5(
+    'type' + m.type + 'fom' + m.periode?.fom + 'tom' + m.periode?.tom +
+    'aar' + (!_.isNil(m.sum?.aar) ? '' + parseInt(m.sum?.aar) : '') +
+    'mnd' + (!_.isNil(m.sum?.maaneder) ? '' + parseInt(m.sum?.maaneder) : '') +
+    'dag' + (!_.isNil(m.sum?.dager?.nr) ? '' + parseInt(m.sum?.dager?.nr) : '') +
+    'yt' + m.relevans + 'ord' + m.ordning + 'ber' + m.beregning
+  )
 )
 
 // Converts P5000 SED from Rina/storage into table rows for view/list
@@ -76,6 +81,7 @@ export const convertP5000SEDToP5000ListRows = (
             }
           }
         }
+
         res.push({
           key: generateKey(period),
           status: status,
@@ -84,11 +90,11 @@ export const convertP5000SEDToP5000ListRows = (
           type: period.type || '-',
           startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '-',
           sluttdato: period.periode?.tom ? moment(period.periode?.tom, 'YYYY-MM-DD').toDate() : '-',
-          aar: period.sum?.aar || '-',
+          aar: period.sum?.aar ? parseInt( period.sum?.aar) : '-',
           kvartal: period.sum?.kvartal || '-',
-          mnd: period.sum?.maaneder || '-',
+          mnd: period.sum?.maaneder ? parseInt(period.sum?.maaneder) : '-',
           uker: period.sum?.uker || '-',
-          dag: (period.sum?.dager?.nr || '-'),
+          dag: period.sum?.dager?.nr ? parseInt(period.sum?.dager?.nr) : '-',
           dagtype: (period.sum?.dager?.type || '-'),
           relevantForYtelse: period.relevans || '-',
           ordning: period.ordning || '-',
@@ -260,195 +266,135 @@ export const convertP5000SEDPeriodsToP5000SumRows = (
   return [res, sourceStatus]
 }
 
+export const itemToPeriod = (item: P5000ListRow): P5000Period => {
+  let period: P5000Period = {
+    key: item?.key,
+    relevans: item.ytelse, /// ???
+    ordning: item.ordning,
+    land: item.land || 'NO',
+    sum: {
+      kvartal: null,
+      aar: '' + item.aar,
+      uker: null,
+      dager: {
+        nr: '' + item.dag,
+        type: '7'
+      },
+      maaneder: '' + item.mnd
+    },
+    yrke: null,
+    gyldigperiode: null,
+    type: item.type,
+    beregning: item.beregning,
+    periode: {
+      fom: _.isDate(item.startdato) ? moment(item.startdato).format('YYYY-MM-DD') : null,
+      tom: _.isDate(item.sluttdato) ? moment(item.sluttdato).format('YYYY-MM-DD') : null,
+      extra: null
+    }
+  }
+  if (!period.key) {
+    period.key = generateKey(period)
+  }
+  return period
+}
+
+export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow) => {
+  arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseInt(arr[index].sum.aar!) + item.aar) : '' + item.aar
+  arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseInt(arr[index].sum.maaneder!) + item.maaneder) : '' + item.mnd
+  arr[index].sum.dager.nr = arr[index].sum.dager.nr !== null ? '' + (parseInt(arr[index].sum.dager.nr!) + item.dag) : '' + item.dag
+  if (!arr[index].periode) {
+    arr[index].periode = {
+      fom: null, tom: null, extra: null
+    }
+  }
+  arr[index].periode!.fom =
+    moment(item.startdato).isSameOrBefore(moment(arr[index].periode?.fom, 'YYYY-MM-DD'))
+      ? moment(item.startdato).format('YYYY-MM-DD')
+      : arr[index].periode!.fom
+
+  arr[index].periode!.tom =
+    moment(item.sluttdato).isSameOrAfter(moment(arr[index].periode?.tom, 'YYYY-MM-DD'))
+      ? moment(item.sluttdato).format('YYYY-MM-DD')
+      : arr[index].periode!.tom
+  if (arr[index].sum.dager.nr !== null && parseInt(arr[index].sum.dager.nr!) >= 30) {
+    const extraMonths = Math.floor(parseInt(arr[index].sum.dager.nr!) / 30)
+    const remainingDays = (parseInt(arr[index].sum.dager.nr!)) % 30
+    arr[index].sum.dager.nr = '' + remainingDays
+    arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseInt(arr[index].sum.maaneder!) + extraMonths) : '' + extraMonths
+  }
+  if (arr[index].sum.maaneder !== null && parseInt(arr[index].sum.maaneder!) >= 12) {
+    const extraYears = Math.floor(parseInt(arr[index].sum.maaneder!) / 12)
+    const remainingMonths = (parseInt(arr[index].sum.maaneder!)) % 12
+    arr[index].sum.maaneder = '' + remainingMonths
+    arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseInt(arr[index].sum.aar!) + extraYears) : '' + extraYears
+  }
+}
+
 // Converts table rows for view/list, into P5000 SED for storage
 export const convertFromP5000ListRowsIntoP5000SED = (
-  items: P5000ListRows,
+  payload: P5000UpdatePayload,
   oldP5000Sed: P5000SED
 ): P5000SED => {
 
-  const newP5000Sed = _.cloneDeep(oldP5000Sed)
-  /*if (_.isNil(newP5000Sed.pensjon)) {
+  let newP5000Sed = _.cloneDeep(oldP5000Sed)
+  if (_.isNil(newP5000Sed.pensjon)) {
+    // @ts-ignore
     newP5000Sed.pensjon = {}
   }
   if (_.isNil(newP5000Sed.pensjon.medlemskapboarbeid)) {
+    // @ts-ignore
     newP5000Sed.pensjon.medlemskapboarbeid = {}
-  }*/
-
-//  items.forEach((it) => {
-
-
-    // TODO
-  //})
-
-  return newP5000Sed
-
-  /*
-   newp5000FromRina.pensjon.medlemskapboarbeid.medlemskap = _items?.map(item => {
-          const medlemskap: any = {}
-          medlemskap.relevans = item.ytelse /// ???
-          medlemskap.ordning = item.ordning
-          medlemskap.land = 'NO'
-          medlemskap.sum = {
-            kvaltal: null,
-            aar: '' + item.aar,
-            uker: null,
-            dager: {
-              nr: '' + item.dag,
-              type: '7'
-            },
-            maaneder: '' + item.mnd
-          }
-          medlemskap.yrke = null
-          medlemskap.gyldigperiode = null
-          medlemskap.type = item.type
-          medlemskap.beregning = item.beregning
-          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
-            medlemskap.periode = {
-              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
-            }
-          }
-          return medlemskap
-        })
-        newp5000FromRina.pensjon.medlemskapboarbeid.gyldigperiode = _forsikringElklerBosetningsperioder
-        newp5000FromRina.pensjon.medlemskapboarbeid.enkeltkrav = {
-          krav: _ytelseOption
-        }
-
-        newp5000FromRina.pensjon.medlemskapTotal = sumItems(_items)?.map(item => {
-          const medlemskap: any = {}
-          medlemskap.relevans = item.ytelse /// ???
-          medlemskap.ordning = item.ordning
-          medlemskap.land = 'NO'
-          medlemskap.sum = {
-            kvaltal: null,
-            aar: '' + item.aar,
-            uker: null,
-            dager: {
-              nr: '' + item.dag,
-              type: '7'
-            },
-            maaneder: '' + item.mnd
-          }
-          medlemskap.yrke = null
-          medlemskap.gyldigperiode = null
-          medlemskap.type = item.type
-          medlemskap.beregning = item.beregning
-          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
-            medlemskap.periode = {
-              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
-            }
-          }
-          return medlemskap
-        })
-        newp5000FromRina.pensjon.medlemskapTotal.gyldigperiode = _forsikringElklerBosetningsperioder
-        newp5000FromRina.pensjon.medlemskapTotal.enkeltkrav = {
-          krav: _ytelseOption
-        }
-
-        newp5000FromRina.pensjon.trygdetid = sumItemsForTrygdetid(_items)?.map(item => {
-          const medlemskap: any = {}
-          medlemskap.relevans = item.ytelse /// ???
-          medlemskap.ordning = item.ordning
-          medlemskap.land = 'NO'
-          medlemskap.sum = {
-            kvaltal: null,
-            aar: '' + item.aar,
-            uker: null,
-            dager: {
-              nr: '' + item.dag,
-              type: '7'
-            },
-            maaneder: '' + item.mnd
-          }
-          medlemskap.yrke = null
-          medlemskap.gyldigperiode = null
-          medlemskap.type = item.type
-          medlemskap.beregning = item.beregning
-          if (!_.isNil(item.startdato) && !_.isNil(item.sluttdato)) {
-            medlemskap.periode = {
-              fom: moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-              tom: moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD')
-            }
-          }
-          return medlemskap
-        })
-        newp5000FromRina.pensjon.trygdetid.gyldigperiode = _forsikringElklerBosetningsperioder
-        newp5000FromRina.pensjon.trygdetid.enkeltkrav = {
-          krav: _ytelseOption
-        }
-
-   */
-
- /* const sumItems = (items: P5000EditRows = []): P5000EditRows => {
-    const res: P5000EditRows = []
-    items.forEach((it) => {
-      if (it.type) {
-        const found: number = _.findIndex(res, d => d.type === it.type)
-        if (found === -1) {
-          res.push({
-            ...it,
-            key: 'sum-' + it.type + '-' + it.startdato + '-' + it.sluttdato
-          })
-        } else {
-          res[found].aar += it.aar
-          res[found].mnd += it.mnd
-          res[found].dag += it.dag
-          res[found].startdato = moment(it.startdato, 'DD.MM.YYYY').isSameOrBefore(moment(res[found].startdato, 'DD.MM.YYYY')) ? it.startdato : res[found].startdato
-          res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
-          res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
-          if ((res[found].dag) >= 30) {
-            const extraMonths = Math.floor(res[found].dag / 30)
-            const remainingDays = (res[found].dag) % 30
-            res[found].dag = remainingDays
-            res[found].mnd += extraMonths
-          }
-          if ((res[found].mnd) >= 12) {
-            const extraYears = Math.floor(res[found].mnd / 12)
-            const remainingMonths = (res[found].mnd) % 12
-            res[found].mnd = remainingMonths
-            res[found].aar += extraYears
-          }
-        }
-      }
-    })
-    return res
+  }
+  if (_.isNil(newP5000Sed.pensjon.medlemskapTotal)) {
+    // @ts-ignore
+    newP5000Sed.pensjon.medlemskapTotal = {}
+  }
+  if (_.isNil(newP5000Sed.pensjon.trygdetid)) {
+    // @ts-ignore
+    newP5000Sed.pensjon.trygdetid = {}
   }
 
-  const sumItemsForTrygdetid = (items: P5000EditRows = []): P5000EditRows => {
-    const res: P5000EditRows = []
-    items.forEach((it) => {
-      if (it.type && it.type !== '45') {
-        const found: number = _.findIndex(res, d => d.type === it.type)
-        if (found === -1) {
-          res.push({
-            ...it,
-            key: 'sum-' + it.type + '-' + it.startdato + '-' + it.sluttdato
-          })
+  if (Object.prototype.hasOwnProperty.call(payload, 'items') && !_.isNil(payload.items)) {
+    const medlemskapPeriods: Array<P5000Period> = []
+    const medemskapTotalPeriods: Array<P5000Period> = []
+    const gyldigperiode: Array<P5000Period> = []
+
+    payload.items!.forEach((item) => {
+
+      const periode: P5000Period = itemToPeriod(item)
+      medlemskapPeriods.push(periode)
+
+      if (!_.isNil(item.type)) {
+        const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, {type: item.type})
+        const foundInGyldigperiodeIndex: number = _.findIndex(medemskapTotalPeriods, {type: item.type})
+
+        if (foundInMedemskapTotalIndex === -1) {
+          medemskapTotalPeriods.push(itemToPeriod(item))
         } else {
-          res[found].aar += it.aar
-          res[found].mnd += it.mnd
-          res[found].dag += it.dag
-          res[found].startdato = moment(it.startdato, 'DD.MM.YYYY').isSameOrBefore(moment(res[found].startdato, 'DD.MM.YYYY')) ? it.startdato : res[found].startdato
-          res[found].sluttdato = moment(it.sluttdato, 'DD.MM.YYYY').isSameOrAfter(moment(res[found].sluttdato, 'DD.MM.YYYY')) ? it.sluttdato : res[found].sluttdato
-          res[found].key = 'sum-' + res[found].type + '-' + res[found].startdato + '-' + res[found].sluttdato
-          if ((res[found].dag) >= 30) {
-            const extraMonths = Math.floor(res[found].dag / 30)
-            const remainingDays = (res[found].dag) % 30
-            res[found].dag = remainingDays
-            res[found].mnd += extraMonths
-          }
-          if ((res[found].mnd) >= 12) {
-            const extraYears = Math.floor(res[found].mnd / 12)
-            const remainingMonths = (res[found].mnd) % 12
-            res[found].mnd = remainingMonths
-            res[found].aar += extraYears
+          mergeToExistingPeriod(medemskapTotalPeriods,foundInMedemskapTotalIndex, item)
+        }
+
+        if (item.type !== '45') {
+          if (foundInGyldigperiodeIndex === -1) {
+            gyldigperiode.push(itemToPeriod(item))
+          } else {
+            mergeToExistingPeriod(gyldigperiode,foundInGyldigperiodeIndex, item)
           }
         }
       }
     })
-    return res
-  }*/
+    newP5000Sed.pensjon.medlemskapboarbeid.medlemskap = medlemskapPeriods
+  }
 
+  if (Object.prototype.hasOwnProperty.call(payload, 'ytelseOption') && !_.isNil(payload.ytelseOption)) {
+    newP5000Sed.pensjon.medlemskapboarbeid.enkeltkrav = {
+      krav: payload.ytelseOption
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(payload, 'forsikringEllerBosetningsperioder') && !_.isNil(payload.forsikringEllerBosetningsperioder)) {
+    newP5000Sed.pensjon.medlemskapboarbeid.gyldigperiode = payload.forsikringEllerBosetningsperioder
+  }
+
+  return newP5000Sed
 }

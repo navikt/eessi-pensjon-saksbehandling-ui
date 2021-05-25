@@ -18,7 +18,7 @@ import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { Redirect, Route, Router, Switch } from 'react-router-dom'
-import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
+import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux'
 import thunk from 'redux-thunk'
 import { unregister } from 'registerServiceWorker'
 import i18n from './i18n'
@@ -117,8 +117,8 @@ const GlobalStyle = createGlobalStyle`
 /* if (Number && isFinite && !Number.isFinite) {
   Number.isFinite = isFinite
 } */
-
-const store: Store = createStore(combineReducers(reducers), applyMiddleware(thunk))
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store: Store = createStore(combineReducers(reducers), composeEnhancers(applyMiddleware(thunk)))
 
 if (!IS_PRODUCTION) {
   const axe = require('@axe-core/react')

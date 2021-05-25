@@ -130,7 +130,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_startSed, setStartSed] = useState<string>(initialSedNew)
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [p5000Storage] = useLocalStorage<P5000SED>('P5000')
+  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000SED>('P5000')
 
   useEffect(() => {
     standardLogger('buc.edit.entrance')
@@ -309,6 +309,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     setMode={setMode}
                     onSEDNew={onSEDNew}
                     p5000Storage={p5000Storage}
+                    setP5000Storage={setP5000Storage}
                   />
                 </div>
               ))

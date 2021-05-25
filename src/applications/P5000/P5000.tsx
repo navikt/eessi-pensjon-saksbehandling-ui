@@ -4,12 +4,11 @@ import WarningCircle from 'assets/icons/WarningCircle'
 import Alert from 'components/Alert/Alert'
 import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageValue } from 'declarations/app'
+import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry, LocalStorageValue } from 'declarations/app'
 import { Buc, P5000FromRinaMap, Sed, Seds } from 'declarations/buc'
 import { EmptyPeriodsReport, P5000Context, P5000SED, SedSender } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import Flag from 'flagg-ikoner'
-import useLocalStorage from 'hooks/useLocalStorage'
 import _ from 'lodash'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import { Checkbox } from 'nav-frontend-skjema'
@@ -26,7 +25,7 @@ import {
   Row,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSedSender } from './conversion'
@@ -37,6 +36,8 @@ import P5000Sum from './P5000Sum'
 export interface P5000Props {
   buc: Buc
   context: P5000Context
+  p5000Storage?: LocalStorageEntry<P5000SED>
+  setP5000Storage?: (e:  LocalStorageEntry<P5000SED>) => void
   sed?: Sed,
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
@@ -58,6 +59,8 @@ const mapState = (state: State): P5000Selector => ({
 const P5000: React.FC<P5000Props> = ({
   buc,
   context,
+  p5000Storage,
+  setP5000Storage,
   sed = undefined,
   setMode
 }: P5000Props): JSX.Element => {
@@ -73,53 +76,52 @@ const P5000: React.FC<P5000Props> = ({
   const [_ready, _setReady] = useState<boolean>(false)
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
 
-  let p5000FromStorage: P5000SED | undefined = undefined
-  let saveP5000ToStorage: ((newSed: P5000SED) => void) | undefined  = undefined
-  let removeP5000FromStorage: ((sedId: string) => void) | undefined  = undefined
-
   // use local storage stuff only in edit context, no need for overview context
-  if (context === 'edit' && !_.isNil(buc) && !_.isNil(sed)) {
-    const [_p5000Storage, _setP5000Storage] = useLocalStorage<P5000SED>('P5000')
-    p5000FromStorage = _.find(_p5000Storage[buc.caseId!], {id: sed.id})?.content
-    saveP5000ToStorage = (newSed: P5000SED) => {
+  let p5000EntryFromStorage: LocalStorageValue | undefined = !_.isNil(p5000Storage) ? _.find(p5000Storage[buc.caseId!], {id: sed?.id}) : undefined
+  let p5000FromStorage: P5000SED | undefined = p5000EntryFromStorage?.content
+  let saveP5000ToStorage: ((newSed: P5000SED) => void) | undefined = useCallback((newSed: P5000SED) => {
+    if (!_.isNil(setP5000Storage)) {
       const newEntry: LocalStorageValue<P5000SED> = {
         id: sed!.id,
         date: new Date().toLocaleString(),
         content: newSed
       }
-      let newP5000Storage = _.cloneDeep(_p5000Storage)
+      let newP5000Storage = _.cloneDeep(p5000Storage)
       if (Object.prototype.hasOwnProperty.call(newP5000Storage, buc.caseId!)) {
-        let entries: Array<LocalStorageValue<P5000SED>> = _.cloneDeep(newP5000Storage[buc.caseId!])
+        let entries: Array<LocalStorageValue<P5000SED>> = _.cloneDeep(newP5000Storage![buc.caseId!])
         const index: number = _.findIndex(entries, e => e.id === sed!.id)
         if (index >= 0) {
           entries[index] = newEntry
         } else {
           entries = entries.concat(newEntry)
         }
-        newP5000Storage[buc.caseId!] = entries
-      } else {
-        newP5000Storage[buc.caseId!] = [newEntry] as Array<LocalStorageValue<P5000SED>>
-      }
-      _setP5000Storage(newP5000Storage)
-    }
 
-    removeP5000FromStorage = (sedId: string) => {
-      const newP5000Storage = _.cloneDeep(_p5000Storage)
+        newP5000Storage![buc.caseId!] = entries
+      } else {
+        newP5000Storage![buc.caseId!] = [newEntry] as Array<LocalStorageValue<P5000SED>>
+      }
+      setP5000Storage(newP5000Storage!)
+    }
+  }, [p5000Storage, setP5000Storage])
+
+  let removeP5000FromStorage: ((sedId: string) => void) | undefined = useCallback((sedId: string) => {
+    if (!_.isNil(setP5000Storage)) {
+      const newP5000Storage = _.cloneDeep(p5000Storage)
       if (Object.prototype.hasOwnProperty.call(newP5000Storage, buc.caseId!)) {
-        let entries: Array<LocalStorageValue<P5000SED>> = _.cloneDeep(newP5000Storage[buc.caseId!])
+        let entries: Array<LocalStorageValue<P5000SED>> = _.cloneDeep(newP5000Storage![buc.caseId!])
         const index: number = _.findIndex(entries, e => e.id === sedId)
         if (index >= 0) {
           entries.splice(index, 1)
         }
         if (entries.length === 0) {
-          delete newP5000Storage[buc.caseId!]
+          delete newP5000Storage![buc.caseId!]
         } else {
-          newP5000Storage[buc.caseId!] = entries
+          newP5000Storage![buc.caseId!] = entries
         }
       }
-      _setP5000Storage(newP5000Storage)
+      setP5000Storage(newP5000Storage!)
     }
-  }
+    }, [p5000Storage, setP5000Storage])
 
   // select which P5000 SEDs we want to see
   const getP5000 = (buc: Buc, sed: Sed | undefined): Seds | undefined => {

@@ -1,7 +1,8 @@
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import { BUCMode } from 'declarations/app'
+import { BUCMode, LocalStorageEntry } from 'declarations/app'
+import { P5000SED } from 'declarations/p5000'
 import NavHighContrast, { themeKeys, slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
@@ -52,7 +53,8 @@ export interface SEDPanelProps {
   highContrast: boolean
   newSed: boolean
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
-  p5000Storage: any
+  p5000Storage: LocalStorageEntry<P5000SED>
+  setP5000Storage: (e: LocalStorageEntry<P5000SED>) => void
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   sed: Sed
   style: React.CSSProperties
@@ -66,6 +68,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   newSed,
   onSEDNew,
   p5000Storage,
+  setP5000Storage,
   setMode,
   sed,
   style
@@ -84,6 +87,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                 buc={buc}
                 onSEDNew={onSEDNew}
                 p5000Storage={p5000Storage}
+                setP5000Storage={setP5000Storage}
                 setMode={setMode}
                 sed={sed}
                 style={style}
@@ -99,6 +103,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                   buc={buc}
                   onSEDNew={onSEDNew}
                   p5000Storage={p5000Storage}
+                  setP5000Storage={setP5000Storage}
                   setMode={setMode}
                   sed={sed}
                 />

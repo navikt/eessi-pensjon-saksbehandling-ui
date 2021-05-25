@@ -388,7 +388,7 @@ export default {
       "informasjonskalkulering" : null,
       "periode" : {
         "fom" : "1998-06-02",
-        "tom" : "2000-04-26",
+        "tom" : "2000-04-27",
         "extra" : null
       },
       "enkeltkrav" : null

@@ -26,9 +26,9 @@ export const P5000EditValidate = (
     hasErrors = true
   }
   if (_.isEmpty(p5000sed?.pensjon?.medlemskapboarbeid?.gyldigperiode)) {
-    v['P5000Edit-forsikringElklerBosetningsperioder'] = {
-      feilmelding: t('buc:error-noForsikringElklerBosetningsperioder'),
-      skjemaelementId: 'P5000Edit-forsikringElklerBosetningsperioder'
+    v['P5000Edit-forsikringEllerBosetningsperioder'] = {
+      feilmelding: t('buc:error-noForsikringEllerBosetningsperioder'),
+      skjemaelementId: 'P5000Edit-forsikringEllerBosetningsperioder'
     } as FeiloppsummeringFeil
     hasErrors = true
   }

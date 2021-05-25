@@ -1,25 +1,24 @@
 import { sendP5000toRina } from 'actions/buc'
 import HelpIcon from 'assets/icons/HelpIcon'
+import Alert from 'components/Alert/Alert'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
-import { Options } from 'declarations/app.d'
+import { Options, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
-import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext } from 'declarations/p5000'
+import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
-import Alertstripe from 'nav-frontend-alertstriper'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
   AlignEndRow,
   Column,
-  FlexCenterDiv,
-  FlexDiv,
   FlexEndDiv,
   FlexStartDiv,
+  FlexCenterDiv,
   FullWidthDiv,
   HiddenDiv,
   HighContrastHovedknapp,
@@ -49,7 +48,7 @@ const CustomSelect = styled(Select)`
   select {
     color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
     background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
-  }
+  }t
 `
 
 export interface DatePieces {
@@ -84,7 +83,7 @@ export const ytelsestypeOptions: Options = [
   { label: '[31] Uførepensjon delvis', value: '31' }
 ]
 
-const typeOptions: Options = [
+export const typeOptions: Options = [
   { value: '10', label: '[10] Pliktige avgiftsperioder' },
   { value: '11', label: '[11] Pliktige avgiftsperioder - ansatt' },
   { value: '12', label: '[12] Pliktige avgiftsperioder - selvstendig næringsdrivende' },
@@ -125,11 +124,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage)
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
-  const [_onSaving, _setOnSaving] = useState<boolean>(false)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
+  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)
+  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode)
 
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
@@ -251,28 +251,33 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       label=''
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
-      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(e.target.value, options.values.sluttdato, options)}
+      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+        const otherDate: string = _.isDate(options.values.sluttdato) ? moment(options.values.sluttdato).format('DD.MM.YYYY') : options.values.sluttdato
+        maybeDoSomePrefill(e.target.value, otherDate, options)
+      }}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
         startdato: e.target.value
       })}
-      value={options.value}
+      value={_.isDate(options.value) ? moment(options.value).format('DD.MM.YYYY') : options.value}
     />
   )
 
-  const rendersluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
+  const renderSluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
     <HighContrastInput
       id='c-table__edit-sluttdato-input-id'
       className='c-table__edit-input'
       label=''
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
-      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => maybeDoSomePrefill(
-        options.values.startdato, e.target.value, options
-      )}
+      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+        const otherDate: string = _.isDate(options.values.startdato) ? moment(options.values.startdato).format('DD.MM.YYYY') : options.values.startdato
+        maybeDoSomePrefill(
+          otherDate, e.target.value, options
+      )}}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
         sluttdato: e.target.value
       })}
-      value={options.value}
+      value={_.isDate(options.value) ? moment(options.value).format('DD.MM.YYYY') : options.value}
     />
   )
 
@@ -354,7 +359,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     return (
       <HighContrastInput
-        id='c-table__edit-maned-input-id'
+        id='c-table__edit-mnd-input-id'
         className='c-table__edit-input'
         label=''
         feil={options.feil}
@@ -428,29 +433,20 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const setYtelseOption = (o: any) => {
+  const setYtelseOption = (o: Option | null) => {
     _resetValidation('P5000Edit-ytelse-select')
-
-    let newP5000FromStorage: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
-    if (!_.isNil(newP5000FromStorage)) {
-      _.set(newP5000FromStorage, 'pensjon.medlemskapboarbeid.enkeltkrav', {
-        krav: o?.value
-      })
-      if (!_.isNil(saveP5000ToStorage)) {
-        saveP5000ToStorage(newP5000FromStorage)
-      }
-    }
+    _setYtelseOption(o?.value)
+    onSave({
+      ytelseOption: o?.value
+    })
   }
 
   const setForsikringEllerBosetningsperioder = (value: string) => {
-    _resetValidation('P5000Edit-forsikring-select')
-    let newP5000FromStorage: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
-    if (!_.isNil(newP5000FromStorage)) {
-      _.set(newP5000FromStorage, 'pensjon.medlemskapboarbeid.gyldigperiode', value)
-      if (!_.isNil(saveP5000ToStorage)) {
-        saveP5000ToStorage(newP5000FromStorage)
-      }
-    }
+    //_resetValidation('P5000Edit-ytelse-select')
+    _setForsikringEllerBosetningsperioder(value)
+    onSave({
+      forsikringEllerBosetningsperioder: value
+    })
   }
 
   const itemsPerPageChanged = (e: any): void => {
@@ -470,7 +466,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const onRowsChanged = (items: P5000ListRows) => {
     console.log('rows changed')
-    onSave(items)
+    onSave({
+      items: items
+    })
   }
 
   const handleOverforTilRina = () => {
@@ -480,7 +478,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       p5000sed: p5000FromStorage!
     })
 
-
     if (valid) {
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
         dispatch(sendP5000toRina(caseId, seds[0].id, p5000FromStorage))
@@ -488,16 +485,23 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }
 
-  const onSave = (items: P5000ListRows) => {
-    _setOnSaving(true)
-    const newP5000forStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(items, p5000FromStorage!)
-    if (saveP5000ToStorage) {
-      saveP5000ToStorage(newP5000forStorage)
-    }
-    _setSavedP5000Info(true)
-    _setOnSaving(false)
-  }
+  const renderDateCell = (item: P5000ListRow, value: any) => (
+    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+  )
 
+  const onSave = (payload: P5000UpdatePayload) => {
+    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
+    if (_.isNil(templateForP5000)) {
+      templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
+    }
+    if (templateForP5000) {
+      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, templateForP5000)
+      if (saveP5000ToStorage) {
+        saveP5000ToStorage(newP5000FromStorage)
+      }
+      _setSavedP5000Info(true)
+    }
+  }
 
   useEffect(() => {
     if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
@@ -511,11 +515,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return <div />
   }
 
-  const _forsikringEllerBosetningsperioder = p5000FromStorage?.pensjon.medlemskapboarbeid.gyldigperiode
-  const _ytelseOption = p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav
   const canSave = (_forsikringEllerBosetningsperioder === '1') ? _items.length > 0 : true
-  const canSend = canSave && !!p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav
-  const key = seds[0].id + _forsikringEllerBosetningsperioder + _ytelseOption
+  const canSend = canSave && !!_ytelseOption
 
   return (
     <NavHighContrast highContrast={highContrast}>
@@ -524,23 +525,24 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <PileDiv>
           <AlignEndRow>
             <Column>
+              <FullWidthDiv>
+                <Select
+                  key={'ytelse' + _ytelseOption}
+                  className='P5000Edit-ytelse-select'
+                  feil={_validation['P5000Edit-ytelse-select']?.feilmelding}
+                  highContrast={highContrast}
+                  id='P5000Edit-ytelse-select'
+                  label={t('buc:p5000-4-1-title')}
+                  menuPortalTarget={document.body}
+                  options={ytelsestypeOptions}
+                  onChange={setYtelseOption}
+                  selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                  defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                />
+              </FullWidthDiv>
+            </Column>
+            <Column>
               <FlexCenterDiv>
-                <FullWidthDiv>
-                  <Select
-                    key={key}
-                    className='P5000Edit-ytelse-select'
-                    feil={_validation['P5000Edit-ytelse-select']?.feilmelding}
-                    highContrast={highContrast}
-                    id='P5000Edit-ytelse-select'
-                    label={t('buc:p5000-4-1-title')}
-                    menuPortalTarget={document.body}
-                    options={ytelsestypeOptions}
-                    onChange={setYtelseOption}
-                    selectedValue={_.find(ytelsestypeOptions, y => y.value === p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav) ?? null}
-                    defaultValue={_.find(ytelsestypeOptions, y => y.value === p5000FromStorage?.pensjon.medlemskapboarbeid.enkeltkrav.krav) ?? null}
-                  />
-                </FullWidthDiv>
-                <HorizontalSeparatorDiv />
                 <HighContrastRadioGroup
                   legend={(
                     <OneLineSpan>
@@ -577,23 +579,24 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
                   </div>
                 </Tooltip>
-                <HorizontalSeparatorDiv />
-                <CustomSelect
-                  bredde='l'
-                  id='itemsPerPage'
-                  label={t('ui:itemsPerPage')}
-                  onChange={itemsPerPageChanged}
-                  value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
-                >
-                  <option value='10'>10</option>
-                  <option value='15'>15</option>
-                  <option value='20'>20</option>
-                  <option value='30'>30</option>
-                  <option value='50'>50</option>
-                  <option value='all'>{t('ui:all')}</option>
-                </CustomSelect>
-
               </FlexCenterDiv>
+            </Column>
+            <HorizontalSeparatorDiv />
+            <Column>
+              <CustomSelect
+                bredde='l'
+                id='itemsPerPage'
+                label={t('ui:itemsPerPage')}
+                onChange={itemsPerPageChanged}
+                value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
+              >
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+                <option value='30'>30</option>
+                <option value='50'>50</option>
+                <option value='all'>{t('ui:all')}</option>
+              </CustomSelect>
             </Column>
             <Column>
               <PileEndDiv>
@@ -606,14 +609,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   >
                     {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
                   </HighContrastHovedknapp>
-                  <HorizontalSeparatorDiv />
-                  <HighContrastKnapp
-                    onClick={onSave}
-                    disabled={_onSaving || !canSave}
-                    spinner={_onSaving}
-                  >
-                    {_onSaving ? t('ui:saving') : t('ui:save')}
-                  </HighContrastKnapp>
                   <HorizontalSeparatorDiv />
                   <ReactToPrint
                     documentTitle='P5000Sum'
@@ -631,37 +626,34 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   />
                 </FlexStartDiv>
                 <VerticalSeparatorDiv />
-                <FlexDiv>
-                  <FullWidthDiv>
-                    {sentP5000info === null
-                      ? (
-                        <Alertstripe type='advarsel'>
-                          {t('buc:warning-failedP5000Sending')}
-                        </Alertstripe>
-                        )
-                      : (
-                          _savedP5000Info === true
-                            ? (
-                              <Alertstripe type='suksess'>
-                                {t('buc:p5000-saved-svarsed-draft', { caseId: caseId })}
-                              </Alertstripe>
-                              )
-                            : (
-                                !_.isNil(sentP5000info)
-                                  ? (
-                                    <Alertstripe type='suksess'>
-                                      {t('buc:warning-okP5000Sending')}
-                                    </Alertstripe>
-                                    )
-                                  : null
-                              )
-                        )}
-                  </FullWidthDiv>
-                </FlexDiv>
               </PileEndDiv>
             </Column>
           </AlignEndRow>
           <VerticalSeparatorDiv />
+          <AlignEndRow>
+            <Column/>
+            <Column flex='2'>
+              {sentP5000info === null
+                ? (
+                  <Alert status='WARNING' message={t('buc:warning-failedP5000Sending')} onClose={() => {}}/>
+                )
+                : (
+                  _savedP5000Info === true
+                    ? (
+                      <Alert status='OK' message={t('buc:p5000-saved-svarsed-draft', { caseId: caseId })} onClose={() => {}}/>
+                    )
+                    : (
+                      !_.isNil(sentP5000info)
+                        ? (
+                          <Alert status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} onClose={() => {}}/>
+                        )
+                        : null
+                    )
+                )}
+            </Column>
+            <Column/>
+          </AlignEndRow>
+          <VerticalSeparatorDiv/>
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
           <Table<P5000ListRow,P5000TableContext>
@@ -694,6 +686,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             }]}
             columns={[
               {
+                id: 'status', label: t('ui:status'), type: 'string', edit: {
+                  defaultValue: 'new',
+                  render: () => <div/>
+                }
+              },
+              {
                 id: 'type',
                 label: t('buc:p5000-type-43113'),
                 type: 'string',
@@ -710,12 +708,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {
                 id: 'startdato',
                 label: t('ui:startDate'),
-                type: 'string',
+                type: 'date',
+                renderCell: renderDateCell,
                 edit: {
                   render: renderStartDatoEdit,
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
-                    test: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                    test: (value) => _.isDate(value),
                     message: t('buc:validation-badDate2')
                   }],
                   transform: dateTransform
@@ -724,12 +723,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {
                 id: 'sluttdato',
                 label: t('ui:endDate'),
-                type: 'string',
+                type: 'date',
+                renderCell: renderDateCell,
                 edit: {
-                  render: rendersluttDatoEdit,
+                  render: renderSluttDatoEdit,
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
-                    test: '^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$',
+                    test: (value) => _.isDate(value),
                     message: t('buc:validation-badDate2')
                   }],
                   placeholder: t('buc:placeholder-date2'),
@@ -843,9 +843,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   label: ''
                 }]}
                 columns={[
+                  { id: 'status', label: t('ui:status'), type: 'string' },
                   { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
-                  { id: 'startdato', label: t('ui:startDate'), type: 'string' },
-                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string' },
+                  { id: 'startdato', label: t('ui:startDate'), type: 'string', renderCell: renderDateCell },
+                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string', renderCell: renderDateCell },
                   { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
                   { id: 'mnd', label: t('ui:month'), type: 'number' },
                   { id: 'aar', label: t('ui:year'), type: 'number' },

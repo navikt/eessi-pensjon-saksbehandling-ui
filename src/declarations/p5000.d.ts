@@ -17,7 +17,7 @@ export interface SedSender {
 export type EmptyPeriodsReport = {[k: string]: boolean}
 
 export interface P5000PeriodInterval {
-  fom :  string
+  fom :  string | null
   tom :  string |  null
   extra : string |  null
 }
@@ -41,9 +41,9 @@ export interface P5000Period {
   gyldigperiode : string | null,
   type : string | null,
   beregning : string | null,
-  informasjonskalkulering : string | null,
+  informasjonskalkulering? : string | null,
   periode : P5000PeriodInterval | null,
-  enkeltkrav : string | null
+  enkeltkrav? : string | null
 }
 
 export interface P5000SED {
@@ -116,7 +116,7 @@ export interface P5000SED {
     medlemskap : null
     medlemskapboarbeid : {
       enkeltkrav : {
-        datoFrist : string | null
+        datoFrist? : string | null
         krav : string
       }
       gyldigperiode : string
@@ -154,6 +154,12 @@ export interface P5000SumRow extends Item {
   sec52aar: string
   sec52mnd: string
   sec52dag: string
+}
+
+export interface P5000UpdatePayload {
+  items?: P5000ListRows
+  ytelseOption?: string
+  forsikringEllerBosetningsperioder?: string
 }
 
 export type P5000SumRows = Array<P5000SumRow>
