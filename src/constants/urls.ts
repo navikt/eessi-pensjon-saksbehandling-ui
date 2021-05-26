@@ -55,8 +55,8 @@ export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
 export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
-export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(documentId)s'
-export const BUC_PUT_SED_URL = SED_URL + '/put/%(caseId)s/%(documentId)s'
+export const P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(documentId)s'
+export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(documentId)s'
 export const BUC_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = SED_URL + '/institutions/%(buc)s/%(country)s'
 
 // Login

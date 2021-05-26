@@ -17,7 +17,6 @@ export const P5000EditValidate = (
 ): boolean => {
   let hasErrors: boolean = false
 
-
   if (_.isEmpty(p5000sed?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)) {
     v['P5000Edit-ytelse'] = {
       feilmelding: t('buc:error-noYtelse'),

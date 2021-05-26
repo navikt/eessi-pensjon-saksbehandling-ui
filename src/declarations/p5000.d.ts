@@ -17,9 +17,9 @@ export interface SedSender {
 export type EmptyPeriodsReport = {[k: string]: boolean}
 
 export interface P5000PeriodInterval {
-  fom :  string | null
-  tom :  string |  null
-  extra : string |  null
+  fom : string | null
+  tom : string | null
+  extra : string | null
 }
 
 export interface P5000Period {
@@ -138,9 +138,9 @@ export interface P5000ListRow extends Item {
   mnd: string
   uker: string
   dag: string
-  relevantForYtelse: string
+  ytelse: string
   ordning: string
-  informasjonOmBeregning: string
+  beregning: string
 }
 
 export type P5000ListRows = Array<P5000ListRow>

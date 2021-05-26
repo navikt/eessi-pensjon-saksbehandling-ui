@@ -24,7 +24,6 @@ import {
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { P5000SED } from 'declarations/p5000'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
@@ -39,7 +38,6 @@ import mockInstitutions from 'mocks/buc/institutions'
 import mockKravDato from 'mocks/buc/kravDato'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
-import mockSed from 'mocks/buc/sed'
 import mockSedList from 'mocks/buc/sedList'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import { Action, ActionCreator } from 'redux'
@@ -331,22 +329,6 @@ export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (
   })
 }
 
-export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
-  caseId: string, sed: Sed
-): ThunkResult<ActionWithPayload<P5000SED>> => {
-  return call({
-    url: sprintf(urls.BUC_GET_SED_URL, { caseId: caseId, documentId: sed.id }),
-    cascadeFailureError: true,
-    context: sed,
-    expectedPayload: mockSed(sed, 'small'),
-    type: {
-      request: types.BUC_GET_SED_REQUEST,
-      success: types.BUC_GET_SED_SUCCESS,
-      failure: types.BUC_GET_SED_FAILURE
-    }
-  })
-}
-
 export const getSedList: ActionCreator<ThunkResult<ActionWithPayload<SEDRawList>>> = (
   buc: {type: string, caseId: string}
 ): ThunkResult<ActionWithPayload<SEDRawList>> => {
@@ -399,10 +381,6 @@ export const resetSed: ActionCreator<Action> = (): Action => ({
 
 export const resetSedAttachments: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_ATTACHMENTS_RESET
-})
-
-export const resetSentP5000info : ActionCreator<Action> = (): Action => ({
-  type: types.BUC_P5000_SEND_RESET
 })
 
 export const saveBucsInfo: ActionCreator<ThunkResult<Action>> = ({
@@ -468,24 +446,6 @@ export const sendAttachmentToSed: ActionCreator<ThunkResult<Action>> = (
       request: types.BUC_SEND_ATTACHMENT_REQUEST,
       success: types.BUC_SEND_ATTACHMENT_SUCCESS,
       failure: types.BUC_SEND_ATTACHMENT_FAILURE
-    }
-  })
-}
-
-export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
-  caseId: string, documentId: string, payload: any
-): ThunkResult<Action> => {
-  return call({
-    url: sprintf(urls.BUC_PUT_SED_URL, { caseId: caseId, documentId: documentId }),
-    method: 'PUT',
-    body: payload,
-    cascadeFailureError: true,
-    expectedPayload: { success: true },
-    context: {},
-    type: {
-      request: types.BUC_P5000_SEND_REQUEST,
-      success: types.BUC_P5000_SEND_SUCCESS,
-      failure: types.BUC_P5000_SEND_FAILURE
     }
   })
 }

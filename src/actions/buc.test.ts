@@ -274,22 +274,6 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('getSed()', () => {
-    const mockCaseId = '123'
-    const mockSed = {
-      id: '456'
-    } as Sed
-    bucActions.getSed(mockCaseId, mockSed)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_SED_REQUEST,
-        success: types.BUC_GET_SED_SUCCESS,
-        failure: types.BUC_GET_SED_FAILURE
-      },
-      url: sprintf(urls.BUC_GET_SED_URL, { caseId: mockCaseId, documentId: mockSed.id })
-    }))
-  })
-
   it('getSedList()', () => {
     const mockBuc = { type: 'mockBucType', caseId: '456' }
     bucActions.getSedList(mockBuc)

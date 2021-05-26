@@ -8,10 +8,20 @@ import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelH
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import classNames from 'classnames'
-import { P5000SED } from 'declarations/p5000'
-import useLocalStorage from 'hooks/useLocalStorage'
+import { AllowedLocaleString, BUCMode } from 'declarations/app.d'
+
+import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
+import { PersonAvdods } from 'declarations/person.d'
+import { State } from 'declarations/reducers'
+import CountryData from 'land-verktoy'
+import _ from 'lodash'
+import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
+import moment from 'moment'
+import { VenstreChevron } from 'nav-frontend-chevron'
+import { Normaltekst } from 'nav-frontend-typografi'
 import {
-  animationClose, animationOpen,
+  animationClose,
+  animationOpen,
   Column,
   HighContrastKnapp,
   HighContrastLink,
@@ -20,17 +30,6 @@ import {
   Row,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
-
-import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
-import { State } from 'declarations/reducers'
-import { AllowedLocaleString, BUCMode } from 'declarations/app.d'
-import { PersonAvdods } from 'declarations/person.d'
-import CountryData from 'land-verktoy'
-import _ from 'lodash'
-import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
-import moment from 'moment'
-import { VenstreChevron } from 'nav-frontend-chevron'
-import { Normaltekst } from 'nav-frontend-typografi'
 import PT from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -130,7 +129,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_startSed, setStartSed] = useState<string>(initialSedNew)
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [p5000Storage, setP5000Storage] = useLocalStorage<P5000SED>('P5000')
 
   useEffect(() => {
     standardLogger('buc.edit.entrance')
@@ -308,8 +306,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     ) || false}
                     setMode={setMode}
                     onSEDNew={onSEDNew}
-                    p5000Storage={p5000Storage}
-                    setP5000Storage={setP5000Storage}
                   />
                 </div>
               ))

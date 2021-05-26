@@ -106,15 +106,15 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         gettingUserInfo: false
       }
 
-    case types.BUC_P5000_SEND_REQUEST:
+    case types.P5000_SEND_REQUEST:
 
       return {
         ...state,
         sendingP5000info: true
       }
 
-    case types.BUC_P5000_SEND_SUCCESS:
-    case types.BUC_P5000_SEND_FAILURE:
+    case types.P5000_SEND_SUCCESS:
+    case types.P5000_SEND_FAILURE:
 
       return {
         ...state,

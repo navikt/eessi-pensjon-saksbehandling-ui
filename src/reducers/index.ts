@@ -3,9 +3,10 @@ import app from './app'
 import buc from './buc'
 import joark from './joark'
 import loading from './loading'
+import p5000 from './p5000'
 import sentry from './sentry'
 import ui from './ui'
 
 export {
-  alert, app, buc, joark, loading, sentry, ui
+  alert, app, buc, joark, loading, p5000, sentry, ui
 }

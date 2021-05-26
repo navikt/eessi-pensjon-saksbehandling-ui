@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { ytelsestypeOptions } from '../P5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import { Etikett } from 'components/StyledComponents'
@@ -15,37 +16,35 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OptionTypeBase } from 'react-select'
 import { P5000SED } from 'declarations/p5000'
+import { State } from 'declarations/reducers'
+import { unsyncFromP5000Storage } from 'actions/p5000'
 
 interface SEDLoadSaveProps {
   buc: Buc
   highContrast: boolean
-  p5000Storage: LocalStorageEntry<P5000SED>
-  setP5000Storage: (e: LocalStorageEntry<P5000SED>) => void
   sedId: string
 }
 
+interface SEDLoadSaveSelector {
+  p5000Storage: LocalStorageEntry<P5000SED> | undefined
+}
+
+const mapState = (state: State): SEDLoadSaveSelector => ({
+  p5000Storage: state.p5000.p5000Storage
+})
+
 const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   buc,
-  p5000Storage,
-  setP5000Storage,
   highContrast,
   sedId
 }: SEDLoadSaveProps) => {
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
+  const { p5000Storage } = useSelector<State, SEDLoadSaveSelector>(mapState)
   const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   const onRemove = (caseId: string, sedId: string) => {
-    const newP5000Storage = _.cloneDeep(p5000Storage)
-    if (!_.isNil(newP5000Storage)) {
-      let newValue = _.cloneDeep(p5000Storage[caseId])
-      newValue = _.filter(newValue, n => n.id !== sedId)
-      if (_.isEmpty(newValue)) {
-        delete newP5000Storage[caseId]
-      } else {
-        newP5000Storage[caseId] = newValue
-      }
-      setP5000Storage(newP5000Storage)
-    }
+    dispatch(unsyncFromP5000Storage(caseId, sedId))
   }
 
   return (
@@ -69,7 +68,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
                         {_.find(ytelsestypeOptions, (o: OptionTypeBase) => (
-                           o?.value === (sed.content as P5000SED)?.pensjon.medlemskapboarbeid.enkeltkrav.krav
+                          o?.value === (sed.content as P5000SED)?.pensjon.medlemskapboarbeid.enkeltkrav.krav
                         ))?.label ?? '-'}
                       </Normaltekst>
                     </FlexBaseDiv>
@@ -90,7 +89,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       </UndertekstBold>
                       <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
-                        {sed.date}
+                        {new Date(sed.date).toLocaleDateString()}
                       </Normaltekst>
                     </FlexBaseDiv>
                     <VerticalSeparatorDiv size='0.3' />

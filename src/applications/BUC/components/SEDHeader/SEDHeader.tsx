@@ -6,6 +6,7 @@ import P5000 from 'applications/P5000/P5000'
 import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import { AllowedLocaleString, BUCMode, LocalStorageValue, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
+import { P5000SED } from 'declarations/p5000'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -27,7 +28,6 @@ import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { P5000SED } from 'declarations/p5000'
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -86,8 +86,6 @@ export interface SEDHeaderProps {
   buc: Buc
   className ?: string
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
-  p5000Storage: LocalStorageEntry<P5000SED>
-  setP5000Storage: (e:  LocalStorageEntry<P5000SED>) => void
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   sed: Sed
   style?: React.CSSProperties
@@ -97,25 +95,25 @@ export interface SEDListSelector {
   highContrast: boolean
   locale: AllowedLocaleString
   featureToggles: FeatureToggles
+  p5000Storage: LocalStorageEntry<P5000SED> | undefined
 }
 
 const mapState = (state: State): SEDListSelector => ({
   highContrast: state.ui.highContrast,
   locale: state.ui.locale,
-  featureToggles: state.app.featureToggles
+  featureToggles: state.app.featureToggles,
+  p5000Storage: state.p5000.p5000Storage
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc,
   className,
   onSEDNew,
-  p5000Storage,
-  setP5000Storage,
   setMode,
   sed,
   style
 }: SEDHeaderProps): JSX.Element => {
-  const { featureToggles, highContrast, locale }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { featureToggles, highContrast, locale, p5000Storage }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSed: Sed | undefined = buc.seds!.find(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent')
 
@@ -155,8 +153,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   const P5000Draft: LocalStorageValue | undefined = (
     sed.type === 'P5000' &&
     !_.isNil(p5000Storage) &&
-    !_.isNil(p5000Storage[buc.caseId!]) ?
-    _.find(p5000Storage[buc.caseId!], {id: sed.id}) as LocalStorageValue | undefined : undefined
+    !_.isNil(p5000Storage[buc.caseId!])
+      ? _.find(p5000Storage[buc.caseId!], { id: sed.id }) as LocalStorageValue | undefined
+      : undefined
   )
 
   return (
@@ -261,8 +260,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                     <P5000
                       buc={buc}
                       context='edit'
-                      p5000Storage={p5000Storage}
-                      setP5000Storage={setP5000Storage}
                       setMode={setMode}
                       sed={sed}
                     />
@@ -277,17 +274,16 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             )}
           </SEDListActionsDiv>
         </SEDHeaderContent>
-        {(featureToggles.P5000_SUMMER_VISIBLE && P5000Draft !== undefined) ? (
-          <SEDLoadSave
-            p5000Storage={p5000Storage}
-            setP5000Storage={setP5000Storage}
-            key={P5000Draft.date}
-            buc={buc}
-            sedId={sed.id}
-
-            highContrast={highContrast}
-          />
-        ) : null}
+        {(featureToggles.P5000_SUMMER_VISIBLE && P5000Draft !== undefined)
+          ? (
+            <SEDLoadSave
+              key={P5000Draft.date}
+              buc={buc}
+              sedId={sed.id}
+              highContrast={highContrast}
+            />
+            )
+          : null}
         {sed.type === 'X100' &&
         _.find(sed.participants, p => p.role === 'Sender')?.organisation.countryCode === 'DE' && (
           <AlertStripe

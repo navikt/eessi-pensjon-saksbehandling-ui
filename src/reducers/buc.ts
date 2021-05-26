@@ -1,5 +1,4 @@
 import { bucsThatSupportAvdod, getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { generateKey } from 'applications/P5000/conversion'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { BUCMode, RinaUrl } from 'declarations/app.d'
@@ -29,7 +28,6 @@ import _ from 'lodash'
 import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { Action } from 'redux'
-import { P5000Period } from 'declarations/p5000'
 
 export interface BucState {
   attachmentsError: boolean
@@ -55,7 +53,6 @@ export interface BucState {
   p5000FromRinaMap: P5000FromRinaMap
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
-  sentP5000info: any,
   subjectAreaList: Array<string> | undefined
   tagList: Array<string> | undefined
 }
@@ -84,7 +81,6 @@ export const initialBucState: BucState = {
   p5000FromRinaMap: {},
   sedList: undefined,
   sedsWithAttachments: {},
-  sentP5000info: undefined,
   subjectAreaList: undefined,
   tagList: undefined
 }
@@ -94,25 +90,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.APP_CLEAR_DATA: {
       return initialBucState
     }
-
-    case types.BUC_P5000_SEND_RESET:
-    case types.BUC_P5000_SEND_REQUEST:
-      return {
-        ...state,
-        sentP5000info: undefined
-      }
-
-    case types.BUC_P5000_SEND_SUCCESS:
-      return {
-        ...state,
-        sentP5000info: (action as ActionWithPayload).payload
-      }
-
-    case types.BUC_P5000_SEND_FAILURE:
-      return {
-        ...state,
-        sentP5000info: null
-      }
 
     case types.BUC_BUC_RESET:
       return {
@@ -513,22 +490,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         sedList: undefined
       }
-
-    case types.BUC_GET_SED_SUCCESS: {
-      const newp5000FromRina = _.cloneDeep(state.p5000FromRinaMap)
-      let payload = (action as ActionWithPayload).payload
-      payload?.pensjon?.medlemskapboarbeid?.medlemskap?.forEach((p: P5000Period, index: number) => {
-        payload.pensjon.medlemskapboarbeid.medlemskap[index] = {
-          ...p,
-          key: generateKey(p)
-        }
-      })
-      newp5000FromRina[(action as ActionWithPayload).context.id] = payload
-      return {
-        ...state,
-        p5000FromRinaMap: newp5000FromRina
-      }
-    }
 
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
 

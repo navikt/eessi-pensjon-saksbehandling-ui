@@ -1,9 +1,9 @@
-import { sendP5000toRina } from 'actions/buc'
+import { sendP5000toRina } from 'actions/p5000'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Alert from 'components/Alert/Alert'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
-import { Options, Option } from 'declarations/app.d'
+import { Option, Options } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
@@ -12,39 +12,41 @@ import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
+import { Select as NavSelect } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
+import EtikettBase from 'nav-frontend-etiketter'
 import NavHighContrast, {
   AlignEndRow,
   Column,
-  FlexEndDiv,
-  FlexStartDiv,
   FlexCenterDiv,
+  FlexEndDiv,
   FullWidthDiv,
   HiddenDiv,
   HighContrastHovedknapp,
   HighContrastInput,
+  HighContrastLink,
   HighContrastKnapp,
   HighContrastRadio,
   HighContrastRadioGroup,
   HorizontalSeparatorDiv,
   PileCenterDiv,
   PileDiv,
-  PileEndDiv,
   themeKeys,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import Table, { RenderEditableOptions, Sort } from 'tabell'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
+import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
-const CustomSelect = styled(Select)`
+const CustomSelect = styled(NavSelect)`
   select {
     color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
     background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
@@ -58,7 +60,7 @@ export interface DatePieces {
 }
 
 const mapState = (state: State): any => ({
-  sentP5000info: state.buc.sentP5000info,
+  sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info
 })
 
@@ -68,7 +70,7 @@ export interface P5000EditProps {
   seds: Seds
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: P5000SED | undefined
-  saveP5000ToStorage: ((newSed: P5000SED) => void) | undefined
+  saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
 
@@ -111,11 +113,11 @@ export const typeOptions: Options = [
 const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
   highContrast,
-  seds, // always array with 1 element
   p5000FromRinaMap,
   p5000FromStorage,
-  saveP5000ToStorage,
-  removeP5000FromStorage
+  seds, // always array with 1 element
+  removeP5000FromStorage,
+  saveP5000ToStorage
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -127,6 +129,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
+  const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode)
@@ -156,7 +159,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const dateTransform = (s: string): string => {
+  const dateTransform = (s: string | Date): string => {
+    if (_.isDate(s)) {
+      return moment(s).format('DD.MM.YYYY')
+    }
     const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
     if (r !== null) {
       const matchedDay = r[1]
@@ -234,7 +240,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           aar: dates.years,
           mnd: dates.months
         })
-      } else {
+      }
+      if (options.context.forsikringEllerBosetningsperioder === '0') {
         options.setValue({
           dag: 0,
           aar: 0,
@@ -273,7 +280,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         const otherDate: string = _.isDate(options.values.startdato) ? moment(options.values.startdato).format('DD.MM.YYYY') : options.values.startdato
         maybeDoSomePrefill(
           otherDate, e.target.value, options
-      )}}
+        )
+      }}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
         sluttdato: e.target.value
       })}
@@ -410,6 +418,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
+  const renderStatus = (item: any, value: any) => {
+    if (value === 'rina') {
+      return <EtikettBase mini type='info'>RINA</EtikettBase>
+    }
+    if (value === 'new') {
+      return <EtikettBase mini type='suksess'>Ny</EtikettBase>
+    }
+    if (value === 'edited') {
+      return <EtikettBase mini type='fokus'>Endret</EtikettBase>
+    }
+    return <div/>
+  }
+
   const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
       <HighContrastInput
@@ -442,12 +463,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const setForsikringEllerBosetningsperioder = (value: string) => {
-    //_resetValidation('P5000Edit-ytelse-select')
+    // _resetValidation('P5000Edit-ytelse-select')
     _setForsikringEllerBosetningsperioder(value)
     onSave({
       forsikringEllerBosetningsperioder: value
     })
   }
+
+  const testDate = (value: string | Date): boolean => (
+    _.isDate(value) ? true : !!value.match('^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$')
+  )
 
   const itemsPerPageChanged = (e: any): void => {
     _setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
@@ -497,7 +522,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (templateForP5000) {
       const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, templateForP5000)
       if (saveP5000ToStorage) {
-        saveP5000ToStorage(newP5000FromStorage)
+        saveP5000ToStorage(newP5000FromStorage, seds[0].id)
       }
       _setSavedP5000Info(true)
     }
@@ -515,12 +540,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return <div />
   }
 
-  const canSave = (_forsikringEllerBosetningsperioder === '1') ? _items.length > 0 : true
-  const canSend = canSave && !!_ytelseOption
+  const canSend = !!_ytelseOption
 
   return (
     <NavHighContrast highContrast={highContrast}>
       <VerticalSeparatorDiv />
+      {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)}/>}
       <PileCenterDiv>
         <PileDiv>
           <AlignEndRow>
@@ -583,80 +608,89 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </Column>
             <HorizontalSeparatorDiv />
             <Column>
-              <CustomSelect
-                bredde='l'
-                id='itemsPerPage'
-                label={t('ui:itemsPerPage')}
-                onChange={itemsPerPageChanged}
-                value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
-              >
-                <option value='10'>10</option>
-                <option value='15'>15</option>
-                <option value='20'>20</option>
-                <option value='30'>30</option>
-                <option value='50'>50</option>
-                <option value='all'>{t('ui:all')}</option>
-              </CustomSelect>
+              <FlexEndDiv style={{flexDirection: 'row-reverse'}}>
+                <CustomSelect
+                  id='itemsPerPage'
+                  bredde='s'
+                  label={t('ui:itemsPerPage')}
+                  onChange={itemsPerPageChanged}
+                  value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
+                >
+                  <option value='10'>10</option>
+                  <option value='15'>15</option>
+                  <option value='20'>20</option>
+                  <option value='30'>30</option>
+                  <option value='50'>50</option>
+                  <option value='all'>{t('ui:all')}</option>
+                </CustomSelect>
+              </FlexEndDiv>
             </Column>
             <Column>
-              <PileEndDiv>
-                <VerticalSeparatorDiv />
-                <FlexStartDiv>
-                  <HighContrastHovedknapp
-                    disabled={sendingP5000info || !canSend}
-                    spinner={sendingP5000info}
-                    onClick={handleOverforTilRina}
-                  >
-                    {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-                  </HighContrastHovedknapp>
-                  <HorizontalSeparatorDiv />
-                  <ReactToPrint
-                    documentTitle='P5000Sum'
-                    onAfterPrint={afterPrintOut}
-                    onBeforePrint={beforePrintOut}
-                    onBeforeGetContent={prepareContent}
-                    trigger={() =>
-                      <HighContrastKnapp
-                        disabled={_printDialogOpen}
-                        spinner={_printDialogOpen}
-                      >
-                        {t('ui:print')}
-                      </HighContrastKnapp>}
-                    content={() => componentRef.current}
-                  />
-                </FlexStartDiv>
-                <VerticalSeparatorDiv />
-              </PileEndDiv>
+              <FlexEndDiv>
+                <HighContrastHovedknapp
+                  disabled={sendingP5000info || !canSend}
+                  spinner={sendingP5000info}
+                  onClick={handleOverforTilRina}
+                >
+                  {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+                </HighContrastHovedknapp>
+                <HorizontalSeparatorDiv />
+                <ReactToPrint
+                  documentTitle='P5000Sum'
+                  onAfterPrint={afterPrintOut}
+                  onBeforePrint={beforePrintOut}
+                  onBeforeGetContent={prepareContent}
+                  trigger={() =>
+                    <HighContrastKnapp
+                      disabled={_printDialogOpen}
+                      spinner={_printDialogOpen}
+                    >
+                      {t('ui:print')}
+                    </HighContrastKnapp>}
+                  content={() => componentRef.current}
+                />
+              </FlexEndDiv>
             </Column>
           </AlignEndRow>
           <VerticalSeparatorDiv />
           <AlignEndRow>
-            <Column/>
+            <Column />
             <Column flex='2'>
               {sentP5000info === null
                 ? (
-                  <Alert status='WARNING' message={t('buc:warning-failedP5000Sending')} onClose={() => {}}/>
-                )
+                  <Alert status='WARNING' message={t('buc:warning-failedP5000Sending')} onClose={() => {}} />
+                  )
                 : (
-                  _savedP5000Info === true
-                    ? (
-                      <Alert status='OK' message={t('buc:p5000-saved-svarsed-draft', { caseId: caseId })} onClose={() => {}}/>
-                    )
-                    : (
-                      !_.isNil(sentP5000info)
-                        ? (
-                          <Alert status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} onClose={() => {}}/>
+                    _savedP5000Info === true
+                      ? (
+                        <Alert status='OK' message={t('buc:p5000-saved-svarsed-draft', { caseId: caseId })} onClose={() => {}} />
                         )
-                        : null
-                    )
-                )}
+                      : (
+                          !_.isNil(sentP5000info)
+                            ? (
+                              <Alert status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} onClose={() => {}} />
+                              )
+                            : null
+                        )
+                  )}
             </Column>
-            <Column/>
+            <Column>
+              {sourceStatus !== 'rina' && (
+                <>
+                  <span>
+                    {t('buc:p5000-saved-working-copy')}
+                  </span>
+                  <HighContrastLink style={{display: 'inline-block'}} href='#' onClick={() => _setShowHelpModal(true)}>
+                    {t('ui:hva-betyr-det')}
+                  </HighContrastLink>
+                </>
+              )}
+            </Column>
           </AlignEndRow>
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
-          <Table<P5000ListRow,P5000TableContext>
+          <Table<P5000ListRow, P5000TableContext>
             highContrast={highContrast}
             items={_items}
             context={{
@@ -686,9 +720,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             }]}
             columns={[
               {
-                id: 'status', label: t('ui:status'), type: 'string', edit: {
+                id: 'status',
+                label: t('ui:status'),
+                type: 'string',
+                renderCell: renderStatus,
+                edit: {
                   defaultValue: 'new',
-                  render: () => <div/>
+                  render: () => <div />
                 }
               },
               {
@@ -698,7 +736,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   render: renderTypeEdit,
                   validation: [{
-                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
+                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
                     test: '^.+$',
                     message: t('buc:validation-chooseType')
                   }]
@@ -713,8 +751,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 edit: {
                   render: renderStartDatoEdit,
                   validation: [{
-                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
-                    test: (value) => _.isDate(value),
+                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
+                    test: testDate,
                     message: t('buc:validation-badDate2')
                   }],
                   transform: dateTransform
@@ -729,7 +767,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   render: renderSluttDatoEdit,
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
-                    test: (value) => _.isDate(value),
+                    test: testDate,
                     message: t('buc:validation-badDate2')
                   }],
                   placeholder: t('buc:placeholder-date2'),
@@ -814,9 +852,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               }
             ]}
           />
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           {t('buc:p5000-source-status-' + sourceStatus)}
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           <HiddenDiv>
             <div ref={componentRef} id='printJS-form'>
               <Table

@@ -7,6 +7,7 @@ import {
   getSakType,
   setMode
 } from 'actions/buc'
+import { initP5000Storage } from 'actions/p5000'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
@@ -311,7 +312,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         setPositionC(Slide.C_GOING_TO_LEFT)
         setAnimating(true)
         setTimeout(() => {
-          console.log('Timeout end')
           setPositionA(Slide.SUPER_ALT_LEFT)
           setPositionB(Slide.SUPER_ALT_MIDDLE)
           setPositionC(Slide.SUPER_ALT_RIGHT)
@@ -326,6 +326,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (!_mounted) {
+      dispatch(initP5000Storage('P5000'))
       if (!rinaUrl) {
         dispatch(getRinaUrl())
       }

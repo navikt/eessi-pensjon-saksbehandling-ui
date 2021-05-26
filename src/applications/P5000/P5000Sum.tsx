@@ -28,7 +28,6 @@ export interface P5000SumProps {
   highContrast: boolean
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: P5000SED | undefined
-  saveP5000ToStorage: ((newSed: P5000SED) => void) | undefined
   seds: Seds
 }
 
@@ -37,7 +36,7 @@ const mapState = (state: State): any => ({
 })
 
 const P5000Sum: React.FC<P5000SumProps> = ({
-  context, highContrast, p5000FromRinaMap, p5000FromStorage, //saveP5000ToStorage,
+  context, highContrast, p5000FromRinaMap, p5000FromStorage,
   seds
 }: P5000SumProps) => {
   const { t } = useTranslation()
@@ -67,7 +66,11 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   }
 
   let columns = [
-    { id: 'type', label: t('ui:type'), type: 'string', edit: {
+    {
+      id: 'type',
+      label: t('ui:type'),
+      type: 'string',
+      edit: {
         render: renderTypeEdit,
         validation: [{
           mandatory: false,
@@ -84,8 +87,19 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     { id: 'sec52dag', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' }
   ]
 
+  const categories = [{
+    colSpan: 1,
+    label: ''
+  }, {
+    colSpan: 3,
+    label: t('buc:p5000-5-1-title')
+  }, {
+    colSpan: 3,
+    label: t('buc:p5000-5-2-title')
+  }]
+
   if (context === 'edit') {
-    columns = columns.concat({id: 'buttons', type: 'buttons', label: ''})
+    columns = columns.concat({ id: 'buttons', type: 'buttons', label: '' })
   }
   const beforePrintOut = (): void => {}
 
@@ -102,7 +116,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     <NavHighContrast highContrast={highContrast}>
       <PileCenterDiv>
         <Row>
-          <Column/>
+          <Column />
           <Column>
             <FlexEndSpacedDiv style={{ flexDirection: 'row-reverse' }}>
               <ReactToPrint
@@ -154,21 +168,12 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           itemsPerPage={_itemsPerPage}
           labels={{}}
           compact
-          categories={[{
-            colSpan: 1,
-            label: ''
-          }, {
-            colSpan: 3,
-            label: t('buc:p5000-5-1-title')
-          }, {
-            colSpan: 3,
-            label: t('buc:p5000-5-2-title')
-          }]}
+          categories={categories}
           columns={columns}
         />
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         {t('buc:p5000-source-status-' + sourceStatus)}
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         <HiddenDiv>
           <div ref={componentRef} id='printJS-form'>
             <Table<P5000SumRow>
@@ -185,16 +190,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
               itemsPerPage={9999}
               labels={{}}
               compact
-              categories={[{
-                colSpan: 1,
-                label: ''
-              }, {
-                colSpan: 3,
-                label: 'sdfdsfsdf'
-              }, {
-                colSpan: 3,
-                label: 'sdfdsfsdfdf2'
-              }]}
+              categories={categories}
               columns={columns}
             />
           </div>

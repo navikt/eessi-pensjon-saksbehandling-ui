@@ -3,6 +3,7 @@ import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
+import EtikettBase from 'nav-frontend-etiketter'
 import { Select } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
@@ -17,7 +18,7 @@ import NavHighContrast, {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
@@ -74,8 +75,21 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <Normaltekst>{item.dag + '/' + item.dagtype}</Normaltekst>
   )
 
-  let columns = [
-    { id: 'status', label: t('ui:status'), type: 'string' },
+  const renderStatus = (item: any, value: any) => {
+    if (value === 'rina') {
+      return <EtikettBase mini type='info'>RINA</EtikettBase>
+    }
+    if (value === 'new') {
+      return <EtikettBase mini type='suksess'>Ny</EtikettBase>
+    }
+    if (value === 'edited') {
+      return <EtikettBase mini type='fokus'>Endret</EtikettBase>
+    }
+    return <div/>
+  }
+
+  const columns = [
+    { id: 'status', label: t('ui:status'), type: 'string', renderCell: renderStatus },
     { id: 'land', label: t('ui:country'), type: 'string' },
     { id: 'acronym', label: t('ui:_institution'), type: 'string' },
     { id: 'type', label: t('ui:type'), type: 'string' },
@@ -95,11 +109,15 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
     { id: 'mnd', label: t('ui:month'), type: 'string' },
     { id: 'uker', label: t('ui:week'), type: 'string' },
-    { id: 'dag', label: t('ui:days') + '/' + t('ui:unit'), type: 'string',
-      renderCell: renderDagCell },
-    { id: 'relevantForYtelse', label: t('ui:relevantForPerformance'), type: 'string' },
+    {
+      id: 'dag',
+      label: t('ui:days') + '/' + t('ui:unit'),
+      type: 'string',
+      renderCell: renderDagCell
+    },
+    { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string' },
     { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-    { id: 'informasjonOmBeregning', label: t('ui:calculationInformation'), type: 'string' }
+    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' }
   ]
 
   if (context === 'overview') {
@@ -112,7 +130,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <PileCenterDiv>
         <Row>
           <Column>
-            <FlexEndDiv style={{flexDirection: 'row-reverse'}}>
+            <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
               <ReactToPrint
                 documentTitle='P5000'
                 onAfterPrint={afterPrintOut}
@@ -166,9 +184,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           compact
           columns={columns}
         />
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         {t('buc:p5000-source-status-' + sourceStatus)}
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         <HiddenDiv>
           <div ref={componentRef} id='printJS-form'>
             <Table<P5000ListRow>

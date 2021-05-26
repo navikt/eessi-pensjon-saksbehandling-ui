@@ -585,7 +585,7 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
-  it('BUC_GET_SED_SUCCESS', () => {
+  it('P5000_GET_SUCCESS', () => {
     expect(
       bucReducer({
         ...initialBucState,
@@ -593,7 +593,7 @@ describe('reducers/buc', () => {
           1: 'somePayload'
         }
       }, {
-        type: types.BUC_GET_SED_SUCCESS,
+        type: types.P5000_GET_SUCCESS,
         payload: 'mockPayload',
         context: {
           id: 2

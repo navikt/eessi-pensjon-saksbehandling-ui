@@ -18,15 +18,6 @@ Tabela: arranjar o sort e o estilo
 
 Lagre button:
 
-- remove lagre button, replace with : "your changes are saved. Learn more."
-
-- When you start editing a P5000 by clicking on [button] , you start with all periods found in RINA.
-When you add a new period or change an existing one, we create a "working copy" and save it in your computer immmediately.
-This ensures that you do not lose changes, and you can resume work after token expiration, or just in another day.
-You can see whixh P5000s have a working copy, when this panel appears:
-[]
-there you can either delete the working copy (start again from the beginning), or continue the work.
-When your changes are successgully sent to Rina, the working copy will be deleted.
 
 - usar ficheiro separado para fazer conversões p5000->tabela->P5000
 - usar melhor typescript para SedContent
