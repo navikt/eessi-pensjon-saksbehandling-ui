@@ -148,12 +148,15 @@ export type P5000ListRows = Array<P5000ListRow>
 export interface P5000SumRow extends Item {
   key: string
   type: string
+  land: string | null
   sec51aar: string
   sec51mnd: string
   sec51dag: string
   sec52aar: string
   sec52mnd: string
   sec52dag: string
+  startdato: string
+  sluttdato: string
 }
 
 export interface P5000UpdatePayload {

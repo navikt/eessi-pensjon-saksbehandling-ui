@@ -128,7 +128,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
-  const [_savedP5000Info, _setSavedP5000Info] = useState<boolean>(false)
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)
@@ -490,19 +489,15 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onRowsChanged = (items: P5000ListRows) => {
-    console.log('rows changed')
     onSave({
       items: items
     })
   }
 
   const handleOverforTilRina = () => {
-    _setSavedP5000Info(false)
-
     const valid: boolean = _performValidation({
       p5000sed: p5000FromStorage!
     })
-
     if (valid) {
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
         dispatch(sendP5000toRina(caseId, seds[0].id, p5000FromStorage))
@@ -521,10 +516,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
     if (templateForP5000) {
       const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, templateForP5000)
-      if (saveP5000ToStorage) {
-        saveP5000ToStorage(newP5000FromStorage, seds[0].id)
-      }
-      _setSavedP5000Info(true)
+      saveP5000ToStorage!(newP5000FromStorage, seds[0].id)
     }
   }
 
@@ -657,22 +649,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <Column />
             <Column flex='2'>
               {sentP5000info === null
-                ? (
-                  <Alert status='WARNING' message={t('buc:warning-failedP5000Sending')} onClose={() => {}} />
+                ? (<Alert status='WARNING' message={t('buc:warning-failedP5000Sending')} onClose={() => {}} />)
+                : (!_.isNil(sentP5000info)
+                   ? (<Alert status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} onClose={() => {}} />)
+                   : null
                   )
-                : (
-                    _savedP5000Info === true
-                      ? (
-                        <Alert status='OK' message={t('buc:p5000-saved-svarsed-draft', { caseId: caseId })} onClose={() => {}} />
-                        )
-                      : (
-                          !_.isNil(sentP5000info)
-                            ? (
-                              <Alert status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} onClose={() => {}} />
-                              )
-                            : null
-                        )
-                  )}
+              }
             </Column>
             <Column>
               {sourceStatus !== 'rina' && (
@@ -709,14 +691,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             labels={{}}
             compact
             categories={[{
-              colSpan: 3,
-              label: ''
+              colSpan: 4,
+              label: '',
+              border: false
             }, {
               colSpan: 3,
               label: t('buc:Periodesum')
             }, {
               colSpan: 4,
-              label: ''
+              label: '',
+              border: false
             }]}
             columns={[
               {

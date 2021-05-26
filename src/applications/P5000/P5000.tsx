@@ -1,5 +1,6 @@
 import { getSed, resetSentP5000info, syncToP5000Storage, unsyncFromP5000Storage } from 'actions/p5000'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import WarningCircle from 'assets/icons/WarningCircle'
 import Alert from 'components/Alert/Alert'
 import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
@@ -16,8 +17,6 @@ import { Normaltekst, UndertekstBold, Undertittel } from 'nav-frontend-typografi
 import {
   Column,
   FlexCenterDiv,
-  FlexDiv,
-  FlexEndSpacedDiv,
   HighContrastLink,
   HighContrastPanel,
   HorizontalSeparatorDiv,
@@ -211,26 +210,29 @@ const P5000: React.FC<P5000Props> = ({
         <Column>
           {context !== 'overview'
             ? sedSender && (
-              <FlexDiv>
-                <>
-                  <span>
-                    {t('buc:form-dateP5000', { date: sedSender?.date })}
-                  </span>
+              <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
+                <span>
+                  {t('buc:form-dateP5000', { date: sedSender?.date })}
+                </span>
+                <SeparatorSpan>-</SeparatorSpan>
+                <FlexCenterDiv>
+                  <Flag
+                    country={sedSender?.country}
+                    label={sedSender?.countryLabel}
+                    size='XS'
+                    type='circle'
+                  />
+                  <HorizontalSeparatorDiv size='0.2' />
+                  <span>{sedSender?.countryLabel}</span>
                   <SeparatorSpan>-</SeparatorSpan>
-                  <FlexCenterDiv>
-                    <Flag
-                      country={sedSender?.country}
-                      label={sedSender?.countryLabel}
-                      size='XS'
-                      type='circle'
-                    />
-                    <HorizontalSeparatorDiv size='0.2' />
-                    <span>{sedSender?.countryLabel}</span>
-                    <SeparatorSpan>-</SeparatorSpan>
-                    <span>{sedSender?.institution}</span>
-                  </FlexCenterDiv>
-                </>
-              </FlexDiv>
+                  <span>{sedSender?.institution}</span>
+                  <SeparatorSpan>-</SeparatorSpan>
+                  <SEDStatus
+                    highContrast={highContrast}
+                    status={sed!.status}
+                  />
+                </FlexCenterDiv>
+              </FlexCenterDiv>
               )
             : (
               <PileDiv>
@@ -241,7 +243,7 @@ const P5000: React.FC<P5000Props> = ({
                 {_seds?.map(sed => {
                   const sender: SedSender | undefined = getSedSender(sed)
                   const label: JSX.Element = (
-                    <FlexEndSpacedDiv style={{ flexWrap: 'wrap' }}>
+                    <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
                       <span>
                         {t('buc:form-dateP5000', { date: sender?.date })}
                       </span>
@@ -259,6 +261,11 @@ const P5000: React.FC<P5000Props> = ({
                             <span>{sender?.countryLabel}</span>
                             <SeparatorSpan>-</SeparatorSpan>
                             <span>{sender?.institution}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
+                            <SEDStatus
+                              highContrast={highContrast}
+                              status={sed.status}
+                            />
                           </FlexCenterDiv>
                           )
                         : sed.id}
@@ -268,7 +275,7 @@ const P5000: React.FC<P5000Props> = ({
                           <WarningCircle />
                         </>
                       )}
-                    </FlexEndSpacedDiv>
+                    </FlexCenterDiv>
                   )
                   return (
                     <div key={sed.id}>
@@ -363,6 +370,7 @@ const P5000: React.FC<P5000Props> = ({
               key={'P5000Sum' + _activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
               p5000FromRinaMap={p5000FromRinaMap}
               p5000FromStorage={p5000FromStorage}
+              saveP5000ToStorage={saveP5000ToStorage}
               seds={_activeSeds}
             />
           </HighContrastPanel>

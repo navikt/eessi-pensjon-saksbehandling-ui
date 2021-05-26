@@ -95,7 +95,7 @@
     "redux": "^4.1.0",
     "sprintf-js": "^1.1.2",
     "styled-components": "^5.3.0",
-    "tabell": "^1.4.5",
+    "tabell": "^1.4.7",
     "use-error-boundary": "^2.0.4"
   },
   "devDependencies": {

@@ -203,8 +203,8 @@
 
   "p5000-active-seds"             : "Synlige SED-er",
   "p5000-overview-title"          : "Oversikt registrerte perioder for P5000",
-  "p5000-summary-title"           : "Summering av perioder for P5000 (kapittel 5)",
-  "p5000-edit-title"              : "Registrere perioder for P5000 (kapittel 4)",
+  "p5000-summary-title"           : "Summering av perioder for P5000 - kapittel 5",
+  "p5000-edit-title"              : "P5000-perioder (kapittel 4) for involverte land",
   "p5000-5-1-title"               : "5.1 «Relevans for ytelse»",
   "p5000-5-2-title"               : "5.2 «Informasjon om beregning»",
   "p5000-4-2-title"               : "Forsikring/bosetningsperioder (4.2)",
@@ -213,7 +213,6 @@
   "p5000-ytelse"                  : "Gir rett til ytelse",
   "p5000-no-saved-entries"        : "",
   "p5000-saved-entries"           : "Under arbeid",
-  "p5000-saved-svarsed-draft"     : "Lagret P5000 til saksId {{caseId}}",
   "p5000-save"                    : "Lagre P5000",
   "p5000-to-see-p5000edit"        : "Dette er en oversiktsside for alle P5000-er. For å redigere en P5000, må du klikke 'rediger' på en P5000 SED-rad.",
   "p5000-rediger"                 : "Se/rediger periode(r)",

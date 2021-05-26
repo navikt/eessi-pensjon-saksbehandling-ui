@@ -1,16 +1,24 @@
+import { typePeriode } from 'applications/P5000/P5000.labels'
 import { typeOptions } from 'applications/P5000/P5000Edit'
 import Select from 'components/Select/Select'
+import { Labels } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
-import { P5000Context, P5000SED, P5000SumRow } from 'declarations/p5000'
+import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
+import Flag from 'flagg-ikoner'
+import CountryData, { Countries, Country, CountryList } from 'land-verktoy'
+import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
+import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
   Column,
+  FlexCenterDiv,
   FlexEndSpacedDiv,
   HiddenDiv,
   HighContrastKnapp,
+  HorizontalSeparatorDiv,
   PileCenterDiv,
   Row,
   VerticalSeparatorDiv
@@ -21,47 +29,98 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import Table, { RenderEditableOptions, Sort } from 'tabell'
-import { convertP5000SEDTotalsToP5000SumRows } from './conversion'
+import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from './conversion'
 
 export interface P5000SumProps {
   context: P5000Context
   highContrast: boolean
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: P5000SED | undefined
+  saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
   seds: Seds
 }
 
 const mapState = (state: State): any => ({
+  countryList: state.buc.countryList,
   sakType: state.app.params.sakType as SakTypeValue
 })
 
 const P5000Sum: React.FC<P5000SumProps> = ({
-  context, highContrast, p5000FromRinaMap, p5000FromStorage,
-  seds
+  context, highContrast, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds
 }: P5000SumProps) => {
   const { t } = useTranslation()
-  const { sakType } = useSelector<State, any>(mapState)
+  const { countryList, sakType } = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
-  const [items, sourceStatus] = convertP5000SEDTotalsToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+  const [items, sourceStatus] = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
-  const renderTypeEdit = (options: RenderEditableOptions) => {
+  const _countryData: CountryList = CountryData.getCountryInstance('nb')
+
+  const renderType = (item: any, value: any) => (
+    <Normaltekst>
+      {(typePeriode as Labels)[value] + ' [' + value + ']'}
+    </Normaltekst>
+  )
+
+  const renderTypeEdit = (options: RenderEditableOptions) => (
+    <div style={{minWidth: '200px'}}>
+    <Select
+      key={'c-table__edit-type-select-key-' + options.value}
+      id='c-table__edit-type-select-id'
+      className='P5000Edit-type-select'
+      highContrast={highContrast}
+      feil={options.feil}
+      options={typeOptions}
+      menuPortalTarget={document.body}
+      onChange={(e) => options.setValue({ type: e!.value })}
+      defaultValue={_.find(typeOptions, o => o.value === options.value)}
+      selectedValue={_.find(typeOptions, o => o.value === options.value)}
+    />
+    </div>
+  )
+
+  const renderLand = (item: any, value: any): JSX.Element => {
+    const country: Country | undefined = value ? _countryData.findByValue(value) : undefined
+    if (!country) {
+      return <div>-</div>
+    }
     return (
-      <Select
-        key={'c-table__edit-type-select-key-' + options.value}
-        id='c-table__edit-type-select-id'
-        className='P5000Edit-type-select'
+      <FlexCenterDiv>
+        <Flag
+          label={country?.label}
+          country={value}
+          size='S'
+          type='circle'
+        />
+        <HorizontalSeparatorDiv size='0.35'/>
+        <span>
+          {country?.label}
+        </span>
+      </FlexCenterDiv>
+    )
+  }
+
+  const renderLandEdit =  (options: RenderEditableOptions) => {
+    const _countryValueList: Countries = options.value ? _countryData.filterByValueOnArray([options.value]) : []
+    return (
+      <div style={{minWidth: '150px'}}>
+      <CountrySelect
+        ariaLabel={t('ui:country')}
+        closeMenuOnSelect={true}
+        flagType='circle'
+        flagWave
+        hideSelectedOptions={false}
         highContrast={highContrast}
-        feil={options.feil}
-        options={typeOptions}
+        includeList={countryList}
+        values={_countryValueList}
         menuPortalTarget={document.body}
-        onChange={(e) => options.setValue({ type: e!.value })}
-        defaultValue={_.find(typeOptions, o => o.value === options.value)}
-        selectedValue={_.find(typeOptions, o => o.value === options.value)}
+        label={''}
+        onOptionSelected={(o: Country) => options.setValue( {land: o!.alpha2 })}
       />
+      </div>
     )
   }
 
@@ -70,6 +129,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
       id: 'type',
       label: t('ui:type'),
       type: 'string',
+      renderCell: renderType,
       edit: {
         render: renderTypeEdit,
         validation: [{
@@ -79,6 +139,9 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         }]
       }
     },
+    { id: 'land', label: t('ui:country'), type: 'object', renderCell: renderLand, edit: {
+        render: renderLandEdit
+      } },
     { id: 'sec51aar', label: t('ui:year'), type: 'string' },
     { id: 'sec51mnd', label: t('ui:month'), type: 'string' },
     { id: 'sec51dag', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
@@ -88,8 +151,9 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   ]
 
   const categories = [{
-    colSpan: 1,
-    label: ''
+    colSpan: 2,
+    label: '',
+    border: false
   }, {
     colSpan: 3,
     label: t('buc:p5000-5-1-title')
@@ -110,6 +174,18 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const afterPrintOut = (): void => {
     _setPrintDialogOpen(false)
+  }
+
+
+  const onRowsChanged = (items: P5000SumRows) => {
+    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
+    if (_.isNil(templateForP5000)) {
+      templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
+    }
+    if (templateForP5000) {
+      const newP5000FromStorage: P5000SED = convertFromP5000SumRowsIntoP5000SED(items, templateForP5000)
+      saveP5000ToStorage!(newP5000FromStorage, seds[0].id)
+    }
   }
 
   return (
@@ -165,6 +241,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             standardLogger('buc.edit.tools.P5000.summary.sort', { sort: sort })
             _setTableSort(sort)
           }}
+          onRowsChanged={onRowsChanged}
           itemsPerPage={_itemsPerPage}
           labels={{}}
           compact

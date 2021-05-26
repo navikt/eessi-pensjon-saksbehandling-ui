@@ -4,6 +4,7 @@ import {
   P5000ListRows,
   P5000Period, P5000PeriodStatus,
   P5000SED, P5000SourceStatus,
+  P5000SumRow,
   P5000SumRows, P5000UpdatePayload,
   SedSender
 } from 'declarations/p5000'
@@ -11,9 +12,7 @@ import { P5000FromRinaMap, Participant, Sed, Seds } from 'declarations/buc'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-import { type } from 'applications/P5000/P5000.labels'
-import { Labels } from 'declarations/app'
-//import md5 from 'md5'
+import md5 from 'md5'
 
 export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   if (sed === undefined) {
@@ -33,12 +32,12 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
 }
 
 export const generateKey = (m: P5000Period): string => (
-
+  md5(
     'type' + (m.type ?? '') + 'fom' + (m.periode?.fom ?? '') + 'tom' + (m.periode?.tom ?? '') +
     'aar' + (m.sum?.aar ?? '') + 'mnd' + (m.sum?.maaneder ?? '') +
     'dag' + (m.sum?.dager?.nr ?? '') +
     'yt' + (m.relevans ?? '') + 'ord' + (m.ordning ?? '') + 'ber' + (m.beregning ?? '')
-
+  )
 )
 
 // Converts P5000 SED from Rina/storage into table rows for view/list
@@ -105,7 +104,7 @@ export const convertP5000SEDToP5000ListRows = (
 }
 
 // Converts P5000 SED from Rina/storage, using the total fields, into table rows for sum
-export const convertP5000SEDTotalsToP5000SumRows = (
+export const convertP5000SEDToP5000SumRows = (
   seds: Seds,
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
@@ -131,7 +130,8 @@ export const convertP5000SEDTotalsToP5000SumRows = (
         if (_.isNil(data[m.type])) {
           data[m.type] = {
             key: 'type-' + m.type,
-            type: (type as Labels)[m.type] + ' [' + m.type + ']',
+            type: m.type,
+            land: '',
             sec51aar: 0,
             sec51mnd: 0,
             sec51dag: 0,
@@ -140,6 +140,7 @@ export const convertP5000SEDTotalsToP5000SumRows = (
             sec52dag: 0
           }
         }
+        data[m.type].land = m.land ?? ''
         data[m.type].sec51aar += (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
         data[m.type].sec51mnd += (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
         data[m.type].sec51dag += (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
@@ -163,7 +164,8 @@ export const convertP5000SEDTotalsToP5000SumRows = (
         if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
           data[m.type] = {
             key: 'type-' + m.type,
-            type: (type as Labels)[m.type] + ' [' + m.type + ']',
+            type: m.type,
+            land: '',
             sec51aar: 0,
             sec51mnd: 0,
             sec51dag: 0,
@@ -172,6 +174,7 @@ export const convertP5000SEDTotalsToP5000SumRows = (
             sec52dag: 0
           }
         }
+        data[m.type].land = m.land ?? ''
         data[m.type].sec52aar += (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
         data[m.type].sec52mnd += (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
         data[m.type].sec52dag += (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
@@ -197,85 +200,7 @@ export const convertP5000SEDTotalsToP5000SumRows = (
   return [res, sourceStatus]
 }
 
-// Converts P5000 SED from Rina/storage, using the periods (not total fields), into table rows for sum
-export const convertP5000SEDPeriodsToP5000SumRows = (
-  seds: Seds,
-  context: P5000Context,
-  p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: P5000SED | undefined
-): [P5000SumRows, P5000SourceStatus] => {
-  const res: P5000SumRows = []
-  const data: any = {}
-  let sourceStatus: P5000SourceStatus
-  if (context === 'overview' || (context === 'edit' && p5000FromStorage === undefined)) {
-    sourceStatus = 'rina'
-  } else {
-    sourceStatus = 'storage'
-  }
-
-  seds.forEach(sed => {
-    const rinaPeriods: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapboarbeid?.medlemskap
-    const storagePeriods: Array<P5000Period> | undefined = p5000FromStorage?.pensjon?.medlemskapboarbeid?.medlemskap
-    const periods: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods : storagePeriods
-    periods?.forEach((m: P5000Period) => {
-      if (!_.isNil(m) && m.type) {
-        if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
-          data[m.type] = {
-            key: 'type-' + m.type,
-            type: (type as Labels)[m.type] + ' [' + m.type + ']',
-            sec51aar: 0,
-            sec51mnd: 0,
-            sec51dag: 0,
-            sec52aar: 0,
-            sec52mnd: 0,
-            sec52dag: 0
-          }
-        }
-        if (m.type !== '45') {
-          data[m.type].sec51aar += (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-          data[m.type].sec51mnd += (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-          data[m.type].sec51dag += (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
-
-          if (data[m.type].sec51dag >= 30) {
-            const extraMonths = Math.floor(data[m.type].sec51dag / 30)
-            const remainingDays = (data[m.type].sec51dag) % 30
-            data[m.type].sec51dag = remainingDays
-            data[m.type].sec51mnd += extraMonths
-          }
-          if (data[m.type].sec51mnd >= 12) {
-            const extraYears = Math.floor(data[m.type].sec51mnd / 12)
-            const remainingMonths = (data[m.type].sec51mnd) % 12
-            data[m.type].sec51mnd = remainingMonths
-            data[m.type].sec51aar += extraYears
-          }
-        }
-
-        data[m.type].sec52aar += (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-        data[m.type].sec52mnd += (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-        data[m.type].sec52dag += (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
-
-        if (data[m.type].sec52dag >= 30) {
-          const extraMonths = Math.floor(data[m.type].sec52dag / 30)
-          const remainingDays = (data[m.type].sec52dag) % 30
-          data[m.type].sec52dag = remainingDays
-          data[m.type].sec52mnd += extraMonths
-        }
-        if (data[m.type].sec52mnd >= 12) {
-          const extraYears = Math.floor(data[m.type].sec52mnd / 12)
-          const remainingMonths = (data[m.type].sec52mnd) % 12
-          data[m.type].sec52mnd = remainingMonths
-          data[m.type].sec52aar += extraYears
-        }
-      }
-    })
-  })
-  Object.keys(data).sort(
-    (a, b) => (parseInt(a, 10) - parseInt(b, 10))
-  ).forEach((type: string) => res.push(data[type]))
-  return [res, sourceStatus]
-}
-
-export const itemToPeriod = (item: P5000ListRow): P5000Period => {
+export const listItemtoPeriod = (item: P5000ListRow): P5000Period => {
   const period: P5000Period = {
     key: item?.key,
     relevans: item.ytelse, /// ???
@@ -305,6 +230,64 @@ export const itemToPeriod = (item: P5000ListRow): P5000Period => {
     period.key = generateKey(period)
   }
   return period
+}
+
+export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] => {
+  const medlemskapTotalperiod: P5000Period = {
+    key: item?.key,
+    relevans: null,
+    ordning: null,
+    land: item.land || 'NO',
+    sum: {
+      kvartal: null,
+      aar: String(item.sec51aar).padStart(2, '0'),
+      uker: null,
+      dager: {
+        nr: '' + String(item.sec51dag).padStart(2, '0'),
+        type: '7'
+      },
+      maaneder: '' + String(item.sec51mnd).padStart(2, '0')
+    },
+    yrke: null,
+    gyldigperiode: null,
+    type: item.type,
+    beregning: null,
+    periode: {
+      fom: _.isDate(item.startdato) ? moment(item.startdato).format('YYYY-MM-DD') : moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      tom: _.isDate(item.sluttdato) ? moment(item.sluttdato).format('YYYY-MM-DD') : moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      extra: null
+    }
+  }
+  medlemskapTotalperiod.key = generateKey(medlemskapTotalperiod)
+
+  const medlemskapTrygdetid: P5000Period = {
+    key: item?.key,
+    relevans: null,
+    ordning: null,
+    land: item.land || 'NO',
+    sum: {
+      kvartal: null,
+      aar: String(item.sec52aar).padStart(2, '0'),
+      uker: null,
+      dager: {
+        nr: '' + String(item.sec52dag).padStart(2, '0'),
+        type: '7'
+      },
+      maaneder: '' + String(item.sec52mnd).padStart(2, '0')
+    },
+    yrke: null,
+    gyldigperiode: null,
+    type: item.type,
+    beregning: null,
+    periode: {
+      fom: _.isDate(item.startdato) ? moment(item.startdato).format('YYYY-MM-DD') : moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      tom: _.isDate(item.sluttdato) ? moment(item.sluttdato).format('YYYY-MM-DD') : moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      extra: null
+    }
+  }
+  medlemskapTrygdetid.key = generateKey(medlemskapTrygdetid)
+
+  return [medlemskapTotalperiod, medlemskapTrygdetid]
 }
 
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow) => {
@@ -371,7 +354,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     const gyldigperiode: Array<P5000Period> = []
 
     payload.items!.forEach((item) => {
-      const periode: P5000Period = itemToPeriod(item)
+      const periode: P5000Period = listItemtoPeriod(item)
       medlemskapPeriods.push(periode)
 
       if (!_.isNil(item.type)) {
@@ -379,14 +362,14 @@ export const convertFromP5000ListRowsIntoP5000SED = (
         const foundInGyldigperiodeIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
 
         if (foundInMedemskapTotalIndex === -1) {
-          medemskapTotalPeriods.push(itemToPeriod(item))
+          medemskapTotalPeriods.push(listItemtoPeriod(item))
         } else {
           mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item)
         }
 
         if (item.type !== '45') {
           if (foundInGyldigperiodeIndex === -1) {
-            gyldigperiode.push(itemToPeriod(item))
+            gyldigperiode.push(listItemtoPeriod(item))
           } else {
             mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item)
           }
@@ -408,5 +391,36 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     newP5000Sed.pensjon.medlemskapboarbeid.gyldigperiode = payload.forsikringEllerBosetningsperioder
   }
 
+  return newP5000Sed
+}
+
+export const convertFromP5000SumRowsIntoP5000SED = (
+  items: P5000SumRows,
+  oldP5000Sed: P5000SED
+): P5000SED => {
+  const newP5000Sed = _.cloneDeep(oldP5000Sed)
+  if (_.isNil(newP5000Sed.pensjon)) {
+    // @ts-ignore
+    newP5000Sed.pensjon = {}
+  }
+  if (_.isNil(newP5000Sed.pensjon.medlemskapTotal)) {
+    // @ts-ignore
+    newP5000Sed.pensjon.medlemskapTotal = {}
+  }
+  if (_.isNil(newP5000Sed.pensjon.trygdetid)) {
+    // @ts-ignore
+    newP5000Sed.pensjon.trygdetid = {}
+  }
+
+  const medemskapTotalPerioder: Array<P5000Period> = []
+  const trygdetidPerioder: Array<P5000Period> = []
+
+  items?.forEach((item) => {
+    const [medemskapTotalPeriode, trygdetidPeriode] = sumItemtoPeriod(item)
+    medemskapTotalPerioder.push(medemskapTotalPeriode)
+    trygdetidPerioder.push(trygdetidPeriode)
+  })
+  newP5000Sed.pensjon.medlemskapTotal = medemskapTotalPerioder
+  newP5000Sed.pensjon.trygdetid = trygdetidPerioder
   return newP5000Sed
 }

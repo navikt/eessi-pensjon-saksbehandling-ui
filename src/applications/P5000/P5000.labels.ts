@@ -6,7 +6,7 @@ export const dagerEnhet = {
   7: 'D/7 dager (7 dager i uken)'
 } as Labels
 
-export const type = {
+export const typePeriode = {
   10: 'Pliktige avgiftsperioder',
   11: 'Pliktige avgiftsperioder - ansatt',
   12: 'Pliktige avgiftsperioder - selvstendig næringsdrivende',
