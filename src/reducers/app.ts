@@ -153,8 +153,12 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
     case types.BUC_GET_SAKTYPE_SUCCESS:
 
       newParams = _.cloneDeep(state.params)
-      if (!_.isNil(action.payload.sakType) && action.payload.sakType.length > 0) {
-        newParams.sakType = SakTypeMap[action.payload.sakType as SakTypeKey]
+      if (!_.isNil(action.payload.sakType)) {
+        if (action.payload.sakType.length === 0) {
+          newParams.sakType = SakTypeMap.Ukjent
+        } else {
+          newParams.sakType = SakTypeMap[action.payload.sakType as SakTypeKey]
+        }
       }
 
       return {
@@ -164,12 +168,12 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
 
     case types.BUC_GET_SAKTYPE_FAILURE:
 
-      newParams = _.cloneDeep(state.params)
-      newParams.sakType = ''
-
       return {
         ...state,
-        params: newParams
+        params: {
+          ...state.params,
+          sakType: null
+        }
       }
 
     default:

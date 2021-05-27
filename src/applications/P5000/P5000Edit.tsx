@@ -1,6 +1,5 @@
-import { sendP5000toRina } from 'actions/p5000'
+import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
 import HelpIcon from 'assets/icons/HelpIcon'
-import Alert from 'components/Alert/Alert'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import { Option, Options } from 'declarations/app.d'
@@ -12,9 +11,9 @@ import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment, { Moment } from 'moment'
+import EtikettBase from 'nav-frontend-etiketter'
 import { Select as NavSelect } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import EtikettBase from 'nav-frontend-etiketter'
 import NavHighContrast, {
   AlignEndRow,
   Column,
@@ -24,8 +23,8 @@ import NavHighContrast, {
   HiddenDiv,
   HighContrastHovedknapp,
   HighContrastInput,
-  HighContrastLink,
   HighContrastKnapp,
+  HighContrastLink,
   HighContrastRadio,
   HighContrastRadioGroup,
   HorizontalSeparatorDiv,
@@ -44,18 +43,15 @@ import styled from 'styled-components'
 import Table, { RenderEditableOptions, Sort } from 'tabell'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import P5000HelpModal from './P5000HelpModal'
+import P5000SendModal from './P5000SendModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
 const CustomSelect = styled(NavSelect)`
   select {
     color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
     background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
-  }t
+  }
 `
-const MyAlert = styled(Alert)`
-  position: relative !important;
-`
-
 export interface DatePieces {
   years: number
   months: number
@@ -132,6 +128,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
+  const [_showSendModal, _setShowSendModal] = useState<boolean>(() => false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode)
@@ -527,6 +524,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
       if (removeP5000FromStorage) {
         removeP5000FromStorage(seds[0].id)
+        _setShowSendModal(true)
       }
     }
   }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
@@ -537,10 +535,15 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const canSend = !!_ytelseOption
 
+  console.log(_showSendModal)
   return (
     <NavHighContrast highContrast={highContrast}>
       <VerticalSeparatorDiv />
       {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)}/>}
+      {_showSendModal && <P5000SendModal highContrast={highContrast} caseId={caseId} sentP5000info={sentP5000info} onClose={() => {
+        dispatch(resetSentP5000info())
+        _setShowSendModal(false)
+      }}/>}
       <PileCenterDiv>
         <PileDiv>
           <AlignEndRow>
@@ -650,10 +653,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <VerticalSeparatorDiv />
           <AlignEndRow>
             <Column />
-            <Column flex='2'>
-              {sentP5000info === null && (<MyAlert type='client' status='WARNING' message={t('buc:warning-failedP5000Sending')} />)}
-              {!_.isNil(sentP5000info) && (<MyAlert type='client' status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} />)}
-            </Column>
+            <Column flex='2'/>
             <Column>
               {sourceStatus !== 'rina' && (
                 <>
