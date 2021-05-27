@@ -52,6 +52,9 @@ const CustomSelect = styled(NavSelect)`
     background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   }t
 `
+const MyAlert = styled(Alert)`
+  position: relative !important;
+`
 
 export interface DatePieces {
   years: number
@@ -648,13 +651,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <AlignEndRow>
             <Column />
             <Column flex='2'>
-              {sentP5000info === null
-                ? (<Alert status='WARNING' message={t('buc:warning-failedP5000Sending')} onClose={() => {}} />)
-                : (!_.isNil(sentP5000info)
-                   ? (<Alert status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} onClose={() => {}} />)
-                   : null
-                  )
-              }
+              {sentP5000info === null && (<MyAlert type='client' status='WARNING' message={t('buc:warning-failedP5000Sending')} />)}
+              {!_.isNil(sentP5000info) && (<MyAlert type='client' status='OK' message={t('buc:warning-okP5000Sending', { caseId: caseId })} />)}
             </Column>
             <Column>
               {sourceStatus !== 'rina' && (

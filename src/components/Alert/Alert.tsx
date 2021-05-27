@@ -52,6 +52,7 @@ export interface AlertProps {
   message?: JSX.Element | string
   onClose?: () => void
   status?: AlertStatus
+  style ?: any
   type?: AlertType
 }
 
@@ -62,7 +63,7 @@ export const errorTypes: AlertStatusClasses = {
 }
 
 export const Alert: React.FC<AlertProps> = ({
-  className, error, fixed, message, onClose, status = 'ERROR', type
+  className, error, fixed, message, onClose, status = 'ERROR', style = {}, type
 }: AlertProps): JSX.Element | null => {
   let _message: JSX.Element | string | undefined = message
 
@@ -116,6 +117,7 @@ export const Alert: React.FC<AlertProps> = ({
         className,
         { fixed: _fixed }
       )}
+      style={style}
       role='alert'
       type={errorTypes[status]}
     >
