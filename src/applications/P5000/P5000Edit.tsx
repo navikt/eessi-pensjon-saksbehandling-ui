@@ -128,7 +128,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
-  const [_showSendModal, _setShowSendModal] = useState<boolean>(() => false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode)
@@ -524,7 +523,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
       if (removeP5000FromStorage) {
         removeP5000FromStorage(seds[0].id)
-        _setShowSendModal(true)
       }
     }
   }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
@@ -535,15 +533,18 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const canSend = !!_ytelseOption
 
-  console.log(_showSendModal)
   return (
     <NavHighContrast highContrast={highContrast}>
       <VerticalSeparatorDiv />
       {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)}/>}
-      {_showSendModal && <P5000SendModal highContrast={highContrast} caseId={caseId} sentP5000info={sentP5000info} onClose={() => {
-        dispatch(resetSentP5000info())
-        _setShowSendModal(false)
-      }}/>}
+      {!_.isNil(sentP5000info) && (
+        <P5000SendModal
+          highContrast={highContrast}
+          caseId={caseId}
+          sentP5000info={sentP5000info}
+          onClose={() => dispatch(resetSentP5000info())}
+        />
+      )}
       <PileCenterDiv>
         <PileDiv>
           <AlignEndRow>

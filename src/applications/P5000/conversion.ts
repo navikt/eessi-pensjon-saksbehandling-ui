@@ -200,6 +200,16 @@ export const convertP5000SEDToP5000SumRows = (
   return [res, sourceStatus]
 }
 
+export const convertDate = (date: string | Date | null | undefined): string | null => {
+  if (_.isNil(date)) {
+    return null
+  }
+  if (_.isDate(date)) {
+    return moment(date).format('YYYY-MM-DD')
+  }
+  return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD')
+}
+
 export const listItemtoPeriod = (item: P5000ListRow): P5000Period => {
   const period: P5000Period = {
     key: item?.key,
@@ -221,8 +231,8 @@ export const listItemtoPeriod = (item: P5000ListRow): P5000Period => {
     type: item.type,
     beregning: item.beregning,
     periode: {
-      fom: _.isDate(item.startdato) ? moment(item.startdato).format('YYYY-MM-DD') : moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-      tom: _.isDate(item.sluttdato) ? moment(item.sluttdato).format('YYYY-MM-DD') : moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      fom: convertDate(item.startdato),
+      tom: convertDate(item.sluttdato),
       extra: null
     }
   }
@@ -253,8 +263,8 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     type: item.type,
     beregning: null,
     periode: {
-      fom: _.isDate(item.startdato) ? moment(item.startdato).format('YYYY-MM-DD') : moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-      tom: _.isDate(item.sluttdato) ? moment(item.sluttdato).format('YYYY-MM-DD') : moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      fom: convertDate(item.startdato),
+      tom: convertDate(item.sluttdato),
       extra: null
     }
   }
@@ -280,8 +290,8 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     type: item.type,
     beregning: null,
     periode: {
-      fom: _.isDate(item.startdato) ? moment(item.startdato).format('YYYY-MM-DD') : moment(item.startdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
-      tom: _.isDate(item.sluttdato) ? moment(item.sluttdato).format('YYYY-MM-DD') : moment(item.sluttdato, 'DD.MM.YYYY').format('YYYY-MM-DD'),
+      fom: convertDate(item.startdato),
+      tom: convertDate(item.sluttdato),
       extra: null
     }
   }

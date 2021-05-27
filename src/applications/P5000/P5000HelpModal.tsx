@@ -20,8 +20,7 @@ const P5000HelpModal = ({
               When you edit a P5000 by clicking on
               <HighContrastFlatknapp
                 mini
-                onClick={() => {
-                }}
+                onClick={() => {}}
               >
                 {t('buc:p5000-registrert')}
                 <HorizontalSeparatorDiv size='0.3'/>

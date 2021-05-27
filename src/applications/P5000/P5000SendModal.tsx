@@ -8,7 +8,6 @@ import styled from 'styled-components'
 const MyAlert = styled(Alert)`
   position: relative !important;
 `
-
 const P5000SendModal = ({
   caseId, highContrast, onClose, sentP5000info
 }: any) => {
@@ -24,7 +23,9 @@ const P5000SendModal = ({
             {sentP5000info === null &&
             <MyAlert type='client' status='WARNING' message={t('buc:warning-failedP5000Sending')}/>}
             {!_.isNil(sentP5000info) && (
-              <MyAlert type='client' status='OK' message={t('buc:warning-okP5000Sending', {caseId: caseId})}/>)}
+              <MyAlert type='client' status='OK' message={t('buc:warning-okP5000Sending', {caseId: caseId})}/>
+              )}
+            <VerticalSeparatorDiv/>
           </div>
         ),
         modalButtons: [{
@@ -33,7 +34,6 @@ const P5000SendModal = ({
           onClick: onClose
         }]
       }}
-      onModalClose={onClose}
     />
   )
 }

@@ -12,7 +12,7 @@ export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
   caseId: string, sed: Sed
 ): ThunkResult<ActionWithPayload<P5000SED>> => {
   return call({
-    url: sprintf(urls.P5000_GET_URL, { caseId: caseId, documentId: sed.id }),
+    url: sprintf(urls.P5000_GET_URL, { caseId: caseId, sedId: sed.id }),
     cascadeFailureError: true,
     context: sed,
     expectedPayload: mockSed(sed, 'small'),
@@ -55,15 +55,19 @@ export const resetSentP5000info : ActionCreator<Action> = (): Action => ({
 })
 
 export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
-  caseId: string, documentId: string, payload: any
+  caseId: string, sedId: string, payload: any
 ): ThunkResult<Action> => {
   return call({
-    url: sprintf(urls.P5000_PUT_URL, { caseId: caseId, documentId: documentId }),
+    url: sprintf(urls.P5000_PUT_URL, { caseId: caseId, sedId : sedId }),
     method: 'PUT',
     body: payload,
     cascadeFailureError: true,
     expectedPayload: { success: true },
-    context: {},
+    context: {
+      caseId: caseId,
+      sedId: sedId,
+      payload: payload
+    },
     type: {
       request: types.P5000_SEND_REQUEST,
       success: types.P5000_SEND_SUCCESS,
