@@ -85,7 +85,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     if (value === 'edited') {
       return <EtikettBase mini type='fokus'>Endret</EtikettBase>
     }
-    return <div/>
+    return <div />
   }
 
   const columns = [

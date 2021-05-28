@@ -41,8 +41,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
         sentP5000info: undefined
       }
 
-    case types.P5000_SEND_SUCCESS:
-
+    case types.P5000_SEND_SUCCESS: {
       const sedId = (action as ActionWithPayload).context.sedId
       const p5000saved = (action as ActionWithPayload).context.payload
       const newP5000FromRinaMap = _.cloneDeep(state.p5000FromRinaMap)
@@ -55,6 +54,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
         newP5000FromRinaMap: newP5000FromRinaMap,
         sentP5000info: (action as ActionWithPayload).payload
       }
+    }
 
     case types.P5000_SEND_FAILURE:
       return {

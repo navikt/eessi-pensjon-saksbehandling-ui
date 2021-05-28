@@ -58,7 +58,7 @@ export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
   caseId: string, sedId: string, payload: any
 ): ThunkResult<Action> => {
   return call({
-    url: sprintf(urls.P5000_PUT_URL, { caseId: caseId, sedId : sedId }),
+    url: sprintf(urls.P5000_PUT_URL, { caseId: caseId, sedId: sedId }),
     method: 'PUT',
     body: payload,
     cascadeFailureError: true,

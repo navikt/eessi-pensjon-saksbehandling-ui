@@ -431,7 +431,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (value === 'edited') {
       return <EtikettBase mini type='fokus'>Endret</EtikettBase>
     }
-    return <div/>
+    return <div />
   }
 
   const renderBeregningEdit = (options: RenderEditableOptions) => {
@@ -545,7 +545,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   return (
     <NavHighContrast highContrast={highContrast}>
       <VerticalSeparatorDiv />
-      {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)}/>}
+      {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)} />}
       <PileCenterDiv>
         <PileDiv>
           <AlignEndRow>
@@ -608,7 +608,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </Column>
             <HorizontalSeparatorDiv />
             <Column>
-              <FlexEndDiv style={{flexDirection: 'row-reverse'}}>
+              <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
                 <CustomSelect
                   id='itemsPerPage'
                   bredde='s'
@@ -657,28 +657,34 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <Column />
             <Column flex='2'>
               {sentP5000info === null && (
-                <MyAlert type='client' status='WARNING' message={(
-                  <FlexDiv>
-                  <Normaltekst>
-                    {t('buc:warning-failedP5000Sending')}
-                  </Normaltekst>
-                  <HighContrastHovedknapp
-                  onClick={resetP5000}>OK</HighContrastHovedknapp>
-                  </FlexDiv>
+                <MyAlert
+                  type='client' status='WARNING' message={(
+                    <FlexDiv>
+                      <Normaltekst>
+                        {t('buc:warning-failedP5000Sending')}
+                      </Normaltekst>
+                      <HighContrastHovedknapp
+                        onClick={resetP5000}
+                      >OK
+                      </HighContrastHovedknapp>
+                    </FlexDiv>
                 )}
                 />
               )}
               {!_.isNil(sentP5000info) && (
-                <MyAlert type='client' status='OK' message={(
-                  <FlexDiv>
-                    <Normaltekst>
-                      {t('buc:warning-okP5000Sending', {caseId: caseId})}
-                    </Normaltekst>
-                    <HighContrastHovedknapp
-                      onClick={resetP5000}>OK</HighContrastHovedknapp>
-                  </FlexDiv>
+                <MyAlert
+                  type='client' status='OK' message={(
+                    <FlexDiv>
+                      <Normaltekst>
+                        {t('buc:warning-okP5000Sending', { caseId: caseId })}
+                      </Normaltekst>
+                      <HighContrastHovedknapp
+                        onClick={resetP5000}
+                      >OK
+                      </HighContrastHovedknapp>
+                    </FlexDiv>
                 )}
-               />
+                />
               )}
             </Column>
             <Column>
@@ -687,7 +693,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   <span>
                     {t('buc:p5000-saved-working-copy')}
                   </span>
-                  <HighContrastLink style={{display: 'inline-block'}} href='#' onClick={() => _setShowHelpModal(true)}>
+                  <HighContrastLink style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
                     {t('ui:hva-betyr-det')}
                   </HighContrastLink>
                 </>

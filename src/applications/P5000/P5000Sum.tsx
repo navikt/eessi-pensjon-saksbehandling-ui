@@ -66,19 +66,19 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   )
 
   const renderTypeEdit = (options: RenderEditableOptions) => (
-    <div style={{minWidth: '200px'}}>
-    <Select
-      key={'c-table__edit-type-select-key-' + options.value}
-      id='c-table__edit-type-select-id'
-      className='P5000Edit-type-select'
-      highContrast={highContrast}
-      feil={options.feil}
-      options={typeOptions}
-      menuPortalTarget={document.body}
-      onChange={(e) => options.setValue({ type: e!.value })}
-      defaultValue={_.find(typeOptions, o => o.value === options.value)}
-      selectedValue={_.find(typeOptions, o => o.value === options.value)}
-    />
+    <div style={{ minWidth: '200px' }}>
+      <Select
+        key={'c-table__edit-type-select-key-' + options.value}
+        id='c-table__edit-type-select-id'
+        className='P5000Edit-type-select'
+        highContrast={highContrast}
+        feil={options.feil}
+        options={typeOptions}
+        menuPortalTarget={document.body}
+        onChange={(e) => options.setValue({ type: e!.value })}
+        defaultValue={_.find(typeOptions, o => o.value === options.value)}
+        selectedValue={_.find(typeOptions, o => o.value === options.value)}
+      />
     </div>
   )
 
@@ -95,7 +95,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           size='S'
           type='circle'
         />
-        <HorizontalSeparatorDiv size='0.35'/>
+        <HorizontalSeparatorDiv size='0.35' />
         <span>
           {country?.label}
         </span>
@@ -103,23 +103,23 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     )
   }
 
-  const renderLandEdit =  (options: RenderEditableOptions) => {
+  const renderLandEdit = (options: RenderEditableOptions) => {
     const _countryValueList: Countries = options.value ? _countryData.filterByValueOnArray([options.value]) : []
     return (
-      <div style={{minWidth: '150px'}}>
-      <CountrySelect
-        ariaLabel={t('ui:country')}
-        closeMenuOnSelect={true}
-        flagType='circle'
-        flagWave
-        hideSelectedOptions={false}
-        highContrast={highContrast}
-        includeList={countryList}
-        values={_countryValueList}
-        menuPortalTarget={document.body}
-        label={''}
-        onOptionSelected={(o: Country) => options.setValue( {land: o!.alpha2 })}
-      />
+      <div style={{ minWidth: '150px' }}>
+        <CountrySelect
+          ariaLabel={t('ui:country')}
+          closeMenuOnSelect
+          flagType='circle'
+          flagWave
+          hideSelectedOptions={false}
+          highContrast={highContrast}
+          includeList={countryList}
+          values={_countryValueList}
+          menuPortalTarget={document.body}
+          label=''
+          onOptionSelected={(o: Country) => options.setValue({ land: o!.alpha2 })}
+        />
       </div>
     )
   }
@@ -139,9 +139,15 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         }]
       }
     },
-    { id: 'land', label: t('ui:country'), type: 'object', renderCell: renderLand, edit: {
+    {
+      id: 'land',
+      label: t('ui:country'),
+      type: 'object',
+      renderCell: renderLand,
+      edit: {
         render: renderLandEdit
-      } },
+      }
+    },
     { id: 'sec51aar', label: t('ui:year'), type: 'string' },
     { id: 'sec51mnd', label: t('ui:month'), type: 'string' },
     { id: 'sec51dag', label: t('ui:days') + '/' + t('ui:unit'), type: 'string' },
@@ -175,7 +181,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const afterPrintOut = (): void => {
     _setPrintDialogOpen(false)
   }
-
 
   const onRowsChanged = (items: P5000SumRows) => {
     let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage)

@@ -121,7 +121,7 @@ const Modal: React.FC<ModalProps> = ({
       onModalClose()
     }
   }
-/*
+  /*
   if (typeof (window) !== 'undefined') {
     ReactModal.setAppElement('body')
   }
