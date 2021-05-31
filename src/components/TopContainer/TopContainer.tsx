@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
 import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
 import styled from 'styled-components'
-import ErrorBoundary from 'react-error-boundary'
+import { ErrorBoundary } from 'react-error-boundary'
 import { IS_PRODUCTION } from 'constants/environment'
 
 const Main = styled.main`

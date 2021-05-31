@@ -371,18 +371,17 @@ export const convertFromP5000ListRowsIntoP5000SED = (
         const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
         const foundInGyldigperiodeIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
 
-        if (foundInMedemskapTotalIndex === -1) {
-          medemskapTotalPeriods.push(listItemtoPeriod(item))
-        } else {
-          mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item)
-        }
-
         if (item.type !== '45') {
-          if (foundInGyldigperiodeIndex === -1) {
-            gyldigperiode.push(listItemtoPeriod(item))
+          if (foundInMedemskapTotalIndex === -1) {
+            medemskapTotalPeriods.push(listItemtoPeriod(item))
           } else {
-            mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item)
+            mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item)
           }
+        }
+        if (foundInGyldigperiodeIndex === -1) {
+          gyldigperiode.push(listItemtoPeriod(item))
+        } else {
+          mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item)
         }
       }
     })
