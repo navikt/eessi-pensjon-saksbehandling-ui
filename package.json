@@ -21,6 +21,11 @@
   },
   "private": true,
   "dependencies": {
+
+    "browser-cookies": "^1.2.0",
+    "cross-fetch": "^3.1.4",
+    "uuid": "^8.3.2",
+
     "@navikt/fnrvalidator": "^1.1.4",
     "@sentry/browser": "^6.4.1",
     "amplitude-js": "^8.3.0",
@@ -122,6 +127,7 @@
     "@typescript-eslint/eslint-plugin": "4.25.0",
     "@typescript-eslint/parser": "4.25.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
+    "check-peer-dependencies": "^4.0.0",
     "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
