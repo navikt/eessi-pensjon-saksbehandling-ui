@@ -336,7 +336,31 @@ const P5000: React.FC<P5000Props> = ({
           </Normaltekst>
           ))}
       <>
+        {featureToggles.P5000_SUMMER_VISIBLE && (
+          <>
+            <VerticalSeparatorDiv size='3' />
+            {renderBackLink()}
+            <VerticalSeparatorDiv size='2' />
+            <Undertittel>
+              {t('buc:p5000-summary-title')}
+            </Undertittel>
+            <VerticalSeparatorDiv />
+            <HighContrastPanel>
+              <P5000Sum
+                context={context}
+                highContrast={highContrast}
+                key={'P5000Sum' + _activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
+                p5000FromRinaMap={p5000FromRinaMap}
+                p5000FromStorage={p5000FromStorage}
+                saveP5000ToStorage={saveP5000ToStorage}
+                seds={_activeSeds}
+              />
+            </HighContrastPanel>
+          </>
+        )}
         <VerticalSeparatorDiv size='3' />
+        <hr/>
+        <VerticalSeparatorDiv size='2' />
         {renderBackLink()}
         <VerticalSeparatorDiv size='2' />
         <Undertittel>
@@ -354,28 +378,6 @@ const P5000: React.FC<P5000Props> = ({
           />
         </HighContrastPanel>
       </>
-      {featureToggles.P5000_SUMMER_VISIBLE && (
-        <>
-          <VerticalSeparatorDiv size='3' />
-          {renderBackLink()}
-          <VerticalSeparatorDiv size='2' />
-          <Undertittel>
-            {t('buc:p5000-summary-title')}
-          </Undertittel>
-          <VerticalSeparatorDiv />
-          <HighContrastPanel>
-            <P5000Sum
-              context={context}
-              highContrast={highContrast}
-              key={'P5000Sum' + _activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
-              p5000FromRinaMap={p5000FromRinaMap}
-              p5000FromStorage={p5000FromStorage}
-              saveP5000ToStorage={saveP5000ToStorage}
-              seds={_activeSeds}
-            />
-          </HighContrastPanel>
-        </>
-      )}
     </div>
   )
 }
