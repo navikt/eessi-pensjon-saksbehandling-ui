@@ -68,7 +68,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
                         {_.find(ytelsestypeOptions, (o: OptionTypeBase) => (
-                          o?.value === (sed.content as P5000SED)?.pensjon.medlemskapboarbeid.enkeltkrav.krav
+                          o?.value === (sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
                         ))?.label ?? '-'}
                       </Normaltekst>
                     </FlexBaseDiv>
@@ -79,7 +79,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                       </UndertekstBold>
                       <HorizontalSeparatorDiv size='0.5' />
                       <Normaltekst>
-                        {(sed.content as P5000SED).pensjon.medlemskapboarbeid.gyldigperiode}
+                        {(sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
                       </Normaltekst>
                     </FlexBaseDiv>
                     <VerticalSeparatorDiv size='0.3' />
