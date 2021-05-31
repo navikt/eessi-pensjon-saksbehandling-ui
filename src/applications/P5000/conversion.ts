@@ -351,11 +351,11 @@ export const convertFromP5000ListRowsIntoP5000SED = (
   }
   if (_.isNil(newP5000Sed.pensjon.medlemskapTotal)) {
     // @ts-ignore
-    newP5000Sed.pensjon.medlemskapTotal = {}
+    newP5000Sed.pensjon.medlemskapTotal = []
   }
   if (_.isNil(newP5000Sed.pensjon.trygdetid)) {
     // @ts-ignore
-    newP5000Sed.pensjon.trygdetid = {}
+    newP5000Sed.pensjon.trygdetid = []
   }
 
   if (Object.prototype.hasOwnProperty.call(payload, 'items') && !_.isNil(payload.items)) {
@@ -415,11 +415,11 @@ export const convertFromP5000SumRowsIntoP5000SED = (
   }
   if (_.isNil(newP5000Sed.pensjon.medlemskapTotal)) {
     // @ts-ignore
-    newP5000Sed.pensjon.medlemskapTotal = {}
+    newP5000Sed.pensjon.medlemskapTotal = []
   }
   if (_.isNil(newP5000Sed.pensjon.trygdetid)) {
     // @ts-ignore
-    newP5000Sed.pensjon.trygdetid = {}
+    newP5000Sed.pensjon.trygdetid = []
   }
 
   const medemskapTotalPerioder: Array<P5000Period> = []
