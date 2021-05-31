@@ -134,8 +134,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
-  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)
-  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode)
+  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(
+    !_.isNil(p5000FromStorage)
+    ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+    : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+  )
+  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
+    !_.isNil(p5000FromStorage)
+      ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode
+      : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
+  )
 
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (

@@ -39,6 +39,7 @@ const Veilder = styled(EESSIPensjonVeileder)`
 export interface ErrorPageProps {
   error?: any
   type: string
+  resetErrorBoundary ?: any
 }
 
 export interface ErrorPageSelector {

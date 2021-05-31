@@ -153,16 +153,13 @@ const P5000: React.FC<P5000Props> = ({
     // which Seds we do NOT have on cache? Load them.
     const cachedSedIds: Array<string> = Object.keys(p5000FromRinaMap)
     const notloadedSeds: Seds = _.filter(seds, sed => cachedSedIds.indexOf(sed.id) < 0)
-    console.log('notloadedSeds', notloadedSeds)
     if (!_.isEmpty(notloadedSeds)) {
       _setReady(false)
       _setFetchingP5000(notloadedSeds)
       notloadedSeds.forEach(sed => {
-        console.log('fetching sed ', sed)
         dispatch(getSed(buc.caseId!, sed))
       })
     } else {
-      console.log('nothing to load')
       if (seds) {
         _setActiveSeds(seds)
       }

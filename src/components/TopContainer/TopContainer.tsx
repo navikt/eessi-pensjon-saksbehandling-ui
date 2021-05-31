@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
 import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
 import styled from 'styled-components'
-import useErrorBoundary from 'use-error-boundary'
+import ErrorBoundary from 'react-error-boundary'
 import { IS_PRODUCTION } from 'constants/environment'
 
 const Main = styled.main`
@@ -85,7 +85,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   } = useSelector(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const { ErrorBoundary } = useErrorBoundary()
 
   const handleModalClose = (): void => {
     dispatch(closeModal())
@@ -126,12 +125,19 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     }
   }
 
+  const ErrorFallback = ({ error, resetErrorBoundary }: any) => (
+    <Error type='internalError' error={error} resetErrorBoundary={resetErrorBoundary} />
+  )
+
   return (
     <NavHighContrast highContrast={highContrast}>
 
       <TopContainerDiv role='application'>
         <ErrorBoundary
-          renderError={({ error }: any) => <Error type='internalError' error={error} />}
+          FallbackComponent={ErrorFallback}
+          onReset={() => {
+            // reset the state of your app so the error doesn't happen again
+          }}
         >
           <ReactResizeDetector
             handleWidth
