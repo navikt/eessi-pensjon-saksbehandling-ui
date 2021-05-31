@@ -8,6 +8,7 @@ const seds: any = {
 }
 
 export default async (sed: Sed, type: string = 'small') => {
-  const m = await import('mocks/buc/sed_P5000_' + type + '' + seds[sed.id])
+  const sedNr = seds[sed.id] || sed.lastUpdate % 3 + 1
+  const m = await import('mocks/buc/sed_P5000_' + type + '' + sedNr)
   return m.default
 }

@@ -118,7 +118,7 @@ export const convertP5000SEDToP5000SumRows = (
     sourceStatus = 'storage'
   }
   const data: any = {}
-  seds.forEach(sed => {
+  seds?.forEach(sed => {
     const rinaPeriods1: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapTotal
     const rinaPeriods2: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.trygdetid
     const storagePeriods1: Array<P5000Period> | undefined = p5000FromStorage?.pensjon?.medlemskapTotal
@@ -196,7 +196,7 @@ export const convertP5000SEDToP5000SumRows = (
   })
   Object.keys(data).sort(
     (a, b) => (parseInt(a, 10) - parseInt(b, 10))
-  ).forEach((type: string) => res.push(data[type]))
+  )?.forEach((type: string) => res.push(data[type]))
   return [res, sourceStatus]
 }
 
