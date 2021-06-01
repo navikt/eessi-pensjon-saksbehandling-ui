@@ -168,5 +168,6 @@ export interface P5000UpdatePayload {
 export type P5000SumRows = Array<P5000SumRow>
 
 export interface P5000TableContext {
+  items: P5000ListRows
   forsikringEllerBosetningsperioder: string | undefined
 }

@@ -292,6 +292,8 @@
   "validation-noName"               : "Ingen navn",
   "validation-noSakId"              : "Ingen sakId",
   "validation-badDate2"             : "Vennligst bruk DD.MM.ÅÅÅÅ eller DDMMÅÅ",
+  "validation-endDateBeforeStartDate": "Sluttdato er tidligere enn startdato",
+  "validation-overlapDate": "Datoer overlappe eksisterende perioder {{perioder}}",
 
   "warning-filteredBucs"       : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-failedP5000Sending" : "Feil med overføring P5000 data til Rina",

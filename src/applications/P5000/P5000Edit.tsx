@@ -11,7 +11,8 @@ import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import moment, { Moment } from 'moment'
+import * as Moment from 'moment'
+import { extendMoment } from 'moment-range'
 import EtikettBase from 'nav-frontend-etiketter'
 import { Select as NavSelect } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
@@ -42,10 +43,12 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
-import Table, { RenderEditableOptions, Sort } from 'tabell'
+import Table, { RenderEditableOptions, Column as TableColumn, Sort } from 'tabell'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
+
+const moment = extendMoment(Moment)
 
 const CustomSelect = styled(NavSelect)`
   select {
@@ -170,7 +173,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const dateTransform = (s: string | Date): string => {
+  const dateTransform = (s: undefined | string | Date): string => {
+    if (s === undefined) {
+      return ''
+    }
     if (_.isDate(s)) {
       return moment(s).format('DD.MM.YYYY')
     }
@@ -210,8 +216,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (!validSluttDato || !validStartDato) {
       return null
     }
-    const startdato: Moment | undefined = moment(validStartDato, 'DD.MM.YYYYY')
-    const sluttdato: Moment | undefined = moment(validSluttDato, 'DD.MM.YYYYY')
+    const startdato: Moment.Moment | undefined = moment(validStartDato, 'DD.MM.YYYY')
+    const sluttdato: Moment.Moment | undefined = moment(validSluttDato, 'DD.MM.YYYY')
 
     // make the diff calculation include the starting day,
     // so the diff between 01.01.YYYY and 02.01.YYYY is 2 days, not 1
@@ -525,6 +531,80 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     dispatch(resetSentP5000info())
   }
 
+  const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext) => {
+
+    let startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')
+    let sluttdato = moment(dateTransform(item.sluttdato), 'DD.MM.YYYY')
+
+    if (startdato.isValid() && sluttdato.isValid()) {
+      if (startdato.isAfter(sluttdato)) {
+        if (!item.feil) {
+          item.feil = {}
+        }
+        item.feil = {
+          ...item.feil,
+          startdato: t('buc:validation-endDateBeforeStartDate')
+        }
+        return false
+      }
+      const range = moment.range(startdato, sluttdato)
+      let overlapError: boolean = false
+
+      for (var i = 0; i < context.items.length; i++) {
+        let otherItem: P5000ListRow = context.items[i]
+        if (item.key === otherItem.key) {
+          continue
+        }
+        let thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
+        if (range.overlaps(thisRange)) {
+          item.feil = {
+            ...item.feil,
+            startdato: t('buc:validation-overlapDate', {
+              perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
+            })
+          }
+          overlapError = true
+          break
+        }
+      }
+      return !overlapError
+    }
+    return true
+  }
+
+  const beforeRowAdded = (columns: Array<TableColumn<P5000ListRow, P5000TableContext>>, context: P5000TableContext) => {
+
+    let startdatovalue: string | undefined = _.find(columns, {id: 'startdato'})?.edit?.value
+    let startdatoindex: number = _.findIndex(columns, {id: 'sluttdato'})
+    let sluttdatovalue: string | undefined = _.find(columns, {id: 'sluttdato'})?.edit?.value
+    let sluttdatoindex: number = _.findIndex(columns, {id: 'sluttdato'})
+    let startdato = moment(dateTransform(startdatovalue), 'DD.MM.YYYY')
+    let sluttdato = moment(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
+
+    if (startdato.isValid() && sluttdato.isValid()) {
+      if (startdato.isAfter(sluttdato)) {
+        columns[sluttdatoindex].feil = t('buc:validation-endDateBeforeStartDate')
+        return false
+      }
+      const range = moment.range(startdato, sluttdato)
+      let overlapError: boolean = false
+
+      for (var i = 0; i < context.items.length; i++) {
+        let item: P5000ListRow = context.items[i]
+        let thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
+        if (range.overlaps(thisRange)) {
+          columns[startdatoindex].feil = t('buc:validation-overlapDate', {
+            perioder: moment(item.startdato).format('DD.MM.YYYY') + '/' + moment(item.sluttdato).format('DD.MM.YYYY')
+          })
+          overlapError = true
+          break
+        }
+      }
+      return !overlapError
+    }
+    return true
+  }
+
   const onSave = (payload: P5000UpdatePayload) => {
     let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
     if (_.isNil(templateForP5000)) {
@@ -716,6 +796,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             items={_items}
             loading={!!sentP5000info}
             context={{
+              items: _items,
               forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
             }}
             editable
@@ -727,8 +808,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               _setTableSort(sort)
             }}
             onRowsChanged={onRowsChanged}
-            itemsPerPage={25}
-            labels={{}}
+            beforeRowAdded={beforeRowAdded}
+            beforeRowEdited={beforeRowEdited}
+            itemsPerPage={_itemsPerPage}
             compact
             categories={[{
               colSpan: 4,
