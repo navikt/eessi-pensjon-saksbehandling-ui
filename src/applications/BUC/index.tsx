@@ -363,7 +363,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [aktoerId, bucs, dispatch, loading.gettingBUCs, pesysContext, sakId, vedtakId])
 
   useEffect(() => {
-    if (aktoerId && sakId && _.isNil(sakType) && !loading.gettingSakType) {
+    if (aktoerId && sakId && _.isUndefined(sakType) && !loading.gettingSakType) {
       dispatch(getSakType(sakId, aktoerId))
     }
   }, [aktoerId, dispatch, loading.gettingSakType, sakId, sakType])

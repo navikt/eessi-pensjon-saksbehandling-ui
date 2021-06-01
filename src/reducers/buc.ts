@@ -322,7 +322,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const sakTypeAllowingPBUC05vedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Barnepensjon', 'Gjenlevendeytelse', 'Omsorgsopptjening', 'Uføretrygd']
 
       const sakTypeAllowingPBUC05 = pesysContext === VEDTAKSKONTEKST ? sakTypeAllowingPBUC05vedtakscontext : sakTypeAllowingPBUC05notVedtakscontext
-      const sakType: SakTypeValue |undefined = (action as ActionWithPayload).context.sakType
+      const sakType: SakTypeValue | null | undefined = (action as ActionWithPayload).context.sakType
 
       if (pesysContext !== VEDTAKSKONTEKST) {
         excludedBucs.push('P_BUC_02')

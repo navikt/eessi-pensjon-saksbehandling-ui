@@ -97,7 +97,7 @@ export interface BUCStartSelector {
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string
-  sakType: SakTypeValue | undefined
+  sakType: SakTypeValue | null | undefined
   subjectAreaList?: SubjectAreaRawList | undefined
   tagList?: TagRawList | undefined
 }

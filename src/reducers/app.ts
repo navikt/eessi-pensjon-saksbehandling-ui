@@ -155,7 +155,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       newParams = _.cloneDeep(state.params)
       if (!_.isNil(action.payload.sakType)) {
         if (action.payload.sakType.length === 0) {
-          newParams.sakType = SakTypeMap.Ukjent
+          newParams.sakType = SakTypeMap.UKJENT
         } else {
           newParams.sakType = SakTypeMap[action.payload.sakType as SakTypeKey]
         }

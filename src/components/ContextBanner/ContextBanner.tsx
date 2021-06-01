@@ -56,14 +56,14 @@ export interface ContextBannerSelector {
   gettingSakType: boolean
   person: PersonPDL | undefined
   pesysContext?: PesysContext
-  sakType?: SakTypeValue
+  sakType?: SakTypeValue | undefined | null
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
   gettingSakType: state.loading.gettingSakType,
   person: state.app.person,
   pesysContext: state.app.pesysContext,
-  sakType: state.app.params.sakType as SakTypeValue
+  sakType: state.app.params.sakType as SakTypeValue | undefined | null
 })
 
 const ContextBanner: React.FC<ContextBannerProps> = ({
