@@ -291,7 +291,7 @@
   "validation-noAktoerId"           : "Ingen aktørId",
   "validation-noName"               : "Ingen navn",
   "validation-noSakId"              : "Ingen sakId",
-  "validation-badDate2"             : "Vennligst bruk DD.MM.ÅÅÅÅ eller DDMMÅÅ",
+  "validation-invalidDate"          : "Ugyldig dato, vennligst bruk DD.MM.ÅÅÅÅ / DDMMÅÅ",
   "validation-endDateBeforeStartDate": "Sluttdato er tidligere enn startdato",
   "validation-overlapDate": "Datoer overlappe eksisterende perioder {{perioder}}",
 

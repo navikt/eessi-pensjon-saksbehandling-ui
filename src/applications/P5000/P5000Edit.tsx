@@ -173,9 +173,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const dateTransform = (s: undefined | string | Date): string => {
+  const dateTransform = (s: undefined | string | Date): string | undefined => {
     if (s === undefined) {
-      return ''
+      return undefined
     }
     if (_.isDate(s)) {
       return moment(s).format('DD.MM.YYYY')
@@ -248,7 +248,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }
 
-  const maybeDoSomePrefill = (startdato: string, sluttdato: string, options: RenderEditableOptions<P5000TableContext>) => {
+  const maybeDoSomePrefill = (startdato: string | undefined, sluttdato: string | undefined, options: RenderEditableOptions<P5000TableContext>) => {
     const dates: DatePieces | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
       if (options.context.forsikringEllerBosetningsperioder === '1') {
@@ -276,13 +276,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
       onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const otherDate: string = _.isDate(options.values.sluttdato) ? moment(options.values.sluttdato).format('DD.MM.YYYY') : options.values.sluttdato
+        const otherDate: string | undefined = dateTransform(options.values.startdato)
         maybeDoSomePrefill(e.target.value, otherDate, options)
       }}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
         startdato: e.target.value
       })}
-      value={_.isDate(options.value) ? moment(options.value).format('DD.MM.YYYY') : options.value}
+      value={dateTransform(options.value) ?? ''}
     />
   )
 
@@ -294,15 +294,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
       onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const otherDate: string = _.isDate(options.values.startdato) ? moment(options.values.startdato).format('DD.MM.YYYY') : options.values.startdato
-        maybeDoSomePrefill(
-          otherDate, e.target.value, options
-        )
+        const otherDate: string | undefined = dateTransform(options.values.sluttdato)
+        maybeDoSomePrefill(otherDate, e.target.value, options)
       }}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
         sluttdato: e.target.value
       })}
-      value={_.isDate(options.value) ? moment(options.value).format('DD.MM.YYYY') : options.value}
+      value={dateTransform(options.value) ?? ''}
     />
   )
 
@@ -487,9 +485,21 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     })
   }
 
-  const testDate = (value: string | Date): boolean => (
-    _.isDate(value) ? true : !!value.match('^(\\d{2}\\.\\d{2}\\.\\d{4}|[0-3][0-9][0-1][0-9]{3})$')
-  )
+  const testDate = (value: undefined | null | string | Date): boolean => {
+    if (_.isNil(value)) {
+      return false
+    }
+    if (_.isDate(value)) {
+      return true
+    }
+    if (value.match('^(\\d{2}\\.\\d{2}\\.\\d{4})')) {
+      return moment(value, 'DD.MM.YYYY').isValid()
+    }
+    if (value.match('^\\d{6}')) {
+      return moment(dateTransform(value), 'DD.MM.YYYY').isValid()
+    }
+    return false
+  }
 
   const itemsPerPageChanged = (e: any): void => {
     _setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
@@ -859,8 +869,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
                     test: testDate,
-                    message: t('buc:validation-badDate2')
+                    message: t('buc:validation-invalidDate')
                   }],
+                  placeholder: t('buc:placeholder-date2'),
                   transform: dateTransform
                 }
               },
@@ -874,7 +885,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
                     test: testDate,
-                    message: t('buc:validation-badDate2')
+                    message: t('buc:validation-invalidDate')
                   }],
                   placeholder: t('buc:placeholder-date2'),
                   transform: dateTransform
