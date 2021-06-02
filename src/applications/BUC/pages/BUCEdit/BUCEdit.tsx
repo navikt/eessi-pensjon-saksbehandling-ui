@@ -83,7 +83,7 @@ export interface BUCEditProps {
 }
 
 export interface BUCEditSelector {
-  aktoerId: string
+  aktoerId: string | null | undefined
   bucs: Bucs | undefined
   bucsInfo: BucsInfo | undefined
   currentBuc: string | undefined

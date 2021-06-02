@@ -38,7 +38,7 @@ const ButtonsDiv = styled.div`
 `
 
 export interface JoarkBrowserSelector {
-  aktoerId: string
+  aktoerId: string | null | undefined
   list: Array<JoarkPoster> | undefined
   loadingJoarkList: boolean
   loadingJoarkPreviewFile: boolean

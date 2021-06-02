@@ -72,7 +72,7 @@ const FlexDiv = styled.div`
   }
 `
 export interface BUCStartProps {
-  aktoerId: string
+  aktoerId: string | null | undefined
   initialCreatingBucInfo?: boolean
   initialIsCreatingBuc?: boolean
   onBucChanged?: (option: ValueType<Option, false>) => void
@@ -82,21 +82,21 @@ export interface BUCStartProps {
 
 export interface BUCStartSelector {
   bucList?: BUCRawList | undefined
-  bucParam: string | undefined
+  bucParam: string | null | undefined
   bucs: Bucs | undefined
   bucsInfo?: BucsInfo | undefined
   currentBuc: string | undefined
   featureToggles: FeatureToggles
   highContrast: boolean
   kravDato: string | null | undefined
-  kravId: string | undefined
+  kravId: string | null | undefined
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
   person: PersonPDL | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
-  sakId: string
+  sakId: string | null | undefined
   sakType: SakTypeValue | null | undefined
   subjectAreaList?: SubjectAreaRawList | undefined
   tagList?: TagRawList | undefined
@@ -165,7 +165,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const dispatch = useDispatch()
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
   const [_avdodFnr, setAvdodFnr] = useState<string | undefined>('')
-  const [_buc, setBuc] = useState<string | undefined>(bucParam)
+  const [_buc, setBuc] = useState<string | null | undefined>(bucParam)
   const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
   const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
@@ -256,7 +256,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return undefined
   }
 
-  const validateBuc = (buc: string | undefined): FeiloppsummeringFeil | undefined => {
+  const validateBuc = (buc: string | null | undefined): FeiloppsummeringFeil | undefined => {
     if (!buc) {
       return {
         skjemaelementId: 'a-buc-c-bucstart__buc-select-id',

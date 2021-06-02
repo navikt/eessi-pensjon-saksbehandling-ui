@@ -83,15 +83,15 @@ const mapState = (state: State): BUCEmptySelector => ({
 })
 
 export interface BUCEmptyProps {
-  aktoerId?: string
-  sakId?: string
+  aktoerId?: string | null
+  sakId?: string | null
 }
 
 const BUCEmpty: React.FC<BUCEmptyProps> = ({
   aktoerId, sakId
 }: BUCEmptyProps): JSX.Element => {
-  const [_sakId, setSakId] = useState<string | undefined>(sakId)
-  const [_aktoerId, setAktoerId] = useState<string | undefined>(aktoerId)
+  const [_sakId, setSakId] = useState<string | null | undefined>(sakId)
+  const [_aktoerId, setAktoerId] = useState<string | null | undefined>(aktoerId)
   const [validation, setValidation] = useState<string | undefined>(undefined)
   const dispatch = useDispatch()
   const { highContrast, rinaUrl }: BUCEmptySelector = useSelector<State, BUCEmptySelector>(mapState)

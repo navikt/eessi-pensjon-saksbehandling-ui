@@ -131,14 +131,14 @@ export interface BUCIndexProps {
 }
 
 export interface BUCIndexSelector {
-  aktoerId: string | undefined
+  aktoerId: string | null | undefined
   bucs: Bucs | undefined
   loading: Loading
   pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
-  sakId: string | undefined
+  sakId: string | null | undefined
   sakType: SakTypeValue | null | undefined
-  vedtakId: string | undefined
+  vedtakId: string | null | undefined
 }
 
 const mapState = (state: State): BUCIndexSelector => ({

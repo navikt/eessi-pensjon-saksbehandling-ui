@@ -122,7 +122,7 @@ export const SEDStartDiv = styled.div`
 `
 
 export interface SEDStartProps {
-  aktoerId: string
+  aktoerId: string | null | undefined
   bucs: Bucs
   currentBuc: string
   currentSed: Sed | undefined
@@ -143,18 +143,18 @@ export interface SEDStartSelector {
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames | undefined
   kravDato: string | null | undefined,
-  kravId: string | undefined,
+  kravId: string | null | undefined,
   loading: Loading
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
-  sakId?: string
-  sakType: SakTypeValue | undefined
+  sakId?: string | null | undefined
+  sakType: SakTypeValue | null | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: SEDRawList | undefined
-  vedtakId: string | undefined
+  vedtakId: string | null | undefined
 }
 
 const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
@@ -282,7 +282,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_sedSent, setSedSent] = useState<boolean>(false)
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_validation, setValidation] = useState<Validation>({})
-  const [_vedtakId, setVedtakId] = useState<string | undefined>(vedtakId)
+  const [_vedtakId, setVedtakId] = useState<string | null | undefined>(vedtakId)
 
   // BEGIN QUESTIONS
 
@@ -479,7 +479,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return undefined
   }, [t, bucHasSedsWithAtLeastOneInstitution])
 
-  const validateVedtakId = (vedtakId: string | undefined): FeiloppsummeringFeil | undefined => {
+  const validateVedtakId = (vedtakId: string | null | undefined): FeiloppsummeringFeil | undefined => {
     if (!vedtakId) {
       return {
         feilmelding: t('buc:validation-chooseVedtakId'),

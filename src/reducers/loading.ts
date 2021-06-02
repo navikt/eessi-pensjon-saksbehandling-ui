@@ -1,5 +1,4 @@
 import * as types from 'constants/actionTypes'
-import _ from 'lodash'
 import { Action } from 'redux'
 
 export interface LoadingState {
@@ -34,9 +33,6 @@ export const initialLoadingState: LoadingState = {
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: Action = { type: '' }) => {
-  if (_.endsWith(action.type, '/ERROR')) {
-    return initialLoadingState
-  }
 
   switch (action.type) {
   // APP

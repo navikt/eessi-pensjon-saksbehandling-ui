@@ -25,7 +25,7 @@ export interface Option extends OptionTypeBase {
 
 export type Options = Array<Option>
 
-export type Params = {[k: string] : string}
+export type Params = {[k: string] : string | null | undefined}
 
 export type PesysContext = constants.BRUKERKONTEKST | constants.KRAVKONTEKST | constants.VEDTAKSKONTEKST
 

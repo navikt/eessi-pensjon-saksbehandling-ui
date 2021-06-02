@@ -124,7 +124,7 @@ export interface BUCListProps {
 }
 
 export interface BUCListSelector {
-  aktoerId: string
+  aktoerId: string  | null | undefined
   bucs: Bucs | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
@@ -135,7 +135,7 @@ export interface BUCListSelector {
   newlyCreatedBuc: Buc | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
-  sakType: SakTypeValue | undefined
+  sakType: SakTypeValue | null | undefined
 }
 
 const mapState = (state: State): BUCListSelector => ({

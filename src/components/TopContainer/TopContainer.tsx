@@ -5,7 +5,7 @@ import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import Modal from 'components/Modal/Modal'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import { WidthSize } from 'declarations/app.d'
+import { Params, WidthSize } from 'declarations/app.d'
 import { AlertStatus, ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -46,7 +46,7 @@ export interface TopContainerSelector {
   serverErrorMessage: string | undefined
   error: any | undefined
   expirationTime: Date | undefined
-  params: {[k: string] : string}
+  params: Params
   username: string | undefined
   gettingUserInfo: boolean
   isLoggingOut: boolean
