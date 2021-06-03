@@ -49,7 +49,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
-  const [items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+  const [items, ] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
   const beforePrintOut = (): void => {}
 
@@ -184,8 +184,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           compact
           columns={columns}
         />
-        <VerticalSeparatorDiv />
-        {t('buc:p5000-source-status-' + sourceStatus)}
         <VerticalSeparatorDiv />
         <HiddenDiv>
           <div ref={componentRef} id='printJS-form'>

@@ -201,6 +201,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         context='overview'
       />
     ))
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
   }
 
   const tabs = [{

@@ -298,5 +298,6 @@
   "warning-filteredBucs"       : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-failedP5000Sending" : "Feil med overføring P5000 data til Rina",
   "warning-okP5000Sending"     : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet.",
-  "warning-P5000SumGjenlevende": "Ved pensjonspoeng i flytteår må resterende periode for året legges til i beregningen (pkt. 5.2)."
+  "warning-P5000SumGjenlevende": "Ved pensjonspoeng i flytteår må du legge til den resterende perioden for gjeldende år i beregningen (pkt. 5.2). OBS! Dersom du endrer på registrerte perioder i boks 1, må du også legge til ekstraperiodene i summeringen igjen",
+  "warning-P5000SumGjenlevende2": "Sum under punkt 5.2 skal være maks 40 år på de ulike typene. Du må derfor endre til 40 år, 0 måneder og 0 dager ved høyere summer."
 }

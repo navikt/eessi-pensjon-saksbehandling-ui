@@ -55,7 +55,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
-  const [items, sourceStatus] = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+  const [items, ] = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
   const _countryData: CountryList = CountryData.getCountryInstance('nb')
 
@@ -233,6 +233,19 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             <VerticalSeparatorDiv />
           </>
         )}
+        {(sakType === SakTypeMap.ALDER || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.UFOREP) && (
+          <>
+            <Row>
+              <Column>
+                <Alertstripe type='advarsel'>
+                  {t('buc:warning-P5000SumGjenlevende2')}
+                </Alertstripe>
+              </Column>
+              <Column />
+            </Row>
+            <VerticalSeparatorDiv />
+          </>
+        )}
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000SumRow>
@@ -253,8 +266,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           categories={categories}
           columns={columns}
         />
-        <VerticalSeparatorDiv />
-        {t('buc:p5000-source-status-' + sourceStatus)}
         <VerticalSeparatorDiv />
         <HiddenDiv>
           <div ref={componentRef} id='printJS-form'>

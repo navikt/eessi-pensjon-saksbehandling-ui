@@ -256,14 +256,21 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   mini
                   data-amplitude='buc.edit.p5000'
                   data-test-id='a-buc-c-sedheader__p5000-button-id'
-                  onClick={() => setMode('p5000', 'forward', undefined, (
-                    <P5000
-                      buc={buc}
-                      context='edit'
-                      setMode={setMode}
-                      sed={sed}
-                    />
-                  ))}
+                  onClick={() => {
+                    setMode('p5000', 'forward', undefined, (
+                      <P5000
+                        buc={buc}
+                        context='edit'
+                        setMode={setMode}
+                        sed={sed}
+                      />
+                    ))
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: 'smooth'
+                    })
+                  }}
                 >
                   {P5000Draft ? t('buc:p5000-rediger') : t('buc:p5000-registrert')}
                   <HorizontalSeparatorDiv size='0.3' />

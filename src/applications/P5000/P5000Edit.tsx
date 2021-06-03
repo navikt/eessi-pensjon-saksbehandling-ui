@@ -892,17 +892,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 }
               },
               {
-                id: 'dag',
-                label: t('ui:day'),
+                id: 'aar',
+                label: t('ui:year'),
                 type: 'string',
-                renderCell: renderDager,
                 edit: {
                   defaultValue: 0,
-                  render: renderDagerEdit,
                   validation: [{
                     test: '^\\d+$',
                     message: t('buc:validation-addPositiveNumber')
-                  }]
+                  }],
+                  render: renderAarEdit
                 }
               },
               {
@@ -919,16 +918,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 }
               },
               {
-                id: 'aar',
-                label: t('ui:year'),
+                id: 'dag',
+                label: t('ui:day'),
                 type: 'string',
+                renderCell: renderDager,
                 edit: {
                   defaultValue: 0,
+                  render: renderDagerEdit,
                   validation: [{
                     test: '^\\d+$',
                     message: t('buc:validation-addPositiveNumber')
-                  }],
-                  render: renderAarEdit
+                  }]
                 }
               },
               {
@@ -969,8 +969,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               }
             ]}
           />
-          <VerticalSeparatorDiv />
-          {t('buc:p5000-source-status-' + sourceStatus)}
           <VerticalSeparatorDiv />
           <HiddenDiv>
             <div ref={componentRef} id='printJS-form'>

@@ -1,4 +1,4 @@
-import { generateKey } from 'applications/P5000/conversion'
+import { generateKeyForListRow } from 'applications/P5000/conversion'
 import * as types from 'constants/actionTypes'
 import { LocalStorageEntry, LocalStorageValue } from 'declarations/app'
 import { P5000FromRinaMap } from 'declarations/buc'
@@ -68,7 +68,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       payload?.pensjon?.medlemskapboarbeid?.medlemskap?.forEach((p: P5000Period, index: number) => {
         payload.pensjon.medlemskapboarbeid.medlemskap[index] = {
           ...p,
-          key: generateKey(p)
+          key: generateKeyForListRow(p)
         }
       })
       newp5000FromRina[(action as ActionWithPayload).context.id] = payload
