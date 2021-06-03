@@ -276,7 +276,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
       onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const otherDate: string | undefined = dateTransform(options.values.startdato)
+        const otherDate: string | undefined = dateTransform(options.values.sluttdato)
         maybeDoSomePrefill(e.target.value, otherDate, options)
       }}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
@@ -294,7 +294,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       feil={options.feil}
       placeholder={t('buc:placeholder-date2')}
       onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const otherDate: string | undefined = dateTransform(options.values.sluttdato)
+        const otherDate: string | undefined = dateTransform(options.values.startdato)
         maybeDoSomePrefill(otherDate, e.target.value, options)
       }}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
