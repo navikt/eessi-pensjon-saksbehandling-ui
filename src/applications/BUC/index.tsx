@@ -181,6 +181,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
+  const [_askSakType, _setAskSakType] = useState<boolean>(false)
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
   const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
@@ -363,8 +364,9 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [aktoerId, bucs, dispatch, loading.gettingBUCs, pesysContext, sakId, vedtakId])
 
   useEffect(() => {
-    if (aktoerId && sakId && sakType === undefined && !loading.gettingSakType) {
+    if (aktoerId && sakId && sakType === undefined && !loading.gettingSakType && !_askSakType) {
       dispatch(getSakType(sakId, aktoerId))
+      _setAskSakType(true)
     }
   }, [aktoerId, dispatch, loading.gettingSakType, sakId, sakType])
 
