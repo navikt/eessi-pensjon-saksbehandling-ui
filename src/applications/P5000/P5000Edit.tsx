@@ -566,7 +566,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           continue
         }
         let thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
-        if (range.overlaps(thisRange)) {
+        if (item.type === otherItem.type && range.overlaps(thisRange)) {
           item.feil = {
             ...item.feil,
             startdato: t('buc:validation-overlapDate', {
@@ -584,6 +584,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const beforeRowAdded = (columns: Array<TableColumn<P5000ListRow, P5000TableContext>>, context: P5000TableContext) => {
 
+    let typeValue = _.find(columns, {id: 'type'})?.edit?.value
     let startdatovalue: string | undefined = _.find(columns, {id: 'startdato'})?.edit?.value
     let startdatoindex: number = _.findIndex(columns, {id: 'sluttdato'})
     let sluttdatovalue: string | undefined = _.find(columns, {id: 'sluttdato'})?.edit?.value
@@ -602,7 +603,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       for (var i = 0; i < context.items.length; i++) {
         let item: P5000ListRow = context.items[i]
         let thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
-        if (range.overlaps(thisRange)) {
+        if (item.type === typeValue && range.overlaps(thisRange)) {
           columns[startdatoindex].feil = t('buc:validation-overlapDate', {
             perioder: moment(item.startdato).format('DD.MM.YYYY') + '/' + moment(item.sluttdato).format('DD.MM.YYYY')
           })
