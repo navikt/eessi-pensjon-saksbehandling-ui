@@ -6,12 +6,12 @@ import { TopContainer, TopContainerProps, TopContainerSelector } from './TopCont
 import { stageSelector } from 'setupTests'
 import mockPerson from 'mocks/app/person'
 
-/*jest.mock('use-error-boundary', () => ({
+/* jest.mock('use-error-boundary', () => ({
   __esModule: true, // this property makes it work
   default: () => ({
     ErrorBoundary: ({ children }: any) => <div className='mock-error-boundary'>{children}</div>
   })
-}))*/
+})) */
 
 const mockHistoryPush = jest.fn()
 

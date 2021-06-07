@@ -71,6 +71,18 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
           key: generateKeyForListRow(p)
         }
       })
+      payload?.pensjon?.trygdetid?.forEach((p: P5000Period, index: number) => {
+        payload.pensjon.trygdetid[index] = {
+          ...p,
+          key: generateKeyForListRow(p)
+        }
+      })
+      payload?.pensjon?.medlemskapTotal?.forEach((p: P5000Period, index: number) => {
+        payload.pensjon.medlemskapTotal[index] = {
+          ...p,
+          key: generateKeyForListRow(p)
+        }
+      })
       newp5000FromRina[(action as ActionWithPayload).context.id] = payload
       return {
         ...state,

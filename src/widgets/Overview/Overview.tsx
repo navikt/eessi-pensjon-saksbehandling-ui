@@ -25,14 +25,14 @@ export const Alert = styled(Alertstripe)`
 `
 
 export interface OverviewSelector {
-  aktoerId: string  | null | undefined
+  aktoerId: string | null | undefined
   featureToggles: FeatureToggles
   gettingPersonInfo: boolean
   locale: AllowedLocaleString
   person?: PersonPDL,
   personAvdods: PersonAvdods | undefined,
   pesysContext: PesysContext | undefined,
-  vedtakId: string  | null | undefined
+  vedtakId: string | null | undefined
 }
 
 const mapState = (state: State): OverviewSelector => ({

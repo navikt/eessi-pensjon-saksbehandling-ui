@@ -33,7 +33,6 @@ export const initialLoadingState: LoadingState = {
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: Action = { type: '' }) => {
-
   switch (action.type) {
   // APP
 

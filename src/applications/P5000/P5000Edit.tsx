@@ -139,8 +139,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
-    ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
-    : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+      ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+      : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
@@ -542,9 +542,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext) => {
-
-    let startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')
-    let sluttdato = moment(dateTransform(item.sluttdato), 'DD.MM.YYYY')
+    const startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')
+    const sluttdato = moment(dateTransform(item.sluttdato), 'DD.MM.YYYY')
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
@@ -560,12 +559,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       const range = moment.range(startdato, sluttdato)
       let overlapError: boolean = false
 
-      for (var i = 0; i < context.items.length; i++) {
-        let otherItem: P5000ListRow = context.items[i]
+      for (let i = 0; i < context.items.length; i++) {
+        const otherItem: P5000ListRow = context.items[i]
         if (item.key === otherItem.key) {
           continue
         }
-        let thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
+        const thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
         if (item.type === otherItem.type && range.overlaps(thisRange)) {
           item.feil = {
             ...item.feil,
@@ -583,14 +582,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const beforeRowAdded = (columns: Array<TableColumn<P5000ListRow, P5000TableContext>>, context: P5000TableContext) => {
-
-    let typeValue = _.find(columns, {id: 'type'})?.edit?.value
-    let startdatovalue: string | undefined = _.find(columns, {id: 'startdato'})?.edit?.value
-    let startdatoindex: number = _.findIndex(columns, {id: 'sluttdato'})
-    let sluttdatovalue: string | undefined = _.find(columns, {id: 'sluttdato'})?.edit?.value
-    let sluttdatoindex: number = _.findIndex(columns, {id: 'sluttdato'})
-    let startdato = moment(dateTransform(startdatovalue), 'DD.MM.YYYY')
-    let sluttdato = moment(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
+    const typeValue = _.find(columns, { id: 'type' })?.edit?.value
+    const startdatovalue: string | undefined = _.find(columns, { id: 'startdato' })?.edit?.value
+    const startdatoindex: number = _.findIndex(columns, { id: 'sluttdato' })
+    const sluttdatovalue: string | undefined = _.find(columns, { id: 'sluttdato' })?.edit?.value
+    const sluttdatoindex: number = _.findIndex(columns, { id: 'sluttdato' })
+    const startdato = moment(dateTransform(startdatovalue), 'DD.MM.YYYY')
+    const sluttdato = moment(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
@@ -600,9 +598,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       const range = moment.range(startdato, sluttdato)
       let overlapError: boolean = false
 
-      for (var i = 0; i < context.items.length; i++) {
-        let item: P5000ListRow = context.items[i]
-        let thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
+      for (let i = 0; i < context.items.length; i++) {
+        const item: P5000ListRow = context.items[i]
+        const thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
         if (item.type === typeValue && range.overlaps(thisRange)) {
           columns[startdatoindex].feil = t('buc:validation-overlapDate', {
             perioder: moment(item.startdato).format('DD.MM.YYYY') + '/' + moment(item.sluttdato).format('DD.MM.YYYY')

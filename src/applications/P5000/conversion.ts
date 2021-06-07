@@ -34,21 +34,12 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
 
 export const generateKeyForListRow = (m: P5000Period): string => (
   md5(
-  'type' + (m.type ?? '') + 'fom' + (m.periode?.fom ?? '') + 'tom' + (m.periode?.tom ?? '') +
+    'type' + (m.type ?? '') + 'fom' + (m.periode?.fom ?? '') + 'tom' + (m.periode?.tom ?? '') +
     'aar' + (m.sum?.aar ?? '') + 'mnd' + (m.sum?.maaneder ?? '') +
     'dag' + (m.sum?.dager?.nr ?? '') +
     'yt' + (m.relevans ?? '') + 'ord' + (m.ordning ?? '') + 'ber' + (m.beregning ?? '')
-   )
-)
-
-export const generateKeyForSumRow = (m: P5000Period): string => (
-  md5(
-    'type' + (m.type ?? '') + 'land' +  (m.land ?? '') +
-    'aar' + (m.sum?.aar ?? '') + 'mnd' + (m.sum?.maaneder ?? '') +
-    'dag' + (m.sum?.dager?.nr ?? '')
   )
 )
-
 
 // Converts P5000 SED from Rina/storage into table rows for view/list
 export const convertP5000SEDToP5000ListRows = (
@@ -129,6 +120,7 @@ export const convertP5000SEDToP5000SumRows = (
   }
   const data: any = {}
   seds?.forEach(sed => {
+    const [res] = convertP5000SEDToP5000ListRows([sed], context, p5000FromRinaMap, p5000FromStorage)
     const rinaPeriods1: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapTotal
     const rinaPeriods2: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.trygdetid
     const storagePeriods1: Array<P5000Period> | undefined = p5000FromStorage?.pensjon?.medlemskapTotal
@@ -137,10 +129,9 @@ export const convertP5000SEDToP5000SumRows = (
     const periods2: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods2 : storagePeriods2
     periods1?.forEach((periode: P5000Period) => {
       if (!_.isNil(periode) && periode.type) {
-
         if (_.isNil(data[periode.type])) {
           data[periode.type] = {
-            key: 'type-' + periode.type,
+            key: periode.key ?? generateKeyForListRow(periode),
             type: periode.type,
             land: '',
             sec51aar: 0,
@@ -151,6 +142,7 @@ export const convertP5000SEDToP5000SumRows = (
             sec52dag: 0
           }
         }
+
         data[periode.type].land = periode.land ?? ''
         data[periode.type].sec51aar += (periode.sum?.aar ? parseInt(periode.sum?.aar) : 0)
         data[periode.type].sec51mnd += (periode.sum?.maaneder ? parseInt(periode.sum?.maaneder) : 0)
@@ -170,12 +162,13 @@ export const convertP5000SEDToP5000SumRows = (
         }
       }
     })
-    periods2?.forEach((m: P5000Period) => {
-      if (!_.isNil(m) && m.type) {
-        if (!Object.prototype.hasOwnProperty.call(data, m.type)) {
-          data[m.type] = {
-            key: 'type-' + m.type,
-            type: m.type,
+    periods2?.forEach((periode: P5000Period) => {
+      if (!_.isNil(periode) && periode.type) {
+        if (!Object.prototype.hasOwnProperty.call(data, periode.type)) {
+          data[periode.type] = {
+            key: periode.key ?? generateKeyForListRow(periode),
+            status: 'rina',
+            type: periode.type,
             land: '',
             sec51aar: 0,
             sec51mnd: 0,
@@ -185,23 +178,48 @@ export const convertP5000SEDToP5000SumRows = (
             sec52dag: 0
           }
         }
-        data[m.type].land = m.land ?? ''
-        data[m.type].sec52aar += (m.sum?.aar ? parseInt(m.sum?.aar) : 0)
-        data[m.type].sec52mnd += (m.sum?.maaneder ? parseInt(m.sum?.maaneder) : 0)
-        data[m.type].sec52dag += (m.sum?.dager?.nr ? parseInt(m.sum?.dager?.nr) : 0)
+        data[periode.type].land = periode.land ?? ''
+        data[periode.type].sec52aar += (periode.sum?.aar ? parseInt(periode.sum?.aar) : 0)
+        data[periode.type].sec52mnd += (periode.sum?.maaneder ? parseInt(periode.sum?.maaneder) : 0)
+        data[periode.type].sec52dag += (periode.sum?.dager?.nr ? parseInt(periode.sum?.dager?.nr) : 0)
 
-        if (data[m.type].sec52dag >= 30) {
-          const extraMonths = Math.floor(data[m.type].sec52dag / 30)
-          const remainingDays = (data[m.type].sec52dag) % 30
-          data[m.type].sec52dag = remainingDays
-          data[m.type].sec52mnd += extraMonths
+        if (data[periode.type].sec52dag >= 30) {
+          const extraMonths = Math.floor(data[periode.type].sec52dag / 30)
+          const remainingDays = (data[periode.type].sec52dag) % 30
+          data[periode.type].sec52dag = remainingDays
+          data[periode.type].sec52mnd += extraMonths
         }
-        if (data[m.type].sec52mnd >= 12) {
-          const extraYears = Math.floor(data[m.type].sec52mnd / 12)
-          const remainingMonths = (data[m.type].sec52mnd) % 12
-          data[m.type].sec52mnd = remainingMonths
-          data[m.type].sec52aar += extraYears
+        if (data[periode.type].sec52mnd >= 12) {
+          const extraYears = Math.floor(data[periode.type].sec52mnd / 12)
+          const remainingMonths = (data[periode.type].sec52mnd) % 12
+          data[periode.type].sec52mnd = remainingMonths
+          data[periode.type].sec52aar += extraYears
         }
+      }
+    })
+
+    Object.keys(data).forEach(type => {
+      let allnew: boolean = true
+      let allrina: boolean = true
+      res.forEach(r => {
+        if (r.type === type) {
+          if (r.status !== 'new') {
+            allnew = false
+          }
+          if (r.status !== 'rina') {
+            allrina = false
+          }
+        }
+      })
+
+      if (allnew) {
+        data[type].status = 'new'
+      }
+      if (allrina) {
+        data[type].status = 'rina'
+      }
+      if (!allrina && !allnew) {
+        data[type].status = 'edited'
       }
     })
   })

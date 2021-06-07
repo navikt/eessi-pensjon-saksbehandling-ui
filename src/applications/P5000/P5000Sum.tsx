@@ -11,6 +11,7 @@ import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
+import EtikettBase from 'nav-frontend-etiketter'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
   Column,
@@ -24,7 +25,7 @@ import NavHighContrast, {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
@@ -55,7 +56,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
-  const [items, ] = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+  const [items] = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
   const _countryData: CountryList = CountryData.getCountryInstance('nb')
 
@@ -124,7 +125,30 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     )
   }
 
+  const renderStatus = (item: any, value: any) => {
+    if (value === 'rina') {
+      return <EtikettBase mini type='info'>RINA</EtikettBase>
+    }
+    if (value === 'new') {
+      return <EtikettBase mini type='suksess'>Ny</EtikettBase>
+    }
+    if (value === 'edited') {
+      return <EtikettBase mini type='fokus'>Endret</EtikettBase>
+    }
+    return <div />
+  }
+
   let columns = [
+    {
+      id: 'status',
+      label: t('ui:status'),
+      type: 'string',
+      renderCell: renderStatus,
+      edit: {
+        defaultValue: 'new',
+        render: () => <div />
+      }
+    },
     {
       id: 'type',
       label: t('ui:type'),

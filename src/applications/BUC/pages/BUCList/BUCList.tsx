@@ -124,7 +124,7 @@ export interface BUCListProps {
 }
 
 export interface BUCListSelector {
-  aktoerId: string  | null | undefined
+  aktoerId: string | null | undefined
   bucs: Bucs | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined

@@ -356,7 +356,7 @@ const P5000: React.FC<P5000Props> = ({
           </>
         )}
         <VerticalSeparatorDiv size='3' />
-        <hr/>
+        <hr />
         <VerticalSeparatorDiv size='2' />
         {renderBackLink()}
         <VerticalSeparatorDiv size='2' />
