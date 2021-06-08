@@ -214,10 +214,12 @@ const P5000: React.FC<P5000Props> = ({
                 <SeparatorSpan>-</SeparatorSpan>
                 <FlexCenterDiv>
                   <Flag
+                    animate
                     country={sedSender?.country}
                     label={sedSender?.countryLabel}
                     size='XS'
                     type='circle'
+                    wave={false}
                   />
                   <HorizontalSeparatorDiv size='0.2' />
                   <span>{sedSender?.countryLabel}</span>
@@ -249,10 +251,12 @@ const P5000: React.FC<P5000Props> = ({
                         ? (
                           <FlexCenterDiv>
                             <Flag
+                              animate
                               country={sender?.country}
                               label={sender?.countryLabel}
                               size='XS'
                               type='circle'
+                              wave={false}
                             />
                             <HorizontalSeparatorDiv size='0.2' />
                             <span>{sender?.countryLabel}</span>

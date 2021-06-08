@@ -91,10 +91,12 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     return (
       <FlexCenterDiv>
         <Flag
+          animate
           label={country?.label}
           country={value}
           size='S'
           type='circle'
+          wave={false}
         />
         <HorizontalSeparatorDiv size='0.35' />
         <span>
@@ -112,7 +114,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           ariaLabel={t('ui:country')}
           closeMenuOnSelect
           flagType='circle'
-          flagWave
           hideSelectedOptions={false}
           highContrast={highContrast}
           includeList={countryList}

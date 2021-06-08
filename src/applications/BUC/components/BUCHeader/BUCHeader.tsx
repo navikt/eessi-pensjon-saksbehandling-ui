@@ -283,6 +283,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 type='circle'
                 overflowLimit={8}
                 size={_flagSize}
+                wave={false}
                 wrapper={false}
               />
             )}

@@ -100,10 +100,12 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                   >
                     {flag && (
                       <Flag
+                        animate
                         label={country ? country.label : landkode}
                         country={landkode}
                         size='S'
                         type={flagType}
+                        wave={false}
                       />
                     )}
                     <InstitutionText>
@@ -119,10 +121,12 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                   >
                     {flag && (
                       <Flag
+                        animate
                         label={country ? country.label : landkode}
                         country={landkode}
                         size='S'
                         type={flagType}
+                        wave={false}
                       />
                     )}
                     <InstitutionText>
