@@ -786,14 +786,15 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </Column>
             <Column>
               {sourceStatus !== 'rina' && (
-                <>
+                <div style={{ whiteSpace: 'nowrap' }}>
                   <span>
                     {t('buc:p5000-saved-working-copy')}
                   </span>
+                  <HorizontalSeparatorDiv size='0.5' />
                   <HighContrastLink style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
                     {t('ui:hva-betyr-det')}
                   </HighContrastLink>
-                </>
+                </div>
               )}
             </Column>
           </AlignEndRow>

@@ -219,7 +219,15 @@
   "p5000-registrert"              : "Registrer periode(r)",
   "p5000-source-status-rina"      : "Viste perioder er fra RINA",
   "p5000-source-status-storage"   : "Viste perioder er fra arbeidskopi",
-  "p5000-saved-working-copy"      : "Endringer lagret i en arbeidskopi. ",
+  "p5000-saved-working-copy"      : "Registrerte perioder lagres umiddelbart i Eessi-pensjon.",
+
+  "p5000-help-modal-1": "For å redigere en P5000 klikker du på ",
+  "p5000-help-modal-2": ". Dersom det allerede er overført perioder til RINA, vil du få opp en liste over disse.",
+  "p5000-help-modal-3": "Når, du legger til en ny periode, eller endrer på eksisterende periode(r), vil dette umiddelbart lagres på utkast av P5000 i Eessi-pensjon. Dette sikrer at du ikke mister noen registreringer, og du kan når som helst gjenoppta arbeidet.",
+  "p5000-help-modal-4": "Du kan se at P5000 har en lagret arbeidskopi når dette panelet vises:",
+  "p5000-help-modal-5": "Herfra kan du enten gjenoppta arbeidet ved å klikke på ",
+  "p5000-help-modal-6": ", eller slette arbeidskopien og starte på nytt (eventuelt fra den siste RINA-versjonen) ved å klikke på ",
+  "p5000-help-modal-7": "Når du overfører arbeidet til Rina, blir \"Under arbeid\"-boksen automatisk slettet. Du kan likevel gå inn og redigere på P5000, som beskrevet fra start her.",
 
   "placeholder-date2" : "DD.MM.ÅÅÅÅ/DDMMÅÅ",
 

@@ -1,3 +1,4 @@
+import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
 import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron'
 import { Normaltekst } from 'nav-frontend-typografi'
@@ -13,43 +14,60 @@ const P5000HelpModal = ({
       highContrast={highContrast}
       modal={{
         closeButton: true,
+        modalTitle: t('buc:p5000-saved-working-copy') + ' ' + t('ui:hva-betyr-det'),
         modalContent: (
-          <div style={{ maxWidth: '600px' }}>
+          <div style={{ maxWidth: '800px' }}>
             <VerticalSeparatorDiv size='2' />
             <Normaltekst>
-              When you edit a P5000 by clicking on
+              {t('buc:p5000-help-modal-1')}
               <HighContrastFlatknapp
                 mini
+                kompakt
                 onClick={() => {}}
               >
                 {t('buc:p5000-registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
                 <HoyreChevron />
               </HighContrastFlatknapp>
-              , you begin with a list of all periods found in RINA.
+              {t('buc:p5000-help-modal-2')}
             </Normaltekst>
             <VerticalSeparatorDiv />
             <Normaltekst>
-              When you add a new period, or change an existing one, we create a "working copy" and save it in your
-              computer immmediately.
+              {t('buc:p5000-help-modal-3')}
             </Normaltekst>
             <VerticalSeparatorDiv />
             <Normaltekst>
-              This ensures that you do not lose any changes and you can resume work, after a token expiration.
+              {t('buc:p5000-help-modal-4')}
+            </Normaltekst>
+            <VerticalSeparatorDiv />
+            <div style={{ textAlign: 'center' }}>
+              <img alt='p5000help' src={P5000HelpPNG} />
+            </div>
+            <VerticalSeparatorDiv />
+            <Normaltekst>
+              {t('buc:p5000-help-modal-5')}
+              <HighContrastFlatknapp
+                mini kompakt
+                onClick={() => {}}
+              >
+                {t('buc:p5000-rediger')}
+                <HorizontalSeparatorDiv size='0.3' />
+                <HoyreChevron />
+              </HighContrastFlatknapp>
+              {t('buc:p5000-help-modal-6')}
+              <HighContrastFlatknapp
+                mini kompakt
+                onClick={() => {}}
+              >
+                <Trashcan />
+                <HorizontalSeparatorDiv size='0.5' />
+                {t('ui:remove')}
+              </HighContrastFlatknapp>
+              .
             </Normaltekst>
             <VerticalSeparatorDiv />
             <Normaltekst>
-              You can see which P5000s have a saved working copy, when this panel appears:
-            </Normaltekst>
-            <VerticalSeparatorDiv size='0.5' />
-            <img alt='p5000help' src={P5000HelpPNG} />
-            <VerticalSeparatorDiv size='0.5' />
-            <Normaltekst>
-              From there, you can either delete the working copy (start again from the initial RINA version), or resume the work.
-            </Normaltekst>
-            <VerticalSeparatorDiv />
-            <Normaltekst>
-              When you send the P5000 SED to Rina, the working copy will be deleted.
+              {t('buc:p5000-help-modal-7')}
             </Normaltekst>
             <VerticalSeparatorDiv size='2' />
           </div>
