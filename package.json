@@ -82,6 +82,7 @@
     "nav-hoykontrast": "^1.3.5",
     "paginering": "^1.1.1",
     "print-js": "^1.6.0",
+    "rc-tooltip": "^5.1.1",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
     "react-collapse": "^5.1.0",
