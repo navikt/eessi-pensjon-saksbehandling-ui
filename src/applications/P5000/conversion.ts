@@ -13,7 +13,6 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
 import md5 from 'md5'
-// import md5 from 'md5'
 
 export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   if (sed === undefined) {
