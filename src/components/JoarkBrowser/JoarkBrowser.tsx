@@ -360,7 +360,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         id={'joarkbrowser-' + tableId}
         highContrast={highContrast}
         items={_items}
-        key={md5(JSON.stringify(_items))}
         context={context}
         labels={{
           type: t('ui:attachments').toLowerCase()
