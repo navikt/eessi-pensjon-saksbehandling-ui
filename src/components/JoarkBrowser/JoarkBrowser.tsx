@@ -27,7 +27,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Table from 'tabell'
-//import md5 from 'md5'
+import md5 from 'md5'
 
 const ButtonsDiv = styled.div`
   display: flex;
@@ -360,6 +360,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         id={'joarkbrowser-' + tableId}
         highContrast={highContrast}
         items={_items}
+        key={md5(JSON.stringify(list))}
         context={context}
         labels={{
           type: t('ui:attachments').toLowerCase()
