@@ -358,6 +358,7 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     arr[index].sum.maaneder = '' + remainingMonths
     arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseInt(arr[index].sum.aar!) + extraYears) : '' + extraYears
   }
+
   arr[index].sum.aar = String(arr[index].sum.aar).padStart(2, '0')
   arr[index].sum.maaneder = String(arr[index].sum.maaneder).padStart(2, '0')
   arr[index].sum.dager.nr = String(arr[index].sum.dager.nr).padStart(2, '0')

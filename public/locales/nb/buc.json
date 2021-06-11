@@ -184,7 +184,7 @@
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
 
   "help-avdodFnr" : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
-  "help-p5000-1"  : " Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1), kryss \"Nei\" her (4.2), og klikk «Lagre».",
+  "help-p5000-1"  : "Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1), velg \"Nei\" her (4.2).",
   "help-p5000-2"  : "Når du klikker på \"Overfør til Rina\" vil nødvendige felt i kapittel 4/5 i P5000 bli pre-utfylt.",
 
   "loading-buc"                   : "Laster BUC...",
@@ -307,5 +307,10 @@
   "warning-failedP5000Sending" : "Feil med overføring P5000 data til Rina",
   "warning-okP5000Sending"     : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet.",
   "warning-P5000SumGjenlevende": "Ved pensjonspoeng i flytteår må du legge til den resterende perioden for gjeldende år i beregningen (pkt. 5.2). OBS! Dersom du endrer på registrerte perioder i boks 1, må du også legge til ekstraperiodene i summeringen igjen",
-  "warning-P5000SumGjenlevende2": "Sum under punkt 5.2 skal være maks 40 år på de ulike typene. Du må derfor endre til 40 år, 0 måneder og 0 dager ved høyere summer."
+  "warning-P5000Sum-instructions-title"    : "Sum i punkt 5.2 skal avvike fra sum i punkt 5.1 ved",
+  "warning-P5000Sum-instructions-li1"      : "Gjennomsnittsberegning",
+  "warning-P5000Sum-instructions-li1-help" : "I punkt 5.2 må overskytende periode for året som er registrert i kapittel 4 trekkes fra faktisk beregnet inntektsperiode. F.eks. hvis du beregner en periode på tre måneder, må du trekke 9 måneder fra det som er registrert i kapittel 4.",
+  "warning-P5000Sum-instructions-li2"      : "poeng i inn- og ut-år (gjelder i hovedsak gjenlevendepensjon) ",
+  "warning-P5000Sum-instructions-li2-help" : "Ved, pensjonspoeng i flytteår må du i punkt 5.2 legge til den resterende perioden for gjeldende år i beregningen. F.eks. hvis forsikrede utvandret 30.06.2000/startet å jobbe i utlandet 01.07.2000, så må man legge til 6 måneder.",
+  "warning-over-40-years": "I Norge beregnes pensjon etter en maksgrense på 40 års trygdetid"
 }

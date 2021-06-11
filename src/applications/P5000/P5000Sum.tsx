@@ -1,5 +1,6 @@
 import { typePeriode } from 'applications/P5000/P5000.labels'
 import { typeOptions } from 'applications/P5000/P5000Edit'
+import HelpIcon from 'assets/icons/HelpIcon'
 import Select from 'components/Select/Select'
 import { Labels } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
@@ -25,6 +26,7 @@ import NavHighContrast, {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -218,6 +220,16 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     }
   }
 
+  const IsSumOver40years = (items: P5000SumRows) => {
+    let total51: number = 0
+    let total52: number = 0
+    items.forEach(it => {
+      total51 += parseInt(it.sec51aar) + (parseInt(it.sec51mnd)/12.0) + (parseInt(it.sec51dag)/ 365.0)
+      total52 += parseInt(it.sec52aar) + (parseInt(it.sec52mnd)/12.0) + (parseInt(it.sec52dag)/ 365.0)
+    })
+    return (total51 >= 40.0 || total52 >= 40.0)
+  }
+
   return (
     <NavHighContrast highContrast={highContrast}>
       <PileCenterDiv>
@@ -258,12 +270,63 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             <VerticalSeparatorDiv />
           </>
         )}
-        {(sakType === SakTypeMap.ALDER || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.UFOREP) && (
+        {IsSumOver40years(items) && (
+          <>
+            <Row>
+              <Column>
+                <Alertstripe type='feil'>
+                  {t('buc:warning-over-40-years')}
+                </Alertstripe>
+              </Column>
+              <Column />
+            </Row>
+            <VerticalSeparatorDiv />
+          </>
+        )}
+        {!!sakType && (
           <>
             <Row>
               <Column>
                 <Alertstripe type='advarsel'>
-                  {t('buc:warning-P5000SumGjenlevende2')}
+                  <>
+                    <strong>{t('buc:warning-P5000Sum-instructions-title')}</strong>
+                    <ul>
+                      <li>
+                        <FlexCenterDiv>
+                        {t('buc:warning-P5000Sum-instructions-li1')}
+                        <HorizontalSeparatorDiv size='0.5'/>
+                        <Tooltip
+                          placement='top' trigger={['hover']} overlay={(
+                            <div style={{maxWidth: '400px'}}>
+                            <Normaltekst>{t('buc:warning-P5000Sum-instructions-li1-help')}</Normaltekst>
+                            </div>
+                        )}
+                        >
+                          <div style={{ minWidth: '28px' }}>
+                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                          </div>
+                        </Tooltip>
+                        </FlexCenterDiv>
+                      </li>
+                      <li>
+                      <FlexCenterDiv>
+                      {t('buc:warning-P5000Sum-instructions-li2')}
+                        <HorizontalSeparatorDiv size='0.5'/>
+                        <Tooltip
+                          placement='top' trigger={['hover']} overlay={(
+                          <div style={{maxWidth: '400px'}}>
+                            <Normaltekst>{t('buc:warning-P5000Sum-instructions-li2-help')}</Normaltekst>
+                          </div>
+                        )}
+                        >
+                          <div style={{ minWidth: '28px' }}>
+                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                          </div>
+                        </Tooltip>
+                      </FlexCenterDiv>
+                      </li>
+                    </ul>
+                  </>
                 </Alertstripe>
               </Column>
               <Column />
