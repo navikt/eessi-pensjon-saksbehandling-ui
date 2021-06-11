@@ -26,7 +26,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import TableSorter from 'tabell'
+import Table from 'tabell'
 import md5 from 'md5'
 
 const ButtonsDiv = styled.div`
@@ -355,7 +355,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         modal={_modal}
         onModalClose={handleModalClose}
       />
-      <TableSorter
+      <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
         highContrast={highContrast}
@@ -365,7 +365,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         labels={{
           type: t('ui:attachments').toLowerCase()
         }}
-        itemsPerPage={30}
+        itemsPerPage={20}
         compact
         animatable={false}
         searchable={mode === 'select'}

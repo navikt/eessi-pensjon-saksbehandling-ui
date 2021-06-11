@@ -351,7 +351,7 @@ const BUCList: React.FC<BUCListProps> = ({
             <BUCLoading />
           </BUCLoadingDiv>
         )}
-        {sortedBucs === null && (
+        {!loading.gettingBUCs && sortedBucs === null && (
           <>
             <VerticalSeparatorDiv size='2' />
             <Normaltekst>
