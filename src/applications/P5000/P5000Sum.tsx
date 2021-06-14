@@ -325,7 +325,11 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                         </Tooltip>
                       </FlexCenterDiv>
                       </li>
+                      <li>
+                        {t('buc:warning-P5000Sum-instructions-li3')}
+                      </li>
                     </ul>
+                    <strong>{t('buc:warning-P5000Sum-instructions-footer')}</strong>
                   </>
                 </Alertstripe>
               </Column>

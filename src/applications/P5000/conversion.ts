@@ -238,21 +238,21 @@ export const convertDate = (date: string | Date | null | undefined): string | nu
   return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD')
 }
 
-export const listItemtoPeriod = (item: P5000ListRow): P5000Period => {
+export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period => {
+  const over40: boolean = max40 && parseInt(item.aar) >= 40
   const period: P5000Period = {
     key: item?.key,
-    relevans: item.ytelse, /// ???
-    ordning: item.ordning,
+    relevans: item.ytelse, /// ???f
     land: item.land || 'NO',
     sum: {
       kvartal: null,
-      aar: String(item.aar).padStart(2, '0'),
+      aar: over40 ? '40' : String(item.aar).padStart(2, '0'),
       uker: null,
       dager: {
-        nr: '' + String(item.dag).padStart(2, '0'),
+        nr:  over40 ? '00' : '' + String(item.dag).padStart(2, '0'),
         type: '7'
       },
-      maaneder: '' + String(item.mnd).padStart(2, '0')
+      maaneder:  over40 ? '00' : '' + String(item.mnd).padStart(2, '0')
     },
     yrke: null,
     gyldigperiode: null,
@@ -328,7 +328,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
   return [medlemskapTotalperiod, medlemskapTrygdetid]
 }
 
-export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow) => {
+export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
   arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseInt(arr[index].sum.aar!) + item.aar) : '' + item.aar
   arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseInt(arr[index].sum.maaneder!) + item.mnd) : '' + item.mnd
   arr[index].sum.dager.nr = arr[index].sum.dager.nr !== null ? '' + (parseInt(arr[index].sum.dager.nr!) + item.dag) : '' + item.dag
@@ -362,6 +362,12 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
   arr[index].sum.aar = String(arr[index].sum.aar).padStart(2, '0')
   arr[index].sum.maaneder = String(arr[index].sum.maaneder).padStart(2, '0')
   arr[index].sum.dager.nr = String(arr[index].sum.dager.nr).padStart(2, '0')
+
+  if (max40 && arr[index].sum.aar !== null && parseInt(arr[index].sum.aar!) >= 40) {
+    arr[index].sum.aar = '40'
+    arr[index].sum.maaneder = '00'
+    arr[index].sum.dager.nr = '00'
+  }
 }
 
 // Converts table rows for view/list, into P5000 SED for storage
@@ -393,7 +399,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     const gyldigperiode: Array<P5000Period> = []
 
     payload.items!.forEach((item) => {
-      const periode: P5000Period = listItemtoPeriod(item)
+      const periode: P5000Period = listItemtoPeriod(item, false)
       medlemskapPeriods.push(periode)
 
       if (!_.isNil(item.type)) {
@@ -402,15 +408,15 @@ export const convertFromP5000ListRowsIntoP5000SED = (
 
         if (item.type !== '45') {
           if (foundInMedemskapTotalIndex === -1) {
-            medemskapTotalPeriods.push(listItemtoPeriod(item))
+            medemskapTotalPeriods.push(listItemtoPeriod(item, false))
           } else {
-            mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item)
+            mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item, false)
           }
         }
         if (foundInGyldigperiodeIndex === -1) {
-          gyldigperiode.push(listItemtoPeriod(item))
+          gyldigperiode.push(listItemtoPeriod(item, true))
         } else {
-          mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item)
+          mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item, true)
         }
       }
     })

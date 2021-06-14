@@ -25,7 +25,7 @@ export interface P5000PeriodInterval {
 export interface P5000Period {
   key ?: string
   relevans : string | null,
-  ordning : string | null,
+  ordning? : string | null,
   land : string | null,
   sum : {
     kvartal : string | null,
