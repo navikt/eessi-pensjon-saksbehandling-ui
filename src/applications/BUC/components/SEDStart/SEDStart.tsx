@@ -928,7 +928,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       {!vedtakId && _sed === 'P6000' && (
         <FullWidthDiv>
           <AlertDiv>
-            <Alert type='client' fixed={false} status='WARNING' message={t('buc:alert-noVedtakId')} />
+            <Alert status='WARNING' message={t('buc:alert-noVedtakId')} />
           </AlertDiv>
         </FullWidthDiv>
       )}

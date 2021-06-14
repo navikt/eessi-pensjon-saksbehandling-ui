@@ -755,7 +755,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <Column flex='2'>
               {sentP5000info === null && (
                 <MyAlert
-                  type='client' status='WARNING' message={(
+                  status='WARNING' message={(
                     <FlexDiv>
                       <Normaltekst>
                         {t('buc:warning-failedP5000Sending')}
@@ -770,7 +770,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               )}
               {!_.isNil(sentP5000info) && (
                 <MyAlert
-                  type='client' status='OK' message={(
+                  status='OK' message={(
                     <FlexDiv>
                       <Normaltekst>
                         {t('buc:warning-okP5000Sending', { caseId: caseId })}

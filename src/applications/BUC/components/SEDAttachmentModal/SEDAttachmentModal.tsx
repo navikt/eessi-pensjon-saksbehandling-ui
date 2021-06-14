@@ -67,7 +67,6 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
             <>
               {clientErrorMessage && clientErrorStatus === 'ERROR' && (
                 <Alert
-                  type='client'
                   message={t(clientErrorMessage, clientErrorParam)}
                   status={clientErrorStatus}
                   error={error}

@@ -10,32 +10,19 @@ import styled from 'styled-components'
 
 export type AlertStatusClasses = {[status in AlertStatus]: AlertStripeType}
 
-export type AlertType = 'client' | 'server'
-
 export const AlertDiv = styled(AlertStripe)`
   opacity: 0;
   animation: ${fadeIn} 1s forwards;
-  position: relative;
-
-  .alertstripe .alertstripe__tekst {
-     flex: auto !important; /* because IE11 */
-  }
-  &.fixed {
-    position: fixed;
-    top: 0.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    min-width: 400px;
-  }
-  &.type-server {
-    border-radius: 0px !important;
-    border: 0px !important;
-    .alertstripe__tekst {
-      display: flex !important;
-      justify-content: space-between;
-      max-width: none !important;
-    }
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  border-radius: 0px !important;
+  border: 0px !important;
+  .alertstripe__tekst {
+    display: flex !important;
+    justify-content: space-between;
+    max-width: none !important;
   }
 `
 export const CloseIcon = styled(FilledRemoveCircle)`
@@ -48,12 +35,10 @@ export const CloseIcon = styled(FilledRemoveCircle)`
 export interface AlertProps {
   className ?: string
   error?: AlertError | string
-  fixed?: boolean
   message?: JSX.Element | string
   onClose?: () => void
   status?: AlertStatus
   style ?: any
-  type?: AlertType
 }
 
 export const errorTypes: AlertStatusClasses = {
@@ -63,7 +48,7 @@ export const errorTypes: AlertStatusClasses = {
 }
 
 export const Alert: React.FC<AlertProps> = ({
-  className, error, fixed, message, onClose, status = 'ERROR', style = {}, type
+  className, error, message, onClose, status = 'ERROR', style = {}
 }: AlertProps): JSX.Element | null => {
   let _message: JSX.Element | string | undefined = message
 
@@ -94,11 +79,6 @@ export const Alert: React.FC<AlertProps> = ({
     return null
   }
 
-  if (!_.includes(['client', 'server'], type)) {
-    console.error('Invalid alert type: ' + type)
-    return null
-  }
-
   if (!_.includes(Object.keys(errorTypes), status)) {
     console.error('Invalid alert status: ' + status)
     return null
@@ -108,14 +88,11 @@ export const Alert: React.FC<AlertProps> = ({
     _message += ': ' + printError(error!)
   }
 
-  const _fixed: boolean = _.isNil(fixed) ? type === 'client' : fixed
   return (
     <AlertDiv
       className={classNames(
-        'type-' + type,
         'status-' + status,
         className,
-        { fixed: _fixed }
       )}
       style={style}
       role='alert'
@@ -135,11 +112,9 @@ export const Alert: React.FC<AlertProps> = ({
 Alert.propTypes = {
   className: PT.string,
   error: PT.oneOfType([AlertErrorPropType, PT.string]),
-  fixed: PT.bool,
   message: PT.oneOfType([PT.string, PT.element]),
   onClose: PT.func,
-  status: PT.oneOf(['OK', 'ERROR', 'WARNING']),
-  type: PT.oneOf(['client', 'server'])
+  status: PT.oneOf(['OK', 'ERROR', 'WARNING'])
 }
 
 Alert.displayName = 'Alert'

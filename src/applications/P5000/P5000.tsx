@@ -298,8 +298,6 @@ const P5000: React.FC<P5000Props> = ({
         <Column>
           {warning && (
             <Alert
-              type='client'
-              fixed={false}
               status='WARNING'
               message={t('buc:form-P5000-warning')}
             />

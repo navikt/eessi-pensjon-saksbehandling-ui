@@ -306,6 +306,7 @@ export const getRinaUrl: ActionCreator<ThunkResult<ActionWithPayload<RinaUrlPayl
   return call({
     url: urls.EUX_RINA_URL,
     expectedPayload: mockRinaUrl,
+    expectedFailureRate: 1,
     type: {
       request: types.BUC_RINA_GET_URL_REQUEST,
       success: types.BUC_RINA_GET_URL_SUCCESS,

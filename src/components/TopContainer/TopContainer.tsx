@@ -94,15 +94,14 @@ export const TopContainer: React.FC<TopContainerProps> = ({
     dispatch(clientClear())
   }
 
-  const getClientErrorMessage = (): string | undefined => {
-    if (!clientErrorMessage) {
-      return undefined
+  const getErrorMessage = (): string | undefined => {
+    if (serverErrorMessage) {
+      return t(serverErrorMessage)
     }
-    return t(clientErrorMessage, clientErrorParam)
-  }
-
-  const getServerErrorMessage = (): string | undefined => {
-    return serverErrorMessage ? t(serverErrorMessage) : undefined
+    if (clientErrorMessage) {
+      return t(clientErrorMessage, clientErrorParam)
+    }
+    return undefined
   }
 
   const onResize = (width: any): void => {
@@ -151,15 +150,8 @@ export const TopContainer: React.FC<TopContainerProps> = ({
               isLoggingOut={isLoggingOut}
             />
             <Alert
-              type='client'
-              message={getClientErrorMessage()}
+              message={getErrorMessage()}
               status={clientErrorStatus}
-              error={error}
-              onClose={onClear}
-            />
-            <Alert
-              type='server'
-              message={getServerErrorMessage()}
               error={error}
               onClose={onClear}
             />
