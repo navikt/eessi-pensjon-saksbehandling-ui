@@ -220,14 +220,13 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     }
   }
 
-  const IsSumOver40years = (items: P5000SumRows) => {
-    let total51: number = 0
-    let total52: number = 0
-    items.forEach(it => {
-      total51 += parseInt(it.sec51aar) + (parseInt(it.sec51mnd)/12.0) + (parseInt(it.sec51dag)/ 365.0)
-      total52 += parseInt(it.sec52aar) + (parseInt(it.sec52mnd)/12.0) + (parseInt(it.sec52dag)/ 365.0)
-    })
-    return (total51 >= 40.0 || total52 >= 40.0)
+  const isThereASumOver40years = (items: P5000SumRows) => {
+    for (let i = 0; i < items.length; i++) {
+      if (parseInt(items[i].sec52aar) >= 40) {
+        return true
+      }
+    }
+    return false
   }
 
   return (
@@ -263,19 +262,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
               <Column>
                 <Alertstripe type='advarsel'>
                   {t('buc:warning-P5000SumGjenlevende')}
-                </Alertstripe>
-              </Column>
-              <Column />
-            </Row>
-            <VerticalSeparatorDiv />
-          </>
-        )}
-        {IsSumOver40years(items) && (
-          <>
-            <Row>
-              <Column>
-                <Alertstripe type='feil'>
-                  {t('buc:warning-over-40-years')}
                 </Alertstripe>
               </Column>
               <Column />
@@ -328,6 +314,24 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                       <li>
                         {t('buc:warning-P5000Sum-instructions-li3')}
                       </li>
+                      {isThereASumOver40years(items) && (
+                        <li>
+                          <FlexCenterDiv>
+                           {t('buc:warning-P5000Sum-instructions-li4')}
+                            <HorizontalSeparatorDiv size='0.5'/>
+                            <Tooltip
+                              placement='top' trigger={['hover']} overlay={(
+                              <div style={{maxWidth: '400px'}}>
+                                <Normaltekst>{t('buc:warning-P5000Sum-instructions-li4-help')}</Normaltekst>
+                              </div>
+                            )}>
+                            <div style={{ minWidth: '28px' }}>
+                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                          </div>
+                        </Tooltip>
+                          </FlexCenterDiv>
+                        </li>
+                      )}
                     </ul>
                     <strong>{t('buc:warning-P5000Sum-instructions-footer')}</strong>
                   </>
