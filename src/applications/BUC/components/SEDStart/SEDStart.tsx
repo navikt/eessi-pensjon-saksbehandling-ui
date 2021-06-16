@@ -24,7 +24,6 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import PersonIcon from 'assets/icons/line-version-person-2'
-import Alert from 'components/Alert/Alert'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
@@ -95,6 +94,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GroupTypeBase, ValueType } from 'react-select'
 import styled from 'styled-components'
 import moment from 'moment'
+import AlertStripe from 'nav-frontend-alertstriper'
 
 const AlertDiv = styled.div`
   display: flex;
@@ -928,7 +928,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       {!vedtakId && _sed === 'P6000' && (
         <FullWidthDiv>
           <AlertDiv>
-            <Alert status='WARNING' message={t('buc:alert-noVedtakId')} />
+            <AlertStripe type='advarsel'>
+              {t('buc:alert-noVedtakId')}
+            </AlertStripe>
           </AlertDiv>
         </FullWidthDiv>
       )}

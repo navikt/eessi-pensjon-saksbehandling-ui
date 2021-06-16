@@ -75,7 +75,7 @@ export default {
       land: null,
       sum: {
         kvartal: null,
-        aar: '11',
+        aar: '11.111111',
         uker: null,
         dager: {
           nr: '00',
@@ -98,7 +98,7 @@ export default {
       land: null,
       sum: {
         kvartal: null,
-        aar: '11',
+        aar: '11.111111',
         uker: null,
         dager: {
           nr: '00',
@@ -120,14 +120,13 @@ export default {
         datoFrist: null,
         krav: '20'
       },
-      gyldigperiode: '1',
       medlemskap: [{
         relevans: null,
         ordning: null,
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -141,8 +140,8 @@ export default {
         beregning: null,
         informasjonskalkulering: null,
         periode: {
-          fom: '1986-01-01',
-          tom: '1986-07-06',
+          fom: '1906-01-01',
+          tom: '1906-07-06',
           extra: null
         },
         enkeltkrav: null
@@ -152,7 +151,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -177,7 +176,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -202,7 +201,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -227,7 +226,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -252,7 +251,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -277,7 +276,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -302,7 +301,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01',
+          aar: '01.111111',
           uker: null,
           dager: {
             nr: '00',
@@ -327,7 +326,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '03',
+          aar: '03.333333',
           uker: null,
           dager: {
             nr: '00',

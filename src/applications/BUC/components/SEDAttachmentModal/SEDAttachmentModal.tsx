@@ -1,5 +1,4 @@
 import Document from 'assets/icons/document'
-import Alert from 'components/Alert/Alert'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import Modal from 'components/Modal/Modal'
 import { AlertStatus } from 'declarations/components'
@@ -11,6 +10,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import NavHighContrast from 'nav-hoykontrast'
+import AlertStripe from 'nav-frontend-alertstriper'
 
 export interface SEDAttachmentModalProps {
   highContrast: boolean
@@ -40,7 +40,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   highContrast, onFinishedSelection, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps): JSX.Element => {
   const { t } = useTranslation()
-  const { clientErrorParam, clientErrorMessage, clientErrorStatus, error } = useSelector<State, SEDAttachmentModalSelector>(mapState)
+  const { clientErrorParam, clientErrorMessage, clientErrorStatus } = useSelector<State, SEDAttachmentModalSelector>(mapState)
   const [_items, setItems] = useState<JoarkBrowserItems>(sedAttachments)
 
   const onRowSelectChange = (items: JoarkBrowserItems): void => {
@@ -66,11 +66,9 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
           modalContent: (
             <>
               {clientErrorMessage && clientErrorStatus === 'ERROR' && (
-                <Alert
-                  message={t(clientErrorMessage, clientErrorParam)}
-                  status={clientErrorStatus}
-                  error={error}
-                />
+                <AlertStripe type='feil'>
+                  {t(clientErrorMessage, clientErrorParam)}
+                </AlertStripe>
               )}
               <JoarkBrowser
                 data-test-id='a-buc-c-sedattachmentmodal__joarkbrowser-id'

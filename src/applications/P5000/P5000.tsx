@@ -2,7 +2,6 @@ import { getSed, resetSentP5000info, syncToP5000Storage, unsyncFromP5000Storage 
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import WarningCircle from 'assets/icons/WarningCircle'
-import Alert from 'components/Alert/Alert'
 import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry, LocalStorageValue } from 'declarations/app'
@@ -11,6 +10,7 @@ import { EmptyPeriodsReport, P5000Context, P5000SED, SedSender } from 'declarati
 import { State } from 'declarations/reducers'
 import Flag from 'flagg-ikoner'
 import _ from 'lodash'
+import AlertStripe from 'nav-frontend-alertstriper'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import { Checkbox } from 'nav-frontend-skjema'
 import { Normaltekst, UndertekstBold, Undertittel } from 'nav-frontend-typografi'
@@ -297,10 +297,9 @@ const P5000: React.FC<P5000Props> = ({
         </Column>
         <Column>
           {warning && (
-            <Alert
-              status='WARNING'
-              message={t('buc:form-P5000-warning')}
-            />
+            <AlertStripe type='advarsel'>
+              {t('buc:form-P5000-warning')}
+            </AlertStripe>
           )}
         </Column>
       </Row>

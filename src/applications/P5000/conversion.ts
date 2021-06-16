@@ -87,11 +87,11 @@ export const convertP5000SEDToP5000ListRows = (
           type: period.type ?? '',
           startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
           sluttdato: period.periode?.tom ? moment(period.periode?.tom, 'YYYY-MM-DD').toDate() : '',
-          aar: period.sum?.aar ? parseInt(period.sum?.aar) : '',
+          aar: period.sum?.aar ? parseFloat(period.sum?.aar) : '',
           kvartal: period.sum?.kvartal ?? '',
-          mnd: period.sum?.maaneder ? parseInt(period.sum?.maaneder) : '',
+          mnd: period.sum?.maaneder ? parseFloat(period.sum?.maaneder) : '',
           uker: period.sum?.uker ?? '',
-          dag: period.sum?.dager?.nr ? parseInt(period.sum?.dager?.nr) : '',
+          dag: period.sum?.dager?.nr ? parseFloat(period.sum?.dager?.nr) : '',
           dagtype: period.sum?.dager?.type ?? '',
           ytelse: period.relevans ?? '',
           ordning: period.ordning ?? '',
@@ -143,9 +143,9 @@ export const convertP5000SEDToP5000SumRows = (
         }
 
         data[periode.type].land = periode.land ?? ''
-        data[periode.type].sec51aar += (periode.sum?.aar ? parseInt(periode.sum?.aar) : 0)
-        data[periode.type].sec51mnd += (periode.sum?.maaneder ? parseInt(periode.sum?.maaneder) : 0)
-        data[periode.type].sec51dag += (periode.sum?.dager?.nr ? parseInt(periode.sum?.dager?.nr) : 0)
+        data[periode.type].sec51aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
+        data[periode.type].sec51mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
+        data[periode.type].sec51dag += (periode.sum?.dager?.nr ? parseFloat(periode.sum?.dager?.nr) : 0)
 
         if (data[periode.type].sec51dag >= 30) {
           const extraMonths = Math.floor(data[periode.type].sec51dag / 30)
@@ -178,9 +178,9 @@ export const convertP5000SEDToP5000SumRows = (
           }
         }
         data[periode.type].land = periode.land ?? ''
-        data[periode.type].sec52aar += (periode.sum?.aar ? parseInt(periode.sum?.aar) : 0)
-        data[periode.type].sec52mnd += (periode.sum?.maaneder ? parseInt(periode.sum?.maaneder) : 0)
-        data[periode.type].sec52dag += (periode.sum?.dager?.nr ? parseInt(periode.sum?.dager?.nr) : 0)
+        data[periode.type].sec52aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
+        data[periode.type].sec52mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
+        data[periode.type].sec52dag += (periode.sum?.dager?.nr ? parseFloat(periode.sum?.dager?.nr) : 0)
 
         if (data[periode.type].sec52dag >= 30) {
           const extraMonths = Math.floor(data[periode.type].sec52dag / 30)
@@ -239,7 +239,7 @@ export const convertDate = (date: string | Date | null | undefined): string | nu
 }
 
 export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period => {
-  const over40: boolean = max40 && parseInt(item.aar) >= 40
+  const over40: boolean = max40 && parseFloat(item.aar) >= 40
   const period: P5000Period = {
     key: item?.key,
     relevans: item.ytelse, /// ???f
@@ -329,9 +329,9 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
 }
 
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
-  arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseInt(arr[index].sum.aar!) + item.aar) : '' + item.aar
-  arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseInt(arr[index].sum.maaneder!) + item.mnd) : '' + item.mnd
-  arr[index].sum.dager.nr = arr[index].sum.dager.nr !== null ? '' + (parseInt(arr[index].sum.dager.nr!) + item.dag) : '' + item.dag
+  arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseFloat(arr[index].sum.aar!) + item.aar) : '' + item.aar
+  arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseFloat(arr[index].sum.maaneder!) + item.mnd) : '' + item.mnd
+  arr[index].sum.dager.nr = arr[index].sum.dager.nr !== null ? '' + (parseFloat(arr[index].sum.dager.nr!) + item.dag) : '' + item.dag
   if (!arr[index].periode) {
     arr[index].periode = {
       fom: null, tom: null, extra: null
@@ -346,24 +346,24 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     moment(item.sluttdato).isSameOrAfter(moment(arr[index].periode?.tom, 'YYYY-MM-DD'))
       ? moment(item.sluttdato).format('YYYY-MM-DD')
       : arr[index].periode!.tom
-  if (arr[index].sum.dager.nr !== null && parseInt(arr[index].sum.dager.nr!) >= 30) {
-    const extraMonths = Math.floor(parseInt(arr[index].sum.dager.nr!) / 30)
-    const remainingDays = (parseInt(arr[index].sum.dager.nr!)) % 30
+  if (arr[index].sum.dager.nr !== null && parseFloat(arr[index].sum.dager.nr!) >= 30) {
+    const extraMonths = Math.floor(parseFloat(arr[index].sum.dager.nr!) / 30)
+    const remainingDays = (parseFloat(arr[index].sum.dager.nr!)) % 30
     arr[index].sum.dager.nr = '' + remainingDays
-    arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseInt(arr[index].sum.maaneder!) + extraMonths) : '' + extraMonths
+    arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseFloat(arr[index].sum.maaneder!) + extraMonths) : '' + extraMonths
   }
-  if (arr[index].sum.maaneder !== null && parseInt(arr[index].sum.maaneder!) >= 12) {
-    const extraYears = Math.floor(parseInt(arr[index].sum.maaneder!) / 12)
-    const remainingMonths = (parseInt(arr[index].sum.maaneder!)) % 12
+  if (arr[index].sum.maaneder !== null && parseFloat(arr[index].sum.maaneder!) >= 12) {
+    const extraYears = Math.floor(parseFloat(arr[index].sum.maaneder!) / 12)
+    const remainingMonths = (parseFloat(arr[index].sum.maaneder!)) % 12
     arr[index].sum.maaneder = '' + remainingMonths
-    arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseInt(arr[index].sum.aar!) + extraYears) : '' + extraYears
+    arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseFloat(arr[index].sum.aar!) + extraYears) : '' + extraYears
   }
 
   arr[index].sum.aar = String(arr[index].sum.aar).padStart(2, '0')
   arr[index].sum.maaneder = String(arr[index].sum.maaneder).padStart(2, '0')
   arr[index].sum.dager.nr = String(arr[index].sum.dager.nr).padStart(2, '0')
 
-  if (max40 && arr[index].sum.aar !== null && parseInt(arr[index].sum.aar!) >= 40) {
+  if (max40 && arr[index].sum.aar !== null && parseFloat(arr[index].sum.aar!) >= 40) {
     arr[index].sum.aar = '40'
     arr[index].sum.maaneder = '00'
     arr[index].sum.dager.nr = '00'

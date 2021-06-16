@@ -1,7 +1,7 @@
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi'
 import { HighContrastPanel, HighContrastHovedknapp } from 'nav-hoykontrast'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 const Doc = () => {
   const params: any = useParams()

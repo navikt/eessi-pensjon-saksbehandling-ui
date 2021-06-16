@@ -20,7 +20,7 @@ import styled from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
 
-export const Alert = styled(Alertstripe)`
+export const MyAlertStripe = styled(Alertstripe)`
   width: 100%
 `
 
@@ -115,12 +115,12 @@ export const Overview: React.FC<OverviewProps> = ({
 
   if (!aktoerId) {
     return (
-      <Alert
+      <MyAlertStripe
         type='advarsel'
         data-test-id='w-overview__alert'
       >
         {t('buc:validation-noAktoerId')}
-      </Alert>
+      </MyAlertStripe>
     )
   }
 

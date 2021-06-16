@@ -220,15 +220,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     }
   }
 
-  const isThereASumOver40years = (items: P5000SumRows) => {
-    for (let i = 0; i < items.length; i++) {
-      if (parseInt(items[i].sec52aar) >= 40) {
-        return true
-      }
-    }
-    return false
-  }
-
   return (
     <NavHighContrast highContrast={highContrast}>
       <PileCenterDiv>
@@ -314,24 +305,22 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                       <li>
                         {t('buc:warning-P5000Sum-instructions-li3')}
                       </li>
-                      {isThereASumOver40years(items) && (
-                        <li>
-                          <FlexCenterDiv>
-                           {t('buc:warning-P5000Sum-instructions-li4')}
-                            <HorizontalSeparatorDiv size='0.5'/>
-                            <Tooltip
-                              placement='top' trigger={['hover']} overlay={(
-                              <div style={{maxWidth: '400px'}}>
-                                <Normaltekst>{t('buc:warning-P5000Sum-instructions-li4-help')}</Normaltekst>
-                              </div>
-                            )}>
-                            <div style={{ minWidth: '28px' }}>
-                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                          </div>
-                        </Tooltip>
-                          </FlexCenterDiv>
-                        </li>
-                      )}
+                      <li>
+                        <FlexCenterDiv>
+                         {t('buc:warning-P5000Sum-instructions-li4')}
+                          <HorizontalSeparatorDiv size='0.5'/>
+                          <Tooltip
+                            placement='top' trigger={['hover']} overlay={(
+                            <div style={{maxWidth: '400px'}}>
+                              <Normaltekst>{t('buc:warning-P5000Sum-instructions-li4-help')}</Normaltekst>
+                            </div>
+                          )}>
+                          <div style={{ minWidth: '28px' }}>
+                          <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                        </div>
+                      </Tooltip>
+                        </FlexCenterDiv>
+                      </li>
                     </ul>
                     <strong>{t('buc:warning-P5000Sum-instructions-footer')}</strong>
                   </>
@@ -350,6 +339,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           searchable={false}
           selectable={false}
           editable={context === 'edit'}
+          allowNewRows={false}
           sortable={false}
           onColumnSort={(sort: any) => {
             standardLogger('buc.edit.tools.P5000.summary.sort', { sort: sort })
