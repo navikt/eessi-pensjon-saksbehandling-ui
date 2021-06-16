@@ -160,7 +160,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
     if (_.isNil(value)) {
-      value = '1'
+      value = '0'
       onSave({
         forsikringEllerBosetningsperioder: value
       })
