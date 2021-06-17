@@ -1,6 +1,7 @@
 import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Alert from 'components/Alert/Alert'
+import Input from 'components/Forms/Input'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import { Option, Options } from 'declarations/app.d'
@@ -13,6 +14,7 @@ import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
+import Alertstripe from 'nav-frontend-alertstriper'
 import EtikettBase from 'nav-frontend-etiketter'
 import { Select as NavSelect } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
@@ -43,11 +45,10 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
-import Table, { RenderEditableOptions, Column as TableColumn, Sort } from 'tabell'
+import Table, { Column as TableColumn, RenderEditableOptions, Sort } from 'tabell'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
-import Input from 'components/Forms/Input'
 
 const moment = extendMoment(Moment)
 
@@ -144,6 +145,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
 
+  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
+    !_.isNil(p5000FromStorage)
+      ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode
+      : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
+  )
+
   const onSave = (payload: P5000UpdatePayload) => {
     let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
     if (_.isNil(templateForP5000)) {
@@ -154,19 +161,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       saveP5000ToStorage!(newP5000FromStorage, seds[0].id)
     }
   }
-
-  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string>(() => {
-    let value = !_.isNil(p5000FromStorage)
-      ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode
-      : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
-    if (_.isNil(value)) {
-      value = '0'
-      onSave({
-        forsikringEllerBosetningsperioder: value
-      })
-    }
-    return value
-  })
 
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
@@ -822,7 +816,30 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </Column>
           </AlignEndRow>
           <VerticalSeparatorDiv />
-          <hr style={{ width: '100%' }} />
+          <AlignEndRow>
+            <Column>
+              <Alertstripe type='advarsel'>
+                <FlexCenterDiv>
+                  {t('buc:warning-P5000Edit-instructions-li1')}
+                  <HorizontalSeparatorDiv size='0.5'/>
+                  <Tooltip
+                    placement='top' trigger={['hover']} overlay={(
+                    <div style={{maxWidth: '600px'}}>
+                      <Normaltekst>{t('buc:warning-P5000Edit-instructions-li1-help')}</Normaltekst>
+                    </div>
+                  )}
+                  >
+                    <div style={{ minWidth: '28px' }}>
+                      <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                    </div>
+                  </Tooltip>
+                </FlexCenterDiv>
+              </Alertstripe>
+            </Column>
+            <Column/>
+          </AlignEndRow>
+          <VerticalSeparatorDiv />
+           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
           <Table<P5000ListRow, P5000TableContext>
             highContrast={highContrast}

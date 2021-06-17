@@ -33,7 +33,7 @@
     "history": "4.10.1",
     "http-proxy-middleware": "^2.0.0",
     "i18next": "^20.3.1",
-    "i18next-browser-languagedetector": "^6.1.1",
+    "i18next-browser-languagedetector": "^6.1.2",
     "i18next-xhr-backend": "^3.2.2",
     "js-fetch-api": "^1.1.7",
     "land-verktoy": "^1.1.4",
@@ -99,7 +99,7 @@
     "redux": "^4.1.0",
     "sprintf-js": "^1.1.2",
     "styled-components": "^5.3.0",
-    "tabell": "^1.5.5"
+    "tabell": "^1.5.6"
   },
   "devDependencies": {
     "@axe-core/react": "^4.2.1",
@@ -143,7 +143,7 @@
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
     "standardx": "^7.0.0",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.3"
   },
   "resolutions": {
     "babel-jest": "26.6.0"

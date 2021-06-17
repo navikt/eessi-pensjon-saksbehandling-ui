@@ -184,7 +184,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   ]
 
   const categories = [{
-    colSpan: 2,
+    colSpan: 3,
     label: '',
     border: false
   }, {
@@ -269,13 +269,16 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                     <strong>{t('buc:warning-P5000Sum-instructions-title')}</strong>
                     <ul>
                       <li>
-                        <FlexCenterDiv>
                         {t('buc:warning-P5000Sum-instructions-li1')}
+                      </li>
+                      <li>
+                        <FlexCenterDiv>
+                        {t('buc:warning-P5000Sum-instructions-li2')}
                         <HorizontalSeparatorDiv size='0.5'/>
                         <Tooltip
                           placement='top' trigger={['hover']} overlay={(
-                            <div style={{maxWidth: '400px'}}>
-                            <Normaltekst>{t('buc:warning-P5000Sum-instructions-li1-help')}</Normaltekst>
+                            <div style={{maxWidth: '600px'}}>
+                            <Normaltekst>{t('buc:warning-P5000Sum-instructions-li2-help')}</Normaltekst>
                             </div>
                         )}
                         >
@@ -286,39 +289,19 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                         </FlexCenterDiv>
                       </li>
                       <li>
-                      <FlexCenterDiv>
-                      {t('buc:warning-P5000Sum-instructions-li2')}
-                        <HorizontalSeparatorDiv size='0.5'/>
-                        <Tooltip
-                          placement='top' trigger={['hover']} overlay={(
-                          <div style={{maxWidth: '400px'}}>
-                            <Normaltekst>{t('buc:warning-P5000Sum-instructions-li2-help')}</Normaltekst>
-                          </div>
-                        )}
-                        >
-                          <div style={{ minWidth: '28px' }}>
-                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                          </div>
-                        </Tooltip>
-                      </FlexCenterDiv>
-                      </li>
-                      <li>
-                        {t('buc:warning-P5000Sum-instructions-li3')}
-                      </li>
-                      <li>
                         <FlexCenterDiv>
-                         {t('buc:warning-P5000Sum-instructions-li4')}
+                          {t('buc:warning-P5000Sum-instructions-li3')}
                           <HorizontalSeparatorDiv size='0.5'/>
                           <Tooltip
                             placement='top' trigger={['hover']} overlay={(
-                            <div style={{maxWidth: '400px'}}>
-                              <Normaltekst>{t('buc:warning-P5000Sum-instructions-li4-help')}</Normaltekst>
+                            <div style={{maxWidth: '600px'}}>
+                              <Normaltekst>{t('buc:warning-P5000Sum-instructions-li3-help')}</Normaltekst>
                             </div>
                           )}>
-                          <div style={{ minWidth: '28px' }}>
-                          <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                        </div>
-                      </Tooltip>
+                            <div style={{ minWidth: '28px' }}>
+                              <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                            </div>
+                          </Tooltip>
                         </FlexCenterDiv>
                       </li>
                     </ul>
