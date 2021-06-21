@@ -328,10 +328,43 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
   return [medlemskapTotalperiod, medlemskapTrygdetid]
 }
 
+const countDecimals = (value: number) => {
+  if (Math.floor(value) !== value) return value.toString().split(".")[1].length || 0
+  return 0
+}
+
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
-  arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseFloat(arr[index].sum.aar!) + item.aar) : '' + item.aar
-  arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseFloat(arr[index].sum.maaneder!) + item.mnd) : '' + item.mnd
-  arr[index].sum.dager.nr = arr[index].sum.dager.nr !== null ? '' + (parseFloat(arr[index].sum.dager.nr!) + item.dag) : '' + item.dag
+
+  let newAar: number = parseFloat(arr[index].sum.aar ?? '0')
+  let newMaaneder: number = parseFloat(arr[index].sum.maaneder ?? '0')
+  let newDager: number = parseFloat(arr[index].sum.dager.nr ?? '0')
+
+  newAar += parseFloat(item.aar)
+  newMaaneder += parseFloat(item.mnd)
+  newDager += parseFloat(item.dag)
+
+  if (newDager >= 30) {
+    const extraMonths = Math.floor(newDager / 30.0)
+    newDager = newDager % 30
+    newMaaneder += extraMonths
+  }
+
+  if (newMaaneder >= 12) {
+    const extraYears = Math.floor(newMaaneder / 12.0)
+    newMaaneder = newMaaneder % 12
+    newAar += extraYears
+  }
+
+  if (max40 && newAar >= 40) {
+    newAar = 40
+    newMaaneder = 0
+    newDager = 0
+  }
+
+  arr[index].sum.aar = countDecimals(newAar) > 6 ? newAar.toFixed(6).padStart(2, '0') : String(newAar).padStart(2, '0')
+  arr[index].sum.maaneder = countDecimals(newMaaneder) > 4 ? newMaaneder.toFixed(4).padStart(2, '0') : String(newMaaneder).padStart(2, '0')
+  arr[index].sum.dager.nr = countDecimals(newDager) > 1 ? newDager.toFixed(1).padStart(2, '0') : String(newDager).padStart(2, '0')
+
   if (!arr[index].periode) {
     arr[index].periode = {
       fom: null, tom: null, extra: null
@@ -346,28 +379,6 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     moment(item.sluttdato).isSameOrAfter(moment(arr[index].periode?.tom, 'YYYY-MM-DD'))
       ? moment(item.sluttdato).format('YYYY-MM-DD')
       : arr[index].periode!.tom
-  if (arr[index].sum.dager.nr !== null && parseFloat(arr[index].sum.dager.nr!) >= 30) {
-    const extraMonths = Math.floor(parseFloat(arr[index].sum.dager.nr!) / 30)
-    const remainingDays = (parseFloat(arr[index].sum.dager.nr!)) % 30
-    arr[index].sum.dager.nr = '' + remainingDays
-    arr[index].sum.maaneder = arr[index].sum.maaneder !== null ? '' + (parseFloat(arr[index].sum.maaneder!) + extraMonths) : '' + extraMonths
-  }
-  if (arr[index].sum.maaneder !== null && parseFloat(arr[index].sum.maaneder!) >= 12) {
-    const extraYears = Math.floor(parseFloat(arr[index].sum.maaneder!) / 12)
-    const remainingMonths = (parseFloat(arr[index].sum.maaneder!)) % 12
-    arr[index].sum.maaneder = '' + remainingMonths
-    arr[index].sum.aar = arr[index].sum.aar !== null ? '' + (parseFloat(arr[index].sum.aar!) + extraYears) : '' + extraYears
-  }
-
-  arr[index].sum.aar = String(arr[index].sum.aar).padStart(2, '0')
-  arr[index].sum.maaneder = String(arr[index].sum.maaneder).padStart(2, '0')
-  arr[index].sum.dager.nr = String(arr[index].sum.dager.nr).padStart(2, '0')
-
-  if (max40 && arr[index].sum.aar !== null && parseFloat(arr[index].sum.aar!) >= 40) {
-    arr[index].sum.aar = '40'
-    arr[index].sum.maaneder = '00'
-    arr[index].sum.dager.nr = '00'
-  }
 }
 
 // Converts table rows for view/list, into P5000 SED for storage

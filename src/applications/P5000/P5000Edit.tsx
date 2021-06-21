@@ -103,7 +103,7 @@ export const typeOptions: Options = [
   { value: '21', label: '[21] Frivillige avgiftsperioder - ansatt' },
   { value: '22', label: '[22] Frivillige avgiftsperioder - selvstendig' },
   { value: '23', label: '[23] Frivillige avgiftsperioder - arbeidsledig' },
-  { value: '30', label: '[30] Bosettingingsperioder' },
+  { value: '30', label: '[30] Bosettingsperioder' },
   { value: '40', label: '[40] Likestilte perioder: uten nærmere spesifisering' },
   { value: '41', label: '[41] Likestilte perioder: perioder med sykdom/arbeidsuførhet' },
   { value: '42', label: '[42] Likestilte perioder: perioder med arbeidsledighet uten ytelser' },
@@ -231,7 +231,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     // make the diff calculation include the starting day,
     // so the diff between 01.01.YYYY and 02.01.YYYY is 2 days, not 1
-    // startdato.add(-1, 'days')
+    startdato.add(-1, 'days')
 
     let years = sluttdato.diff(startdato, 'years')
     startdato.add(years, 'years')
