@@ -143,7 +143,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
         aktoerId: aktoerId,
-        tags: _tags ? (_tags as Tags).map(tag => tag.value) : [],
+        tags: tagsList?.map(tag => tag.value) ?? [],
         comment: _originalComments,
         buc: buc as ValidBuc
       }))
