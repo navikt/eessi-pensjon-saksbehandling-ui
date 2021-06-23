@@ -220,6 +220,10 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     }
   }
 
+  const has40aar: boolean = _.some(items, it => parseFloat(it.sec51aar) >= 40 || parseFloat(it.sec52aar) >= 40)
+  const has45: boolean = _.some(items, it => it.type === '45')
+  const hasMoreWarnings = has40aar || has45
+
   return (
     <NavHighContrast highContrast={highContrast}>
       <PileCenterDiv>
@@ -266,46 +270,51 @@ const P5000Sum: React.FC<P5000SumProps> = ({
               <Column>
                 <Alertstripe type='advarsel'>
                   <>
-                    <strong>{t('buc:warning-P5000Sum-instructions-title')}</strong>
-                    <ul>
-                      <li>
-                        {t('buc:warning-P5000Sum-instructions-li1')}
-                      </li>
-                      <li>
-                        <FlexCenterDiv>
-                        {t('buc:warning-P5000Sum-instructions-li2')}
-                        <HorizontalSeparatorDiv size='0.5'/>
+                    <div>
+                      {t('buc:warning-P5000Sum-instructions-title')}
+                      <HorizontalSeparatorDiv size='0.5'/>
+                      <div style={{verticalAlign: 'middle', display: 'inline-block'}}>
                         <Tooltip
-                          placement='top' trigger={['hover']} overlay={(
-                            <div style={{maxWidth: '600px'}}>
-                            <Normaltekst>{t('buc:warning-P5000Sum-instructions-li2-help')}</Normaltekst>
-                            </div>
-                        )}
-                        >
-                          <div style={{ minWidth: '28px' }}>
-                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                          </div>
-                        </Tooltip>
-                        </FlexCenterDiv>
-                      </li>
-                      <li>
-                        <FlexCenterDiv>
-                          {t('buc:warning-P5000Sum-instructions-li3')}
-                          <HorizontalSeparatorDiv size='0.5'/>
-                          <Tooltip
-                            placement='top' trigger={['hover']} overlay={(
-                            <div style={{maxWidth: '600px'}}>
-                              <Normaltekst>{t('buc:warning-P5000Sum-instructions-li3-help')}</Normaltekst>
-                            </div>
-                          )}>
-                            <div style={{ minWidth: '28px' }}>
-                              <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                            </div>
-                          </Tooltip>
-                        </FlexCenterDiv>
-                      </li>
+                        placement='right' trigger={['hover']} overlay={(
+                        <div style={{maxWidth: '600px'}}>
+                          <Normaltekst>{t('buc:warning-P5000Sum-instructions-title-help')}</Normaltekst>
+                        </div>
+                      )}
+                      >
+                        <div style={{ minWidth: '28px' }}>
+                          <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                        </div>
+                      </Tooltip>
+                      </div>
+                    </div>
+                    <div>
+                      <strong>
+                        {t('buc:warning-P5000Sum-instructions-title-obs')}
+                      </strong>
+                    </div>
+                    {hasMoreWarnings && (
+                      <div>
+                        <VerticalSeparatorDiv/>
+                        <hr/>
+                        <VerticalSeparatorDiv size='0.7'/>
+                        {t('buc:warning-P5000Sum-instructions-header')}
+                        <VerticalSeparatorDiv/>
+                      </div>
+                    )}
+                    <ul>
+                      {has45 && (
+                        <li>
+                          {t('buc:warning-P5000Sum-instructions-45')}
+                          <VerticalSeparatorDiv size='0.5'/>
+                        </li>
+                      )}
+                      {has40aar && (
+                        <li>
+                          {t('buc:warning-P5000Sum-instructions-40')}
+                          <VerticalSeparatorDiv size='0.5'/>
+                        </li>
+                      )}
                     </ul>
-                    <strong>{t('buc:warning-P5000Sum-instructions-footer')}</strong>
                   </>
                 </Alertstripe>
               </Column>
