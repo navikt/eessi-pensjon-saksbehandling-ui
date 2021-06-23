@@ -2,6 +2,8 @@ import { getSed, resetSentP5000info, syncToP5000Storage, unsyncFromP5000Storage 
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import WarningCircle from 'assets/icons/WarningCircle'
+import classNames from 'classnames'
+import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry, LocalStorageValue } from 'declarations/app'
@@ -18,7 +20,6 @@ import {
   Column,
   FlexCenterDiv,
   HighContrastLink,
-  HighContrastPanel,
   HorizontalSeparatorDiv,
   PileDiv,
   Row,
@@ -35,7 +36,7 @@ import P5000Sum from './P5000Sum'
 export interface P5000Props {
   buc: Buc
   context: P5000Context
-  sed?: Sed,
+  mainSed?: Sed,
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
@@ -58,7 +59,7 @@ const mapState = (state: State): P5000Selector => ({
 const P5000: React.FC<P5000Props> = ({
   buc,
   context,
-  sed = undefined,
+  mainSed = undefined,
   setMode
 }: P5000Props): JSX.Element => {
   const { t } = useTranslation()
@@ -74,7 +75,7 @@ const P5000: React.FC<P5000Props> = ({
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
 
   // use local storage stuff only in edit context, no need for overview context
-  const p5000EntryFromStorage: LocalStorageValue | undefined = _.find(p5000Storage![buc.caseId!], { id: sed?.id })
+  const p5000EntryFromStorage: LocalStorageValue | undefined = _.find(p5000Storage![buc.caseId!], { id: mainSed?.id })
   const p5000FromStorageVersion: number | undefined = p5000EntryFromStorage?.date
   const p5000FromStorage: P5000SED | undefined = p5000EntryFromStorage?.content
 
@@ -141,14 +142,13 @@ const P5000: React.FC<P5000Props> = ({
     return Object.values(emptyPeriodsReport).indexOf(true) >= 0
   }
 
-  const sedSender: SedSender | undefined = sed ? getSedSender(sed) as SedSender : undefined
+  const sedSender: SedSender | undefined = mainSed ? getSedSender(mainSed) as SedSender : undefined
   const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
-  // this effect checks if we need to load seds, when buc/sed/contect changes
+  // this effect checks if we need to load seds, when buc/sed/context changes
   useEffect(() => {
-    console.log('get P5000 as buc, sed or context changed')
-    const seds = getP5000(buc, sed)
+    const seds = getP5000(buc, mainSed)
     _setSeds(seds)
     // which Seds we do NOT have on cache? Load them.
     const cachedSedIds: Array<string> = Object.keys(p5000FromRinaMap)
@@ -166,7 +166,7 @@ const P5000: React.FC<P5000Props> = ({
       _setFetchingP5000(undefined)
       _setReady(true)
     }
-  }, [buc, sed, context])
+  }, [buc, mainSed, context])
 
   useEffect(() => {
     if (!_ready && _.isArray(_fetchingP5000)) {
@@ -228,7 +228,7 @@ const P5000: React.FC<P5000Props> = ({
                   <SeparatorSpan>-</SeparatorSpan>
                   <SEDStatus
                     highContrast={highContrast}
-                    status={sed!.status}
+                    status={mainSed!.status}
                   />
                 </FlexCenterDiv>
               </FlexCenterDiv>
@@ -310,11 +310,18 @@ const P5000: React.FC<P5000Props> = ({
             <VerticalSeparatorDiv size='3' />
             {renderBackLink()}
             <VerticalSeparatorDiv size='2' />
-            <Undertittel>
-              {t('buc:p5000-edit-title')}
-            </Undertittel>
-            <VerticalSeparatorDiv />
-            <HighContrastPanel>
+            <ExpandingPanel
+              open
+              renderContentWhenClosed={true}
+              highContrast={highContrast}
+              collapseProps={{ id: 'a-buc-c-p5000-edit' }}
+              className={classNames({ highContrast: highContrast })}
+              heading={(
+                <Undertittel>
+                  {t('buc:p5000-edit-title')}
+                </Undertittel>
+              )}
+            >
               <P5000Edit
                 caseId={buc.caseId!}
                 highContrast={highContrast}
@@ -325,8 +332,8 @@ const P5000: React.FC<P5000Props> = ({
                 removeP5000FromStorage={removeP5000FromStorage}
                 seds={_activeSeds}
               />
-            </HighContrastPanel>
-          </>
+            </ExpandingPanel>
+            </>
           )
         : (featureToggles.P5000_SUMMER_VISIBLE && (
           <Normaltekst>
@@ -337,13 +344,18 @@ const P5000: React.FC<P5000Props> = ({
         {featureToggles.P5000_SUMMER_VISIBLE && (
           <>
             <VerticalSeparatorDiv size='3' />
-            {renderBackLink()}
-            <VerticalSeparatorDiv size='2' />
-            <Undertittel>
-              {t('buc:p5000-summary-title')}
-            </Undertittel>
-            <VerticalSeparatorDiv />
-            <HighContrastPanel>
+            <ExpandingPanel
+              open
+              renderContentWhenClosed={true}
+              highContrast={highContrast}
+              collapseProps={{ id: 'a-buc-c-p5000-sum' }}
+              className={classNames({ highContrast: highContrast })}
+              heading={(
+                <Undertittel>
+                  {t('buc:p5000-summary-title')}
+                </Undertittel>
+              )}
+            >
               <P5000Sum
                 context={context}
                 highContrast={highContrast}
@@ -353,19 +365,22 @@ const P5000: React.FC<P5000Props> = ({
                 saveP5000ToStorage={saveP5000ToStorage}
                 seds={_activeSeds}
               />
-            </HighContrastPanel>
+            </ExpandingPanel>
           </>
         )}
         <VerticalSeparatorDiv size='3' />
-        <hr />
-        <VerticalSeparatorDiv size='2' />
-        {renderBackLink()}
-        <VerticalSeparatorDiv size='2' />
-        <Undertittel>
-          {t('buc:p5000-overview-title')}
-        </Undertittel>
-        <VerticalSeparatorDiv />
-        <HighContrastPanel>
+        <ExpandingPanel
+          open
+          renderContentWhenClosed={true}
+          highContrast={highContrast}
+          collapseProps={{ id: 'a-buc-c-p5000-overview' }}
+          className={classNames({ highContrast: highContrast })}
+          heading={(
+            <Undertittel>
+              {t('buc:p5000-overview-title')}
+            </Undertittel>
+          )}
+        >
           <P5000Overview
             context={context}
             highContrast={highContrast}
@@ -374,7 +389,7 @@ const P5000: React.FC<P5000Props> = ({
             p5000FromStorage={p5000FromStorage}
             seds={_activeSeds}
           />
-        </HighContrastPanel>
+        </ExpandingPanel>
       </>
     </div>
   )

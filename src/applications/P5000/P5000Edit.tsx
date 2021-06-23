@@ -684,9 +684,24 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               <FlexCenterDiv>
                 <HighContrastRadioGroup
                   legend={(
+                    <FlexCenterDiv>
                     <OneLineSpan>
                       {t('buc:p5000-4-2-title')}
                     </OneLineSpan>
+                    <HorizontalSeparatorDiv />
+                    <Tooltip
+                      placement='top' trigger={['hover']} overlay={(
+                      <>
+                        <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
+                        <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
+                      </>
+                    )}
+                    >
+                      <div style={{ width: '28px', height: '28px' }}>
+                        <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                      </div>
+                    </Tooltip>
+                    </FlexCenterDiv>
               )}
                 >
                   <FlexEndDiv>
@@ -705,19 +720,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     />
                   </FlexEndDiv>
                 </HighContrastRadioGroup>
-                <HorizontalSeparatorDiv />
-                <Tooltip
-                  placement='top' trigger={['hover']} overlay={(
-                    <>
-                      <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
-                      <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
-                    </>
-                )}
-                >
-                  <div style={{ minWidth: '28px' }}>
-                    <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                  </div>
-                </Tooltip>
               </FlexCenterDiv>
             </Column>
             <HorizontalSeparatorDiv />

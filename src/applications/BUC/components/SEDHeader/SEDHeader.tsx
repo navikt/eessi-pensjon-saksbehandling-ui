@@ -262,7 +262,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                         buc={buc}
                         context='edit'
                         setMode={setMode}
-                        sed={sed}
+                        mainSed={sed}
                       />
                     ))
                     window.scrollTo({

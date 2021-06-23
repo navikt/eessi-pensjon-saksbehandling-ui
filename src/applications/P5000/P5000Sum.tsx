@@ -6,9 +6,6 @@ import { Labels } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
-import Flag from 'flagg-ikoner'
-import CountryData, { Countries, Country, CountryList } from 'land-verktoy'
-import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
@@ -16,7 +13,6 @@ import EtikettBase from 'nav-frontend-etiketter'
 import { Normaltekst } from 'nav-frontend-typografi'
 import NavHighContrast, {
   Column,
-  FlexCenterDiv,
   FlexEndSpacedDiv,
   HiddenDiv,
   HighContrastKnapp,
@@ -31,8 +27,15 @@ import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
+import styled from 'styled-components'
 import Table, { RenderEditableOptions, Sort } from 'tabell'
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from './conversion'
+
+const CustomAlertstripe = styled(Alertstripe)`
+ .alertstripe__tekst {
+    max-width: 100% !important;
+ }
+`
 
 export interface P5000SumProps {
   context: P5000Context
@@ -44,7 +47,6 @@ export interface P5000SumProps {
 }
 
 const mapState = (state: State): any => ({
-  countryList: state.buc.countryList,
   sakType: state.app.params.sakType as SakTypeValue
 })
 
@@ -52,15 +54,13 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   context, highContrast, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds
 }: P5000SumProps) => {
   const { t } = useTranslation()
-  const { countryList, sakType } = useSelector<State, any>(mapState)
+  const { sakType } = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [items] = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
-
-  const _countryData: CountryList = CountryData.getCountryInstance('nb')
 
   const renderType = (item: any, value: any) => (
     <Normaltekst>
@@ -84,49 +84,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
       />
     </div>
   )
-
-  const renderLand = (item: any, value: any): JSX.Element => {
-    const country: Country | undefined = value ? _countryData.findByValue(value) : undefined
-    if (!country) {
-      return <div>-</div>
-    }
-    return (
-      <FlexCenterDiv>
-        <Flag
-          animate
-          label={country?.label}
-          country={value}
-          size='S'
-          type='circle'
-          wave={false}
-        />
-        <HorizontalSeparatorDiv size='0.35' />
-        <span>
-          {country?.label}
-        </span>
-      </FlexCenterDiv>
-    )
-  }
-
-  const renderLandEdit = (options: RenderEditableOptions) => {
-    const _countryValueList: Countries = options.value ? _countryData.filterByValueOnArray([options.value]) : []
-    return (
-      <div style={{ minWidth: '150px' }}>
-        <CountrySelect
-          ariaLabel={t('ui:country')}
-          closeMenuOnSelect
-          flagType='circle'
-          hideSelectedOptions={false}
-          highContrast={highContrast}
-          includeList={countryList}
-          values={_countryValueList}
-          menuPortalTarget={document.body}
-          label=''
-          onOptionSelected={(o: Country) => options.setValue({ land: o!.alpha2 })}
-        />
-      </div>
-    )
-  }
 
   const renderStatus = (item: any, value: any) => {
     if (value === 'rina') {
@@ -164,15 +121,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           test: '^.+$',
           message: t('buc:validation-chooseType')
         }]
-      }
-    },
-    {
-      id: 'land',
-      label: t('ui:country'),
-      type: 'object',
-      renderCell: renderLand,
-      edit: {
-        render: renderLandEdit
       }
     },
     { id: 'sec51aar', label: t('ui:year'), type: 'string' },
@@ -267,8 +215,8 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         {!!sakType && (
           <>
             <Row>
-              <Column>
-                <Alertstripe type='advarsel'>
+              <Column flex='2'>
+                <CustomAlertstripe type='advarsel'>
                   <>
                     <div>
                       {t('buc:warning-P5000Sum-instructions-title')}
@@ -316,7 +264,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                       )}
                     </ul>
                   </>
-                </Alertstripe>
+                </CustomAlertstripe>
               </Column>
               <Column />
             </Row>
