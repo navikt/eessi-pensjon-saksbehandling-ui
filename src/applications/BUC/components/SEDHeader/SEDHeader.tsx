@@ -250,7 +250,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </HighContrastFlatknapp>
             )}
 
-            {sed.type === 'P5000' && featureToggles.P5000_SUMMER_VISIBLE && (
+            {sed.type === 'P5000' && featureToggles.P5000_SUMMER_VISIBLE && sed.status !== 'received' && (
               <PileDiv>
                 <HighContrastFlatknapp
                   mini

@@ -62,7 +62,6 @@ const CommentDiv = styled.div`
 `
 const FlexDiv = styled.div`
   display: flex;
-
 `
 const P5000Div = styled.div`
   position: relative;

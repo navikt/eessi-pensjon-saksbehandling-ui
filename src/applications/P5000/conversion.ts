@@ -141,8 +141,9 @@ export const convertP5000SEDToP5000SumRows = (
             sec52dag: 0
           }
         }
-
-        data[periode.type].land = periode.land ?? ''
+        if (_.isEmpty(data[periode.type].land)) {
+          data[periode.type].land = periode.land ?? ''
+        }
         data[periode.type].sec51aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
         data[periode.type].sec51mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
         data[periode.type].sec51dag += (periode.sum?.dager?.nr ? parseFloat(periode.sum?.dager?.nr) : 0)
@@ -177,7 +178,9 @@ export const convertP5000SEDToP5000SumRows = (
             sec52dag: 0
           }
         }
-        data[periode.type].land = periode.land ?? ''
+        if (_.isEmpty(data[periode.type].land)) {
+          data[periode.type].land = periode.land ?? ''
+        }
         data[periode.type].sec52aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
         data[periode.type].sec52mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
         data[periode.type].sec52dag += (periode.sum?.dager?.nr ? parseFloat(periode.sum?.dager?.nr) : 0)
@@ -243,7 +246,7 @@ export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period
   const period: P5000Period = {
     key: item?.key,
     relevans: item.ytelse, /// ???f
-    land: item.land || 'NO',
+    land: item.land ?? 'NO',
     sum: {
       kvartal: null,
       aar: over40 ? '40' : String(item.aar).padStart(2, '0'),
