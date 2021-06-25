@@ -92,7 +92,7 @@ export const Alert: React.FC<AlertProps> = ({
     <AlertDiv
       className={classNames(
         'status-' + status,
-        className,
+        className
       )}
       style={style}
       role='alert'

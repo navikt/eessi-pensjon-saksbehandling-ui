@@ -321,7 +321,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       </Normaltekst>
     )
   }
-/*
+  /*
   const maybeDoSomeMonthAndYearUpdate = (dayString: string, options: RenderEditableOptions<P5000TableContext>) => {
     const day = parseFloat(dayString)
     if (options.values.startdato && day > 31) {
@@ -379,7 +379,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         placeholder=''
         key={'' + value}
         onChanged={(value: string) => {
-          //maybeDoSomeMonthAndYearUpdate(value, options)
+          // maybeDoSomeMonthAndYearUpdate(value, options)
           options.setValue({
             dag: isNaN(parseFloat(value)) ? 0 : parseFloat(value)
           })
@@ -517,12 +517,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return false
   }
 
-  const testFloat =  (value: undefined | null | string): boolean => {
+  const testFloat = (value: undefined | null | string): boolean => {
     if (_.isNil(value)) {
       return false
     }
     try {
-      let _value = parseFloat(value)
+      const _value = parseFloat(value)
       return value === '' + _value && _value >= 0
     } catch (error) {
       return false
@@ -685,22 +685,22 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 <HighContrastRadioGroup
                   legend={(
                     <FlexCenterDiv>
-                    <OneLineSpan>
-                      {t('buc:p5000-4-2-title')}
-                    </OneLineSpan>
-                    <HorizontalSeparatorDiv />
-                    <Tooltip
-                      placement='top' trigger={['hover']} overlay={(
-                      <>
-                        <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
-                        <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
-                      </>
+                      <OneLineSpan>
+                        {t('buc:p5000-4-2-title')}
+                      </OneLineSpan>
+                      <HorizontalSeparatorDiv />
+                      <Tooltip
+                        placement='top' trigger={['hover']} overlay={(
+                          <>
+                            <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
+                            <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
+                          </>
                     )}
-                    >
-                      <div style={{ width: '28px', height: '28px' }}>
-                        <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                      </div>
-                    </Tooltip>
+                      >
+                        <div style={{ width: '28px', height: '28px' }}>
+                          <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                        </div>
+                      </Tooltip>
                     </FlexCenterDiv>
               )}
                 >
@@ -823,12 +823,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               <Alertstripe type='advarsel'>
                 <FlexCenterDiv>
                   {t('buc:warning-P5000Edit-instructions-li1')}
-                  <HorizontalSeparatorDiv size='0.5'/>
+                  <HorizontalSeparatorDiv size='0.5' />
                   <Tooltip
                     placement='top' trigger={['hover']} overlay={(
-                    <div style={{maxWidth: '600px'}}>
-                      <Normaltekst>{t('buc:warning-P5000Edit-instructions-li1-help')}</Normaltekst>
-                    </div>
+                      <div style={{ maxWidth: '600px' }}>
+                        <Normaltekst>{t('buc:warning-P5000Edit-instructions-li1-help')}</Normaltekst>
+                      </div>
                   )}
                   >
                     <div style={{ minWidth: '28px' }}>
@@ -838,10 +838,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 </FlexCenterDiv>
               </Alertstripe>
             </Column>
-            <Column/>
+            <Column />
           </AlignEndRow>
           <VerticalSeparatorDiv />
-           <hr style={{ width: '100%' }} />
+          <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
           <Table<P5000ListRow, P5000TableContext>
             highContrast={highContrast}
@@ -852,7 +852,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
             }}
             editable
-            allowNewRows={true}
+            allowNewRows
             searchable={false}
             selectable={false}
             sortable

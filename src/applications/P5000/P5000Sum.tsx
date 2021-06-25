@@ -220,19 +220,19 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                   <>
                     <div>
                       {t('buc:warning-P5000Sum-instructions-title')}
-                      <HorizontalSeparatorDiv size='0.5'/>
-                      <div style={{verticalAlign: 'middle', display: 'inline-block'}}>
+                      <HorizontalSeparatorDiv size='0.5' />
+                      <div style={{ verticalAlign: 'middle', display: 'inline-block' }}>
                         <Tooltip
-                        placement='right' trigger={['hover']} overlay={(
-                        <div style={{maxWidth: '600px'}}>
-                          <Normaltekst>{t('buc:warning-P5000Sum-instructions-title-help')}</Normaltekst>
-                        </div>
+                          placement='right' trigger={['hover']} overlay={(
+                            <div style={{ maxWidth: '600px' }}>
+                              <Normaltekst>{t('buc:warning-P5000Sum-instructions-title-help')}</Normaltekst>
+                            </div>
                       )}
-                      >
-                        <div style={{ minWidth: '28px' }}>
-                          <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                        </div>
-                      </Tooltip>
+                        >
+                          <div style={{ minWidth: '28px' }}>
+                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                          </div>
+                        </Tooltip>
                       </div>
                     </div>
                     <div>
@@ -242,24 +242,24 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                     </div>
                     {hasMoreWarnings && (
                       <div>
-                        <VerticalSeparatorDiv/>
-                        <hr/>
-                        <VerticalSeparatorDiv size='0.7'/>
+                        <VerticalSeparatorDiv />
+                        <hr />
+                        <VerticalSeparatorDiv size='0.7' />
                         {t('buc:warning-P5000Sum-instructions-header')}
-                        <VerticalSeparatorDiv/>
+                        <VerticalSeparatorDiv />
                       </div>
                     )}
                     <ul>
                       {has45 && (
                         <li>
                           {t('buc:warning-P5000Sum-instructions-45')}
-                          <VerticalSeparatorDiv size='0.5'/>
+                          <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
                       {has40aar && (
                         <li>
                           {t('buc:warning-P5000Sum-instructions-40')}
-                          <VerticalSeparatorDiv size='0.5'/>
+                          <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
                     </ul>

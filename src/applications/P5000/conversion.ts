@@ -252,10 +252,10 @@ export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period
       aar: over40 ? '40' : String(item.aar).padStart(2, '0'),
       uker: null,
       dager: {
-        nr:  over40 ? '00' : '' + String(item.dag).padStart(2, '0'),
+        nr: over40 ? '00' : '' + String(item.dag).padStart(2, '0'),
         type: '7'
       },
-      maaneder:  over40 ? '00' : '' + String(item.mnd).padStart(2, '0')
+      maaneder: over40 ? '00' : '' + String(item.mnd).padStart(2, '0')
     },
     yrke: null,
     gyldigperiode: null,
@@ -332,12 +332,11 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
 }
 
 const countDecimals = (value: number) => {
-  if (Math.floor(value) !== value) return value.toString().split(".")[1].length || 0
+  if (Math.floor(value) !== value) return value.toString().split('.')[1].length || 0
   return 0
 }
 
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
-
   let newAar: number = parseFloat(arr[index].sum.aar ?? '0')
   let newMaaneder: number = parseFloat(arr[index].sum.maaneder ?? '0')
   let newDager: number = parseFloat(arr[index].sum.dager.nr ?? '0')

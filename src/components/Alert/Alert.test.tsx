@@ -12,17 +12,16 @@ describe('components/Alert/Alert', () => {
   }
 
   it('Render: match snapshot', () => {
-    wrapper = mount(<Alert {...initialMockProps}/>)
+    wrapper = mount(<Alert {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    wrapper = mount(<Alert {...initialMockProps}/>)
+    wrapper = mount(<Alert {...initialMockProps} />)
     expect(wrapper.exists('.type-server')).toBeTruthy()
     expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage')
   })
-
 
   it('Render: has proper HTML structure with error message', () => {
     wrapper = mount(<Alert {...initialMockProps} error='mockError' />)

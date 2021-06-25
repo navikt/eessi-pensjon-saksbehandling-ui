@@ -195,10 +195,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     buttonLogger(e)
     setMode('p5000', 'forward', undefined, (
       <P5000
-          buc={buc}
-          setMode={setMode}
-          context='overview'
-        />
+        buc={buc}
+        setMode={setMode}
+        context='overview'
+      />
     ))
     window.scrollTo({
       top: 0,
