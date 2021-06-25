@@ -311,9 +311,9 @@
   "warning-P5000Edit-instructions-li1-help"  : "Ved bruk av gjennomsnittsberegning av inntekt (inntektsmetoden) må overskytende periode for året, som er registrert i start- og sluttdato, trekkes fra i periodesummen. F.eks: Du skriver inn 01.01.2005 - 31.12.2005 i start/slutt-dato. I periodesum kommer det opp 1 år, 0 måneder og 0 dager. Du har beregnet en inntektsperiode på 3 måneder og 15 dager for 2005. Du må da overskrive periodesum med 0 år, 3 måneder og 15 dager.",
   "warning-P5000Sum-instructions-title"      : "Husk å endre summering i punkt 5.2 ved poeng i inn- og ut-år (gjelder i hovedsak gjenlevendepensjon)",
   "warning-P5000Sum-instructions-title-help" : "Ved pensjonspoeng i flytteår må du i punkt 5.2 legge til den resterende perioden for gjeldende år i beregningen. F.eks. hvis forsikrede utvandret 30.06.2000, må du legge til 6 måneder på forsikringsperiode.",
-  "warning-P5000Sum-instructions-title-obs"  : "OBS! Hvis man endrer på registrerte perioder i boks 1, må man endre periodene i summeringen igjen.",
+  "warning-P5000Sum-instructions-title-obs"  : "OBS! Hvis man endrer på registrerte perioder, må man endre periodene i summeringen igjen.",
   "warning-P5000Sum-instructions-header"     : "Andre forskjeller i summeringen skyldes:",
-  "warning-P5000Sum-instructions-45"         : "registrering av kode 45 (summeres bare i punkt 5.2)",
+  "warning-P5000Sum-instructions-45"         : "Kode 45 summeres bare i punkt 5.2",
   "warning-P5000Sum-instructions-40"         : "trygdetid > 40 år avrundes automatisk til 40 år i punkt 5.2",
   "warning-P5000Sum-instructions-40-help"    : "I Norge beregnes pensjon etter en maksgrense på 40 år. Hvis faktisk periode på en kode er mer enn dette, blir perioden automatisk avrundet til 40 år i punkt 5.2."
 
