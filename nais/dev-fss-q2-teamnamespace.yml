@@ -15,6 +15,12 @@ spec:
       value: fss
     - name: PUBLIC_WEBSOCKETURL
       value: https://eessi-pensjon-frontend-api-fss-q2.nais.preprod.local/
+    - name: EESSI-PENSJON-FRONTEND-API-FSS-URL
+      value: {{eessi-pensjon-frontend-api-fss-url}}
+    - name: EESSI-PENSJON-FAGMODUL-URL
+      value: {{eessi-pensjon-fagmodul-url}}
+    - name: EESSI-PENSJON-PREFILL-URL
+      value: {{eessi-pensjon-prefill-url}}
   image: {{ image }}
   ingresses:
     - https://eessi-pensjon-frontend-ui-fss.nais.preprod.local
