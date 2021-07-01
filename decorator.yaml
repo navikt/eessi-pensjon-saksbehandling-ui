@@ -2,19 +2,19 @@ contextPath: /
 
 proxy:
   - contextPath: /frontend
-    baseUrl: {{eessi-pensjon-frontend-api-fss-url}}
+    baseUrl: {{EESSI-PENSJON-FRONTEND-API-FSS-URL}}
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /internal/isalive
     validateOidcToken: false
 
   - contextPath: /fagmodul
-    baseUrl: {{eessi-pensjon-fagmodul-url}}
+    baseUrl: {{EESSI-PENSJON-FAGMODUL-URL}}
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /actuator/health
     validateOidcToken: false
 
   - contextPath: /prefill
-    baseUrl: {{eessi-pensjon-prefill-url}}
+    baseUrl: {{EESSI-PENSJON-PREFILL-URL}}
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /actuator/health
     validateOidcToken: false
