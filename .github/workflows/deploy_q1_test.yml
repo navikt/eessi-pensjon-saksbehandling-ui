@@ -24,4 +24,4 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: nais/dev-fss-q1-teamnamespace.yml
           IMAGE: ${{ github.event.client_payload.image }}
-          VARS: nais/nais-vars-q1.yml
+          VARS: nais/dev-fss-q1-nais-vars.yml
