@@ -57,6 +57,7 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: nais/dev-fss-q2-teamnamespace.yml
           IMAGE: ${{ env.IMAGE }}
+          VARS: nais/nais-vars-q2.yml
 
       # OPPRETTER GIT TAG
       - name: 'Opprett git tag'
