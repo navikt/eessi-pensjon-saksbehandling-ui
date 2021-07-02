@@ -919,7 +919,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               sed: _sed || t('buc:form-newSed')
             })
           : t('buc:step-replySEDTitle', {
-            buc: t(`buc:buc-${_buc?.type}`),
             replySed: replySed!.type,
             sed: currentSed!.type
           })}
