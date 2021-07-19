@@ -9,7 +9,6 @@ import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import NavHighContrast from 'nav-hoykontrast'
 import AlertStripe from 'nav-frontend-alertstriper'
 
 export interface SEDAttachmentModalProps {
@@ -57,45 +56,43 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   }
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <Modal
-        highContrast={highContrast}
-        icon={<Document />}
-        modal={{
-          closeButton: true,
-          modalContent: (
-            <>
-              {clientErrorMessage && clientErrorStatus === 'ERROR' && (
-                <AlertStripe type='feil'>
-                  {t(clientErrorMessage, clientErrorParam)}
-                </AlertStripe>
-              )}
-              <JoarkBrowser
-                data-test-id='a-buc-c-sedattachmentmodal__joarkbrowser-id'
-                existingItems={sedAttachments}
-                mode='select'
-                onRowSelectChange={onRowSelectChange}
-                tableId={tableId}
-              />
-            </>
-          ),
-          modalButtons: [{
-            main: true,
-            text: t('buc:form-addSelectedAttachments'),
-            onClick: onAddAttachmentsButtonClick
-          }, {
-            text: t('ui:cancel'),
-            onClick: onCancelButtonClick
-          }]
-        }}
-        onModalClose={onModalClose}
-      />
-    </NavHighContrast>
+
+    <Modal
+      highContrast={highContrast}
+      icon={<Document />}
+      modal={{
+        closeButton: true,
+        modalContent: (
+          <>
+            {clientErrorMessage && clientErrorStatus === 'ERROR' && (
+              <AlertStripe type='feil'>
+                {t(clientErrorMessage, clientErrorParam)}
+              </AlertStripe>
+            )}
+            <JoarkBrowser
+              data-test-id='a-buc-c-sedattachmentmodal__joarkbrowser-id'
+              existingItems={sedAttachments}
+              mode='select'
+              onRowSelectChange={onRowSelectChange}
+              tableId={tableId}
+            />
+          </>
+        ),
+        modalButtons: [{
+          main: true,
+          text: t('buc:form-addSelectedAttachments'),
+          onClick: onAddAttachmentsButtonClick
+        }, {
+          text: t('ui:cancel'),
+          onClick: onCancelButtonClick
+        }]
+      }}
+      onModalClose={onModalClose}
+    />
   )
 }
 
 SEDAttachmentModal.propTypes = {
-  highContrast: PT.bool.isRequired,
   onFinishedSelection: PT.func.isRequired,
   onModalClose: PT.func.isRequired,
   sedAttachments: JoarkBrowserItemsFileType.isRequired,

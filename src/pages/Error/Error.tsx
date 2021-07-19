@@ -1,14 +1,12 @@
 import EESSIPensjonVeileder from 'components/EESSIPensjonVeileder/EESSIPensjonVeileder'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import TopContainer from 'components/TopContainer/TopContainer'
-import { State } from 'declarations/reducers'
 import { standardLogger, timeLogger } from 'metrics/loggers'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const Description = styled.div`
@@ -42,20 +40,11 @@ export interface ErrorPageProps {
   resetErrorBoundary ?: any
 }
 
-export interface ErrorPageSelector {
-  highContrast: boolean
-}
-
-const mapState = (state: State): ErrorPageSelector => ({
-  highContrast: state.ui.highContrast
-})
-
 export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps): JSX.Element => {
   let title, description, footer
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
   const [mounted, setMounted] = useState<boolean>(false)
-  const { highContrast } = useSelector<State, ErrorPageSelector>(mapState)
 
   useEffect(() => {
     if (!mounted) {
@@ -101,7 +90,6 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
         {error && (
           <ErrorPanel
             collapseProps={{ id: 'p-error__content-error-id' }}
-            highContrast={highContrast}
             data-test-id='p-error__content-error-id'
             id='p-error__content-error-id'
             onOpen={() => standardLogger('errorPage.expandingPanel.open')}

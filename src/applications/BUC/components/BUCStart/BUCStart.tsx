@@ -46,7 +46,7 @@ import { buttonLogger, standardLogger } from 'metrics/loggers'
 import AlertStripe from 'nav-frontend-alertstriper'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import NavHighContrast, {
+import {
   themeKeys,
   Column,
   HighContrastFeiloppsummering,
@@ -529,211 +529,210 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [kravDato])
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <div data-test-id='a-buc-c-bucstart'>
-        <Row>
-          <Column>
-            <VerticalSeparatorDiv size='2' />
-            <>
-              <label className='skjemaelement__label'>
-                {t('buc:form-subjectArea')}
-              </label>
-              <Select
-                data-test-id='a-buc-c-bucstart__subjectarea-select-id'
-                defaultValue={{ label: _subjectArea, value: _subjectArea }}
-                feil={_validation?.subjectArea?.feilmelding}
-                highContrast={highContrast}
-                id='a-buc-c-bucstart__subjectarea-select-id'
-                isLoading={loading.gettingSubjectAreaList}
-                isSearchable
-                menuPortalTarget={document.getElementById('main')}
-                onChange={onSubjectAreaChange}
-                options={renderOptions(subjectAreaList)}
-                placeholder={t(loading.gettingSubjectAreaList ? 'buc:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
-              />
-            </>
-            <VerticalSeparatorDiv />
-            <>
-              <label className='skjemaelement__label'>
-                {t('buc:form-buc')}
-              </label>
-              <Select
-                data-test-id='a-buc-c-bucstart__buc-select-id'
-                feil={_validation?.buc?.feilmelding}
-                highContrast={highContrast}
-                id='a-buc-c-bucstart__buc-select-id'
-                isLoading={loading.gettingBucList}
-                isSearchable
-                menuPortalTarget={document.getElementById('main')}
-                onChange={onBucChange}
-                options={bucListOptions}
-                placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
-                value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
-              />
-            </>
-            {bucNeedsAvdod() && (
-              <>
-                <VerticalSeparatorDiv />
-                <label className='skjemaelement__label'>
-                  {t('buc:form-avdod')}
-                </label>
-                <Select
-                  data-test-id='a-buc-c-bucstart__avdod-select-id'
-                  feil={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
-                  highContrast={highContrast}
-                  id='a-buc-c-bucstart__avdod-select-id'
-                  isSearchable
-                  menuPortalTarget={document.getElementById('main')}
-                  onChange={onAvdodChange}
-                  options={avdodOptions}
-                  placeholder={t('buc:form-chooseAvdod')}
-                  value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
-                />
-              </>
-            )}
-            {bucNeedsAvdodButWeHaveNone() && (
-              <>
-                <VerticalSeparatorDiv />
-                <FlexDiv>
-                  <HighContrastInput
-                    className='flex-2'
-                    data-test-id='a-buc-c-bucstart__avdod-input-id'
-                    id='a-buc-c-bucstart__avdod-input-id'
-                    label={t('buc:form-avdod')}
-                    bredde='fullbredde'
-                    value={_avdodFnr}
-                    onChange={onAvdodFnrChange}
-                    placeholder={t('buc:form-fnrdnr')}
-                    feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
-                  />
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <HelpDiv>
-                    <Tooltip placement='top' trigger={['click']} overlay={<span>{t('buc:help-avdodFnr')}</span>}>
-                      <HighContrastFlatknapp mini kompakt>
-                        <HelpIcon className='hjelpetekst__ikon' />
-                      </HighContrastFlatknapp>
-                    </Tooltip>
-                  </HelpDiv>
-                </FlexDiv>
-              </>
-            )}
-            {bucNeedsKravDato(_buc) && (
-              <>
-                <VerticalSeparatorDiv />
-                <FlexDiv>
-                  <HighContrastInput
-                    data-test-id='a-buc-c-bucstart__kravDato-input-id'
-                    id='a-buc-c-bucstart__kravDato-input-id'
-                    label={t('buc:form-kravDato')}
-                    bredde='fullbredde'
-                    value={_kravDato}
-                    onChange={onKravDatoChange}
-                    placeholder={t('buc:form-kravDatoPlaceholder')}
-                    feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
-                  />
-                  {loading.gettingKravDato
-                    ? (
-                      <>
-                        <HorizontalSeparatorDiv />
-                        <WaitingPanel size='S' oneLine />
-                      </>
-                      )
-                    : undefined}
-                </FlexDiv>
-              </>
-            )}
-          </Column>
-          <HorizontalSeparatorDiv size='2' />
-          <Column>
-            <VerticalSeparatorDiv size='2' />
-            <MultipleSelect<Tag>
-              ariaLabel={t('buc:form-tagsForBUC')}
-              aria-describedby='help-tags'
-              data-test-id='a-buc-c-bucstart__tags-select-id'
-              hideSelectedOptions={false}
+
+    <div data-test-id='a-buc-c-bucstart'>
+      <Row>
+        <Column>
+          <VerticalSeparatorDiv size='2' />
+          <>
+            <label className='skjemaelement__label'>
+              {t('buc:form-subjectArea')}
+            </label>
+            <Select
+              data-test-id='a-buc-c-bucstart__subjectarea-select-id'
+              defaultValue={{ label: _subjectArea, value: _subjectArea }}
+              feil={_validation?.subjectArea?.feilmelding}
               highContrast={highContrast}
-              id='a-buc-c-bucstart__tags-select-id'
-              isLoading={loading.gettingTagList}
-              label={(
-                <>
-                  <label className='skjemaelement__label'>
-                    {t('buc:form-tagsForBUC')}
-                  </label>
-                  <VerticalSeparatorDiv />
-                  <Normaltekst>
-                    {t('buc:form-tagsForBUC-description')}
-                  </Normaltekst>
-                </>
-              )}
-              onSelect={onTagsChange}
-              options={tagObjectList}
+              id='a-buc-c-bucstart__subjectarea-select-id'
+              isLoading={loading.gettingSubjectAreaList}
+              isSearchable
               menuPortalTarget={document.getElementById('main')}
-              placeholder={t(loading.gettingTagList ? 'buc:loading-tagList' : 'buc:form-tagPlaceholder')}
-              values={_tags}
+              onChange={onSubjectAreaChange}
+              options={renderOptions(subjectAreaList)}
+              placeholder={t(loading.gettingSubjectAreaList ? 'buc:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
             />
-          </Column>
-        </Row>
-        {_showWarningBuc && (
-          <>
-            <VerticalSeparatorDiv size='2' />
-            <Row>
-              <Column>
-                <AlertStripe
-                  type='advarsel'
-                  data-test-id='a-buc-c-bucstart__warning-id'
-                >
-                  <Normaltekst>
-                    {t('buc:alert-noDeceased')}
-                  </Normaltekst>
-                </AlertStripe>
-              </Column>
-              <HorizontalSeparatorDiv size='2' />
-              <Column />
-            </Row>
           </>
-        )}
-        <VerticalSeparatorDiv size='2' />
-        <div data-test-id='a-buc-c-bucstart__buttons-id'>
-          <HighContrastHovedknapp
-            data-amplitude='buc.new.create'
-            data-test-id='a-buc-c-bucstart__forward-button-id'
-            disabled={_isCreatingBuc}
-            onClick={onForwardButtonClick}
-            spinner={_isCreatingBuc}
-          >
-            {loading.creatingBUC
-              ? t('buc:loading-creatingCaseinRINA')
-              : loading.savingBucsInfo
-                ? t('buc:loading-savingBucInfo')
-                : t('buc:form-createCaseinRINA')}
-          </HighContrastHovedknapp>
-          <HorizontalSeparatorDiv />
-          <HighContrastFlatknapp
-            data-amplitude='buc.new.cancel'
-            data-test-id='a-buc-c-bucstart__cancel-button-id'
-            onClick={onCancelButtonClick}
-          >{t('ui:cancel')}
-          </HighContrastFlatknapp>
-        </div>
-        <VerticalSeparatorDiv />
-        {!hasNoValidationErrors(_validation) && (
+          <VerticalSeparatorDiv />
           <>
-            <VerticalSeparatorDiv size='2' />
-            <Row>
-              <Column>
-                <HighContrastFeiloppsummering
-                  data-test-id='a-buc-c-bucstart__feiloppsummering-id'
-                  tittel={t('buc:form-feiloppsummering')}
-                  feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}
+            <label className='skjemaelement__label'>
+              {t('buc:form-buc')}
+            </label>
+            <Select
+              data-test-id='a-buc-c-bucstart__buc-select-id'
+              feil={_validation?.buc?.feilmelding}
+              highContrast={highContrast}
+              id='a-buc-c-bucstart__buc-select-id'
+              isLoading={loading.gettingBucList}
+              isSearchable
+              menuPortalTarget={document.getElementById('main')}
+              onChange={onBucChange}
+              options={bucListOptions}
+              placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
+              value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
+            />
+          </>
+          {bucNeedsAvdod() && (
+            <>
+              <VerticalSeparatorDiv />
+              <label className='skjemaelement__label'>
+                {t('buc:form-avdod')}
+              </label>
+              <Select
+                data-test-id='a-buc-c-bucstart__avdod-select-id'
+                feil={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
+                highContrast={highContrast}
+                id='a-buc-c-bucstart__avdod-select-id'
+                isSearchable
+                menuPortalTarget={document.getElementById('main')}
+                onChange={onAvdodChange}
+                options={avdodOptions}
+                placeholder={t('buc:form-chooseAvdod')}
+                value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
+              />
+            </>
+          )}
+          {bucNeedsAvdodButWeHaveNone() && (
+            <>
+              <VerticalSeparatorDiv />
+              <FlexDiv>
+                <HighContrastInput
+                  className='flex-2'
+                  data-test-id='a-buc-c-bucstart__avdod-input-id'
+                  id='a-buc-c-bucstart__avdod-input-id'
+                  label={t('buc:form-avdod')}
+                  bredde='fullbredde'
+                  value={_avdodFnr}
+                  onChange={onAvdodFnrChange}
+                  placeholder={t('buc:form-fnrdnr')}
+                  feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
                 />
-              </Column>
-              <HorizontalSeparatorDiv size='2' />
-              <Column />
-            </Row>
-          </>
-        )}
+                <HorizontalSeparatorDiv size='0.5' />
+                <HelpDiv>
+                  <Tooltip placement='top' trigger={['click']} overlay={<span>{t('buc:help-avdodFnr')}</span>}>
+                    <HighContrastFlatknapp mini kompakt>
+                      <HelpIcon className='hjelpetekst__ikon' />
+                    </HighContrastFlatknapp>
+                  </Tooltip>
+                </HelpDiv>
+              </FlexDiv>
+            </>
+          )}
+          {bucNeedsKravDato(_buc) && (
+            <>
+              <VerticalSeparatorDiv />
+              <FlexDiv>
+                <HighContrastInput
+                  data-test-id='a-buc-c-bucstart__kravDato-input-id'
+                  id='a-buc-c-bucstart__kravDato-input-id'
+                  label={t('buc:form-kravDato')}
+                  bredde='fullbredde'
+                  value={_kravDato}
+                  onChange={onKravDatoChange}
+                  placeholder={t('buc:form-kravDatoPlaceholder')}
+                  feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
+                />
+                {loading.gettingKravDato
+                  ? (
+                    <>
+                      <HorizontalSeparatorDiv />
+                      <WaitingPanel size='S' oneLine />
+                    </>
+                    )
+                  : undefined}
+              </FlexDiv>
+            </>
+          )}
+        </Column>
+        <HorizontalSeparatorDiv size='2' />
+        <Column>
+          <VerticalSeparatorDiv size='2' />
+          <MultipleSelect<Tag>
+            ariaLabel={t('buc:form-tagsForBUC')}
+            aria-describedby='help-tags'
+            data-test-id='a-buc-c-bucstart__tags-select-id'
+            hideSelectedOptions={false}
+            highContrast={highContrast}
+            id='a-buc-c-bucstart__tags-select-id'
+            isLoading={loading.gettingTagList}
+            label={(
+              <>
+                <label className='skjemaelement__label'>
+                  {t('buc:form-tagsForBUC')}
+                </label>
+                <VerticalSeparatorDiv />
+                <Normaltekst>
+                  {t('buc:form-tagsForBUC-description')}
+                </Normaltekst>
+              </>
+              )}
+            onSelect={onTagsChange}
+            options={tagObjectList}
+            menuPortalTarget={document.getElementById('main')}
+            placeholder={t(loading.gettingTagList ? 'buc:loading-tagList' : 'buc:form-tagPlaceholder')}
+            values={_tags}
+          />
+        </Column>
+      </Row>
+      {_showWarningBuc && (
+        <>
+          <VerticalSeparatorDiv size='2' />
+          <Row>
+            <Column>
+              <AlertStripe
+                type='advarsel'
+                data-test-id='a-buc-c-bucstart__warning-id'
+              >
+                <Normaltekst>
+                  {t('buc:alert-noDeceased')}
+                </Normaltekst>
+              </AlertStripe>
+            </Column>
+            <HorizontalSeparatorDiv size='2' />
+            <Column />
+          </Row>
+        </>
+      )}
+      <VerticalSeparatorDiv size='2' />
+      <div data-test-id='a-buc-c-bucstart__buttons-id'>
+        <HighContrastHovedknapp
+          data-amplitude='buc.new.create'
+          data-test-id='a-buc-c-bucstart__forward-button-id'
+          disabled={_isCreatingBuc}
+          onClick={onForwardButtonClick}
+          spinner={_isCreatingBuc}
+        >
+          {loading.creatingBUC
+            ? t('buc:loading-creatingCaseinRINA')
+            : loading.savingBucsInfo
+              ? t('buc:loading-savingBucInfo')
+              : t('buc:form-createCaseinRINA')}
+        </HighContrastHovedknapp>
+        <HorizontalSeparatorDiv />
+        <HighContrastFlatknapp
+          data-amplitude='buc.new.cancel'
+          data-test-id='a-buc-c-bucstart__cancel-button-id'
+          onClick={onCancelButtonClick}
+        >{t('ui:cancel')}
+        </HighContrastFlatknapp>
       </div>
-    </NavHighContrast>
+      <VerticalSeparatorDiv />
+      {!hasNoValidationErrors(_validation) && (
+        <>
+          <VerticalSeparatorDiv size='2' />
+          <Row>
+            <Column>
+              <HighContrastFeiloppsummering
+                data-test-id='a-buc-c-bucstart__feiloppsummering-id'
+                tittel={t('buc:form-feiloppsummering')}
+                feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}
+              />
+            </Column>
+            <HorizontalSeparatorDiv size='2' />
+            <Column />
+          </Row>
+        </>
+      )}
+    </div>
   )
 }
 

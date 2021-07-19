@@ -96,7 +96,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
 
   return (
     <TopContainer>
-      <IEAlert highContrast={highContrast} />
+      <IEAlert />
       <ContextBanner
         mode={mode}
         highContrast={highContrast}

@@ -4,7 +4,7 @@ import MonitorPNG from 'assets/images/artwork/dataskjerm.png'
 import CupPNG from 'assets/images/artwork/kop.png'
 import MousePNG from 'assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'assets/images/artwork/saksstatus.png'
-import NavHighContrast, {
+import {
   HighContrastHovedknapp,
   HighContrastInput,
   HighContrastKnapp,
@@ -74,11 +74,9 @@ const BUCEmptyForm = styled.div`
 
 export interface BUCEmptySelector {
   rinaUrl: RinaUrl | undefined
-  highContrast: boolean
 }
 
 const mapState = (state: State): BUCEmptySelector => ({
-  highContrast: state.ui.highContrast,
   rinaUrl: state.buc.rinaUrl
 })
 
@@ -94,7 +92,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
   const [_aktoerId, setAktoerId] = useState<string | null | undefined>(aktoerId)
   const [validation, setValidation] = useState<string | undefined>(undefined)
   const dispatch = useDispatch()
-  const { highContrast, rinaUrl }: BUCEmptySelector = useSelector<State, BUCEmptySelector>(mapState)
+  const { rinaUrl }: BUCEmptySelector = useSelector<State, BUCEmptySelector>(mapState)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -128,7 +126,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
   }
 
   return (
-    <NavHighContrast highContrast={highContrast}>
+    <>
       <BUCEmptyDiv>
         <BUCEmptyArtwork>
           <img alt='' className='monitor' src={MonitorPNG} />
@@ -179,7 +177,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         )}
       </BUCEmptyDiv>
       {rinaUrl && (<BUCFooter />)}
-    </NavHighContrast>
+    </>
   )
 }
 

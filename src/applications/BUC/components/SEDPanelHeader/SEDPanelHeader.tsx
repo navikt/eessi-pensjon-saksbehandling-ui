@@ -1,7 +1,6 @@
 import { Element } from 'nav-frontend-typografi'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import NavHighContrast from 'nav-hoykontrast'
 
 export const ActionsDiv = styled.div`
   flex: 2;
@@ -25,32 +24,23 @@ export const SenderReceiverDiv = styled.div`
   width: 100%;
 `
 
-export interface SEDPanelHeaderProps {
-  highContrast: boolean
-}
-
-const SEDPanelHeader: React.FC<SEDPanelHeaderProps> = ({
-  highContrast
-}: SEDPanelHeaderProps): JSX.Element => {
+const SEDPanelHeader: React.FC = (): JSX.Element => {
   const { t } = useTranslation()
-
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <SEDPanelHeaderDiv>
-        <SedDiv>
-          <Element>{t('buc:form-sed')}</Element>
-        </SedDiv>
-        <SenderReceiverDiv>
-          <Element>{t('buc:form-sender')}</Element>
-        </SenderReceiverDiv>
-        <SenderReceiverDiv>
-          <Element>{t('buc:form-receiver')}</Element>
-        </SenderReceiverDiv>
-        <ActionsDiv>
-          <Element>{t('buc:form-actions')}</Element>
-        </ActionsDiv>
-      </SEDPanelHeaderDiv>
-    </NavHighContrast>
+    <SEDPanelHeaderDiv>
+      <SedDiv>
+        <Element>{t('buc:form-sed')}</Element>
+      </SedDiv>
+      <SenderReceiverDiv>
+        <Element>{t('buc:form-sender')}</Element>
+      </SenderReceiverDiv>
+      <SenderReceiverDiv>
+        <Element>{t('buc:form-receiver')}</Element>
+      </SenderReceiverDiv>
+      <ActionsDiv>
+        <Element>{t('buc:form-actions')}</Element>
+      </ActionsDiv>
+    </SEDPanelHeaderDiv>
   )
 }
 

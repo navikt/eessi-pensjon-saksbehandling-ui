@@ -40,6 +40,7 @@ import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
 import mockSedList from 'mocks/buc/sedList'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
+import mockP6000 from 'mocks/buc/p6000'
 import { Action, ActionCreator } from 'redux'
 
 const sprintf = require('sprintf-js').sprintf
@@ -297,6 +298,21 @@ export const getInstitutionsListForBucAndCountry: ActionCreator<ThunkResult<Acti
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
       success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
+    }
+  })
+}
+
+export const getSedP6000: ActionCreator<ThunkResult<Action>> = (
+  rinaCaseId: string
+): ThunkResult<Action> => {
+  return call({
+    url: sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId: rinaCaseId }),
+    cascadeFailureError: true,
+    expectedPayload: mockP6000,
+    type: {
+      request: types.BUC_GET_P6000_REQUEST,
+      success: types.BUC_GET_P6000_SUCCESS,
+      failure: types.BUC_GET_P6000_FAILURE
     }
   })
 }

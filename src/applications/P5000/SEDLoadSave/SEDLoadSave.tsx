@@ -6,7 +6,7 @@ import { LocalStorageEntry, LocalStorageValue } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
-import NavHighContrast, {
+import {
   FlexBaseDiv,
   HorizontalSeparatorDiv,
   PileDiv,
@@ -21,7 +21,6 @@ import { unsyncFromP5000Storage } from 'actions/p5000'
 
 interface SEDLoadSaveProps {
   buc: Buc
-  highContrast: boolean
   sedId: string
 }
 
@@ -35,7 +34,6 @@ const mapState = (state: State): SEDLoadSaveSelector => ({
 
 const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   buc,
-  highContrast,
   sedId
 }: SEDLoadSaveProps) => {
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
@@ -48,78 +46,76 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   }
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <PileDiv>
-        {p5000Storage && p5000Storage[buc.caseId!] && p5000Storage[buc.caseId!]
-          .filter(sed => sed.id === sedId)
-          .map((sed: LocalStorageValue<P5000SED>) => (
-            <FlexBaseDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
-              <Etikett style={{ padding: '0.5rem', display: 'flex' }}>
-                <FlexBaseDiv style={{ alignItems: 'center' }} key={sed.id}>
-                  <PileDiv>
-                    <Normaltekst>
-                      {t('buc:p5000-saved-entries')}
-                    </Normaltekst>
-                    <VerticalSeparatorDiv size='0.3' />
-                    <FlexBaseDiv>
-                      <UndertekstBold>
-                        {t('buc:p5000-4-1-title') + ': '}
-                      </UndertekstBold>
-                      <HorizontalSeparatorDiv size='0.5' />
-                      <Normaltekst>
-                        {_.find(ytelsestypeOptions, (o: OptionTypeBase) => (
-                          o?.value === (sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
-                        ))?.label ?? '-'}
-                      </Normaltekst>
-                    </FlexBaseDiv>
-                    <VerticalSeparatorDiv size='0.3' />
-                    <FlexBaseDiv>
-                      <UndertekstBold>
-                        {t('buc:p5000-4-2-title') + ': '}
-                      </UndertekstBold>
-                      <HorizontalSeparatorDiv size='0.5' />
-                      <Normaltekst>
-                        {(sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
-                      </Normaltekst>
-                    </FlexBaseDiv>
-                    <VerticalSeparatorDiv size='0.3' />
-                    <FlexBaseDiv>
-                      <UndertekstBold>
-                        {t('ui:date') + ': '}
-                      </UndertekstBold>
-                      <HorizontalSeparatorDiv size='0.5' />
-                      <Normaltekst>
-                        {new Date(sed.date).toLocaleDateString()}
-                      </Normaltekst>
-                    </FlexBaseDiv>
-                    <VerticalSeparatorDiv size='0.3' />
-                    <FlexBaseDiv>
-                      <UndertekstBold>
-                        {t('ui:rows') + ': '}
-                      </UndertekstBold>
-                      <HorizontalSeparatorDiv size='0.5' />
-                      <Normaltekst>
-                        {sed.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
-                      </Normaltekst>
-                    </FlexBaseDiv>
-                  </PileDiv>
-                  <HorizontalSeparatorDiv />
+    <PileDiv>
+      {p5000Storage && p5000Storage[buc.caseId!] && p5000Storage[buc.caseId!]
+        .filter(sed => sed.id === sedId)
+        .map((sed: LocalStorageValue<P5000SED>) => (
+          <FlexBaseDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
+            <Etikett style={{ padding: '0.5rem', display: 'flex' }}>
+              <FlexBaseDiv style={{ alignItems: 'center' }} key={sed.id}>
+                <PileDiv>
+                  <Normaltekst>
+                    {t('buc:p5000-saved-entries')}
+                  </Normaltekst>
+                  <VerticalSeparatorDiv size='0.3' />
                   <FlexBaseDiv>
-                    <AddRemovePanel
-                      existingItem
-                      candidateForDeletion={_confirmDelete}
-                      onBeginRemove={() => setConfirmDelete(true)}
-                      onConfirmRemove={() => onRemove(buc.caseId!, sed.id)}
-                      onCancelRemove={() => setConfirmDelete(false)}
-                    />
+                    <UndertekstBold>
+                      {t('buc:p5000-4-1-title') + ': '}
+                    </UndertekstBold>
+                    <HorizontalSeparatorDiv size='0.5' />
+                    <Normaltekst>
+                      {_.find(ytelsestypeOptions, (o: OptionTypeBase) => (
+                        o?.value === (sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+                      ))?.label ?? '-'}
+                    </Normaltekst>
                   </FlexBaseDiv>
+                  <VerticalSeparatorDiv size='0.3' />
+                  <FlexBaseDiv>
+                    <UndertekstBold>
+                      {t('buc:p5000-4-2-title') + ': '}
+                    </UndertekstBold>
+                    <HorizontalSeparatorDiv size='0.5' />
+                    <Normaltekst>
+                      {(sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
+                    </Normaltekst>
+                  </FlexBaseDiv>
+                  <VerticalSeparatorDiv size='0.3' />
+                  <FlexBaseDiv>
+                    <UndertekstBold>
+                      {t('ui:date') + ': '}
+                    </UndertekstBold>
+                    <HorizontalSeparatorDiv size='0.5' />
+                    <Normaltekst>
+                      {new Date(sed.date).toLocaleDateString()}
+                    </Normaltekst>
+                  </FlexBaseDiv>
+                  <VerticalSeparatorDiv size='0.3' />
+                  <FlexBaseDiv>
+                    <UndertekstBold>
+                      {t('ui:rows') + ': '}
+                    </UndertekstBold>
+                    <HorizontalSeparatorDiv size='0.5' />
+                    <Normaltekst>
+                      {sed.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
+                    </Normaltekst>
+                  </FlexBaseDiv>
+                </PileDiv>
+                <HorizontalSeparatorDiv />
+                <FlexBaseDiv>
+                  <AddRemovePanel
+                    existingItem
+                    candidateForDeletion={_confirmDelete}
+                    onBeginRemove={() => setConfirmDelete(true)}
+                    onConfirmRemove={() => onRemove(buc.caseId!, sed.id)}
+                    onCancelRemove={() => setConfirmDelete(false)}
+                  />
                 </FlexBaseDiv>
-              </Etikett>
-            </FlexBaseDiv>
-          )
-          )}
-      </PileDiv>
-    </NavHighContrast>
+              </FlexBaseDiv>
+            </Etikett>
+          </FlexBaseDiv>
+        )
+        )}
+    </PileDiv>
   )
 }
 

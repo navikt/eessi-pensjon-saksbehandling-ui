@@ -18,7 +18,7 @@ import Alertstripe from 'nav-frontend-alertstriper'
 import EtikettBase from 'nav-frontend-etiketter'
 import { Select as NavSelect } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import NavHighContrast, {
+import {
   AlignEndRow,
   Column,
   FlexCenterDiv,
@@ -69,13 +69,13 @@ export interface DatePieces {
 }
 
 const mapState = (state: State): any => ({
+  highContrast: state.ui.highContrast,
   sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info
 })
 
 export interface P5000EditProps {
   caseId: string
-  highContrast: boolean
   seds: Seds
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: P5000SED | undefined
@@ -121,7 +121,6 @@ export const typeOptions: Options = [
 
 const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
-  highContrast,
   p5000FromRinaMap,
   p5000FromStorage,
   seds, // always array with 1 element
@@ -130,7 +129,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
+  const { highContrast, sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage)
@@ -657,7 +656,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const canSend = !!_ytelseOption
 
   return (
-    <NavHighContrast highContrast={highContrast}>
+    <>
       <VerticalSeparatorDiv />
       {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)} />}
       <PileCenterDiv>
@@ -1056,12 +1055,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         </PileDiv>
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
-    </NavHighContrast>
+    </>
   )
 }
 
 P5000Edit.propTypes = {
-  highContrast: PT.bool.isRequired,
   seds: SedsPropType.isRequired,
   p5000FromRinaMap: PT.any.isRequired
 }

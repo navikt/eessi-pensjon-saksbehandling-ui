@@ -144,7 +144,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           >
 
             <Header
-              highContrast={highContrast}
               username={username}
               gettingUserInfo={gettingUserInfo}
               isLoggingOut={isLoggingOut}
@@ -175,7 +174,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             </Main>
             {!IS_PRODUCTION && (
               <Footer
-                highContrast={highContrast}
                 params={params}
                 footerOpen={footerOpen}
               />

@@ -14,11 +14,11 @@ import Flag from 'flagg-ikoner'
 import _ from 'lodash'
 import AlertStripe from 'nav-frontend-alertstriper'
 import { VenstreChevron } from 'nav-frontend-chevron'
-import { Checkbox } from 'nav-frontend-skjema'
 import { UndertekstBold, Undertittel } from 'nav-frontend-typografi'
 import {
   Column,
   FlexCenterDiv,
+  HighContrastCheckbox,
   HighContrastLink,
   HorizontalSeparatorDiv,
   PileDiv,
@@ -26,13 +26,13 @@ import {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import { useEffect, useState } from 'react'
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSedSender } from './conversion'
 import P5000Edit from './P5000Edit'
 import P5000Overview from './P5000Overview'
 import P5000Sum from './P5000Sum'
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 
 export interface P5000Props {
   buc: Buc
@@ -79,7 +79,6 @@ const P5000: React.FC<P5000Props> = ({
     <ExpandingPanel
       open
       renderContentWhenClosed
-      highContrast={highContrast}
       collapseProps={{ id: 'a-buc-c-p5000-edit' }}
       className={classNames({ highContrast: highContrast })}
       heading={(
@@ -90,7 +89,6 @@ const P5000: React.FC<P5000Props> = ({
     >
       <P5000Edit
         caseId={buc.caseId!}
-        highContrast={highContrast}
         key={'P5000Edit-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
         p5000FromRinaMap={p5000FromRinaMap}
         p5000FromStorage={p5000FromStorage}
@@ -105,7 +103,6 @@ const P5000: React.FC<P5000Props> = ({
     <ExpandingPanel
       open
       renderContentWhenClosed
-      highContrast={highContrast}
       collapseProps={{ id: 'a-buc-c-p5000-sum' }}
       className={classNames({ highContrast: highContrast })}
       heading={(
@@ -116,7 +113,6 @@ const P5000: React.FC<P5000Props> = ({
     >
       <P5000Sum
         context={context}
-        highContrast={highContrast}
         key={'P5000Sum' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
         p5000FromRinaMap={p5000FromRinaMap}
         p5000FromStorage={p5000FromStorage}
@@ -130,7 +126,6 @@ const P5000: React.FC<P5000Props> = ({
     <ExpandingPanel
       open
       renderContentWhenClosed
-      highContrast={highContrast}
       collapseProps={{ id: 'a-buc-c-p5000-overview' }}
       className={classNames({ highContrast: highContrast })}
       heading={(
@@ -141,7 +136,6 @@ const P5000: React.FC<P5000Props> = ({
     >
       <P5000Overview
         context={context}
-        highContrast={highContrast}
         key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
         p5000FromRinaMap={p5000FromRinaMap}
         p5000FromStorage={p5000FromStorage}
@@ -164,17 +158,16 @@ const P5000: React.FC<P5000Props> = ({
 
   const [_tables, _setTables] = useState<Array<any>>(
     [
-      {id:'P5000Edit', content: <div>sdfsdf</div> },
-    {id:'P5000Sum', content: <div>sdfsdf</div> },
-    {id:'P5000Overview', content: <div>sdfsdf</div> }
-  ])
+      { id: 'P5000Edit', content: <div>sdfsdf</div> },
+      { id: 'P5000Sum', content: <div>sdfsdf</div> },
+      { id: 'P5000Overview', content: <div>sdfsdf</div> }
+    ])
 
   useEffect(() => {
     updateTables(_activeSeds)
   }, [p5000Storage])
 
   const updateTables = (activeSeds: Seds) => {
-
     // use local storage stuff only in edit context, no need for overview context
     const p5000EntryFromStorage: LocalStorageValue | undefined = _.find(p5000Storage![buc.caseId!], { id: mainSed?.id })
     const p5000FromStorageVersion: number | undefined = p5000EntryFromStorage?.date
@@ -356,7 +349,6 @@ const P5000: React.FC<P5000Props> = ({
     </div>
   )
 
-
   const renderDraggableTable = (table: any, index: number): JSX.Element => {
     if ((table.id === 'P5000Edit' && context !== 'overview' && featureToggles.P5000_SUMMER_VISIBLE) ||
       (table.id === 'P5000Sum' && featureToggles.P5000_SUMMER_VISIBLE) ||
@@ -380,7 +372,7 @@ const P5000: React.FC<P5000Props> = ({
         </Draggable>
       )
     } else {
-      return <div/>
+      return <div />
     }
   }
 
@@ -466,142 +458,140 @@ const P5000: React.FC<P5000Props> = ({
   }
 
   return (
-      <div key={_seds?.map(s => s.id).join(',')}>
-        <Row>
-          <Column>
-            {context !== 'overview'
-              ? sedSender && (
-                <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
-                  <span>
-                    {t('buc:form-dateP5000', { date: sedSender?.date })}
-                  </span>
+    <div key={_seds?.map(s => s.id).join(',')}>
+      <Row>
+        <Column>
+          {context !== 'overview'
+            ? sedSender && (
+              <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
+                <span>
+                  {t('buc:form-dateP5000', { date: sedSender?.date })}
+                </span>
+                <SeparatorSpan>-</SeparatorSpan>
+                <FlexCenterDiv>
+                  <Flag
+                    animate
+                    country={sedSender?.country}
+                    label={sedSender?.countryLabel}
+                    size='XS'
+                    type='circle'
+                    wave={false}
+                  />
+                  <HorizontalSeparatorDiv size='0.2' />
+                  <span>{sedSender?.countryLabel}</span>
                   <SeparatorSpan>-</SeparatorSpan>
-                  <FlexCenterDiv>
-                    <Flag
-                      animate
-                      country={sedSender?.country}
-                      label={sedSender?.countryLabel}
-                      size='XS'
-                      type='circle'
-                      wave={false}
-                    />
-                    <HorizontalSeparatorDiv size='0.2' />
-                    <span>{sedSender?.countryLabel}</span>
-                    <SeparatorSpan>-</SeparatorSpan>
-                    <span>{sedSender?.institution}</span>
-                    <SeparatorSpan>-</SeparatorSpan>
-                    <SEDStatus
-                      highContrast={highContrast}
-                      status={mainSed!.status}
-                    />
-                  </FlexCenterDiv>
+                  <span>{sedSender?.institution}</span>
+                  <SeparatorSpan>-</SeparatorSpan>
+                  <SEDStatus
+                    status={mainSed!.status}
+                  />
                 </FlexCenterDiv>
-                )
-              : (
-                <PileDiv>
-                  <UndertekstBold>
-                    {t('buc:p5000-active-seds')}:
-                  </UndertekstBold>
-                  <VerticalSeparatorDiv size='0.5' />
-                  {_seds?.map(sed => {
-                    const sender: SedSender | undefined = getSedSender(sed)
-                    const label: JSX.Element = (
-                      <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
-                        <span>
-                          {t('buc:form-dateP5000', { date: sender?.date })}
-                        </span>
-                        <SeparatorSpan>-</SeparatorSpan>
-                        {sender
-                          ? (
-                            <FlexCenterDiv>
-                              <Flag
-                                animate
-                                country={sender?.country}
-                                label={sender?.countryLabel}
-                                size='XS'
-                                type='circle'
-                                wave={false}
-                              />
-                              <HorizontalSeparatorDiv size='0.2' />
-                              <span>{sender?.countryLabel}</span>
-                              <SeparatorSpan>-</SeparatorSpan>
-                              <span>{sender?.institution}</span>
-                              <SeparatorSpan>-</SeparatorSpan>
-                              <SEDStatus
-                                highContrast={highContrast}
-                                status={sed.status}
-                              />
-                            </FlexCenterDiv>
-                            )
-                          : sed.id}
-                        {emptyPeriodReport[sed.id] && (
-                          <>
-                            <HorizontalSeparatorDiv size='0.5' />
-                            <WarningCircle />
-                          </>
-                        )}
-                      </FlexCenterDiv>
-                    )
-                    return (
-                      <div key={sed.id}>
-                        <Checkbox
-                          data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                          checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
-                          key={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                          id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                          onChange={(e) => changeActiveSed(sed, e.target.checked)}
-                          label={label}
-                        />
-                        <VerticalSeparatorDiv size='0.5' />
-                      </div>
-                    )
-                  })}
-                </PileDiv>
-                )}
-          </Column>
-          <Column>
-            {warning && (
-              <AlertStripe type='advarsel'>
-                {t('buc:form-P5000-warning')}
-              </AlertStripe>
-            )}
-          </Column>
-        </Row>
-        <VerticalSeparatorDiv size='3' />
-        {renderBackLink()}
-        <VerticalSeparatorDiv size='2' />
-        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart} onDragUpdate={onDragUpdate}>
-          <Droppable droppableId='droppable'>
-            {(provided, snapshot) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  {_tables.map(renderDraggableTable)}
-                  {provided.placeholder}
-                  {!_.isEmpty(placeholderProps) && snapshot.isDraggingOver && (
-                    <div
-                      className='placeholder'
-                      style={{
-                        position: 'absolute',
-                        top: placeholderProps.clientY,
-                        left: placeholderProps.clientX,
-                        height: placeholderProps.clientHeight,
-                        width: placeholderProps.clientWidth
-                      }}
-                    >
-                      <div style={getItemStyle(false, { opacity: 0.5 })}>
-                        {placeholderProps.clientContent}
-                      </div>
+              </FlexCenterDiv>
+              )
+            : (
+              <PileDiv>
+                <UndertekstBold>
+                  {t('buc:p5000-active-seds')}:
+                </UndertekstBold>
+                <VerticalSeparatorDiv size='0.5' />
+                {_seds?.map(sed => {
+                  const sender: SedSender | undefined = getSedSender(sed)
+                  const label: JSX.Element = (
+                    <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
+                      <span>
+                        {t('buc:form-dateP5000', { date: sender?.date })}
+                      </span>
+                      <SeparatorSpan>-</SeparatorSpan>
+                      {sender
+                        ? (
+                          <FlexCenterDiv>
+                            <Flag
+                              animate
+                              country={sender?.country}
+                              label={sender?.countryLabel}
+                              size='XS'
+                              type='circle'
+                              wave={false}
+                            />
+                            <HorizontalSeparatorDiv size='0.2' />
+                            <span>{sender?.countryLabel}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
+                            <span>{sender?.institution}</span>
+                            <SeparatorSpan>-</SeparatorSpan>
+                            <SEDStatus
+                              status={sed.status}
+                            />
+                          </FlexCenterDiv>
+                          )
+                        : sed.id}
+                      {emptyPeriodReport[sed.id] && (
+                        <>
+                          <HorizontalSeparatorDiv size='0.5' />
+                          <WarningCircle />
+                        </>
+                      )}
+                    </FlexCenterDiv>
+                  )
+                  return (
+                    <div key={sed.id}>
+                      <HighContrastCheckbox
+                        data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                        checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
+                        key={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                        id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSed(sed, e.target.checked)}
+                        label={label}
+                      />
+                      <VerticalSeparatorDiv size='0.5' />
                     </div>
-                  )}
+                  )
+                })}
+              </PileDiv>
+              )}
+        </Column>
+        <Column>
+          {warning && (
+            <AlertStripe type='advarsel'>
+              {t('buc:form-P5000-warning')}
+            </AlertStripe>
+          )}
+        </Column>
+      </Row>
+      <VerticalSeparatorDiv size='3' />
+      {renderBackLink()}
+      <VerticalSeparatorDiv size='2' />
+      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart} onDragUpdate={onDragUpdate}>
+        <Droppable droppableId='droppable'>
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}
+            >
+              {_tables.map(renderDraggableTable)}
+              {provided.placeholder}
+              {!_.isEmpty(placeholderProps) && snapshot.isDraggingOver && (
+                <div
+                  className='placeholder'
+                  style={{
+                    position: 'absolute',
+                    top: placeholderProps.clientY,
+                    left: placeholderProps.clientX,
+                    height: placeholderProps.clientHeight,
+                    width: placeholderProps.clientWidth
+                  }}
+                >
+                  <div style={getItemStyle(false, { opacity: 0.5 })}>
+                    {placeholderProps.clientContent}
+                  </div>
                 </div>
+              )}
+            </div>
 
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   )
 }
 

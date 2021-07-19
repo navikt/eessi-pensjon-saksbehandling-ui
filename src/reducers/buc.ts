@@ -20,7 +20,8 @@ import {
   SEDAttachment,
   P5000FromRinaMap,
   SedsWithAttachmentsMap,
-  ValidBuc
+  ValidBuc,
+  P6000
 } from 'declarations/buc'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { ActionWithPayload } from 'js-fetch-api'
@@ -51,6 +52,7 @@ export interface BucState {
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
   p5000FromRinaMap: P5000FromRinaMap
+  p6000: Array<P6000> | null | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
   subjectAreaList: Array<string> | undefined
@@ -79,6 +81,7 @@ export const initialBucState: BucState = {
   savingAttachmentsJob: undefined,
   sed: undefined,
   p5000FromRinaMap: {},
+  p6000: undefined,
   sedList: undefined,
   sedsWithAttachments: {},
   subjectAreaList: undefined,
@@ -99,6 +102,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         replySed: undefined,
         sed: undefined,
         savingAttachmentsJob: undefined,
+        p6000: undefined,
         p5000FromRinaMap: {}
       }
 
@@ -526,6 +530,24 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         rinaUrl: (action as ActionWithPayload).payload.rinaUrl
+      }
+
+    case types.BUC_GET_P6000_REQUEST:
+      return {
+        ...state,
+        p6000: undefined
+      }
+
+    case types.BUC_GET_P6000_FAILURE:
+      return {
+        ...state,
+        p6000: null
+      }
+
+    case types.BUC_GET_P6000_SUCCESS:
+      return {
+        ...state,
+        p6000: (action as ActionWithPayload).payload
       }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:

@@ -18,6 +18,7 @@ export const initialLoadingState: LoadingState = {
   gettingInstitutionList: false,
   gettingPersonInfo: false,
   gettingPersonAvdodInfo: false,
+  gettingP6000: false,
   gettingSakType: false,
   gettingSedList: false,
   gettingSubjectAreaList: false,
@@ -219,6 +220,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         gettingInstitutionList: false
+      }
+
+    case types.BUC_GET_P6000_REQUEST:
+
+      return {
+        ...state,
+        gettingP6000: true
+      }
+
+    case types.BUC_GET_P6000_SUCCESS:
+    case types.BUC_GET_P6000_FAILURE:
+
+      return {
+        ...state,
+        gettingP6000: false
       }
 
     case types.BUC_GET_KRAVDATO_REQUEST:

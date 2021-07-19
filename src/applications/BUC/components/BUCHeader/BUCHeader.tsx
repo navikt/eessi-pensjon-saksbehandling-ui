@@ -21,7 +21,7 @@ import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import Lenke from 'nav-frontend-lenker'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import NavHighContrast, { themeKeys, Column, Row } from 'nav-hoykontrast'
+import { themeKeys, Column, Row } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useEffect, useState } from 'react'
@@ -37,8 +37,8 @@ export const BUCHeaderDiv = styled.div`
   width: 100%;
   &.new .ekspanderbartPanel__hode {
     background: ${({ theme }) => theme.type === 'themeHighContrast'
-    ? theme[themeKeys.NAVLIMEGRONNDARKEN20]
-    : theme[themeKeys.NAVLIMEGRONNLIGHTEN20]} !important;
+    ? theme[themeKeys.NAVGRONNDARKEN20]
+    : theme[themeKeys.NAVGRONNLIGHTEN20]} !important;
   }
 `
 const FlexRow = styled(Row)`
@@ -109,7 +109,6 @@ export interface BUCHeaderProps {
 
 export interface BUCHeaderSelector {
   gettingBucDeltakere: boolean
-  highContrast: boolean
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
@@ -119,7 +118,6 @@ export interface BUCHeaderSelector {
 
 const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector => ({
   gettingBucDeltakere: state.loading.gettingBucDeltakere,
-  highContrast: state.ui.highContrast,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
   personAvdods: state.app.personAvdods,
@@ -130,7 +128,7 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
 const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo, newBuc
 }: BUCHeaderProps): JSX.Element => {
-  const { highContrast, institutionNames, locale, personAvdods, rinaUrl, size }: BUCHeaderSelector =
+  const { institutionNames, locale, personAvdods, rinaUrl, size }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const [_flagSize, setFlagSize] = useState<string>('XL')
@@ -190,139 +188,138 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   }, [size])
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <BUCHeaderDiv
-        className={classNames({ new: newBuc })}
-        data-test-id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
-      >
-        <FullWidthRow>
-          <Column>
-            <UnderTitle
-              className='lenkepanel__heading'
-              data-test-id='a-buc-c-bucheader__title-id'
-            >
-              {buc.type + ' - ' + getBucTypeLabel({
-                t: t,
-                locale: locale,
-                type: buc.type!
-              })}
-            </UnderTitle>
-          </Column>
-        </FullWidthRow>
-        <FlexRow>
-          <LabelsDiv
-            data-test-id='a-buc-c-bucheader__label-id'
+
+    <BUCHeaderDiv
+      className={classNames({ new: newBuc })}
+      data-test-id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
+    >
+      <FullWidthRow>
+        <Column>
+          <UnderTitle
+            className='lenkepanel__heading'
+            data-test-id='a-buc-c-bucheader__title-id'
           >
+            {buc.type + ' - ' + getBucTypeLabel({
+              t: t,
+              locale: locale,
+              type: buc.type!
+            })}
+          </UnderTitle>
+        </Column>
+      </FullWidthRow>
+      <FlexRow>
+        <LabelsDiv
+          data-test-id='a-buc-c-bucheader__label-id'
+        >
+          <PropertyDiv
+            data-test-id='a-buc-c-bucheader__label-date-id'
+          >
+            <Normaltekst>
+              {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
+            </Normaltekst>
+          </PropertyDiv>
+          <PropertyDiv
+            data-test-id='a-buc-c-bucheader__label-owner-id'
+          >
+            <RowText>
+              {t('buc:form-caseOwner') + ': '}
+            </RowText>
+            <InstitutionList
+              className='noMargin'
+              data-test-id='a-buc-c-bucheader__label-owner-institution-id'
+              flagType='circle'
+              institutions={[buc.creator!]}
+              locale={locale}
+              type='separated'
+            />
+          </PropertyDiv>
+          {buc.caseId && (
             <PropertyDiv
-              data-test-id='a-buc-c-bucheader__label-date-id'
+              data-test-id='a-buc-c-bucheader__label-case-id'
             >
-              <Normaltekst>
-                {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
-              </Normaltekst>
+              {rinaUrl
+                ? (
+                  <RowText>
+                    {t('buc:form-caseNumberInRina') + ': '}
+                    <RinaLink
+                      data-amplitude='buc.list.buc.rinaUrl'
+                      data-test-id='a-buc-c-bucheader__label-case-gotorina-link-id'
+                      href={rinaUrl + buc.caseId}
+                      onClick={onRinaLinkClick}
+                      target='rinaWindow'
+                    >
+                      {buc.caseId}
+                    </RinaLink>
+                  </RowText>
+                  )
+                : (
+                  <WaitingPanel size='S' oneLine />
+                  )}
             </PropertyDiv>
+          )}
+          {bucsThatSupportAvdod(buc.type) && (buc as ValidBuc)?.addedParams?.subject && (
             <PropertyDiv
-              data-test-id='a-buc-c-bucheader__label-owner-id'
+              data-test-id='a-buc-c-bucheader__label-avdod-id'
             >
               <RowText>
-                {t('buc:form-caseOwner') + ': '}
+                {t('ui:deceased') + ': '}
               </RowText>
-              <InstitutionList
-                className='noMargin'
-                data-test-id='a-buc-c-bucheader__label-owner-institution-id'
-                flagType='circle'
-                institutions={[buc.creator!]}
-                locale={locale}
-                type='separated'
-              />
+              <Normaltekst>
+                {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr}
+              </Normaltekst>
             </PropertyDiv>
-            {buc.caseId && (
-              <PropertyDiv
-                data-test-id='a-buc-c-bucheader__label-case-id'
-              >
-                {rinaUrl
-                  ? (
-                    <RowText>
-                      {t('buc:form-caseNumberInRina') + ': '}
-                      <RinaLink
-                        data-amplitude='buc.list.buc.rinaUrl'
-                        data-test-id='a-buc-c-bucheader__label-case-gotorina-link-id'
-                        href={rinaUrl + buc.caseId}
-                        onClick={onRinaLinkClick}
-                        target='rinaWindow'
-                      >
-                        {buc.caseId}
-                      </RinaLink>
-                    </RowText>
-                    )
-                  : (
-                    <WaitingPanel size='S' oneLine />
-                    )}
-              </PropertyDiv>
-            )}
-            {bucsThatSupportAvdod(buc.type) && (buc as ValidBuc)?.addedParams?.subject && (
-              <PropertyDiv
-                data-test-id='a-buc-c-bucheader__label-avdod-id'
-              >
-                <RowText>
-                  {t('ui:deceased') + ': '}
-                </RowText>
-                <Normaltekst>
-                  {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr}
-                </Normaltekst>
-              </PropertyDiv>
-            )}
-          </LabelsDiv>
-          <IconsDiv
-            data-test-id='a-buc-c-bucheader__icon-id'
-          >
-            {!_.isEmpty(flagItems) && (
-              <FlagList
-                animate
-                items={flagItems}
-                locale={locale}
-                type='circle'
-                overflowLimit={8}
-                size={_flagSize}
-                wave={false}
-                wrapper={false}
-              />
-            )}
-            {numberOfSeds && (
-              <Tooltip
-                overlay={(
-                  <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
+          )}
+        </LabelsDiv>
+        <IconsDiv
+          data-test-id='a-buc-c-bucheader__icon-id'
+        >
+          {!_.isEmpty(flagItems) && (
+            <FlagList
+              animate
+              items={flagItems}
+              locale={locale}
+              type='circle'
+              overflowLimit={8}
+              size={_flagSize}
+              wave={false}
+              wrapper={false}
+            />
+          )}
+          {numberOfSeds && (
+            <Tooltip
+              overlay={(
+                <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
                 )}
-                placement='top'
-                trigger={['hover']}
+              placement='top'
+              trigger={['hover']}
+            >
+              <NumberOfSedsDiv
+                data-test-id='a-buc-c-bucheader__icon-numberofseds-id'
+                data-icon-size={_flagSize}
               >
-                <NumberOfSedsDiv
-                  data-test-id='a-buc-c-bucheader__icon-numberofseds-id'
-                  data-icon-size={_flagSize}
-                >
-                  {numberOfSeds}
-                </NumberOfSedsDiv>
-              </Tooltip>
-            )}
-            {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 && (
-              <Tooltip
-                overlay={(
-                  <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
+                {numberOfSeds}
+              </NumberOfSedsDiv>
+            </Tooltip>
+          )}
+          {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 && (
+            <Tooltip
+              overlay={(
+                <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
                 )}
-                placement='top'
-                trigger={['hover']}
-              >
-                <TagsDiv data-test-id='a-buc-c-bucheader__icon-tags-id'>
-                  <ProblemCircleIcon
-                    width={_flagSize === 'XL' ? 50 : 32}
-                    height={_flagSize === 'XL' ? 50 : 32}
-                  />
-                </TagsDiv>
-              </Tooltip>
-            )}
-          </IconsDiv>
-        </FlexRow>
-      </BUCHeaderDiv>
-    </NavHighContrast>
+              placement='top'
+              trigger={['hover']}
+            >
+              <TagsDiv data-test-id='a-buc-c-bucheader__icon-tags-id'>
+                <ProblemCircleIcon
+                  width={_flagSize === 'XL' ? 50 : 32}
+                  height={_flagSize === 'XL' ? 50 : 32}
+                />
+              </TagsDiv>
+            </Tooltip>
+          )}
+        </IconsDiv>
+      </FlexRow>
+    </BUCHeaderDiv>
   )
 }
 

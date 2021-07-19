@@ -3,6 +3,7 @@ import {
   createSavingAttachmentJob,
   createSed,
   fetchKravDato,
+  getSedP6000,
   getCountryList,
   getInstitutionsListForBucAndCountry,
   getSedList,
@@ -23,22 +24,11 @@ import {
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import SEDP6000 from 'applications/BUC/components/SEDP6000/SEDP6000'
 import PersonIcon from 'assets/icons/line-version-person-2'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
-import {
-  Column,
-  HighContrastFeiloppsummering,
-  HighContrastFlatknapp,
-  HighContrastHovedknapp,
-  HighContrastInput,
-  HighContrastKnapp,
-  HighContrastRadioPanelGroup,
-  HorizontalSeparatorDiv,
-  Row,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { VEDTAKSKONTEKST } from 'constants/constants'
@@ -52,7 +42,7 @@ import {
   PesysContext,
   Validation
 } from 'declarations/app.d'
-import { KravOmValue, SakTypeKey } from 'declarations/buc'
+import { KravOmValue, P6000, SakTypeKey } from 'declarations/buc'
 import {
   AvdodOrSokerValue,
   Buc,
@@ -85,16 +75,28 @@ import CountryData, { Country, CountryList } from 'land-verktoy'
 import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
+import moment from 'moment'
+import AlertStripe from 'nav-frontend-alertstriper'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import {
+  Column,
+  HighContrastFeiloppsummering,
+  HighContrastFlatknapp,
+  HighContrastHovedknapp,
+  HighContrastInput,
+  HighContrastKnapp,
+  HighContrastRadioPanelGroup,
+  HorizontalSeparatorDiv,
+  Row,
+  VerticalSeparatorDiv
+} from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupTypeBase, ValueType } from 'react-select'
 import styled from 'styled-components'
-import moment from 'moment'
-import AlertStripe from 'nav-frontend-alertstriper'
 
 const AlertDiv = styled.div`
   display: flex;
@@ -139,6 +141,7 @@ export interface SEDStartSelector {
   attachmentsError: boolean
   countryList: CountryRawList | undefined
   featureToggles: FeatureToggles
+  gettingP6000: boolean
   highContrast: boolean
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames | undefined
@@ -148,6 +151,7 @@ export interface SEDStartSelector {
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
+  p6000: Array<P6000> | null | undefined
   sakId?: string | null | undefined
   sakType: SakTypeValue | null | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
@@ -161,6 +165,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   attachmentsError: state.buc.attachmentsError,
   countryList: state.buc.countryList,
   featureToggles: state.app.featureToggles,
+  gettingP6000: state.loading.gettingP6000,
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   institutionNames: state.buc.institutionNames,
@@ -170,6 +175,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   locale: state.ui.locale,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
+  p6000: state.buc.p6000,
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue,
   savingAttachmentsJob: state.buc.savingAttachmentsJob,
@@ -200,15 +206,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   replySed
 } : SEDStartProps): JSX.Element => {
   const {
-    attachmentsError, countryList, featureToggles, highContrast, institutionList, institutionNames, kravId, kravDato,
-    loading, locale, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
+    attachmentsError, countryList, featureToggles, gettingP6000, highContrast, institutionList, institutionNames, kravId, kravDato,
+    loading, locale, p6000, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [_timer, setTimer] = useState<any>(undefined)
-  const [_bucIdForCooldown, setBucIdForCooldown] = useState<string | undefined>(undefined)
-  const [_bucCooldown, setBucCooldown] = useState<number | undefined>(undefined)
-  const bucCooldownInSeconds = 10
 
   const prefill = (prop: string): RawList => {
     const institutions: Array<any> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
@@ -259,6 +261,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       : []
   }
 
+  const [_timer, setTimer] = useState<any>(undefined)
+  const [_bucIdForCooldown, setBucIdForCooldown] = useState<string | undefined>(undefined)
+  const [_bucCooldown, setBucCooldown] = useState<number | undefined>(undefined)
+  const [_p6000, setP6000] = useState<Array<P6000>>([])
+  const bucCooldownInSeconds = 10
   const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
   const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
   const [_avdodOrSoker, setAvdodOrSoker] = useState<AvdodOrSokerValue | undefined>(undefined)
@@ -738,6 +745,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if ((_buc as ValidBuc)?.addedParams?.subject) {
         payload.subject = (_buc as ValidBuc)?.addedParams?.subject
       }
+      if (_sed === 'P7000') {
+        payload.payload = _p6000
+      }
       if (currentSed) {
         dispatch(createReplySed(_buc, payload, currentSed.id))
       } else {
@@ -880,6 +890,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
     }, 1000)
     setTimer(timer)
+  }
+
+  const _getP6000 = () => {
+    dispatch(getSedP6000(_buc.caseId))
   }
 
   useEffect(() => {
@@ -1101,6 +1115,27 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 values={_institutionValueList}
               />
               <VerticalSeparatorDiv size='2' />
+              {_sed === 'P7000' && (
+                <>
+                  {_.isNil(p6000)
+                    ? (
+                      <HighContrastKnapp
+                        onClick={_getP6000}
+                        disabled={gettingP6000}
+                        spinner={gettingP6000}
+                      >
+                        {gettingP6000 ? t('buc:loading-p6000') : t('buc:form-get-p6000')}
+                      </HighContrastKnapp>
+                      )
+                    : <SEDP6000
+                        highContrast={highContrast}
+                        locale={locale}
+                        p6000s={p6000}
+                        onChanged={setP6000}
+                      />}
+                  <VerticalSeparatorDiv size='2' />
+                </>
+              )}
               <label className='skjemaelement__label'>
                 {t('buc:form-chosenInstitutions')}
               </label>

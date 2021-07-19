@@ -13,7 +13,7 @@ import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/
 import MagnifyingGlass from 'assets/icons/MagnifyingGlass'
 import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
-import NavHighContrast, {
+import {
   animationClose, animationOpen, slideInFromLeft,
   themeKeys,
   HighContrastHovedknapp,
@@ -298,79 +298,78 @@ const BUCList: React.FC<BUCListProps> = ({
   }, [institutionList, bucs, dispatch, _mounted])
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <BUCListDiv
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+    <BUCListDiv
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <BUCListHeader>
+        <Undertittel>
+          {t('buc:form-buclist')}
+        </Undertittel>
+        {!_newBucPanelOpen && (
+          <HighContrastKnapp
+            data-amplitude='buc.list.newbuc'
+            data-test-id='a-buc-p-buclist__newbuc-button-id'
+            onClick={onBUCNew}
+          >
+            {t('buc:form-createNewCase')}
+          </HighContrastKnapp>
+        )}
+      </BUCListHeader>
+      <VerticalSeparatorDiv />
+      <BUCStartDiv className={classNames({
+        open: _newBucPanelOpen === true,
+        close: _newBucPanelOpen === false
+      })}
       >
-        <BUCListHeader>
-          <Undertittel>
-            {t('buc:form-buclist')}
-          </Undertittel>
-          {!_newBucPanelOpen && (
-            <HighContrastKnapp
-              data-amplitude='buc.list.newbuc'
-              data-test-id='a-buc-p-buclist__newbuc-button-id'
-              onClick={onBUCNew}
-            >
-              {t('buc:form-createNewCase')}
-            </HighContrastKnapp>
-          )}
-        </BUCListHeader>
+        <BUCNewDiv>
+          <Systemtittel>
+            {t('buc:step-startBUCTitle')}
+          </Systemtittel>
+          <hr />
+          <BUCStart
+            aktoerId={aktoerId}
+            onBucCreated={() => {
+              setNewBucPanelOpen(false)
+              setMode('sednew', 'forward')
+              window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              })
+            }}
+            onBucCancelled={() => setNewBucPanelOpen(false)}
+          />
+        </BUCNewDiv>
         <VerticalSeparatorDiv />
-        <BUCStartDiv className={classNames({
-          open: _newBucPanelOpen === true,
-          close: _newBucPanelOpen === false
-        })}
-        >
-          <BUCNewDiv>
-            <Systemtittel>
-              {t('buc:step-startBUCTitle')}
-            </Systemtittel>
-            <hr />
-            <BUCStart
-              aktoerId={aktoerId}
-              onBucCreated={() => {
-                setNewBucPanelOpen(false)
-                setMode('sednew', 'forward')
-                window.scrollTo({
-                  top: 0,
-                  left: 0,
-                  behavior: 'smooth'
-                })
-              }}
-              onBucCancelled={() => setNewBucPanelOpen(false)}
-            />
-          </BUCNewDiv>
+      </BUCStartDiv>
+      {loading.gettingBUCs && (
+        <BUCLoadingDiv>
+          <BUCLoading />
+          <BUCLoading />
+          <BUCLoading />
+        </BUCLoadingDiv>
+      )}
+      {!loading.gettingBUCs && sortedBucs === null && (
+        <>
+          <VerticalSeparatorDiv size='2' />
+          <Normaltekst>
+            {t('buc:error-noBucs')}
+          </Normaltekst>
+        </>
+      )}
+      {!loading.gettingBUCs && !_.isNil(filteredBucs) && !_.isNil(pBuc02filteredBucs) && filteredBucs.length !== pBuc02filteredBucs.length && (
+        <>
           <VerticalSeparatorDiv />
-        </BUCStartDiv>
-        {loading.gettingBUCs && (
-          <BUCLoadingDiv>
-            <BUCLoading />
-            <BUCLoading />
-            <BUCLoading />
-          </BUCLoadingDiv>
-        )}
-        {!loading.gettingBUCs && sortedBucs === null && (
-          <>
-            <VerticalSeparatorDiv size='2' />
-            <Normaltekst>
-              {t('buc:error-noBucs')}
-            </Normaltekst>
-          </>
-        )}
-        {!loading.gettingBUCs && !_.isNil(filteredBucs) && !_.isNil(pBuc02filteredBucs) && filteredBucs.length !== pBuc02filteredBucs.length && (
-          <>
-            <VerticalSeparatorDiv />
-            <BadBucDiv>
-              <Alertstripe type='advarsel'>
-                {t('buc:warning-filteredBucs')}
-              </Alertstripe>
-            </BadBucDiv>
-            <VerticalSeparatorDiv />
-          </>
-        )}
-        {!loading.gettingBUCs && !_.isNil(sortedBucs) && !_.isEmpty(sortedBucs) &&
+          <BadBucDiv>
+            <Alertstripe type='advarsel'>
+              {t('buc:warning-filteredBucs')}
+            </Alertstripe>
+          </BadBucDiv>
+          <VerticalSeparatorDiv />
+        </>
+      )}
+      {!loading.gettingBUCs && !_.isNil(sortedBucs) && !_.isEmpty(sortedBucs) &&
           sortedBucs.map((buc: Buc, index: number) => {
             if (buc.error) {
               return (
@@ -405,14 +404,13 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
-        {!loading.gettingBUCs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
+      {!loading.gettingBUCs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
               <VerticalSeparatorDiv size='2' />
               <BadBucDiv>
                 <>
                   <ExpandingPanel
-                    highContrast={highContrast}
                     collapseProps={{ id: 'a-buc-c-buclist__no-buc-id' }}
                     className={classNames({ highContrast: highContrast })}
                     data-test-id='a-buc-c-buclist__no-buc-id'
@@ -461,10 +459,9 @@ const BUCList: React.FC<BUCListProps> = ({
               </BadBucDiv>
               <VerticalSeparatorDiv size='2' />
             </>
-        )}
-        <BUCFooter />
-      </BUCListDiv>
-    </NavHighContrast>
+      )}
+      <BUCFooter />
+    </BUCListDiv>
   )
 }
 

@@ -1,12 +1,13 @@
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import EtikettBase from 'nav-frontend-etiketter'
 import { Select } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
-import NavHighContrast, {
+import {
   Column,
   FlexEndDiv,
   HiddenDiv,
@@ -20,6 +21,7 @@ import NavHighContrast, {
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import Table, { Sort } from 'tabell'
@@ -34,14 +36,17 @@ const CustomSelect = styled(Select)`
 
 export interface P5000OverviewProps {
   context: P5000Context
-  highContrast: boolean
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: P5000SED | undefined
   seds: Seds
 }
 
+const mapState = (state: State): any => ({
+  highContrast: state.ui.highContrast
+})
+
 const P5000Overview: React.FC<P5000OverviewProps> = ({
-  context, highContrast, p5000FromRinaMap, p5000FromStorage, seds
+  context, p5000FromRinaMap, p5000FromStorage, seds
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -50,7 +55,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
-
+  const { highContrast }: any = useSelector<State, any>(mapState)
   const beforePrintOut = (): void => {}
 
   const prepareContent = (): void => {
@@ -125,7 +130,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   }
 
   return (
-    <NavHighContrast highContrast={highContrast}>
+    <>
       <VerticalSeparatorDiv />
       <PileCenterDiv>
         <Row>
@@ -206,12 +211,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         </HiddenDiv>
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
-    </NavHighContrast>
+    </>
   )
 }
 
 P5000Overview.propTypes = {
-  highContrast: PT.bool.isRequired,
   p5000FromRinaMap: PT.any.isRequired
 }
 

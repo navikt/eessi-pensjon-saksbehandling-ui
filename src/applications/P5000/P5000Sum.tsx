@@ -11,7 +11,7 @@ import { standardLogger } from 'metrics/loggers'
 import Alertstripe from 'nav-frontend-alertstriper'
 import EtikettBase from 'nav-frontend-etiketter'
 import { Normaltekst } from 'nav-frontend-typografi'
-import NavHighContrast, {
+import {
   Column,
   FlexEndSpacedDiv,
   HiddenDiv,
@@ -39,7 +39,6 @@ const CustomAlertstripe = styled(Alertstripe)`
 
 export interface P5000SumProps {
   context: P5000Context
-  highContrast: boolean
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: P5000SED | undefined
   saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
@@ -47,14 +46,15 @@ export interface P5000SumProps {
 }
 
 const mapState = (state: State): any => ({
+  highContrast: state.ui.highContrast,
   sakType: state.app.params.sakType as SakTypeValue
 })
 
 const P5000Sum: React.FC<P5000SumProps> = ({
-  context, highContrast, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds
+  context, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds
 }: P5000SumProps) => {
   const { t } = useTranslation()
-  const { sakType } = useSelector<State, any>(mapState)
+  const { highContrast, sakType } = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_itemsPerPage] = useState<number>(30)
@@ -173,7 +173,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const hasMoreWarnings = has40aar || has45
 
   return (
-    <NavHighContrast highContrast={highContrast}>
+    <>
       <PileCenterDiv>
         <Row>
           <Column />
@@ -316,12 +316,11 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         </HiddenDiv>
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
-    </NavHighContrast>
+    </>
   )
 }
 
 P5000Sum.propTypes = {
-  highContrast: PT.bool.isRequired,
   p5000FromRinaMap: PT.any.isRequired
 }
 

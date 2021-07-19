@@ -5,16 +5,18 @@ import LineHeartCircle from 'assets/icons/line-version-heart-circle'
 import LineHome from 'assets/icons/line-version-home-3'
 import PersonIcon from 'assets/icons/line-version-person-2'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
-import { themeKeys, Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from 'nav-hoykontrast'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
+import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { State } from 'declarations/reducers'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
 import { Normaltekst, Undertekst } from 'nav-frontend-typografi'
+import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row, themeKeys } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const Element = styled.div`
@@ -37,19 +39,26 @@ const MarginColumn = styled(Column)`
 export const PersonPanelDiv = styled.div``
 
 export interface PersonPanelProps {
-  highContrast: boolean
   locale: string
   person: any
   personAvdods: PersonAvdods | undefined
 }
 
+export interface PersonPanelSelector {
+  highContrast: boolean
+}
+
+const mapState = (state: State): PersonPanelSelector => ({
+  highContrast: state.ui.highContrast
+})
+
 const PersonPanel: React.FC<PersonPanelProps> = ({
-  highContrast,
   locale,
   person,
   personAvdods
 }: PersonPanelProps): JSX.Element | null => {
   const { t } = useTranslation()
+  const { highContrast } = useSelector<State, PersonPanelSelector>(mapState)
 
   const renderEntity = (label: string, value: any): JSX.Element => {
     let _value
@@ -278,7 +287,6 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
 }
 
 PersonPanel.propTypes = {
-  highContrast: PT.bool.isRequired,
   locale: AllowedLocaleStringPropType.isRequired,
   person: PT.object
 }

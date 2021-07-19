@@ -4,7 +4,7 @@ import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { Collapse, UnmountClosed } from 'react-collapse'
 import { useTranslation } from 'react-i18next'
-import NavHighContrast, { HighContrastExpandingPanel } from 'nav-hoykontrast'
+import { HighContrastExpandingPanel } from 'nav-hoykontrast'
 
 export interface ExpandingPanelProps {
   ariaTittel?: string
@@ -12,7 +12,6 @@ export interface ExpandingPanelProps {
   children : JSX.Element
   className?: string
   collapseProps?: any
-  highContrast: boolean
   heading?: JSX.Element | string
   id?: string
   onClose?: () => void
@@ -23,7 +22,7 @@ export interface ExpandingPanelProps {
 }
 
 const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
-  ariaTittel, border = false, children, className, collapseProps, highContrast, heading, id,
+  ariaTittel, border = false, children, className, collapseProps, heading, id,
   onClose = () => {}, onOpen = () => {}, open = false, renderContentWhenClosed, style = {}
 }: ExpandingPanelProps): JSX.Element => {
   const [_open, setOpen] = useState<boolean>(open)
@@ -78,60 +77,59 @@ const ExpandingPanel: React.FC<ExpandingPanelProps> = ({
   const CollapseComponent: any = renderContentWhenClosed ? Collapse : UnmountClosed
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <HighContrastExpandingPanel
-        id={id}
-        style={style}
-        className={classNames('ekspanderbartPanel', className, {
-          'ekspanderbartPanel--lukket': !_open,
-          'ekspanderbartPanel--apen': _open,
-          'ekspanderbartPanel--border': border
-        })}
+
+    <HighContrastExpandingPanel
+      id={id}
+      style={style}
+      className={classNames('ekspanderbartPanel', className, {
+        'ekspanderbartPanel--lukket': !_open,
+        'ekspanderbartPanel--apen': _open,
+        'ekspanderbartPanel--border': border
+      })}
+    >
+      <div
+        aria-expanded={_open}
+        data-test-id='c-expandingpanel__head-id'
+        className='ekspanderbartPanel__hode'
+        onClick={handleOnClick}
+        onKeyDown={handleKeyboard}
+        role='button'
+        tabIndex={0}
+        {...ariaControls}
       >
         <div
-          aria-expanded={_open}
-          data-test-id='c-expandingpanel__head-id'
-          className='ekspanderbartPanel__hode'
-          onClick={handleOnClick}
-          onKeyDown={handleKeyboard}
-          role='button'
-          tabIndex={0}
-          {...ariaControls}
+          className='ekspanderbartPanel__flex-wrapper'
+          data-test-id='c-expandingpanel__body-id'
         >
-          <div
-            className='ekspanderbartPanel__flex-wrapper'
-            data-test-id='c-expandingpanel__body-id'
+          {heading}
+          <button
+            aria-expanded={_open}
+            aria-label={t('ui:open')}
+            className='ekspanderbartPanel__knapp'
+            data-test-id='c-expandingpanel__button-id'
+            onKeyDown={tabHandler}
+            onClick={handleOnClick}
+            type='button'
           >
-            {heading}
-            <button
-              aria-expanded={_open}
-              aria-label={t('ui:open')}
-              className='ekspanderbartPanel__knapp'
-              data-test-id='c-expandingpanel__button-id'
-              onKeyDown={tabHandler}
-              onClick={handleOnClick}
-              type='button'
-            >
-              <span className='ekspanderbartPanel__indikator' />
-            </button>
-          </div>
+            <span className='ekspanderbartPanel__indikator' />
+          </button>
         </div>
-        <CollapseComponent
-          id={contentId}
-          isOpened={_open}
-          onRest={onRestProxy}
-          {...collapseProps}
+      </div>
+      <CollapseComponent
+        id={contentId}
+        isOpened={_open}
+        onRest={onRestProxy}
+        {...collapseProps}
+      >
+        <article
+          aria-label={ariaTittel}
+          className='ekspanderbartPanel__innhold'
+          data-test-id='c-expandingpanel__content-id'
         >
-          <article
-            aria-label={ariaTittel}
-            className='ekspanderbartPanel__innhold'
-            data-test-id='c-expandingpanel__content-id'
-          >
-            {children}
-          </article>
-        </CollapseComponent>
-      </HighContrastExpandingPanel>
-    </NavHighContrast>
+          {children}
+        </article>
+      </CollapseComponent>
+    </HighContrastExpandingPanel>
   )
 }
 
@@ -141,7 +139,6 @@ ExpandingPanel.propTypes = {
   children: PT.any.isRequired,
   className: PT.string,
   collapseProps: PT.object,
-  highContrast: PT.bool.isRequired,
   heading: PT.oneOfType([PT.string, PT.element]),
   id: PT.string,
   onClose: PT.func,

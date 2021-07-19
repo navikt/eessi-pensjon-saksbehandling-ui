@@ -284,7 +284,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             onStatusSearch={onStatusSearch}
             value={_search}
           />
-          <SEDPanelHeader highContrast={highContrast} />
+          <SEDPanelHeader />
           {!_.isNil(buc!.seds)
             ? buc!.seds
               .filter(sedFilter)

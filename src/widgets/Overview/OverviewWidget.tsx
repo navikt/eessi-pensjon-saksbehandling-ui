@@ -5,7 +5,7 @@ import ReactResizeDetector from 'react-resize-detector'
 import Overview from './Overview'
 
 const OverviewWidget: WidgetFC<WidgetProps> = ({
-  highContrast, onResize, onUpdate, widget
+  onResize, onUpdate, widget
 }: WidgetProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(false)
 
@@ -25,7 +25,7 @@ const OverviewWidget: WidgetFC<WidgetProps> = ({
         refreshRate={50}
         onResize={onResize}
       >
-        <Overview highContrast={highContrast} onUpdate={onUpdate} widget={widget} />
+        <Overview onUpdate={onUpdate} widget={widget} />
       </ReactResizeDetector>
     </div>
   )

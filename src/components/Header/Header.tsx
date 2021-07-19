@@ -2,7 +2,7 @@ import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import NavHighContrast, { themeKeys, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { themeKeys, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import * as routes from 'constants/routes'
 import PT from 'prop-types'
 import AdvarselTrekant from 'assets/icons/advarsel-trekant'
@@ -20,7 +20,6 @@ export interface HeaderProps {
   className ?: string
   children?: JSX.Element | Array<JSX.Element | null>
   gettingUserInfo?: boolean
-  highContrast: boolean
   header?: JSX.Element | string
   isLoggingOut?: boolean
   username?: string
@@ -83,7 +82,7 @@ const UsernameSpan = styled.span`
 `
 
 const Header: React.FC<HeaderProps> = ({
-  className, children, gettingUserInfo, highContrast, header, isLoggingOut, username
+  className, children, gettingUserInfo, header, isLoggingOut, username
 }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -104,73 +103,71 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <HeaderDiv role='banner' className={className}>
-        <BrandDiv>
-          <a
-            href='#index'
-            data-test-id='c-header__logo-link'
-            onClick={onLogoClick}
-          >
-            <NavLogoTransparent width='100' height='45' color='white' />
-          </a>
-          <Skillelinje />
-          <Title>
-            <span>{t('ui:app-headerTitle')}</span>
-          </Title>
-        </BrandDiv>
-        <Link
-          data-test-id='c-header__highcontrast-link-id'
-          href='#highContrast'
-          onClick={onHighContrastClick}
+    <HeaderDiv role='banner' className={className}>
+      <BrandDiv>
+        <a
+          href='#index'
+          data-test-id='c-header__logo-link'
+          onClick={onLogoClick}
         >
-          {t('ui:highContrast')}
-        </Link>
-        <UserDiv>
-          {isLoggingOut
-            ? <Spinner type='XS' />
+          <NavLogoTransparent width='100' height='45' color='white' />
+        </a>
+        <Skillelinje />
+        <Title>
+          <span>{t('ui:app-headerTitle')}</span>
+        </Title>
+      </BrandDiv>
+      <Link
+        data-test-id='c-header__highcontrast-link-id'
+        href='#highContrast'
+        onClick={onHighContrastClick}
+      >
+        {t('ui:highContrast')}
+      </Link>
+      <UserDiv>
+        {isLoggingOut
+          ? <Spinner type='XS' />
+          : (
+            <>
+              <SaksbehandlerUser>
+                <FontAwesomeIcon icon={icons.faUser} />
+              </SaksbehandlerUser>
+              <HorizontalSeparatorDiv />
+            </>
+            )}
+        <Skillelinje />
+        <NameDiv>
+          {gettingUserInfo
+            ? t('buc:loading-gettingUserInfo')
             : (
-              <>
-                <SaksbehandlerUser>
-                  <FontAwesomeIcon icon={icons.faUser} />
-                </SaksbehandlerUser>
-                <HorizontalSeparatorDiv />
-              </>
-              )}
-          <Skillelinje />
-          <NameDiv>
-            {gettingUserInfo
-              ? t('buc:loading-gettingUserInfo')
-              : (
-                  username
-                    ? (
+                username
+                  ? (
+                    <UsernameSpan>
+                      {username}
+                    </UsernameSpan>
+                    )
+                  : (
+                    <>
+                      <AdvarselTrekant size={16} />
                       <UsernameSpan>
-                        {username}
+                        {t('ui:unknown')}
                       </UsernameSpan>
-                      )
-                    : (
-                      <>
-                        <AdvarselTrekant size={16} />
-                        <UsernameSpan>
-                          {t('ui:unknown')}
-                        </UsernameSpan>
-                      </>
-                      )
-                )}
-          </NameDiv>
-        </UserDiv>
-        {header && (
-          _.isString(header)
-            ? (
-              <Systemtittel className='m-4'>
-                {header}
-              </Systemtittel>
-              )
-            : header
-        )}
-        {children}
-      </HeaderDiv>
-    </NavHighContrast>
+                    </>
+                    )
+              )}
+        </NameDiv>
+      </UserDiv>
+      {header && (
+        _.isString(header)
+          ? (
+            <Systemtittel className='m-4'>
+              {header}
+            </Systemtittel>
+            )
+          : header
+      )}
+      {children}
+    </HeaderDiv>
   )
 }
 

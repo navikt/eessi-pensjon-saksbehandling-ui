@@ -3,7 +3,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { RinaUrl } from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import { linkLogger } from 'metrics/loggers'
-import NavHighContrast, {
+import {
   HighContrastLink,
   HorizontalSeparatorDiv,
   theme,
@@ -47,27 +47,25 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   const linkColor: string = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <BUCFooterDiv className={className}>
-        {rinaUrl
-          ? (
-            <HighContrastLink
-              data-amplitude='buc.list.rinaurl'
-              data-test-id='a-buc-c-bucfooter__gotorina-link'
-              href={rinaUrl}
-              onClick={linkLogger}
-              target='rinaWindow'
-            >
-              {t('ui:goToRina')}
-              <HorizontalSeparatorDiv size='0.5' />
-              <ExternalLink color={linkColor} />
-            </HighContrastLink>
-            )
-          : (
-            <WaitingPanel size='S' />
-            )}
-      </BUCFooterDiv>
-    </NavHighContrast>
+    <BUCFooterDiv className={className}>
+      {rinaUrl
+        ? (
+          <HighContrastLink
+            data-amplitude='buc.list.rinaurl'
+            data-test-id='a-buc-c-bucfooter__gotorina-link'
+            href={rinaUrl}
+            onClick={linkLogger}
+            target='rinaWindow'
+          >
+            {t('ui:goToRina')}
+            <HorizontalSeparatorDiv size='0.5' />
+            <ExternalLink color={linkColor} />
+          </HighContrastLink>
+          )
+        : (
+          <WaitingPanel size='S' />
+          )}
+    </BUCFooterDiv>
   )
 }
 

@@ -1,7 +1,7 @@
 import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import ExternalLink from 'assets/icons/line-version-logout'
-import NavHighContrast, { HighContrastLink, HorizontalSeparatorDiv, theme, themeHighContrast, themeKeys } from 'nav-hoykontrast'
+import { HighContrastLink, HorizontalSeparatorDiv, theme, themeHighContrast, themeKeys } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, PesysContext } from 'declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
@@ -87,64 +87,62 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   }, [_mounted, pesysContext, sakType])
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <Content>
-        <Context>
-          <BUCWebSocket
-            fnr={getFnr(person)}
-            avdodFnr=''
-          />
-          <HoyreChevron />
-          {pesysContext && (
-            <Tag>
-              <span>{t('ui:youComeFrom')}</span>
-              <HorizontalSeparatorDiv size='0.25' />
-              <strong>{pesysContext}</strong>.
-            </Tag>
-          )}
+    <Content>
+      <Context>
+        <BUCWebSocket
+          fnr={getFnr(person)}
+          avdodFnr=''
+        />
+        <HoyreChevron />
+        {pesysContext && (
           <Tag>
-            {sakType && (
-              <>
-                <span>{t('buc:form-caseType')}: </span>
-                <HorizontalSeparatorDiv size='0.25' />
-              </>
-            )}
-            {gettingSakType && (
-              <WaitingPanel size='S' oneLine />
-            )}
-            {sakType && Object.values(SakTypeMap).indexOf(sakType) >= 0 && (
-              <strong>{sakType}</strong>
-            )}
+            <span>{t('ui:youComeFrom')}</span>
+            <HorizontalSeparatorDiv size='0.25' />
+            <strong>{pesysContext}</strong>.
           </Tag>
+        )}
+        <Tag>
+          {sakType && (
+            <>
+              <span>{t('buc:form-caseType')}: </span>
+              <HorizontalSeparatorDiv size='0.25' />
+            </>
+          )}
+          {gettingSakType && (
+            <WaitingPanel size='S' oneLine />
+          )}
+          {sakType && Object.values(SakTypeMap).indexOf(sakType) >= 0 && (
+            <strong>{sakType}</strong>
+          )}
+        </Tag>
 
-        </Context>
-        <DivWithLinks>
-          <HighContrastLink
-            target='_blank'
-            data-amplitude='links.rettskilder'
-            href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
-            onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
-          >
-            {t('ui:lawsource')}
-            <HorizontalSeparatorDiv size='0.5' />
-            <ExternalLink color={linkColor} />
-          </HighContrastLink>
-          <SeparatorSpan>
-            •
-          </SeparatorSpan>
-          <HighContrastLink
-            target='_blank'
-            data-amplitude='links.hjelpe'
-            href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
-            onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
-          >
-            {t('ui:help')}
-            <HorizontalSeparatorDiv size='0.5' />
-            <ExternalLink color={linkColor} />
-          </HighContrastLink>
-        </DivWithLinks>
-      </Content>
-    </NavHighContrast>
+      </Context>
+      <DivWithLinks>
+        <HighContrastLink
+          target='_blank'
+          data-amplitude='links.rettskilder'
+          href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
+          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
+        >
+          {t('ui:lawsource')}
+          <HorizontalSeparatorDiv size='0.5' />
+          <ExternalLink color={linkColor} />
+        </HighContrastLink>
+        <SeparatorSpan>
+          •
+        </SeparatorSpan>
+        <HighContrastLink
+          target='_blank'
+          data-amplitude='links.hjelpe'
+          href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
+          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
+        >
+          {t('ui:help')}
+          <HorizontalSeparatorDiv size='0.5' />
+          <ExternalLink color={linkColor} />
+        </HighContrastLink>
+      </DivWithLinks>
+    </Content>
   )
 }
 

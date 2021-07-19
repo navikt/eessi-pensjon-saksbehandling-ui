@@ -93,6 +93,7 @@ export interface NewSedPayload {
   institutions: Institutions
   kravDato?: string
   kravType?: SakTypeKey
+  payload ?: Array<P6000>
   sakId: string
   sed: string
   subject?: BUCSubject
@@ -216,6 +217,15 @@ export interface SEDAttachmentPayloadWithFile extends SEDAttachmentPayload {
   journalpostId: string | undefined
   dokumentInfoId: string | undefined
   variantformat: string | undefined
+}
+
+export interface P6000 {
+   type: string
+   bucid: string
+   documentID: string
+   fraLand: string
+   sisteVersjon: string
+   url: string
 }
 
 export type SedType = 'sed'

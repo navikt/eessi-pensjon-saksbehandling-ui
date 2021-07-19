@@ -4,11 +4,10 @@ import EtikettBase from 'nav-frontend-etiketter'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
+import { themeKeys } from 'nav-hoykontrast'
 
 export interface SEDStatusProps {
   className ?: string
-  highContrast: boolean
   status: string
 }
 
@@ -48,23 +47,21 @@ export const Etikett = styled(EtikettBase)`
 `
 
 const SEDStatus: React.FC<SEDStatusProps> = ({
-  className, highContrast, status
+  className, status
 }: SEDStatusProps): JSX.Element => {
   const { t } = useTranslation()
   const tagType: StatusType =
     Object.prototype.hasOwnProperty.call(statusList, status) ? (statusList[status] as StatusType)! : (statusList.unknown as StatusType)!
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <Etikett className={classNames(status, className)} type={tagType}>
-        {t('buc:status-' + status)}
-      </Etikett>
-    </NavHighContrast>
+
+    <Etikett className={classNames(status, className)} type={tagType}>
+      {t('buc:status-' + status)}
+    </Etikett>
   )
 }
 
 SEDStatus.propTypes = {
   className: PT.string,
-  highContrast: PT.bool.isRequired,
   status: PT.string.isRequired
 }
 

@@ -36,4 +36,3 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
     expect(wrapper.exists(WaitingPanel)).toBeTruthy()
   })
 })
-

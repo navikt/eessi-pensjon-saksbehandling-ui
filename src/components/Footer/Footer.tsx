@@ -1,7 +1,7 @@
 import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
 import classNames from 'classnames'
-import NavHighContrast, { themeKeys, HighContrastKnapp } from 'nav-hoykontrast'
+import { themeKeys, HighContrastKnapp } from 'nav-hoykontrast'
 import EtikettBase from 'nav-frontend-etiketter'
 import Knapp from 'nav-frontend-knapper'
 import Lukknapp from 'nav-frontend-lukknapp'
@@ -98,7 +98,6 @@ const RemoveButton = styled(Lukknapp)`
 
 export interface FooterProps {
   className ?: string
-  highContrast: boolean
   footerOpen: boolean
   params: {[k: string]: any}
 }
@@ -106,7 +105,7 @@ export interface FooterProps {
 const validParams: Array<string> = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
 
 const Footer: React.FC<FooterProps> = ({
-  className, footerOpen, highContrast, params
+  className, footerOpen, params
 }: FooterProps): JSX.Element => {
   const store = useSelector<Store, Store>(state => state)
   const dispatch = useDispatch()
@@ -158,83 +157,80 @@ const Footer: React.FC<FooterProps> = ({
   }
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <FooterDiv
-        role='contentinfo'
-        className={classNames(className, { toggled: footerOpen })}
-      >
-        <ContentDiv className={classNames({ fullWidth: !footerOpen })}>
-          <div
-            role='button'
-            className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
-            onClick={_toggleFooterOpen}
-            onKeyDown={onKeyDown}
-            tabIndex={0}
-          >
-            {footerOpen ? '▼' : ''}
-          </div>
-          {footerOpen && (
-            <FormDiv>
-              <FooterSelect
-                data-test-id='c-footer__select-id'
-                id='c-footer__select-id'
-                label=''
-                onChange={onSetParamName}
-              >
-                <option value=''>--</option>
-                {validParams.map(param => {
-                  return params[param] ? null : <option key={param} value={param}>{param}</option>
-                })}
-              </FooterSelect>
-              <FooterInput
-                label=''
-                data-test-id='c-footer__input-id'
-                id='c-footer__input-id'
-                value={_paramValue || ''}
-                onChange={onSetParamValue}
-              />
-              <AddButton
-                data-test-id='c-footer__add-button-id'
-                onClick={onSetParam}
-              >
-                &nbsp;+&nbsp;
-              </AddButton>
-              <HighContrastKnapp onClick={dumpStore}>
-                Dump store
-              </HighContrastKnapp>
-            </FormDiv>
-          )}
-        </ContentDiv>
+    <FooterDiv
+      role='contentinfo'
+      className={classNames(className, { toggled: footerOpen })}
+    >
+      <ContentDiv className={classNames({ fullWidth: !footerOpen })}>
+        <div
+          role='button'
+          className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
+          onClick={_toggleFooterOpen}
+          onKeyDown={onKeyDown}
+          tabIndex={0}
+        >
+          {footerOpen ? '▼' : ''}
+        </div>
         {footerOpen && (
-          <ParamsDiv>
-            {validParams.map(param => {
-              return params[param] && (
-                <ParamDiv key={param}>
-                  <EtikettBase
-                    className='c-footer__param-string'
-                    data-test-id='c-footer__param-string'
-                    type='info'
-                  >
-                    <b>{param}</b> {params[param]}
-                  </EtikettBase>
-                  <RemoveButton
-                    data-test-id='c-footer__remove-button'
-                    onClick={() => onUnsetParam(param)}
-                  />
-                </ParamDiv>
-              )
-            })}
-          </ParamsDiv>
+          <FormDiv>
+            <FooterSelect
+              data-test-id='c-footer__select-id'
+              id='c-footer__select-id'
+              label=''
+              onChange={onSetParamName}
+            >
+              <option value=''>--</option>
+              {validParams.map(param => {
+                return params[param] ? null : <option key={param} value={param}>{param}</option>
+              })}
+            </FooterSelect>
+            <FooterInput
+              label=''
+              data-test-id='c-footer__input-id'
+              id='c-footer__input-id'
+              value={_paramValue || ''}
+              onChange={onSetParamValue}
+            />
+            <AddButton
+              data-test-id='c-footer__add-button-id'
+              onClick={onSetParam}
+            >
+                &nbsp;+&nbsp;
+            </AddButton>
+            <HighContrastKnapp onClick={dumpStore}>
+              Dump store
+            </HighContrastKnapp>
+          </FormDiv>
         )}
-      </FooterDiv>
-    </NavHighContrast>
+      </ContentDiv>
+      {footerOpen && (
+        <ParamsDiv>
+          {validParams.map(param => {
+            return params[param] && (
+              <ParamDiv key={param}>
+                <EtikettBase
+                  className='c-footer__param-string'
+                  data-test-id='c-footer__param-string'
+                  type='info'
+                >
+                  <b>{param}</b> {params[param]}
+                </EtikettBase>
+                <RemoveButton
+                  data-test-id='c-footer__remove-button'
+                  onClick={() => onUnsetParam(param)}
+                />
+              </ParamDiv>
+            )
+          })}
+        </ParamsDiv>
+      )}
+    </FooterDiv>
   )
 }
 
 Footer.propTypes = {
   className: PT.string,
   footerOpen: PT.bool.isRequired,
-  highContrast: PT.bool.isRequired,
   params: PT.object.isRequired
 }
 

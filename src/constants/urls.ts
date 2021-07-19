@@ -46,6 +46,7 @@ export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs/%(sakId)s'
 export const BUC_GET_SINGLE_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
+export const BUC_GET_P6000_URL = BUC_URL + '/getP6000/%(rinaCaseId)s'
 
 // PensjonController
 export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'

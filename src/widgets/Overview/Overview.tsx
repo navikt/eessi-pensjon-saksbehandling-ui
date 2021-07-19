@@ -1,5 +1,4 @@
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
-import classNames from 'classnames'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
@@ -11,7 +10,6 @@ import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
 import Alertstripe from 'nav-frontend-alertstriper'
-import NavHighContrast from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -48,14 +46,12 @@ const mapState = (state: State): OverviewSelector => ({
 })
 
 export interface OverviewProps {
-  highContrast: boolean
   onUpdate?: (w: Widget) => void
   skipMount?: boolean
   widget: Widget
 }
 
 export const Overview: React.FC<OverviewProps> = ({
-  highContrast,
   onUpdate,
   skipMount = false,
   widget
@@ -125,35 +121,31 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <div
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
-        <ExpandingPanel
-          highContrast={highContrast}
-          collapseProps={{ id: 'w-overview-id' }}
-          className={classNames({ highContrast: highContrast })}
-          data-test-id='w-overview-id'
-          open={!widget.options.collapsed}
-          onOpen={onExpandablePanelOpening}
-          onClose={onExpandablePanelClosing}
-          heading={(
-            <PersonTitle
-              gettingPersonInfo={gettingPersonInfo}
-              person={person}
-            />
-          )}
-        >
-          <PersonPanel
-            highContrast={highContrast}
-            locale={locale}
+
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <ExpandingPanel
+        collapseProps={{ id: 'w-overview-id' }}
+        data-test-id='w-overview-id'
+        open={!widget.options.collapsed}
+        onOpen={onExpandablePanelOpening}
+        onClose={onExpandablePanelClosing}
+        heading={(
+          <PersonTitle
+            gettingPersonInfo={gettingPersonInfo}
             person={person}
-            personAvdods={personAvdods}
           />
-        </ExpandingPanel>
-      </div>
-    </NavHighContrast>
+          )}
+      >
+        <PersonPanel
+          locale={locale}
+          person={person}
+          personAvdods={personAvdods}
+        />
+      </ExpandingPanel>
+    </div>
   )
 }
 

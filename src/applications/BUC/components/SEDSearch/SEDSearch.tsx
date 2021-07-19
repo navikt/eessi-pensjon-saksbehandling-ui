@@ -1,12 +1,12 @@
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import NavHighContrast, { HighContrastInput, HighContrastPanel } from 'nav-hoykontrast'
+import { HighContrastInput, HighContrastPanel } from 'nav-hoykontrast'
 import { Option, Options } from 'declarations/app'
 import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ValueType } from 'react-select'
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 const SEDSearchPanel = styled(HighContrastPanel)`
   display: flex !important;
@@ -27,11 +27,6 @@ const SearchInput = styled(HighContrastInput)`
   margin-left: 0.25rem;
   .skjemaelement__label {
     display: none;
-  }
-`
-const GlobalStyle = createGlobalStyle`
-  .skjemaelement__label {
-    margin-bottom: 0px !important;
   }
 `
 
@@ -88,46 +83,44 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
   }]
 
   return (
-    <NavHighContrast highContrast={highContrast}>
-      <GlobalStyle />
-      <SEDSearchPanel
-        data-test-id='a-buc-c-sedsearch__panel-id'
-        className={className}
-      >
-        <PaddedDiv>
-          <SearchInput
-            bredde='fullbredde'
-            data-test-id='a-buc-c-sedsearch__query-input-id'
-            id='a-buc-c-sedsearch__query-input-id'
-            label=''
-            onChange={onQueryChange}
-            placeholder={t('buc:form-filterSED')}
-            value={_query || ''}
-          />
-        </PaddedDiv>
-        <PaddedDiv>
-          <MultipleSelect<Option>
-            ariaLabel={t('buc:form-searchForStatus')}
-            className='a-buc-c-sedsearch'
-            data-test-id='a-buc-c-sedsearch__status-select-id'
-            id='a-buc-c-sedsearch__status-select-id'
-            hideSelectedOptions={false}
-            highContrast={highContrast}
-            label=''
-            onSelect={onStatusChange}
-            options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}
-            placeholder={t('buc:form-searchForStatus')}
-            values={_status}
-          />
-        </PaddedDiv>
-      </SEDSearchPanel>
-    </NavHighContrast>
+
+    <SEDSearchPanel
+      border
+      data-test-id='a-buc-c-sedsearch__panel-id'
+      className={className}
+    >
+      <PaddedDiv>
+        <SearchInput
+          bredde='fullbredde'
+          data-test-id='a-buc-c-sedsearch__query-input-id'
+          id='a-buc-c-sedsearch__query-input-id'
+          label=''
+          onChange={onQueryChange}
+          placeholder={t('buc:form-filterSED')}
+          value={_query || ''}
+        />
+      </PaddedDiv>
+      <PaddedDiv>
+        <MultipleSelect<Option>
+          ariaLabel={t('buc:form-searchForStatus')}
+          className='a-buc-c-sedsearch'
+          data-test-id='a-buc-c-sedsearch__status-select-id'
+          id='a-buc-c-sedsearch__status-select-id'
+          hideSelectedOptions={false}
+          highContrast={highContrast}
+          label=''
+          onSelect={onStatusChange}
+          options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}
+          placeholder={t('buc:form-searchForStatus')}
+          values={_status}
+        />
+      </PaddedDiv>
+    </SEDSearchPanel>
   )
 }
 
 SEDSearch.propTypes = {
   className: PT.string,
-  highContrast: PT.bool.isRequired,
   onSearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
   value: PT.string
