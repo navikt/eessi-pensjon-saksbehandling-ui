@@ -389,7 +389,7 @@ const P5000: React.FC<P5000Props> = ({
     if (checked) {
       newActiveSeds = newActiveSeds.concat(sed)
     } else {
-      newActiveSeds = _.filter(newActiveSeds, s => s.id === sed.id)
+      newActiveSeds = _.filter(newActiveSeds, s => s.id !== sed.id)
     }
     updateActiveSeds(newActiveSeds)
   }
