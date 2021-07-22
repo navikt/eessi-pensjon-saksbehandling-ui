@@ -746,7 +746,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.subject = (_buc as ValidBuc)?.addedParams?.subject
       }
       if (_sed === 'P7000') {
-        payload.payload = _p6000
+        payload.payload = JSON.stringify(_p6000)
       }
       if (currentSed) {
         dispatch(createReplySed(_buc, payload, currentSed.id))

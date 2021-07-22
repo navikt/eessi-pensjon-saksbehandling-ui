@@ -93,7 +93,7 @@ export interface NewSedPayload {
   institutions: Institutions
   kravDato?: string
   kravType?: SakTypeKey
-  payload ?: Array<P6000>
+  payload ?: string
   sakId: string
   sed: string
   subject?: BUCSubject
