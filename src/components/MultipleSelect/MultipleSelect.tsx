@@ -61,7 +61,6 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
   const inputId = id || guid()
 
   return (
-
     <MultipleSelectDiv
       className={classNames(className, { skjemaelement__feilmelding: error })}
     >

@@ -225,7 +225,7 @@ export interface P6000 {
    documentID: string
    fraLand: string
    sisteVersjon: string
-   url: string
+   pdfUrl: string
 }
 
 export type SedType = 'sed'

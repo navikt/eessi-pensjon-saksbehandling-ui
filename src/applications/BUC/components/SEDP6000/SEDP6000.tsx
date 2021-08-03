@@ -55,7 +55,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                 </FlexCenterDiv>
                 <FlexCenterDiv>
                   <HighContrastLink
-                    href={p6000.url}
+                    href={p6000.pdfUrl}
                     target='rinaWindow'
                   >
                     {t('ui:preview')}
