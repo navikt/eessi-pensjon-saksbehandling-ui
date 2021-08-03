@@ -59,6 +59,7 @@ export const P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
 export const BUC_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = SED_URL + '/institutions/%(buc)s/%(country)s'
 export const BUC_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
+export const BUC_GET_P6000PDF_URL = SED_URL + '/get/P6000pdf/%(rinaCaseId)s/%(documentId)s'
 
 // Login
 export const LOGIN_URL = FRONTEND_API_URL + '/login'

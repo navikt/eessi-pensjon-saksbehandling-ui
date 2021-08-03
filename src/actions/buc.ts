@@ -317,6 +317,25 @@ export const getSedP6000: ActionCreator<ThunkResult<Action>> = (
   })
 }
 
+export const getSedP6000PDF: ActionCreator<ThunkResult<Action>> = (
+  rinaCaseId: string, documentId: string
+): ThunkResult<Action> => {
+  return call({
+    url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId: rinaCaseId, documentId: documentId }),
+    cascadeFailureError: true,
+    expectedPayload: mockP6000,
+    type: {
+      request: types.BUC_GET_P6000PDF_REQUEST,
+      success: types.BUC_GET_P6000PDF_SUCCESS,
+      failure: types.BUC_GET_P6000PDF_FAILURE
+    }
+  })
+}
+
+export const resetSedP6000PDF: ActionCreator<Action> = (): Action => ({
+  type: types.BUC_P6000PDF_RESET
+})
+
 export const getRinaUrl: ActionCreator<ThunkResult<ActionWithPayload<RinaUrlPayload>>> = (
 ): ThunkResult<ActionWithPayload<RinaUrlPayload>> => {
   return call({

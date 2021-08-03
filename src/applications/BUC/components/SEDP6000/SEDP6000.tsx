@@ -1,15 +1,25 @@
-import ExternalLink from 'assets/icons/line-version-logout'
+import { getSedP6000PDF, resetSedP6000PDF } from 'actions/buc'
+import Modal from 'components/Modal/Modal'
 import { AllowedLocaleString } from 'declarations/app'
 import { P6000 } from 'declarations/buc'
+import { State } from 'declarations/reducers'
 import Flag from 'flagg-ikoner'
+import File from 'forhandsvisningsfil'
 import CountryData, { Country } from 'land-verktoy'
 import _ from 'lodash'
 import {
-  FlexCenterDiv, FlexCenterSpacedDiv, HighContrastCheckbox, HighContrastLink, HighContrastPanel,
-  HorizontalSeparatorDiv, PileDiv, theme, Theme, themeHighContrast, themeKeys, VerticalSeparatorDiv
+  FlexCenterDiv,
+  FlexCenterSpacedDiv,
+  HighContrastCheckbox,
+  HighContrastFlatknapp,
+  HighContrastPanel,
+  HorizontalSeparatorDiv,
+  PileDiv,
+  VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface SEDP6000Props {
   highContrast: boolean
@@ -18,10 +28,22 @@ interface SEDP6000Props {
   onChanged: (p6000s: Array<P6000>) => void
 }
 
+interface SEDP6000Selector {
+  gettingP6000PDF: boolean
+  P6000PDF: any
+}
+
+const mapState = (state: State): SEDP6000Selector => ({
+  gettingP6000PDF: state.loading.gettingP6000OPDF,
+  P6000PDF: state.buc.p6000PDF
+})
+
 const SEDP6000: React.FC<SEDP6000Props> = ({
   highContrast, locale, onChanged, p6000s
 }: SEDP6000Props): JSX.Element => {
+  const dispatch = useDispatch()
   const countryData = CountryData.getCountryInstance(locale)
+  const { gettingP6000PDF, P6000PDF }: SEDP6000Selector = useSelector<State, SEDP6000Selector>(mapState)
   const { t } = useTranslation()
   const [chosenP6000s, setChosenP6000s] = useState<Array<P6000>>([])
 
@@ -35,10 +57,37 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
     setChosenP6000s(newChosenP6000s)
     onChanged(newChosenP6000s)
   }
-  const _theme: Theme = highContrast ? themeHighContrast : theme
-  const linkColor: string = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
+
+  const handlePreview = (bucId: string, docId: string) => {
+    dispatch(getSedP6000PDF(bucId, docId))
+  }
+
+  const handleResetP6000 = () => {
+    dispatch(resetSedP6000PDF())
+  }
+
   return (
     <div>
+      {!_.isNil(P6000PDF) && (
+        <Modal
+          highContrast={highContrast}
+          modal={{
+            closeButton: true,
+            modalContent: (
+              <div style={{maxWidth: '800px', cursor: 'pointer' }}>
+                <File
+                  file={P6000PDF}
+                  width={600}
+                  height={800}
+                  tema='simple'
+                  viewOnePage={false}
+                  onContentClick={handleResetP6000}
+                />
+              </div>
+            )
+          }}
+        />
+      )}
       {p6000s.map(p6000 => {
         const country: Country = countryData.findByValue(p6000.fraLand)
         return (
@@ -54,14 +103,13 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                   </PileDiv>
                 </FlexCenterDiv>
                 <FlexCenterDiv>
-                  <HighContrastLink
-                    href={p6000.pdfUrl}
-                    target='rinaWindow'
+                  <HighContrastFlatknapp
+                    onClick={() => handlePreview(p6000.bucid, p6000.documentID)}
+                    spinner={gettingP6000PDF}
+                    disabled={gettingP6000PDF}
                   >
-                    {t('ui:preview')}
-                    <HorizontalSeparatorDiv size='0.5' />
-                    <ExternalLink color={linkColor} />
-                  </HighContrastLink>
+                    {gettingP6000PDF ? t('ui:loading'): t('ui:preview')}
+                  </HighContrastFlatknapp>
                   <HorizontalSeparatorDiv />
                   <HighContrastCheckbox
                     checked={_.find(chosenP6000s, _p6000 => _p6000.documentID === p6000.documentID) !== undefined}

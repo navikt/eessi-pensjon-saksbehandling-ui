@@ -52,7 +52,8 @@ export interface BucState {
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
   p5000FromRinaMap: P5000FromRinaMap
-  p6000: Array<P6000> | null | undefined
+  p6000s: Array<P6000> | null | undefined
+  p6000PDF: any | null | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
   subjectAreaList: Array<string> | undefined
@@ -81,7 +82,8 @@ export const initialBucState: BucState = {
   savingAttachmentsJob: undefined,
   sed: undefined,
   p5000FromRinaMap: {},
-  p6000: undefined,
+  p6000s: undefined,
+  p6000PDF: undefined,
   sedList: undefined,
   sedsWithAttachments: {},
   subjectAreaList: undefined,
@@ -102,7 +104,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         replySed: undefined,
         sed: undefined,
         savingAttachmentsJob: undefined,
-        p6000: undefined,
+        p6000s: undefined,
+        p6000PDF: undefined,
         p5000FromRinaMap: {}
       }
 
@@ -535,19 +538,38 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
     case types.BUC_GET_P6000_REQUEST:
       return {
         ...state,
-        p6000: undefined
+        p6000s: undefined
       }
 
     case types.BUC_GET_P6000_FAILURE:
       return {
         ...state,
-        p6000: null
+        p6000s: null
       }
 
     case types.BUC_GET_P6000_SUCCESS:
       return {
         ...state,
-        p6000: (action as ActionWithPayload).payload
+        p6000s: (action as ActionWithPayload).payload
+      }
+
+    case types.BUC_P6000PDF_RESET:
+    case types.BUC_GET_P6000PDF_REQUEST:
+      return {
+        ...state,
+        p6000PDF: undefined
+      }
+
+    case types.BUC_GET_P6000PDF_FAILURE:
+      return {
+        ...state,
+        p6000PDF: null
+      }
+
+    case types.BUC_GET_P6000PDF_SUCCESS:
+      return {
+        ...state,
+        p6000PDF: (action as ActionWithPayload).payload
       }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:

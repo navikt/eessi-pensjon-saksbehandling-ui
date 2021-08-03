@@ -151,7 +151,7 @@ export interface SEDStartSelector {
   locale: AllowedLocaleString
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
-  p6000: Array<P6000> | null | undefined
+  p6000s: Array<P6000> | null | undefined
   sakId?: string | null | undefined
   sakType: SakTypeValue | null | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
@@ -175,7 +175,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   locale: state.ui.locale,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
-  p6000: state.buc.p6000,
+  p6000s: state.buc.p6000s,
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue,
   savingAttachmentsJob: state.buc.savingAttachmentsJob,
@@ -207,7 +207,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 } : SEDStartProps): JSX.Element => {
   const {
     attachmentsError, countryList, featureToggles, gettingP6000, highContrast, institutionList, institutionNames, kravId, kravDato,
-    loading, locale, p6000, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
+    loading, locale, p6000s, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -264,7 +264,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_timer, setTimer] = useState<any>(undefined)
   const [_bucIdForCooldown, setBucIdForCooldown] = useState<string | undefined>(undefined)
   const [_bucCooldown, setBucCooldown] = useState<number | undefined>(undefined)
-  const [_p6000, setP6000] = useState<Array<P6000>>([])
+  const [_p6000s, setP6000s] = useState<Array<P6000>>([])
   const bucCooldownInSeconds = 10
   const [_avdod, setAvdod] = useState<PersonAvdod | null | undefined>(undefined)
   const [_avdodFnr, setAvdodFnr] = useState<string | undefined>(undefined)
@@ -746,7 +746,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.subject = (_buc as ValidBuc)?.addedParams?.subject
       }
       if (_sed === 'P7000') {
-        payload.payload = JSON.stringify(_p6000)
+        payload.payload = JSON.stringify(_p6000s)
       }
       if (currentSed) {
         dispatch(createReplySed(_buc, payload, currentSed.id))
@@ -1117,7 +1117,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv size='2' />
               {_sed === 'P7000' && (
                 <>
-                  {_.isNil(p6000)
+                  {_.isNil(p6000s)
                     ? (
                       <HighContrastKnapp
                         onClick={_getP6000}
@@ -1130,8 +1130,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     : <SEDP6000
                         highContrast={highContrast}
                         locale={locale}
-                        p6000s={p6000}
-                        onChanged={setP6000}
+                        p6000s={p6000s}
+                        onChanged={setP6000s}
                       />}
                   <VerticalSeparatorDiv size='2' />
                 </>
