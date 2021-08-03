@@ -23,7 +23,7 @@ import {
   ValidBuc,
   P6000
 } from 'declarations/buc'
-import { JoarkBrowserItem } from 'declarations/joark'
+import { JoarkBrowserItem, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import md5 from 'md5'
@@ -53,7 +53,7 @@ export interface BucState {
   sed: Sed | undefined
   p5000FromRinaMap: P5000FromRinaMap
   p6000s: Array<P6000> | null | undefined
-  p6000PDF: any | null | undefined
+  p6000PDF: JoarkPreview | null | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
   subjectAreaList: Array<string> | undefined

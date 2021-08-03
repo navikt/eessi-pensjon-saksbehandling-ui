@@ -2,6 +2,7 @@ import { getSedP6000PDF, resetSedP6000PDF } from 'actions/buc'
 import Modal from 'components/Modal/Modal'
 import { AllowedLocaleString } from 'declarations/app'
 import { P6000 } from 'declarations/buc'
+import { JoarkPreview } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import Flag from 'flagg-ikoner'
 import File from 'forhandsvisningsfil'
@@ -30,7 +31,7 @@ interface SEDP6000Props {
 
 interface SEDP6000Selector {
   gettingP6000PDF: boolean
-  P6000PDF: any
+  P6000PDF: JoarkPreview | null | undefined
 }
 
 const mapState = (state: State): SEDP6000Selector => ({
@@ -76,7 +77,14 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
             modalContent: (
               <div style={{maxWidth: '800px', cursor: 'pointer' }}>
                 <File
-                  file={P6000PDF}
+                  file={{
+                    size: P6000PDF.filInnhold?.length ?? 0,
+                    name: P6000PDF.fileName ?? '',
+                    mimetype: 'application/pdf',
+                    content: {
+                      base64: P6000PDF.filInnhold
+                    }
+                  }}
                   width={600}
                   height={800}
                   tema='simple'
