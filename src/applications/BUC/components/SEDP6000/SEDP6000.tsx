@@ -76,7 +76,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
           modal={{
             closeButton: true,
             modalContent: (
-              <div style={{maxWidth: '800px', cursor: 'pointer' }}>
+              <div style={{cursor: 'pointer' }}>
                 <File
                   file={{
                     size: P6000PDF.filInnhold?.length ?? 0,
