@@ -71,6 +71,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
     <div>
       {!_.isNil(P6000PDF) && (
         <Modal
+          onModalClose={handleResetP6000}
           highContrast={highContrast}
           modal={{
             closeButton: true,
