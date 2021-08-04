@@ -322,7 +322,7 @@ const BUCList: React.FC<BUCListProps> = ({
         close: _newBucPanelOpen === false
       })}
       >
-        <BUCNewDiv>
+        <BUCNewDiv border>
           <Systemtittel>
             {t('buc:step-startBUCTitle')}
           </Systemtittel>

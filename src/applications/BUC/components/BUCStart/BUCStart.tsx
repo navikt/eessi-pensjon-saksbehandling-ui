@@ -529,7 +529,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [kravDato])
 
   return (
-
     <div data-test-id='a-buc-c-bucstart'>
       <Row>
         <Column>

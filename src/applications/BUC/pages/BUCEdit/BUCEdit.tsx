@@ -263,7 +263,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         })}
         ref={componentRef}
       >
-        <SEDNewDiv>
+        <SEDNewDiv border>
           <SEDStart
             aktoerId={aktoerId}
             bucs={bucs!}
