@@ -76,8 +76,9 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
           modal={{
             closeButton: true,
             modalContent: (
-              <div style={{cursor: 'pointer' }}>
+              <div style={{ cursor: 'pointer' }}>
                 <File
+                  scale={1.5}
                   file={{
                     size: P6000PDF.filInnhold?.length ?? 0,
                     name: P6000PDF.fileName ?? '',
@@ -117,7 +118,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                     spinner={gettingP6000PDF}
                     disabled={gettingP6000PDF}
                   >
-                    {gettingP6000PDF ? t('ui:loading'): t('ui:preview')}
+                    {gettingP6000PDF ? t('ui:loading') : t('ui:preview')}
                   </HighContrastFlatknapp>
                   <HorizontalSeparatorDiv />
                   <HighContrastCheckbox
