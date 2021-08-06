@@ -78,7 +78,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
             modalContent: (
               <div style={{ cursor: 'pointer' }}>
                 <File
-                  scale={1.5}
+                  scale={2}
                   file={{
                     size: P6000PDF.filInnhold?.length ?? 0,
                     name: P6000PDF.fileName ?? '',
@@ -87,9 +87,9 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                       base64: P6000PDF.filInnhold
                     }
                   }}
-                  width={800}
+                  width={1000}
                   tema='simple'
-                  viewOnePage={true}
+                  viewOnePage={false}
                   onContentClick={handleResetP6000}
                 />
               </div>
