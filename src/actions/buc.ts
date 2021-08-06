@@ -41,6 +41,7 @@ import mockSakType from 'mocks/buc/sakType'
 import mockSedList from 'mocks/buc/sedList'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockP6000 from 'mocks/buc/p6000'
+import mockP6000pdf from 'mocks/buc/p6000pdf'
 import { Action, ActionCreator } from 'redux'
 
 const sprintf = require('sprintf-js').sprintf
@@ -323,7 +324,7 @@ export const getSedP6000PDF: ActionCreator<ThunkResult<Action>> = (
   return call({
     url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId: rinaCaseId, documentId: documentId }),
     cascadeFailureError: true,
-    expectedPayload: mockP6000,
+    expectedPayload: mockP6000pdf,
     type: {
       request: types.BUC_GET_P6000PDF_REQUEST,
       success: types.BUC_GET_P6000PDF_SUCCESS,

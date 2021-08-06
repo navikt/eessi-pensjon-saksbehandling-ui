@@ -35,7 +35,7 @@ interface SEDP6000Selector {
 }
 
 const mapState = (state: State): SEDP6000Selector => ({
-  gettingP6000PDF: state.loading.gettingP6000OPDF,
+  gettingP6000PDF: state.loading.gettingP6000PDF,
   P6000PDF: state.buc.p6000PDF
 })
 
@@ -87,10 +87,9 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                       base64: P6000PDF.filInnhold
                     }
                   }}
-                  width={600}
-                  height={800}
+                  width={800}
                   tema='simple'
-                  viewOnePage={false}
+                  viewOnePage={true}
                   onContentClick={handleResetP6000}
                 />
               </div>
@@ -118,7 +117,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                     spinner={gettingP6000PDF}
                     disabled={gettingP6000PDF}
                   >
-                    {gettingP6000PDF ? t('ui:loading') : t('ui:preview')}
+                    {0 ? t('ui:loading') : t('ui:preview')}
                   </HighContrastFlatknapp>
                   <HorizontalSeparatorDiv />
                   <HighContrastCheckbox
