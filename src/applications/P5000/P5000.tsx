@@ -25,7 +25,7 @@ import {
   Row,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -75,52 +75,66 @@ const P5000: React.FC<P5000Props> = ({
   const [_ready, _setReady] = useState<boolean>(false)
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
 
-  const renderP5000Edit = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => (
-    <ExpandingPanel
-      open
-      renderContentWhenClosed
-      collapseProps={{ id: 'a-buc-c-p5000-edit' }}
-      className={classNames({ highContrast: highContrast })}
-      heading={(
-        <Undertittel>
-          {t('buc:p5000-edit-title')}
-        </Undertittel>
-      )}
-    >
-      <P5000Edit
-        caseId={buc.caseId!}
-        key={'P5000Edit-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
-        p5000FromRinaMap={p5000FromRinaMap}
-        p5000FromStorage={p5000FromStorage}
-        saveP5000ToStorage={saveP5000ToStorage}
-        removeP5000FromStorage={removeP5000FromStorage}
-        seds={activeSeds}
-      />
-    </ExpandingPanel>
-  )
+  const renderP5000Edit = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => {
+    if (!mainSed) return null
+    const sender: SedSender | undefined = getSedSender(mainSed)
 
-  const renderP5000Sum = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => (
-    <ExpandingPanel
-      open
-      renderContentWhenClosed
-      collapseProps={{ id: 'a-buc-c-p5000-sum' }}
-      className={classNames({ highContrast: highContrast })}
-      heading={(
-        <Undertittel>
-          {t('buc:p5000-summary-title')}
-        </Undertittel>
-      )}
-    >
-      <P5000Sum
-        context={context}
-        key={'P5000Sum' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
-        p5000FromRinaMap={p5000FromRinaMap}
-        p5000FromStorage={p5000FromStorage}
-        saveP5000ToStorage={saveP5000ToStorage}
-        seds={activeSeds}
-      />
-    </ExpandingPanel>
-  )
+    return (
+      <ExpandingPanel
+        open
+        renderContentWhenClosed
+        collapseProps={{id: 'a-buc-c-p5000-edit'}}
+        className={classNames({highContrast: highContrast})}
+        heading={(
+          <FlexCenterDiv>
+            <Undertittel style={{display: 'flex'}}>
+            {t('buc:p5000-edit-title')}
+            </Undertittel>
+            <HorizontalSeparatorDiv/>
+            -
+            <HorizontalSeparatorDiv/>
+            {getLabel(mainSed, sender)}
+          </FlexCenterDiv>
+        )}
+      >
+        <P5000Edit
+          caseId={buc.caseId!}
+          key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorageVersion}
+          p5000FromRinaMap={p5000FromRinaMap}
+          p5000FromStorage={p5000FromStorage}
+          saveP5000ToStorage={saveP5000ToStorage}
+          removeP5000FromStorage={removeP5000FromStorage}
+          seds={[mainSed]}
+        />
+      </ExpandingPanel>
+    )
+  }
+
+  const renderP5000Sum = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => {
+    const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
+    return (
+      <ExpandingPanel
+        open
+        renderContentWhenClosed
+        collapseProps={{ id: 'a-buc-c-p5000-sum' }}
+        className={classNames({ highContrast: highContrast })}
+        heading={(
+          <Undertittel>
+            {t('buc:p5000-summary-title')}
+          </Undertittel>
+        )}
+      >
+        <P5000Sum
+          context={context}
+          key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
+          p5000FromRinaMap={p5000FromRinaMap}
+          p5000FromStorage={p5000FromStorage}
+          saveP5000ToStorage={saveP5000ToStorage}
+          seds={onlyNorwegianActiveSeds}
+        />
+      </ExpandingPanel>
+    )
+  }
 
   const renderP5000Overview = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => (
     <ExpandingPanel
@@ -317,10 +331,7 @@ const P5000: React.FC<P5000Props> = ({
   }
 
   // select which P5000 SEDs we want to see
-  const getP5000 = (buc: Buc, sed: Sed | undefined): Seds | undefined => {
-    if (sed) {
-      return [sed]
-    }
+  const getP5000 = (buc: Buc): Seds | undefined => {
     if (!buc.seds) {
       return undefined
     }
@@ -398,13 +409,52 @@ const P5000: React.FC<P5000Props> = ({
     return Object.values(emptyPeriodsReport).indexOf(true) >= 0
   }
 
-  const sedSender: SedSender | undefined = mainSed ? getSedSender(mainSed) as SedSender : undefined
+  //const sedSender: SedSender | undefined = mainSed ? getSedSender(mainSed) as SedSender : undefined
   const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
+  const getLabel = (sed: Sed, sender: SedSender | undefined) => (
+    (
+      <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
+        <span>
+          {t('buc:form-dateP5000', { date: sender?.date })}
+        </span>
+        <SeparatorSpan>-</SeparatorSpan>
+        {sender
+          ? (
+            <FlexCenterDiv>
+              <Flag
+                animate
+                country={sender?.country}
+                label={sender?.countryLabel}
+                size='XS'
+                type='circle'
+                wave={false}
+              />
+              <HorizontalSeparatorDiv size='0.2' />
+              <span>{sender?.countryLabel}</span>
+              <SeparatorSpan>-</SeparatorSpan>
+              <span>{sender?.institution}</span>
+              <SeparatorSpan>-</SeparatorSpan>
+              <SEDStatus
+                status={sed.status}
+              />
+            </FlexCenterDiv>
+          )
+          : sed.id}
+        {emptyPeriodReport[sed.id] && (
+          <>
+            <HorizontalSeparatorDiv size='0.5' />
+            <WarningCircle />
+          </>
+        )}
+      </FlexCenterDiv>
+    )
+  )
+
   // this effect checks if we need to load seds, when buc/sed/context changes
   useEffect(() => {
-    const seds = getP5000(buc, mainSed)
+    const seds = getP5000(buc)
     _setSeds(seds)
     // which Seds we do NOT have on cache? Load them.
     const cachedSedIds: Array<string> = Object.keys(p5000FromRinaMap)
@@ -422,7 +472,7 @@ const P5000: React.FC<P5000Props> = ({
       _setFetchingP5000(undefined)
       _setReady(true)
     }
-  }, [buc, mainSed, context])
+  }, [buc, context])
 
   useEffect(() => {
     if (!_ready && _.isArray(_fetchingP5000)) {
@@ -461,93 +511,30 @@ const P5000: React.FC<P5000Props> = ({
     <div key={_seds?.map(s => s.id).join(',')}>
       <Row>
         <Column>
-          {context !== 'overview'
-            ? sedSender && (
-              <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
-                <span>
-                  {t('buc:form-dateP5000', { date: sedSender?.date })}
-                </span>
-                <SeparatorSpan>-</SeparatorSpan>
-                <FlexCenterDiv>
-                  <Flag
-                    animate
-                    country={sedSender?.country}
-                    label={sedSender?.countryLabel}
-                    size='XS'
-                    type='circle'
-                    wave={false}
+          <PileDiv>
+            <UndertekstBold>
+              {t('buc:p5000-active-seds')}:
+            </UndertekstBold>
+            <VerticalSeparatorDiv size='0.5' />
+            {_seds?.map(sed => {
+              const sender: SedSender | undefined = getSedSender(sed)
+              const label: JSX.Element = getLabel(sed, sender)
+              return (
+                <div key={sed.id}>
+                  <HighContrastCheckbox
+                    data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                    checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
+                    key={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                    id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSed(sed, e.target.checked)}
+                    label={label}
                   />
-                  <HorizontalSeparatorDiv size='0.2' />
-                  <span>{sedSender?.countryLabel}</span>
-                  <SeparatorSpan>-</SeparatorSpan>
-                  <span>{sedSender?.institution}</span>
-                  <SeparatorSpan>-</SeparatorSpan>
-                  <SEDStatus
-                    status={mainSed!.status}
-                  />
-                </FlexCenterDiv>
-              </FlexCenterDiv>
+                  <VerticalSeparatorDiv size='0.5' />
+                </div>
               )
-            : (
-              <PileDiv>
-                <UndertekstBold>
-                  {t('buc:p5000-active-seds')}:
-                </UndertekstBold>
-                <VerticalSeparatorDiv size='0.5' />
-                {_seds?.map(sed => {
-                  const sender: SedSender | undefined = getSedSender(sed)
-                  const label: JSX.Element = (
-                    <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
-                      <span>
-                        {t('buc:form-dateP5000', { date: sender?.date })}
-                      </span>
-                      <SeparatorSpan>-</SeparatorSpan>
-                      {sender
-                        ? (
-                          <FlexCenterDiv>
-                            <Flag
-                              animate
-                              country={sender?.country}
-                              label={sender?.countryLabel}
-                              size='XS'
-                              type='circle'
-                              wave={false}
-                            />
-                            <HorizontalSeparatorDiv size='0.2' />
-                            <span>{sender?.countryLabel}</span>
-                            <SeparatorSpan>-</SeparatorSpan>
-                            <span>{sender?.institution}</span>
-                            <SeparatorSpan>-</SeparatorSpan>
-                            <SEDStatus
-                              status={sed.status}
-                            />
-                          </FlexCenterDiv>
-                          )
-                        : sed.id}
-                      {emptyPeriodReport[sed.id] && (
-                        <>
-                          <HorizontalSeparatorDiv size='0.5' />
-                          <WarningCircle />
-                        </>
-                      )}
-                    </FlexCenterDiv>
-                  )
-                  return (
-                    <div key={sed.id}>
-                      <HighContrastCheckbox
-                        data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                        checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
-                        key={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                        id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSed(sed, e.target.checked)}
-                        label={label}
-                      />
-                      <VerticalSeparatorDiv size='0.5' />
-                    </div>
-                  )
-                })}
-              </PileDiv>
-              )}
+            })}
+          </PileDiv>
+
         </Column>
         <Column>
           {warning && (

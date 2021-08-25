@@ -638,13 +638,13 @@ const mockBuc = [
         id: '50578cf8bf9f45a7819a39987c6c8fd4',
         parentDocumentId: null,
         type: 'P5000',
-        status: 'open',
+        status: 'received',
         creationDate: 1571234189234,
         lastUpdate: 1571547188033,
         displayName: 'Insurance/residence periods',
         participants: [
           {
-            role: 'Sender',
+            role: 'Receiver',
             organisation: {
               acronym: 'NAVAT07',
               countryCode: 'NO',
@@ -654,7 +654,7 @@ const mockBuc = [
             selected: false
           },
           {
-            role: 'Receiver',
+            role: 'Sender',
             organisation: {
               acronym: 'NAVAT08',
               countryCode: 'NO',
