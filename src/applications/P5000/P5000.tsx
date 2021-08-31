@@ -83,16 +83,16 @@ const P5000: React.FC<P5000Props> = ({
       <ExpandingPanel
         open
         renderContentWhenClosed
-        collapseProps={{id: 'a-buc-c-p5000-edit'}}
-        className={classNames({highContrast: highContrast})}
+        collapseProps={{ id: 'a-buc-c-p5000-edit' }}
+        className={classNames({ highContrast: highContrast })}
         heading={(
           <FlexCenterDiv>
-            <Undertittel style={{display: 'flex'}}>
-            {t('buc:p5000-edit-title')}
+            <Undertittel style={{ display: 'flex' }}>
+              {t('buc:p5000-edit-title')}
             </Undertittel>
-            <HorizontalSeparatorDiv/>
+            <HorizontalSeparatorDiv />
             -
-            <HorizontalSeparatorDiv/>
+            <HorizontalSeparatorDiv />
             {getLabel(mainSed, sender)}
           </FlexCenterDiv>
         )}
@@ -409,7 +409,7 @@ const P5000: React.FC<P5000Props> = ({
     return Object.values(emptyPeriodsReport).indexOf(true) >= 0
   }
 
-  //const sedSender: SedSender | undefined = mainSed ? getSedSender(mainSed) as SedSender : undefined
+  // const sedSender: SedSender | undefined = mainSed ? getSedSender(mainSed) as SedSender : undefined
   const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
@@ -440,7 +440,7 @@ const P5000: React.FC<P5000Props> = ({
                 status={sed.status}
               />
             </FlexCenterDiv>
-          )
+            )
           : sed.id}
         {emptyPeriodReport[sed.id] && (
           <>

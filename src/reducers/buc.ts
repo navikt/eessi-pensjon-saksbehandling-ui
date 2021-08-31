@@ -172,7 +172,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         kravDato: undefined,
         newlyCreatedBuc: newBuc,
         savingAttachmentsJob: undefined,
-        sedsWithAttachments: newSedsWithAttachments
+        sedsWithAttachments: newSedsWithAttachments,
+        p6000s: undefined
       }
     }
 
@@ -238,7 +239,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         newlyCreatedBuc: isNewlyCreatedBuc ? undefined : state.newlyCreatedBuc,
         currentBuc: (action as ActionWithPayload).payload,
-        countryList: undefined
+        countryList: undefined,
+        p6000s: undefined
       }
     }
 

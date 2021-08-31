@@ -512,6 +512,16 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return undefined
   }
 
+  const validateP6000s = (p6000s: Array<P6000>): FeiloppsummeringFeil | undefined => {
+    if (_.isEmpty(p6000s)) {
+      return {
+        feilmelding: t('buc:validation-chooseP6000s'),
+        skjemaelementId: 'a-buc-c-sedstart__p6000s-id'
+      } as FeiloppsummeringFeil
+    }
+    return undefined
+  }
+
   const validateAvdodOrSoker = (_avdodOrSoker: AvdodOrSokerValue | undefined): FeiloppsummeringFeil | undefined => {
     if (!_avdodOrSoker) {
       return {
@@ -578,6 +588,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       return
     }
     setKravOm('Etterlatteytelser')
+  }
+
+  const onChangedSedP6000 = (p6000s: Array<P6000>) => {
+    setValidation({
+      ..._validation,
+      p6000: undefined
+    })
+    setP6000s(p6000s)
   }
 
   const handleSedChange = useCallback((newSed: string) => {
@@ -708,6 +726,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (_sed && sedNeedsKravOm(_sed)) {
       validation.kravOm = validateKravOm(_kravOm)
     }
+    if (_sed === 'P7000') {
+      validation.p6000 = validateP6000s(_p6000s)
+    }
+
     setValidation(validation)
     return hasNoValidationErrors(validation)
   }
@@ -1128,10 +1150,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                       </HighContrastKnapp>
                       )
                     : <SEDP6000
+                        feil={_validation.p6000}
                         highContrast={highContrast}
                         locale={locale}
                         p6000s={p6000s}
-                        onChanged={setP6000s}
+                        onChanged={onChangedSedP6000}
                       />}
                   <VerticalSeparatorDiv size='2' />
                 </>

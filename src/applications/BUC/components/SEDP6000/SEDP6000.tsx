@@ -1,4 +1,5 @@
 import { getSedP6000PDF, resetSedP6000PDF } from 'actions/buc'
+import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
 import { AllowedLocaleString } from 'declarations/app'
 import { P6000 } from 'declarations/buc'
@@ -8,6 +9,8 @@ import Flag from 'flagg-ikoner'
 import File from 'forhandsvisningsfil'
 import CountryData, { Country } from 'land-verktoy'
 import _ from 'lodash'
+import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
+import { Feilmelding } from 'nav-frontend-typografi'
 import {
   FlexCenterDiv,
   FlexCenterSpacedDiv,
@@ -23,6 +26,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 interface SEDP6000Props {
+  feil: FeiloppsummeringFeil | undefined
   highContrast: boolean
   locale: AllowedLocaleString
   p6000s: Array<P6000>
@@ -40,7 +44,7 @@ const mapState = (state: State): SEDP6000Selector => ({
 })
 
 const SEDP6000: React.FC<SEDP6000Props> = ({
-  highContrast, locale, onChanged, p6000s
+  feil, highContrast, locale, onChanged, p6000s
 }: SEDP6000Props): JSX.Element => {
   const dispatch = useDispatch()
   const countryData = CountryData.getCountryInstance(locale)
@@ -68,7 +72,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
   }
 
   return (
-    <div>
+    <div id='a-buc-c-sedstart__p6000s-id'>
       {!_.isNil(P6000PDF) && (
         <Modal
           onModalClose={handleResetP6000}
@@ -101,7 +105,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
         const country: Country = countryData.findByValue(p6000.fraLand)
         return (
           <div key={p6000.documentID}>
-            <HighContrastPanel border>
+            <HighContrastPanel border className={classNames({'skjemaelement__input--harFeil': !!feil})}>
               <FlexCenterSpacedDiv>
                 <FlexCenterDiv>
                   <Flag animate={false} wave={false} type='circle' country={p6000.fraLand} label={country.label ?? p6000.fraLand} />
@@ -117,7 +121,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                     spinner={gettingP6000PDF}
                     disabled={gettingP6000PDF}
                   >
-                    {0 ? t('ui:loading') : t('ui:preview')}
+                    {gettingP6000PDF ? t('ui:loading') : t('ui:preview')}
                   </HighContrastFlatknapp>
                   <HorizontalSeparatorDiv />
                   <HighContrastCheckbox
@@ -133,6 +137,11 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
           </div>
         )
       }
+      )}
+      {feil && (
+        <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
+          <Feilmelding>{feil.feilmelding}</Feilmelding>
+        </div>
       )}
     </div>
   )

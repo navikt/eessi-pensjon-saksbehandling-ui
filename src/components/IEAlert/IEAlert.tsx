@@ -22,7 +22,7 @@ const IEAlert: React.FC<IEAlertProps> = ({ onLinkClick = () => {} }: IEAlertProp
   // @ts-ignore
   const isIE = /* @cc_on!@ */false || !!document.documentMode
   // Edge 20+
-  const isEdge = !isIE && !!window.StyleMedia
+  const isEdge = !isIE && !!(window as any).StyleMedia
   const { t } = useTranslation()
 
   if (!isIE && !isEdge) {
