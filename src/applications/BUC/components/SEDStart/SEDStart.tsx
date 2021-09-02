@@ -314,6 +314,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsKravdato = (sed: string) => ['P15000'].indexOf(sed) >= 0
 
+  const bucRequiresP6000s = (buc: Buc) => ['P_BUC_05', 'P_BUC_06', 'P_BUC_10'].indexOf(buc.type!) < 0
+
   const sedNeedsAvdodBrukerQuestion = (): boolean => _type === 'P_BUC_05' && _sed === 'P8000' &&
     (pesysContext !== VEDTAKSKONTEKST
       ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
@@ -512,8 +514,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return undefined
   }
 
-  const validateP6000s = (p6000s: Array<P6000>): FeiloppsummeringFeil | undefined => {
-    if (_.isEmpty(p6000s)) {
+  const validateP6000s = (buc: Buc, p6000s: Array<P6000>): FeiloppsummeringFeil | undefined => {
+    if (_.isEmpty(p6000s) && bucRequiresP6000s(buc)) {
       return {
         feilmelding: t('buc:validation-chooseP6000s'),
         skjemaelementId: 'a-buc-c-sedstart__p6000s-id'
@@ -727,7 +729,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       validation.kravOm = validateKravOm(_kravOm)
     }
     if (_sed === 'P7000') {
-      validation.p6000 = validateP6000s(_p6000s)
+      validation.p6000 = validateP6000s(_buc, _p6000s)
     }
 
     setValidation(validation)
