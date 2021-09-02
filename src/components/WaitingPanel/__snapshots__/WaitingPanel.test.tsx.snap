@@ -26,7 +26,7 @@ exports[`components/WaitingPanel/WaitingPanel Render: match snapshot 1`] = `
   vertical-align: top;
 }
 
-ui-fss.g48[id="c0"] {
+ui-fss.g49[id="c0"] {
   content: "c1,";
 }
 

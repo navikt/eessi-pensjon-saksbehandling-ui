@@ -12,29 +12,29 @@ exports[`components/ContextBanner/ContextBanner Render: match snapshot 1`] = `
   align-items: center;
   font-size: inherit;
   line-height: inherit;
-  color: #0067c5 !important;
+  color: !important;
 }
 
 .c11:focus {
-  background-color: #19548a !important;
-  color: #FFFFFF !important;
+  background-color: !important;
+  color: !important;
 }
 
 .c11 svg {
-  fill: #0067c5 !important;
-  stroke: #0067c5 !important;
+  fill: !important;
+  stroke: !important;
 }
 
 .c11 svg path {
-  stroke: #0067c5 !important;
+  stroke: !important;
 }
 
 .c11 svg:focus {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  fill: !important;
+  stroke: !important;
 }
 
-ui-fss.g9[id="c10"] {
+ui-fss.g10[id="c10"] {
   content: "c11,";
 }
 
@@ -48,7 +48,7 @@ ui-fss.g9[id="c10"] {
   margin-left: 0.5rem;
 }
 
-ui-fss.g30[id="c6"] {
+ui-fss.g31[id="c6"] {
   content: "c7,c12,";
 }
 
@@ -63,7 +63,7 @@ ui-fss.g30[id="c6"] {
   flex-direction: row-reverse;
 }
 
-ui-fss.g49[id="c8"] {
+ui-fss.g50[id="c8"] {
   content: "c9,";
 }
 
@@ -71,7 +71,7 @@ ui-fss.g49[id="c8"] {
   padding: 0rem 0.5rem;
 }
 
-ui-fss.g50[id="c13"] {
+ui-fss.g51[id="c13"] {
   content: "c14,";
 }
 
@@ -94,7 +94,7 @@ ui-fss.g50[id="c13"] {
   background-color: white;
 }
 
-ui-fss.g51[id="c0"] {
+ui-fss.g52[id="c0"] {
   content: "c1,";
 }
 
@@ -115,7 +115,7 @@ ui-fss.g51[id="c0"] {
   line-height: inherit;
 }
 
-ui-fss.g52[id="c2"] {
+ui-fss.g53[id="c2"] {
   content: "c3,";
 }
 
@@ -133,7 +133,7 @@ ui-fss.g52[id="c2"] {
   align-items: center;
 }
 
-ui-fss.g53[id="c4"] {
+ui-fss.g54[id="c4"] {
   content: "c5,";
 }
 
@@ -141,405 +141,236 @@ ui-fss.g53[id="c4"] {
   highContrast={false}
   mode="buclist"
 >
-  <me
-    highContrast={false}
-  >
-    <Component
-      theme={
-        Object {
-          "alternative-background-color": "#FFFFFF",
-          "alternative-hover-color": "#cce1f3",
-          "black": "#000000",
-          "border-radius-base": "4px",
-          "border-radius-large": "6px",
-          "border-radius-small": "2px",
-          "container-desktop": "(940px + @grid-gutter-width)",
-          "container-large-desktop": "(1140px + @grid-gutter-width)",
-          "container-lg": "(1140px + @grid-gutter-width)",
-          "container-md": "(940px + @grid-gutter-width)",
-          "container-sm": "(720px + @grid-gutter-width)",
-          "container-tablet": "(720px + @grid-gutter-width)",
-          "fokusFarge": "#19548a",
-          "grayBackground": "#f1f1f1",
-          "grayIcon": "#a0a0a0",
-          "grayInactive": "#6a6a6a",
-          "grayModia": "#333333",
-          "grid-columns": "12",
-          "grid-float-breakpoint": "768px",
-          "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-          "grid-gutter-width": "16px",
-          "inverted-font-color": "#FFFFFF",
-          "line-height-large": "1.3333333",
-          "line-height-small": "1.5",
-          "main-active-color": "#005b82",
-          "main-background-color": "#f1f1f1",
-          "main-border-color": "#6a6a6a",
-          "main-border-radius": "4px",
-          "main-border-width": "1px",
-          "main-disabled-color": "#a0a0a0",
-          "main-error-color": "#ba3a26",
-          "main-focus-color": "#19548a",
-          "main-font-color": "#262626",
-          "main-hover-color": "#0074df",
-          "main-interactive-color": "#0067c5",
-          "main-success-color": "#06893a",
-          "main-warning-color": "#ff9100",
-          "navBakgrunn": "#ffffff",
-          "navBla": "#0067c5",
-          "navBlaDarken20": "#32414f",
-          "navBlaDarken40": "#254b6d",
-          "navBlaDarken60": "#19548a",
-          "navBlaDarken80": "#0c5ea8",
-          "navBlaLighten20": "#cce1f3",
-          "navBlaLighten40": "#99c2e8",
-          "navBlaLighten60": "#66a4dc",
-          "navBlaLighten80": "#3385d1",
-          "navDypBla": "#005b82",
-          "navDypBlaDarken20": "#323f42",
-          "navDypBlaDarken40": "#254652",
-          "navDypBlaDarken60": "#194d62",
-          "navDypBlaDarken80": "#0c5472",
-          "navDypBlaLighten20": "#ccdee6",
-          "navDypBlaLighten40": "#99bdcd",
-          "navDypBlaLighten60": "#669db4",
-          "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c9c9c9",
-          "navGra40": "#a0a0a0",
-          "navGra60": "#6a6a6a",
-          "navGra80": "#4f4f4f",
-          "navGraBakgrunn": "#f1f1f1",
-          "navGronn": "#06893a",
-          "navGronnDarken20": "#334834",
-          "navGronnDarken40": "#285835",
-          "navGronnDarken60": "#1c6937",
-          "navGronnDarken80": "#117938",
-          "navGronnLighten20": "#cde7d8",
-          "navGronnLighten40": "#9bd0b0",
-          "navGronnLighten60": "#6ab889",
-          "navGronnLighten80": "#38a161",
-          "navLilla": "#634689",
-          "navLillaDarken20": "#453b43",
-          "navLillaDarken40": "#4d3e55",
-          "navLillaDarken60": "#544066",
-          "navLillaDarken80": "#5c4378",
-          "navLillaLighten20": "#e0dae7",
-          "navLillaLighten40": "#c1b5d0",
-          "navLillaLighten60": "#a190b8",
-          "navLillaLighten80": "#826ba1",
-          "navLimeGronn": "#a2ad00",
-          "navLimeGronnDarken20": "#524f28",
-          "navLimeGronnDarken40": "#66671e",
-          "navLimeGronnDarken60": "#7a7e14",
-          "navLimeGronnDarken80": "#8e960a",
-          "navLimeGronnLighten20": "#ecefcc",
-          "navLimeGronnLighten40": "#dade99",
-          "navLimeGronnLighten60": "#c7ce66",
-          "navLimeGronnLighten80": "#b5bd33",
-          "navLysBla": "#66cbec",
-          "navLysBlaDarken20": "#465557",
-          "navLysBlaDarken40": "#4e737c",
-          "navLysBlaDarken60": "#5690a2",
-          "navLysBlaDarken80": "#5eaec7",
-          "navLysBlaLighten20": "#e0f5fb",
-          "navLysBlaLighten40": "#c2eaf7",
-          "navLysBlaLighten60": "#a3e0f4",
-          "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#f1f1f1",
-          "navMorkGra": "#262626",
-          "navOransje": "#ff9100",
-          "navOransjeDarken20": "#654a28",
-          "navOransjeDarken40": "#8b5c1e",
-          "navOransjeDarken60": "#b26d14",
-          "navOransjeDarken80": "#d87f0a",
-          "navOransjeLighten20": "#ffe9cc",
-          "navOransjeLighten40": "#ffd399",
-          "navOransjeLighten60": "#ffbd66",
-          "navOransjeLighten80": "#ffa733",
-          "navRod": "#c30000",
-          "navRodDarken20": "#592d28",
-          "navRodDarken40": "#73221e",
-          "navRodDarken60": "#8e1614",
-          "navRodDarken80": "#a80b0a",
-          "navRodLighten20": "#f3cccc",
-          "navRodLighten40": "#e79999",
-          "navRodLighten60": "#db6666",
-          "navRodLighten80": "#cf3333",
-          "orangeFocus": "#ffbd66",
-          "orangeFocusDarken20": "#65533c",
-          "orangeFocusDarken40": "#8b6d47",
-          "orangeFocusDarken60": "#b28851",
-          "orangeFocusDarken80": "#d8a25c",
-          "orangeFocusLighten20": "#fff2e0",
-          "orangeFocusLighten40": "#ffe5c2",
-          "orangeFocusLighten60": "#ffd7a3",
-          "orangeFocusLighten80": "#ffca85",
-          "padding-base-horizontal": "12px",
-          "padding-base-vertical": "6px",
-          "padding-large-horizontal": "16px",
-          "padding-large-vertical": "10px",
-          "padding-small-horizontal": "10px",
-          "padding-small-vertical": "5px",
-          "padding-xs-horizontal": "5px",
-          "padding-xs-vertical": "1px",
-          "pinkErrorBg": "#f3e3e3",
-          "redError": "#ba3a26",
-          "redErrorDarken20": "#573830",
-          "redErrorDarken40": "#70392d",
-          "redErrorDarken60": "#88392b",
-          "redErrorDarken80": "#a13a28",
-          "redErrorLighten20": "#f1d8d4",
-          "redErrorLighten40": "#e3b0a8",
-          "redErrorLighten60": "#d6897d",
-          "redErrorLighten80": "#c86151",
-          "screen-desktop": "992px",
-          "screen-lg": "1200px",
-          "screen-lg-desktop": "1200px",
-          "screen-lg-min": "1200px",
-          "screen-md": "992px",
-          "screen-md-max": "(@screen-lg-min - 1)",
-          "screen-md-min": "992px",
-          "screen-sm": "768px",
-          "screen-sm-max": "(@screen-md-min - 1)",
-          "screen-sm-min": "768px",
-          "screen-tablet": "768px",
-          "screen-xs-max": "(@screen-sm-min - 1)",
-          "type": "theme",
-          "white": "#FFFFFF",
-        }
-      }
+  <styled.div>
+    <div
+      className="c0 c1"
     >
       <styled.div>
         <div
-          className="c0 c1"
+          className="c2 c3"
         >
-          <styled.div>
+          <Component
+            avdodFnr=""
+          >
             <div
-              className="c2 c3"
+              className="websocket"
+            />
+          </Component>
+          <HoyreChevron>
+            <NavFrontendChevron
+              className=""
+              stor={false}
+              type="høyre"
             >
-              <Component
-                avdodFnr=""
+              <span
+                className="nav-frontend-chevron chevronboks chevron--hoyre"
+              />
+            </NavFrontendChevron>
+          </HoyreChevron>
+          <Styled(Element)>
+            <Element
+              className="c4 c5"
+            >
+              <TypografiBase
+                className="c4 c5"
+                type="element"
               >
-                <div
-                  className="websocket"
-                />
-              </Component>
-              <HoyreChevron>
-                <NavFrontendChevron
-                  className=""
-                  stor={false}
-                  type="høyre"
+                <p
+                  className="typo-element c4 c5"
                 >
-                  <span
-                    className="nav-frontend-chevron chevronboks chevron--hoyre"
-                  />
-                </NavFrontendChevron>
-              </HoyreChevron>
-              <Styled(Element)>
-                <Element
-                  className="c4 c5"
-                >
-                  <TypografiBase
-                    className="c4 c5"
-                    type="element"
+                  <span>
+                    ui:youComeFrom
+                  </span>
+                  <styled.div
+                    size="0.25"
                   >
-                    <p
-                      className="typo-element c4 c5"
-                    >
-                      <span>
-                        ui:youComeFrom
-                      </span>
-                      <styled.div
-                        size="0.25"
-                      >
-                        <div
-                          className="c6 c7"
-                          size="0.25"
-                        />
-                      </styled.div>
-                      <strong>
-                        vedtakskontekst
-                      </strong>
-                      .
-                    </p>
-                  </TypografiBase>
-                </Element>
-              </Styled(Element)>
-              <Styled(Element)>
-                <Element
-                  className="c4 c5"
-                >
-                  <TypografiBase
-                    className="c4 c5"
-                    type="element"
-                  >
-                    <p
-                      className="typo-element c4 c5"
-                    >
-                      <span>
-                        buc:form-caseType
-                        : 
-                      </span>
-                      <styled.div
-                        size="0.25"
-                      >
-                        <div
-                          className="c6 c7"
-                          size="0.25"
-                        />
-                      </styled.div>
-                      <strong>
-                        Generell
-                      </strong>
-                    </p>
-                  </TypografiBase>
-                </Element>
-              </Styled(Element)>
-            </div>
-          </styled.div>
-          <styled.div>
-            <div
-              className="c8 c9"
+                    <div
+                      className="c6 c7"
+                      size="0.25"
+                    />
+                  </styled.div>
+                  <strong>
+                    vedtakskontekst
+                  </strong>
+                  .
+                </p>
+              </TypografiBase>
+            </Element>
+          </Styled(Element)>
+          <Styled(Element)>
+            <Element
+              className="c4 c5"
             >
-              <Styled(s)
+              <TypografiBase
+                className="c4 c5"
+                type="element"
+              >
+                <p
+                  className="typo-element c4 c5"
+                >
+                  <span>
+                    buc:form-caseType
+                    : 
+                  </span>
+                  <styled.div
+                    size="0.25"
+                  >
+                    <div
+                      className="c6 c7"
+                      size="0.25"
+                    />
+                  </styled.div>
+                  <strong>
+                    Generell
+                  </strong>
+                </p>
+              </TypografiBase>
+            </Element>
+          </Styled(Element)>
+        </div>
+      </styled.div>
+      <styled.div>
+        <div
+          className="c8 c9"
+        >
+          <Styled(f)
+            data-amplitude="links.rettskilder"
+            href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
+            onClick={[Function]}
+            target="_blank"
+          >
+            <f
+              className="c10 c11"
+              data-amplitude="links.rettskilder"
+              href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
+              onClick={[Function]}
+              target="_blank"
+            >
+              <a
+                className="lenke c10 c11"
                 data-amplitude="links.rettskilder"
                 href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
                 onClick={[Function]}
+                rel="noopener"
                 target="_blank"
               >
-                <s
-                  className="c10 c11"
-                  data-amplitude="links.rettskilder"
-                  href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
-                  onClick={[Function]}
-                  target="_blank"
+                ui:lawsource
+                <styled.div
+                  size="0.5"
                 >
-                  <a
-                    className="lenke c10 c11"
-                    data-amplitude="links.rettskilder"
-                    href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
-                    onClick={[Function]}
-                    rel="noopener"
-                    target="_blank"
+                  <div
+                    className="c6 c12"
+                    size="0.5"
+                  />
+                </styled.div>
+                <LogoutIcon
+                  color="#0067c5"
+                >
+                  <svg
+                    color="#0067c5"
+                    contentScriptType="text/ecmascript"
+                    contentStyleType="text/css"
+                    enableBackground="new 0 0 24 24"
+                    height="24px"
+                    id="Outline_Version"
+                    preserveAspectRatio="xMidYMid meet"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    x="0px"
+                    xmlns="http://www.w3.org/2000/svg"
+                    y="0px"
+                    zoomAndPan="magnify"
                   >
-                    ui:lawsource
-                    <styled.div
-                      size="0.5"
+                    <g
+                      fill="#0067c5"
                     >
-                      <div
-                        className="c6 c12"
-                        size="0.5"
+                      <path
+                        d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
                       />
-                    </styled.div>
-                    <LogoutIcon
-                      color="#0067c5"
-                    >
-                      <svg
-                        color="#0067c5"
-                        contentScriptType="text/ecmascript"
-                        contentStyleType="text/css"
-                        enableBackground="new 0 0 24 24"
-                        height="24px"
-                        id="Outline_Version"
-                        preserveAspectRatio="xMidYMid meet"
-                        version="1.1"
-                        viewBox="0 0 24 24"
-                        width="24px"
-                        x="0px"
-                        xmlns="http://www.w3.org/2000/svg"
-                        y="0px"
-                        zoomAndPan="magnify"
-                      >
-                        <g
-                          fill="#0067c5"
-                        >
-                          <path
-                            d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
-                          />
-                          <path
-                            d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
-                          />
-                        </g>
-                      </svg>
-                    </LogoutIcon>
-                  </a>
-                </s>
-              </Styled(s)>
-              <styled.span>
-                <span
-                  className="c13 c14"
-                >
-                  •
-                </span>
-              </styled.span>
-              <Styled(s)
+                      <path
+                        d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
+                      />
+                    </g>
+                  </svg>
+                </LogoutIcon>
+              </a>
+            </f>
+          </Styled(f)>
+          <styled.span>
+            <span
+              className="c13 c14"
+            >
+              •
+            </span>
+          </styled.span>
+          <Styled(f)
+            data-amplitude="links.hjelpe"
+            href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
+            onClick={[Function]}
+            target="_blank"
+          >
+            <f
+              className="c10 c11"
+              data-amplitude="links.hjelpe"
+              href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
+              onClick={[Function]}
+              target="_blank"
+            >
+              <a
+                className="lenke c10 c11"
                 data-amplitude="links.hjelpe"
                 href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
                 onClick={[Function]}
+                rel="noopener"
                 target="_blank"
               >
-                <s
-                  className="c10 c11"
-                  data-amplitude="links.hjelpe"
-                  href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
-                  onClick={[Function]}
-                  target="_blank"
+                ui:help
+                <styled.div
+                  size="0.5"
                 >
-                  <a
-                    className="lenke c10 c11"
-                    data-amplitude="links.hjelpe"
-                    href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
-                    onClick={[Function]}
-                    rel="noopener"
-                    target="_blank"
+                  <div
+                    className="c6 c12"
+                    size="0.5"
+                  />
+                </styled.div>
+                <LogoutIcon
+                  color="#0067c5"
+                >
+                  <svg
+                    color="#0067c5"
+                    contentScriptType="text/ecmascript"
+                    contentStyleType="text/css"
+                    enableBackground="new 0 0 24 24"
+                    height="24px"
+                    id="Outline_Version"
+                    preserveAspectRatio="xMidYMid meet"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    x="0px"
+                    xmlns="http://www.w3.org/2000/svg"
+                    y="0px"
+                    zoomAndPan="magnify"
                   >
-                    ui:help
-                    <styled.div
-                      size="0.5"
+                    <g
+                      fill="#0067c5"
                     >
-                      <div
-                        className="c6 c12"
-                        size="0.5"
+                      <path
+                        d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
                       />
-                    </styled.div>
-                    <LogoutIcon
-                      color="#0067c5"
-                    >
-                      <svg
-                        color="#0067c5"
-                        contentScriptType="text/ecmascript"
-                        contentStyleType="text/css"
-                        enableBackground="new 0 0 24 24"
-                        height="24px"
-                        id="Outline_Version"
-                        preserveAspectRatio="xMidYMid meet"
-                        version="1.1"
-                        viewBox="0 0 24 24"
-                        width="24px"
-                        x="0px"
-                        xmlns="http://www.w3.org/2000/svg"
-                        y="0px"
-                        zoomAndPan="magnify"
-                      >
-                        <g
-                          fill="#0067c5"
-                        >
-                          <path
-                            d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
-                          />
-                          <path
-                            d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
-                          />
-                        </g>
-                      </svg>
-                    </LogoutIcon>
-                  </a>
-                </s>
-              </Styled(s)>
-            </div>
-          </styled.div>
+                      <path
+                        d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
+                      />
+                    </g>
+                  </svg>
+                </LogoutIcon>
+              </a>
+            </f>
+          </Styled(f)>
         </div>
       </styled.div>
-    </Component>
-  </me>
+    </div>
+  </styled.div>
 </ContextBanner>
 `;

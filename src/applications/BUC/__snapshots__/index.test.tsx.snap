@@ -5,7 +5,7 @@ exports[`applications/BUC/index Render: match snapshot 1`] = `
   margin-bottom: 1rem;
 }
 
-ui-fss.g31[id="c0"] {
+ui-fss.g32[id="c0"] {
   content: "c1,";
 }
 
@@ -19,9 +19,9 @@ ui-fss.g31[id="c0"] {
 .c7.animate {
   will-change: transform,opacity;
   pointer-events: none;
-  -webkit-transition: -webkit-transform 1000ms ease-in-out;
-  -webkit-transition: transform 1000ms ease-in-out;
-  transition: transform 1000ms ease-in-out;
+  -webkit-transition: -webkit-transform 500ms ease-in-out;
+  -webkit-transition: transform 500ms ease-in-out;
+  transition: transform 500ms ease-in-out;
 }
 
 .c7.animate * {
@@ -47,24 +47,18 @@ ui-fss.g31[id="c0"] {
 }
 
 .c7.A_going_to_right {
-  -webkit-animation: kGLwuF 1000ms forwards;
-  animation: kGLwuF 1000ms forwards;
   -webkit-transform: translateX(0%);
   -ms-transform: translateX(0%);
   transform: translateX(0%);
 }
 
 .c7.B_going_to_right {
-  -webkit-animation: eCeJHl 1000ms forwards;
-  animation: eCeJHl 1000ms forwards;
   -webkit-transform: translateX(20%);
   -ms-transform: translateX(20%);
   transform: translateX(20%);
 }
 
 .c7.C_going_to_right {
-  -webkit-animation: eCeJHl 1000ms forwards;
-  animation: eCeJHl 1000ms forwards;
   -webkit-transform: translateX(40%);
   -ms-transform: translateX(40%);
   transform: translateX(40%);
@@ -92,21 +86,15 @@ ui-fss.g31[id="c0"] {
   -webkit-transform: translateX(-120%);
   -ms-transform: translateX(-120%);
   transform: translateX(-120%);
-  -webkit-animation: eCeJHl 1000ms forwards;
-  animation: eCeJHl 1000ms forwards;
 }
 
 .c7.B_going_to_middle {
-  -webkit-animation: kGLwuF 1000ms forwards;
-  animation: kGLwuF 1000ms forwards;
   -webkit-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
   transform: translateX(-100%);
 }
 
 .c7.C_going_to_middle {
-  -webkit-animation: kGLwuF 1000ms forwards;
-  animation: kGLwuF 1000ms forwards;
   -webkit-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
   transform: translateX(-100%);
@@ -134,27 +122,21 @@ ui-fss.g31[id="c0"] {
   -webkit-transform: translateX(-240%);
   -ms-transform: translateX(-240%);
   transform: translateX(-240%);
-  -webkit-animation: eCeJHl 1000ms forwards;
-  animation: eCeJHl 1000ms forwards;
 }
 
 .c7.B_going_to_left {
-  -webkit-animation: kGLwuF 1000ms forwards;
-  animation: kGLwuF 1000ms forwards;
   -webkit-transform: translateX(-220%);
   -ms-transform: translateX(-220%);
   transform: translateX(-220%);
 }
 
 .c7.C_going_to_left {
-  -webkit-animation: kGLwuF 1000ms forwards;
-  animation: kGLwuF 1000ms forwards;
   -webkit-transform: translateX(-200%);
   -ms-transform: translateX(-200%);
   transform: translateX(-200%);
 }
 
-ui-fss.g373[id="c6"] {
+ui-fss.g288[id="c6"] {
   content: "c7,";
 }
 
@@ -162,34 +144,9 @@ ui-fss.g373[id="c6"] {
   width: 100%;
   display: block;
   overflow: hidden;
-  will-change: transform;
 }
 
-.c3.shrink {
-  -webkit-transform: scale(0.98);
-  -ms-transform: scale(0.98);
-  transform: scale(0.98);
-  -webkit-transform-origin: center center;
-  -ms-transform-origin: center center;
-  transform-origin: center center;
-  -webkit-transition: -webkit-transform 100ms ease-in;
-  -webkit-transition: transform 100ms ease-in;
-  transition: transform 100ms ease-in;
-}
-
-.c3:not(.shrink) {
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
-  -webkit-transform-origin: center center;
-  -ms-transform-origin: center center;
-  transform-origin: center center;
-  -webkit-transition: -webkit-transform 100ms ease-out;
-  -webkit-transition: transform 100ms ease-out;
-  transition: transform 100ms ease-out;
-}
-
-ui-fss.g374[id="c2"] {
+ui-fss.g289[id="c2"] {
   content: "c3,";
 }
 
@@ -202,7 +159,7 @@ ui-fss.g374[id="c2"] {
   overflow: hidden;
 }
 
-ui-fss.g376[id="c4"] {
+ui-fss.g291[id="c4"] {
   content: "c5,";
 }
 
@@ -212,60 +169,52 @@ ui-fss.g376[id="c4"] {
   onRestoreFocus={[MockFunction]}
   waitForMount={false}
 >
-  <styled.div
+  <div
     key="bucIndexDiv"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className=""
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-    >
-      <styled.div>
-        <div
-          className="c0 c1"
-        />
-      </styled.div>
-      <styled.div
-        className=""
+    <styled.div>
+      <div
+        className="c0 c1"
+      />
+    </styled.div>
+    <styled.div>
+      <div
+        className="c2 c3"
       >
-        <div
-          className="c2 c3"
-        >
-          <styled.div>
-            <div
-              className="c4 c5"
+        <styled.div>
+          <div
+            className="c4 c5"
+          >
+            <styled.div
+              className="left"
+              key="animatableDivA"
             >
-              <styled.div
-                className="left"
-                key="animatableDivA"
-              >
-                <div
-                  className="c6 c7 left"
-                />
-              </styled.div>
-              <styled.div
-                className="middle"
-                key="animatableDivB"
-              >
-                <div
-                  className="c6 c7 middle"
-                />
-              </styled.div>
-              <styled.div
-                className="right"
-                key="animatableDivC"
-              >
-                <div
-                  className="c6 c7 right"
-                />
-              </styled.div>
-            </div>
-          </styled.div>
-        </div>
-      </styled.div>
-    </div>
-  </styled.div>
+              <div
+                className="c6 c7 left"
+              />
+            </styled.div>
+            <styled.div
+              className="middle"
+              key="animatableDivB"
+            >
+              <div
+                className="c6 c7 middle"
+              />
+            </styled.div>
+            <styled.div
+              className="right"
+              key="animatableDivC"
+            >
+              <div
+                className="c6 c7 right"
+              />
+            </styled.div>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </div>
 </BUCIndex>
 `;

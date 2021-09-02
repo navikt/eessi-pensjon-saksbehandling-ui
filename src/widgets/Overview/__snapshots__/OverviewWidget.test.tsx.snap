@@ -58,7 +58,6 @@ exports[`widgets/OverviewWidget Render: match snapshot 1`] = `
       refreshRate={50}
     >
       <Component
-        highContrast={false}
         onUpdate={[MockFunction]}
         targetRef={
           Object {

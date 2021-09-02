@@ -5,32 +5,16 @@ exports[`components/Alert/Alert Render: match snapshot 1`] = `
   opacity: 0;
   -webkit-animation: kGLwuF 1s forwards;
   animation: kGLwuF 1s forwards;
-  position: relative;
-}
-
-.c1 .alertstripe .alertstripe__tekst {
-  -webkit-flex: auto !important;
-  -ms-flex: auto !important;
-  flex: auto !important;
-}
-
-.c1.fixed {
-  position: fixed;
-  top: 0.25rem;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   z-index: 10;
-  min-width: 400px;
-}
-
-.c1.type-server {
+  width: 100%;
   border-radius: 0px !important;
   border: 0px !important;
 }
 
-.c1.type-server .alertstripe__tekst {
+.c1 .alertstripe__tekst {
   display: -webkit-box !important;
   display: -webkit-flex !important;
   display: -ms-flexbox !important;
@@ -42,7 +26,7 @@ exports[`components/Alert/Alert Render: match snapshot 1`] = `
   max-width: none !important;
 }
 
-ui-fss.g48[id="c0"] {
+ui-fss.g49[id="c0"] {
   content: "c1,";
 }
 
@@ -53,7 +37,7 @@ ui-fss.g48[id="c0"] {
   cursor: pointer;
 }
 
-ui-fss.g49[id="c2"] {
+ui-fss.g50[id="c2"] {
   content: "c3,";
 }
 
@@ -61,23 +45,25 @@ ui-fss.g49[id="c2"] {
   message="mockErrorMessage"
   onClose={[MockFunction]}
   status="OK"
-  type="server"
 >
   <Styled(AlertStripe)
-    className="type-server status-OK"
+    className="status-OK"
     role="alert"
+    style={Object {}}
     type="suksess"
   >
     <AlertStripe
-      className="c0 c1 type-server status-OK"
+      className="c0 c1 status-OK"
       form="default"
       role="alert"
       size="1.5em"
+      style={Object {}}
       type="suksess"
     >
       <div
-        className="alertstripe c0 c1 type-server status-OK alertstripe--suksess"
+        className="alertstripe c0 c1 status-OK alertstripe--suksess"
         role="alert"
+        style={Object {}}
       >
         <span
           className="alertstripe__ikon"

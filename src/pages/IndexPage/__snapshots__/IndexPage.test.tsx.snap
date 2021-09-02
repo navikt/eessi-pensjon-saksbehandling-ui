@@ -2,7 +2,6 @@
 
 exports[`pages/IndexPage Render: match snapshot 1`] = `
 .c1 {
-  max-width: 1440px;
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -12,7 +11,7 @@ exports[`pages/IndexPage Render: match snapshot 1`] = `
   padding: 0rem 1rem;
 }
 
-ui-fss.g393[id="c0"] {
+ui-fss.g307[id="c0"] {
   content: "c1,";
 }
 
@@ -21,9 +20,7 @@ ui-fss.g393[id="c0"] {
     <div
       className="mock-c-topcontainer"
     >
-      <IEAlert
-        highContrast={false}
-      >
+      <IEAlert>
         <div />
       </IEAlert>
       <Component
@@ -173,6 +170,7 @@ ui-fss.g393[id="c0"] {
         extraWidgets={
           Object {
             "BUCWidget": [Function],
+            "DocWidget": [Function],
             "OverviewWidget": [Function],
           }
         }
@@ -319,6 +317,7 @@ ui-fss.g393[id="c0"] {
           extraWidgets={
             Object {
               "BUCWidget": [Function],
+              "DocWidget": [Function],
               "OverviewWidget": [Function],
             }
           }

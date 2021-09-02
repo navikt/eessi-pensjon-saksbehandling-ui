@@ -69,3 +69,19 @@ export const stageSelector = (defaultSelector: any, params: any) => {
     ...params
   }))
 }
+
+jest.mock('react-beautiful-dnd', () => ({
+  Droppable: ({ children }: any) => children({
+    draggableProps: {
+      style: {},
+    },
+    innerRef: jest.fn(),
+  }, {}),
+  Draggable: ({ children }: any) => children({
+    draggableProps: {
+      style: {},
+    },
+    innerRef: jest.fn(),
+  }, {}),
+  DragDropContext: ({ children }: any) => children
+}))

@@ -13,7 +13,7 @@ exports[`widgets/Overview/PersonPanel Render: match snapshot 1`] = `
   flex-direction: column;
 }
 
-ui-fss.g21[id="c0"] {
+ui-fss.g22[id="c0"] {
   content: "c2,";
 }
 
@@ -25,7 +25,7 @@ ui-fss.g21[id="c0"] {
   margin-right: 0.5rem;
 }
 
-ui-fss.g25[id="c4"] {
+ui-fss.g26[id="c4"] {
   content: "c6,";
 }
 
@@ -34,7 +34,7 @@ ui-fss.g25[id="c4"] {
   margin-left: 1rem;
 }
 
-ui-fss.g29[id="c12"] {
+ui-fss.g30[id="c12"] {
   content: "c13,";
 }
 
@@ -43,7 +43,7 @@ ui-fss.g29[id="c12"] {
   margin-left: 1rem;
 }
 
-ui-fss.g30[id="c8"] {
+ui-fss.g31[id="c8"] {
   content: "c9,";
 }
 
@@ -58,7 +58,7 @@ ui-fss.g30[id="c8"] {
   align-items: baseline;
 }
 
-ui-fss.g48[id="c10"] {
+ui-fss.g49[id="c10"] {
   content: "c11,";
 }
 
@@ -67,7 +67,7 @@ ui-fss.g48[id="c10"] {
   border-color: !important;
 }
 
-ui-fss.g49[id="c14"] {
+ui-fss.g50[id="c14"] {
   content: "c15,";
 }
 
@@ -79,7 +79,7 @@ ui-fss.g49[id="c14"] {
   display: flex;
 }
 
-ui-fss.g50[id="c1"] {
+ui-fss.g51[id="c1"] {
   content: "c3,";
 }
 
@@ -95,7 +95,7 @@ ui-fss.g50[id="c1"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g51[id="c5"] {
+ui-fss.g52[id="c5"] {
   content: "c7,";
 }
 
@@ -108,7 +108,6 @@ ui-fss.g51[id="c5"] {
 }
 
 <PersonPanel
-  highContrast={false}
   locale="nb"
   person={
     Object {

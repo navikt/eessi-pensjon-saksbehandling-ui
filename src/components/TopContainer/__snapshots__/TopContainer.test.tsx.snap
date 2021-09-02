@@ -1,45 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/TopContainer Render: match snapshot 1`] = `
-.c15 {
+.c17 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-ui-fss.g30[id="c14"] {
-  content: "c15,";
+ui-fss.g31[id="c16"] {
+  content: "c17,";
 }
 
-.c21 {
+.c23 {
   opacity: 0;
   -webkit-animation: kGLwuF 1s forwards;
   animation: kGLwuF 1s forwards;
-  position: relative;
-}
-
-.c21 .alertstripe .alertstripe__tekst {
-  -webkit-flex: auto !important;
-  -ms-flex: auto !important;
-  flex: auto !important;
-}
-
-.c21.fixed {
-  position: fixed;
-  top: 0.25rem;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   z-index: 10;
-  min-width: 400px;
-}
-
-.c21.type-server {
+  width: 100%;
   border-radius: 0px !important;
   border: 0px !important;
 }
 
-.c21.type-server .alertstripe__tekst {
+.c23 .alertstripe__tekst {
   display: -webkit-box !important;
   display: -webkit-flex !important;
   display: -ms-flexbox !important;
@@ -51,22 +35,22 @@ ui-fss.g30[id="c14"] {
   max-width: none !important;
 }
 
-ui-fss.g48[id="c20"] {
-  content: "c21,";
+ui-fss.g49[id="c22"] {
+  content: "c23,";
 }
 
-.c23 {
+.c25 {
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   cursor: pointer;
 }
 
-ui-fss.g49[id="c22"] {
-  content: "c23,";
+ui-fss.g50[id="c24"] {
+  content: "c25,";
 }
 
-.c27 {
+.c29 {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -87,30 +71,30 @@ ui-fss.g49[id="c22"] {
   transition: width 0.2s ease-out;
 }
 
-.c27.toggled {
+.c29.toggled {
   height: 40px;
 }
 
-.c27:not(.toggled) {
+.c29:not(.toggled) {
   height: 10px;
 }
 
-ui-fss.g50[id="c26"] {
-  content: "c27,";
+ui-fss.g51[id="c28"] {
+  content: "c29,";
 }
 
-.c29 {
+.c31 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c29.fullWidth {
+.c31.fullWidth {
   width: 100%;
 }
 
-.c29 .footerButtonClosed {
+.c31 .footerButtonClosed {
   width: 100%;
   margin: 0px;
   display: block;
@@ -118,12 +102,12 @@ ui-fss.g50[id="c26"] {
   background-color: white;
 }
 
-.c29 .footerButtonClosed:hover {
+.c31 .footerButtonClosed:hover {
   cursor: pointer;
   background-color: #FFFFFF;
 }
 
-.c29 .footerButtonOpen {
+.c31 .footerButtonOpen {
   width: 1.2rem;
   margin-right: 0.5rem;
   display: inline-block;
@@ -132,16 +116,16 @@ ui-fss.g50[id="c26"] {
   text-align: center;
 }
 
-.c29 .footerButtonOpen:hover {
+.c31 .footerButtonOpen:hover {
   cursor: pointer;
   background-color: #FFFFFF;
 }
 
-ui-fss.g51[id="c28"] {
-  content: "c29,";
+ui-fss.g52[id="c30"] {
+  content: "c31,";
 }
 
-.c3 {
+.c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -155,16 +139,16 @@ ui-fss.g51[id="c28"] {
   flex-direction: row;
 }
 
-.c3 * {
+.c5 * {
   font-size: inherit;
   line-height: inherit;
 }
 
-ui-fss.g59[id="c2"] {
-  content: "c3,";
+ui-fss.g60[id="c4"] {
+  content: "c5,";
 }
 
-.c1 {
+.c3 {
   background-color: #262626;
   display: -webkit-box;
   display: -webkit-flex;
@@ -187,37 +171,37 @@ ui-fss.g59[id="c2"] {
   flex-shrink: 0;
 }
 
-ui-fss.g60[id="c0"] {
-  content: "c1,";
+ui-fss.g61[id="c2"] {
+  content: "c3,";
 }
 
-.c9 {
+.c11 {
   font-size: 1.5rem;
   color: #FFFFFF;
 }
 
-ui-fss.g61[id="c8"] {
-  content: "c9,";
+ui-fss.g62[id="c10"] {
+  content: "c11,";
 }
 
-.c17 {
+.c19 {
   margin: auto 0px;
   padding: 0.3em;
 }
 
-ui-fss.g62[id="c16"] {
-  content: "c17,";
+ui-fss.g63[id="c18"] {
+  content: "c19,";
 }
 
-.c13 {
+.c15 {
   color: white;
 }
 
-ui-fss.g63[id="c12"] {
-  content: "c13,";
+ui-fss.g64[id="c14"] {
+  content: "c15,";
 }
 
-.c5 {
+.c7 {
   border-left: 1px solid #FFFFFF;
   display: -webkit-box;
   display: -webkit-flex;
@@ -228,11 +212,11 @@ ui-fss.g63[id="c12"] {
   margin-left: 1rem;
 }
 
-ui-fss.g64[id="c4"] {
-  content: "c5,";
+ui-fss.g65[id="c6"] {
+  content: "c7,";
 }
 
-.c7 {
+.c9 {
   color: #FFFFFF;
   display: -webkit-box;
   display: -webkit-flex;
@@ -242,11 +226,11 @@ ui-fss.g64[id="c4"] {
   padding-left: 15px;
 }
 
-ui-fss.g65[id="c6"] {
-  content: "c7,";
+ui-fss.g66[id="c8"] {
+  content: "c9,";
 }
 
-.c11 {
+.c13 {
   -webkit-align-items: flex-end;
   -webkit-box-align: flex-end;
   -ms-flex-align: flex-end;
@@ -264,22 +248,22 @@ ui-fss.g65[id="c6"] {
   align-items: center;
 }
 
-ui-fss.g66[id="c10"] {
-  content: "c11,";
+ui-fss.g67[id="c12"] {
+  content: "c13,";
 }
 
-.c19 {
+.c21 {
   padding: 0.45rem;
   padding-left: 0.5rem;
   padding-right: 1.6rem;
   color: #FFFFFF;
 }
 
-ui-fss.g67[id="c18"] {
-  content: "c19,";
+ui-fss.g68[id="c20"] {
+  content: "c21,";
 }
 
-.c25 {
+.c27 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -295,21 +279,37 @@ ui-fss.g67[id="c18"] {
   color: #262626;
 }
 
-ui-fss.g83[id="c24"] {
-  content: "c25,";
+ui-fss.g83[id="c26"] {
+  content: "c27,";
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+
+ui-fss.g84[id="c0"] {
+  content: "c1,";
 }
 
 <TopContainer
   header="mockHeader"
 >
-  <me
+  <he
     highContrast={false}
   >
     <Component
       theme={
         Object {
           "alternative-background-color": "#FFFFFF",
-          "alternative-hover-color": "#cce1f3",
+          "alternative-hover-color": "#cce1ff",
+          "alternative-interactive-color": "#0074df",
           "black": "#000000",
           "border-radius-base": "4px",
           "border-radius-large": "6px",
@@ -320,7 +320,7 @@ ui-fss.g83[id="c24"] {
           "container-md": "(940px + @grid-gutter-width)",
           "container-sm": "(720px + @grid-gutter-width)",
           "container-tablet": "(720px + @grid-gutter-width)",
-          "fokusFarge": "#19548a",
+          "fokusFarge": "#00347d",
           "grayBackground": "#f1f1f1",
           "grayIcon": "#a0a0a0",
           "grayInactive": "#6a6a6a",
@@ -339,101 +339,84 @@ ui-fss.g83[id="c24"] {
           "main-border-width": "1px",
           "main-disabled-color": "#a0a0a0",
           "main-error-color": "#ba3a26",
-          "main-focus-color": "#19548a",
+          "main-focus-color": "#00347d",
           "main-font-color": "#262626",
-          "main-hover-color": "#0074df",
+          "main-hover-color": "#99c3ff",
           "main-interactive-color": "#0067c5",
           "main-success-color": "#06893a",
           "main-warning-color": "#ff9100",
           "navBakgrunn": "#ffffff",
           "navBla": "#0067c5",
-          "navBlaDarken20": "#32414f",
-          "navBlaDarken40": "#254b6d",
-          "navBlaDarken60": "#19548a",
-          "navBlaDarken80": "#0c5ea8",
-          "navBlaLighten20": "#cce1f3",
-          "navBlaLighten40": "#99c2e8",
-          "navBlaLighten60": "#66a4dc",
-          "navBlaLighten80": "#3385d1",
+          "navBlaDarken20": "#0056b4",
+          "navBlaDarken40": "#00459c",
+          "navBlaDarken60": "#00347d",
+          "navBlaDarken80": "#002252",
+          "navBlaLighten20": "#3386e0",
+          "navBlaLighten40": "#66a5f4",
+          "navBlaLighten60": "#99c3ff",
+          "navBlaLighten80": "#cce1ff",
           "navDypBla": "#005b82",
-          "navDypBlaDarken20": "#323f42",
-          "navDypBlaDarken40": "#254652",
-          "navDypBlaDarken60": "#194d62",
-          "navDypBlaDarken80": "#0c5472",
-          "navDypBlaLighten20": "#ccdee6",
-          "navDypBlaLighten40": "#99bdcd",
-          "navDypBlaLighten60": "#669db4",
-          "navDypBlaLighten80": "#337c9b",
+          "navDypBlaDarken20": "#005077",
+          "navDypBlaDarken40": "#004367",
+          "navDypBlaDarken60": "#003453",
+          "navDypBlaDarken80": "#00243a",
+          "navDypBlaLighten20": "#3380a5",
+          "navDypBlaLighten40": "#66a3c4",
+          "navDypBlaLighten60": "#99c4dd",
+          "navDypBlaLighten80": "#cce2f0",
           "navGra20": "#c9c9c9",
           "navGra40": "#a0a0a0",
           "navGra60": "#6a6a6a",
           "navGra80": "#4f4f4f",
           "navGraBakgrunn": "#f1f1f1",
           "navGronn": "#06893a",
-          "navGronnDarken20": "#334834",
-          "navGronnDarken40": "#285835",
-          "navGronnDarken60": "#1c6937",
-          "navGronnDarken80": "#117938",
-          "navGronnLighten20": "#cde7d8",
-          "navGronnLighten40": "#9bd0b0",
-          "navGronnLighten60": "#6ab889",
-          "navGronnLighten80": "#38a161",
+          "navGronnDarken20": "#007c2e",
+          "navGronnDarken40": "#006a23",
+          "navGronnDarken60": "#005519",
+          "navGronnDarken80": "#003b0f",
+          "navGronnLighten20": "#33aa5f",
+          "navGronnLighten40": "#66c786",
+          "navGronnLighten60": "#99dead",
+          "navGronnLighten80": "#ccf1d6",
           "navLilla": "#634689",
-          "navLillaDarken20": "#453b43",
-          "navLillaDarken40": "#4d3e55",
-          "navLillaDarken60": "#544066",
-          "navLillaDarken80": "#5c4378",
-          "navLillaLighten20": "#e0dae7",
-          "navLillaLighten40": "#c1b5d0",
-          "navLillaLighten60": "#a190b8",
-          "navLillaLighten80": "#826ba1",
+          "navLillaDarken20": "#523874",
+          "navLillaDarken40": "#412b5d",
+          "navLillaDarken60": "#301f46",
+          "navLillaDarken80": "#1f142f",
+          "navLillaLighten20": "#8269a2",
+          "navLillaLighten40": "#a18dbb",
+          "navLillaLighten60": "#c0b2d2",
+          "navLillaLighten80": "#e0d8e9",
           "navLimeGronn": "#a2ad00",
-          "navLimeGronnDarken20": "#524f28",
-          "navLimeGronnDarken40": "#66671e",
-          "navLimeGronnDarken60": "#7a7e14",
-          "navLimeGronnDarken80": "#8e960a",
-          "navLimeGronnLighten20": "#ecefcc",
-          "navLimeGronnLighten40": "#dade99",
-          "navLimeGronnLighten60": "#c7ce66",
-          "navLimeGronnLighten80": "#b5bd33",
+          "navLimeGronnDarken20": "#939e00",
+          "navLimeGronnDarken40": "#7f8900",
+          "navLimeGronnDarken60": "#666e00",
+          "navLimeGronnDarken80": "#474e00",
+          "navLimeGronnLighten20": "#c1cb33",
+          "navLimeGronnLighten40": "#d9e366",
+          "navLimeGronnLighten60": "#ecf399",
+          "navLimeGronnLighten80": "#f9fccc",
           "navLysBla": "#66cbec",
-          "navLysBlaDarken20": "#465557",
-          "navLysBlaDarken40": "#4e737c",
-          "navLysBlaDarken60": "#5690a2",
-          "navLysBlaDarken80": "#5eaec7",
-          "navLysBlaLighten20": "#e0f5fb",
-          "navLysBlaLighten40": "#c2eaf7",
-          "navLysBlaLighten60": "#a3e0f4",
-          "navLysBlaLighten80": "#85d5f0",
+          "navLysBlaDarken20": "#4cadcd",
+          "navLysBlaDarken40": "#368da8",
+          "navLysBlaDarken60": "#236b7d",
+          "navLysBlaDarken80": "#134852",
+          "navLysBlaLighten20": "#7cdaf8",
+          "navLysBlaLighten40": "#97e6ff",
+          "navLysBlaLighten60": "#b5f1ff",
+          "navLysBlaLighten80": "#d8f9ff",
           "navLysGra": "#f1f1f1",
           "navMorkGra": "#262626",
           "navOransje": "#ff9100",
-          "navOransjeDarken20": "#654a28",
-          "navOransjeDarken40": "#8b5c1e",
-          "navOransjeDarken60": "#b26d14",
-          "navOransjeDarken80": "#d87f0a",
-          "navOransjeLighten20": "#ffe9cc",
-          "navOransjeLighten40": "#ffd399",
-          "navOransjeLighten60": "#ffbd66",
-          "navOransjeLighten80": "#ffa733",
+          "navOransjeDarken20": "#d47b00",
+          "navOransjeDarken40": "#a86400",
+          "navOransjeDarken60": "#7d4c00",
+          "navOransjeDarken80": "#523300",
+          "navOransjeLighten20": "#ffaa33",
+          "navOransjeLighten40": "#ffc166",
+          "navOransjeLighten60": "#ffd799",
+          "navOransjeLighten80": "#ffeccc",
           "navRod": "#c30000",
-          "navRodDarken20": "#592d28",
-          "navRodDarken40": "#73221e",
-          "navRodDarken60": "#8e1614",
-          "navRodDarken80": "#a80b0a",
-          "navRodLighten20": "#f3cccc",
-          "navRodLighten40": "#e79999",
-          "navRodLighten60": "#db6666",
-          "navRodLighten80": "#cf3333",
-          "orangeFocus": "#ffbd66",
-          "orangeFocusDarken20": "#65533c",
-          "orangeFocusDarken40": "#8b6d47",
-          "orangeFocusDarken60": "#b28851",
-          "orangeFocusDarken80": "#d8a25c",
-          "orangeFocusLighten20": "#fff2e0",
-          "orangeFocusLighten40": "#ffe5c2",
-          "orangeFocusLighten60": "#ffd7a3",
-          "orangeFocusLighten80": "#ffca85",
           "padding-base-horizontal": "12px",
           "padding-base-vertical": "6px",
           "padding-large-horizontal": "16px",
@@ -444,14 +427,14 @@ ui-fss.g83[id="c24"] {
           "padding-xs-vertical": "1px",
           "pinkErrorBg": "#f3e3e3",
           "redError": "#ba3a26",
-          "redErrorDarken20": "#573830",
-          "redErrorDarken40": "#70392d",
-          "redErrorDarken60": "#88392b",
-          "redErrorDarken80": "#a13a28",
-          "redErrorLighten20": "#f1d8d4",
-          "redErrorLighten40": "#e3b0a8",
-          "redErrorLighten60": "#d6897d",
-          "redErrorLighten80": "#c86151",
+          "redErrorDarken20": "#a32a17",
+          "redErrorDarken40": "#881d0c",
+          "redErrorDarken60": "#6a1204",
+          "redErrorDarken80": "#480900",
+          "redErrorLighten20": "#d05c4a",
+          "redErrorLighten40": "#e18071",
+          "redErrorLighten60": "#efa89d",
+          "redErrorLighten80": "#f9d2cc",
           "screen-desktop": "992px",
           "screen-lg": "1200px",
           "screen-lg-desktop": "1200px",
@@ -469,14 +452,16 @@ ui-fss.g83[id="c24"] {
         }
       }
     >
-      <div
+      <styled.div
         role="application"
       >
-        <ErrorBoundary
-          renderError={[Function]}
+        <div
+          className="c0 c1"
+          role="application"
         >
-          <div
-            className="mock-error-boundary"
+          <ErrorBoundary
+            FallbackComponent={[Function]}
+            onReset={[Function]}
           >
             <ResizeDetector
               handleWidth={true}
@@ -484,7 +469,6 @@ ui-fss.g83[id="c24"] {
             >
               <Header
                 gettingUserInfo={false}
-                highContrast={false}
                 isLoggingOut={false}
                 targetRef={
                   Object {
@@ -493,394 +477,225 @@ ui-fss.g83[id="c24"] {
                 }
                 username="mockUsername"
               >
-                <me
-                  highContrast={false}
+                <styled.header
+                  role="banner"
                 >
-                  <Component
-                    theme={
-                      Object {
-                        "alternative-background-color": "#FFFFFF",
-                        "alternative-hover-color": "#cce1f3",
-                        "black": "#000000",
-                        "border-radius-base": "4px",
-                        "border-radius-large": "6px",
-                        "border-radius-small": "2px",
-                        "container-desktop": "(940px + @grid-gutter-width)",
-                        "container-large-desktop": "(1140px + @grid-gutter-width)",
-                        "container-lg": "(1140px + @grid-gutter-width)",
-                        "container-md": "(940px + @grid-gutter-width)",
-                        "container-sm": "(720px + @grid-gutter-width)",
-                        "container-tablet": "(720px + @grid-gutter-width)",
-                        "fokusFarge": "#19548a",
-                        "grayBackground": "#f1f1f1",
-                        "grayIcon": "#a0a0a0",
-                        "grayInactive": "#6a6a6a",
-                        "grayModia": "#333333",
-                        "grid-columns": "12",
-                        "grid-float-breakpoint": "768px",
-                        "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                        "grid-gutter-width": "16px",
-                        "inverted-font-color": "#FFFFFF",
-                        "line-height-large": "1.3333333",
-                        "line-height-small": "1.5",
-                        "main-active-color": "#005b82",
-                        "main-background-color": "#f1f1f1",
-                        "main-border-color": "#6a6a6a",
-                        "main-border-radius": "4px",
-                        "main-border-width": "1px",
-                        "main-disabled-color": "#a0a0a0",
-                        "main-error-color": "#ba3a26",
-                        "main-focus-color": "#19548a",
-                        "main-font-color": "#262626",
-                        "main-hover-color": "#0074df",
-                        "main-interactive-color": "#0067c5",
-                        "main-success-color": "#06893a",
-                        "main-warning-color": "#ff9100",
-                        "navBakgrunn": "#ffffff",
-                        "navBla": "#0067c5",
-                        "navBlaDarken20": "#32414f",
-                        "navBlaDarken40": "#254b6d",
-                        "navBlaDarken60": "#19548a",
-                        "navBlaDarken80": "#0c5ea8",
-                        "navBlaLighten20": "#cce1f3",
-                        "navBlaLighten40": "#99c2e8",
-                        "navBlaLighten60": "#66a4dc",
-                        "navBlaLighten80": "#3385d1",
-                        "navDypBla": "#005b82",
-                        "navDypBlaDarken20": "#323f42",
-                        "navDypBlaDarken40": "#254652",
-                        "navDypBlaDarken60": "#194d62",
-                        "navDypBlaDarken80": "#0c5472",
-                        "navDypBlaLighten20": "#ccdee6",
-                        "navDypBlaLighten40": "#99bdcd",
-                        "navDypBlaLighten60": "#669db4",
-                        "navDypBlaLighten80": "#337c9b",
-                        "navGra20": "#c9c9c9",
-                        "navGra40": "#a0a0a0",
-                        "navGra60": "#6a6a6a",
-                        "navGra80": "#4f4f4f",
-                        "navGraBakgrunn": "#f1f1f1",
-                        "navGronn": "#06893a",
-                        "navGronnDarken20": "#334834",
-                        "navGronnDarken40": "#285835",
-                        "navGronnDarken60": "#1c6937",
-                        "navGronnDarken80": "#117938",
-                        "navGronnLighten20": "#cde7d8",
-                        "navGronnLighten40": "#9bd0b0",
-                        "navGronnLighten60": "#6ab889",
-                        "navGronnLighten80": "#38a161",
-                        "navLilla": "#634689",
-                        "navLillaDarken20": "#453b43",
-                        "navLillaDarken40": "#4d3e55",
-                        "navLillaDarken60": "#544066",
-                        "navLillaDarken80": "#5c4378",
-                        "navLillaLighten20": "#e0dae7",
-                        "navLillaLighten40": "#c1b5d0",
-                        "navLillaLighten60": "#a190b8",
-                        "navLillaLighten80": "#826ba1",
-                        "navLimeGronn": "#a2ad00",
-                        "navLimeGronnDarken20": "#524f28",
-                        "navLimeGronnDarken40": "#66671e",
-                        "navLimeGronnDarken60": "#7a7e14",
-                        "navLimeGronnDarken80": "#8e960a",
-                        "navLimeGronnLighten20": "#ecefcc",
-                        "navLimeGronnLighten40": "#dade99",
-                        "navLimeGronnLighten60": "#c7ce66",
-                        "navLimeGronnLighten80": "#b5bd33",
-                        "navLysBla": "#66cbec",
-                        "navLysBlaDarken20": "#465557",
-                        "navLysBlaDarken40": "#4e737c",
-                        "navLysBlaDarken60": "#5690a2",
-                        "navLysBlaDarken80": "#5eaec7",
-                        "navLysBlaLighten20": "#e0f5fb",
-                        "navLysBlaLighten40": "#c2eaf7",
-                        "navLysBlaLighten60": "#a3e0f4",
-                        "navLysBlaLighten80": "#85d5f0",
-                        "navLysGra": "#f1f1f1",
-                        "navMorkGra": "#262626",
-                        "navOransje": "#ff9100",
-                        "navOransjeDarken20": "#654a28",
-                        "navOransjeDarken40": "#8b5c1e",
-                        "navOransjeDarken60": "#b26d14",
-                        "navOransjeDarken80": "#d87f0a",
-                        "navOransjeLighten20": "#ffe9cc",
-                        "navOransjeLighten40": "#ffd399",
-                        "navOransjeLighten60": "#ffbd66",
-                        "navOransjeLighten80": "#ffa733",
-                        "navRod": "#c30000",
-                        "navRodDarken20": "#592d28",
-                        "navRodDarken40": "#73221e",
-                        "navRodDarken60": "#8e1614",
-                        "navRodDarken80": "#a80b0a",
-                        "navRodLighten20": "#f3cccc",
-                        "navRodLighten40": "#e79999",
-                        "navRodLighten60": "#db6666",
-                        "navRodLighten80": "#cf3333",
-                        "orangeFocus": "#ffbd66",
-                        "orangeFocusDarken20": "#65533c",
-                        "orangeFocusDarken40": "#8b6d47",
-                        "orangeFocusDarken60": "#b28851",
-                        "orangeFocusDarken80": "#d8a25c",
-                        "orangeFocusLighten20": "#fff2e0",
-                        "orangeFocusLighten40": "#ffe5c2",
-                        "orangeFocusLighten60": "#ffd7a3",
-                        "orangeFocusLighten80": "#ffca85",
-                        "padding-base-horizontal": "12px",
-                        "padding-base-vertical": "6px",
-                        "padding-large-horizontal": "16px",
-                        "padding-large-vertical": "10px",
-                        "padding-small-horizontal": "10px",
-                        "padding-small-vertical": "5px",
-                        "padding-xs-horizontal": "5px",
-                        "padding-xs-vertical": "1px",
-                        "pinkErrorBg": "#f3e3e3",
-                        "redError": "#ba3a26",
-                        "redErrorDarken20": "#573830",
-                        "redErrorDarken40": "#70392d",
-                        "redErrorDarken60": "#88392b",
-                        "redErrorDarken80": "#a13a28",
-                        "redErrorLighten20": "#f1d8d4",
-                        "redErrorLighten40": "#e3b0a8",
-                        "redErrorLighten60": "#d6897d",
-                        "redErrorLighten80": "#c86151",
-                        "screen-desktop": "992px",
-                        "screen-lg": "1200px",
-                        "screen-lg-desktop": "1200px",
-                        "screen-lg-min": "1200px",
-                        "screen-md": "992px",
-                        "screen-md-max": "(@screen-lg-min - 1)",
-                        "screen-md-min": "992px",
-                        "screen-sm": "768px",
-                        "screen-sm-max": "(@screen-md-min - 1)",
-                        "screen-sm-min": "768px",
-                        "screen-tablet": "768px",
-                        "screen-xs-max": "(@screen-sm-min - 1)",
-                        "type": "theme",
-                        "white": "#FFFFFF",
-                      }
-                    }
+                  <header
+                    className="c2 c3"
+                    role="banner"
                   >
-                    <styled.header
-                      role="banner"
-                    >
-                      <header
-                        className="c0 c1"
-                        role="banner"
+                    <styled.div>
+                      <div
+                        className="c4 c5"
                       >
+                        <a
+                          data-test-id="c-header__logo-link"
+                          href="#index"
+                          onClick={[Function]}
+                        >
+                          <NavLogoTransparent
+                            color="white"
+                            height="45"
+                            width="100"
+                          >
+                            <svg
+                              height="45"
+                              version="1.1"
+                              viewBox="0 0 269 169"
+                              width="100"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <title>
+                                NAV logo
+                              </title>
+                              <desc>
+                                Created with Sketch.
+                              </desc>
+                              <defs>
+                                <polygon
+                                  id="path-1"
+                                  points="22.407 43.4168 22.407 0.6878 0.5635 0.6878 0.5635 43.4168 22.407 43.4168"
+                                />
+                              </defs>
+                              <g
+                                fill="none"
+                                fillRule="evenodd"
+                                id="Modul-forslag"
+                                stroke="none"
+                                strokeWidth="1"
+                              >
+                                <g
+                                  id="NAV-logo"
+                                >
+                                  <g
+                                    id="Page-1-Copy"
+                                  >
+                                    <polygon
+                                      fill="white"
+                                      id="Fill-3"
+                                      points="0 121.3588 17.265 78.6298 33.854 78.6298 16.611 121.3588"
+                                    />
+                                    <polygon
+                                      fill="white"
+                                      id="Fill-5"
+                                      points="213.044 121.3588 230.088 78.6298 239.132 78.6298 222.089 121.3588"
+                                    />
+                                    <g
+                                      id="Group-9"
+                                      transform="translate(246.000000, 77.942000)"
+                                    >
+                                      <mask
+                                        fill="white"
+                                        id="mask-2"
+                                      >
+                                        <use
+                                          xlinkHref="#path-1"
+                                        />
+                                      </mask>
+                                      <g
+                                        id="Clip-8"
+                                      />
+                                      <polygon
+                                        fill="white"
+                                        id="Fill-7"
+                                        mask="url(#mask-2)"
+                                        points="0.5635 43.4168 17.6045 0.6878 22.4075 0.6878 5.3645 43.4168"
+                                      />
+                                    </g>
+                                    <path
+                                      d="M125.3091,168.942 C78.6681,168.942 40.8491,131.125 40.8491,84.477 C40.8491,37.824 78.6681,0 125.3091,0 C171.9671,0 209.7901,37.824 209.7901,84.477 C209.7901,131.125 171.9671,168.942 125.3091,168.942 Z M197.3604,78.6298 L182.3444,78.6298 C182.3444,78.6298 181.3094,78.6298 180.9434,79.5438 L172.6334,104.9828 L164.3304,79.5438 C163.9644,78.6298 162.9234,78.6298 162.9234,78.6298 L134.0514,78.6298 C133.4264,78.6298 132.9024,79.1518 132.9024,79.7728 L132.9024,88.4118 C132.9024,81.5588 125.6104,78.6298 121.3404,78.6298 C111.7784,78.6298 105.3774,84.9278 103.3844,94.5028 C103.2764,88.1508 102.7484,85.8748 101.0374,83.5438 C100.2514,82.4018 99.1154,81.4418 97.8784,80.6478 C95.3314,79.1558 93.0444,78.6298 88.1294,78.6298 L82.3584,78.6298 C82.3584,78.6298 81.3154,78.6298 80.9474,79.5438 L75.6964,92.5568 L75.6964,79.7728 C75.6964,79.1518 75.1764,78.6298 74.5524,78.6298 L61.1984,78.6298 C61.1984,78.6298 60.1674,78.6298 59.7924,79.5438 L54.3334,93.0748 C54.3334,93.0748 53.7884,94.4278 55.0344,94.4278 L60.1674,94.4278 L60.1674,120.2118 C60.1674,120.8518 60.6714,121.3588 61.3144,121.3588 L74.5524,121.3588 C75.1764,121.3588 75.6964,120.8518 75.6964,120.2118 L75.6964,94.4278 L80.8564,94.4278 C83.8174,94.4278 84.4444,94.5088 85.5964,95.0458 C86.2904,95.3078 86.9154,95.8378 87.2564,96.4488 C87.9544,97.7628 88.1294,99.3408 88.1294,103.9938 L88.1294,120.2118 C88.1294,120.8518 88.6434,121.3588 89.2784,121.3588 L101.9664,121.3588 C101.9664,121.3588 103.4004,121.3588 103.9674,119.9428 L106.7794,112.9928 C110.5184,118.2298 116.6724,121.3588 124.3204,121.3588 L125.9914,121.3588 C125.9914,121.3588 127.4344,121.3588 128.0054,119.9428 L132.9024,107.8148 L132.9024,120.2118 C132.9024,120.8518 133.4264,121.3588 134.0514,121.3588 L147.0034,121.3588 C147.0034,121.3588 148.4324,121.3588 149.0064,119.9428 C149.0064,119.9428 154.1864,107.0818 154.2064,106.9848 L154.2144,106.9848 C154.4134,105.9148 153.0614,105.9148 153.0614,105.9148 L148.4384,105.9148 L148.4384,83.8468 L162.9834,119.9428 C163.5514,121.3588 164.9834,121.3588 164.9834,121.3588 L180.2844,121.3588 C180.2844,121.3588 181.7244,121.3588 182.2924,119.9428 L198.4174,80.0138 C198.9754,78.6298 197.3604,78.6298 197.3604,78.6298 Z M132.9024,105.9148 L124.2024,105.9148 C120.7394,105.9148 117.9224,103.1108 117.9224,99.6438 C117.9224,96.1828 120.7394,93.3608 124.2024,93.3608 L126.6354,93.3608 C130.0894,93.3608 132.9024,96.1828 132.9024,99.6438 L132.9024,105.9148 Z"
+                                      fill="white"
+                                      id="Combined-Shape"
+                                    />
+                                  </g>
+                                </g>
+                              </g>
+                            </svg>
+                          </NavLogoTransparent>
+                        </a>
                         <styled.div>
                           <div
-                            className="c2 c3"
+                            className="c6 c7"
+                          />
+                        </styled.div>
+                        <styled.div>
+                          <div
+                            className="c8 c9"
                           >
-                            <a
-                              data-test-id="c-header__logo-link"
-                              href="#index"
-                              onClick={[Function]}
-                            >
-                              <NavLogoTransparent
-                                color="white"
-                                height="45"
-                                width="100"
-                              >
-                                <svg
-                                  height="45"
-                                  version="1.1"
-                                  viewBox="0 0 269 169"
-                                  width="100"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <title>
-                                    NAV logo
-                                  </title>
-                                  <desc>
-                                    Created with Sketch.
-                                  </desc>
-                                  <defs>
-                                    <polygon
-                                      id="path-1"
-                                      points="22.407 43.4168 22.407 0.6878 0.5635 0.6878 0.5635 43.4168 22.407 43.4168"
-                                    />
-                                  </defs>
-                                  <g
-                                    fill="none"
-                                    fillRule="evenodd"
-                                    id="Modul-forslag"
-                                    stroke="none"
-                                    strokeWidth="1"
-                                  >
-                                    <g
-                                      id="NAV-logo"
-                                    >
-                                      <g
-                                        id="Page-1-Copy"
-                                      >
-                                        <polygon
-                                          fill="white"
-                                          id="Fill-3"
-                                          points="0 121.3588 17.265 78.6298 33.854 78.6298 16.611 121.3588"
-                                        />
-                                        <polygon
-                                          fill="white"
-                                          id="Fill-5"
-                                          points="213.044 121.3588 230.088 78.6298 239.132 78.6298 222.089 121.3588"
-                                        />
-                                        <g
-                                          id="Group-9"
-                                          transform="translate(246.000000, 77.942000)"
-                                        >
-                                          <mask
-                                            fill="white"
-                                            id="mask-2"
-                                          >
-                                            <use
-                                              xlinkHref="#path-1"
-                                            />
-                                          </mask>
-                                          <g
-                                            id="Clip-8"
-                                          />
-                                          <polygon
-                                            fill="white"
-                                            id="Fill-7"
-                                            mask="url(#mask-2)"
-                                            points="0.5635 43.4168 17.6045 0.6878 22.4075 0.6878 5.3645 43.4168"
-                                          />
-                                        </g>
-                                        <path
-                                          d="M125.3091,168.942 C78.6681,168.942 40.8491,131.125 40.8491,84.477 C40.8491,37.824 78.6681,0 125.3091,0 C171.9671,0 209.7901,37.824 209.7901,84.477 C209.7901,131.125 171.9671,168.942 125.3091,168.942 Z M197.3604,78.6298 L182.3444,78.6298 C182.3444,78.6298 181.3094,78.6298 180.9434,79.5438 L172.6334,104.9828 L164.3304,79.5438 C163.9644,78.6298 162.9234,78.6298 162.9234,78.6298 L134.0514,78.6298 C133.4264,78.6298 132.9024,79.1518 132.9024,79.7728 L132.9024,88.4118 C132.9024,81.5588 125.6104,78.6298 121.3404,78.6298 C111.7784,78.6298 105.3774,84.9278 103.3844,94.5028 C103.2764,88.1508 102.7484,85.8748 101.0374,83.5438 C100.2514,82.4018 99.1154,81.4418 97.8784,80.6478 C95.3314,79.1558 93.0444,78.6298 88.1294,78.6298 L82.3584,78.6298 C82.3584,78.6298 81.3154,78.6298 80.9474,79.5438 L75.6964,92.5568 L75.6964,79.7728 C75.6964,79.1518 75.1764,78.6298 74.5524,78.6298 L61.1984,78.6298 C61.1984,78.6298 60.1674,78.6298 59.7924,79.5438 L54.3334,93.0748 C54.3334,93.0748 53.7884,94.4278 55.0344,94.4278 L60.1674,94.4278 L60.1674,120.2118 C60.1674,120.8518 60.6714,121.3588 61.3144,121.3588 L74.5524,121.3588 C75.1764,121.3588 75.6964,120.8518 75.6964,120.2118 L75.6964,94.4278 L80.8564,94.4278 C83.8174,94.4278 84.4444,94.5088 85.5964,95.0458 C86.2904,95.3078 86.9154,95.8378 87.2564,96.4488 C87.9544,97.7628 88.1294,99.3408 88.1294,103.9938 L88.1294,120.2118 C88.1294,120.8518 88.6434,121.3588 89.2784,121.3588 L101.9664,121.3588 C101.9664,121.3588 103.4004,121.3588 103.9674,119.9428 L106.7794,112.9928 C110.5184,118.2298 116.6724,121.3588 124.3204,121.3588 L125.9914,121.3588 C125.9914,121.3588 127.4344,121.3588 128.0054,119.9428 L132.9024,107.8148 L132.9024,120.2118 C132.9024,120.8518 133.4264,121.3588 134.0514,121.3588 L147.0034,121.3588 C147.0034,121.3588 148.4324,121.3588 149.0064,119.9428 C149.0064,119.9428 154.1864,107.0818 154.2064,106.9848 L154.2144,106.9848 C154.4134,105.9148 153.0614,105.9148 153.0614,105.9148 L148.4384,105.9148 L148.4384,83.8468 L162.9834,119.9428 C163.5514,121.3588 164.9834,121.3588 164.9834,121.3588 L180.2844,121.3588 C180.2844,121.3588 181.7244,121.3588 182.2924,119.9428 L198.4174,80.0138 C198.9754,78.6298 197.3604,78.6298 197.3604,78.6298 Z M132.9024,105.9148 L124.2024,105.9148 C120.7394,105.9148 117.9224,103.1108 117.9224,99.6438 C117.9224,96.1828 120.7394,93.3608 124.2024,93.3608 L126.6354,93.3608 C130.0894,93.3608 132.9024,96.1828 132.9024,99.6438 L132.9024,105.9148 Z"
-                                          fill="white"
-                                          id="Combined-Shape"
-                                        />
-                                      </g>
-                                    </g>
-                                  </g>
-                                </svg>
-                              </NavLogoTransparent>
-                            </a>
-                            <styled.div>
-                              <div
-                                className="c4 c5"
-                              />
-                            </styled.div>
-                            <styled.div>
-                              <div
-                                className="c6 c7"
-                              >
-                                <span>
-                                  ui:app-headerTitle
-                                </span>
-                              </div>
-                            </styled.div>
+                            <span>
+                              ui:app-headerTitle
+                            </span>
                           </div>
                         </styled.div>
-                        <Styled(Lenke)
+                      </div>
+                    </styled.div>
+                    <Styled(Lenke)
+                      data-test-id="c-header__highcontrast-link-id"
+                      href="#highContrast"
+                      onClick={[Function]}
+                    >
+                      <Lenke
+                        className="c10 c11"
+                        data-test-id="c-header__highcontrast-link-id"
+                        href="#highContrast"
+                        onClick={[Function]}
+                      >
+                        <a
+                          className="lenke c10 c11"
                           data-test-id="c-header__highcontrast-link-id"
                           href="#highContrast"
                           onClick={[Function]}
                         >
-                          <Lenke
-                            className="c8 c9"
-                            data-test-id="c-header__highcontrast-link-id"
-                            href="#highContrast"
-                            onClick={[Function]}
-                          >
-                            <a
-                              className="lenke c8 c9"
-                              data-test-id="c-header__highcontrast-link-id"
-                              href="#highContrast"
-                              onClick={[Function]}
-                            >
-                              ui:highContrast
-                            </a>
-                          </Lenke>
-                        </Styled(Lenke)>
+                          ui:highContrast
+                        </a>
+                      </Lenke>
+                    </Styled(Lenke)>
+                    <styled.div>
+                      <div
+                        className="c12 c13"
+                      >
                         <styled.div>
                           <div
-                            className="c10 c11"
+                            className="c14 c15"
                           >
-                            <styled.div>
-                              <div
-                                className="c12 c13"
+                            <FontAwesomeIcon
+                              border={false}
+                              className=""
+                              fixedWidth={false}
+                              flip={null}
+                              icon={
+                                Object {
+                                  "icon": Array [
+                                    448,
+                                    512,
+                                    Array [],
+                                    "f007",
+                                    "M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z",
+                                  ],
+                                  "iconName": "user",
+                                  "prefix": "fas",
+                                }
+                              }
+                              inverse={false}
+                              listItem={false}
+                              mask={null}
+                              pull={null}
+                              pulse={false}
+                              rotation={null}
+                              size={null}
+                              spin={false}
+                              swapOpacity={false}
+                              symbol={false}
+                              title=""
+                              transform={null}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-user fa-w-14 "
+                                data-icon="user"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 448 512"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <FontAwesomeIcon
-                                  border={false}
-                                  className=""
-                                  fixedWidth={false}
-                                  flip={null}
-                                  icon={
-                                    Object {
-                                      "icon": Array [
-                                        448,
-                                        512,
-                                        Array [],
-                                        "f007",
-                                        "M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z",
-                                      ],
-                                      "iconName": "user",
-                                      "prefix": "fas",
-                                    }
-                                  }
-                                  inverse={false}
-                                  listItem={false}
-                                  mask={null}
-                                  pull={null}
-                                  pulse={false}
-                                  rotation={null}
-                                  size={null}
-                                  spin={false}
-                                  swapOpacity={false}
-                                  symbol={false}
-                                  title=""
-                                  transform={null}
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    className="svg-inline--fa fa-user fa-w-14 "
-                                    data-icon="user"
-                                    data-prefix="fas"
-                                    focusable="false"
-                                    role="img"
-                                    style={Object {}}
-                                    viewBox="0 0 448 512"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
-                                      fill="currentColor"
-                                      style={Object {}}
-                                    />
-                                  </svg>
-                                </FontAwesomeIcon>
-                              </div>
-                            </styled.div>
-                            <styled.div>
-                              <div
-                                className="c14 c15"
-                              />
-                            </styled.div>
-                            <styled.div>
-                              <div
-                                className="c4 c5"
-                              />
-                            </styled.div>
-                            <styled.div>
-                              <div
-                                className="c16 c17"
-                              >
-                                <styled.span>
-                                  <span
-                                    className="c18 c19"
-                                  >
-                                    mockUsername
-                                  </span>
-                                </styled.span>
-                              </div>
-                            </styled.div>
+                                <path
+                                  d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </FontAwesomeIcon>
                           </div>
                         </styled.div>
-                      </header>
-                    </styled.header>
-                  </Component>
-                </me>
+                        <styled.div>
+                          <div
+                            className="c16 c17"
+                          />
+                        </styled.div>
+                        <styled.div>
+                          <div
+                            className="c6 c7"
+                          />
+                        </styled.div>
+                        <styled.div>
+                          <div
+                            className="c18 c19"
+                          >
+                            <styled.span>
+                              <span
+                                className="c20 c21"
+                              >
+                                mockUsername
+                              </span>
+                            </styled.span>
+                          </div>
+                        </styled.div>
+                      </div>
+                    </styled.div>
+                  </header>
+                </styled.header>
               </Header>
               <Alert
                 message="mockErrorMessage"
@@ -891,23 +706,25 @@ ui-fss.g83[id="c24"] {
                     "current": null,
                   }
                 }
-                type="client"
               >
                 <Styled(AlertStripe)
-                  className="type-client status-ERROR fixed"
+                  className="status-ERROR"
                   role="alert"
+                  style={Object {}}
                   type="feil"
                 >
                   <AlertStripe
-                    className="c20 c21 type-client status-ERROR fixed"
+                    className="c22 c23 status-ERROR"
                     form="default"
                     role="alert"
                     size="1.5em"
+                    style={Object {}}
                     type="feil"
                   >
                     <div
-                      className="alertstripe c20 c21 type-client status-ERROR fixed alertstripe--feil"
+                      className="alertstripe c22 c23 status-ERROR alertstripe--feil"
                       role="alert"
+                      style={Object {}}
                     >
                       <span
                         className="alertstripe__ikon"
@@ -968,12 +785,12 @@ ui-fss.g83[id="c24"] {
                               onClick={[Function]}
                             >
                               <FilledVersionRemoveCircle
-                                className="c22 c23"
+                                className="c24 c25"
                                 data-test-id="c-alert__close-icon"
                                 onClick={[Function]}
                               >
                                 <svg
-                                  className="c22 c23"
+                                  className="c24 c25"
                                   contentScriptType="text/ecmascript"
                                   contentStyleType="text/css"
                                   data-test-id="c-alert__close-icon"
@@ -1004,15 +821,6 @@ ui-fss.g83[id="c24"] {
                   </AlertStripe>
                 </Styled(AlertStripe)>
               </Alert>
-              <Alert
-                onClose={[Function]}
-                targetRef={
-                  Object {
-                    "current": null,
-                  }
-                }
-                type="server"
-              />
               <SessionMonitor
                 targetRef={
                   Object {
@@ -1035,7 +843,7 @@ ui-fss.g83[id="c24"] {
                 }
               >
                 <main
-                  className="c24 c25"
+                  className="c26 c27"
                   id="main"
                   role="main"
                 >
@@ -1046,7 +854,6 @@ ui-fss.g83[id="c24"] {
               </styled.main>
               <Footer
                 footerOpen={false}
-                highContrast={false}
                 params={Object {}}
                 targetRef={
                   Object {
@@ -1054,206 +861,37 @@ ui-fss.g83[id="c24"] {
                   }
                 }
               >
-                <me
-                  highContrast={false}
+                <styled.footer
+                  className=""
+                  role="contentinfo"
                 >
-                  <Component
-                    theme={
-                      Object {
-                        "alternative-background-color": "#FFFFFF",
-                        "alternative-hover-color": "#cce1f3",
-                        "black": "#000000",
-                        "border-radius-base": "4px",
-                        "border-radius-large": "6px",
-                        "border-radius-small": "2px",
-                        "container-desktop": "(940px + @grid-gutter-width)",
-                        "container-large-desktop": "(1140px + @grid-gutter-width)",
-                        "container-lg": "(1140px + @grid-gutter-width)",
-                        "container-md": "(940px + @grid-gutter-width)",
-                        "container-sm": "(720px + @grid-gutter-width)",
-                        "container-tablet": "(720px + @grid-gutter-width)",
-                        "fokusFarge": "#19548a",
-                        "grayBackground": "#f1f1f1",
-                        "grayIcon": "#a0a0a0",
-                        "grayInactive": "#6a6a6a",
-                        "grayModia": "#333333",
-                        "grid-columns": "12",
-                        "grid-float-breakpoint": "768px",
-                        "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                        "grid-gutter-width": "16px",
-                        "inverted-font-color": "#FFFFFF",
-                        "line-height-large": "1.3333333",
-                        "line-height-small": "1.5",
-                        "main-active-color": "#005b82",
-                        "main-background-color": "#f1f1f1",
-                        "main-border-color": "#6a6a6a",
-                        "main-border-radius": "4px",
-                        "main-border-width": "1px",
-                        "main-disabled-color": "#a0a0a0",
-                        "main-error-color": "#ba3a26",
-                        "main-focus-color": "#19548a",
-                        "main-font-color": "#262626",
-                        "main-hover-color": "#0074df",
-                        "main-interactive-color": "#0067c5",
-                        "main-success-color": "#06893a",
-                        "main-warning-color": "#ff9100",
-                        "navBakgrunn": "#ffffff",
-                        "navBla": "#0067c5",
-                        "navBlaDarken20": "#32414f",
-                        "navBlaDarken40": "#254b6d",
-                        "navBlaDarken60": "#19548a",
-                        "navBlaDarken80": "#0c5ea8",
-                        "navBlaLighten20": "#cce1f3",
-                        "navBlaLighten40": "#99c2e8",
-                        "navBlaLighten60": "#66a4dc",
-                        "navBlaLighten80": "#3385d1",
-                        "navDypBla": "#005b82",
-                        "navDypBlaDarken20": "#323f42",
-                        "navDypBlaDarken40": "#254652",
-                        "navDypBlaDarken60": "#194d62",
-                        "navDypBlaDarken80": "#0c5472",
-                        "navDypBlaLighten20": "#ccdee6",
-                        "navDypBlaLighten40": "#99bdcd",
-                        "navDypBlaLighten60": "#669db4",
-                        "navDypBlaLighten80": "#337c9b",
-                        "navGra20": "#c9c9c9",
-                        "navGra40": "#a0a0a0",
-                        "navGra60": "#6a6a6a",
-                        "navGra80": "#4f4f4f",
-                        "navGraBakgrunn": "#f1f1f1",
-                        "navGronn": "#06893a",
-                        "navGronnDarken20": "#334834",
-                        "navGronnDarken40": "#285835",
-                        "navGronnDarken60": "#1c6937",
-                        "navGronnDarken80": "#117938",
-                        "navGronnLighten20": "#cde7d8",
-                        "navGronnLighten40": "#9bd0b0",
-                        "navGronnLighten60": "#6ab889",
-                        "navGronnLighten80": "#38a161",
-                        "navLilla": "#634689",
-                        "navLillaDarken20": "#453b43",
-                        "navLillaDarken40": "#4d3e55",
-                        "navLillaDarken60": "#544066",
-                        "navLillaDarken80": "#5c4378",
-                        "navLillaLighten20": "#e0dae7",
-                        "navLillaLighten40": "#c1b5d0",
-                        "navLillaLighten60": "#a190b8",
-                        "navLillaLighten80": "#826ba1",
-                        "navLimeGronn": "#a2ad00",
-                        "navLimeGronnDarken20": "#524f28",
-                        "navLimeGronnDarken40": "#66671e",
-                        "navLimeGronnDarken60": "#7a7e14",
-                        "navLimeGronnDarken80": "#8e960a",
-                        "navLimeGronnLighten20": "#ecefcc",
-                        "navLimeGronnLighten40": "#dade99",
-                        "navLimeGronnLighten60": "#c7ce66",
-                        "navLimeGronnLighten80": "#b5bd33",
-                        "navLysBla": "#66cbec",
-                        "navLysBlaDarken20": "#465557",
-                        "navLysBlaDarken40": "#4e737c",
-                        "navLysBlaDarken60": "#5690a2",
-                        "navLysBlaDarken80": "#5eaec7",
-                        "navLysBlaLighten20": "#e0f5fb",
-                        "navLysBlaLighten40": "#c2eaf7",
-                        "navLysBlaLighten60": "#a3e0f4",
-                        "navLysBlaLighten80": "#85d5f0",
-                        "navLysGra": "#f1f1f1",
-                        "navMorkGra": "#262626",
-                        "navOransje": "#ff9100",
-                        "navOransjeDarken20": "#654a28",
-                        "navOransjeDarken40": "#8b5c1e",
-                        "navOransjeDarken60": "#b26d14",
-                        "navOransjeDarken80": "#d87f0a",
-                        "navOransjeLighten20": "#ffe9cc",
-                        "navOransjeLighten40": "#ffd399",
-                        "navOransjeLighten60": "#ffbd66",
-                        "navOransjeLighten80": "#ffa733",
-                        "navRod": "#c30000",
-                        "navRodDarken20": "#592d28",
-                        "navRodDarken40": "#73221e",
-                        "navRodDarken60": "#8e1614",
-                        "navRodDarken80": "#a80b0a",
-                        "navRodLighten20": "#f3cccc",
-                        "navRodLighten40": "#e79999",
-                        "navRodLighten60": "#db6666",
-                        "navRodLighten80": "#cf3333",
-                        "orangeFocus": "#ffbd66",
-                        "orangeFocusDarken20": "#65533c",
-                        "orangeFocusDarken40": "#8b6d47",
-                        "orangeFocusDarken60": "#b28851",
-                        "orangeFocusDarken80": "#d8a25c",
-                        "orangeFocusLighten20": "#fff2e0",
-                        "orangeFocusLighten40": "#ffe5c2",
-                        "orangeFocusLighten60": "#ffd7a3",
-                        "orangeFocusLighten80": "#ffca85",
-                        "padding-base-horizontal": "12px",
-                        "padding-base-vertical": "6px",
-                        "padding-large-horizontal": "16px",
-                        "padding-large-vertical": "10px",
-                        "padding-small-horizontal": "10px",
-                        "padding-small-vertical": "5px",
-                        "padding-xs-horizontal": "5px",
-                        "padding-xs-vertical": "1px",
-                        "pinkErrorBg": "#f3e3e3",
-                        "redError": "#ba3a26",
-                        "redErrorDarken20": "#573830",
-                        "redErrorDarken40": "#70392d",
-                        "redErrorDarken60": "#88392b",
-                        "redErrorDarken80": "#a13a28",
-                        "redErrorLighten20": "#f1d8d4",
-                        "redErrorLighten40": "#e3b0a8",
-                        "redErrorLighten60": "#d6897d",
-                        "redErrorLighten80": "#c86151",
-                        "screen-desktop": "992px",
-                        "screen-lg": "1200px",
-                        "screen-lg-desktop": "1200px",
-                        "screen-lg-min": "1200px",
-                        "screen-md": "992px",
-                        "screen-md-max": "(@screen-lg-min - 1)",
-                        "screen-md-min": "992px",
-                        "screen-sm": "768px",
-                        "screen-sm-max": "(@screen-md-min - 1)",
-                        "screen-sm-min": "768px",
-                        "screen-tablet": "768px",
-                        "screen-xs-max": "(@screen-sm-min - 1)",
-                        "type": "theme",
-                        "white": "#FFFFFF",
-                      }
-                    }
+                  <footer
+                    className="c28 c29"
+                    role="contentinfo"
                   >
-                    <styled.footer
-                      className=""
-                      role="contentinfo"
+                    <styled.div
+                      className="fullWidth"
                     >
-                      <footer
-                        className="c26 c27"
-                        role="contentinfo"
+                      <div
+                        className="c30 c31 fullWidth"
                       >
-                        <styled.div
-                          className="fullWidth"
-                        >
-                          <div
-                            className="c28 c29 fullWidth"
-                          >
-                            <div
-                              className="footerButtonClosed"
-                              onClick={[Function]}
-                              onKeyDown={[Function]}
-                              role="button"
-                              tabIndex={0}
-                            />
-                          </div>
-                        </styled.div>
-                      </footer>
-                    </styled.footer>
-                  </Component>
-                </me>
+                        <div
+                          className="footerButtonClosed"
+                          onClick={[Function]}
+                          onKeyDown={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        />
+                      </div>
+                    </styled.div>
+                  </footer>
+                </styled.footer>
               </Footer>
             </ResizeDetector>
-          </div>
-        </ErrorBoundary>
-      </div>
+          </ErrorBoundary>
+        </div>
+      </styled.div>
     </Component>
-  </me>
+  </he>
 </TopContainer>
 `;

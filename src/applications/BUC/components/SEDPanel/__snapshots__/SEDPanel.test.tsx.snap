@@ -2,14 +2,10 @@
 
 exports[`applications/BUC/components/SEDPanel/SEDPanel Render: match snapshot 1`] = `
 .c2 {
-  border-width: 1px;
   border-style: solid;
-  border-color: #6a6a6a;
-  background-color: #FFFFFF;
-  border-radius: 4px;
 }
 
-ui-fss.g10[id="c0"] {
+ui-fss.g11[id="c0"] {
   content: "c2,";
 }
 
@@ -32,24 +28,22 @@ ui-fss.g10[id="c0"] {
 
 .c3.new .ekspanderbartPanel__hode,
 .c3.new .ekspanderbartPanel__hode div:not(.etikett) {
-  background: #ecefcc !important;
+  background: !important;
 }
 
 .c3.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
-  background: #cce1f3 !important;
+  background: !important;
 }
 
-ui-fss.g48[id="c1"] {
+ui-fss.g49[id="c1"] {
   content: "c3,";
 }
 
 .c5 {
   padding: 1rem;
-  border-radius: 4px;
-  background: #FFFFFF;
 }
 
-ui-fss.g49[id="c4"] {
+ui-fss.g50[id="c4"] {
   content: "c5,";
 }
 
@@ -696,7 +690,7 @@ ui-fss.g49[id="c4"] {
               "selected": false,
             },
           ],
-          "status": "received",
+          "status": "open",
           "type": "P5000",
           "version": "1",
         },
@@ -710,6 +704,48 @@ ui-fss.g49[id="c4"] {
             "id": "1",
           },
           "id": "50578cf8bf9f45a7819a39987c6c8fd4",
+          "lastUpdate": 1571547188033,
+          "lastVersion": Object {
+            "date": 1571547188033,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "acronym": "NAVAT07",
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "name": "NAV ACCEPTANCE TEST 07",
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "acronym": "NAVAT08",
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "name": "NAV ACCEPTANCE TEST 08",
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+          ],
+          "status": "received",
+          "type": "P5000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": false,
+          "attachments": Array [],
+          "creationDate": 1571234189234,
+          "displayName": "Insurance/residence periods",
+          "firstVersion": Object {
+            "date": 1571547188033,
+            "id": "1",
+          },
+          "id": "40578cf8bf9f45a7819a39987c6c8fd4",
           "lastUpdate": 1571547188033,
           "lastVersion": Object {
             "date": 1571547188033,
@@ -738,7 +774,7 @@ ui-fss.g49[id="c4"] {
               "selected": false,
             },
           ],
-          "status": "received",
+          "status": "open",
           "type": "P5000",
           "version": "1",
         },
@@ -1049,1051 +1085,62 @@ ui-fss.g49[id="c4"] {
   }
   style={Object {}}
 >
-  <me
-    highContrast={false}
+  <Styled(Styled(f))
+    border={true}
+    className=""
   >
-    <Component
-      theme={
-        Object {
-          "alternative-background-color": "#FFFFFF",
-          "alternative-hover-color": "#cce1f3",
-          "black": "#000000",
-          "border-radius-base": "4px",
-          "border-radius-large": "6px",
-          "border-radius-small": "2px",
-          "container-desktop": "(940px + @grid-gutter-width)",
-          "container-large-desktop": "(1140px + @grid-gutter-width)",
-          "container-lg": "(1140px + @grid-gutter-width)",
-          "container-md": "(940px + @grid-gutter-width)",
-          "container-sm": "(720px + @grid-gutter-width)",
-          "container-tablet": "(720px + @grid-gutter-width)",
-          "fokusFarge": "#19548a",
-          "grayBackground": "#f1f1f1",
-          "grayIcon": "#a0a0a0",
-          "grayInactive": "#6a6a6a",
-          "grayModia": "#333333",
-          "grid-columns": "12",
-          "grid-float-breakpoint": "768px",
-          "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-          "grid-gutter-width": "16px",
-          "inverted-font-color": "#FFFFFF",
-          "line-height-large": "1.3333333",
-          "line-height-small": "1.5",
-          "main-active-color": "#005b82",
-          "main-background-color": "#f1f1f1",
-          "main-border-color": "#6a6a6a",
-          "main-border-radius": "4px",
-          "main-border-width": "1px",
-          "main-disabled-color": "#a0a0a0",
-          "main-error-color": "#ba3a26",
-          "main-focus-color": "#19548a",
-          "main-font-color": "#262626",
-          "main-hover-color": "#0074df",
-          "main-interactive-color": "#0067c5",
-          "main-success-color": "#06893a",
-          "main-warning-color": "#ff9100",
-          "navBakgrunn": "#ffffff",
-          "navBla": "#0067c5",
-          "navBlaDarken20": "#32414f",
-          "navBlaDarken40": "#254b6d",
-          "navBlaDarken60": "#19548a",
-          "navBlaDarken80": "#0c5ea8",
-          "navBlaLighten20": "#cce1f3",
-          "navBlaLighten40": "#99c2e8",
-          "navBlaLighten60": "#66a4dc",
-          "navBlaLighten80": "#3385d1",
-          "navDypBla": "#005b82",
-          "navDypBlaDarken20": "#323f42",
-          "navDypBlaDarken40": "#254652",
-          "navDypBlaDarken60": "#194d62",
-          "navDypBlaDarken80": "#0c5472",
-          "navDypBlaLighten20": "#ccdee6",
-          "navDypBlaLighten40": "#99bdcd",
-          "navDypBlaLighten60": "#669db4",
-          "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c9c9c9",
-          "navGra40": "#a0a0a0",
-          "navGra60": "#6a6a6a",
-          "navGra80": "#4f4f4f",
-          "navGraBakgrunn": "#f1f1f1",
-          "navGronn": "#06893a",
-          "navGronnDarken20": "#334834",
-          "navGronnDarken40": "#285835",
-          "navGronnDarken60": "#1c6937",
-          "navGronnDarken80": "#117938",
-          "navGronnLighten20": "#cde7d8",
-          "navGronnLighten40": "#9bd0b0",
-          "navGronnLighten60": "#6ab889",
-          "navGronnLighten80": "#38a161",
-          "navLilla": "#634689",
-          "navLillaDarken20": "#453b43",
-          "navLillaDarken40": "#4d3e55",
-          "navLillaDarken60": "#544066",
-          "navLillaDarken80": "#5c4378",
-          "navLillaLighten20": "#e0dae7",
-          "navLillaLighten40": "#c1b5d0",
-          "navLillaLighten60": "#a190b8",
-          "navLillaLighten80": "#826ba1",
-          "navLimeGronn": "#a2ad00",
-          "navLimeGronnDarken20": "#524f28",
-          "navLimeGronnDarken40": "#66671e",
-          "navLimeGronnDarken60": "#7a7e14",
-          "navLimeGronnDarken80": "#8e960a",
-          "navLimeGronnLighten20": "#ecefcc",
-          "navLimeGronnLighten40": "#dade99",
-          "navLimeGronnLighten60": "#c7ce66",
-          "navLimeGronnLighten80": "#b5bd33",
-          "navLysBla": "#66cbec",
-          "navLysBlaDarken20": "#465557",
-          "navLysBlaDarken40": "#4e737c",
-          "navLysBlaDarken60": "#5690a2",
-          "navLysBlaDarken80": "#5eaec7",
-          "navLysBlaLighten20": "#e0f5fb",
-          "navLysBlaLighten40": "#c2eaf7",
-          "navLysBlaLighten60": "#a3e0f4",
-          "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#f1f1f1",
-          "navMorkGra": "#262626",
-          "navOransje": "#ff9100",
-          "navOransjeDarken20": "#654a28",
-          "navOransjeDarken40": "#8b5c1e",
-          "navOransjeDarken60": "#b26d14",
-          "navOransjeDarken80": "#d87f0a",
-          "navOransjeLighten20": "#ffe9cc",
-          "navOransjeLighten40": "#ffd399",
-          "navOransjeLighten60": "#ffbd66",
-          "navOransjeLighten80": "#ffa733",
-          "navRod": "#c30000",
-          "navRodDarken20": "#592d28",
-          "navRodDarken40": "#73221e",
-          "navRodDarken60": "#8e1614",
-          "navRodDarken80": "#a80b0a",
-          "navRodLighten20": "#f3cccc",
-          "navRodLighten40": "#e79999",
-          "navRodLighten60": "#db6666",
-          "navRodLighten80": "#cf3333",
-          "orangeFocus": "#ffbd66",
-          "orangeFocusDarken20": "#65533c",
-          "orangeFocusDarken40": "#8b6d47",
-          "orangeFocusDarken60": "#b28851",
-          "orangeFocusDarken80": "#d8a25c",
-          "orangeFocusLighten20": "#fff2e0",
-          "orangeFocusLighten40": "#ffe5c2",
-          "orangeFocusLighten60": "#ffd7a3",
-          "orangeFocusLighten80": "#ffca85",
-          "padding-base-horizontal": "12px",
-          "padding-base-vertical": "6px",
-          "padding-large-horizontal": "16px",
-          "padding-large-vertical": "10px",
-          "padding-small-horizontal": "10px",
-          "padding-small-vertical": "5px",
-          "padding-xs-horizontal": "5px",
-          "padding-xs-vertical": "1px",
-          "pinkErrorBg": "#f3e3e3",
-          "redError": "#ba3a26",
-          "redErrorDarken20": "#573830",
-          "redErrorDarken40": "#70392d",
-          "redErrorDarken60": "#88392b",
-          "redErrorDarken80": "#a13a28",
-          "redErrorLighten20": "#f1d8d4",
-          "redErrorLighten40": "#e3b0a8",
-          "redErrorLighten60": "#d6897d",
-          "redErrorLighten80": "#c86151",
-          "screen-desktop": "992px",
-          "screen-lg": "1200px",
-          "screen-lg-desktop": "1200px",
-          "screen-lg-min": "1200px",
-          "screen-md": "992px",
-          "screen-md-max": "(@screen-lg-min - 1)",
-          "screen-md-min": "992px",
-          "screen-sm": "768px",
-          "screen-sm-max": "(@screen-md-min - 1)",
-          "screen-sm-min": "768px",
-          "screen-tablet": "768px",
-          "screen-xs-max": "(@screen-sm-min - 1)",
-          "type": "theme",
-          "white": "#FFFFFF",
-        }
-      }
+    <f
+      border={true}
+      className="c0 c1 c2 c3"
     >
-      <Styled(Styled(s))
-        className=""
+      <div
+        className="panel c0 c1 c2 c3 panel--border"
       >
-        <s
-          border={false}
-          className="c0 c1 c2 c3"
-        >
+        <styled.div>
           <div
-            className="panel c0 c1 c2 c3"
+            className="c4 c5"
           >
-            <styled.div>
-              <div
-                className="c4 c5"
-              >
-                <Component
-                  buc={
+            <Component
+              buc={
+                Object {
+                  "caseId": "600891",
+                  "creator": Object {
+                    "acronym": "NAVAT07",
+                    "country": "NO",
+                    "institution": "NO:NAVAT07",
+                    "name": "NAV ACCEPTANCE TEST 07",
+                  },
+                  "error": null,
+                  "institusjon": Array [
                     Object {
-                      "caseId": "600891",
-                      "creator": Object {
-                        "acronym": "NAVAT07",
-                        "country": "NO",
-                        "institution": "NO:NAVAT07",
-                        "name": "NAV ACCEPTANCE TEST 07",
-                      },
-                      "error": null,
-                      "institusjon": Array [
-                        Object {
-                          "acronym": "NAVAT07",
-                          "country": "NO",
-                          "institution": "NO:NAVAT07",
-                          "name": "NAV ACCEPTANCE TEST 07",
-                        },
-                        Object {
-                          "acronym": "DEMOGB01",
-                          "country": "GB",
-                          "institution": "GB:DEMOGB01",
-                          "name": "GB Demo 01",
-                        },
-                        Object {
-                          "acronym": "DEMOUK01",
-                          "country": "UK",
-                          "institution": "UK:DEMOUK01",
-                          "name": "UK Demo 01",
-                        },
-                        Object {
-                          "acronym": "DEMOFR01",
-                          "country": "FR",
-                          "institution": "FR:DEMOFR01",
-                          "name": "France Demo 01",
-                        },
-                      ],
-                      "lastUpdate": 1571818216000,
-                      "readOnly": false,
-                      "sakType": null,
-                      "seds": Array [
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [
-                            Object {
-                              "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
-                              "fileName": "balrog.png",
-                              "id": "58828e7ff57943779ab7b24c522b1a3f",
-                              "lastUpdate": 1571818175000,
-                              "medical": false,
-                              "mimeType": "image/png",
-                              "name": "balrog.png",
-                            },
-                          ],
-                          "creationDate": 1571818175000,
-                          "displayName": "Invalidate Sed",
-                          "firstVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "id": "98492223b35240138503f58ec09454fa",
-                          "lastUpdate": 1571818175000,
-                          "lastVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": "5d549c96e0ce40788a2eea2992c1f65f",
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": true,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "received",
-                          "type": "X008",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818194896,
-                          "displayName": "Pension decision",
-                          "firstVersion": Object {
-                            "date": 1571818194896,
-                            "id": "1",
-                          },
-                          "id": "10678159cd4142f890d56264bfdefd13",
-                          "lastUpdate": 1571818294896,
-                          "lastVersion": Object {
-                            "date": 1571818294896,
-                            "id": "3",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "DEMOIT01",
-                                "countryCode": "IT",
-                                "id": "IT:DEMOIT01",
-                                "name": "Italian institution 001",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "DEMOES01",
-                                "countryCode": "ES",
-                                "id": "ES:DEMOES01",
-                                "name": "Spanish institution 01",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "DEMOFR01",
-                                "countryCode": "FR",
-                                "id": "FR:DEMOFR01",
-                                "name": "French insstitution 01",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "active",
-                          "type": "P6000",
-                          "version": "3",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818175000,
-                          "displayName": "Forward Case",
-                          "firstVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "id": "4bff8e2fdbeb4f8fa5ba76e0d9f66f6d",
-                          "lastUpdate": 1571818175000,
-                          "lastVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "empty",
-                          "type": "X007",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818201591,
-                          "displayName": "Transfer of additional information",
-                          "firstVersion": Object {
-                            "date": 1571818201591,
-                            "id": "1",
-                          },
-                          "id": "ef2905700e6f410b9edd04023856d49b",
-                          "lastUpdate": 1571818201591,
-                          "lastVersion": Object {
-                            "date": 1571818201591,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "cancelled",
-                          "type": "P10000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818175000,
-                          "displayName": "Country specific information",
-                          "firstVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "id": "8c582ae21c8744aa8e697c8a5c84d84f",
-                          "lastUpdate": 1571818175000,
-                          "lastVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "new",
-                          "type": "P3000_NO",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818176000,
-                          "displayName": "Request for Medical Information",
-                          "firstVersion": Object {
-                            "date": 1571818176000,
-                            "id": "1",
-                          },
-                          "id": "7c52d3b4006b489d89ee1af37caef6f6",
-                          "lastUpdate": 1571818176000,
-                          "lastVersion": Object {
-                            "date": 1571818176000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "empty",
-                          "type": "H120",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [
-                            Object {
-                              "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
-                              "fileName": "balrog.png",
-                              "id": "58828e7ff57943779ab7b24c522b1a3f",
-                              "lastUpdate": 1571818175000,
-                              "medical": false,
-                              "mimeType": "image/png",
-                              "name": "balrog.png",
-                            },
-                            Object {
-                              "documentId": "cac9db2726d54f2c9b51d1562b7b0a7a",
-                              "fileName": "491399765_ARKIV.pdf",
-                              "id": "58828e7ff57943779ab7b24c522b1a3d",
-                              "lastUpdate": 1571818175000,
-                              "medical": false,
-                              "mimeType": "application/pdf",
-                              "name": "491399765_ARKIV.pdf",
-                            },
-                          ],
-                          "creationDate": 1571818181793,
-                          "displayName": "Report on insurance history",
-                          "firstVersion": Object {
-                            "date": 1571818181793,
-                            "id": "1",
-                          },
-                          "id": "dc4670bbd59d4c8ab3b41974a72bf11d",
-                          "lastUpdate": 1571818181793,
-                          "lastVersion": Object {
-                            "date": 1571818181793,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "new",
-                          "type": "P4000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818176000,
-                          "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
-                          "firstVersion": Object {
-                            "date": 1571818176000,
-                            "id": "1",
-                          },
-                          "id": "34b286dc45ff4f6fa8c91a8aa698345d",
-                          "lastUpdate": 1571818176000,
-                          "lastVersion": Object {
-                            "date": 1571818176000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "empty",
-                          "type": "H020",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818175000,
-                          "displayName": "Notification of death",
-                          "firstVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "id": "6b626b56303e4bca9fd8e40d758a4044",
-                          "lastUpdate": 1571818175000,
-                          "lastVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "empty",
-                          "type": "H070",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818216066,
-                          "displayName": "Notification of Summary note",
-                          "firstVersion": Object {
-                            "date": 1571818216066,
-                            "id": "1",
-                          },
-                          "id": "619f742acee74769bcd449b13eb9cf54",
-                          "lastUpdate": 1571818216066,
-                          "lastVersion": Object {
-                            "date": 1571818216066,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "sent",
-                          "type": "P7000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818170586,
-                          "displayName": "Old age pension claim",
-                          "firstVersion": Object {
-                            "date": 1571818170586,
-                            "id": "1",
-                          },
-                          "id": "5d549c96e0ce40788a2eea2992c1f65f",
-                          "lastUpdate": 1571818170586,
-                          "lastVersion": Object {
-                            "date": 1571818170586,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": true,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "sent",
-                          "type": "P2000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818175000,
-                          "displayName": "Add New Participant",
-                          "firstVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "id": "d1f436ac1402462e827ad70b616d9594",
-                          "lastUpdate": 1571818175000,
-                          "lastVersion": Object {
-                            "date": 1571818175000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "empty",
-                          "type": "X005",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": false,
-                          "attachments": Array [],
-                          "creationDate": 1571818188033,
-                          "displayName": "Insurance/residence periods",
-                          "firstVersion": Object {
-                            "date": 1571818188033,
-                            "id": "1",
-                          },
-                          "id": "60578cf8bf9f45a7819a39987c6c8fd4",
-                          "lastUpdate": 1571818188033,
-                          "lastVersion": Object {
-                            "date": 1571818188033,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "received",
-                          "type": "P5000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": false,
-                          "attachments": Array [],
-                          "creationDate": 1571234189234,
-                          "displayName": "Insurance/residence periods",
-                          "firstVersion": Object {
-                            "date": 1571547188033,
-                            "id": "1",
-                          },
-                          "id": "50578cf8bf9f45a7819a39987c6c8fd4",
-                          "lastUpdate": 1571547188033,
-                          "lastVersion": Object {
-                            "date": 1571547188033,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "received",
-                          "type": "P5000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818208620,
-                          "displayName": "Request for additional information",
-                          "firstVersion": Object {
-                            "date": 1571818208620,
-                            "id": "1",
-                          },
-                          "id": "51d9d9277ab847008bc88c1b31b34865",
-                          "lastUpdate": 1571818208620,
-                          "lastVersion": Object {
-                            "date": 1571818208620,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "received",
-                          "type": "P8000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818208620,
-                          "displayName": "P9000",
-                          "firstVersion": Object {
-                            "date": 1571818208620,
-                            "id": "1",
-                          },
-                          "id": "00d9d9277ab847008bc88c1b31b34865",
-                          "lastUpdate": 1571818208620,
-                          "lastVersion": Object {
-                            "date": 1571818208620,
-                            "id": "1",
-                          },
-                          "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "empty",
-                          "type": "P9000",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818174000,
-                          "displayName": "Reminder",
-                          "firstVersion": Object {
-                            "date": 1571818174000,
-                            "id": "1",
-                          },
-                          "id": "fd55d46e6ab741838d3a8e1735d33f1b",
-                          "lastUpdate": 1571818174000,
-                          "lastVersion": Object {
-                            "date": 1571818174000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT08",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT08",
-                                "name": "NAV ACCEPTANCE TEST 08",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "empty",
-                          "type": "X009",
-                          "version": "1",
-                        },
-                        Object {
-                          "allowsAttachments": true,
-                          "attachments": Array [],
-                          "creationDate": 1571818174000,
-                          "displayName": "Reminder",
-                          "firstVersion": Object {
-                            "date": 1571818174000,
-                            "id": "1",
-                          },
-                          "id": "fd55d46e6ab741838d3a8e1735d33f1c",
-                          "lastUpdate": 1571818174000,
-                          "lastVersion": Object {
-                            "date": 1571818174000,
-                            "id": "1",
-                          },
-                          "parentDocumentId": null,
-                          "participants": Array [
-                            Object {
-                              "organisation": Object {
-                                "acronym": "DEDEMO01",
-                                "countryCode": "DE",
-                                "id": "DE:DEDEMO01",
-                                "name": "DE DEMO 01",
-                              },
-                              "role": "Sender",
-                              "selected": false,
-                            },
-                            Object {
-                              "organisation": Object {
-                                "acronym": "NAVAT07",
-                                "countryCode": "NO",
-                                "id": "NO:NAVAT07",
-                                "name": "NAV ACCEPTANCE TEST 07",
-                              },
-                              "role": "Receiver",
-                              "selected": false,
-                            },
-                          ],
-                          "status": "received",
-                          "type": "X100",
-                          "version": "1",
-                        },
-                      ],
-                      "startDate": 1571818162145,
-                      "status": "open",
-                      "type": "P_BUC_01",
-                    }
-                  }
-                  onSEDNew={[MockFunction]}
-                  sed={
+                      "acronym": "NAVAT07",
+                      "country": "NO",
+                      "institution": "NO:NAVAT07",
+                      "name": "NAV ACCEPTANCE TEST 07",
+                    },
+                    Object {
+                      "acronym": "DEMOGB01",
+                      "country": "GB",
+                      "institution": "GB:DEMOGB01",
+                      "name": "GB Demo 01",
+                    },
+                    Object {
+                      "acronym": "DEMOUK01",
+                      "country": "UK",
+                      "institution": "UK:DEMOUK01",
+                      "name": "UK Demo 01",
+                    },
+                    Object {
+                      "acronym": "DEMOFR01",
+                      "country": "FR",
+                      "institution": "FR:DEMOFR01",
+                      "name": "France Demo 01",
+                    },
+                  ],
+                  "lastUpdate": 1571818216000,
+                  "readOnly": false,
+                  "sakType": null,
+                  "seds": Array [
                     Object {
                       "allowsAttachments": true,
                       "attachments": Array [
@@ -2145,20 +1192,883 @@ ui-fss.g49[id="c4"] {
                       "status": "received",
                       "type": "X008",
                       "version": "1",
-                    }
-                  }
-                  style={Object {}}
-                >
-                  <div
-                    data-test-id="mock-SEDHeader"
-                  />
-                </Component>
-              </div>
-            </styled.div>
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818194896,
+                      "displayName": "Pension decision",
+                      "firstVersion": Object {
+                        "date": 1571818194896,
+                        "id": "1",
+                      },
+                      "id": "10678159cd4142f890d56264bfdefd13",
+                      "lastUpdate": 1571818294896,
+                      "lastVersion": Object {
+                        "date": 1571818294896,
+                        "id": "3",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "DEMOIT01",
+                            "countryCode": "IT",
+                            "id": "IT:DEMOIT01",
+                            "name": "Italian institution 001",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "DEMOES01",
+                            "countryCode": "ES",
+                            "id": "ES:DEMOES01",
+                            "name": "Spanish institution 01",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "DEMOFR01",
+                            "countryCode": "FR",
+                            "id": "FR:DEMOFR01",
+                            "name": "French insstitution 01",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "active",
+                      "type": "P6000",
+                      "version": "3",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818175000,
+                      "displayName": "Forward Case",
+                      "firstVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "id": "4bff8e2fdbeb4f8fa5ba76e0d9f66f6d",
+                      "lastUpdate": 1571818175000,
+                      "lastVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "empty",
+                      "type": "X007",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818201591,
+                      "displayName": "Transfer of additional information",
+                      "firstVersion": Object {
+                        "date": 1571818201591,
+                        "id": "1",
+                      },
+                      "id": "ef2905700e6f410b9edd04023856d49b",
+                      "lastUpdate": 1571818201591,
+                      "lastVersion": Object {
+                        "date": 1571818201591,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "cancelled",
+                      "type": "P10000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818175000,
+                      "displayName": "Country specific information",
+                      "firstVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "id": "8c582ae21c8744aa8e697c8a5c84d84f",
+                      "lastUpdate": 1571818175000,
+                      "lastVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "new",
+                      "type": "P3000_NO",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818176000,
+                      "displayName": "Request for Medical Information",
+                      "firstVersion": Object {
+                        "date": 1571818176000,
+                        "id": "1",
+                      },
+                      "id": "7c52d3b4006b489d89ee1af37caef6f6",
+                      "lastUpdate": 1571818176000,
+                      "lastVersion": Object {
+                        "date": 1571818176000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "empty",
+                      "type": "H120",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [
+                        Object {
+                          "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
+                          "fileName": "balrog.png",
+                          "id": "58828e7ff57943779ab7b24c522b1a3f",
+                          "lastUpdate": 1571818175000,
+                          "medical": false,
+                          "mimeType": "image/png",
+                          "name": "balrog.png",
+                        },
+                        Object {
+                          "documentId": "cac9db2726d54f2c9b51d1562b7b0a7a",
+                          "fileName": "491399765_ARKIV.pdf",
+                          "id": "58828e7ff57943779ab7b24c522b1a3d",
+                          "lastUpdate": 1571818175000,
+                          "medical": false,
+                          "mimeType": "application/pdf",
+                          "name": "491399765_ARKIV.pdf",
+                        },
+                      ],
+                      "creationDate": 1571818181793,
+                      "displayName": "Report on insurance history",
+                      "firstVersion": Object {
+                        "date": 1571818181793,
+                        "id": "1",
+                      },
+                      "id": "dc4670bbd59d4c8ab3b41974a72bf11d",
+                      "lastUpdate": 1571818181793,
+                      "lastVersion": Object {
+                        "date": 1571818181793,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "new",
+                      "type": "P4000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818176000,
+                      "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
+                      "firstVersion": Object {
+                        "date": 1571818176000,
+                        "id": "1",
+                      },
+                      "id": "34b286dc45ff4f6fa8c91a8aa698345d",
+                      "lastUpdate": 1571818176000,
+                      "lastVersion": Object {
+                        "date": 1571818176000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "empty",
+                      "type": "H020",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818175000,
+                      "displayName": "Notification of death",
+                      "firstVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "id": "6b626b56303e4bca9fd8e40d758a4044",
+                      "lastUpdate": 1571818175000,
+                      "lastVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "empty",
+                      "type": "H070",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818216066,
+                      "displayName": "Notification of Summary note",
+                      "firstVersion": Object {
+                        "date": 1571818216066,
+                        "id": "1",
+                      },
+                      "id": "619f742acee74769bcd449b13eb9cf54",
+                      "lastUpdate": 1571818216066,
+                      "lastVersion": Object {
+                        "date": 1571818216066,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "sent",
+                      "type": "P7000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818170586,
+                      "displayName": "Old age pension claim",
+                      "firstVersion": Object {
+                        "date": 1571818170586,
+                        "id": "1",
+                      },
+                      "id": "5d549c96e0ce40788a2eea2992c1f65f",
+                      "lastUpdate": 1571818170586,
+                      "lastVersion": Object {
+                        "date": 1571818170586,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": true,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "sent",
+                      "type": "P2000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818175000,
+                      "displayName": "Add New Participant",
+                      "firstVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "id": "d1f436ac1402462e827ad70b616d9594",
+                      "lastUpdate": 1571818175000,
+                      "lastVersion": Object {
+                        "date": 1571818175000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "empty",
+                      "type": "X005",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": false,
+                      "attachments": Array [],
+                      "creationDate": 1571818188033,
+                      "displayName": "Insurance/residence periods",
+                      "firstVersion": Object {
+                        "date": 1571818188033,
+                        "id": "1",
+                      },
+                      "id": "60578cf8bf9f45a7819a39987c6c8fd4",
+                      "lastUpdate": 1571818188033,
+                      "lastVersion": Object {
+                        "date": 1571818188033,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "open",
+                      "type": "P5000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": false,
+                      "attachments": Array [],
+                      "creationDate": 1571234189234,
+                      "displayName": "Insurance/residence periods",
+                      "firstVersion": Object {
+                        "date": 1571547188033,
+                        "id": "1",
+                      },
+                      "id": "50578cf8bf9f45a7819a39987c6c8fd4",
+                      "lastUpdate": 1571547188033,
+                      "lastVersion": Object {
+                        "date": 1571547188033,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "received",
+                      "type": "P5000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": false,
+                      "attachments": Array [],
+                      "creationDate": 1571234189234,
+                      "displayName": "Insurance/residence periods",
+                      "firstVersion": Object {
+                        "date": 1571547188033,
+                        "id": "1",
+                      },
+                      "id": "40578cf8bf9f45a7819a39987c6c8fd4",
+                      "lastUpdate": 1571547188033,
+                      "lastVersion": Object {
+                        "date": 1571547188033,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "open",
+                      "type": "P5000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818208620,
+                      "displayName": "Request for additional information",
+                      "firstVersion": Object {
+                        "date": 1571818208620,
+                        "id": "1",
+                      },
+                      "id": "51d9d9277ab847008bc88c1b31b34865",
+                      "lastUpdate": 1571818208620,
+                      "lastVersion": Object {
+                        "date": 1571818208620,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "received",
+                      "type": "P8000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818208620,
+                      "displayName": "P9000",
+                      "firstVersion": Object {
+                        "date": 1571818208620,
+                        "id": "1",
+                      },
+                      "id": "00d9d9277ab847008bc88c1b31b34865",
+                      "lastUpdate": 1571818208620,
+                      "lastVersion": Object {
+                        "date": 1571818208620,
+                        "id": "1",
+                      },
+                      "parentDocumentId": "51d9d9277ab847008bc88c1b31b34865",
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "empty",
+                      "type": "P9000",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818174000,
+                      "displayName": "Reminder",
+                      "firstVersion": Object {
+                        "date": 1571818174000,
+                        "id": "1",
+                      },
+                      "id": "fd55d46e6ab741838d3a8e1735d33f1b",
+                      "lastUpdate": 1571818174000,
+                      "lastVersion": Object {
+                        "date": 1571818174000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT08",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT08",
+                            "name": "NAV ACCEPTANCE TEST 08",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "empty",
+                      "type": "X009",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818174000,
+                      "displayName": "Reminder",
+                      "firstVersion": Object {
+                        "date": 1571818174000,
+                        "id": "1",
+                      },
+                      "id": "fd55d46e6ab741838d3a8e1735d33f1c",
+                      "lastUpdate": 1571818174000,
+                      "lastVersion": Object {
+                        "date": 1571818174000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": null,
+                      "participants": Array [
+                        Object {
+                          "organisation": Object {
+                            "acronym": "DEDEMO01",
+                            "countryCode": "DE",
+                            "id": "DE:DEDEMO01",
+                            "name": "DE DEMO 01",
+                          },
+                          "role": "Sender",
+                          "selected": false,
+                        },
+                        Object {
+                          "organisation": Object {
+                            "acronym": "NAVAT07",
+                            "countryCode": "NO",
+                            "id": "NO:NAVAT07",
+                            "name": "NAV ACCEPTANCE TEST 07",
+                          },
+                          "role": "Receiver",
+                          "selected": false,
+                        },
+                      ],
+                      "status": "received",
+                      "type": "X100",
+                      "version": "1",
+                    },
+                  ],
+                  "startDate": 1571818162145,
+                  "status": "open",
+                  "type": "P_BUC_01",
+                }
+              }
+              onSEDNew={[MockFunction]}
+              sed={
+                Object {
+                  "allowsAttachments": true,
+                  "attachments": Array [
+                    Object {
+                      "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
+                      "fileName": "balrog.png",
+                      "id": "58828e7ff57943779ab7b24c522b1a3f",
+                      "lastUpdate": 1571818175000,
+                      "medical": false,
+                      "mimeType": "image/png",
+                      "name": "balrog.png",
+                    },
+                  ],
+                  "creationDate": 1571818175000,
+                  "displayName": "Invalidate Sed",
+                  "firstVersion": Object {
+                    "date": 1571818175000,
+                    "id": "1",
+                  },
+                  "id": "98492223b35240138503f58ec09454fa",
+                  "lastUpdate": 1571818175000,
+                  "lastVersion": Object {
+                    "date": 1571818175000,
+                    "id": "1",
+                  },
+                  "parentDocumentId": "5d549c96e0ce40788a2eea2992c1f65f",
+                  "participants": Array [
+                    Object {
+                      "organisation": Object {
+                        "acronym": "NAVAT07",
+                        "countryCode": "NO",
+                        "id": "NO:NAVAT07",
+                        "name": "NAV ACCEPTANCE TEST 07",
+                      },
+                      "role": "Sender",
+                      "selected": true,
+                    },
+                    Object {
+                      "organisation": Object {
+                        "acronym": "NAVAT08",
+                        "countryCode": "NO",
+                        "id": "NO:NAVAT08",
+                        "name": "NAV ACCEPTANCE TEST 08",
+                      },
+                      "role": "Receiver",
+                      "selected": false,
+                    },
+                  ],
+                  "status": "received",
+                  "type": "X008",
+                  "version": "1",
+                }
+              }
+              style={Object {}}
+            >
+              <div
+                data-test-id="mock-SEDHeader"
+              />
+            </Component>
           </div>
-        </s>
-      </Styled(Styled(s))>
-    </Component>
-  </me>
+        </styled.div>
+      </div>
+    </f>
+  </Styled(Styled(f))>
 </SEDPanel>
 `;

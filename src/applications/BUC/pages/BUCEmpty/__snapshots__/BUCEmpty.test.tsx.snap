@@ -6,118 +6,137 @@ exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Render: match snapshot 1`] =
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
-  -webkit-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
-  background-color: #0067c5 !important;
-  color: #FFFFFF !important;
-  border-color: #0067c5 !important;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  background-color: !important;
+  color: !important;
+  border-color: !important;
 }
 
 .c13:hover:not(:disabled) {
-  background-color: #0074df !important;
-  border-color: #0074df !important;
-  color: #FFFFFF !important;
+  background-color: !important;
+  border-color: !important;
+  color: !important;
 }
 
 .c13:hover:not(:disabled) svg {
-  color: #FFFFFF !important;
+  color: !important;
 }
 
 .c13:hover:not(:disabled) svg path {
-  stroke: #FFFFFF !important;
+  stroke: !important;
 }
 
 .c13:focus {
-  box-shadow: 0 0 0 3px #19548a !important;
+  box-shadow: 0 0 0 3px !important;
 }
 
 .c13:disabled {
-  color: #FFFFFF !important;
-  background-color: #a0a0a0 !important;
-  border-color: #a0a0a0 !important;
+  color: !important;
+  background-color: !important;
+  border-color: !important;
 }
 
 .c13:disabled svg {
-  color: #FFFFFF !important;
+  color: !important;
 }
 
 .c13:disabled svg path {
-  stroke: #FFFFFF !important;
+  stroke: !important;
+}
+
+.c13:disabled .knapp__spinner {
+  border: 2px solid !important;
+  border-top-color: !important;
+  border-right-color: !important;
+}
+
+.c13 .knapp__spinner {
+  border: 2px solid !important;
+  border-left-color: !important;
+  border-bottom-color: !important;
 }
 
 .c13 svg {
-  color: #FFFFFF !important;
+  color: !important;
 }
 
 .c13 svg path {
-  stroke: #FFFFFF !important;
+  stroke: !important;
 }
 
-ui-fss.g4[id="c12"] {
+ui-fss.g5[id="c12"] {
   content: "c13,";
 }
 
 .c9 input {
-  border-width: 1px;
   border-style: solid;
-  border-radius: 4px;
-  border-color: #6a6a6a;
-  background-color: #FFFFFF;
-  color: #262626;
 }
 
-.c9 input:hover {
-  border-color: #0074df;
+.c9 input:focus {
+  box-shadow: 0 0 0 3px;
 }
 
-ui-fss.g5[id="c8"] {
+ui-fss.g6[id="c8"] {
   content: "c9,";
 }
 
 .c15 {
-  -webkit-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   background-color: inherit !important;
-  color: #0067c5 !important;
-  border-color: #0067c5 !important;
+  color: !important;
+  border-color: !important;
 }
 
 .c15:hover:not(:disabled) {
-  background-color: #0074df !important;
-  color: #FFFFFF !important;
+  background-color: !important;
+  color: !important;
 }
 
 .c15:hover:not(:disabled) svg {
-  color: #FFFFFF !important;
+  color: !important;
 }
 
 .c15:hover:not(:disabled) svg path {
-  stroke: #FFFFFF !important;
+  stroke: !important;
 }
 
 .c15:disabled {
-  color: #FFFFFF !important;
-  background-color: #a0a0a0 !important;
-  border-color: #a0a0a0 !important;
+  color: !important;
+  background-color: !important;
+  border-color: !important;
 }
 
 .c15:disabled svg {
-  color: #FFFFFF !important;
+  color: !important;
 }
 
 .c15:disabled svg path {
-  stroke: #FFFFFF !important;
+  stroke: !important;
+}
+
+.c15:disabled .knapp__spinner {
+  border: 2px solid !important;
+  border-top-color: !important;
+  border-right-color: !important;
+}
+
+.c15 .knapp__spinner {
+  border: 2px solid !important;
+  border-left-color: !important;
+  border-bottom-color: !important;
 }
 
 .c15:not(:disabled) svg {
-  color: #0067c5 !important;
+  color: !important;
 }
 
 .c15:not(:disabled) svg path {
-  stroke: #0067c5 !important;
+  stroke: !important;
 }
 
-ui-fss.g6[id="c14"] {
+ui-fss.g7[id="c14"] {
   content: "c15,";
 }
 
@@ -132,29 +151,29 @@ ui-fss.g6[id="c14"] {
   align-items: center;
   font-size: inherit;
   line-height: inherit;
-  color: #0067c5 !important;
+  color: !important;
 }
 
 .c19:focus {
-  background-color: #19548a !important;
-  color: #FFFFFF !important;
+  background-color: !important;
+  color: !important;
 }
 
 .c19 svg {
-  fill: #0067c5 !important;
-  stroke: #0067c5 !important;
+  fill: !important;
+  stroke: !important;
 }
 
 .c19 svg path {
-  stroke: #0067c5 !important;
+  stroke: !important;
 }
 
 .c19 svg:focus {
-  fill: #FFFFFF !important;
-  stroke: #FFFFFF !important;
+  fill: !important;
+  stroke: !important;
 }
 
-ui-fss.g9[id="c18"] {
+ui-fss.g10[id="c18"] {
   content: "c19,";
 }
 
@@ -168,7 +187,7 @@ ui-fss.g9[id="c18"] {
   margin-left: 0.5rem;
 }
 
-ui-fss.g30[id="c10"] {
+ui-fss.g31[id="c10"] {
   content: "c11,c20,";
 }
 
@@ -176,7 +195,7 @@ ui-fss.g30[id="c10"] {
   margin-bottom: 1rem;
 }
 
-ui-fss.g31[id="c4"] {
+ui-fss.g32[id="c4"] {
   content: "c5,";
 }
 
@@ -193,7 +212,7 @@ ui-fss.g31[id="c4"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g49[id="c16"] {
+ui-fss.g50[id="c16"] {
   content: "c17,";
 }
 
@@ -202,10 +221,8 @@ ui-fss.g49[id="c16"] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-color: #6a6a6a;
   border-style: solid;
   border-width: 1px;
-  border-radius: 4px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -218,10 +235,9 @@ ui-fss.g49[id="c16"] {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 2rem;
-  background-color: #f1f1f1;
 }
 
-ui-fss.g50[id="c0"] {
+ui-fss.g51[id="c0"] {
   content: "c1,";
 }
 
@@ -261,7 +277,7 @@ ui-fss.g50[id="c0"] {
   position: absolute;
 }
 
-ui-fss.g51[id="c2"] {
+ui-fss.g52[id="c2"] {
   content: "c3,";
 }
 
@@ -283,638 +299,300 @@ ui-fss.g51[id="c2"] {
   margin-bottom: 0px !important;
 }
 
-ui-fss.g52[id="c6"] {
+ui-fss.g53[id="c6"] {
   content: "c7,";
 }
 
 <BUCEmpty>
-  <me
-    highContrast={false}
-  >
-    <Component
-      theme={
-        Object {
-          "alternative-background-color": "#FFFFFF",
-          "alternative-hover-color": "#cce1f3",
-          "black": "#000000",
-          "border-radius-base": "4px",
-          "border-radius-large": "6px",
-          "border-radius-small": "2px",
-          "container-desktop": "(940px + @grid-gutter-width)",
-          "container-large-desktop": "(1140px + @grid-gutter-width)",
-          "container-lg": "(1140px + @grid-gutter-width)",
-          "container-md": "(940px + @grid-gutter-width)",
-          "container-sm": "(720px + @grid-gutter-width)",
-          "container-tablet": "(720px + @grid-gutter-width)",
-          "fokusFarge": "#19548a",
-          "grayBackground": "#f1f1f1",
-          "grayIcon": "#a0a0a0",
-          "grayInactive": "#6a6a6a",
-          "grayModia": "#333333",
-          "grid-columns": "12",
-          "grid-float-breakpoint": "768px",
-          "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-          "grid-gutter-width": "16px",
-          "inverted-font-color": "#FFFFFF",
-          "line-height-large": "1.3333333",
-          "line-height-small": "1.5",
-          "main-active-color": "#005b82",
-          "main-background-color": "#f1f1f1",
-          "main-border-color": "#6a6a6a",
-          "main-border-radius": "4px",
-          "main-border-width": "1px",
-          "main-disabled-color": "#a0a0a0",
-          "main-error-color": "#ba3a26",
-          "main-focus-color": "#19548a",
-          "main-font-color": "#262626",
-          "main-hover-color": "#0074df",
-          "main-interactive-color": "#0067c5",
-          "main-success-color": "#06893a",
-          "main-warning-color": "#ff9100",
-          "navBakgrunn": "#ffffff",
-          "navBla": "#0067c5",
-          "navBlaDarken20": "#32414f",
-          "navBlaDarken40": "#254b6d",
-          "navBlaDarken60": "#19548a",
-          "navBlaDarken80": "#0c5ea8",
-          "navBlaLighten20": "#cce1f3",
-          "navBlaLighten40": "#99c2e8",
-          "navBlaLighten60": "#66a4dc",
-          "navBlaLighten80": "#3385d1",
-          "navDypBla": "#005b82",
-          "navDypBlaDarken20": "#323f42",
-          "navDypBlaDarken40": "#254652",
-          "navDypBlaDarken60": "#194d62",
-          "navDypBlaDarken80": "#0c5472",
-          "navDypBlaLighten20": "#ccdee6",
-          "navDypBlaLighten40": "#99bdcd",
-          "navDypBlaLighten60": "#669db4",
-          "navDypBlaLighten80": "#337c9b",
-          "navGra20": "#c9c9c9",
-          "navGra40": "#a0a0a0",
-          "navGra60": "#6a6a6a",
-          "navGra80": "#4f4f4f",
-          "navGraBakgrunn": "#f1f1f1",
-          "navGronn": "#06893a",
-          "navGronnDarken20": "#334834",
-          "navGronnDarken40": "#285835",
-          "navGronnDarken60": "#1c6937",
-          "navGronnDarken80": "#117938",
-          "navGronnLighten20": "#cde7d8",
-          "navGronnLighten40": "#9bd0b0",
-          "navGronnLighten60": "#6ab889",
-          "navGronnLighten80": "#38a161",
-          "navLilla": "#634689",
-          "navLillaDarken20": "#453b43",
-          "navLillaDarken40": "#4d3e55",
-          "navLillaDarken60": "#544066",
-          "navLillaDarken80": "#5c4378",
-          "navLillaLighten20": "#e0dae7",
-          "navLillaLighten40": "#c1b5d0",
-          "navLillaLighten60": "#a190b8",
-          "navLillaLighten80": "#826ba1",
-          "navLimeGronn": "#a2ad00",
-          "navLimeGronnDarken20": "#524f28",
-          "navLimeGronnDarken40": "#66671e",
-          "navLimeGronnDarken60": "#7a7e14",
-          "navLimeGronnDarken80": "#8e960a",
-          "navLimeGronnLighten20": "#ecefcc",
-          "navLimeGronnLighten40": "#dade99",
-          "navLimeGronnLighten60": "#c7ce66",
-          "navLimeGronnLighten80": "#b5bd33",
-          "navLysBla": "#66cbec",
-          "navLysBlaDarken20": "#465557",
-          "navLysBlaDarken40": "#4e737c",
-          "navLysBlaDarken60": "#5690a2",
-          "navLysBlaDarken80": "#5eaec7",
-          "navLysBlaLighten20": "#e0f5fb",
-          "navLysBlaLighten40": "#c2eaf7",
-          "navLysBlaLighten60": "#a3e0f4",
-          "navLysBlaLighten80": "#85d5f0",
-          "navLysGra": "#f1f1f1",
-          "navMorkGra": "#262626",
-          "navOransje": "#ff9100",
-          "navOransjeDarken20": "#654a28",
-          "navOransjeDarken40": "#8b5c1e",
-          "navOransjeDarken60": "#b26d14",
-          "navOransjeDarken80": "#d87f0a",
-          "navOransjeLighten20": "#ffe9cc",
-          "navOransjeLighten40": "#ffd399",
-          "navOransjeLighten60": "#ffbd66",
-          "navOransjeLighten80": "#ffa733",
-          "navRod": "#c30000",
-          "navRodDarken20": "#592d28",
-          "navRodDarken40": "#73221e",
-          "navRodDarken60": "#8e1614",
-          "navRodDarken80": "#a80b0a",
-          "navRodLighten20": "#f3cccc",
-          "navRodLighten40": "#e79999",
-          "navRodLighten60": "#db6666",
-          "navRodLighten80": "#cf3333",
-          "orangeFocus": "#ffbd66",
-          "orangeFocusDarken20": "#65533c",
-          "orangeFocusDarken40": "#8b6d47",
-          "orangeFocusDarken60": "#b28851",
-          "orangeFocusDarken80": "#d8a25c",
-          "orangeFocusLighten20": "#fff2e0",
-          "orangeFocusLighten40": "#ffe5c2",
-          "orangeFocusLighten60": "#ffd7a3",
-          "orangeFocusLighten80": "#ffca85",
-          "padding-base-horizontal": "12px",
-          "padding-base-vertical": "6px",
-          "padding-large-horizontal": "16px",
-          "padding-large-vertical": "10px",
-          "padding-small-horizontal": "10px",
-          "padding-small-vertical": "5px",
-          "padding-xs-horizontal": "5px",
-          "padding-xs-vertical": "1px",
-          "pinkErrorBg": "#f3e3e3",
-          "redError": "#ba3a26",
-          "redErrorDarken20": "#573830",
-          "redErrorDarken40": "#70392d",
-          "redErrorDarken60": "#88392b",
-          "redErrorDarken80": "#a13a28",
-          "redErrorLighten20": "#f1d8d4",
-          "redErrorLighten40": "#e3b0a8",
-          "redErrorLighten60": "#d6897d",
-          "redErrorLighten80": "#c86151",
-          "screen-desktop": "992px",
-          "screen-lg": "1200px",
-          "screen-lg-desktop": "1200px",
-          "screen-lg-min": "1200px",
-          "screen-md": "992px",
-          "screen-md-max": "(@screen-lg-min - 1)",
-          "screen-md-min": "992px",
-          "screen-sm": "768px",
-          "screen-sm-max": "(@screen-md-min - 1)",
-          "screen-sm-min": "768px",
-          "screen-tablet": "768px",
-          "screen-xs-max": "(@screen-sm-min - 1)",
-          "type": "theme",
-          "white": "#FFFFFF",
-        }
-      }
+  <styled.div>
+    <div
+      className="c0 c1"
     >
       <styled.div>
         <div
-          className="c0 c1"
+          className="c2 c3"
         >
-          <styled.div>
-            <div
-              className="c2 c3"
-            >
-              <img
-                alt=""
-                className="monitor"
-                src="dataskjerm.png"
-              />
-              <img
-                alt=""
-                className="cup"
-                src="kop.png"
-              />
-              <img
-                alt=""
-                className="mouse"
-                src="NAVmusematte.png"
-              />
-              <img
-                alt=""
-                className="map"
-                src="saksstatus.png"
-              />
-            </div>
-          </styled.div>
-          <styled.div>
-            <div
-              className="c4 c5"
-            />
-          </styled.div>
-          <styled.div>
-            <div
-              className="c6 c7"
-            >
-              <Styled(u)
-                bredde="fullbredde"
-                data-test-id="a-buc-p-bucempty__aktoerid-input-id"
-                feil={false}
-                id="a-buc-p-bucempty__aktoerid-input-id"
-                label="ui:aktoerId"
-                onChange={[Function]}
-                value=""
-              >
-                <u
-                  bredde="fullbredde"
-                  className="c8 c9"
-                  data-test-id="a-buc-p-bucempty__aktoerid-input-id"
-                  feil={false}
-                  id="a-buc-p-bucempty__aktoerid-input-id"
-                  label="ui:aktoerId"
-                  onChange={[Function]}
-                  value=""
-                >
-                  <div
-                    className="skjemaelement c8 c9"
-                  >
-                    <i
-                      htmlFor="a-buc-p-bucempty__aktoerid-input-id"
-                    >
-                      <label
-                        className="skjemaelement__label"
-                        htmlFor="a-buc-p-bucempty__aktoerid-input-id"
-                      >
-                        ui:aktoerId
-                      </label>
-                    </i>
-                    <input
-                      aria-invalid={false}
-                      className="skjemaelement__input input--fullbredde"
-                      data-test-id="a-buc-p-bucempty__aktoerid-input-id"
-                      id="a-buc-p-bucempty__aktoerid-input-id"
-                      onChange={[Function]}
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </u>
-              </Styled(u)>
-              <styled.div>
-                <div
-                  className="c10 c11"
-                />
-              </styled.div>
-              <Styled(o)
-                data-test-id="a-buc-p-bucempty__aktoerid-button-id"
-                onClick={[Function]}
-              >
-                <o
-                  className="c12 c13"
-                  data-test-id="a-buc-p-bucempty__aktoerid-button-id"
-                  onClick={[Function]}
-                >
-                  <c
-                    autoDisableVedSpinner={false}
-                    className="c12 c13"
-                    data-test-id="a-buc-p-bucempty__aktoerid-button-id"
-                    disabled={false}
-                    htmlType="submit"
-                    inaktivKlasseVedDisabled={false}
-                    kompakt={false}
-                    mini={false}
-                    onClick={[Function]}
-                    spinner={false}
-                    type="hoved"
-                  >
-                    <button
-                      className="knapp c12 c13 knapp--hoved"
-                      data-test-id="a-buc-p-bucempty__aktoerid-button-id"
-                      disabled={false}
-                      onClick={[Function]}
-                      type="submit"
-                    >
-                      ui:add
-                    </button>
-                  </c>
-                </o>
-              </Styled(o)>
-            </div>
-          </styled.div>
-          <styled.div>
-            <div
-              className="c6 c7"
-            >
-              <Styled(u)
-                bredde="fullbredde"
-                data-test-id="a-buc-p-bucempty__sakid-input-id"
-                feil={false}
-                id="a-buc-p-bucempty__sakid-input-id"
-                label="buc:form-caseId"
-                onChange={[Function]}
-                value=""
-              >
-                <u
-                  bredde="fullbredde"
-                  className="c8 c9"
-                  data-test-id="a-buc-p-bucempty__sakid-input-id"
-                  feil={false}
-                  id="a-buc-p-bucempty__sakid-input-id"
-                  label="buc:form-caseId"
-                  onChange={[Function]}
-                  value=""
-                >
-                  <div
-                    className="skjemaelement c8 c9"
-                  >
-                    <i
-                      htmlFor="a-buc-p-bucempty__sakid-input-id"
-                    >
-                      <label
-                        className="skjemaelement__label"
-                        htmlFor="a-buc-p-bucempty__sakid-input-id"
-                      >
-                        buc:form-caseId
-                      </label>
-                    </i>
-                    <input
-                      aria-invalid={false}
-                      className="skjemaelement__input input--fullbredde"
-                      data-test-id="a-buc-p-bucempty__sakid-input-id"
-                      id="a-buc-p-bucempty__sakid-input-id"
-                      onChange={[Function]}
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </u>
-              </Styled(u)>
-              <styled.div>
-                <div
-                  className="c10 c11"
-                />
-              </styled.div>
-              <Styled(o)
-                data-test-id="a-buc-p-bucempty__sakid-button-id"
-                onClick={[Function]}
-              >
-                <o
-                  className="c14 c15"
-                  data-test-id="a-buc-p-bucempty__sakid-button-id"
-                  onClick={[Function]}
-                >
-                  <c
-                    autoDisableVedSpinner={false}
-                    className="c14 c15"
-                    data-test-id="a-buc-p-bucempty__sakid-button-id"
-                    disabled={false}
-                    htmlType="submit"
-                    inaktivKlasseVedDisabled={false}
-                    kompakt={false}
-                    mini={false}
-                    onClick={[Function]}
-                    spinner={false}
-                    type="standard"
-                  >
-                    <button
-                      className="knapp c14 c15 knapp--standard"
-                      data-test-id="a-buc-p-bucempty__sakid-button-id"
-                      disabled={false}
-                      onClick={[Function]}
-                      type="submit"
-                    >
-                      ui:add
-                    </button>
-                  </c>
-                </o>
-              </Styled(o)>
-            </div>
-          </styled.div>
+          <img
+            alt=""
+            className="monitor"
+            src="dataskjerm.png"
+          />
+          <img
+            alt=""
+            className="cup"
+            src="kop.png"
+          />
+          <img
+            alt=""
+            className="mouse"
+            src="NAVmusematte.png"
+          />
+          <img
+            alt=""
+            className="map"
+            src="saksstatus.png"
+          />
         </div>
       </styled.div>
-      <BUCFooter>
-        <me
-          highContrast={false}
+      <styled.div>
+        <div
+          className="c4 c5"
+        />
+      </styled.div>
+      <styled.div>
+        <div
+          className="c6 c7"
         >
-          <Component
-            theme={
-              Object {
-                "alternative-background-color": "#FFFFFF",
-                "alternative-hover-color": "#cce1f3",
-                "black": "#000000",
-                "border-radius-base": "4px",
-                "border-radius-large": "6px",
-                "border-radius-small": "2px",
-                "container-desktop": "(940px + @grid-gutter-width)",
-                "container-large-desktop": "(1140px + @grid-gutter-width)",
-                "container-lg": "(1140px + @grid-gutter-width)",
-                "container-md": "(940px + @grid-gutter-width)",
-                "container-sm": "(720px + @grid-gutter-width)",
-                "container-tablet": "(720px + @grid-gutter-width)",
-                "fokusFarge": "#19548a",
-                "grayBackground": "#f1f1f1",
-                "grayIcon": "#a0a0a0",
-                "grayInactive": "#6a6a6a",
-                "grayModia": "#333333",
-                "grid-columns": "12",
-                "grid-float-breakpoint": "768px",
-                "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                "grid-gutter-width": "16px",
-                "inverted-font-color": "#FFFFFF",
-                "line-height-large": "1.3333333",
-                "line-height-small": "1.5",
-                "main-active-color": "#005b82",
-                "main-background-color": "#f1f1f1",
-                "main-border-color": "#6a6a6a",
-                "main-border-radius": "4px",
-                "main-border-width": "1px",
-                "main-disabled-color": "#a0a0a0",
-                "main-error-color": "#ba3a26",
-                "main-focus-color": "#19548a",
-                "main-font-color": "#262626",
-                "main-hover-color": "#0074df",
-                "main-interactive-color": "#0067c5",
-                "main-success-color": "#06893a",
-                "main-warning-color": "#ff9100",
-                "navBakgrunn": "#ffffff",
-                "navBla": "#0067c5",
-                "navBlaDarken20": "#32414f",
-                "navBlaDarken40": "#254b6d",
-                "navBlaDarken60": "#19548a",
-                "navBlaDarken80": "#0c5ea8",
-                "navBlaLighten20": "#cce1f3",
-                "navBlaLighten40": "#99c2e8",
-                "navBlaLighten60": "#66a4dc",
-                "navBlaLighten80": "#3385d1",
-                "navDypBla": "#005b82",
-                "navDypBlaDarken20": "#323f42",
-                "navDypBlaDarken40": "#254652",
-                "navDypBlaDarken60": "#194d62",
-                "navDypBlaDarken80": "#0c5472",
-                "navDypBlaLighten20": "#ccdee6",
-                "navDypBlaLighten40": "#99bdcd",
-                "navDypBlaLighten60": "#669db4",
-                "navDypBlaLighten80": "#337c9b",
-                "navGra20": "#c9c9c9",
-                "navGra40": "#a0a0a0",
-                "navGra60": "#6a6a6a",
-                "navGra80": "#4f4f4f",
-                "navGraBakgrunn": "#f1f1f1",
-                "navGronn": "#06893a",
-                "navGronnDarken20": "#334834",
-                "navGronnDarken40": "#285835",
-                "navGronnDarken60": "#1c6937",
-                "navGronnDarken80": "#117938",
-                "navGronnLighten20": "#cde7d8",
-                "navGronnLighten40": "#9bd0b0",
-                "navGronnLighten60": "#6ab889",
-                "navGronnLighten80": "#38a161",
-                "navLilla": "#634689",
-                "navLillaDarken20": "#453b43",
-                "navLillaDarken40": "#4d3e55",
-                "navLillaDarken60": "#544066",
-                "navLillaDarken80": "#5c4378",
-                "navLillaLighten20": "#e0dae7",
-                "navLillaLighten40": "#c1b5d0",
-                "navLillaLighten60": "#a190b8",
-                "navLillaLighten80": "#826ba1",
-                "navLimeGronn": "#a2ad00",
-                "navLimeGronnDarken20": "#524f28",
-                "navLimeGronnDarken40": "#66671e",
-                "navLimeGronnDarken60": "#7a7e14",
-                "navLimeGronnDarken80": "#8e960a",
-                "navLimeGronnLighten20": "#ecefcc",
-                "navLimeGronnLighten40": "#dade99",
-                "navLimeGronnLighten60": "#c7ce66",
-                "navLimeGronnLighten80": "#b5bd33",
-                "navLysBla": "#66cbec",
-                "navLysBlaDarken20": "#465557",
-                "navLysBlaDarken40": "#4e737c",
-                "navLysBlaDarken60": "#5690a2",
-                "navLysBlaDarken80": "#5eaec7",
-                "navLysBlaLighten20": "#e0f5fb",
-                "navLysBlaLighten40": "#c2eaf7",
-                "navLysBlaLighten60": "#a3e0f4",
-                "navLysBlaLighten80": "#85d5f0",
-                "navLysGra": "#f1f1f1",
-                "navMorkGra": "#262626",
-                "navOransje": "#ff9100",
-                "navOransjeDarken20": "#654a28",
-                "navOransjeDarken40": "#8b5c1e",
-                "navOransjeDarken60": "#b26d14",
-                "navOransjeDarken80": "#d87f0a",
-                "navOransjeLighten20": "#ffe9cc",
-                "navOransjeLighten40": "#ffd399",
-                "navOransjeLighten60": "#ffbd66",
-                "navOransjeLighten80": "#ffa733",
-                "navRod": "#c30000",
-                "navRodDarken20": "#592d28",
-                "navRodDarken40": "#73221e",
-                "navRodDarken60": "#8e1614",
-                "navRodDarken80": "#a80b0a",
-                "navRodLighten20": "#f3cccc",
-                "navRodLighten40": "#e79999",
-                "navRodLighten60": "#db6666",
-                "navRodLighten80": "#cf3333",
-                "orangeFocus": "#ffbd66",
-                "orangeFocusDarken20": "#65533c",
-                "orangeFocusDarken40": "#8b6d47",
-                "orangeFocusDarken60": "#b28851",
-                "orangeFocusDarken80": "#d8a25c",
-                "orangeFocusLighten20": "#fff2e0",
-                "orangeFocusLighten40": "#ffe5c2",
-                "orangeFocusLighten60": "#ffd7a3",
-                "orangeFocusLighten80": "#ffca85",
-                "padding-base-horizontal": "12px",
-                "padding-base-vertical": "6px",
-                "padding-large-horizontal": "16px",
-                "padding-large-vertical": "10px",
-                "padding-small-horizontal": "10px",
-                "padding-small-vertical": "5px",
-                "padding-xs-horizontal": "5px",
-                "padding-xs-vertical": "1px",
-                "pinkErrorBg": "#f3e3e3",
-                "redError": "#ba3a26",
-                "redErrorDarken20": "#573830",
-                "redErrorDarken40": "#70392d",
-                "redErrorDarken60": "#88392b",
-                "redErrorDarken80": "#a13a28",
-                "redErrorLighten20": "#f1d8d4",
-                "redErrorLighten40": "#e3b0a8",
-                "redErrorLighten60": "#d6897d",
-                "redErrorLighten80": "#c86151",
-                "screen-desktop": "992px",
-                "screen-lg": "1200px",
-                "screen-lg-desktop": "1200px",
-                "screen-lg-min": "1200px",
-                "screen-md": "992px",
-                "screen-md-max": "(@screen-lg-min - 1)",
-                "screen-md-min": "992px",
-                "screen-sm": "768px",
-                "screen-sm-max": "(@screen-md-min - 1)",
-                "screen-sm-min": "768px",
-                "screen-tablet": "768px",
-                "screen-xs-max": "(@screen-sm-min - 1)",
-                "type": "theme",
-                "white": "#FFFFFF",
-              }
-            }
+          <Styled(b)
+            bredde="fullbredde"
+            data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+            feil={false}
+            id="a-buc-p-bucempty__aktoerid-input-id"
+            label="ui:aktoerId"
+            onChange={[Function]}
+            value=""
           >
-            <styled.div>
+            <b
+              bredde="fullbredde"
+              className="c8 c9"
+              data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+              feil={false}
+              id="a-buc-p-bucempty__aktoerid-input-id"
+              label="ui:aktoerId"
+              onChange={[Function]}
+              value=""
+            >
               <div
-                className="c16 c17"
+                className="skjemaelement c8 c9"
               >
-                <Styled(s)
-                  data-amplitude="buc.list.rinaurl"
-                  data-test-id="a-buc-c-bucfooter__gotorina-link"
-                  href="http://mock.url"
-                  onClick={[Function]}
-                  target="rinaWindow"
+                <c
+                  htmlFor="a-buc-p-bucempty__aktoerid-input-id"
                 >
-                  <s
-                    className="c18 c19"
-                    data-amplitude="buc.list.rinaurl"
-                    data-test-id="a-buc-c-bucfooter__gotorina-link"
-                    href="http://mock.url"
-                    onClick={[Function]}
-                    target="rinaWindow"
+                  <label
+                    className="skjemaelement__label"
+                    htmlFor="a-buc-p-bucempty__aktoerid-input-id"
                   >
-                    <a
-                      className="lenke c18 c19"
-                      data-amplitude="buc.list.rinaurl"
-                      data-test-id="a-buc-c-bucfooter__gotorina-link"
-                      href="http://mock.url"
-                      onClick={[Function]}
-                      rel="noopener"
-                      target="rinaWindow"
-                    >
-                      ui:goToRina
-                      <styled.div
-                        size="0.5"
-                      >
-                        <div
-                          className="c10 c20"
-                          size="0.5"
-                        />
-                      </styled.div>
-                      <LogoutIcon
-                        color="#0067c5"
-                      >
-                        <svg
-                          color="#0067c5"
-                          contentScriptType="text/ecmascript"
-                          contentStyleType="text/css"
-                          enableBackground="new 0 0 24 24"
-                          height="24px"
-                          id="Outline_Version"
-                          preserveAspectRatio="xMidYMid meet"
-                          version="1.1"
-                          viewBox="0 0 24 24"
-                          width="24px"
-                          x="0px"
-                          xmlns="http://www.w3.org/2000/svg"
-                          y="0px"
-                          zoomAndPan="magnify"
-                        >
-                          <g
-                            fill="#0067c5"
-                          >
-                            <path
-                              d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
-                            />
-                            <path
-                              d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
-                            />
-                          </g>
-                        </svg>
-                      </LogoutIcon>
-                    </a>
-                  </s>
-                </Styled(s)>
+                    ui:aktoerId
+                  </label>
+                </c>
+                <input
+                  aria-invalid={false}
+                  className="skjemaelement__input input--fullbredde"
+                  data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+                  id="a-buc-p-bucempty__aktoerid-input-id"
+                  onChange={[Function]}
+                  type="text"
+                  value=""
+                />
               </div>
-            </styled.div>
-          </Component>
-        </me>
-      </BUCFooter>
-    </Component>
-  </me>
+            </b>
+          </Styled(b)>
+          <styled.div>
+            <div
+              className="c10 c11"
+            />
+          </styled.div>
+          <Styled(u)
+            data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+            onClick={[Function]}
+          >
+            <u
+              className="c12 c13"
+              data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+              onClick={[Function]}
+            >
+              <p
+                autoDisableVedSpinner={false}
+                className="c12 c13"
+                data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+                disabled={false}
+                htmlType="submit"
+                inaktivKlasseVedDisabled={false}
+                kompakt={false}
+                mini={false}
+                onClick={[Function]}
+                spinner={false}
+                type="hoved"
+              >
+                <button
+                  className="knapp c12 c13 knapp--hoved"
+                  data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="submit"
+                >
+                  ui:add
+                </button>
+              </p>
+            </u>
+          </Styled(u)>
+        </div>
+      </styled.div>
+      <styled.div>
+        <div
+          className="c6 c7"
+        >
+          <Styled(b)
+            bredde="fullbredde"
+            data-test-id="a-buc-p-bucempty__sakid-input-id"
+            feil={false}
+            id="a-buc-p-bucempty__sakid-input-id"
+            label="buc:form-caseId"
+            onChange={[Function]}
+            value=""
+          >
+            <b
+              bredde="fullbredde"
+              className="c8 c9"
+              data-test-id="a-buc-p-bucempty__sakid-input-id"
+              feil={false}
+              id="a-buc-p-bucempty__sakid-input-id"
+              label="buc:form-caseId"
+              onChange={[Function]}
+              value=""
+            >
+              <div
+                className="skjemaelement c8 c9"
+              >
+                <c
+                  htmlFor="a-buc-p-bucempty__sakid-input-id"
+                >
+                  <label
+                    className="skjemaelement__label"
+                    htmlFor="a-buc-p-bucempty__sakid-input-id"
+                  >
+                    buc:form-caseId
+                  </label>
+                </c>
+                <input
+                  aria-invalid={false}
+                  className="skjemaelement__input input--fullbredde"
+                  data-test-id="a-buc-p-bucempty__sakid-input-id"
+                  id="a-buc-p-bucempty__sakid-input-id"
+                  onChange={[Function]}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </b>
+          </Styled(b)>
+          <styled.div>
+            <div
+              className="c10 c11"
+            />
+          </styled.div>
+          <Styled(u)
+            data-test-id="a-buc-p-bucempty__sakid-button-id"
+            onClick={[Function]}
+          >
+            <u
+              className="c14 c15"
+              data-test-id="a-buc-p-bucempty__sakid-button-id"
+              onClick={[Function]}
+            >
+              <p
+                autoDisableVedSpinner={false}
+                className="c14 c15"
+                data-test-id="a-buc-p-bucempty__sakid-button-id"
+                disabled={false}
+                htmlType="submit"
+                inaktivKlasseVedDisabled={false}
+                kompakt={false}
+                mini={false}
+                onClick={[Function]}
+                spinner={false}
+                type="standard"
+              >
+                <button
+                  className="knapp c14 c15 knapp--standard"
+                  data-test-id="a-buc-p-bucempty__sakid-button-id"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="submit"
+                >
+                  ui:add
+                </button>
+              </p>
+            </u>
+          </Styled(u)>
+        </div>
+      </styled.div>
+    </div>
+  </styled.div>
+  <BUCFooter>
+    <styled.div>
+      <div
+        className="c16 c17"
+      >
+        <Styled(f)
+          data-amplitude="buc.list.rinaurl"
+          data-test-id="a-buc-c-bucfooter__gotorina-link"
+          href="http://mock.url"
+          onClick={[Function]}
+          target="rinaWindow"
+        >
+          <f
+            className="c18 c19"
+            data-amplitude="buc.list.rinaurl"
+            data-test-id="a-buc-c-bucfooter__gotorina-link"
+            href="http://mock.url"
+            onClick={[Function]}
+            target="rinaWindow"
+          >
+            <a
+              className="lenke c18 c19"
+              data-amplitude="buc.list.rinaurl"
+              data-test-id="a-buc-c-bucfooter__gotorina-link"
+              href="http://mock.url"
+              onClick={[Function]}
+              rel="noopener"
+              target="rinaWindow"
+            >
+              ui:goToRina
+              <styled.div
+                size="0.5"
+              >
+                <div
+                  className="c10 c20"
+                  size="0.5"
+                />
+              </styled.div>
+              <LogoutIcon
+                color="#0067c5"
+              >
+                <svg
+                  color="#0067c5"
+                  contentScriptType="text/ecmascript"
+                  contentStyleType="text/css"
+                  enableBackground="new 0 0 24 24"
+                  height="24px"
+                  id="Outline_Version"
+                  preserveAspectRatio="xMidYMid meet"
+                  version="1.1"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  x="0px"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0px"
+                  zoomAndPan="magnify"
+                >
+                  <g
+                    fill="#0067c5"
+                  >
+                    <path
+                      d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
+                    />
+                    <path
+                      d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
+                    />
+                  </g>
+                </svg>
+              </LogoutIcon>
+            </a>
+          </f>
+        </Styled(f)>
+      </div>
+    </styled.div>
+  </BUCFooter>
 </BUCEmpty>
 `;

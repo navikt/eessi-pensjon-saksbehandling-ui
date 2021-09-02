@@ -8,14 +8,15 @@ import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
 import _ from 'lodash'
 import { stageSelector } from 'setupTests'
+import mockFeatureToggles from 'mocks/app/featureToggles'
 
 jest.mock('rc-tooltip', () => ({ children }: any) => (
   <div data-test-id='mock-tooltip'>{children}</div>
 ))
 
 const defaultSelector: SEDListSelector = {
-  highContrast: false,
-  locale: 'nb'
+  locale: 'nb',
+  featureToggles: mockFeatureToggles
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {

@@ -2,8 +2,8 @@
 
 exports[`applications/BUC/components/SEDBody/SEDBody Render: match snapshot 1`] = `
 .c4 {
-  -webkit-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   background-color: inherit !important;
   color: !important;
   border-color: !important;
@@ -36,6 +36,18 @@ exports[`applications/BUC/components/SEDBody/SEDBody Render: match snapshot 1`] 
   stroke: !important;
 }
 
+.c4:disabled .knapp__spinner {
+  border: 2px solid !important;
+  border-top-color: !important;
+  border-right-color: !important;
+}
+
+.c4 .knapp__spinner {
+  border: 2px solid !important;
+  border-left-color: !important;
+  border-bottom-color: !important;
+}
+
 .c4:not(:disabled) svg {
   color: !important;
 }
@@ -44,7 +56,7 @@ exports[`applications/BUC/components/SEDBody/SEDBody Render: match snapshot 1`] 
   stroke: !important;
 }
 
-ui-fss.g6[id="c3"] {
+ui-fss.g7[id="c3"] {
   content: "c4,";
 }
 
@@ -56,7 +68,7 @@ ui-fss.g6[id="c3"] {
   margin-bottom: 2rem;
 }
 
-ui-fss.g31[id="c0"] {
+ui-fss.g32[id="c0"] {
   content: "c1,c2,";
 }
 
@@ -703,7 +715,7 @@ ui-fss.g31[id="c0"] {
               "selected": false,
             },
           ],
-          "status": "received",
+          "status": "open",
           "type": "P5000",
           "version": "1",
         },
@@ -717,6 +729,48 @@ ui-fss.g31[id="c0"] {
             "id": "1",
           },
           "id": "50578cf8bf9f45a7819a39987c6c8fd4",
+          "lastUpdate": 1571547188033,
+          "lastVersion": Object {
+            "date": 1571547188033,
+            "id": "1",
+          },
+          "parentDocumentId": null,
+          "participants": Array [
+            Object {
+              "organisation": Object {
+                "acronym": "NAVAT07",
+                "countryCode": "NO",
+                "id": "NO:NAVAT07",
+                "name": "NAV ACCEPTANCE TEST 07",
+              },
+              "role": "Receiver",
+              "selected": false,
+            },
+            Object {
+              "organisation": Object {
+                "acronym": "NAVAT08",
+                "countryCode": "NO",
+                "id": "NO:NAVAT08",
+                "name": "NAV ACCEPTANCE TEST 08",
+              },
+              "role": "Sender",
+              "selected": false,
+            },
+          ],
+          "status": "received",
+          "type": "P5000",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": false,
+          "attachments": Array [],
+          "creationDate": 1571234189234,
+          "displayName": "Insurance/residence periods",
+          "firstVersion": Object {
+            "date": 1571547188033,
+            "id": "1",
+          },
+          "id": "40578cf8bf9f45a7819a39987c6c8fd4",
           "lastUpdate": 1571547188033,
           "lastVersion": Object {
             "date": 1571547188033,
@@ -745,7 +799,7 @@ ui-fss.g31[id="c0"] {
               "selected": false,
             },
           ],
-          "status": "received",
+          "status": "open",
           "type": "P5000",
           "version": "1",
         },
@@ -1053,16 +1107,16 @@ ui-fss.g31[id="c0"] {
           className="c0 c1"
         />
       </styled.div>
-      <Styled(o)
+      <Styled(u)
         data-test-id="a-buc-c-sedbody__show-table-button-id"
         onClick={[Function]}
       >
-        <o
+        <u
           className="c3 c4"
           data-test-id="a-buc-c-sedbody__show-table-button-id"
           onClick={[Function]}
         >
-          <c
+          <p
             autoDisableVedSpinner={false}
             className="c3 c4"
             data-test-id="a-buc-c-sedbody__show-table-button-id"
@@ -1084,9 +1138,9 @@ ui-fss.g31[id="c0"] {
             >
               ui:showAttachments
             </button>
-          </c>
-        </o>
-      </Styled(o)>
+          </p>
+        </u>
+      </Styled(u)>
       <styled.div>
         <div
           className="c0 c1"

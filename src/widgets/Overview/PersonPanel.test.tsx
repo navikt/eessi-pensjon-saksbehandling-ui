@@ -1,18 +1,23 @@
 import { mount, ReactWrapper } from 'enzyme'
 import personAvdod from 'mocks/app/personAvdod'
 import mockPerson from 'mocks/app/person'
-import PersonPanel, { PersonPanelDiv, PersonPanelProps } from './PersonPanel'
+import { stageSelector } from 'setupTests'
+import PersonPanel, { PersonPanelDiv, PersonPanelProps, PersonPanelSelector } from './PersonPanel'
 
 describe('widgets/Overview/PersonPanel', () => {
   let wrapper: ReactWrapper
   const initialMockProps: PersonPanelProps = {
-    highContrast: false,
     locale: 'nb',
     person: mockPerson,
     personAvdods: personAvdod(1)
   }
 
+  const defaultSelector: PersonPanelSelector = {
+    highContrast: false
+  }
+
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     wrapper = mount(<PersonPanel {...initialMockProps} />)
   })
 
