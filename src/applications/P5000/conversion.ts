@@ -261,6 +261,7 @@ export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period
     gyldigperiode: null,
     type: item.type,
     beregning: item.beregning,
+    ordning: item.ordning,
     periode: {
       fom: convertDate(item.startdato),
       tom: convertDate(item.sluttdato),

@@ -448,6 +448,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
+  const renderOrdningEdit = (options: RenderEditableOptions) => (
+    <Normaltekst>
+      {options.value}
+    </Normaltekst>
+  )
+
   const renderStatus = (item: any, value: any) => {
     if (value === 'rina') {
       return <EtikettBase mini type='info'>RINA</EtikettBase>
@@ -473,14 +479,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         })}
         value={options.value}
       />
-    )
-  }
-
-  const renderOrdningEdit = (options: RenderEditableOptions) => {
-    return (
-      <Normaltekst>
-        {options.value}
-      </Normaltekst>
     )
   }
 
