@@ -105,7 +105,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
         const country: Country = countryData.findByValue(p6000.fraLand)
         return (
           <div key={p6000.documentID}>
-            <HighContrastPanel border className={classNames({'skjemaelement__input--harFeil': !!feil})}>
+            <HighContrastPanel border className={classNames({ 'skjemaelement__input--harFeil': !!feil })}>
               <FlexCenterSpacedDiv>
                 <FlexCenterDiv>
                   <Flag animate={false} wave={false} type='circle' country={p6000.fraLand} label={country.label ?? p6000.fraLand} />

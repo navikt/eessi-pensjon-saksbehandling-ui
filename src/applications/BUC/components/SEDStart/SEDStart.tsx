@@ -1139,7 +1139,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 values={_institutionValueList}
               />
               <VerticalSeparatorDiv size='2' />
-              {_sed === 'P7000' && bucRequiresP6000s(_buc) &&  (
+              {_sed === 'P7000' && bucRequiresP6000s(_buc) && (
                 <>
                   {_.isNil(p6000s)
                     ? (

@@ -65,30 +65,32 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
     case types.P5000_GET_SUCCESS: {
       const newp5000FromRina = _.cloneDeep(state.p5000FromRinaMap)
       const payload = (action as ActionWithPayload).payload
+      const sedid = (action as ActionWithPayload).context.id
       payload?.pensjon?.medlemskapboarbeid?.medlemskap?.forEach((p: P5000Period, index: number) => {
         payload.pensjon.medlemskapboarbeid.medlemskap[index] = {
           ...p,
-          key: generateKeyForListRow(p)
+          key: generateKeyForListRow(sedid, p)
         }
       })
       payload?.pensjon?.trygdetid?.forEach((p: P5000Period, index: number) => {
         payload.pensjon.trygdetid[index] = {
           ...p,
-          key: generateKeyForListRow(p)
+          key: generateKeyForListRow(sedid, p)
         }
       })
       payload?.pensjon?.medlemskapTotal?.forEach((p: P5000Period, index: number) => {
         payload.pensjon.medlemskapTotal[index] = {
           ...p,
-          key: generateKeyForListRow(p)
+          key: generateKeyForListRow(sedid, p)
         }
       })
-      newp5000FromRina[(action as ActionWithPayload).context.id] = payload
+      newp5000FromRina[sedid] = payload
       return {
         ...state,
         p5000FromRinaMap: newp5000FromRina
       }
     }
+
     case types.P5000_STORAGE_INIT: {
       const items: string | null = window.localStorage.getItem((action as ActionWithPayload).payload)
       let savedEntries: LocalStorageEntry<P5000SED>

@@ -75,7 +75,7 @@ const P5000: React.FC<P5000Props> = ({
   const [_ready, _setReady] = useState<boolean>(false)
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
 
-  const renderP5000Edit = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => {
+  const renderP5000Edit = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
     if (!mainSed) return null
     const sender: SedSender | undefined = getSedSender(mainSed)
 
@@ -99,7 +99,7 @@ const P5000: React.FC<P5000Props> = ({
       >
         <P5000Edit
           caseId={buc.caseId!}
-          key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorageVersion}
+          key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
           p5000FromRinaMap={p5000FromRinaMap}
           p5000FromStorage={p5000FromStorage}
           saveP5000ToStorage={saveP5000ToStorage}
@@ -110,7 +110,7 @@ const P5000: React.FC<P5000Props> = ({
     )
   }
 
-  const renderP5000Sum = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => {
+  const renderP5000Sum = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
     const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
     return (
       <ExpandingPanel
@@ -126,7 +126,7 @@ const P5000: React.FC<P5000Props> = ({
       >
         <P5000Sum
           context={context}
-          key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
+          key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
           p5000FromRinaMap={p5000FromRinaMap}
           p5000FromStorage={p5000FromStorage}
           saveP5000ToStorage={saveP5000ToStorage}
@@ -136,7 +136,7 @@ const P5000: React.FC<P5000Props> = ({
     )
   }
 
-  const renderP5000Overview = (activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => (
+  const renderP5000Overview = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => (
     <ExpandingPanel
       open
       renderContentWhenClosed
@@ -150,7 +150,7 @@ const P5000: React.FC<P5000Props> = ({
     >
       <P5000Overview
         context={context}
-        key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorageVersion}
+        key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
         p5000FromRinaMap={p5000FromRinaMap}
         p5000FromStorage={p5000FromStorage}
         seds={activeSeds}
@@ -163,10 +163,10 @@ const P5000: React.FC<P5000Props> = ({
     updateTables(seds)
   }
 
-  const renderTable = (id: string, activeSeds: Seds, p5000FromStorageVersion: any, p5000FromStorage: any) => {
-    if (id === 'P5000Edit') return renderP5000Edit(activeSeds, p5000FromStorageVersion, p5000FromStorage)
-    if (id === 'P5000Sum') return renderP5000Sum(activeSeds, p5000FromStorageVersion, p5000FromStorage)
-    if (id === 'P5000Overview') return renderP5000Overview(activeSeds, p5000FromStorageVersion, p5000FromStorage)
+  const renderTable = (id: string, activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
+    if (id === 'P5000Edit') return renderP5000Edit(activeSeds, p5000FromStorage)
+    if (id === 'P5000Sum') return renderP5000Sum(activeSeds, p5000FromStorage)
+    if (id === 'P5000Overview') return renderP5000Overview(activeSeds, p5000FromStorage)
     return null
   }
 
@@ -184,13 +184,11 @@ const P5000: React.FC<P5000Props> = ({
   const updateTables = (activeSeds: Seds) => {
     // use local storage stuff only in edit context, no need for overview context
     const p5000EntryFromStorage: LocalStorageValue | undefined = _.find(p5000Storage![buc.caseId!], { id: mainSed?.id })
-    const p5000FromStorageVersion: number | undefined = p5000EntryFromStorage?.date
-    const p5000FromStorage: P5000SED | undefined = p5000EntryFromStorage?.content
 
     let newTables = _.cloneDeep(_tables)
     newTables = newTables.map(t => ({
       id: t.id,
-      content: renderTable(t.id, activeSeds, p5000FromStorageVersion, p5000FromStorage)
+      content: renderTable(t.id, activeSeds, p5000EntryFromStorage)
     }))
     _setTables(newTables)
   }

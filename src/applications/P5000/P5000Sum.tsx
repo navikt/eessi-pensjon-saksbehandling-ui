@@ -2,7 +2,7 @@ import { typePeriode } from 'applications/P5000/P5000.labels'
 import { typeOptions } from 'applications/P5000/P5000Edit'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Select from 'components/Select/Select'
-import { Labels } from 'declarations/app'
+import { Labels, LocalStorageValue } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -40,7 +40,7 @@ const CustomAlertstripe = styled(Alertstripe)`
 export interface P5000SumProps {
   context: P5000Context
   p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: P5000SED | undefined
+  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
   saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
   seds: Seds
 }
@@ -158,7 +158,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   }
 
   const onRowsChanged = (items: P5000SumRows) => {
-    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
+    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
     if (_.isNil(templateForP5000)) {
       templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
     }

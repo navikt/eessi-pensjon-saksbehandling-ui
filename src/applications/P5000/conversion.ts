@@ -1,3 +1,4 @@
+import { LocalStorageValue } from 'declarations/app'
 import {
   P5000Context,
   P5000ListRow,
@@ -12,7 +13,7 @@ import { P5000FromRinaMap, Participant, Sed, Seds } from 'declarations/buc'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-import md5 from 'md5'
+// import md5 from 'md5'
 
 export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   if (sed === undefined) {
@@ -31,35 +32,47 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   }
 }
 
-export const generateKeyForListRow = (m: P5000Period): string => (
-  md5(
-    'type' + (m.type ?? '') + 'fom' + (m.periode?.fom ?? '') + 'tom' + (m.periode?.tom ?? '') +
-    'aar' + (m.sum?.aar ?? '') + 'mnd' + (m.sum?.maaneder ?? '') +
-    'dag' + (m.sum?.dager?.nr ?? '') +
-    'yt' + (m.relevans ?? '') + 'ord' + (m.ordning ?? '') + 'ber' + (m.beregning ?? '')
-  )
-)
+export const generateKeyForListRow = (id: string, m: P5000Period): string => {
+  // md5(
+  const x = 'sedid' + id +
+  '_type' + (!_.isEmpty(m.type) ? m.type : '-') +
+  '_fom' + (!_.isEmpty(m.periode?.fom) ? m.periode?.fom : '-') +
+  '_tom' + (!_.isEmpty(m.periode?.tom) ? m.periode?.tom : '-') +
+  '_aar' + (!_.isEmpty(m.sum?.aar) ? String(parseFloat(m.sum.aar!).toFixed(2)) : '-') +
+  '_mnd' + (!_.isEmpty(m.sum?.maaneder) ? String(parseFloat(m.sum.maaneder!).toFixed(2)) : '-') +
+  '_dag' + (!_.isEmpty(m.sum?.dager?.nr) ? String(parseFloat(m.sum.dager.nr!).toFixed(2)) : '-') +
+  '_yt' + (!_.isEmpty(m.relevans) ? m.relevans : '-') +
+  '_ord' + (!_.isEmpty(m.ordning) ? m.ordning : '-') +
+  '_ber' + (!_.isEmpty(m.beregning) ? m.beregning : '-')
+  // )
+  console.log(x)
+  return x
+}
 
 // Converts P5000 SED from Rina/storage into table rows for view/list
 export const convertP5000SEDToP5000ListRows = (
   seds: Seds,
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: P5000SED | undefined
+  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
 ): [P5000ListRows, P5000SourceStatus] => {
   const res: P5000ListRows = []
-  let sourceStatus: P5000SourceStatus
-  if (context === 'overview' || (context === 'edit' && p5000FromStorage === undefined)) {
-    sourceStatus = 'rina'
-  } else {
-    sourceStatus = 'storage'
-  }
+  let sourceStatus: P5000SourceStatus = 'rina'
 
   seds.forEach(sed => {
     const sender: SedSender | undefined = getSedSender(sed)
+    if (context === 'overview' || (context === 'edit' && (
+      p5000FromStorage === undefined || p5000FromStorage.id !== sed.id
+    ))) {
+      sourceStatus = 'rina'
+    } else {
+      sourceStatus = 'storage'
+    }
+
     const checkStatus: boolean = sourceStatus === 'storage'
     const rinaPeriods: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapboarbeid?.medlemskap
-    const storagePeriods: Array<P5000Period> | undefined = p5000FromStorage?.pensjon?.medlemskapboarbeid?.medlemskap
+    const storagePeriods: Array<P5000Period> | undefined = p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.medlemskap
+
     const periods: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods : storagePeriods
 
     periods?.forEach((period: P5000Period) => {
@@ -70,7 +83,7 @@ export const convertP5000SEDToP5000ListRows = (
           if (matchPeriodToRina === undefined) {
             status = 'new'
           } else {
-            const periodKey = generateKeyForListRow(period)
+            const periodKey = generateKeyForListRow(sed.id, period)
             if (periodKey !== matchPeriodToRina.key) {
               status = 'edited'
             } else {
@@ -79,8 +92,9 @@ export const convertP5000SEDToP5000ListRows = (
           }
         }
 
+        console.log('Status ' + status + ' by comparing period ' + generateKeyForListRow(sed.id, period) + ' to ' + JSON.stringify(rinaPeriods))
         res.push({
-          key: period.key ?? generateKeyForListRow(period),
+          key: period.key ?? generateKeyForListRow(sed.id, period),
           status: status,
           land: sender!.countryLabel ?? '',
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
@@ -108,7 +122,7 @@ export const convertP5000SEDToP5000SumRows = (
   seds: Seds,
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: P5000SED | undefined
+  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
 ): [P5000SumRows, P5000SourceStatus] => {
   const res: P5000SumRows = []
   let sourceStatus: P5000SourceStatus
@@ -122,15 +136,15 @@ export const convertP5000SEDToP5000SumRows = (
     const [res] = convertP5000SEDToP5000ListRows([sed], context, p5000FromRinaMap, p5000FromStorage)
     const rinaPeriods1: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapTotal
     const rinaPeriods2: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.trygdetid
-    const storagePeriods1: Array<P5000Period> | undefined = p5000FromStorage?.pensjon?.medlemskapTotal
-    const storagePeriods2: Array<P5000Period> | undefined = p5000FromStorage?.pensjon?.trygdetid
+    const storagePeriods1: Array<P5000Period> | undefined = p5000FromStorage?.content.pensjon?.medlemskapTotal
+    const storagePeriods2: Array<P5000Period> | undefined = p5000FromStorage?.content.pensjon?.trygdetid
     const periods1: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods1 : storagePeriods1
     const periods2: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods2 : storagePeriods2
     periods1?.forEach((periode: P5000Period) => {
       if (!_.isNil(periode) && periode.type) {
         if (_.isNil(data[periode.type])) {
           data[periode.type] = {
-            key: periode.key ?? generateKeyForListRow(periode),
+            key: periode.key ?? generateKeyForListRow(sed.id, periode),
             type: periode.type,
             land: '',
             sec51aar: 0,
@@ -166,7 +180,7 @@ export const convertP5000SEDToP5000SumRows = (
       if (!_.isNil(periode) && periode.type) {
         if (!Object.prototype.hasOwnProperty.call(data, periode.type)) {
           data[periode.type] = {
-            key: periode.key ?? generateKeyForListRow(periode),
+            key: periode.key ?? generateKeyForListRow(sed.id, periode),
             status: 'rina',
             type: periode.type,
             land: '',
@@ -241,7 +255,7 @@ export const convertDate = (date: string | Date | null | undefined): string | nu
   return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD')
 }
 
-export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period => {
+export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = false): P5000Period => {
   const over40: boolean = max40 && parseFloat(item.aar) >= 40
   const period: P5000Period = {
     key: item?.key,
@@ -269,7 +283,7 @@ export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period
     }
   }
   if (!period.key) {
-    period.key = generateKeyForListRow(period)
+    period.key = generateKeyForListRow(sedid, period)
   }
   return period
 }
@@ -300,7 +314,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
       extra: null
     }
   }
-  medlemskapTotalperiod.key = generateKeyForListRow(medlemskapTotalperiod)
+  medlemskapTotalperiod.key = generateKeyForListRow('sum', medlemskapTotalperiod)
 
   const medlemskapTrygdetid: P5000Period = {
     key: item?.key,
@@ -327,7 +341,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
       extra: null
     }
   }
-  medlemskapTrygdetid.key = generateKeyForListRow(medlemskapTrygdetid)
+  medlemskapTrygdetid.key = generateKeyForListRow('sum', medlemskapTrygdetid)
 
   return [medlemskapTotalperiod, medlemskapTrygdetid]
 }
@@ -387,6 +401,7 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
 // Converts table rows for view/list, into P5000 SED for storage
 export const convertFromP5000ListRowsIntoP5000SED = (
   payload: P5000UpdatePayload,
+  sedid: string,
   oldP5000Sed: P5000SED
 ): P5000SED => {
   const newP5000Sed = _.cloneDeep(oldP5000Sed)
@@ -413,22 +428,22 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     const gyldigperiode: Array<P5000Period> = []
 
     payload.items!.forEach((item) => {
-      const periode: P5000Period = listItemtoPeriod(item, false)
+      const periode: P5000Period = listItemtoPeriod(item, sedid, false)
       medlemskapPeriods.push(periode)
 
-      if (!_.isNil(item.type)) {
+      if (!_.isNil(item.type) && item.type !== '52') {
         const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
         const foundInGyldigperiodeIndex: number = _.findIndex(gyldigperiode, { type: item.type })
 
         if (item.type !== '45') {
           if (foundInMedemskapTotalIndex === -1) {
-            medemskapTotalPeriods.push(listItemtoPeriod(item, false))
+            medemskapTotalPeriods.push(listItemtoPeriod(item, sedid, false))
           } else {
             mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item, false)
           }
         }
         if (foundInGyldigperiodeIndex === -1) {
-          gyldigperiode.push(listItemtoPeriod(item, true))
+          gyldigperiode.push(listItemtoPeriod(item, sedid, true))
         } else {
           mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item, true)
         }

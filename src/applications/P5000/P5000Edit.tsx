@@ -4,7 +4,7 @@ import Alert from 'components/Alert/Alert'
 import Input from 'components/Forms/Input'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
-import { Option, Options } from 'declarations/app.d'
+import { LocalStorageValue, Option, Options } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
@@ -78,7 +78,7 @@ export interface P5000EditProps {
   caseId: string
   seds: Seds
   p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: P5000SED | undefined
+  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
   saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
@@ -140,23 +140,23 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
-      ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+      ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
 
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
-      ? p5000FromStorage?.pensjon?.medlemskapboarbeid?.gyldigperiode
+      ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
   )
 
   const onSave = (payload: P5000UpdatePayload) => {
-    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage)
+    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
     if (_.isNil(templateForP5000)) {
       templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
     }
     if (templateForP5000) {
-      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, templateForP5000)
+      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, seds[0].id, templateForP5000)
       saveP5000ToStorage!(newP5000FromStorage, seds[0].id)
     }
   }
@@ -227,6 +227,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
     const startdato: Moment.Moment | undefined = moment(validStartDato, 'DD.MM.YYYY')
     const sluttdato: Moment.Moment | undefined = moment(validSluttDato, 'DD.MM.YYYY')
+
+    if (!startdato.isValid() || !sluttdato.isValid()) {
+      return null
+    }
 
     // make the diff calculation include the starting day,
     // so the diff between 01.01.YYYY and 02.01.YYYY is 2 days, not 1
@@ -549,7 +553,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const handleOverforTilRina = () => {
     const valid: boolean = _performValidation({
-      p5000sed: p5000FromStorage!
+      p5000sed: p5000FromStorage?.content!
     })
     if (valid) {
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
