@@ -557,7 +557,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     })
     if (valid) {
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-        dispatch(sendP5000toRina(caseId, seds[0].id, p5000FromStorage))
+        dispatch(sendP5000toRina(caseId, seds[0].id, p5000FromStorage!.content))
       }
     }
   }

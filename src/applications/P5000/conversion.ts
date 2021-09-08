@@ -13,7 +13,7 @@ import { P5000FromRinaMap, Participant, Sed, Seds } from 'declarations/buc'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-// import md5 from 'md5'
+import md5 from 'md5'
 
 export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   if (sed === undefined) {
@@ -33,8 +33,7 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
 }
 
 export const generateKeyForListRow = (id: string, m: P5000Period): string => {
-  // md5(
-  const x = 'sedid' + id +
+  const key = 'sedid' + id +
   '_type' + (!_.isEmpty(m.type) ? m.type : '-') +
   '_fom' + (!_.isEmpty(m.periode?.fom) ? m.periode?.fom : '-') +
   '_tom' + (!_.isEmpty(m.periode?.tom) ? m.periode?.tom : '-') +
@@ -44,9 +43,8 @@ export const generateKeyForListRow = (id: string, m: P5000Period): string => {
   '_yt' + (!_.isEmpty(m.relevans) ? m.relevans : '-') +
   '_ord' + (!_.isEmpty(m.ordning) ? m.ordning : '-') +
   '_ber' + (!_.isEmpty(m.beregning) ? m.beregning : '-')
-  // )
-  console.log(x)
-  return x
+  // console.log(key)
+  return md5(key)
 }
 
 // Converts P5000 SED from Rina/storage into table rows for view/list

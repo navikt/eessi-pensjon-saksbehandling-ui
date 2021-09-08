@@ -55,7 +55,7 @@ export const resetSentP5000info : ActionCreator<Action> = (): Action => ({
 })
 
 export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
-  caseId: string, sedId: string, payload: any
+  caseId: string, sedId: string, payload: P5000SED
 ): ThunkResult<Action> => {
   return call({
     url: sprintf(urls.P5000_PUT_URL, { caseId: caseId, sedId: sedId }),
