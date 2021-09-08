@@ -565,12 +565,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       payload.pensjon.trygdetid?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
-        payload.pensjon.medlemskapTotal[i] = period
+        payload.pensjon.trygdetid[i] = period
       })
       payload.pensjon.medlemskapboarbeid.medlemskap?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
-        payload.pensjon.medlemskapTotal[i] = period
+        payload.pensjon.medlemskapboarbeid.medlemskap[i] = period
       })
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
         dispatch(sendP5000toRina(caseId, seds[0].id, payload))
