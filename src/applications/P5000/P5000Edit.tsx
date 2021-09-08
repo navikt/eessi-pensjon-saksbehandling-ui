@@ -556,8 +556,24 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       p5000sed: p5000FromStorage?.content!
     })
     if (valid) {
+      let payload: P5000SED = _.cloneDeep(p5000FromStorage!.content)
+      payload.pensjon.medlemskapTotal?.forEach((p, i) => {
+        const period = _.cloneDeep(p)
+        delete period.key
+        payload.pensjon.medlemskapTotal[i] = period
+      })
+      payload.pensjon.trygdetid?.forEach((p, i) => {
+        const period = _.cloneDeep(p)
+        delete period.key
+        payload.pensjon.medlemskapTotal[i] = period
+      })
+      payload.pensjon.medlemskapboarbeid.medlemskap?.forEach((p, i) => {
+        const period = _.cloneDeep(p)
+        delete period.key
+        payload.pensjon.medlemskapTotal[i] = period
+      })
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-        dispatch(sendP5000toRina(caseId, seds[0].id, p5000FromStorage!.content))
+        dispatch(sendP5000toRina(caseId, seds[0].id, payload))
       }
     }
   }
