@@ -19,7 +19,6 @@ export type EmptyPeriodsReport = {[k: string]: boolean}
 export interface P5000PeriodInterval {
   fom : string | null
   tom : string | null
-  extra : string | null
 }
 
 export interface P5000Period {

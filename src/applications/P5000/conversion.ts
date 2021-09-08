@@ -276,8 +276,7 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
     ordning: item.ordning,
     periode: {
       fom: convertDate(item.startdato),
-      tom: convertDate(item.sluttdato),
-      extra: null
+      tom: convertDate(item.sluttdato)
     }
   }
   if (!period.key) {
@@ -308,8 +307,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     beregning: null,
     periode: {
       fom: convertDate(item.startdato),
-      tom: convertDate(item.sluttdato),
-      extra: null
+      tom: convertDate(item.sluttdato)
     }
   }
   medlemskapTotalperiod.key = generateKeyForListRow('sum', medlemskapTotalperiod)
@@ -335,8 +333,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     beregning: null,
     periode: {
       fom: convertDate(item.startdato),
-      tom: convertDate(item.sluttdato),
-      extra: null
+      tom: convertDate(item.sluttdato)
     }
   }
   medlemskapTrygdetid.key = generateKeyForListRow('sum', medlemskapTrygdetid)
@@ -382,7 +379,7 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
 
   if (!arr[index].periode) {
     arr[index].periode = {
-      fom: null, tom: null, extra: null
+      fom: null, tom: null
     }
   }
   arr[index].periode!.fom =

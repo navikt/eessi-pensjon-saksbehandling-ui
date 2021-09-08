@@ -141,8 +141,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1906-01-01',
-          tom: '1906-07-06',
-          extra: null
+          tom: '1906-07-06'
         },
         enkeltkrav: null
       }, {
@@ -166,8 +165,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1987-01-01',
-          tom: '1987-12-31',
-          extra: null
+          tom: '1987-12-31'
         },
         enkeltkrav: null
       }, {
@@ -191,8 +189,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1988-01-01',
-          tom: '1988-12-26',
-          extra: null
+          tom: '1988-12-26'
         },
         enkeltkrav: null
       }, {
@@ -216,8 +213,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1989-04-18',
-          tom: '1989-07-12',
-          extra: null
+          tom: '1989-07-12'
         },
         enkeltkrav: null
       }, {
@@ -241,8 +237,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1991-01-01',
-          tom: '1991-06-27',
-          extra: null
+          tom: '1991-06-27'
         },
         enkeltkrav: null
       }, {
@@ -266,8 +261,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1994-01-18',
-          tom: '1994-11-30',
-          extra: null
+          tom: '1994-11-30'
         },
         enkeltkrav: null
       }, {
@@ -291,8 +285,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1995-01-01',
-          tom: '1995-04-26',
-          extra: null
+          tom: '1995-04-26'
         },
         enkeltkrav: null
       }, {
@@ -316,8 +309,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1996-01-01',
-          tom: '1996-12-04',
-          extra: null
+          tom: '1996-12-04'
         },
         enkeltkrav: null
       }, {
@@ -341,8 +333,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1998-06-02',
-          tom: '2000-04-27',
-          extra: null
+          tom: '2000-04-27'
         },
         enkeltkrav: null
       }]
