@@ -1,7 +1,6 @@
 import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Alert from 'components/Alert/Alert'
-import Input from 'components/Forms/Input'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import { LocalStorageValue, Option, Options } from 'declarations/app.d'
@@ -324,20 +323,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       </Normaltekst>
     )
   }
-  /*
-  const maybeDoSomeMonthAndYearUpdate = (dayString: string, options: RenderEditableOptions<P5000TableContext>) => {
-    const day = parseFloat(dayString)
-    if (options.values.startdato && day > 31) {
-      const sluttdato = moment(options.values.startdato, 'DD.MM.YYYY')
-      if (sluttdato) {
-        sluttdato.add(day, 'days')
-        maybeDoSomePrefill(options.values.startdato, sluttdato.format('DD.MM.YYYY'), options)
-      }
-    }
-  }
-*/
+
   const checkForBosetningsperioder = (options: RenderEditableOptions<P5000TableContext>, what: string, others: Array<string>) => {
     let _value: string | number
+    console.log(others)
     /*
       if forsikringEllerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
       BUT if we have non-0 values in the other fields, leave it as 0 if it was 0
@@ -346,13 +335,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
      */
 
     if (options.context.forsikringEllerBosetningsperioder === '1') {
-      if (_.isNil(options.value) || options.value === 0) {
-        if ((!_.isNil(options.values[others[0]]) && options.values[others[0]] > 0) ||
-          (!_.isNil(options.values[others[1]]) && options.values[others[1]] > 0)) {
-          _value = options.value
-        } else {
-          _value = ''
-        }
+      if (options.value === 0  && options.values[others[0]] === 0 && options.values[others[1]] === 0) {
+        options.setValue({
+          [what]: '',
+          [others[0]]: '',
+          [others[1]]: ''
+        })
+        _value = ''
+        return _value
       } else {
         _value = options.value
       }
@@ -374,19 +364,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderDagerEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
-      <Input
-        namespace='c-table__edit-dag'
-        id='input-id'
-        label=''
+      <HighContrastInput
+        aria-invalid={!!options.feil}
+        aria-label={'dag'}
+        data-test-id={'c-table__edit-dag-input-id'}
         feil={options.feil}
-        placeholder=''
-        key={'' + value}
-        onChanged={(value: string) => {
-          // maybeDoSomeMonthAndYearUpdate(value, options)
+        id={'c-table__edit-dag-input-id'}
+        label={''}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           options.setValue({
-            dag: isNaN(parseFloat(value)) ? 0 : parseFloat(value)
+            dag: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
           })
         }}
+        placeholder={''}
         value={'' + value}
       />
     )
@@ -394,18 +384,20 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderManedEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
-
     return (
-      <Input
-        namespace='c-table__edit-mnd'
-        id='input-id'
-        label=''
+      <HighContrastInput
+        aria-invalid={!!options.feil}
+        aria-label={'mnd'}
+        data-test-id={'c-table__edit-mnd-input-id'}
         feil={options.feil}
-        key={'' + value}
-        placeholder=''
-        onChanged={(value: string) => options.setValue({
-          mnd: isNaN(parseFloat(value)) ? 0 : parseFloat(value)
-        })}
+        id={'c-table__edit-mnd-input-id'}
+        label={''}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          options.setValue({
+            mnd: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
+          })
+        }}
+        placeholder={''}
         value={'' + value}
       />
     )
@@ -414,16 +406,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderAarEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
-      <Input
-        namespace='c-table__edit-aar'
-        id='input-id'
-        label=''
+      <HighContrastInput
+        aria-invalid={!!options.feil}
+        aria-label={'aar'}
+        data-test-id={'c-table__edit-aar-input-id'}
         feil={options.feil}
-        key={'' + value}
-        placeholder=''
-        onChanged={(value: string) => options.setValue({
-          aar: isNaN(parseFloat(value)) ? 0 : parseFloat(value)
-        })}
+        id={'c-table__edit-aar-input-id'}
+        label={''}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+         options.setValue({
+            aar: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
+          })
+        }}
+        placeholder={''}
         value={'' + value}
       />
     )

@@ -37,7 +37,7 @@ const FlagLoading = styled(LoadingImage)`
 
 const BUCLoading = () => {
   return (
-    <BucPanel>
+    <BucPanel border>
       <BUCHeaderDiv>
         <TitleText width={Math.round(Math.random() * 10 + 60)} />
         <FlexDiv>
