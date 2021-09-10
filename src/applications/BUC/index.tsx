@@ -417,6 +417,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   return (
     <div
+      data-test-id='a-buc-index'
       key='bucIndexDiv'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

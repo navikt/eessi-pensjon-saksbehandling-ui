@@ -30,7 +30,7 @@ describe('reducers/loading', () => {
 
   it('SOMETHING_ERROR', () => {
     expect(
-      loadingReducer({}, {
+      loadingReducer(initialLoadingState, {
         type: 'SOMETHING/ERROR'
       })
     ).toEqual(initialLoadingState)

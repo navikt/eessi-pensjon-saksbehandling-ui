@@ -1,45 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/JoarkBrowser/JoarkBrowser Render: match snapshot 1`] = `
-.c10 {
-  -webkit-flex: 0 1 auto;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-ui-fss.g33[id="c8"] {
-  content: "c10,";
-}
-
-.c11 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-ui-fss.g36[id="c9"] {
-  content: "c11,";
-}
-
-.c13 {
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-ui-fss.g37[id="c12"] {
-  content: "c13,";
-}
-
 .c1 {
   display: block;
   padding: 1rem 1rem 1rem 1rem;
@@ -57,6 +18,45 @@ ui-fss.g37[id="c12"] {
 
 ui-fss.g49[id="c0"] {
   content: "c1,";
+}
+
+.c10 {
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+ui-fss.g105[id="c8"] {
+  content: "c10,";
+}
+
+.c11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+ui-fss.g108[id="c9"] {
+  content: "c11,";
+}
+
+.c13 {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+ui-fss.g109[id="c12"] {
+  content: "c13,";
 }
 
 .c3 {
@@ -182,7 +182,7 @@ ui-fss.g49[id="c0"] {
   box-shadow: 0 0 0 3px #00347d !important;
 }
 
-ui-fss.g121[id="c2"] {
+ui-fss.g169[id="c2"] {
   content: "c3,";
 }
 
@@ -190,7 +190,7 @@ ui-fss.g121[id="c2"] {
   position: relative;
 }
 
-ui-fss.g122[id="c4"] {
+ui-fss.g170[id="c4"] {
   content: "c5,";
 }
 
@@ -198,7 +198,7 @@ ui-fss.g122[id="c4"] {
   width: 100%;
 }
 
-ui-fss.g124[id="c6"] {
+ui-fss.g172[id="c6"] {
   content: "c7,";
 }
 
@@ -304,7 +304,7 @@ ui-fss.g124[id="c6"] {
         </Modal>
       </Styled(Modal)>
     </Modal>
-    <$
+    <Table
       animatable={false}
       columns={
         Array [
@@ -347,7 +347,7 @@ ui-fss.g124[id="c6"] {
       id="joarkbrowser-test-table-id"
       items={Array []}
       itemsPerPage={20}
-      key="0ee3db2a6798c2a8b0dc49139f06f2ec"
+      key="mock-md5key"
       labels={
         Object {
           "type": "ui:attachments",
@@ -614,7 +614,7 @@ ui-fss.g124[id="c6"] {
           </styled.div>
         </Component>
       </he>
-    </$>
+    </Table>
   </div>
 </JoarkBrowser>
 `;

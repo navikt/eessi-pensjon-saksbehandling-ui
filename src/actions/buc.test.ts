@@ -188,6 +188,23 @@ describe('actions/buc', () => {
     }))
   })
 
+  it('fetchKravDato()', () => {
+    const mockSakId = '123'
+    const mockAktoerId = '456'
+    const mockKravId = '789'
+    bucActions.fetchKravDato({sakId: mockSakId, aktoerId: mockAktoerId, kravId: mockKravId})
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_KRAVDATO_REQUEST,
+        success: types.BUC_GET_KRAVDATO_SUCCESS,
+        failure: types.BUC_GET_KRAVDATO_FAILURE
+      },
+      url: sprintf(urls.BUC_GET_KRAVDATO_URL, { sakId: mockSakId, aktoerId: mockAktoerId, kravId: mockKravId })
+    }))
+  })
+
+
+
   it('fetchSingleBuc()', () => {
     const mockRinaCaseId = '123'
     bucActions.fetchSingleBuc(mockRinaCaseId)
@@ -244,6 +261,33 @@ describe('actions/buc', () => {
         country: mockCountry
       },
       url: sprintf(urls.BUC_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: 'UK' })
+    }))
+  })
+
+  it('getSedP6000()', () => {
+    const mockRinaCaseId = '123'
+    bucActions.getSedP6000(mockRinaCaseId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_P6000_REQUEST,
+        success: types.BUC_GET_P6000_SUCCESS,
+        failure: types.BUC_GET_P6000_FAILURE
+      },
+      url:  sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId: mockRinaCaseId }),
+    }))
+  })
+
+  it('getSedP6000()', () => {
+    const mockRinaCaseId = '123'
+    const mockDocumentId = '456'
+    bucActions.getSedP6000PDF(mockRinaCaseId, mockDocumentId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_P6000PDF_REQUEST,
+        success: types.BUC_GET_P6000PDF_SUCCESS,
+        failure: types.BUC_GET_P6000PDF_FAILURE
+      },
+      url:  sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId: mockRinaCaseId ,documentId: mockDocumentId}),
     }))
   })
 

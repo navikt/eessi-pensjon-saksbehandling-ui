@@ -34,6 +34,9 @@ const CustomSelect = styled(Select)`
     background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   }
 `
+export interface P5000OverviewSelector {
+  highContrast: boolean
+}
 
 export interface P5000OverviewProps {
   context: P5000Context
@@ -42,7 +45,7 @@ export interface P5000OverviewProps {
   seds: Seds
 }
 
-const mapState = (state: State): any => ({
+const mapState = (state: State): P5000OverviewSelector => ({
   highContrast: state.ui.highContrast
 })
 
@@ -56,7 +59,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
-  const { highContrast }: any = useSelector<State, any>(mapState)
+  const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
   const beforePrintOut = (): void => {}
 
   const prepareContent = (): void => {
@@ -178,6 +181,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <Table<P5000ListRow>
           highContrast={highContrast}
           items={items}
+          id='P5000Overview'
           searchable
           selectable={false}
           sortable
@@ -198,6 +202,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               key={JSON.stringify(_tableSort)}
               className='print-version'
               items={items}
+              id='P5000Overview-print'
               animatable={false}
               searchable={false}
               selectable={false}

@@ -1,8 +1,11 @@
+import * as alertActions from 'actions/alert'
 import * as p5000Actions from 'actions/p5000'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { Sed } from 'declarations/buc'
+import { P5000SED } from 'declarations/p5000'
 import { call as originalCall } from 'js-fetch-api'
+import mockSedP5000 from 'mocks/buc/sed_P5000_small1'
 
 const sprintf = require('sprintf-js').sprintf
 jest.mock('js-fetch-api', () => ({
@@ -18,6 +21,7 @@ describe('actions/p5000', () => {
   afterAll(() => {
     call.mockRestore()
   })
+
   it('getSed()', () => {
     const mockCaseId = '123'
     const mockSed = {
@@ -30,7 +34,65 @@ describe('actions/p5000', () => {
         success: types.P5000_GET_SUCCESS,
         failure: types.P5000_GET_FAILURE
       },
-      url: sprintf(urls.P5000_GET_URL, { caseId: mockCaseId, documentId: mockSed.id })
+      url: sprintf(urls.P5000_GET_URL, { caseId: mockCaseId, sedId: mockSed.id })
     }))
+  })
+
+  it('initP5000Storage()', () => {
+    const mockKey = 'mockKey'
+    const generatedResult = p5000Actions.initP5000Storage(mockKey)
+    expect(generatedResult).toMatchObject({
+      type: types.P5000_STORAGE_INIT,
+      payload: mockKey
+    })
+  })
+
+  it('resetSentP5000info()', () => {
+    const generatedResult = p5000Actions.resetSentP5000info()
+    expect(generatedResult).toMatchObject({
+      type: types.P5000_SEND_RESET
+    })
+  })
+
+  it('sendP5000toRina()', () => {
+    const mockCaseId = '123'
+    const mockSedId = '456'
+    const mockPayload = mockSedP5000 as P5000SED
+    p5000Actions.sendP5000toRina(mockCaseId, mockSedId, mockPayload)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.P5000_SEND_REQUEST,
+        success: types.P5000_SEND_SUCCESS,
+        failure: types.P5000_SEND_FAILURE
+      },
+      url: sprintf(urls.P5000_PUT_URL, { caseId: mockCaseId, sedId: mockSedId })
+    }))
+  })
+
+  it('syncToP5000Storage()', () => {
+    const mockCaseId = '123'
+    const mockSedId = '456'
+    const generatedResult = p5000Actions.syncToP5000Storage(mockSedP5000, mockCaseId, mockSedId)
+    expect(generatedResult).toMatchObject({
+      type: types.P5000_STORAGE_SAVE,
+      payload: {
+        newSed: mockSedP5000,
+        caseId: mockCaseId,
+        sedId: mockSedId
+      }
+    })
+  })
+
+  it('unsyncFromP5000Storage()', () => {
+    const mockCaseId = '123'
+    const mockSedId = '456'
+    const generatedResult = p5000Actions.unsyncFromP5000Storage(mockCaseId, mockSedId)
+    expect(generatedResult).toMatchObject({
+      type: types.P5000_STORAGE_REMOVE,
+      payload: {
+        caseId: mockCaseId,
+        sedId: mockSedId
+      }
+    })
   })
 })

@@ -463,7 +463,10 @@ describe('reducers/buc', () => {
       }, {
         type: types.BUC_GET_COUNTRY_LIST_FAILURE
       })
-    ).toEqual(initialBucState)
+    ).toEqual({
+      ...initialBucState,
+      countryList: null
+    })
   })
 
   it('BUC_GET_INSTITUTION_LIST_SUCCESS', () => {
@@ -583,29 +586,6 @@ describe('reducers/buc', () => {
         type: types.BUC_GET_SED_LIST_FAILURE
       })
     ).toEqual(initialBucState)
-  })
-
-  it('P5000_GET_SUCCESS', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        p5000FromRinaMap: {
-          1: 'somePayload'
-        }
-      }, {
-        type: types.P5000_GET_SUCCESS,
-        payload: 'mockPayload',
-        context: {
-          id: 2
-        }
-      })
-    ).toEqual({
-      ...initialBucState,
-      p5000FromRinaMap: {
-        1: 'somePayload',
-        2: 'mockPayload'
-      }
-    })
   })
 
   it('BUC_GET_SUBJECT_AREA_LIST_SUCCESS', () => {

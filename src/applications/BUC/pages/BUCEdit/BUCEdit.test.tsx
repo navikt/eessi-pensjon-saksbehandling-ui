@@ -1,6 +1,7 @@
 import { setCurrentSed } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
+import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
@@ -24,16 +25,21 @@ jest.mock('applications/BUC/components/BUCTools/BUCTools', () => {
   return () => <div className='mock-buctools' />
 })
 
+const bucs = _.keyBy(mockBucs(), 'caseId')
+const currentBuc = '195440'
+const buc = bucs[currentBuc]
+
 const defaultSelector = {
   aktoerId: '123',
-  bucs: _.keyBy(mockBucs(), 'caseId'),
-  currentBuc: '195440',
+  bucs: bucs,
+  currentBuc: currentBuc,
   bucsInfo: {} as BucsInfo,
   highContrast: false,
   locale: 'nb',
   newlyCreatedSed: undefined,
   newlyCreatedSedTime: undefined,
-  personAvdods: personAvdod(1)
+  personAvdods: personAvdod(1),
+  featureToggles: {}
 }
 
 describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
@@ -85,7 +91,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Handling: SEDSearch status start triggers the filter functions', () => {
-    expect(wrapper.find(SEDPanel).length).toEqual(1)
+    expect(wrapper.find(SEDPanel).length).toEqual(buc.seds!.filter(sedFilter).length)
 
     const statusSelect = wrapper.find('[data-test-id=\'a-buc-c-sedsearch__status-select-id\'] input')
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
@@ -94,7 +100,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Handling: SEDSearch query search triggers the filter functions', () => {
-    expect(wrapper.find(SEDPanel).length).toEqual(1)
+    expect(wrapper.find(SEDPanel).length).toEqual(buc.seds!.filter(sedFilter).length)
     wrapper.find('[data-test-id=\'a-buc-c-sedsearch__query-input-id\']').hostNodes().simulate('change', { target: { value: 'XXX' } })
     expect(wrapper.find(SEDPanel).length).toEqual(0)
   })

@@ -43,17 +43,17 @@ export interface TopContainerSelector {
   clientErrorParam: any | undefined
   clientErrorStatus: AlertStatus | undefined
   clientErrorMessage: string | undefined
-  serverErrorMessage: string | undefined
   error: any | undefined
   expirationTime: Date | undefined
-  params: Params
-  username: string | undefined
-  gettingUserInfo: boolean
-  isLoggingOut: boolean
   footerOpen: boolean
-  modal: ModalContent | undefined
-  size: WidthSize | undefined
+  gettingUserInfo: boolean
   highContrast: boolean
+  isLoggingOut: boolean
+  modal: ModalContent | undefined
+  params: Params
+  serverErrorMessage: string | undefined
+  size: WidthSize | undefined
+  username: string | undefined
 }
 
 const mapState = (state: State): TopContainerSelector => ({
@@ -180,7 +180,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             )}
           </ReactResizeDetector>
         </ErrorBoundary>
-
       </TopContainerDiv>
     </NavHighContrast>
   )

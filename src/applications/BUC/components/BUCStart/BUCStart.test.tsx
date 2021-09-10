@@ -167,8 +167,8 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
   it('Handling: invalid onForwardButtonClick(): nothing selected', () => {
     expect(wrapper.exists(Feiloppsummering)).toBeFalsy()
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
-    expect(wrapper.exists(Feiloppsummering)).toBeTruthy()
-    expect(wrapper.find(Feiloppsummering).render().text()).toEqual('buc:form-feiloppsummering' + 'buc:validation-chooseBuc')
+    expect(wrapper.exists('div.feiloppsummering')).toBeTruthy()
+    expect(wrapper.find('div.feiloppsummering').render().text()).toEqual('buc:form-feiloppsummering' + 'buc:validation-chooseBuc')
   })
 
   it('Handling: invalid onForwardButtonClick(): set warning for P_BUC_02 and no avdod', () => {

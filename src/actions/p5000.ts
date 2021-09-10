@@ -24,27 +24,6 @@ export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
   })
 }
 
-export const unsyncFromP5000Storage : ActionCreator<ActionWithPayload<any>> = (
-  caseId: string, sedId: string
-): ActionWithPayload<any> => ({
-  type: types.P5000_STORAGE_REMOVE,
-  payload: {
-    caseId: caseId,
-    sedId: sedId
-  }
-})
-
-export const syncToP5000Storage: ActionCreator<ActionWithPayload<any>> = (
-  newSed: P5000SED, caseId: string, sedId: string
-): ActionWithPayload<any> => ({
-  type: types.P5000_STORAGE_SAVE,
-  payload: {
-    newSed: newSed,
-    caseId: caseId,
-    sedId: sedId
-  }
-})
-
 export const initP5000Storage : ActionCreator<ActionWithPayload<string>> = (key: string): ActionWithPayload<string> => ({
   type: types.P5000_STORAGE_INIT,
   payload: key
@@ -75,3 +54,24 @@ export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
     }
   })
 }
+
+export const syncToP5000Storage: ActionCreator<ActionWithPayload<any>> = (
+  newSed: P5000SED, caseId: string, sedId: string
+): ActionWithPayload<any> => ({
+  type: types.P5000_STORAGE_SAVE,
+  payload: {
+    newSed: newSed,
+    caseId: caseId,
+    sedId: sedId
+  }
+})
+
+export const unsyncFromP5000Storage : ActionCreator<ActionWithPayload<any>> = (
+  caseId: string, sedId: string
+): ActionWithPayload<any> => ({
+  type: types.P5000_STORAGE_REMOVE,
+  payload: {
+    caseId: caseId,
+    sedId: sedId
+  }
+})

@@ -54,6 +54,20 @@ describe('actions/app', () => {
     }))
   })
 
+  it('getUserInfo()', () => {
+    appActions.getUserInfo()
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.APP_USERINFO_REQUEST,
+        success: types.APP_USERINFO_SUCCESS,
+        failure: types.APP_USERINFO_FAILURE,
+        forbidden: types.APP_USERINFO_FORBIDDEN
+      },
+      cascadeFailureError: true,
+      url: urls.API_USERINFO_URL
+    }))
+  })
+
   it('login()', () => {
     Object.defineProperty(window, 'location', {
       writable: true,
@@ -100,19 +114,7 @@ describe('actions/app', () => {
     })
   })
 
-  it('getUserInfo()', () => {
-    appActions.getUserInfo()
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.APP_USERINFO_REQUEST,
-        success: types.APP_USERINFO_SUCCESS,
-        failure: types.APP_USERINFO_FAILURE,
-        forbidden: types.APP_USERINFO_FORBIDDEN
-      },
-      cascadeFailureError: true,
-      url: urls.API_USERINFO_URL
-    }))
-  })
+
 
   it('unsetStatusParam()', () => {
     const mockKey: string = 'mockKey'

@@ -37,6 +37,15 @@ describe('actions/ui', () => {
     })
   })
 
+  it('setWidthSize()', () => {
+    const mockWidthSize = '123'
+    const generatedResult = uiActions.setWidthSize(mockWidthSize)
+    expect(generatedResult).toMatchObject({
+      type: types.UI_WIDTH_SET,
+      payload: mockWidthSize
+    })
+  })
+
   it('toggleFooterOpen()', () => {
     const generatedResult = uiActions.toggleFooterOpen()
     expect(generatedResult).toMatchObject({

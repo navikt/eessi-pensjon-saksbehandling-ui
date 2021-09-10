@@ -36,7 +36,6 @@ const defaultSelector: TopContainerSelector = {
   isLoggingOut: false,
   modal: undefined,
   params: {},
-  person: mockPerson.person,
   size: 'lg',
   username: 'mockUsername'
 }
@@ -87,9 +86,9 @@ describe('components/TopContainer', () => {
         <div id='TEST_CHILD' />
       </TopContainer>
     )
-    const clientAlert = wrapper.find('Alert[type="client"]')
-    expect(clientAlert.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage|mockParams')
-    clientAlert.find('[data-test-id=\'c-alert__close-icon\']').hostNodes().simulate('click')
+
+    expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage|mockParams')
+    wrapper.find('[data-test-id=\'c-alert__close-icon\']').hostNodes().simulate('click')
     expect(clientClear).toHaveBeenCalled()
   })
 

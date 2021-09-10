@@ -165,7 +165,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 </HighContrastLink>
                 )
               : (
-                <WaitingPanel size='S' />
+                <WaitingPanel data-test-id='a-buc-c-bucdetail__gotorina-waiting-id' size='S' />
                 )}
           </Dd>
           {bucsThatSupportAvdod(buc.type) && (

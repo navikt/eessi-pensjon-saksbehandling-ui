@@ -90,7 +90,6 @@ export const convertP5000SEDToP5000ListRows = (
           }
         }
 
-        console.log('Status ' + status + ' by comparing period ' + generateKeyForListRow(sed.id, period) + ' to ' + JSON.stringify(rinaPeriods))
         res.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           status: status,

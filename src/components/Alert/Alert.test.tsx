@@ -1,6 +1,6 @@
 import { AlertStatus } from 'declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
-import Alert, { AlertProps } from './Alert'
+import Alert, { AlertDiv, AlertProps } from './Alert'
 
 describe('components/Alert/Alert', () => {
   let wrapper: ReactWrapper
@@ -19,13 +19,12 @@ describe('components/Alert/Alert', () => {
 
   it('Render: has proper HTML structure', () => {
     wrapper = mount(<Alert {...initialMockProps} />)
-    expect(wrapper.exists('.type-server')).toBeTruthy()
+    expect(wrapper.exists(AlertDiv)).toBeTruthy()
     expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage')
   })
 
   it('Render: has proper HTML structure with error message', () => {
     wrapper = mount(<Alert {...initialMockProps} error='mockError' />)
-    expect(wrapper.exists('.type-client')).toBeTruthy()
     expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage: mockError')
   })
 

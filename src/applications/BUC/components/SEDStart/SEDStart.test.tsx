@@ -1,4 +1,5 @@
 import {
+  createSavingAttachmentJob,
   createSed,
   getCountryList,
   getSedList,
@@ -33,11 +34,16 @@ jest.mock('actions/buc', () => ({
 const defaultSelector: SEDStartSelector = {
   attachmentsError: false,
   countryList: [],
+  gettingP6000: false,
   featureToggles: mockFeatureToggles,
   highContrast: false,
   institutionList: {},
+  institutionNames: {},
+  kravDato: '1970-01-01',
+  kravId: '456',
   loading: {},
   locale: 'nb',
+  p6000s: undefined,
   personAvdods: personAvdod(1),
   pesysContext: VEDTAKSKONTEKST,
   sakId: '123',
@@ -54,7 +60,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   const mockBucList: Bucs = _.keyBy(mockBucs(), 'caseId')
   const mockCurrentBuc: string = '195440'
   const mockReplySed: Sed | undefined = _.find(mockBucList[mockCurrentBuc].seds, sed => sed.parentDocumentId !== undefined)
-  const mockCurrentSed: Sed | undefined = _.find(mockBucList[mockCurrentBuc].seds, sed => sed.id === mockReplySed.parentDocumentId)
+  const mockCurrentSed: Sed | undefined = _.find(mockBucList[mockCurrentBuc].seds, sed => sed.id === mockReplySed!.parentDocumentId)
   const initialMockProps: SEDStartProps = {
     aktoerId: '123',
     bucs: mockBucList,
@@ -87,6 +93,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
 
   it('UseEffect: getCountryList', () => {
     (getCountryList as jest.Mock).mockReset()
+    stageSelector(defaultSelector, {countryList: undefined})
     wrapper = mount(<SEDStart {...initialMockProps} />)
     expect(getCountryList).toHaveBeenCalled()
   })
@@ -103,14 +110,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(setSedList).toHaveBeenCalledWith(['P6000'])
   })
 
-  /* it('UseEffect: getInstitutionsListForBucAndCountry', () => {
-    (getInstitutionsListForBucAndCountry as jest.Mock).mockReset()
-    wrapper = mount(<SEDStart {...initialMockProps} />)
-    expect(getInstitutionsListForBucAndCountry).toHaveBeenCalled()
-  })
-*/
-  /*
-  it('UseEffect: createSavingAttachmentJob', () => {
+  /*it('UseEffect: createSavingAttachmentJob', () => {
     (createSavingAttachmentJob as jest.Mock).mockReset()
     const mockSed: Sed = {
       id: '123',
@@ -127,7 +127,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     stageSelector(defaultSelector, { sed: mockSed })
     wrapper = mount(<SEDStart {...initialMockProps} initialSendingAttachments={true} initialAttachments={mockItems} />)
     expect(createSavingAttachmentJob).toHaveBeenCalled()
-  }) */
+  })*/
 
   it('Handling: with a BUC with SEDs that have NO participants, demand a institution', () => {
     const mockBucsWithNoParticipants: Bucs = _.keyBy(mockBucs(), 'caseId')
@@ -157,6 +157,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       buc: 'P_BUC_02',
       euxCaseId: '195440',
       institutions: [],
+      kravDato: '01-01-1970',
       sakId: '123',
       sed: 'P2000',
       subject: {

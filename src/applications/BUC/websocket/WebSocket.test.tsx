@@ -11,6 +11,9 @@ jest.mock('constants/urls', () => ({
 jest.mock('actions/buc', () => ({
   fetchSingleBuc: jest.fn()
 }))
+jest.mock('rc-tooltip', () => ({ overlay }: any) => (
+  <div data-test-id='mock-tooltip'>{overlay}</div>
+))
 
 describe('applications/BUC/websocket/WebSocket', () => {
   let wrapper: ReactWrapper

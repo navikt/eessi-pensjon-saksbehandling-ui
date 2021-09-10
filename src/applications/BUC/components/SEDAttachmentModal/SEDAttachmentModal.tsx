@@ -56,7 +56,6 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   }
 
   return (
-
     <Modal
       highContrast={highContrast}
       icon={<Document />}

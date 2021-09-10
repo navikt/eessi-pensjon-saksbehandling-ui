@@ -195,6 +195,6 @@ MultipleSelect.propTypes = {
   onSelect: PT.func,
   options: PT.array,
   placeholder: PT.string,
-  values: PT.array.isRequired
+  values: PT.array
 }
 export default MultipleSelect

@@ -39,23 +39,23 @@ export default {
         }]
       }, {
         tilleggsopplysninger: [],
-        journalpostId: '202123061',
+        journalpostId: '2',
         datoOpprettet: '2010-11-01T12:26:55',
         tittel: 'Dok.vedr. norskkurs- faxet Utlendingsnemnda',
         tema: 'OPP',
         dokumenter: [{
-          dokumentInfoId: '202121653',
+          dokumentInfoId: '3',
           tittel: 'Dok.vedr. norskkurs- faxet Utlendingsnemnda',
           dokumentvarianter: []
         }]
       }, {
         tilleggsopplysninger: [],
-        journalpostId: '472209046',
+        journalpostId: '7',
         datoOpprettet: '2020-03-20T10:01:55',
         tittel: 'Vilkårsvurdering UT',
         tema: 'UFO',
         dokumenter: [{
-          dokumentInfoId: '491399765',
+          dokumentInfoId: '8',
           tittel: 'Vilkårsvurdering UT',
           dokumentvarianter: [{
             filnavn: null,

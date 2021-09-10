@@ -25,7 +25,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
-interface SEDP6000Props {
+export interface SEDP6000Props {
   feil: FeiloppsummeringFeil | undefined
   highContrast: boolean
   locale: AllowedLocaleString
@@ -33,7 +33,7 @@ interface SEDP6000Props {
   onChanged: (p6000s: Array<P6000>) => void
 }
 
-interface SEDP6000Selector {
+export interface SEDP6000Selector {
   gettingP6000PDF: boolean
   P6000PDF: JoarkPreview | null | undefined
 }
@@ -104,7 +104,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
       {p6000s.map(p6000 => {
         const country: Country = countryData.findByValue(p6000.fraLand)
         return (
-          <div key={p6000.documentID}>
+          <div className='a-buc-c-sedstart__p6000' key={p6000.documentID}>
             <HighContrastPanel border className={classNames({ 'skjemaelement__input--harFeil': !!feil })}>
               <FlexCenterSpacedDiv>
                 <FlexCenterDiv>
@@ -117,6 +117,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                 </FlexCenterDiv>
                 <FlexCenterDiv>
                   <HighContrastFlatknapp
+                    data-test-id={'a-buc-c-sedstart__p6000-preview-' + p6000.documentID}
                     onClick={() => handlePreview(p6000.bucid, p6000.documentID)}
                     spinner={gettingP6000PDF}
                     disabled={gettingP6000PDF}
@@ -127,6 +128,8 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                   <HighContrastCheckbox
                     checked={_.find(chosenP6000s, _p6000 => _p6000.documentID === p6000.documentID) !== undefined}
                     key={p6000.documentID}
+                    id={'a-buc-c-sedstart__p6000-checkbox-' + p6000.documentID}
+                    data-test-id={'a-buc-c-sedstart__p6000-checkbox-' + p6000.documentID}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeChosenP6000(p6000, e.target.checked)}
                     label={t('ui:choose')}
                   />

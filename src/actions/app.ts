@@ -14,22 +14,6 @@ export const clearData: ActionCreator<Action> = (): Action => ({
   type: types.APP_CLEAR_DATA
 })
 
-export const login: ActionCreator<Action> = (): Action => {
-  const redirect = window.location.origin // http://hostname
-  const context = encodeURIComponent(window.location.pathname + window.location.search)
-  window.location.href = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
-  return {
-    type: types.APP_LOGIN_REQUEST
-  }
-}
-
-export const logout: ActionCreator<Action> = (): Action => {
-  window.location.href = urls.LOGOUT_URL
-  return {
-    type: types.APP_LOGOUT_REQUEST
-  }
-}
-
 export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonAvdods>>> = (
   aktoerId: string,
   vedtakId: string,
@@ -73,6 +57,23 @@ export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload<UserInfoPa
       forbidden: types.APP_USERINFO_FORBIDDEN
     }
   })
+}
+
+
+export const login: ActionCreator<Action> = (): Action => {
+  const redirect = window.location.origin // http://hostname
+  const context = encodeURIComponent(window.location.pathname + window.location.search)
+  window.location.href = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
+  return {
+    type: types.APP_LOGIN_REQUEST
+  }
+}
+
+export const logout: ActionCreator<Action> = (): Action => {
+  window.location.href = urls.LOGOUT_URL
+  return {
+    type: types.APP_LOGOUT_REQUEST
+  }
 }
 
 export const setStatusParam: ActionCreator<ActionWithPayload<ParamPayload>> = (

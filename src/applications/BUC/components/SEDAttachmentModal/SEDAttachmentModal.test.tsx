@@ -1,5 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme'
 import joarkBrowserItems from 'mocks/joark/items'
+import AlertStripe from 'nav-frontend-alertstriper'
 import { stageSelector } from 'setupTests'
 import SEDAttachmentModal, { SEDAttachmentModalProps } from './SEDAttachmentModal'
 
@@ -7,9 +8,7 @@ jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
   return () => <div data-test-id='mock-joarkbrowser' />
 })
 
-jest.mock('components/Alert/Alert', () => {
-  return () => <div data-test-id='mock-c-alert' />
-})
+jest.mock('components/Alert/Alert', () => () => <div data-test-id='mock-c-alert' />)
 
 const defaultSelector = {
   clientErrorParam: undefined,
@@ -54,6 +53,6 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
       clientErrorMessage: 'something'
     })
     wrapper = mount(<SEDAttachmentModal {...initialMockProps} />)
-    expect(wrapper.exists('[data-test-id=\'mock-c-alert\']')).toBeTruthy()
+    expect(wrapper.exists(AlertStripe)).toBeTruthy()
   })
 })

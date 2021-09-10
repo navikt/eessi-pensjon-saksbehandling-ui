@@ -1,4 +1,4 @@
-import { getTagList, saveBucsInfo, getSed } from 'actions/buc'
+import { getTagList, saveBucsInfo } from 'actions/buc'
 import { Buc, BucInfo, BucsInfo, Comment, Comments, P5000FromRinaMap, TagRawList } from 'declarations/buc.d'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
@@ -6,8 +6,8 @@ import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockBucs from 'mocks/buc/bucs'
 import mockTagList from 'mocks/buc/tagsList'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
-import mockP50001 from 'mocks/buc/sed_P5000_1'
-import mockP50002 from 'mocks/buc/sed_P5000_2'
+import mockP50001 from 'mocks/buc/sed_P5000_small1'
+import mockP50002 from 'mocks/buc/sed_P5000_small2'
 import { stageSelector } from 'setupTests'
 import BUCTools, { BUCToolsProps, TextArea } from './BUCTools'
 import allTags from 'constants/tagsList'
@@ -42,7 +42,8 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     buc: buc,
     bucInfo: bucInfo,
     initialTab: 0,
-    onTagChange: jest.fn()
+    onTagChange: jest.fn(),
+    setMode: jest.fn()
   } as BUCToolsProps
 
   beforeEach(() => {
@@ -142,7 +143,8 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Handling: Loads SEDs for P5000', () => {
+    (initialMockProps.setMode as jest.Mock).mockReset()
     wrapper.find('[data-test-id=\'a-buc-c-buctools__P5000-button-id\']').hostNodes().simulate('click')
-    expect(getSed).toHaveBeenCalledTimes(2)
+    expect(initialMockProps.setMode).toHaveBeenCalled()
   })
 })

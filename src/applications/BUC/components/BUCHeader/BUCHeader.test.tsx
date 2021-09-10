@@ -1,3 +1,4 @@
+import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
@@ -63,7 +64,8 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__icon-id\'] FlagList')).toBeTruthy()
 
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__icon-numberofseds-id\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__icon-numberofseds-id\']').hostNodes().render().text()).toEqual('10')
+
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__icon-numberofseds-id\']').hostNodes().render().text()).toEqual('' + buc.seds?.filter(sedFilter).length)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__icon-tags-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucheader__icon-tags-id\'] ProblemCircleIcon')).toBeTruthy()
   })

@@ -126,7 +126,7 @@ describe('applications/BUC/index', () => {
 
   it('Render: has proper HTML structure ', () => {
     wrapper = mount(<BUCIndex {...initialMockProps} />)
-    expect(wrapper.exists(BUCIndexDiv)).toBeTruthy()
+    expect(wrapper.exists('[data-test-id=\'a-buc-index\']')).toBeTruthy()
     expect(wrapper.exists(ContainerDiv)).toBeTruthy()
     expect(wrapper.exists(WindowDiv)).toBeTruthy()
   })

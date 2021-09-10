@@ -80,4 +80,24 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     wrapper = mount(<BUCDetail {...mockProps} />)
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__readonly\']')).toBeTruthy()
   })
+
+  it('Render: no rinaUrl', () => {
+    stageSelector(defaultSelector, { rinaUrl: undefined })
+    wrapper = mount(<BUCDetail {...initialMockProps} />)
+    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__gotorina-waiting-id\']')).toBeTruthy()
+  })
+
+  it('Render: no avdods', () => {
+    const mockProps = {
+      ...initialMockProps,
+      personAvdods: [],
+      buc: {
+        ...initialMockProps.buc,
+        type: 'P_BUC_02'
+      }
+    }
+    wrapper = mount(<BUCDetail {...mockProps} />)
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']').hostNodes().render().text()).toEqual('buc:form-noAvdod')
+  })
+
 })

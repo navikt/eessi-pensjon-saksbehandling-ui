@@ -12,6 +12,7 @@ jest.mock('actions/joark', () => ({
   getJoarkItemPreview: jest.fn(),
   listJoarkItems: jest.fn()
 }))
+jest.mock('md5', () => () => 'mock-md5key')
 
 const files: Array<JoarkPoster> = _.cloneDeep(mockJoark.data.dokumentoversiktBruker.journalposter)
 
@@ -86,30 +87,26 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   it('Handling: calls onRowSelectChange when selecting a row', () => {
     (initialMockProps.onRowSelectChange as jest.Mock).mockReset()
     wrapper = mount(<JoarkBrowser {...initialMockProps} mode='select' />)
-    wrapper.find('#c-tableSorter__row-checkbox-id-joark-group-1-joarkbrowser-test-table-id').hostNodes().simulate('change', { target: { checked: true } })
-
+    wrapper.find('#tabell-joarkbrowser-test-table-id__row-select-checkbox-joark-group-1').hostNodes().simulate('change', { target: { checked: true } })
     expect(initialMockProps.onRowSelectChange).toHaveBeenCalledWith(mockJoarkProcessed)
   })
 
   it('Handling: calls onPreviewItem', () => {
     (getJoarkItemPreview as jest.Mock).mockReset()
     wrapper = mount(<JoarkBrowser {...initialMockProps} mode='select' />)
-    wrapper.find('#c-tablesorter__preview-button-458208506-475715315').hostNodes().simulate('click')
+    wrapper.find('#c-tablesorter__preview-button-2-3').hostNodes().simulate('click')
     expect(getJoarkItemPreview).toHaveBeenCalledWith(expect.objectContaining({
-      date: new Date('2019-10-01T03:11:34.000Z'),
-      disabled: false,
-      dokumentInfoId: '475715315',
+      date: new Date('2010-11-01T11:26:55.000Z'),
+      disabled: true,
+      dokumentInfoId: '3',
       hasSubrows: false,
-      journalpostId: '458208506',
-      key: '458208506-475715315-ARKIV-false',
+      journalpostId: '2',
+      key: '2-3-undefined-false',
       selected: false,
-      tema: 'AAP',
-      title: 'Vedtak om arbeidsavklaringspenger',
+      tema: 'OPP',
+      title: 'Dok.vedr. norskkurs- faxet Utlendingsnemnda',
       type: 'joark',
-      variant: {
-        filnavn: null,
-        variantformat: 'ARKIV'
-      },
+      variant: undefined,
       visible: true
     }))
   })
