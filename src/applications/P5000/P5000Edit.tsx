@@ -335,7 +335,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
      */
 
     if (options.context.forsikringEllerBosetningsperioder === '1') {
-      if (options.value === 0  && options.values[others[0]] === 0 && options.values[others[1]] === 0) {
+      if (options.value === 0 && options.values[others[0]] === 0 && options.values[others[1]] === 0) {
         options.setValue({
           [what]: '',
           [others[0]]: '',
@@ -366,17 +366,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return (
       <HighContrastInput
         aria-invalid={!!options.feil}
-        aria-label={'dag'}
-        data-test-id={'c-table__edit-dag-input-id'}
+        aria-label='dag'
+        data-test-id='c-table__edit-dag-input-id'
         feil={options.feil}
-        id={'c-table__edit-dag-input-id'}
-        label={''}
+        id='c-table__edit-dag-input-id'
+        label=''
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           options.setValue({
             dag: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
           })
         }}
-        placeholder={''}
+        placeholder=''
         value={'' + value}
       />
     )
@@ -387,17 +387,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return (
       <HighContrastInput
         aria-invalid={!!options.feil}
-        aria-label={'mnd'}
-        data-test-id={'c-table__edit-mnd-input-id'}
+        aria-label='mnd'
+        data-test-id='c-table__edit-mnd-input-id'
         feil={options.feil}
-        id={'c-table__edit-mnd-input-id'}
-        label={''}
+        id='c-table__edit-mnd-input-id'
+        label=''
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           options.setValue({
             mnd: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
           })
         }}
-        placeholder={''}
+        placeholder=''
         value={'' + value}
       />
     )
@@ -408,17 +408,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return (
       <HighContrastInput
         aria-invalid={!!options.feil}
-        aria-label={'aar'}
-        data-test-id={'c-table__edit-aar-input-id'}
+        aria-label='aar'
+        data-test-id='c-table__edit-aar-input-id'
         feil={options.feil}
-        id={'c-table__edit-aar-input-id'}
-        label={''}
+        id='c-table__edit-aar-input-id'
+        label=''
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-         options.setValue({
+          options.setValue({
             aar: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
           })
         }}
-        placeholder={''}
+        placeholder=''
         value={'' + value}
       />
     )
@@ -551,7 +551,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       p5000sed: p5000FromStorage?.content!
     })
     if (valid) {
-      let payload: P5000SED = _.cloneDeep(p5000FromStorage!.content)
+      const payload: P5000SED = _.cloneDeep(p5000FromStorage!.content)
       payload.pensjon.medlemskapTotal?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
