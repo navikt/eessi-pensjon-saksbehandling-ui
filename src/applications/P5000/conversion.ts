@@ -429,16 +429,19 @@ export const convertFromP5000ListRowsIntoP5000SED = (
       const periode: P5000Period = listItemtoPeriod(item, sedid, false)
       medlemskapPeriods.push(periode)
 
-      if (!_.isNil(item.type) && item.selected) {
+      if (!_.isNil(item.type)) {
         const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
         const foundInGyldigperiodeIndex: number = _.findIndex(gyldigperiode, { type: item.type })
-        if (item.type !== '45' && item.type !== '52') {
+
+        if (item.type !== '45') {
           if (foundInMedemskapTotalIndex === -1) {
             medemskapTotalPeriods.push(listItemtoPeriod(item, sedid, false))
           } else {
             mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item, false)
           }
+        }
 
+        if (item.type !== '52' && item.selected) {
           if (foundInGyldigperiodeIndex === -1) {
             gyldigperiode.push(listItemtoPeriod(item, sedid, true))
           } else {
