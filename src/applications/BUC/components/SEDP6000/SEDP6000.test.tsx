@@ -12,17 +12,14 @@ const defaultSelector: SEDP6000Selector = {
 
 jest.mock('actions/buc', () => ({
   getSedP6000PDF: jest.fn(),
-  resetSedP6000PDF: jest.fn(),
+  resetSedP6000PDF: jest.fn()
 }))
-
 
 jest.mock('components/Modal/Modal', () => (props: any) => (
   <div className='mock-c-modal' tabIndex={0} role='button' onKeyPress={props.onModalClose} onClick={props.onModalClose}>{props.children}</div>
 ))
 
-
 describe('applications/BUC/components/SEDP6000/SEDP6000', () => {
-
   const initialMockProps: SEDP6000Props = {
     feil: undefined,
     highContrast: false,
@@ -60,18 +57,15 @@ describe('applications/BUC/components/SEDP6000/SEDP6000', () => {
   it('Handling: select click', () => {
     (initialMockProps.onChanged as jest.Mock).mockReset()
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__p6000-checkbox-' + mockP6000s[0].documentID + '\']')
-      .hostNodes().simulate('change', {target: {checked: true}})
+      .hostNodes().simulate('change', { target: { checked: true } })
     expect(initialMockProps.onChanged).toHaveBeenCalled()
   })
 
   it('Handling: modal close', () => {
     (resetSedP6000PDF as jest.Mock).mockReset()
-    stageSelector(defaultSelector, {P6000PDF: mockP6000PDF})
+    stageSelector(defaultSelector, { P6000PDF: mockP6000PDF })
     wrapper = mount(<SEDP6000 {...initialMockProps} />)
     wrapper.find('div.mock-c-modal').simulate('click')
     expect(resetSedP6000PDF).toHaveBeenCalled()
-
-
   })
-
 })

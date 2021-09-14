@@ -137,7 +137,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '10',
-        beregning:'10',
+        beregning: '10',
         informasjonskalkulering: null,
         periode: {
           fom: '1906-01-01',

@@ -99,5 +99,4 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     wrapper = mount(<BUCDetail {...mockProps} />)
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']').hostNodes().render().text()).toEqual('buc:form-noAvdod')
   })
-
 })

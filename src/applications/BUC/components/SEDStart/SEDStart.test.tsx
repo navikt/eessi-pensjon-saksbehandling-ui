@@ -1,5 +1,4 @@
 import {
-  createSavingAttachmentJob,
   createSed,
   getCountryList,
   getSedList,
@@ -93,7 +92,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
 
   it('UseEffect: getCountryList', () => {
     (getCountryList as jest.Mock).mockReset()
-    stageSelector(defaultSelector, {countryList: undefined})
+    stageSelector(defaultSelector, { countryList: undefined })
     wrapper = mount(<SEDStart {...initialMockProps} />)
     expect(getCountryList).toHaveBeenCalled()
   })
@@ -110,7 +109,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(setSedList).toHaveBeenCalledWith(['P6000'])
   })
 
-  /*it('UseEffect: createSavingAttachmentJob', () => {
+  /* it('UseEffect: createSavingAttachmentJob', () => {
     (createSavingAttachmentJob as jest.Mock).mockReset()
     const mockSed: Sed = {
       id: '123',
@@ -127,7 +126,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     stageSelector(defaultSelector, { sed: mockSed })
     wrapper = mount(<SEDStart {...initialMockProps} initialSendingAttachments={true} initialAttachments={mockItems} />)
     expect(createSavingAttachmentJob).toHaveBeenCalled()
-  })*/
+  }) */
 
   it('Handling: with a BUC with SEDs that have NO participants, demand a institution', () => {
     const mockBucsWithNoParticipants: Bucs = _.keyBy(mockBucs(), 'caseId')

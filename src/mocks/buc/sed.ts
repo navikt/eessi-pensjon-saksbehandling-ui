@@ -8,7 +8,7 @@ const seds: any = {
 }
 
 export default (sed: Sed, type: string = 'small') => {
-  let sedNr = undefined
+  let sedNr
   if (seds[sed.id]) sedNr = seds[sed.id]
   if (sedNr === undefined && sed.lastUpdate) sedNr = sed.lastUpdate % 3 + 1
   const m = require('mocks/buc/sed_P5000_' + type + '' + sedNr)

@@ -540,10 +540,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onRowSelectChange = (items: P5000ListRows) => {
-    let newItems: P5000ListRows  = _.cloneDeep(_items)
+    let newItems: P5000ListRows = _.cloneDeep(_items)
     newItems = newItems.map(item => {
-      let newItem = _.cloneDeep(item)
-      let found: boolean = _.find(items, (it: P5000ListRow) => it.key === newItem.key) !== undefined
+      const newItem = _.cloneDeep(item)
+      const found: boolean = _.find(items, (it: P5000ListRow) => it.key === newItem.key) !== undefined
       newItem.selected = found
       return newItem
     })
@@ -708,6 +708,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <Column>
               <FlexCenterDiv>
                 <HighContrastRadioGroup
+                  feil={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
+                  id='P5000Edit-forsikringEllerBosetningsperioder'
                   legend={(
                     <FlexCenterDiv>
                       <OneLineSpan>
@@ -879,7 +881,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             editable
             allowNewRows
             searchable={false}
-            selectable={true}
+            selectable
             coloredSelectedRow={false}
             onRowSelectChange={onRowSelectChange}
             sortable

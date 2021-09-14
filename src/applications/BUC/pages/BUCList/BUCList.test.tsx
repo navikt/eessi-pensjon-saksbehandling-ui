@@ -77,7 +77,7 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
 
   it('Render: match snapshot', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-   // expect(wrapper).toMatchSnapshot()
+    // expect(wrapper).toMatchSnapshot()
   })
 
   it('Render: loading BUCs', () => {

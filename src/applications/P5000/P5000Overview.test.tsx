@@ -6,13 +6,12 @@ import mockP50001 from 'mocks/buc/sed_P5000_small1'
 import mockP50002 from 'mocks/buc/sed_P5000_small2'
 import { stageSelector } from 'setupTests'
 import Table from 'tabell'
-import TableSorter from 'tabell'
 import P5000Overview, { P5000OverviewProps, P5000OverviewSelector } from './P5000Overview'
 
 const defaultSelector: P5000OverviewSelector = {
   highContrast: false
 }
-jest.mock('md5', () => (value) => value)
+jest.mock('md5', () => (value: any) => value)
 describe('applications/BUC/components/P5000/P5000', () => {
   let wrapper: ReactWrapper
 
@@ -41,8 +40,8 @@ describe('applications/BUC/components/P5000/P5000', () => {
   })
 
   it('Render: Has proper HTML structure', () => {
-    //expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
-    //expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
+    // expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
+    // expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
     expect(wrapper.exists(Table)).toBeTruthy()
     expect(wrapper.find('.tabell:not(.print-version) th').hostNodes().map(it => it.render().text())).toEqual([
       '', 'ui:country', 'ui:_institution', 'ui:type', 'ui:startDate', 'ui:endDate', 'ui:year', 'ui:quarter', 'ui:month',

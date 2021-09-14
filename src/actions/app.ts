@@ -59,7 +59,6 @@ export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload<UserInfoPa
   })
 }
 
-
 export const login: ActionCreator<Action> = (): Action => {
   const redirect = window.location.origin // http://hostname
   const context = encodeURIComponent(window.location.pathname + window.location.search)

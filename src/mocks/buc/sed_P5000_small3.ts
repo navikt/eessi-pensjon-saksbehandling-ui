@@ -111,7 +111,7 @@ export default {
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
-    },  {
+    }, {
       relevans: null,
       ordning: null,
       land: null,

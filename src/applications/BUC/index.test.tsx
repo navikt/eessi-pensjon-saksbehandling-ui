@@ -7,7 +7,7 @@ import {
   getSakType,
   setMode
 } from 'actions/buc'
-import { BUCIndex, BUCIndexDiv, BUCIndexProps, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/index'
+import { BUCIndex, BUCIndexProps, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/index'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'

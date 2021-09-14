@@ -4,7 +4,6 @@ import { ModalContent } from 'declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
 import { TopContainer, TopContainerProps, TopContainerSelector } from './TopContainer'
 import { stageSelector } from 'setupTests'
-import mockPerson from 'mocks/app/person'
 
 /* jest.mock('use-error-boundary', () => ({
   __esModule: true, // this property makes it work

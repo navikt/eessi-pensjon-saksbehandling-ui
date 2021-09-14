@@ -1,4 +1,3 @@
-import * as alertActions from 'actions/alert'
 import * as p5000Actions from 'actions/p5000'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'

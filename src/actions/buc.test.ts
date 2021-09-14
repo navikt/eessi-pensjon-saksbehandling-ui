@@ -192,7 +192,7 @@ describe('actions/buc', () => {
     const mockSakId = '123'
     const mockAktoerId = '456'
     const mockKravId = '789'
-    bucActions.fetchKravDato({sakId: mockSakId, aktoerId: mockAktoerId, kravId: mockKravId})
+    bucActions.fetchKravDato({ sakId: mockSakId, aktoerId: mockAktoerId, kravId: mockKravId })
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_KRAVDATO_REQUEST,
@@ -202,8 +202,6 @@ describe('actions/buc', () => {
       url: sprintf(urls.BUC_GET_KRAVDATO_URL, { sakId: mockSakId, aktoerId: mockAktoerId, kravId: mockKravId })
     }))
   })
-
-
 
   it('fetchSingleBuc()', () => {
     const mockRinaCaseId = '123'
@@ -273,7 +271,7 @@ describe('actions/buc', () => {
         success: types.BUC_GET_P6000_SUCCESS,
         failure: types.BUC_GET_P6000_FAILURE
       },
-      url:  sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId: mockRinaCaseId }),
+      url: sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId: mockRinaCaseId })
     }))
   })
 
@@ -287,7 +285,7 @@ describe('actions/buc', () => {
         success: types.BUC_GET_P6000PDF_SUCCESS,
         failure: types.BUC_GET_P6000PDF_FAILURE
       },
-      url:  sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId: mockRinaCaseId ,documentId: mockDocumentId}),
+      url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId: mockRinaCaseId, documentId: mockDocumentId })
     }))
   })
 

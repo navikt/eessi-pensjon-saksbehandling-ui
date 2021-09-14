@@ -430,8 +430,8 @@ export const convertFromP5000ListRowsIntoP5000SED = (
       medlemskapPeriods.push(periode)
 
       if (!_.isNil(item.type) && item.selected) {
-        const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, {type: item.type})
-        const foundInGyldigperiodeIndex: number = _.findIndex(gyldigperiode, {type: item.type})
+        const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
+        const foundInGyldigperiodeIndex: number = _.findIndex(gyldigperiode, { type: item.type })
         if (item.type !== '45' && item.type !== '52') {
           if (foundInMedemskapTotalIndex === -1) {
             medemskapTotalPeriods.push(listItemtoPeriod(item, sedid, false))

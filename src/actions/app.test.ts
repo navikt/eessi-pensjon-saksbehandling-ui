@@ -114,8 +114,6 @@ describe('actions/app', () => {
     })
   })
 
-
-
   it('unsetStatusParam()', () => {
     const mockKey: string = 'mockKey'
     const generatedResult: ActionWithPayload<ParamPayload> = appActions.unsetStatusParam(mockKey)
