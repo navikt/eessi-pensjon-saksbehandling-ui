@@ -70,7 +70,6 @@ export const convertP5000SEDToP5000ListRows = (
     const checkStatus: boolean = sourceStatus === 'storage'
     const rinaPeriods: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapboarbeid?.medlemskap
     const storagePeriods: Array<P5000Period> | undefined = p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.medlemskap
-
     const periods: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods : storagePeriods
 
     periods?.forEach((period: P5000Period) => {
@@ -92,6 +91,7 @@ export const convertP5000SEDToP5000ListRows = (
 
         res.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
+          selected: period.selected,
           status: status,
           land: sender!.countryLabel ?? '',
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
@@ -120,16 +120,19 @@ export const convertP5000SEDToP5000SumRows = (
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
   p5000FromStorage: LocalStorageValue<P5000SED> | undefined
-): [P5000SumRows, P5000SourceStatus] => {
+): P5000SumRows => {
   const res: P5000SumRows = []
-  let sourceStatus: P5000SourceStatus
-  if (context === 'overview' || (context === 'edit' && p5000FromStorage === undefined)) {
-    sourceStatus = 'rina'
-  } else {
-    sourceStatus = 'storage'
-  }
   const data: any = {}
+
   seds?.forEach(sed => {
+    let sourceStatus: P5000SourceStatus
+    if (context === 'overview' || (context === 'edit' && (
+      p5000FromStorage === undefined || p5000FromStorage.id !== sed.id
+    ))) {
+      sourceStatus = 'rina'
+    } else {
+      sourceStatus = 'storage'
+    }
     const [res] = convertP5000SEDToP5000ListRows([sed], context, p5000FromRinaMap, p5000FromStorage)
     const rinaPeriods1: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapTotal
     const rinaPeriods2: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.trygdetid
@@ -239,7 +242,7 @@ export const convertP5000SEDToP5000SumRows = (
   Object.keys(data).sort(
     (a, b) => (parseInt(a, 10) - parseInt(b, 10))
   )?.forEach((type: string) => res.push(data[type]))
-  return [res, sourceStatus]
+  return res
 }
 
 export const convertDate = (date: string | Date | null | undefined): string | null => {
@@ -256,6 +259,7 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
   const over40: boolean = max40 && parseFloat(item.aar) >= 40
   const period: P5000Period = {
     key: item?.key,
+    selected: item.selected,
     relevans: item.ytelse, /// ???f
     land: item.land ?? 'NO',
     sum: {
@@ -425,20 +429,21 @@ export const convertFromP5000ListRowsIntoP5000SED = (
       const periode: P5000Period = listItemtoPeriod(item, sedid, false)
       medlemskapPeriods.push(periode)
 
-      if (!_.isNil(item.type) ) {
-        const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
-        const foundInGyldigperiodeIndex: number = _.findIndex(gyldigperiode, { type: item.type })
+      if (!_.isNil(item.type) && item.selected) {
+        const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, {type: item.type})
+        const foundInGyldigperiodeIndex: number = _.findIndex(gyldigperiode, {type: item.type})
         if (item.type !== '45' && item.type !== '52') {
           if (foundInMedemskapTotalIndex === -1) {
             medemskapTotalPeriods.push(listItemtoPeriod(item, sedid, false))
           } else {
             mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item, false)
           }
-        }
-        if (foundInGyldigperiodeIndex === -1) {
-          gyldigperiode.push(listItemtoPeriod(item, sedid, true))
-        } else {
-          mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item, true)
+
+          if (foundInGyldigperiodeIndex === -1) {
+            gyldigperiode.push(listItemtoPeriod(item, sedid, true))
+          } else {
+            mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item, true)
+          }
         }
       }
     })

@@ -23,25 +23,26 @@ export interface P5000PeriodInterval {
 
 export interface P5000Period {
   key ?: string
-  relevans : string | null,
-  ordning? : string | null,
-  land : string | null,
+  selected ?: boolean
+  relevans : string | null
+  ordning? : string | null
+  land : string | null
   sum : {
-    kvartal : string | null,
-    aar : string | null,
-    uker : string | null,
+    kvartal : string | null
+    aar : string | null
+    uker : string | null
     dager : {
-      nr : string | null,
-      type : string | null,
+      nr : string | null
+      type : string | null
     },
     maaneder : string | null
   },
-  yrke : string | null,
-  gyldigperiode : string | null,
-  type : string | null,
-  beregning : string | null,
-  informasjonskalkulering? : string | null,
-  periode : P5000PeriodInterval | null,
+  yrke : string | null
+  gyldigperiode : string | null
+  type : string | null
+  beregning : string | null
+  informasjonskalkulering? : string | null
+  periode : P5000PeriodInterval | null
   enkeltkrav? : string | null
 }
 

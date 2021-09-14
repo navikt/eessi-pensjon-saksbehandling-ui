@@ -60,7 +60,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
-  const [items] = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+  const items = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
   const renderType = (item: any, value: any) => (
     <Normaltekst>
@@ -132,7 +132,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   ]
 
   const categories = [{
-    colSpan: 3,
+    colSpan: 2,
     label: '',
     border: false
   }, {

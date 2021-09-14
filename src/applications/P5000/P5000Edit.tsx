@@ -539,6 +539,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     _setPrintDialogOpen(false)
   }
 
+  const onRowSelectChange = (items: P5000ListRows) => {
+    let newItems: P5000ListRows  = _.cloneDeep(_items)
+    newItems = newItems.map(item => {
+      let newItem = _.cloneDeep(item)
+      let found: boolean = _.find(items, (it: P5000ListRow) => it.key === newItem.key) !== undefined
+      newItem.selected = found
+      return newItem
+    })
+    onSave({
+      items: newItems
+    })
+  }
+
   const onRowsChanged = (items: P5000ListRows) => {
     onSave({
       items: items
@@ -564,6 +577,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       payload.pensjon.medlemskapboarbeid.medlemskap?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
+        delete period.selected
         payload.pensjon.medlemskapboarbeid.medlemskap[i] = period
       })
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
@@ -865,7 +879,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             editable
             allowNewRows
             searchable={false}
-            selectable={false}
+            selectable={true}
+            coloredSelectedRow={false}
+            onRowSelectChange={onRowSelectChange}
             sortable
             onColumnSort={(sort: any) => {
               standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })

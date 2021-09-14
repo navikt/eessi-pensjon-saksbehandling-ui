@@ -69,7 +69,8 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       payload?.pensjon?.medlemskapboarbeid?.medlemskap?.forEach((p: P5000Period, index: number) => {
         payload.pensjon.medlemskapboarbeid.medlemskap[index] = {
           ...p,
-          key: generateKeyForListRow(sedid, p)
+          key: generateKeyForListRow(sedid, p),
+          selected: true
         }
       })
       payload?.pensjon?.trygdetid?.forEach((p: P5000Period, index: number) => {
