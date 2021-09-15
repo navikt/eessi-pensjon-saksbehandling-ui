@@ -55,4 +55,10 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
     wrapper = mount(<SEDAttachmentModal {...initialMockProps} />)
     expect(wrapper.exists(AlertStripe)).toBeTruthy()
   })
+
+  it('Handling: clicking ok', () => {
+    (initialMockProps.onFinishedSelection as jest.Mock).mockReset()
+    wrapper.find('[data-test-id=\'c-modal__button-id-0\']').hostNodes().simulate('click')
+    expect(initialMockProps.onFinishedSelection).toHaveBeenCalled()
+  })
 })
