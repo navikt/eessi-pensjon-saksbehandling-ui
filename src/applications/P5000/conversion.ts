@@ -92,6 +92,7 @@ export const convertP5000SEDToP5000ListRows = (
         res.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
+          selectdisabled: period.type !== '11' && period.type !== '12' && period.type !== '13' && period.type !== '30' && period.type !== '45' && period.type !== '52',
           status: status,
           land: sender!.countryLabel ?? '',
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
@@ -420,6 +421,37 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     newP5000Sed.pensjon.trygdetid = []
   }
 
+  const allowedFor51 = (item: P5000ListRow): boolean => {
+    let answer = true
+    if (item.type === '45') {
+      answer = false
+    }
+    return answer
+  }
+
+  const allowedFor52 = (item: P5000ListRow): boolean => {
+    let answer = true
+    if (item.type === '11' && item.selected) {
+      answer = false
+    }
+    if (item.type === '12' && item.selected) {
+      answer = false
+    }
+    if (item.type === '13' && item.selected) {
+      answer = false
+    }
+    if (item.type === '30' && item.selected) {
+      answer = false
+    }
+    if (item.type === '45' && item.selected) {
+      answer = false
+    }
+    if (item.type === '52') {
+      answer = false
+    }
+    return answer
+  }
+
   if (Object.prototype.hasOwnProperty.call(payload, 'items') && !_.isNil(payload.items)) {
     const medlemskapPeriods: Array<P5000Period> = []
     const medemskapTotalPeriods: Array<P5000Period> = []
@@ -433,7 +465,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
         const foundInMedemskapTotalIndex: number = _.findIndex(medemskapTotalPeriods, { type: item.type })
         const foundInGyldigperiodeIndex: number = _.findIndex(gyldigperiode, { type: item.type })
 
-        if (item.type !== '45') {
+        if (allowedFor51(item)) {
           if (foundInMedemskapTotalIndex === -1) {
             medemskapTotalPeriods.push(listItemtoPeriod(item, sedid, false))
           } else {
@@ -441,7 +473,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
           }
         }
 
-        if (item.type !== '52' && item.selected) {
+        if (allowedFor52(item)) {
           if (foundInGyldigperiodeIndex === -1) {
             gyldigperiode.push(listItemtoPeriod(item, sedid, true))
           } else {

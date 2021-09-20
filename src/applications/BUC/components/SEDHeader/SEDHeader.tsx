@@ -255,6 +255,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 onClick={() => {
                   setMode('p5000', 'forward', undefined, (
                     <P5000
+                      key={sed.id}
                       buc={buc}
                       context='edit'
                       setMode={setMode}

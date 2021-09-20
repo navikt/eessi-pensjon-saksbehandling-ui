@@ -98,7 +98,7 @@ export default {
       land: null,
       sum: {
         kvartal: null,
-        aar: '2.2222',
+        aar: '1.2345',
         uker: null,
         dager: {
           nr: '00',
@@ -110,6 +110,69 @@ export default {
       gyldigperiode: null,
       type: '10',
       beregning: '10',
+      informasjonskalkulering: null,
+      periode: null,
+      enkeltkrav: null
+    }, {
+      relevans: '010',
+      ordning: null,
+      land: null,
+      sum: {
+        kvartal: null,
+        aar: '1.2345',
+        uker: null,
+        dager: {
+          nr: '00',
+          type: '7'
+        },
+        maaneder: '00'
+      },
+      yrke: null,
+      gyldigperiode: null,
+      type: '11',
+      beregning: '11',
+      informasjonskalkulering: null,
+      periode: null,
+      enkeltkrav: null
+    }, {
+      relevans: '010',
+      ordning: null,
+      land: null,
+      sum: {
+        kvartal: null,
+        aar: '1.2345',
+        uker: null,
+        dager: {
+          nr: '00',
+          type: '7'
+        },
+        maaneder: '00'
+      },
+      yrke: null,
+      gyldigperiode: null,
+      type: '12',
+      beregning: '12',
+      informasjonskalkulering: null,
+      periode: null,
+      enkeltkrav: null
+    }, {
+      relevans: '010',
+      ordning: null,
+      land: null,
+      sum: {
+        kvartal: null,
+        aar: '1.2345',
+        uker: null,
+        dager: {
+          nr: '00',
+          type: '7'
+        },
+        maaneder: '00'
+      },
+      yrke: null,
+      gyldigperiode: null,
+      type: '13',
+      beregning: '13',
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
@@ -166,6 +229,78 @@ export default {
         periode: {
           fom: '1987-01-01',
           tom: '1987-12-31'
+        },
+        enkeltkrav: null
+      }, {
+        relevans: null,
+        ordning: null,
+        land: null,
+        sum: {
+          kvartal: null,
+          aar: '01.111111',
+          uker: null,
+          dager: {
+            nr: '00',
+            type: '7'
+          },
+          maaneder: '00'
+        },
+        yrke: null,
+        gyldigperiode: null,
+        type: '11',
+        beregning: '11',
+        informasjonskalkulering: null,
+        periode: {
+          fom: '1988-01-01',
+          tom: '1988-12-31'
+        },
+        enkeltkrav: null
+      }, {
+        relevans: null,
+        ordning: null,
+        land: null,
+        sum: {
+          kvartal: null,
+          aar: '01.111111',
+          uker: null,
+          dager: {
+            nr: '00',
+            type: '7'
+          },
+          maaneder: '00'
+        },
+        yrke: null,
+        gyldigperiode: null,
+        type: '12',
+        beregning: '12',
+        informasjonskalkulering: null,
+        periode: {
+          fom: '1989-01-01',
+          tom: '1989-12-31'
+        },
+        enkeltkrav: null
+      }, {
+        relevans: null,
+        ordning: null,
+        land: null,
+        sum: {
+          kvartal: null,
+          aar: '01.111111',
+          uker: null,
+          dager: {
+            nr: '00',
+            type: '7'
+          },
+          maaneder: '00'
+        },
+        yrke: null,
+        gyldigperiode: null,
+        type: '13',
+        beregning: '13',
+        informasjonskalkulering: null,
+        periode: {
+          fom: '1990-01-01',
+          tom: '1990-12-31'
         },
         enkeltkrav: null
       }]
