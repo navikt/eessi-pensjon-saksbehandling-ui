@@ -256,9 +256,9 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                       </div>
                     )}
                     <ul>
-                      {has45 && (
+                      {has5152diffs && (
                         <li>
-                          {t('buc:warning-P5000Sum-instructions-45')}
+                          {t('buc:warning-P5000Sum-instructions-5152')}
                           <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
@@ -268,9 +268,9 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                           <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
-                      {has5152diffs && (
+                      {has45 && (
                         <li>
-                          {t('buc:warning-P5000Sum-instructions-5152')}
+                          {t('buc:warning-P5000Sum-instructions-45')}
                           <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
