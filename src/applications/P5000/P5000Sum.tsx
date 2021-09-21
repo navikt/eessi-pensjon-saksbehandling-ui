@@ -170,6 +170,12 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const has40aar: boolean = _.some(items, it => parseFloat(it.sec51aar) >= 40 || parseFloat(it.sec52aar) >= 40)
   const has45: boolean = _.some(items, it => it.type === '45')
+  const has5152diffs: boolean = _.some(items, it => {
+    return ['11','12','13','30','41'].indexOf(it.type) >= 0 && (
+      it.sec51aar !== it.sec52aar || it.sec51mnd !== it.sec52mnd || it.sec51dag !== it.sec52dag
+    )
+  })
+
   const hasMoreWarnings = has40aar || has45
 
   return (
@@ -259,6 +265,12 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                       {has40aar && (
                         <li>
                           {t('buc:warning-P5000Sum-instructions-40')}
+                          <VerticalSeparatorDiv size='0.5' />
+                        </li>
+                      )}
+                      {has5152diffs && (
+                        <li>
+                          {t('buc:warning-P5000Sum-instructions-5152')}
                           <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
