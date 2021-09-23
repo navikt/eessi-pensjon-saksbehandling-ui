@@ -57,10 +57,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+  const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
   const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
-  const beforePrintOut = (): void => {}
+  const beforePrintOut = (): void => {
+    _setRenderPrintTable(true)
+  }
 
   const prepareContent = (): void => {
     standardLogger('buc.edit.tools.P5000.overview.print.button')
@@ -69,6 +72,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const afterPrintOut = (): void => {
     _setPrintDialogOpen(false)
+    _setRenderPrintTable(false)
   }
 
   const itemsPerPageChanged = (e: any): void => {
@@ -182,6 +186,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           highContrast={highContrast}
           items={items}
           id='P5000Overview'
+          key={'P5000Overview-table-' +_itemsPerPage}
           searchable
           selectable={false}
           sortable
@@ -195,26 +200,28 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           columns={columns}
         />
         <VerticalSeparatorDiv />
-        <HiddenDiv>
-          <div ref={componentRef} id='printJS-form'>
-            <Table<P5000ListRow>
-              // important to it re-renders when sorting changes
-              key={JSON.stringify(_tableSort)}
-              className='print-version'
-              items={items}
-              id='P5000Overview-print'
-              animatable={false}
-              searchable={false}
-              selectable={false}
-              sortable
-              sort={_tableSort}
-              itemsPerPage={9999}
-              labels={{}}
-              compact
-              columns={columns}
-            />
-          </div>
-        </HiddenDiv>
+        {renderPrintTable && (
+          <HiddenDiv>
+            <div ref={componentRef} id='printJS-form'>
+              <Table<P5000ListRow>
+                // important to it re-renders when sorting changes
+                key={JSON.stringify(_tableSort)}
+                className='print-version'
+                items={items}
+                id='P5000Overview-print'
+                animatable={false}
+                searchable={false}
+                selectable={false}
+                sortable
+                sort={_tableSort}
+                itemsPerPage={9999}
+                labels={{}}
+                compact
+                columns={columns}
+              />
+            </div>
+          </HiddenDiv>
+        )}
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
     </>
