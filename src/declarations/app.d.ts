@@ -41,7 +41,6 @@ export type T = (line: string, ...args: any[]) => string
 export interface UserInfoPayload {
   subject: string
   role: string
-  allowed: boolean
   featureToggles: FeatureToggles
 }
 

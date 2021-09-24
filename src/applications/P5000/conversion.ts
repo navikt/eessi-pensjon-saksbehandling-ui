@@ -92,7 +92,7 @@ export const convertP5000SEDToP5000ListRows = (
         res.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
-          selectDisabled: !_.isNil(period.type) && ['11','12','13','30','41','45','52'].indexOf(period.type) < 0,
+          selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
           selectLabel: 'Kryss for at perioden skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt / måned for dødsfall)',
           status: status,
           land: sender!.countryLabel ?? '',

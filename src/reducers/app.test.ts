@@ -116,15 +116,13 @@ describe('reducers/app', () => {
           now: mockNowDate,
           expirationTime: mockExpirationDate,
           subject: 'mockSubject',
-          role: 'mockRole',
-          allowed: 'mockAllowed'
+          role: 'mockRole'
         }
       })
     ).toEqual({
       ...initialAppState,
       username: 'mockSubject',
       userRole: 'mockRole',
-      allowed: 'mockAllowed',
       loggedIn: true,
       loggedTime: new Date(mockNowDate),
       expirationTime: new Date(mockExpirationDate)
@@ -137,15 +135,13 @@ describe('reducers/app', () => {
         type: types.APP_USERINFO_SUCCESS,
         payload: {
           subject: 'mockSubject',
-          role: 'mockRole',
-          allowed: 'mockAllowed'
+          role: 'mockRole'
         }
       })
     ).toEqual({
       ...initialAppState,
       username: 'mockSubject',
       userRole: 'mockRole',
-      allowed: 'mockAllowed',
       loggedIn: true,
       loggedTime: expect.any(Date),
       expirationTime: expect.any(Date)

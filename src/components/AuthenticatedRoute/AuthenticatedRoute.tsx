@@ -20,7 +20,6 @@ const RouteDiv = styled.div`
 `
 
 export interface AuthenticatedRouteSelector {
-  allowed: boolean | undefined;
   loggedIn: boolean | undefined;
   userRole: string | undefined;
 }
@@ -28,8 +27,7 @@ export interface AuthenticatedRouteSelector {
 const mapState = (state: State): AuthenticatedRouteSelector => ({
   /* istanbul ignore next */
   userRole: state.app.userRole,
-  loggedIn: state.app.loggedIn,
-  allowed: state.app.allowed
+  loggedIn: state.app.loggedIn
 })
 
 const paramAliases: {[k: string]: string} = {
@@ -41,7 +39,7 @@ const paramAliases: {[k: string]: string} = {
 }
 
 export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX.Element => {
-  const { allowed, loggedIn, userRole } = useSelector<State, AuthenticatedRouteSelector>(mapState)
+  const { loggedIn, userRole } = useSelector<State, AuthenticatedRouteSelector>(mapState)
   const dispatch = useDispatch()
   const { location } = props
 
@@ -109,14 +107,6 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
     )
   }
 
-  if (!allowed) {
-    return (
-      <Redirect to={{
-        pathname: routes.NOT_INVITED
-      }}
-      />
-    )
-  }
   return <Route {...props} />
 }
 

@@ -14,8 +14,7 @@ jest.mock('actions/app', () => ({
 
 const defaultSelector: AuthenticatedRouteSelector = {
   userRole: undefined,
-  loggedIn: undefined,
-  allowed: undefined
+  loggedIn: undefined
 }
 
 describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
@@ -81,25 +80,10 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
     expect((wrapper.find('Redirect').props().to as any)!.pathname).toEqual(routes.FORBIDDEN)
   })
 
-  it('Render: Has proper HTML structure: not allowed', () => {
-    stageSelector(defaultSelector, {
-      loggedIn: true,
-      userRole: 'SAKSBEHANDLER',
-      allowed: false
-    })
-    wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
-    expect(wrapper.exists('Redirect')).toBeTruthy()
-    expect((wrapper.find('Redirect').props().to as any)!.pathname).toEqual(routes.NOT_INVITED)
-  })
-
   it('Render: Has proper HTML structure: route', () => {
     stageSelector(defaultSelector, {
       loggedIn: true,
-      userRole: 'SAKSBEHANDLER',
-      allowed: true
+      userRole: 'SAKSBEHANDLER'
     })
     wrapper = mount(
       <Router history={createBrowserHistory()}>

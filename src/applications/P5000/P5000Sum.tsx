@@ -171,7 +171,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const has40aar: boolean = _.some(items, it => parseFloat(it.sec51aar) >= 40 || parseFloat(it.sec52aar) >= 40)
   const has45: boolean = _.some(items, it => it.type === '45')
   const has5152diffs: boolean = _.some(items, it => {
-    return ['11','12','13','30','41'].indexOf(it.type) >= 0 && (
+    return ['11', '12', '13', '30', '41'].indexOf(it.type) >= 0 && (
       it.sec51aar !== it.sec52aar || it.sec51mnd !== it.sec52mnd || it.sec51dag !== it.sec52dag
     )
   })

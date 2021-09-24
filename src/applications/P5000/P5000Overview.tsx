@@ -186,7 +186,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           highContrast={highContrast}
           items={items}
           id='P5000Overview'
-          key={'P5000Overview-table-' +_itemsPerPage}
+          key={'P5000Overview-table-' + _itemsPerPage}
           searchable
           selectable={false}
           sortable

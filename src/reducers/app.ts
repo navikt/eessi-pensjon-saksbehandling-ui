@@ -7,7 +7,6 @@ import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 
 export interface AppState {
-  allowed: boolean
   expirationTime: Date | undefined
   featureToggles: FeatureToggles
   loggedIn: boolean | undefined
@@ -27,7 +26,6 @@ const initialFeatureToggles: FeatureToggles = {
 }
 
 export const initialAppState: AppState = {
-  allowed: false,
   expirationTime: undefined,
   featureToggles: initialFeatureToggles,
   loggedIn: undefined,
@@ -133,7 +131,6 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         },
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
-        allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
         loggedTime: now,
         expirationTime: expirationTime
