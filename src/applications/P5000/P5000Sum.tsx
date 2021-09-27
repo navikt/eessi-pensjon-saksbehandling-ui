@@ -176,7 +176,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     )
   })
 
-  const hasMoreWarnings = has40aar || has45
+  const hasMoreWarnings = has40aar || has45 || has5152diffs
 
   return (
     <>
