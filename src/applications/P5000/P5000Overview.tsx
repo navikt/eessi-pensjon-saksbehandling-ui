@@ -2,6 +2,7 @@ import { LocalStorageValue } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
+import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -54,7 +55,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
-
+  const countryInstance = CountryData.getCountryInstance('nb')
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
@@ -101,9 +102,16 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return <div />
   }
 
+  const renderLand = (item: any, value: any) => {
+    if (_.isEmpty(value)) {
+      return <div>-</div>
+    }
+    return <div>{countryInstance.findByValue(value)?.label}</div>
+  }
+
   const columns = [
     { id: 'status', label: t('ui:status'), type: 'string', renderCell: renderStatus },
-    { id: 'land', label: t('ui:country'), type: 'string' },
+    { id: 'land', label: t('ui:country'), type: 'string', renderCell: renderLand },
     { id: 'acronym', label: t('ui:_institution'), type: 'string' },
     { id: 'type', label: t('ui:type'), type: 'string' },
     {

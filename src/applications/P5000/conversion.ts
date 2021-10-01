@@ -95,7 +95,7 @@ export const convertP5000SEDToP5000ListRows = (
           selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
           selectLabel: 'Kryss for at perioden skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt / måned for dødsfall)',
           status: status,
-          land: sender!.countryLabel ?? '',
+          land: period.land ?? '',
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
           type: period.type ?? '',
           startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
