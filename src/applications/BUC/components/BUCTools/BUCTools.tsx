@@ -322,7 +322,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 {t('ui:comment')}
               </Element>
               {_originalComments
-                ? (_originalComments as Comments).map((comment: Comment, i: number) => (
+                ? (_originalComments as Comments)?.map((comment: Comment, i: number) => (
                   <CommentDiv
                     data-test-id='a-buc-c-buctools__comment-div-id'
                     key={i}
