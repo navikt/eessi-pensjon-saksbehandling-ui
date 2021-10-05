@@ -62,13 +62,14 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
   const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
+
   const beforePrintOut = (): void => {
-    _setRenderPrintTable(true)
+    _setPrintDialogOpen(true)
   }
 
   const prepareContent = (): void => {
+    _setRenderPrintTable(true)
     standardLogger('buc.edit.tools.P5000.overview.print.button')
-    _setPrintDialogOpen(true)
   }
 
   const afterPrintOut = (): void => {
@@ -191,10 +192,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
+          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort)}
+          animatable={false}
           highContrast={highContrast}
           items={items}
           id='P5000Overview'
-          key={'P5000Overview-table-' + _itemsPerPage}
           searchable
           selectable={false}
           sortable

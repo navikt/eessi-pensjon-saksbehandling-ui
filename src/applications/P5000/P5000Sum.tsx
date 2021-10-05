@@ -59,8 +59,23 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+  const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const items = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+
+  const beforePrintOut = (): void => {
+    _setPrintDialogOpen(true)
+  }
+
+  const prepareContent = (): void => {
+    _setRenderPrintTable(true)
+    standardLogger('buc.edit.tools.P5000.sum.print.button')
+  }
+
+  const afterPrintOut = (): void => {
+    _setPrintDialogOpen(false)
+    _setRenderPrintTable(false)
+  }
 
   const renderType = (item: any, value: any) => (
     <Normaltekst>
@@ -145,16 +160,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   if (context === 'edit') {
     columns = columns.concat({ id: 'buttons', type: 'buttons', label: '' })
-  }
-  const beforePrintOut = (): void => {}
-
-  const prepareContent = (): void => {
-    standardLogger('buc.edit.tools.P5000.summary.print.button')
-    _setPrintDialogOpen(true)
-  }
-
-  const afterPrintOut = (): void => {
-    _setPrintDialogOpen(false)
   }
 
   const onRowsChanged = (items: P5000SumRows) => {
@@ -286,6 +291,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000SumRow>
+          animatable={false}
           highContrast={highContrast}
           items={items}
           searchable={false}
@@ -305,7 +311,8 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           columns={columns}
         />
         <VerticalSeparatorDiv />
-        <HiddenDiv>
+        {renderPrintTable && (
+          <HiddenDiv>
           <div ref={componentRef} id='printJS-form'>
             <Table<P5000SumRow>
               // important to it re-renders when sorting changes
@@ -326,6 +333,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             />
           </div>
         </HiddenDiv>
+        )}
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
     </>

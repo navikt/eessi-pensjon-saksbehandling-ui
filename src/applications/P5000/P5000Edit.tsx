@@ -134,6 +134,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage)
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+  const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
@@ -148,6 +149,20 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
   )
+
+  const beforePrintOut = (): void => {
+    _setPrintDialogOpen(true)
+  }
+
+  const prepareContent = (): void => {
+    _setRenderPrintTable(true)
+    standardLogger('buc.edit.tools.P5000.edit.print.button')
+  }
+
+  const afterPrintOut = (): void => {
+    _setPrintDialogOpen(false)
+    _setRenderPrintTable(false)
+  }
 
   const onSave = (payload: P5000UpdatePayload) => {
     let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
@@ -528,17 +543,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     _setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
-  const beforePrintOut = (): void => {}
-
-  const prepareContent = (): void => {
-    standardLogger('buc.edit.tools.P5000.summary.print.button')
-    _setPrintDialogOpen(true)
-  }
-
-  const afterPrintOut = (): void => {
-    _setPrintDialogOpen(false)
-  }
-
   const onRowSelectChange = (items: P5000ListRows) => {
     let newItems: P5000ListRows = _.cloneDeep(_items)
     newItems = newItems.map(item => {
@@ -871,6 +875,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
           <Table<P5000ListRow, P5000TableContext>
+            key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort)}
+            animatable={false}
             highContrast={highContrast}
             items={_items}
             loading={!!sentP5000info}
@@ -1042,7 +1048,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             ]}
           />
           <VerticalSeparatorDiv />
-          <HiddenDiv>
+          {renderPrintTable && (
+            <HiddenDiv>
             <div ref={componentRef} id='printJS-form'>
               <Table
               // important to it re-renders when sorting changes
@@ -1082,6 +1089,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               />
             </div>
           </HiddenDiv>
+          )}
         </PileDiv>
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />

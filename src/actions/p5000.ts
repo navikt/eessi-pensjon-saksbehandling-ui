@@ -15,7 +15,7 @@ export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
     url: sprintf(urls.P5000_GET_URL, { caseId: caseId, sedId: sed.id }),
     cascadeFailureError: true,
     context: sed,
-    expectedPayload: mockSed(sed, 'small'),
+    expectedPayload: mockSed(sed, 'large'),
     type: {
       request: types.P5000_GET_REQUEST,
       success: types.P5000_GET_SUCCESS,
