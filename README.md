@@ -26,7 +26,7 @@ Make sure you have installed:
 
 Also, make sure you have read access to [github.com/navikt](//github.com/navikt)
 
-## DOWNLOAD
+## DOWNLOAD 
 
 To clone this repo, go into your local working directory, and run (HTTPS) 
 
