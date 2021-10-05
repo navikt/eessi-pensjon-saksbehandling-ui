@@ -141,6 +141,7 @@ export interface P5000ListRow extends Item {
   ytelse: string
   ordning: string
   beregning: string
+  informasjonskalkulering: string
 }
 
 export type P5000ListRows = Array<P5000ListRow>
@@ -158,6 +159,7 @@ export interface P5000SumRow extends Item {
   startdato: string
   sluttdato: string
   beregning: string | null
+  informasjonskalkulering: string | null
 }
 
 export interface P5000UpdatePayload {

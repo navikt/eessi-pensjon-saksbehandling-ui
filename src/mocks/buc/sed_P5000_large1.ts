@@ -156,8 +156,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1900-02-01',
+          tom: '1901-05-31'
         }
       }, {
         relevans: '111',
@@ -178,8 +178,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1902-08-16',
+          tom: '1903-05-11'
         }
       }, {
         relevans: '111',
@@ -200,8 +200,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1904-02-01',
+          tom: '1905-05-31'
         }
       }, {
         relevans: '111',
@@ -222,8 +222,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1906-08-16',
+          tom: '1907-05-11'
         }
       }, {
         relevans: '111',
@@ -244,8 +244,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1908-02-01',
+          tom: '1909-05-31'
         }
       }, {
         relevans: '111',
@@ -266,8 +266,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1910-08-16',
+          tom: '1911-05-11'
         }
       }, {
         relevans: '111',
@@ -288,8 +288,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1912-02-01',
+          tom: '1913-05-31'
         }
       }, {
         relevans: '111',
@@ -310,8 +310,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1914-08-16',
+          tom: '1915-05-11'
         }
       }, {
         relevans: '111',
@@ -332,8 +332,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1916-02-01',
+          tom: '1917-05-31'
         }
       }, {
         relevans: '111',
@@ -354,8 +354,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1918-08-16',
+          tom: '1919-05-11'
         }
       }, {
         relevans: '111',
@@ -376,8 +376,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1920-02-01',
+          tom: '1921-05-31'
         }
       }, {
         relevans: '111',
@@ -398,8 +398,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1922-08-16',
+          tom: '1923-05-11'
         }
       }, {
         relevans: '111',
@@ -420,8 +420,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1924-02-01',
+          tom: '1925-05-31'
         }
       }, {
         relevans: '111',
@@ -442,8 +442,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1926-08-16',
+          tom: '1927-05-11'
         }
       }, {
         relevans: '111',
@@ -464,8 +464,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1928-02-01',
+          tom: '1929-05-31'
         }
       }, {
         relevans: '111',
@@ -486,8 +486,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1930-08-16',
+          tom: '1931-05-11'
         }
       }, {
         relevans: '111',
@@ -508,8 +508,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1932-02-01',
+          tom: '1933-05-31'
         }
       }, {
         relevans: '111',
@@ -530,8 +530,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1934-08-16',
+          tom: '1935-05-11'
         }
       }, {
         relevans: '111',
@@ -552,8 +552,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1936-02-01',
+          tom: '1937-05-31'
         }
       }, {
         relevans: '111',
@@ -574,8 +574,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1938-08-16',
+          tom: '1939-05-11'
         }
       }, {
         relevans: '111',
@@ -596,8 +596,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1940-02-01',
+          tom: '1941-05-31'
         }
       }, {
         relevans: '111',
@@ -618,8 +618,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1942-08-16',
+          tom: '1943-05-11'
         }
       }, {
         relevans: '111',
@@ -640,8 +640,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1944-02-01',
+          tom: '1945-05-31'
         }
       }, {
         relevans: '111',
@@ -662,8 +662,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1946-08-16',
+          tom: '1947-05-11'
         }
       }, {
         relevans: '111',
@@ -684,8 +684,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1948-02-01',
+          tom: '1949-05-31'
         }
       }, {
         relevans: '111',
@@ -706,8 +706,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1950-08-16',
+          tom: '1951-05-11'
         }
       }, {
         relevans: '111',
@@ -728,8 +728,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1952-02-01',
+          tom: '1953-05-31'
         }
       }, {
         relevans: '111',
@@ -750,8 +750,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1954-08-16',
+          tom: '1955-05-11'
         }
       }, {
         relevans: '111',
@@ -772,8 +772,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2000-02-01',
-          tom: '2004-05-31'
+          fom: '1956-02-01',
+          tom: '1957-05-31'
         }
       }, {
         relevans: '111',
@@ -794,8 +794,8 @@ export default {
         type: '30',
         beregning: '111',
         periode: {
-          fom: '2006-08-16',
-          tom: '2010-05-11'
+          fom: '1958-08-16',
+          tom: '1959-05-11'
         }
       }],
       trygdetid: [{

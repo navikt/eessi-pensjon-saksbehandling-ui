@@ -108,7 +108,8 @@ export const convertP5000SEDToP5000ListRows = (
           dagtype: period.sum?.dager?.type ?? '',
           ytelse: period.relevans ?? '',
           ordning: period.ordning ?? '',
-          beregning: period.beregning ?? ''
+          beregning: period.beregning ?? '',
+          informasjonskalkulering: period.beregning ?? ''
         } as P5000ListRow)
       }
     })
@@ -155,7 +156,8 @@ export const convertP5000SEDToP5000SumRows = (
             sec52aar: 0,
             sec52mnd: 0,
             sec52dag: 0,
-            beregning: periode.beregning
+            beregning: periode.beregning,
+            informasjonskalkulering: periode.beregning
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
@@ -179,6 +181,7 @@ export const convertP5000SEDToP5000SumRows = (
         }
         if (_.isNil(data[periode.type].beregning) && !_.isNil(periode.beregning)) {
           data[periode.type].beregning = periode.beregning
+          data[periode.type].informasjonskalkulering = periode.beregning
         }
       }
     })
@@ -196,7 +199,8 @@ export const convertP5000SEDToP5000SumRows = (
             sec52aar: 0,
             sec52mnd: 0,
             sec52dag: 0,
-            beregning: periode.beregning
+            beregning: periode.beregning,
+            informasjonskalkulering: periode.beregning
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
@@ -220,6 +224,7 @@ export const convertP5000SEDToP5000SumRows = (
         }
         if (_.isNil(data[periode.type].beregning) && !_.isNil(periode.beregning)) {
           data[periode.type].beregning = periode.beregning
+          data[periode.type].informasjonskalkulering = periode.beregning
         }
       }
     })
@@ -286,6 +291,7 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
     gyldigperiode: null,
     type: item.type,
     beregning: item.beregning,
+    informasjonskalkulering: item.beregning,
     ordning: item.ordning,
     periode: {
       fom: convertDate(item.startdato),
@@ -318,6 +324,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     gyldigperiode: null,
     type: item.type,
     beregning: item.beregning,
+    informasjonskalkulering: item.beregning,
     periode: {
       fom: convertDate(item.startdato),
       tom: convertDate(item.sluttdato)
@@ -344,6 +351,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     gyldigperiode: null,
     type: item.type,
     beregning: item.beregning,
+    informasjonskalkulering: item.beregning,
     periode: {
       fom: convertDate(item.startdato),
       tom: convertDate(item.sluttdato)
@@ -407,6 +415,7 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
 
   if (_.isNil(arr[index].beregning) && !_.isNil(item.beregning)) {
     arr[index].beregning = item.beregning
+    arr[index].informasjonskalkulering = item.beregning
   }
 }
 
