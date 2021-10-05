@@ -154,7 +154,8 @@ export const convertP5000SEDToP5000SumRows = (
             sec51dag: 0,
             sec52aar: 0,
             sec52mnd: 0,
-            sec52dag: 0
+            sec52dag: 0,
+            beregning: periode.beregning
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
@@ -176,6 +177,9 @@ export const convertP5000SEDToP5000SumRows = (
           data[periode.type].sec51mnd = remainingMonths
           data[periode.type].sec51aar += extraYears
         }
+        if (_.isNil(data[periode.type].beregning) && !_.isNil(periode.beregning)) {
+          data[periode.type].beregning = periode.beregning
+        }
       }
     })
     periods2?.forEach((periode: P5000Period) => {
@@ -191,7 +195,8 @@ export const convertP5000SEDToP5000SumRows = (
             sec51dag: 0,
             sec52aar: 0,
             sec52mnd: 0,
-            sec52dag: 0
+            sec52dag: 0,
+            beregning: periode.beregning
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
@@ -212,6 +217,9 @@ export const convertP5000SEDToP5000SumRows = (
           const remainingMonths = (data[periode.type].sec52mnd) % 12
           data[periode.type].sec52mnd = remainingMonths
           data[periode.type].sec52aar += extraYears
+        }
+        if (_.isNil(data[periode.type].beregning) && !_.isNil(periode.beregning)) {
+          data[periode.type].beregning = periode.beregning
         }
       }
     })
@@ -309,7 +317,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     yrke: null,
     gyldigperiode: null,
     type: item.type,
-    beregning: null,
+    beregning: item.beregning,
     periode: {
       fom: convertDate(item.startdato),
       tom: convertDate(item.sluttdato)
@@ -335,7 +343,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     yrke: null,
     gyldigperiode: null,
     type: item.type,
-    beregning: null,
+    beregning: item.beregning,
     periode: {
       fom: convertDate(item.startdato),
       tom: convertDate(item.sluttdato)
@@ -347,7 +355,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
 }
 
 const countDecimals = (value: number) => {
-  if (Math.floor(value) !== value) return value.toString().split('.')[1].length || 0
+  if (Math.floor(value) !== value) return value.toString().split('.')[1]?.length ?? 0
   return 0
 }
 
@@ -396,6 +404,10 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     moment(item.sluttdato).isSameOrAfter(moment(arr[index].periode?.tom, 'YYYY-MM-DD'))
       ? moment(item.sluttdato).format('YYYY-MM-DD')
       : arr[index].periode!.tom
+
+  if (_.isNil(arr[index].beregning) && !_.isNil(item.beregning)) {
+    arr[index].beregning = item.beregning
+  }
 }
 
 // Converts table rows for view/list, into P5000 SED for storage

@@ -157,6 +157,7 @@ export interface P5000SumRow extends Item {
   sec52dag: string
   startdato: string
   sluttdato: string
+  beregning: string | null
 }
 
 export interface P5000UpdatePayload {
