@@ -22,7 +22,7 @@ export const initialP5000State: P5000State = {
   p5000StorageKey: undefined
 }
 
-const p5000Reducer = (state: P5000State = initialP5000State, action: Action | ActionWithPayload = { type: '' }) => {
+const p5000Reducer = (state: P5000State = initialP5000State, action: Action | ActionWithPayload = { type: '' }): P5000State => {
   switch (action.type) {
     case types.APP_CLEAR_DATA: {
       return initialP5000State
@@ -52,7 +52,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       }
       return {
         ...state,
-        newP5000FromRinaMap: newP5000FromRinaMap,
+        p5000FromRinaMap: newP5000FromRinaMap,
         sentP5000info: (action as ActionWithPayload).payload
       }
     }
