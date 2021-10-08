@@ -32,6 +32,9 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   }
 }
 
+export const senderIsNorway = (sender: SedSender): boolean => sender?.country === 'NO' &&
+  (sender?.institution !== 'NO:NAVAT06' && sender?.institution !== 'NO:NAVAT08')
+
 export const generateKeyForListRow = (id: string, m: P5000Period): string => {
   const key = 'sedid' + id +
   '_type' + (!_.isEmpty(m.type) ? m.type : '-') +
@@ -95,7 +98,7 @@ export const convertP5000SEDToP5000ListRows = (
           selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
           selectLabel: 'Kryss for at perioden skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt / måned for dødsfall)',
           status: status,
-          land: period.land ?? '',
+          land: period.land ?? senderIsNorway(sender!) ? 'NO' : '',
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
           type: period.type ?? '',
           startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
@@ -159,7 +162,7 @@ export const convertP5000SEDToP5000SumRows = (
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
-          data[periode.type].land = periode.land ?? ''
+          data[periode.type].land = periode.land ?? 'NO'
         }
         data[periode.type].sec51aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
         data[periode.type].sec51mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
@@ -200,7 +203,7 @@ export const convertP5000SEDToP5000SumRows = (
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
-          data[periode.type].land = periode.land ?? ''
+          data[periode.type].land = periode.land ?? 'NO'
         }
         data[periode.type].sec52aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
         data[periode.type].sec52mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
