@@ -6,6 +6,7 @@ import { P5000Period, P5000SED } from 'declarations/p5000'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
+import { asyncLocalStorage } from 'utils/asyncLocalStorage'
 
 export interface P5000State {
   p5000FromRinaMap: P5000FromRinaMap
@@ -117,7 +118,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       } else {
         newP5000Storage![caseId] = newEntries
       }
-      window.localStorage.setItem(state.p5000StorageKey!, JSON.stringify(newP5000Storage))
+      asyncLocalStorage.setItem(state.p5000StorageKey!, JSON.stringify(newP5000Storage))
       return {
         ...state,
         p5000Storage: newP5000Storage
@@ -148,7 +149,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       } else {
         newP5000Storage![caseId] = [newEntry] as Array<LocalStorageValue<P5000SED>>
       }
-      window.localStorage.setItem(state.p5000StorageKey!, JSON.stringify(newP5000Storage))
+      asyncLocalStorage.setItem(state.p5000StorageKey!, JSON.stringify(newP5000Storage))
       return {
         ...state,
         p5000Storage: newP5000Storage
