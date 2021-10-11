@@ -806,7 +806,7 @@ const mockBuc = [
         id: 'fd55d46e6ab741838d3a8e1735d33f1b',
         parentDocumentId: null,
         type: 'X009',
-        status: 'empty',
+        status: 'received',
         creationDate: 1571818174000,
         lastUpdate: 1571818174000,
         displayName: 'Reminder',
@@ -832,6 +832,27 @@ const mockBuc = [
             selected: false
           }
         ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818174000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818174000
+        },
+        allowsAttachments: true
+      },
+      {
+        id: 'fd55d46e6ab741838d3a8e1735d33f1c',
+        parentDocumentId: 'fd55d46e6ab741838d3a8e1735d33f1b',
+        type: 'X010',
+        status: 'empty',
+        creationDate: 1571818174000,
+        lastUpdate: 1571818174000,
+        displayName: 'Reminder',
+        participants: [],
         attachments: [],
         version: '1',
         firstVersion: {
