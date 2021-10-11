@@ -3,7 +3,7 @@ import { Sed } from 'declarations/buc'
 
 const seds: any = {
   '60578cf8bf9f45a7819a39987c6c8fd4': 1,
-  '50578cf8bf9f45a7819a39987c6c8fd4': 2,
+  '50578cf8bf9f45a7819a39987c6c8fd4': 2, // foreign
   '40578cf8bf9f45a7819a39987c6c8fd4': 3
 }
 

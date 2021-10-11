@@ -7,7 +7,7 @@ export default {
       institusjonsid: 'NO:889640782',
       institusjonsnavn: 'The Norwegian Labour and Welfare Administration',
       saksnummer: '25183754',
-      land: 'NO'
+      land: 'FI'
     }],
     bruker: {
       mor: null,
@@ -18,22 +18,15 @@ export default {
           institusjonsid: null,
           sektor: null,
           identifikator: '12345678901',
-          land: 'NO',
-          institusjon: null
-        }, {
-          institusjonsnavn: null,
-          institusjonsid: null,
-          sektor: null,
-          identifikator: '100000000001',
-          land: 'DE',
+          land: 'FI',
           institusjon: null
         }],
         pinland: null,
         statsborgerskap: [{
-          land: 'DE'
+          land: 'FI'
         }],
-        etternavn: 'VON RICHTOFEN',
-        fornavn: 'MANFRED',
+        etternavn: 'MCFINNISH',
+        fornavn: 'FINNISH',
         kjoenn: 'M',
         foedested: null,
         foedselsdato: '1948-01-01',
@@ -57,7 +50,7 @@ export default {
     trygdetid: [{
       relevans: null,
       ordning: null,
-      land: null,
+      land: 'FI',
       sum: {
         kvartal: null,
         aar: '20',
@@ -79,7 +72,7 @@ export default {
     medlemskapAnnen: [{
       relevans: '010',
       ordning: '01',
-      land: 'NO',
+      land: 'FI',
       sum: {
         kvartal: null,
         aar: '11',
@@ -101,7 +94,7 @@ export default {
     medlemskapTotal: [{
       relevans: '010',
       ordning: null,
-      land: null,
+      land: 'FI',
       sum: {
         kvartal: null,
         aar: '02',
@@ -130,7 +123,7 @@ export default {
       medlemskap: [{
         relevans: '20',
         ordning: '20',
-        land: 'NO',
+        land: 'FI',
         sum: {
           kvartal: null,
           aar: '02',
@@ -154,7 +147,7 @@ export default {
       }, {
         relevans: '20',
         ordning: '20',
-        land: 'NO',
+        land: 'FI',
         sum: {
           kvartal: null,
           aar: '02',

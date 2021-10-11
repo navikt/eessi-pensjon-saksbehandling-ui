@@ -15,6 +15,13 @@ import _ from 'lodash'
 import moment from 'moment'
 import md5 from 'md5'
 
+const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | null => {
+  if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
+    return period.land
+  }
+  return senderIsNorway(sender!) ? 'NO' : null
+}
+
 export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   if (sed === undefined) {
     return undefined
@@ -91,14 +98,13 @@ export const convertP5000SEDToP5000ListRows = (
             }
           }
         }
-
         res.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
           selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
           selectLabel: 'Kryss for at perioden skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt / måned for dødsfall)',
           status: status,
-          land: period.land ?? senderIsNorway(sender!) ? 'NO' : '',
+          land: getNewLand(period, sender),
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
           type: period.type ?? '',
           startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
@@ -131,6 +137,7 @@ export const convertP5000SEDToP5000SumRows = (
 
   seds?.forEach(sed => {
     let sourceStatus: P5000SourceStatus
+    let sender = getSedSender(sed)
     if (context === 'overview' || (context === 'edit' && (
       p5000FromStorage === undefined || p5000FromStorage.id !== sed.id
     ))) {
@@ -162,7 +169,7 @@ export const convertP5000SEDToP5000SumRows = (
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
-          data[periode.type].land = periode.land ?? 'NO'
+          data[periode.type].land = getNewLand(periode, sender)
         }
         data[periode.type].sec51aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
         data[periode.type].sec51mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
@@ -203,7 +210,7 @@ export const convertP5000SEDToP5000SumRows = (
           }
         }
         if (_.isEmpty(data[periode.type].land)) {
-          data[periode.type].land = periode.land ?? 'NO'
+          data[periode.type].land = getNewLand(periode, sender)
         }
         data[periode.type].sec52aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
         data[periode.type].sec52mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
@@ -270,11 +277,12 @@ export const convertDate = (date: string | Date | null | undefined): string | nu
 
 export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = false): P5000Period => {
   const over40: boolean = max40 && parseFloat(item.aar) >= 40
+
   const period: P5000Period = {
     key: item?.key,
     selected: item.selected,
     relevans: item.ytelse, /// ???f
-    land: item.land ?? 'NO',
+    land: item.land,
     sum: {
       kvartal: null,
       aar: over40 ? '40' : String(item.aar).padStart(2, '0'),
