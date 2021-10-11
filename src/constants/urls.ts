@@ -18,6 +18,8 @@ const SAF_URL = FAGMODUL_API_URL + '/saf'
 export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
 export const EUX_COUNTRIES_FOR_BUC_URL = EUX_URL + '/countries/%(bucType)s'
 export const EUX_RINA_URL = EUX_URL + '/rinaurl'
+export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions/%(buc)s/%(country)s'
+
 
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
@@ -57,7 +59,6 @@ export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 export const P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
-export const BUC_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = SED_URL + '/institutions/%(buc)s/%(country)s'
 export const BUC_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
 export const BUC_GET_P6000PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)s/pdf'
 

@@ -289,7 +289,7 @@ export const getInstitutionsListForBucAndCountry: ActionCreator<ThunkResult<Acti
     _country = 'UK'
   }
   return call({
-    url: sprintf(urls.BUC_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: bucType, country: _country }),
+    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: bucType, country: _country }),
     context: {
       buc: bucType,
       country: country
