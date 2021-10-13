@@ -1,4 +1,4 @@
-import { SakTypeValue } from 'declarations/buc'
+import { Direction, SakTypeValue } from 'declarations/buc'
 import { JoarkFilePropType } from 'declarations/joark.pt'
 import PT from 'prop-types'
 
@@ -55,20 +55,29 @@ export const VersionPropType = PT.shape({
   date: PT.number.isRequired
 })
 
+export const DirectionPropType = PT.oneOf<Direction>(['IN','OUT'])
+
 export const SedPropType = PT.shape({
-  id: PT.string.isRequired,
-  parentDocumentId: PT.string,
-  type: PT.string.isRequired,
-  status: PT.string.isRequired,
-  creationDate: PT.number.isRequired,
-  lastUpdate: PT.number.isRequired,
-  displayName: PT.string,
-  participants: PT.arrayOf(ParticipantPropType.isRequired).isRequired,
+  allowsAttachments: PT.bool.isRequired,
   attachments: PT.arrayOf(SEDAttachmentPropType.isRequired).isRequired,
-  version: PT.string,
+  conversations: PT.any,
+  creationDate: PT.number.isRequired,
+  direction: DirectionPropType.isRequired,
+  displayName: PT.string,
   firstVersion: VersionPropType.isRequired,
+  id: PT.string.isRequired,
+  isSendExecuted: PT.any,
+  lastUpdate: PT.number.isRequired,
   lastVersion: VersionPropType.isRequired,
-  allowsAttachments: PT.bool.isRequired
+  message: PT.any,
+  parentDocumentId: PT.string,
+  participants: PT.arrayOf(ParticipantPropType.isRequired).isRequired,
+  receiveDate: PT.number,
+  status: PT.string.isRequired,
+  type: PT.string.isRequired,
+  typeVersion: PT.any,
+  version: PT.string,
+  versions: PT.any
 })
 
 export const SedsPropType = PT.arrayOf(SedPropType.isRequired)

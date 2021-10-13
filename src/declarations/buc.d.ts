@@ -190,21 +190,29 @@ export interface SEDAttachment {
 }
 export type SEDAttachments = Array<SEDAttachment>
 
+export type Direction = 'IN' | 'OUT'
+
 export interface Sed {
-  id: string
-  parentDocumentId?: string | null
-  type: string
-  status: string
-  creationDate: number
-  lastUpdate: number
-  displayName?: string | null
-  participants: Participants
-  attachments: Array<SEDAttachment>
-  version?: string | null
-  firstVersion: Version
-  lastVersion: Version
   allowsAttachments: boolean
+  attachments: Array<SEDAttachment>
+  conversations?: any
+  creationDate: number
+  direction: Direction
+  displayName?: string | null
+  firstVersion: Version
+  id: string
+  isSendExecuted?: any
+  lastUpdate: number
+  lastVersion: Version
   message ?: string
+  parentDocumentId?: string | null
+  participants: Participants
+  receiveDate?: number | null
+  status: string
+  type: string
+  typeVersion?: any
+  version?: string | null
+  versions?: any
 }
 
 export interface SEDAttachmentPayload {

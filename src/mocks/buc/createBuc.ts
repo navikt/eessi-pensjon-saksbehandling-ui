@@ -22,6 +22,7 @@ export default (buc: string) => {
       },
       id: md5('' + new Date().getTime()),
       lastUpdate: 1594712616000,
+      receiveDate: null,
       lastVersion: {
         date: '2020-07-14T07:43:36.000+0000',
         id: '1'

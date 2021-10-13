@@ -188,7 +188,12 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <Normaltekst
                 data-test-id='a-buc-c-sedheader__version-date-id'
               >
-                {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
+                {sed.receiveDate
+                  ? moment(sed.receiveDate).format('DD.MM.YYYY')
+                  : sed.lastUpdate
+                    ? moment(sed.lastUpdate).format('DD.MM.YYYY')
+                    : null
+                }
               </Normaltekst>
               {sed.version && (
                 <Normaltekst

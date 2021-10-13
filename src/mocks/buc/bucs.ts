@@ -1,5 +1,7 @@
 import _ from 'lodash'
 
+const later = new Date(1970,0,1).getTime()
+
 const mockBuc = [
   {
     type: 'P_BUC_01',
@@ -94,6 +96,7 @@ const mockBuc = [
         status: 'active',
         creationDate: 1571818194896,
         lastUpdate: 1571818294896,
+        receiveDate: later,
         displayName: 'Pension decision',
         participants: [
           {

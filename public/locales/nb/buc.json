@@ -299,7 +299,7 @@
   "validation-chooseVedtakId"       : "Velg en vedtak ID",
   "validation-invalidKravDato"      : "Ugyldig krav dato",
   "validation-invalidVedtakId"      : "Ugyldig vedtak ID",
-  "validation-noAktoerId"           : "In00gen aktørId",
+  "validation-noAktoerId"           : "Ingen aktørId",
   "validation-noName"               : "Ingen navn",
   "validation-noSakId"              : "Ingen sakId",
   "validation-invalidDate"          : "Ugyldig dato, vennligst bruk DD.MM.ÅÅÅÅ / DDMMÅÅ",

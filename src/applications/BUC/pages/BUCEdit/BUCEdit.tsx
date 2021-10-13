@@ -198,7 +198,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           const countryCode = it.organisation.countryCode.toLowerCase()
           const countryName = CountryData.getCountryInstance(locale).findByValue(countryCode.toUpperCase()).label.toLowerCase()
           const creationDate = moment(sed.creationDate).format('DD.MM.YYYY')
-          const lastUpdate = moment(sed.lastUpdate).format('DD.MM.YYYY')
+          const lastUpdate = moment(sed.receiveDate ?? sed.lastUpdate).format('DD.MM.YYYY')
           const status = t('ui:' + sed.status).toLowerCase()
           return organizationId.match(search) || organizationName.match(search) ||
           countryCode.match(search) || countryName.match(search) || creationDate.match(search) ||
