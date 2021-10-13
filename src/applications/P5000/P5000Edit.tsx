@@ -135,7 +135,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
-  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
+  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(
@@ -178,9 +178,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
       <Select
-        key={'c-table__edit-type-select-key-' + options.value}
+        key={'c-table__edit-type-select-key-'}
         id='c-table__edit-type-select-id'
-        className='P5000Edit-type-select'
+        className='P5000Edit-type-select input-focus'
         highContrast={highContrast}
         feil={options.feil}
         options={typeOptions}

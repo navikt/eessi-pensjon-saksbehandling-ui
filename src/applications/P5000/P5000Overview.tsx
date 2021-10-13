@@ -59,7 +59,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
-  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: '' })
+  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
   const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 

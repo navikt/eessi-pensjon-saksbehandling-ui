@@ -102,7 +102,7 @@
     "redux": "^4.1.1",
     "sprintf-js": "^1.1.2",
     "styled-components": "^5.3.1",
-    "tabell": "^1.6.4"
+    "tabell": "^1.6.6"
   },
   "devDependencies": {
     "@axe-core/react": "^4.3.1",
