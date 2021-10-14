@@ -94,7 +94,7 @@
   "error-noBuc"              : "Feil å hente BUC",
   "error-noBucs"             : "Feil å hente BUC-er",
   "error-noYtelse"           : "Du må velge en ytelsestype",
-  "error-noForsikringEllerBosetningsperioder" : "Du må velge",
+  "error-noForsikringEllerBosetningsperioder" : "Du må velge forsikring / bosetningsperioder",
   "error-sendingAttachments" : "Feil å sende vedlegg",
   "error-uniqueSed"          : "Det er allerede sendt en {{sed}} i denne BUC-en. Det er ikke lov å opprette flere SED-er i denne BUC-en.",
 

@@ -60,7 +60,15 @@ const CustomSelect = styled(NavSelect)`
 const MyAlert = styled(Alert)`
   position: relative !important;
 `
-
+const Radio42 = styled(HighContrastRadio)`
+  margin-bottom: 0.3rem !important;
+  margin-top: 0.3rem;
+`
+const RadioGroup = styled(HighContrastRadioGroup)`
+  legend {
+    margin-bottom: 0px !important;
+  }
+`
 export interface DatePieces {
   years: number
   months: number
@@ -711,7 +719,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </Column>
             <Column>
               <FlexCenterDiv>
-                <HighContrastRadioGroup
+                <RadioGroup
                   feil={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
                   id='P5000Edit-forsikringEllerBosetningsperioder'
                   legend={(
@@ -736,26 +744,27 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               )}
                 >
                   <FlexEndDiv>
-                    <HighContrastRadio
+                    <Radio42
                       name='42'
                       checked={_forsikringEllerBosetningsperioder === '1'}
                       label={t('ui:yes')}
                       onClick={() => setForsikringEllerBosetningsperioder('1')}
                     />
                     <HorizontalSeparatorDiv />
-                    <HighContrastRadio
+                    <Radio42
+                      style={{marginBottom: '0.3rem', marginTop: '0.3rem'}}
                       name='42'
                       checked={_forsikringEllerBosetningsperioder === '0'}
                       label={t('ui:no')}
                       onClick={() => setForsikringEllerBosetningsperioder('0')}
                     />
                   </FlexEndDiv>
-                </HighContrastRadioGroup>
+                </RadioGroup>
               </FlexCenterDiv>
             </Column>
             <HorizontalSeparatorDiv />
             <Column>
-              <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
+              <FlexEndDiv>
                 <CustomSelect
                   id='itemsPerPage'
                   bredde='s'
@@ -770,10 +779,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   <option value='50'>50</option>
                   <option value='all'>{t('ui:all')}</option>
                 </CustomSelect>
-              </FlexEndDiv>
-            </Column>
-            <Column>
-              <FlexEndDiv>
+                <HorizontalSeparatorDiv />
                 <HighContrastHovedknapp
                   disabled={sendingP5000info || !canSend}
                   spinner={sendingP5000info}
@@ -885,7 +891,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
             }}
             editable
-            allowNewRows
+            allowNewRows={_forsikringEllerBosetningsperioder === '1'}
             searchable={false}
             selectable
             coloredSelectedRow={false}
