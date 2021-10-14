@@ -57,8 +57,7 @@ export const generateKeyForListRow = (id: string, m: P5000Period): string => {
   return md5(key)
 }
 
-export const sumStringValues = (value1: string, value2: string): string =>
-  '' + (parseFloat(value1) + parseFloat(value2))
+export const sumStringValues = (value1: string, value2: string, extra: number = 0): number => (parseFloat(value1) + parseFloat(value2) + extra)
 
 // Converts P5000 SED from Rina/storage into table rows for view/list
 export const convertP5000SEDToP5000ListRows = (
@@ -137,7 +136,7 @@ export const convertP5000SEDToP5000ListRows = (
       } else {
         auxRes[key].push(r)
         // 2. sort grouped periods by start date
-        auxRes[key] = auxRes[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato))
+        auxRes[key] = auxRes[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
       }
     })
     res = []
@@ -149,9 +148,11 @@ export const convertP5000SEDToP5000ListRows = (
         const index = _.findIndex(newRes, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
         if (index >= 0) {
           newRes[index].sluttdato = r.sluttdato
-          newRes[index].aar = sumStringValues(newRes[index].aar, r.aar)
-          newRes[index].mnd = sumStringValues(newRes[index].mnd, r.mnd)
-          newRes[index].dag = sumStringValues(newRes[index].dag, r.dag)
+          const newDag = sumStringValues(newRes[index].dag, r.dag)
+          newRes[index].dag = '' + newDag % 30
+          const newMnd = sumStringValues(newRes[index].mnd, r.mnd, Math.floor(newDag / 30))
+          newRes[index].mnd = '' + newMnd % 12
+          newRes[index].aar = '' + sumStringValues(newRes[index].aar, r.aar,Math.floor(newDag / 12))
         } else {
           newRes.push(r)
         }

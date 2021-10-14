@@ -4,7 +4,6 @@ export const BASE_URL = FULL_HOST + (window.location.port ? ':' + window.locatio
 
 const FRONTEND_API_URL = BASE_URL + '/frontend'
 const FAGMODUL_API_URL = BASE_URL + '/fagmodul'
-const PREFILL_API_URL = BASE_URL + '/prefill'
 
 const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
@@ -67,6 +66,3 @@ export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 
 // Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'
-
-// Prefill
-export const PREFILL_SED_URL = PREFILL_API_URL + '/sed/prefill'
