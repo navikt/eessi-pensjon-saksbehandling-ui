@@ -123,7 +123,7 @@ export default {
       medlemskap: [{
         relevans: '20',
         ordning: '20',
-        land: 'FI',
+        land: null,
         sum: {
           kvartal: null,
           aar: '02',

@@ -281,8 +281,8 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
   const period: P5000Period = {
     key: item?.key,
     selected: item.selected,
-    relevans: item.ytelse, /// ???f
-    land: item.land,
+    relevans: item.ytelse,
+    land: item.land ?? 'NO',
     sum: {
       kvartal: null,
       aar: over40 ? '40' : String(item.aar).padStart(2, '0'),
@@ -314,7 +314,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     key: item?.key,
     relevans: null,
     ordning: null,
-    land: item.land || 'NO',
+    land: item.land ?? 'NO',
     sum: {
       kvartal: null,
       aar: String(item.sec51aar).padStart(2, '0'),
@@ -340,7 +340,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
     key: item?.key,
     relevans: null,
     ordning: null,
-    land: item.land || 'NO',
+    land: item.land ?? 'NO',
     sum: {
       kvartal: null,
       aar: String(item.sec52aar).padStart(2, '0'),
