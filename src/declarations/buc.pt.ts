@@ -55,7 +55,7 @@ export const VersionPropType = PT.shape({
   date: PT.number.isRequired
 })
 
-export const DirectionPropType = PT.oneOf<Direction>(['IN','OUT'])
+export const DirectionPropType = PT.oneOf<Direction>(['IN', 'OUT'])
 
 export const SedPropType = PT.shape({
   allowsAttachments: PT.bool.isRequired,

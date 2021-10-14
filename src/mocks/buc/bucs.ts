@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-const later = new Date(1970,0,1).getTime()
+const later = new Date(1970, 0, 1).getTime()
 
 const mockBuc = [
   {

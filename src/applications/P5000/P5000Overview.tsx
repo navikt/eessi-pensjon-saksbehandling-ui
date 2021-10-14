@@ -1,3 +1,5 @@
+import HelpIcon from 'assets/icons/HelpIcon'
+import { OneLineSpan } from 'components/StyledComponents'
 import { LocalStorageValue } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
@@ -10,17 +12,20 @@ import EtikettBase from 'nav-frontend-etiketter'
 import { Select } from 'nav-frontend-skjema'
 import { Normaltekst } from 'nav-frontend-typografi'
 import {
+  AlignEndRow,
   Column,
+  FlexCenterDiv,
   FlexEndDiv,
   HiddenDiv,
+  HighContrastCheckbox,
   HighContrastKnapp,
   HorizontalSeparatorDiv,
   PileCenterDiv,
-  Row,
   themeKeys,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -59,8 +64,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
+  const [_mergePeriods, _setMergePeriods] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, _mergePeriods)
   const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
   const beforePrintOut = (): void => {
@@ -150,7 +156,35 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <>
       <VerticalSeparatorDiv />
       <PileCenterDiv>
-        <Row>
+        <AlignEndRow>
+          <Column>
+            <HighContrastCheckbox
+              checked={_mergePeriods}
+              id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
+              data-test-id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
+              onChange={() => _setMergePeriods(!_mergePeriods)}
+              label={(
+                <FlexCenterDiv>
+                  <OneLineSpan>
+                    {t('buc:p5000-merge-periods')}
+                  </OneLineSpan>
+                  <HorizontalSeparatorDiv />
+                  <Tooltip
+                    placement='top' trigger={['hover']} overlay={(
+                      <>
+                        <Normaltekst>{t('buc:help-p5000-merge-1')}</Normaltekst>
+                        <Normaltekst>{t('buc:help-p5000-merge-2')}</Normaltekst>
+                      </>
+                  )}
+                  >
+                    <div style={{ width: '28px', height: '28px' }}>
+                      <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                    </div>
+                  </Tooltip>
+                </FlexCenterDiv>
+              )}
+            />
+          </Column>
           <Column>
             <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
               <ReactToPrint
@@ -187,12 +221,12 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
             </FlexEndDiv>
           </Column>
-        </Row>
+        </AlignEndRow>
         <VerticalSeparatorDiv />
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
-          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort)}
+          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods}
           animatable={false}
           highContrast={highContrast}
           items={items}

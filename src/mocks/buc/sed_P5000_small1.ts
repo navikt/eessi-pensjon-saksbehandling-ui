@@ -189,7 +189,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01.111111',
+          aar: '1',
           uker: null,
           dager: {
             nr: '00',
@@ -204,7 +204,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1906-01-01',
-          tom: '1906-07-06'
+          tom: '1906-12-31'
         },
         enkeltkrav: null
       }, {
@@ -213,7 +213,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01.111111',
+          aar: '1',
           uker: null,
           dager: {
             nr: '00',
@@ -227,8 +227,8 @@ export default {
         beregning: '10',
         informasjonskalkulering: null,
         periode: {
-          fom: '1987-01-01',
-          tom: '1987-12-31'
+          fom: '1907-01-01',
+          tom: '1907-12-31'
         },
         enkeltkrav: null
       }, {
@@ -237,7 +237,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01.111111',
+          aar: '1',
           uker: null,
           dager: {
             nr: '00',
@@ -251,8 +251,8 @@ export default {
         beregning: '11',
         informasjonskalkulering: null,
         periode: {
-          fom: '1988-01-01',
-          tom: '1988-12-31'
+          fom: '1908-01-01',
+          tom: '1908-12-31'
         },
         enkeltkrav: null
       }, {
@@ -261,7 +261,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01.111111',
+          aar: '1',
           uker: null,
           dager: {
             nr: '00',
@@ -271,12 +271,12 @@ export default {
         },
         yrke: null,
         gyldigperiode: null,
-        type: '12',
-        beregning: '12',
+        type: '11',
+        beregning: '11',
         informasjonskalkulering: null,
         periode: {
-          fom: '1989-01-01',
-          tom: '1989-12-31'
+          fom: '1909-01-01',
+          tom: '1909-12-31'
         },
         enkeltkrav: null
       }, {
@@ -285,7 +285,7 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '01.111111',
+          aar: '1',
           uker: null,
           dager: {
             nr: '00',
@@ -299,8 +299,8 @@ export default {
         beregning: '13',
         informasjonskalkulering: null,
         periode: {
-          fom: '1990-01-01',
-          tom: '1990-12-31'
+          fom: '1910-01-01',
+          tom: '1910-12-31'
         },
         enkeltkrav: null
       }]

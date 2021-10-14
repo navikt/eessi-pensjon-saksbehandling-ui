@@ -20,7 +20,6 @@ export const EUX_COUNTRIES_FOR_BUC_URL = EUX_URL + '/countries/%(bucType)s'
 export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions/%(buc)s/%(country)s'
 
-
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
 

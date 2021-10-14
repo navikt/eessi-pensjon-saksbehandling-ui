@@ -313,26 +313,26 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         <VerticalSeparatorDiv />
         {renderPrintTable && (
           <HiddenDiv>
-          <div ref={componentRef} id='printJS-form'>
-            <Table<P5000SumRow>
+            <div ref={componentRef} id='printJS-form'>
+              <Table<P5000SumRow>
               // important to it re-renders when sorting changes
-              key={JSON.stringify(_tableSort)}
-              className='print-version'
-              items={items}
-              animatable={false}
-              searchable={false}
-              selectable={false}
-              editable={false}
-              sortable={false}
-              sort={_tableSort}
-              itemsPerPage={9999}
-              labels={{}}
-              compact
-              categories={categories}
-              columns={columns}
-            />
-          </div>
-        </HiddenDiv>
+                key={JSON.stringify(_tableSort)}
+                className='print-version'
+                items={items}
+                animatable={false}
+                searchable={false}
+                selectable={false}
+                editable={false}
+                sortable={false}
+                sort={_tableSort}
+                itemsPerPage={9999}
+                labels={{}}
+                compact
+                categories={categories}
+                columns={columns}
+              />
+            </div>
+          </HiddenDiv>
         )}
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />

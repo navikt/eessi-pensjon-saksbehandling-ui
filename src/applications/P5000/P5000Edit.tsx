@@ -139,7 +139,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const { highContrast, sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
-  const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage)
+  const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
@@ -186,7 +186,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
       <Select
-        key={'c-table__edit-type-select-key-'}
+        key='c-table__edit-type-select-key-'
         id='c-table__edit-type-select-id'
         className='P5000Edit-type-select input-focus'
         highContrast={highContrast}
@@ -752,7 +752,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     />
                     <HorizontalSeparatorDiv />
                     <Radio42
-                      style={{marginBottom: '0.3rem', marginTop: '0.3rem'}}
+                      style={{ marginBottom: '0.3rem', marginTop: '0.3rem' }}
                       name='42'
                       checked={_forsikringEllerBosetningsperioder === '0'}
                       label={t('ui:no')}
@@ -1056,45 +1056,45 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <VerticalSeparatorDiv />
           {renderPrintTable && (
             <HiddenDiv>
-            <div ref={componentRef} id='printJS-form'>
-              <Table
+              <div ref={componentRef} id='printJS-form'>
+                <Table
               // important to it re-renders when sorting changes
-                className='print-version'
-                items={_items}
-                editable={false}
-                animatable={false}
-                searchable={false}
-                selectable={false}
-                sortable
-                sort={_tableSort}
-                itemsPerPage={9999}
-                labels={{}}
-                compact
-                categories={[{
-                  colSpan: 3,
-                  label: ''
-                }, {
-                  colSpan: 3,
-                  label: t('buc:Periodesum')
-                }, {
-                  colSpan: 4,
-                  label: ''
-                }]}
-                columns={[
-                  { id: 'status', label: t('ui:status'), type: 'string' },
-                  { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
-                  { id: 'startdato', label: t('ui:startDate'), type: 'string', renderCell: renderDateCell },
-                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string', renderCell: renderDateCell },
-                  { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
-                  { id: 'mnd', label: t('ui:month'), type: 'number' },
-                  { id: 'aar', label: t('ui:year'), type: 'number' },
-                  { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
-                  { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
-                  { id: 'ordning', label: t('ui:scheme'), type: 'string' }
-                ]}
-              />
-            </div>
-          </HiddenDiv>
+                  className='print-version'
+                  items={_items}
+                  editable={false}
+                  animatable={false}
+                  searchable={false}
+                  selectable={false}
+                  sortable
+                  sort={_tableSort}
+                  itemsPerPage={9999}
+                  labels={{}}
+                  compact
+                  categories={[{
+                    colSpan: 3,
+                    label: ''
+                  }, {
+                    colSpan: 3,
+                    label: t('buc:Periodesum')
+                  }, {
+                    colSpan: 4,
+                    label: ''
+                  }]}
+                  columns={[
+                    { id: 'status', label: t('ui:status'), type: 'string' },
+                    { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
+                    { id: 'startdato', label: t('ui:startDate'), type: 'string', renderCell: renderDateCell },
+                    { id: 'sluttdato', label: t('ui:endDate'), type: 'string', renderCell: renderDateCell },
+                    { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
+                    { id: 'mnd', label: t('ui:month'), type: 'number' },
+                    { id: 'aar', label: t('ui:year'), type: 'number' },
+                    { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
+                    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
+                    { id: 'ordning', label: t('ui:scheme'), type: 'string' }
+                  ]}
+                />
+              </div>
+            </HiddenDiv>
           )}
         </PileDiv>
       </PileCenterDiv>

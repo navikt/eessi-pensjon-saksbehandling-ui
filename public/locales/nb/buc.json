@@ -187,7 +187,8 @@
   "help-avdodFnr" : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
   "help-p5000-1"  : "Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1), velg \"Nei\" her (4.2).",
   "help-p5000-2"  : "Når du klikker på \"Overfør til Rina\" vil nødvendige felt i kapittel 4/5 i P5000 bli pre-utfylt.",
-
+  "help-p5000-merge-1" : "Noen land stykker opp trygdetid i små perioder selv om det ikke er mellomrom mellom periodene.",
+  "help-p5000-merge-2" : "Trykk på for å slå sammen sammenhengende perioder av samme type.",
   "loading-buc"                   : "Laster BUC...",
   "loading-bucList"               : "Laster BUC-er...",
   "loading-country"               : "Laster land...",
@@ -221,6 +222,7 @@
   "p5000-source-status-rina"      : "Viste perioder er fra RINA",
   "p5000-source-status-storage"   : "Viste perioder er fra arbeidskopi",
   "p5000-saved-working-copy"      : "Registrerte perioder lagres umiddelbart i Eessi-pensjon.",
+  "p5000-merge-periods"           : "Slå sammen perioder",
 
   "p5000-help-modal-1": "For å redigere en P5000 klikker du på ",
   "p5000-help-modal-2": ". Dersom det allerede er overført perioder til RINA, vil du få opp en liste over disse.",

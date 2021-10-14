@@ -57,14 +57,18 @@ export const generateKeyForListRow = (id: string, m: P5000Period): string => {
   return md5(key)
 }
 
+export const sumStringValues = (value1: string, value2: string): string =>
+  '' + (parseFloat(value1) + parseFloat(value2))
+
 // Converts P5000 SED from Rina/storage into table rows for view/list
 export const convertP5000SEDToP5000ListRows = (
   seds: Seds,
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
+  p5000FromStorage: LocalStorageValue<P5000SED> | undefined,
+  mergePeriods: boolean
 ): [P5000ListRows, P5000SourceStatus] => {
-  const res: P5000ListRows = []
+  let res: P5000ListRows = []
   let sourceStatus: P5000SourceStatus = 'rina'
 
   seds.forEach(sed => {
@@ -122,6 +126,39 @@ export const convertP5000SEDToP5000ListRows = (
       }
     })
   })
+
+  if (mergePeriods) {
+    const auxRes: any = {}
+    // 1. group periods by `$acronym-$type`
+    res.forEach(r => {
+      const key = r.acronym + '_' + r.type
+      if (!auxRes[key]) {
+        auxRes[key] = [r]
+      } else {
+        auxRes[key].push(r)
+        // 2. sort grouped periods by start date
+        auxRes[key] = auxRes[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato))
+      }
+    })
+    res = []
+    // 3. array-walk periods, merge if they are consecutive
+    Object.keys(auxRes).forEach(key => {
+      const newRes: Array<P5000ListRow> = []
+      auxRes[key].forEach((r: P5000ListRow) => {
+        const targetedSluttDato: Date = moment(r.startdato).subtract(1, 'day').toDate()
+        const index = _.findIndex(newRes, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
+        if (index >= 0) {
+          newRes[index].sluttdato = r.sluttdato
+          newRes[index].aar = sumStringValues(newRes[index].aar, r.aar)
+          newRes[index].mnd = sumStringValues(newRes[index].mnd, r.mnd)
+          newRes[index].dag = sumStringValues(newRes[index].dag, r.dag)
+        } else {
+          newRes.push(r)
+        }
+      })
+      newRes.forEach(r => res.push(r))
+    })
+  }
   return [res, sourceStatus]
 }
 
@@ -137,7 +174,7 @@ export const convertP5000SEDToP5000SumRows = (
 
   seds?.forEach(sed => {
     let sourceStatus: P5000SourceStatus
-    let sender = getSedSender(sed)
+    const sender = getSedSender(sed)
     if (context === 'overview' || (context === 'edit' && (
       p5000FromStorage === undefined || p5000FromStorage.id !== sed.id
     ))) {
@@ -145,7 +182,7 @@ export const convertP5000SEDToP5000SumRows = (
     } else {
       sourceStatus = 'storage'
     }
-    const [res] = convertP5000SEDToP5000ListRows([sed], context, p5000FromRinaMap, p5000FromStorage)
+    const [res] = convertP5000SEDToP5000ListRows([sed], context, p5000FromRinaMap, p5000FromStorage, false)
     const rinaPeriods1: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapTotal
     const rinaPeriods2: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.trygdetid
     const storagePeriods1: Array<P5000Period> | undefined = p5000FromStorage?.content.pensjon?.medlemskapTotal
