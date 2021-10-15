@@ -45,6 +45,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import Table, { Column as TableColumn, RenderEditableOptions, Sort } from 'tabell'
+import dateDiff, { DateDiff } from 'utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
@@ -69,11 +70,6 @@ const RadioGroup = styled(HighContrastRadioGroup)`
     margin-bottom: 0px !important;
   }
 `
-export interface DatePieces {
-  years: number
-  months: number
-  days: number
-}
 
 const mapState = (state: State): any => ({
   highContrast: state.ui.highContrast,
@@ -228,7 +224,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return s
   }
 
-  const calculateDateDiff = (rawStartDato: string | undefined, rawSluttDato: string | undefined): DatePieces | null => {
+  const calculateDateDiff = (rawStartDato: string | undefined, rawSluttDato: string | undefined): DateDiff | null => {
     let validStartDato: string | undefined
     let validSluttDato: string | undefined
 
@@ -253,38 +249,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (!startdato.isValid() || !sluttdato.isValid()) {
       return null
     }
-
-    // make the diff calculation include the starting day,
-    // so the diff between 01.01.YYYY and 02.01.YYYY is 2 days, not 1
-    startdato.add(-1, 'days')
-
-    let years = sluttdato.diff(startdato, 'years')
-    startdato.add(years, 'years')
-    let months = sluttdato.diff(startdato, 'months')
-    startdato.add(months, 'months')
-    let days = sluttdato.diff(startdato, 'days')
-
-    // from 01.01.1970 to 31.12.1079 --> convert 30/11/8 d/m/y to 0/0/9
-    // from 01.05.1995 to 31.12.2017 --> convert 30/7/22 d/y/m to 0/8/22
-    if (days === 30) {
-      days = 0
-      months += 1
-    }
-
-    if (months === 12) {
-      months = 0
-      years += 1
-    }
-
-    return {
-      years: years,
-      months: months,
-      days: days
-    }
+    return dateDiff(validStartDato, validSluttDato)
   }
 
   const maybeDoSomePrefill = (startdato: string | undefined, sluttdato: string | undefined, options: RenderEditableOptions<P5000TableContext>) => {
-    const dates: DatePieces | null = calculateDateDiff(startdato, sluttdato)
+    const dates: DateDiff | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
       if (options.context.forsikringEllerBosetningsperioder === '1') {
         options.setValue({
