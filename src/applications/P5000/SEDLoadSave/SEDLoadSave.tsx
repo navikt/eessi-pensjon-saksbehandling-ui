@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ytelsestypeOptions } from '../P5000Edit'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import { Etikett } from 'components/StyledComponents'
-import { LocalStorageEntry, LocalStorageValue } from 'declarations/app'
+import { LocalStorageEntry, LocalStorageValue, O } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import _ from 'lodash'
 import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
@@ -14,7 +14,6 @@ import {
 } from 'nav-hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { OptionTypeBase } from 'react-select'
 import { P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import { unsyncFromP5000Storage } from 'actions/p5000'
@@ -64,7 +63,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     </UndertekstBold>
                     <HorizontalSeparatorDiv size='0.5' />
                     <Normaltekst>
-                      {_.find(ytelsestypeOptions, (o: OptionTypeBase) => (
+                      {_.find(ytelsestypeOptions, (o: O) => (
                         o?.value === (sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
                       ))?.label ?? '-'}
                     </Normaltekst>

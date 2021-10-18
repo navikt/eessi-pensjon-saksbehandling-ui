@@ -1,6 +1,6 @@
 import * as constants from 'constants/constants'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
-import { OptionTypeBase } from 'react-select'
+import { OptionProps } from 'react-select'
 
 export type AllowedLocaleString = 'en' | 'nb'
 
@@ -18,11 +18,14 @@ export type Labels = {[k in string]? : string}
 
 export type Loading = {[key: string]: boolean}
 
-export interface Option extends OptionTypeBase {
+export interface O {
   label: string
   navn?: string
   value: string
 }
+
+export type Option = OptionProps<O, false>
+export type MOption = OptionProps<O, true>
 
 export type Options = Array<Option>
 

@@ -11,10 +11,9 @@ const FlexDiv = styled.div`
 `
 const MultipleValueRemove = (props: any) => {
   const [hover, setHover] = useState<boolean>(false)
-  const { selectProps, innerProps } = props
-  const theme = selectProps.selectProps.theme
+  const { isDisabled, _theme, innerProps } = props
 
-  const visibility = selectProps.isDisabled ? 'hidden' : 'visible'
+  const visibility = isDisabled ? 'hidden' : 'visible'
   return (
     <FlexDiv
       {...innerProps}
@@ -27,7 +26,7 @@ const MultipleValueRemove = (props: any) => {
       <FilledRemoveCircle
         style={{ visibility: visibility }}
         color={
-        theme[hover ? 'main-interactive-color' : 'main-font-color']
+        _theme[hover ? 'main-interactive-color' : 'main-font-color']
       }
       />
     </FlexDiv>

@@ -1,5 +1,4 @@
 
-
 export interface DateDiff {
   days: number
   months: number
@@ -7,7 +6,7 @@ export interface DateDiff {
 }
 
 const dateDiff = (startdato: string, sluttdato: string): DateDiff => {
-  let res: DateDiff = {
+  const res: DateDiff = {
     days: 0, months: 0, years: 0
   }
 
@@ -22,11 +21,11 @@ const dateDiff = (startdato: string, sluttdato: string): DateDiff => {
     res.days = leftoverMonth === 1 ? 0 : dayDiff // do not let above 30 (28 in February months)
   } else {
     // deal with negatives
-    res.days = isInFebruary ? (dayDiff + 28) % 28 : (dayDiff + 30) % 30  // do not let above 30 (28 in February months)
+    res.days = isInFebruary ? (dayDiff + 28) % 28 : (dayDiff + 30) % 30 // do not let above 30 (28 in February months)
   }
 
-  const monthDiff = leftoverMonth + (dayDiff < 0 ? -1 : 0) + ( sluttDatoPieces[1] - startDatoPieces[1])
-  let leftoverYear = monthDiff >= 12 ? 1 : 0
+  const monthDiff = leftoverMonth + (dayDiff < 0 ? -1 : 0) + (sluttDatoPieces[1] - startDatoPieces[1])
+  const leftoverYear = monthDiff >= 12 ? 1 : 0
 
   res.months = leftoverYear ? 0 : (monthDiff >= 0 ? monthDiff : (monthDiff + 12) % 12)
   res.years = leftoverYear + (monthDiff < 0 ? -1 : 0) + (sluttDatoPieces[2] - startDatoPieces[2])
@@ -34,4 +33,3 @@ const dateDiff = (startdato: string, sluttdato: string): DateDiff => {
 }
 
 export default dateDiff
-

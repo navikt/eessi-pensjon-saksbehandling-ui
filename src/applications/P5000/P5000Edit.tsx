@@ -3,7 +3,7 @@ import HelpIcon from 'assets/icons/HelpIcon'
 import Alert from 'components/Alert/Alert'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
-import { LocalStorageValue, Option, Options } from 'declarations/app.d'
+import { LocalStorageValue, O } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
@@ -86,7 +86,7 @@ export interface P5000EditProps {
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
 
-export const ytelsestypeOptions: Options = [
+export const ytelsestypeOptions: Array<O> = [
   { label: '[00] Annet', value: '00' },
   { label: '[01] Annen delvis', value: '01' },
   { label: '[10] Alderspensjon', value: '10' },
@@ -97,7 +97,7 @@ export const ytelsestypeOptions: Options = [
   { label: '[31] Uførepensjon delvis', value: '31' }
 ]
 
-export const typeOptions: Options = [
+export const typeOptions: Array<O> = [
   { value: '10', label: '[10] Pliktige avgiftsperioder' },
   { value: '11', label: '[11] Pliktige avgiftsperioder - ansatt' },
   { value: '12', label: '[12] Pliktige avgiftsperioder - selvstendig næringsdrivende' },
@@ -189,9 +189,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         feil={options.feil}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e) => options.setValue({ type: e!.value })}
+        onChange={(e: unknown) => options.setValue({ type: (e as O).value })}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
-        selectedValue={_.find(typeOptions, o => o.value === options.value)}
+        value={_.find(typeOptions, o => o.value === options.value)}
       />
     )
   }
@@ -472,11 +472,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const setYtelseOption = (o: Option | null) => {
+  const setYtelseOption = (o: unknown) => {
     _resetValidation('P5000Edit-ytelse-select')
-    _setYtelseOption(o?.value)
+    _setYtelseOption((o as O)?.value)
     onSave({
-      ytelseOption: o?.value
+      ytelseOption: (o as O)?.value
     })
   }
 
@@ -681,8 +681,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   menuPortalTarget={document.body}
                   options={ytelsestypeOptions}
                   onChange={setYtelseOption}
-                  selectedValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
                   defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                  value={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
                 />
               </FullWidthDiv>
             </Column>

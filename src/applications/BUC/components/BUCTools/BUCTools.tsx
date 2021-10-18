@@ -4,7 +4,6 @@ import P5000 from 'applications/P5000/P5000'
 import Trashcan from 'assets/icons/Trashcan'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { AllowedLocaleString, BUCMode, FeatureToggles, Loading } from 'declarations/app.d'
-
 import {
   Buc,
   BucInfo,
@@ -40,7 +39,6 @@ import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { ValueType } from 'react-select'
 import styled from 'styled-components'
 
 const BUCToolsPanel = styled(HighContrastPanel)`
@@ -132,7 +130,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
   const _theme = highContrast ? themeHighContrast : theme
 
-  const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
+  const onTagsChange = (tagsList: unknown): void => {
     if (tagsList) {
       if (_.isFunction(onTagChange)) {
         onTagChange(tagsList as Tags)
@@ -142,7 +140,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
         aktoerId: aktoerId,
-        tags: tagsList?.map(tag => tag.value) ?? [],
+        tags: (tagsList as Tags)?.map((tag: Tag) => tag.value) ?? [],
         comment: _originalComments,
         buc: buc as ValidBuc
       }))

@@ -152,7 +152,7 @@ export const convertP5000SEDToP5000ListRows = (
           newRes[index].dag = '' + newDag % 30
           const newMnd = sumStringValues(newRes[index].mnd, r.mnd, Math.floor(newDag / 30))
           newRes[index].mnd = '' + newMnd % 12
-          newRes[index].aar = '' + sumStringValues(newRes[index].aar, r.aar,Math.floor(newDag / 12))
+          newRes[index].aar = '' + sumStringValues(newRes[index].aar, r.aar, Math.floor(newDag / 12))
         } else {
           newRes.push(r)
         }

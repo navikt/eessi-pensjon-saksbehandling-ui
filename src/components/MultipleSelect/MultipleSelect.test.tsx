@@ -1,5 +1,5 @@
 import { mount, ReactWrapper } from 'enzyme'
-import { OptionTypeBase } from 'react-select'
+import { Option } from 'declarations/app.d'
 import MultipleSelect, { MultipleSelectProps } from './MultipleSelect'
 
 describe('components/MultipleSelect/MultipleSelect', () => {
@@ -7,12 +7,12 @@ describe('components/MultipleSelect/MultipleSelect', () => {
   const options = [
     { label: 'mockLabel01', value: 'mockValue01' },
     { label: 'mockLabel02', value: 'mockValue02' }
-  ] as Array<OptionTypeBase>
+  ] as Array<Option>
 
-  const initialMockProps: MultipleSelectProps<OptionTypeBase> = {
+  const initialMockProps: MultipleSelectProps<Option> = {
     ariaLabel: 'mockAriaLabel',
     creatable: true,
-    disabled: false,
+    isDisabled: false,
     error: undefined,
     highContrast: false,
     hideSelectedOptions: false,

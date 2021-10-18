@@ -3,10 +3,10 @@ import {
   createSavingAttachmentJob,
   createSed,
   fetchKravDato,
-  getSedP6000,
   getCountryList,
   getInstitutionsListForBucAndCountry,
   getSedList,
+  getSedP6000,
   resetSavingAttachmentJob,
   resetSed,
   resetSedAttachments,
@@ -33,15 +33,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
-import {
-  AllowedLocaleString,
-  FeatureToggles,
-  Loading,
-  Option,
-  Options,
-  PesysContext,
-  Validation
-} from 'declarations/app.d'
+import { AllowedLocaleString, FeatureToggles, Loading, O, PesysContext, Validation } from 'declarations/app.d'
 import { KravOmValue, P6000, SakTypeKey } from 'declarations/buc'
 import {
   AvdodOrSokerValue,
@@ -95,7 +87,7 @@ import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { GroupTypeBase, ValueType } from 'react-select'
+import { GroupBase } from 'react-select'
 import styled from 'styled-components'
 
 const AlertDiv = styled.div`
@@ -242,21 +234,21 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return label
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined): Options => {
+  const renderOptions = (options: Array<O | string> | undefined): Array<O> => {
     return options
-      ? options.map((el: Option | string) => {
+      ? options.map((el: O | string) => {
           let label, value
           if (typeof el === 'string') {
             label = el
             value = el
           } else {
-            value = el.value || el.institution
-            label = el.label || el.name
+            value = el.value || (el as any).institution
+            label = el.label || (el as any).name
           }
           return {
             label: getOptionLabel(label!),
             value: value
-          } as Option
+          } as O
         })
       : []
   }
@@ -285,7 +277,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const _notHostInstitution = (institution: Institution) : boolean => institution.institution !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_sedAttachments, setSedAttachments] = useState<JoarkBrowserItems>(initialAttachments)
-  const _sedOptions: Options = renderOptions(sedList)
+  const _sedOptions: Array<O> = renderOptions(sedList)
   const [_sedSent, setSedSent] = useState<boolean>(false)
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_validation, setValidation] = useState<Validation>({})
@@ -392,8 +384,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
     : []
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
-  const _institutionObjectList: Array<GroupTypeBase<Option>> = []
-  let _institutionValueList: Options = []
+  const _institutionObjectList: Array<GroupBase<O>> = []
+  let _institutionValueList: Array<O> = []
 
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
@@ -540,7 +532,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     dispatch(resetSavingAttachmentJob())
   }
 
-  const fetchInstitutionsForSelectedCountries = useCallback((countries: Options | CountryRawList): void => {
+  const fetchInstitutionsForSelectedCountries = useCallback((countries: Array<O> | CountryRawList): void => {
     if (!_buc) {
       return
     }
@@ -549,7 +541,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (typeof countries[0] === 'string') {
         newCountries = countries as CountryRawList
       } else {
-        newCountries = (countries as Options).map(item => item.value)
+        newCountries = (countries as Array<O>).map(item => item.value)
       }
     }
 
@@ -629,9 +621,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }, [])
 
-  const onSedChange = (option: ValueType<Option, false> | null | undefined): void => {
+  const onSedChange = (option: unknown): void => {
     if (option) {
-      const newSed: string | undefined = option.value
+      const newSed: string | undefined = (option as O).value
       if (newSed) {
         handleSedChange(newSed)
       }
@@ -643,14 +635,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setKravOm(newKravOm)
   }
 
-  const onInstitutionsChange = (institutions: ValueType<Option, true>): void => {
-    const newInstitutions: InstitutionRawList = institutions ? institutions.map(institution => institution.value) : []
+  const onInstitutionsChange = (institutions: Array<O>): void => {
+    const newInstitutions: InstitutionRawList = institutions ? (institutions as Array<O>)?.map((institution : O) => institution.value) : []
     setInstitutions(newInstitutions)
     updateValidation('institution', validateInstitutions(newInstitutions))
   }
 
-  const onCountriesChange = (countries: ValueType<Option, true> | null | undefined): void => {
-    fetchInstitutionsForSelectedCountries(countries as Options)
+  const onCountriesChange = (countries: Array<O> | null | undefined): void => {
+    fetchInstitutionsForSelectedCountries(countries as Array<O>)
   }
 
   const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -980,7 +972,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             </label>
             <Select
               data-test-id='a-buc-c-sedstart__sed-select-id'
-              disabled={loading.gettingSedList}
+              isDisabled={loading.gettingSedList}
               highContrast={highContrast}
               id='a-buc-c-sedstart__sed-select-id'
               isSearchable
@@ -1122,7 +1114,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
               />
               <VerticalSeparatorDiv />
-              <MultipleSelect<Option>
+              <MultipleSelect<O>
                 ariaLabel={t('ui:institution')}
                 aria-describedby='help-institution'
                 data-test-id='a-buc-c-sedstart__institution-select-id'

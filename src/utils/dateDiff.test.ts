@@ -1,10 +1,7 @@
 import dateDiff from 'utils/dateDiff'
 
-
 describe('utils/dateDiff', () => {
-
   it('works', () => {
-
     expect(dateDiff('01.01.1982', '01.01.1982')).toEqual({
       days: 1, months: 0, years: 0
     })
@@ -24,7 +21,6 @@ describe('utils/dateDiff', () => {
       days: 1, months: 1, years: 0
     })
 
-
     expect(dateDiff('02.01.1982', '01.02.1982')).toEqual({
       days: 0, months: 1, years: 0
     })
@@ -34,7 +30,6 @@ describe('utils/dateDiff', () => {
     expect(dateDiff('02.01.1982', '03.02.1982')).toEqual({
       days: 2, months: 1, years: 0
     })
-
 
     expect(dateDiff('03.01.1982', '01.02.1982')).toEqual({
       days: 29, months: 0, years: 0
@@ -58,7 +53,6 @@ describe('utils/dateDiff', () => {
     expect(dateDiff('01.02.1982', '29.02.1982')).toEqual({
       days: 0, months: 1, years: 0
     })
-
 
     expect(dateDiff('01.01.1982', '29.12.1982')).toEqual({
       days: 29, months: 11, years: 0
@@ -85,9 +79,5 @@ describe('utils/dateDiff', () => {
     expect(dateDiff('10.01.1982', '11.01.1984')).toEqual({
       days: 2, months: 0, years: 2
     })
-
-
-
   })
-
 })

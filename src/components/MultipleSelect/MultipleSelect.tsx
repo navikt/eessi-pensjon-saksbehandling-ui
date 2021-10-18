@@ -6,15 +6,11 @@ import { Feilmelding } from 'nav-frontend-typografi'
 import { guid } from 'nav-frontend-js-utils'
 import { theme, themeKeys, themeHighContrast } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import Select, { GroupedOptionsType, OptionsType, ValueType } from 'react-select'
-import makeAnimated from 'react-select/animated'
+import Select, { OptionsOrGroups, GroupBase, OnChangeValue, PropsValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import { SelectComponents } from 'react-select/src/components'
-import { OptionTypeBase } from 'react-select/src/types'
-import React from 'react'
-
 import styled from 'styled-components'
 import MultipleOption from './MultipleOption'
+import { O } from 'declarations/app'
 
 const MultipleSelectDiv = styled.div`
   .skjemaelement__feilmelding {
@@ -24,7 +20,7 @@ const MultipleSelectDiv = styled.div`
   }
 `
 
-export interface MultipleSelectProps<OptionType> {
+export interface MultipleSelectProps<T>{
   ariaLabel ?: string
   className ?: string
   creatable ?: boolean
@@ -37,28 +33,32 @@ export interface MultipleSelectProps<OptionType> {
   isSearchable ?: boolean
   label: string | JSX.Element
   menuPortalTarget?: any,
-  onSelect?: (e: ValueType<OptionType, true>) => void
-  options?: OptionsType<OptionType> | GroupedOptionsType<OptionType>
+  onSelect?: (e: Array<T>) => void
+  options?: OptionsOrGroups<T, GroupBase<T>>
   placeholder?: JSX.Element | string
-  values?: OptionsType<OptionType>
+  values?: PropsValue<T>
 }
 
-const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
+const MultipleSelect = <T extends O = O> ({
   ariaLabel, className, creatable = false, error, highContrast = false, hideSelectedOptions = false, id,
   isDisabled = false, isLoading = false, isSearchable = true, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
-}: MultipleSelectProps<OptionType>): JSX.Element => {
+}: MultipleSelectProps<T>): JSX.Element => {
   const _theme = highContrast ? themeHighContrast : theme
 
-  const animatedComponents: SelectComponents<OptionType, true> = makeAnimated()
-
-  const onSelectChange = (e: Array<OptionType>) => {
+  const onSelectChange = (e: OnChangeValue<T, true>) => {
     if (_.isFunction(onSelect)) {
-      onSelect(e)
+      onSelect(e as Array<T>)
     }
   }
 
-  const Component: typeof React.Component = creatable ? CreatableSelect : Select
+  const Component = creatable ? CreatableSelect : Select
   const inputId = id || guid()
+
+  const customProps: any = {
+    id: id,
+    _theme: _theme,
+    highContrast: highContrast
+  }
 
   return (
     <MultipleSelectDiv
@@ -66,7 +66,7 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
     >
       <label className='skjemaelement__label' htmlFor={inputId}>{label}</label>
       <Component
-        inputId={id || null}
+        inputId={id || undefined}
         className='multipleSelect'
         classNamePrefix='multipleSelect'
         placeholder={placeholder}
@@ -76,19 +76,13 @@ const MultipleSelect = <OptionType extends OptionTypeBase = OptionTypeBase> ({
         isLoading={isLoading}
         isSearchable={isSearchable}
         menuPortalTarget={menuPortalTarget || document.body}
-        animatedComponents
         closeMenuOnSelect={false}
         value={values}
         options={options}
-        selectProps={{
-          theme: _theme,
-          highContrast: highContrast
-        }}
         components={{
-          ...animatedComponents,
-          Option: MultipleOption,
-          MultiValueRemove: MultipleValueRemove,
-          MultiValueLabel: MultipleValueLabel
+          Option: (optionProps) => <MultipleOption<T> {...optionProps} {...customProps} />,
+          MultiValueRemove: (optionProps) => <MultipleValueRemove {...optionProps} {...customProps} />,
+          MultiValueLabel: (optionProps) => <MultipleValueLabel {...optionProps} {...customProps} />
         }}
         onChange={onSelectChange}
         hideSelectedOptions={hideSelectedOptions || false}

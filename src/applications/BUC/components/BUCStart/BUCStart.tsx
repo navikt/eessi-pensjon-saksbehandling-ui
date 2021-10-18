@@ -20,8 +20,7 @@ import {
   AllowedLocaleString,
   FeatureToggles,
   Loading,
-  Option,
-  Options,
+  O,
   PesysContext,
   Validation
 } from 'declarations/app.d'
@@ -61,7 +60,6 @@ import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { ValueType } from 'react-select'
 import styled from 'styled-components'
 
 const FlexDiv = styled.div`
@@ -75,7 +73,7 @@ export interface BUCStartProps {
   aktoerId: string | null | undefined
   initialCreatingBucInfo?: boolean
   initialIsCreatingBuc?: boolean
-  onBucChanged?: (option: ValueType<Option, false>) => void
+  onBucChanged?: (option: O) => void
   onBucCreated: () => void
   onBucCancelled: () => void
 }
@@ -350,17 +348,17 @@ const BUCStart: React.FC<BUCStartProps> = ({
     onBucCancelled()
   }
 
-  const onSubjectAreaChange = (option: ValueType<Option, false>): void => {
+  const onSubjectAreaChange = (option: unknown): void => {
     if (option) {
-      const thisSubjectArea: string = option.value
+      const thisSubjectArea: string = (option as O).value
       setSubjectArea(thisSubjectArea)
       updateValidation('sed', validateSubjectArea(thisSubjectArea))
     }
   }
 
-  const onBucChange = (option: ValueType<Option, false>): void => {
+  const onBucChange = (option: unknown): void => {
     if (option) {
-      const thisBuc: string = option.value
+      const thisBuc: string = (option as O).value
       setBuc(thisBuc)
       updateValidation('buc', validateBuc(thisBuc))
       if (bucNeedsKravDatoAndCanFetchIt(thisBuc)) {
@@ -372,14 +370,14 @@ const BUCStart: React.FC<BUCStartProps> = ({
         }))
       }
       if (onBucChanged) {
-        onBucChanged(option)
+        onBucChanged(option as O)
       }
     }
   }
 
-  const onTagsChange = (tagsList: ValueType<Tag, true>): void => {
+  const onTagsChange = (tagsList: unknown): void => {
     setTags(tagsList as Tags)
-    standardLogger('buc.new.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
+    standardLogger('buc.new.tags.select', { tags: (tagsList as unknown as Tags)?.map(t => t.label) || [] })
   }
 
   const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -401,9 +399,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
     return label
   }
 
-  const renderOptions = (options: Array<Option | string> | undefined, sort?: (a: Option, b: Option) => number): Options => {
+  const renderOptions = (options: Array<O | string> | undefined, sort?: (a: O, b: O) => number): Array<O> => {
     return options
-      ? options.map((el: Option | string) => {
+      ? options.map((el: O | string) => {
           let label: string, value: string
           if (typeof el === 'string') {
             value = el
@@ -422,7 +420,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const bucListOptions = renderOptions(bucList, valueSorter)
 
-  const tagObjectList: Tags = tagList
+  const tagObjectList: Array<O> = tagList
     ? tagList.map(tag => {
         return {
           value: tag,
@@ -431,12 +429,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
       })
     : []
 
-  const onAvdodChange = (option: ValueType<Option, false>): void => {
+  const onAvdodChange = (option: unknown): void => {
     if (option) {
       const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
         (avdod: PersonAvdod) => {
           const id: string | undefined = avdod.fnr
-          return id === option.value
+          return id === (option as O).value
         }
       )
       setAvdod(thisAvdod)
@@ -450,7 +448,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     updateValidation('avdodFnr', validateAvdodFnr(avdodFnr))
   }
 
-  const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Options => {
+  const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Array<O> => {
     return personAvdods?.map((avdod: PersonAvdod) => {
       const fnr: string | undefined = avdod.fnr
       return {
@@ -460,7 +458,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
     }) || []
   }
 
-  const avdodOptions: Options = renderAvdodOptions(personAvdods)
+  const avdodOptions: Array<O> = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
     if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
@@ -497,7 +495,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       const payload: SaveBucsInfoProps = {
         aktoerId: aktoerId,
         bucsInfo: bucsInfo,
-        tags: _tags.map(t => t.value),
+        tags: _tags.map((t: Tag) => t.value),
         buc: buc
       } as SaveBucsInfoProps
       if (bucNeedsAvdod() && _avdod) {
@@ -539,7 +537,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             </label>
             <Select
               data-test-id='a-buc-c-bucstart__subjectarea-select-id'
-              defaultValue={{ label: _subjectArea, value: _subjectArea }}
+              defaultValue={{ label: _subjectArea, value: _subjectArea } as O}
               feil={_validation?.subjectArea?.feilmelding}
               highContrast={highContrast}
               id='a-buc-c-bucstart__subjectarea-select-id'
@@ -567,7 +565,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
               onChange={onBucChange}
               options={bucListOptions}
               placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
-              value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
+              value={_.find(bucListOptions, (b: O) => b.value === _buc)}
             />
           </>
           {bucNeedsAvdod() && (
@@ -645,7 +643,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         <HorizontalSeparatorDiv size='2' />
         <Column>
           <VerticalSeparatorDiv size='2' />
-          <MultipleSelect<Tag>
+          <MultipleSelect<O>
             ariaLabel={t('buc:form-tagsForBUC')}
             aria-describedby='help-tags'
             data-test-id='a-buc-c-bucstart__tags-select-id'

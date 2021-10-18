@@ -1,6 +1,6 @@
 import * as constants from 'constants/constants'
 import { JoarkBrowserItem } from 'declarations/joark.d'
-import { AllowedLocaleString, Option, PesysContext, T } from 'declarations/app.d'
+import { AllowedLocaleString, O, PesysContext, T } from 'declarations/app.d'
 import { PersonAvdod, PersonAvdods, PersonPDL } from 'declarations/person.d'
 import CountryData, { Country, CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
@@ -59,7 +59,7 @@ export const getFnr = (p: PersonPDL | null | undefined): string | undefined => _
 
 export const getRelasjonTilPerson = (p: PersonPDL | null | undefined, needle: string | undefined) => _.find(p?.familierelasjoner, r => r.relatertPersonsIdent === needle)?.relatertPersonsRolle
 
-export const labelSorter = (a: Option, b: Option) => a.label.localeCompare(b.label)
+export const labelSorter = (a: O, b: O) => a.label.localeCompare(b.label)
 
 export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvdods | undefined) =>
   (buc: Buc) => {
@@ -107,4 +107,4 @@ export const sedSorter = (a: Sed, b: Sed): number => {
   return mainCompare > 0 ? 1 : -1
 }
 
-export const valueSorter = (a: Option, b: Option) => a.value.localeCompare(b.value)
+export const valueSorter = (a: O, b: O) => a.value.localeCompare(b.value)

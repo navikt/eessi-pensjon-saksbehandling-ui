@@ -1,12 +1,12 @@
-import { Option } from 'declarations/app'
 import { Feilmelding } from 'nav-frontend-typografi'
 import { theme, themeKeys, themeHighContrast } from 'nav-hoykontrast'
 import classNames from 'classnames'
 import ReactSelect, { Props } from 'react-select'
 
-interface SelectProps extends Props<Option> {
+interface SelectProps extends Props {
   feil?: string
   highContrast: boolean
+  label?: string | undefined
   'data-test-id'?: string
 }
 
@@ -14,7 +14,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
   const _theme = props.highContrast ? themeHighContrast : theme
   return (
     <div data-test-id={props['data-test-id'] || props.id}>
-      {props.label && <label className='skjemaelement__label'>{props.label}</label>}
+      {props.label && (<label className='skjemaelement__label'>{props.label ?? ''}</label>)}
       <ReactSelect
         inputId={props.id}
         className={classNames({ skjemaelement__feilmelding: !!props.feil })}

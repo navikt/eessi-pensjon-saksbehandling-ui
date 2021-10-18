@@ -1,10 +1,14 @@
 import PT from 'prop-types'
-import { OptionProps, OptionTypeBase } from 'react-select'
 import { Checkbox } from 'nav-frontend-skjema'
 import styled from 'styled-components'
 import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
+import { components, OptionProps } from 'react-select'
+import { O } from 'declarations/app.d'
 
-export type MultipleOptionProps = OptionProps<OptionTypeBase, true>
+export interface MultipleOptionProps<T> extends OptionProps<T, true> {
+  highContrast: boolean
+  id: string | undefined
+}
 
 const OptionCheckbox = styled(Checkbox)`
    &:not(:disabled) {
@@ -17,27 +21,17 @@ const OptionCheckbox = styled(Checkbox)`
    }
 `
 
-const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProps): JSX.Element => {
-  const { data, selectProps, innerProps, isSelected, getStyles } = props
-  const id: string = selectProps.id + '-' + data.value
+const MultipleOption = <T extends O = O>(props: MultipleOptionProps<T>): JSX.Element => {
+  const { data, id, highContrast, isSelected } = props
+  const _id: string = (id ?? '') + '-' + data.value
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
-    <div
-      {...innerProps}
-      data-test-id='c-multipleoption__div-id'
-      style={getStyles('option', props)}
-      role='button'
-      onClick={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        innerProps.onClick(e)
-      }}
-    >
-      <NavHighContrast highContrast={selectProps.selectProps.highContrast}>
+    <components.Option {...props}>
+      <NavHighContrast highContrast={highContrast}>
         <OptionCheckbox
-          data-test-id={'c-multipleoption__checkbox-' + id}
-          id={'c-multipleoption__checkbox-' + id}
+          data-test-id={'c-multipleoption__checkbox-' + _id}
+          id={'c-multipleoption__checkbox-' + _id}
           label={data.label}
           onChange={(e) => {
             e.preventDefault()
@@ -46,13 +40,11 @@ const MultipleOption: React.FC<MultipleOptionProps> = (props: MultipleOptionProp
           checked={isSelected}
         />
       </NavHighContrast>
-    </div>
+    </components.Option>
   )
 }
 
 MultipleOption.propTypes = {
-  data: PT.object,
-  selectProps: PT.object.isRequired,
   innerProps: PT.any.isRequired,
   isSelected: PT.bool.isRequired,
   isFocused: PT.bool.isRequired
