@@ -48,10 +48,10 @@ describe('utils/dateDiff', () => {
       days: 2, months: 0, years: 0
     })
     expect(dateDiff('01.02.1982', '28.02.1982')).toEqual({
-      days: 0, months: 1, years: 0
+      days: 28, months: 0, years: 0
     })
     expect(dateDiff('01.02.1982', '29.02.1982')).toEqual({
-      days: 0, months: 1, years: 0
+      days: 29, months: 0, years: 0
     })
 
     expect(dateDiff('01.01.1982', '29.12.1982')).toEqual({
