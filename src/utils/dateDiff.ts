@@ -18,7 +18,7 @@ const dateDiff = (startdato: string, sluttdato: string): DateDiff => {
 
   if (startDatoPieces[0] === 1) {
     leftoverMonth = (dayDiff >= 30 ? 1 : 0)
-    res.days = leftoverMonth === 1 ? 0 : dayDiff // do not let above 30 
+    res.days = leftoverMonth === 1 ? 0 : dayDiff // do not let above 30
   } else {
     // deal with negatives
     res.days = (dayDiff + 30) % 30 // do not let above 30

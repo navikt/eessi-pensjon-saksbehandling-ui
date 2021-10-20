@@ -130,7 +130,7 @@ export const convertP5000SEDToP5000ListRows = (
     const auxRes: any = {}
     // 1. group periods by `$acronym-$type`
     res.forEach(r => {
-      const key = r.acronym + '_' + r.type
+      const key = r.acronym + '_' + r.type + '_' + r.ytelse + '_' + r.ordning + '_' + r.beregning
       if (!auxRes[key]) {
         auxRes[key] = [r]
       } else {
