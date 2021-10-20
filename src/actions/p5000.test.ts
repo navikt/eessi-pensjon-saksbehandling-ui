@@ -71,13 +71,15 @@ describe('actions/p5000', () => {
   it('syncToP5000Storage()', () => {
     const mockCaseId = '123'
     const mockSedId = '456'
-    const generatedResult = p5000Actions.syncToP5000Storage(mockSedP5000, mockCaseId, mockSedId)
+    const mockSort =  'mockSort'
+    const generatedResult = p5000Actions.syncToP5000Storage(mockSedP5000, mockCaseId, mockSedId, mockSort)
     expect(generatedResult).toMatchObject({
       type: types.P5000_STORAGE_SAVE,
       payload: {
         newSed: mockSedP5000,
         caseId: mockCaseId,
-        sedId: mockSedId
+        sedId: mockSedId,
+        sort: mockSort
       }
     })
   })

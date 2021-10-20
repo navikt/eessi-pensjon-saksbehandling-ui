@@ -82,7 +82,7 @@ export interface P5000EditProps {
   seds: Seds
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: LocalStorageValue<P5000SED> | undefined
-  saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
+  saveP5000ToStorage: ((newSed: P5000SED | undefined, sedId: string, sort?: Sort) => void) | undefined
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
 
@@ -139,15 +139,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
-  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
-  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(
+  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(() =>
     !_.isNil(p5000FromStorage)
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
-
+  const [_tableSort, _setTableSort] = useState<Sort>(() => !_.isNil(p5000FromStorage) ? p5000FromStorage?.sort : {column: '', order: 'none'})
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode
@@ -168,6 +167,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     _setRenderPrintTable(false)
   }
 
+  const onSaveSort = (sort: Sort) => {
+    saveP5000ToStorage!(undefined, seds[0].id, sort)
+  }
+
   const onSave = (payload: P5000UpdatePayload) => {
     let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
     if (_.isNil(templateForP5000)) {
@@ -175,7 +178,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
     if (templateForP5000) {
       const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, seds[0].id, templateForP5000)
-      saveP5000ToStorage!(newP5000FromStorage, seds[0].id)
+      saveP5000ToStorage!(newP5000FromStorage, seds[0].id, _tableSort)
     }
   }
 
@@ -436,6 +439,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         {valueToShow}
       </Normaltekst>
     )
+  }
+
+  const onColumnSort = (sort: Sort) => {
+    standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })
+    _setTableSort(sort)
+    onSaveSort(sort)
   }
 
   const renderOrdningEdit = (options: RenderEditableOptions) => (
@@ -866,10 +875,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             coloredSelectedRow={false}
             onRowSelectChange={onRowSelectChange}
             sortable
-            onColumnSort={(sort: any) => {
-              standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })
-              _setTableSort(sort)
-            }}
+            onColumnSort={onColumnSort}
+            sort={_tableSort}
             onRowsChanged={onRowsChanged}
             beforeRowAdded={beforeRowAdded}
             beforeRowEdited={beforeRowEdited}

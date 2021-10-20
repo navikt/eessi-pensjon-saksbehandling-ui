@@ -6,6 +6,7 @@ import { P5000Period, P5000SED } from 'declarations/p5000'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
+import { Sort } from 'tabell'
 import { asyncLocalStorage } from 'utils/asyncLocalStorage'
 
 export interface P5000State {
@@ -126,20 +127,31 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
     }
 
     case types.P5000_STORAGE_SAVE: {
-      const newSed: P5000SED = (action as ActionWithPayload).payload.newSed
+      const newSed: P5000SED | undefined = (action as ActionWithPayload).payload.newSed
       const caseId: string = (action as ActionWithPayload).payload.caseId
       const sedId: string = (action as ActionWithPayload).payload.sedId
+      const sort: Sort | undefined = (action as ActionWithPayload).payload.sort
 
-      const newEntry: LocalStorageValue<P5000SED> = {
+      let  newEntry: LocalStorageValue<P5000SED> = {
         id: sedId,
         date: new Date().getTime(),
+        sort: sort,
         content: newSed
-      }
+      } as LocalStorageValue<P5000SED>
 
       const newP5000Storage = _.cloneDeep(state.p5000Storage)
       if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
         let entries: Array<LocalStorageValue<P5000SED>> = _.cloneDeep(newP5000Storage![caseId])
         const index: number = _.findIndex(entries, e => e.id === sedId)
+
+        // Sum table triggers a saved storage, will not send sort, so let's use the one already saved
+        if (_.isNil(sort) && index >= 0) {
+          newEntry.sort = entries[index].sort
+        }
+        // when newSed is undefined, it is because we want only to save the new sort
+        if (newSed === undefined) {
+          newEntry.content = entries[index].content
+        }
         if (index >= 0) {
           entries[index] = newEntry
         } else {

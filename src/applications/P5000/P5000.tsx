@@ -29,6 +29,7 @@ import React, { useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { Sort } from 'tabell'
 import { getSedSender } from './conversion'
 import P5000Edit from './P5000Edit'
 import P5000Overview from './P5000Overview'
@@ -320,8 +321,8 @@ const P5000: React.FC<P5000Props> = ({
     return result
   }
 
-  const saveP5000ToStorage = (newSed: P5000SED, sedId: string): void => {
-    dispatch(syncToP5000Storage(newSed, buc.caseId, sedId))
+  const saveP5000ToStorage = (newSed: P5000SED | undefined, sedId: string, sort?: Sort): void => {
+    dispatch(syncToP5000Storage(newSed, buc.caseId, sedId, sort))
   }
 
   const removeP5000FromStorage = (sedId: string): void => {

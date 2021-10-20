@@ -1,4 +1,4 @@
-import { Item } from 'tabell'
+import { Item, Sort } from 'tabell'
 
 export type P5000Context = 'edit' | 'overview'
 
@@ -163,6 +163,7 @@ export interface P5000SumRow extends Item {
 export interface P5000UpdatePayload {
   items?: P5000ListRows
   ytelseOption?: string
+  sort?: Sort
   forsikringEllerBosetningsperioder?: string
 }
 

@@ -57,5 +57,6 @@ export type LocalStorageEntry<CustomLocalStorageContent extends any = any> = {[k
 export interface LocalStorageValue<CustomLocalStorageContent extends any = any> {
   id: string
   date: number
+  sort?: Sort
   content: CustomLocalStorageContent
 }
