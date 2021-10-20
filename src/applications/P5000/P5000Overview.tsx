@@ -134,9 +134,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       renderCell: renderDateCell
     },
     { id: 'aar', label: t('ui:year'), type: 'string' },
-    { id: 'kvartal', label: t('ui:quarter'), type: 'string' },
     { id: 'mnd', label: t('ui:month'), type: 'string' },
-    { id: 'uker', label: t('ui:week'), type: 'string' },
     {
       id: 'dag',
       label: t('ui:days') + '/' + t('ui:unit'),

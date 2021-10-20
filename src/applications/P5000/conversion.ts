@@ -14,6 +14,7 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
 import md5 from 'md5'
+import dateDecimal, { sumValues, writeFloat } from 'utils/dateDecimal'
 
 const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | null => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
@@ -47,17 +48,15 @@ export const generateKeyForListRow = (id: string, m: P5000Period): string => {
   '_type' + (!_.isEmpty(m.type) ? m.type : '-') +
   '_fom' + (!_.isEmpty(m.periode?.fom) ? m.periode?.fom : '-') +
   '_tom' + (!_.isEmpty(m.periode?.tom) ? m.periode?.tom : '-') +
-  '_aar' + (!_.isEmpty(m.sum?.aar) ? String(parseFloat(m.sum.aar!).toFixed(2)) : '-') +
-  '_mnd' + (!_.isEmpty(m.sum?.maaneder) ? String(parseFloat(m.sum.maaneder!).toFixed(2)) : '-') +
-  '_dag' + (!_.isEmpty(m.sum?.dager?.nr) ? String(parseFloat(m.sum.dager.nr!).toFixed(2)) : '-') +
+  '_aar' + (!_.isEmpty(m.sum?.aar) ? writeFloat(m.sum.aar!) : '-') +
+  '_mnd' + (!_.isEmpty(m.sum?.maaneder) ? writeFloat(m.sum.maaneder!) : '-') +
+  '_dag' + (!_.isEmpty(m.sum?.dager?.nr) ? writeFloat(m.sum.dager.nr!) : '-') +
   '_yt' + (!_.isEmpty(m.relevans) ? m.relevans : '-') +
   '_ord' + (!_.isEmpty(m.ordning) ? m.ordning : '-') +
   '_ber' + (!_.isEmpty(m.beregning) ? m.beregning : '-')
   // console.log(key)
   return md5(key)
 }
-
-export const sumStringValues = (value1: string, value2: string, extra: number = 0): number => (parseFloat(value1) + parseFloat(value2) + extra)
 
 // Converts P5000 SED from Rina/storage into table rows for view/list
 export const convertP5000SEDToP5000ListRows = (
@@ -101,6 +100,15 @@ export const convertP5000SEDToP5000ListRows = (
             }
           }
         }
+
+        const convertedDate = dateDecimal({
+          days: period.sum?.dager?.nr,
+          trimesters: period.sum?.kvartal,
+          months: period.sum?.maaneder,
+          weeks: period.sum?.uker,
+          years: period.sum?.aar,
+        }, true)
+
         res.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
@@ -112,11 +120,9 @@ export const convertP5000SEDToP5000ListRows = (
           type: period.type ?? '',
           startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
           sluttdato: period.periode?.tom ? moment(period.periode?.tom, 'YYYY-MM-DD').toDate() : '',
-          aar: period.sum?.aar ? parseFloat(period.sum?.aar) : '',
-          kvartal: period.sum?.kvartal ?? '',
-          mnd: period.sum?.maaneder ? parseFloat(period.sum?.maaneder) : '',
-          uker: period.sum?.uker ?? '',
-          dag: period.sum?.dager?.nr ? parseFloat(period.sum?.dager?.nr) : '',
+          aar: convertedDate.years,
+          mnd: convertedDate.months,
+          dag: convertedDate.days === '' ? '-' : convertedDate.days,
           dagtype: period.sum?.dager?.type ?? '',
           ytelse: period.relevans ?? '',
           ordning: period.ordning ?? '',
@@ -148,11 +154,11 @@ export const convertP5000SEDToP5000ListRows = (
         const index = _.findIndex(newRes, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
         if (index >= 0) {
           newRes[index].sluttdato = r.sluttdato
-          const newDag = sumStringValues(newRes[index].dag, r.dag)
+          const newDag = sumValues(newRes[index].dag, r.dag)
           newRes[index].dag = '' + newDag % 30
-          const newMnd = sumStringValues(newRes[index].mnd, r.mnd, Math.floor(newDag / 30))
+          const newMnd = sumValues(newRes[index].mnd, r.mnd, Math.floor(newDag / 30))
           newRes[index].mnd = '' + newMnd % 12
-          newRes[index].aar = '' + sumStringValues(newRes[index].aar, r.aar, Math.floor(newDag / 12))
+          newRes[index].aar = '' + sumValues(newRes[index].aar, r.aar, Math.floor(newDag / 12))
         } else {
           newRes.push(r)
         }
@@ -209,9 +215,17 @@ export const convertP5000SEDToP5000SumRows = (
         if (_.isEmpty(data[periode.type].land)) {
           data[periode.type].land = getNewLand(periode, sender)
         }
-        data[periode.type].sec51aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
-        data[periode.type].sec51mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
-        data[periode.type].sec51dag += (periode.sum?.dager?.nr ? parseFloat(periode.sum?.dager?.nr) : 0)
+        const convertedDate = dateDecimal({
+          days: periode.sum?.dager?.nr,
+          trimesters: periode.sum?.kvartal,
+          months: periode.sum?.maaneder,
+          weeks: periode.sum?.uker,
+          years: periode.sum?.aar,
+        } )
+
+        data[periode.type].sec51aar += convertedDate.years
+        data[periode.type].sec51mnd += convertedDate.months
+        data[periode.type].sec51dag += convertedDate.days
 
         if (data[periode.type].sec51dag >= 30) {
           const extraMonths = Math.floor(data[periode.type].sec51dag / 30)
@@ -250,9 +264,18 @@ export const convertP5000SEDToP5000SumRows = (
         if (_.isEmpty(data[periode.type].land)) {
           data[periode.type].land = getNewLand(periode, sender)
         }
-        data[periode.type].sec52aar += (periode.sum?.aar ? parseFloat(periode.sum?.aar) : 0)
-        data[periode.type].sec52mnd += (periode.sum?.maaneder ? parseFloat(periode.sum?.maaneder) : 0)
-        data[periode.type].sec52dag += (periode.sum?.dager?.nr ? parseFloat(periode.sum?.dager?.nr) : 0)
+
+        const convertedDate = dateDecimal({
+          days: periode.sum?.dager?.nr,
+          trimesters: periode.sum?.kvartal,
+          months: periode.sum?.maaneder,
+          weeks: periode.sum?.uker,
+          years: periode.sum?.aar,
+        } )
+
+        data[periode.type].sec52aar += convertedDate.years
+        data[periode.type].sec52mnd += convertedDate.months
+        data[periode.type].sec52dag += convertedDate.days
 
         if (data[periode.type].sec52dag >= 30) {
           const extraMonths = Math.floor(data[periode.type].sec52dag / 30)
@@ -403,41 +426,35 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
   return [medlemskapTotalperiod, medlemskapTrygdetid]
 }
 
-const countDecimals = (value: number) => {
-  if (Math.floor(value) !== value) return value.toString().split('.')[1]?.length ?? 0
-  return 0
-}
-
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
-  let newAar: number = parseFloat(arr[index].sum.aar ?? '0')
-  let newMaaneder: number = parseFloat(arr[index].sum.maaneder ?? '0')
-  let newDager: number = parseFloat(arr[index].sum.dager.nr ?? '0')
 
-  newAar += parseFloat(item.aar)
-  newMaaneder += parseFloat(item.mnd)
-  newDager += parseFloat(item.dag)
+  let existingDates = dateDecimal({
+    years: arr[index].sum?.aar,
+    trimesters:  arr[index].sum?.kvartal,
+    months: arr[index].sum?.maaneder,
+    weeks: arr[index].sum?.uker,
+    days: arr[index].sum?.dager?.nr
+  })
 
-  if (newDager >= 30) {
-    const extraMonths = Math.floor(newDager / 30.0)
-    newDager = newDager % 30
-    newMaaneder += extraMonths
+  let newDates = dateDecimal({
+    years: item.aar + existingDates.years,
+    months: item.mnd + existingDates.months,
+    days: item.dag +  existingDates.days
+  })
+
+  if (max40 && newDates.years! >= 40) {
+    newDates = {
+      years: 40,
+      months: 0,
+      days: 0
+    }
   }
 
-  if (newMaaneder >= 12) {
-    const extraYears = Math.floor(newMaaneder / 12.0)
-    newMaaneder = newMaaneder % 12
-    newAar += extraYears
-  }
-
-  if (max40 && newAar >= 40) {
-    newAar = 40
-    newMaaneder = 0
-    newDager = 0
-  }
-
-  arr[index].sum.aar = countDecimals(newAar) > 6 ? newAar.toFixed(6).padStart(2, '0') : String(newAar).padStart(2, '0')
-  arr[index].sum.maaneder = countDecimals(newMaaneder) > 4 ? newMaaneder.toFixed(4).padStart(2, '0') : String(newMaaneder).padStart(2, '0')
-  arr[index].sum.dager.nr = countDecimals(newDager) > 1 ? newDager.toFixed(1).padStart(2, '0') : String(newDager).padStart(2, '0')
+  arr[index].sum.aar = String(newDates.years).padStart(2, '0')
+  arr[index].sum.kvartal = null
+  arr[index].sum.maaneder = String(newDates.months).padStart(2, '0')
+  arr[index].sum.uker = null
+  arr[index].sum.dager.nr = String(newDates.days).padStart(2, '0')
 
   if (!arr[index].periode) {
     arr[index].periode = {

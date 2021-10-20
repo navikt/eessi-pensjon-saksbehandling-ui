@@ -1,8 +1,10 @@
 
 export interface DateDiff {
-  days: number
-  months: number
-  years: number
+  days: string | number | null | undefined
+  months: string | number | null | undefined
+  years: string | number | null | undefined
+  trimesters ?: string | number | null | undefined
+  weeks ?: string | number | null | undefined
 }
 
 const dateDiff = (startdato: string, sluttdato: string): DateDiff => {

@@ -134,9 +134,7 @@ export interface P5000ListRow extends Item {
   startdato: string
   sluttdato: string
   aar: string
-  kvartal: string
   mnd: string
-  uker: string
   dag: string
   ytelse: string
   ordning: string
