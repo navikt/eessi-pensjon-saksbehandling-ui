@@ -132,7 +132,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       const sedId: string = (action as ActionWithPayload).payload.sedId
       const sort: Sort | undefined = (action as ActionWithPayload).payload.sort
 
-      let  newEntry: LocalStorageValue<P5000SED> = {
+      const newEntry: LocalStorageValue<P5000SED> = {
         id: sedId,
         date: new Date().getTime(),
         sort: sort,

@@ -14,7 +14,8 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
 import md5 from 'md5'
-import dateDecimal, { sumValues, writeFloat } from 'utils/dateDecimal'
+import dateDecimal, { sumDates, writeFloat } from 'utils/dateDecimal'
+import { FormattedDateDiff } from 'utils/dateDiff'
 
 const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | null => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
@@ -106,7 +107,7 @@ export const convertP5000SEDToP5000ListRows = (
           trimesters: period.sum?.kvartal,
           months: period.sum?.maaneder,
           weeks: period.sum?.uker,
-          years: period.sum?.aar,
+          years: period.sum?.aar
         }, true)
 
         res.push({
@@ -122,7 +123,7 @@ export const convertP5000SEDToP5000ListRows = (
           sluttdato: period.periode?.tom ? moment(period.periode?.tom, 'YYYY-MM-DD').toDate() : '',
           aar: convertedDate.years,
           mnd: convertedDate.months,
-          dag: convertedDate.days === '' ? '-' : convertedDate.days,
+          dag: convertedDate.days,
           dagtype: period.sum?.dager?.type ?? '',
           ytelse: period.relevans ?? '',
           ordning: period.ordning ?? '',
@@ -154,11 +155,13 @@ export const convertP5000SEDToP5000ListRows = (
         const index = _.findIndex(newRes, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
         if (index >= 0) {
           newRes[index].sluttdato = r.sluttdato
-          const newDag = sumValues(newRes[index].dag, r.dag)
-          newRes[index].dag = '' + newDag % 30
-          const newMnd = sumValues(newRes[index].mnd, r.mnd, Math.floor(newDag / 30))
-          newRes[index].mnd = '' + newMnd % 12
-          newRes[index].aar = '' + sumValues(newRes[index].aar, r.aar, Math.floor(newDag / 12))
+          const total: FormattedDateDiff = sumDates(
+            { days: r.dag, months: r.mnd, years: r.aar },
+            { days: newRes[index].dag, months: newRes[index].mnd, years: newRes[index].aar }
+            , true)
+          newRes[index].dag = total.days as string
+          newRes[index].mnd = total.months as string
+          newRes[index].aar = total.years as string
         } else {
           newRes.push(r)
         }
@@ -215,30 +218,22 @@ export const convertP5000SEDToP5000SumRows = (
         if (_.isEmpty(data[periode.type].land)) {
           data[periode.type].land = getNewLand(periode, sender)
         }
-        const convertedDate = dateDecimal({
+        const convertedDate: FormattedDateDiff = sumDates({
           days: periode.sum?.dager?.nr,
           trimesters: periode.sum?.kvartal,
           months: periode.sum?.maaneder,
           weeks: periode.sum?.uker,
-          years: periode.sum?.aar,
-        } )
+          years: periode.sum?.aar
+        }, {
+          years: data[periode.type].sec51aar,
+          months: data[periode.type].sec51mnd,
+          days: data[periode.type].sec51dag
+        })
 
-        data[periode.type].sec51aar += convertedDate.years
-        data[periode.type].sec51mnd += convertedDate.months
-        data[periode.type].sec51dag += convertedDate.days
+        data[periode.type].sec51aar = convertedDate.years
+        data[periode.type].sec51mnd = convertedDate.months
+        data[periode.type].sec51dag = convertedDate.days
 
-        if (data[periode.type].sec51dag >= 30) {
-          const extraMonths = Math.floor(data[periode.type].sec51dag / 30)
-          const remainingDays = (data[periode.type].sec51dag) % 30
-          data[periode.type].sec51dag = remainingDays
-          data[periode.type].sec51mnd += extraMonths
-        }
-        if (data[periode.type].sec51mnd >= 12) {
-          const extraYears = Math.floor(data[periode.type].sec51mnd / 12)
-          const remainingMonths = (data[periode.type].sec51mnd) % 12
-          data[periode.type].sec51mnd = remainingMonths
-          data[periode.type].sec51aar += extraYears
-        }
         if (_.isNil(data[periode.type].beregning) && !_.isNil(periode.beregning)) {
           data[periode.type].beregning = periode.beregning
         }
@@ -265,30 +260,22 @@ export const convertP5000SEDToP5000SumRows = (
           data[periode.type].land = getNewLand(periode, sender)
         }
 
-        const convertedDate = dateDecimal({
+        const convertedDate = sumDates({
           days: periode.sum?.dager?.nr,
           trimesters: periode.sum?.kvartal,
           months: periode.sum?.maaneder,
           weeks: periode.sum?.uker,
-          years: periode.sum?.aar,
-        } )
+          years: periode.sum?.aar
+        }, {
+          years: data[periode.type].sec52aar,
+          months: data[periode.type].sec52mnd,
+          days: data[periode.type].sec52dag
+        })
 
-        data[periode.type].sec52aar += convertedDate.years
-        data[periode.type].sec52mnd += convertedDate.months
-        data[periode.type].sec52dag += convertedDate.days
+        data[periode.type].sec52aar = convertedDate.years
+        data[periode.type].sec52mnd = convertedDate.months
+        data[periode.type].sec52dag = convertedDate.days
 
-        if (data[periode.type].sec52dag >= 30) {
-          const extraMonths = Math.floor(data[periode.type].sec52dag / 30)
-          const remainingDays = (data[periode.type].sec52dag) % 30
-          data[periode.type].sec52dag = remainingDays
-          data[periode.type].sec52mnd += extraMonths
-        }
-        if (data[periode.type].sec52mnd >= 12) {
-          const extraYears = Math.floor(data[periode.type].sec52mnd / 12)
-          const remainingMonths = (data[periode.type].sec52mnd) % 12
-          data[periode.type].sec52mnd = remainingMonths
-          data[periode.type].sec52aar += extraYears
-        }
         if (_.isNil(data[periode.type].beregning) && !_.isNil(periode.beregning)) {
           data[periode.type].beregning = periode.beregning
         }
@@ -427,10 +414,9 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
 }
 
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
-
-  let existingDates = dateDecimal({
+  const existingDates = dateDecimal({
     years: arr[index].sum?.aar,
-    trimesters:  arr[index].sum?.kvartal,
+    trimesters: arr[index].sum?.kvartal,
     months: arr[index].sum?.maaneder,
     weeks: arr[index].sum?.uker,
     days: arr[index].sum?.dager?.nr
@@ -439,7 +425,7 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
   let newDates = dateDecimal({
     years: item.aar + existingDates.years,
     months: item.mnd + existingDates.months,
-    days: item.dag +  existingDates.days
+    days: item.dag + existingDates.days
   })
 
   if (max40 && newDates.years! >= 40) {

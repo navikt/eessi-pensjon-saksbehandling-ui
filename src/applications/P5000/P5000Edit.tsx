@@ -146,7 +146,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
-  const [_tableSort, _setTableSort] = useState<Sort>(() => !_.isNil(p5000FromStorage) ? p5000FromStorage?.sort : {column: '', order: 'none'})
+  const [_tableSort, _setTableSort] = useState<Sort>(() => !_.isNil(p5000FromStorage) ? p5000FromStorage?.sort : { column: '', order: 'none' })
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode

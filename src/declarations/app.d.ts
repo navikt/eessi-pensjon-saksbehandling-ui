@@ -1,6 +1,7 @@
 import * as constants from 'constants/constants'
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { OptionProps } from 'react-select'
+import { Sort } from 'tabell'
 
 export type AllowedLocaleString = 'en' | 'nb'
 

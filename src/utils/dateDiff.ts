@@ -7,8 +7,14 @@ export interface DateDiff {
   weeks ?: string | number | null | undefined
 }
 
-const dateDiff = (startdato: string, sluttdato: string): DateDiff => {
-  const res: DateDiff = {
+export interface FormattedDateDiff {
+  days: string | number
+  months: string | number
+  years: string | number
+}
+
+const dateDiff = (startdato: string, sluttdato: string): FormattedDateDiff => {
+  const res: FormattedDateDiff = {
     days: 0, months: 0, years: 0
   }
 
