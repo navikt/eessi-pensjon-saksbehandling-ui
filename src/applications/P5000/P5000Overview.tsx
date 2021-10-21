@@ -93,7 +93,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   )
 
   const renderDagCell = (item: P5000ListRow) => (
-    <Normaltekst>{(item.dag === '' ? '-' : item.dag) + '/' + item.dagtype}</Normaltekst>
+    <Normaltekst>{(item.dag === '' || item.dag === '0') ? '' : item.dag + '/' + item.dagtype}</Normaltekst>
   )
 
   const renderStatus = (item: any, value: any) => {

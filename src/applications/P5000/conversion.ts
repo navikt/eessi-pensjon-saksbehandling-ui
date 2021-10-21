@@ -124,7 +124,7 @@ export const convertP5000SEDToP5000ListRows = (
           aar: convertedDate.years,
           mnd: convertedDate.months,
           dag: convertedDate.days,
-          dagtype: period.sum?.dager?.type ?? '',
+          dagtype: period.sum?.dager?.type ?? '7',
           ytelse: period.relevans ?? '',
           ordning: period.ordning ?? '',
           beregning: period.beregning ?? ''
