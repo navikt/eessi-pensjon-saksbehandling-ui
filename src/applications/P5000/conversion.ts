@@ -422,11 +422,11 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     days: arr[index].sum?.dager?.nr
   })
 
-  let newDates = dateDecimal({
-    years: item.aar + existingDates.years,
-    months: item.mnd + existingDates.months,
-    days: item.dag + existingDates.days
-  })
+  let newDates = sumDates({
+    years: item.aar,
+    months: item.mnd,
+    days: item.dag
+  }, existingDates)
 
   if (max40 && newDates.years! >= 40) {
     newDates = {
