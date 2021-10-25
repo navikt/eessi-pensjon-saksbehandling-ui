@@ -41,8 +41,13 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
     res.months += _.isNil(date.trimesters) ? 0 : _.isNumber(date.trimesters) ? date.trimesters * 3.0 : parseFloat(date.trimesters!) * 3.0
   }
   if (Object.prototype.hasOwnProperty.call(date, 'weeks')) {
-    res.days += _.isNil(date.weeks) ? 0 : _.isNumber(date.weeks) ? date.weeks * 7.0 : parseFloat(date.weeks!) * 7.0
+    let weeks = _.isNil(date.weeks) ? 0 : _.isNumber(date.weeks) ? date.weeks: parseFloat(date.weeks!)
+    let fullYearsInWeeks = Math.floor( weeks / 52)
+    res.days += weeks * 7.0
+    // if we are working with 52+ weeks, remove 4 days, as 52 * 7 = 364 but we are using 360 days for a year
+    res.days -= 4.0 * fullYearsInWeeks
   }
+
   const allInDays = res.days + res.months * 30 + res.years * 360
   const leftoverInMonths = Math.floor(allInDays / 30)
   res.days = Math.round(allInDays % 30)

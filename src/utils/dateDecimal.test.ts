@@ -60,6 +60,9 @@ describe('utils/dateDecimal', () => {
     expect(dateDecimal({ years: '5.5', months: '1', days: 10 })).toEqual({
       days: 10, months: 7, years: 5
     })
+    expect(dateDecimal({ weeks: 52 })).toEqual({
+      days: 0, months: 0, years: 1
+    })
     // 45 + 7 * 7 + 20 * 30 + 5 * 90 + 1 * 360 = 1504 = 4 years, 2 months, 4 days
     expect(dateDecimal({ days: '45', weeks: '7', months: '20', trimesters: '5', years: '1' })).toEqual({
       days: 4, months: 2, years: 4
