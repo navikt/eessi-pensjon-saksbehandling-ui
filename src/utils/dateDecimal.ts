@@ -43,9 +43,9 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   if (Object.prototype.hasOwnProperty.call(date, 'weeks')) {
     let weeks = _.isNil(date.weeks) ? 0 : _.isNumber(date.weeks) ? date.weeks: parseFloat(date.weeks!)
     let fullYearsInWeeks = Math.floor( weeks / 52)
-    res.days += weeks * 7.0
-    // if we are working with 52+ weeks, remove 4 days, as 52 * 7 = 364 but we are using 360 days for a year
-    res.days -= 4.0 * fullYearsInWeeks
+
+    // if we are working with 52+ weeks, treat it as one year (360 days)
+    res.days += fullYearsInWeeks === 0 ? weeks * 7.0 : 360
   }
 
   const allInDays = res.days + res.months * 30 + res.years * 360
