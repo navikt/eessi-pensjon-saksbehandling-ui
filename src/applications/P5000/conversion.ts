@@ -17,11 +17,11 @@ import md5 from 'md5'
 import dateDecimal, { sumDates, writeFloat } from 'utils/dateDecimal'
 import { FormattedDateDiff } from 'utils/dateDiff'
 
-const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | null => {
+const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | undefined => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
     return period.land
   }
-  return senderIsNorway(sender!) ? 'NO' : null
+  return senderIsNorway(sender!) ? 'NO' : sender?.country
 }
 
 export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
