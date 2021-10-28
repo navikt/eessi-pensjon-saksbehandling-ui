@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { themeKeys, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import * as routes from 'constants/routes'
 import PT from 'prop-types'
-import AdvarselTrekant from 'assets/icons/advarsel-trekant'
+import { Warning } from '@navikt/ds-icons'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
@@ -148,7 +148,7 @@ const Header: React.FC<HeaderProps> = ({
                     )
                   : (
                     <>
-                      <AdvarselTrekant size={16} />
+                      <Warning width={20} height={20} />
                       <UsernameSpan>
                         {t('ui:unknown')}
                       </UsernameSpan>

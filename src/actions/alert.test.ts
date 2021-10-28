@@ -1,22 +1,19 @@
 import * as alertActions from 'actions/alert'
 import * as types from 'constants/actionTypes'
-import { ErrorPayload } from 'js-fetch-api'
 
 describe('actions/alert', () => {
-  it('clientClear()', () => {
-    const generatedResult = alertActions.clientClear()
+  it('alertClear()', () => {
+    const generatedResult = alertActions.alertClear()
     expect(generatedResult).toMatchObject({
-      type: types.ALERT_CLIENT_CLEAR
+      type: types.ALERT_CLEAR
     })
   })
 
-  it('clientError()', () => {
-    const mockPayload: ErrorPayload = {
-      error: 'mockError'
-    }
-    const generatedResult = alertActions.clientError(mockPayload)
+  it('alertFailure()', () => {
+    const mockPayload: string = 'mockError'
+    const generatedResult = alertActions.alertFailure(mockPayload)
     expect(generatedResult).toMatchObject({
-      type: types.ALERT_CLIENT_FAILURE,
+      type: types.ALERT_FAILURE,
       payload: mockPayload
     })
   })

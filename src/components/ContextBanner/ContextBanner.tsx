@@ -90,6 +90,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
     <Content>
       <Context>
         <BUCWebSocket
+          highContrast={highContrast}
           fnr={getFnr(person)}
           avdodFnr=''
         />

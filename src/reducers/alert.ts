@@ -29,7 +29,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   let clientErrorStatus: string
   let clientErrorParam = {}
 
-  if (action.type === types.ALERT_CLIENT_CLEAR) {
+  if (action.type === types.ALERT_CLEAR) {
     return initialAlertState
   }
 
@@ -140,7 +140,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
 
       default:
 
-        clientErrorMessage = 'ui:error'
+        clientErrorMessage = (action as ActionWithPayload).payload?.message ?? 'ui:error'
         break
     }
 
@@ -149,8 +149,8 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
       clientErrorMessage: clientErrorMessage,
       clientErrorParam: clientErrorParam,
-      error: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.error : undefined,
-      uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
+      error: (action as ActionWithPayload).payload?.error,
+      uuid: (action as ActionWithPayload).payload?.uuid
     }
   }
 
@@ -170,6 +170,14 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
       clientErrorParam = {
         sed: (((action as ActionWithPayload).payload as Sed).type),
         message: message ? ' - ' + message : ''
+      }
+      break
+    }
+
+    case types.ALERT_SUCCESS: {
+      clientErrorMessage = (action as ActionWithPayload).payload.message
+      clientErrorParam = {
+        type: (action as ActionWithPayload).payload.type
       }
       break
     }

@@ -1,4 +1,4 @@
-import { clientClear } from 'actions/alert'
+import { alertClear } from 'actions/alert'
 import { closeModal } from 'actions/ui'
 import { ModalContent } from 'declarations/components'
 import { mount, ReactWrapper } from 'enzyme'
@@ -40,8 +40,8 @@ const defaultSelector: TopContainerSelector = {
 }
 
 jest.mock('actions/alert', () => ({
-  clientClear: jest.fn(),
-  clientError: jest.fn()
+  alertClear: jest.fn(),
+  alertFailure: jest.fn()
 }))
 
 jest.mock('actions/ui', () => ({
@@ -78,7 +78,7 @@ describe('components/TopContainer', () => {
   })
 
   it('Render: client error message', () => {
-    (clientClear as jest.Mock).mockReset()
+    (alertClear as jest.Mock).mockReset()
     stageSelector(defaultSelector, { clientErrorMessage: 'mockMessage|mockParams' })
     wrapper = mount(
       <TopContainer {...initialMockProps}>
@@ -88,7 +88,7 @@ describe('components/TopContainer', () => {
 
     expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage|mockParams')
     wrapper.find('[data-test-id=\'c-alert__close-icon\']').hostNodes().simulate('click')
-    expect(clientClear).toHaveBeenCalled()
+    expect(alertClear).toHaveBeenCalled()
   })
 
   it('Handling: open / closes modal', () => {

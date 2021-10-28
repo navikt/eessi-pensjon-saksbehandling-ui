@@ -1,4 +1,4 @@
-import { clientError } from 'actions/alert'
+import { alertFailure } from 'actions/alert'
 import { resetNewSed, setCurrentBuc, setCurrentSed } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
@@ -159,9 +159,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       (s.status !== 'empty')
     )
     if (buc.type === 'P_BUC_06' && uniqueSed) {
-      dispatch(clientError({
-        error: t('buc:error-uniqueSed', { sed: uniqueSed.type })
-      }))
+      dispatch(alertFailure(t('buc:error-uniqueSed', { sed: uniqueSed.type })))
     } else {
       dispatch(setCurrentSed(sed, replySed))
       setStartSed('open')

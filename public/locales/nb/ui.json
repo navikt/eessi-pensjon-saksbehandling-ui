@@ -123,6 +123,8 @@
     "variant" : "Variant",
     "version": "Versjon",
     "week": "Uke",
+    "websocket-log": "Websocket logs",
+    "websocket-updating-buc": "Oppdaterer status på BUC {{buc}}",
     "widget-overview" : "Min oversikt",
     "widget-overview-notifications" : "Send varsel og inviter bruker",
     "widget-overview-sendNotification-description" : "Den nye løsningen for elektronisk utfylling av utenlandsopplysninger er nå tilgjengelig for utvalgte brukere.<br/><br/>Send varsel og inviter <B>{{user}}</B> til å prøve ut løsningen.",

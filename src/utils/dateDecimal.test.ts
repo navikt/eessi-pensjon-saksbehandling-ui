@@ -39,13 +39,13 @@ describe('utils/dateDecimal', () => {
   })
 
   it('dateDecimal: handles null/undefined', () => {
-    expect(dateDecimal({years: null, months: 3.5, days: undefined})).toEqual({
+    expect(dateDecimal({ years: null, months: 3.5, days: undefined })).toEqual({
       days: 15, months: 3, years: 0
     })
   })
 
   it('dateDecimal: handles decimals', () => {
-    expect(dateDecimal({years: 5.25, months: 0, days: 0})).toEqual({
+    expect(dateDecimal({ years: 5.25, months: 0, days: 0 })).toEqual({
       days: 0, months: 3, years: 5
     })
     expect(dateDecimal({ years: 0, months: 32.12, days: 0 })).toEqual({
@@ -57,25 +57,25 @@ describe('utils/dateDecimal', () => {
   })
 
   it('dateDecimal: outputs as string', () => {
-    expect(dateDecimal({years: 5.25, months: 0, days: 0}, true)).toEqual({
+    expect(dateDecimal({ years: 5.25, months: 0, days: 0 }, true)).toEqual({
       days: '', months: '3', years: '5'
     })
   })
 
   it('dateDecimal: handles trimesters', () => {
-    expect(dateDecimal({years: 0, months: 0, trimesters: 2.75, days: 0})).toEqual({
+    expect(dateDecimal({ years: 0, months: 0, trimesters: 2.75, days: 0 })).toEqual({
       days: 8, months: 8, years: 0
     })
   })
 
   it('dateDecimal: handles mix of numbers and strings', () => {
-    expect(dateDecimal({years: '5.5', months: '1', days: 10})).toEqual({
+    expect(dateDecimal({ years: '5.5', months: '1', days: 10 })).toEqual({
       days: 10, months: 7, years: 5
     })
   })
 
   it('dateDecimal: handles weeks > 52 as 1 year', () => {
-    expect(dateDecimal({weeks: 1000})).toEqual({
+    expect(dateDecimal({ weeks: 1000 })).toEqual({
       days: 0, months: 0, years: 1
     })
   })

@@ -1,4 +1,4 @@
-import { clientClear, clientError } from 'actions/alert'
+import { alertClear, alertFailure } from 'actions/alert'
 import { closeModal, setWidthSize } from 'actions/ui'
 import Alert from 'components/Alert/Alert'
 import Footer from 'components/Footer/Footer'
@@ -91,7 +91,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   }
 
   const onClear = (): void => {
-    dispatch(clientClear())
+    dispatch(alertClear())
   }
 
   const getErrorMessage = (): string | undefined => {
@@ -120,7 +120,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   if (_.isNil(window.onerror)) {
     window.onerror = (msg) => {
-      dispatch(clientError({ error: msg }))
+      dispatch(alertFailure(_.isString(msg) ? msg : JSON.stringify(msg as Event)))
     }
   }
 

@@ -1,12 +1,21 @@
 import * as types from 'constants/actionTypes'
-import { ActionWithPayload, ErrorPayload } from 'js-fetch-api'
+import { ActionWithPayload } from 'js-fetch-api'
 import { Action } from 'redux'
 
-export const clientClear = (): Action => ({
-  type: types.ALERT_CLIENT_CLEAR
+export const alertClear = (): Action => ({
+  type: types.ALERT_CLEAR
 })
 
-export const clientError = (payload: ErrorPayload): ActionWithPayload<ErrorPayload> => ({
-  type: types.ALERT_CLIENT_FAILURE,
-  payload: payload
+export const alertFailure = (message: JSX.Element | string): ActionWithPayload<any> => ({
+  type: types.ALERT_FAILURE,
+  payload: {
+    message
+  }
+})
+
+export const alertSuccess = (message: JSX.Element | string): ActionWithPayload<any> => ({
+  type: types.ALERT_SUCCESS,
+  payload: {
+    message
+  }
 })

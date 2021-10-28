@@ -1,21 +1,25 @@
 /* global WebSocket */
 
+import { alertSuccess } from 'actions/alert'
 import { fetchSingleBuc } from 'actions/buc'
 import FilledNetworkConnecting from 'assets/icons/filled-version-network-connecting'
 import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
-import LineCheckCircle from 'assets/icons/line-version-check-circle-2'
+import { SuccessFilled } from '@navikt/ds-icons'
 import classNames from 'classnames'
-import { rotating } from 'nav-hoykontrast'
+import Modal from 'components/Modal/Modal'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import _ from 'lodash'
+import { Normaltekst } from 'nav-frontend-typografi'
+import { rotating, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import Tooltip from 'rc-tooltip'
 
 export interface BucWebSocketProps {
+  highContrast: boolean
   fnr: string | undefined
   avdodFnr: string | undefined
 }
@@ -53,12 +57,14 @@ export const BUCWebsocketDiv = styled.div`
 `
 
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
-  fnr, avdodFnr
+  fnr, avdodFnr, highContrast
 }: BucWebSocketProps): JSX.Element => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const [_log, setLog] = useState<Array<JSX.Element>>([])
   const [_simpleLog, setSimpleLog] = useState<Array<string>>([])
+  const [_modal, _setModal] = useState<boolean>(false)
   const [_status, setStatus] = useState<string>(NOTCONNECTED)
   const [_websocketConnection, setWebsocketConnection] = useState(undefined)
 
@@ -69,6 +75,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
       const data = JSON.parse(e.data)
       if (data.bucUpdated && data.bucUpdated.caseId) {
         pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
+        dispatch(alertSuccess(t('ui:websocket-updating-buc', { buc: data.bucUpdated.caseId })))
         dispatch(fetchSingleBuc(data.bucUpdated.caseId))
       }
       if (data.subscriptions) {
@@ -116,7 +123,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
       setStatus(NOTCONNECTED)
     }
     connection.onerror = (e) => {
-      pushToLog('error', 'Error: ' + e)
+      pushToLog('error', 'Error: ' + JSON.stringify(e))
       setStatus(ERROR)
     }
     return connection
@@ -140,39 +147,51 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
         console.log(line)
       }
     }
-    setLog(log => [...log, (<span key={line} className={classNames('log', level)}>{line}</span>)].slice(-100))
+    setLog(log => [...log, (<Normaltekst key={line} className={classNames('log', level)}>{line}</Normaltekst>)].slice(-100))
     setSimpleLog(log => [...log, level + ': ' + line].slice(-100))
   }
 
-  const getAnchor = () => {
-    switch (_status) {
-      case CONNECTED:
-        return LineCheckCircle
-      case NOTCONNECTED:
-      case ERROR:
-        return FilledRemoveCircle
-      case CONNECTING:
-      case RECEIVING:
-        return FilledNetworkConnecting
-      default:
-        return FilledNetworkConnecting
-    }
+  const onModalClose = () => _setModal(false)
+
+  const onIconClick = () => {
+    _setModal(true)
+    console.log(_simpleLog.join('\n'))
   }
 
-  const Icon = getAnchor()
-
   return (
-    <BUCWebsocketDiv title={'websocket: ' + _status}>
-      <Tooltip
-        placement='top' trigger={['click']} overlay={(<div className='logs'>{_log}</div>)}
-      >
-        <Icon size={24} onClick={() => console.log(_simpleLog.join('\n'))} />
-      </Tooltip>
+    <BUCWebsocketDiv style={{ cursor: 'pointer' }} title={'websocket: ' + _status}>
+      <>
+        {_modal && (
+          <Modal
+            highContrast={highContrast}
+            modal={{
+              closeButton: true,
+              modalTitle: t('ui:websocket-log'),
+              modalContent: (
+                <div style={{ maxWidth: '800px' }}>
+                  <VerticalSeparatorDiv size='2' />
+                  {_log}
+                </div>
+              ),
+              modalButtons: [{
+                main: true,
+                text: 'OK',
+                onClick: onModalClose
+              }]
+            }}
+            onModalClose={onModalClose}
+          />
+        )}
+        {_status === 'CONNECTED' && (<SuccessFilled color='green' width={24} height={24} onClick={onIconClick} />)}
+        {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (<FilledRemoveCircle color='#A13A28' size={24} onClick={onIconClick} />)}
+        {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<FilledNetworkConnecting size={24} onClick={onIconClick} />)}
+      </>
     </BUCWebsocketDiv>
   )
 }
 
 BucWebSocket.propTypes = {
+  highContrast: PT.bool.isRequired,
   fnr: PT.string.isRequired,
   avdodFnr: PT.string.isRequired
 }
