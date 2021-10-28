@@ -251,8 +251,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               {t('buc:form-answerSED')}
             </HighContrastFlatknapp>
           )}
-
-          {sed.type === 'P5000' && featureToggles.P5000_SUMMER_VISIBLE && sed.status !== 'received' && (
+          {sed.type === 'P5000' &&
+          featureToggles.P5000_SUMMER_VISIBLE &&
+          (sed.status !== 'received' && sed.status !== 'sent') &&
+          (
             <PileDiv>
               <HighContrastFlatknapp
                 mini
