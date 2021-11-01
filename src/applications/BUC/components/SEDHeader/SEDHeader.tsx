@@ -53,6 +53,7 @@ export const SEDHeaderPanel = styled(HighContrastPanel)`
   opacity: 0;
   animation: ${slideInFromLeft(20)} 0.2s forwards;
   border: none;
+  background: transparent !important;
 `
 const SEDListInstitutionsDiv = styled.div`
   flex: 3;

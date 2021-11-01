@@ -20,23 +20,28 @@ export const SEDPanelContainer = styled(HighContrastPanel)`
     font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
     line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
   }
-  &.new .ekspanderbartPanel__hode,
-  &.new .ekspanderbartPanel__hode div:not(.etikett) {
-    background: ${({ theme }) => theme.type === 'themeHighContrast'
-      ? theme[themeKeys.NAVLIMEGRONNLIGHTEN20]
-      : theme[themeKeys.NAVLIMEGRONNLDARKEN20]} !important;
-  }
-  &.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
-    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]} !important;
-  }
 `
 export const SEDPanelDiv = styled.div`
   padding: 1rem;
   border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
   background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  &.new {
+    background: ${({ theme }) => theme.type === 'themeHighContrast'
+  ? theme[themeKeys.NAVLIMEGRONNDARKEN60]
+  : theme[themeKeys.NAVLIMEGRONNLIGHTEN60]} !important;
+  }
 `
 export const SEDPanelExpandingPanel = styled(ExpandingPanel)`
   border: none;
+  &.new .ekspanderbartPanel__hode,
+  &.new .ekspanderbartPanel__hode div:not(.etikett) {
+    background: ${({ theme }) => theme.type === 'themeHighContrast'
+  ? theme[themeKeys.NAVLIMEGRONNDARKEN60]
+  : theme[themeKeys.NAVLIMEGRONNLIGHTEN60]} !important;
+  }
+  &.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
+    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]} !important;
+  }
   .ekspanderbartPanel__hode:hover {
     background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]} !important;
     .panel {
@@ -73,10 +78,10 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   }
 
   return (
-    <SEDPanelContainer border className={classNames(className, { new: newSed })}>
+    <SEDPanelContainer border>
       {!sedCanHaveAttachments(sed)
         ? (
-          <SEDPanelDiv>
+          <SEDPanelDiv className={classNames(className, { new: newSed })}>
             <SEDHeader
               buc={buc}
               onSEDNew={onSEDNew}
@@ -88,6 +93,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           )
         : (
           <SEDPanelExpandingPanel
+            className={classNames(className, { new: newSed })}
             style={style}
             heading={
               <SEDHeader
