@@ -2,5 +2,6 @@ import { FeatureToggles } from 'declarations/app.d'
 
 export default {
   P5000_SUMMER_VISIBLE: true,
-  P5000_UPDATES_VISIBLE: true
+  P5000_UPDATES_VISIBLE: true,
+  JOURNALFØRING_WIDGET_VISIBLE: true
 } as FeatureToggles

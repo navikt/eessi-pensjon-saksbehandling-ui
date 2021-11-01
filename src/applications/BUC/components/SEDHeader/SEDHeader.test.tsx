@@ -16,7 +16,8 @@ jest.mock('rc-tooltip', () => ({ children }: any) => (
 
 const defaultSelector: SEDListSelector = {
   locale: 'nb',
-  featureToggles: mockFeatureToggles
+  featureToggles: mockFeatureToggles,
+  p5000Storage: undefined
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
@@ -31,7 +32,8 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   const initialMockProps: SEDHeaderProps = {
     buc: buc,
     onSEDNew: jest.fn(),
-    sed: mockCurrentSed!
+    sed: mockCurrentSed!,
+    setMode: jest.fn()
   }
   let wrapper: ReactWrapper
 

@@ -9,10 +9,11 @@ export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p5000'
 
 export type Feature =
   'P5000_SUMMER_VISIBLE'
-  | 'P5000_UPDATES_VISIBLE'
+  | 'P5000_UPDATES_VISIBLE' // for new P5000 developments
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
   | 'NR_AVDOD' // for mock purposes
-  | 'X010_X009_VISIBLE'
+  | 'X010_X009_VISIBLE' //
+  | 'JOURNALFØRING_WIDGET_VISIBLE'
 
 export type FeatureToggles = {[key in Feature]: boolean | number}
 

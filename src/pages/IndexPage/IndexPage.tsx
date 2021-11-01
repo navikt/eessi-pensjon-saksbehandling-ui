@@ -1,7 +1,7 @@
 import ContextBanner from 'components/ContextBanner/ContextBanner'
 import IEAlert from 'components/IEAlert/IEAlert'
 import TopContainer from 'components/TopContainer/TopContainer'
-import { BUCMode } from 'declarations/app'
+import { BUCMode, FeatureToggles } from 'declarations/app'
 import { State } from 'declarations/reducers'
 import { timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
@@ -28,15 +28,36 @@ const defaultLayouts: LayoutTabs = [{
   body: {
     lg: [
       { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
+      { i: 'w-2-buc', x: 0, y: 1, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
     ],
     md: [
       { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
+      { i: 'w-2-buc', x: 0, y: 1, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
     ],
     sm: [
       { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
+      { i: 'w-2-buc', x: 0, y: 1, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
+    ]
+  }
+}]
+
+const defaultLayoutsWithJouralforing: LayoutTabs = [{
+  label: 'default',
+  body: {
+    lg: [
+      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
+      { i: 'w-3-journalføring', x: 0, y: 1, w: 6, h: 4, minW: 2, maxW: 12, minH: 4, maxH: 999 },
+      { i: 'w-2-buc', x: 0, y: 5, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
+    ],
+    md: [
+      { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
+      { i: 'w-3-journalføring', x: 0, y: 1, w: 2, h: 4, minW: 2, maxW: 3, minH: 4, maxH: 999 },
+      { i: 'w-2-buc', x: 0, y: 5, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
+    ],
+    sm: [
+      { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
+      { i: 'w-3-journalføring', x: 0, y: 2, w: 1, h: 4, minW: 1, maxW: 1, minH: 4, maxH: 999 },
+      { i: 'w-2-buc', x: 0, y: 5, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
     ]
   }
 }]
@@ -57,6 +78,14 @@ const defaultWidgets: Widgets = [{
   options: {
     allowFullScreen: true
   }
+}, {
+  i: 'w-3-journalføring',
+  type: 'journalføring',
+  title: 'Journalføring widget',
+  visible: true,
+  options: {
+    allowFullScreen: false
+  }
 }]
 
 const defaultConfig = {
@@ -69,22 +98,22 @@ const defaultConfig = {
   version: 1
 }
 
-const allowedWidgets = ['buc', 'overview']
-
 export interface IndexPageSelector {
+  featureToggles: FeatureToggles
   highContrast: boolean
   mode: BUCMode
   username: string | undefined
 }
 
 const mapState = (state: State): IndexPageSelector => ({
+  featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   mode: state.buc.mode,
   username: state.app.username
 })
 
 export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
-  const { highContrast, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { highContrast, featureToggles, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
 
   const [loggedTime] = useState<Date>(new Date())
 
@@ -93,6 +122,10 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
       timeLogger('view', loggedTime)
     }
   }, [loggedTime])
+
+  const allowedWidgets = featureToggles.JOURNALFØRING_WIDGET_VISIBLE
+    ? ['buc', 'overview', 'journalføring']
+    : ['buc', 'overview']
 
   return (
     <TopContainer>
@@ -106,7 +139,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         configurable
         extraWidgets={extraWidgets}
         defaultWidgets={defaultWidgets}
-        defaultLayouts={defaultLayouts}
+        defaultLayouts={featureToggles.JOURNALFØRING_WIDGET_VISIBLE ? defaultLayoutsWithJouralforing : defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
         highContrast={highContrast}

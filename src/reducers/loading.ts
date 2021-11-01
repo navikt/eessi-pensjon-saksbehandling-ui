@@ -15,6 +15,7 @@ export const initialLoadingState: LoadingState = {
   gettingBUCinfo: false,
   gettingCountryList: false,
   gettingKravDato: false,
+  gettingJournalføringSed: false,
   gettingInstitutionList: false,
   gettingPersonInfo: false,
   gettingPersonAvdodInfo: false,
@@ -31,6 +32,7 @@ export const initialLoadingState: LoadingState = {
   loadingJoarkPreviewFile: false,
   rinaUrl: false,
   savingBucsInfo: false,
+  sendingJournalføringSend: false,
   sendingP5000info: false
 }
 
@@ -372,19 +374,34 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         loadingJoarkList: false
       }
 
+    case types.JOURNALFØRING_SED_GET_REQUEST:
+
+      return {
+        ...state,
+        gettingJournalføringSed: true
+      }
+
+    case types.JOURNALFØRING_SED_GET_FAILURE:
+    case types.JOURNALFØRING_SED_GET_SUCCESS:
+
+      return {
+        ...state,
+        gettingJournalføringSed: false
+      }
+
     case types.JOARK_PREVIEW_REQUEST:
 
       return {
         ...state,
-        loadingJoarkPreviewFile: true
+        sendingJournalføringSend: true
       }
 
-    case types.JOARK_PREVIEW_SUCCESS:
-    case types.JOARK_PREVIEW_FAILURE:
+    case types.JOURNALFØRING_SED_SEND_FAILURE:
+    case types.JOURNALFØRING_SED_SEND_SUCCESS:
 
       return {
         ...state,
-        loadingJoarkPreviewFile: false
+        sendingJournalføringSend: false
       }
 
     default:

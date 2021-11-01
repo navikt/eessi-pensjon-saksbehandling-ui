@@ -202,6 +202,7 @@
   "loading-savingBucInfo"         : "Lagring BUC info...",
   "loading-sendingSEDattachments" : "Sender SED vedlegg...",
   "loading-sendingXofY"           : "Sender {{current}} av {{total}}",
+  "loading-sendingSed"            : "Sender SED...",
   "loading-subjectAreaList"       : "Laster fagområde...",
   "loading-tagList"               : "Laster merknader...",
 

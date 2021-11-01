@@ -1,9 +1,9 @@
-import OverviewWidget from './Overview/OverviewWidget'
+import OverviewWidget from './OverviewWidget'
 import BUCWidget from './BUCWidget'
-import DocWidget from './DocWidget'
+import JournalføringWidget from './JournalføringWidget'
 
 export {
   OverviewWidget,
   BUCWidget,
-  DocWidget
+  JournalføringWidget
 }

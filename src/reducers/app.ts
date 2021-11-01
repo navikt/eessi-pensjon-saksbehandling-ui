@@ -24,7 +24,8 @@ const initialFeatureToggles: FeatureToggles = {
   P5000_UPDATES_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0,
-  X010_X009_VISIBLE: true
+  X010_X009_VISIBLE: true,
+  JOURNALFØRING_WIDGET_VISIBLE: false
 }
 
 export const initialAppState: AppState = {
@@ -129,7 +130,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         ...state,
         featureToggles: {
           ...state.featureToggles,
-          ...(action.payload.features || {})
+          ...(action.payload.featureToggles || {})
         },
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
