@@ -1,7 +1,7 @@
 export default [{
-  sedId: '123'
+  id: '123'
 }, {
-  sedId: '456'
+  id: '456'
 }, {
-  sedId: '789'
+  id: '789'
 }]

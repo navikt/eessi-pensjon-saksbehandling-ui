@@ -22,8 +22,6 @@ const BUCWidget: WidgetFC<WidgetProps> = ({
       <ReactResizeDetector
         handleWidth
         handleHeight
-        refreshMode='debounce'
-        refreshRate={50}
         onResize={onResize}
       >
         <Buc

@@ -21,8 +21,6 @@ const JournalføringWidget: WidgetFC<WidgetProps> = ({
       <ReactResizeDetector
         handleWidth
         handleHeight
-        refreshMode='debounce'
-        refreshRate={50}
         onResize={onResize}
       >
         <Journalføring widget={widget} onUpdate={onUpdate} />
@@ -36,11 +34,13 @@ JournalføringWidget.properties = {
   title: 'Journalføring widget',
   description: 'Widget for journalføring',
   layout: {
-    lg: { minW: 6, maxW: 12, defaultW: 6, minH: 4, defaultH: 4, maxH: 999 },
-    md: { minW: 3, maxW: 3, defaultW: 1, minH: 4, defaultH: 4, maxH: 999 },
-    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 4, defaultH: 4, maxH: 999 }
+    lg: { minW: 3, maxW: 12, defaultW: 6, minH: 1, defaultH: 1, maxH: 999 },
+    md: { minW: 3, maxW: 3, defaultW: 1, minH: 1, defaultH: 1, maxH: 999 },
+    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 1, defaultH: 1, maxH: 999 }
   },
-  options: {}
+  options: {
+    collapsed: true
+  }
 }
 
 JournalføringWidget.propTypes = {

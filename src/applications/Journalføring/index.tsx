@@ -1,3 +1,4 @@
+import { Systemtittel } from 'nav-frontend-typografi'
 import Journalføring from './Journalføring'
 import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
@@ -40,7 +41,7 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
 
   useEffect(() => {
     return () => {
-      timeDiffLogger('overview.mouseover', totalTimeWithMouseOver)
+      timeDiffLogger('journalføring.mouseover', totalTimeWithMouseOver)
     }
   }, [])
 
@@ -49,7 +50,7 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
   const onExpandablePanelClosing = (): void => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = true
-    standardLogger('overview.ekspandpanel.close')
+    standardLogger('journalføring.ekspandpanel.close')
     if (onUpdate) {
       onUpdate(newWidget)
     }
@@ -58,7 +59,7 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
   const onExpandablePanelOpening = (): void => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = false
-    standardLogger('overview.ekspandpanel.open')
+    standardLogger('journalføring.ekspandpanel.open')
     if (onUpdate) {
       onUpdate(newWidget)
     }
@@ -95,7 +96,9 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
         open={!widget.options.collapsed}
         onOpen={onExpandablePanelOpening}
         onClose={onExpandablePanelClosing}
-        heading={t('jou:title')}
+        heading={(
+          <Systemtittel>{t('jou:title')}</Systemtittel>
+        )}
       >
         <Journalføring />
       </ExpandingPanel>

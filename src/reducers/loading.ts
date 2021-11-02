@@ -389,7 +389,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         gettingJournalføringSed: false
       }
 
-    case types.JOARK_PREVIEW_REQUEST:
+    case types.JOURNALFØRING_SED_SEND_REQUEST:
 
       return {
         ...state,
