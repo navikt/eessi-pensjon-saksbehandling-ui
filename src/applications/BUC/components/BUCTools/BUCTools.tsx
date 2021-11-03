@@ -125,7 +125,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const [_allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [_comment, setComment] = useState< string | null | undefined >('')
 
-  const [_originalComments, setOriginalComments] = useState<Comments | string | null | undefined >(bucInfo ? bucInfo.comment : '')
+  const [_originalComments, setOriginalComments] = useState<Comments>(() => {
+    return bucInfo
+      ? _.isString(bucInfo.comment)
+          ? [{ value: bucInfo.comment }]
+          : bucInfo.comment!
+      : []
+  })
 
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
   const _theme = highContrast ? themeHighContrast : theme
@@ -153,10 +159,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   const onSaveCommentClick = (): void => {
     standardLogger('buc.edit.tools.comment.textarea', { comment: _comment })
-    let newOriginalComments: Comments | string = _originalComments ? _.cloneDeep(_originalComments) : []
-    if (_.isString(newOriginalComments)) {
-      newOriginalComments = [{ value: newOriginalComments }]
-    }
+    const newOriginalComments: Comments = _.cloneDeep(_originalComments)
+
     const newComment: Comment = {
       value: _comment!
     }
