@@ -688,14 +688,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         institutions.push({
           acronym: 'NAVAT06',
           institution: item,
-          country: 'DK',
+          country: 'NO',
           name: 'NAV ACCEPTANCE TEST 06'
         } as Institution)
       } else if (item === 'NO:NAVAT08') {
         institutions.push({
           acronym: 'NAVAT08',
           institution: item,
-          country: 'FI',
+          country: 'NO',
           name: 'NAV ACCEPTANCE TEST 08'
         } as Institution)
       } else {
