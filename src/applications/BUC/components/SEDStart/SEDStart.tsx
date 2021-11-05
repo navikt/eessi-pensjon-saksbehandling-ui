@@ -265,10 +265,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(false)
   const _buc: Buc = _.cloneDeep(bucs[currentBuc!])
   const _type: string | null | undefined = _buc?.type
-  const [_countries, setCountries] = useState<CountryRawList>(
+  const [_countries, setCountries] = useState<CountryRawList>(() =>
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('countryCode') : [])
   const _countryData: CountryList = CountryData.getCountryInstance(locale)
-  const [_institutions, setInstitutions] = useState<InstitutionRawList>(
+  const [_institutions, setInstitutions] = useState<InstitutionRawList>(() =>
     featureToggles.SED_PREFILL_INSTITUTIONS ? prefill('id') : []
   )
   const [_kravDato, setKravDato] = useState<string>(kravDato || '')
@@ -684,12 +684,28 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const convertInstitutionIDsToInstitutionObjects = (): Institutions => {
     const institutions: Institutions = []
     _institutions.forEach(item => {
-      Object.keys(institutionList!).forEach((landkode: string) => {
-        const found: Institution | undefined = _.find(institutionList![landkode], { institution: item })
-        if (found) {
-          institutions.push(found)
-        }
-      })
+      if (item === 'NO:NAVAT06') {
+        institutions.push({
+          acronym: 'NAVAT06',
+          institution: item,
+          country: 'DK',
+          name: 'NAV ACCEPTANCE TEST 06'
+        } as Institution)
+      } else if (item === 'NO:NAVAT08') {
+        institutions.push({
+          acronym: 'NAVAT08',
+          institution: item,
+          country: 'FI',
+          name: 'NAV ACCEPTANCE TEST 08'
+        } as Institution)
+      } else {
+        Object.keys(institutionList!).forEach((landkode: string) => {
+          const found: Institution | undefined = _.find(institutionList![landkode], {institution: item})
+          if (found) {
+            institutions.push(found)
+          }
+        })
+      }
     })
     return institutions
   }
