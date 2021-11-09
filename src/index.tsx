@@ -1,30 +1,12 @@
 // IE11
-import 'core-js/stable'
-import 'react-app-polyfill/ie11'
-import 'react-app-polyfill/ie9'
-import 'regenerator-runtime/runtime'
-import * as Sentry from 'metrics/sentry'
-import * as Amplitude from 'metrics/amplitude'
-import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
+import RequireAuth from 'components/RequireAuth/RequireAuth'
 import { IS_PRODUCTION } from 'constants/environment'
-import * as routes from 'constants/routes'
-import { createBrowserHistory } from 'history'
+import 'core-js/stable'
+import * as Amplitude from 'metrics/amplitude'
+import * as Sentry from 'metrics/sentry'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
-import Pages from 'pages'
-import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom'
-import { I18nextProvider } from 'react-i18next'
-import { Provider } from 'react-redux'
-import { Redirect, Route, Router, Switch } from 'react-router-dom'
-import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux'
-import thunk from 'redux-thunk'
-import { unregister } from 'registerServiceWorker'
-import i18n from './i18n'
-import * as reducers from './reducers'
-import { createGlobalStyle } from 'styled-components'
-
 import 'nav-frontend-alertstriper-style/dist/main.css'
 import 'nav-frontend-chevron-style/dist/main.css'
 import 'nav-frontend-core/dist/main.css'
@@ -37,10 +19,25 @@ import 'nav-frontend-modal-style/dist/main.css'
 import 'nav-frontend-paneler-style/dist/main.css'
 import 'nav-frontend-skjema-style/dist/main.css'
 import 'nav-frontend-spinner-style/dist/main.css'
-import 'nav-frontend-tabs-style/dist/main.css'
 import 'nav-frontend-tabell-style/dist/main.css'
+import 'nav-frontend-tabs-style/dist/main.css'
 import 'nav-frontend-typografi-style/dist/main.css'
 import 'nav-frontend-veileder-style/dist/main.css'
+import Pages from 'pages'
+import React, { Suspense } from 'react'
+import 'react-app-polyfill/ie11'
+import 'react-app-polyfill/ie9'
+import ReactDOM from 'react-dom'
+import { I18nextProvider } from 'react-i18next'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux'
+import thunk from 'redux-thunk'
+import 'regenerator-runtime/runtime'
+import { unregister } from 'registerServiceWorker'
+import { createGlobalStyle } from 'styled-components'
+import i18n from './i18n'
+import * as reducers from './reducers'
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -144,27 +141,28 @@ if (!IS_PRODUCTION) {
   Amplitude.init()
 }
 
-const renderErrorPage = (type: string) => {
-  return (): any => (<Pages.Error type={type} />)
-}
-
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <Suspense fallback={<span>...</span>}>
-          <Router history={createBrowserHistory()}>
-            <Switch>
-              <Route path={routes.NOT_LOGGED} render={renderErrorPage('notLogged')} />
-              <Route path={routes.NOT_INVITED} render={renderErrorPage('notInvited')} />
-              <Route path={routes.FORBIDDEN} render={renderErrorPage('forbidden')} />
-              <AuthenticatedRoute path={routes.DOC} component={Pages.DocPage} />
-              <AuthenticatedRoute path={routes.ROOT} component={Pages.IndexPage} />
-              <Route path={routes.ROOT + ':PATH+'} render={renderErrorPage('error')} />
-              <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
-            </Switch>
-          </Router>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Navigate to='/_/' />} />
+              <Route
+                path='/_/' element={
+                  <RequireAuth>
+                    <Pages.IndexPage />
+                  </RequireAuth>
+              }
+              />
+              <Route path='/_/notlogged' element={<Pages.Error type='notLogged' />} />
+              <Route path='/_/notinvited' element={<Pages.Error type='notInvited' />} />
+              <Route path='/_/forbidden' element={<Pages.Error type='forbidden' />} />
+              <Route path='/_/*' element={<Pages.Error type='error' />} />
+            </Routes>
+          </BrowserRouter>
         </Suspense>
       </Provider>
     </I18nextProvider>

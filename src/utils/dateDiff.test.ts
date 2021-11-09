@@ -115,7 +115,6 @@ describe('utils/dateDiff', () => {
     })
   })
 
-
   it('2 year works', () => {
     expect(dateDiff('10.01.1982', '08.01.1984')).toEqual({
       days: 30, months: 11, years: 1

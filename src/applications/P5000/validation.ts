@@ -42,6 +42,5 @@ export const P5000EditValidate = (
     hasErrors = true
   }
 
-
   return hasErrors
 }

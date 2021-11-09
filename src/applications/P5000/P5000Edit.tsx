@@ -695,12 +695,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 {_.isNull(sentP5000info) && (
                   <PileCenterDiv>
                     <AlertstripeDiv>
-                    <Alert
-                      status='WARNING' message={(
-                      <Normaltekst>
-                        {t('buc:warning-failedP5000Sending')}
-                      </Normaltekst>
-                    )}/>
+                      <Alert
+                        status='WARNING' message={(
+                          <Normaltekst>
+                            {t('buc:warning-failedP5000Sending')}
+                          </Normaltekst>
+                    )}
+                      />
                     </AlertstripeDiv>
                     <VerticalSeparatorDiv />
                     <FlexCenterSpacedDiv>
@@ -714,25 +715,26 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   </PileCenterDiv>
                 )}
                 {!_.isNil(sentP5000info) && (
-                    <PileCenterDiv>
-                      <AlertstripeDiv>
-                        <Alert
-                      status='OK' message={(
-                      <Normaltekst>
-                        {t('buc:warning-okP5000Sending', { caseId: caseId })}
-                      </Normaltekst>
-                    )}/>
-                      </AlertstripeDiv>
-                      <VerticalSeparatorDiv />
-                      <FlexCenterSpacedDiv>
-                        <div />
-                        <HighContrastHovedknapp
-                          onClick={resetP5000}
-                        >OK
-                        </HighContrastHovedknapp>
-                        <div />
-                      </FlexCenterSpacedDiv>
-                    </PileCenterDiv>
+                  <PileCenterDiv>
+                    <AlertstripeDiv>
+                      <Alert
+                        status='OK' message={(
+                          <Normaltekst>
+                            {t('buc:warning-okP5000Sending', { caseId: caseId })}
+                          </Normaltekst>
+                    )}
+                      />
+                    </AlertstripeDiv>
+                    <VerticalSeparatorDiv />
+                    <FlexCenterSpacedDiv>
+                      <div />
+                      <HighContrastHovedknapp
+                        onClick={resetP5000}
+                      >OK
+                      </HighContrastHovedknapp>
+                      <div />
+                    </FlexCenterSpacedDiv>
+                  </PileCenterDiv>
                 )}
 
               </div>

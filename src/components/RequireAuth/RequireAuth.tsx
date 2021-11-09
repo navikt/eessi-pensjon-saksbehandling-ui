@@ -7,7 +7,7 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Route, RouteProps } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
 const RouteDiv = styled.div`
@@ -20,14 +20,18 @@ const RouteDiv = styled.div`
 `
 
 export interface AuthenticatedRouteSelector {
-  loggedIn: boolean | undefined;
-  userRole: string | undefined;
+  loggedIn: boolean | undefined
+  userRole: string | undefined
+  gettingUserInfo: boolean
+  isLoggingIn: boolean
 }
 
 const mapState = (state: State): AuthenticatedRouteSelector => ({
   /* istanbul ignore next */
   userRole: state.app.userRole,
-  loggedIn: state.app.loggedIn
+  loggedIn: state.app.loggedIn,
+  gettingUserInfo: state.loading.gettingUserInfo,
+  isLoggingIn: state.loading.isLoggingIn
 })
 
 const paramAliases: {[k: string]: string} = {
@@ -38,15 +42,13 @@ const paramAliases: {[k: string]: string} = {
   saksType: 'sakType'
 }
 
-export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX.Element => {
-  const { loggedIn, userRole } = useSelector<State, AuthenticatedRouteSelector>(mapState)
+const RequireAuth: React.FC<any> = (props) => {
+  const { loggedIn, userRole, gettingUserInfo, isLoggingIn } = useSelector<State, AuthenticatedRouteSelector>(mapState)
   const dispatch = useDispatch()
-  const { location } = props
+  const location = useLocation()
 
   const [_params, _setParams] = useState<Params>({})
   const [_mounted, setMounted] = useState<boolean>(false)
-  const [_requestingUserInfo, setRequestingUserInfo] = useState<boolean>(false)
-  const [_requestingLogin, setRequestingLogin] = useState<boolean>(false)
 
   useEffect(() => {
     const parseSearchParams = () => {
@@ -75,20 +77,18 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
 
   useEffect(() => {
     if (!_mounted) {
-      if (loggedIn === undefined && !_requestingUserInfo) {
+      if (loggedIn === undefined && !gettingUserInfo) {
         dispatch(getUserInfo())
-        setRequestingUserInfo(true)
       }
 
-      if (loggedIn === false && !_requestingLogin) {
+      if (loggedIn === false && !isLoggingIn) {
         dispatch(login())
-        setRequestingLogin(true)
       }
       if (loggedIn === true) {
         setMounted(true)
       }
     }
-  }, [dispatch, loggedIn, _requestingUserInfo, _requestingLogin, _mounted])
+  }, [dispatch, loggedIn, gettingUserInfo, isLoggingIn, _mounted])
 
   if (!_mounted) {
     return (
@@ -100,14 +100,11 @@ export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps): JSX
 
   if (userRole !== constants.SAKSBEHANDLER) {
     return (
-      <Redirect to={{
-        pathname: routes.FORBIDDEN
-      }}
-      />
+      <Navigate to={routes.FORBIDDEN} />
     )
   }
 
-  return <Route {...props} />
+  return props.children
 }
 
-export default AuthenticatedRoute
+export default RequireAuth

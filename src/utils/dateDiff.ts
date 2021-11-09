@@ -1,4 +1,4 @@
-import moment, { Moment } from "moment"
+import moment from 'moment'
 
 export interface DateDiff {
   days?: string | number | null | undefined
@@ -19,58 +19,34 @@ export interface FormattedDateDiff {
  * just look at the test file to understand the rules
  */
 const dateDiff = (startdato: string, sluttdato: string): FormattedDateDiff => {
-
-  let Fomdato: Moment // C
-  let Tomdato: Moment // D
-  let Tomdatokorr: Moment // 'L
-  let AnslagHeleAar: number // 'M
-  let AnslagNyFomEtterAar: Moment //'N
-  let HeleAar: number //'O
-  let NyFomEtterAar: Moment //'P
-  let AnslagHeleMndr: number // 'Q
-  let AnslagNyFomEtterMndr: Moment //'R
-  let KorrAnslagNyFomEtterMndr: Moment // 'S
-  let HeleMndr: number // 'T
-  let NyFomEtterMndr: Moment //'U
-  let KorrNyFomEtterMndr: Moment //'V
-  let AntallDager: number //'W
-
-  Fomdato = moment(startdato, 'DD.MM.YYYY')
-  Tomdato = moment(sluttdato, 'DD.MM.YYYY')
-
+  const Fomdato = moment(startdato, 'DD.MM.YYYY')
   // Add a day to end date
-  Tomdatokorr = moment(Tomdato.toDate())
-  Tomdatokorr.add(1, 'days')
+  const Tomdato = moment(sluttdato, 'DD.MM.YYYY').add(1, 'days')
 
   // estimate years based on number of days
-  let numberOfDays = Tomdatokorr!.diff(Fomdato, 'days')
-  AnslagHeleAar = Math.round(numberOfDays / 365)
+  let numberOfDays = Tomdato!.diff(Fomdato, 'days')
+  const AnslagHeleAar = Math.round(numberOfDays / 365)
 
   // Estimates new start date after whole year was added
-  AnslagNyFomEtterAar = moment(Fomdato.toDate())
+  const AnslagNyFomEtterAar = moment(Fomdato.toDate())
   AnslagNyFomEtterAar.add(AnslagHeleAar, 'years')
 
   // check if estimeted new startdate is over end date
-  if (AnslagNyFomEtterAar > Tomdatokorr!) {
-    HeleAar = AnslagHeleAar - 1
-  } else {
-    HeleAar = AnslagHeleAar
-  }
+  const HeleAar = AnslagNyFomEtterAar > Tomdato ? AnslagHeleAar - 1 : AnslagHeleAar
 
   // sets new startdate after correct number of whole years is calculated
-  NyFomEtterAar = moment(Fomdato.toDate())
+  const NyFomEtterAar = moment(Fomdato.toDate())
   NyFomEtterAar.add(HeleAar, 'years')
 
   // from total days estimate whole months
-  let numberOfDays2 = Tomdatokorr!.diff(NyFomEtterAar, 'days')
-  AnslagHeleMndr = Math.round(numberOfDays2 / 30)
+  numberOfDays = Tomdato!.diff(NyFomEtterAar, 'days')
+  const AnslagHeleMndr = Math.round(numberOfDays / 30)
 
   // set estimation of new stardate after whole month added to new startdate after whole years were added
-
-  AnslagNyFomEtterMndr = moment(NyFomEtterAar.toDate())
+  const AnslagNyFomEtterMndr = moment(NyFomEtterAar.toDate())
   AnslagNyFomEtterMndr.add(AnslagHeleMndr, 'months')
 
-  KorrAnslagNyFomEtterMndr = moment(AnslagNyFomEtterMndr.toDate())
+  const KorrAnslagNyFomEtterMndr = moment(AnslagNyFomEtterMndr.toDate())
 
   // adjust new fom for errors caused by leap days
   // NOTE: .date() returns the day of the month, as in 13.02.2000 => 13
@@ -82,16 +58,12 @@ const dateDiff = (startdato: string, sluttdato: string): FormattedDateDiff => {
   }
 
   // adjust whole month if new startdate is higher than enddate
-  if (KorrAnslagNyFomEtterMndr.isAfter(Tomdatokorr!)) {
-    HeleMndr = AnslagHeleMndr - 1
-  } else {
-    HeleMndr = AnslagHeleMndr
-  }
+  const HeleMndr = (KorrAnslagNyFomEtterMndr.isAfter(Tomdato)) ? AnslagHeleMndr - 1 : AnslagHeleMndr
 
-  NyFomEtterMndr = moment(NyFomEtterAar.toDate())
+  const NyFomEtterMndr = moment(NyFomEtterAar.toDate())
   NyFomEtterMndr.add(HeleMndr, 'months')
 
-  KorrNyFomEtterMndr = moment(NyFomEtterMndr.toDate())
+  const KorrNyFomEtterMndr = moment(NyFomEtterMndr.toDate())
 
   // adjust new fom for errors caused by leap days
   if (NyFomEtterMndr.date() === 28 && Fomdato.date() === 29) {
@@ -101,7 +73,7 @@ const dateDiff = (startdato: string, sluttdato: string): FormattedDateDiff => {
   }
 
   // calculate total days remaining after whole years and months are done
-  AntallDager = Tomdatokorr!.diff(KorrNyFomEtterMndr, 'days')
+  const AntallDager = Tomdato!.diff(KorrNyFomEtterMndr, 'days')
 
   return {
     years: HeleAar,
@@ -111,4 +83,3 @@ const dateDiff = (startdato: string, sluttdato: string): FormattedDateDiff => {
 }
 
 export default dateDiff
-

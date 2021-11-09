@@ -700,7 +700,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         } as Institution)
       } else {
         Object.keys(institutionList!).forEach((landkode: string) => {
-          const found: Institution | undefined = _.find(institutionList![landkode], {institution: item})
+          const found: Institution | undefined = _.find(institutionList![landkode], { institution: item })
           if (found) {
             institutions.push(found)
           }

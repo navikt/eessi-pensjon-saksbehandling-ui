@@ -9,7 +9,7 @@ import { Warning } from '@navikt/ds-icons'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
 import Lenke from 'nav-frontend-lenker'
 import Spinner from 'nav-frontend-spinner'
@@ -86,11 +86,11 @@ const Header: React.FC<HeaderProps> = ({
 }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const onLogoClick = () => {
     dispatch(clearData())
-    history.push({
+    navigate({
       pathname: routes.ROOT,
       search: window.location.search
     })
