@@ -7,11 +7,13 @@ import Lukknapp from 'nav-frontend-lukknapp'
 import ReactModal from 'react-modal'
 import { Undertittel } from 'nav-frontend-typografi'
 import PT from 'prop-types'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
+
+import styled, { createGlobalStyle } from 'styled-components'
 
 const ModalDiv = styled(ReactModal)`
-  display: block;
+  display: flex;
+  flex-direction: column;
   padding: 1rem 1rem 1rem 1rem;
   border-radius: 4px;
   position: relative;
@@ -22,6 +24,21 @@ const ModalDiv = styled(ReactModal)`
   z-index: 1010;
   color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
   background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+`
+const OverlayStyle = createGlobalStyle`
+  modal__overlay {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(61, 56, 49, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
 `
 const CloseButton = styled(Lukknapp)`
   position: absolute !important;
@@ -76,13 +93,13 @@ export interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({
-  className,
-  icon = undefined,
-  onModalClose,
-  closeButton = true,
-  closeButtonLabel = '',
-  modal
-}: ModalProps): JSX.Element => {
+   className,
+   icon = undefined,
+   onModalClose,
+   closeButton = true,
+   closeButtonLabel = '',
+   modal
+ }: ModalProps): JSX.Element => {
   const [_modal, setModal] = useState<ModalContent | undefined>(modal)
 
   useEffect(() => {
@@ -109,74 +126,79 @@ const Modal: React.FC<ModalProps> = ({
     ReactModal.setAppElement('body')
   }
 
+  // ReactModal.setAppElement(appElement)
+
   return (
-    <ModalDiv
-      className={className}
-      overlayClassName='modal__overlay'
-      isOpen={!_(_modal).isNil()}
-      onRequestClose={closeModal}
-    >
-      {icon && (
-        <IconDiv>{icon}</IconDiv>
-      )}
-      <>
-        {_modal && (
-          <ContentDiv className={classNames({ icon: !!icon })}>
-            {closeButton && (
-              <CloseButton
-                data-test-id='c-modal__close-button-id'
-                onClick={onCloseButtonClicked}
-              >
-                {closeButtonLabel}
-              </CloseButton>
-            )}
-            {_modal.modalTitle && (
-              <Title data-test-id='c-modal__title-id'>
-                {_modal.modalTitle}
-              </Title>
-            )}
-            {_modal.modalContent || (
-              <ModalText data-test-id='c-modal__text-id'>
-                {_modal.modalText}
-              </ModalText>
-            )}
-          </ContentDiv>
+    <>
+      <OverlayStyle />
+      <ModalDiv
+        className={className}
+        overlayClassName='modal__overlay'
+        isOpen={!_(_modal).isNil()}
+        onRequestClose={closeModal}
+      >
+        {icon && (
+          <IconDiv>{icon}</IconDiv>
         )}
-        {_modal && _modal.modalButtons && (
-          <ModalButtons className={classNames('buttons')}>
-            {_modal.modalButtons.map((button, i) => {
-              let Button = HighContrastKnapp
-              if (button.main) {
-                Button = HighContrastHovedknapp
-              }
-              if (button.flat) {
-                Button = HighContrastFlatknapp
-              }
-              const handleClick = _.isFunction(button.onClick)
-                ? () => {
+        <>
+          {_modal && (
+            <ContentDiv className={classNames({ icon: !!icon })}>
+              {closeButton && (
+                <CloseButton
+                  data-test-id='modal__close-button-id'
+                  onClick={onCloseButtonClicked}
+                >
+                  {closeButtonLabel}
+                </CloseButton>
+              )}
+              {_modal.modalTitle && (
+                <Title data-test-id='modal__title-id'>
+                  {_modal.modalTitle}
+                </Title>
+              )}
+              {_modal.modalContent || (
+                <ModalText data-test-id='modal__text-id'>
+                  {_modal.modalText}
+                </ModalText>
+              )}
+            </ContentDiv>
+          )}
+          {_modal && _modal.modalButtons && (
+            <ModalButtons className={classNames('buttons')}>
+              {_modal.modalButtons.map((button, i) => {
+                let Button = HighContrastKnapp
+                if (button.main) {
+                  Button = HighContrastHovedknapp
+                }
+                if (button.flat) {
+                  Button = HighContrastFlatknapp
+                }
+                const handleClick = _.isFunction(button.onClick)
+                  ? () => {
                     button.onClick!()
                     closeModal()
                   }
-                : closeModal
+                  : closeModal
 
-              return (
-                <ButtonMargin key={i}>
-                  <Button
-                    data-test-id={'c-modal__button-id-' + i}
-                    disabled={button.disabled || false}
-                    key={button.text}
-                    id={'c-modal__button-id-' + i}
-                    onClick={handleClick}
-                  >
-                    {button.text}
-                  </Button>
-                </ButtonMargin>
-              )
-            })}
-          </ModalButtons>
-        )}
-      </>
-    </ModalDiv>
+                return (
+                  <ButtonMargin key={i}>
+                    <Button
+                      data-test-id={'modal__button-id-' + i}
+                      disabled={button.disabled || false}
+                      key={button.text}
+                      id={'modal__button-id-' + i}
+                      onClick={handleClick}
+                    >
+                      {button.text}
+                    </Button>
+                  </ButtonMargin>
+                )
+              })}
+            </ModalButtons>
+          )}
+        </>
+      </ModalDiv>
+    </>
   )
 }
 
@@ -185,6 +207,7 @@ Modal.propTypes = {
   className: PT.string,
   closeButton: PT.bool,
   closeButtonLabel: PT.string,
+  highContrast: PT.bool.isRequired,
   onModalClose: PT.func,
   modal: ModalContentPropType
 }

@@ -31,5 +31,17 @@ export const P5000EditValidate = (
     } as FeiloppsummeringFeil
     hasErrors = true
   }
+
+  if (!_.isEmpty(p5000sed?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav) &&
+    p5000sed?.pensjon?.medlemskapboarbeid?.gyldigperiode === '1' &&
+    _.isEmpty(p5000sed?.pensjon?.medlemskapboarbeid?.medlemskap)) {
+    v['P5000Edit-tabell'] = {
+      feilmelding: t('buc:error-noPeriods'),
+      skjemaelementId: 'P5000Edit-tabell'
+    } as FeiloppsummeringFeil
+    hasErrors = true
+  }
+
+
   return hasErrors
 }

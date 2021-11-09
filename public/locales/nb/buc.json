@@ -97,6 +97,7 @@
   "error-noForsikringEllerBosetningsperioder" : "Du må velge forsikring / bosetningsperioder",
   "error-sendingAttachments" : "Feil å sende vedlegg",
   "error-uniqueSed"          : "Det er allerede sendt en {{sed}} i denne BUC-en. Det er ikke lov å opprette flere SED-er i denne BUC-en.",
+  "error-noPeriods"          : "Du må legg til perioder i tabellen",
 
   "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-avdod"                        : "Avdød",

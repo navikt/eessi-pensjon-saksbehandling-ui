@@ -1,6 +1,7 @@
 import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
 import HelpIcon from 'assets/icons/HelpIcon'
 import Alert from 'components/Alert/Alert'
+import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import { LocalStorageValue, O } from 'declarations/app.d'
@@ -21,7 +22,7 @@ import {
   AlignEndRow,
   Column,
   FlexCenterDiv,
-  FlexDiv,
+  FlexCenterSpacedDiv,
   FlexEndDiv,
   FullWidthDiv,
   HiddenDiv,
@@ -58,9 +59,6 @@ const CustomSelect = styled(NavSelect)`
     background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
   }
 `
-const MyAlert = styled(Alert)`
-  position: relative !important;
-`
 const Radio42 = styled(HighContrastRadio)`
   margin-bottom: 0.3rem !important;
   margin-top: 0.3rem;
@@ -69,6 +67,10 @@ const RadioGroup = styled(HighContrastRadioGroup)`
   legend {
     margin-bottom: 0px !important;
   }
+`
+export const AlertstripeDiv = styled.div`
+  margin: 0.5rem;
+  min-width: 50%;
 `
 
 const mapState = (state: State): any => ({
@@ -146,6 +148,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
+  const [_showModal, _setShowModal] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>(() => (!_.isNil(p5000FromStorage) && _.isEmpty(p5000FromStorage?.sort) ? p5000FromStorage?.sort! : { column: '', order: 'none' }))
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
@@ -543,6 +546,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onRowsChanged = (items: P5000ListRows) => {
+    _resetValidation('P5000Edit-tabell')
     onSave({
       items: items
     })
@@ -581,6 +585,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   )
 
   const resetP5000 = () => {
+    _setShowModal(false)
     dispatch(resetSentP5000info())
   }
 
@@ -658,6 +663,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   useEffect(() => {
+    if (!_.isUndefined(sentP5000info) && !_showModal) {
+      _setShowModal(true)
+    }
+  }, [sentP5000info, _showModal])
+
+  useEffect(() => {
     if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
       if (removeP5000FromStorage) {
         removeP5000FromStorage(seds[0].id)
@@ -674,6 +685,61 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   return (
     <>
       <VerticalSeparatorDiv />
+      {_showModal && (
+        <Modal
+          highContrast={highContrast}
+          modal={{
+            closeButton: false,
+            modalContent: (
+              <div>
+                {_.isNull(sentP5000info) && (
+                  <PileCenterDiv>
+                    <AlertstripeDiv>
+                    <Alert
+                      status='WARNING' message={(
+                      <Normaltekst>
+                        {t('buc:warning-failedP5000Sending')}
+                      </Normaltekst>
+                    )}/>
+                    </AlertstripeDiv>
+                    <VerticalSeparatorDiv />
+                    <FlexCenterSpacedDiv>
+                      <div />
+                      <HighContrastHovedknapp
+                        onClick={resetP5000}
+                      >OK
+                      </HighContrastHovedknapp>
+                      <div />
+                    </FlexCenterSpacedDiv>
+                  </PileCenterDiv>
+                )}
+                {!_.isNil(sentP5000info) && (
+                    <PileCenterDiv>
+                      <AlertstripeDiv>
+                        <Alert
+                      status='OK' message={(
+                      <Normaltekst>
+                        {t('buc:warning-okP5000Sending', { caseId: caseId })}
+                      </Normaltekst>
+                    )}/>
+                      </AlertstripeDiv>
+                      <VerticalSeparatorDiv />
+                      <FlexCenterSpacedDiv>
+                        <div />
+                        <HighContrastHovedknapp
+                          onClick={resetP5000}
+                        >OK
+                        </HighContrastHovedknapp>
+                        <div />
+                      </FlexCenterSpacedDiv>
+                    </PileCenterDiv>
+                )}
+
+              </div>
+            )
+          }}
+        />
+      )}
       {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)} />}
       <PileCenterDiv>
         <PileDiv>
@@ -786,38 +852,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <VerticalSeparatorDiv />
           <AlignEndRow>
             <Column />
-            <Column flex='2'>
-              {sentP5000info === null && (
-                <MyAlert
-                  status='WARNING' message={(
-                    <FlexDiv>
-                      <Normaltekst>
-                        {t('buc:warning-failedP5000Sending')}
-                      </Normaltekst>
-                      <HighContrastHovedknapp
-                        onClick={resetP5000}
-                      >OK
-                      </HighContrastHovedknapp>
-                    </FlexDiv>
-                )}
-                />
-              )}
-              {!_.isNil(sentP5000info) && (
-                <MyAlert
-                  status='OK' message={(
-                    <FlexDiv>
-                      <Normaltekst>
-                        {t('buc:warning-okP5000Sending', { caseId: caseId })}
-                      </Normaltekst>
-                      <HighContrastHovedknapp
-                        onClick={resetP5000}
-                      >OK
-                      </HighContrastHovedknapp>
-                    </FlexDiv>
-                )}
-                />
-              )}
-            </Column>
             <Column>
               {sourceStatus !== 'rina' && (
                 <div style={{ whiteSpace: 'nowrap' }}>
@@ -859,10 +893,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
           <Table<P5000ListRow, P5000TableContext>
-            key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort)}
+            key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '-storage-' + !_.isEmpty(p5000FromStorage)}
             animatable={false}
             highContrast={highContrast}
             items={_items}
+            error={_validation['P5000Edit-tabell']?.feilmelding}
             loading={!!sentP5000info}
             context={{
               items: _items,
