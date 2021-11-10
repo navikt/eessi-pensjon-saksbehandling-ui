@@ -100,6 +100,7 @@ const P5000: React.FC<P5000Props> = ({
       >
         <P5000Edit
           caseId={buc.caseId!}
+          onBackClick={onBackClick}
           key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
           p5000FromRinaMap={p5000FromRinaMap}
           p5000FromStorage={p5000FromStorage}

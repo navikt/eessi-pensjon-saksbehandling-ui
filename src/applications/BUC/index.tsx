@@ -52,11 +52,9 @@ const AnimatableDiv = styled.div`
   }
 
   &.A_going_to_right {
-
     transform: translateX(0%);
   }
   &.B_going_to_right {
-
     transform: translateX(20%);
   }
   &.C_going_to_right {
@@ -80,7 +78,7 @@ const AnimatableDiv = styled.div`
     transform: translateX(-100%);
   }
   &.C_going_to_middle {
-    transform: translateX(-100%);
+    transform: translateX(-80%);
   }
 
   &.super_alt_left {
@@ -299,6 +297,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           setPositionB(Slide.ALT_MIDDLE)
           setPositionC(Slide.ALT_RIGHT)
           setAnimating(false)
+          setContentC(<div/>) // remove p5000
           if (callback) {
             callback()
           }

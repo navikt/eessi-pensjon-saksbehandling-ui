@@ -354,6 +354,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     <div data-test-id='c-joarkBrowser'>
       <Modal
         highContrast={highContrast}
+        open={!_.isNil(_modal)}
         modal={_modal}
         onModalClose={handleModalClose}
       />

@@ -245,15 +245,14 @@ const SEDBody: React.FC<SEDBodyProps> = ({
             </>
             )
       )}
-      {_attachmentsTableVisible && (
-        <SEDAttachmentModal
-          highContrast={highContrast}
-          onModalClose={onAttachmentsPanelClose}
-          onFinishedSelection={onJoarkAttachmentsChanged}
-          sedAttachments={_items}
-          tableId={'sedview' + sed.id + '-modal'}
-        />
-      )}
+      <SEDAttachmentModal
+        open={_attachmentsTableVisible}
+        highContrast={highContrast}
+        onModalClose={onAttachmentsPanelClose}
+        onFinishedSelection={onJoarkAttachmentsChanged}
+        sedAttachments={_items}
+        tableId={'sedview' + sed.id + '-modal'}
+      />
     </SEDBodyDiv>
   )
 }

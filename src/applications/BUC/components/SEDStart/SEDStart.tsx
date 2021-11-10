@@ -1233,15 +1233,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
               </HighContrastKnapp>
               <VerticalSeparatorDiv />
-              {_attachmentsTableVisible && (
-                <SEDAttachmentModal
-                  highContrast={highContrast}
-                  onModalClose={() => setAttachmentsTableVisible(false)}
-                  onFinishedSelection={onJoarkAttachmentsChanged}
-                  sedAttachments={_sedAttachments}
-                  tableId='newsed-modal'
-                />
-              )}
+              <SEDAttachmentModal
+                open={_attachmentsTableVisible}
+                highContrast={highContrast}
+                onModalClose={() => setAttachmentsTableVisible(false)}
+                onFinishedSelection={onJoarkAttachmentsChanged}
+                sedAttachments={_sedAttachments}
+                tableId='newsed-modal'
+              />
               {!_.isEmpty(_sedAttachments) && (
                 <>
                   <VerticalSeparatorDiv />

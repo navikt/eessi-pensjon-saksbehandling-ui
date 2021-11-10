@@ -161,27 +161,26 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   return (
     <BUCWebsocketDiv style={{ cursor: 'pointer' }} title={'websocket: ' + _status}>
       <>
-        {_modal && (
-          <Modal
-            highContrast={highContrast}
-            modal={{
-              closeButton: true,
-              modalTitle: t('ui:websocket-log'),
-              modalContent: (
-                <div style={{ maxWidth: '800px' }}>
-                  <VerticalSeparatorDiv size='2' />
-                  {_log}
-                </div>
-              ),
-              modalButtons: [{
-                main: true,
-                text: 'OK',
-                onClick: onModalClose
-              }]
-            }}
-            onModalClose={onModalClose}
-          />
-        )}
+        <Modal
+          open={_modal}
+          highContrast={highContrast}
+          modal={{
+            closeButton: true,
+            modalTitle: t('ui:websocket-log'),
+            modalContent: (
+              <div style={{ maxWidth: '800px' }}>
+                <VerticalSeparatorDiv size='2' />
+                {_log}
+              </div>
+            ),
+            modalButtons: [{
+              main: true,
+              text: 'OK',
+              onClick: onModalClose
+            }]
+          }}
+          onModalClose={onModalClose}
+        />
         {_status === 'CONNECTED' && (<SuccessFilled color='green' width={24} height={24} onClick={onIconClick} />)}
         {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (<FilledRemoveCircle color='#A13A28' size={24} onClick={onIconClick} />)}
         {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<FilledNetworkConnecting size={24} onClick={onIconClick} />)}

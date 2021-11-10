@@ -14,6 +14,7 @@ import AlertStripe from 'nav-frontend-alertstriper'
 export interface SEDAttachmentModalProps {
   highContrast: boolean
   onFinishedSelection: (jbi: JoarkBrowserItems) => void
+  open: boolean
   onModalClose: () => void
   sedAttachments: JoarkBrowserItems
   tableId: string
@@ -36,7 +37,7 @@ const mapState = (state: State): SEDAttachmentModalSelector => ({
 })
 
 const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
-  highContrast, onFinishedSelection, onModalClose, sedAttachments, tableId
+  highContrast, onFinishedSelection, open, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps): JSX.Element => {
   const { t } = useTranslation()
   const { clientErrorParam, clientErrorMessage, clientErrorStatus } = useSelector<State, SEDAttachmentModalSelector>(mapState)
@@ -57,6 +58,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
 
   return (
     <Modal
+      open={open}
       highContrast={highContrast}
       icon={<Document />}
       modal={{

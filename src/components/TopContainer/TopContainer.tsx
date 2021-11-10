@@ -30,7 +30,7 @@ const Main = styled.main`
 const TopContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
- height: 100%;
+  height: 100%;
 `
 export interface TopContainerProps {
   className?: string
@@ -156,9 +156,10 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             />
             {modal !== undefined && (
               <Modal
-                appElement={(document.getElementById('main') || document.body)}
+                appElementId={'main'}
                 highContrast={highContrast}
                 modal={modal}
+                open={!_.isNil(modal)}
                 onModalClose={handleModalClose}
               />
             )}

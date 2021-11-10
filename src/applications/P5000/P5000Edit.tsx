@@ -82,6 +82,7 @@ const mapState = (state: State): any => ({
 export interface P5000EditProps {
   caseId: string
   seds: Seds
+  onBackClick: () => void
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: LocalStorageValue<P5000SED> | undefined
   saveP5000ToStorage: ((newSed: P5000SED | undefined, sedId: string, sort?: Sort) => void) | undefined
@@ -129,6 +130,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   p5000FromRinaMap,
   p5000FromStorage,
   seds, // always array with 1 element
+  onBackClick,
   removeP5000FromStorage,
   saveP5000ToStorage
 }: P5000EditProps) => {
@@ -585,7 +587,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   )
 
   const resetP5000 = () => {
-    _setShowModal(false)
     dispatch(resetSentP5000info())
   }
 
@@ -680,69 +681,87 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return <div />
   }
 
+  const modalClose = () => {
+    _setShowModal(false)
+    // modal leaves this class on body, stops scrolling. Hack to resume scrolling
+    document.getElementById('root')?.classList.remove('ReactModal__Body--open')
+  }
+
   const canSend = !!_ytelseOption
 
   return (
-    <>
+    <div id='p5000Edit'>
       <VerticalSeparatorDiv />
-      {_showModal && (
-        <Modal
-          highContrast={highContrast}
-          modal={{
-            closeButton: false,
-            modalContent: (
-              <div>
-                {_.isNull(sentP5000info) && (
-                  <PileCenterDiv>
-                    <AlertstripeDiv>
-                      <Alert
-                        status='WARNING' message={(
-                          <Normaltekst>
-                            {t('buc:warning-failedP5000Sending')}
-                          </Normaltekst>
-                    )}
-                      />
-                    </AlertstripeDiv>
-                    <VerticalSeparatorDiv />
-                    <FlexCenterSpacedDiv>
-                      <div />
-                      <HighContrastHovedknapp
-                        onClick={resetP5000}
-                      >OK
-                      </HighContrastHovedknapp>
-                      <div />
-                    </FlexCenterSpacedDiv>
-                  </PileCenterDiv>
-                )}
-                {!_.isNil(sentP5000info) && (
-                  <PileCenterDiv>
-                    <AlertstripeDiv>
-                      <Alert
-                        status='OK' message={(
-                          <Normaltekst>
-                            {t('buc:warning-okP5000Sending', { caseId: caseId })}
-                          </Normaltekst>
-                    )}
-                      />
-                    </AlertstripeDiv>
-                    <VerticalSeparatorDiv />
-                    <FlexCenterSpacedDiv>
-                      <div />
-                      <HighContrastHovedknapp
-                        onClick={resetP5000}
-                      >OK
-                      </HighContrastHovedknapp>
-                      <div />
-                    </FlexCenterSpacedDiv>
-                  </PileCenterDiv>
-                )}
+      <Modal
+        open={_showModal}
+        appElementId='p5000Edit'
+        highContrast={highContrast}
+        onModalClose={modalClose}
+        modal={{
+          closeButton: false,
+          modalContent: (
+            <div>
+              {_.isNull(sentP5000info) && (
+                <PileCenterDiv>
+                  <AlertstripeDiv>
+                    <Alert
+                      status='WARNING' message={(
+                        <Normaltekst>
+                          {t('buc:warning-failedP5000Sending')}
+                        </Normaltekst>
+                  )}
+                    />
+                  </AlertstripeDiv>
+                  <VerticalSeparatorDiv />
+                  <FlexCenterSpacedDiv>
+                    <div />
+                    <HighContrastHovedknapp
+                      onClick={() => {
+                        resetP5000()
+                        modalClose()
+                      }}
+                    >OK
+                    </HighContrastHovedknapp>
+                    <div />
+                  </FlexCenterSpacedDiv>
+                </PileCenterDiv>
+              )}
+              {!_.isNil(sentP5000info) && (
+                <PileCenterDiv>
+                  <AlertstripeDiv>
+                    <Alert
+                      status='OK' message={(
+                        <Normaltekst>
+                          {t('buc:warning-okP5000Sending', { caseId: caseId })}
+                        </Normaltekst>
+                  )}
+                    />
+                  </AlertstripeDiv>
+                  <VerticalSeparatorDiv />
+                  <FlexCenterSpacedDiv>
+                    <div />
+                    <HighContrastHovedknapp
+                      onClick={() => {
+                        resetP5000()
+                        modalClose()
+                        setTimeout(onBackClick, 200)
+                      }}
+                    >OK
+                    </HighContrastHovedknapp>
+                    <div />
+                  </FlexCenterSpacedDiv>
+                </PileCenterDiv>
+              )}
 
-              </div>
-            )
-          }}
-        />
-      )}
-      {_showHelpModal && <P5000HelpModal highContrast={highContrast} onClose={() => _setShowHelpModal(false)} />}
+            </div>
+          )
+        }}
+      />
+      <P5000HelpModal
+        open={_showHelpModal}
+        highContrast={highContrast}
+        onClose={() => _setShowHelpModal(false)}
+      />
       <PileCenterDiv>
         <PileDiv>
           <AlignEndRow>
@@ -1112,7 +1131,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         </PileDiv>
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
-    </>
+    </div>
   )
 }
 

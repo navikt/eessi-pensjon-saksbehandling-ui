@@ -73,34 +73,33 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
 
   return (
     <div id='a-buc-c-sedstart__p6000s-id'>
-      {!_.isNil(P6000PDF) && (
-        <Modal
-          onModalClose={handleResetP6000}
-          highContrast={highContrast}
-          modal={{
-            closeButton: true,
-            modalContent: (
-              <div style={{ cursor: 'pointer' }}>
-                <File
-                  scale={2}
-                  file={{
-                    size: P6000PDF.filInnhold?.length ?? 0,
-                    name: P6000PDF.fileName ?? '',
-                    mimetype: 'application/pdf',
-                    content: {
-                      base64: P6000PDF.filInnhold
-                    }
-                  }}
-                  width={1000}
-                  tema='simple'
-                  viewOnePage={false}
-                  onContentClick={handleResetP6000}
-                />
-              </div>
-            )
-          }}
-        />
-      )}
+      <Modal
+        open={!_.isNil(P6000PDF)}
+        onModalClose={handleResetP6000}
+        highContrast={highContrast}
+        modal={{
+          closeButton: true,
+          modalContent: (
+            <div style={{ cursor: 'pointer' }}>
+              <File
+                scale={2}
+                file={{
+                  size: P6000PDF?.filInnhold?.length ?? 0,
+                  name: P6000PDF?.fileName ?? '',
+                  mimetype: 'application/pdf',
+                  content: {
+                    base64: P6000PDF?.filInnhold
+                  }
+                }}
+                width={1000}
+                tema='simple'
+                viewOnePage={false}
+                onContentClick={handleResetP6000}
+              />
+            </div>
+          )
+        }}
+      />
       {p6000s.map(p6000 => {
         const country: Country = countryData.findByValue(p6000.fraLand)
         return (
