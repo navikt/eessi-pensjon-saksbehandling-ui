@@ -149,7 +149,7 @@ ReactDOM.render(
         <Suspense fallback={<span>...</span>}>
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<Navigate to='/_/' />} />
+              <Route path='/' element={<Navigate to={{ pathname: '/_/', search: window.location.search }} />} />
               <Route
                 path='/_/' element={
                   <RequireAuth>
