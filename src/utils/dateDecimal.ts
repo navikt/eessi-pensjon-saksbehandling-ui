@@ -37,22 +37,35 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   res.days = _.isNil(date.days) ? 0 : _.isNumber(date.days) ? date.days : date.days === '' ? 0 : parseFloat(date.days)
   res.months = (_.isNil(date.months) ? 0 : _.isNumber(date.months) ? date.months : date.months === '' ? 0 : parseFloat(date.months))
   res.years = (_.isNil(date.years) ? 0 : _.isNumber(date.years) ? date.years : date.years === '' ? 0 : parseFloat(date.years))
+
+  let needToRecalculate = false
   if (Object.prototype.hasOwnProperty.call(date, 'trimesters')) {
-    res.months += _.isNil(date.trimesters) ? 0 : _.isNumber(date.trimesters) ? date.trimesters * 3.0 : parseFloat(date.trimesters!) * 3.0
+    const moreMonths = _.isNil(date.trimesters) ? 0 : _.isNumber(date.trimesters) ? date.trimesters * 3.0 : parseFloat(date.trimesters!) * 3.0
+    res.months += moreMonths
+    if (moreMonths !== 0) {
+      needToRecalculate = true
+    }
   }
   if (Object.prototype.hasOwnProperty.call(date, 'weeks')) {
     const weeks = _.isNil(date.weeks) ? 0 : _.isNumber(date.weeks) ? date.weeks : parseFloat(date.weeks!)
     const fullYearsInWeeks = Math.floor(weeks / 52)
-
     // if we are working with 52+ weeks, treat it as one year (360 days)
     res.days += fullYearsInWeeks === 0 ? weeks * 7.0 : 360
+    if (weeks !== 0) {
+      needToRecalculate = true
+    }
   }
 
-  const allInDays = res.days + res.months * 30 + res.years * 360
-  const leftoverInMonths = Math.floor(allInDays / 30)
-  res.days = Math.round(allInDays % 30)
-  res.years = Math.floor(leftoverInMonths / 12)
-  res.months = Math.round(leftoverInMonths % 12)
+  if (!needToRecalculate && (res.days > 30 || res.months > 11 || isFloat(res.days) || isFloat(res.months) || isFloat(res.years))) {
+    needToRecalculate = true
+  }
+  if (needToRecalculate) {
+    const allInDays = res.days + res.months * 30 + res.years * 360
+    const leftoverInMonths = Math.floor(allInDays / 30)
+    res.days = Math.round(allInDays % 30)
+    res.years = Math.floor(leftoverInMonths / 12)
+    res.months = Math.round(leftoverInMonths % 12)
+  }
 
   if (outputAsString) {
     return {

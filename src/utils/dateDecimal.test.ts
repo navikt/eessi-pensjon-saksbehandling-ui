@@ -86,4 +86,15 @@ describe('utils/dateDecimal', () => {
       days: 4, months: 2, years: 4
     })
   })
+
+  it('dateDecimal: doesn\'t touch dateDiff values if we are with no weeks/trimesters', () => {
+    expect(dateDecimal({ days: '30', months: '0',  years: '0' })).toEqual({
+      days: 30, months: 0, years: 0
+    })
+    // adding trimester triggers different "rules" than dateDiff, thus converts 30 days to 1 month
+    expect(dateDecimal({ days: '30', months: '0',  years: '0', trimesters: '1' })).toEqual({
+      days: 0, months: 4, years: 0
+    })
+  })
+
 })
