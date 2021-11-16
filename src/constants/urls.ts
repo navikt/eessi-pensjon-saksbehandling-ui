@@ -70,8 +70,8 @@ export const LOGIN_URL = FRONTEND_API_URL + '/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 
 // Page Notification
-export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP_PAGE_NOTIFICATION'
-export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP_PAGE_NOTIFICATION'
+export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
+export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 
 // Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'
