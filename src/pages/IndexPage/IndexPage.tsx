@@ -1,15 +1,20 @@
+import { readNotification } from 'actions/pagenotification'
 import ContextBanner from 'components/ContextBanner/ContextBanner'
 import IEAlert from 'components/IEAlert/IEAlert'
+import Modal from 'components/Modal/Modal'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { BUCMode, FeatureToggles } from 'declarations/app'
 import { State } from 'declarations/reducers'
 import { timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
 import 'rc-tooltip/assets/bootstrap_white.css'
+import { Normaltekst } from 'nav-frontend-typografi'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import * as extraWidgets from 'widgets'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 
 const CustomDashboard = styled(Dashboard)`
    flex: 1 1 auto;
@@ -41,23 +46,26 @@ const defaultLayouts: LayoutTabs = [{
   }
 }]
 
-const defaultLayoutsWithJouralforing: LayoutTabs = [{
+const defaultLayoutsWithOthers: LayoutTabs = [{
   label: 'default',
   body: {
     lg: [
       { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
       { i: 'w-3-journalføring', x: 0, y: 1, w: 6, h: 1, minW: 2, maxW: 12, minH: 1, maxH: 999 },
+      { i: 'w-4-pagenotification', x: 7, y: 1, w: 6, h: 1, minW: 2, maxW: 12, minH: 1, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 1, maxH: 999 }
     ],
     md: [
       { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
       { i: 'w-3-journalføring', x: 0, y: 1, w: 2, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
+      { i: 'w-4-pagenotification', x: 2, y: 1, w: 1, h: 1, minW: 1, maxW: 3, minH: 1, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 2, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
     ],
     sm: [
       { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-      { i: 'w-3-journalføring', x: 0, y: 2, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
+      { i: 'w-3-journalføring', x: 0, y: 1, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
+      { i: 'w-4-pagenotification', x: 0, y: 2, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
+      { i: 'w-2-buc', x: 0, y: 3, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
     ]
   }
 }]
@@ -86,6 +94,14 @@ const defaultWidgets: Widgets = [{
   options: {
     collapsed: true
   }
+}, {
+  i: 'w-4-pagenotification',
+  type: 'pagenotification',
+  title: 'Page notification widget',
+  visible: true,
+  options: {
+    collapsed: true
+  }
 }]
 
 const defaultConfig = {
@@ -103,19 +119,40 @@ export interface IndexPageSelector {
   highContrast: boolean
   mode: BUCMode
   username: string | undefined
+  message: string | null | undefined
+  show: boolean | undefined
+  byline: string | null | undefined
 }
 
 const mapState = (state: State): IndexPageSelector => ({
   featureToggles: state.app.featureToggles,
   highContrast: state.ui.highContrast,
   mode: state.buc.mode,
-  username: state.app.username
+  username: state.app.username,
+  message: state.pagenotification.message,
+  show: state.pagenotification.show,
+  byline: state.pagenotification.byline
+
 })
 
 export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
-  const { highContrast, featureToggles, mode }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
-
+  const { highContrast, featureToggles, mode, message, show, byline }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
+  const [displayedMessage, setDisplayedMessage] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState<boolean>(false)
   const [loggedTime] = useState<Date>(new Date())
+
+  useEffect(() => {
+    dispatch(readNotification())
+  }, [])
+
+  useEffect(() => {
+    if (!displayedMessage && message) {
+      setShowModal(true)
+      setDisplayedMessage(true)
+    }
+  }, [message, displayedMessage])
 
   useEffect(() => {
     return () => {
@@ -123,12 +160,36 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
     }
   }, [loggedTime])
 
-  const allowedWidgets = featureToggles.JOURNALFØRING_WIDGET_VISIBLE
-    ? ['buc', 'overview', 'journalføring']
+  const allowedWidgets = featureToggles.ADMIN_NOTIFICATION_MESSAGE
+    ? ['buc', 'overview', 'journalføring', 'pagenotification']
     : ['buc', 'overview']
 
   return (
     <TopContainer>
+      <Modal
+        highContrast={highContrast}
+        open={showModal && !!show}
+        modal={{
+          modalTitle: t('ui:notification'),
+          modalContent: (
+            <div style={{padding: '2rem', minWidth: '400px', textAlign: 'center'}}>
+              <Normaltekst>
+                {message}
+              </Normaltekst>
+              <VerticalSeparatorDiv/>
+              <Normaltekst>
+                {byline}
+              </Normaltekst>
+            </div>
+          ),
+          modalButtons: [{
+            main: true,
+            text: 'OK',
+            onClick: () => setShowModal(false)
+          }]
+        }}
+        onModalClose={() => setShowModal(false)}
+        />
       <IEAlert />
       <ContextBanner
         mode={mode}
@@ -139,7 +200,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         configurable
         extraWidgets={extraWidgets}
         defaultWidgets={defaultWidgets}
-        defaultLayouts={featureToggles.JOURNALFØRING_WIDGET_VISIBLE ? defaultLayoutsWithJouralforing : defaultLayouts}
+        defaultLayouts={featureToggles.ADMIN_NOTIFICATION_MESSAGE ? defaultLayoutsWithOthers : defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
         highContrast={highContrast}

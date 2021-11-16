@@ -14,6 +14,7 @@ export type Feature =
   | 'NR_AVDOD' // for mock purposes
   | 'X010_X009_VISIBLE' //
   | 'JOURNALFØRING_WIDGET_VISIBLE'
+  | 'ADMIN_NOTIFICATION_MESSAGE'
 
 export type FeatureToggles = {[key in Feature]: boolean | number}
 

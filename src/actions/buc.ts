@@ -338,6 +338,7 @@ export const resetSedP6000PDF: ActionCreator<Action> = (): Action => ({
 })
 
 export const getRinaUrl: ActionCreator<ThunkResult<ActionWithPayload<RinaUrlPayload>>> = (
+
 ): ThunkResult<ActionWithPayload<RinaUrlPayload>> => {
   return call({
     url: urls.EUX_RINA_URL,

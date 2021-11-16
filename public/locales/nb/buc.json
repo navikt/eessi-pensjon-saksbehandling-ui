@@ -20,6 +20,7 @@
   "alert-noVedtakId"              : "Bestille P6000: gå til skjermbilde Vedtakshistorikk og klikk på Jordkloden-ikonet på det aktuelle vedtaket",
   "alert-readOnlyBuc"             : "Det er kun lesetilgang til denne BUC-en, det kan ikke bestilles SED-er.",
   "alert-saveBucsInfoFailure"     : "Feil ved lagring av BUC informasjon",
+  "alert-updatedPageNotification" : "EP side melding oppdatert",
   "alert-X100"                    : "Saken er videresendt korrekt institusjon. Det er ikke nødvendig å opprette X005 for å videresende saken til den nye tyske institusjonen",
 
   "buc-P_BUC_01"  : "Krav om alderspensjon",

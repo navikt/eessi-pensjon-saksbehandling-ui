@@ -33,6 +33,7 @@ export const initialLoadingState: LoadingState = {
   rinaUrl: false,
   savingBucsInfo: false,
   sendingJournalføringSend: false,
+  sendingPageNotification: false,
   sendingP5000info: false
 }
 
@@ -402,6 +403,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         sendingJournalføringSend: false
+      }
+
+    case types.PAGE_NOTIFICATION_SET_REQUEST:
+
+      return {
+        ...state,
+        sendingPageNotification: true
+      }
+
+    case types.PAGE_NOTIFICATION_SET_SUCCESS:
+    case types.PAGE_NOTIFICATION_SET_FAILURE:
+
+      return {
+        ...state,
+        sendingPageNotification: false
       }
 
     default:

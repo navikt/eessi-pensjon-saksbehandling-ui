@@ -163,6 +163,15 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
       }
       break
 
+    case types.PAGE_NOTIFICATION_SET_SUCCESS:
+
+      clientErrorMessage = 'buc:alert-updatedPageNotification'
+      clientErrorParam = {
+        type: (action as ActionWithPayload).payload.type
+      }
+      break
+
+
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const message = ((action as ActionWithPayload).payload as Sed).message
