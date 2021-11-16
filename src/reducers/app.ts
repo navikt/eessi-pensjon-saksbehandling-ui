@@ -131,7 +131,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         ...state,
         featureToggles: {
           ...state.featureToggles,
-          ...(action.payload.featureToggles || {})
+          ...(action.payload.features || {}) // not a typo, it is features, not featureToggles
         },
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
