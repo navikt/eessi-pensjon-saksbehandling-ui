@@ -74,7 +74,7 @@ const PageNotification = () => {
         data-test-id={'w-pagenotification-show'}
         id={'w-pagenotification-show'}
         data-no-border
-        legend={t('label:show') + ' *'}
+        legend={t('label:show-message') + ' *'}
         name={'w-pagenotification-show'}
         radios={[
           { label: t('ui:yes'), value: 'true' },
