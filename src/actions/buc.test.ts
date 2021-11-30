@@ -1,5 +1,5 @@
 import * as bucActions from 'actions/buc'
-import { BUCMode } from 'applications/BUC'
+import { BUCMode } from 'declarations/app.d'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'

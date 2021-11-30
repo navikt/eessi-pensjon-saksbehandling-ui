@@ -1,17 +1,15 @@
-import { Systemtittel } from 'nav-frontend-typografi'
 import PageNotification from './PageNotification'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
-import Alertstripe from 'nav-frontend-alertstriper'
+import { Alert, Accordion, Heading } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-export const MyAlertStripe = styled(Alertstripe)`
+export const MyAlertStripe = styled(Alert)`
   width: 100%;
 `
 
@@ -39,19 +37,10 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
 
   const { t } = useTranslation()
 
-  const onExpandablePanelClosing = (): void => {
+  const onClick = (): void => {
     const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = true
-    standardLogger('pagenotification.ekspandpanel.close')
-    if (onUpdate) {
-      onUpdate(newWidget)
-    }
-  }
-
-  const onExpandablePanelOpening = (): void => {
-    const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = false
-    standardLogger('pagenotification.ekspandpanel.open')
+    newWidget.options.collapsed = ! newWidget.options.collapsed
+    standardLogger('pagenotification.ekspandpanel.clicked')
     if (onUpdate) {
       onUpdate(newWidget)
     }
@@ -70,18 +59,16 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <ExpandingPanel
-        collapseProps={{ id: 'w-pagenotification-id' }}
-        data-test-id='w-pagenotification-id'
-        open={!widget.options.collapsed}
-        onOpen={onExpandablePanelOpening}
-        onClose={onExpandablePanelClosing}
-        heading={(
-          <Systemtittel>{t('ui:page-notification-title')}</Systemtittel>
-        )}
-      >
-        <PageNotification />
-      </ExpandingPanel>
+      <Accordion data-test-id='w-pagenotification-id'>
+        <Accordion.Item open={!widget.options.collapsed}>
+          <Accordion.Header onClick={onClick}>
+            <Heading size='medium'>{t('ui:page-notification-title')}</Heading>
+          </Accordion.Header>
+          <Accordion.Content>
+            <PageNotification />
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     </div>
   )
 }

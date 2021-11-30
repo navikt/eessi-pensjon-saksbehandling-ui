@@ -6,7 +6,7 @@ import Header from 'components/Header/Header'
 import Modal from 'components/Modal/Modal'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
 import { Params, WidthSize } from 'declarations/app.d'
-import { AlertStatus, ModalContent } from 'declarations/components'
+import { AlertVariant, ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import Error from 'pages/Error/Error'
@@ -14,7 +14,7 @@ import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
-import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
+import NavHighContrast from 'nav-hoykontrast'
 import styled from 'styled-components'
 import { ErrorBoundary } from 'react-error-boundary'
 import { IS_PRODUCTION } from 'constants/environment'
@@ -24,8 +24,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
-  color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+  background-color: var(--navds-color-background);
+  color:  var(--navds-color-text-primary);
 `
 const TopContainerDiv = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ export interface TopContainerProps {
 
 export interface TopContainerSelector {
   clientErrorParam: any | undefined
-  clientErrorStatus: AlertStatus | undefined
+  clientErrorStatus: AlertVariant | undefined
   clientErrorMessage: string | undefined
   error: any | undefined
   expirationTime: Date | undefined
@@ -150,14 +150,13 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             />
             <Alert
               message={getErrorMessage()}
-              status={clientErrorStatus}
+              variant={clientErrorStatus}
               error={error}
               onClose={onClear}
             />
             {modal !== undefined && (
               <Modal
                 appElementId='main'
-                highContrast={highContrast}
                 modal={modal}
                 open={!_.isNil(modal)}
                 onModalClose={handleModalClose}

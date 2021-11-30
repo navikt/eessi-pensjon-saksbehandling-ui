@@ -9,7 +9,6 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import classNames from 'classnames'
 import { AllowedLocaleString, BUCMode } from 'declarations/app.d'
-
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
@@ -17,15 +16,12 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { VenstreChevron } from 'nav-frontend-chevron'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BackFilled } from '@navikt/ds-icons'
+import { BodyLong, Button, Link, Panel } from '@navikt/ds-react'
 import {
   animationClose,
   animationOpen,
   Column,
-  HighContrastKnapp,
-  HighContrastLink,
-  HighContrastPanel,
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
@@ -52,7 +48,7 @@ const NoSedsDiv = styled.div`
   text-align: center;
   margin-top: 2rem;
 `
-const SEDNewDiv = styled(HighContrastPanel)`
+const SEDNewDiv = styled(Panel)`
   padding: 2rem !important;
 `
 const SEDStartDiv = styled.div`
@@ -88,7 +84,6 @@ export interface BUCEditSelector {
   bucsInfo: BucsInfo | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
-  highContrast: boolean
   locale: AllowedLocaleString,
   newlyCreatedSed: Sed | undefined,
   newlyCreatedSedTime: number | undefined
@@ -102,7 +97,6 @@ const mapState = (state: State): BUCEditSelector => ({
   currentBuc: state.buc.currentBuc,
   currentSed: state.buc.currentSed,
   bucsInfo: state.buc.bucsInfo,
-  highContrast: state.ui.highContrast,
   locale: state.ui.locale,
   newlyCreatedSed: state.buc.newlyCreatedSed,
   newlyCreatedSedTime: state.buc.newlyCreatedSedTime,
@@ -114,7 +108,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   initialSearch = undefined, initialSedNew = 'none', initialStatusSearch, setMode
 }: BUCEditProps): JSX.Element => {
   const {
-    aktoerId, bucs, currentBuc, currentSed, bucsInfo, highContrast, locale,
+    aktoerId, bucs, currentBuc, currentSed, bucsInfo, locale,
     newlyCreatedSed, newlyCreatedSedTime, personAvdods, replySed
   }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
@@ -159,7 +153,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       (s.status !== 'empty')
     )
     if (buc.type === 'P_BUC_06' && uniqueSed) {
-      dispatch(alertFailure(t('buc:error-uniqueSed', { sed: uniqueSed.type })))
+      dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
     } else {
       dispatch(setCurrentSed(sed, replySed))
       setStartSed('open')
@@ -232,25 +226,26 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <BUCEditHeader>
-        <HighContrastLink
+        <Link
           data-test-id='a-buc-p-bucedit__back-link-id'
           href='#'
           onClick={onBackLinkClick}
         >
-          <VenstreChevron />
+          <BackFilled />
           <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}
           </span>
-        </HighContrastLink>
+        </Link>
         {_startSed !== 'open' && (
-          <HighContrastKnapp
+          <Button
+            variant='secondary'
             disabled={buc!.readOnly === true}
             data-amplitude='buc.edit.newsed'
             data-test-id='a-buc-p-bucedit__new-sed-button-id'
             onClick={onNewSedButtonClick}
           >{t('buc:form-orderNewSED')}
-          </HighContrastKnapp>
+          </Button>
         )}
       </BUCEditHeader>
       <VerticalSeparatorDiv />
@@ -277,7 +272,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       <Row>
         <ContentDiv>
           <SEDSearch
-            highContrast={highContrast}
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
             value={_search}
@@ -293,7 +287,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   <VerticalSeparatorDiv size='0.5' />
                   <SEDPanel
                     aktoerId={aktoerId!}
-                    highContrast={highContrast}
                     style={{ animationDelay: (0.2 * index) + 's' }}
                     buc={buc!}
                     sed={sed}
@@ -309,9 +302,9 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               ))
             : (
               <NoSedsDiv>
-                <Normaltekst>
+                <BodyLong>
                   {t('buc:form-noSedsYet')}
-                </Normaltekst>
+                </BodyLong>
               </NoSedsDiv>
               )}
         </ContentDiv>

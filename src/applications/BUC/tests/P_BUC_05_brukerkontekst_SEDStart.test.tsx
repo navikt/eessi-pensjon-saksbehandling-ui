@@ -24,10 +24,14 @@ const defaultSelector: SEDStartSelector = {
   attachmentsError: false,
   countryList: [],
   featureToggles: mockFeatureToggles,
-  highContrast: false,
+  gettingP6000: false,
   institutionList: {},
+  institutionNames: {},
+  kravDato: undefined,
+  kravId: undefined,
   loading: {},
   locale: 'nb',
+  p6000s: undefined,
   personAvdods: personAvdod(1),
   pesysContext: BRUKERKONTEKST,
   sakId: '123',
@@ -154,7 +158,7 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs instituion and country
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
 
@@ -208,8 +212,8 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs instituion and country
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-      'buc:validation-chooseAvdodOrSoker'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry' +
+      'message:validation-chooseAvdodOrSoker'
     )
   })
 
@@ -263,8 +267,8 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs instituion and country
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry' +
-       'buc:validation-chooseAvdodOrSoker'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry' +
+       'message:validation-chooseAvdodOrSoker'
     )
   })
 })

@@ -37,7 +37,6 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     aktoerId: '123',
     buc: buc,
     canHaveAttachments: true,
-    highContrast: false,
     initialAttachmentsSent: false,
     initialSeeAttachmentPanel: false,
     initialSendingAttachments: false,

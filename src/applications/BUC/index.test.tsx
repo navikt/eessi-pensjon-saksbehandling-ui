@@ -1,8 +1,8 @@
 import {
   fetchBucParticipants,
-  fetchBucs,
+  fetchBucsList,
   fetchBucsInfoList,
-  fetchBucsWithVedtakId,
+  fetchBucsListWithVedtakId,
   getRinaUrl,
   getSakType,
   setMode
@@ -11,11 +11,9 @@ import { BUCIndex, BUCIndexProps, BUCIndexSelector, ContainerDiv, WindowDiv } fr
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'
-import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
-import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 
 jest.mock('applications/BUC/components/BUCDetail/BUCDetail', () => () => (<div className='a-buc-bucdetail' />))
@@ -43,12 +41,10 @@ Object.keys(_mockBucs).forEach(bucId => {
 const defaultSelector: BUCIndexSelector = {
   aktoerId: '123',
   bucs: _mockBucs,
-  bucsInfo: mockBucsInfo,
-  currentBuc: '195440',
-  loading: {
-    gettingBucsList: false
-  },
-  locale: 'nb' as AllowedLocaleString,
+  bucsList: undefined,
+  gettingBucs: false,
+  gettingBucsList: false,
+  gettingSakType: false,
   pesysContext: VEDTAKSKONTEKST,
   rinaUrl: undefined,
   sakId: '456',
@@ -86,26 +82,26 @@ describe('applications/BUC/index', () => {
   })
 
   it('UseEffect: fetchBucs, fetchBucsInfo', () => {
-    (fetchBucs as jest.Mock).mockReset();
+    (fetchBucsList as jest.Mock).mockReset();
     (fetchBucsInfoList as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       bucs: undefined,
       pesysContext: BRUKERKONTEKST
     })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
-    expect(fetchBucs).toHaveBeenCalled()
+    expect(fetchBucsList).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
 
   it('UseEffect: fetchBucsWithVedtakId, fetchBucsInfo', () => {
-    (fetchBucsWithVedtakId as jest.Mock).mockReset();
+    (fetchBucsListWithVedtakId as jest.Mock).mockReset();
     (fetchBucsInfoList as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       bucs: undefined,
       vedtakId: '789'
     })
     wrapper = mount(<BUCIndex {...initialMockProps} />)
-    expect(fetchBucsWithVedtakId).toHaveBeenCalled()
+    expect(fetchBucsListWithVedtakId).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
 

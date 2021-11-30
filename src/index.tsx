@@ -1,4 +1,4 @@
-// IE11
+
 import RequireAuth from 'components/RequireAuth/RequireAuth'
 import { IS_PRODUCTION } from 'constants/environment'
 import 'core-js/stable'
@@ -7,26 +7,9 @@ import * as Sentry from 'metrics/sentry'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
-import 'nav-frontend-alertstriper-style/dist/main.css'
-import 'nav-frontend-chevron-style/dist/main.css'
-import 'nav-frontend-core/dist/main.css'
-import 'nav-frontend-ekspanderbartpanel-style/dist/main.css'
-import 'nav-frontend-knapper-style/dist/main.css'
-import 'nav-frontend-lenkepanel-style/dist/main.css'
-import 'nav-frontend-lenker-style/dist/main.css'
-import 'nav-frontend-lukknapp-style/dist/main.css'
-import 'nav-frontend-modal-style/dist/main.css'
-import 'nav-frontend-paneler-style/dist/main.css'
-import 'nav-frontend-skjema-style/dist/main.css'
-import 'nav-frontend-spinner-style/dist/main.css'
-import 'nav-frontend-tabell-style/dist/main.css'
-import 'nav-frontend-tabs-style/dist/main.css'
-import 'nav-frontend-typografi-style/dist/main.css'
-import 'nav-frontend-veileder-style/dist/main.css'
+import '@navikt/ds-css'
 import Pages from 'pages'
 import React, { Suspense } from 'react'
-import 'react-app-polyfill/ie11'
-import 'react-app-polyfill/ie9'
 import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
@@ -38,62 +21,32 @@ import { unregister } from 'registerServiceWorker'
 import { createGlobalStyle } from 'styled-components'
 import i18n from './i18n'
 import * as reducers from './reducers'
+import 'nav-frontend-tabs-style/dist/main.css'
+import 'nav-frontend-tabell-style/dist/main.css'
 
 const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
   }
-
   body {
-    background-color: rgb(233, 231, 231);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     height: 100vh;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
   }
-
   pre {
     font-family: 'Source Sans Pro', Arial, sans-serif;
   }
-
   code.block {
     display: block;
-    white-space: pre-wrap
+    white-space: pre-wrap;
   }
-
   dd {
     margin-bottom: .5rem;
     margin-left: 0;
   }
-
   ol {
     list-style-type: decimal;
-  }
-
-  .etikett {
-    display: inline-block;
-    padding: 4px 9px;
-    border-radius: 4px;
-  }
-  .etikett--advarsel {
-    background-color: #e3b0a8;
-    border: 1px solid #ba3a26;
-  }
-  .etikett--suksess {
-    background-color: #9bd0b0;
-    border: 1px solid #06893a;
-  }
-  .etikett--fokus {
-    background-color: #ffd399;
-    border: 1px solid #d87f0a;
-  }
-  .etikett--info {
-    background-color: #c2eaf7;
-    border: 1px solid #5690a2;
-  }
-  .etikett--mini {
-    padding: 1px 8px;
   }
 
   .print-version {
@@ -108,22 +61,6 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
-  .skjemaelement__label {
-    margin-bottom: 0px !important;
-  }
-  .modal__overlay {
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(61, 56, 49, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-  }
 `
 
 // IE11
@@ -134,8 +71,8 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const store: Store = createStore(combineReducers(reducers), composeEnhancers(applyMiddleware(thunk)))
 
 if (!IS_PRODUCTION) {
-  const axe = require('@axe-core/react')
-  axe(React, ReactDOM, 1000, {})
+ // const axe = require('@axe-core/react')
+ // axe(React, ReactDOM, 1000, {})
 } else {
   Sentry.init()
   Amplitude.init()

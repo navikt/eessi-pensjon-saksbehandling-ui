@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
+import { AddCircleFilled } from '@navikt/ds-icons'
 import styled from 'styled-components'
 
 const FlexDiv = styled.div`
@@ -10,8 +9,7 @@ const FlexDiv = styled.div`
   }
 `
 const MultipleValueRemove = (props: any) => {
-  const [hover, setHover] = useState<boolean>(false)
-  const { isDisabled, _theme, innerProps } = props
+  const { isDisabled, innerProps } = props
 
   const visibility = isDisabled ? 'hidden' : 'visible'
   return (
@@ -19,16 +17,8 @@ const MultipleValueRemove = (props: any) => {
       {...innerProps}
       style={{}}
       data-test-id='c-multipleselect-multiplevalueremove'
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-
     >
-      <FilledRemoveCircle
-        style={{ visibility: visibility }}
-        color={
-        _theme[hover ? 'main-interactive-color' : 'main-font-color']
-      }
-      />
+      <AddCircleFilled style={{ transform: 'rotate(45deg)', visibility: visibility }} />
     </FlexDiv>
 
   )

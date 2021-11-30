@@ -1,10 +1,8 @@
 import TopContainer from 'components/TopContainer/TopContainer'
-import { State } from 'declarations/reducers'
 import { timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import * as extraWidgets from 'widgets'
 
@@ -56,16 +54,7 @@ const defaultConfig = {
 
 const allowedWidgets = ['doc']
 
-export interface DocPageSelector {
-  highContrast: boolean
-}
-
-const mapState = (state: State): DocPageSelector => ({
-  highContrast: state.ui.highContrast
-})
-
 export const DocPage: React.FC<DocPageProps> = (): JSX.Element => {
-  const { highContrast }: DocPageSelector = useSelector<State, DocPageSelector>(mapState)
 
   const [loggedTime] = useState<Date>(new Date())
 
@@ -85,7 +74,6 @@ export const DocPage: React.FC<DocPageProps> = (): JSX.Element => {
         defaultLayouts={defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
-        highContrast={highContrast}
       />
     </TopContainer>
   )

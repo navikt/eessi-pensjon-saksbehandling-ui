@@ -2,15 +2,13 @@ import classNames from 'classnames'
 import MultipleValueLabel from 'components/MultipleSelect/MultipleValueLabel'
 import MultipleValueRemove from 'components/MultipleSelect/MultipleValueRemove'
 import _ from 'lodash'
-import { Feilmelding } from 'nav-frontend-typografi'
 import { guid } from 'nav-frontend-js-utils'
-import { theme, themeKeys, themeHighContrast } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Select, { OptionsOrGroups, GroupBase, OnChangeValue, PropsValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import styled from 'styled-components'
 import MultipleOption from './MultipleOption'
-import { O } from 'declarations/app'
+import { Option } from 'declarations/app'
 
 const MultipleSelectDiv = styled.div`
   .skjemaelement__feilmelding {
@@ -25,7 +23,6 @@ export interface MultipleSelectProps<T>{
   className ?: string
   creatable ?: boolean
   error ?: string
-  highContrast?: boolean
   hideSelectedOptions ?: boolean
   id ?: string
   isDisabled ?: boolean
@@ -39,12 +36,10 @@ export interface MultipleSelectProps<T>{
   values?: PropsValue<T>
 }
 
-const MultipleSelect = <T extends O = O> ({
-  ariaLabel, className, creatable = false, error, highContrast = false, hideSelectedOptions = false, id,
+const MultipleSelect = <T extends Option = Option> ({
+  ariaLabel, className, creatable = false, error, hideSelectedOptions = false, id,
   isDisabled = false, isLoading = false, isSearchable = true, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
 }: MultipleSelectProps<T>): JSX.Element => {
-  const _theme = highContrast ? themeHighContrast : theme
-
   const onSelectChange = (e: OnChangeValue<T, true>) => {
     if (_.isFunction(onSelect)) {
       onSelect(e as Array<T>)
@@ -55,9 +50,7 @@ const MultipleSelect = <T extends O = O> ({
   const inputId = id || guid()
 
   const customProps: any = {
-    id: id,
-    _theme: _theme,
-    highContrast: highContrast
+    id: id
   }
 
   return (
@@ -89,41 +82,43 @@ const MultipleSelect = <T extends O = O> ({
         styles={{
           container: (styles: any, state: any) => ({
             ...styles,
-            backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR],
-            borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
-            borderColor: !error
-              ? `1px solid ${_theme[themeKeys.MAIN_BORDER_COLOR]}`
-              : `2px solid ${_theme[themeKeys.REDERROR]}`,
+            backgroundColor: 'var(--navds-color-background)',
+            borderRadius: 'var(--navds-border-radius)',
+            border: !error
+              ? '1px solid var(--navds-color-border)'
+              : '2px solid var(--navds-color-error-border)',
             boxShadow: state.isFocused
-              ? `0 0 0 3px ${_theme[themeKeys.MAIN_FOCUS_COLOR]}`
-              : (error ? `0 0 0 1px ${_theme[themeKeys.REDERROR]}` : 'none')
+              ? '0 0 0 3px var(--navds-semantic-color-focus)'
+              : (error ? '0 0 0 1px var(--navds-color-error-border)' : 'none')
           }),
           control: (styles: any) => ({
             ...styles,
-            borderWidth: _theme.type === 'themeHighContrast' ? '2px' : (!error ? '1px' : '2px'),
-            borderColor: !error ? _theme[themeKeys.MAIN_BORDER_COLOR] : _theme[themeKeys.REDERROR],
+            borderWidth: '1px',
             borderStyle: 'solid',
-            borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
-            color: _theme[themeKeys.MAIN_FONT_COLOR],
-            backgroundColor: isDisabled ? _theme[themeKeys.MAIN_DISABLED_COLOR] : _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
+            borderColor: error ? 'var(--navds-color-text-error)' : 'var(--navds-color-border)',
+            backgroundColor: isDisabled ? 'var(--navds-color-disabled)' : 'var(--navds-color-background)',
+            borderRadius: 'var(--navds-border-radius)',
+            color: 'var(--navds-color-text-primary)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: _theme[themeKeys.MAIN_BORDER_COLOR]
+            backgroundColor: 'var(--navds-color-border)'
           }),
           menu: (styles: any) => ({
             ...styles,
-            zIndex: 500
+            zIndex: 500,
+            width: 'max-content',
+            minWidth: '100%'
           }),
           multiValue: (styles: any) => ({
             ...styles,
             borderRadius: '20px',
-            borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-            borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
+            borderWidth: '1px',
+            borderColor: 'var(--navds-color-border)',
             borderStyle: 'solid',
-            padding: '0.25rem',
-            backgroundColor: _theme[themeKeys.MAIN_BACKGROUND_COLOR],
-            color: _theme[themeKeys.MAIN_FONT_COLOR],
+            padding: '0rem 0.25rem',
+            backgroundColor: 'var(--navds-color-background)',
+            color: 'var(--navds-color-text-primary)',
             alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'center'
@@ -134,43 +129,43 @@ const MultipleSelect = <T extends O = O> ({
           }),
           menuList: (styles: any) => ({
             ...styles,
-            borderWidth: _theme.type === 'themeHighContrast' ? '2px' : '1px',
-            borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
+            borderWidth: '1px',
+            borderColor: 'var(--navds-color-border)',
             borderStyle: 'solid',
-            backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
+            backgroundColor: 'var(--navds-semantic-color-component-background-alternate)'
           }),
           menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
           option: (styles: any, { isFocused, isSelected }: any) => ({
             ...styles,
             padding: '0.5rem',
             color: isFocused
-              ? _theme[themeKeys.INVERTED_FONT_COLOR]
+              ? 'var(--navds-color-text-inverse)'
               : isSelected
-                ? _theme[themeKeys.INVERTED_FONT_COLOR]
-                : _theme[themeKeys.MAIN_FONT_COLOR],
+                ? 'var(--navds-color-text-inverse)'
+                : 'var(--navds-color-text-primary)',
             backgroundColor: isFocused
-              ? _theme[themeKeys.MAIN_FOCUS_COLOR]
+              ? 'var(--navds-semantic-color-focus)'
               : isSelected
-                ? _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
-                : _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
+                ? 'var(--navds-semantic-color-interaction-primary-default)'
+                : 'var(--navds-semantic-color-component-background-alternate)'
           }),
           placeholder: (styles: any) => {
             return {
               ...styles,
-              color: _theme[themeKeys.GRAYINACTIVE]
+              color: 'var(--navds-color-disabled)'
             }
           },
           singleValue: (styles: any) => ({
             ...styles,
-            color: _theme[themeKeys.MAIN_FONT_COLOR]
+            color: 'var(--navds-color-text-primary)'
           })
         }}
         tabSelectsValue={false}
       />
 
       {error && (
-        <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
-          <Feilmelding>{error}</Feilmelding>
+        <div role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+          {error}
         </div>
       )}
     </MultipleSelectDiv>

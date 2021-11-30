@@ -28,6 +28,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
     socket.on('message', data => {
       socket.send(JSON.stringify({ data: data, subscriptions: true }))
     })
+    // @ts-ignore
     mockSocket = socket
   })
 
@@ -76,7 +77,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
             expect(logs.length).toBe(6)
             expect(_(logs.at(5).render().html()).endsWith('Updating buc 123')).toBeTruthy()
             expect(fetchBuc).toHaveBeenCalledWith('123')
-            resolve(true)
+            resolve()
           }, 300)
         }, 300)
       })

@@ -3,7 +3,6 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import P5000 from 'applications/P5000/P5000'
 import SEDLoadSave from 'applications/P5000/SEDLoadSave/SEDLoadSave'
-import FilledPaperClipIcon from 'assets/icons/filled-version-paperclip-2'
 import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry, LocalStorageValue } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
@@ -12,12 +11,9 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
 import moment from 'moment'
-import AlertStripe from 'nav-frontend-alertstriper'
-import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron'
-import { Element, Normaltekst } from 'nav-frontend-typografi'
+import { Alert, Detail, BodyLong, Button, Panel } from '@navikt/ds-react'
+import { NextFilled, AttachmentFilled } from '@navikt/ds-icons'
 import {
-  HighContrastFlatknapp,
-  HighContrastPanel,
   HorizontalSeparatorDiv,
   PileDiv,
   slideInFromLeft,
@@ -46,7 +42,7 @@ const SEDHeaderContent = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 `
-export const SEDHeaderPanel = styled(HighContrastPanel)`
+export const SEDHeaderPanel = styled(Panel)`
   width: 100%;
   padding: 0rem;
   transform: translateX(-20px);
@@ -166,18 +162,18 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     >
       <SEDHeaderContent>
         <SEDListStatusDiv>
-          <Element
+          <Detail
             data-test-id='a-buc-c-sedheader__name-id'
           >
             {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
-          </Element>
+          </Detail>
           <SEDListStatusItemDiv>
             <Tooltip
               placement='top' trigger={[sed.version !== '1' ? 'hover' : 'none']} overlay={(
-                <Normaltekst>
+                <BodyLong>
                   {t('ui:firstVersion')}
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                </Normaltekst>
+                </BodyLong>
                 )}
             >
               <SEDStatus
@@ -187,7 +183,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </Tooltip>
             <HorizontalSeparatorDiv date-size='0.5' />
             <SEDVersion>
-              <Normaltekst
+              <BodyLong
                 data-test-id='a-buc-c-sedheader__version-date-id'
               >
                 {sed.receiveDate
@@ -195,13 +191,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   : sed.lastUpdate
                     ? moment(sed.lastUpdate).format('DD.MM.YYYY')
                     : null}
-              </Normaltekst>
+              </BodyLong>
               {sed.version && (
-                <Normaltekst
+                <BodyLong
                   data-test-id='a-buc-c-sedheader__version-id'
                 >
                   {t('ui:version')}{': '}{sed.version || '-'}
-                </Normaltekst>
+                </BodyLong>
               )}
             </SEDVersion>
           </SEDListStatusItemDiv>
@@ -237,28 +233,28 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <SEDListAttachmentsDiv
                 data-test-id='a-buc-c-sedheader__actions-attachments'
               >
-                <FilledPaperClipIcon />
+                <AttachmentFilled />
               </SEDListAttachmentsDiv>
             </Tooltip>
           )}
           {(followUpSed && sed.status === 'received') && (
-            <HighContrastFlatknapp
-              mini
+            <Button
+              variant='secondary'
               disabled={buc.readOnly === true}
               data-amplitude='buc.edit.besvarSed'
               data-test-id='a-buc-c-sedheader__answer-button-id'
               onClick={onReplySed}
             >
               {t('buc:form-answerSED')}
-            </HighContrastFlatknapp>
+            </Button>
           )}
           {sed.type === 'P5000' &&
           featureToggles.P5000_SUMMER_VISIBLE &&
           (sed.status !== 'received' && sed.status !== 'sent') &&
           (
             <PileDiv>
-              <HighContrastFlatknapp
-                mini
+              <Button
+                variant='secondary'
                 data-amplitude='buc.edit.p5000'
                 data-test-id='a-buc-c-sedheader__p5000-button-id'
                 onClick={() => {
@@ -280,8 +276,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               >
                 {P5000Draft ? t('buc:p5000-rediger') : t('buc:p5000-registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <HoyreChevron />
-              </HighContrastFlatknapp>
+                <NextFilled />
+              </Button>
               <VerticalSeparatorDiv />
             </PileDiv>
           )}
@@ -298,12 +294,12 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         : null}
       {sed.type === 'X100' &&
         _.find(sed.participants, p => p.role === 'Sender')?.organisation.countryCode === 'DE' && (
-          <AlertStripe
+          <Alert
             data-test-id='a-buc-c-sedheader__x100'
-            type='advarsel'
+            variant='warning'
           >
-            {t('buc:alert-X100')}
-          </AlertStripe>
+            {t('message:alert-X100')}
+          </Alert>
       )}
     </SEDHeaderPanel>
   )

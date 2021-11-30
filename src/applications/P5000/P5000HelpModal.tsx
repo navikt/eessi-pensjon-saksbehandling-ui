@@ -1,75 +1,76 @@
-import Trashcan from 'assets/icons/Trashcan'
 import Modal from 'components/Modal/Modal'
-import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron'
-import { Normaltekst } from 'nav-frontend-typografi'
-import { HighContrastFlatknapp, VerticalSeparatorDiv, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { NextFilled, Delete } from '@navikt/ds-icons'
+import { BodyLong, Button } from '@navikt/ds-react'
+import { VerticalSeparatorDiv, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import { useTranslation } from 'react-i18next'
 import P5000HelpPNG from 'assets/images/p5000help.png'
+
 const P5000HelpModal = ({
-  highContrast, open, onClose
+  open, onClose
 }: any) => {
   const { t } = useTranslation()
   return (
     <Modal
       open={open}
-      highContrast={highContrast}
       modal={{
         closeButton: true,
         modalTitle: t('buc:p5000-saved-working-copy') + ' ' + t('ui:hva-betyr-det'),
         modalContent: (
           <div style={{ maxWidth: '800px' }}>
             <VerticalSeparatorDiv size='2' />
-            <Normaltekst>
+            <BodyLong>
               {t('buc:p5000-help-modal-1')}
-              <HighContrastFlatknapp
-                mini
-                kompakt
+              <Button
+                size='small'
+                variant='tertiary'
                 onClick={() => {}}
               >
                 {t('buc:p5000-registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <HoyreChevron />
-              </HighContrastFlatknapp>
+                <NextFilled />
+              </Button>
               {t('buc:p5000-help-modal-2')}
-            </Normaltekst>
+            </BodyLong>
             <VerticalSeparatorDiv />
-            <Normaltekst>
+            <BodyLong>
               {t('buc:p5000-help-modal-3')}
-            </Normaltekst>
+            </BodyLong>
             <VerticalSeparatorDiv />
-            <Normaltekst>
+            <BodyLong>
               {t('buc:p5000-help-modal-4')}
-            </Normaltekst>
+            </BodyLong>
             <VerticalSeparatorDiv />
             <div style={{ textAlign: 'center' }}>
               <img alt='p5000help' src={P5000HelpPNG} />
             </div>
             <VerticalSeparatorDiv />
-            <Normaltekst>
+            <BodyLong>
               {t('buc:p5000-help-modal-5')}
-              <HighContrastFlatknapp
-                mini kompakt
+              <Button
+                size='small'
+                variant='tertiary'
                 onClick={() => {}}
               >
                 {t('buc:p5000-rediger')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <HoyreChevron />
-              </HighContrastFlatknapp>
+                <NextFilled />
+              </Button>
               {t('buc:p5000-help-modal-6')}
-              <HighContrastFlatknapp
-                mini kompakt
+              <Button
+                size='small'
+                variant='tertiary'
                 onClick={() => {}}
               >
-                <Trashcan />
+                <Delete />
                 <HorizontalSeparatorDiv size='0.5' />
                 {t('ui:remove')}
-              </HighContrastFlatknapp>
+              </Button>
               .
-            </Normaltekst>
+            </BodyLong>
             <VerticalSeparatorDiv />
-            <Normaltekst>
+            <BodyLong>
               {t('buc:p5000-help-modal-7')}
-            </Normaltekst>
+            </BodyLong>
             <VerticalSeparatorDiv size='2' />
           </div>
         ),

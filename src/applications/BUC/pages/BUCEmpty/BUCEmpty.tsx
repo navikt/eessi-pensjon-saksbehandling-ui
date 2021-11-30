@@ -5,12 +5,8 @@ import CupPNG from 'assets/images/artwork/kop.png'
 import MousePNG from 'assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'assets/images/artwork/saksstatus.png'
 import {
-  HighContrastHovedknapp,
-  HighContrastInput,
-  HighContrastKnapp,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
-  , themeKeys
 } from 'nav-hoykontrast'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/app.d'
@@ -20,18 +16,19 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { Button, TextField } from '@navikt/ds-react'
 
 export const BUCEmptyDiv = styled.div`
   display: flex;
-  border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
+  border-color: var(--navds-color-border);
   border-style: solid;
-  border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
+  border-width: 1px;
+  border-radius: var(--navds-border-radius);
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 2rem;
-  background-color: ${({ theme }) => theme[themeKeys.MAIN_BACKGROUND_COLOR]};
+  background-color: var(--navds-semantic-color-component-background-alternate);
 `
 export const BUCEmptyArtwork = styled.div`
   position: relative;
@@ -106,7 +103,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
 
   const onSubmitAktoerId = (): void => {
     if (!_aktoerId || !_aktoerId.match(/^\d+$/)) {
-      setValidation(t('buc:validation-noAktoerId'))
+      setValidation(t('message:validation-noAktoerId'))
     } else {
       dispatch(setStatusParam('aktoerId', _aktoerId))
     }
@@ -119,7 +116,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
 
   const onSubmitSakId = (): void => {
     if (!_sakId || !_sakId.match(/^\d+$/)) {
-      setValidation(t('buc:validation-noSakId'))
+      setValidation(t('message:validation-noSakId'))
     } else {
       dispatch(setStatusParam('sakId', _sakId))
     }
@@ -137,42 +134,42 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         <VerticalSeparatorDiv />
         {!aktoerId && (
           <BUCEmptyForm>
-            <HighContrastInput
-              bredde='fullbredde'
+            <TextField
               data-test-id='a-buc-p-bucempty__aktoerid-input-id'
-              feil={validation || false}
+              error={validation || false}
               id='a-buc-p-bucempty__aktoerid-input-id'
               label={t('ui:aktoerId')}
               onChange={onAktoerIdChange}
               value={_aktoerId || ''}
             />
             <HorizontalSeparatorDiv />
-            <HighContrastHovedknapp
+            <Button
+              variant='primary'
               data-test-id='a-buc-p-bucempty__aktoerid-button-id'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
-            </HighContrastHovedknapp>
+            </Button>
           </BUCEmptyForm>
         )}
         {!sakId && (
           <BUCEmptyForm>
-            <HighContrastInput
-              bredde='fullbredde'
+            <TextField
               data-test-id='a-buc-p-bucempty__sakid-input-id'
-              feil={validation || false}
+              error={validation || false}
               id='a-buc-p-bucempty__sakid-input-id'
               label={t('buc:form-caseId')}
               onChange={onSakIdChange}
               value={_sakId || ''}
             />
             <HorizontalSeparatorDiv />
-            <HighContrastKnapp
+            <Button
+              variant='primary'
               data-test-id='a-buc-p-bucempty__sakid-button-id'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}
-            </HighContrastKnapp>
+            </Button>
           </BUCEmptyForm>
         )}
       </BUCEmptyDiv>

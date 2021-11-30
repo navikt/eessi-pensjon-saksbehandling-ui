@@ -4,7 +4,6 @@ import { stageSelector } from 'setupTests'
 import BUCEmpty, { BUCEmptyArtwork, BUCEmptyDiv, BUCEmptyProps } from './BUCEmpty'
 
 const defaultSelector = {
-  highContrast: false,
   rinaUrl: 'http://mock.url'
 }
 
@@ -59,7 +58,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\']').hostNodes().simulate('change', { target: { value: 'notvalid' } })
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-button-id\']').hostNodes().simulate('click')
     wrapper.update()
-    expect(wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\'] .skjemaelement__feilmelding').render().text()).toEqual('buc:validation-noAktoerId')
+    expect(wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\'] .skjemaelement__feilmelding').render().text()).toEqual('message:validation-noAktoerId')
 
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\']').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-button-id\']').hostNodes().simulate('click')
@@ -69,7 +68,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\']').hostNodes().simulate('change', { target: { value: 'notvalid' } })
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-button-id\']').hostNodes().simulate('click')
     wrapper.update()
-    expect(wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\'] .skjemaelement__feilmelding').render().text()).toEqual('buc:validation-noSakId')
+    expect(wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\'] .skjemaelement__feilmelding').render().text()).toEqual('message:validation-noSakId')
 
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\']').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-button-id\']').hostNodes().simulate('click')

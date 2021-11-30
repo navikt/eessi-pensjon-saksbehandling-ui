@@ -1,24 +1,24 @@
-import { HighContrastInput } from 'nav-hoykontrast'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TextField } from '@navikt/ds-react'
 
 export interface InputProps {
   ariaLabel ?: string
   className ?: string
-  feil: string | null | undefined
+  error: string | null | undefined
   namespace: string
   id: string
-  label: JSX.Element | string
+  label: string
   onChanged: (e: string) => void
   placeholder?: string
   required ?: boolean
-  type?: string
+  type?: 'number' | 'text' | 'email' | 'password' | 'tel' | 'url' | undefined
   value: string | undefined
 }
 const Input: React.FC<InputProps> = ({
   ariaLabel,
   className,
-  feil,
+  error,
   id,
   label,
   namespace,
@@ -33,12 +33,12 @@ const Input: React.FC<InputProps> = ({
   const { t } = useTranslation()
 
   return (
-    <HighContrastInput
-      aria-invalid={!!feil}
+    <TextField
+      aria-invalid={!!error}
       aria-label={ariaLabel ?? label}
       className={className}
       data-test-id={namespace + '-' + id}
-      feil={feil}
+      error={error}
       id={namespace + '-' + id}
       label={label}
       onBlur={() => {

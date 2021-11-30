@@ -38,7 +38,7 @@ describe('widgets/Overview/PersonTitle', () => {
     wrapper.setProps({ person: mockPerson })
     expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-man-icon')
 
-    mockPerson.kjoenn.kjoenn = 'XXX'
+    mockPerson.kjoenn.kjoenn = 'UKJENT'
     wrapper.setProps({ person: mockPerson })
     expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-unknown-icon')
 

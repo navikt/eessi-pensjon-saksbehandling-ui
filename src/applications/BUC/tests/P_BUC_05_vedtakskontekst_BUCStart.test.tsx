@@ -22,9 +22,10 @@ const defaultSelector: BUCStartSelector = {
   bucsInfo: undefined,
   currentBuc: undefined,
   featureToggles: mockFeatureToggles,
-  highContrast: false,
   loading: {},
   locale: 'nb' as AllowedLocaleString,
+  kravDato: undefined,
+  kravId: undefined,
   newlyCreatedBuc: undefined,
   person: undefined,
   personAvdods: [],
@@ -216,7 +217,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     // no validation errors
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseAvdod'
+      'buc:form-feiloppsummering' + 'message:validation-chooseAvdod'
     )
     // create buc is not called
     expect(createBuc).not.toHaveBeenCalled()

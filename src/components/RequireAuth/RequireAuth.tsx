@@ -19,14 +19,14 @@ const RouteDiv = styled.div`
   min-height: 100vh;
 `
 
-export interface AuthenticatedRouteSelector {
+export interface RequireAuthSelector {
   loggedIn: boolean | undefined
   userRole: string | undefined
   gettingUserInfo: boolean
   isLoggingIn: boolean
 }
 
-const mapState = (state: State): AuthenticatedRouteSelector => ({
+const mapState = (state: State): RequireAuthSelector => ({
   /* istanbul ignore next */
   userRole: state.app.userRole,
   loggedIn: state.app.loggedIn,
@@ -43,7 +43,7 @@ const paramAliases: {[k: string]: string} = {
 }
 
 const RequireAuth: React.FC<any> = (props) => {
-  const { loggedIn, userRole, gettingUserInfo, isLoggingIn } = useSelector<State, AuthenticatedRouteSelector>(mapState)
+  const { loggedIn, userRole, gettingUserInfo, isLoggingIn } = useSelector<State, RequireAuthSelector>(mapState)
   const dispatch = useDispatch()
   const location = useLocation()
 

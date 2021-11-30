@@ -21,7 +21,8 @@ const defaultSelector: BUCStartSelector = {
   bucsInfo: undefined,
   currentBuc: undefined,
   featureToggles: mockFeatureToggles,
-  highContrast: false,
+  kravDato: undefined,
+  kravId: undefined,
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   newlyCreatedBuc: undefined,
@@ -145,7 +146,7 @@ describe('P_BUC_02 for BUCStart', () => {
     // create buc is not called
     expect(createBuc).not.toHaveBeenCalled()
 
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__warning-id\']').hostNodes().render().text()).toEqual('advarselbuc:alert-noDeceased')
+    expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__warning-id\']').hostNodes().render().text()).toEqual('advarselmessage:alert-noDeceased')
   })
 
   /*
@@ -195,7 +196,7 @@ describe('P_BUC_02 for BUCStart', () => {
     // validation error, must choose avdod
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseAvdod'
+      'buc:form-feiloppsummering' + 'message:validation-chooseAvdod'
     )
     // create buc is not called
     expect(createBuc).not.toHaveBeenCalled()

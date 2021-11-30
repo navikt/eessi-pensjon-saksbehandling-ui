@@ -1,16 +1,10 @@
-import ExternalLink from 'assets/icons/line-version-logout'
+import { ExternalLink } from '@navikt/ds-icons'
+import { Link } from '@navikt/ds-react'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { RinaUrl } from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import { linkLogger } from 'metrics/loggers'
-import {
-  HighContrastLink,
-  HorizontalSeparatorDiv,
-  theme,
-  Theme,
-  themeHighContrast,
-  themeKeys
-} from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -42,15 +36,13 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   className
 }: BUCFooterProps): JSX.Element => {
   const { t } = useTranslation()
-  const { highContrast, rinaUrl }: BUCFooterSelector = useSelector<State, BUCFooterSelector>(mapState)
-  const _theme: Theme = highContrast ? themeHighContrast : theme
-  const linkColor: string = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
+  const { rinaUrl }: BUCFooterSelector = useSelector<State, BUCFooterSelector>(mapState)
 
   return (
     <BUCFooterDiv className={className}>
       {rinaUrl
         ? (
-          <HighContrastLink
+          <Link
             data-amplitude='buc.list.rinaurl'
             data-test-id='a-buc-c-bucfooter__gotorina-link'
             href={rinaUrl}
@@ -59,11 +51,11 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
           >
             {t('ui:goToRina')}
             <HorizontalSeparatorDiv size='0.5' />
-            <ExternalLink color={linkColor} />
-          </HighContrastLink>
+            <ExternalLink />
+          </Link>
           )
         : (
-          <WaitingPanel size='S' />
+          <WaitingPanel size='xsmall' />
           )}
     </BUCFooterDiv>
   )

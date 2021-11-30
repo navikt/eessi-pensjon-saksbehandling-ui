@@ -113,7 +113,9 @@ describe('reducers/buc', () => {
       caseId: '1',
       creator: {
         country: 'NO',
-        institution: 'foo'
+        institution: 'foo',
+        name: 'foo',
+        acronym: 'foo'
       },
       deltakere: [],
       description: '',
@@ -181,7 +183,9 @@ describe('reducers/buc', () => {
       caseId: '1',
       creator: {
         country: 'NO',
-        institution: 'foo'
+        institution: 'foo',
+        name: 'foo',
+        acronym: 'foo'
       },
       deltakere: [],
       description: '',

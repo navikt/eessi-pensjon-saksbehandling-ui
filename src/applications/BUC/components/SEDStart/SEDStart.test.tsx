@@ -35,7 +35,6 @@ const defaultSelector: SEDStartSelector = {
   countryList: [],
   gettingP6000: false,
   featureToggles: mockFeatureToggles,
-  highContrast: false,
   institutionList: {},
   institutionNames: {},
   kravDato: '1970-01-01',
@@ -56,13 +55,13 @@ const defaultSelector: SEDStartSelector = {
 
 describe('applications/BUC/components/SEDStart/SEDStart', () => {
   let wrapper: ReactWrapper
-  const mockBucs: Bucs = _.keyBy(mockBucs(), 'caseId')
+  const _mockBucs: Bucs = _.keyBy(mockBucs(), 'caseId')
   const mockCurrentBuc: string = '195440'
-  const mockReplySed: Sed | undefined = _.find(mockBucs[mockCurrentBuc].seds, sed => sed.parentDocumentId !== undefined)
-  const mockCurrentSed: Sed | undefined = _.find(mockBucs[mockCurrentBuc].seds, sed => sed.id === mockReplySed!.parentDocumentId)
+  const mockReplySed: Sed | undefined = _.find(_mockBucs[mockCurrentBuc].seds, sed => sed.parentDocumentId !== undefined)
+  const mockCurrentSed: Sed | undefined = _.find(_mockBucs[mockCurrentBuc].seds, sed => sed.id === mockReplySed!.parentDocumentId)
   const initialMockProps: SEDStartProps = {
     aktoerId: '123',
-    bucs: mockBucs,
+    bucs: _mockBucs,
     currentBuc: mockCurrentBuc,
     initialAttachments: mockItems,
     initialSed: 'P2000',
@@ -137,7 +136,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes().simulate('change', { target: { value: 'P4000' } })
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
 
@@ -150,7 +149,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   it('Handling: Creates sed when forward button is clicked ', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes().simulate('change', { target: { value: 'P4000' } })
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
-    expect(createSed).toHaveBeenCalledWith(mockBucs[mockCurrentBuc], {
+    expect(createSed).toHaveBeenCalledWith(_mockBucs[mockCurrentBuc], {
       aktoerId: '123',
       avdodfnr: 'personFarFnr',
       buc: 'P_BUC_02',

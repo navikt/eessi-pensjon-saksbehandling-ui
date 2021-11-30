@@ -1,41 +1,30 @@
+import { Alert, BodyLong, Button, HelpText, Loader, Tag } from '@navikt/ds-react'
 import { typePeriode } from 'applications/P5000/P5000.labels'
 import { typeOptions } from 'applications/P5000/P5000Edit'
-import HelpIcon from 'assets/icons/HelpIcon'
 import Select from 'components/Select/Select'
-import { Labels, LocalStorageValue, O } from 'declarations/app'
+import { Labels, LocalStorageValue, Option } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import Alertstripe from 'nav-frontend-alertstriper'
-import EtikettBase from 'nav-frontend-etiketter'
-import { Normaltekst } from 'nav-frontend-typografi'
+
 import {
+  AlignEndRow,
   Column,
   FlexEndSpacedDiv,
   HiddenDiv,
-  HighContrastKnapp,
   HorizontalSeparatorDiv,
   PileCenterDiv,
-  Row,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import styled from 'styled-components'
 import Table, { RenderEditableOptions, Sort } from 'tabell'
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from './conversion'
-
-const CustomAlertstripe = styled(Alertstripe)`
- .alertstripe__tekst {
-    max-width: 100% !important;
- }
-`
 
 export interface P5000SumProps {
   context: P5000Context
@@ -46,7 +35,6 @@ export interface P5000SumProps {
 }
 
 const mapState = (state: State): any => ({
-  highContrast: state.ui.highContrast,
   sakType: state.app.params.sakType as SakTypeValue
 })
 
@@ -54,7 +42,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   context, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds
 }: P5000SumProps) => {
   const { t } = useTranslation()
-  const { highContrast, sakType } = useSelector<State, any>(mapState)
+  const { sakType } = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_itemsPerPage] = useState<number>(30)
@@ -78,9 +66,9 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   }
 
   const renderType = (item: any, value: any) => (
-    <Normaltekst>
+    <BodyLong>
       {(typePeriode as Labels)[value] + ' [' + value + ']'}
-    </Normaltekst>
+    </BodyLong>
   )
 
   const renderTypeEdit = (options: RenderEditableOptions) => (
@@ -89,11 +77,10 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         key={'c-table__edit-type-select-key-' + options.value}
         id='c-table__edit-type-select-id'
         className='P5000Edit-type-select'
-        highContrast={highContrast}
-        feil={options.feil}
+        error={options.feil}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e: unknown) => options.setValue({ type: (e as O).value })}
+        onChange={(e: unknown) => options.setValue({ type: (e as Option).value })}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
         value={_.find(typeOptions, o => o.value === options.value)}
       />
@@ -102,13 +89,13 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const renderStatus = (item: any, value: any) => {
     if (value === 'rina') {
-      return <EtikettBase mini type='info'>RINA</EtikettBase>
+      return <Tag size='small' variant='info'>RINA</Tag>
     }
     if (value === 'new') {
-      return <EtikettBase mini type='suksess'>Ny</EtikettBase>
+      return <Tag size='small' variant='success'>Ny</Tag>
     }
     if (value === 'edited') {
-      return <EtikettBase mini type='fokus'>Endret</EtikettBase>
+      return <Tag size='small' variant='warning'>Endret</Tag>
     }
     return <div />
   }
@@ -134,7 +121,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         validation: [{
           mandatory: false,
           test: '^.+$',
-          message: t('buc:validation-chooseType')
+          message: t('message:validation-chooseType')
         }]
       }
     },
@@ -186,7 +173,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   return (
     <>
       <PileCenterDiv>
-        <Row>
+        <AlignEndRow style={{width: '100%'}}>
           <Column />
           <Column>
             <FlexEndSpacedDiv style={{ flexDirection: 'row-reverse' }}>
@@ -196,59 +183,50 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                 onBeforePrint={beforePrintOut}
                 onBeforeGetContent={prepareContent}
                 trigger={() =>
-                  <HighContrastKnapp
+                  <Button
+                    variant='secondary'
                     disabled={_printDialogOpen}
-                    spinner={_printDialogOpen}
                   >
+                    {_printDialogOpen && <Loader />}
                     {t('ui:print')}
-                  </HighContrastKnapp>}
+                  </Button>}
                 content={() => {
                   return componentRef.current
                 }}
               />
             </FlexEndSpacedDiv>
           </Column>
-        </Row>
+        </AlignEndRow>
         <VerticalSeparatorDiv />
         {sakType === SakTypeMap.GJENLEV && (
           <>
-            <Row>
+            <AlignEndRow style={{width: '100%'}}>
               <Column>
-                <Alertstripe type='advarsel'>
-                  {t('buc:warning-P5000SumGjenlevende')}
-                </Alertstripe>
+                <Alert variant='warning'>
+                  {t('message:warning-P5000SumGjenlevende')}
+                </Alert>
               </Column>
               <Column />
-            </Row>
+            </AlignEndRow>
             <VerticalSeparatorDiv />
           </>
         )}
         {!!sakType && (
           <>
-            <Row>
+            <AlignEndRow style={{width: '100%'}}>
               <Column flex='2'>
-                <CustomAlertstripe type='advarsel'>
+                <Alert variant='warning'>
                   <>
                     <div>
-                      {t('buc:warning-P5000Sum-instructions-title')}
+                      {t('message:warning-P5000Sum-instructions-title')}
                       <HorizontalSeparatorDiv size='0.5' />
-                      <div style={{ verticalAlign: 'middle', display: 'inline-block' }}>
-                        <Tooltip
-                          placement='right' trigger={['hover']} overlay={(
-                            <div style={{ maxWidth: '600px' }}>
-                              <Normaltekst>{t('buc:warning-P5000Sum-instructions-title-help')}</Normaltekst>
-                            </div>
-                      )}
-                        >
-                          <div style={{ minWidth: '28px' }}>
-                            <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                          </div>
-                        </Tooltip>
-                      </div>
+                      <HelpText>
+                        {t('message:warning-P5000Sum-instructions-title-help')}
+                      </HelpText>
                     </div>
                     <div>
                       <strong>
-                        {t('buc:warning-P5000Sum-instructions-title-obs')}
+                        {t('message:warning-P5000Sum-instructions-title-obs')}
                       </strong>
                     </div>
                     {hasMoreWarnings && (
@@ -256,43 +234,43 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                         <VerticalSeparatorDiv />
                         <hr />
                         <VerticalSeparatorDiv size='0.7' />
-                        {t('buc:warning-P5000Sum-instructions-header')}
+                        {t('message:warning-P5000Sum-instructions-header')}
                         <VerticalSeparatorDiv />
                       </div>
                     )}
                     <ul>
                       {has5152diffs && (
                         <li>
-                          {t('buc:warning-P5000Sum-instructions-5152')}
+                          {t('message:warning-P5000Sum-instructions-5152')}
                           <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
                       {has40aar && (
                         <li>
-                          {t('buc:warning-P5000Sum-instructions-40')}
+                          {t('message:warning-P5000Sum-instructions-40')}
                           <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
                       {has45 && (
                         <li>
-                          {t('buc:warning-P5000Sum-instructions-45')}
+                          {t('message:warning-P5000Sum-instructions-45')}
                           <VerticalSeparatorDiv size='0.5' />
                         </li>
                       )}
                     </ul>
                   </>
-                </CustomAlertstripe>
+                </Alert>
               </Column>
               <Column />
-            </Row>
+            </AlignEndRow>
             <VerticalSeparatorDiv />
           </>
         )}
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000SumRow>
+          className='tabell compact'
           animatable={false}
-          highContrast={highContrast}
           items={items}
           searchable={false}
           selectable={false}

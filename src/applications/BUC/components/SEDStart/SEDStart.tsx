@@ -25,7 +25,7 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDP6000 from 'applications/BUC/components/SEDP6000/SEDP6000'
-import PersonIcon from 'assets/icons/line-version-person-2'
+import { People } from '@navikt/ds-icons'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
@@ -33,7 +33,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
-import { AllowedLocaleString, FeatureToggles, Loading, O, PesysContext, Validation } from 'declarations/app.d'
+import { AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext, Validation, ErrorElement } from 'declarations/app.d'
 import { KravOmValue, P6000, SakTypeKey } from 'declarations/buc'
 import {
   AvdodOrSokerValue,
@@ -68,17 +68,10 @@ import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import AlertStripe from 'nav-frontend-alertstriper'
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import { Alert, Button, BodyLong, ErrorSummary, Heading, Loader, TextField, Radio, RadioGroup } from '@navikt/ds-react'
+
 import {
   Column,
-  HighContrastFeiloppsummering,
-  HighContrastFlatknapp,
-  HighContrastHovedknapp,
-  HighContrastInput,
-  HighContrastKnapp,
-  HighContrastRadioPanelGroup,
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
@@ -134,7 +127,6 @@ export interface SEDStartSelector {
   countryList: CountryRawList | undefined
   featureToggles: FeatureToggles
   gettingP6000: boolean
-  highContrast: boolean
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames | undefined
   kravDato: string | null | undefined,
@@ -158,7 +150,6 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   countryList: state.buc.countryList,
   featureToggles: state.app.featureToggles,
   gettingP6000: state.loading.gettingP6000,
-  highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   institutionNames: state.buc.institutionNames,
   kravDato: state.buc.kravDato,
@@ -198,7 +189,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   replySed
 } : SEDStartProps): JSX.Element => {
   const {
-    attachmentsError, countryList, featureToggles, gettingP6000, highContrast, institutionList, institutionNames, kravId, kravDato,
+    attachmentsError, countryList, featureToggles, gettingP6000, institutionList, institutionNames, kravId, kravDato,
     loading, locale, p6000s, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -234,9 +225,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return label
   }
 
-  const renderOptions = (options: Array<O | string> | undefined): Array<O> => {
+  const renderOptions = (options: Array<Option | string> | undefined): Array<Option> => {
     return options
-      ? options.map((el: O | string) => {
+      ? options.map((el: Option | string) => {
           let label, value
           if (typeof el === 'string') {
             label = el
@@ -248,7 +239,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           return {
             label: getOptionLabel(label!),
             value: value
-          } as O
+          } as Option
         })
       : []
   }
@@ -277,7 +268,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const _notHostInstitution = (institution: Institution) : boolean => institution.institution !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_sedAttachments, setSedAttachments] = useState<JoarkBrowserItems>(initialAttachments)
-  const _sedOptions: Array<O> = renderOptions(sedList)
+  const _sedOptions: Array<Option> = renderOptions(sedList)
   const [_sedSent, setSedSent] = useState<boolean>(false)
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_validation, setValidation] = useState<Validation>({})
@@ -384,8 +375,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
     : []
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
-  const _institutionObjectList: Array<GroupBase<O>> = []
-  let _institutionValueList: Array<O> = []
+  const _institutionObjectList: Array<GroupBase<Option>> = []
+  let _institutionValueList: Array<Option> = []
 
   if (institutionList) {
     Object.keys(institutionList).forEach((landkode: string) => {
@@ -420,7 +411,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return false
   }, [_buc])
 
-  const updateValidation = useCallback((_key: string, validationError: FeiloppsummeringFeil | undefined) => {
+  const updateValidation = useCallback((_key: string, validationError: ErrorElement | undefined) => {
     if (!validationError) {
       const newValidation = _.cloneDeep(_validation)
       newValidation[_key] = undefined
@@ -428,100 +419,100 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }, [_validation])
 
-  const validateKravDato = (kravDato: string | undefined): FeiloppsummeringFeil | undefined => {
+  const validateKravDato = (kravDato: string | undefined): ErrorElement | undefined => {
     if ((!kravDato || kravDato?.length === 0) && pesysContext === VEDTAKSKONTEKST) {
       return {
-        feilmelding: t('buc:validation-chooseKravDato'),
+        feilmelding: t('message:validation-chooseKravDato'),
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     if (kravDato && !kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
-        feilmelding: t('buc:validation-badKravDato')
-      } as FeiloppsummeringFeil
+        feilmelding: t('message:validation-badKravDato')
+      } as ErrorElement
     }
     if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
       return {
-        feilmelding: t('buc:validation-invalidKravDato'),
+        feilmelding: t('message:validation-invalidKravDato'),
         skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }
 
-  const validateSed = (sed: string | undefined): FeiloppsummeringFeil | undefined => {
+  const validateSed = (sed: string | undefined): ErrorElement | undefined => {
     if (!sed) {
       return {
-        feilmelding: t('buc:validation-chooseSed'),
+        feilmelding: t('message:validation-chooseSed'),
         skjemaelementId: 'a-buc-c-sedstart__sed-select-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }
 
-  const validateInstitutions = (institutions: InstitutionRawList): FeiloppsummeringFeil | undefined => {
+  const validateInstitutions = (institutions: InstitutionRawList): ErrorElement | undefined => {
     if (!bucHasSedsWithAtLeastOneInstitution() && _.isEmpty(institutions)) {
       return {
-        feilmelding: t('buc:validation-chooseInstitution'),
+        feilmelding: t('message:validation-chooseInstitution'),
         skjemaelementId: 'a-buc-c-sedstart__institution-select-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }
 
-  const validateCountries = useCallback((country: CountryRawList): FeiloppsummeringFeil | undefined => {
+  const validateCountries = useCallback((country: CountryRawList): ErrorElement | undefined => {
     if (!bucHasSedsWithAtLeastOneInstitution() && _.isEmpty(country)) {
       return {
-        feilmelding: t('buc:validation-chooseCountry'),
+        feilmelding: t('message:validation-chooseCountry'),
         skjemaelementId: 'a-buc-c-sedstart__country-select-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }, [t, bucHasSedsWithAtLeastOneInstitution])
 
-  const validateVedtakId = (vedtakId: string | null | undefined): FeiloppsummeringFeil | undefined => {
+  const validateVedtakId = (vedtakId: string | null | undefined): ErrorElement | undefined => {
     if (!vedtakId) {
       return {
-        feilmelding: t('buc:validation-chooseVedtakId'),
+        feilmelding: t('message:validation-chooseVedtakId'),
         skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     if (!isNumber(vedtakId!)) {
       return {
-        feilmelding: t('buc:validation-invalidVedtakId'),
+        feilmelding: t('message:validation-invalidVedtakId'),
         skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }
 
-  const validateKravOm = (kravOm: string | undefined): FeiloppsummeringFeil | undefined => {
+  const validateKravOm = (kravOm: string | undefined): ErrorElement | undefined => {
     if (!kravOm) {
       return {
-        feilmelding: t('buc:validation-chooseKravOm'),
+        feilmelding: t('message:validation-chooseKravOm'),
         skjemaelementId: 'a-buc-c-sedstart__kravOm-radiogroup-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }
 
-  const validateP6000s = (buc: Buc, p6000s: Array<P6000>): FeiloppsummeringFeil | undefined => {
+  const validateP6000s = (buc: Buc, p6000s: Array<P6000>): ErrorElement | undefined => {
     if (_.isEmpty(p6000s) && bucRequiresP6000s(buc)) {
       return {
-        feilmelding: t('buc:validation-chooseP6000s'),
+        feilmelding: t('message:validation-chooseP6000s'),
         skjemaelementId: 'a-buc-c-sedstart__p6000s-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }
 
-  const validateAvdodOrSoker = (_avdodOrSoker: AvdodOrSokerValue | undefined): FeiloppsummeringFeil | undefined => {
+  const validateAvdodOrSoker = (_avdodOrSoker: AvdodOrSokerValue | undefined): ErrorElement | undefined => {
     if (!_avdodOrSoker) {
       return {
-        feilmelding: t('buc:validation-chooseAvdodOrSoker'),
+        feilmelding: t('message:validation-chooseAvdodOrSoker'),
         skjemaelementId: 'a-buc-c-sedstart__avdodorsoker-radiogroup-id'
-      } as FeiloppsummeringFeil
+      } as ErrorElement
     }
     return undefined
   }
@@ -532,7 +523,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     dispatch(resetSavingAttachmentJob())
   }
 
-  const fetchInstitutionsForSelectedCountries = useCallback((countries: Array<O> | CountryRawList): void => {
+  const fetchInstitutionsForSelectedCountries = useCallback((countries: Array<Option> | CountryRawList): void => {
     if (!_buc) {
       return
     }
@@ -541,7 +532,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       if (typeof countries[0] === 'string') {
         newCountries = countries as CountryRawList
       } else {
-        newCountries = (countries as Array<O>).map(item => item.value)
+        newCountries = (countries as Array<Option>).map(item => item.value)
       }
     }
 
@@ -623,7 +614,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const onSedChange = (option: unknown): void => {
     if (option) {
-      const newSed: string | undefined = (option as O).value
+      const newSed: string | undefined = (option as Option).value
       if (newSed) {
         handleSedChange(newSed)
       }
@@ -635,14 +626,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setKravOm(newKravOm)
   }
 
-  const onInstitutionsChange = (institutions: Array<O>): void => {
-    const newInstitutions: InstitutionRawList = institutions ? (institutions as Array<O>)?.map((institution : O) => institution.value) : []
+  const onInstitutionsChange = (institutions: Array<Option>): void => {
+    const newInstitutions: InstitutionRawList = institutions ? (institutions as Array<Option>)?.map((institution : Option) => institution.value) : []
     setInstitutions(newInstitutions)
     updateValidation('institution', validateInstitutions(newInstitutions))
   }
 
-  const onCountriesChange = (countries: Array<O> | null | undefined): void => {
-    fetchInstitutionsForSelectedCountries(countries as Array<O>)
+  const onCountriesChange = (countries: Array<Option> | null | undefined): void => {
+    fetchInstitutionsForSelectedCountries(countries as Array<Option>)
   }
 
   const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -658,7 +649,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const getSpinner = (text: string): JSX.Element => (
-    <WaitingPanel size='S' message={t(text)} oneLine />
+    <WaitingPanel size='xsmall' message={t(text)} oneLine />
   )
 
   const onJoarkAttachmentsChanged = (jbi: JoarkBrowserItems): void => {
@@ -958,7 +949,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   return (
     <SEDStartDiv>
-      <Systemtittel>
+      <Heading size='medium'>
         {!currentSed && !replySed
           ? t('buc:step-startSEDTitle', {
               buc: t(`buc:buc-${_buc?.type}`),
@@ -968,14 +959,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             replySed: replySed!.type,
             sed: currentSed!.type
           })}
-      </Systemtittel>
+      </Heading>
       <hr />
       {!vedtakId && _sed === 'P6000' && (
         <FullWidthDiv>
           <AlertDiv>
-            <AlertStripe type='advarsel'>
-              {t('buc:alert-noVedtakId')}
-            </AlertStripe>
+            <Alert variant='warning'>
+              {t('message:alert-noVedtakId')}
+            </Alert>
           </AlertDiv>
         </FullWidthDiv>
       )}
@@ -989,10 +980,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <Select
               data-test-id='a-buc-c-sedstart__sed-select-id'
               isDisabled={loading.gettingSedList}
-              highContrast={highContrast}
               id='a-buc-c-sedstart__sed-select-id'
               isSearchable
-              feil={_validation.sed ? t(_validation.sed.feilmelding) : undefined}
+              error={_validation.sed ? t(_validation.sed.feilmelding) : undefined}
               menuPortalTarget={document.getElementById('main')}
               onChange={onSedChange}
               options={_sedOptions}
@@ -1003,16 +993,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {_sed && sedNeedsVedtakId.indexOf(_sed) >= 0 && (
             <>
               <VerticalSeparatorDiv />
-              <HighContrastInput
+              <TextField
                 disabled
                 data-test-id='a-buc-c-sedstart__vedtakid-input-id'
                 id='a-buc-c-sedstart__vedtakid-input-id'
                 label={t('buc:form-vedtakId')}
-                bredde='fullbredde'
                 value={_vedtakId || ''}
                 onChange={onVedtakIdChange}
                 placeholder={t('buc:form-noVedtakId')}
-                feil={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
+                error={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
               />
             </>
           )}
@@ -1022,89 +1011,93 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <FlexDiv
                 data-test-id='a-buc-c-sedstart__avdod-div-id'
               >
-                <PersonIcon color={highContrast ? 'white' : 'black'} />
+                <People />
                 <HorizontalSeparatorDiv />
                 <label className='skjemaelement__label'>
                   {t('buc:form-avdod')}:
                 </label>
                 <HorizontalSeparatorDiv />
-                <Normaltekst>
+                <BodyLong>
                   {renderAvdodName(_avdod, t)}
-                </Normaltekst>
+                </BodyLong>
               </FlexDiv>
             </>
           )}
           {sedNeedsAvdodFnrInput() && (
             <>
               <VerticalSeparatorDiv />
-              <HighContrastInput
+              <TextField
                 label={t('buc:form-avdodFnr')}
                 data-test-id='a-buc-c-sedstart__avdod-input-id'
                 id='a-buc-c-sedstart__avdod-input-id'
                 placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
                 value={_avdodFnr}
-                feil={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
+                error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
               />
             </>
           )}
           {_sed && sedNeedsKravdato(_sed) && (
             <>
               <VerticalSeparatorDiv />
-              <HighContrastInput
+              <TextField
                 data-test-id='a-buc-c-sedstart__kravDato-input-id'
                 id='a-buc-c-sedstart__kravDato-input-id'
                 label={t('buc:form-kravDato')}
-                bredde='fullbredde'
                 value={_kravDato}
                 onChange={onKravDatoChange}
                 placeholder={t('buc:form-kravDatoPlaceholder')}
-                feil={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
+                error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
               />
             </>
           )}
           {_sed && sedNeedsKravOm(_sed) && (
             <>
               <VerticalSeparatorDiv />
-              <HighContrastRadioPanelGroup
-                checked={_kravOm as string}
+              <RadioGroup
+                defaultValue={_kravOm as string}
                 data-test-id='a-buc-c-sedstart__kravOm-radiogroup-id'
-                feil={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
+                error={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
                 legend={t('buc:form-kravOm')}
-                name='kravOm'
-                radios={[
-                  {
-                    label: t('buc:form-alderspensjon'),
-                    value: 'Alderspensjon',
-                    disabled: (sakType === SakTypeMap.UFOREP || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
-                  }, {
-                    label: t('buc:form-etterletteytelser'),
-                    value: 'Etterlatteytelser'
-                  }, {
-                    label: t('buc:form-uføretrygd'),
-                    value: 'Uføretrygd',
-                    disabled: (sakType === SakTypeMap.ALDER || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
-                  }
-                ]}
                 onChange={onKravOmChange}
-              />
+              >
+                <Radio
+                  disabled={(sakType === SakTypeMap.UFOREP || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)}
+                  value='Alderspensjon'
+                >{t('buc:form-alderspensjon')}
+                </Radio>
+                <Radio
+                  value='Etterlatteytelser'
+                >{t('buc:form-etterletteytelser')}
+                </Radio>
+                <Radio
+                  disabled={(sakType === SakTypeMap.ALDER || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)}
+                  value='Uføretrygd'
+                >{t('buc:form-uføretrygd')}
+                </Radio>
+              </RadioGroup>
             </>
           )}
           {sedNeedsAvdodBrukerQuestion() && (
             <>
               <VerticalSeparatorDiv />
-              <HighContrastRadioPanelGroup
-                checked={_avdodOrSoker}
+              <RadioGroup
+                defaultValue={_avdodOrSoker}
                 data-test-id='a-buc-c-sedstart__avdodorsoker-radiogroup-id'
-                feil={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
+                error={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
                 legend={t('buc:form-avdodorsøker')}
                 name='avdodorbruker'
-                radios={[
-                  { label: t('buc:form-avdod'), value: 'AVDOD' },
-                  { label: t('buc:form-søker'), value: 'SOKER' }
-                ]}
                 onChange={onAvdodOrSokerChange}
-              />
+              >
+                <Radio
+                  value='AVDOD'
+                >{t('buc:form-avdod')}
+                </Radio>
+                <Radio
+                  value='SOKER'
+                >{t('buc:form-søker')}
+                </Radio>
+              </RadioGroup>
             </>
           )}
           {!currentSed && (
@@ -1119,7 +1112,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 error={_validation.country ? t(_validation.country.feilmelding) : null}
                 flagType='circle'
                 hideSelectedOptions={false}
-                highContrast={highContrast}
                 id='a-buc-c-sedstart__country-select-id'
                 includeList={_countryIncludeList}
                 values={_countryValueList}
@@ -1127,23 +1119,22 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 isMulti
                 label={t('ui:country')}
                 onOptionSelected={onCountriesChange}
-                placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t('buc:form-chooseCountry')}
+                placeholder={loading.gettingCountryList ? getSpinner('message:loading-country') : t('buc:form-chooseCountry')}
               />
               <VerticalSeparatorDiv />
-              <MultipleSelect<O>
+              <MultipleSelect<Option>
                 ariaLabel={t('ui:institution')}
                 aria-describedby='help-institution'
                 data-test-id='a-buc-c-sedstart__institution-select-id'
                 isDisabled={loading.gettingInstitutionList || isDisabled}
                 error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
                 hideSelectedOptions={false}
-                highContrast={highContrast}
                 id='a-buc-c-sedstart__institution-select-id'
                 isLoading={loading.gettingInstitutionList}
                 label={t('ui:institution')}
                 options={_institutionObjectList}
                 onSelect={onInstitutionsChange}
-                placeholder={loading.gettingInstitutionList ? getSpinner('buc:loading-institution') : t('buc:form-chooseInstitution')}
+                placeholder={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
                 values={_institutionValueList}
               />
               <VerticalSeparatorDiv size='2' />
@@ -1151,17 +1142,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 <>
                   {_.isNil(p6000s)
                     ? (
-                      <HighContrastKnapp
+                      <Button
+                        variant='secondary'
                         onClick={_getP6000}
                         disabled={gettingP6000}
-                        spinner={gettingP6000}
                       >
-                        {gettingP6000 ? t('buc:loading-p6000') : t('buc:form-get-p6000')}
-                      </HighContrastKnapp>
+                        {gettingP6000 && <Loader />}
+                        {gettingP6000 ? t('message:loading-p6000') : t('buc:form-get-p6000')}
+                      </Button>
                       )
                     : <SEDP6000
                         feil={_validation.p6000}
-                        highContrast={highContrast}
                         locale={locale}
                         p6000s={p6000s}
                         onChanged={onChangedSedP6000}
@@ -1192,29 +1183,31 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           )}
           <Column>
             <VerticalSeparatorDiv size='1.5' />
-            <HighContrastHovedknapp
+            <Button
+              variant='primary'
               data-amplitude='sed.new.create'
               data-test-id='a-buc-c-sedstart__forward-button-id'
               disabled={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
-              spinner={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
               onClick={onForwardButtonClick}
             >
+              {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
               {loading.creatingSed
-                ? t('buc:loading-creatingSED')
+                ? t('message:loading-creatingSED')
                 : _sendingAttachments
-                  ? t('buc:loading-sendingSEDattachments')
+                  ? t('message:loading-sendingSEDattachments')
                   : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
                       ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
                       : t('buc:form-orderSED')}
-            </HighContrastHovedknapp>
+            </Button>
             <HorizontalSeparatorDiv />
-            <HighContrastFlatknapp
+            <Button
+              variant='tertiary'
               data-amplitude='sed.new.cancel'
               data-test-id='a-buc-c-sedstart__cancel-button-id'
               onClick={onCancelButtonClick}
             >
               {t('ui:cancel')}
-            </HighContrastFlatknapp>
+            </Button>
             <VerticalSeparatorDiv size='1.5' />
           </Column>
         </Column>
@@ -1227,15 +1220,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 {t('ui:attachments')}
               </label>
               <VerticalSeparatorDiv />
-              <HighContrastKnapp
+              <Button
+                variant='secondary'
                 onClick={() => setAttachmentsTableVisible(!_attachmentsTableVisible)}
               >
                 {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-              </HighContrastKnapp>
+              </Button>
               <VerticalSeparatorDiv />
               <SEDAttachmentModal
                 open={_attachmentsTableVisible}
-                highContrast={highContrast}
                 onModalClose={() => setAttachmentsTableVisible(false)}
                 onFinishedSelection={onJoarkAttachmentsChanged}
                 sedAttachments={_sedAttachments}
@@ -1247,7 +1240,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   <JoarkBrowser
                     mode='view'
                     existingItems={_sedAttachments}
-                    highContrast={highContrast}
                     onRowViewDelete={onRowViewDelete}
                     tableId='newsed-view'
                   />
@@ -1283,11 +1275,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
-              <HighContrastFeiloppsummering
+              <ErrorSummary
                 data-test-id='a-buc-c-sedstart__feiloppsummering-id'
-                feil={Object.values(_validation).filter(v => v !== undefined) as Array<FeiloppsummeringFeil>}
-                tittel={t('buc:form-feiloppsummering')}
-              />
+                heading={t('buc:form-feiloppsummering')}
+              >
+                {_.filter(Object.values(_validation), (e: ErrorElement | undefined) => e !== undefined).map((e: ErrorElement | undefined) => (
+                  <ErrorSummary.Item href={e?.skjemaelementId}>{e?.feilmelding}</ErrorSummary.Item>
+                ))}
+              </ErrorSummary>
             </Column>
             <HorizontalSeparatorDiv size='2' />
             <Column />

@@ -1,7 +1,7 @@
 import Document from 'assets/icons/document'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import Modal from 'components/Modal/Modal'
-import { AlertStatus } from 'declarations/components'
+import { AlertVariant } from 'declarations/components'
 import { JoarkBrowserItems } from 'declarations/joark'
 import { JoarkBrowserItemsFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
@@ -9,10 +9,9 @@ import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import AlertStripe from 'nav-frontend-alertstriper'
+import { Alert } from '@navikt/ds-react'
 
 export interface SEDAttachmentModalProps {
-  highContrast: boolean
   onFinishedSelection: (jbi: JoarkBrowserItems) => void
   open: boolean
   onModalClose: () => void
@@ -22,7 +21,7 @@ export interface SEDAttachmentModalProps {
 
 export interface SEDAttachmentModalSelector {
   clientErrorParam: any | undefined
-  clientErrorStatus: AlertStatus | undefined
+  clientErrorStatus: AlertVariant | undefined
   clientErrorMessage: string | undefined
   serverErrorMessage: string | undefined
   error: any | undefined
@@ -37,7 +36,7 @@ const mapState = (state: State): SEDAttachmentModalSelector => ({
 })
 
 const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
-  highContrast, onFinishedSelection, open, onModalClose, sedAttachments, tableId
+  onFinishedSelection, open, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps): JSX.Element => {
   const { t } = useTranslation()
   const { clientErrorParam, clientErrorMessage, clientErrorStatus } = useSelector<State, SEDAttachmentModalSelector>(mapState)
@@ -59,16 +58,15 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   return (
     <Modal
       open={open}
-      highContrast={highContrast}
       icon={<Document />}
       modal={{
         closeButton: true,
         modalContent: (
           <>
-            {clientErrorMessage && clientErrorStatus === 'ERROR' && (
-              <AlertStripe type='feil'>
+            {clientErrorMessage && clientErrorStatus === 'error' && (
+              <Alert variant='error'>
                 {t(clientErrorMessage, clientErrorParam)}
-              </AlertStripe>
+              </Alert>
             )}
             <JoarkBrowser
               data-test-id='a-buc-c-sedattachmentmodal__joarkbrowser-id'

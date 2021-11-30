@@ -1,16 +1,14 @@
-import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
+import { AddCircleFilled } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import { fadeIn } from 'nav-hoykontrast'
-import { AlertError, AlertStatus } from 'declarations/components'
+import { AlertError, AlertVariant } from 'declarations/components'
 import { AlertErrorPropType } from 'declarations/components.pt'
 import _ from 'lodash'
-import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper'
+import { Alert } from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components'
 
-export type AlertStatusClasses = {[status in AlertStatus]: AlertStripeType}
-
-export const AlertDiv = styled(AlertStripe)`
+export const AlertDiv = styled(Alert)`
   opacity: 0;
   animation: ${fadeIn} 1s forwards;
   position: sticky;
@@ -25,11 +23,12 @@ export const AlertDiv = styled(AlertStripe)`
     max-width: none !important;
   }
 `
-export const CloseIcon = styled(FilledRemoveCircle)`
+export const CloseIcon = styled(AddCircleFilled)`
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   cursor: pointer;
+  transform: rotate(45deg);
 `
 
 export interface AlertProps {
@@ -37,18 +36,12 @@ export interface AlertProps {
   error?: AlertError | string
   message?: JSX.Element | string
   onClose?: () => void
-  status?: AlertStatus
+  variant: AlertVariant | undefined
   style ?: any
 }
 
-export const errorTypes: AlertStatusClasses = {
-  OK: 'suksess',
-  ERROR: 'feil',
-  WARNING: 'advarsel'
-}
-
-export const Alert: React.FC<AlertProps> = ({
-  className, error, message, onClose, status = 'ERROR', style = {}
+export const AlertFC: React.FC<AlertProps> = ({
+  className, error, message, onClose, variant, style = {}
 }: AlertProps): JSX.Element | null => {
   let _message: JSX.Element | string | undefined = message
 
@@ -75,12 +68,7 @@ export const Alert: React.FC<AlertProps> = ({
     return errorMessage.join(' - ')
   }
 
-  if (!_message) {
-    return null
-  }
-
-  if (!_.includes(Object.keys(errorTypes), status)) {
-    console.error('Invalid alert status: ' + status)
+  if (!_message || !variant) {
     return null
   }
 
@@ -91,12 +79,12 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <AlertDiv
       className={classNames(
-        'status-' + status,
+        'status-' + variant,
         className
       )}
       style={style}
       role='alert'
-      type={errorTypes[status]}
+      variant={variant}
     >
       {_message}
       {onClose && (
@@ -109,13 +97,12 @@ export const Alert: React.FC<AlertProps> = ({
   )
 }
 
-Alert.propTypes = {
+AlertFC.propTypes = {
   className: PT.string,
   error: PT.oneOfType([AlertErrorPropType, PT.string]),
   message: PT.oneOfType([PT.string, PT.element]),
   onClose: PT.func,
-  status: PT.oneOf(['OK', 'ERROR', 'WARNING'])
+  variant: PT.oneOf(['info', 'success', 'error', 'warning'])
 }
 
-Alert.displayName = 'Alert'
-export default Alert
+export default AlertFC

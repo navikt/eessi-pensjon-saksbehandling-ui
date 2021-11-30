@@ -2,15 +2,13 @@
 
 import { alertSuccess } from 'actions/alert'
 import { fetchBuc } from 'actions/buc'
-import FilledNetworkConnecting from 'assets/icons/filled-version-network-connecting'
-import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
-import { SuccessFilled } from '@navikt/ds-icons'
+import { SuccessFilled, AddCircleFilled, LinkFilled } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import _ from 'lodash'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyLong } from '@navikt/ds-react'
 import { rotating, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
@@ -20,7 +18,6 @@ import styled from 'styled-components'
 import { State } from 'declarations/reducers'
 
 export interface BucWebSocketProps {
-  highContrast: boolean
   fnr: string | undefined
   avdodFnr: string | undefined
 }
@@ -67,7 +64,7 @@ const mapState = (state: State): WebSocketSelector => ({
 })
 
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
-  fnr, avdodFnr, highContrast
+  fnr, avdodFnr
 }: BucWebSocketProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -158,7 +155,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
         console.log(line)
       }
     }
-    setLog(log => [...log, (<Normaltekst key={line} className={classNames('log', level)}>{line}</Normaltekst>)].slice(-100))
+    setLog(log => [...log, (<BodyLong key={line} className={classNames('log', level)}>{line}</BodyLong>)].slice(-100))
     setSimpleLog(log => [...log, level + ': ' + line].slice(-100))
   }
 
@@ -171,10 +168,9 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 
   return (
     <BUCWebsocketDiv style={{ cursor: 'pointer' }} title={'websocket: ' + _status}>
-      <>
+
         <Modal
           open={_modal}
-          highContrast={highContrast}
           modal={{
             closeButton: true,
             modalTitle: t('ui:websocket-log'),
@@ -193,15 +189,16 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
           onModalClose={onModalClose}
         />
         {_status === 'CONNECTED' && (<SuccessFilled color='green' width={24} height={24} onClick={onIconClick} />)}
-        {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (<FilledRemoveCircle color='#A13A28' size={24} onClick={onIconClick} />)}
-        {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<FilledNetworkConnecting size={24} onClick={onIconClick} />)}
-      </>
+        {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (
+          <AddCircleFilled style={{ transform: 'rotate(45deg)', color: '#A13A28' }} width={24} onClick={onIconClick} />
+        )}
+        {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<LinkFilled width={24} onClick={onIconClick} />)}
+
     </BUCWebsocketDiv>
   )
 }
 
 BucWebSocket.propTypes = {
-  highContrast: PT.bool.isRequired,
   fnr: PT.string.isRequired,
   avdodFnr: PT.string.isRequired
 }

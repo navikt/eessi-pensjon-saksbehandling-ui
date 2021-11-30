@@ -1,7 +1,7 @@
 import { getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import P5000 from 'applications/P5000/P5000'
-import Trashcan from 'assets/icons/Trashcan'
+import { Delete, NextFilled } from '@navikt/ds-icons'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { AllowedLocaleString, BUCMode, FeatureToggles, Loading } from 'declarations/app.d'
 import {
@@ -20,19 +20,12 @@ import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import { HoyreChevron } from 'nav-frontend-chevron'
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { Detail, BodyLong, Heading, Loader, Button, Panel, Textarea } from '@navikt/ds-react'
 import {
-  HighContrastKnapp,
-  HighContrastPanel,
-  HighContrastTabs,
-  HighContrastTextArea,
   HorizontalSeparatorDiv,
   slideInFromRight,
-  theme,
-  themeHighContrast,
-  themeKeys,
-  VerticalSeparatorDiv
+  VerticalSeparatorDiv,
+  HighContrastTabs
 } from 'nav-hoykontrast'
 
 import PT from 'prop-types'
@@ -41,7 +34,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-const BUCToolsPanel = styled(HighContrastPanel)`
+const BUCToolsPanel = styled(Panel)`
   opacity: 0;
   transform: translateX(20px);
   animation: ${slideInFromRight(20)} 0.3s forwards;
@@ -50,9 +43,9 @@ const BUCToolsPanel = styled(HighContrastPanel)`
   }
 `
 const CommentDiv = styled.div`
-  border-bottom-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
+  border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]};
+  border-bottom-color: var(--navds-color-border);
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   display: flex;
@@ -72,7 +65,7 @@ const PaddedTabContent = styled.div`
 const RemoveComment = styled.div`
   cursor: pointer;
 `
-export const TextArea = styled(HighContrastTextArea)`
+export const TextArea = styled(Textarea)`
   min-height: 150px;
   width: 100%;
 `
@@ -90,7 +83,6 @@ export interface BUCToolsProps {
 export interface BUCToolsSelector {
   bucsInfo?: BucsInfo | undefined
   featureToggles: FeatureToggles
-  highContrast: boolean
   loading: Loading
   locale: AllowedLocaleString
   p5000FromRinaMap: P5000FromRinaMap
@@ -100,7 +92,6 @@ export interface BUCToolsSelector {
 const mapState = (state: State): BUCToolsSelector => ({
   bucsInfo: state.buc.bucsInfo,
   featureToggles: state.app.featureToggles,
-  highContrast: state.ui.highContrast,
   loading: state.loading,
   locale: state.ui.locale,
   p5000FromRinaMap: state.buc.p5000FromRinaMap,
@@ -116,7 +107,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   setMode
 }: BUCToolsProps): JSX.Element => {
   const {
-    bucsInfo, featureToggles, highContrast, loading, tagList
+    bucsInfo, featureToggles, loading, tagList
   }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -134,7 +125,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   })
 
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
-  const _theme = highContrast ? themeHighContrast : theme
 
   const onTagsChange = (tagsList: unknown): void => {
     if (tagsList) {
@@ -262,12 +252,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         <PaddedTabContent>
           {tabs[_activeTab].key === 'P5000' && (
             <P5000Div>
-              <Undertittel>
+              <Heading size='small'>
                 {t('buc:form-titleP5000')}
-              </Undertittel>
+              </Heading>
               <VerticalSeparatorDiv />
               <FlexDiv>
-                <HighContrastKnapp
+                <Button
+                  variant='secondary'
                   data-amplitude='buc.edit.tools.P5000.view'
                   data-test-id='a-buc-c-buctools__P5000-button-id'
                   disabled={!hasP5000s()}
@@ -276,29 +267,29 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   {featureToggles.P5000_SUMMER_VISIBLE ? t('buc:form-seeP5000s') : t('buc:form-viewP5000s')}
 
                   <HorizontalSeparatorDiv size='0.3' />
-                  <HoyreChevron />
-                </HighContrastKnapp>
+                  <NextFilled />
+                </Button>
               </FlexDiv>
             </P5000Div>
           )}
           {tabs[_activeTab].key === 'tags' && (
             <>
               <VerticalSeparatorDiv size='0.5' />
-              <Normaltekst>
+              <BodyLong>
                 {t('buc:form-tagsForBUC-description')}
-              </Normaltekst>
+              </BodyLong>
               <VerticalSeparatorDiv size='0.5' />
               {_tags && !_.isEmpty(_tags) && (
                 <>
                   <dt>
-                    <Element>
+                    <Detail>
                       {t('buc:form-tagsForBUC')}:
-                    </Element>
+                    </Detail>
                   </dt>
                   <dd>
-                    <Normaltekst>
+                    <BodyLong>
                       {_tags.map((tag: Tag) => tag.label).join(', ')}
-                    </Normaltekst>
+                    </BodyLong>
                   </dd>
                 </>
               )}
@@ -308,7 +299,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 aria-describedby='help-tags'
                 data-test-id='a-buc-c-buctools__tags-select-id'
                 hideSelectedOptions={false}
-                highContrast={highContrast}
                 label=''
                 onSelect={onTagsChange}
                 options={_allTags}
@@ -320,32 +310,31 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           {tabs[_activeTab].key === 'comments' && (
             <>
               <VerticalSeparatorDiv size='0.5' />
-              <Element>
+              <Detail>
                 {t('ui:comment')}
-              </Element>
+              </Detail>
               {_originalComments
                 ? (_originalComments as Comments)?.map((comment: Comment, i: number) => (
                   <CommentDiv
                     data-test-id='a-buc-c-buctools__comment-div-id'
                     key={i}
                   >
-                    <Normaltekst>
+                    <BodyLong>
                       {comment.value}
-                    </Normaltekst>
+                    </BodyLong>
                     <RemoveComment>
-                      <Trashcan
+                      <Delete
                         data-test-id={'a-buc-c-buctools__comment-delete-' + i + '-id'}
                         width={20}
-                        color={_theme[themeKeys.MAIN_INTERACTIVE_COLOR]}
                         onClick={() => onDeleteComment(i)}
                       />
                     </RemoveComment>
                   </CommentDiv>
                   ))
                 : (
-                  <Normaltekst>
+                  <BodyLong>
                     {t('ui:noCommentsYet')}
-                  </Normaltekst>
+                  </BodyLong>
                   )}
               <VerticalSeparatorDiv size='0.5' />
               <TextArea
@@ -355,14 +344,15 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 value={_comment || ''}
                 onChange={onCommentChange}
               />
-              <HighContrastKnapp
+              <Button
+                variant='secondary'
                 data-test-id='a-buc-c-buctools__comment-save-button-id'
                 disabled={loading.savingBucsInfo}
-                spinner={loading.savingBucsInfo}
                 onClick={onSaveCommentClick}
               >
+                {loading.savingBucsInfo && <Loader />}
                 {loading.savingBucsInfo ? t('ui:saving') : t('ui:add')}
-              </HighContrastKnapp>
+              </Button>
             </>
           )}
 

@@ -1,10 +1,9 @@
 import classNames from 'classnames'
 import { Labels } from 'declarations/app.d'
-import EtikettBase from 'nav-frontend-etiketter'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { themeKeys } from 'nav-hoykontrast'
+import { Tag } from '@navikt/ds-react'
 
 export interface SEDStatusProps {
   className ?: string
@@ -12,37 +11,31 @@ export interface SEDStatusProps {
 }
 
 const statusList: Labels = {
-  new: 'fokus',
-  sent: 'suksess',
+  new: 'info',
+  sent: 'success',
   received: 'info',
-  cancelled: 'advarsel',
-  active: 'advarsel',
+  cancelled: 'error',
+  active: 'warning',
   unknown: 'info',
-  first_new: 'advarsel',
-  first_sent: 'advarsel',
-  first_received: 'advarsel'
+  first_new: 'warning',
+  first_sent: 'warning',
+  first_received: 'warning'
 }
 
-export type StatusType = 'suksess' | 'info' | 'advarsel' | 'fokus'
+export type StatusType = 'success' | 'info' | 'warning' | 'error'
 
-export const Etikett = styled(EtikettBase)`
-  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
-  text-transform: capitalize;
-  font-size: 12px;
-  min-width: 70px;
-  color: ${({ theme }) => theme.type === 'themeHighContrast' ? theme.black : theme.navMorkGra};
-  font-weight: ${({ theme }) => theme.type === 'themeHighContrast' ? 'bold' : 'normal'};
+export const Etikett = styled(Tag)`
   &.received {
-    background-color: ${({ theme }) => theme[themeKeys.NAVBLALIGHTEN60]} !important;
+    background-color: var(--navds-color-lightblue-50) !important;
   }
   &.active {
-    background-color: ${({ theme }) => theme[themeKeys.NAVLILLALIGHTEN60]} !important;
-    border-color: ${({ theme }) => theme[themeKeys.NAVLILLA]} !important;
+    background-color: var(--navds-color-purple-20) !important;
+    border-color: var(--navds-color-purple-50) !important;
   }
   &.first_sent,
   &.first_received,
   &.first_cancelled {
-    background-color:  ${({ theme }) => theme[themeKeys.NAVGRA40]} !important;
+    background-color: var(--navds-color-gray-40) !important;
   }
 `
 
@@ -50,11 +43,10 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
   className, status
 }: SEDStatusProps): JSX.Element => {
   const { t } = useTranslation()
-  const tagType: StatusType =
+  const tagType: StatusType | undefined =
     Object.prototype.hasOwnProperty.call(statusList, status) ? (statusList[status] as StatusType)! : (statusList.unknown as StatusType)!
   return (
-
-    <Etikett className={classNames(status, className)} type={tagType}>
+    <Etikett className={classNames(status, className)} variant={tagType}>
       {t('buc:status-' + status)}
     </Etikett>
   )

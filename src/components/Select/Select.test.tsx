@@ -5,8 +5,7 @@ import ReactSelect from 'react-select'
 describe('components/Select/Select', () => {
   let wrapper: ReactWrapper
   const initialMockProps = {
-    highContrast: false,
-    feil: undefined
+    error: undefined
   }
 
   beforeEach(() => {

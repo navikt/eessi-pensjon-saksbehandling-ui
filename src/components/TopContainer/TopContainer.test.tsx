@@ -24,7 +24,7 @@ jest.mock('react-router-dom', () => {
 
 const defaultSelector: TopContainerSelector = {
   clientErrorParam: undefined,
-  clientErrorStatus: 'ERROR',
+  clientErrorStatus: 'error',
   clientErrorMessage: 'mockErrorMessage',
   serverErrorMessage: undefined,
   error: undefined,

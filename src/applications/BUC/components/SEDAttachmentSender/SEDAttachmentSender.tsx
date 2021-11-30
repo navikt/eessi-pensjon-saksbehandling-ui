@@ -1,4 +1,4 @@
-import { HighContrastKnapp, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import { IS_TEST } from 'constants/environment'
 import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFile } from 'declarations/buc'
 import { SEDAttachmentPayloadPropType } from 'declarations/buc.pt'
@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { Button } from '@navikt/ds-react'
 
 const SEDAttachmentSenderDiv = styled.div`
   display: flex;
@@ -123,21 +124,21 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
         status={_status}
       >
         <>
-          {_status === 'inprogress' && t('buc:loading-sendingXofY', {
+          {_status === 'inprogress' && t('message:loading-sendingXofY', {
             current: current,
             total: total
           })}
           {_status === 'done' && t('buc:form-attachmentsSent')}
-          {_status === 'error' && t('buc:error-sendingAttachments')}
+          {_status === 'error' && t('message:error-sendingAttachments')}
         </>
       </ProgressBar>
       {_status === 'inprogress' && _.isFunction(onCancel) && (
         <>
           <HorizontalSeparatorDiv data-sise='0.35' />
-          <HighContrastKnapp
+          <Button
+            size='small'
+            variant='secondary'
             data-test-id='a-buc-c-sedAttachmentSender__cancel-button-id'
-            kompakt
-            mini
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault()
               e.stopPropagation()
@@ -145,7 +146,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
             }}
           >
             {t('ui:cancel')}
-          </HighContrastKnapp>
+          </Button>
         </>
       )}
     </SEDAttachmentSenderDiv>

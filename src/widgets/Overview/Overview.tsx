@@ -1,5 +1,4 @@
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
@@ -9,7 +8,7 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
-import Alertstripe from 'nav-frontend-alertstriper'
+import { Accordion, Alert } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,7 +17,7 @@ import styled from 'styled-components'
 import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
 
-export const MyAlertStripe = styled(Alertstripe)`
+export const MyAlertStripe = styled(Alert)`
   width: 100%
 `
 
@@ -71,19 +70,10 @@ export const Overview: React.FC<OverviewProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
-  const onExpandablePanelClosing = (): void => {
+  const onClick = () => {
     const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = true
-    standardLogger('overview.ekspandpanel.close')
-    if (onUpdate) {
-      onUpdate(newWidget)
-    }
-  }
-
-  const onExpandablePanelOpening = (): void => {
-    const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = false
-    standardLogger('overview.ekspandpanel.open')
+    newWidget.options.collapsed = !newWidget.options.collapsed
+    standardLogger('overview.ekspandpanel.click')
     if (onUpdate) {
       onUpdate(newWidget)
     }
@@ -111,12 +101,12 @@ export const Overview: React.FC<OverviewProps> = ({
 
   if (!aktoerId) {
     return (
-      <MyAlertStripe
-        type='advarsel'
+      <Alert
+        variant='warning'
         data-test-id='w-overview__alert'
       >
-        {t('buc:validation-noAktoerId')}
-      </MyAlertStripe>
+        {t('message:validation-noAktoerId')}
+      </Alert>
     )
   }
 
@@ -126,25 +116,23 @@ export const Overview: React.FC<OverviewProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <ExpandingPanel
-        collapseProps={{ id: 'w-overview-id' }}
-        data-test-id='w-overview-id'
-        open={!widget.options.collapsed}
-        onOpen={onExpandablePanelOpening}
-        onClose={onExpandablePanelClosing}
-        heading={(
-          <PersonTitle
-            gettingPersonInfo={gettingPersonInfo}
-            person={person}
-          />
-          )}
-      >
-        <PersonPanel
-          locale={locale}
-          person={person}
-          personAvdods={personAvdods}
-        />
-      </ExpandingPanel>
+      <Accordion data-test-id='w-overview-id'>
+        <Accordion.Item open={!widget.options.collapsed}>
+          <Accordion.Header onClick={onClick}>
+            <PersonTitle
+              gettingPersonInfo={gettingPersonInfo}
+              person={person}
+            />
+          </Accordion.Header>
+          <Accordion.Content>
+            <PersonPanel
+              locale={locale}
+              person={person}
+              personAvdods={personAvdods}
+            />
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     </div>
   )
 }

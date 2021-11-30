@@ -1,8 +1,7 @@
-import Add from 'assets/icons/Tilsette'
-import Trashcan from 'assets/icons/Trashcan'
+import { Delete, Add } from '@navikt/ds-icons'
 import classNames from 'classnames'
-import { Normaltekst } from 'nav-frontend-typografi'
-import { FlexCenterDiv, HighContrastFlatknapp, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { BodyLong, Button } from '@navikt/ds-react'
+import { FlexCenterDiv, HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -32,48 +31,48 @@ const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
   return candidateForDeletion
     ? (
       <FlexCenterDiv className={classNames('slideInFromRight', { nolabel: marginTop })}>
-        <Normaltekst>
+        <BodyLong>
           {t('ui:are-you-sure')}
-        </Normaltekst>
+        </BodyLong>
         <HorizontalSeparatorDiv size='0.5' />
-        <HighContrastFlatknapp
-          mini
-          kompakt
+        <Button
+          variant='tertiary'
+          size='small'
           onClick={onConfirmRemove}
         >
           {t('ui:yes')}
-        </HighContrastFlatknapp>
+        </Button>
         <HorizontalSeparatorDiv size='0.5' />
-        <HighContrastFlatknapp
-          mini
-          kompakt
+        <Button
+          variant='tertiary'
+          size='small'
           onClick={onCancelRemove}
         >
           {t('ui:no')}
-        </HighContrastFlatknapp>
+        </Button>
       </FlexCenterDiv>
       )
     : (
       <div className={classNames({ nolabel: marginTop })}>
-        <HighContrastFlatknapp
-          mini
-          kompakt
+        <Button
+          variant='tertiary'
+          size='small'
           onClick={existingItem ? onBeginRemove : onAddNew}
         >
-          {!existingItem ? <Add /> : <Trashcan />}
+          {!existingItem ? <Add /> : <Delete />}
           <HorizontalSeparatorDiv size='0.5' />
           {!existingItem ? t('ui:add') : t('ui:remove')}
-        </HighContrastFlatknapp>
+        </Button>
         {!existingItem && (
           <>
             <HorizontalSeparatorDiv />
-            <HighContrastFlatknapp
-              mini
-              kompakt
+            <Button
+              variant='tertiary'
+              size='small'
               onClick={onCancelNew}
             >
               {t('ui:cancel')}
-            </HighContrastFlatknapp>
+            </Button>
           </>
         )}
       </div>

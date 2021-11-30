@@ -1,9 +1,8 @@
+import { BackFilled, Warning } from '@navikt/ds-icons'
+import { Accordion, Alert, Checkbox, BodyLong, Heading, Button } from '@navikt/ds-react'
 import { getSed, resetSentP5000info, syncToP5000Storage, unsyncFromP5000Storage } from 'actions/p5000'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import WarningCircle from 'assets/icons/WarningCircle'
-import classNames from 'classnames'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry, LocalStorageValue } from 'declarations/app'
@@ -12,19 +11,7 @@ import { EmptyPeriodsReport, P5000Context, P5000SED, SedSender } from 'declarati
 import { State } from 'declarations/reducers'
 import Flag from 'flagg-ikoner'
 import _ from 'lodash'
-import AlertStripe from 'nav-frontend-alertstriper'
-import { VenstreChevron } from 'nav-frontend-chevron'
-import { UndertekstBold, Undertittel } from 'nav-frontend-typografi'
-import {
-  Column,
-  FlexCenterDiv,
-  HighContrastCheckbox,
-  HighContrastLink,
-  HorizontalSeparatorDiv,
-  PileDiv,
-  Row,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+import { Column, FlexCenterDiv, HorizontalSeparatorDiv, PileDiv, Row, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import React, { useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
@@ -44,7 +31,6 @@ export interface P5000Props {
 
 export interface P5000Selector {
   featureToggles: FeatureToggles
-  highContrast: boolean
   locale: AllowedLocaleString
   p5000FromRinaMap: P5000FromRinaMap
   p5000Storage: LocalStorageEntry<P5000SED> | undefined
@@ -52,7 +38,6 @@ export interface P5000Selector {
 
 const mapState = (state: State): P5000Selector => ({
   featureToggles: state.app.featureToggles,
-  highContrast: state.ui.highContrast,
   locale: state.ui.locale,
   p5000FromRinaMap: state.p5000.p5000FromRinaMap,
   p5000Storage: state.p5000.p5000Storage
@@ -67,7 +52,7 @@ const P5000: React.FC<P5000Props> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const {
-    featureToggles, highContrast, p5000FromRinaMap, p5000Storage
+    featureToggles, p5000FromRinaMap, p5000Storage
   }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
   const [placeholderProps, setPlaceholderProps] = useState<any>({})
@@ -81,83 +66,80 @@ const P5000: React.FC<P5000Props> = ({
     const sender: SedSender | undefined = getSedSender(mainSed)
 
     return (
-      <ExpandingPanel
-        open
-        renderContentWhenClosed
-        collapseProps={{ id: 'a-buc-c-p5000-edit' }}
-        className={classNames({ highContrast: highContrast })}
-        heading={(
-          <FlexCenterDiv>
-            <Undertittel style={{ display: 'flex' }}>
-              {t('buc:p5000-edit-title')}
-            </Undertittel>
-            <HorizontalSeparatorDiv />
-            -
-            <HorizontalSeparatorDiv />
-            {getLabel(mainSed, sender)}
-          </FlexCenterDiv>
-        )}
-      >
-        <P5000Edit
-          caseId={buc.caseId!}
-          onBackClick={onBackClick}
-          key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
-          p5000FromRinaMap={p5000FromRinaMap}
-          p5000FromStorage={p5000FromStorage}
-          saveP5000ToStorage={saveP5000ToStorage}
-          removeP5000FromStorage={removeP5000FromStorage}
-          seds={[mainSed]}
-        />
-      </ExpandingPanel>
+      <Accordion id='a-buc-c-p5000-sum'>
+        <Accordion.Item defaultOpen renderContentWhenClosed>
+          <Accordion.Header>
+            <FlexCenterDiv>
+              <Heading size='small' style={{ display: 'flex' }}>
+                {t('buc:p5000-edit-title')}
+              </Heading>
+              <HorizontalSeparatorDiv />
+              -
+              <HorizontalSeparatorDiv />
+              {getLabel(mainSed, sender)}
+            </FlexCenterDiv>
+          </Accordion.Header>
+          <Accordion.Content>
+            <P5000Edit
+              caseId={buc.caseId!}
+              onBackClick={onBackClick}
+              key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
+              p5000FromRinaMap={p5000FromRinaMap}
+              p5000FromStorage={p5000FromStorage}
+              saveP5000ToStorage={saveP5000ToStorage}
+              removeP5000FromStorage={removeP5000FromStorage}
+              seds={[mainSed]}
+            />
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     )
   }
 
   const renderP5000Sum = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
     const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
     return (
-      <ExpandingPanel
-        open
-        renderContentWhenClosed
-        collapseProps={{ id: 'a-buc-c-p5000-sum' }}
-        className={classNames({ highContrast: highContrast })}
-        heading={(
-          <Undertittel>
-            {t('buc:p5000-summary-title')}
-          </Undertittel>
-        )}
-      >
-        <P5000Sum
-          context={context}
-          key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-          p5000FromRinaMap={p5000FromRinaMap}
-          p5000FromStorage={p5000FromStorage}
-          saveP5000ToStorage={saveP5000ToStorage}
-          seds={onlyNorwegianActiveSeds}
-        />
-      </ExpandingPanel>
+      <Accordion id='a-buc-c-p5000-sum'>
+        <Accordion.Item defaultOpen renderContentWhenClosed>
+          <Accordion.Header>
+            <Heading size='small'>
+              {t('buc:p5000-summary-title')}
+            </Heading>
+          </Accordion.Header>
+          <Accordion.Content>
+            <P5000Sum
+              context={context}
+              key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
+              p5000FromRinaMap={p5000FromRinaMap}
+              p5000FromStorage={p5000FromStorage}
+              saveP5000ToStorage={saveP5000ToStorage}
+              seds={onlyNorwegianActiveSeds}
+            />
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     )
   }
 
   const renderP5000Overview = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => (
-    <ExpandingPanel
-      open
-      renderContentWhenClosed
-      collapseProps={{ id: 'a-buc-c-p5000-overview' }}
-      className={classNames({ highContrast: highContrast })}
-      heading={(
-        <Undertittel>
-          {t('buc:p5000-overview-title')}
-        </Undertittel>
-      )}
-    >
-      <P5000Overview
-        context={context}
-        key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-        p5000FromRinaMap={p5000FromRinaMap}
-        p5000FromStorage={p5000FromStorage}
-        seds={activeSeds}
-      />
-    </ExpandingPanel>
+    <Accordion id='a-buc-c-p5000-overview'>
+      <Accordion.Item defaultOpen renderContentWhenClosed>
+        <Accordion.Header>
+          <Heading size='small'>
+            {t('buc:p5000-overview-title')}
+          </Heading>
+        </Accordion.Header>
+        <Accordion.Content>
+          <P5000Overview
+            context={context}
+            key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
+            p5000FromRinaMap={p5000FromRinaMap}
+            p5000FromStorage={p5000FromStorage}
+            seds={activeSeds}
+          />
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion>
   )
 
   const updateActiveSeds = (seds: any) => {
@@ -347,16 +329,16 @@ const P5000: React.FC<P5000Props> = ({
 
   const renderBackLink = () => (
     <div style={{ display: 'inline-block' }}>
-      <HighContrastLink
-        href='#'
+      <Button
+        variant='secondary'
         onClick={onBackClick}
       >
-        <VenstreChevron />
+        <BackFilled />
         <HorizontalSeparatorDiv size='0.25' />
         <span>
           {t('ui:back')}
         </span>
-      </HighContrastLink>
+      </Button>
     </div>
   )
 
@@ -445,7 +427,7 @@ const P5000: React.FC<P5000Props> = ({
         {emptyPeriodReport[sed.id] && (
           <>
             <HorizontalSeparatorDiv size='0.5' />
-            <WarningCircle />
+            <Warning />
           </>
         )}
       </FlexCenterDiv>
@@ -512,23 +494,26 @@ const P5000: React.FC<P5000Props> = ({
       <Row>
         <Column>
           <PileDiv>
-            <UndertekstBold>
+            <BodyLong>
               {t('buc:p5000-active-seds')}:
-            </UndertekstBold>
+            </BodyLong>
             <VerticalSeparatorDiv size='0.5' />
             {_seds?.map(sed => {
               const sender: SedSender | undefined = getSedSender(sed)
               const label: JSX.Element = getLabel(sed, sender)
               return (
                 <div key={sed.id}>
-                  <HighContrastCheckbox
+                  <Checkbox
+                    size='small'
                     data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
                     checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
                     key={'a-buc-c-P5000overview__checkbox-' + sed.id}
                     id={'a-buc-c-P5000overview__checkbox-' + sed.id}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSed(sed, e.target.checked)}
-                    label={label}
-                  />
+
+                  >
+                    {label}
+                  </Checkbox>
                   <VerticalSeparatorDiv size='0.5' />
                 </div>
               )
@@ -538,9 +523,9 @@ const P5000: React.FC<P5000Props> = ({
         </Column>
         <Column>
           {warning && (
-            <AlertStripe type='advarsel'>
+            <Alert variant='warning'>
               {t('buc:form-P5000-warning')}
-            </AlertStripe>
+            </Alert>
           )}
         </Column>
       </Row>
@@ -574,7 +559,6 @@ const P5000: React.FC<P5000Props> = ({
                 </div>
               )}
             </div>
-
           )}
         </Droppable>
       </DragDropContext>

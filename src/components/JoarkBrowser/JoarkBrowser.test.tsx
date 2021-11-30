@@ -29,7 +29,6 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   const initialMockProps: JoarkBrowserProps = {
     existingItems: [],
-    highContrast: false,
     onRowSelectChange: jest.fn(),
     onPreviewFile: jest.fn(),
     onRowViewDelete: jest.fn(),

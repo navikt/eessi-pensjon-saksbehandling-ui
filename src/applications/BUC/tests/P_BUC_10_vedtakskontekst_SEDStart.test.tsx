@@ -4,7 +4,6 @@ import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import { stageSelector } from 'setupTests'
-import mockPerson from 'mocks/app/person'
 import mockPersonAvdods from 'mocks/app/personAvdod'
 
 jest.mock('actions/buc', () => ({
@@ -26,14 +25,14 @@ const defaultSelector: SEDStartSelector = {
   attachmentsError: false,
   countryList: [],
   featureToggles: mockFeatureToggles,
-  highContrast: false,
+  gettingP6000: false,
   institutionList: {},
   institutionNames: {},
   kravId: '123',
   kravDato: undefined,
   loading: {},
   locale: 'nb',
-  person: mockPerson,
+  p6000s: undefined,
   personAvdods: mockPersonAvdods(1),
   pesysContext: BRUKERKONTEKST,
   sakId: '123',
@@ -189,7 +188,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs institution and country (krav dato is prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
 
@@ -252,7 +251,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs institution and country (krav dato is prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
 
@@ -314,7 +313,7 @@ describe('P_BUC_10 for SEDStart, vedtakskontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs institution and country (krav dato is prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
 })

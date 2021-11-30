@@ -1,7 +1,7 @@
 import { getSedP6000PDF, resetSedP6000PDF } from 'actions/buc'
 import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
-import { AllowedLocaleString } from 'declarations/app'
+import { AllowedLocaleString, ErrorElement } from 'declarations/app'
 import { P6000 } from 'declarations/buc'
 import { JoarkPreview } from 'declarations/joark'
 import { State } from 'declarations/reducers'
@@ -9,14 +9,10 @@ import Flag from 'flagg-ikoner'
 import File from 'forhandsvisningsfil'
 import CountryData, { Country } from 'land-verktoy'
 import _ from 'lodash'
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
-import { Feilmelding } from 'nav-frontend-typografi'
+import { Checkbox, Button, Loader, Panel } from '@navikt/ds-react'
 import {
   FlexCenterDiv,
   FlexCenterSpacedDiv,
-  HighContrastCheckbox,
-  HighContrastFlatknapp,
-  HighContrastPanel,
   HorizontalSeparatorDiv,
   PileDiv,
   VerticalSeparatorDiv
@@ -26,8 +22,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 export interface SEDP6000Props {
-  feil: FeiloppsummeringFeil | undefined
-  highContrast: boolean
+  feil: ErrorElement | undefined
   locale: AllowedLocaleString
   p6000s: Array<P6000>
   onChanged: (p6000s: Array<P6000>) => void
@@ -44,7 +39,7 @@ const mapState = (state: State): SEDP6000Selector => ({
 })
 
 const SEDP6000: React.FC<SEDP6000Props> = ({
-  feil, highContrast, locale, onChanged, p6000s
+  feil, locale, onChanged, p6000s
 }: SEDP6000Props): JSX.Element => {
   const dispatch = useDispatch()
   const countryData = CountryData.getCountryInstance(locale)
@@ -76,7 +71,6 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
       <Modal
         open={!_.isNil(P6000PDF)}
         onModalClose={handleResetP6000}
-        highContrast={highContrast}
         modal={{
           closeButton: true,
           modalContent: (
@@ -104,7 +98,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
         const country: Country = countryData.findByValue(p6000.fraLand)
         return (
           <div className='a-buc-c-sedstart__p6000' key={p6000.documentID}>
-            <HighContrastPanel border className={classNames({ 'skjemaelement__input--harFeil': !!feil })}>
+            <Panel border className={classNames({ 'skjemaelement__input--harFeil': !!feil })}>
               <FlexCenterSpacedDiv>
                 <FlexCenterDiv>
                   <Flag animate={false} wave={false} type='circle' country={p6000.fraLand} label={country.label ?? p6000.fraLand} />
@@ -115,34 +109,40 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                   </PileDiv>
                 </FlexCenterDiv>
                 <FlexCenterDiv>
-                  <HighContrastFlatknapp
+                  <Button
+                    variant='tertiary'
                     data-test-id={'a-buc-c-sedstart__p6000-preview-' + p6000.documentID}
                     onClick={() => handlePreview(p6000.bucid, p6000.documentID)}
-                    spinner={gettingP6000PDF}
                     disabled={gettingP6000PDF}
                   >
+                    {gettingP6000PDF && (
+                      <>
+                        <Loader />
+                      </>
+                    )}
                     {gettingP6000PDF ? t('ui:loading') : t('ui:preview')}
-                  </HighContrastFlatknapp>
+                  </Button>
                   <HorizontalSeparatorDiv />
-                  <HighContrastCheckbox
+                  <Checkbox
                     checked={_.find(chosenP6000s, _p6000 => _p6000.documentID === p6000.documentID) !== undefined}
                     key={p6000.documentID}
                     id={'a-buc-c-sedstart__p6000-checkbox-' + p6000.documentID}
                     data-test-id={'a-buc-c-sedstart__p6000-checkbox-' + p6000.documentID}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeChosenP6000(p6000, e.target.checked)}
-                    label={t('ui:choose')}
-                  />
+
+                  >{t('ui:choose')}
+                  </Checkbox>
                 </FlexCenterDiv>
               </FlexCenterSpacedDiv>
-            </HighContrastPanel>
+            </Panel>
             <VerticalSeparatorDiv />
           </div>
         )
       }
       )}
       {feil && (
-        <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
-          <Feilmelding>{feil.feilmelding}</Feilmelding>
+        <div role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+          {feil.feilmelding}
         </div>
       )}
     </div>

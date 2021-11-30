@@ -1,5 +1,4 @@
 import * as constants from 'constants/constants'
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { OptionProps } from 'react-select'
 import { Sort } from 'tabell'
 
@@ -22,16 +21,11 @@ export type Labels = {[k in string]? : string}
 
 export type Loading = {[key: string]: boolean}
 
-export interface O {
+export interface Option {
   label: string
   navn?: string
   value: string
 }
-
-export type Option = OptionProps<O, false>
-export type MOption = OptionProps<O, true>
-
-export type Options = Array<Option>
 
 export type Params = {[k: string] : string | null | undefined}
 
@@ -52,7 +46,7 @@ export interface UserInfoPayload {
   featureToggles: FeatureToggles
 }
 
-export type Validation = {[key: string]: FeiloppsummeringFeil | undefined}
+export type Validation = {[key: string]: ErrorElement | undefined}
 
 export type WidthSize = 'sm' | 'md' | 'lg'
 
@@ -63,4 +57,9 @@ export interface LocalStorageValue<CustomLocalStorageContent extends any = any> 
   date: number
   sort?: Sort
   content: CustomLocalStorageContent
+}
+
+export interface ErrorElement {
+  feilmelding: string
+  skjemaelementId: string
 }

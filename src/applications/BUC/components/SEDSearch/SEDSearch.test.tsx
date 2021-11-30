@@ -4,7 +4,6 @@ import SEDSearch, { SEDSearchProps } from './SEDSearch'
 describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
   let wrapper: ReactWrapper
   const initialMockProps: SEDSearchProps = {
-    highContrast: false,
     onSearch: jest.fn(),
     onStatusSearch: jest.fn(),
     value: undefined

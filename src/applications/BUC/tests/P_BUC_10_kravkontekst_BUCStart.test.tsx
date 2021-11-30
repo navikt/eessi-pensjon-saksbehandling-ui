@@ -21,7 +21,6 @@ const defaultSelector: BUCStartSelector = {
   bucsInfo: undefined,
   currentBuc: undefined,
   featureToggles: mockFeatureToggles,
-  highContrast: false,
   kravId: '123',
   kravDato: undefined,
   loading: {},

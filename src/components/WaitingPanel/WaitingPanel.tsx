@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
-import Spinner from 'nav-frontend-spinner'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyLong, Loader } from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components'
 
@@ -18,7 +17,7 @@ export const WaitingPanelDiv = styled.div`
   }
 `
 
-export type WaitingPanelSize = 'XXS'| 'XS' | 'S'| 'M' | 'L'| 'XL'| 'XXL' | 'XXXL'
+export type WaitingPanelSize = 'xsmall'| 'small' | 'medium'| 'large' | 'xlarge'| '2xlarge'
 
 export interface WaitingPanelProps {
   className?: string
@@ -29,22 +28,22 @@ export interface WaitingPanelProps {
 }
 
 const WaitingPanel: React.FC<WaitingPanelProps> = ({
-  className, size = 'M', style = {}, message = 'Vennligst vent...', oneLine = false
+  className, size = 'medium', style = {}, message = 'Vennligst vent...', oneLine = false
 }: WaitingPanelProps): JSX.Element | null => (
   <WaitingPanelDiv
     style={style}
     className={classNames(className, { rowDirection: oneLine })}
   >
-    <Spinner type={size} />
+    <Loader type={size} />
     {message && (
       <>
         <HorizontalSeparatorDiv />
-        <Normaltekst
+        <BodyLong
           className={classNames({ oneLine: oneLine })}
           data-test-id='c-waitingpanel__text-id'
         >
           {message}
-        </Normaltekst>
+        </BodyLong>
       </>
     )}
   </WaitingPanelDiv>
@@ -54,7 +53,7 @@ WaitingPanel.propTypes = {
   className: PT.string,
   message: PT.string,
   oneLine: PT.bool,
-  size: PT.oneOf(['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']),
+  size: PT.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge', '2xlarge']),
   style: PT.object
 }
 WaitingPanel.displayName = 'WaitingPanel'

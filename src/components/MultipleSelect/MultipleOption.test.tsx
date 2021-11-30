@@ -1,10 +1,17 @@
+import { Option } from 'declarations/app'
 import { mount, ReactWrapper } from 'enzyme'
-import { theme } from 'nav-hoykontrast'
 import MultipleOption, { MultipleOptionProps } from './MultipleOption'
 
 describe('components/MultipleSelect/MultipleOption', () => {
   let wrapper: ReactWrapper
-  const initialMockProps: MultipleOptionProps = {
+  const initialMockProps: MultipleOptionProps<Option> = {
+    innerRef(): void {},
+    // @ts-ignore
+    selectProps: {},
+    // @ts-ignore
+    theme: undefined,
+    id: undefined,
+    isRtl: false,
     clearValue: jest.fn(),
     getValue: jest.fn(),
     setValue: jest.fn(),
@@ -16,18 +23,11 @@ describe('components/MultipleSelect/MultipleOption', () => {
     children: undefined,
     label: '',
     type: 'option',
-    innerRef: null,
     data: {
       label: 'mockLabel',
       value: 'mockValue'
     },
     getStyles: jest.fn(),
-    selectProps: {
-      id: 'mockId',
-      selectProps: {
-        theme: theme
-      }
-    },
     innerProps: {
       onClick: jest.fn()
     } as any,

@@ -1,17 +1,18 @@
+import { Familierelasjonsrolle, IdentGruppe, KjoennType, Sivilstandstype } from 'declarations/person'
+
 export default {
   identer: [
     {
       ident: 'personFnr',
-      gruppe: 'FOLKEREGISTERIDENT'
+      gruppe: 'FOLKEREGISTERIDENT' as IdentGruppe
     },
     {
       ident: 'personAktoerId',
-      gruppe: 'AKTORID'
+      gruppe: 'AKTORID' as IdentGruppe
     }
   ],
   navn: {
     fornavn: 'LEALAUS',
-    mellomnavn: null,
     etternavn: 'SAKS',
     sammensattNavn: 'LEALAUS SAKS'
   },
@@ -48,45 +49,45 @@ export default {
     {
       land: 'NOR',
       gyldigFraOgMed: '1980-02-09',
-      gyldigTilOgMed: null
+      gyldigTilOgMed: undefined
     }
   ],
   foedsel: {
     foedselsdato: '1980-02-09',
-    foedeland: null,
-    foedested: null,
+    foedeland: undefined,
+    foedested: undefined,
     folkeregistermetadata: {
       gyldighetstidspunkt: '2020-10-12T11:40:56'
     }
   },
-  geografiskTilknytning: null,
+  geografiskTilknytning: undefined,
   kjoenn: {
-    kjoenn: 'MANN',
+    kjoenn: 'MANN' as KjoennType,
     folkeregistermetadata: {
       gyldighetstidspunkt: '2020-10-12T11:40:56'
     }
   },
-  doedsfall: null,
+  doedsfall: undefined,
   familierelasjoner: [
     {
       relatertPersonsIdent: 'personBarnFnr',
-      relatertPersonsRolle: 'BARN',
-      minRolleForPerson: 'FAR'
+      relatertPersonsRolle: 'BARN' as Familierelasjonsrolle,
+      minRolleForPerson: 'FAR' as Familierelasjonsrolle
     },
     {
       relatertPersonsIdent: 'personFarFnr',
-      relatertPersonsRolle: 'FAR',
-      minRolleForPerson: 'BARN'
+      relatertPersonsRolle: 'FAR' as Familierelasjonsrolle,
+      minRolleForPerson: 'BARN' as Familierelasjonsrolle
     },
     {
       relatertPersonsIdent: 'personMorFnr',
-      relatertPersonsRolle: 'MOR',
-      minRolleForPerson: 'BARN'
+      relatertPersonsRolle: 'MOR' as Familierelasjonsrolle,
+      minRolleForPerson: 'BARN' as Familierelasjonsrolle
     }
   ],
   sivilstand: [
     {
-      type: 'GIFT',
+      type: 'GIFT' as Sivilstandstype,
       gyldigFraOgMed: '2007-10-10',
       relatertVedSivilstand: '20047520887'
     }

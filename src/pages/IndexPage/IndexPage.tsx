@@ -1,6 +1,5 @@
 import { readNotification } from 'actions/pagenotification'
 import ContextBanner from 'components/ContextBanner/ContextBanner'
-import IEAlert from 'components/IEAlert/IEAlert'
 import Modal from 'components/Modal/Modal'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { BUCMode, FeatureToggles } from 'declarations/app'
@@ -8,7 +7,7 @@ import { State } from 'declarations/reducers'
 import { timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
 import 'rc-tooltip/assets/bootstrap_white.css'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyLong } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,15 +31,15 @@ const defaultLayouts: LayoutTabs = [{
   label: 'default',
   body: {
     lg: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
+      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 2, minW: 6, maxW: 12, minH: 2, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 1, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
     ],
     md: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
+      { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 2, minW: 2, maxW: 3, minH: 2, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 1, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
     ],
     sm: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
+      { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 1, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
     ]
   }
@@ -50,19 +49,19 @@ const defaultLayoutsWithOthers: LayoutTabs = [{
   label: 'default',
   body: {
     lg: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
+      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 2, minW: 6, maxW: 12, minH: 2, maxH: 999 },
       { i: 'w-3-journalføring', x: 0, y: 1, w: 6, h: 1, minW: 2, maxW: 12, minH: 1, maxH: 999 },
       { i: 'w-4-pagenotification', x: 7, y: 1, w: 6, h: 1, minW: 2, maxW: 12, minH: 1, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 1, maxH: 999 }
     ],
     md: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
+      { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 2, minW: 2, maxW: 3, minH: 2, maxH: 999 },
       { i: 'w-3-journalføring', x: 0, y: 1, w: 2, h: 1, minW: 2, maxW: 3, minH: 1, maxH: 999 },
       { i: 'w-4-pagenotification', x: 2, y: 1, w: 1, h: 1, minW: 1, maxW: 3, minH: 1, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 2, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
     ],
     sm: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
+      { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 },
       { i: 'w-3-journalføring', x: 0, y: 1, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
       { i: 'w-4-pagenotification', x: 0, y: 2, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 3, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
@@ -116,7 +115,6 @@ const defaultConfig = {
 
 export interface IndexPageSelector {
   featureToggles: FeatureToggles
-  highContrast: boolean
   mode: BUCMode
   username: string | undefined
   message: string | null | undefined
@@ -126,7 +124,6 @@ export interface IndexPageSelector {
 
 const mapState = (state: State): IndexPageSelector => ({
   featureToggles: state.app.featureToggles,
-  highContrast: state.ui.highContrast,
   mode: state.buc.mode,
   username: state.app.username,
   message: state.pagenotification.message,
@@ -136,7 +133,7 @@ const mapState = (state: State): IndexPageSelector => ({
 })
 
 export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
-  const { highContrast, featureToggles, mode, message, show, byline }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+  const { featureToggles, mode, message, show, byline }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [displayedMessage, setDisplayedMessage] = useState<boolean>(false)
@@ -167,19 +164,18 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
   return (
     <TopContainer>
       <Modal
-        highContrast={highContrast}
         open={showModal && !!show}
         modal={{
           modalTitle: t('ui:notification'),
           modalContent: (
             <div style={{ padding: '2rem', minWidth: '400px', textAlign: 'center' }}>
-              <Normaltekst>
+              <BodyLong>
                 {message}
-              </Normaltekst>
+              </BodyLong>
               <VerticalSeparatorDiv />
-              <Normaltekst>
+              <BodyLong>
                 {byline}
-              </Normaltekst>
+              </BodyLong>
             </div>
           ),
           modalButtons: [{
@@ -190,11 +186,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         }}
         onModalClose={() => setShowModal(false)}
       />
-      <IEAlert />
-      <ContextBanner
-        mode={mode}
-        highContrast={highContrast}
-      />
+      <ContextBanner mode={mode} />
       <CustomDashboard
         id='eessi-pensjon-ui-fss'
         configurable
@@ -203,7 +195,6 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         defaultLayouts={featureToggles.ADMIN_NOTIFICATION_MESSAGE ? defaultLayoutsWithOthers : defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
-        highContrast={highContrast}
       />
     </TopContainer>
   )

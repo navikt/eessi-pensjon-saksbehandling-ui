@@ -5,7 +5,7 @@ describe('applications/BUC/components/SEDPanelHeader/SEDPanelHeader', () => {
   let wrapper: ReactWrapper
 
   beforeEach(() => {
-    wrapper = mount(<SEDPanelHeader highContrast={false} />)
+    wrapper = mount(<SEDPanelHeader />)
   })
 
   afterEach(() => {

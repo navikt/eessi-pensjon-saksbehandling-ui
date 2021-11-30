@@ -7,7 +7,7 @@ import { PersonPDL } from 'declarations/person'
 import { PersonPropType } from 'declarations/person.pt'
 import _ from 'lodash'
 import moment from 'moment'
-import { Systemtittel } from 'nav-frontend-typografi'
+import { Heading } from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components'
 import PersonLoading from 'widgets/Overview/PersonLoading'
@@ -73,9 +73,9 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
         width={40}
       />
       <HorizontalSeparatorDiv />
-      <Systemtittel>
+      <Heading size='medium'>
         {person.navn?.sammensattNavn} ({age}) - {getFnr(person)}
-      </Systemtittel>
+      </Heading>
     </Title>
   )
 }

@@ -1,8 +1,4 @@
-import * as icons from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getJoarkItemPreview, listJoarkItems, setJoarkItemPreview } from 'actions/joark'
-import Trashcan from 'assets/icons/Trashcan'
-import { HighContrastKnapp } from 'nav-hoykontrast'
 import Modal from 'components/Modal/Modal'
 import { SedNewType, SedType } from 'declarations/buc'
 import { ModalContent } from 'declarations/components'
@@ -20,7 +16,7 @@ import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from 'forhandsvisningsfil'
 import _ from 'lodash'
-import { Element } from 'nav-frontend-typografi'
+import { Button, Loader, Label } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Table from 'tabell'
 import md5 from 'md5'
+import { Delete, SightFilled } from '@navikt/ds-icons'
 
 const ButtonsDiv = styled.div`
   display: flex;
@@ -59,7 +56,6 @@ const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector
 
 export interface JoarkBrowserProps {
   existingItems: JoarkBrowserItems
-  highContrast?: boolean
   onRowSelectChange?: (f: JoarkBrowserItems) => void
   onPreviewFile?: (f: JoarkBrowserItemWithContent) => void
   onRowViewDelete?: (f: JoarkBrowserItems) => void
@@ -69,7 +65,6 @@ export interface JoarkBrowserProps {
 
 export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   existingItems = [],
-  highContrast = false,
   mode,
   onRowSelectChange = () => {},
   onRowViewDelete = () => {},
@@ -139,32 +134,31 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     return (
       <ButtonsDiv>
         {item.journalpostId && item.dokumentInfoId && (
-          <HighContrastKnapp
+          <Button
+            variant='secondary'
+            size='small'
             data-tip={t('ui:preview')}
-            kompakt
-            mini
             disabled={previewing}
-            spinner={spinner}
             id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
             className='c-tablesorter__preview-button'
             onClick={() => onPreviewItem(item as JoarkBrowserItem)}
           >
-            {spinner ? '' : <FontAwesomeIcon icon={icons.faEye} />}
-          </HighContrastKnapp>
+            {spinner ? <Loader /> : <SightFilled />}
+          </Button>
         )}
 
         {mode === 'view' && item.type === 'joark' && (
-          <HighContrastKnapp
-            kompakt
-            mini
+          <Button
+            variant='secondary'
+            size='small'
             onClick={(e: any) => {
               e.preventDefault()
               e.stopPropagation()
               handleDelete(item as JoarkBrowserItem, context?.existingItems)
             }}
           >
-            <Trashcan />
-          </HighContrastKnapp>
+            <Delete />
+          </Button>
         )}
       </ButtonsDiv>
     )
@@ -353,7 +347,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   return (
     <div data-test-id='c-joarkBrowser'>
       <Modal
-        highContrast={highContrast}
         open={!_.isNil(_modal)}
         modal={_modal}
         onModalClose={handleModalClose}
@@ -361,7 +354,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
-        highContrast={highContrast}
         items={_items}
         key={_tableKey}
         context={context}
@@ -381,7 +373,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             id: 'tema',
             label: t('ui:tema'),
             type: 'string',
-            renderCell: (item: any, value: any) => <Element>{value}</Element>
+            renderCell: (item: any, value: any) => <Label>{value}</Label>
           }, {
             id: 'title',
             label: t('ui:title'),
@@ -406,7 +398,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
 JoarkBrowser.propTypes = {
   existingItems: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
-  highContrast: PT.bool,
   onRowSelectChange: PT.func,
   onPreviewFile: PT.func,
   onRowViewDelete: PT.func,

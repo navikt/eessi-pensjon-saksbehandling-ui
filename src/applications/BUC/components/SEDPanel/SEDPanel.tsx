@@ -1,60 +1,50 @@
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { BUCMode } from 'declarations/app'
-import { themeKeys, slideInFromLeft, HighContrastPanel } from 'nav-hoykontrast'
+import { slideInFromLeft } from 'nav-hoykontrast'
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
 import styled from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
+import { Accordion, Panel } from '@navikt/ds-react'
 
 const activeStatus: Array<string> = ['new', 'active']
 
-export const SEDPanelContainer = styled(HighContrastPanel)`
+export const SEDPanelContainer = styled(Panel)`
   transform: translateX(-20px);
   opacity: 0;
   padding: 0;
   animation: ${slideInFromLeft(20)} 0.2s forwards;
   margin-bottom: 1rem;
-  span, p {
-    font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-    line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-  }
 `
 export const SEDPanelDiv = styled.div`
   padding: 1rem;
-  border-radius: ${({ theme }) => theme[themeKeys.MAIN_BORDER_RADIUS]};
-  background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  border-radius: var(--navds-border-radius);
+  background: var(--navds-semantic-color-component-background-alternate);
   &.new {
-    background: ${({ theme }) => theme.type === 'themeHighContrast'
-  ? theme[themeKeys.NAVLIMEGRONNDARKEN60]
-  : theme[themeKeys.NAVLIMEGRONNLIGHTEN60]} !important;
+    background: var(--navds-color-limegreen-10) !important;
   }
 `
-export const SEDPanelExpandingPanel = styled(ExpandingPanel)`
+/* export const SEDPanelExpandingPanel = styled(ExpandingPanel)`
   border: none;
-  &.new .ekspanderbartPanel__hode,
-  &.new .ekspanderbartPanel__hode div:not(.etikett) {
-    background: ${({ theme }) => theme.type === 'themeHighContrast'
-  ? theme[themeKeys.NAVLIMEGRONNDARKEN60]
-  : theme[themeKeys.NAVLIMEGRONNLIGHTEN60]} !important;
+  &.new div:not(.etikett) {
+    background: var(--navds-color-limegreen-10) !important; !important;
   }
   &.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
-    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]} !important;
+    background: var(--navds-color-hover) !important;
   }
   .ekspanderbartPanel__hode:hover {
-    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]} !important;
+    background: var(--navds-color-hover) !important;
     .panel {
       background: transparent;
     }
   }
-`
+` */
 
 export interface SEDPanelProps {
   aktoerId: string
   buc: Buc
   className ?: string
-  highContrast: boolean
   newSed: boolean
   onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
@@ -66,7 +56,6 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   aktoerId,
   buc,
   className,
-  highContrast,
   newSed,
   onSEDNew,
   setMode,
@@ -92,26 +81,29 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           </SEDPanelDiv>
           )
         : (
-          <SEDPanelExpandingPanel
+          <Accordion
             className={classNames(className, { new: newSed })}
             style={style}
-            heading={
-              <SEDHeader
-                buc={buc}
-                onSEDNew={onSEDNew}
-                setMode={setMode}
-                sed={sed}
-              />
-              }
           >
-            <SEDBody
-              aktoerId={aktoerId}
-              buc={buc}
-              canHaveAttachments={sedCanHaveAttachments(sed)}
-              highContrast={highContrast}
-              sed={sed}
-            />
-          </SEDPanelExpandingPanel>
+            <Accordion.Item>
+              <Accordion.Header>
+                <SEDHeader
+                  buc={buc}
+                  onSEDNew={onSEDNew}
+                  setMode={setMode}
+                  sed={sed}
+                />
+              </Accordion.Header>
+              <Accordion.Content>
+                <SEDBody
+                  aktoerId={aktoerId}
+                  buc={buc}
+                  canHaveAttachments={sedCanHaveAttachments(sed)}
+                  sed={sed}
+                />
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion>
           )}
     </SEDPanelContainer>
   )

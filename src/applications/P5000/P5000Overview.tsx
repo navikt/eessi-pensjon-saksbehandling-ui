@@ -1,4 +1,3 @@
-import HelpIcon from 'assets/icons/HelpIcon'
 import { OneLineSpan } from 'components/StyledComponents'
 import { LocalStorageValue } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
@@ -8,38 +7,25 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import EtikettBase from 'nav-frontend-etiketter'
-import { Select } from 'nav-frontend-skjema'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyLong, Tag, HelpText, Loader, Select, Checkbox, Button } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
   FlexCenterDiv,
   FlexEndDiv,
   HiddenDiv,
-  HighContrastCheckbox,
-  HighContrastKnapp,
   HorizontalSeparatorDiv,
   PileCenterDiv,
-  themeKeys,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import styled from 'styled-components'
 import Table, { Sort } from 'tabell'
 import { convertP5000SEDToP5000ListRows } from './conversion'
 
-const CustomSelect = styled(Select)`
-  select {
-    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
-  }
-`
 export interface P5000OverviewSelector {
   highContrast: boolean
 }
@@ -89,22 +75,22 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   }
 
   const renderDateCell = (item: P5000ListRow, value: any) => (
-    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+    <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
   const renderDagCell = (item: P5000ListRow) => (
-    <Normaltekst>{(item.dag === '' || item.dag === '0') ? '' : item.dag + '/' + item.dagtype}</Normaltekst>
+    <BodyLong>{(item.dag === '' || item.dag === '0') ? '' : item.dag + '/' + item.dagtype}</BodyLong>
   )
 
   const renderStatus = (item: any, value: any) => {
     if (value === 'rina') {
-      return <EtikettBase mini type='info'>RINA</EtikettBase>
+      return <Tag size='small' variant='info'>RINA</Tag>
     }
     if (value === 'new') {
-      return <EtikettBase mini type='suksess'>Ny</EtikettBase>
+      return <Tag size='small' variant='success'>Ny</Tag>
     }
     if (value === 'edited') {
-      return <EtikettBase mini type='fokus'>Endret</EtikettBase>
+      return <Tag size='small' variant='warning'>Endret</Tag>
     }
     return <div />
   }
@@ -154,34 +140,27 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <>
       <VerticalSeparatorDiv />
       <PileCenterDiv>
-        <AlignEndRow>
+        <AlignEndRow style={{width: '100%'}}>
           <Column>
-            <HighContrastCheckbox
+            <Checkbox
               checked={_mergePeriods}
               id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
               data-test-id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
               onChange={() => _setMergePeriods(!_mergePeriods)}
-              label={(
-                <FlexCenterDiv>
-                  <OneLineSpan>
-                    {t('buc:p5000-merge-periods')}
-                  </OneLineSpan>
-                  <HorizontalSeparatorDiv />
-                  <Tooltip
-                    placement='top' trigger={['hover']} overlay={(
-                      <>
-                        <Normaltekst>{t('buc:help-p5000-merge-1')}</Normaltekst>
-                        <Normaltekst>{t('buc:help-p5000-merge-2')}</Normaltekst>
-                      </>
-                  )}
-                  >
-                    <div style={{ width: '28px', height: '28px' }}>
-                      <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                    </div>
-                  </Tooltip>
-                </FlexCenterDiv>
-              )}
-            />
+            >
+              <FlexCenterDiv>
+                <OneLineSpan>
+                  {t('buc:p5000-merge-periods')}
+                </OneLineSpan>
+                <HorizontalSeparatorDiv />
+                <HelpText>
+                  <div style={{maxWidth: '300px'}}>
+                  <BodyLong>{t('message:help-p5000-merge-1')}</BodyLong>
+                  <BodyLong>{t('message:help-p5000-merge-2')}</BodyLong>
+                  </div>
+                </HelpText>
+              </FlexCenterDiv>
+            </Checkbox>
           </Column>
           <Column>
             <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
@@ -191,19 +170,18 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 onBeforePrint={beforePrintOut}
                 onBeforeGetContent={prepareContent}
                 trigger={() =>
-                  <HighContrastKnapp
+                  <Button
                     disabled={_printDialogOpen}
-                    spinner={_printDialogOpen}
                   >
+                    {_printDialogOpen && <Loader />}
                     {t('ui:print')}
-                  </HighContrastKnapp>}
+                  </Button>}
                 content={() => {
                   return componentRef.current
                 }}
               />
               <HorizontalSeparatorDiv />
-              <CustomSelect
-                bredde='l'
+              <Select
                 id='itemsPerPage'
                 label={t('ui:itemsPerPage')}
                 onChange={itemsPerPageChanged}
@@ -215,7 +193,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 <option value='30'>30</option>
                 <option value='50'>50</option>
                 <option value='all'>{t('ui:all')}</option>
-              </CustomSelect>
+              </Select>
 
             </FlexEndDiv>
           </Column>
@@ -224,6 +202,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
+          className='tabell compact'
           key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods}
           animatable={false}
           highContrast={highContrast}

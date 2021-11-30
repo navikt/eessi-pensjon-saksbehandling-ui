@@ -25,13 +25,14 @@ const defaultSelector: SEDStartSelector = {
   attachmentsError: false,
   countryList: [],
   featureToggles: mockFeatureToggles,
-  highContrast: false,
+  gettingP6000: false,
   institutionList: {},
   institutionNames: {},
   kravId: '123',
   kravDato: undefined,
   loading: {},
   locale: 'nb',
+  p6000s: undefined,
   personAvdods: personAvdod(1),
   pesysContext: BRUKERKONTEKST,
   sakId: '123',
@@ -165,7 +166,7 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs institution and country and krav dato (not prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
 
@@ -223,7 +224,7 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
     wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
     // needs institution and country and avdodFnr and krav dato (not prefilled)
     expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
-      'buc:form-feiloppsummering' + 'buc:validation-chooseInstitution' + 'buc:validation-chooseCountry'
+      'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
 })

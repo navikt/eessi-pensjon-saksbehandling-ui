@@ -1,20 +1,17 @@
 import { setStatusParam, unsetStatusParam } from 'actions/app'
 import { toggleFooterOpen } from 'actions/ui'
 import classNames from 'classnames'
-import { themeKeys, HighContrastKnapp } from 'nav-hoykontrast'
-import EtikettBase from 'nav-frontend-etiketter'
-import Knapp from 'nav-frontend-knapper'
-import Lukknapp from 'nav-frontend-lukknapp'
-import { Input, Select } from 'nav-frontend-skjema'
+import { Button, Tag, TextField, Select } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'redux'
 import styled from 'styled-components'
+import { AddCircle } from '@navikt/ds-icons'
 
 export const FooterDiv = styled.footer`
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'white'};
+  background-color: var(--navds-semantic-color-component-background-alternate);
   padding: 0rem;
   display: flex;
   flex-direction: row;
@@ -37,23 +34,23 @@ const ContentDiv = styled.div`
     margin: 0px;
     display: block;
     padding: 0px;
-    background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'white'};
+    background-color: var(--navds-semantic-color-component-background-alternate);
   }
   .footerButtonClosed:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+    background-color: var(--navds-semantic-color-component-background-alternate);
   }
   .footerButtonOpen {
     width: 1.2rem;
     margin-right: 0.5rem;
     display: inline-block;
     padding-top: 0.6rem;
-    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+    color: var(--navds-color-text-primary)
     text-align: center;
   }
   .footerButtonOpen:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+    background-color:var(--navds-semantic-color-component-background-alternate);
   }
 `
 const FormDiv = styled.div`
@@ -67,12 +64,9 @@ const FooterSelect = styled(Select)`
   margin-right: 0.5rem;
   margin-bottom: 0px;
 `
-const FooterInput = styled(Input)`
+const FooterInput = styled(TextField)`
   margin-right: 0.5rem;
   margin-bottom: 0px;
-`
-const AddButton = styled(Knapp)`
- padding: 0.5rem;
 `
 const ParamsDiv = styled.div`
   display: flex;
@@ -91,9 +85,6 @@ const ParamDiv = styled.div`
     padding: 0.2rem !important;
     white-space: nowrap;
   }
-`
-const RemoveButton = styled(Lukknapp)`
-  transform: scale(0.5);
 `
 
 export interface FooterProps {
@@ -191,15 +182,20 @@ const Footer: React.FC<FooterProps> = ({
               value={_paramValue || ''}
               onChange={onSetParamValue}
             />
-            <AddButton
+            <Button
+              size='small'
+              variant='tertiary'
               data-test-id='c-footer__add-button-id'
               onClick={onSetParam}
             >
-                &nbsp;+&nbsp;
-            </AddButton>
-            <HighContrastKnapp onClick={dumpStore}>
+              <AddCircle />
+            </Button>
+            <Button
+              size='small'
+              onClick={dumpStore}
+            >
               Dump store
-            </HighContrastKnapp>
+            </Button>
           </FormDiv>
         )}
       </ContentDiv>
@@ -208,17 +204,21 @@ const Footer: React.FC<FooterProps> = ({
           {validParams.map(param => {
             return params[param] && (
               <ParamDiv key={param}>
-                <EtikettBase
+                <Tag
                   className='c-footer__param-string'
                   data-test-id='c-footer__param-string'
-                  type='info'
+                  variant='info'
                 >
                   <b>{param}</b> {params[param]}
-                </EtikettBase>
-                <RemoveButton
+                </Tag>
+                <Button
+                  size='small'
+                  variant='tertiary'
                   data-test-id='c-footer__remove-button'
                   onClick={() => onUnsetParam(param)}
-                />
+                >
+                  <AddCircle style={{ transform: 'rotate(45deg)' }} />
+                </Button>
               </ParamDiv>
             )
           })}

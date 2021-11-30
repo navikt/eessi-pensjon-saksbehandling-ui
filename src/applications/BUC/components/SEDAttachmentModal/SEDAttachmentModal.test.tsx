@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme'
 import joarkBrowserItems from 'mocks/joark/items'
-import AlertStripe from 'nav-frontend-alertstriper'
+import { Alert } from '@navikt/ds-react'
 import { stageSelector } from 'setupTests'
 import SEDAttachmentModal, { SEDAttachmentModalProps } from './SEDAttachmentModal'
 
@@ -22,7 +22,7 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
   let wrapper: ReactWrapper
 
   const initialMockProps: SEDAttachmentModalProps = {
-    highContrast: false,
+    open: false,
     onFinishedSelection: jest.fn(),
     onModalClose: jest.fn(),
     sedAttachments: joarkBrowserItems,
@@ -49,11 +49,11 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
 
   it('Render: show alert inside modal if there is an error', () => {
     stageSelector(defaultSelector, {
-      clientErrorStatus: 'ERROR',
+      clientErrorStatus: 'error',
       clientErrorMessage: 'something'
     })
     wrapper = mount(<SEDAttachmentModal {...initialMockProps} />)
-    expect(wrapper.exists(AlertStripe)).toBeTruthy()
+    expect(wrapper.exists(Alert)).toBeTruthy()
   })
 
   it('Handling: clicking ok', () => {

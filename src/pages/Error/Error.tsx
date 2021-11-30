@@ -1,8 +1,7 @@
 import EESSIPensjonVeileder from 'components/EESSIPensjonVeileder/EESSIPensjonVeileder'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { standardLogger, timeLogger } from 'metrics/loggers'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
@@ -21,16 +20,12 @@ export const ErrorPageDiv = styled.div`
   align-items: center;
   justify-content: center;
 `
-export const ErrorPanel = styled(ExpandingPanel)`
-  min-width: 50%;
-`
 const Line = styled.div`
    width: 60%;
    margin: 1rem;
    min-height: 0.25rem;
    border-bottom: 1px solid ${({ theme }) => theme.navGra60};
 `
-const Title = styled(Undertittel)``
 const Veilder = styled(EESSIPensjonVeileder)`
   height: 110px;
 `
@@ -61,14 +56,14 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
     case 'notLogged':
     case 'notInvited':
     case 'internalError':
-      title = t('ui:error-' + type + '-title')
-      description = t('ui:error-' + type + '-description')
-      footer = t('ui:error-' + type + '-footer')
+      title = t('message:error-' + type + '-title')
+      description = t('message:error-' + type + '-description')
+      footer = t('message:error-' + type + '-footer')
       break
     default:
-      title = t('ui:error-404-title')
-      description = t('ui:error-404-description')
-      footer = t('ui:error-404-footer')
+      title = t('message:error-404-title')
+      description = t('message:error-404-description')
+      footer = t('message:error-404-footer')
       break
   }
 
@@ -80,34 +75,36 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
           data-test-id='p-error__veileder-id'
         />
         <VerticalSeparatorDiv size='2' />
-        <Title data-test-id='p-error__title-id'>
+        <Heading size='small' data-test-id='p-error__title-id'>
           {title}
-        </Title>
+        </Heading>
         <Description
           data-test-id='p-error__description-id'
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {error && (
-          <ErrorPanel
-            collapseProps={{ id: 'p-error__content-error-id' }}
-            data-test-id='p-error__content-error-id'
-            id='p-error__content-error-id'
-            onOpen={() => standardLogger('errorPage.expandingPanel.open')}
-            heading={t('ui:error-header')}
-          >
-            <div
-              className='error'
-              dangerouslySetInnerHTML={{ __html: '<pre>' + error.stack + '</pre>' }}
-            />
-          </ErrorPanel>
+
+          <Accordion data-test-id='p-error__content-error-id'>
+            <Accordion.Item>
+              <Accordion.Header onClick={() => standardLogger('errorPage.expandingPanel.open')}>
+                {t('message:error-header')}
+              </Accordion.Header>
+              <Accordion.Content>
+                <div
+                  className='error'
+                  dangerouslySetInnerHTML={{ __html: '<pre>' + error.stack + '</pre>' }}
+                />
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion>
         )}
         {footer && (
           <div data-test-id='p-error__footer-id'>
             <Line />
             <VerticalSeparatorDiv />
-            <Normaltekst>
+            <BodyLong>
               {footer}
-            </Normaltekst>
+            </BodyLong>
           </div>
         )}
       </ErrorPageDiv>

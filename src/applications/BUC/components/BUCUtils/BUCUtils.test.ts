@@ -34,6 +34,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     lastUpdate: 2,
     participants: [],
     attachments: [],
+    direction: 'IN',
     firstVersion: {
       id: '1',
       date: 1

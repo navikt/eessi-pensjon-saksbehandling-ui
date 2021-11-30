@@ -9,17 +9,10 @@ import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import MagnifyingGlass from 'assets/icons/MagnifyingGlass'
+import { Search } from '@navikt/ds-icons'
 import classNames from 'classnames'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import {
   animationClose, animationOpen, slideInFromLeft,
-  themeKeys,
-  HighContrastHovedknapp,
-  HighContrastInput,
-  HighContrastKnapp,
-  HighContrastLenkepanelBase,
-  HighContrastPanel,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
@@ -43,8 +36,7 @@ import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
-import Alertstripe from 'nav-frontend-alertstriper'
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi'
+import { LinkPanel, Accordion, Alert, BodyLong, Heading, Panel, Button, TextField } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -62,30 +54,25 @@ const BUCListHeader = styled.div`
 export const BadBucDiv = styled.div`
   width: 100%;
   padding: 0rem;
-
+  margin-bottom: 1rem;
   .alertstripe__tekst {
     max-width: 100% !important;
   }
 `
-export const BucLenkePanel = styled(HighContrastLenkepanelBase)`
+export const BucLenkePanel = styled(LinkPanel)`
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
-  background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
+  background: var(--navds-semantic-color-component-background-alternate);
   margin-bottom: 1rem;
   &.new {
-    background: ${({ theme }) => theme.type === 'themeHighContrast'
-  ? theme[themeKeys.NAVLIMEGRONNDARKEN60]
-  : theme[themeKeys.NAVLIMEGRONNLIGHTEN60]} !important;
+    background: var(--navds-color-limegreen-10) !important;
   }
   &:hover {
-    border-color: ${({ theme }) => theme[themeKeys.MAIN_INTERACTIVE_COLOR]};
-    border-width: ${({ theme }) => theme.type === 'themeHighContrast' ? '2px' : '1px'};
-    border-style: solid;
-    background: ${({ theme }) => theme[themeKeys.ALTERNATIVE_HOVER_COLOR]};
+    background: var(--navds-color-hover);
   }
 `
-const BUCNewDiv = styled(HighContrastPanel)`
+const BUCNewDiv = styled(Panel)`
   padding: 2rem !important;
 `
 export const BUCStartDiv = styled.div`
@@ -128,7 +115,6 @@ export interface BUCListSelector {
   bucsList: Array<BucListItem> | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
-  highContrast: boolean
   institutionList: InstitutionListMap<Institution> | undefined
   gettingBucsList: boolean
   gettingBucs: boolean
@@ -147,7 +133,6 @@ const mapState = (state: State): BUCListSelector => ({
   bucsList: state.buc.bucsList,
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
-  highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
   gettingBucsInfo: state.loading.gettingBucsInfo,
   gettingBucs: state.loading.gettingBucs,
@@ -164,7 +149,7 @@ const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, bucsInfo, bucsInfoList, highContrast, institutionList, gettingBucsInfo, gettingBucs, gettingBucsList,
+    aktoerId, bucs, bucsList, bucsInfo, bucsInfoList, institutionList, gettingBucsInfo, gettingBucs, gettingBucsList,
     newlyCreatedBuc, personAvdods, pesysContext, sakId, sakType
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
@@ -216,7 +201,7 @@ const BUCList: React.FC<BUCListProps> = ({
       setNewBucPanelOpen(false)
       dispatch(fetchBucsListWithAvdodFnr(aktoerId, sakId, _avdodFnr))
     } else {
-      setValidation(t('buc:validation-badAvdodFnr'))
+      setValidation(t('message:validation-badAvdodFnr'))
     }
   }
 
@@ -306,17 +291,18 @@ const BUCList: React.FC<BUCListProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <BUCListHeader>
-        <Undertittel>
+        <Heading size='small'>
           {t('buc:form-buclist')}
-        </Undertittel>
+        </Heading>
         {!_newBucPanelOpen && (
-          <HighContrastKnapp
+          <Button
+            variant='secondary'
             data-amplitude='buc.list.newbuc'
             data-test-id='a-buc-p-buclist__newbuc-button-id'
             onClick={onBUCNew}
           >
             {t('buc:form-createNewCase')}
-          </HighContrastKnapp>
+          </Button>
         )}
       </BUCListHeader>
       <VerticalSeparatorDiv />
@@ -326,9 +312,9 @@ const BUCList: React.FC<BUCListProps> = ({
       })}
       >
         <BUCNewDiv border>
-          <Systemtittel>
+          <Heading size='medium'>
             {t('buc:step-startBUCTitle')}
-          </Systemtittel>
+          </Heading>
           <hr />
           <BUCStart
             aktoerId={aktoerId}
@@ -356,18 +342,18 @@ const BUCList: React.FC<BUCListProps> = ({
       {!gettingBucs && bucsList === null && (
         <>
           <VerticalSeparatorDiv size='2' />
-          <Normaltekst>
-            {t('buc:error-noBucs')}
-          </Normaltekst>
+          <BodyLong>
+            {t('message:error-noBucs')}
+          </BodyLong>
         </>
       )}
       {!gettingBucs && !_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
         <>
           <VerticalSeparatorDiv />
           <BadBucDiv>
-            <Alertstripe type='advarsel'>
-              {t('buc:warning-filteredBucs')}
-            </Alertstripe>
+            <Alert variant='warning'>
+              {t('message:warning-filteredBucs')}
+            </Alert>
           </BadBucDiv>
           <VerticalSeparatorDiv />
         </>
@@ -395,7 +381,6 @@ const BUCList: React.FC<BUCListProps> = ({
               >
                 <BUCHeader
                   buc={buc}
-                  newBuc={(newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false}
                   bucInfo={bucInfo}
                 />
               </BucLenkePanel>
@@ -407,30 +392,27 @@ const BUCList: React.FC<BUCListProps> = ({
               <VerticalSeparatorDiv size='2' />
               <BadBucDiv>
                 <>
-                  <ExpandingPanel
-                    collapseProps={{ id: 'a-buc-c-buclist__no-buc-id' }}
-                    className={classNames({ highContrast: highContrast })}
-                    data-test-id='a-buc-c-buclist__no-buc-id'
-                    heading={(
-                      <FlexDiv>
-                        <MagnifyingGlass width='24' />
-                        <HorizontalSeparatorDiv />
-                        <Undertittel>
-                          {t('buc:form-searchOtherBUCs')}
-                        </Undertittel>
-                      </FlexDiv>
-                    )}
-                  >
-                    <>
-                      <Normaltekst>
+                  <Accordion id='a-buc-c-buclist__no-buc-id'>
+                    <Accordion.Item>
+                      <Accordion.Header>
+                        <FlexDiv>
+                          <Search width='24' />
+                          <HorizontalSeparatorDiv />
+                          <Heading size='small'>
+                            {t('buc:form-searchOtherBUCs')}
+                          </Heading>
+                        </FlexDiv>
+                      </Accordion.Header>
+                      <Accordion.Content>
+                      <BodyLong>
                         {t('buc:form-searchOtherBUCs-description')}
-                      </Normaltekst>
+                      </BodyLong>
                       <VerticalSeparatorDiv />
                       <FlexDiv className={classNames({ feil: _validation || false })}>
-                        <HighContrastInput
+                        <TextField
                           style={{ width: '200px' }}
                           data-test-id='a-buc-p-buclist__avdod-input-id'
-                          feil={_validation || false}
+                          error={_validation || false}
                           id='a-buc-p-buclist__avdod-input-id'
                           label={(
                             <HiddenDiv>
@@ -443,14 +425,16 @@ const BUCList: React.FC<BUCListProps> = ({
                           onKeyPress={handleKeyPress}
                         />
                         <HorizontalSeparatorDiv />
-                        <HighContrastHovedknapp
+                        <Button
+                          variant='primary'
                           onClick={onAvdodFnrButtonClick}
                         >
                           {t('ui:get')}
-                        </HighContrastHovedknapp>
+                        </Button>
                       </FlexDiv>
-                    </>
-                  </ExpandingPanel>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  </Accordion>
                   <VerticalSeparatorDiv size='2' />
                 </>
               </BadBucDiv>

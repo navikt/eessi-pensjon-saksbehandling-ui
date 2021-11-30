@@ -1,19 +1,15 @@
 import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
-import * as icons from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { themeKeys, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import * as routes from 'constants/routes'
 import PT from 'prop-types'
-import { Warning } from '@navikt/ds-icons'
+import { Warning, EmployerFilled } from '@navikt/ds-icons'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
-import Lenke from 'nav-frontend-lenker'
-import Spinner from 'nav-frontend-spinner'
-import { Systemtittel } from 'nav-frontend-typografi'
+import { Link, Loader, Heading } from '@navikt/ds-react'
 import styled from 'styled-components'
 
 export interface HeaderProps {
@@ -29,23 +25,15 @@ const BrandDiv = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-  * {
-   font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-   line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-  }
 `
 const HeaderDiv = styled.header`
-  background-color: ${({ theme }) => theme.navMorkGra};
+  background-color: var(--navds-color-gray-90);
   display: flex;
   flex-direction: row;
   height: 4rem;
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-`
-const Link = styled(Lenke)`
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme[themeKeys.WHITE]};
 `
 const NameDiv = styled.div`
   margin: auto 0px;
@@ -55,14 +43,14 @@ const SaksbehandlerUser = styled.div`
    color: white;
 `
 const Skillelinje = styled.div`
-  border-left: 1px solid ${({ theme }) => theme.white};
+  border-left: 1px solid var(--navds-color-white);
   display: flex;
   height: 30px;
   width: 1px;
   margin-left: 1rem;
 `
 const Title = styled.div`
-  color: ${({ theme }) => theme.white};
+  color: var(--navds-color-white);
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
@@ -78,7 +66,7 @@ const UsernameSpan = styled.span`
   padding: 0.45rem;
   padding-left: 0.5rem;
   padding-right: 1.6rem;
-  color: ${({ theme }) => theme[themeKeys.WHITE]};
+  color: var(--navds-color-white);
 `
 
 const Header: React.FC<HeaderProps> = ({
@@ -126,11 +114,11 @@ const Header: React.FC<HeaderProps> = ({
       </Link>
       <UserDiv>
         {isLoggingOut
-          ? <Spinner type='XS' />
+          ? <Loader type='xsmall' />
           : (
             <>
               <SaksbehandlerUser>
-                <FontAwesomeIcon icon={icons.faUser} />
+                <EmployerFilled />
               </SaksbehandlerUser>
               <HorizontalSeparatorDiv />
             </>
@@ -138,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({
         <Skillelinje />
         <NameDiv>
           {gettingUserInfo
-            ? t('buc:loading-gettingUserInfo')
+            ? t('message:loading-gettingUserInfo')
             : (
                 username
                   ? (
@@ -160,9 +148,9 @@ const Header: React.FC<HeaderProps> = ({
       {header && (
         _.isString(header)
           ? (
-            <Systemtittel className='m-4'>
+            <Heading size='medium'>
               {header}
-            </Systemtittel>
+            </Heading>
             )
           : header
       )}

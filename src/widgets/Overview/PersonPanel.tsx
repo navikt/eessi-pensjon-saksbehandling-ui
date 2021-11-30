@@ -1,22 +1,15 @@
-import LineExpandedCalendar from 'assets/icons/line-version-expanded-calendar-3'
-import LineExpandedGlobe from 'assets/icons/line-version-expanded-globe-2'
-import LineHandbag from 'assets/icons/line-version-handbag-3'
-import LineHeartCircle from 'assets/icons/line-version-heart-circle'
-import LineHome from 'assets/icons/line-version-home-3'
-import PersonIcon from 'assets/icons/line-version-person-2'
+import { People, Home, Calender, Globe, Profile, Heart } from '@navikt/ds-icons'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
 import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi'
-import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row, themeKeys } from 'nav-hoykontrast'
+import { BodyLong, Detail } from '@navikt/ds-react'
+import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const Element = styled.div`
@@ -25,7 +18,7 @@ const Element = styled.div`
 `
 const Hr = styled.hr`
   margin: 1.5rem;
-  border-color: ${({ theme }) => theme[themeKeys.MAIN_BORDER_COLOR]} !important;
+  border-color: var(--navds-color-border) !important;
 `
 const MarginRow = styled(Row)`
   margin: 1.5rem;
@@ -44,21 +37,12 @@ export interface PersonPanelProps {
   personAvdods: PersonAvdods | undefined
 }
 
-export interface PersonPanelSelector {
-  highContrast: boolean
-}
-
-const mapState = (state: State): PersonPanelSelector => ({
-  highContrast: state.ui.highContrast
-})
-
 const PersonPanel: React.FC<PersonPanelProps> = ({
   locale,
   person,
   personAvdods
 }: PersonPanelProps): JSX.Element | null => {
   const { t } = useTranslation()
-  const { highContrast } = useSelector<State, PersonPanelSelector>(mapState)
 
   const renderEntity = (label: string, value: any): JSX.Element => {
     let _value
@@ -74,15 +58,15 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       <Element
         id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
       >
-        <Undertekst>
+        <Detail>
           <strong>
             {t(label)}
           </strong>:
-        </Undertekst>
+        </Detail>
         <HorizontalSeparatorDiv />
-        <Normaltekst>
+        <BodyLong>
           {_value.map((val: any) => val)}
-        </Normaltekst>
+        </BodyLong>
       </Element>
     )
   }
@@ -197,17 +181,17 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     <PersonPanelDiv>
       <MarginRow>
         <MarginColumn>
-          <LineHome color={highContrast ? 'white' : 'black'} />
+          <Home />
           <HorizontalSeparatorDiv />
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </MarginColumn>
         <MarginColumn>
-          <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+          <Calender />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:birthdate', birthDateString)}
         </MarginColumn>
         <MarginColumn>
-          <LineHandbag color={highContrast ? 'white' : 'black'} />
+          <Profile />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:nationality', nationality)}
         </MarginColumn>
@@ -215,12 +199,12 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       <Hr />
       <MarginRow>
         <MarginColumn>
-          <LineExpandedGlobe color={highContrast ? 'white' : 'black'} />
+          <Globe />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
         </MarginColumn>
         <MarginColumn>
-          <LineHeartCircle color={highContrast ? 'white' : 'black'} />
+          <Heart />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:marital-status', maritalStatus)}
         </MarginColumn>
@@ -232,11 +216,11 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
           <MarginRow>
 
             <MarginColumn>
-              <PersonIcon color={highContrast ? 'white' : 'black'} />
+              <People />
               <HorizontalSeparatorDiv />
-              <Undertekst>
+              <Detail size='small'>
                 <strong>{t('ui:deceased')}</strong>:
-              </Undertekst>
+              </Detail>
               <div>
                 {personAvdods && personAvdods.length > 0
                   ? personAvdods.map((avdod: PersonAvdod) => (
@@ -245,12 +229,12 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                       id='w-overview-personPanel__element-deceased'
                     >
                       <HorizontalSeparatorDiv />
-                      <Normaltekst>
+                      <BodyLong>
                         {avdod?.fornavn +
                       (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
                       (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
                       ' - ' + avdod.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
-                      </Normaltekst>
+                      </BodyLong>
                     </Element>
                     ))
                   : (
@@ -259,9 +243,9 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                       id='w-overview-personPanel__element-deceased'
                     >
                       <HorizontalSeparatorDiv />
-                      <Normaltekst>
+                      <BodyLong>
                         {t('buc:form-noAvdod')}
-                      </Normaltekst>
+                      </BodyLong>
                     </Element>
                     )}
               </div>
@@ -270,7 +254,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
             {deathDateString
               ? (
                 <MarginColumn>
-                  <LineExpandedCalendar color={highContrast ? 'white' : 'black'} />
+                  <Calender />
                   <HorizontalSeparatorDiv />
                   {renderEntity('ui:deathdate', deathDateString)}
                 </MarginColumn>

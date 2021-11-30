@@ -14,7 +14,6 @@ describe('components/MultipleSelect/MultipleSelect', () => {
     creatable: true,
     isDisabled: false,
     error: undefined,
-    highContrast: false,
     hideSelectedOptions: false,
     id: 'mockMultipleSelectId',
     isLoading: false,

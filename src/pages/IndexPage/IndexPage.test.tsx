@@ -1,13 +1,16 @@
-import { BUCMode } from 'applications/BUC'
 import TopContainer from 'components/TopContainer/TopContainer'
+import { BUCMode, FeatureToggles } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
 import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
 const defaultSelector: IndexPageSelector = {
-  highContrast: false,
   mode: 'buclist' as BUCMode,
-  username: 'mockUsername'
+  username: 'mockUsername',
+  message: 'messaage',
+  featureToggles: {} as FeatureToggles,
+  byline: 'byline',
+  show: false
 }
 
 jest.mock('components/TopContainer/TopContainer', () => {

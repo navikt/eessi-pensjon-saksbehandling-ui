@@ -4,7 +4,7 @@ import Modal, { ModalProps } from './Modal'
 describe('components/Modal', () => {
   let wrapper: ReactWrapper
   const initialMockProps: ModalProps = {
-    highContrast: false,
+    open: true,
     modal: {
       modalTitle: 'mockModalTitle',
       modalText: 'mockModalText',
@@ -17,8 +17,7 @@ describe('components/Modal', () => {
         onClick: jest.fn()
       }]
     },
-    onModalClose: jest.fn(),
-    closeButton: true
+    onModalClose: jest.fn()
   }
 
   it('Render: match snapshot', () => {

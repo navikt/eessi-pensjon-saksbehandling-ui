@@ -1,6 +1,5 @@
-import { Validation } from 'declarations/app'
+import { ErrorElement, Validation } from 'declarations/app'
 import _ from 'lodash'
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema'
 import { TFunction } from 'react-i18next'
 
 export interface PageNotificationValidationProps {
@@ -23,7 +22,7 @@ export const pageNotificationValidate = (
     v['w-pagenotification-show'] = {
       skjemaelementId: 'w-pagenotification-show',
       feilmelding: t('feil')
-    } as FeiloppsummeringFeil
+    } as ErrorElement
     hasError = true
   }
 
@@ -31,7 +30,7 @@ export const pageNotificationValidate = (
     v['w-pagenotification-message'] = {
       skjemaelementId: 'w-pagenotification-message',
       feilmelding: t('feil')
-    } as FeiloppsummeringFeil
+    } as ErrorElement
     hasError = true
   }
 
@@ -39,7 +38,7 @@ export const pageNotificationValidate = (
     v['w-pagenotification-byline'] = {
       skjemaelementId: 'w-pagenotification-byline',
       feilmelding: t('feil')
-    } as FeiloppsummeringFeil
+    } as ErrorElement
     hasError = true
   }
 

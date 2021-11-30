@@ -1,16 +1,9 @@
 import { mount, ReactWrapper } from 'enzyme'
-import { theme } from 'nav-hoykontrast'
 import MultipleValueRemove from './MultipleValueRemove'
 
 describe('components/MultipleSelect/MultipleValueRemove', () => {
   let wrapper: ReactWrapper
-  const initialMockProps = {
-    selectProps: {
-      selectProps: {
-        theme: theme
-      }
-    }
-  }
+  const initialMockProps = {}
 
   beforeEach(() => {
     // @ts-ignore

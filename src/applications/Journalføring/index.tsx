@@ -1,21 +1,14 @@
-import { Systemtittel } from 'nav-frontend-typografi'
 import Journalføring from './Journalføring'
-import ExpandingPanel from 'components/ExpandingPanel/ExpandingPanel'
 import { WidgetPropType } from 'declarations/Dashboard.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
-import Alertstripe from 'nav-frontend-alertstriper'
+import { Accordion, Alert, Heading } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-
-export const MyAlertStripe = styled(Alertstripe)`
-  width: 100%;
-`
 
 export interface JournalføringIndexSelector {
   aktoerId: string | null | undefined
@@ -47,19 +40,10 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
 
   const { t } = useTranslation()
 
-  const onExpandablePanelClosing = (): void => {
+  const onClick = (): void => {
     const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = true
-    standardLogger('journalføring.ekspandpanel.close')
-    if (onUpdate) {
-      onUpdate(newWidget)
-    }
-  }
-
-  const onExpandablePanelOpening = (): void => {
-    const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = false
-    standardLogger('journalføring.ekspandpanel.open')
+    newWidget.options.collapsed = !newWidget.options.collapsed
+    standardLogger('journalføring.ekspandpanel.clicked')
     if (onUpdate) {
       onUpdate(newWidget)
     }
@@ -75,12 +59,12 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
 
   if (!aktoerId) {
     return (
-      <MyAlertStripe
-        type='advarsel'
+      <Alert
+        variant='warning'
         data-test-id='w-overview__alert'
       >
-        {t('buc:validation-noAktoerId')}
-      </MyAlertStripe>
+        {t('message:validation-noAktoerId')}
+      </Alert>
     )
   }
 
@@ -90,18 +74,17 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <ExpandingPanel
-        collapseProps={{ id: 'w-journalføring-id' }}
-        data-test-id='w-journalføring-id'
-        open={!widget.options.collapsed}
-        onOpen={onExpandablePanelOpening}
-        onClose={onExpandablePanelClosing}
-        heading={(
-          <Systemtittel>{t('jou:title')}</Systemtittel>
-        )}
-      >
-        <Journalføring />
-      </ExpandingPanel>
+      <Accordion id='w-journalføring-id'>
+       <Accordion.Item open={!widget.options.collapsed}>
+         <Accordion.Header onClick={onClick}>
+
+          <Heading size='medium'>{t('jou:title')}</Heading>
+         </Accordion.Header>
+         <Accordion.Content>
+           <Journalføring />
+         </Accordion.Content>
+       </Accordion.Item>
+      </Accordion>
     </div>
   )
 }

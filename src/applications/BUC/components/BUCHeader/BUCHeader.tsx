@@ -6,8 +6,7 @@ import {
   sedFilter
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import ProblemCircleIcon from 'assets/icons/report-problem-circle'
-import classNames from 'classnames'
+import { Warning } from '@navikt/ds-icons'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
@@ -19,28 +18,14 @@ import { FlagItems, FlagList } from 'flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
-import Lenke from 'nav-frontend-lenker'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { themeKeys, Column, Row } from 'nav-hoykontrast'
-import PT from 'prop-types'
+import { LinkPanel, BodyLong, Link, Heading } from '@navikt/ds-react'
+import { Column, Row } from 'nav-hoykontrast'
 import Tooltip from 'rc-tooltip'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-export const BUCHeaderDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0rem;
-  width: 100%;
-  &.new .ekspanderbartPanel__hode {
-    background: ${({ theme }) => theme.type === 'themeHighContrast'
-    ? theme[themeKeys.NAVGRONNDARKEN20]
-    : theme[themeKeys.NAVGRONNLIGHTEN20]} !important;
-  }
-`
 const FlexRow = styled(Row)`
   width: 100%;
   @media (min-width: 768px) {
@@ -48,9 +33,6 @@ const FlexRow = styled(Row)`
   }
   align-items: flex-start;
   justify-content: space-between;
-`
-const FullWidthRow = styled(Row)`
-  width: 100%;
 `
 export const IconsDiv = styled(Column)`
   margin: 0px;
@@ -66,7 +48,7 @@ const LabelsDiv = styled(Column)`
 const NumberOfSedsDiv = styled.div`
   border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px};
   border-style: solid;
-  border-color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
+  border-color: var(--navds-color-text-primary);
   border-radius: 50px;
   min-width: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
   min-height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
@@ -83,12 +65,12 @@ const PropertyDiv = styled.div`
   align-items: center;
   margin: 0.2rem 0rem;
 `
-const RinaLink = styled(Lenke)`
+const RinaLink = styled(Link)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
   margin-bottom: 0px !important;
-  color: ${({ theme }): any => theme[themeKeys.MAIN_INTERACTIVE_COLOR]} !important;
+  color: var(--navds-semantic-color-interaction-primary-default) !important;
 `
-const RowText = styled(Normaltekst)`
+const RowText = styled(BodyLong)`
   white-space: nowrap !important;
   padding-right: 0.5rem;
 `
@@ -97,14 +79,10 @@ const TagsDiv = styled.div`
   justify-content:flex-start;
   align-items: center;
 `
-const UnderTitle = styled(Undertittel)`
-  padding-bottom: 0.25rem;
-  width: 100%;
-`
+
 export interface BUCHeaderProps {
   buc: Buc
   bucInfo?: BucInfo
-  newBuc: boolean
 }
 
 export interface BUCHeaderSelector {
@@ -126,7 +104,7 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
 })
 
 const BUCHeader: React.FC<BUCHeaderProps> = ({
-  buc, bucInfo, newBuc
+  buc, bucInfo
 }: BUCHeaderProps): JSX.Element => {
   const { institutionNames, locale, personAvdods, rinaUrl, size }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
@@ -188,14 +166,10 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   }, [size])
 
   return (
-
-    <BUCHeaderDiv
-      className={classNames({ new: newBuc })}
-      data-test-id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
-    >
-      <FullWidthRow>
-        <Column>
-          <UnderTitle
+    <>
+      <LinkPanel.Title>
+          <Heading
+            size='small'
             className='lenkepanel__heading'
             data-test-id='a-buc-c-bucheader__title-id'
           >
@@ -204,9 +178,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               locale: locale,
               type: buc.type!
             })}
-          </UnderTitle>
-        </Column>
-      </FullWidthRow>
+          </Heading>
+      </LinkPanel.Title>
+      <LinkPanel.Description>
       <FlexRow>
         <LabelsDiv
           data-test-id='a-buc-c-bucheader__label-id'
@@ -214,9 +188,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           <PropertyDiv
             data-test-id='a-buc-c-bucheader__label-date-id'
           >
-            <Normaltekst>
+            <BodyLong>
               {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
-            </Normaltekst>
+            </BodyLong>
           </PropertyDiv>
           <PropertyDiv
             data-test-id='a-buc-c-bucheader__label-owner-id'
@@ -231,6 +205,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               institutions={[buc.creator!]}
               locale={locale}
               type='separated'
+              oneLine
             />
           </PropertyDiv>
           {buc.caseId && (
@@ -253,7 +228,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   </RowText>
                   )
                 : (
-                  <WaitingPanel size='S' oneLine />
+                  <WaitingPanel size='xsmall' oneLine />
                   )}
             </PropertyDiv>
           )}
@@ -264,9 +239,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               <RowText>
                 {t('ui:deceased') + ': '}
               </RowText>
-              <Normaltekst>
+              <BodyLong>
                 {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr}
-              </Normaltekst>
+              </BodyLong>
             </PropertyDiv>
           )}
         </LabelsDiv>
@@ -310,7 +285,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               trigger={['hover']}
             >
               <TagsDiv data-test-id='a-buc-c-bucheader__icon-tags-id'>
-                <ProblemCircleIcon
+                <Warning
                   width={_flagSize === 'XL' ? 50 : 32}
                   height={_flagSize === 'XL' ? 50 : 32}
                 />
@@ -319,14 +294,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           )}
         </IconsDiv>
       </FlexRow>
-    </BUCHeaderDiv>
+      </LinkPanel.Description>
+    </>
   )
 }
 
 BUCHeader.propTypes = {
   buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType,
-  newBuc: PT.bool.isRequired
+  bucInfo: BucInfoPropType
 }
 
 export default BUCHeader

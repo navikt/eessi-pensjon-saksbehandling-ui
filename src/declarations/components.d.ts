@@ -1,8 +1,8 @@
 
-export type AlertStatus = 'OK' | 'ERROR' | 'WARNING'
+export type AlertVariant = 'error' | 'warning' | 'info' | 'success'
 
 export interface AlertError {
-  status?: AlertStatus
+  status?: AlertVariant
   message?: JSX.Element | string
   error?: string | undefined
   uuid ?: string | undefined

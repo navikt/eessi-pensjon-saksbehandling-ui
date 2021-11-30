@@ -1,12 +1,10 @@
 import PT from 'prop-types'
-import { Checkbox } from 'nav-frontend-skjema'
+import { Checkbox } from '@navikt/ds-react'
 import styled from 'styled-components'
-import NavHighContrast, { themeKeys } from 'nav-hoykontrast'
 import { components, OptionProps } from 'react-select'
-import { O } from 'declarations/app.d'
+import { Option } from 'declarations/app.d'
 
 export interface MultipleOptionProps<T> extends OptionProps<T, true> {
-  highContrast: boolean
   id: string | undefined
 }
 
@@ -16,30 +14,29 @@ const OptionCheckbox = styled(Checkbox)`
    }
    label {
       &:hover {
-       color: ${({ theme }) => theme[themeKeys.INVERTED_FONT_COLOR]} !important;
+       color: var(--navds-color-text-inverse) !important;
      }
    }
 `
 
-const MultipleOption = <T extends O = O>(props: MultipleOptionProps<T>): JSX.Element => {
-  const { data, id, highContrast, isSelected } = props
+const MultipleOption = <T extends Option = Option>(props: MultipleOptionProps<T>): JSX.Element => {
+  const { data, id, isSelected } = props
   const _id: string = (id ?? '') + '-' + data.value
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
     <components.Option {...props}>
-      <NavHighContrast highContrast={highContrast}>
-        <OptionCheckbox
-          data-test-id={'c-multipleoption__checkbox-' + _id}
-          id={'c-multipleoption__checkbox-' + _id}
-          label={data.label}
-          onChange={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-          }}
-          checked={isSelected}
-        />
-      </NavHighContrast>
+      <OptionCheckbox
+        data-test-id={'c-multipleoption__checkbox-' + _id}
+        id={'c-multipleoption__checkbox-' + _id}
+        onChange={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+        }}
+        checked={isSelected}
+      >
+        {data.label}
+      </OptionCheckbox>
     </components.Option>
   )
 }

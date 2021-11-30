@@ -1,13 +1,13 @@
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { HighContrastInput, HighContrastPanel } from 'nav-hoykontrast'
-import { O } from 'declarations/app'
+import { TextField, Panel } from '@navikt/ds-react'
+import { Option } from 'declarations/app'
 import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-const SEDSearchPanel = styled(HighContrastPanel)`
+const SEDSearchPanel = styled(Panel)`
   display: flex !important;
   align-items: flex-start;
   padding: 0.5rem;
@@ -20,7 +20,7 @@ const PaddedDiv = styled.div`
   padding-right: 0.25rem;
   width: 50%;
 `
-const SearchInput = styled(HighContrastInput)`
+const SearchInput = styled(TextField)`
   margin-right: 0.5rem;
   margin-bottom: 0.25rem !important;
   margin-left: 0.25rem;
@@ -31,17 +31,16 @@ const SearchInput = styled(HighContrastInput)`
 
 export interface SEDSearchProps {
   className ?: string
-  highContrast: boolean
   onSearch: (e: string) => void
-  onStatusSearch: (sl: Array<O>) => void
+  onStatusSearch: (sl: Array<Option>) => void
   value: string | undefined
 }
 
 const SEDSearch: React.FC<SEDSearchProps> = ({
-  className, highContrast, onSearch, onStatusSearch, value
+  className, onSearch, onStatusSearch, value
 }: SEDSearchProps): JSX.Element => {
   const [_query, setQuery] = useState<string | undefined>(value || '')
-  const [_status, setStatus] = useState<Array<O>>([])
+  const [_status, setStatus] = useState<Array<Option>>([])
   const [_timer, setTimer] = useState<ReturnType<typeof setTimeout> | undefined>(undefined)
   const { t } = useTranslation()
 
@@ -61,13 +60,13 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
 
   const onStatusChange = (statusList: unknown) => {
     if (statusList) {
-      onStatusSearch(statusList as Array<O>)
-      setStatus(statusList as Array<O>)
+      onStatusSearch(statusList as Array<Option>)
+      setStatus(statusList as Array<Option>)
       standardLogger('buc.edit.filter.status.select')
     }
   }
 
-  const availableStatuses: Array<O> = [{
+  const availableStatuses: Array<Option> = [{
     label: t('ui:new'),
     value: 'new'
   }, {
@@ -90,7 +89,6 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     >
       <PaddedDiv>
         <SearchInput
-          bredde='fullbredde'
           data-test-id='a-buc-c-sedsearch__query-input-id'
           id='a-buc-c-sedsearch__query-input-id'
           label=''
@@ -100,13 +98,12 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
         />
       </PaddedDiv>
       <PaddedDiv>
-        <MultipleSelect<O>
+        <MultipleSelect<Option>
           ariaLabel={t('buc:form-searchForStatus')}
           className='a-buc-c-sedsearch'
           data-test-id='a-buc-c-sedsearch__status-select-id'
           id='a-buc-c-sedsearch__status-select-id'
           hideSelectedOptions={false}
-          highContrast={highContrast}
           label=''
           onSelect={onStatusChange}
           options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}

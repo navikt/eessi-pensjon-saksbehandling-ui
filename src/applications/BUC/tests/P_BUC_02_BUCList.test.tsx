@@ -30,6 +30,21 @@ const mockPersonAvdods = personAvdod(1)
 
 const defaultSelector: BUCListSelector = {
   aktoerId: '123',
+  sakId: '456',
+  sakType: undefined,
+  bucsList: [{
+    euxCaseId: 'NorwayIsCaseOwner',
+    buctype: 'P_BUC_02',
+    aktoerId: '123',
+    saknr: '456',
+    avdodFnr: null
+  }, {
+    euxCaseId: 'NorwayIsNOTCaseOwner',
+    buctype: 'P_BUC_02',
+    aktoerId: '123',
+    saknr: '456',
+    avdodFnr: null
+  }],
   bucs: {
     NorwayIsCaseOwner: {
       type: 'P_BUC_02',
@@ -85,17 +100,17 @@ const defaultSelector: BUCListSelector = {
   },
   bucsInfo: mockBucsInfo,
   bucsInfoList: [],
-  highContrast: false,
   institutionList: {
     NO: [{
       name: 'mockInstitution1',
       institution: 'NO:MI1',
-      country: 'NO'
+      country: 'NO',
+      acronym: 'MI1'
     }]
   },
-  loading: {
-    gettingBucsList: false
-  },
+  gettingBucsList: false,
+  gettingBucs: false,
+  gettingBucsInfo: false,
   locale: 'nb',
   newlyCreatedBuc: undefined,
   personAvdods: mockPersonAvdods,

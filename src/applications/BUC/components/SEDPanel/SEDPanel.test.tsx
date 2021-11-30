@@ -3,7 +3,8 @@ import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, Sed } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
-import SEDPanel, { SEDPanelDiv, SEDPanelExpandingPanel, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
+import SEDPanel, { SEDPanelDiv, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
+import { Accordion } from '@navikt/ds-react'
 
 jest.mock('applications/BUC/components/SEDHeader/SEDHeader', () => ({ children }: any) => (
   <div data-test-id='mock-SEDHeader'>{children}</div>
@@ -20,10 +21,9 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
   const initialMockProps: SEDPanelProps = {
     aktoerId: '123',
     buc: buc,
-    followUpSed: buc.seds![1],
-    highContrast: false,
     newSed: false,
     onSEDNew: jest.fn(),
+    setMode: jest.fn(),
     sed: sed,
     style: {}
   }
@@ -49,7 +49,7 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
 
   it('Render: SED can\'t have attachments', () => {
     expect(wrapper.exists(SEDPanelDiv)).toBeTruthy()
-    expect(wrapper.exists(SEDPanelExpandingPanel)).toBeFalsy()
+    expect(wrapper.exists(Accordion)).toBeFalsy()
     expect(wrapper.exists(SEDBody)).toBeFalsy()
   })
 
@@ -64,7 +64,7 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
     }
     wrapper = mount(<SEDPanel {...mockProps} />)
     expect(wrapper.exists(SEDPanelDiv)).toBeFalsy()
-    expect(wrapper.exists(SEDPanelExpandingPanel)).toBeTruthy()
+    expect(wrapper.exists(Accordion)).toBeTruthy()
   })
 
   it('Render: SED opens to show SED Body', () => {
@@ -79,7 +79,7 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
     wrapper = mount(<SEDPanel {...mockProps} />)
     expect(wrapper.exists(SEDBody)).toBeFalsy()
 
-    wrapper.find(SEDPanelExpandingPanel).find('.ekspanderbartPanel__hode').simulate('click')
+    wrapper.find(Accordion).find('.ekspanderbartPanel__hode').simulate('click')
     expect(wrapper.exists(SEDBody)).toBeTruthy()
   })
 })

@@ -1,41 +1,34 @@
-import { Feilmelding } from 'nav-frontend-typografi'
-import { theme, themeKeys, themeHighContrast } from 'nav-hoykontrast'
+
 import classNames from 'classnames'
 import ReactSelect, { Props } from 'react-select'
 
 interface SelectProps extends Props {
-  feil?: string
-  highContrast: boolean
+  error?: string
   label?: string | undefined
   'data-test-id'?: string
 }
 
 const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
-  const _theme = props.highContrast ? themeHighContrast : theme
   return (
     <div data-test-id={props['data-test-id'] || props.id}>
       {props.label && (<label className='skjemaelement__label'>{props.label ?? ''}</label>)}
       <ReactSelect
         inputId={props.id}
-        className={classNames({ skjemaelement__feilmelding: !!props.feil })}
+        className={classNames({ skjemaelement__feilmelding: !!props.error })}
         isOptionDisabled={(option: any) => option.isDisabled}
         styles={{
-          control: (styles: any) => ({
+          control: (styles: any, { isDisabled }) => ({
             ...styles,
-            borderWidth: props.feil ? '2px' : _theme[themeKeys.MAIN_BORDER_WIDTH],
-            borderColor: props.feil ? _theme[themeKeys.REDERROR] : _theme[themeKeys.MAIN_BORDER_COLOR],
+            borderWidth: '1px',
             borderStyle: 'solid',
-            borderRadius: _theme[themeKeys.MAIN_BORDER_RADIUS],
-            color: _theme[themeKeys.MAIN_FONT_COLOR],
-            backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
-          }),
-          singleValue: (styles: any) => ({
-            ...styles,
-            color: _theme[themeKeys.MAIN_FONT_COLOR]
+            borderColor: props.error ? 'var(--navds-color-text-error)' : 'var(--navds-color-border)',
+            borderRadius: 'var(--navds-border-radius)',
+            color: 'var(--navds-color-text-primary)',
+            backgroundColor: isDisabled ? 'var(--navds-color-disabled)' : 'var(--navds-color-background)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: _theme[themeKeys.MAIN_BORDER_COLOR]
+            backgroundColor: 'var(--navds-color-border)'
           }),
           menu: (styles: any) => ({
             ...styles,
@@ -43,38 +36,42 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
           }),
           menuList: (styles: any) => ({
             ...styles,
-            borderWidth: _theme[themeKeys.MAIN_BORDER_WIDTH],
-            borderColor: _theme[themeKeys.MAIN_BORDER_COLOR],
+            borderWidth: '1px',
             borderStyle: 'solid',
-            backgroundColor: _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
+            borderColor: 'var(--navds-color-border)',
+            backgroundColor: 'var(--navds-semantic-color-component-background-alternate)'
           }),
           option: (styles: any, { isDisabled, isFocused, isSelected }) => ({
             ...styles,
             color: isFocused
-              ? _theme[themeKeys.INVERTED_FONT_COLOR]
+              ? 'var(--navds-color-text-inverse)'
               : isSelected
-                ? _theme[themeKeys.INVERTED_FONT_COLOR]
-                : isDisabled
-                  ? _theme[themeKeys.MAIN_DISABLED_COLOR]
-                  : _theme[themeKeys.MAIN_FONT_COLOR],
+                ? 'var(--navds-color-text-inverse)'
+                : 'var(--navds-color-text-primary)',
             backgroundColor: isFocused
-              ? _theme[themeKeys.MAIN_FOCUS_COLOR]
+              ? 'var(--navds-semantic-color-focus)'
               : isSelected
-                ? _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
-                : _theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]
+                ? 'var(--navds-semantic-color-interaction-primary-default)'
+                : isDisabled
+                  ? 'var(--navds-color-disabled)'
+                  : 'var(--navds-semantic-color-component-background-alternate)'
           }),
           placeholder: (styles: any) => {
             return {
               ...styles,
-              color: _theme[themeKeys.GRAYINACTIVE]
+              color: 'var(--navds-color-disabled)'
             }
-          }
+          },
+          singleValue: (styles: any) => ({
+            ...styles,
+            color: 'var(--navds-color-text-primary)'
+          })
         }}
         {...props}
       />
-      {props.feil && (
-        <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
-          <Feilmelding>{props.feil}</Feilmelding>
+      {props.error && (
+        <div role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+          {props.error}
         </div>
       )}
     </div>

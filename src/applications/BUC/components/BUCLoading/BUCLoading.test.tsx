@@ -1,4 +1,3 @@
-import { BUCHeaderDiv } from 'applications/BUC/components/BUCHeader/BUCHeader'
 import { mount, ReactWrapper } from 'enzyme'
 import BUCLoading from './BUCLoading'
 
@@ -20,6 +19,6 @@ describe('applications/BUC/components/BUCLoading/BUCLoading', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(BUCHeaderDiv)).toBeTruthy()
+    expect(wrapper.exists('div')).toBeTruthy()
   })
 })

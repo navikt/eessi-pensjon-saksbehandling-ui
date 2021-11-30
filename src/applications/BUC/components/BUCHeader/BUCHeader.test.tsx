@@ -10,7 +10,6 @@ import BucHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 
 const defaultSelector: BUCHeaderSelector = {
   gettingBucDeltakere: false,
-  highContrast: false,
   institutionNames: {},
   locale: 'nb',
   personAvdods: mockPersonAvdods(1),

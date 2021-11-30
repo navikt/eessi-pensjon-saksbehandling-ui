@@ -29,7 +29,6 @@ describe('widgets/Overview/Overview', () => {
   }
 
   const initialMockProps: OverviewProps = {
-    highContrast: false,
     onUpdate: jest.fn(),
     skipMount: false,
     widget: {
@@ -81,7 +80,7 @@ describe('widgets/Overview/Overview', () => {
     stageSelector(defaultSelector, ({ aktoerId: undefined }))
     wrapper = mount(<Overview {...initialMockProps} />)
     expect(wrapper.exists('[data-test-id=\'w-overview__alert\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'w-overview__alert\'] .alertstripe__tekst').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
+    expect(wrapper.find('[data-test-id=\'w-overview__alert\'] .alertstripe__tekst').hostNodes().render().text()).toEqual('message:validation-noAktoerId')
   })
 
   it('Handling: Expandable', () => {

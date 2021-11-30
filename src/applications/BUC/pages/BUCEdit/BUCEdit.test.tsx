@@ -91,7 +91,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Handling: SEDSearch status start triggers the filter functions', () => {
-    expect(wrapper.find(SEDPanel).length).toEqual(buc.seds!.filter(sedFilter).length)
+    expect(wrapper.find(SEDPanel).length).toEqual(_.filter(buc.seds, sedFilter).length)
 
     const statusSelect = wrapper.find('[data-test-id=\'a-buc-c-sedsearch__status-select-id\'] input')
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
@@ -100,7 +100,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Handling: SEDSearch query search triggers the filter functions', () => {
-    expect(wrapper.find(SEDPanel).length).toEqual(buc.seds!.filter(sedFilter).length)
+    expect(wrapper.find(SEDPanel).length).toEqual(_.filter(buc.seds, sedFilter).length)
     wrapper.find('[data-test-id=\'a-buc-c-sedsearch__query-input-id\']').hostNodes().simulate('change', { target: { value: 'XXX' } })
     expect(wrapper.find(SEDPanel).length).toEqual(0)
   })

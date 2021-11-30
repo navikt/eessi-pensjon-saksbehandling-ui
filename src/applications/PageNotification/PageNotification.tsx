@@ -3,18 +3,13 @@ import { pageNotificationValidate, PageNotificationValidationProps } from 'appli
 import Input from 'components/Forms/Input'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
-import {
-  HighContrastHovedknapp,
-  HighContrastPanel,
-  HighContrastRadioPanelGroup,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
-import React, { useState } from 'react'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { Loader, Button, Panel, RadioGroup, Radio } from '@navikt/ds-react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 export interface PageNotificationSelector {
-  highContrast: boolean
   message: string | null | undefined
   byline: string | null | undefined
   show: boolean | undefined
@@ -23,7 +18,6 @@ export interface PageNotificationSelector {
 }
 
 const mapState = (state: State): PageNotificationSelector => ({
-  highContrast: state.ui.highContrast,
   message: state.pagenotification.message,
   show: state.pagenotification.show,
   byline: state.pagenotification.byline,
@@ -67,27 +61,26 @@ const PageNotification = () => {
   }
 
   return (
-    <HighContrastPanel>
-      <HighContrastRadioPanelGroup
-        checked={'' + _show}
-        feil={validation['w-pagenotification-show']?.feilmelding}
+    <Panel>
+      <RadioGroup
+        defaultValue={'' + _show}
+        error={validation['w-pagenotification-show']?.feilmelding}
         data-test-id='w-pagenotification-show'
         id='w-pagenotification-show'
         data-no-border
         legend={t('label:show-message') + ' *'}
         name='w-pagenotification-show'
-        radios={[
-          { label: t('ui:yes'), value: 'true' },
-          { label: t('ui:no'), value: 'false' }
-        ]}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setShow(e.target.value === 'true')}
-      />
+        onChange={(e) => setShow(e === 'true')}
+      >
+        <Radio value='true'>{t('ui:yes')}</Radio>
+        <Radio value='false'>{t('ui:no')}</Radio>
+      </RadioGroup>
       <VerticalSeparatorDiv />
       <Input
         id='message'
         namespace='w-pagenotification'
         onChanged={setMessage}
-        feil={validation['w-pagenotification-message']?.feilmelding}
+        error={validation['w-pagenotification-message']?.feilmelding}
         label={t('ui:message')}
         value={_message ?? ''}
       />
@@ -96,19 +89,20 @@ const PageNotification = () => {
         id='byline'
         namespace='w-pagenotification'
         onChanged={setByline}
-        feil={validation['w-pagenotification-byline']?.feilmelding}
+        error={validation['w-pagenotification-byline']?.feilmelding}
         label={t('ui:byline')}
         value={_byline ?? ''}
       />
       <VerticalSeparatorDiv />
-      <HighContrastHovedknapp
-        spinner={sendingPageNotification}
+      <Button
+        variant='primary'
         disabled={sendingPageNotification}
         onClick={onSave}
       >
+        {sendingPageNotification && <Loader />}
         {sendingPageNotification ? t('ui:sending') : t('ui:update')}
-      </HighContrastHovedknapp>
-    </HighContrastPanel>
+      </Button>
+    </Panel>
 
   )
 }

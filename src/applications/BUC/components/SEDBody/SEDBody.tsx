@@ -8,7 +8,7 @@ import { sedAttachmentSorter } from 'applications/BUC/components/BUCUtils/BUCUti
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import { HighContrastHovedknapp, HighContrastKnapp, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import {
   Buc,
   SavingAttachmentsJob,
@@ -23,7 +23,7 @@ import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Heading, Loader, Button } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -41,7 +41,6 @@ export interface SEDBodyProps {
   aktoerId: string
   buc: Buc
   canHaveAttachments: boolean
-  highContrast: boolean
   initialAttachmentsSent?: boolean
   initialSeeAttachmentPanel?: boolean
   initialSendingAttachments?: boolean
@@ -63,7 +62,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   buc,
   canHaveAttachments,
   initialAttachmentsSent = false,
-  highContrast,
   initialSeeAttachmentPanel = false,
   initialSendingAttachments = false,
   onAttachmentsSubmit, sed
@@ -184,15 +182,14 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   return (
     <SEDBodyDiv>
       <VerticalSeparatorDiv />
-      <Undertittel>
+      <Heading size='small'>
         {t('ui:attachments')}
-      </Undertittel>
+      </Heading>
       <VerticalSeparatorDiv size='2' />
       {!_.isEmpty(_items) && (
         <JoarkBrowser
           data-test-id='a-buc-c-sedbody__attachments-id'
           existingItems={_items}
-          highContrast={highContrast}
           mode='view'
           onRowViewDelete={onRowViewDelete}
           tableId={'viewsed-' + sed.id}
@@ -201,14 +198,16 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       <>
         <VerticalSeparatorDiv />
         {!_attachmentsSent && _.find(_items, (item) => item.type === 'joark') !== undefined && (
-          <HighContrastHovedknapp
+          <Button
+            variant='primary'
             data-test-id='a-buc-c-sedbody__upload-button-id'
             disabled={_sendingAttachments}
-            spinner={_sendingAttachments}
+
             onClick={onAttachmentsSubmitted}
           >
+            {_sendingAttachments && <Loader />}
             {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
-          </HighContrastHovedknapp>
+          </Button>
         )}
       </>
       <VerticalSeparatorDiv />
@@ -235,19 +234,19 @@ const SEDBody: React.FC<SEDBodyProps> = ({
             )
           : (
             <>
-              <HighContrastKnapp
+              <Button
+                variant='secondary'
                 data-test-id='a-buc-c-sedbody__show-table-button-id'
                 onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
               >
                 {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-              </HighContrastKnapp>
+              </Button>
               <VerticalSeparatorDiv />
             </>
             )
       )}
       <SEDAttachmentModal
         open={_attachmentsTableVisible}
-        highContrast={highContrast}
         onModalClose={onAttachmentsPanelClose}
         onFinishedSelection={onJoarkAttachmentsChanged}
         sedAttachments={_items}

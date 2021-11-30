@@ -1,22 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { ytelsestypeOptions } from '../P5000Edit'
+import { BodyLong, Panel } from '@navikt/ds-react'
+import { unsyncFromP5000Storage } from 'actions/p5000'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
-import { Etikett } from 'components/StyledComponents'
-import { LocalStorageEntry, LocalStorageValue, O } from 'declarations/app'
+import { LocalStorageEntry, LocalStorageValue, Option } from 'declarations/app'
 import { Buc } from 'declarations/buc'
-import _ from 'lodash'
-import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
-import {
-  FlexBaseDiv,
-  HorizontalSeparatorDiv,
-  PileDiv,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
-import { unsyncFromP5000Storage } from 'actions/p5000'
+import _ from 'lodash'
+import { FlexBaseDiv, HorizontalSeparatorDiv, PileDiv } from 'nav-hoykontrast'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { ytelsestypeOptions } from '../P5000Edit'
 
 interface SEDLoadSaveProps {
   buc: Buc
@@ -50,53 +44,49 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
         .filter(sed => sed.id === sedId)
         .map((sed: LocalStorageValue<P5000SED>) => (
           <FlexBaseDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
-            <Etikett style={{ padding: '0.5rem', display: 'flex' }}>
+            <Panel border>
               <FlexBaseDiv style={{ alignItems: 'center' }} key={sed.id}>
                 <PileDiv>
-                  <Normaltekst>
+                  <BodyLong>
                     {t('buc:p5000-saved-entries')}
-                  </Normaltekst>
-                  <VerticalSeparatorDiv size='0.3' />
+                  </BodyLong>
                   <FlexBaseDiv>
-                    <UndertekstBold>
+                    <BodyLong size='small'>
                       {t('buc:p5000-4-1-title') + ': '}
-                    </UndertekstBold>
+                    </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
-                    <Normaltekst>
-                      {_.find(ytelsestypeOptions, (o: O) => (
+                    <BodyLong>
+                      {_.find(ytelsestypeOptions, (o: Option) => (
                         o?.value === (sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
                       ))?.label ?? '-'}
-                    </Normaltekst>
+                    </BodyLong>
                   </FlexBaseDiv>
-                  <VerticalSeparatorDiv size='0.3' />
                   <FlexBaseDiv>
-                    <UndertekstBold>
+                    <BodyLong size='small'>
                       {t('buc:p5000-4-2-title') + ': '}
-                    </UndertekstBold>
+                    </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
-                    <Normaltekst>
+                    <BodyLong>
                       {(sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
-                    </Normaltekst>
+                    </BodyLong>
                   </FlexBaseDiv>
-                  <VerticalSeparatorDiv size='0.3' />
                   <FlexBaseDiv>
-                    <UndertekstBold>
+                    <BodyLong size='small'>
                       {t('ui:date') + ': '}
-                    </UndertekstBold>
+                    </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
-                    <Normaltekst>
+                    <BodyLong>
                       {new Date(sed.date).toLocaleDateString()}
-                    </Normaltekst>
+                    </BodyLong>
                   </FlexBaseDiv>
-                  <VerticalSeparatorDiv size='0.3' />
                   <FlexBaseDiv>
-                    <UndertekstBold>
+                    <BodyLong size='small'>
                       {t('ui:rows') + ': '}
-                    </UndertekstBold>
+                    </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
-                    <Normaltekst>
+                    <BodyLong>
                       {sed.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
-                    </Normaltekst>
+                    </BodyLong>
                   </FlexBaseDiv>
                 </PileDiv>
                 <HorizontalSeparatorDiv />
@@ -110,7 +100,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                   />
                 </FlexBaseDiv>
               </FlexBaseDiv>
-            </Etikett>
+            </Panel>
           </FlexBaseDiv>
         )
         )}

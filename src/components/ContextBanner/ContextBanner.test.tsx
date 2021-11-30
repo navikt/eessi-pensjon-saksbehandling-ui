@@ -13,7 +13,8 @@ const mockPesysContext = VEDTAKSKONTEKST
 const mockSakType = 'Generell'
 
 const defaultSelector: ContextBannerSelector = {
-  person: mockPerson.person,
+  gettingSakType: false,
+  person: mockPerson,
   pesysContext: mockPesysContext,
   sakType: mockSakType
 }
@@ -21,7 +22,6 @@ const defaultSelector: ContextBannerSelector = {
 describe('components/ContextBanner/ContextBanner', () => {
   let wrapper: ReactWrapper
   const initialMockProps: ContextBannerProps = {
-    highContrast: false,
     mode: 'buclist'
   }
 

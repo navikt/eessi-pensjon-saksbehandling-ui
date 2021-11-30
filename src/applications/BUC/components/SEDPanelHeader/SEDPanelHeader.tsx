@@ -1,4 +1,4 @@
-import { Element } from 'nav-frontend-typografi'
+import { Label } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -13,7 +13,6 @@ export const SedDiv = styled.div`
 export const SEDPanelHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 3px solid ${({ theme }) => theme.type === 'themeHighContrast' ? theme.white : theme.navBla};
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   padding-left: 1rem;
@@ -29,16 +28,16 @@ const SEDPanelHeader: React.FC = (): JSX.Element => {
   return (
     <SEDPanelHeaderDiv>
       <SedDiv>
-        <Element>{t('buc:form-sed')}</Element>
+        <Label>{t('buc:form-sed')}</Label>
       </SedDiv>
       <SenderReceiverDiv>
-        <Element>{t('buc:form-sender')}</Element>
+        <Label>{t('buc:form-sender')}</Label>
       </SenderReceiverDiv>
       <SenderReceiverDiv>
-        <Element>{t('buc:form-receiver')}</Element>
+        <Label>{t('buc:form-receiver')}</Label>
       </SenderReceiverDiv>
       <ActionsDiv>
-        <Element>{t('buc:form-actions')}</Element>
+        <Label>{t('buc:form-actions')}</Label>
       </ActionsDiv>
     </SEDPanelHeaderDiv>
   )

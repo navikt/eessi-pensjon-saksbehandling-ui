@@ -1,4 +1,4 @@
-import { O } from 'declarations/app.d'
+import { Option } from 'declarations/app.d'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark.d'
 import { Person, PersonAvdod } from 'declarations/person.d'
 
@@ -255,7 +255,7 @@ export type p5000FromRinaMap = any
 
 export type P5000FromRinaMap = {[k: string]: p5000FromRinaMap}
 
-export type Tag = O
+export type Tag = Option
 
 export interface ValidBuc {
   aktoerId?: string | null

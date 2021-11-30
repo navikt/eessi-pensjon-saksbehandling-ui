@@ -15,7 +15,6 @@ describe('components/Footer', () => {
   let wrapper: ReactWrapper
   const initialMockProps: FooterProps = {
     footerOpen: true,
-    highContrast: false,
     params: {}
   }
 

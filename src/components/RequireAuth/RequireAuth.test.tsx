@@ -1,10 +1,9 @@
 import { getUserInfo, login, setStatusParam } from 'actions/app'
 import * as routes from 'constants/routes'
 import { mount, ReactWrapper } from 'enzyme'
-import { createBrowserHistory, Location } from 'history'
-import { RouteProps, Router } from 'react-router-dom'
+import { RouteProps, Routes } from 'react-router-dom'
 import { stageSelector } from 'setupTests'
-import { AuthenticatedRoute, AuthenticatedRouteSelector } from './AuthenticatedRoute'
+import RequireAuth, { RequireAuthSelector } from './RequireAuth'
 
 jest.mock('actions/app', () => ({
   getUserInfo: jest.fn(),
@@ -12,18 +11,16 @@ jest.mock('actions/app', () => ({
   setStatusParam: jest.fn()
 }))
 
-const defaultSelector: AuthenticatedRouteSelector = {
+const defaultSelector: RequireAuthSelector = {
   userRole: undefined,
-  loggedIn: undefined
+  loggedIn: undefined,
+  gettingUserInfo: false,
+  isLoggingIn: false
 }
 
-describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
+describe('components/RequireAuth/RequireAuth', () => {
   let wrapper: ReactWrapper
-  const initialMockProps: RouteProps = {
-    location: {
-      search: '?a=b&sakId=123&aktoerId=456'
-    } as Location
-  }
+  const initialMockProps: RouteProps = {}
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
@@ -35,9 +32,9 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
 
   it('UseEffect: read status params', () => {
     wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
+      <Routes>
+        <RequireAuth {...initialMockProps} />
+      </Routes>)
     expect(setStatusParam).toBeCalledWith('a', 'b')
     expect(setStatusParam).toBeCalledWith('sakId', '123')
     expect(setStatusParam).toBeCalledWith('aktoerId', '456')
@@ -45,15 +42,15 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
 
   it('UseEffect: ask for userInfo', () => {
     wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
+      <Routes>
+        <RequireAuth {...initialMockProps} />
+      </Routes>)
     expect(getUserInfo).toBeCalled()
   })
 
   it('UseEffect: redirect for login', () => {
     stageSelector(defaultSelector, { loggedIn: false })
-    wrapper = mount(<AuthenticatedRoute {...initialMockProps} />)
+    wrapper = mount(<RequireAuth {...initialMockProps} />)
     expect(login).toBeCalled();
     (login as jest.Mock).mockRestore()
   })
@@ -61,9 +58,9 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
   it('UseEffect: no need for login redirect', () => {
     stageSelector(defaultSelector, { loggedIn: true })
     wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
+      <Routes>
+        <RequireAuth {...initialMockProps} />
+      </Routes>)
     expect(login).not.toBeCalled()
   })
 
@@ -73,9 +70,9 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
       userRole: 'UNKNOWN'
     })
     wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
+      <Routes>
+        <RequireAuth {...initialMockProps} />
+      </Routes>)
     expect(wrapper.exists('Redirect')).toBeTruthy()
     expect((wrapper.find('Redirect').props().to as any)!.pathname).toEqual(routes.FORBIDDEN)
   })
@@ -86,9 +83,9 @@ describe('components/AuthenticatedRoute/AuthenticatedRoute', () => {
       userRole: 'SAKSBEHANDLER'
     })
     wrapper = mount(
-      <Router history={createBrowserHistory()}>
-        <AuthenticatedRoute {...initialMockProps} />
-      </Router>)
+      <Routes>
+        <RequireAuth {...initialMockProps} />
+      </Routes>)
     expect(wrapper.exists('Route')).toBeTruthy()
   })
 })

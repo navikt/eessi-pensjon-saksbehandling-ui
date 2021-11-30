@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { Sed } from 'declarations/buc'
-import { AlertStatus } from 'declarations/components'
+import { AlertVariant } from 'declarations/components'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
@@ -8,7 +8,7 @@ import { Action } from 'redux'
 export interface AlertState {
   clientErrorMessage: string | undefined
   clientErrorParam: any | undefined
-  clientErrorStatus: AlertStatus | undefined
+  clientErrorStatus: AlertVariant | undefined
   error: any |undefined
   serverErrorMessage: string | undefined
   uuid: string | undefined
@@ -60,82 +60,82 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
-    clientErrorStatus = 'ERROR'
+    clientErrorStatus = 'error'
 
     switch (action.type) {
       case types.BUC_CREATE_BUC_FAILURE:
 
-        clientErrorMessage = 'buc:alert-createBucFailure'
+        clientErrorMessage = 'message:alert-createBucFailure'
         break
 
       case types.BUC_CREATE_SED_FAILURE:
 
-        clientErrorMessage = 'buc:alert-createSedFailure'
+        clientErrorMessage = 'message:alert-createSedFailure'
         break
 
       case types.BUC_GET_BUC_OPTIONS_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noBucOptions'
+        clientErrorMessage = 'message:alert-noBucOptions'
         break
 
       case types.BUC_GET_BUCSLIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noBucs'
+        clientErrorMessage = 'message:alert-noBucs'
         break
 
       case types.BUC_GET_BUCSINFO_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noBucsInfo'
+        clientErrorMessage = 'message:alert-noBucsInfo'
         break
 
       case types.BUC_GET_BUCSINFO_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noBucsListInfo'
+        clientErrorMessage = 'message:alert-noBucsListInfo'
         break
 
       case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noCountryList'
+        clientErrorMessage = 'message:alert-noCountryList'
         break
 
       case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noInstitutionList'
+        clientErrorMessage = 'message:alert-noInstitutionList'
         break
 
       case types.BUC_GET_SED_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noSedList'
+        clientErrorMessage = 'message:alert-noSedList'
         break
 
       case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noSubjectAreaList'
+        clientErrorMessage = 'message:alert-noSubjectAreaList'
         break
 
       case types.BUC_GET_TAG_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noTagList'
+        clientErrorMessage = 'message:alert-noTagList'
         break
 
       case types.BUC_SAVE_BUCSINFO_FAILURE:
 
-        clientErrorMessage = 'buc:alert-saveBucsInfoFailure'
+        clientErrorMessage = 'message:alert-saveBucsInfoFailure'
         break
 
       case types.BUC_SEND_ATTACHMENT_FAILURE:
 
-        clientErrorMessage = 'buc:alert-createAttachmentFailure'
+        clientErrorMessage = 'message:alert-createAttachmentFailure'
         break
 
       case types.JOARK_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkListFailure'
+        clientErrorMessage = 'message:alert-joarkListFailure'
         break
 
       case types.JOARK_PREVIEW_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkPreviewFailure'
+        clientErrorMessage = 'message:alert-joarkPreviewFailure'
         break
 
       default:
@@ -157,7 +157,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   switch (action.type) {
     case types.BUC_CREATE_BUC_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdBuc'
+      clientErrorMessage = 'message:alert-createdBuc'
       clientErrorParam = {
         type: (action as ActionWithPayload).payload.type
       }
@@ -165,7 +165,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
 
     case types.PAGE_NOTIFICATION_SET_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-updatedPageNotification'
+      clientErrorMessage = 'message:alert-updatedPageNotification'
       clientErrorParam = {
         type: (action as ActionWithPayload).payload.type
       }
@@ -174,7 +174,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const message = ((action as ActionWithPayload).payload as Sed).message
-      clientErrorMessage = 'buc:alert-createdSed'
+      clientErrorMessage = 'message:alert-createdSed'
       clientErrorParam = {
         sed: (((action as ActionWithPayload).payload as Sed).type),
         message: message ? ' - ' + message : ''
@@ -200,7 +200,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
 
   return {
     ...state,
-    clientErrorStatus: 'OK',
+    clientErrorStatus: 'info',
     clientErrorMessage: clientErrorMessage,
     clientErrorParam: clientErrorParam,
     uuid: undefined,

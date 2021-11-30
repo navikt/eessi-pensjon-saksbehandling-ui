@@ -1,10 +1,11 @@
-import { BUCHeaderDiv, IconsDiv } from 'applications/BUC/components/BUCHeader/BUCHeader'
+import { IconsDiv } from 'applications/BUC/components/BUCHeader/BUCHeader'
 import LoadingImage from 'components/Loading/LoadingImage'
 import LoadingText from 'components/Loading/LoadingText'
-import { HighContrastPanel, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import styled from 'styled-components'
+import { Panel } from '@navikt/ds-react'
 
-const BucPanel = styled(HighContrastPanel)`
+const BucPanel = styled(Panel)`
   margin-bottom: 1rem;
 `
 const TitleText = styled(LoadingText)`
@@ -38,7 +39,7 @@ const FlagLoading = styled(LoadingImage)`
 const BUCLoading = () => {
   return (
     <BucPanel border>
-      <BUCHeaderDiv>
+      <div>
         <TitleText width={Math.round(Math.random() * 10 + 60)} />
         <FlexDiv>
           <LabelsDiv>
@@ -53,7 +54,7 @@ const BUCLoading = () => {
               .map((i, j) => <FlagLoading key={j} />)}
           </IconsDiv>
         </FlexDiv>
-      </BUCHeaderDiv>
+      </div>
     </BucPanel>
   )
 }

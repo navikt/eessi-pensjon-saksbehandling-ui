@@ -22,7 +22,6 @@ jest.mock('components/Modal/Modal', () => (props: any) => (
 describe('applications/BUC/components/SEDP6000/SEDP6000', () => {
   const initialMockProps: SEDP6000Props = {
     feil: undefined,
-    highContrast: false,
     locale: 'nb',
     p6000s: mockP6000s,
     onChanged: jest.fn()

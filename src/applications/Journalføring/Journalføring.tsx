@@ -4,19 +4,19 @@ import { JournalføringValidate, JournalføringValidationProps } from 'applicati
 import { typeOptions } from 'applications/P5000/P5000Edit'
 import Select from 'components/Select/Select'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { O } from 'declarations/app'
+import { Option } from 'declarations/app'
 import { Sed } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
-import { HighContrastHovedknapp, HighContrastPanel, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { VerticalSeparatorDiv } from 'nav-hoykontrast'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button, Panel, Loader } from '@navikt/ds-react'
 
 export interface JournalføringSelector {
   aktoerId: string | null | undefined
-  highContrast: boolean
   sakId: string | null | undefined
   seds: Array<Sed> | null | undefined
   sedSend: any | null | undefined
@@ -26,7 +26,6 @@ export interface JournalføringSelector {
 
 const mapState = (state: State): JournalføringSelector => ({
   aktoerId: state.app.params.aktoerId,
-  highContrast: state.ui.highContrast,
   sakId: state.app.params.sakId,
   seds: state.journalføring.seds,
   sedSend: state.journalføring.sedSend,
@@ -38,7 +37,7 @@ const Journalføring = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const {
-    aktoerId, highContrast, sakId, seds, gettingJournalføringSed,
+    aktoerId, sakId, seds, gettingJournalføringSed,
     sendingJournalføringSend
   }: JournalføringSelector = useSelector<State, JournalføringSelector>(mapState)
 
@@ -69,30 +68,30 @@ const Journalføring = () => {
   }, [])
 
   if (gettingJournalføringSed) {
-    return (<WaitingPanel size='S' oneLine message={t('buc:loading-gettingSEDs')} />)
+    return (<WaitingPanel size='xsmall' oneLine message={t('message:loading-gettingSEDs')} />)
   }
 
   if (gettingJournalføringSed === null) {
     return (
-      <HighContrastHovedknapp
+      <Button
+        variant='primary'
         onClick={() => dispatch(getSed(sakId, aktoerId))}
       >
         {t('Error. retry?')}
-      </HighContrastHovedknapp>
+      </Button>
     )
   }
 
   return (
-    <HighContrastPanel>
+    <Panel>
       <Select
         key='w-journalføring__sed-select-key'
         id='w-journalføring__sed-select-id'
-        feil={_validation['w-journalføring__sed-select-id']?.feilmelding}
-        highContrast={highContrast}
+        error={_validation['w-journalføring__sed-select-id']?.feilmelding}
         options={sedOptions}
         label={t('jou:sed')}
         menuPortalTarget={document.body}
-        onChange={(e: unknown) => setSed((e as O).value)}
+        onChange={(e: unknown) => setSed((e as Option).value)}
         defaultValue={_.find(sedOptions, o => o.value === _sed)}
         value={_.find(typeOptions, o => o.value === _sed)}
       />
@@ -105,14 +104,15 @@ const Journalføring = () => {
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => _setSedComment(e.target.value)}
       />
       <VerticalSeparatorDiv />
-      <HighContrastHovedknapp
-        spinner={sendingJournalføringSend}
+      <Button
+        variant='primary'
         disabled={sendingJournalføringSend}
         onClick={handleJournalføringClick}
       >
+        {sendingJournalføringSend && <Loader />}
         {sendingJournalføringSend ? t('jou:journalføring') : t('jou:journalføre')}
-      </HighContrastHovedknapp>
-    </HighContrastPanel>
+      </Button>
+    </Panel>
 
   )
 }

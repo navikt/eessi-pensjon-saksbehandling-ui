@@ -1,15 +1,14 @@
 import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
-import ExternalLink from 'assets/icons/line-version-logout'
-import { HighContrastLink, HorizontalSeparatorDiv, theme, themeHighContrast, themeKeys } from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, PesysContext } from 'declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
 import { PersonPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import { linkLogger, standardLogger } from 'metrics/loggers'
-import { HoyreChevron } from 'nav-frontend-chevron'
-import { Element } from 'nav-frontend-typografi'
+import { NextFilled, ExternalLink } from '@navikt/ds-icons'
+import { Link, Detail } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -28,18 +27,15 @@ const Content = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.type === 'themeHighContrast' ? 'black' : 'white'};
+  background-color: var(--navds-semantic-color-component-background-alternate);
+  border-bottom: 1px solid var(--navds-color-border);
 `
 export const Context = styled.div`
  padding: 0.5rem 2rem;
  display: flex;
  align-items: center;
- * {
-   font-size: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
-   line-height: ${({ theme }) => theme.type === 'themeHighContrast' ? '1.5rem' : 'inherit'};
- }
 `
-export const Tag = styled(Element)`
+export const Tag = styled(Detail)`
  padding: 0rem 0.5rem;
  margin-left: 0.25rem;
  margin-right: 0.25rem;
@@ -48,7 +44,6 @@ export const Tag = styled(Element)`
 `
 
 export interface ContextBannerProps {
-  highContrast: boolean
   mode: BUCMode
 }
 
@@ -67,13 +62,10 @@ const mapState = (state: State): ContextBannerSelector => ({
 })
 
 const ContextBanner: React.FC<ContextBannerProps> = ({
-  highContrast, mode
+  mode
 }: ContextBannerProps): JSX.Element => {
   const { t } = useTranslation()
-  const { gettingSakType, person, pesysContext, sakType }: ContextBannerSelector =
-    useSelector<State, ContextBannerSelector>(mapState)
-  const _theme = highContrast ? themeHighContrast : theme
-  const linkColor = _theme[themeKeys.MAIN_INTERACTIVE_COLOR]
+  const { gettingSakType, person, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
   const [_mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
@@ -90,11 +82,10 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
     <Content>
       <Context>
         <BUCWebSocket
-          highContrast={highContrast}
           fnr={getFnr(person)}
           avdodFnr=''
         />
-        <HoyreChevron />
+        <NextFilled />
         {pesysContext && (
           <Tag>
             <span>{t('ui:youComeFrom')}</span>
@@ -110,7 +101,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             </>
           )}
           {gettingSakType && (
-            <WaitingPanel size='S' oneLine />
+            <WaitingPanel size='xsmall' oneLine />
           )}
           {sakType && Object.values(SakTypeMap).indexOf(sakType) >= 0 && (
             <strong>{sakType}</strong>
@@ -119,7 +110,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 
       </Context>
       <DivWithLinks>
-        <HighContrastLink
+        <Link
           target='_blank'
           data-amplitude='links.rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
@@ -127,12 +118,12 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
         >
           {t('ui:lawsource')}
           <HorizontalSeparatorDiv size='0.5' />
-          <ExternalLink color={linkColor} />
-        </HighContrastLink>
+          <ExternalLink />
+        </Link>
         <SeparatorSpan>
           •
         </SeparatorSpan>
-        <HighContrastLink
+        <Link
           target='_blank'
           data-amplitude='links.hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
@@ -140,8 +131,8 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
         >
           {t('ui:help')}
           <HorizontalSeparatorDiv size='0.5' />
-          <ExternalLink color={linkColor} />
-        </HighContrastLink>
+          <ExternalLink />
+        </Link>
       </DivWithLinks>
     </Content>
   )

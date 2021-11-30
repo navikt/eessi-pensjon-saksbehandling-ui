@@ -1,8 +1,8 @@
-import { AlertStatus } from 'declarations/components.d'
+import { AlertVariant } from 'declarations/components.d'
 import PT from 'prop-types'
 
 export const AlertErrorPropType = PT.shape({
-  status: PT.oneOf<AlertStatus>(['OK', 'ERROR', 'WARNING']).isRequired,
+  status: PT.oneOf<AlertVariant>(['info', 'error', 'warning', 'success']).isRequired,
   message: PT.string.isRequired,
   error: PT.string.isRequired,
   uuid: PT.string.isRequired

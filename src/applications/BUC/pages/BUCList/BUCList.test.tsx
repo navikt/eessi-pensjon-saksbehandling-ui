@@ -7,6 +7,7 @@ import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import personAvdod from 'mocks/app/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
+import mockBucsList from 'mocks/buc/bucsList'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 import BUCList, {
@@ -39,10 +40,12 @@ const mockPersonAvdods = personAvdod(1)
 
 const defaultSelector: BUCListSelector = {
   aktoerId: '123',
+  sakId: '456',
+  sakType: undefined,
   bucs: _.keyBy(mockBucs(), 'caseId'),
+  bucsList: mockBucsList('123','456'),
   bucsInfo: mockBucsInfo,
   bucsInfoList: [],
-  highContrast: false,
   institutionList: {
     NO: [{
       name: 'mockInstitution1',
@@ -51,9 +54,9 @@ const defaultSelector: BUCListSelector = {
       country: 'NO'
     }]
   },
-  loading: {
-    gettingBucsList: false
-  },
+  gettingBucsList: false,
+  gettingBucsInfo: false,
+  gettingBucs: false,
   locale: 'nb',
   newlyCreatedBuc: undefined,
   personAvdods: mockPersonAvdods,

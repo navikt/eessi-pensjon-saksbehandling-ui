@@ -12,7 +12,6 @@ import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
-import { Feiloppsummering } from 'nav-frontend-skjema'
 import { stageSelector } from 'setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
 import React from 'react'
@@ -165,10 +164,10 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
   })
 
   it('Handling: invalid onForwardButtonClick(): nothing selected', () => {
-    expect(wrapper.exists(Feiloppsummering)).toBeFalsy()
+    expect(wrapper.exists('div.feiloppsummering')).toBeFalsy()
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
     expect(wrapper.exists('div.feiloppsummering')).toBeTruthy()
-    expect(wrapper.find('div.feiloppsummering').render().text()).toEqual('buc:form-feiloppsummering' + 'buc:validation-chooseBuc')
+    expect(wrapper.find('div.feiloppsummering').render().text()).toEqual('buc:form-feiloppsummering' + 'message:validation-chooseBuc')
   })
 
   it('Handling: invalid onForwardButtonClick(): set warning for P_BUC_02 and no avdod', () => {
@@ -184,7 +183,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
     expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__warning-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__warning-id\']').hostNodes().render().text()).toEqual(
-      'advarsel' + 'buc:alert-noDeceased'
+      'advarsel' + 'message:alert-noDeceased'
     )
   })
 

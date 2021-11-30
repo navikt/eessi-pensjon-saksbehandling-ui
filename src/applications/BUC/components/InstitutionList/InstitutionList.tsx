@@ -6,11 +6,12 @@ import { State } from 'declarations/reducers'
 import Flag, { FlagType } from 'flagg-ikoner'
 import CountryData, { Country } from 'land-verktoy'
 import _ from 'lodash'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyLong } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import classNames from 'classnames'
 
 const InstitutionDiv = styled.div`
   display: flex;
@@ -27,8 +28,11 @@ const InstitutionListDiv = styled.div`
 `
 export type InstitutionListType = 'joined' | 'separated'
 
-const InstitutionText = styled(Normaltekst)`
+const InstitutionText = styled(BodyLong)`
   margin-left: 0.5rem;
+  &.oneLine {
+    white-space: nowrap;
+  }
 `
 
 export interface InstitutionListProps {
@@ -38,10 +42,11 @@ export interface InstitutionListProps {
   institutions: Institutions
   locale: AllowedLocaleString
   type?: InstitutionListType
+  oneLine?: boolean
 }
 
 const InstitutionList: React.FC<InstitutionListProps> = ({
-  className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined'
+  className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined', oneLine = false
 }: InstitutionListProps): JSX.Element => {
   const institutionList: InstitutionListMap<string> = {}
   const institutionNames: InstitutionNames = useSelector<State, InstitutionNames>(state => state.buc.institutionNames)
@@ -77,9 +82,9 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
       <InstitutionListDiv
         className={className}
       >
-        <Normaltekst>
+        <BodyLong>
           {t('buc:form-noInstitutionYet')}
-        </Normaltekst>
+        </BodyLong>
       </InstitutionListDiv>
       )
     : (
@@ -129,7 +134,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                         wave={false}
                       />
                     )}
-                    <InstitutionText>
+                    <InstitutionText className={classNames({oneLine: oneLine})}>
                       {getLabel(institution)}
                     </InstitutionText>
                   </InstitutionDiv>

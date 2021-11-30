@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme'
-import { stageSelector } from 'setupTests'
-import { Error as PageError, ErrorPageDiv, ErrorPageProps, ErrorPageSelector, ErrorPanel } from './Error'
+import { Error as PageError, ErrorPageDiv, ErrorPageProps } from './Error'
+import { Accordion } from '@navikt/ds-react'
 
 jest.mock('components/TopContainer/TopContainer', () => {
   return ({ children }: { children: JSX.Element }) => {
@@ -12,10 +12,6 @@ jest.mock('components/TopContainer/TopContainer', () => {
   }
 })
 
-const defaultSelector: ErrorPageSelector = {
-  highContrast: false
-}
-
 describe('pages/Error', () => {
   let wrapper: ReactWrapper
   const initialMockProps: ErrorPageProps = {
@@ -24,10 +20,6 @@ describe('pages/Error', () => {
     },
     type: 'mockType'
   }
-
-  beforeEach(() => {
-    stageSelector(defaultSelector, {})
-  })
 
   afterEach(() => {
     wrapper.unmount()
@@ -73,7 +65,7 @@ describe('pages/Error', () => {
     expect(wrapper.exists('[data-test-id=\'p-error__veileder-id\']')).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'p-error__title-id\']').hostNodes().render().text()).toEqual('ui:error-internalError-title')
     expect(wrapper.find('[data-test-id=\'p-error__description-id\']').hostNodes().render().text()).toEqual('ui:error-internalError-description')
-    expect(wrapper.exists(ErrorPanel)).toBeTruthy()
+    expect(wrapper.exists(Accordion)).toBeTruthy()
     expect(wrapper.find('[data-test-id=\'p-error__footer-id\']').hostNodes().render().text()).toEqual('ui:error-internalError-footer')
   })
 

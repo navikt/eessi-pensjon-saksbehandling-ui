@@ -1,10 +1,7 @@
 import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
-import HelpIcon from 'assets/icons/HelpIcon'
-import Alert from 'components/Alert/Alert'
 import Modal from 'components/Modal/Modal'
-import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
-import { LocalStorageValue, O } from 'declarations/app.d'
+import { LocalStorageValue, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
@@ -14,10 +11,7 @@ import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
-import Alertstripe from 'nav-frontend-alertstriper'
-import EtikettBase from 'nav-frontend-etiketter'
-import { Select as NavSelect } from 'nav-frontend-skjema'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { Alert, Button, Tag, HelpText, Link, BodyLong, Loader, TextField, Radio, Select as NavSelect, RadioGroup } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
@@ -26,20 +20,12 @@ import {
   FlexEndDiv,
   FullWidthDiv,
   HiddenDiv,
-  HighContrastHovedknapp,
-  HighContrastInput,
-  HighContrastKnapp,
-  HighContrastLink,
-  HighContrastRadio,
-  HighContrastRadioGroup,
   HorizontalSeparatorDiv,
   PileCenterDiv,
   PileDiv,
-  themeKeys,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -50,23 +36,13 @@ import dateDiff, { DateDiff } from 'utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
+import Select from 'components/Select/Select'
 
 const moment = extendMoment(Moment)
 
-const CustomSelect = styled(NavSelect)`
-  select {
-    color: ${({ theme }) => theme[themeKeys.MAIN_FONT_COLOR]};
-    background-color: ${({ theme }) => theme[themeKeys.ALTERNATIVE_BACKGROUND_COLOR]};
-  }
-`
-const Radio42 = styled(HighContrastRadio)`
+const Radio42 = styled(Radio)`
   margin-bottom: 0.3rem !important;
   margin-top: 0.3rem;
-`
-const RadioGroup = styled(HighContrastRadioGroup)`
-  legend {
-    margin-bottom: 0px !important;
-  }
 `
 export const AlertstripeDiv = styled.div`
   margin: 0.5rem;
@@ -74,7 +50,6 @@ export const AlertstripeDiv = styled.div`
 `
 
 const mapState = (state: State): any => ({
-  highContrast: state.ui.highContrast,
   sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info
 })
@@ -89,7 +64,7 @@ export interface P5000EditProps {
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
 
-export const ytelsestypeOptions: Array<O> = [
+export const ytelsestypeOptions: Array<Option> = [
   { label: '[00] Annet', value: '00' },
   { label: '[01] Annen delvis', value: '01' },
   { label: '[10] Alderspensjon', value: '10' },
@@ -100,7 +75,7 @@ export const ytelsestypeOptions: Array<O> = [
   { label: '[31] Uførepensjon delvis', value: '31' }
 ]
 
-export const typeOptions: Array<O> = [
+export const typeOptions: Array<Option> = [
   { value: '10', label: '[10] Pliktige avgiftsperioder' },
   { value: '11', label: '[11] Pliktige avgiftsperioder - ansatt' },
   { value: '12', label: '[12] Pliktige avgiftsperioder - selvstendig næringsdrivende' },
@@ -136,7 +111,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { highContrast, sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
+  const { sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
@@ -193,11 +168,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         key='c-table__edit-type-select-key-'
         id='c-table__edit-type-select-id'
         className='P5000Edit-type-select input-focus'
-        highContrast={highContrast}
-        feil={options.feil}
+        error={options.feil}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e: unknown) => options.setValue({ type: (e as O).value })}
+        onChange={(e: unknown) => options.setValue({ type: (e as Option).value })}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
         value={_.find(typeOptions, o => o.value === options.value)}
       />
@@ -206,9 +180,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderType = (item: any, value: any) => {
     return (
-      <Normaltekst>
+      <BodyLong>
         {_.find(typeOptions, t => t.value === value)?.label || t('buc:status-unknown')}
-      </Normaltekst>
+      </BodyLong>
     )
   }
 
@@ -281,11 +255,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <HighContrastInput
+    <TextField
+      size='small'
       id='c-table__edit-startdato-input-id'
       className='c-table__edit-input'
-      label=''
-      feil={options.feil}
+      label='startdato'
+      hideLabel
+      error={options.feil}
       placeholder={t('buc:placeholder-date2')}
       onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
         const otherDate: string | undefined = dateTransform(options.values.sluttdato)
@@ -299,11 +275,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   )
 
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <HighContrastInput
+    <TextField
+      size='small'
       id='c-table__edit-sluttdato-input-id'
       className='c-table__edit-input'
-      label=''
-      feil={options.feil}
+      label='sluttdato'
+      hideLabel
+      error={options.feil}
       placeholder={t('buc:placeholder-date2')}
       onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
         const otherDate: string | undefined = dateTransform(options.values.startdato)
@@ -318,9 +296,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderDager = (item: any) => {
     return (
-      <Normaltekst>
+      <BodyLong>
         {item.dag}
-      </Normaltekst>
+      </BodyLong>
     )
   }
 
@@ -363,11 +341,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderDagerEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
-      <HighContrastInput
+      <TextField
         aria-invalid={!!options.feil}
         aria-label='dag'
         data-test-id='c-table__edit-dag-input-id'
-        feil={options.feil}
+        error={options.feil}
         id='c-table__edit-dag-input-id'
         label=''
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -384,11 +362,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderManedEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
-      <HighContrastInput
+      <TextField
         aria-invalid={!!options.feil}
         aria-label='mnd'
         data-test-id='c-table__edit-mnd-input-id'
-        feil={options.feil}
+        error={options.feil}
         id='c-table__edit-mnd-input-id'
         label=''
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -405,11 +383,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderAarEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
-      <HighContrastInput
+      <TextField
         aria-invalid={!!options.feil}
         aria-label='aar'
         data-test-id='c-table__edit-aar-input-id'
-        feil={options.feil}
+        error={options.feil}
         id='c-table__edit-aar-input-id'
         label=''
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -440,9 +418,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
     }
     return (
-      <Normaltekst>
+      <BodyLong>
         {valueToShow}
-      </Normaltekst>
+      </BodyLong>
     )
   }
 
@@ -453,31 +431,31 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderOrdningEdit = (options: RenderEditableOptions) => (
-    <Normaltekst>
+    <BodyLong>
       {options.value}
-    </Normaltekst>
+    </BodyLong>
   )
 
   const renderStatus = (item: any, value: any) => {
     if (value === 'rina') {
-      return <EtikettBase mini type='info'>RINA</EtikettBase>
+      return <Tag size='small' variant='info'>RINA</Tag>
     }
     if (value === 'new') {
-      return <EtikettBase mini type='suksess'>Ny</EtikettBase>
+      return <Tag size='small' variant='success'>Ny</Tag>
     }
     if (value === 'edited') {
-      return <EtikettBase mini type='fokus'>Endret</EtikettBase>
+      return <Tag size='small' variant='warning'>Endret</Tag>
     }
     return <div />
   }
 
   const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
-      <HighContrastInput
+      <TextField
         id='c-table__edit-beregning-input-id'
         className='c-table__edit-input'
         label=''
-        feil={options.feil}
+        error={options.feil}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
           beregning: e.target.value
         })}
@@ -488,9 +466,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const setYtelseOption = (o: unknown) => {
     _resetValidation('P5000Edit-ytelse-select')
-    _setYtelseOption((o as O)?.value)
+    _setYtelseOption((o as Option)?.value)
     onSave({
-      ytelseOption: (o as O)?.value
+      ytelseOption: (o as Option)?.value
     })
   }
 
@@ -583,7 +561,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderDateCell = (item: P5000ListRow, value: any) => (
-    <Normaltekst>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</Normaltekst>
+    <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
   const resetP5000 = () => {
@@ -601,7 +579,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         }
         item.feil = {
           ...item.feil,
-          startdato: t('buc:validation-endDateBeforeStartDate')
+          startdato: t('message:validation-endDateBeforeStartDate')
         }
         return false
       }
@@ -617,7 +595,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         if (item.type === otherItem.type && range.overlaps(thisRange)) {
           item.feil = {
             ...item.feil,
-            startdato: t('buc:validation-overlapDate', {
+            startdato: t('message:validation-overlapDate', {
               perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
             })
           }
@@ -641,7 +619,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
-        columns[sluttdatoindex].feil = t('buc:validation-endDateBeforeStartDate')
+        columns[sluttdatoindex].feil = t('message:validation-endDateBeforeStartDate')
         return false
       }
       const range = moment.range(startdato, sluttdato)
@@ -651,7 +629,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         const item: P5000ListRow = context.items[i]
         const thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
         if (item.type === typeValue && range.overlaps(thisRange)) {
-          columns[startdatoindex].feil = t('buc:validation-overlapDate', {
+          columns[startdatoindex].feil = t('message:validation-overlapDate', {
             perioder: moment(item.startdato).format('DD.MM.YYYY') + '/' + moment(item.sluttdato).format('DD.MM.YYYY')
           })
           overlapError = true
@@ -695,7 +673,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       <Modal
         open={_showModal}
         appElementId='p5000Edit'
-        highContrast={highContrast}
         onModalClose={modalClose}
         modal={{
           closeButton: false,
@@ -704,50 +681,42 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {_.isNull(sentP5000info) && (
                 <PileCenterDiv>
                   <AlertstripeDiv>
-                    <Alert
-                      status='WARNING' message={(
-                        <Normaltekst>
-                          {t('buc:warning-failedP5000Sending')}
-                        </Normaltekst>
-                  )}
-                    />
+                    <Alert variant='warning'>
+                      {t('message:warning-failedP5000Sending')}
+                    </Alert>
                   </AlertstripeDiv>
                   <VerticalSeparatorDiv />
                   <FlexCenterSpacedDiv>
                     <div />
-                    <HighContrastHovedknapp
+                    <Button
+                      variant='primary'
                       onClick={() => {
                         resetP5000()
                         modalClose()
                       }}
                     >OK
-                    </HighContrastHovedknapp>
+                    </Button>
                     <div />
                   </FlexCenterSpacedDiv>
                 </PileCenterDiv>
               )}
               {!_.isNil(sentP5000info) && (
                 <PileCenterDiv>
-                  <AlertstripeDiv>
-                    <Alert
-                      status='OK' message={(
-                        <Normaltekst>
-                          {t('buc:warning-okP5000Sending', { caseId: caseId })}
-                        </Normaltekst>
-                  )}
-                    />
-                  </AlertstripeDiv>
+                  <Alert variant='info'>
+                    {t('message:warning-okP5000Sending', { caseId: caseId })}
+                  </Alert>
                   <VerticalSeparatorDiv />
                   <FlexCenterSpacedDiv>
                     <div />
-                    <HighContrastHovedknapp
+                    <Button
+                      variant='primary'
                       onClick={() => {
                         resetP5000()
                         modalClose()
                         setTimeout(onBackClick, 200)
                       }}
                     >OK
-                    </HighContrastHovedknapp>
+                    </Button>
                     <div />
                   </FlexCenterSpacedDiv>
                 </PileCenterDiv>
@@ -759,7 +728,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       />
       <P5000HelpModal
         open={_showHelpModal}
-        highContrast={highContrast}
         onClose={() => _setShowHelpModal(false)}
       />
       <PileCenterDiv>
@@ -770,8 +738,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 <Select
                   key={'ytelse' + _ytelseOption}
                   className='P5000Edit-ytelse-select'
-                  feil={_validation['P5000Edit-ytelse-select']?.feilmelding}
-                  highContrast={highContrast}
+                  error={_validation['P5000Edit-ytelse-select']?.feilmelding}
                   id='P5000Edit-ytelse-select'
                   label={t('buc:p5000-4-1-title')}
                   menuPortalTarget={document.body}
@@ -785,7 +752,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <Column>
               <FlexCenterDiv>
                 <RadioGroup
-                  feil={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
+                  error={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
                   id='P5000Edit-forsikringEllerBosetningsperioder'
                   legend={(
                     <FlexCenterDiv>
@@ -793,36 +760,34 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                         {t('buc:p5000-4-2-title')}
                       </OneLineSpan>
                       <HorizontalSeparatorDiv />
-                      <Tooltip
-                        placement='top' trigger={['hover']} overlay={(
-                          <>
-                            <Normaltekst>{t('buc:help-p5000-1')}</Normaltekst>
-                            <Normaltekst>{t('buc:help-p5000-2')}</Normaltekst>
-                          </>
-                    )}
-                      >
-                        <div style={{ width: '28px', height: '28px' }}>
-                          <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
-                        </div>
-                      </Tooltip>
+                      <HelpText>
+                        <>
+                          <BodyLong>{t('message:help-p5000-1')}</BodyLong>
+                          <BodyLong>{t('message:help-p5000-2')}</BodyLong>
+                        </>
+                      </HelpText>
                     </FlexCenterDiv>
               )}
                 >
                   <FlexEndDiv>
                     <Radio42
                       name='42'
+                      value='1'
                       checked={_forsikringEllerBosetningsperioder === '1'}
-                      label={t('ui:yes')}
                       onClick={() => setForsikringEllerBosetningsperioder('1')}
-                    />
+                    >
+                      {t('ui:yes')}
+                    </Radio42>
                     <HorizontalSeparatorDiv />
                     <Radio42
                       style={{ marginBottom: '0.3rem', marginTop: '0.3rem' }}
                       name='42'
+                      value='0'
                       checked={_forsikringEllerBosetningsperioder === '0'}
-                      label={t('ui:no')}
                       onClick={() => setForsikringEllerBosetningsperioder('0')}
-                    />
+                    >
+                      {t('ui:no')}
+                    </Radio42>
                   </FlexEndDiv>
                 </RadioGroup>
               </FlexCenterDiv>
@@ -830,9 +795,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <HorizontalSeparatorDiv />
             <Column>
               <FlexEndDiv>
-                <CustomSelect
+                <NavSelect
                   id='itemsPerPage'
-                  bredde='s'
                   label={t('ui:itemsPerPage')}
                   onChange={itemsPerPageChanged}
                   value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
@@ -843,28 +807,31 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   <option value='30'>30</option>
                   <option value='50'>50</option>
                   <option value='all'>{t('ui:all')}</option>
-                </CustomSelect>
+                </NavSelect>
                 <HorizontalSeparatorDiv />
-                <HighContrastHovedknapp
+                <Button
+                  variant='primary'
                   disabled={sendingP5000info || !canSend}
-                  spinner={sendingP5000info}
                   onClick={handleOverforTilRina}
                 >
+                  {sendingP5000info && <Loader/>}
                   {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-                </HighContrastHovedknapp>
+                </Button>
                 <HorizontalSeparatorDiv />
                 <ReactToPrint
                   documentTitle='P5000Sum'
                   onAfterPrint={afterPrintOut}
                   onBeforePrint={beforePrintOut}
                   onBeforeGetContent={prepareContent}
-                  trigger={() =>
-                    <HighContrastKnapp
+                  trigger={() => (
+                    <Button
+                      variant='secondary'
                       disabled={_printDialogOpen}
-                      spinner={_printDialogOpen}
                     >
+                      {_printDialogOpen && <Loader/>}
                       {t('ui:print')}
-                    </HighContrastKnapp>}
+                    </Button>
+                  )}
                   content={() => componentRef.current}
                 />
               </FlexEndDiv>
@@ -880,9 +847,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     {t('buc:p5000-saved-working-copy')}
                   </span>
                   <HorizontalSeparatorDiv size='0.5' />
-                  <HighContrastLink style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
+                  <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
                     {t('ui:hva-betyr-det')}
-                  </HighContrastLink>
+                  </Link>
                 </div>
               )}
             </Column>
@@ -890,23 +857,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <VerticalSeparatorDiv />
           <AlignEndRow>
             <Column>
-              <Alertstripe type='advarsel'>
+              <Alert variant='warning'>
                 <FlexCenterDiv>
-                  {t('buc:warning-P5000Edit-instructions-li1')}
+                  {t('message:warning-P5000Edit-instructions-li1')}
                   <HorizontalSeparatorDiv size='0.5' />
-                  <Tooltip
-                    placement='top' trigger={['hover']} overlay={(
-                      <div style={{ maxWidth: '600px' }}>
-                        <Normaltekst>{t('buc:warning-P5000Edit-instructions-li1-help')}</Normaltekst>
-                      </div>
-                  )}
-                  >
-                    <div style={{ minWidth: '28px' }}>
-                      <HelpIcon className='hjelpetekst__ikon' height={28} width={28} />
+                  <HelpText>
+                    <div style={{ maxWidth: '600px' }}>
+                      <BodyLong>{t('message:warning-P5000Edit-instructions-li1-help')}</BodyLong>
                     </div>
-                  </Tooltip>
+                  </HelpText>
                 </FlexCenterDiv>
-              </Alertstripe>
+              </Alert>
             </Column>
             <Column />
           </AlignEndRow>
@@ -914,9 +875,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <hr style={{ width: '100%' }} />
           <VerticalSeparatorDiv />
           <Table<P5000ListRow, P5000TableContext>
+            className='compact tabell'
             key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '-storage-' + !_.isEmpty(p5000FromStorage)}
             animatable={false}
-            highContrast={highContrast}
             items={_items}
             error={_validation['P5000Edit-tabell']?.feilmelding}
             loading={!!sentP5000info}
@@ -970,7 +931,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
                     test: '^.+$',
-                    message: t('buc:validation-chooseType')
+                    message: t('message:validation-chooseType')
                   }]
                 },
                 renderCell: renderType
@@ -985,7 +946,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
                     test: testDate,
-                    message: t('buc:validation-invalidDate')
+                    message: t('message:validation-invalidDate')
                   }],
                   placeholder: t('buc:placeholder-date2'),
                   transform: dateTransform
@@ -1001,7 +962,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   validation: [{
                     mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
                     test: testDate,
-                    message: t('buc:validation-invalidDate')
+                    message: t('message:validation-invalidDate')
                   }],
                   placeholder: t('buc:placeholder-date2'),
                   transform: dateTransform
@@ -1015,7 +976,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   defaultValue: 0,
                   validation: [{
                     test: testFloat,
-                    message: t('buc:validation-addPositiveNumber')
+                    message: t('message:validation-addPositiveNumber')
                   }],
                   render: renderAarEdit
                 }
@@ -1028,7 +989,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   defaultValue: 0,
                   validation: [{
                     test: testFloat,
-                    message: t('buc:validation-addPositiveNumber')
+                    message: t('message:validation-addPositiveNumber')
                   }],
                   render: renderManedEdit
                 }
@@ -1043,7 +1004,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   render: renderDagerEdit,
                   validation: [{
                     test: testFloat,
-                    message: t('buc:validation-addPositiveNumber')
+                    message: t('message:validation-addPositiveNumber')
                   }]
                 }
               },
@@ -1064,7 +1025,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   defaultValue: '111',
                   validation: [{
                     test: '^.+$',
-                    message: t('buc:validation-addBeregning')
+                    message: t('message:validation-addBeregning')
                   }],
                   render: renderBeregningEdit
                 }

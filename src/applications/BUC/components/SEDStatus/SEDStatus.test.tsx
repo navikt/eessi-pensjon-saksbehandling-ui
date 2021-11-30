@@ -4,7 +4,6 @@ import SEDStatus, { Etikett, SEDStatusProps } from './SEDStatus'
 describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
   let wrapper : ReactWrapper
   const initialMockProps: SEDStatusProps = {
-    highContrast: false,
     status: 'new'
   }
 
