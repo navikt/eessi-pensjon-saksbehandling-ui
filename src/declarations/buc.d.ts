@@ -27,7 +27,7 @@ export interface BucListItem {
   euxCaseId: string
   buctype: string
   aktoerId: string
-  sakId: string
+  saknr: string
   avdodfnr: string | null
 }
 
