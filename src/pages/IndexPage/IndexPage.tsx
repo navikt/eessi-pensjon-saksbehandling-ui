@@ -172,11 +172,11 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
         modal={{
           modalTitle: t('ui:notification'),
           modalContent: (
-            <div style={{padding: '2rem', minWidth: '400px', textAlign: 'center'}}>
+            <div style={{ padding: '2rem', minWidth: '400px', textAlign: 'center' }}>
               <Normaltekst>
                 {message}
               </Normaltekst>
-              <VerticalSeparatorDiv/>
+              <VerticalSeparatorDiv />
               <Normaltekst>
                 {byline}
               </Normaltekst>
@@ -189,7 +189,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
           }]
         }}
         onModalClose={() => setShowModal(false)}
-        />
+      />
       <IEAlert />
       <ContextBanner
         mode={mode}

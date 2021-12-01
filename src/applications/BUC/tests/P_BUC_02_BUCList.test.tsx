@@ -94,7 +94,7 @@ const defaultSelector: BUCListSelector = {
     }]
   },
   loading: {
-    gettingBUCs: false
+    gettingBucsList: false
   },
   locale: 'nb',
   newlyCreatedBuc: undefined,

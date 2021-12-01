@@ -5,7 +5,7 @@ import * as urls from 'constants/urls'
 import { BUCMode, FeatureToggles, PesysContext } from 'declarations/app.d'
 import {
   Buc,
-  BUCRawList,
+  BUCOptions,
   Bucs,
   BucsInfoRawList,
   CountryRawList,
@@ -28,8 +28,8 @@ import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import { CountryFilter } from 'land-verktoy'
 import _ from 'lodash'
 import { mockBuc, mockParticipants } from 'mocks/buc/buc'
-import mockBucList from 'mocks/buc/bucList'
-import mockBucs from 'mocks/buc/bucs'
+import mockBucOptions from 'mocks/buc/bucOptions'
+import mockBucs from 'mocks/buc/bucsList'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockCreateBuc from 'mocks/buc/createBuc'
@@ -141,17 +141,25 @@ export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload<P
   })
 }
 
-export const fetchBucs: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
-  aktoerId: string
+export const startBucsFetch = () => ({
+  type: types.BUC_GET_BUCS_START
+})
+
+export const endBucsFetch = () => ({
+  type: types.BUC_GET_BUCS_END
+})
+
+export const fetchBucsList: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
+  aktoerId: string, sakId: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
+    url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: aktoerId, sakId: sakId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs,
+    expectedPayload: mockBucs(aktoerId, sakId),
     type: {
-      request: types.BUC_GET_BUCS_REQUEST,
-      success: types.BUC_GET_BUCS_SUCCESS,
-      failure: types.BUC_GET_BUCS_FAILURE
+      request: types.BUC_GET_BUCSLIST_REQUEST,
+      success: types.BUC_GET_BUCSLIST_SUCCESS,
+      failure: types.BUC_GET_BUCSLIST_FAILURE
     }
   })
 }
@@ -184,32 +192,32 @@ export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload<Bucs
   })
 }
 
-export const fetchBucsWithAvdodFnr: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
-  aktoerId: string, avdodFnr: string
+export const fetchBucsListWithAvdodFnr: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
+  aktoerId: string, sakId: string, avdodFnr: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: aktoerId, avdodFnr: avdodFnr }),
+    url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId: aktoerId, sakId: sakId, avdodFnr: avdodFnr }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs,
+    expectedPayload: mockBucs(aktoerId, sakId),
     type: {
-      request: types.BUC_GET_BUCS_REQUEST,
-      success: types.BUC_GET_BUCS_SUCCESS,
-      failure: types.BUC_GET_BUCS_FAILURE
+      request: types.BUC_GET_BUCSLIST_REQUEST,
+      success: types.BUC_GET_BUCSLIST_SUCCESS,
+      failure: types.BUC_GET_BUCSLIST_FAILURE
     }
   })
 }
 
-export const fetchBucsWithVedtakId: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
-  aktoerId: string, vedtakId: string
+export const fetchBucsListWithVedtakId: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
+  aktoerId: string, sakId: string, vedtakId: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCS_WITH_VEDTAKID_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
+    url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId: aktoerId, sakId: sakId, vedtakId: vedtakId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs,
+    expectedPayload: mockBucs(aktoerId, sakId),
     type: {
-      request: types.BUC_GET_BUCS_REQUEST,
-      success: types.BUC_GET_BUCS_SUCCESS,
-      failure: types.BUC_GET_BUCS_FAILURE
+      request: types.BUC_GET_BUCSLIST_REQUEST,
+      success: types.BUC_GET_BUCSLIST_SUCCESS,
+      failure: types.BUC_GET_BUCSLIST_FAILURE
     }
   })
 }
@@ -230,35 +238,45 @@ export const fetchKravDato: ActionCreator<ThunkResult<ActionWithPayload<any>>> =
   })
 }
 
-export const fetchSingleBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> = (
-  rinaCaseId: string
+export const fetchBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> = (
+  rinaCaseId: string, aktoerId: string, sakId: string, avdodFnr: string | undefined
 ): ThunkResult<ActionWithPayload<ValidBuc>> => {
+  const url = avdodFnr
+    ? sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr })
+    : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId, aktoerId, sakId })
+
   return call({
-    url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: rinaCaseId }),
+    url: url,
     expectedPayload: mockBuc(rinaCaseId),
+    context: {
+      rinaCaseId,
+      aktoerId,
+      sakId,
+      avdodFnr
+    },
     type: {
-      request: types.BUC_GET_SINGLE_BUC_REQUEST,
-      success: types.BUC_GET_SINGLE_BUC_SUCCESS,
-      failure: types.BUC_GET_SINGLE_BUC_FAILURE
+      request: types.BUC_GET_BUC_REQUEST,
+      success: types.BUC_GET_BUC_SUCCESS,
+      failure: types.BUC_GET_BUC_FAILURE
     }
   })
 }
 
-export const getBucList: ActionCreator<ThunkResult<ActionWithPayload<BUCRawList>>> = (
+export const getBucOptions: ActionCreator<ThunkResult<ActionWithPayload<BUCOptions>>> = (
   sakId: string, featureToggles: FeatureToggles, pesysContext: PesysContext, sakType: SakTypeValue
-): ThunkResult<ActionWithPayload<BUCRawList>> => {
+): ThunkResult<ActionWithPayload<BUCOptions>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId }),
-    expectedPayload: mockBucList,
+    url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId: sakId }),
+    expectedPayload: mockBucOptions,
     context: {
       featureToggles: featureToggles,
       pesysContext: pesysContext,
       sakType: sakType
     },
     type: {
-      request: types.BUC_GET_BUC_LIST_REQUEST,
-      success: types.BUC_GET_BUC_LIST_SUCCESS,
-      failure: types.BUC_GET_BUC_LIST_FAILURE
+      request: types.BUC_GET_BUC_OPTIONS_REQUEST,
+      success: types.BUC_GET_BUC_OPTIONS_SUCCESS,
+      failure: types.BUC_GET_BUC_OPTIONS_FAILURE
     }
   })
 }

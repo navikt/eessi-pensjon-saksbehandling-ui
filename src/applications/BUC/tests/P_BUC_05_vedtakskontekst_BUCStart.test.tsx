@@ -16,7 +16,7 @@ jest.mock('actions/buc', () => ({
 }))
 
 const defaultSelector: BUCStartSelector = {
-  bucList: [],
+  bucOptions: [],
   bucParam: undefined,
   bucs: {},
   bucsInfo: undefined,
@@ -63,7 +63,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_02', 'P_BUC_05'],
+      bucOptions: ['P_BUC_02', 'P_BUC_05'],
       personAvdods: [],
       pesysContext: constants.VEDTAKSKONTEKST,
       sakType: SakTypeMap.ALDER
@@ -122,7 +122,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_02', 'P_BUC_05'],
+      bucOptions: ['P_BUC_02', 'P_BUC_05'],
       personAvdods: mockPersonAvdods(1),
       pesysContext: constants.VEDTAKSKONTEKST,
       sakType: SakTypeMap.GJENLEV
@@ -183,7 +183,7 @@ describe('P_BUC_05 for BUCStart, vedtakskontekst', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_02', 'P_BUC_05'],
+      bucOptions: ['P_BUC_02', 'P_BUC_05'],
       personAvdods: mockPersonAvdods(2),
       pesysContext: constants.VEDTAKSKONTEKST,
       sakType: SakTypeMap.BARNEP

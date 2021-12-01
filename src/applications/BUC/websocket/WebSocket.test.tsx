@@ -1,4 +1,4 @@
-import { fetchSingleBuc } from 'actions/buc'
+import { fetchBuc } from 'actions/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import { Server, WebSocket } from 'mock-socket'
@@ -9,7 +9,7 @@ jest.mock('constants/urls', () => ({
   WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
 }))
 jest.mock('actions/buc', () => ({
-  fetchSingleBuc: jest.fn()
+  fetchBuc: jest.fn()
 }))
 jest.mock('rc-tooltip', () => ({ overlay }: any) => (
   <div data-test-id='mock-tooltip'>{overlay}</div>
@@ -75,7 +75,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
             const logs = wrapper.find('div.logs span.log')
             expect(logs.length).toBe(6)
             expect(_(logs.at(5).render().html()).endsWith('Updating buc 123')).toBeTruthy()
-            expect(fetchSingleBuc).toHaveBeenCalledWith('123')
+            expect(fetchBuc).toHaveBeenCalledWith('123')
             resolve(true)
           }, 300)
         }, 300)

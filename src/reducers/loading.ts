@@ -9,10 +9,12 @@ export const initialLoadingState: LoadingState = {
   creatingBUC: false,
   creatingSed: false,
   generatingPDF: false,
-  gettingBUCs: false,
+  gettingBucsList: false,
+  gettingBucs: false,
+  gettingBuc: false,
   gettingBucDeltakere: false,
-  gettingBucList: false,
-  gettingBUCinfo: false,
+  gettingBucOptions: false,
+  gettingBucsInfo: false,
   gettingCountryList: false,
   gettingKravDato: false,
   gettingJournalføringSed: false,
@@ -152,40 +154,67 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         creatingSed: false
       }
 
-    case types.BUC_GET_BUC_LIST_REQUEST:
+    case types.BUC_GET_BUC_OPTIONS_REQUEST:
 
       return {
         ...state,
-        gettingBucList: true
+        gettingBucOptions: true
       }
 
-    case types.BUC_GET_BUC_LIST_SUCCESS:
-    case types.BUC_GET_BUC_LIST_FAILURE:
+    case types.BUC_GET_BUC_OPTIONS_SUCCESS:
+    case types.BUC_GET_BUC_OPTIONS_FAILURE:
 
       return {
         ...state,
-        gettingBucList: false
+        gettingBucOptions: false
       }
 
-    case types.BUC_GET_BUCS_REQUEST:
+    case types.BUC_GET_BUCSLIST_REQUEST:
 
       return {
         ...state,
-        gettingBUCs: true
+        gettingBucsList: true
       }
 
-    case types.BUC_GET_BUCS_SUCCESS:
-    case types.BUC_GET_BUCS_FAILURE:
+    case types.BUC_GET_BUCSLIST_SUCCESS:
+    case types.BUC_GET_BUCSLIST_FAILURE:
       return {
         ...state,
-        gettingBUCs: false
+        gettingBucsList: false
+      }
+
+    case types.BUC_GET_BUCS_START:
+
+      return {
+        ...state,
+        gettingBucs: true
+      }
+
+    case types.BUC_GET_BUCS_END:
+      return {
+        ...state,
+        gettingBucs: false
+      }
+
+    case types.BUC_GET_BUC_REQUEST:
+
+      return {
+        ...state,
+        gettingBuc: true
+      }
+
+    case types.BUC_GET_BUC_SUCCESS:
+    case types.BUC_GET_BUC_FAILURE:
+      return {
+        ...state,
+        gettingBuc: false
       }
 
     case types.BUC_GET_BUCSINFO_REQUEST:
 
       return {
         ...state,
-        gettingBUCinfo: true
+        gettingBucsInfo: true
       }
 
     case types.BUC_GET_BUCSINFO_SUCCESS:
@@ -193,7 +222,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
 
       return {
         ...state,
-        gettingBUCinfo: false
+        gettingBucsInfo: false
       }
 
     case types.BUC_GET_COUNTRY_LIST_REQUEST:

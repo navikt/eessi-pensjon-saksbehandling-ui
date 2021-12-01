@@ -82,22 +82,22 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_BUC_LIST_FAILURE', () => {
+  it('BUC_GET_BUC_OPTIONS_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_BUC_LIST_FAILURE
+        type: types.BUC_GET_BUC_OPTIONS_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
       clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-noBucList'
+      clientErrorMessage: 'buc:alert-noBucOptions'
     })
   })
 
-  it('BUC_GET_BUCS_FAILURE', () => {
+  it('BUC_GET_BUCSLIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_BUCS_FAILURE
+        type: types.BUC_GET_BUCSLIST_FAILURE
       })
     ).toEqual({
       ...initialAlertState,

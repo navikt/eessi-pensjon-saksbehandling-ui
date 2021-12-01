@@ -112,40 +112,40 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_CREATE_SED_FAILURE, 'creatingSed')
   })
 
-  it('BUC_GET_BUC_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_BUC_LIST_REQUEST, 'gettingBucList')
+  it('BUC_GET_BUC_OPTIONS_REQUEST', () => {
+    simulateRequest(types.BUC_GET_BUC_OPTIONS_REQUEST, 'gettingBucOptions')
   })
 
-  it('BUC_GET_BUC_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_BUC_LIST_SUCCESS, 'gettingBucList')
+  it('BUC_GET_BUC_OPTIONS_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_BUC_OPTIONS_SUCCESS, 'gettingBucOptions')
   })
 
-  it('BUC_GET_BUC_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_BUC_LIST_FAILURE, 'gettingBucList')
+  it('BUC_GET_BUC_OPTIONS_FAILURE', () => {
+    simulateFailure(types.BUC_GET_BUC_OPTIONS_FAILURE, 'gettingBucOptions')
   })
 
-  it('BUC_GET_BUCS_REQUEST', () => {
-    simulateRequest(types.BUC_GET_BUCS_REQUEST, 'gettingBUCs')
+  it('BUC_GET_BUCSLIST_REQUEST', () => {
+    simulateRequest(types.BUC_GET_BUCSLIST_REQUEST, 'gettingBucsList')
   })
 
-  it('BUC_GET_BUCS_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_BUCS_SUCCESS, 'gettingBUCs')
+  it('BUC_GET_BUCSLIST_SUCCESS', () => {
+    simulateSuccess(types.BUC_GET_BUCSLIST_SUCCESS, 'gettingBucsList')
   })
 
-  it('BUC_GET_BUCS_FAILURE', () => {
-    simulateFailure(types.BUC_GET_BUCS_FAILURE, 'gettingBUCs')
+  it('BUC_GET_BUCSLIST_FAILURE', () => {
+    simulateFailure(types.BUC_GET_BUCSLIST_FAILURE, 'gettingBucsList')
   })
 
   it('BUC_GET_BUCSINFO_REQUEST', () => {
-    simulateRequest(types.BUC_GET_BUCSINFO_REQUEST, 'gettingBUCinfo')
+    simulateRequest(types.BUC_GET_BUCSINFO_REQUEST, 'gettingBucsInfo')
   })
 
   it('BUC_GET_BUCSINFO_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_BUCSINFO_SUCCESS, 'gettingBUCinfo')
+    simulateSuccess(types.BUC_GET_BUCSINFO_SUCCESS, 'gettingBucsInfo')
   })
 
   it('BUC_GET_BUCSINFO_FAILURE', () => {
-    simulateFailure(types.BUC_GET_BUCSINFO_FAILURE, 'gettingBUCinfo')
+    simulateFailure(types.BUC_GET_BUCSINFO_FAILURE, 'gettingBucsInfo')
   })
 
   it('BUC_GET_COUNTRY_LIST_REQUEST', () => {

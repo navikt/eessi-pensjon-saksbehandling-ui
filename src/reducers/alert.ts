@@ -73,12 +73,12 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         clientErrorMessage = 'buc:alert-createSedFailure'
         break
 
-      case types.BUC_GET_BUC_LIST_FAILURE:
+      case types.BUC_GET_BUC_OPTIONS_FAILURE:
 
-        clientErrorMessage = 'buc:alert-noBucList'
+        clientErrorMessage = 'buc:alert-noBucOptions'
         break
 
-      case types.BUC_GET_BUCS_FAILURE:
+      case types.BUC_GET_BUCSLIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noBucs'
         break
@@ -170,7 +170,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         type: (action as ActionWithPayload).payload.type
       }
       break
-
 
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {

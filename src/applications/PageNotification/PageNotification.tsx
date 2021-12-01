@@ -34,7 +34,7 @@ const mapState = (state: State): PageNotificationSelector => ({
 const PageNotification = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const {message, show, byline, sendingPageNotification}: PageNotificationSelector = useSelector<State, PageNotificationSelector>(mapState)
+  const { message, show, byline, sendingPageNotification }: PageNotificationSelector = useSelector<State, PageNotificationSelector>(mapState)
   const [_show, _setShow] = useState<boolean | undefined>(show)
   const [_message, _setMessage] = useState<string | null | undefined>(message)
   const [_byline, _setByline] = useState<string | null | undefined>(byline)
@@ -71,18 +71,18 @@ const PageNotification = () => {
       <HighContrastRadioPanelGroup
         checked={'' + _show}
         feil={validation['w-pagenotification-show']?.feilmelding}
-        data-test-id={'w-pagenotification-show'}
-        id={'w-pagenotification-show'}
+        data-test-id='w-pagenotification-show'
+        id='w-pagenotification-show'
         data-no-border
         legend={t('label:show-message') + ' *'}
-        name={'w-pagenotification-show'}
+        name='w-pagenotification-show'
         radios={[
           { label: t('ui:yes'), value: 'true' },
           { label: t('ui:no'), value: 'false' }
         ]}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setShow(e.target.value === 'true')}
       />
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <Input
         id='message'
         namespace='w-pagenotification'
@@ -91,7 +91,7 @@ const PageNotification = () => {
         label={t('ui:message')}
         value={_message ?? ''}
       />
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <Input
         id='byline'
         namespace='w-pagenotification'
@@ -100,7 +100,7 @@ const PageNotification = () => {
         label={t('ui:byline')}
         value={_byline ?? ''}
       />
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <HighContrastHovedknapp
         spinner={sendingPageNotification}
         disabled={sendingPageNotification}

@@ -15,7 +15,7 @@ jest.mock('actions/buc', () => ({
 }))
 
 const defaultSelector: BUCStartSelector = {
-  bucList: [],
+  bucOptions: [],
   bucParam: undefined,
   bucs: {},
   bucsInfo: undefined,
@@ -59,7 +59,7 @@ describe('P_BUC_02 for BUCStart', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_01', 'P_BUC_02'],
+      bucOptions: ['P_BUC_01', 'P_BUC_02'],
       personAvdods: mockPersonAvdods(1),
       pesysContext: constants.VEDTAKSKONTEKST
     })
@@ -111,7 +111,7 @@ describe('P_BUC_02 for BUCStart', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_01', 'P_BUC_02'],
+      bucOptions: ['P_BUC_01', 'P_BUC_02'],
       personAvdods: [],
       pesysContext: constants.VEDTAKSKONTEKST
     })
@@ -163,7 +163,7 @@ describe('P_BUC_02 for BUCStart', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_01', 'P_BUC_02'],
+      bucOptions: ['P_BUC_01', 'P_BUC_02'],
       personAvdods: mockPersonAvdods(2),
       pesysContext: constants.VEDTAKSKONTEKST
     })

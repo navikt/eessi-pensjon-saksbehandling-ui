@@ -1,22 +1,24 @@
 import {
+  endBucsFetch,
+  fetchBuc,
   fetchBucParticipants,
-  fetchBucs,
   fetchBucsInfoList,
-  fetchBucsWithVedtakId,
+  fetchBucsList,
+  fetchBucsListWithVedtakId,
   getRinaUrl,
   getSakType,
-  setMode
+  setMode,
+  startBucsFetch
 } from 'actions/buc'
 import { initP5000Storage } from 'actions/p5000'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import classNames from 'classnames'
-
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { BUCMode, Loading, PesysContext, RinaUrl } from 'declarations/app.d'
-import { Bucs, SakTypeValue } from 'declarations/buc'
+import { BUCMode, PesysContext, RinaUrl } from 'declarations/app.d'
+import { BucListItem, Bucs, SakTypeValue } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
@@ -131,7 +133,10 @@ export interface BUCIndexProps {
 export interface BUCIndexSelector {
   aktoerId: string | null | undefined
   bucs: Bucs | undefined
-  loading: Loading
+  bucsList: Array<BucListItem> | null | undefined
+  gettingBucs: boolean
+  gettingBucsList: boolean
+  gettingSakType: boolean
   pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | null | undefined
@@ -142,7 +147,10 @@ export interface BUCIndexSelector {
 const mapState = (state: State): BUCIndexSelector => ({
   aktoerId: state.app.params.aktoerId,
   bucs: state.buc.bucs,
-  loading: state.loading,
+  bucsList: state.buc.bucsList,
+  gettingBucs: state.loading.gettingBucs,
+  gettingBucsList: state.loading.gettingBucsList,
+  gettingSakType: state.loading.gettingSakType,
   pesysContext: state.app.pesysContext,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
@@ -175,7 +183,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
   waitForMount = true
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, loading, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
@@ -297,7 +305,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
           setPositionB(Slide.ALT_MIDDLE)
           setPositionC(Slide.ALT_RIGHT)
           setAnimating(false)
-          setContentC(<div/>) // remove p5000
+          setContentC(<div />) // remove p5000
           if (callback) {
             callback()
           }
@@ -356,18 +364,39 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [])
 
   useEffect(() => {
-    if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
-      dispatch(pesysContext === constants.VEDTAKSKONTEKST ? fetchBucsWithVedtakId(aktoerId, vedtakId) : fetchBucs(aktoerId))
+    if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
+      dispatch(pesysContext === constants.VEDTAKSKONTEKST
+        ? fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId)
+        : fetchBucsList(aktoerId, sakId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
-  }, [aktoerId, bucs, dispatch, loading.gettingBUCs, pesysContext, sakId, vedtakId])
+  }, [aktoerId, bucs, dispatch, gettingBucsList, pesysContext, sakId, vedtakId])
 
   useEffect(() => {
-    if (aktoerId && sakId && sakType === undefined && !loading.gettingSakType && !_askSakType) {
+    if (aktoerId && sakId && sakType === undefined && !gettingSakType && !_askSakType) {
       dispatch(getSakType(sakId, aktoerId))
       _setAskSakType(true)
     }
-  }, [aktoerId, dispatch, loading.gettingSakType, sakId, sakType])
+  }, [aktoerId, dispatch, gettingSakType, sakId, sakType])
+
+  useEffect(() => {
+    if (aktoerId && sakId && _.isEmpty(bucs) && !_.isNil(bucsList) && !gettingBucs) {
+      dispatch(startBucsFetch())
+      bucsList.forEach((bucListItem) => {
+        dispatch(fetchBuc(
+          bucListItem.euxCaseId, bucListItem.aktoerId, bucListItem.sakId, bucListItem.avdodfnr
+        ))
+      })
+    }
+  }, [bucs, bucsList, gettingBucs])
+
+  useEffect(() => {
+    if (aktoerId && sakId && !_.isEmpty(bucs) && !_.isNil(bucsList) && gettingBucs) {
+      if (Object.keys(bucs!).length === bucsList.length) {
+        dispatch(endBucsFetch())
+      }
+    }
+  }, [bucs, bucsList, gettingBucs])
 
   useEffect(() => {
     if (bucs && !_bucs) {

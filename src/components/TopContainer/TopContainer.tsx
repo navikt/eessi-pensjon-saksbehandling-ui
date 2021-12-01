@@ -156,7 +156,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             />
             {modal !== undefined && (
               <Modal
-                appElementId={'main'}
+                appElementId='main'
                 highContrast={highContrast}
                 modal={modal}
                 open={!_.isNil(modal)}

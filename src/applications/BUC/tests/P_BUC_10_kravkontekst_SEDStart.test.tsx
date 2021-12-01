@@ -45,7 +45,7 @@ const defaultSelector: SEDStartSelector = {
 
 describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
   let wrapper: ReactWrapper
-  const mockBucList: Bucs = {
+  const mockBucs: Bucs = {
     NorwayIsCaseOwner: {
       type: 'P_BUC_10',
       readOnly: false,
@@ -101,7 +101,7 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
   const mockCurrentBuc: string = 'NorwayIsCaseOwner'
   const initialMockProps: SEDStartProps = {
     aktoerId: '123',
-    bucs: mockBucList,
+    bucs: mockBucs,
     currentBuc: mockCurrentBuc,
     initialAttachments: [],
     onSedChanged: jest.fn(),

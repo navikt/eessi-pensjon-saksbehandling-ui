@@ -23,6 +23,14 @@ export interface BUCSubject {
   avdod: Avdod
 }
 
+export interface BucListItem {
+  euxCaseId: string
+  buctype: string
+  aktoerId: string
+  sakId: string
+  avdodfnr: string | null
+}
+
 export interface Comment {
   value: string
 }
@@ -272,9 +280,9 @@ export interface ValidBuc {
 
 export type Buc = ValidBuc | ErrorBuc
 
-export type Bucs = {[caseId: string]: Buc}
+export type Bucs = {[caseId: string]: Buc }
 
-export type BUCRawList = RawList
+export type BUCOptions = RawList
 export type BucsInfoRawList = RawList
 export type CountryRawList = RawList
 export type InstitutionRawList = RawList

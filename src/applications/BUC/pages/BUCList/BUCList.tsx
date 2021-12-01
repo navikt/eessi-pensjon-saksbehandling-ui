@@ -1,7 +1,6 @@
 import {
   fetchBucsInfo,
-  fetchBucsWithAvdodFnr,
-  fetchSingleBuc,
+  fetchBucsListWithAvdodFnr,
   getInstitutionsListForBucAndCountry,
   setCurrentBuc
 } from 'actions/buc'
@@ -27,10 +26,10 @@ import {
 
 import { BRUKERKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
-import { AllowedLocaleString, BUCMode, Loading, PesysContext } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode, PesysContext } from 'declarations/app.d'
 import {
   Buc,
-  BucInfo,
+  BucInfo, BucListItem,
   Bucs,
   BucsInfo,
   Institution,
@@ -126,30 +125,38 @@ export interface BUCListProps {
 export interface BUCListSelector {
   aktoerId: string | null | undefined
   bucs: Bucs | undefined
+  bucsList: Array<BucListItem> | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
   highContrast: boolean
   institutionList: InstitutionListMap<Institution> | undefined
-  loading: Loading
+  gettingBucsList: boolean
+  gettingBucs: boolean
+  gettingBucsInfo: boolean
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
+  sakId: string | null | undefined
   sakType: SakTypeValue | null | undefined
 }
 
 const mapState = (state: State): BUCListSelector => ({
   aktoerId: state.app.params.aktoerId,
   bucs: state.buc.bucs,
+  bucsList: state.buc.bucsList,
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
   highContrast: state.ui.highContrast,
   institutionList: state.buc.institutionList,
-  loading: state.loading,
+  gettingBucsInfo: state.loading.gettingBucsInfo,
+  gettingBucs: state.loading.gettingBucs,
+  gettingBucsList: state.loading.gettingBucsList,
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
   personAvdods: state.app.personAvdods,
   pesysContext: state.app.pesysContext,
+  sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue
 })
 
@@ -157,19 +164,23 @@ const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsInfo, bucsInfoList, highContrast, institutionList, loading,
-    newlyCreatedBuc, personAvdods, pesysContext, sakType
+    aktoerId, bucs, bucsList, bucsInfo, bucsInfoList, highContrast, institutionList, gettingBucsInfo, gettingBucs, gettingBucsList,
+    newlyCreatedBuc, personAvdods, pesysContext, sakId, sakType
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
   const [_loggedTime] = useState<Date>(new Date())
   const [_avdodFnr, setAvdodFnr] = useState<string>('')
-  const [_mounted, setMounted] = useState<boolean>(false)
+  const [_parsedCountries, setParsedCountries] = useState<boolean>(false)
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [_validation, setValidation] = useState<string | undefined>(undefined)
+
+  const [_sortedBucs, _setSortedBucs] = useState<Array<Buc> | undefined>(undefined)
+  const [_filteredBucs, _setFilteredBucs] = useState<Array<Buc> | undefined>(undefined)
+  const [_pBuc02filteredBucs, _setPBuc02filteredBucs] = useState<Array<Buc> | undefined>(undefined)
 
   useEffect(() => {
     standardLogger('buc.list.entrance')
@@ -203,14 +214,13 @@ const BUCList: React.FC<BUCListProps> = ({
     const valid = performValidation()
     if (valid) {
       setNewBucPanelOpen(false)
-      dispatch(fetchBucsWithAvdodFnr(aktoerId, _avdodFnr))
+      dispatch(fetchBucsListWithAvdodFnr(aktoerId, sakId, _avdodFnr))
     } else {
       setValidation(t('buc:validation-badAvdodFnr'))
     }
   }
 
   const onBUCEdit = (buc: Buc): void => {
-    getSeds(buc.caseId!)
     dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit' as BUCMode, 'forward')
     window.scrollTo({
@@ -220,82 +230,75 @@ const BUCList: React.FC<BUCListProps> = ({
     })
   }
 
-  const getSeds = (bucId: string): void => {
-    if (bucs && _.isNil(bucs[bucId].seds)) {
-      dispatch(fetchSingleBuc(bucId))
-    }
-  }
-
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       onAvdodFnrButtonClick()
     }
   }
 
-  let filteredBucs = null
-  let pBuc02filteredBucs = null
-  let sortedBucs = null
-  if (bucs !== null && bucs !== undefined) {
-    filteredBucs = Object.keys(bucs).map(key => bucs[key]).filter(bucFilter)
-    pBuc02filteredBucs = filteredBucs.filter(pbuc02filter(pesysContext, personAvdods))
-    sortedBucs = pBuc02filteredBucs.sort(bucSorter)
-  }
+  useEffect(() => {
+    if (!_.isEmpty(bucs)) {
+      const filteredBucs: Array<Buc> = Object.keys(bucs!).map(key => bucs![key]).filter(bucFilter)
+      _setFilteredBucs(filteredBucs)
+      const pBuc02filteredBucs = filteredBucs.filter(pbuc02filter(pesysContext, personAvdods))
+      _setPBuc02filteredBucs(pBuc02filteredBucs)
+      const sortedBucs = pBuc02filteredBucs.sort(bucSorter)
+      _setSortedBucs(sortedBucs)
+    }
+  }, [bucs])
 
   useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !loading.gettingBUCinfo &&
+    if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !gettingBucsInfo &&
       bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
     }
-  }, [aktoerId, bucsInfo, bucsInfoList, dispatch, loading])
+  }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
 
   useEffect(() => {
-    if (!_mounted && !_.isNil(bucs)) {
-      if (!_.isEmpty(bucs)) {
-        const listOfCountries: Array<{country: string, buc: string}> = []
-        bucs && Object.keys(bucs).forEach(key => {
-          const buc: Buc = bucs[key]
-          if (_.isArray(buc.institusjon)) {
-            buc.institusjon.forEach((it: Institution) => {
-              if (!_.find(listOfCountries, { country: it.country })) {
-                listOfCountries.push({
-                  country: it.country,
-                  buc: buc.type!
-                })
-              }
-            })
-          }
-          if (_.isArray(buc.seds)) {
-            buc.seds.forEach((sed: Sed) => {
-              if (_.isArray(sed.participants)) {
-                sed.participants.forEach((participant: Participant) => {
-                  const country = participant.organisation.countryCode
-                  if (!_.find(listOfCountries, { country: country })) {
-                    listOfCountries.push({
-                      country: country,
-                      buc: buc.type!
-                    })
-                  }
-                })
-              }
-            })
-          }
-        })
+    if (!_.isEmpty(bucs) && !gettingBucs && !_parsedCountries) {
+      setParsedCountries(true)
+      const listOfCountries: Array<{country: string, buc: string}> = []
+      bucs && Object.keys(bucs).forEach(key => {
+        const buc: Buc = bucs[key]
+        if (_.isArray(buc.institusjon)) {
+          buc.institusjon.forEach((it: Institution) => {
+            if (!_.find(listOfCountries, { country: it.country })) {
+              listOfCountries.push({
+                country: it.country,
+                buc: buc.type!
+              })
+            }
+          })
+        }
+        if (_.isArray(buc.seds)) {
+          buc.seds.forEach((sed: Sed) => {
+            if (_.isArray(sed.participants)) {
+              sed.participants.forEach((participant: Participant) => {
+                const country = participant.organisation.countryCode
+                if (!_.find(listOfCountries, { country: country })) {
+                  listOfCountries.push({
+                    country: country,
+                    buc: buc.type!
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
 
-        listOfCountries.forEach((country) => {
-          if (institutionList && !_.find(Object.keys(institutionList), country.country)) {
-            dispatch(getInstitutionsListForBucAndCountry(country.buc, country.country))
-          }
-        })
-      } else {
-        setNewBucPanelOpen(true)
-      }
-
+      listOfCountries.forEach((country) => {
+        if (institutionList && !_.find(Object.keys(institutionList), country.country)) {
+          dispatch(getInstitutionsListForBucAndCountry(country.buc, country.country))
+        }
+      })
       standardLogger('buc.list.bucs.data', {
         numberOfBucs: bucs ? Object.keys(bucs).length : 0
       })
-      setMounted(true)
-    }
-  }, [institutionList, bucs, dispatch, _mounted])
+    } /* else {
+      setNewBucPanelOpen(true)
+    } */
+  }, [institutionList, bucs, dispatch, _parsedCountries])
 
   return (
     <BUCListDiv
@@ -343,14 +346,14 @@ const BUCList: React.FC<BUCListProps> = ({
         </BUCNewDiv>
         <VerticalSeparatorDiv />
       </BUCStartDiv>
-      {loading.gettingBUCs && (
+      {(gettingBucsList || gettingBucs) && (
         <BUCLoadingDiv>
           <BUCLoading />
           <BUCLoading />
           <BUCLoading />
         </BUCLoadingDiv>
       )}
-      {!loading.gettingBUCs && sortedBucs === null && (
+      {!gettingBucs && bucsList === null && (
         <>
           <VerticalSeparatorDiv size='2' />
           <Normaltekst>
@@ -358,7 +361,7 @@ const BUCList: React.FC<BUCListProps> = ({
           </Normaltekst>
         </>
       )}
-      {!loading.gettingBUCs && !_.isNil(filteredBucs) && !_.isNil(pBuc02filteredBucs) && filteredBucs.length !== pBuc02filteredBucs.length && (
+      {!gettingBucs && !_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
         <>
           <VerticalSeparatorDiv />
           <BadBucDiv>
@@ -369,13 +372,13 @@ const BUCList: React.FC<BUCListProps> = ({
           <VerticalSeparatorDiv />
         </>
       )}
-      {!loading.gettingBUCs && !_.isNil(sortedBucs) && !_.isEmpty(sortedBucs) &&
-          sortedBucs.map((buc: Buc, index: number) => {
-            if (buc.error) {
+      {!gettingBucs && !_.isNil(_sortedBucs) && !_.isEmpty(_sortedBucs) &&
+          _sortedBucs.map((buc: Buc, index: number) => {
+            if (buc?.error) {
               return (
                 <BadBucDiv key={index}>
                   <Alertstripe type='advarsel'>
-                    {buc.error}
+                    {buc?.error}
                   </Alertstripe>
                 </BadBucDiv>
               )
@@ -404,7 +407,7 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
-      {!loading.gettingBUCs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
+      {!gettingBucs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
               <VerticalSeparatorDiv size='2' />

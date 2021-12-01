@@ -52,7 +52,7 @@ const defaultSelector: BUCListSelector = {
     }]
   },
   loading: {
-    gettingBUCs: false
+    gettingBucsList: false
   },
   locale: 'nb',
   newlyCreatedBuc: undefined,
@@ -81,7 +81,7 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
   })
 
   it('Render: loading BUCs', () => {
-    stageSelector(defaultSelector, { loading: { gettingBUCs: true } })
+    stageSelector(defaultSelector, { loading: { gettingBucsList: true } })
     wrapper = mount(<BUCList {...initialMockProps} />)
     expect(wrapper.exists(BUCLoadingDiv)).toBeTruthy()
   })

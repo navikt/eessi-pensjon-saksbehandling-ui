@@ -24,7 +24,6 @@ export interface PageNotificationIndexProps {
   widget: Widget
 }
 
-
 export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
   onUpdate,
   widget

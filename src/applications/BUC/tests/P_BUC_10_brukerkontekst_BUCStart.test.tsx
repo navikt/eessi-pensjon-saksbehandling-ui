@@ -15,7 +15,7 @@ jest.mock('actions/buc', () => ({
 }))
 
 const defaultSelector: BUCStartSelector = {
-  bucList: [],
+  bucOptions: [],
   bucParam: undefined,
   bucs: {},
   bucsInfo: undefined,
@@ -62,7 +62,7 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_02', 'P_BUC_10'],
+      bucOptions: ['P_BUC_02', 'P_BUC_10'],
       personAvdods: [],
       pesysContext: constants.BRUKERKONTEKST,
       sakType: SakTypeMap.ALDER
@@ -129,7 +129,7 @@ describe('P_BUC_10 for BUCStart, brukerkontekst', () => {
     (createBuc as jest.Mock).mockReset()
 
     stageSelector(defaultSelector, {
-      bucList: ['P_BUC_02', 'P_BUC_10'],
+      bucOptions: ['P_BUC_02', 'P_BUC_10'],
       personAvdods: [],
       pesysContext: constants.BRUKERKONTEKST,
       sakType: SakTypeMap.GJENLEV

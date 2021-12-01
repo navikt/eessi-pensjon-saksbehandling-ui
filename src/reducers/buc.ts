@@ -21,7 +21,8 @@ import {
   P5000FromRinaMap,
   SedsWithAttachmentsMap,
   ValidBuc,
-  P6000
+  P6000,
+  BucListItem
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from 'js-fetch-api'
@@ -33,9 +34,10 @@ import { Action } from 'redux'
 export interface BucState {
   attachmentsError: boolean
   bucs: Bucs | undefined
+  bucsList: Array<BucListItem> | undefined
   bucsInfoList: Array<string> | undefined
   bucsInfo: BucsInfo | undefined
-  bucList: Array<string> | undefined
+  bucOptions: Array<string> | undefined
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
@@ -62,10 +64,11 @@ export interface BucState {
 
 export const initialBucState: BucState = {
   attachmentsError: false,
-  bucs: undefined,
+  bucs: {},
   bucsInfoList: undefined,
   bucsInfo: undefined,
-  bucList: undefined,
+  bucsList: undefined,
+  bucOptions: undefined,
   countryList: undefined,
   currentBuc: undefined,
   currentSed: undefined,
@@ -252,59 +255,65 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         replySed: (action as ActionWithPayload).payload.replySed
       }
 
-    case types.BUC_GET_BUCS_SUCCESS: {
-      if (!_.isArray((action as ActionWithPayload).payload)) {
-        return state
+    case types.BUC_GET_BUCSLIST_REQUEST:
+
+      return {
+        ...state,
+        bucsList: undefined
       }
 
-      const bucs = _.keyBy((action as ActionWithPayload).payload, 'caseId') || {}
+    case types.BUC_GET_BUCSLIST_SUCCESS:
+
+      return {
+        ...state,
+        bucsList: (action as ActionWithPayload).payload
+      }
+
+    case types.BUC_GET_BUCSLIST_FAILURE:
+
+      return {
+        ...state,
+        bucsList: null
+      }
+
+    case types.BUC_GET_BUC_SUCCESS: {
+      const buc: Buc | undefined = (action as ActionWithPayload).payload
+      if (!buc?.caseId || !buc?.type) {
+        console.log('bad buc, returning')
+        return state
+      }
+      const bucs = _.cloneDeep(state.bucs)
       const institutionNames = _.cloneDeep(state.institutionNames)
       const sedsWithAttachments: SedsWithAttachmentsMap = {}
 
-      Object.keys(bucs).forEach(bucId => {
-        // Cache institution names
-        if (bucs[bucId].institusjon) {
-          bucs[bucId].institusjon.forEach((inst: Institution) => {
-            if (inst.institution && !institutionNames[inst.institution]) {
-              institutionNames[inst.institution] = inst
+      if (buc.institusjon) {
+        buc.institusjon.forEach((inst: Institution) => {
+          if (inst.institution && !institutionNames[inst.institution]) {
+            institutionNames[inst.institution] = inst
+          }
+        })
+      }
+
+      // Cache seds allowing attachments
+      const seds = buc.seds
+      if (seds) {
+        seds.forEach((sed: Sed) => {
+          sedsWithAttachments[sed.type] = sed.allowsAttachments
+          sed?.participants?.forEach((p) => {
+            if (!_.isNil(p.organisation.id) && !institutionNames[p.organisation.id]) {
+              institutionNames[p.organisation.id] = {
+                country: p.organisation.countryCode,
+                institution: p.organisation.id,
+                name: p.organisation.name,
+                acronym: p.organisation.acronym!
+              }
             }
           })
-        }
+        })
+      }
 
-        // Cache seds allowing attachments
-        const seds = bucs[bucId].seds
-        if (seds) {
-          seds.forEach((sed: Sed) => {
-            sedsWithAttachments[sed.type] = sed.allowsAttachments
-            sed?.participants?.forEach((p) => {
-              if (!_.isNil(p.organisation.id) && !institutionNames[p.organisation.id]) {
-                institutionNames[p.organisation.id] = {
-                  country: p.organisation.countryCode,
-                  institution: p.organisation.id,
-                  name: p.organisation.name,
-                  acronym: p.organisation.acronym!
-                }
-              }
-            })
-          })
-        }
-
-        if (!bucs[bucId].addedParams) {
-          bucs[bucId].addedParams = {}
-        }
-
-        if (bucs[bucId].subject) {
-          bucs[bucId].addedParams.subject = _.cloneDeep(bucs[bucId].subject)
-        }
-
-        /* Lazy load: pick one:
-        * 1 - Simulate lazy load while we do not have lazy load backend: to simulate no seds and institutions
-        *   bucs[bucId].institusjon = undefined
-        *   bucs[bucId].seds = undefined
-        *
-        * 2- Get all working for no lazy load */
-        bucs[bucId].deltakere = bucs[bucId].institusjon
-      })
+      bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
+      bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
 
       return {
         ...state,
@@ -314,14 +323,17 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
     }
 
+    /*
     case types.BUC_GET_BUCS_FAILURE:
       standardLogger('buc.list.error')
+      const bucs = _.cloneDeep(state.bucs)
+      bucs![(action as ActionWithPayload).context.euxCaseId] = null
       return {
         ...state,
         bucs: null
-      }
+      } */
 
-    case types.BUC_GET_BUC_LIST_SUCCESS:
+    case types.BUC_GET_BUC_OPTIONS_SUCCESS:
     {
       const excludedBucs: Array<string> = []
 
@@ -343,16 +355,16 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       return {
         ...state,
-        bucList: _.difference((action as ActionWithPayload).payload, excludedBucs)
+        bucOptions: _.difference((action as ActionWithPayload).payload, excludedBucs)
       }
     }
 
-    case types.BUC_GET_BUC_LIST_REQUEST:
-    case types.BUC_GET_BUC_LIST_FAILURE:
+    case types.BUC_GET_BUC_OPTIONS_REQUEST:
+    case types.BUC_GET_BUC_OPTIONS_FAILURE:
 
       return {
         ...state,
-        bucList: []
+        bucOptions: []
       }
 
     case types.BUC_GET_BUCSINFO_SUCCESS:
@@ -460,17 +472,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         bucs![rinaCaseId].deltakere = deltakere
       }
 
-      return {
-        ...state,
-        bucs: bucs
-      }
-    }
-
-    case types.BUC_GET_SINGLE_BUC_SUCCESS: {
-      if (!(action as ActionWithPayload).payload.caseId || !(action as ActionWithPayload).payload.type) { return state }
-      const bucs = _.cloneDeep(state.bucs)
-      bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
-      bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
       return {
         ...state,
         bucs: bucs

@@ -40,13 +40,15 @@ export const PERSON_PDL_URL = PER_URL + '/pdl/%(aktoerId)s'
 export const PERSON_PDL_AVDOD_URL = PER_URL + '/pdl/%(aktoerId)s/avdode/vedtak/%(vedtakId)s'
 
 // BucController
-export const BUC_GET_BUCS_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
-export const BUC_GET_BUCS_WITH_VEDTAKID_URL = BUC_URL + '/detaljer/%(aktoerId)s/vedtak/%(vedtakId)s'
-export const BUC_GET_BUCS_WITH_AVDODFNR_URL = BUC_URL + '/detaljer/%(aktoerId)s/avdod/%(avdodFnr)s'
+export const BUC_GET_BUCSLIST_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s'
+export const BUC_GET_BUCSLIST_WITH_VEDTAKID_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s/vedtak/%(vedtakId)s'
+export const BUC_GET_BUCSLIST_WITH_AVDODFNR_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s/avdod/%(avdodFnr)s'
+export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s'
+export const BUC_GET_BUC_WITH_AVDOD_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/avdod/%(avdodFnr)s'
+
 export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
+export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs/%(sakId)s'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
-export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs/%(sakId)s'
-export const BUC_GET_SINGLE_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 
 // PensjonController
 export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'

@@ -1,7 +1,7 @@
 /* global WebSocket */
 
 import { alertSuccess } from 'actions/alert'
-import { fetchSingleBuc } from 'actions/buc'
+import { fetchBuc } from 'actions/buc'
 import FilledNetworkConnecting from 'assets/icons/filled-version-network-connecting'
 import FilledRemoveCircle from 'assets/icons/filled-version-remove-circle'
 import { SuccessFilled } from '@navikt/ds-icons'
@@ -15,8 +15,9 @@ import { rotating, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { State } from 'declarations/reducers'
 
 export interface BucWebSocketProps {
   highContrast: boolean
@@ -55,6 +56,15 @@ export const BUCWebsocketDiv = styled.div`
     animation: ${rotating} 2s linear infinite;
   }
 `
+interface WebSocketSelector {
+  aktoerId: string | null | undefined
+  sakId: string | null | undefined
+}
+
+const mapState = (state: State): WebSocketSelector => ({
+  aktoerId: state.app.params.aktoerId,
+  sakId: state.app.params.sakId
+})
 
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
   fnr, avdodFnr, highContrast
@@ -62,6 +72,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
+  const { aktoerId, sakId }: WebSocketSelector = useSelector<State, WebSocketSelector>(mapState)
   const [_log, setLog] = useState<Array<JSX.Element>>([])
   const [_simpleLog, setSimpleLog] = useState<Array<string>>([])
   const [_modal, _setModal] = useState<boolean>(false)
@@ -76,7 +87,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
       if (data.bucUpdated && data.bucUpdated.caseId) {
         pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
         dispatch(alertSuccess(t('ui:websocket-updating-buc', { buc: data.bucUpdated.caseId })))
-        dispatch(fetchSingleBuc(data.bucUpdated.caseId))
+        dispatch(fetchBuc(data.bucUpdated.caseId, aktoerId, sakId))
       }
       if (data.subscriptions) {
         pushToLog('info', 'Subscription status is ' + data.subscriptions)

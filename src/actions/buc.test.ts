@@ -116,17 +116,17 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('fetchBucs()', () => {
+  it('fetchBucsList()', () => {
     const mockAktoerId = '123'
-    bucActions.fetchBucs(mockAktoerId)
+    bucActions.fetchBucsList(mockAktoerId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_BUCS_REQUEST,
-        success: types.BUC_GET_BUCS_SUCCESS,
-        failure: types.BUC_GET_BUCS_FAILURE
+        request: types.BUC_GET_BUCSLIST_REQUEST,
+        success: types.BUC_GET_BUCSLIST_SUCCESS,
+        failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: mockAktoerId })
+      url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: mockAktoerId })
     }))
   })
 
@@ -158,33 +158,33 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('fetchBucsWithAvdodFnr()', () => {
+  it('fetchBucsListWithAvdodFnr()', () => {
     const mockAktoerId = '123'
     const mockAvdodFnr = '456'
-    bucActions.fetchBucsWithAvdodFnr(mockAktoerId, mockAvdodFnr)
+    bucActions.fetchBucsListWithAvdodFnr(mockAktoerId, mockAvdodFnr)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_BUCS_REQUEST,
-        success: types.BUC_GET_BUCS_SUCCESS,
-        failure: types.BUC_GET_BUCS_FAILURE
+        request: types.BUC_GET_BUCSLIST_REQUEST,
+        success: types.BUC_GET_BUCSLIST_SUCCESS,
+        failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCS_WITH_AVDODFNR_URL, { aktoerId: mockAktoerId, avdodFnr: mockAvdodFnr })
+      url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId: mockAktoerId, avdodFnr: mockAvdodFnr })
     }))
   })
 
-  it('fetchBucsWithVedtakId()', () => {
+  it('fetchBucsListWithVedtakId()', () => {
     const mockAktoerId = '123'
     const mockVedtakId = '456'
-    bucActions.fetchBucsWithVedtakId(mockAktoerId, mockVedtakId)
+    bucActions.fetchBucsListWithVedtakId(mockAktoerId, mockVedtakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_BUCS_REQUEST,
-        success: types.BUC_GET_BUCS_SUCCESS,
-        failure: types.BUC_GET_BUCS_FAILURE
+        request: types.BUC_GET_BUCSLIST_REQUEST,
+        success: types.BUC_GET_BUCSLIST_SUCCESS,
+        failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCS_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
+      url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
     }))
   })
 
@@ -203,31 +203,49 @@ describe('actions/buc', () => {
     }))
   })
 
-  it('fetchSingleBuc()', () => {
-    const mockRinaCaseId = '123'
-    bucActions.fetchSingleBuc(mockRinaCaseId)
+  it('fetchBuc()', () => {
+    const rinaCaseId = '123'
+    const aktoerId = '456'
+    const sakId = '780'
+    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_SINGLE_BUC_REQUEST,
-        success: types.BUC_GET_SINGLE_BUC_SUCCESS,
-        failure: types.BUC_GET_SINGLE_BUC_FAILURE
+        request: types.BUC_GET_BUC_REQUEST,
+        success: types.BUC_GET_BUC_SUCCESS,
+        failure: types.BUC_GET_BUC_FAILURE
       },
-      url: sprintf(urls.BUC_GET_SINGLE_BUC_URL, { rinaCaseId: mockRinaCaseId })
+      url: sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId, aktoerId, sakId })
     }))
   })
 
-  it('getBucList()', () => {
+  it('fetchBuc() avdod', () => {
+    const rinaCaseId = '123'
+    const aktoerId = '456'
+    const sakId = '780'
+    const avdodFnr = '12345678901'
+    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, avdodFnr)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_BUC_REQUEST,
+        success: types.BUC_GET_BUC_SUCCESS,
+        failure: types.BUC_GET_BUC_FAILURE
+      },
+      url: sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr })
+    }))
+  })
+
+  it('getBucOptions()', () => {
     const sakId = '123'
     const pesysContext = VEDTAKSKONTEKST
     const sakType = undefined
-    bucActions.getBucList(sakId, pesysContext, sakType)
+    bucActions.getBucOptions(sakId, pesysContext, sakType)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_BUC_LIST_REQUEST,
-        success: types.BUC_GET_BUC_LIST_SUCCESS,
-        failure: types.BUC_GET_BUC_LIST_FAILURE
+        request: types.BUC_GET_BUC_OPTIONS_REQUEST,
+        success: types.BUC_GET_BUC_OPTIONS_SUCCESS,
+        failure: types.BUC_GET_BUC_OPTIONS_FAILURE
       },
-      url: sprintf(urls.BUC_GET_BUC_LIST_URL, { sakId: sakId })
+      url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId: sakId })
     }))
   })
 

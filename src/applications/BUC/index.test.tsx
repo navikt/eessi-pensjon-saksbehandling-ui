@@ -27,7 +27,7 @@ jest.mock('actions/buc', () => ({
   fetchBucsInfoList: jest.fn(),
   getSakType: jest.fn(),
   getSubjectAreaList: jest.fn(),
-  getBucList: jest.fn(),
+  getBucOptions: jest.fn(),
   getRinaUrl: jest.fn(),
   getTagList: jest.fn(),
   saveBucsInfo: jest.fn(),
@@ -46,7 +46,7 @@ const defaultSelector: BUCIndexSelector = {
   bucsInfo: mockBucsInfo,
   currentBuc: '195440',
   loading: {
-    gettingBUCs: false
+    gettingBucsList: false
   },
   locale: 'nb' as AllowedLocaleString,
   pesysContext: VEDTAKSKONTEKST,

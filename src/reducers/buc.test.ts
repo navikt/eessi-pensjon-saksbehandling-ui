@@ -266,16 +266,16 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_BUCS_SUCCESS with bad payload', () => {
+  it('BUC_GET_BUCSLIST_SUCCESS with bad payload', () => {
     expect(
       bucReducer(initialBucState, {
-        type: types.BUC_GET_BUCS_SUCCESS,
+        type: types.BUC_GET_BUCSLIST_SUCCESS,
         payload: null
       })
     ).toEqual(initialBucState)
   })
 
-  it('BUC_GET_BUCS_SUCCESS', () => {
+  it('BUC_GET_BUCSLIST_SUCCESS', () => {
     const mockBuc = {
       caseId: '123456',
       institusjon: [{
@@ -289,7 +289,7 @@ describe('reducers/buc', () => {
         ...initialBucState,
         institutionNames: {}
       }, {
-        type: types.BUC_GET_BUCS_SUCCESS,
+        type: types.BUC_GET_BUCSLIST_SUCCESS,
         payload: [mockBuc]
       })
     ).toEqual({
@@ -305,7 +305,7 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_BUCS_FAILURE', () => {
+  it('BUC_GET_BUCSLIST_FAILURE', () => {
     expect(
       bucReducer({
         ...initialBucState,
@@ -313,7 +313,7 @@ describe('reducers/buc', () => {
           123: mockBuc
         }
       }, {
-        type: types.BUC_GET_BUCS_FAILURE
+        type: types.BUC_GET_BUCSLIST_FAILURE
       })
     ).toEqual({
       ...initialBucState,
@@ -321,31 +321,31 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_BUC_LIST_REQUEST', () => {
+  it('BUC_GET_BUC_OPTIONS_REQUEST', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucList: ['mockBucList']
+        bucOptions: ['mockBucOption']
       }, {
-        type: types.BUC_GET_BUC_LIST_REQUEST
+        type: types.BUC_GET_BUC_OPTIONS_REQUEST
       })
     ).toEqual({
       ...initialBucState,
-      bucList: []
+      bucOptions: []
     })
   })
 
-  it('BUC_GET_BUC_LIST_FAILURE', () => {
+  it('BUC_GET_BUC_OPTIONS_FAILURE', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        bucList: ['mockBucList']
+        bucOptions: ['mockBucOption']
       }, {
-        type: types.BUC_GET_BUC_LIST_FAILURE
+        type: types.BUC_GET_BUC_OPTIONS_FAILURE
       })
     ).toEqual({
       ...initialBucState,
-      bucList: []
+      bucOptions: []
     })
   })
 
@@ -530,28 +530,6 @@ describe('reducers/buc', () => {
     expect(newState.bucs![mockCaseId!].deltakere).toEqual([
       { country: 'AA', institution: 'ID', name: 'NAME', acronym: 'ID' }
     ])
-  })
-
-  it('BUC_GET_SINGLE_BUC_SUCCESS', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        bucs: {
-          123: mockBuc
-        }
-      }, {
-        type: types.BUC_GET_SINGLE_BUC_SUCCESS,
-        payload: [{
-          caseId: mockBucs()[0].caseId,
-          type: mockBucs()[0].type
-        }]
-      })
-    ).toEqual({
-      ...initialBucState,
-      bucs: {
-        123: mockBuc
-      }
-    })
   })
 
   it('BUC_GET_SED_LIST_SUCCESS', () => {

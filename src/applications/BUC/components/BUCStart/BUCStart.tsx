@@ -2,7 +2,7 @@ import {
   cleanNewlyCreatedBuc,
   createBuc,
   fetchKravDato,
-  getBucList,
+  getBucOptions,
   getSubjectAreaList,
   getTagList,
   resetBuc,
@@ -26,7 +26,7 @@ import {
 } from 'declarations/app.d'
 import {
   Buc,
-  BUCRawList,
+  BUCOptions,
   Bucs,
   BucsInfo,
   NewBucPayload,
@@ -79,7 +79,7 @@ export interface BUCStartProps {
 }
 
 export interface BUCStartSelector {
-  bucList?: BUCRawList | undefined
+  bucOptions?: BUCOptions | undefined
   bucParam: string | null | undefined
   bucs: Bucs | undefined
   bucsInfo?: BucsInfo | undefined
@@ -101,7 +101,7 @@ export interface BUCStartSelector {
 }
 
 const mapState = (state: State): BUCStartSelector => ({
-  bucList: state.buc.bucList,
+  bucOptions: state.buc.bucOptions,
   bucParam: state.app.params.buc,
   bucs: state.buc.bucs,
   bucsInfo: state.buc.bucsInfo,
@@ -154,7 +154,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   onBucCancelled
 }: BUCStartProps): JSX.Element | null => {
   const {
-    bucList, bucParam, bucs, bucsInfo, currentBuc, featureToggles,
+    bucOptions, bucParam, bucs, bucsInfo, currentBuc, featureToggles,
     highContrast, kravDato, kravId, loading, locale, newlyCreatedBuc, person, personAvdods,
     pesysContext, sakId, sakType, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
@@ -418,7 +418,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       : []
   }
 
-  const bucListOptions = renderOptions(bucList, valueSorter)
+  const bucListOptions = renderOptions(bucOptions, valueSorter)
 
   const tagObjectList: Array<O> = tagList
     ? tagList.map(tag => {
@@ -467,10 +467,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [dispatch, loading.gettingSubjectAreaList, subjectAreaList])
 
   useEffect(() => {
-    if (bucList === undefined && !loading.gettingBucList) {
-      dispatch(getBucList(sakId, featureToggles, pesysContext, sakType))
+    if (bucOptions === undefined && !loading.gettingBucOptions) {
+      dispatch(getBucOptions(sakId, featureToggles, pesysContext, sakType))
     }
-  }, [bucList, dispatch, loading.gettingBucList, pesysContext, sakId, sakType])
+  }, [bucOptions, dispatch, loading.gettingBucOptions, pesysContext, sakId, sakType])
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -559,12 +559,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
               feil={_validation?.buc?.feilmelding}
               highContrast={highContrast}
               id='a-buc-c-bucstart__buc-select-id'
-              isLoading={loading.gettingBucList}
+              isLoading={loading.gettingBucOptions}
               isSearchable
               menuPortalTarget={document.getElementById('main')}
               onChange={onBucChange}
               options={bucListOptions}
-              placeholder={t(loading.gettingBucList ? 'buc:loading-bucList' : 'buc:form-chooseBuc')}
+              placeholder={t(loading.gettingBucOptions ? 'buc:loading-bucOptions' : 'buc:form-chooseBuc')}
               value={_.find(bucListOptions, (b: O) => b.value === _buc)}
             />
           </>

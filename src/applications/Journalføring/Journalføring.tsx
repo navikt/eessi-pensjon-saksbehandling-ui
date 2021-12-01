@@ -96,7 +96,7 @@ const Journalføring = () => {
         defaultValue={_.find(sedOptions, o => o.value === _sed)}
         value={_.find(typeOptions, o => o.value === _sed)}
       />
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <TextArea
         data-test-id='w-journalføring__sed-comment-id'
         className='skjemaelement__input'
@@ -104,7 +104,7 @@ const Journalføring = () => {
         value={_sedComment || ''}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => _setSedComment(e.target.value)}
       />
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <HighContrastHovedknapp
         spinner={sendingJournalføringSend}
         disabled={sendingJournalføringSend}

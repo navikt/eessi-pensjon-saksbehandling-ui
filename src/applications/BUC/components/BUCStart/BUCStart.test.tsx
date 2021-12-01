@@ -1,4 +1,4 @@
-import { createBuc, getBucList, getSubjectAreaList, getTagList, saveBucsInfo } from 'actions/buc'
+import { createBuc, getBucOptions, getSubjectAreaList, getTagList, saveBucsInfo } from 'actions/buc'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { BucsInfo } from 'declarations/buc'
@@ -7,7 +7,7 @@ import _ from 'lodash'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockPerson from 'mocks/app/person'
 import mockPersonAvdods from 'mocks/app/personAvdod'
-import mockBucList from 'mocks/buc/bucList'
+import mockBucOptions from 'mocks/buc/bucOptions'
 import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
@@ -20,7 +20,7 @@ import React from 'react'
 jest.mock('actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),
   createBuc: jest.fn(),
-  getBucList: jest.fn(),
+  getBucOptions: jest.fn(),
   getSubjectAreaList: jest.fn(),
   getTagList: jest.fn(),
   resetBuc: jest.fn(),
@@ -32,7 +32,7 @@ const currentBuc = _.values(bucs)[0].caseId
 const mockPersonAvdod = mockPersonAvdods(1)
 
 const defaultSelector = {
-  bucList: mockBucList,
+  bucOptions: mockBucOptions,
   bucParam: undefined,
   bucs: bucs,
   bucsInfo: {},
@@ -103,12 +103,12 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
   })
 
   it('UseEffect: Fetch buc list', () => {
-    (getBucList as jest.Mock).mockReset()
+    (getBucOptions as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
-      bucList: undefined
+      bucOptions: undefined
     })
     wrapper = mount(<BUCStart {...initialMockProps} />)
-    expect(getBucList).toHaveBeenCalled()
+    expect(getBucOptions).toHaveBeenCalled()
   })
 
   it('UseEffect: Fetch tag list', () => {
