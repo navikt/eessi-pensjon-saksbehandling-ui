@@ -375,13 +375,7 @@ const BUCList: React.FC<BUCListProps> = ({
       {!gettingBucs && !_.isNil(_sortedBucs) && !_.isEmpty(_sortedBucs) &&
           _sortedBucs.map((buc: Buc, index: number) => {
             if (buc?.error) {
-              return (
-                <BadBucDiv key={index}>
-                  <Alertstripe type='advarsel'>
-                    {buc?.error}
-                  </Alertstripe>
-                </BadBucDiv>
-              )
+              return null
             }
             const bucId: string = buc.caseId!
             const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
