@@ -281,7 +281,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       const buc: Buc | undefined = (action as ActionWithPayload).payload
 
       if (!buc?.caseId || !buc?.type) {
-        bucs![(action as ActionWithPayload).context.euxCaseId] = (action as ActionWithPayload).payload
+        bucs![(action as ActionWithPayload).context.rinaCaseId] = (action as ActionWithPayload).payload
 
         return {
           ...state,
