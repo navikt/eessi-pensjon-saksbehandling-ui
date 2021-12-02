@@ -11,10 +11,13 @@ import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { Search } from '@navikt/ds-icons'
 import classNames from 'classnames'
+import ProgressBar from 'fremdriftslinje'
 import {
   animationClose, animationOpen, slideInFromLeft,
   HorizontalSeparatorDiv,
-  VerticalSeparatorDiv
+  VerticalSeparatorDiv,
+  Column,
+  Row
 } from 'nav-hoykontrast'
 
 import { BRUKERKONTEKST } from 'constants/constants'
@@ -285,6 +288,9 @@ const BUCList: React.FC<BUCListProps> = ({
     } */
   }, [institutionList, bucs, dispatch, _parsedCountries])
 
+  const status = _.isEmpty(bucsList) ? 'todo' : Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
+  const now = _.isEmpty(bucsList) ? 0 : Math.floor( Object.keys(bucs!).length / (bucsList?.length ?? 1) * 100)
+
   return (
     <BUCListDiv
       onMouseEnter={onMouseEnter}
@@ -332,6 +338,17 @@ const BUCList: React.FC<BUCListProps> = ({
         </BUCNewDiv>
         <VerticalSeparatorDiv />
       </BUCStartDiv>
+      {gettingBucs && (
+        <Row style={{width: '100%', height: '40px'}}>
+          <Column>
+            <ProgressBar
+              status={status}
+              now={now}>
+              <BodyLong>Laster BUC-er... {now} %</BodyLong>
+            </ProgressBar>
+          </Column>
+        </Row>
+      )}
       {(gettingBucsList || gettingBucs) && (
         <BUCLoadingDiv>
           <BUCLoading />
