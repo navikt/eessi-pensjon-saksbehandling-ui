@@ -312,6 +312,16 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         })
       }
 
+      if (!(buc as ValidBuc).addedParams) {
+        (buc as ValidBuc).addedParams = {}
+      }
+
+      // @ts-ignore
+      if (buc.subject) {
+        // @ts-ignore
+        (buc as ValidBuc).addedParams.subject = _.cloneDeep(buc.subject)
+      }
+
       bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
       bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
 
