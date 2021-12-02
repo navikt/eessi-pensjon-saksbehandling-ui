@@ -277,59 +277,66 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
 
     case types.BUC_GET_BUC_SUCCESS: {
-      const buc: Buc | undefined = (action as ActionWithPayload).payload
-      if (!buc?.caseId || !buc?.type) {
-        console.log('bad buc, returning')
-        return state
-      }
       const bucs = _.cloneDeep(state.bucs)
-      const institutionNames = _.cloneDeep(state.institutionNames)
-      const sedsWithAttachments: SedsWithAttachmentsMap = {}
+      const buc: Buc | undefined = (action as ActionWithPayload).payload
 
-      if (buc.institusjon) {
-        buc.institusjon.forEach((inst: Institution) => {
-          if (inst.institution && !institutionNames[inst.institution]) {
-            institutionNames[inst.institution] = inst
-          }
-        })
-      }
+      if (!buc?.caseId || !buc?.type) {
+        bucs![(action as ActionWithPayload).context.euxCaseId] = (action as ActionWithPayload).payload
 
-      // Cache seds allowing attachments
-      const seds = buc.seds
-      if (seds) {
-        seds.forEach((sed: Sed) => {
-          sedsWithAttachments[sed.type] = sed.allowsAttachments
-          sed?.participants?.forEach((p) => {
-            if (!_.isNil(p.organisation.id) && !institutionNames[p.organisation.id]) {
-              institutionNames[p.organisation.id] = {
-                country: p.organisation.countryCode,
-                institution: p.organisation.id,
-                name: p.organisation.name,
-                acronym: p.organisation.acronym!
-              }
+        return {
+          ...state,
+          bucs: bucs
+        }
+      } else {
+
+        const institutionNames = _.cloneDeep(state.institutionNames)
+        const sedsWithAttachments: SedsWithAttachmentsMap = {}
+
+        if (buc.institusjon) {
+          buc.institusjon.forEach((inst: Institution) => {
+            if (inst.institution && !institutionNames[inst.institution]) {
+              institutionNames[inst.institution] = inst
             }
           })
-        })
-      }
+        }
 
-      if (!(buc as ValidBuc).addedParams) {
-        (buc as ValidBuc).addedParams = {}
-      }
+        // Cache seds allowing attachments
+        const seds = buc.seds
+        if (seds) {
+          seds.forEach((sed: Sed) => {
+            sedsWithAttachments[sed.type] = sed.allowsAttachments
+            sed?.participants?.forEach((p) => {
+              if (!_.isNil(p.organisation.id) && !institutionNames[p.organisation.id]) {
+                institutionNames[p.organisation.id] = {
+                  country: p.organisation.countryCode,
+                  institution: p.organisation.id,
+                  name: p.organisation.name,
+                  acronym: p.organisation.acronym!
+                }
+              }
+            })
+          })
+        }
 
-      // @ts-ignore
-      if (buc.subject) {
+        if (!(buc as ValidBuc).addedParams) {
+          (buc as ValidBuc).addedParams = {}
+        }
+
         // @ts-ignore
-        (buc as ValidBuc).addedParams.subject = _.cloneDeep(buc.subject)
-      }
+        if (buc.subject) {
+          // @ts-ignore
+          (buc as ValidBuc).addedParams.subject = _.cloneDeep(buc.subject)
+        }
 
-      bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
-      bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
+        bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
+        bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
 
-      return {
-        ...state,
-        bucs: bucs,
-        institutionNames: institutionNames,
-        sedsWithAttachments: sedsWithAttachments
+        return {
+          ...state,
+          bucs: bucs,
+          institutionNames: institutionNames,
+          sedsWithAttachments: sedsWithAttachments
+        }
       }
     }
 
