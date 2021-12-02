@@ -28,7 +28,7 @@ export interface BucListItem {
   buctype: string
   aktoerId: string
   saknr: string
-  avdodfnr: string | null
+  avdodFnr: string | null
 }
 
 export interface Comment {
