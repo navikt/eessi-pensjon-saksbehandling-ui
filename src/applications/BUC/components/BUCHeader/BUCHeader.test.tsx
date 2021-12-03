@@ -3,7 +3,6 @@ import { Buc, BucsInfo } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
-import mockPersonAvdods from 'mocks/app/personAvdod'
 import moment from 'moment'
 import { stageSelector } from 'setupTests'
 import BucHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
@@ -12,7 +11,6 @@ const defaultSelector: BUCHeaderSelector = {
   gettingBucDeltakere: false,
   institutionNames: {},
   locale: 'nb',
-  personAvdods: mockPersonAvdods(1),
   rinaUrl: 'http://rinaurl.mock.com',
   size: 'lg'
 }
