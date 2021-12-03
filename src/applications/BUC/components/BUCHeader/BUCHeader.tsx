@@ -1,8 +1,6 @@
 import {
-  bucsThatSupportAvdod,
   countrySorter,
   getBucTypeLabel,
-  renderAvdodName,
   sedFilter
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
@@ -10,9 +8,8 @@ import { Warning } from '@navikt/ds-icons'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, ValidBuc } from 'declarations/buc'
+import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { PersonAvdod, PersonAvdods } from 'declarations/person'
 import { State } from 'declarations/reducers'
 import { FlagItems, FlagList } from 'flagg-ikoner'
 import _ from 'lodash'
@@ -89,7 +86,6 @@ export interface BUCHeaderSelector {
   gettingBucDeltakere: boolean
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
-  personAvdods: PersonAvdods | undefined
   rinaUrl: RinaUrl | undefined
   size: WidthSize | undefined
 }
@@ -98,7 +94,6 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
   gettingBucDeltakere: state.loading.gettingBucDeltakere,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
-  personAvdods: state.app.personAvdods,
   rinaUrl: state.buc.rinaUrl,
   size: state.ui.size
 })
@@ -106,7 +101,7 @@ const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector =>
 const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo
 }: BUCHeaderProps): JSX.Element => {
-  const { institutionNames, locale, personAvdods, rinaUrl, size }: BUCHeaderSelector =
+  const { institutionNames, locale, rinaUrl, size }: BUCHeaderSelector =
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const [_flagSize, setFlagSize] = useState<string>('XL')
@@ -142,12 +137,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   }
 
   const flagItems: FlagItems = _.isArray(buc.deltakere) ? generateFlagItems() : []
-
-  const avdod: PersonAvdod | undefined = _.find(personAvdods, p => {
-    const avdodFnr = p.fnr
-    const needleFnr = (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
-    return avdodFnr === needleFnr
-  })
 
   const onRinaLinkClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     linkLogger(e)
@@ -230,18 +219,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 : (
                   <WaitingPanel size='xsmall' oneLine />
                   )}
-            </PropertyDiv>
-          )}
-          {bucsThatSupportAvdod(buc.type) && (buc as ValidBuc)?.addedParams?.subject && (
-            <PropertyDiv
-              data-test-id='a-buc-c-bucheader__label-avdod-id'
-            >
-              <RowText>
-                {t('ui:deceased') + ': '}
-              </RowText>
-              <BodyLong>
-                {avdod ? renderAvdodName(avdod, t) : (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr}
-              </BodyLong>
             </PropertyDiv>
           )}
         </LabelsDiv>
