@@ -342,6 +342,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
       <TextField
+        size='small'
         aria-invalid={!!options.feil}
         aria-label='dag'
         data-test-id='c-table__edit-dag-input-id'
@@ -363,6 +364,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
       <TextField
+        size='small'
         aria-invalid={!!options.feil}
         aria-label='mnd'
         data-test-id='c-table__edit-mnd-input-id'
@@ -384,6 +386,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
       <TextField
+        size='small'
         aria-invalid={!!options.feil}
         aria-label='aar'
         data-test-id='c-table__edit-aar-input-id'
@@ -452,6 +455,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
       <TextField
+        size='small'
         id='c-table__edit-beregning-input-id'
         className='c-table__edit-input'
         label=''

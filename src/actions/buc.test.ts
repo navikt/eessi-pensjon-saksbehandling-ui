@@ -207,7 +207,8 @@ describe('actions/buc', () => {
     const rinaCaseId = '123'
     const aktoerId = '456'
     const sakId = '780'
-    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId)
+    const kilde = 'pdl'
+    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, kilde)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_REQUEST,
@@ -223,7 +224,8 @@ describe('actions/buc', () => {
     const aktoerId = '456'
     const sakId = '780'
     const avdodFnr = '12345678901'
-    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, avdodFnr)
+    const kilde = 'pdl'
+    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, avdodFnr, kilde)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_REQUEST,

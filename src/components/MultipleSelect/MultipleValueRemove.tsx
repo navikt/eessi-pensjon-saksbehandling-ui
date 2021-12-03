@@ -1,4 +1,4 @@
-import { AddCircleFilled } from '@navikt/ds-icons'
+import { ErrorFilled } from '@navikt/ds-icons'
 import styled from 'styled-components'
 
 const FlexDiv = styled.div`
@@ -18,7 +18,7 @@ const MultipleValueRemove = (props: any) => {
       style={{}}
       data-test-id='c-multipleselect-multiplevalueremove'
     >
-      <AddCircleFilled style={{ transform: 'rotate(45deg)', visibility: visibility }} />
+      <ErrorFilled style={{  visibility: visibility }} />
     </FlexDiv>
 
   )

@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'redux'
 import styled from 'styled-components'
-import { AddCircle } from '@navikt/ds-icons'
+import { AddCircle, ErrorFilled } from '@navikt/ds-icons'
 
 export const FooterDiv = styled.footer`
   flex-shrink: 0;
@@ -217,7 +217,7 @@ const Footer: React.FC<FooterProps> = ({
                   data-test-id='c-footer__remove-button'
                   onClick={() => onUnsetParam(param)}
                 >
-                  <AddCircle style={{ transform: 'rotate(45deg)' }} />
+                  <ErrorFilled />
                 </Button>
               </ParamDiv>
             )

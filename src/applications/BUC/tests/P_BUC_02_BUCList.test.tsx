@@ -37,13 +37,15 @@ const defaultSelector: BUCListSelector = {
     buctype: 'P_BUC_02',
     aktoerId: '123',
     saknr: '456',
-    avdodFnr: null
+    avdodFnr: null,
+    kilde: 'pdl'
   }, {
     euxCaseId: 'NorwayIsNOTCaseOwner',
     buctype: 'P_BUC_02',
     aktoerId: '123',
     saknr: '456',
-    avdodFnr: null
+    avdodFnr: null,
+    kilde: 'pdl'
   }],
   bucs: {
     NorwayIsCaseOwner: {

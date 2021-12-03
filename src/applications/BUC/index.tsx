@@ -384,7 +384,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       dispatch(startBucsFetch())
       bucsList.forEach((bucListItem) => {
         dispatch(fetchBuc(
-          bucListItem.euxCaseId, bucListItem.aktoerId, bucListItem.saknr, bucListItem.avdodFnr
+          bucListItem.euxCaseId, bucListItem.aktoerId, bucListItem.saknr, bucListItem.avdodFnr, bucListItem.kilde
         ))
       })
     }

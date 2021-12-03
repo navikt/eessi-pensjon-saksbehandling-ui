@@ -287,7 +287,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   <VerticalSeparatorDiv size='0.5' />
                   <SEDPanel
                     aktoerId={aktoerId!}
-                    style={{ animationDelay: (0.2 * index) + 's' }}
+                    style={{ animationDelay: (0.1 * index) + 's' }}
                     buc={buc!}
                     sed={sed}
                     newSed={(

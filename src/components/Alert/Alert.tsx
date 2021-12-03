@@ -1,4 +1,4 @@
-import { AddCircleFilled } from '@navikt/ds-icons'
+import { ErrorFilled } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import { fadeIn } from 'nav-hoykontrast'
 import { AlertError, AlertVariant } from 'declarations/components'
@@ -23,12 +23,11 @@ export const AlertDiv = styled(Alert)`
     max-width: none !important;
   }
 `
-export const CloseIcon = styled(AddCircleFilled)`
+export const CloseIcon = styled(ErrorFilled)`
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   cursor: pointer;
-  transform: rotate(45deg);
 `
 
 export interface AlertProps {

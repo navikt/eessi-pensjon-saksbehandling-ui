@@ -389,7 +389,7 @@ const BUCList: React.FC<BUCListProps> = ({
                 data-test-id={'a-buc-p-buclist__buc-' + bucId}
                 key={index}
                 className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
-                style={{ animationDelay: (0.2 * index) + 's' }}
+                style={{ animationDelay: (0.1 * index) + 's' }}
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault()
                   e.stopPropagation()

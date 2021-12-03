@@ -239,11 +239,11 @@ export const fetchKravDato: ActionCreator<ThunkResult<ActionWithPayload<any>>> =
 }
 
 export const fetchBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> = (
-  rinaCaseId: string, aktoerId: string, sakId: string, avdodFnr: string | undefined
+  rinaCaseId: string, aktoerId: string, sakId: string, avdodFnr: string | undefined, kilde: string
 ): ThunkResult<ActionWithPayload<ValidBuc>> => {
   const url = !_.isEmpty(avdodFnr)
-    ? sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr })
-    : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId, aktoerId, sakId })
+    ? sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr, kilde })
+    : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId, aktoerId, sakId, kilde })
 
   return call({
     url: url,

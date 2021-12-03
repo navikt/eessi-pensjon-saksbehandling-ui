@@ -2,7 +2,7 @@
 
 import { alertSuccess } from 'actions/alert'
 import { fetchBuc } from 'actions/buc'
-import { SuccessFilled, AddCircleFilled, LinkFilled } from '@navikt/ds-icons'
+import { SuccessFilled, LinkFilled, ErrorFilled } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
 import { IS_TEST } from 'constants/environment'
@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { State } from 'declarations/reducers'
+import { BucListItem } from 'declarations/buc'
 
 export interface BucWebSocketProps {
   fnr: string | undefined
@@ -68,6 +69,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 }: BucWebSocketProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const bucsList: Array<BucListItem> | undefined = useSelector<State, Array<BucListItem> | undefined>((state) => state.buc.bucsList)
 
   const { aktoerId, sakId }: WebSocketSelector = useSelector<State, WebSocketSelector>(mapState)
   const [_log, setLog] = useState<Array<JSX.Element>>([])
@@ -84,7 +86,10 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
       if (data.bucUpdated && data.bucUpdated.caseId) {
         pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
         dispatch(alertSuccess(t('ui:websocket-updating-buc', { buc: data.bucUpdated.caseId })))
-        dispatch(fetchBuc(data.bucUpdated.caseId, aktoerId, sakId))
+        const buc: BucListItem | undefined = _.find(bucsList, b => b.euxCaseId === data.bucUpdated.caseId)
+        if (buc) {
+          dispatch(fetchBuc(data.bucUpdated.caseId, aktoerId, sakId, buc.kilde))
+        }
       }
       if (data.subscriptions) {
         pushToLog('info', 'Subscription status is ' + data.subscriptions)
@@ -190,7 +195,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
         />
         {_status === 'CONNECTED' && (<SuccessFilled color='green' width={24} height={24} onClick={onIconClick} />)}
         {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (
-          <AddCircleFilled style={{ transform: 'rotate(45deg)', color: '#A13A28' }} width={24} onClick={onIconClick} />
+          <ErrorFilled style={{ color: '#A13A28' }} width={24} onClick={onIconClick} />
         )}
         {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<LinkFilled width={24} onClick={onIconClick} />)}
 
