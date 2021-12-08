@@ -24,7 +24,7 @@ const SearchInput = styled(TextField)`
   margin-right: 0.5rem;
   margin-bottom: 0.25rem !important;
   margin-left: 0.25rem;
-  .skjemaelement__label {
+  .navds-text-field__label navds-label {
     display: none;
   }
 `
@@ -91,9 +91,8 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
         <SearchInput
           data-test-id='a-buc-c-sedsearch__query-input-id'
           id='a-buc-c-sedsearch__query-input-id'
-          label=''
           onChange={onQueryChange}
-          placeholder={t('buc:form-filterSED')}
+          label={t('buc:form-filterSED')}
           value={_query || ''}
         />
       </PaddedDiv>
@@ -104,10 +103,9 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
           data-test-id='a-buc-c-sedsearch__status-select-id'
           id='a-buc-c-sedsearch__status-select-id'
           hideSelectedOptions={false}
-          label=''
           onSelect={onStatusChange}
           options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}
-          placeholder={t('buc:form-searchForStatus')}
+          label={t('buc:form-searchForStatus')}
           values={_status}
         />
       </PaddedDiv>

@@ -421,10 +421,6 @@ const BUCList: React.FC<BUCListProps> = ({
                         </FlexDiv>
                       </Accordion.Header>
                       <Accordion.Content>
-                      <BodyLong>
-                        {t('buc:form-searchOtherBUCs-description')}
-                      </BodyLong>
-                      <VerticalSeparatorDiv />
                       <FlexDiv className={classNames({ feil: _validation || false })}>
                         <TextField
                           style={{ width: '200px' }}
@@ -437,7 +433,7 @@ const BUCList: React.FC<BUCListProps> = ({
                             </HiddenDiv>
                           )}
                           onChange={onAvdodFnrChange}
-                          placeholder={t('buc:form-searchOtherBUCs-placeholder')}
+                          description={t('buc:form-searchOtherBUCs-description')}
                           value={_avdodFnr || ''}
                           onKeyPress={handleKeyPress}
                         />

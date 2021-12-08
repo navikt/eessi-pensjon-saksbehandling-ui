@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { TextField } from '@navikt/ds-react'
 
 export interface InputProps {
@@ -23,14 +22,12 @@ const Input: React.FC<InputProps> = ({
   label,
   namespace,
   onChanged,
-  placeholder,
   required = false,
   type = 'text',
   value
 }: InputProps) => {
   const [_value, _setValue] = useState<string>(value ?? '')
   const [_dirty, _setDirty] = useState<boolean>(false)
-  const { t } = useTranslation()
 
   return (
     <TextField
@@ -51,7 +48,6 @@ const Input: React.FC<InputProps> = ({
         _setValue(e.target.value)
         _setDirty(true)
       }}
-      placeholder={placeholder ?? t('el:placeholder-input-default')}
       required={required}
       type={type}
       value={_value}

@@ -32,13 +32,14 @@ export interface MultipleSelectProps<T>{
   menuPortalTarget?: any,
   onSelect?: (e: Array<T>) => void
   options?: OptionsOrGroups<T, GroupBase<T>>
-  placeholder?: JSX.Element | string
+  size ?: 'medium' | 'small'
   values?: PropsValue<T>
 }
 
 const MultipleSelect = <T extends Option = Option> ({
   ariaLabel, className, creatable = false, error, hideSelectedOptions = false, id,
-  isDisabled = false, isLoading = false, isSearchable = true, label, menuPortalTarget, onSelect, options = [], placeholder, values = []
+  isDisabled = false, isLoading = false, isSearchable = true, label, menuPortalTarget, onSelect,
+  options = [], size = 'medium', values = []
 }: MultipleSelectProps<T>): JSX.Element => {
   const onSelectChange = (e: OnChangeValue<T, true>) => {
     if (_.isFunction(onSelect)) {
@@ -57,12 +58,11 @@ const MultipleSelect = <T extends Option = Option> ({
     <MultipleSelectDiv
       className={classNames(className, { skjemaelement__feilmelding: error })}
     >
-      <label className='skjemaelement__label' htmlFor={inputId}>{label}</label>
+      {label && (<label className='navds-text-field__label navds-label' htmlFor={inputId}>{label}</label>)}
       <Component
         inputId={id || undefined}
         className='multipleSelect'
         classNamePrefix='multipleSelect'
-        placeholder={placeholder}
         aria-label={ariaLabel}
         isDisabled={isDisabled}
         isMulti
@@ -80,22 +80,17 @@ const MultipleSelect = <T extends Option = Option> ({
         onChange={onSelectChange}
         hideSelectedOptions={hideSelectedOptions || false}
         styles={{
-          container: (styles: any, state: any) => ({
+          container: (styles: any) => ({
             ...styles,
-            backgroundColor: 'var(--navds-color-background)',
-            borderRadius: 'var(--navds-border-radius)',
-            border: !error
-              ? '1px solid var(--navds-color-border)'
-              : '2px solid var(--navds-color-error-border)',
-            boxShadow: state.isFocused
-              ? '0 0 0 3px var(--navds-semantic-color-focus)'
-              : (error ? '0 0 0 1px var(--navds-color-error-border)' : 'none')
+            marginTop: '8px',
+            minHeight: size === 'small' ? '35px' : '48px'
           }),
           control: (styles: any) => ({
             ...styles,
+            minHeight: size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: error ? 'var(--navds-color-text-error)' : 'var(--navds-color-border)',
+            borderColor: error ? 'var(--navds-color-text-error)' : 'var(--navds-text-field-color-border)',
             backgroundColor: isDisabled ? 'var(--navds-color-disabled)' : 'var(--navds-color-background)',
             borderRadius: 'var(--navds-border-radius)',
             color: 'var(--navds-color-text-primary)'
@@ -114,7 +109,7 @@ const MultipleSelect = <T extends Option = Option> ({
             ...styles,
             borderRadius: '20px',
             borderWidth: '1px',
-            borderColor: 'var(--navds-color-border)',
+            borderColor: 'var(--navds-text-field-color-border)',
             borderStyle: 'solid',
             padding: '0rem 0.25rem',
             backgroundColor: 'var(--navds-color-background)',

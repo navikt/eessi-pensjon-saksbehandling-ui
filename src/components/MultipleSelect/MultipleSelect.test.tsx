@@ -20,7 +20,6 @@ describe('components/MultipleSelect/MultipleSelect', () => {
     label: 'mockLabel',
     onSelect: jest.fn(),
     options: options,
-    placeholder: 'mockPlaceholder',
     values: [options[1]]
   }
 

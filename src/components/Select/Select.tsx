@@ -12,7 +12,6 @@ interface SelectProps extends Props {
 }
 
 const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
-  console.log(props)
   return (
     <div data-test-id={props['data-test-id'] || props.id} style={props.style}>
       {props.label && (<label className='navds-text-field__label navds-label'>{props.label ?? ''}</label>)}
@@ -28,7 +27,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
           }),
           control: (styles: any, { isDisabled }) => ({
             ...styles,
-            minHeight:  props.size === 'small'? '35px' : '48px',
+            minHeight:  props.size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
             borderColor: props.error ? 'var(--navds-color-text-error)' : 'var(--navds-text-field-color-border)',
@@ -42,7 +41,9 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
           }),
           menu: (styles: any) => ({
             ...styles,
-            zIndex: 500
+            zIndex: 500,
+            width: 'max-content',
+            minWidth: '100%'
           }),
           menuList: (styles: any) => ({
             ...styles,

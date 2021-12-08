@@ -49,7 +49,7 @@ import {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -499,8 +499,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
         <Column>
           <VerticalSeparatorDiv size='2' />
           <>
-            <label className='skjemaelement__label'>
-              {t('buc:form-subjectArea')}
+            <label className='navds-text-field__label navds-label'>
+              {t(loading.gettingSubjectAreaList ? 'message:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
             </label>
             <Select
               data-test-id='a-buc-c-bucstart__subjectarea-select-id'
@@ -512,13 +512,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
               menuPortalTarget={document.getElementById('main')}
               onChange={onSubjectAreaChange}
               options={renderOptions(subjectAreaList)}
-              placeholder={t(loading.gettingSubjectAreaList ? 'message:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
             />
           </>
           <VerticalSeparatorDiv />
           <>
-            <label className='skjemaelement__label'>
-              {t('buc:form-buc')}
+            <label className='navds-text-field__label navds-label'>
+              {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
             </label>
             <Select
               data-test-id='a-buc-c-bucstart__buc-select-id'
@@ -529,15 +528,14 @@ const BUCStart: React.FC<BUCStartProps> = ({
               menuPortalTarget={document.getElementById('main')}
               onChange={onBucChange}
               options={bucListOptions}
-              placeholder={t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
               value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
             />
           </>
           {bucNeedsAvdod() && (
             <>
               <VerticalSeparatorDiv />
-              <label className='skjemaelement__label'>
-                {t('buc:form-avdod')}
+              <label className='navds-text-field__label navds-label'>
+                {t('buc:form-chooseAvdod')}
               </label>
               <Select
                 data-test-id='a-buc-c-bucstart__avdod-select-id'
@@ -547,7 +545,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 menuPortalTarget={document.getElementById('main')}
                 onChange={onAvdodChange}
                 options={avdodOptions}
-                placeholder={t('buc:form-chooseAvdod')}
                 value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
               />
             </>
@@ -563,7 +560,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                   label={t('buc:form-avdod')}
                   value={_avdodFnr}
                   onChange={onAvdodFnrChange}
-                  placeholder={t('buc:form-fnrdnr')}
+                  description={t('buc:form-fnrdnr')}
                   error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
                 />
                 <HorizontalSeparatorDiv size='0.5' />
@@ -580,10 +577,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 <TextField
                   data-test-id='a-buc-c-bucstart__kravDato-input-id'
                   id='a-buc-c-bucstart__kravDato-input-id'
-                  label={t('buc:form-kravDato')}
+                  label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
                   value={_kravDato}
                   onChange={onKravDatoChange}
-                  placeholder={t('buc:form-kravDatoPlaceholder')}
                   error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
                 />
                 {loading.gettingKravDato
@@ -610,8 +606,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
             isLoading={loading.gettingTagList}
             label={(
               <>
-                <label className='skjemaelement__label'>
-                  {t('buc:form-tagsForBUC')}
+                <label className='navds-text-field__label navds-label'>
+                  {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
                 </label>
                 <VerticalSeparatorDiv />
                 <BodyLong>
@@ -622,7 +618,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
             onSelect={onTagsChange}
             options={tagObjectList}
             menuPortalTarget={document.getElementById('main')}
-            placeholder={t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagPlaceholder')}
             values={_tags}
           />
         </Column>

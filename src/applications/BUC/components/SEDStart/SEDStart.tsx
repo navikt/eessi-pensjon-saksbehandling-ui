@@ -974,8 +974,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         <Column>
           <VerticalSeparatorDiv size='2' />
           <>
-            <label className='skjemaelement__label'>
-              {t('buc:form-sed')}
+            <label className='navds-text-field__label navds-label'>
+              {t('buc:form-chooseSed')}
             </label>
             <Select
               data-test-id='a-buc-c-sedstart__sed-select-id'
@@ -986,7 +986,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               menuPortalTarget={document.getElementById('main')}
               onChange={onSedChange}
               options={_sedOptions}
-              placeholder={t('buc:form-chooseSed')}
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
           </>
@@ -997,10 +996,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 disabled
                 data-test-id='a-buc-c-sedstart__vedtakid-input-id'
                 id='a-buc-c-sedstart__vedtakid-input-id'
-                label={t('buc:form-vedtakId')}
+                label={t('buc:form-vedtakId') + ' - ' + t('buc:form-noVedtakId')}
                 value={_vedtakId || ''}
                 onChange={onVedtakIdChange}
-                placeholder={t('buc:form-noVedtakId')}
                 error={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
               />
             </>
@@ -1013,7 +1011,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               >
                 <People />
                 <HorizontalSeparatorDiv />
-                <label className='skjemaelement__label'>
+                <label className='navds-text-field__label navds-label'>
                   {t('buc:form-avdod')}:
                 </label>
                 <HorizontalSeparatorDiv />
@@ -1027,10 +1025,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <TextField
-                label={t('buc:form-avdodFnr')}
+                label={t('buc:form-chooseAvdodFnr')}
                 data-test-id='a-buc-c-sedstart__avdod-input-id'
                 id='a-buc-c-sedstart__avdod-input-id'
-                placeholder={t('buc:form-chooseAvdodFnr')}
                 onChange={onAvdodFnrChange}
                 value={_avdodFnr}
                 error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
@@ -1043,10 +1040,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <TextField
                 data-test-id='a-buc-c-sedstart__kravDato-input-id'
                 id='a-buc-c-sedstart__kravDato-input-id'
-                label={t('buc:form-kravDato')}
+                label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
                 value={_kravDato}
                 onChange={onKravDatoChange}
-                placeholder={t('buc:form-kravDatoPlaceholder')}
                 error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
               />
             </>
@@ -1117,9 +1113,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 values={_countryValueList}
                 isLoading={loading.gettingCountryList}
                 isMulti
-                label={t('ui:country')}
+                label={loading.gettingCountryList ? getSpinner('message:loading-country') : t('buc:form-chooseCountry')}
                 onOptionSelected={onCountriesChange}
-                placeholder={loading.gettingCountryList ? getSpinner('message:loading-country') : t('buc:form-chooseCountry')}
               />
               <VerticalSeparatorDiv />
               <MultipleSelect<Option>
@@ -1131,10 +1126,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 hideSelectedOptions={false}
                 id='a-buc-c-sedstart__institution-select-id'
                 isLoading={loading.gettingInstitutionList}
-                label={t('ui:institution')}
+                label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
                 options={_institutionObjectList}
                 onSelect={onInstitutionsChange}
-                placeholder={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
                 values={_institutionValueList}
               />
               <VerticalSeparatorDiv size='2' />
@@ -1160,7 +1154,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   <VerticalSeparatorDiv size='2' />
                 </>
               )}
-              <label className='skjemaelement__label'>
+              <label className='navds-text-field__label navds-label'>
                 {t('buc:form-chosenInstitutions')}
               </label>
               <VerticalSeparatorDiv />
@@ -1216,7 +1210,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {sedCanHaveAttachments() && (
             <>
               <VerticalSeparatorDiv size='2' />
-              <label className='skjemaelement__label'>
+              <label className='navds-text-field__label navds-label'>
                 {t('ui:attachments')}
               </label>
               <VerticalSeparatorDiv />

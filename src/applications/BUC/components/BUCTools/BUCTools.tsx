@@ -299,10 +299,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 aria-describedby='help-tags'
                 data-test-id='a-buc-c-buctools__tags-select-id'
                 hideSelectedOptions={false}
-                label=''
                 onSelect={onTagsChange}
                 options={_allTags}
-                placeholder={t('buc:form-tagPlaceholder')}
+                label={t('buc:form-tagsForBUC')}
                 values={_tags || []}
               />
             </>
