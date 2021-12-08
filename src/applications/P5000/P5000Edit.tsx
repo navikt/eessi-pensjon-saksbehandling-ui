@@ -1,9 +1,9 @@
 import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
+import { typePeriode, ytelseType, relevantForYtelse, ordning, informasjonOmBeregning } from 'applications/P5000/P5000.labels'
 import Modal from 'components/Modal/Modal'
 import { OneLineSpan } from 'components/StyledComponents'
 import { LocalStorageValue, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
-import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
@@ -26,6 +26,7 @@ import {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -37,6 +38,7 @@ import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } 
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 import Select from 'components/Select/Select'
+import { SedsPropType } from 'declarations/buc.pt'
 
 const moment = extendMoment(Moment)
 
@@ -63,42 +65,6 @@ export interface P5000EditProps {
   saveP5000ToStorage: ((newSed: P5000SED | undefined, sedId: string, sort?: Sort) => void) | undefined
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
-
-export const ytelsestypeOptions: Array<Option> = [
-  { label: '[00] Annet', value: '00' },
-  { label: '[01] Annen delvis', value: '01' },
-  { label: '[10] Alderspensjon', value: '10' },
-  { label: '[11] Delvis alderspensjon', value: '11' },
-  { label: '[20] Etterlattepensjon', value: '20' },
-  { label: '[21] Etterlattepensjon delvis', value: '21' },
-  { label: '[30] Uførepensjon', value: '30' },
-  { label: '[31] Uførepensjon delvis', value: '31' }
-]
-
-export const typeOptions: Array<Option> = [
-  { value: '10', label: '[10] Pliktige avgiftsperioder' },
-  { value: '11', label: '[11] Pliktige avgiftsperioder - ansatt' },
-  { value: '12', label: '[12] Pliktige avgiftsperioder - selvstendig næringsdrivende' },
-  { value: '13', label: '[13] Pliktige avgiftsperioder - arbeidsledig' },
-  { value: '20', label: '[20] Frivillige avgiftsperioder' },
-  { value: '21', label: '[21] Frivillige avgiftsperioder - ansatt' },
-  { value: '22', label: '[22] Frivillige avgiftsperioder - selvstendig' },
-  { value: '23', label: '[23] Frivillige avgiftsperioder - arbeidsledig' },
-  { value: '30', label: '[30] Bosettingsperioder' },
-  { value: '40', label: '[40] Likestilte perioder: uten nærmere spesifisering' },
-  { value: '41', label: '[41] Likestilte perioder: perioder med sykdom/arbeidsuførhet' },
-  { value: '42', label: '[42] Likestilte perioder: perioder med arbeidsledighet uten ytelser' },
-  { value: '43', label: '[43] Likestilte perioder: perioder med militærtjeneste' },
-  { value: '44', label: '[44] Likestilte perioder: perioder med opplæring eller utdanning' },
-  { value: '45', label: '[45] Likestilte perioder: perioder med omsorg for barn' },
-  { value: '46', label: '[46] Likestilte perioder: perioder med pensjon' },
-  { value: '47', label: '[47] Likestilte perioder: perioder med svangerskaps- eller fødselspermisjon' },
-  { value: '48', label: '[48] Likestilte perioder: perioder med førtidspensjon' },
-  { value: '49', label: '[49] Likestilte perioder: perioder med arbeidsledighet med dagpenger' },
-  { value: '50', label: '[50] Likestilte perioder: perioder hvor det er blitt innvilget uføretrygd' },
-  { value: '51', label: '[51] Likestilte perioder: perioder med omsorg for pleietrengende' },
-  { value: '52', label: '[52] Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon' }
-]
 
 const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
@@ -132,6 +98,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
   )
+  const [typeOptions] = useState<Array<Option>>(() => Object.keys(typePeriode)
+    .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
+    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e})))
+
+  const [ytelseOptions ] = useState<Array<Option>>(() => Object.keys(ytelseType)
+    .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
+    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e})))
+
 
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
@@ -161,6 +135,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       saveP5000ToStorage!(newP5000FromStorage, seds[0].id, _tableSort)
     }
   }
+
 
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
@@ -409,6 +384,26 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
+  const renderYtelse = (item: any, value: any) => {
+   return (
+      <div style={{marginTop: '0.5rem'}}>
+        <Tooltip
+          overlay={(
+            <div style={{maxWidth: '300px'}}>
+              {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
+            </div>
+          )}
+          placement='top'
+          trigger={['hover']}
+        >
+          <BodyLong>
+            {value}
+          </BodyLong>
+        </Tooltip>
+      </div>
+    )
+  }
+
   const renderYtelseEdit = (options: RenderEditableOptions) => {
     let valueToShow = options.value
     if (options.values && !_.isNil(options.values.type)) {
@@ -427,9 +422,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
     return (
       <div style={{marginTop: '0.5rem'}}>
-      <BodyLong>
-        {valueToShow}
-      </BodyLong>
+        <Tooltip
+          overlay={(
+            <div style={{maxWidth: '300px'}}>
+              {_.get(relevantForYtelse, valueToShow.startsWith('0') ? valueToShow : parseInt(valueToShow))}
+            </div>
+          )}
+          placement='top'
+          trigger={['hover']}
+        >
+        <BodyLong>
+          {valueToShow}
+        </BodyLong>
+        </Tooltip>
       </div>
     )
   }
@@ -440,11 +445,41 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     onSaveSort(sort)
   }
 
+  const renderOrdning = (item: any, value: any) => {
+    return (
+      <div style={{marginTop: '0.5rem'}}>
+        <Tooltip
+          overlay={(
+            <div style={{maxWidth: '300px'}}>
+              {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
+            </div>
+          )}
+          placement='top'
+          trigger={['hover']}
+        >
+          <BodyLong>
+            {value}
+          </BodyLong>
+        </Tooltip>
+      </div>
+    )
+  }
+
   const renderOrdningEdit = (options: RenderEditableOptions) => (
     <div style={{marginTop: '0.5rem'}}>
-      <BodyLong>
+      <Tooltip
+        overlay={(
+          <div style={{maxWidth: '300px'}}>
+            {_.get(ordning, options.value.startsWith('0') ? options.value : parseInt(options.value))}
+          </div>
+        )}
+        placement='top'
+        trigger={['hover']}
+      >
+        <BodyLong>
       {options.value}
     </BodyLong>
+      </Tooltip>
     </div>
   )
 
@@ -459,6 +494,26 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       return <Tag size='small' variant='warning'>Endret</Tag>
     }
     return <div />
+  }
+
+  const renderBeregning = (item: any, value: any) => {
+    return (
+      <div style={{marginTop: '0.5rem'}}>
+        <Tooltip
+          overlay={(
+            <div style={{maxWidth: '300px'}}>
+              {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
+            </div>
+          )}
+          placement='top'
+          trigger={['hover']}
+        >
+          <BodyLong>
+            {value}
+          </BodyLong>
+        </Tooltip>
+      </div>
+    )
   }
 
   const renderBeregningEdit = (options: RenderEditableOptions) => {
@@ -755,18 +810,20 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   id='P5000Edit-ytelse-select'
                   label={t('buc:p5000-4-1-title')}
                   menuPortalTarget={document.body}
-                  options={ytelsestypeOptions}
+                  options={ytelseOptions}
                   onChange={setYtelseOption}
-                  defaultValue={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
-                  value={_.find(ytelsestypeOptions, y => y.value === _ytelseOption) ?? null}
+                  defaultValue={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
+                  value={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
                 />
               </FullWidthDiv>
             </Column>
             <Column>
               <FlexCenterDiv>
                 <RadioGroup
+                  value={_forsikringEllerBosetningsperioder}
                   error={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
                   id='P5000Edit-forsikringEllerBosetningsperioder'
+                  onChange={setForsikringEllerBosetningsperioder}
                   legend={(
                     <FlexCenterDiv>
                       <OneLineSpan>
@@ -783,21 +840,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               )}
                 >
                   <FlexEndDiv>
-                    <Radio42
-                      name='42'
-                      value='1'
-                      checked={_forsikringEllerBosetningsperioder === '1'}
-                      onClick={() => setForsikringEllerBosetningsperioder('1')}
-                    >
+                    <Radio42 value='1'>
                       {t('ui:yes')}
                     </Radio42>
                     <HorizontalSeparatorDiv />
                     <Radio42
                       style={{ marginBottom: '0.3rem', marginTop: '0.3rem' }}
-                      name='42'
                       value='0'
-                      checked={_forsikringEllerBosetningsperioder === '0'}
-                      onClick={() => setForsikringEllerBosetningsperioder('0')}
                     >
                       {t('ui:no')}
                     </Radio42>
@@ -1024,6 +1073,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {
                 id: 'ytelse',
                 label: t('buc:p5000-ytelse'),
+                renderCell: renderYtelse,
                 type: 'string',
                 edit: {
                   defaultValue: '111',
@@ -1033,6 +1083,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {
                 id: 'beregning',
                 label: t('ui:calculationInformation'),
+                renderCell: renderBeregning,
                 type: 'string',
                 edit: {
                   defaultValue: '111',
@@ -1046,6 +1097,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {
                 id: 'ordning',
                 label: t('ui:scheme'),
+                renderCell: renderOrdning,
                 type: 'string',
                 edit: {
                   defaultValue: '00',

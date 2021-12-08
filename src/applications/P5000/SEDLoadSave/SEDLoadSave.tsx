@@ -1,5 +1,6 @@
 import { BodyLong, Panel } from '@navikt/ds-react'
 import { unsyncFromP5000Storage } from 'actions/p5000'
+import { ytelseType } from 'applications/P5000/P5000.labels'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import { LocalStorageEntry, LocalStorageValue, Option } from 'declarations/app'
 import { Buc } from 'declarations/buc'
@@ -10,7 +11,6 @@ import { FlexBaseDiv, HorizontalSeparatorDiv, PileDiv } from 'nav-hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { ytelsestypeOptions } from '../P5000Edit'
 
 interface SEDLoadSaveProps {
   buc: Buc
@@ -31,6 +31,11 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
 }: SEDLoadSaveProps) => {
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
   const { p5000Storage } = useSelector<State, SEDLoadSaveSelector>(mapState)
+
+  const [ytelseOptions ] = useState<Array<Option>>(() => Object.keys(ytelseType)
+    .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
+    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e})))
+
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -56,7 +61,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
                     <BodyLong>
-                      {_.find(ytelsestypeOptions, (o: Option) => (
+                      {_.find(ytelseOptions, (o: Option) => (
                         o?.value === (sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
                       ))?.label ?? '-'}
                     </BodyLong>

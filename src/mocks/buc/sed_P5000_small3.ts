@@ -86,7 +86,7 @@ export default {
       yrke: null,
       gyldigperiode: null,
       type: '30',
-      beregning: '30',
+      beregning: '010',
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
@@ -107,7 +107,7 @@ export default {
       yrke: null,
       gyldigperiode: null,
       type: '40',
-      beregning: '40',
+      beregning: '011',
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
@@ -128,7 +128,7 @@ export default {
       yrke: null,
       gyldigperiode: null,
       type: '45',
-      beregning: '45',
+      beregning: '100',
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
@@ -149,7 +149,7 @@ export default {
       yrke: null,
       gyldigperiode: null,
       type: '52',
-      beregning: '52',
+      beregning: '101',
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
@@ -172,7 +172,7 @@ export default {
       yrke: null,
       gyldigperiode: null,
       type: '30',
-      beregning: '30',
+      beregning: '111',
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
@@ -193,7 +193,7 @@ export default {
       yrke: null,
       gyldigperiode: null,
       type: '40',
-      beregning: '40',
+      beregning: '110',
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
@@ -222,7 +222,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '30',
-        beregning: '30',
+        beregning: '101',
         informasjonskalkulering: null,
         periode: {
           fom: '1991-06-30',
@@ -246,7 +246,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '40',
-        beregning: '40',
+        beregning: '110',
         informasjonskalkulering: null,
         periode: {
           fom: '1986-01-01',
@@ -270,7 +270,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '45',
-        beregning: '45',
+        beregning: '111',
         informasjonskalkulering: null,
         periode: {
           fom: '1987-01-01',
@@ -294,7 +294,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '52',
-        beregning: '52',
+        beregning: '110',
         informasjonskalkulering: null,
         periode: {
           fom: '1988-01-01',

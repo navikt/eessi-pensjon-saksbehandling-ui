@@ -34,8 +34,8 @@ const PageNotification = () => {
   const [_byline, _setByline] = useState<string | null | undefined>(byline)
   const [validation, resetValidation, performValidation] = useValidation<PageNotificationValidationProps>({}, pageNotificationValidate)
 
-  const setShow = (newShow: boolean) => {
-    _setShow(newShow)
+  const setShow = (newShow: string) => {
+    _setShow(newShow === 'true')
     resetValidation('w-pagenotification-show')
   }
 
@@ -63,14 +63,14 @@ const PageNotification = () => {
   return (
     <Panel>
       <RadioGroup
-        defaultValue={'' + _show}
+        value={'' + _show}
         error={validation['w-pagenotification-show']?.feilmelding}
         data-test-id='w-pagenotification-show'
         id='w-pagenotification-show'
         data-no-border
         legend={t('label:show-message') + ' *'}
         name='w-pagenotification-show'
-        onChange={(e) => setShow(e === 'true')}
+        onChange={setShow}
       >
         <Radio value='true'>{t('ui:yes')}</Radio>
         <Radio value='false'>{t('ui:no')}</Radio>

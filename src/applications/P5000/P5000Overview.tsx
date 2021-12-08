@@ -1,3 +1,4 @@
+import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
 import { OneLineSpan } from 'components/StyledComponents'
 import { LocalStorageValue } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
@@ -19,6 +20,7 @@ import {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
+import Tooltip from 'rc-tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -78,6 +80,70 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
+  const renderType = (item: any, value: any) => (
+    <Tooltip
+      overlay={(
+        <div style={{maxWidth: '300px'}}>
+          {_.get(typePeriode, value.startsWith('0') ? value : parseInt(value))}
+        </div>
+      )}
+      placement='top'
+      trigger={['hover']}
+    >
+      <BodyLong>
+        {value}
+      </BodyLong>
+    </Tooltip>
+  )
+
+  const renderYtelse = (item: any, value: any) => (
+    <Tooltip
+      overlay={(
+        <div style={{maxWidth: '300px'}}>
+          {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
+        </div>
+      )}
+      placement='top'
+      trigger={['hover']}
+    >
+      <BodyLong>
+        {value}
+      </BodyLong>
+    </Tooltip>
+  )
+
+  const renderBeregning = (item: any, value: any) => (
+    <Tooltip
+      overlay={(
+        <div style={{maxWidth: '300px'}}>
+          {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
+        </div>
+      )}
+      placement='top'
+      trigger={['hover']}
+    >
+      <BodyLong>
+        {value}
+      </BodyLong>
+    </Tooltip>
+  )
+
+  const renderOrdning = (item: any, value: any) => (
+    <Tooltip
+      overlay={(
+        <div style={{maxWidth: '300px'}}>
+          {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
+        </div>
+      )}
+      placement='top'
+      trigger={['hover']}
+    >
+      <BodyLong>
+        {value}
+      </BodyLong>
+    </Tooltip>
+  )
+
   const renderDagCell = (item: P5000ListRow) => (
     <BodyLong>{(item.dag === '' || item.dag === '0') ? '' : item.dag + '/' + item.dagtype}</BodyLong>
   )
@@ -106,7 +172,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     { id: 'status', label: t('ui:status'), type: 'string', renderCell: renderStatus },
     { id: 'land', label: t('ui:country'), type: 'string', renderCell: renderLand },
     { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-    { id: 'type', label: t('ui:type'), type: 'string' },
+    { id: 'type', label: t('ui:type'), type: 'string', renderCell: renderType},
     {
       id: 'startdato',
       label: t('ui:startDate'),
@@ -127,9 +193,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       type: 'string',
       renderCell: renderDagCell
     },
-    { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string' },
-    { id: 'ordning', label: t('ui:scheme'), type: 'string' },
-    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' }
+    { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string', renderCell: renderYtelse },
+    { id: 'ordning', label: t('ui:scheme'), type: 'string',  renderCell: renderOrdning },
+    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', renderCell: renderBeregning }
   ]
 
   if (context === 'overview') {

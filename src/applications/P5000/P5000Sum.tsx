@@ -1,6 +1,5 @@
 import { Alert, BodyLong, Button, HelpText, Loader, Tag } from '@navikt/ds-react'
 import { typePeriode } from 'applications/P5000/P5000.labels'
-import { typeOptions } from 'applications/P5000/P5000Edit'
 import Select from 'components/Select/Select'
 import { Labels, LocalStorageValue, Option } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
@@ -49,6 +48,11 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
+
+  const [typeOptions] = useState<Array<Option>>(() => Object.keys(typePeriode)
+    .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
+    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e})))
+
   const items = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
   const beforePrintOut = (): void => {

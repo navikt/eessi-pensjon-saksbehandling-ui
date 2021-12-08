@@ -6,6 +6,17 @@ export const dagerEnhet = {
   7: 'D/7 dager (7 dager i uken)'
 } as Labels
 
+export const ytelseType = {
+  '00' : 'Annet',
+  '01' : 'Annen delvis',
+  10: 'Alderspensjon',
+  11: 'Delvis alderspensjon',
+  20: 'Etterlattepensjon',
+  21: 'Etterlattepensjon delvis',
+  30: 'Uførepensjon',
+  31: 'Uførepensjon delvis'
+}
+
 export const typePeriode = {
   10: 'Pliktige avgiftsperioder',
   11: 'Pliktige avgiftsperioder - ansatt',

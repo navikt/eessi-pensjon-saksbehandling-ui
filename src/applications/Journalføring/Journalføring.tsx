@@ -1,7 +1,6 @@
 import { getSed, jornalføreSed } from 'actions/journalføring'
 import { TextArea } from 'applications/BUC/components/BUCTools/BUCTools'
 import { JournalføringValidate, JournalføringValidationProps } from 'applications/Journalføring/validation'
-import { typeOptions } from 'applications/P5000/P5000Edit'
 import Select from 'components/Select/Select'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { Option } from 'declarations/app'
@@ -93,7 +92,7 @@ const Journalføring = () => {
         menuPortalTarget={document.body}
         onChange={(e: unknown) => setSed((e as Option).value)}
         defaultValue={_.find(sedOptions, o => o.value === _sed)}
-        value={_.find(typeOptions, o => o.value === _sed)}
+        value={_.find(sedOptions, o => o.value === _sed)}
       />
       <VerticalSeparatorDiv />
       <TextArea
