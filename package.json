@@ -21,9 +21,9 @@
   },
   "private": true,
   "dependencies": {
-    "@navikt/ds-css": "^0.12.0",
-    "@navikt/ds-icons": "^0.7.0",
-    "@navikt/ds-react": "^0.14.0",
+    "@navikt/ds-css": "^0.11.4",
+    "@navikt/ds-icons": "^0.6.3",
+    "@navikt/ds-react": "^0.13.2",
     "@navikt/fnrvalidator": "^1.1.4",
     "@sentry/browser": "^6.16.0",
     "amplitude-js": "^8.13.1",

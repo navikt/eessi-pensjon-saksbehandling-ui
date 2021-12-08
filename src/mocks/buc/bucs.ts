@@ -698,7 +698,7 @@ const mockBuc = [
         id: '40578cf8bf9f45a7819a39987c6c8fd4',
         parentDocumentId: null,
         type: 'P5000',
-        status: 'open',
+        status: 'sent',
         direction: 'IN' as Direction,
         creationDate: 1571234189234,
         lastUpdate: 1571547188033,

@@ -165,6 +165,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
       <Select
+        size='small'
         key='c-table__edit-type-select-key-'
         id='c-table__edit-type-select-id'
         className='P5000Edit-type-select input-focus'
@@ -255,7 +256,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <TextField
+    <div style={{marginTop: '0.5rem'}}>
+      <TextField
       size='small'
       id='c-table__edit-startdato-input-id'
       className='c-table__edit-input'
@@ -272,10 +274,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       })}
       value={dateTransform(options.value) ?? ''}
     />
+    </div>
   )
 
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <TextField
+    <div style={{marginTop: '0.5rem'}}>
+      <TextField
       size='small'
       id='c-table__edit-sluttdato-input-id'
       className='c-table__edit-input'
@@ -292,6 +296,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       })}
       value={dateTransform(options.value) ?? ''}
     />
+    </div>
   )
 
   const renderDager = (item: any) => {
@@ -421,9 +426,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
     }
     return (
+      <div style={{marginTop: '0.5rem'}}>
       <BodyLong>
         {valueToShow}
       </BodyLong>
+      </div>
     )
   }
 
@@ -434,9 +441,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderOrdningEdit = (options: RenderEditableOptions) => (
-    <BodyLong>
+    <div style={{marginTop: '0.5rem'}}>
+      <BodyLong>
       {options.value}
     </BodyLong>
+    </div>
   )
 
   const renderStatus = (item: any, value: any) => {
