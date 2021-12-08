@@ -250,7 +250,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           )}
           {sed.type === 'P5000' &&
           featureToggles.P5000_SUMMER_VISIBLE &&
-          (sed.status !== 'received' && sed.status !== 'sent') &&
+          (sed.status !== 'received') &&
           (
             <PileDiv>
               <Button
@@ -274,7 +274,11 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   })
                 }}
               >
-                {P5000Draft ? t('buc:p5000-rediger') : t('buc:p5000-registrert')}
+                {P5000Draft ?
+                  t('buc:p5000-rediger') :
+                  sed.status === 'sent'
+                    ? t('buc:p5000-updating')
+                    : t('buc:p5000-registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
                 <NextFilled />
               </Button>
