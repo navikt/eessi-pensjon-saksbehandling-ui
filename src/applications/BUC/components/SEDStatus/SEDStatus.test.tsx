@@ -1,5 +1,5 @@
 import { mount, ReactWrapper } from 'enzyme'
-import SEDStatus, { Etikett, SEDStatusProps } from './SEDStatus'
+import SEDStatus, { MyTag, SEDStatusProps } from './SEDStatus'
 
 describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
   let wrapper : ReactWrapper
@@ -15,7 +15,7 @@ describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
 
   it('Render: has proper HTML structure for sent status', () => {
     wrapper = mount(<SEDStatus {...initialMockProps} status='sent' />)
-    expect(wrapper.exists(Etikett)).toBeTruthy()
-    expect(wrapper.find(Etikett).props().type).toEqual('suksess')
+    expect(wrapper.exists(MyTag)).toBeTruthy()
+    expect(wrapper.find(MyTag).props().type).toEqual('suksess')
   })
 })

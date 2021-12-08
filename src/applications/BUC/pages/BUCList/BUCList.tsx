@@ -288,8 +288,8 @@ const BUCList: React.FC<BUCListProps> = ({
     } */
   }, [institutionList, bucs, dispatch, _parsedCountries])
 
-  const status = _.isEmpty(bucsList) ? 'todo' : Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
-  const now = _.isEmpty(bucsList) ? 0 : Math.floor( Object.keys(bucs!).length / (bucsList?.length ?? 1) * 100)
+  const status = !_.isEmpty(bucsList) && Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
+  const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor( Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
 
   return (
     <BUCListDiv
@@ -338,7 +338,8 @@ const BUCList: React.FC<BUCListProps> = ({
         </BUCNewDiv>
         <VerticalSeparatorDiv />
       </BUCStartDiv>
-      {gettingBucs && (
+      {(gettingBucsList || gettingBucs) && (
+        <>
         <Row style={{width: '100%', height: '40px'}}>
           <Column>
             <ProgressBar
@@ -348,13 +349,12 @@ const BUCList: React.FC<BUCListProps> = ({
             </ProgressBar>
           </Column>
         </Row>
-      )}
-      {(gettingBucsList || gettingBucs) && (
         <BUCLoadingDiv>
           <BUCLoading />
           <BUCLoading />
           <BUCLoading />
         </BUCLoadingDiv>
+        </>
       )}
       {!gettingBucs && bucsList === null && (
         <>

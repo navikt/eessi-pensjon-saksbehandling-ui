@@ -24,7 +24,7 @@ const statusList: Labels = {
 
 export type StatusType = 'success' | 'info' | 'warning' | 'error'
 
-export const Etikett = styled(Tag)`
+export const MyTag = styled(Tag)`
   &.received {
     background-color: var(--navds-color-lightblue-50) !important;
   }
@@ -46,9 +46,9 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
   const tagType: StatusType | undefined =
     Object.prototype.hasOwnProperty.call(statusList, status) ? (statusList[status] as StatusType)! : (statusList.unknown as StatusType)!
   return (
-    <Etikett className={classNames(status, className)} variant={tagType}>
+    <MyTag className={classNames(status, className)} variant={tagType}>
       {t('buc:status-' + status)}
-    </Etikett>
+    </MyTag>
   )
 }
 
