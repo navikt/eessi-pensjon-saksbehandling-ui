@@ -290,7 +290,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       } else {
 
         const institutionNames = _.cloneDeep(state.institutionNames)
-        const sedsWithAttachments: SedsWithAttachmentsMap = {}
+        const sedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
 
         if (buc.institusjon) {
           buc.institusjon.forEach((inst: Institution) => {
