@@ -380,9 +380,9 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [aktoerId, dispatch, gettingSakType, sakId, sakType])
 
   useEffect(() => {
-    if (aktoerId && sakId && _.isEmpty(bucs) && !_.isNil(bucsList) && !gettingBucs) {
+    if (aktoerId && sakId && _.isEmpty(bucs) && !_.isEmpty(bucsList) && !gettingBucs) {
       dispatch(startBucsFetch())
-      bucsList.forEach((bucListItem) => {
+      bucsList?.forEach((bucListItem) => {
         dispatch(fetchBuc(
           bucListItem.euxCaseId, bucListItem.aktoerId, bucListItem.saknr, bucListItem.avdodFnr, bucListItem.kilde
         ))
@@ -392,7 +392,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (aktoerId && sakId && !_.isEmpty(bucs) && !_.isNil(bucsList) && gettingBucs) {
-      if (Object.keys(bucs!).length === bucsList.length) {
+      if (Object.keys(bucs!).length === bucsList!.length) {
         dispatch(endBucsFetch())
       }
     }

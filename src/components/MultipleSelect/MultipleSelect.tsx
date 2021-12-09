@@ -72,6 +72,7 @@ const MultipleSelect = <T extends Option = Option> ({
         closeMenuOnSelect={false}
         value={values}
         options={options}
+        placeholder=''
         components={{
           Option: (optionProps) => <MultipleOption<T> {...optionProps} {...customProps} />,
           MultiValueRemove: (optionProps) => <MultipleValueRemove {...optionProps} {...customProps} />,
@@ -144,12 +145,6 @@ const MultipleSelect = <T extends Option = Option> ({
                 ? 'var(--navds-semantic-color-interaction-primary-default)'
                 : 'var(--navds-semantic-color-component-background-alternate)'
           }),
-          placeholder: (styles: any) => {
-            return {
-              ...styles,
-              color: 'var(--navds-color-disabled)'
-            }
-          },
           singleValue: (styles: any) => ({
             ...styles,
             color: 'var(--navds-color-text-primary)'
@@ -178,7 +173,6 @@ MultipleSelect.propTypes = {
   label: PT.oneOfType([PT.element, PT.string]).isRequired,
   onSelect: PT.func,
   options: PT.array,
-  placeholder: PT.string,
   values: PT.array
 }
 export default MultipleSelect

@@ -55,6 +55,8 @@
 
   "loading-buc"                   : "Laster BUC...",
   "loading-bucOptions"            : "Laster BUC-er...",
+  "loading-bucsX"                 : "Laster BUC-er... {{x}} %",
+  "loading-bucListX"              : "Laster BUC liste... {{x}} %",
   "loading-country"               : "Laster land...",
   "loading-creatingCaseinRINA"    : "Oppretter sak i RINA...",
   "loading-creatingSED"           : "Oppretter ny SED...",
@@ -95,6 +97,7 @@
   "validation-endDateBeforeStartDate": "Sluttdato er tidligere enn startdato",
   "validation-overlapDate"          : "Datoer overlapper eksisterende perioder {{perioder}}",
 
+  "warning-noBucs"                           : "Ingen BUCer funnet",
   "warning-filteredBucs"                     : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-failedP5000Sending"               : "Feil med overføring P5000 data til Rina",
   "warning-okP5000Sending"                   : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet.",

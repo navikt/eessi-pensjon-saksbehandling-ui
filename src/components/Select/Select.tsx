@@ -19,6 +19,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
         inputId={props.id}
         className={classNames({  'navds-error-message navds-error-message--medium' : !!props.error })}
         isOptionDisabled={(option: any) => option.isDisabled}
+        placeholder=''
         styles={{
           container: (styles: any) => ({
             ...styles,
@@ -67,12 +68,6 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
                   ? 'var(--navds-color-disabled)'
                   : 'var(--navds-semantic-color-component-background-alternate)'
           }),
-          placeholder: (styles: any) => {
-            return {
-              ...styles,
-              color: 'var(--navds-color-disabled)'
-            }
-          },
           singleValue: (styles: any) => ({
             ...styles,
             color: 'var(--navds-color-text-primary)'

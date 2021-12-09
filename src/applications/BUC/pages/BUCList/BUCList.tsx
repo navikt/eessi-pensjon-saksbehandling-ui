@@ -345,7 +345,9 @@ const BUCList: React.FC<BUCListProps> = ({
             <ProgressBar
               status={status}
               now={now}>
-              <BodyLong>Laster BUC-er... {now} %</BodyLong>
+              <BodyLong>
+                {t(_.isEmpty(bucsList) ?  'message:loading-bucListX' : 'message:loading-bucsX', {x: now})}
+              </BodyLong>
             </ProgressBar>
           </Column>
         </Row>
@@ -356,11 +358,11 @@ const BUCList: React.FC<BUCListProps> = ({
         </BUCLoadingDiv>
         </>
       )}
-      {!gettingBucs && bucsList === null && (
+      {!gettingBucs && _.isEmpty(bucsList) && (
         <>
           <VerticalSeparatorDiv size='2' />
           <BodyLong>
-            {t('message:error-noBucs')}
+            {t('message:warning-noBucs')}
           </BodyLong>
         </>
       )}
@@ -403,7 +405,7 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
-      {!gettingBucs && !_.isNil(bucs) && pesysContext === BRUKERKONTEKST &&
+      {!gettingBucs && !_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
               <VerticalSeparatorDiv size='2' />
