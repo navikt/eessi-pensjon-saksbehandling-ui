@@ -174,30 +174,30 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   return (
     <BUCWebsocketDiv style={{ cursor: 'pointer' }} title={'websocket: ' + _status}>
 
-        <Modal
-          open={_modal}
-          modal={{
-            closeButton: true,
-            modalTitle: t('ui:websocket-log'),
-            modalContent: (
-              <div style={{ maxWidth: '800px' }}>
-                <VerticalSeparatorDiv size='2' />
-                {_log}
-              </div>
-            ),
-            modalButtons: [{
-              main: true,
-              text: 'OK',
-              onClick: onModalClose
-            }]
-          }}
-          onModalClose={onModalClose}
-        />
-        {_status === 'CONNECTED' && (<SuccessFilled color='green' width={24} height={24} onClick={onIconClick} />)}
-        {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (
-          <ErrorFilled style={{ color: '#A13A28' }} width={24} onClick={onIconClick} />
-        )}
-        {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<LinkFilled width={24} onClick={onIconClick} />)}
+      <Modal
+        open={_modal}
+        modal={{
+          closeButton: true,
+          modalTitle: t('ui:websocket-log'),
+          modalContent: (
+            <div style={{ maxWidth: '800px' }}>
+              <VerticalSeparatorDiv size='2' />
+              {_log}
+            </div>
+          ),
+          modalButtons: [{
+            main: true,
+            text: 'OK',
+            onClick: onModalClose
+          }]
+        }}
+        onModalClose={onModalClose}
+      />
+      {_status === 'CONNECTED' && (<SuccessFilled color='green' width={24} height={24} onClick={onIconClick} />)}
+      {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (
+        <ErrorFilled style={{ color: '#A13A28' }} width={24} onClick={onIconClick} />
+      )}
+      {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<LinkFilled width={24} onClick={onIconClick} />)}
 
     </BUCWebsocketDiv>
   )

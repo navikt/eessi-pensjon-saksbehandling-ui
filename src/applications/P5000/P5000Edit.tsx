@@ -100,12 +100,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   )
   const [typeOptions] = useState<Array<Option>>(() => Object.keys(typePeriode)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
-    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e})))
+    .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
-  const [ytelseOptions ] = useState<Array<Option>>(() => Object.keys(ytelseType)
+  const [ytelseOptions] = useState<Array<Option>>(() => Object.keys(ytelseType)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
-    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e})))
-
+    .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
 
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
@@ -135,7 +134,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       saveP5000ToStorage!(newP5000FromStorage, seds[0].id, _tableSort)
     }
   }
-
 
   const renderTypeEdit = (options: RenderEditableOptions) => {
     return (
@@ -231,46 +229,46 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <div style={{marginTop: '0.5rem'}}>
+    <div style={{ marginTop: '0.5rem' }}>
       <TextField
-      size='small'
-      id='c-table__edit-startdato-input-id'
-      className='c-table__edit-input'
-      label='startdato'
-      hideLabel
-      error={options.feil}
-      placeholder={t('buc:placeholder-date2')}
-      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const otherDate: string | undefined = dateTransform(options.values.sluttdato)
-        maybeDoSomePrefill(e.target.value, otherDate, options)
-      }}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-        startdato: e.target.value
-      })}
-      value={dateTransform(options.value) ?? ''}
-    />
+        size='small'
+        id='c-table__edit-startdato-input-id'
+        className='c-table__edit-input'
+        label='startdato'
+        hideLabel
+        error={options.feil}
+        placeholder={t('buc:placeholder-date2')}
+        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+          const otherDate: string | undefined = dateTransform(options.values.sluttdato)
+          maybeDoSomePrefill(e.target.value, otherDate, options)
+        }}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          startdato: e.target.value
+        })}
+        value={dateTransform(options.value) ?? ''}
+      />
     </div>
   )
 
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <div style={{marginTop: '0.5rem'}}>
+    <div style={{ marginTop: '0.5rem' }}>
       <TextField
-      size='small'
-      id='c-table__edit-sluttdato-input-id'
-      className='c-table__edit-input'
-      label='sluttdato'
-      hideLabel
-      error={options.feil}
-      placeholder={t('buc:placeholder-date2')}
-      onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const otherDate: string | undefined = dateTransform(options.values.startdato)
-        maybeDoSomePrefill(otherDate, e.target.value, options)
-      }}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-        sluttdato: e.target.value
-      })}
-      value={dateTransform(options.value) ?? ''}
-    />
+        size='small'
+        id='c-table__edit-sluttdato-input-id'
+        className='c-table__edit-input'
+        label='sluttdato'
+        hideLabel
+        error={options.feil}
+        placeholder={t('buc:placeholder-date2')}
+        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+          const otherDate: string | undefined = dateTransform(options.values.startdato)
+          maybeDoSomePrefill(otherDate, e.target.value, options)
+        }}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
+          sluttdato: e.target.value
+        })}
+        value={dateTransform(options.value) ?? ''}
+      />
     </div>
   )
 
@@ -385,11 +383,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderYtelse = (item: any, value: any) => {
-   return (
-      <div style={{marginTop: '0.5rem'}}>
+    return (
+      <div style={{ marginTop: '0.5rem' }}>
         <Tooltip
           overlay={(
-            <div style={{maxWidth: '300px'}}>
+            <div style={{ maxWidth: '300px' }}>
               {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
             </div>
           )}
@@ -421,19 +419,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
     }
     return (
-      <div style={{marginTop: '0.5rem'}}>
+      <div style={{ marginTop: '0.5rem' }}>
         <Tooltip
           overlay={(
-            <div style={{maxWidth: '300px'}}>
+            <div style={{ maxWidth: '300px' }}>
               {_.get(relevantForYtelse, valueToShow.startsWith('0') ? valueToShow : parseInt(valueToShow))}
             </div>
           )}
           placement='top'
           trigger={['hover']}
         >
-        <BodyLong>
-          {valueToShow}
-        </BodyLong>
+          <BodyLong>
+            {valueToShow}
+          </BodyLong>
         </Tooltip>
       </div>
     )
@@ -447,10 +445,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderOrdning = (item: any, value: any) => {
     return (
-      <div style={{marginTop: '0.5rem'}}>
+      <div style={{ marginTop: '0.5rem' }}>
         <Tooltip
           overlay={(
-            <div style={{maxWidth: '300px'}}>
+            <div style={{ maxWidth: '300px' }}>
               {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
             </div>
           )}
@@ -466,10 +464,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderOrdningEdit = (options: RenderEditableOptions) => (
-    <div style={{marginTop: '0.5rem'}}>
+    <div style={{ marginTop: '0.5rem' }}>
       <Tooltip
         overlay={(
-          <div style={{maxWidth: '300px'}}>
+          <div style={{ maxWidth: '300px' }}>
             {_.get(ordning, options.value.startsWith('0') ? options.value : parseInt(options.value))}
           </div>
         )}
@@ -477,8 +475,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         trigger={['hover']}
       >
         <BodyLong>
-      {options.value}
-    </BodyLong>
+          {options.value}
+        </BodyLong>
       </Tooltip>
     </div>
   )
@@ -498,10 +496,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderBeregning = (item: any, value: any) => {
     return (
-      <div style={{marginTop: '0.5rem'}}>
+      <div style={{ marginTop: '0.5rem' }}>
         <Tooltip
           overlay={(
-            <div style={{maxWidth: '300px'}}>
+            <div style={{ maxWidth: '300px' }}>
               {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
             </div>
           )}
@@ -876,7 +874,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   disabled={sendingP5000info || !canSend}
                   onClick={handleOverforTilRina}
                 >
-                  {sendingP5000info && <Loader/>}
+                  {sendingP5000info && <Loader />}
                   {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
                 </Button>
                 <HorizontalSeparatorDiv />
@@ -890,7 +888,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                       variant='secondary'
                       disabled={_printDialogOpen}
                     >
-                      {_printDialogOpen && <Loader/>}
+                      {_printDialogOpen && <Loader />}
                       {t('ui:print')}
                     </Button>
                   )}

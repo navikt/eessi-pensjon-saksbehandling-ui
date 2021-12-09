@@ -1,5 +1,4 @@
 import * as constants from 'constants/constants'
-import { OptionProps } from 'react-select'
 import { Sort } from 'tabell'
 
 export type AllowedLocaleString = 'en' | 'nb'

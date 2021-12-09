@@ -5,7 +5,7 @@ import MultipleOption, { MultipleOptionProps } from './MultipleOption'
 describe('components/MultipleSelect/MultipleOption', () => {
   let wrapper: ReactWrapper
   const initialMockProps: MultipleOptionProps<Option> = {
-    innerRef(): void {},
+    innerRef (): void {},
     // @ts-ignore
     selectProps: {},
     // @ts-ignore

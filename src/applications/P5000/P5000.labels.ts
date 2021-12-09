@@ -7,8 +7,8 @@ export const dagerEnhet = {
 } as Labels
 
 export const ytelseType = {
-  '00' : 'Annet',
-  '01' : 'Annen delvis',
+  '00': 'Annet',
+  '01': 'Annen delvis',
   10: 'Alderspensjon',
   11: 'Delvis alderspensjon',
   20: 'Etterlattepensjon',

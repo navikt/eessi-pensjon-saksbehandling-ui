@@ -11,6 +11,7 @@ import { standardLogger } from 'metrics/loggers'
 import {
   AlignEndRow,
   Column,
+  FlexDiv,
   FlexEndSpacedDiv,
   HiddenDiv,
   HorizontalSeparatorDiv,
@@ -51,7 +52,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const [typeOptions] = useState<Array<Option>>(() => Object.keys(typePeriode)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
-    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e})))
+    .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
   const items = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
 
@@ -177,7 +178,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   return (
     <>
       <PileCenterDiv>
-        <AlignEndRow style={{width: '100%'}}>
+        <AlignEndRow style={{ width: '100%' }}>
           <Column />
           <Column>
             <FlexEndSpacedDiv style={{ flexDirection: 'row-reverse' }}>
@@ -204,7 +205,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         <VerticalSeparatorDiv />
         {sakType === SakTypeMap.GJENLEV && (
           <>
-            <AlignEndRow style={{width: '100%'}}>
+            <AlignEndRow style={{ width: '100%' }}>
               <Column>
                 <Alert variant='warning'>
                   {t('message:warning-P5000SumGjenlevende')}
@@ -217,17 +218,17 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         )}
         {!!sakType && (
           <>
-            <AlignEndRow style={{width: '100%'}}>
+            <AlignEndRow style={{ width: '100%' }}>
               <Column flex='2'>
                 <Alert variant='warning'>
                   <>
-                    <div>
+                    <FlexDiv>
                       {t('message:warning-P5000Sum-instructions-title')}
                       <HorizontalSeparatorDiv size='0.5' />
                       <HelpText>
                         {t('message:warning-P5000Sum-instructions-title-help')}
                       </HelpText>
-                    </div>
+                    </FlexDiv>
                     <div>
                       <strong>
                         {t('message:warning-P5000Sum-instructions-title-obs')}

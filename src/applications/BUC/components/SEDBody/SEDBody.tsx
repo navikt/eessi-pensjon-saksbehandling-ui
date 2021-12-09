@@ -202,7 +202,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
             variant='primary'
             data-test-id='a-buc-c-sedbody__upload-button-id'
             disabled={_sendingAttachments}
-
             onClick={onAttachmentsSubmitted}
           >
             {_sendingAttachments && <Loader />}

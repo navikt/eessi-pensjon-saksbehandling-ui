@@ -43,7 +43,7 @@ const defaultSelector: BUCListSelector = {
   sakId: '456',
   sakType: undefined,
   bucs: _.keyBy(mockBucs(), 'caseId'),
-  bucsList: mockBucsList('123','456'),
+  bucsList: mockBucsList('123', '456'),
   bucsInfo: mockBucsInfo,
   bucsInfoList: [],
   institutionList: {

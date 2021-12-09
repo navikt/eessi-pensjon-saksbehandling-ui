@@ -71,8 +71,8 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const store: Store = createStore(combineReducers(reducers), composeEnhancers(applyMiddleware(thunk)))
 
 if (!IS_PRODUCTION) {
- // const axe = require('@axe-core/react')
- // axe(React, ReactDOM, 1000, {})
+  // const axe = require('@axe-core/react')
+  // axe(React, ReactDOM, 1000, {})
 } else {
   Sentry.init()
   Amplitude.init()

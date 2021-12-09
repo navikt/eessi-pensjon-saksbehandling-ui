@@ -77,129 +77,129 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   })
 
   return (
-    <Panel border style={{padding: '0px'}}>
-    <Accordion
-      style={{'borderRadius': '4px'}}
-      className={className}
-      data-test-id='a-buc-c-bucdetail__panel-id'
-    >
-      <Accordion.Item open={_open}>
-        <Accordion.Header onClick={() => setOpen(!_open)} style={{borderBottom: 'none'}}>
-          <Heading size='medium'>
-            {buc.type + ' - ' + getBucTypeLabel({
-              type: buc.type!,
-              locale: locale,
-              t: t
-            })}
-          </Heading>
-        </Accordion.Header>
-        <Accordion.Content>
-          {buc.readOnly && (
-            <Alert
-              data-test-id='a-buc-c-bucdetail__readonly'
-              variant='warning'
-            >
-              {t('message:alert-readOnlyBuc')}
-            </Alert>
-          )}
-          <Properties>
-            <Dt className='odd'>
-              <Label>
-                {t('ui:status')}:
-              </Label>
-            </Dt>
-            <Dd
-              className='odd'
-              data-test-id='a-buc-c-bucdetail__status-id'
-            >
-              <BodyLong>
-                {t('buc:status-' + buc.status)}
-              </BodyLong>
-            </Dd>
-            <Dt>
-              <Label>
-                {t('buc:form-caseOwner')}:
-              </Label>
-            </Dt>
-            <Dd data-test-id='a-buc-c-bucdetail__creator-id'>
-              <InstitutionList
-                institutions={[buc.creator!]}
-                locale={locale}
-                type='joined'
-              />
-            </Dd>
-            <Dt className='odd'>
-              <Label>
-                {t('ui:created')}:
-              </Label>
-            </Dt>
-            <Dd
-              className='odd'
-              data-test-id='a-buc-c-bucdetail__startDate-id'
-            >
-              <BodyLong>
-                {moment(buc.startDate!).format('DD.MM.YYYY')}
-              </BodyLong>
-            </Dd>
-            <Dt>
-              <Label>
-                {t('buc:form-rinaCaseNumber')}:
-              </Label>
-            </Dt>
-            <Dd data-test-id='a-buc-c-bucdetail__caseId-id'>
-              {rinaUrl
-                ? (
-                  <Link
-                    data-amplitude='buc.edit.detail.rinaurl'
-                    data-test-id='a-buc-c-bucdetail__gotorina-link-id'
-                    href={rinaUrl + buc.caseId}
-                    target='rinaWindow'
-                    onClick={linkLogger}
-                  >
-                    {buc.caseId}
-                  </Link>
-                  )
-                : (
-                  <WaitingPanel data-test-id='a-buc-c-bucdetail__gotorina-waiting-id' size='xsmall' />
-                  )}
-            </Dd>
-            {bucsThatSupportAvdod(buc.type) && (
-              <>
-                <Dt className='odd'>
-                  <Label>
-                    {t('buc:form-avdod')}:
-                  </Label>
-                </Dt>
-                <Dd className='odd' data-test-id='a-buc-c-bucdetail__avdod-id'>
-                  {avdod
-                    ? (
-                      <BodyLong>
-                        {renderAvdodName(avdod, t)}
-                      </BodyLong>
-                      )
-                    : (
-                      <BodyLong>
-                        {(buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr || t('buc:form-noAvdod')}
-                      </BodyLong>
-                      )}
-                </Dd>
-              </>
+    <Panel border style={{ padding: '0px' }}>
+      <Accordion
+        style={{ borderRadius: '4px' }}
+        className={className}
+        data-test-id='a-buc-c-bucdetail__panel-id'
+      >
+        <Accordion.Item open={_open}>
+          <Accordion.Header onClick={() => setOpen(!_open)} style={{ borderBottom: 'none' }}>
+            <Heading size='medium'>
+              {buc.type + ' - ' + getBucTypeLabel({
+                type: buc.type!,
+                locale: locale,
+                t: t
+              })}
+            </Heading>
+          </Accordion.Header>
+          <Accordion.Content>
+            {buc.readOnly && (
+              <Alert
+                data-test-id='a-buc-c-bucdetail__readonly'
+                variant='warning'
+              >
+                {t('message:alert-readOnlyBuc')}
+              </Alert>
             )}
-          </Properties>
-          <Heading size='small'>
-            {t('buc:form-involvedInstitutions')}:
-          </Heading>
-          <InstitutionListDiv data-test-id='a-buc-c-bucdetail__institutions-id'>
-            <InstitutionList
-              data-test-id='a-buc-c-bucdetail__institutionlist-id'
-              institutions={(buc.institusjon as Institutions)}
-              locale={locale}
-              type='separated'
-            />
-          </InstitutionListDiv>
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
+            <Properties>
+              <Dt className='odd'>
+                <Label>
+                  {t('ui:status')}:
+                </Label>
+              </Dt>
+              <Dd
+                className='odd'
+                data-test-id='a-buc-c-bucdetail__status-id'
+              >
+                <BodyLong>
+                  {t('buc:status-' + buc.status)}
+                </BodyLong>
+              </Dd>
+              <Dt>
+                <Label>
+                  {t('buc:form-caseOwner')}:
+                </Label>
+              </Dt>
+              <Dd data-test-id='a-buc-c-bucdetail__creator-id'>
+                <InstitutionList
+                  institutions={[buc.creator!]}
+                  locale={locale}
+                  type='joined'
+                />
+              </Dd>
+              <Dt className='odd'>
+                <Label>
+                  {t('ui:created')}:
+                </Label>
+              </Dt>
+              <Dd
+                className='odd'
+                data-test-id='a-buc-c-bucdetail__startDate-id'
+              >
+                <BodyLong>
+                  {moment(buc.startDate!).format('DD.MM.YYYY')}
+                </BodyLong>
+              </Dd>
+              <Dt>
+                <Label>
+                  {t('buc:form-rinaCaseNumber')}:
+                </Label>
+              </Dt>
+              <Dd data-test-id='a-buc-c-bucdetail__caseId-id'>
+                {rinaUrl
+                  ? (
+                    <Link
+                      data-amplitude='buc.edit.detail.rinaurl'
+                      data-test-id='a-buc-c-bucdetail__gotorina-link-id'
+                      href={rinaUrl + buc.caseId}
+                      target='rinaWindow'
+                      onClick={linkLogger}
+                    >
+                      {buc.caseId}
+                    </Link>
+                    )
+                  : (
+                    <WaitingPanel data-test-id='a-buc-c-bucdetail__gotorina-waiting-id' size='xsmall' />
+                    )}
+              </Dd>
+              {bucsThatSupportAvdod(buc.type) && (
+                <>
+                  <Dt className='odd'>
+                    <Label>
+                      {t('buc:form-avdod')}:
+                    </Label>
+                  </Dt>
+                  <Dd className='odd' data-test-id='a-buc-c-bucdetail__avdod-id'>
+                    {avdod
+                      ? (
+                        <BodyLong>
+                          {renderAvdodName(avdod, t)}
+                        </BodyLong>
+                        )
+                      : (
+                        <BodyLong>
+                          {(buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr || t('buc:form-noAvdod')}
+                        </BodyLong>
+                        )}
+                  </Dd>
+                </>
+              )}
+            </Properties>
+            <Heading size='small'>
+              {t('buc:form-involvedInstitutions')}:
+            </Heading>
+            <InstitutionListDiv data-test-id='a-buc-c-bucdetail__institutions-id'>
+              <InstitutionList
+                data-test-id='a-buc-c-bucdetail__institutionlist-id'
+                institutions={(buc.institusjon as Institutions)}
+                locale={locale}
+                type='separated'
+              />
+            </InstitutionListDiv>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     </Panel>
   )
 }

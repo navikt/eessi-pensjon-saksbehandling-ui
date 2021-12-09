@@ -32,9 +32,9 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
   const { p5000Storage } = useSelector<State, SEDLoadSaveSelector>(mapState)
 
-  const [ytelseOptions ] = useState<Array<Option>>(() => Object.keys(ytelseType)
+  const [ytelseOptions] = useState<Array<Option>>(() => Object.keys(ytelseType)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
-    .map((e: string | number) => ({label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e})))
+    .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
 
   const { t } = useTranslation()
   const dispatch = useDispatch()

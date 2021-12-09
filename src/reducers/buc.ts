@@ -288,7 +288,6 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           bucs: bucs
         }
       } else {
-
         const institutionNames = _.cloneDeep(state.institutionNames)
         const sedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
 

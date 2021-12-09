@@ -677,7 +677,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
                 heading={t('buc:form-feiloppsummering')}
               >
                 {_.filter(Object.values(_validation), v => v !== undefined).map((a: ErrorElement | undefined) => (
-                  <ErrorSummary.Item href={a?.skjemaelementId}>{a?.feilmelding}</ErrorSummary.Item>
+                  <ErrorSummary.Item key={a?.skjemaelementId} href={a?.skjemaelementId}>{a?.feilmelding}</ErrorSummary.Item>
                 ))}
 
               </ErrorSummary>

@@ -18,7 +18,7 @@ const MultipleValueRemove = (props: any) => {
       style={{}}
       data-test-id='c-multipleselect-multiplevalueremove'
     >
-      <ErrorFilled style={{  visibility: visibility }} />
+      <ErrorFilled style={{ visibility: visibility }} />
     </FlexDiv>
 
   )

@@ -274,9 +274,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   })
                 }}
               >
-                {P5000Draft ?
-                  t('buc:p5000-rediger') :
-                  sed.status === 'sent'
+                {P5000Draft
+                  ? t('buc:p5000-rediger')
+                  : sed.status === 'sent'
                     ? t('buc:p5000-updating')
                     : t('buc:p5000-registrert')}
                 <HorizontalSeparatorDiv size='0.3' />

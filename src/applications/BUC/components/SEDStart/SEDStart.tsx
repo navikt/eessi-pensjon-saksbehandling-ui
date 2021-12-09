@@ -552,8 +552,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     updateValidation('country', validateCountries(newCountries))
   }, [_buc, _countries, dispatch, _institutions, setCountries, setInstitutions, updateValidation, validateCountries])
 
-  const onAvdodOrSokerChange = (e: any): void => {
-    const avdodorsoker: AvdodOrSokerValue = e.target.value as AvdodOrSokerValue
+  const onAvdodOrSokerChange = (e: string): void => {
+    const avdodorsoker: AvdodOrSokerValue = e as AvdodOrSokerValue
     setAvdodOrSoker(avdodorsoker)
     updateValidation('avdodorsoker', validateAvdodOrSoker(avdodorsoker))
   }
@@ -621,8 +621,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }
 
-  const onKravOmChange = (e: any): void => {
-    const newKravOm: KravOmValue = e.target.value as KravOmValue
+  const onKravOmChange = (e: string): void => {
+    const newKravOm: KravOmValue = e as KravOmValue
     setKravOm(newKravOm)
   }
 
@@ -1051,7 +1051,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <RadioGroup
-                defaultValue={_kravOm as string}
+                value={_kravOm as string}
                 data-test-id='a-buc-c-sedstart__kravOm-radiogroup-id'
                 error={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
                 legend={t('buc:form-kravOm')}
@@ -1078,21 +1078,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <RadioGroup
-                defaultValue={_avdodOrSoker}
+                value={_avdodOrSoker}
                 data-test-id='a-buc-c-sedstart__avdodorsoker-radiogroup-id'
                 error={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
                 legend={t('buc:form-avdodorsøker')}
-                name='avdodorbruker'
                 onChange={onAvdodOrSokerChange}
               >
-                <Radio
-                  value='AVDOD'
-                >{t('buc:form-avdod')}
-                </Radio>
-                <Radio
-                  value='SOKER'
-                >{t('buc:form-søker')}
-                </Radio>
+                <Radio value='AVDOD'>{t('buc:form-avdod')}</Radio>
+                <Radio value='SOKER'>{t('buc:form-søker')}</Radio>
               </RadioGroup>
             </>
           )}
@@ -1274,7 +1267,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 heading={t('buc:form-feiloppsummering')}
               >
                 {_.filter(Object.values(_validation), (e: ErrorElement | undefined) => e !== undefined).map((e: ErrorElement | undefined) => (
-                  <ErrorSummary.Item href={e?.skjemaelementId}>{e?.feilmelding}</ErrorSummary.Item>
+                  <ErrorSummary.Item key={e?.skjemaelementId} href={e?.skjemaelementId}>{e?.feilmelding}</ErrorSummary.Item>
                 ))}
               </ErrorSummary>
             </Column>

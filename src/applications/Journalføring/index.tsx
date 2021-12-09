@@ -75,15 +75,15 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <Accordion id='w-journalføring-id'>
-       <Accordion.Item open={!widget.options.collapsed}>
-         <Accordion.Header onClick={onClick}>
+        <Accordion.Item open={!widget.options.collapsed}>
+          <Accordion.Header onClick={onClick}>
 
-          <Heading size='medium'>{t('jou:title')}</Heading>
-         </Accordion.Header>
-         <Accordion.Content>
-           <Journalføring />
-         </Accordion.Content>
-       </Accordion.Item>
+            <Heading size='medium'>{t('jou:title')}</Heading>
+          </Accordion.Header>
+          <Accordion.Content>
+            <Journalføring />
+          </Accordion.Content>
+        </Accordion.Item>
       </Accordion>
     </div>
   )

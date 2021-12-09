@@ -134,7 +134,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                         wave={false}
                       />
                     )}
-                    <InstitutionText className={classNames({oneLine: oneLine})}>
+                    <InstitutionText className={classNames({ oneLine: oneLine })}>
                       {getLabel(institution)}
                     </InstitutionText>
                   </InstitutionDiv>

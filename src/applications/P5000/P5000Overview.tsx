@@ -83,7 +83,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const renderType = (item: any, value: any) => (
     <Tooltip
       overlay={(
-        <div style={{maxWidth: '300px'}}>
+        <div style={{ maxWidth: '300px' }}>
           {_.get(typePeriode, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
@@ -99,7 +99,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const renderYtelse = (item: any, value: any) => (
     <Tooltip
       overlay={(
-        <div style={{maxWidth: '300px'}}>
+        <div style={{ maxWidth: '300px' }}>
           {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
@@ -115,7 +115,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const renderBeregning = (item: any, value: any) => (
     <Tooltip
       overlay={(
-        <div style={{maxWidth: '300px'}}>
+        <div style={{ maxWidth: '300px' }}>
           {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
@@ -131,7 +131,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const renderOrdning = (item: any, value: any) => (
     <Tooltip
       overlay={(
-        <div style={{maxWidth: '300px'}}>
+        <div style={{ maxWidth: '300px' }}>
           {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
@@ -172,7 +172,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     { id: 'status', label: t('ui:status'), type: 'string', renderCell: renderStatus },
     { id: 'land', label: t('ui:country'), type: 'string', renderCell: renderLand },
     { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-    { id: 'type', label: t('ui:type'), type: 'string', renderCell: renderType},
+    { id: 'type', label: t('ui:type'), type: 'string', renderCell: renderType },
     {
       id: 'startdato',
       label: t('ui:startDate'),
@@ -194,7 +194,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       renderCell: renderDagCell
     },
     { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string', renderCell: renderYtelse },
-    { id: 'ordning', label: t('ui:scheme'), type: 'string',  renderCell: renderOrdning },
+    { id: 'ordning', label: t('ui:scheme'), type: 'string', renderCell: renderOrdning },
     { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', renderCell: renderBeregning }
   ]
 
@@ -206,7 +206,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <>
       <VerticalSeparatorDiv />
       <PileCenterDiv>
-        <AlignEndRow style={{width: '100%'}}>
+        <AlignEndRow style={{ width: '100%' }}>
           <Column>
             <Checkbox
               checked={_mergePeriods}
@@ -220,9 +220,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 </OneLineSpan>
                 <HorizontalSeparatorDiv />
                 <HelpText>
-                  <div style={{maxWidth: '300px'}}>
-                  <BodyLong>{t('message:help-p5000-merge-1')}</BodyLong>
-                  <BodyLong>{t('message:help-p5000-merge-2')}</BodyLong>
+                  <div style={{ maxWidth: '300px' }}>
+                    <BodyLong>{t('message:help-p5000-merge-1')}</BodyLong>
+                    <BodyLong>{t('message:help-p5000-merge-2')}</BodyLong>
                   </div>
                 </HelpText>
               </FlexCenterDiv>

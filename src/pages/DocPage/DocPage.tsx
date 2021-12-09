@@ -55,7 +55,6 @@ const defaultConfig = {
 const allowedWidgets = ['doc']
 
 export const DocPage: React.FC<DocPageProps> = (): JSX.Element => {
-
   const [loggedTime] = useState<Date>(new Date())
 
   useEffect(() => {

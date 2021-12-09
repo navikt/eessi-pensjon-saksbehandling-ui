@@ -17,7 +17,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
       {props.label && (<label className='navds-text-field__label navds-label'>{props.label ?? ''}</label>)}
       <ReactSelect
         inputId={props.id}
-        className={classNames({  'navds-error-message navds-error-message--medium' : !!props.error })}
+        className={classNames({ 'navds-error-message navds-error-message--medium': !!props.error })}
         isOptionDisabled={(option: any) => option.isDisabled}
         placeholder=''
         styles={{
@@ -28,7 +28,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
           }),
           control: (styles: any, { isDisabled }) => ({
             ...styles,
-            minHeight:  props.size === 'small' ? '35px' : '48px',
+            minHeight: props.size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
             borderColor: props.error ? 'var(--navds-color-text-error)' : 'var(--navds-text-field-color-border)',

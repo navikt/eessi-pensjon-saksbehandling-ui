@@ -39,7 +39,7 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
 
   const onClick = (): void => {
     const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = ! newWidget.options.collapsed
+    newWidget.options.collapsed = !newWidget.options.collapsed
     standardLogger('pagenotification.ekspandpanel.clicked')
     if (onUpdate) {
       onUpdate(newWidget)

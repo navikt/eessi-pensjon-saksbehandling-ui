@@ -289,7 +289,7 @@ const BUCList: React.FC<BUCListProps> = ({
   }, [institutionList, bucs, dispatch, _parsedCountries])
 
   const status = !_.isEmpty(bucsList) && Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
-  const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor( Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
+  const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
 
   return (
     <BUCListDiv
@@ -340,22 +340,23 @@ const BUCList: React.FC<BUCListProps> = ({
       </BUCStartDiv>
       {(gettingBucsList || gettingBucs) && (
         <>
-        <Row style={{width: '100%', height: '40px'}}>
-          <Column>
-            <ProgressBar
-              status={status}
-              now={now}>
-              <BodyLong>
-                {t(_.isEmpty(bucsList) ?  'message:loading-bucListX' : 'message:loading-bucsX', {x: now})}
-              </BodyLong>
-            </ProgressBar>
-          </Column>
-        </Row>
-        <BUCLoadingDiv>
-          <BUCLoading />
-          <BUCLoading />
-          <BUCLoading />
-        </BUCLoadingDiv>
+          <Row style={{ width: '100%', height: '40px' }}>
+            <Column>
+              <ProgressBar
+                status={status}
+                now={now}
+              >
+                <BodyLong>
+                  {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
+                </BodyLong>
+              </ProgressBar>
+            </Column>
+          </Row>
+          <BUCLoadingDiv>
+            <BUCLoading />
+            <BUCLoading />
+            <BUCLoading />
+          </BUCLoadingDiv>
         </>
       )}
       {!gettingBucs && _.isEmpty(bucsList) && (
@@ -423,30 +424,30 @@ const BUCList: React.FC<BUCListProps> = ({
                         </FlexDiv>
                       </Accordion.Header>
                       <Accordion.Content>
-                      <FlexDiv className={classNames({ feil: _validation || false })}>
-                        <TextField
-                          style={{ width: '200px' }}
-                          data-test-id='a-buc-p-buclist__avdod-input-id'
-                          error={_validation || false}
-                          id='a-buc-p-buclist__avdod-input-id'
-                          label={(
-                            <HiddenDiv>
-                              {t('buc:form-avdodFnr')}
-                            </HiddenDiv>
+                        <FlexDiv className={classNames({ feil: _validation || false })}>
+                          <TextField
+                            style={{ width: '200px' }}
+                            data-test-id='a-buc-p-buclist__avdod-input-id'
+                            error={_validation || false}
+                            id='a-buc-p-buclist__avdod-input-id'
+                            label={(
+                              <HiddenDiv>
+                                {t('buc:form-avdodFnr')}
+                              </HiddenDiv>
                           )}
-                          onChange={onAvdodFnrChange}
-                          description={t('buc:form-searchOtherBUCs-description')}
-                          value={_avdodFnr || ''}
-                          onKeyPress={handleKeyPress}
-                        />
-                        <HorizontalSeparatorDiv />
-                        <Button
-                          variant='primary'
-                          onClick={onAvdodFnrButtonClick}
-                        >
-                          {t('ui:get')}
-                        </Button>
-                      </FlexDiv>
+                            onChange={onAvdodFnrChange}
+                            description={t('buc:form-searchOtherBUCs-description')}
+                            value={_avdodFnr || ''}
+                            onKeyPress={handleKeyPress}
+                          />
+                          <HorizontalSeparatorDiv />
+                          <Button
+                            variant='primary'
+                            onClick={onAvdodFnrButtonClick}
+                          >
+                            {t('ui:get')}
+                          </Button>
+                        </FlexDiv>
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion>
