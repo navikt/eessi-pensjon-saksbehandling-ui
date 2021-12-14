@@ -28,7 +28,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: var(--navds-semantic-color-component-background-alternate);
-  border-bottom: 1px solid var(--navds-color-border);
+  border-bottom: 1px solid var(--navds-semantic-color-border);
 `
 export const Context = styled.div`
  padding: 0.5rem 2rem;

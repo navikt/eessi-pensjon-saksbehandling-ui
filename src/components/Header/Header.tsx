@@ -27,7 +27,7 @@ const BrandDiv = styled.div`
   flex-direction: row;
 `
 const HeaderDiv = styled.header`
-  background-color: var(--navds-color-gray-90);
+  background-color: var(--navds-global-color-gray-900);
   display: flex;
   flex-direction: row;
   height: 4rem;
@@ -43,14 +43,14 @@ const SaksbehandlerUser = styled.div`
    color: white;
 `
 const Skillelinje = styled.div`
-  border-left: 1px solid var(--navds-color-white);
+  border-left: 1px solid var(--navds-global-color-white);
   display: flex;
   height: 30px;
   width: 1px;
   margin-left: 1rem;
 `
 const Title = styled.div`
-  color: var(--navds-color-white);
+  color: var(--navds-global-color-white);
   display: flex;
   font-size: 13pt;
   padding-left: 15px;

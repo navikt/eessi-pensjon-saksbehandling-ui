@@ -91,14 +91,14 @@ const MultipleSelect = <T extends Option = Option> ({
             minHeight: size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: error ? 'var(--navds-color-text-error)' : 'var(--navds-text-field-color-border)',
-            backgroundColor: isDisabled ? 'var(--navds-color-disabled)' : 'var(--navds-color-background)',
-            borderRadius: 'var(--navds-border-radius)',
+            borderColor: error ? 'var(--navds-select-color-border-error)' : 'var(--navds-select-color-border)',
+            backgroundColor: isDisabled ? 'var(--navds-semantic-color-component-background-alternate)' : 'var(--navds-select-color-background)',
+            borderRadius: '4px',
             color: 'var(--navds-color-text-primary)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: 'var(--navds-color-border)'
+            backgroundColor: 'var(--navds-semantic-color-border)'
           }),
           menu: (styles: any) => ({
             ...styles,
@@ -110,10 +110,10 @@ const MultipleSelect = <T extends Option = Option> ({
             ...styles,
             borderRadius: '20px',
             borderWidth: '1px',
-            borderColor: 'var(--navds-text-field-color-border)',
+            borderColor: 'var(--navds-semantic-color-border)',
             borderStyle: 'solid',
             padding: '0rem 0.25rem',
-            backgroundColor: 'var(--navds-color-background)',
+            backgroundColor: 'var(--navds-select-color-background)',
             color: 'var(--navds-color-text-primary)',
             alignItems: 'center',
             flexDirection: 'row',
@@ -126,7 +126,7 @@ const MultipleSelect = <T extends Option = Option> ({
           menuList: (styles: any) => ({
             ...styles,
             borderWidth: '1px',
-            borderColor: 'var(--navds-color-border)',
+            borderColor: 'var(--navds-semantic-color-border)',
             borderStyle: 'solid',
             backgroundColor: 'var(--navds-semantic-color-component-background-alternate)'
           }),
@@ -135,15 +135,15 @@ const MultipleSelect = <T extends Option = Option> ({
             ...styles,
             padding: '0.5rem',
             color: isFocused
-              ? 'var(--navds-color-text-inverse)'
+              ? 'var(--navds-semantic-color-text-inverted)'
               : isSelected
-                ? 'var(--navds-color-text-inverse)'
+                ? 'var(--navds-semantic-color-text-inverted)'
                 : 'var(--navds-color-text-primary)',
             backgroundColor: isFocused
               ? 'var(--navds-semantic-color-focus)'
               : isSelected
-                ? 'var(--navds-semantic-color-interaction-primary-default)'
-                : 'var(--navds-semantic-color-component-background-alternate)'
+                ? 'var(--navds-semantic-color-interaction-primary-selected)'
+                : 'var(--navds-select-color-background)'
           }),
           singleValue: (styles: any) => ({
             ...styles,
@@ -154,7 +154,7 @@ const MultipleSelect = <T extends Option = Option> ({
       />
 
       {error && (
-        <div role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+        <div style={{marginTop: '8px'}} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
           {error}
         </div>
       )}

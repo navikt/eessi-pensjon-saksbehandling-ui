@@ -1,3 +1,5 @@
+import { BackFilled } from '@navikt/ds-icons'
+import { BodyLong, Button, Panel } from '@navikt/ds-react'
 import { alertFailure } from 'actions/alert'
 import { resetNewSed, setCurrentBuc, setCurrentSed } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
@@ -16,8 +18,6 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { BackFilled } from '@navikt/ds-icons'
-import { BodyLong, Button, Link, Panel } from '@navikt/ds-react'
 import {
   animationClose,
   animationOpen,
@@ -27,7 +27,7 @@ import {
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -208,7 +208,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     onSEDNew(buc!, undefined, undefined)
   }
 
-  const onBackLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const onBackLinkClick = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
     dispatch(resetNewSed())
@@ -226,9 +226,9 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <BUCEditHeader>
-        <Link
-          data-test-id='a-buc-p-bucedit__back-link-id'
-          href='#'
+        <Button
+          variant='secondary'
+          data-test-id='a-buc-p-bucedit__back-button-id'
           onClick={onBackLinkClick}
         >
           <BackFilled />
@@ -236,7 +236,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           <span>
             {t('ui:back')}
           </span>
-        </Link>
+        </Button>
         {_startSed !== 'open' && (
           <Button
             variant='secondary'

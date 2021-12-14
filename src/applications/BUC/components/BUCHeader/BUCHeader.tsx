@@ -65,7 +65,7 @@ const PropertyDiv = styled.div`
 const RinaLink = styled(Link)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
   margin-bottom: 0px !important;
-  color: var(--navds-semantic-color-interaction-primary-default) !important;
+  color: var(--navds-semantic-color-interaction-primary) !important;
 `
 const RowText = styled(BodyLong)`
   white-space: nowrap !important;

@@ -31,14 +31,14 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             minHeight: props.size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: props.error ? 'var(--navds-color-text-error)' : 'var(--navds-text-field-color-border)',
-            borderRadius: 'var(--navds-border-radius)',
+            borderColor: props.error ? 'var(--navds-select-color-border-error)' : 'var(--navds-select-color-border)',
+            borderRadius: '4px',
             color: 'var(--navds-color-text-primary)',
-            backgroundColor: isDisabled ? 'var(--navds-color-disabled)' : 'var(--navds-color-background)'
+            backgroundColor: isDisabled ? 'var(--navds-semantic-color-component-background-alternate)' : 'var(--navds-select-color-background)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: 'var(--navds-text-field-color-border)'
+            backgroundColor: 'var(--navds-select-color-border)'
           }),
           menu: (styles: any) => ({
             ...styles,
@@ -50,20 +50,20 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             ...styles,
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: 'var(--navds-text-field-color-border)',
+            borderColor: 'var(--navds-select-color-border)',
             backgroundColor: 'var(--navds-semantic-color-component-background-alternate)'
           }),
           option: (styles: any, { isDisabled, isFocused, isSelected }) => ({
             ...styles,
             color: isFocused
-              ? 'var(--navds-color-text-inverse)'
+              ? 'var(--navds-semantic-color-text-inverted)'
               : isSelected
-                ? 'var(--navds-color-text-inverse)'
+                ? 'var(--navds-semantic-color-text-inverted)'
                 : 'var(--navds-color-text-primary)',
             backgroundColor: isFocused
               ? 'var(--navds-semantic-color-focus)'
               : isSelected
-                ? 'var(--navds-semantic-color-interaction-primary-default)'
+                ? 'var(--navds-semantic-color-interaction-primary-selected)'
                 : isDisabled
                   ? 'var(--navds-color-disabled)'
                   : 'var(--navds-semantic-color-component-background-alternate)'
@@ -76,9 +76,9 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
         {...props}
       />
       {props.error && (
-        <label role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+        <div style={{marginTop: '8px'}} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
           {props.error}
-        </label>
+        </div>
       )}
     </div>
   )

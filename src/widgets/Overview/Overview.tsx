@@ -8,7 +8,7 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
-import { Accordion, Alert } from '@navikt/ds-react'
+import { Accordion, Alert, Panel } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -112,11 +112,11 @@ export const Overview: React.FC<OverviewProps> = ({
 
   return (
 
-    <div
+    <Panel border style={{ padding: '0px' }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Accordion data-test-id='w-overview-id'>
+      <Accordion style={{ borderRadius: '4px' }} data-test-id='w-overview-id'>
         <Accordion.Item open={!widget.options.collapsed}>
           <Accordion.Header onClick={onClick}>
             <PersonTitle
@@ -133,7 +133,7 @@ export const Overview: React.FC<OverviewProps> = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
-    </div>
+    </Panel>
   )
 }
 

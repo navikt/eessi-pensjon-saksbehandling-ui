@@ -18,7 +18,7 @@ const Element = styled.div`
 `
 const Hr = styled.hr`
   margin: 1.5rem;
-  border-color: var(--navds-color-border) !important;
+  border-color: var(--navds-semantic-color-border) !important;
 `
 const MarginRow = styled(Row)`
   margin: 1.5rem;

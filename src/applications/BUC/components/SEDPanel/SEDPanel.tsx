@@ -19,27 +19,12 @@ export const SEDPanelContainer = styled(Panel)`
 `
 export const SEDPanelDiv = styled.div`
   padding: 1rem;
-  border-radius: var(--navds-border-radius);
+  border-radius: 4px;
   background: var(--navds-semantic-color-component-background-alternate);
   &.new {
-    background: var(--navds-color-limegreen-10) !important;
+    background: var(--navds-global-color-limegreen-100) !important;
   }
 `
-/* export const SEDPanelExpandingPanel = styled(ExpandingPanel)`
-  border: none;
-  &.new div:not(.etikett) {
-    background: var(--navds-color-limegreen-10) !important; !important;
-  }
-  &.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
-    background: var(--navds-color-hover) !important;
-  }
-  .ekspanderbartPanel__hode:hover {
-    background: var(--navds-color-hover) !important;
-    .panel {
-      background: transparent;
-    }
-  }
-` */
 
 export interface SEDPanelProps {
   aktoerId: string

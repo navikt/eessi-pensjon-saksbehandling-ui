@@ -20,10 +20,10 @@ import { Button, TextField } from '@navikt/ds-react'
 
 export const BUCEmptyDiv = styled.div`
   display: flex;
-  border-color: var(--navds-color-border);
+  border-color: var(--navds-semantic-color-border);
   border-style: solid;
   border-width: 1px;
-  border-radius: var(--navds-border-radius);
+  border-radius: 4px;
   justify-content: center;
   align-items: center;
   flex-direction: column;

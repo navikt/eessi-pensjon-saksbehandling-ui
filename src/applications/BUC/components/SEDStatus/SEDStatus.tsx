@@ -26,16 +26,16 @@ export type StatusType = 'success' | 'info' | 'warning' | 'error'
 
 export const MyTag = styled(Tag)`
   &.received {
-    background-color: var(--navds-color-lightblue-50) !important;
+    background-color: var(--navds-global-color-lightblue-500) !important;
   }
   &.active {
-    background-color: var(--navds-color-purple-20) !important;
-    border-color: var(--navds-color-purple-50) !important;
+    background-color: var(--navds-global-color-purple-200) !important;
+    border-color: var(--navds-global-color-purple-500) !important;
   }
   &.first_sent,
   &.first_received,
   &.first_cancelled {
-    background-color: var(--navds-color-gray-40) !important;
+    background-color: var(--navds-global-color-gray-400) !important;
   }
 `
 

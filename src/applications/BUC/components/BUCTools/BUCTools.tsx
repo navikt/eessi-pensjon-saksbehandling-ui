@@ -45,7 +45,7 @@ const BUCToolsPanel = styled(Panel)`
 const CommentDiv = styled.div`
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: var(--navds-color-border);
+  border-bottom-color: var(--navds-semantic-color-border);
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   display: flex;

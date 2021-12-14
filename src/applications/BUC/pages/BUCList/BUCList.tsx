@@ -69,10 +69,10 @@ export const BucLenkePanel = styled(LinkPanel)`
   background: var(--navds-semantic-color-component-background-alternate);
   margin-bottom: 1rem;
   &.new {
-    background: var(--navds-color-limegreen-10) !important;
+    background: var(--navds-global-color-limegreen-100) !important;
   }
   &:hover {
-    background: var(--navds-color-hover);
+    background: var(--navds-semantic-color-interaction-primary-subtle);
   }
 `
 const BUCNewDiv = styled(Panel)`

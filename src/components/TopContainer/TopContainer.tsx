@@ -24,7 +24,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: var(--navds-color-background);
+  background-color: var(--navds-semantic-color-canvas-background);
   color:  var(--navds-color-text-primary);
 `
 const TopContainerDiv = styled.div`

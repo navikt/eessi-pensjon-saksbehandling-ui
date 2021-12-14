@@ -1,5 +1,5 @@
 import { BackFilled, Warning } from '@navikt/ds-icons'
-import { Accordion, Alert, Checkbox, BodyLong, Heading, Button } from '@navikt/ds-react'
+import { Accordion, Alert, Checkbox, BodyLong, Heading, Button, Panel } from '@navikt/ds-react'
 import { getSed, resetSentP5000info, syncToP5000Storage, unsyncFromP5000Storage } from 'actions/p5000'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
@@ -66,7 +66,8 @@ const P5000: React.FC<P5000Props> = ({
     const sender: SedSender | undefined = getSedSender(mainSed)
 
     return (
-      <Accordion id='a-buc-c-p5000-sum'>
+      <Panel border style={{ padding: '0px' }}>
+      <Accordion  style={{ borderRadius: '4px' }} id='a-buc-c-p5000-edit'>
         <Accordion.Item defaultOpen renderContentWhenClosed>
           <Accordion.Header>
             <FlexCenterDiv>
@@ -93,13 +94,15 @@ const P5000: React.FC<P5000Props> = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
+      </Panel>
     )
   }
 
   const renderP5000Sum = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
     const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
     return (
-      <Accordion id='a-buc-c-p5000-sum'>
+      <Panel border style={{ padding: '0px' }}>
+        <Accordion  style={{ borderRadius: '4px' }} id='a-buc-c-p5000-sum'>
         <Accordion.Item defaultOpen renderContentWhenClosed>
           <Accordion.Header>
             <Heading size='small'>
@@ -118,11 +121,13 @@ const P5000: React.FC<P5000Props> = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
+      </Panel>
     )
   }
 
   const renderP5000Overview = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => (
-    <Accordion id='a-buc-c-p5000-overview'>
+    <Panel border style={{ padding: '0px' }}>
+      <Accordion  style={{ borderRadius: '4px' }}  id='a-buc-c-p5000-overview'>
       <Accordion.Item defaultOpen renderContentWhenClosed>
         <Accordion.Header>
           <Heading size='small'>
@@ -140,6 +145,7 @@ const P5000: React.FC<P5000Props> = ({
         </Accordion.Content>
       </Accordion.Item>
     </Accordion>
+    </Panel>
   )
 
   const updateActiveSeds = (seds: any) => {
