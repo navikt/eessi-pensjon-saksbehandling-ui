@@ -11,6 +11,11 @@ import { FlexBaseDiv, HorizontalSeparatorDiv, PileDiv } from 'nav-hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
+
+const MyPanel = styled(Panel)`
+  background: var(--navds-semantic-color-component-background-alternate);
+`
 
 interface SEDLoadSaveProps {
   buc: Buc
@@ -49,7 +54,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
         .filter(sed => sed.id === sedId)
         .map((sed: LocalStorageValue<P5000SED>) => (
           <FlexBaseDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
-            <Panel border>
+            <MyPanel border>
               <FlexBaseDiv style={{ alignItems: 'center' }} key={sed.id}>
                 <PileDiv>
                   <BodyLong>
@@ -105,7 +110,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                   />
                 </FlexBaseDiv>
               </FlexBaseDiv>
-            </Panel>
+            </MyPanel>
           </FlexBaseDiv>
         )
         )}

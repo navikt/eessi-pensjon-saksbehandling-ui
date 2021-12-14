@@ -178,7 +178,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             >
               <SEDStatus
                 data-test-id='a-buc-c-sedheader__status-id'
-                status={sed.status}
+                status={sed.type === 'P5000' && P5000Draft ? 'active' : sed.status}
               />
             </Tooltip>
             <HorizontalSeparatorDiv date-size='0.5' />
