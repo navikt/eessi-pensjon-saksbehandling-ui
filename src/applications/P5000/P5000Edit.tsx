@@ -964,6 +964,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             allowNewRows={_forsikringEllerBosetningsperioder === '1'}
             searchable={false}
             selectable
+            showSelectAll={false}
             coloredSelectedRow={false}
             onRowSelectChange={onRowSelectChange}
             sortable
