@@ -1,9 +1,30 @@
+import {
+  Alert,
+  BodyLong,
+  Button,
+  HelpText,
+  Link,
+  Loader,
+  Radio,
+  RadioGroup,
+  Select as NavSelect,
+  Tag,
+  TextField
+} from '@navikt/ds-react'
 import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
-import { typePeriode, ytelseType, relevantForYtelse, ordning, informasjonOmBeregning } from 'applications/P5000/P5000.labels'
+import {
+  informasjonOmBeregning,
+  ordning,
+  relevantForYtelse,
+  typePeriode,
+  ytelseType
+} from 'applications/P5000/P5000.labels'
 import Modal from 'components/Modal/Modal'
+import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import { LocalStorageValue, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
+import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
@@ -11,7 +32,6 @@ import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
-import { Alert, Button, Tag, HelpText, Link, BodyLong, Loader, TextField, Radio, Select as NavSelect, RadioGroup } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
@@ -22,7 +42,6 @@ import {
   HiddenDiv,
   HorizontalSeparatorDiv,
   PileCenterDiv,
-  PileDiv,
   VerticalSeparatorDiv
 } from 'nav-hoykontrast'
 import PT from 'prop-types'
@@ -37,8 +56,6 @@ import dateDiff, { DateDiff } from 'utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
-import Select from 'components/Select/Select'
-import { SedsPropType } from 'declarations/buc.pt'
 
 const moment = extendMoment(Moment)
 
@@ -734,8 +751,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const canSend = !!_ytelseOption
 
   return (
-    <div id='p5000Edit'>
-      <VerticalSeparatorDiv />
+    <>
       <Modal
         open={_showModal}
         appElementId='p5000Edit'
@@ -796,9 +812,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         open={_showHelpModal}
         onClose={() => _setShowHelpModal(false)}
       />
-      <PileCenterDiv>
-        <PileDiv>
-          <AlignEndRow>
+      <PileCenterDiv className='foo'>
+          <AlignEndRow style={{width: '100%'}}>
             <Column>
               <FullWidthDiv>
                 <Select
@@ -829,10 +844,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                       </OneLineSpan>
                       <HorizontalSeparatorDiv />
                       <HelpText>
-                        <>
+                        <div style={{ maxWidth: '600px' }}>
                           <BodyLong>{t('message:help-p5000-1')}</BodyLong>
                           <BodyLong>{t('message:help-p5000-2')}</BodyLong>
-                        </>
+                        </div>
                       </HelpText>
                     </FlexCenterDiv>
               )}
@@ -898,7 +913,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </Column>
           </AlignEndRow>
           <VerticalSeparatorDiv />
-          <AlignEndRow>
+          <AlignEndRow style={{width: '100%'}}>
             <Column />
             <Column>
               {sourceStatus !== 'rina' && (
@@ -915,7 +930,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </Column>
           </AlignEndRow>
           <VerticalSeparatorDiv />
-          <AlignEndRow>
+          <AlignEndRow style={{width: '100%'}}>
             <Column>
               <Alert variant='warning'>
                 <FlexCenterDiv>
@@ -1152,10 +1167,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               </div>
             </HiddenDiv>
           )}
-        </PileDiv>
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
-    </div>
+    </>
   )
 }
 

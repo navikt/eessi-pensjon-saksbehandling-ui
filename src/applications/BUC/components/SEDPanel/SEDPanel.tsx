@@ -20,7 +20,7 @@ export const SEDPanelContainer = styled(Panel)`
 export const SEDPanelDiv = styled.div`
   padding: 1rem;
   border-radius: 4px;
-  background: var(--navds-semantic-color-component-background-alternate);
+  background: var(--navds-semantic-color-component-background-light);
   &.new {
     background: var(--navds-global-color-limegreen-100) !important;
   }
