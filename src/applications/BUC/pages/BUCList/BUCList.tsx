@@ -98,7 +98,7 @@ const FlexDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  &.feil {
+  &.error {
     align-items: center !important;
   }
 `
@@ -424,7 +424,7 @@ const BUCList: React.FC<BUCListProps> = ({
                         </FlexDiv>
                       </Accordion.Header>
                       <Accordion.Content>
-                        <FlexDiv className={classNames({ feil: _validation || false })}>
+                        <FlexDiv className={classNames({ error: _validation || false })}>
                           <TextField
                             style={{ width: '200px' }}
                             data-test-id='a-buc-p-buclist__avdod-input-id'

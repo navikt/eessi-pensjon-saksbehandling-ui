@@ -76,7 +76,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
         {...props}
       />
       {props.error && (
-        <div style={{marginTop: '8px'}} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+        <div style={{ marginTop: '8px' }} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
           {props.error}
         </div>
       )}

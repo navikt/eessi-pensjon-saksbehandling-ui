@@ -8,8 +8,7 @@ import {
   Radio,
   RadioGroup,
   Select as NavSelect,
-  Tag,
-  TextField
+  Tag
 } from '@navikt/ds-react'
 import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
 import {
@@ -19,6 +18,7 @@ import {
   typePeriode,
   ytelseType
 } from 'applications/P5000/P5000.labels'
+import Input from 'components/Forms/Input'
 import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
@@ -159,10 +159,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         key='c-table__edit-type-select-key-'
         id='c-table__edit-type-select-id'
         className='P5000Edit-type-select input-focus'
-        error={options.feil}
+        error={options.error}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e: unknown) => options.setValue({ type: (e as Option).value })}
+        onChange={(e: unknown) => options.setValues({ type: (e as Option).value })}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
         value={_.find(typeOptions, o => o.value === options.value)}
       />
@@ -229,14 +229,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const dates: DateDiff | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
       if (options.context.forsikringEllerBosetningsperioder === '1') {
-        options.setValue({
+        options.setValues({
           dag: dates.days,
           aar: dates.years,
           mnd: dates.months
         })
       }
       if (options.context.forsikringEllerBosetningsperioder === '0') {
-        options.setValue({
+        options.setValues({
           dag: 0,
           aar: 0,
           mnd: 0
@@ -247,21 +247,23 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
     <div style={{ marginTop: '0.5rem' }}>
-      <TextField
+      <Input
         size='small'
-        id='c-table__edit-startdato-input-id'
+        namespace='c-table__edit'
+        id='startdato-input-id'
         className='c-table__edit-input'
         label='startdato'
         hideLabel
-        error={options.feil}
+        error={options.error}
         placeholder={t('buc:placeholder-date2')}
-        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+        onChanged={(e: string) => {
+          options.setValues({ startdato: e })
           const otherDate: string | undefined = dateTransform(options.values.sluttdato)
-          maybeDoSomePrefill(e.target.value, otherDate, options)
+          maybeDoSomePrefill(e, otherDate, options)
         }}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          startdato: e.target.value
-        })}
+        onEnterPress={(e: string) => {
+          options.onEnter({ startdato: e })
+        }}
         value={dateTransform(options.value) ?? ''}
       />
     </div>
@@ -269,21 +271,23 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
     <div style={{ marginTop: '0.5rem' }}>
-      <TextField
+      <Input
         size='small'
-        id='c-table__edit-sluttdato-input-id'
+        namespace='c-table__edit'
+        id='sluttdato-input-id'
         className='c-table__edit-input'
         label='sluttdato'
         hideLabel
-        error={options.feil}
+        error={options.error}
         placeholder={t('buc:placeholder-date2')}
-        onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+        onChanged={(e: string) => {
+          options.setValues({ sluttdato: e })
           const otherDate: string | undefined = dateTransform(options.values.startdato)
-          maybeDoSomePrefill(otherDate, e.target.value, options)
+          maybeDoSomePrefill(otherDate, e, options)
         }}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          sluttdato: e.target.value
-        })}
+        onEnterPress={(e: string) => {
+          options.onEnter({ sluttdato: e })
+        }}
         value={dateTransform(options.value) ?? ''}
       />
     </div>
@@ -308,7 +312,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     if (options.context.forsikringEllerBosetningsperioder === '1') {
       if (options.value === 0 && options.values[others[0]] === 0 && options.values[others[1]] === 0) {
-        options.setValue({
+        options.setValues({
           [what]: '',
           [others[0]]: '',
           [others[1]]: ''
@@ -326,7 +330,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
     }
     if (_value !== options.value) {
-      options.setValue({
+      options.setValues({
         [what]: _value
       })
     }
@@ -336,18 +340,22 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderDagerEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
-      <TextField
+      <Input
         size='small'
-        aria-invalid={!!options.feil}
+        aria-invalid={!!options.error}
         aria-label='dag'
         data-test-id='c-table__edit-dag-input-id'
-        error={options.feil}
-        id='c-table__edit-dag-input-id'
+        error={options.error}
+        namespace='c-table__edit'
+        id='dag-input-id'
         label=''
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          options.setValue({
-            dag: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
+        onChanged={(e: string) => {
+          options.setValues({
+            dag: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
           })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ dag: isNaN(parseFloat(e)) ? 0 : parseFloat(e) })
         }}
         placeholder=''
         value={'' + value}
@@ -358,18 +366,22 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderManedEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
-      <TextField
+      <Input
         size='small'
-        aria-invalid={!!options.feil}
+        aria-invalid={!!options.error}
         aria-label='mnd'
-        data-test-id='c-table__edit-mnd-input-id'
-        error={options.feil}
-        id='c-table__edit-mnd-input-id'
+        namespace='c-table__edit'
+        data-test-id='mnd-input-id'
+        error={options.error}
+        id='mnd-input-id'
         label=''
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          options.setValue({
-            mnd: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
+        onChanged={(e: string) => {
+          options.setValues({
+            mnd: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
           })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ mnd: isNaN(parseFloat(e)) ? 0 : parseFloat(e) })
         }}
         placeholder=''
         value={'' + value}
@@ -380,18 +392,22 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderAarEdit = (options: RenderEditableOptions<P5000TableContext>) => {
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
-      <TextField
+      <Input
         size='small'
-        aria-invalid={!!options.feil}
+        aria-invalid={!!options.error}
         aria-label='aar'
         data-test-id='c-table__edit-aar-input-id'
-        error={options.feil}
-        id='c-table__edit-aar-input-id'
+        error={options.error}
+        id='aar-input-id'
+        namespace='c-table__edit'
         label=''
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          options.setValue({
-            aar: isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
+        onChanged={(e: string) => {
+          options.setValues({
+            aar: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
           })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ aar: isNaN(parseFloat(e)) ? 0 : parseFloat(e) })
         }}
         placeholder=''
         value={'' + value}
@@ -423,13 +439,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     let valueToShow = options.value
     if (options.values && !_.isNil(options.values.type)) {
       if ((options.values.type === '43' || options.values.type === '45') && options.value !== '') {
-        options.setValue({
+        options.setValues({
           ytelse: ''
         })
         valueToShow = ''
       }
       if (!(options.values.type === '43' || options.values.type === '45') && options.value === '') {
-        options.setValue({
+        options.setValues({
           ytelse: '111'
         })
         valueToShow = '111'
@@ -533,15 +549,15 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
-      <TextField
+      <Input
         size='small'
-        id='c-table__edit-beregning-input-id'
+        namespace='c-table__edit'
+        id='beregning-input-id'
         className='c-table__edit-input'
         label=''
-        error={options.feil}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.setValue({
-          beregning: e.target.value
-        })}
+        error={options.error}
+        onChanged={(e: string) => options.setValues({ beregning: e })}
+        onEnterPress={(e: string) => { options.onEnter({ beregning: e }) }}
         value={options.value}
       />
     )
@@ -657,11 +673,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
-        if (!item.feil) {
-          item.feil = {}
+        if (!item.error) {
+          item.error = {}
         }
-        item.feil = {
-          ...item.feil,
+        item.error = {
+          ...item.error,
           startdato: t('message:validation-endDateBeforeStartDate')
         }
         return false
@@ -676,8 +692,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         }
         const thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
         if (item.type === otherItem.type && range.overlaps(thisRange)) {
-          item.feil = {
-            ...item.feil,
+          item.error = {
+            ...item.error,
             startdato: t('message:validation-overlapDate', {
               perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
             })
@@ -702,7 +718,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
-        columns[sluttdatoindex].feil = t('message:validation-endDateBeforeStartDate')
+        columns[sluttdatoindex].error = t('message:validation-endDateBeforeStartDate')
         return false
       }
       const range = moment.range(startdato, sluttdato)
@@ -712,7 +728,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         const item: P5000ListRow = context.items[i]
         const thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
         if (item.type === typeValue && range.overlaps(thisRange)) {
-          columns[startdatoindex].feil = t('message:validation-overlapDate', {
+          columns[startdatoindex].error = t('message:validation-overlapDate', {
             perioder: moment(item.startdato).format('DD.MM.YYYY') + '/' + moment(item.sluttdato).format('DD.MM.YYYY')
           })
           overlapError = true
@@ -813,361 +829,358 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         onClose={() => _setShowHelpModal(false)}
       />
       <PileCenterDiv className='foo'>
-          <AlignEndRow style={{width: '100%'}}>
-            <Column>
-              <FullWidthDiv>
-                <Select
-                  key={'ytelse' + _ytelseOption}
-                  className='P5000Edit-ytelse-select'
-                  error={_validation['P5000Edit-ytelse-select']?.feilmelding}
-                  id='P5000Edit-ytelse-select'
-                  label={t('buc:p5000-4-1-title')}
-                  menuPortalTarget={document.body}
-                  options={ytelseOptions}
-                  onChange={setYtelseOption}
-                  defaultValue={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
-                  value={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
-                />
-              </FullWidthDiv>
-            </Column>
-            <Column>
-              <FlexCenterDiv>
-                <RadioGroup
-                  value={_forsikringEllerBosetningsperioder}
-                  error={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
-                  id='P5000Edit-forsikringEllerBosetningsperioder'
-                  onChange={setForsikringEllerBosetningsperioder}
-                  legend={(
-                    <FlexCenterDiv>
-                      <OneLineSpan>
-                        {t('buc:p5000-4-2-title')}
-                      </OneLineSpan>
-                      <HorizontalSeparatorDiv />
-                      <HelpText>
-                        <div style={{ maxWidth: '600px' }}>
-                          <BodyLong>{t('message:help-p5000-1')}</BodyLong>
-                          <BodyLong>{t('message:help-p5000-2')}</BodyLong>
-                        </div>
-                      </HelpText>
-                    </FlexCenterDiv>
-              )}
-                >
-                  <FlexEndDiv>
-                    <Radio42 value='1'>
-                      {t('ui:yes')}
-                    </Radio42>
+        <AlignEndRow style={{ width: '100%' }}>
+          <Column>
+            <FullWidthDiv>
+              <Select
+                key={'ytelse' + _ytelseOption}
+                className='P5000Edit-ytelse-select'
+                error={_validation['P5000Edit-ytelse-select']?.feilmelding}
+                id='P5000Edit-ytelse-select'
+                label={t('buc:p5000-4-1-title')}
+                menuPortalTarget={document.body}
+                options={ytelseOptions}
+                onChange={setYtelseOption}
+                defaultValue={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
+                value={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
+              />
+            </FullWidthDiv>
+          </Column>
+          <Column>
+            <FlexCenterDiv>
+              <RadioGroup
+                value={_forsikringEllerBosetningsperioder}
+                error={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
+                id='P5000Edit-forsikringEllerBosetningsperioder'
+                onChange={setForsikringEllerBosetningsperioder}
+                legend={(
+                  <FlexCenterDiv>
+                    <OneLineSpan>
+                      {t('buc:p5000-4-2-title')}
+                    </OneLineSpan>
                     <HorizontalSeparatorDiv />
-                    <Radio42
-                      style={{ marginBottom: '0.3rem', marginTop: '0.3rem' }}
-                      value='0'
-                    >
-                      {t('ui:no')}
-                    </Radio42>
-                  </FlexEndDiv>
-                </RadioGroup>
-              </FlexCenterDiv>
-            </Column>
-            <HorizontalSeparatorDiv />
-            <Column>
-              <FlexEndDiv>
-                <NavSelect
-                  id='itemsPerPage'
-                  label={t('ui:itemsPerPage')}
-                  onChange={itemsPerPageChanged}
-                  value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
-                >
-                  <option value='10'>10</option>
-                  <option value='15'>15</option>
-                  <option value='20'>20</option>
-                  <option value='30'>30</option>
-                  <option value='50'>50</option>
-                  <option value='all'>{t('ui:all')}</option>
-                </NavSelect>
-                <HorizontalSeparatorDiv />
-                <Button
-                  variant='primary'
-                  disabled={sendingP5000info || !canSend}
-                  onClick={handleOverforTilRina}
-                >
-                  {sendingP5000info && <Loader />}
-                  {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-                </Button>
-                <HorizontalSeparatorDiv />
-                <ReactToPrint
-                  documentTitle='P5000Sum'
-                  onAfterPrint={afterPrintOut}
-                  onBeforePrint={beforePrintOut}
-                  onBeforeGetContent={prepareContent}
-                  trigger={() => (
-                    <Button
-                      variant='secondary'
-                      disabled={_printDialogOpen}
-                    >
-                      {_printDialogOpen && <Loader />}
-                      {t('ui:print')}
-                    </Button>
-                  )}
-                  content={() => componentRef.current}
-                />
-              </FlexEndDiv>
-            </Column>
-          </AlignEndRow>
-          <VerticalSeparatorDiv />
-          <AlignEndRow style={{width: '100%'}}>
-            <Column />
-            <Column>
-              {sourceStatus !== 'rina' && (
-                <div style={{ whiteSpace: 'nowrap' }}>
-                  <span>
-                    {t('buc:p5000-saved-working-copy')}
-                  </span>
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
-                    {t('ui:hva-betyr-det')}
-                  </Link>
-                </div>
+                    <HelpText>
+                      <div style={{ maxWidth: '600px' }}>
+                        <BodyLong>{t('message:help-p5000-1')}</BodyLong>
+                        <BodyLong>{t('message:help-p5000-2')}</BodyLong>
+                      </div>
+                    </HelpText>
+                  </FlexCenterDiv>
               )}
-            </Column>
-          </AlignEndRow>
-          <VerticalSeparatorDiv />
-          <AlignEndRow style={{width: '100%'}}>
-            <Column>
-              <Alert variant='warning'>
-                <FlexCenterDiv>
-                  {t('message:warning-P5000Edit-instructions-li1')}
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <HelpText>
-                    <div style={{ maxWidth: '600px' }}>
-                      <BodyLong>{t('message:warning-P5000Edit-instructions-li1-help')}</BodyLong>
-                    </div>
-                  </HelpText>
-                </FlexCenterDiv>
-              </Alert>
-            </Column>
-            <Column />
-          </AlignEndRow>
-          <VerticalSeparatorDiv />
-          <hr style={{ width: '100%' }} />
-          <VerticalSeparatorDiv />
-          <Table<P5000ListRow, P5000TableContext>
-            className='compact tabell'
-            key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '-storage-' + !_.isEmpty(p5000FromStorage)}
-            animatable={false}
-            items={_items}
-            error={_validation['P5000Edit-tabell']?.feilmelding}
-            loading={!!sentP5000info}
-            context={{
-              items: _items,
-              forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
-            }}
-            editable
-            allowNewRows={_forsikringEllerBosetningsperioder === '1'}
-            searchable={false}
-            selectable
-            showSelectAll={false}
-            coloredSelectedRow={false}
-            onRowSelectChange={onRowSelectChange}
-            sortable
-            onColumnSort={onColumnSort}
-            sort={_tableSort}
-            onRowsChanged={onRowsChanged}
-            beforeRowAdded={beforeRowAdded}
-            beforeRowEdited={beforeRowEdited}
-            itemsPerPage={_itemsPerPage}
-            compact
-            categories={[{
-              colSpan: 4,
-              label: '',
-              border: false
-            }, {
-              colSpan: 3,
-              label: t('buc:Periodesum')
-            }, {
-              colSpan: 4,
-              label: '',
-              border: false
-            }]}
-            columns={[
-              {
-                id: 'status',
-                label: t('ui:status'),
-                type: 'string',
-                renderCell: renderStatus,
-                edit: {
-                  defaultValue: 'new',
-                  render: () => <div />
-                }
-              },
-              {
-                id: 'type',
-                label: t('buc:p5000-type-43113'),
-                type: 'string',
-                edit: {
-                  render: renderTypeEdit,
-                  validation: [{
-                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
-                    test: '^.+$',
-                    message: t('message:validation-chooseType')
-                  }]
-                },
-                renderCell: renderType
-              },
-              {
-                id: 'startdato',
-                label: t('ui:startDate'),
-                type: 'date',
-                renderCell: renderDateCell,
-                edit: {
-                  render: renderStartDatoEdit,
-                  validation: [{
-                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
-                    test: testDate,
-                    message: t('message:validation-invalidDate')
-                  }],
-                  placeholder: t('buc:placeholder-date2'),
-                  transform: dateTransform
-                }
-              },
-              {
-                id: 'sluttdato',
-                label: t('ui:endDate'),
-                type: 'date',
-                renderCell: renderDateCell,
-                edit: {
-                  render: renderSluttDatoEdit,
-                  validation: [{
-                    mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
-                    test: testDate,
-                    message: t('message:validation-invalidDate')
-                  }],
-                  placeholder: t('buc:placeholder-date2'),
-                  transform: dateTransform
-                }
-              },
-              {
-                id: 'aar',
-                label: t('ui:year'),
-                type: 'string',
-                edit: {
-                  defaultValue: 0,
-                  validation: [{
-                    test: testFloat,
-                    message: t('message:validation-addPositiveNumber')
-                  }],
-                  render: renderAarEdit
-                }
-              },
-              {
-                id: 'mnd',
-                label: t('ui:month'),
-                type: 'string',
-                edit: {
-                  defaultValue: 0,
-                  validation: [{
-                    test: testFloat,
-                    message: t('message:validation-addPositiveNumber')
-                  }],
-                  render: renderManedEdit
-                }
-              },
-              {
-                id: 'dag',
-                label: t('ui:day'),
-                type: 'string',
-                renderCell: renderDager,
-                edit: {
-                  defaultValue: 0,
-                  render: renderDagerEdit,
-                  validation: [{
-                    test: testFloat,
-                    message: t('message:validation-addPositiveNumber')
-                  }]
-                }
-              },
-              {
-                id: 'ytelse',
-                label: t('buc:p5000-ytelse'),
-                renderCell: renderYtelse,
-                type: 'string',
-                edit: {
-                  defaultValue: '111',
-                  render: renderYtelseEdit
-                }
-              },
-              {
-                id: 'beregning',
-                label: t('ui:calculationInformation'),
-                renderCell: renderBeregning,
-                type: 'string',
-                edit: {
-                  defaultValue: '111',
-                  validation: [{
-                    test: '^.+$',
-                    message: t('message:validation-addBeregning')
-                  }],
-                  render: renderBeregningEdit
-                }
-              },
-              {
-                id: 'ordning',
-                label: t('ui:scheme'),
-                renderCell: renderOrdning,
-                type: 'string',
-                edit: {
-                  defaultValue: '00',
-                  render: renderOrdningEdit
-                }
-              },
-              {
-                id: 'buttons',
-                label: '',
-                type: 'buttons'
-              }
-            ]}
-          />
-          <VerticalSeparatorDiv />
-          {renderPrintTable && (
-            <HiddenDiv>
-              <div ref={componentRef} id='printJS-form'>
-                <Table
-              // important to it re-renders when sorting changes
-                  className='print-version'
-                  items={_items}
-                  editable={false}
-                  animatable={false}
-                  searchable={false}
-                  selectable={false}
-                  sortable
-                  sort={_tableSort}
-                  itemsPerPage={9999}
-                  labels={{}}
-                  compact
-                  categories={[{
-                    colSpan: 3,
-                    label: ''
-                  }, {
-                    colSpan: 3,
-                    label: t('buc:Periodesum')
-                  }, {
-                    colSpan: 4,
-                    label: ''
-                  }]}
-                  columns={[
-                    { id: 'status', label: t('ui:status'), type: 'string' },
-                    { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
-                    { id: 'startdato', label: t('ui:startDate'), type: 'string', renderCell: renderDateCell },
-                    { id: 'sluttdato', label: t('ui:endDate'), type: 'string', renderCell: renderDateCell },
-                    { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
-                    { id: 'mnd', label: t('ui:month'), type: 'number' },
-                    { id: 'aar', label: t('ui:year'), type: 'number' },
-                    { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
-                    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
-                    { id: 'ordning', label: t('ui:scheme'), type: 'string' }
-                  ]}
-                />
+              >
+                <FlexEndDiv>
+                  <Radio42 value='1'>
+                    {t('ui:yes')}
+                  </Radio42>
+                  <HorizontalSeparatorDiv />
+                  <Radio42
+                    style={{ marginBottom: '0.3rem', marginTop: '0.3rem' }}
+                    value='0'
+                  >
+                    {t('ui:no')}
+                  </Radio42>
+                </FlexEndDiv>
+              </RadioGroup>
+            </FlexCenterDiv>
+          </Column>
+          <HorizontalSeparatorDiv />
+          <Column>
+            <FlexEndDiv>
+              <NavSelect
+                id='itemsPerPage'
+                label={t('ui:itemsPerPage')}
+                onChange={itemsPerPageChanged}
+                value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
+              >
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+                <option value='30'>30</option>
+                <option value='50'>50</option>
+                <option value='all'>{t('ui:all')}</option>
+              </NavSelect>
+              <HorizontalSeparatorDiv />
+              <Button
+                variant='primary'
+                disabled={sendingP5000info || !canSend}
+                onClick={handleOverforTilRina}
+              >
+                {sendingP5000info && <Loader />}
+                {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+              </Button>
+              <HorizontalSeparatorDiv />
+              <ReactToPrint
+                documentTitle='P5000Sum'
+                onAfterPrint={afterPrintOut}
+                onBeforePrint={beforePrintOut}
+                onBeforeGetContent={prepareContent}
+                trigger={() => (
+                  <Button
+                    variant='secondary'
+                    disabled={_printDialogOpen}
+                  >
+                    {_printDialogOpen && <Loader />}
+                    {t('ui:print')}
+                  </Button>
+                )}
+                content={() => componentRef.current}
+              />
+            </FlexEndDiv>
+          </Column>
+        </AlignEndRow>
+        <VerticalSeparatorDiv />
+        <AlignEndRow style={{ width: '100%' }}>
+          <Column />
+          <Column>
+            {sourceStatus !== 'rina' && (
+              <div style={{ whiteSpace: 'nowrap' }}>
+                <span>
+                  {t('buc:p5000-saved-working-copy')}
+                </span>
+                <HorizontalSeparatorDiv size='0.5' />
+                <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
+                  {t('ui:hva-betyr-det')}
+                </Link>
               </div>
-            </HiddenDiv>
-          )}
+            )}
+          </Column>
+        </AlignEndRow>
+        <VerticalSeparatorDiv />
+        <AlignEndRow style={{ width: '100%' }}>
+          <Column>
+            <Alert variant='warning'>
+              <FlexCenterDiv>
+                {t('message:warning-P5000Edit-instructions-li1')}
+                <HorizontalSeparatorDiv size='0.5' />
+                <HelpText>
+                  <div style={{ maxWidth: '600px' }}>
+                    <BodyLong>{t('message:warning-P5000Edit-instructions-li1-help')}</BodyLong>
+                  </div>
+                </HelpText>
+              </FlexCenterDiv>
+            </Alert>
+          </Column>
+          <Column />
+        </AlignEndRow>
+        <VerticalSeparatorDiv />
+        <hr style={{ width: '100%' }} />
+        <VerticalSeparatorDiv />
+        <Table<P5000ListRow, P5000TableContext>
+          key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '-storage-' + !_.isEmpty(p5000FromStorage)}
+          animatable={false}
+          items={_items}
+          error={_validation['P5000Edit-tabell']?.feilmelding}
+          loading={!!sentP5000info}
+          context={{
+            items: _items,
+            forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
+          }}
+          editable
+          allowNewRows={_forsikringEllerBosetningsperioder === '1'}
+          searchable={false}
+          selectable
+          showSelectAll={false}
+          coloredSelectedRow={false}
+          onRowSelectChange={onRowSelectChange}
+          sortable
+          onColumnSort={onColumnSort}
+          sort={_tableSort}
+          onRowsChanged={onRowsChanged}
+          beforeRowAdded={beforeRowAdded}
+          beforeRowEdited={beforeRowEdited}
+          itemsPerPage={_itemsPerPage}
+          categories={[{
+            colSpan: 4,
+            label: '',
+            border: false
+          }, {
+            colSpan: 3,
+            label: t('buc:Periodesum')
+          }, {
+            colSpan: 4,
+            label: '',
+            border: false
+          }]}
+          columns={[
+            {
+              id: 'status',
+              label: t('ui:status'),
+              type: 'string',
+              renderCell: renderStatus,
+              edit: {
+                defaultValue: 'new',
+                render: () => <div />
+              }
+            },
+            {
+              id: 'type',
+              label: t('buc:p5000-type-43113'),
+              type: 'string',
+              edit: {
+                render: renderTypeEdit,
+                validation: [{
+                  mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
+                  test: '^.+$',
+                  message: t('message:validation-chooseType')
+                }]
+              },
+              renderCell: renderType
+            },
+            {
+              id: 'startdato',
+              label: t('ui:startDate'),
+              type: 'date',
+              renderCell: renderDateCell,
+              edit: {
+                render: renderStartDatoEdit,
+                validation: [{
+                  mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
+                  test: testDate,
+                  message: t('message:validation-invalidDate')
+                }],
+                placeholder: t('buc:placeholder-date2'),
+                transform: dateTransform
+              }
+            },
+            {
+              id: 'sluttdato',
+              label: t('ui:endDate'),
+              type: 'date',
+              renderCell: renderDateCell,
+              edit: {
+                render: renderSluttDatoEdit,
+                validation: [{
+                  mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
+                  test: testDate,
+                  message: t('message:validation-invalidDate')
+                }],
+                placeholder: t('buc:placeholder-date2'),
+                transform: dateTransform
+              }
+            },
+            {
+              id: 'aar',
+              label: t('ui:year'),
+              type: 'string',
+              edit: {
+                defaultValue: 0,
+                validation: [{
+                  test: testFloat,
+                  message: t('message:validation-addPositiveNumber')
+                }],
+                render: renderAarEdit
+              }
+            },
+            {
+              id: 'mnd',
+              label: t('ui:month'),
+              type: 'string',
+              edit: {
+                defaultValue: 0,
+                validation: [{
+                  test: testFloat,
+                  message: t('message:validation-addPositiveNumber')
+                }],
+                render: renderManedEdit
+              }
+            },
+            {
+              id: 'dag',
+              label: t('ui:day'),
+              type: 'string',
+              renderCell: renderDager,
+              edit: {
+                defaultValue: 0,
+                render: renderDagerEdit,
+                validation: [{
+                  test: testFloat,
+                  message: t('message:validation-addPositiveNumber')
+                }]
+              }
+            },
+            {
+              id: 'ytelse',
+              label: t('buc:p5000-ytelse'),
+              renderCell: renderYtelse,
+              type: 'string',
+              edit: {
+                defaultValue: '111',
+                render: renderYtelseEdit
+              }
+            },
+            {
+              id: 'beregning',
+              label: t('ui:calculationInformation'),
+              renderCell: renderBeregning,
+              type: 'string',
+              edit: {
+                defaultValue: '111',
+                validation: [{
+                  test: '^.+$',
+                  message: t('message:validation-addBeregning')
+                }],
+                render: renderBeregningEdit
+              }
+            },
+            {
+              id: 'ordning',
+              label: t('ui:scheme'),
+              renderCell: renderOrdning,
+              type: 'string',
+              edit: {
+                defaultValue: '00',
+                render: renderOrdningEdit
+              }
+            },
+            {
+              id: 'buttons',
+              label: '',
+              type: 'buttons'
+            }
+          ]}
+        />
+        <VerticalSeparatorDiv />
+        {renderPrintTable && (
+          <HiddenDiv>
+            <div ref={componentRef} id='printJS-form'>
+              <Table
+              // important to it re-renders when sorting changes
+                className='print-version'
+                items={_items}
+                editable={false}
+                animatable={false}
+                searchable={false}
+                selectable={false}
+                sortable
+                sort={_tableSort}
+                itemsPerPage={9999}
+                labels={{}}
+                categories={[{
+                  colSpan: 3,
+                  label: ''
+                }, {
+                  colSpan: 3,
+                  label: t('buc:Periodesum')
+                }, {
+                  colSpan: 4,
+                  label: ''
+                }]}
+                columns={[
+                  { id: 'status', label: t('ui:status'), type: 'string' },
+                  { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
+                  { id: 'startdato', label: t('ui:startDate'), type: 'string', renderCell: renderDateCell },
+                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string', renderCell: renderDateCell },
+                  { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
+                  { id: 'mnd', label: t('ui:month'), type: 'number' },
+                  { id: 'aar', label: t('ui:year'), type: 'number' },
+                  { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
+                  { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
+                  { id: 'ordning', label: t('ui:scheme'), type: 'string' }
+                ]}
+              />
+            </div>
+          </HiddenDiv>
+        )}
       </PileCenterDiv>
       <VerticalSeparatorDiv size='3' />
     </>

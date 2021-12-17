@@ -112,7 +112,8 @@ export const Overview: React.FC<OverviewProps> = ({
 
   return (
 
-    <Panel border style={{ padding: '0px' }}
+    <Panel
+      border style={{ padding: '0px' }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

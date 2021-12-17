@@ -268,7 +268,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
-          className='tabell compact'
           key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods}
           animatable={false}
           highContrast={highContrast}
@@ -283,7 +282,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           }}
           itemsPerPage={_itemsPerPage}
           labels={{}}
-          compact
           columns={columns}
         />
         <VerticalSeparatorDiv />
@@ -303,7 +301,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 sort={_tableSort}
                 itemsPerPage={9999}
                 labels={{}}
-                compact
                 columns={columns}
               />
             </div>

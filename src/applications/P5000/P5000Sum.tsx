@@ -83,10 +83,10 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         key={'c-table__edit-type-select-key-' + options.value}
         id='c-table__edit-type-select-id'
         className='P5000Edit-type-select'
-        error={options.feil}
+        error={options.error}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e: unknown) => options.setValue({ type: (e as Option).value })}
+        onChange={(e: unknown) => options.setValues({ type: (e as Option).value })}
         defaultValue={_.find(typeOptions, o => o.value === options.value)}
         value={_.find(typeOptions, o => o.value === options.value)}
       />
@@ -230,7 +230,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                       <HorizontalSeparatorDiv size='0.5' />
                       <HelpText>
                         <div style={{ maxWidth: '600px' }}>
-                        {t('message:warning-P5000Sum-instructions-title-help')}
+                          {t('message:warning-P5000Sum-instructions-title-help')}
                         </div>
                       </HelpText>
                     </FlexDiv>
@@ -279,7 +279,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000SumRow>
-          className='tabell compact'
           animatable={false}
           items={items}
           searchable={false}
@@ -294,7 +293,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           onRowsChanged={onRowsChanged}
           itemsPerPage={_itemsPerPage}
           labels={{}}
-          compact
           categories={categories}
           columns={columns}
         />
@@ -315,7 +313,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                 sort={_tableSort}
                 itemsPerPage={9999}
                 labels={{}}
-                compact
                 categories={categories}
                 columns={columns}
               />

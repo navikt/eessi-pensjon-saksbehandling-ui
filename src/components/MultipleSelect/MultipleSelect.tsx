@@ -154,7 +154,7 @@ const MultipleSelect = <T extends Option = Option> ({
       />
 
       {error && (
-        <div style={{marginTop: '8px'}} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+        <div style={{ marginTop: '8px' }} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
           {error}
         </div>
       )}

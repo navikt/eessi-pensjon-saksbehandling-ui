@@ -67,33 +67,33 @@ const P5000: React.FC<P5000Props> = ({
 
     return (
       <Panel border style={{ padding: '0px' }}>
-      <Accordion  style={{ borderRadius: '4px' }} id='a-buc-c-p5000-edit'>
-        <Accordion.Item defaultOpen renderContentWhenClosed>
-          <Accordion.Header>
-            <FlexCenterDiv>
-              <Heading size='small' style={{ display: 'flex' }}>
-                {t('buc:p5000-edit-title')}
-              </Heading>
-              <HorizontalSeparatorDiv />
-              -
-              <HorizontalSeparatorDiv />
-              {getLabel(mainSed, sender)}
-            </FlexCenterDiv>
-          </Accordion.Header>
-          <Accordion.Content>
-            <P5000Edit
-              caseId={buc.caseId!}
-              onBackClick={onBackClick}
-              key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
-              p5000FromRinaMap={p5000FromRinaMap}
-              p5000FromStorage={p5000FromStorage}
-              saveP5000ToStorage={saveP5000ToStorage}
-              removeP5000FromStorage={removeP5000FromStorage}
-              seds={[mainSed]}
-            />
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
+        <Accordion style={{ borderRadius: '4px' }} id='a-buc-c-p5000-edit'>
+          <Accordion.Item defaultOpen renderContentWhenClosed>
+            <Accordion.Header>
+              <FlexCenterDiv>
+                <Heading size='small' style={{ display: 'flex' }}>
+                  {t('buc:p5000-edit-title')}
+                </Heading>
+                <HorizontalSeparatorDiv />
+                -
+                <HorizontalSeparatorDiv />
+                {getLabel(mainSed, sender)}
+              </FlexCenterDiv>
+            </Accordion.Header>
+            <Accordion.Content>
+              <P5000Edit
+                caseId={buc.caseId!}
+                onBackClick={onBackClick}
+                key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
+                p5000FromRinaMap={p5000FromRinaMap}
+                p5000FromStorage={p5000FromStorage}
+                saveP5000ToStorage={saveP5000ToStorage}
+                removeP5000FromStorage={removeP5000FromStorage}
+                seds={[mainSed]}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion>
       </Panel>
     )
   }
@@ -102,49 +102,49 @@ const P5000: React.FC<P5000Props> = ({
     const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
     return (
       <Panel border style={{ padding: '0px' }}>
-        <Accordion  style={{ borderRadius: '4px' }} id='a-buc-c-p5000-sum'>
-        <Accordion.Item defaultOpen renderContentWhenClosed>
-          <Accordion.Header>
-            <Heading size='small'>
-              {t('buc:p5000-summary-title')}
-            </Heading>
-          </Accordion.Header>
-          <Accordion.Content>
-            <P5000Sum
-              context={context}
-              key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-              p5000FromRinaMap={p5000FromRinaMap}
-              p5000FromStorage={p5000FromStorage}
-              saveP5000ToStorage={saveP5000ToStorage}
-              seds={onlyNorwegianActiveSeds}
-            />
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
+        <Accordion style={{ borderRadius: '4px' }} id='a-buc-c-p5000-sum'>
+          <Accordion.Item defaultOpen renderContentWhenClosed>
+            <Accordion.Header>
+              <Heading size='small'>
+                {t('buc:p5000-summary-title')}
+              </Heading>
+            </Accordion.Header>
+            <Accordion.Content>
+              <P5000Sum
+                context={context}
+                key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
+                p5000FromRinaMap={p5000FromRinaMap}
+                p5000FromStorage={p5000FromStorage}
+                saveP5000ToStorage={saveP5000ToStorage}
+                seds={onlyNorwegianActiveSeds}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion>
       </Panel>
     )
   }
 
   const renderP5000Overview = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => (
     <Panel border style={{ padding: '0px' }}>
-      <Accordion  style={{ borderRadius: '4px' }}  id='a-buc-c-p5000-overview'>
-      <Accordion.Item defaultOpen renderContentWhenClosed>
-        <Accordion.Header>
-          <Heading size='small'>
-            {t('buc:p5000-overview-title')}
-          </Heading>
-        </Accordion.Header>
-        <Accordion.Content>
-          <P5000Overview
-            context={context}
-            key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-            p5000FromRinaMap={p5000FromRinaMap}
-            p5000FromStorage={p5000FromStorage}
-            seds={activeSeds}
-          />
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
+      <Accordion style={{ borderRadius: '4px' }} id='a-buc-c-p5000-overview'>
+        <Accordion.Item defaultOpen renderContentWhenClosed>
+          <Accordion.Header>
+            <Heading size='small'>
+              {t('buc:p5000-overview-title')}
+            </Heading>
+          </Accordion.Header>
+          <Accordion.Content>
+            <P5000Overview
+              context={context}
+              key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
+              p5000FromRinaMap={p5000FromRinaMap}
+              p5000FromStorage={p5000FromStorage}
+              seds={activeSeds}
+            />
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     </Panel>
   )
 

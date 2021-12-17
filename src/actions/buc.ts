@@ -289,7 +289,7 @@ export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload<Country
     context: {
       buc: bucType
     },
-    expectedPayload: CountryFilter.EESSI_READY,
+    expectedPayload: CountryFilter.EESSI_READY({}),
     type: {
       request: types.BUC_GET_COUNTRY_LIST_REQUEST,
       success: types.BUC_GET_COUNTRY_LIST_SUCCESS,

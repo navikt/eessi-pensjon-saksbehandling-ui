@@ -361,7 +361,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           type: t('ui:attachments').toLowerCase()
         }}
         itemsPerPage={20}
-        compact
         animatable={false}
         searchable={mode === 'select'}
         selectable={mode === 'select'}
