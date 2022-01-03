@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextField } from '@navikt/ds-react'
 import _ from 'lodash'
 
@@ -38,6 +38,8 @@ const Input: React.FC<InputProps> = ({
 }: InputProps) => {
   const [_value, _setValue] = useState<string>(value ?? '')
   const [_dirty, _setDirty] = useState<boolean>(false)
+
+  useEffect(() => {_setValue(value ?? '')}, [value])
 
   return (
     <TextField

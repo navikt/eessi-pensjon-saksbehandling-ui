@@ -229,20 +229,21 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const dates: DateDiff | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
       if (options.context.forsikringEllerBosetningsperioder === '1') {
-        options.setValues({
+        return {
           dag: dates.days,
           aar: dates.years,
           mnd: dates.months
-        })
+        }
       }
       if (options.context.forsikringEllerBosetningsperioder === '0') {
-        options.setValues({
+       return {
           dag: 0,
           aar: 0,
           mnd: 0
-        })
+        }
       }
     }
+    return {}
   }
 
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
@@ -256,10 +257,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         hideLabel
         error={options.error}
         placeholder={t('buc:placeholder-date2')}
-        onChanged={(e: string) => {
-          options.setValues({ startdato: e })
+        onChanged={(newStartdato: string) => {
           const otherDate: string | undefined = dateTransform(options.values.sluttdato)
-          maybeDoSomePrefill(e, otherDate, options)
+          const extra = maybeDoSomePrefill(newStartdato, otherDate, options)
+          options.setValues({...extra, startdato: newStartdato })
         }}
         onEnterPress={(e: string) => {
           options.onEnter({ startdato: e })
@@ -280,10 +281,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         hideLabel
         error={options.error}
         placeholder={t('buc:placeholder-date2')}
-        onChanged={(e: string) => {
-          options.setValues({ sluttdato: e })
+        onChanged={(newSluttdato: string) => {
           const otherDate: string | undefined = dateTransform(options.values.startdato)
-          maybeDoSomePrefill(otherDate, e, options)
+          const extra = maybeDoSomePrefill(otherDate, newSluttdato, options)
+          options.setValues({ ...extra, sluttdato: newSluttdato })
         }}
         onEnterPress={(e: string) => {
           options.onEnter({ sluttdato: e })
@@ -1154,7 +1155,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 sortable
                 sort={_tableSort}
                 itemsPerPage={9999}
-                labels={{}}
                 categories={[{
                   colSpan: 3,
                   label: ''

@@ -273,6 +273,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           highContrast={highContrast}
           items={items}
           id='P5000Overview'
+          labels={{
+            filter: t('buc:P5000-filter-label')
+          }}
           searchable
           selectable={false}
           sortable
@@ -281,7 +284,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             _setTableSort(sort)
           }}
           itemsPerPage={_itemsPerPage}
-          labels={{}}
           columns={columns}
         />
         <VerticalSeparatorDiv />
@@ -300,7 +302,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 sortable
                 sort={_tableSort}
                 itemsPerPage={9999}
-                labels={{}}
                 columns={columns}
               />
             </div>

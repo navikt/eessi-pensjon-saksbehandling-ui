@@ -175,6 +175,7 @@
   "p5000-saved-working-copy"      : "Registrerte perioder lagres umiddelbart i Eessi-pensjon.",
   "p5000-merge-periods"           : "Slå sammen perioder",
   "p5000-updating"                : "Oppdater P5000",
+  "P5000-filter-label" : "Filtrering (f.eks. skriv kode 30 i boksen som kommer opp under \"Type\")",
 
   "p5000-help-modal-1": "For å redigere en P5000 klikker du på ",
   "p5000-help-modal-2": ". Dersom det allerede er overført perioder til RINA, vil du få opp en liste over disse.",
