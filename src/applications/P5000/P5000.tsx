@@ -1,4 +1,4 @@
-import { BackFilled, Warning } from '@navikt/ds-icons'
+import { BackFilled, System, Warning } from '@navikt/ds-icons'
 import { Accordion, Alert, Checkbox, BodyLong, Heading, Button, Panel } from '@navikt/ds-react'
 import { getSed, resetSentP5000info, syncToP5000Storage, unsyncFromP5000Storage } from 'actions/p5000'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -11,7 +11,7 @@ import { EmptyPeriodsReport, P5000Context, P5000SED, SedSender } from 'declarati
 import { State } from 'declarations/reducers'
 import Flag from 'flagg-ikoner'
 import _ from 'lodash'
-import { Column, FlexCenterDiv, HorizontalSeparatorDiv, PileDiv, Row, VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { Column, FlexCenterDiv, FlexDiv, HorizontalSeparatorDiv, PileDiv, Row, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import React, { useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
@@ -61,110 +61,97 @@ const P5000: React.FC<P5000Props> = ({
   const [_ready, _setReady] = useState<boolean>(false)
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
 
-  const renderP5000Edit = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
+  const renderP5000EditHeader = () => {
     if (!mainSed) return null
     const sender: SedSender | undefined = getSedSender(mainSed)
 
-    return (
-      <Panel border style={{ padding: '0px' }}>
-        <Accordion style={{ borderRadius: '4px' }} id='a-buc-c-p5000-edit'>
-          <Accordion.Item defaultOpen renderContentWhenClosed>
-            <Accordion.Header>
-              <FlexCenterDiv>
-                <Heading size='small' style={{ display: 'flex' }}>
-                  {t('buc:p5000-edit-title')}
-                </Heading>
-                <HorizontalSeparatorDiv />
-                -
-                <HorizontalSeparatorDiv />
-                {getLabel(mainSed, sender)}
-              </FlexCenterDiv>
-            </Accordion.Header>
-            <Accordion.Content>
-              <P5000Edit
-                caseId={buc.caseId!}
-                onBackClick={onBackClick}
-                key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
-                p5000FromRinaMap={p5000FromRinaMap}
-                p5000FromStorage={p5000FromStorage}
-                saveP5000ToStorage={saveP5000ToStorage}
-                removeP5000FromStorage={removeP5000FromStorage}
-                seds={[mainSed]}
-              />
-            </Accordion.Content>
-          </Accordion.Item>
-        </Accordion>
-      </Panel>
-    )
+    return <FlexCenterDiv>
+      <Heading size='small' style={{display: 'flex'}}>
+        {t('buc:p5000-edit-title')}
+      </Heading>
+      <HorizontalSeparatorDiv/>
+      -
+      <HorizontalSeparatorDiv/>
+      {getLabel(mainSed, sender)}
+    </FlexCenterDiv>
   }
 
-  const renderP5000Sum = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
+  const renderP5000EditContent = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
+    if (!mainSed) return null
+    return <P5000Edit
+      caseId={buc.caseId!}
+      onBackClick={onBackClick}
+      key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
+      p5000FromRinaMap={p5000FromRinaMap}
+      p5000FromStorage={p5000FromStorage}
+      saveP5000ToStorage={saveP5000ToStorage}
+      removeP5000FromStorage={removeP5000FromStorage}
+      seds={[mainSed]}
+    />
+  }
+
+  const renderP5000SumHeader = () => (
+    <Heading size='small'>
+      {t('buc:p5000-summary-title')}
+    </Heading>
+  )
+
+  const renderP5000SumContent = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
     const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
     return (
-      <Panel border style={{ padding: '0px' }}>
-        <Accordion style={{ borderRadius: '4px' }} id='a-buc-c-p5000-sum'>
-          <Accordion.Item defaultOpen renderContentWhenClosed>
-            <Accordion.Header>
-              <Heading size='small'>
-                {t('buc:p5000-summary-title')}
-              </Heading>
-            </Accordion.Header>
-            <Accordion.Content>
-              <P5000Sum
-                context={context}
-                key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-                p5000FromRinaMap={p5000FromRinaMap}
-                p5000FromStorage={p5000FromStorage}
-                saveP5000ToStorage={saveP5000ToStorage}
-                seds={onlyNorwegianActiveSeds}
-              />
-            </Accordion.Content>
-          </Accordion.Item>
-        </Accordion>
-      </Panel>
+      <P5000Sum
+        context={context}
+        key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
+        p5000FromRinaMap={p5000FromRinaMap}
+        p5000FromStorage={p5000FromStorage}
+        saveP5000ToStorage={saveP5000ToStorage}
+        seds={onlyNorwegianActiveSeds}
+      />
     )
   }
 
-  const renderP5000Overview = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => (
-    <Panel border style={{ padding: '0px' }}>
-      <Accordion style={{ borderRadius: '4px' }} id='a-buc-c-p5000-overview'>
-        <Accordion.Item defaultOpen renderContentWhenClosed>
-          <Accordion.Header>
-            <Heading size='small'>
-              {t('buc:p5000-overview-title')}
-            </Heading>
-          </Accordion.Header>
-          <Accordion.Content>
-            <P5000Overview
-              context={context}
-              key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-              p5000FromRinaMap={p5000FromRinaMap}
-              p5000FromStorage={p5000FromStorage}
-              seds={activeSeds}
-            />
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
-    </Panel>
+  const renderP5000OverviewHeader = () => (
+    <Heading size='small'>
+      {t('buc:p5000-overview-title')}
+    </Heading>
   )
+
+  const renderP5000OverviewContent = (activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
+    return (
+      <P5000Overview
+        context={context}
+        key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
+        p5000FromRinaMap={p5000FromRinaMap}
+        p5000FromStorage={p5000FromStorage}
+        seds={activeSeds}
+      />
+    )
+  }
 
   const updateActiveSeds = (seds: any) => {
     _setActiveSeds(seds)
     updateTables(seds)
   }
 
-  const renderTable = (id: string, activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
-    if (id === 'P5000Edit') return renderP5000Edit(activeSeds, p5000FromStorage)
-    if (id === 'P5000Sum') return renderP5000Sum(activeSeds, p5000FromStorage)
-    if (id === 'P5000Overview') return renderP5000Overview(activeSeds, p5000FromStorage)
+  const renderTableContent = (id: string, activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
+    if (id === 'P5000Edit') return renderP5000EditContent(activeSeds, p5000FromStorage)
+    if (id === 'P5000Sum') return renderP5000SumContent(activeSeds, p5000FromStorage)
+    if (id === 'P5000Overview') return renderP5000OverviewContent(activeSeds, p5000FromStorage)
+    return null
+  }
+
+  const renderTableHeader = (id: string, activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
+    if (id === 'P5000Edit') return renderP5000EditHeader(activeSeds, p5000FromStorage)
+    if (id === 'P5000Sum') return renderP5000SumHeader()
+    if (id === 'P5000Overview') return renderP5000OverviewHeader()
     return null
   }
 
   const [_tables, _setTables] = useState<Array<any>>(
     [
-      { id: 'P5000Edit', content: <div> </div> },
-      { id: 'P5000Sum', content: <div> </div> },
-      { id: 'P5000Overview', content: <div> </div> }
+      { id: 'P5000Edit', content: <div> </div>, header: <div> </div> },
+      { id: 'P5000Sum', content: <div> </div>, header: <div> </div> },
+      { id: 'P5000Overview', content: <div> </div>, header: <div> </div> }
     ])
 
   useEffect(() => {
@@ -178,7 +165,8 @@ const P5000: React.FC<P5000Props> = ({
     let newTables = _.cloneDeep(_tables)
     newTables = newTables.map(t => ({
       id: t.id,
-      content: renderTable(t.id, activeSeds, p5000EntryFromStorage)
+      content: renderTableContent(t.id, activeSeds, p5000EntryFromStorage),
+      header: renderTableHeader(t.id, activeSeds, p5000EntryFromStorage)
     }))
     _setTables(newTables)
   }
@@ -359,13 +347,28 @@ const P5000: React.FC<P5000Props> = ({
             <div
               ref={provided.innerRef}
               {...provided.draggableProps}
-              {...provided.dragHandleProps}
               style={getItemStyle(
                 snapshot.isDragging,
                 provided.draggableProps.style
               )}
             >
-              {table.content}
+              <Panel border style={{ padding: '0px' }}>
+                <Accordion style={{ borderRadius: '4px' }} id={'a-buc-c-' + table.id}>
+                  <Accordion.Item defaultOpen renderContentWhenClosed>
+                    <FlexDiv>
+                      <div style={{padding: '1.5rem 1rem'}} {...provided.dragHandleProps}>
+                        <System/>
+                      </div>
+                      <Accordion.Header>
+                      {table.header}
+                    </Accordion.Header>
+                    </FlexDiv>
+                    <Accordion.Content>
+                      {table.content}
+                    </Accordion.Content>
+                  </Accordion.Item>
+                </Accordion>
+              </Panel>
             </div>
           )}
         </Draggable>
