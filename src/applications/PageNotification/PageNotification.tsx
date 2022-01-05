@@ -68,7 +68,7 @@ const PageNotification = () => {
         data-test-id='w-pagenotification-show'
         id='w-pagenotification-show'
         data-no-border
-        legend={t('label:show-message') + ' *'}
+        legend={t('ui:show-message') + ' *'}
         name='w-pagenotification-show'
         onChange={setShow}
       >

@@ -140,8 +140,8 @@ const P5000: React.FC<P5000Props> = ({
     return null
   }
 
-  const renderTableHeader = (id: string, activeSeds: Seds, p5000FromStorage: LocalStorageValue<P5000SED> | undefined) => {
-    if (id === 'P5000Edit') return renderP5000EditHeader(activeSeds, p5000FromStorage)
+  const renderTableHeader = (id: string) => {
+    if (id === 'P5000Edit') return renderP5000EditHeader()
     if (id === 'P5000Sum') return renderP5000SumHeader()
     if (id === 'P5000Overview') return renderP5000OverviewHeader()
     return null
@@ -166,7 +166,7 @@ const P5000: React.FC<P5000Props> = ({
     newTables = newTables.map(t => ({
       id: t.id,
       content: renderTableContent(t.id, activeSeds, p5000EntryFromStorage),
-      header: renderTableHeader(t.id, activeSeds, p5000EntryFromStorage)
+      header: renderTableHeader(t.id)
     }))
     _setTables(newTables)
   }

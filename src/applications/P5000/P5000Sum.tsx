@@ -1,7 +1,6 @@
 import { Alert, BodyLong, Button, HelpText, Loader, Tag } from '@navikt/ds-react'
 import { typePeriode } from 'applications/P5000/P5000.labels'
 import Select from 'components/Select/Select'
-import { OneLineSpan } from 'components/StyledComponents'
 import { Labels, LocalStorageValue, Option } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
@@ -204,78 +203,67 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           </Column>
         </AlignEndRow>
         <VerticalSeparatorDiv />
+        <AlignEndRow style={{width: '100%'}}>
+          <Column flex='2'>
         {sakType === SakTypeMap.GJENLEV && (
           <>
-            <AlignEndRow style={{ width: '100%' }}>
-              <Column>
-                <Alert variant='warning'>
-                  {t('message:warning-P5000SumGjenlevende')}
-                </Alert>
-              </Column>
-              <Column />
-            </AlignEndRow>
+            <Alert variant='warning'>
+              {t('message:warning-P5000SumGjenlevende')}
+            </Alert>
             <VerticalSeparatorDiv />
           </>
         )}
         {!!sakType && (
-          <>
-            <AlignEndRow style={{ width: '100%' }}>
-              <Column flex='2'>
-                <Alert variant='warning'>
-                  <>
-                    <FlexDiv>
-                      <OneLineSpan>
-                        {t('message:warning-P5000Sum-instructions-title')}
-                      </OneLineSpan>
-                      <HorizontalSeparatorDiv size='0.5' />
-                      <HelpText>
-                        <div style={{ maxWidth: '600px' }}>
-                          {t('message:warning-P5000Sum-instructions-title-help')}
-                        </div>
-                      </HelpText>
-                    </FlexDiv>
-                    <div>
-                      <strong>
-                        {t('message:warning-P5000Sum-instructions-title-obs')}
-                      </strong>
-                    </div>
-                    {hasMoreWarnings && (
-                      <div>
-                        <VerticalSeparatorDiv />
-                        <hr />
-                        <VerticalSeparatorDiv size='0.7' />
-                        {t('message:warning-P5000Sum-instructions-header')}
-                        <VerticalSeparatorDiv />
-                      </div>
-                    )}
-                    <ul>
-                      {has5152diffs && (
-                        <li>
-                          {t('message:warning-P5000Sum-instructions-5152')}
-                          <VerticalSeparatorDiv size='0.5' />
-                        </li>
-                      )}
-                      {has40aar && (
-                        <li>
-                          {t('message:warning-P5000Sum-instructions-40')}
-                          <VerticalSeparatorDiv size='0.5' />
-                        </li>
-                      )}
-                      {has45 && (
-                        <li>
-                          {t('message:warning-P5000Sum-instructions-45')}
-                          <VerticalSeparatorDiv size='0.5' />
-                        </li>
-                      )}
-                    </ul>
-                  </>
-                </Alert>
-              </Column>
-              <Column />
-            </AlignEndRow>
-            <VerticalSeparatorDiv />
-          </>
+          <Alert variant='warning'>
+            <FlexDiv>
+              {t('message:warning-P5000Sum-instructions-title')}
+              <HorizontalSeparatorDiv size='0.5' />
+              <HelpText>
+                <div style={{ maxWidth: '600px' }}>
+                  <BodyLong>{t('message:warning-P5000Sum-instructions-title-help')}</BodyLong>
+                </div>
+              </HelpText>
+            </FlexDiv>
+            <BodyLong>
+              <strong>
+                {t('message:warning-P5000Sum-instructions-title-obs')}
+              </strong>
+            </BodyLong>
+            {hasMoreWarnings && (
+              <div>
+                <VerticalSeparatorDiv />
+                <hr />
+                <VerticalSeparatorDiv size='0.7' />
+                {t('message:warning-P5000Sum-instructions-header')}
+                <VerticalSeparatorDiv />
+              </div>
+            )}
+            <ul>
+              {has5152diffs && (
+                <li>
+                  {t('message:warning-P5000Sum-instructions-5152')}
+                  <VerticalSeparatorDiv size='0.5' />
+                </li>
+              )}
+              {has40aar && (
+                <li>
+                  {t('message:warning-P5000Sum-instructions-40')}
+                  <VerticalSeparatorDiv size='0.5' />
+                </li>
+              )}
+              {has45 && (
+                <li>
+                  {t('message:warning-P5000Sum-instructions-45')}
+                  <VerticalSeparatorDiv size='0.5' />
+                </li>
+              )}
+            </ul>
+          </Alert>
         )}
+          </Column>
+          <Column/>
+        </AlignEndRow>
+        <VerticalSeparatorDiv />
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000SumRow>
