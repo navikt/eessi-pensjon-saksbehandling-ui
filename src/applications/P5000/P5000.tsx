@@ -162,9 +162,9 @@ const P5000: React.FC<P5000Props> = ({
 
   const [_tables, _setTables] = useState<Array<any>>(
     [
-      { id: 'P5000Edit', content: <div>sdfsdf</div> },
-      { id: 'P5000Sum', content: <div>sdfsdf</div> },
-      { id: 'P5000Overview', content: <div>sdfsdf</div> }
+      { id: 'P5000Edit', content: <div> </div> },
+      { id: 'P5000Sum', content: <div> </div> },
+      { id: 'P5000Overview', content: <div> </div> }
     ])
 
   useEffect(() => {
