@@ -71,6 +71,7 @@
 
 
   "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
+  "form-andre-seder"                  : "Andre SED-er",
   "form-avdod"                        : "Avdød",
   "form-avdodFnr"                     : "Avdødes f.nr./d.nr.",
   "form-avdodorsøker"                 : "Hvem gjelder henvendelsen?",
@@ -150,11 +151,12 @@
   "form-tagsForBUC-description"       : "Her kan du angi eventuelle merknader for den nye BUC-en.",
   "form-titleP5000"                   : "Perioder for P5000",
   "form-uføretrygd"                   : "Uføretrygd",
+  "form-utkast-seds"                  : "Utkast SED-er",
   "form-vedtakId"                     : "Vedtaks-ID",
   "form-youHaveXAttachmentsInSed"     : "SED-en har {{attachments}} vedlegg",
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
 
-
+  "p5000-checkbox-text"           : "Kryss av i boksen foran perioden der det skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt/ måned for dødsfall)",
   "p5000-active-seds"             : "Synlige SED-er",
   "p5000-overview-title"          : "P5000-perioder (kapittel 4) for involverte land",
   "p5000-summary-title"           : "Summering av perioder for P5000 - kapittel 5",

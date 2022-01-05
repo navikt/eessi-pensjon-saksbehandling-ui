@@ -972,6 +972,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           items={_items}
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
+          labels={{
+            selectAll: 'summèr-tegn kun 5.1'
+          }}
           context={{
             items: _items,
             forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
@@ -980,7 +983,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           allowNewRows={_forsikringEllerBosetningsperioder === '1'}
           searchable={false}
           selectable
-          showSelectAll={false}
           coloredSelectedRow={false}
           onRowSelectChange={onRowSelectChange}
           sortable

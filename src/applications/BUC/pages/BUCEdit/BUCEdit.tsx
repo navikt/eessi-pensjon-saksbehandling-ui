@@ -1,5 +1,5 @@
 import { BackFilled } from '@navikt/ds-icons'
-import { BodyLong, Button, Panel } from '@navikt/ds-react'
+import { BodyLong, Button, Label, Panel } from '@navikt/ds-react'
 import { alertFailure } from 'actions/alert'
 import { resetNewSed, setCurrentBuc, setCurrentSed } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
@@ -219,6 +219,10 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     return <div />
   }
 
+  const renderSeds: Array<Sed> = buc!.seds?.filter(sedFilter)
+    .filter(sedSearchFilter)
+    .sort(sedSorter as (a: Sed, b: Sed) => number) ?? []
+
   return (
     <BUCEditDiv
       data-test-id='a-buc-p-bucedit'
@@ -278,28 +282,47 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           />
           <SEDPanelHeader />
           {!_.isNil(buc!.seds)
-            ? buc!.seds
-              .filter(sedFilter)
-              .filter(sedSearchFilter)
-              .sort(sedSorter as (a: Sed, b: Sed) => number)
-              .map((sed, index) => (
-                <div key={sed.id}>
-                  <VerticalSeparatorDiv size='0.5' />
-                  <SEDPanel
-                    aktoerId={aktoerId!}
-                    style={{ animationDelay: (0.1 * index) + 's' }}
-                    buc={buc!}
-                    sed={sed}
-                    newSed={(
-                      newlyCreatedSed && newlyCreatedSedTime &&
-                    newlyCreatedSed.id === sed.id &&
-                    ((Date.now() - newlyCreatedSedTime) < 5 * 60 * 1000)
-                    ) || false}
-                    setMode={setMode}
-                    onSEDNew={onSEDNew}
-                  />
-                </div>
-              ))
+            ? renderSeds.map((sed, index) => {
+                return (
+                  <div key={sed.id}>
+                    <VerticalSeparatorDiv size='0.5'/>
+                    {index === 0 && sed.status === 'new' && (
+                      <>
+                        <VerticalSeparatorDiv size='1.5'/>
+                      <Label>
+                        {t('buc:form-utkast-seds')}
+                      </Label>
+                      <VerticalSeparatorDiv/>
+                      </>
+                    )}
+                    {index > 0 &&
+                    renderSeds?.[index - 1]?.status === 'new' &&
+                      sed.status !== 'new' && (
+                        <>
+                          <VerticalSeparatorDiv size='2'/>
+                          <Label>
+                            {t('buc:form-andre-seder')}
+                          </Label>
+                        <VerticalSeparatorDiv/>
+                        </>
+                        )
+                    }
+                    <SEDPanel
+                      aktoerId={aktoerId!}
+                      style={{animationDelay: (0.1 * index) + 's'}}
+                      buc={buc!}
+                      sed={sed}
+                      newSed={(
+                        newlyCreatedSed && newlyCreatedSedTime &&
+                        newlyCreatedSed.id === sed.id &&
+                        ((Date.now() - newlyCreatedSedTime) < 5 * 60 * 1000)
+                      ) || false}
+                      setMode={setMode}
+                      onSEDNew={onSEDNew}
+                    />
+                  </div>
+                )
+              })
             : (
               <NoSedsDiv>
                 <BodyLong>

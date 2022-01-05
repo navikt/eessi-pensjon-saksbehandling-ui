@@ -195,7 +195,6 @@ const P5000: React.FC<P5000Props> = ({
 
   const onDragStart = (event: any) => {
     const draggedDOM = getDraggedDom(event.draggableId)
-
     if (!draggedDOM) {
       return
     }
@@ -233,13 +232,10 @@ const P5000: React.FC<P5000Props> = ({
     if (!event.destination) {
       return
     }
-
     const draggedDOM = getDraggedDom(event.draggableId)
-
     if (!draggedDOM) {
       return
     }
-
     const { clientHeight, clientWidth } = draggedDOM
     const destinationIndex = event.destination.index
     const sourceIndex = event.source.index
@@ -342,15 +338,19 @@ const P5000: React.FC<P5000Props> = ({
       (table.id === 'P5000Overview')
     ) {
       return (
-        <Draggable key={table.id} draggableId={table.id} index={index}>
+        <>
+          <Draggable key={table.id} draggableId={table.id} index={index}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               {...provided.draggableProps}
-              style={getItemStyle(
-                snapshot.isDragging,
-                provided.draggableProps.style
-              )}
+              style={{
+                ...getItemStyle(
+                  snapshot.isDragging,
+                  provided.draggableProps.style
+                ),
+                padding: '0px'
+              }}
             >
               <Panel border style={{ padding: '0px' }}>
                 <Accordion style={{ borderRadius: '4px' }} id={'a-buc-c-' + table.id}>
@@ -372,6 +372,8 @@ const P5000: React.FC<P5000Props> = ({
             </div>
           )}
         </Draggable>
+          <VerticalSeparatorDiv size='2'/>
+          </>
       )
     } else {
       return <div />

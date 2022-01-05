@@ -97,6 +97,8 @@ export const sedFilter = (sed: Sed): boolean => {
 }
 
 export const sedSorter = (a: Sed, b: Sed): number => {
+  if (b.status === 'new' && a.status !== 'new') return 1
+  if (a.status === 'new' && b.status !== 'new') return -1
   if ((b.receiveDate ?? b.lastUpdate) - (a.receiveDate ?? a.lastUpdate) > 0) return 1
   if ((b.receiveDate ?? b.lastUpdate) - (a.receiveDate ?? a.lastUpdate) < 0) return -1
   const mainCompare = parseInt(a.type.replace(/[^\d]/g, ''), 10) - parseInt(b.type.replace(/[^\d]/g, ''), 10)

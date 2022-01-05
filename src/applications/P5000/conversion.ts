@@ -14,6 +14,7 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
 import md5 from 'md5'
+import i18n from 'i18n'
 import dateDecimal, { sumDates, writeFloat } from 'utils/dateDecimal'
 import { FormattedDateDiff } from 'utils/dateDiff'
 
@@ -114,7 +115,7 @@ export const convertP5000SEDToP5000ListRows = (
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
           selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
-          selectLabel: 'Kryss for at perioden skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt / måned for dødsfall)',
+          selectLabel: i18n.t('buc:p5000-checkbox-text'),
           status: status,
           land: getNewLand(period, sender),
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
