@@ -996,7 +996,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 disabled
                 data-test-id='a-buc-c-sedstart__vedtakid-input-id'
                 id='a-buc-c-sedstart__vedtakid-input-id'
-                label={t('buc:form-vedtakId') + ' - ' + t('buc:form-noVedtakId')}
+                label={t('buc:form-vedtakId') + (_.isEmpty(_vedtakId) ? ' - ' + t('buc:form-noVedtakId') : '')}
                 value={_vedtakId || ''}
                 onChange={onVedtakIdChange}
                 error={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
