@@ -4,7 +4,7 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
-import { Accordion, Alert, Heading } from '@navikt/ds-react'
+import { Accordion, Alert, Heading, Panel } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -69,10 +69,9 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
   }
 
   return (
-
-    <div
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+    <Panel border style={{ padding: '0px' }}
+       onMouseEnter={onMouseEnter}
+       onMouseLeave={onMouseLeave}
     >
       <Accordion id='w-journalføring-id'>
         <Accordion.Item open={!widget.options.collapsed}>
@@ -85,7 +84,7 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
-    </div>
+    </Panel>
   )
 }
 

@@ -66,7 +66,7 @@ const UsernameSpan = styled.span`
   padding: 0.45rem;
   padding-left: 0.5rem;
   padding-right: 1.6rem;
-  color: var(--navds-color-white);
+  color: var(--navds-global-color-white) !important;
 `
 
 const Header: React.FC<HeaderProps> = ({

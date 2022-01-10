@@ -3,7 +3,7 @@ import { WidgetPropType } from 'declarations/Dashboard.pt'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'
-import { Alert, Accordion, Heading } from '@navikt/ds-react'
+import { Alert, Accordion, Heading, Panel } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -55,7 +55,7 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
   }
 
   return (
-    <div
+    <Panel border style={{ padding: '0px' }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -69,7 +69,7 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
-    </div>
+    </Panel>
   )
 }
 
