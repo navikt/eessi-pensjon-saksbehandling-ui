@@ -1,9 +1,10 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
+import P4000 from 'applications/P4000/P4000'
 import P5000 from 'applications/P5000/P5000'
 import SEDLoadSave from 'applications/P5000/SEDLoadSave/SEDLoadSave'
-import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry, LocalStorageValue } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { P5000SED } from 'declarations/p5000'
@@ -91,13 +92,13 @@ export interface SEDHeaderProps {
 export interface SEDListSelector {
   locale: AllowedLocaleString
   featureToggles: FeatureToggles
-  p5000Storage: LocalStorageEntry<P5000SED> | undefined
+  p5000Storage: Array<LocalStorageEntry<P5000SED>> | null | undefined
 }
 
 const mapState = (state: State): SEDListSelector => ({
   locale: state.ui.locale,
   featureToggles: state.app.featureToggles,
-  p5000Storage: state.p5000.p5000Storage
+  p5000Storage: state.localStorage.P5000.entries
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
@@ -147,11 +148,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     onSEDNew(buc, sed, followUpSed)
   }
 
-  const P5000Draft: LocalStorageValue | undefined = (
+  const P5000Draft: LocalStorageEntry | undefined = (
     sed.type === 'P5000' &&
-    !_.isNil(p5000Storage) &&
-    !_.isNil(p5000Storage[buc.caseId!])
-      ? _.find(p5000Storage[buc.caseId!], { id: sed.id }) as LocalStorageValue | undefined
+    !_.isNil(p5000Storage)
+      ? _.find(p5000Storage, { sedId: sed.id, caseId: buc.caseId}) as LocalStorageEntry | undefined
       : undefined
   )
 
@@ -248,11 +248,12 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               {t('buc:form-answerSED')}
             </Button>
           )}
+          <PileDiv>
           {sed.type === 'P5000' &&
           featureToggles.P5000_SUMMER_VISIBLE &&
           (sed.status !== 'received') &&
           (
-            <PileDiv>
+            <>
               <Button
                 variant='secondary'
                 data-amplitude='buc.edit.p5000'
@@ -283,8 +284,46 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 <NextFilled />
               </Button>
               <VerticalSeparatorDiv />
-            </PileDiv>
+            </>
           )}
+          {sed.type === 'P4000' &&
+          featureToggles.P4000_VISIBLE && (
+            <>
+              <Button
+                variant='secondary'
+                data-amplitude='buc.edit.p4000'
+                data-test-id='a-buc-c-sedheader__p4000-button-id'
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setMode('p4000', 'forward', undefined, (
+                    <P4000
+                      key={sed.id}
+                      buc={buc}
+                      context='edit'
+                      setMode={setMode}
+                      mainSed={sed}
+                    />
+                  ))
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                  })
+                }}
+              >
+                {P5000Draft
+                  ? t('buc:p4000-rediger')
+                  : sed.status === 'sent'
+                    ? t('buc:p4000-updating')
+                    : t('buc:p4000-registrert')}
+                <HorizontalSeparatorDiv size='0.3' />
+                <NextFilled />
+              </Button>
+              <VerticalSeparatorDiv/>
+             </>
+          )}
+          </PileDiv>
         </SEDListActionsDiv>
       </SEDHeaderContent>
       {(featureToggles.P5000_SUMMER_VISIBLE && P5000Draft !== undefined)

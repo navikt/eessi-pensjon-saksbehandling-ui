@@ -3,10 +3,11 @@ import { Sort } from 'tabell'
 
 export type AllowedLocaleString = 'en' | 'nb'
 
-export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p5000'
+export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000'
 
 export type Feature =
-  'P5000_SUMMER_VISIBLE'
+  'P4000_VISIBLE'
+  | 'P5000_SUMMER_VISIBLE'
   | 'P5000_UPDATES_VISIBLE' // for new P5000 developments
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
   | 'NR_AVDOD' // for mock purposes
@@ -49,10 +50,9 @@ export type Validation = {[key: string]: ErrorElement | undefined}
 
 export type WidthSize = 'sm' | 'md' | 'lg'
 
-export type LocalStorageEntry<CustomLocalStorageContent extends any = any> = {[k in string]: Array<LocalStorageValue<CustomLocalStorageContent>>}
-
-export interface LocalStorageValue<CustomLocalStorageContent extends any = any> {
-  id: string
+export interface LocalStorageEntry<CustomLocalStorageContent extends any = any> {
+  caseId: string
+  sedId: string
   date: number
   sort?: Sort
   content: CustomLocalStorageContent

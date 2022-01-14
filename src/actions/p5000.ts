@@ -5,7 +5,6 @@ import { P5000SED } from 'declarations/p5000'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import mockSed from 'mocks/buc/sed'
 import { Action, ActionCreator } from 'redux'
-import { Sort } from 'tabell'
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -24,11 +23,6 @@ export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
     }
   })
 }
-
-export const initP5000Storage : ActionCreator<ActionWithPayload<string>> = (key: string): ActionWithPayload<string> => ({
-  type: types.P5000_STORAGE_INIT,
-  payload: key
-})
 
 export const resetSentP5000info : ActionCreator<Action> = (): Action => ({
   type: types.P5000_SEND_RESET
@@ -55,25 +49,3 @@ export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
     }
   })
 }
-
-export const syncToP5000Storage: ActionCreator<ActionWithPayload<any>> = (
-  newSed: P5000SED | undefined, caseId: string, sedId: string, sort: Sort | undefined
-): ActionWithPayload<any> => ({
-  type: types.P5000_STORAGE_SAVE,
-  payload: {
-    newSed: newSed,
-    caseId: caseId,
-    sedId: sedId,
-    sort: sort
-  }
-})
-
-export const unsyncFromP5000Storage : ActionCreator<ActionWithPayload<any>> = (
-  caseId: string, sedId: string
-): ActionWithPayload<any> => ({
-  type: types.P5000_STORAGE_REMOVE,
-  payload: {
-    caseId: caseId,
-    sedId: sedId
-  }
-})

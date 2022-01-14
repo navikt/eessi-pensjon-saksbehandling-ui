@@ -37,15 +37,6 @@ describe('actions/p5000', () => {
     }))
   })
 
-  it('initP5000Storage()', () => {
-    const mockKey = 'mockKey'
-    const generatedResult = p5000Actions.initP5000Storage(mockKey)
-    expect(generatedResult).toMatchObject({
-      type: types.P5000_STORAGE_INIT,
-      payload: mockKey
-    })
-  })
-
   it('resetSentP5000info()', () => {
     const generatedResult = p5000Actions.resetSentP5000info()
     expect(generatedResult).toMatchObject({
@@ -66,34 +57,5 @@ describe('actions/p5000', () => {
       },
       url: sprintf(urls.P5000_PUT_URL, { caseId: mockCaseId, sedId: mockSedId })
     }))
-  })
-
-  it('syncToP5000Storage()', () => {
-    const mockCaseId = '123'
-    const mockSedId = '456'
-    const mockSort = 'mockSort'
-    const generatedResult = p5000Actions.syncToP5000Storage(mockSedP5000, mockCaseId, mockSedId, mockSort)
-    expect(generatedResult).toMatchObject({
-      type: types.P5000_STORAGE_SAVE,
-      payload: {
-        newSed: mockSedP5000,
-        caseId: mockCaseId,
-        sedId: mockSedId,
-        sort: mockSort
-      }
-    })
-  })
-
-  it('unsyncFromP5000Storage()', () => {
-    const mockCaseId = '123'
-    const mockSedId = '456'
-    const generatedResult = p5000Actions.unsyncFromP5000Storage(mockCaseId, mockSedId)
-    expect(generatedResult).toMatchObject({
-      type: types.P5000_STORAGE_REMOVE,
-      payload: {
-        caseId: mockCaseId,
-        sedId: mockSedId
-      }
-    })
   })
 })

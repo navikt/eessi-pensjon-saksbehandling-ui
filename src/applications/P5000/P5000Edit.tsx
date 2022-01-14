@@ -22,7 +22,7 @@ import Input from 'components/Forms/Input'
 import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
-import { LocalStorageValue, Option } from 'declarations/app.d'
+import { LocalStorageEntry, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
@@ -78,7 +78,7 @@ export interface P5000EditProps {
   seds: Seds
   onBackClick: () => void
   p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
+  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
   saveP5000ToStorage: ((newSed: P5000SED | undefined, sedId: string, sort?: Sort) => void) | undefined
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }

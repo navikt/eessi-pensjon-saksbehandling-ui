@@ -1,26 +1,19 @@
 import { generateKeyForListRow } from 'applications/P5000/conversion'
 import * as types from 'constants/actionTypes'
-import { LocalStorageEntry, LocalStorageValue } from 'declarations/app'
 import { P5000FromRinaMap } from 'declarations/buc'
-import { P5000Period, P5000SED } from 'declarations/p5000'
+import { P5000Period } from 'declarations/p5000'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
-import { Sort } from 'tabell'
-import { asyncLocalStorage } from 'utils/asyncLocalStorage'
 
 export interface P5000State {
   p5000FromRinaMap: P5000FromRinaMap
   sentP5000info: any
-  p5000Storage: LocalStorageEntry<P5000SED> | undefined
-  p5000StorageKey: string | undefined
 }
 
 export const initialP5000State: P5000State = {
   p5000FromRinaMap: {},
-  sentP5000info: undefined,
-  p5000Storage: undefined,
-  p5000StorageKey: undefined
+  sentP5000info: undefined
 }
 
 const fillWithKeys = (payload: any, sedid: string) => {
@@ -95,81 +88,6 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       return {
         ...state,
         p5000FromRinaMap: newp5000FromRina
-      }
-    }
-
-    case types.P5000_STORAGE_INIT: {
-      const items: string | null = window.localStorage.getItem((action as ActionWithPayload).payload)
-      let savedEntries: LocalStorageEntry<P5000SED>
-      if (_.isString(items)) {
-        savedEntries = JSON.parse(items)
-      } else {
-        savedEntries = {} as LocalStorageEntry<P5000SED>
-      }
-      return {
-        ...state,
-        p5000StorageKey: (action as ActionWithPayload).payload,
-        p5000Storage: savedEntries
-      }
-    }
-
-    case types.P5000_STORAGE_REMOVE: {
-      const newP5000Storage = _.cloneDeep(state.p5000Storage)
-      const caseId = (action as ActionWithPayload).payload.caseId
-      const sedId = (action as ActionWithPayload).payload.sedId
-      const entries: Array<LocalStorageValue<P5000SED>> = _.cloneDeep(newP5000Storage![caseId])
-      const newEntries: Array<LocalStorageValue<P5000SED>> = _.filter(entries, n => n.id !== sedId)
-      if (_.isEmpty(newEntries)) {
-        delete newP5000Storage![caseId]
-      } else {
-        newP5000Storage![caseId] = newEntries
-      }
-      asyncLocalStorage.setItem(state.p5000StorageKey!, JSON.stringify(newP5000Storage))
-      return {
-        ...state,
-        p5000Storage: newP5000Storage
-      }
-    }
-
-    case types.P5000_STORAGE_SAVE: {
-      const newSed: P5000SED | undefined = (action as ActionWithPayload).payload.newSed
-      const caseId: string = (action as ActionWithPayload).payload.caseId
-      const sedId: string = (action as ActionWithPayload).payload.sedId
-      const sort: Sort | undefined = (action as ActionWithPayload).payload.sort
-
-      const newEntry: LocalStorageValue<P5000SED> = {
-        id: sedId,
-        date: new Date().getTime(),
-        sort: sort,
-        content: newSed
-      } as LocalStorageValue<P5000SED>
-
-      const newP5000Storage = _.cloneDeep(state.p5000Storage)
-      if (Object.prototype.hasOwnProperty.call(newP5000Storage, caseId)) {
-        let entries: Array<LocalStorageValue<P5000SED>> = _.cloneDeep(newP5000Storage![caseId])
-        const index: number = _.findIndex(entries, e => e.id === sedId)
-
-        // Sum table triggers a saved storage, will not send sort, so let's use the one already saved
-        if (_.isNil(sort) && index >= 0) {
-          newEntry.sort = entries[index].sort
-        }
-        // when newSed is undefined, it is because we want only to save the new sort
-        if (newSed === undefined) {
-          newEntry.content = entries[index].content
-        }
-        if (index >= 0) {
-          entries[index] = newEntry
-        } else {
-          entries = entries.concat(newEntry)
-        }
-        newP5000Storage![caseId] = entries
-      } else {
-        newP5000Storage![caseId] = [newEntry] as Array<LocalStorageValue<P5000SED>>
-      }
-      asyncLocalStorage.setItem(state.p5000StorageKey!, JSON.stringify(newP5000Storage))
-      return {
-        ...state,
-        p5000Storage: newP5000Storage
       }
     }
 

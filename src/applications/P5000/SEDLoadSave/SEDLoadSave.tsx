@@ -1,8 +1,8 @@
 import { BodyLong, Panel } from '@navikt/ds-react'
-import { unsyncFromP5000Storage } from 'actions/p5000'
+import { removeEntry } from 'actions/localStorage'
 import { ytelseType } from 'applications/P5000/P5000.labels'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
-import { LocalStorageEntry, LocalStorageValue, Option } from 'declarations/app'
+import { LocalStorageEntry, Option } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import { P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -23,11 +23,11 @@ interface SEDLoadSaveProps {
 }
 
 interface SEDLoadSaveSelector {
-  p5000Storage: LocalStorageEntry<P5000SED> | undefined
+  p5000Storage: Array<LocalStorageEntry<P5000SED>> | null | undefined
 }
 
 const mapState = (state: State): SEDLoadSaveSelector => ({
-  p5000Storage: state.p5000.p5000Storage
+  p5000Storage: state.localStorage.P5000.entries
 })
 
 const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
@@ -45,17 +45,19 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   const dispatch = useDispatch()
 
   const onRemove = (caseId: string, sedId: string) => {
-    dispatch(unsyncFromP5000Storage(caseId, sedId))
+    dispatch(removeEntry('P5000', {
+      sedId,
+      caseId: buc.caseId!,
+    } as LocalStorageEntry<P5000SED>))
   }
 
   return (
     <PileDiv>
-      {p5000Storage && p5000Storage[buc.caseId!] && p5000Storage[buc.caseId!]
-        .filter(sed => sed.id === sedId)
-        .map((sed: LocalStorageValue<P5000SED>) => (
-          <FlexBaseDiv key={sed.id} style={{ flexDirection: 'row-reverse' }}>
+      {p5000Storage?.filter(entry => entry.sedId === sedId && entry.caseId === buc.caseId)
+        .map((entry: LocalStorageEntry<P5000SED>) => (
+          <FlexBaseDiv key={entry.caseId + '-' + entry.sedId} style={{ flexDirection: 'row-reverse' }}>
             <MyPanel border>
-              <FlexBaseDiv style={{ alignItems: 'center' }} key={sed.id}>
+              <FlexBaseDiv style={{ alignItems: 'center' }}>
                 <PileDiv>
                   <BodyLong>
                     {t('buc:p5000-saved-entries')}
@@ -67,7 +69,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     <HorizontalSeparatorDiv size='0.5' />
                     <BodyLong>
                       {_.find(ytelseOptions, (o: Option) => (
-                        o?.value === (sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+                        o?.value === (entry.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
                       ))?.label ?? '-'}
                     </BodyLong>
                   </FlexBaseDiv>
@@ -77,7 +79,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
                     <BodyLong>
-                      {(sed.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
+                      {(entry.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
                     </BodyLong>
                   </FlexBaseDiv>
                   <FlexBaseDiv>
@@ -86,7 +88,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
                     <BodyLong>
-                      {new Date(sed.date).toLocaleDateString()}
+                      {new Date(entry.date).toLocaleDateString()}
                     </BodyLong>
                   </FlexBaseDiv>
                   <FlexBaseDiv>
@@ -95,7 +97,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     </BodyLong>
                     <HorizontalSeparatorDiv size='0.5' />
                     <BodyLong>
-                      {sed.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
+                      {entry.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
                     </BodyLong>
                   </FlexBaseDiv>
                 </PileDiv>
@@ -105,7 +107,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                     existingItem
                     candidateForDeletion={_confirmDelete}
                     onBeginRemove={() => setConfirmDelete(true)}
-                    onConfirmRemove={() => onRemove(buc.caseId!, sed.id)}
+                    onConfirmRemove={() => onRemove(entry.caseId, entry.sedId)}
                     onCancelRemove={() => setConfirmDelete(false)}
                   />
                 </FlexBaseDiv>

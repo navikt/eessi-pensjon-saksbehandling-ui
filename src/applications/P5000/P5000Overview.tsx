@@ -1,6 +1,6 @@
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
 import { OneLineSpan } from 'components/StyledComponents'
-import { LocalStorageValue } from 'declarations/app'
+import { LocalStorageEntry } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -35,7 +35,7 @@ export interface P5000OverviewSelector {
 export interface P5000OverviewProps {
   context: P5000Context
   p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
+  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
   seds: Seds
 }
 

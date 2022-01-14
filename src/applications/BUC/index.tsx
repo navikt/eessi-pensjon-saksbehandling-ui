@@ -10,7 +10,7 @@ import {
   setMode,
   startBucsFetch
 } from 'actions/buc'
-import { initP5000Storage } from 'actions/p5000'
+import { loadEntries } from 'actions/localStorage'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
@@ -312,7 +312,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         }, timeout)
       }
     }
-    if (newMode === 'p5000') {
+    if (newMode === 'p4000' || newMode === 'p5000') {
       setContentC(content)
       if (from === 'forward') {
         setPositionA(Slide.A_GOING_TO_LEFT)
@@ -334,7 +334,8 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (!_mounted) {
-      dispatch(initP5000Storage('P5000'))
+      dispatch(loadEntries('P4000'))
+      dispatch(loadEntries('P5000'))
       if (!rinaUrl) {
         dispatch(getRinaUrl())
       }

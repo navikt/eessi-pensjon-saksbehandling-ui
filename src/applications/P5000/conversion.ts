@@ -1,4 +1,4 @@
-import { LocalStorageValue } from 'declarations/app'
+import { LocalStorageEntry } from 'declarations/app'
 import {
   P5000Context,
   P5000ListRow,
@@ -65,7 +65,7 @@ export const convertP5000SEDToP5000ListRows = (
   seds: Seds,
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: LocalStorageValue<P5000SED> | undefined,
+  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined,
   mergePeriods: boolean
 ): [P5000ListRows, P5000SourceStatus] => {
   let res: P5000ListRows = []
@@ -74,7 +74,7 @@ export const convertP5000SEDToP5000ListRows = (
   seds.forEach(sed => {
     const sender: SedSender | undefined = getSedSender(sed)
     if (context === 'overview' || (context === 'edit' && (
-      p5000FromStorage === undefined || p5000FromStorage.id !== sed.id
+      p5000FromStorage === undefined || p5000FromStorage.sedId !== sed.id
     ))) {
       sourceStatus = 'rina'
     } else {
@@ -178,7 +178,7 @@ export const convertP5000SEDToP5000SumRows = (
   seds: Seds,
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
+  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
 ): P5000SumRows => {
   const res: P5000SumRows = []
   const data: any = {}
@@ -187,7 +187,7 @@ export const convertP5000SEDToP5000SumRows = (
     let sourceStatus: P5000SourceStatus
     const sender = getSedSender(sed)
     if (context === 'overview' || (context === 'edit' && (
-      p5000FromStorage === undefined || p5000FromStorage.id !== sed.id
+      p5000FromStorage === undefined || p5000FromStorage.sedId !== sed.id
     ))) {
       sourceStatus = 'rina'
     } else {

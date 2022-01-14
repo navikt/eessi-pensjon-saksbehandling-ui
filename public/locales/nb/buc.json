@@ -156,6 +156,10 @@
   "form-youHaveXAttachmentsInSed"     : "SED-en har {{attachments}} vedlegg",
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
 
+  "p4000-rediger"                 : "P4000 rediger",
+  "p4000-updating"                : "Oppdater P4000",
+  "p4000-registrert"              : "Registrer P4000",
+
   "p5000-checkbox-text"           : "Kryss av i boksen foran perioden der det skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt/ måned for dødsfall)",
   "p5000-active-seds"             : "Synlige SED-er",
   "p5000-overview-title"          : "P5000-perioder (kapittel 4) for involverte land",

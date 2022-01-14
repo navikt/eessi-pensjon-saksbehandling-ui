@@ -1,7 +1,7 @@
 import { Alert, BodyLong, Button, HelpText, Loader, Tag } from '@navikt/ds-react'
 import { typePeriode } from 'applications/P5000/P5000.labels'
 import Select from 'components/Select/Select'
-import { Labels, LocalStorageValue, Option } from 'declarations/app'
+import { Labels, LocalStorageEntry, Option } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -29,7 +29,7 @@ import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } fr
 export interface P5000SumProps {
   context: P5000Context
   p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageValue<P5000SED> | undefined
+  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
   saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
   seds: Seds
 }
