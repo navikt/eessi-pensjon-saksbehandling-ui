@@ -1,3 +1,4 @@
+import { Alert, BodyLong, Button, HelpText, Loader, TextField } from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
   createBuc,
@@ -11,15 +12,15 @@ import {
 import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
+import ValidationBox from 'components/ValidationBox/ValidationBox'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import moment from 'moment'
 import {
   AllowedLocaleString,
+  ErrorElement,
   FeatureToggles,
   Loading,
   Option,
-  ErrorElement,
   PesysContext,
   Validation
 } from 'declarations/app.d'
@@ -41,13 +42,8 @@ import { PersonAvdod, PersonAvdods, PersonPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import { Alert, BodyLong, Button, ErrorSummary, Loader, TextField, HelpText } from '@navikt/ds-react'
-import {
-  Column,
-  HorizontalSeparatorDiv,
-  Row,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+import moment from 'moment'
+import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -672,17 +668,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
-              <ErrorSummary
-                data-test-id='a-buc-c-bucstart__feiloppsummering-id'
-                heading={t('buc:form-feiloppsummering')}
-              >
-                {_.filter(Object.values(_validation), v => v !== undefined).map((a: ErrorElement | undefined) => (
-                  <ErrorSummary.Item key={a?.skjemaelementId} href={a?.skjemaelementId}>{a?.feilmelding}</ErrorSummary.Item>
-                ))}
-
-              </ErrorSummary>
+              <ValidationBox validation={_validation}/>
             </Column>
-            <HorizontalSeparatorDiv size='2' />
             <Column />
           </Row>
         </>

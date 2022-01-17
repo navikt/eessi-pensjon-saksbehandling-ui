@@ -107,7 +107,7 @@
   "form-dateP5000"                    : "Dato: {{date}}",
   "form-empty-startANewCase"          : "Start en ny behandling for å komme i gang!",
   "form-etterletteytelser"            : "Etterlatteytelser",
-  "form-feiloppsummering"             : "For å gå videre må du rette opp følgende:",
+  "form-feiloppsummering"             : "For å gå videre må du gjøre følgende:",
   "form-filterSED"                    : "Filtrer SED på navn, mottaker",
   "form-fnr"                          : "Fødselsnummer",
   "form-fnrdnr"                       : "f.nr./d.nr.",

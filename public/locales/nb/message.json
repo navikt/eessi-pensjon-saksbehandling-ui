@@ -83,7 +83,7 @@
   "validation-chooseInstitution"    : "Velg en mottager",
   "validation-chooseKravDato"       : "Velg kravdato",
   "validation-chooseKravOm"         : "Velg krav om",
-  "validation-chooseP6000s"         : "Velg P6000(s)",
+  "validation-chooseP6000"          : "Klikk på knappen \"Hent P6000\" og velg aktuelle P6000",
   "validation-chooseSed"            : "Velg en SED",
   "validation-chooseSubjectArea"    : "Velg et fagområde",
   "validation-chooseType"           : "Velg en type",

@@ -16,7 +16,7 @@ import {
   ordning,
   relevantForYtelse,
   typePeriode,
-  ytelseType
+  direction: 'IN' as Directionype
 } from 'applications/P5000/P5000.labels'
 import Input from 'components/Forms/Input'
 import Modal from 'components/Modal/Modal'

@@ -1,3 +1,5 @@
+import { People } from '@navikt/ds-icons'
+import { Alert, BodyLong, Button, Heading, Loader, Radio, RadioGroup, TextField } from '@navikt/ds-react'
 import {
   createReplySed,
   createSavingAttachmentJob,
@@ -25,15 +27,23 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDP6000 from 'applications/BUC/components/SEDP6000/SEDP6000'
-import { People } from '@navikt/ds-icons'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
+import ValidationBox from 'components/ValidationBox/ValidationBox'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
-import { AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext, Validation, ErrorElement } from 'declarations/app.d'
+import {
+  AllowedLocaleString,
+  ErrorElement,
+  FeatureToggles,
+  Loading,
+  Option,
+  PesysContext,
+  Validation
+} from 'declarations/app.d'
 import { KravOmValue, P6000, SakTypeKey } from 'declarations/buc'
 import {
   AvdodOrSokerValue,
@@ -68,16 +78,10 @@ import CountrySelect from 'landvelger'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { Alert, Button, BodyLong, ErrorSummary, Heading, Loader, TextField, Radio, RadioGroup } from '@navikt/ds-react'
 
-import {
-  Column,
-  HorizontalSeparatorDiv,
-  Row,
-  VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from 'nav-hoykontrast'
 import PT from 'prop-types'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
@@ -500,7 +504,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateP6000s = (buc: Buc, p6000s: Array<P6000>): ErrorElement | undefined => {
     if (_.isEmpty(p6000s) && bucRequiresP6000s(buc)) {
       return {
-        feilmelding: t('message:validation-chooseP6000s'),
+        feilmelding: t('message:validation-chooseP6000'),
         skjemaelementId: 'a-buc-c-sedstart__p6000s-id'
       } as ErrorElement
     }
@@ -1130,7 +1134,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   {_.isNil(p6000s)
                     ? (
                       <Button
-                        variant='secondary'
+                        variant='primary'
                         onClick={_getP6000}
                         disabled={gettingP6000}
                       >
@@ -1171,7 +1175,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <Column>
             <VerticalSeparatorDiv size='1.5' />
             <Button
-              variant='primary'
+              variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
               data-amplitude='sed.new.create'
               data-test-id='a-buc-c-sedstart__forward-button-id'
               disabled={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
@@ -1262,16 +1266,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
-              <ErrorSummary
-                data-test-id='a-buc-c-sedstart__feiloppsummering-id'
-                heading={t('buc:form-feiloppsummering')}
-              >
-                {_.filter(Object.values(_validation), (e: ErrorElement | undefined) => e !== undefined).map((e: ErrorElement | undefined) => (
-                  <ErrorSummary.Item key={e?.skjemaelementId} href={e?.skjemaelementId}>{e?.feilmelding}</ErrorSummary.Item>
-                ))}
-              </ErrorSummary>
+              <ValidationBox validation={_validation}/>
             </Column>
-            <HorizontalSeparatorDiv size='2' />
             <Column />
           </Row>
         </>
