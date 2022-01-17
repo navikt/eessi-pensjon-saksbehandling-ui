@@ -17,7 +17,7 @@ export const P5000EditValidate = (
   let hasErrors: boolean = false
 
   if (_.isEmpty(p5000sed?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav)) {
-    v['P5000Edit-ytelse'] = {
+    v['P5000Edit-ytelse-select'] = {
       feilmelding: t('message:error-noYtelse'),
       skjemaelementId: 'P5000Edit-ytelse-select'
     } as ErrorElement

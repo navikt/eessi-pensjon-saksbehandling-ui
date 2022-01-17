@@ -16,7 +16,7 @@ import {
   ordning,
   relevantForYtelse,
   typePeriode,
-  direction: 'IN' as Directionype
+  ytelseType
 } from 'applications/P5000/P5000.labels'
 import Input from 'components/Forms/Input'
 import Modal from 'components/Modal/Modal'
@@ -573,7 +573,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const setForsikringEllerBosetningsperioder = (value: string) => {
-    // _resetValidation('P5000Edit-ytelse-select')
+    _resetValidation('P5000Edit-forsikringEllerBosetningsperioder')
     _setForsikringEllerBosetningsperioder(value)
     onSave({
       forsikringEllerBosetningsperioder: value
@@ -636,6 +636,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const valid: boolean = _performValidation({
       p5000sed: p5000FromStorage?.content!
     })
+    console.log(_validation)
     if (valid) {
       const payload: P5000SED = _.cloneDeep(p5000FromStorage!.content)
       payload.pensjon.medlemskapTotal?.forEach((p, i) => {
@@ -764,8 +765,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     // modal leaves this class on body, stops scrolling. Hack to resume scrolling
     document.getElementById('root')?.classList.remove('ReactModal__Body--open')
   }
-
-  const canSend = !!_ytelseOption
 
   return (
     <>
@@ -903,7 +902,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               <HorizontalSeparatorDiv />
               <Button
                 variant='primary'
-                disabled={sendingP5000info || !canSend}
+                disabled={sendingP5000info}
                 onClick={handleOverforTilRina}
               >
                 {sendingP5000info && <Loader />}

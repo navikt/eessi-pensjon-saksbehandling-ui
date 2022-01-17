@@ -117,7 +117,7 @@ export interface P5000SED {
     medlemskapboarbeid : {
       enkeltkrav : {
         datoFrist? : string | null
-        krav : string
+        krav : string | null
       }
       gyldigperiode : string
       medlemskap : Array<P5000Period>
