@@ -504,8 +504,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const validateP6000s = (buc: Buc, p6000s: Array<P6000>): ErrorElement | undefined => {
     if (_.isEmpty(p6000s) && bucRequiresP6000s(buc)) {
       return {
-        feilmelding: t('message:validation-chooseP6000'),
-        skjemaelementId: 'a-buc-c-sedstart__p6000s-id'
+        feilmelding: t('message:validation-chooseP6000')
       } as ErrorElement
     }
     return undefined

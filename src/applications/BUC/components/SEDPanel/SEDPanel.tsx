@@ -26,6 +26,12 @@ export const SEDPanelDiv = styled.div`
   }
 `
 
+export const MyAccordion = styled(Accordion)`
+ &.new {
+    background: var(--navds-global-color-limegreen-100) !important;
+  }
+`
+
 export interface SEDPanelProps {
   aktoerId: string
   buc: Buc
@@ -66,7 +72,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           </SEDPanelDiv>
           )
         : (
-          <Accordion
+          <MyAccordion
             className={classNames(className, { new: newSed })}
             style={style}
           >
@@ -88,7 +94,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                 />
               </Accordion.Content>
             </Accordion.Item>
-          </Accordion>
+          </MyAccordion>
           )}
     </SEDPanelContainer>
   )

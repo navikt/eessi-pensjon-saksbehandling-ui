@@ -31,10 +31,11 @@ const SEDListActionsDiv = styled.div`
   width: 100%;
   flex-direction: row;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: flex-start;
 `
 const SEDListAttachmentsDiv = styled.div`
+margin-right: 0.5rem;
 `
 const SEDHeaderContent = styled.div`
   padding-top: 0.5rem;
