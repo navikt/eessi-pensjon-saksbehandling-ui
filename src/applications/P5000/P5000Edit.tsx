@@ -108,6 +108,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
+  const [requestingUFT, setRequestingUFT] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(() =>
     !_.isNil(p5000FromStorage)
@@ -762,12 +763,29 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
 
+  useEffect(() => {
+    if (_.isDate(uft) && requestingUFT) {
+      setRequestingUFT(false)
+      let newItems: P5000ListRows = _.cloneDeep(_items)
+      newItems = newItems.map(item => {
+        const newItem = _.cloneDeep(item)
+        newItem.selected = moment(item.startdato).isAfter(uft)
+        newItem.flag = moment(item.startdato).isAfter(uft)
+        return newItem
+      })
+      onSave({
+        items: newItems
+      })
+    }
+  }, [uft, requestingUFT])
+
   if (_items === undefined) {
     return <div />
   }
 
   const hentUFT = () => {
     if (vedtakId) {
+      setRequestingUFT(true)
       dispatch(getUFT(vedtakId))
     }
   }
@@ -1005,7 +1023,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
           labels={{
-            selectAll: 'summèr-tegn kun 5.1'
+            selectAll: t('buc:P5000-sum-only-5.1'),
+            flagged: t('buc:P5000-nft-flagged'),
           }}
           context={{
             items: _items,
@@ -1017,6 +1036,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           selectable
           showSelectAll={false}
           coloredSelectedRow={false}
+          flaggable={_.isDate(uft)}
           onRowSelectChange={onRowSelectChange}
           sortable
           onColumnSort={onColumnSort}

@@ -114,6 +114,7 @@ export const convertP5000SEDToP5000ListRows = (
         res.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
+          flag: period.flag,
           selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
           selectLabel: i18n.t('buc:p5000-checkbox-text'),
           status: status,
@@ -330,6 +331,7 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
   const period: P5000Period = {
     key: item?.key,
     selected: item.selected,
+    flag: item.flag,
     relevans: item.ytelse,
     land: item.land ?? 'NO',
     sum: {

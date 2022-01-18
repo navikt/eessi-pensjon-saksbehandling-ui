@@ -24,6 +24,7 @@ export interface P5000PeriodInterval {
 export interface P5000Period {
   key ?: string
   selected ?: boolean
+  flag ?: boolean
   relevans : string | null
   ordning? : string | null
   land : string | null
@@ -163,6 +164,7 @@ export interface P5000UpdatePayload {
   ytelseOption?: string
   sort?: Sort
   forsikringEllerBosetningsperioder?: string
+  uft?: Date | null | undefined
 }
 
 export type P5000SumRows = Array<P5000SumRow>
