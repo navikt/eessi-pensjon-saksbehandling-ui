@@ -10,7 +10,7 @@ import {
   Select as NavSelect,
   Tag
 } from '@navikt/ds-react'
-import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
+import { getUFT, resetSentP5000info, sendP5000toRina } from 'actions/p5000'
 import {
   informasjonOmBeregning,
   ordning,
@@ -22,6 +22,7 @@ import Input from 'components/Forms/Input'
 import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
+import * as constants from 'constants/constants'
 import { LocalStorageEntry, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { SedsPropType } from 'declarations/buc.pt'
@@ -35,6 +36,7 @@ import { extendMoment } from 'moment-range'
 import {
   AlignEndRow,
   Column,
+  FlexBaseDiv,
   FlexCenterDiv,
   FlexCenterSpacedDiv,
   FlexEndDiv,
@@ -69,8 +71,12 @@ export const AlertstripeDiv = styled.div`
 `
 
 const mapState = (state: State): any => ({
+  vedtakId: state.app.params.vedtakId,
+  pesysContext: state.app.pesysContext,
   sentP5000info: state.p5000.sentP5000info,
-  sendingP5000info: state.loading.sendingP5000info
+  sendingP5000info: state.loading.sendingP5000info,
+  gettingUFT: state.loading.gettingUFT,
+  uft: state.p5000.uft
 })
 
 export interface P5000EditProps {
@@ -94,7 +100,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { sentP5000info, sendingP5000info }: any = useSelector<State, any>(mapState)
+  const { gettingUFT, pesysContext, sentP5000info, sendingP5000info, uft, vedtakId }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
@@ -760,6 +766,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return <div />
   }
 
+  const hentUFT = () => {
+    if (vedtakId) {
+      dispatch(getUFT(vedtakId))
+    }
+  }
+
   const modalClose = () => {
     _setShowModal(false)
     // modal leaves this class on body, stops scrolling. Hack to resume scrolling
@@ -948,6 +960,27 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <VerticalSeparatorDiv />
         <AlignEndRow style={{ width: '100%' }}>
           <Column>
+            <FlexBaseDiv>
+              <Button
+              variant='secondary'
+              disabled={(pesysContext !== constants.VEDTAKSKONTEKST) || gettingUFT}
+              size='small'
+              onClick={hentUFT}
+              >
+
+              {gettingUFT && <Loader/>}
+              {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
+            </Button>
+            {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
+            {uft && (
+              <>
+                 <HorizontalSeparatorDiv/>
+                 <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
+              </>
+            )}
+            </FlexBaseDiv>
+          </Column>
+          <Column flex='2'>
             <Alert variant='warning'>
               <FlexCenterDiv>
                 {t('message:warning-P5000Edit-instructions-li1')}
@@ -982,6 +1015,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           allowNewRows={_forsikringEllerBosetningsperioder === '1'}
           searchable={false}
           selectable
+          showSelectAll={false}
           coloredSelectedRow={false}
           onRowSelectChange={onRowSelectChange}
           sortable

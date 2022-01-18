@@ -38,6 +38,7 @@ export const API_JOARK_ATTACHMENT_URL = SAF_URL + '/vedlegg/%(aktoerId)s/%(rinaI
 // PersonController
 export const PERSON_PDL_URL = PER_URL + '/pdl/%(aktoerId)s'
 export const PERSON_PDL_AVDOD_URL = PER_URL + '/pdl/%(aktoerId)s/avdode/vedtak/%(vedtakId)s'
+export const PERSON_GET_UFT_URL = PER_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
 
 // BucController
 export const BUC_GET_BUCSLIST_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s'
@@ -77,3 +78,5 @@ export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOT
 
 // Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'
+
+

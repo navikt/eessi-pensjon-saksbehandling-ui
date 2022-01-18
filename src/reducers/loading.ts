@@ -28,6 +28,7 @@ export const initialLoadingState: LoadingState = {
   gettingSubjectAreaList: false,
   gettingTagList: false,
   gettingUserInfo: false,
+  gettingUFT: false,
   isLoggingIn: false,
   isLoggingOut: false,
   loadingJoarkList: false,
@@ -447,6 +448,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       return {
         ...state,
         sendingPageNotification: false
+      }
+
+    case types.PERSON_GET_UFT_REQUEST:
+
+      return {
+        ...state,
+        gettingUFT: true
+      }
+
+    case types.PERSON_GET_UFT_SUCCESS:
+    case types.PERSON_GET_UFT_FAILURE:
+
+      return {
+        ...state,
+        gettingUFT: false
       }
 
     default:

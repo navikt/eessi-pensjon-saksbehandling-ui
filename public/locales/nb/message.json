@@ -70,6 +70,7 @@
   "loading-sendingSed"            : "Sender SED...",
   "loading-subjectAreaList"       : "Laster fagområde...",
   "loading-tagList"               : "Laster merknader...",
+  "loading-uft"                   : "Laster UFT...",
 
   "validation-addPositiveNumber"    : "Skriv et positivt tall",
   "validation-addBeregning"         : "Legg til beregningen",
@@ -100,6 +101,7 @@
   "warning-noBucs"                           : "Ingen BUCer funnet",
   "warning-filteredBucs"                     : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-failedP5000Sending"               : "Feil med overføring P5000 data til Rina",
+  "warning-noVedtakskontekst"                : "Du kan bare hente UFT i vedtakskontekst",
   "warning-okP5000Sending"                   : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet.",
   "warning-P5000SumGjenlevende"              : "Ved pensjonspoeng i flytteår må du legge til den resterende perioden for gjeldende år i beregningen (pkt. 5.2). OBS! Dersom du endrer på registrerte perioder, må du også legge til ekstraperiodene i summeringen igjen",
   "warning-P5000Edit-instructions-li1"       : "Periodesum må overskrives ved bruk av gjennomsnittsberegning av inntekt",

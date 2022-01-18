@@ -5,8 +5,22 @@ import { P5000SED } from 'declarations/p5000'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
 import mockSed from 'mocks/buc/sed'
 import { Action, ActionCreator } from 'redux'
+import mockUFT from 'mocks/buc/uft'
 
 const sprintf = require('sprintf-js').sprintf
+
+export const getUFT = (vedtakId: string) => {
+  return call({
+    url: sprintf(urls.PERSON_GET_UFT_URL, { vedtakId }),
+    cascadeFailureError: true,
+    expectedPayload: mockUFT,
+    type: {
+      request: types.PERSON_GET_UFT_REQUEST,
+      success: types.PERSON_GET_UFT_SUCCESS,
+      failure: types.PERSON_GET_UFT_FAILURE
+    }
+  })
+}
 
 export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
   caseId: string, sed: Sed
