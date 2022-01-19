@@ -37,7 +37,7 @@ export const initialLoadingState: LoadingState = {
   savingBucsInfo: false,
   sendingJournalføringSend: false,
   sendingPageNotification: false,
-  sendingP5000info: false
+  sendingP5000info: false,
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: Action = { type: '' }) => {

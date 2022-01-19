@@ -76,5 +76,9 @@ export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 
+// s3 inventory
+export const S3INVENTORY_LIST_URL = API_URL + '/storage/list/'
+export const S3INVENTORY_FILE_URL = API_URL + '/storage/get/%(filename)s'
+
 // Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'

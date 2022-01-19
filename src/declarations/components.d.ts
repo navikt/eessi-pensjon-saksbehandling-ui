@@ -1,3 +1,4 @@
+import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 
 export type AlertVariant = 'error' | 'warning' | 'info' | 'success'
 
@@ -22,4 +23,12 @@ export interface ModalContent {
   modalText ?: string |null
   modalButtons?: Array<ModalButton> |null
   closeButton?: boolean | null
+}
+
+export interface GetS3FilesJob {
+  total: Array<any>
+  loaded: Array<any>
+  notloaded: Array<any>
+  loading: any | undefined
+  remaining: Array<any>
 }
