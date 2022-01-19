@@ -1265,7 +1265,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
-              <ValidationBox validation={_validation}/>
+              <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={_validation}/>
             </Column>
             <Column />
           </Row>

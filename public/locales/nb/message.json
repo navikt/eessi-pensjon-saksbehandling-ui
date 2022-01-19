@@ -46,6 +46,8 @@
   "error-internalError-description" : "Vennligst rapporter feilen i Porten slik at vi kan rette den. Kopier innholdet i detaljert feilmelding under og lim det inn i saken i Porten.",
   "error-internalError-footer" : "",
   "error-header": "Detaljert feilmelding",
+  "error-validationbox-sedstart" : "Før du kan bestille SED må du:",
+  "error-validationbox-bucstart" : "Før du kan bestille BUC må du:",
 
   "help-avdodFnr" : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
   "help-p5000-1"  : "Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1), velg \"Nei\" her (4.2).",
@@ -84,7 +86,7 @@
   "validation-chooseInstitution"    : "Velg en mottager",
   "validation-chooseKravDato"       : "Velg kravdato",
   "validation-chooseKravOm"         : "Velg krav om",
-  "validation-chooseP6000"          : "Klikk på knappen \"Hent P6000\" og velg aktuelle P6000",
+  "validation-chooseP6000"          : "Klikke på knappen \"Hent P6000\" og velg aktuelle P6000",
   "validation-chooseSed"            : "Velg en SED",
   "validation-chooseSubjectArea"    : "Velg et fagområde",
   "validation-chooseType"           : "Velg en type",

@@ -668,7 +668,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
-              <ValidationBox validation={_validation}/>
+              <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation}/>
             </Column>
             <Column />
           </Row>

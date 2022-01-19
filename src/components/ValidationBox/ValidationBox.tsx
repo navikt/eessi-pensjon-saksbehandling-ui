@@ -2,18 +2,18 @@ import { Validation } from 'declarations/app'
 import _ from 'lodash'
 import { BodyLong, ErrorSummary } from '@navikt/ds-react'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 export interface ValidationBoxProps {
   validation: Validation,
+  heading: string,
   eventName?: string
 }
 
 const ValidationBox: React.FC<ValidationBoxProps> = ({
   validation,
+  heading,
   eventName = 'feillenke'
 }: ValidationBoxProps): JSX.Element => {
-  const { t } = useTranslation()
 
   const isValid = _.find(_.values(validation), (e) => e !== undefined && e.feilmelding !== 'notnull') === undefined
 
@@ -23,7 +23,7 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
   return (
     <ErrorSummary
       data-test-id='validationBox'
-      heading={t('validation:feiloppsummering')}
+      heading={heading}
     >
       {Object.values(validation)
         .filter(v => v !== undefined)
