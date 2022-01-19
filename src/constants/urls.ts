@@ -13,6 +13,7 @@ const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 const JOU_URL = FAGMODUL_API_URL + '/journalforing'
+const STG_URL = FRONTEND_API_URL + '/storage'
 
 // EuxController
 export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
@@ -24,11 +25,11 @@ export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions
 export const API_USERINFO_URL = API_URL + '/userinfo'
 
 // StorageController
-export const API_STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespace)s'
-export const API_STORAGE_GET_URL = API_URL + '/storage/get/%(userId)s___%(namespace)s___%(file)s'
-export const API_STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
-export const API_STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
-export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(userId)s___%(namespace)s'
+export const API_STORAGE_LIST_URL = STG_URL + '/list/%(userId)s___%(namespace)s'
+export const API_STORAGE_GET_URL = STG_URL + '/get/%(userId)s___%(namespace)s___%(file)s'
+export const API_STORAGE_POST_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
+export const API_STORAGE_DELETE_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
+export const API_STORAGE_MULTIPLE_DELETE_URL = STG_URL + '/multiple/%(userId)s___%(namespace)s'
 
 // SafController
 export const API_JOARK_LIST_URL = SAF_URL + '/metadata/%(userId)s'
@@ -38,7 +39,6 @@ export const API_JOARK_ATTACHMENT_URL = SAF_URL + '/vedlegg/%(aktoerId)s/%(rinaI
 // PersonController
 export const PERSON_PDL_URL = PER_URL + '/pdl/%(aktoerId)s'
 export const PERSON_PDL_AVDOD_URL = PER_URL + '/pdl/%(aktoerId)s/avdode/vedtak/%(vedtakId)s'
-export const PERSON_GET_UFT_URL = PER_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
 
 // BucController
 export const BUC_GET_BUCSLIST_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s'
@@ -54,6 +54,7 @@ export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 // PensjonController
 export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'
 export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
+export const PERSON_GET_UFT_URL = PEN_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
@@ -77,8 +78,8 @@ export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 
 // s3 inventory
-export const S3INVENTORY_LIST_URL = API_URL + '/storage/list/'
-export const S3INVENTORY_FILE_URL = API_URL + '/storage/get/%(filename)s'
+export const S3INVENTORY_LIST_URL = STG_URL + '/list/'
+export const S3INVENTORY_FILE_URL = STG_URL + '/get/%(filename)s'
 
 // Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'
