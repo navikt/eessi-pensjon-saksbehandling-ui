@@ -39,7 +39,7 @@ const Input: React.FC<InputProps> = ({
   const [_value, _setValue] = useState<string>(value ?? '')
   const [_dirty, _setDirty] = useState<boolean>(false)
 
-  useEffect(() => {_setValue(value ?? '')}, [value])
+  useEffect(() => { _setValue(value ?? '') }, [value])
 
   return (
     <TextField

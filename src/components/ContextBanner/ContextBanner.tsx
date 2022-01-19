@@ -72,7 +72,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
     if (!_mounted) {
       standardLogger('context', {
         pesys: pesysContext,
-        sakType: sakType
+        sakType
       })
       setMounted(true)
     }
@@ -114,7 +114,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           target='_blank'
           data-amplitude='links.rettskilder'
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
-          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
+          onClick={(e: React.MouseEvent) => linkLogger(e, { mode })}
         >
           {t('ui:lawsource')}
           <HorizontalSeparatorDiv size='0.5' />
@@ -127,7 +127,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           target='_blank'
           data-amplitude='links.hjelpe'
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
-          onClick={(e: React.MouseEvent) => linkLogger(e, { mode: mode })}
+          onClick={(e: React.MouseEvent) => linkLogger(e, { mode })}
         >
           {t('ui:help')}
           <HorizontalSeparatorDiv size='0.5' />

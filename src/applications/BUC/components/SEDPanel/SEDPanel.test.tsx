@@ -20,11 +20,11 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
   sed.status = 'received'
   const initialMockProps: SEDPanelProps = {
     aktoerId: '123',
-    buc: buc,
+    buc,
     newSed: false,
     onSEDNew: jest.fn(),
     setMode: jest.fn(),
-    sed: sed,
+    sed,
     style: {}
   }
   let wrapper: ReactWrapper

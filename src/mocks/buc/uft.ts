@@ -1,3 +1,3 @@
 export default {
-  "uforetidspunkt" : "1908-02-29"
+  uforetidspunkt: '1908-02-29'
 }

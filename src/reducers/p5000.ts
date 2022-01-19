@@ -60,24 +60,24 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
         uft: undefined
       }
 
-    case types.PERSON_GET_UFT_SUCCESS:
-
-      let uft = undefined
+    case types.PERSON_GET_UFT_SUCCESS: {
+      let uft
       try {
         uft = moment((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
-      } catch (e) {}
+      } catch (e) {
+      }
 
       return {
         ...state,
-        uft: uft
+        uft
       }
+    }
 
     case types.PERSON_GET_UFT_FAILURE:
       return {
         ...state,
         uft: null
       }
-
 
     case types.P5000_SEND_RESET:
     case types.P5000_SEND_REQUEST:
@@ -92,7 +92,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       const newP5000FromRinaMap = _.cloneDeep(state.p5000FromRinaMap)
 
       if (Object.prototype.hasOwnProperty.call(newP5000FromRinaMap, sedId)) {
-        fillWithKeys(p5000saved,sedId)
+        fillWithKeys(p5000saved, sedId)
         newP5000FromRinaMap[sedId] = p5000saved
       }
       return {

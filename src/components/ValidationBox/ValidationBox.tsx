@@ -14,7 +14,6 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
   heading,
   eventName = 'feillenke'
 }: ValidationBoxProps): JSX.Element => {
-
   const isValid = _.find(_.values(validation), (e) => e !== undefined && e.feilmelding !== 'notnull') === undefined
 
   if (isValid) {
@@ -31,32 +30,32 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
         .map(v => ({
           feilmelding: v!.feilmelding,
           skjemaelementId: v!.skjemaelementId
-        })).map(item => (
-          <>
-          {item.skjemaelementId ? (
-            <ErrorSummary.Item
-              key={item.skjemaelementId}
-              href={`#${item.skjemaelementId}`}
-              onClick={(e) => {
-                e.preventDefault()
-                const element = document.getElementById(item.skjemaelementId)
-                if (element) {
-                  element?.focus()
-                  element?.scrollIntoView({
-                    behavior: 'smooth'
-                  })
-                } else {
-                  document.dispatchEvent(new CustomEvent(eventName, { detail: item }))
-                }
-              }}
-            >
-              {item.feilmelding}
-            </ErrorSummary.Item>
-          ) : (
-            <BodyLong> {item.feilmelding}</BodyLong>
-          )}
-          </>
-       ))}
+        })).map(item => {
+          return item.skjemaelementId
+            ? (
+              <ErrorSummary.Item
+                key={item.skjemaelementId}
+                href={`#${item.skjemaelementId}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const element = document.getElementById(item.skjemaelementId)
+                  if (element) {
+                    element?.focus()
+                    element?.scrollIntoView({
+                      behavior: 'smooth'
+                    })
+                  } else {
+                    document.dispatchEvent(new CustomEvent(eventName, { detail: item }))
+                  }
+                }}
+              >
+                {item.feilmelding}
+              </ErrorSummary.Item>
+              )
+            : (
+              <BodyLong> {item.feilmelding}</BodyLong>
+              )
+        })}
     </ErrorSummary>
   )
 }

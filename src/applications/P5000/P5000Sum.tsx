@@ -203,65 +203,65 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           </Column>
         </AlignEndRow>
         <VerticalSeparatorDiv />
-        <AlignEndRow style={{width: '100%'}}>
+        <AlignEndRow style={{ width: '100%' }}>
           <Column flex='2'>
-        {sakType === SakTypeMap.GJENLEV && (
-          <>
-            <Alert variant='warning'>
-              {t('message:warning-P5000SumGjenlevende')}
-            </Alert>
-            <VerticalSeparatorDiv />
-          </>
-        )}
-        {!!sakType && (
-          <Alert variant='warning'>
-            <FlexDiv>
-              {t('message:warning-P5000Sum-instructions-title')}
-              <HorizontalSeparatorDiv size='0.5' />
-              <HelpText>
-                <div style={{ maxWidth: '600px' }}>
-                  <BodyLong>{t('message:warning-P5000Sum-instructions-title-help')}</BodyLong>
-                </div>
-              </HelpText>
-            </FlexDiv>
-            <BodyLong>
-              <strong>
-                {t('message:warning-P5000Sum-instructions-title-obs')}
-              </strong>
-            </BodyLong>
-            {hasMoreWarnings && (
-              <div>
+            {sakType === SakTypeMap.GJENLEV && (
+              <>
+                <Alert variant='warning'>
+                  {t('message:warning-P5000SumGjenlevende')}
+                </Alert>
                 <VerticalSeparatorDiv />
-                <hr />
-                <VerticalSeparatorDiv size='0.7' />
-                {t('message:warning-P5000Sum-instructions-header')}
-                <VerticalSeparatorDiv />
-              </div>
+              </>
             )}
-            <ul>
-              {has5152diffs && (
-                <li>
-                  {t('message:warning-P5000Sum-instructions-5152')}
-                  <VerticalSeparatorDiv size='0.5' />
-                </li>
-              )}
-              {has40aar && (
-                <li>
-                  {t('message:warning-P5000Sum-instructions-40')}
-                  <VerticalSeparatorDiv size='0.5' />
-                </li>
-              )}
-              {has45 && (
-                <li>
-                  {t('message:warning-P5000Sum-instructions-45')}
-                  <VerticalSeparatorDiv size='0.5' />
-                </li>
-              )}
-            </ul>
-          </Alert>
-        )}
+            {!!sakType && (
+              <Alert variant='warning'>
+                <FlexDiv>
+                  {t('message:warning-P5000Sum-instructions-title')}
+                  <HorizontalSeparatorDiv size='0.5' />
+                  <HelpText>
+                    <div style={{ maxWidth: '600px' }}>
+                      <BodyLong>{t('message:warning-P5000Sum-instructions-title-help')}</BodyLong>
+                    </div>
+                  </HelpText>
+                </FlexDiv>
+                <BodyLong>
+                  <strong>
+                    {t('message:warning-P5000Sum-instructions-title-obs')}
+                  </strong>
+                </BodyLong>
+                {hasMoreWarnings && (
+                  <div>
+                    <VerticalSeparatorDiv />
+                    <hr />
+                    <VerticalSeparatorDiv size='0.7' />
+                    {t('message:warning-P5000Sum-instructions-header')}
+                    <VerticalSeparatorDiv />
+                  </div>
+                )}
+                <ul>
+                  {has5152diffs && (
+                    <li>
+                      {t('message:warning-P5000Sum-instructions-5152')}
+                      <VerticalSeparatorDiv size='0.5' />
+                    </li>
+                  )}
+                  {has40aar && (
+                    <li>
+                      {t('message:warning-P5000Sum-instructions-40')}
+                      <VerticalSeparatorDiv size='0.5' />
+                    </li>
+                  )}
+                  {has45 && (
+                    <li>
+                      {t('message:warning-P5000Sum-instructions-45')}
+                      <VerticalSeparatorDiv size='0.5' />
+                    </li>
+                  )}
+                </ul>
+              </Alert>
+            )}
           </Column>
-          <Column/>
+          <Column />
         </AlignEndRow>
         <VerticalSeparatorDiv />
         <hr style={{ width: '100%' }} />
@@ -275,7 +275,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           allowNewRows={false}
           sortable={false}
           onColumnSort={(sort: any) => {
-            standardLogger('buc.edit.tools.P5000.summary.sort', { sort: sort })
+            standardLogger('buc.edit.tools.P5000.summary.sort', { sort })
             _setTableSort(sort)
           }}
           onRowsChanged={onRowsChanged}

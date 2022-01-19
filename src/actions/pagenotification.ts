@@ -26,9 +26,9 @@ export const setNotification: ActionCreator<ActionWithPayload<undefined>> = (
     expectedPayload: mockPageNotificationSet,
     method: 'POST',
     payload: {
-      message: message,
-      show: show,
-      byline: byline
+      message,
+      show,
+      byline
     },
     type: {
       request: types.PAGE_NOTIFICATION_SET_REQUEST,

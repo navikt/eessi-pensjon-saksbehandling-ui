@@ -18,7 +18,7 @@ const mockPersonAvdods: PersonAvdods | undefined = personAvdod(1)
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   let wrapper: ReactWrapper
   const initialMockProps: BUCDetailProps = {
-    buc: buc,
+    buc,
     personAvdods: mockPersonAvdods
   } as BUCDetailProps
 

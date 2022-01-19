@@ -5,7 +5,7 @@ export default (buc: string) => {
   const caseId = Math.floor(100000 + Math.random() * 900000)
   return {
     type: buc,
-    caseId: caseId,
+    caseId,
     error: null,
     institusjon: [],
     lastUpdate: now,

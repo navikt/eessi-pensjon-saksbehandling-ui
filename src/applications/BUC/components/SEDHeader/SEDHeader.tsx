@@ -139,9 +139,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     : []
 
   const sedLabel: string = getBucTypeLabel({
-    t: t,
+    t,
     type: sed.type,
-    locale: locale
+    locale
   })
 
   const onReplySed = (e: React.MouseEvent) => {
@@ -152,7 +152,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   const P5000Draft: LocalStorageEntry | undefined = (
     sed.type === 'P5000' &&
     !_.isNil(p5000Storage)
-      ? _.find(p5000Storage, { sedId: sed.id, caseId: buc.caseId}) as LocalStorageEntry | undefined
+      ? _.find(p5000Storage, { sedId: sed.id, caseId: buc.caseId }) as LocalStorageEntry | undefined
       : undefined
   )
 
@@ -250,7 +250,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </Button>
           )}
           <PileDiv>
-          {sed.type === 'P5000' &&
+            {sed.type === 'P5000' &&
           featureToggles.P5000_SUMMER_VISIBLE &&
           (sed.status !== 'received') &&
           (
@@ -287,7 +287,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <VerticalSeparatorDiv />
             </>
           )}
-          {sed.type === 'P4000' &&
+            {sed.type === 'P4000' &&
           featureToggles.P4000_VISIBLE && (
             <>
               <Button
@@ -321,9 +321,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 <HorizontalSeparatorDiv size='0.3' />
                 <NextFilled />
               </Button>
-              <VerticalSeparatorDiv/>
-             </>
-          )}
+              <VerticalSeparatorDiv />
+            </>
+            )}
           </PileDiv>
         </SEDListActionsDiv>
       </SEDHeaderContent>

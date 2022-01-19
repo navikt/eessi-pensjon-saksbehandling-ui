@@ -79,10 +79,10 @@ export const createReplySed: ActionCreator<ThunkResult<ActionWithPayload<Sed>>> 
   buc: Buc, payload: NewSedPayload, parentId: string
 ): ThunkResult<ActionWithPayload<Sed>> => {
   return call({
-    url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: parentId }),
-    payload: payload,
+    url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId }),
+    payload,
     context: {
-      buc: buc,
+      buc,
       sed: payload
     },
     expectedPayload: mockCreateSed(payload),
@@ -101,9 +101,9 @@ export const createSed: ActionCreator<ThunkResult<ActionWithPayload<Sed>>> = (
 ): ThunkResult<ActionWithPayload<Sed>> => {
   return call({
     url: urls.BUC_CREATE_SED_URL,
-    payload: payload,
+    payload,
     context: {
-      buc: buc,
+      buc,
       sed: payload
     },
     expectedPayload: mockCreateSed(payload),
@@ -128,10 +128,10 @@ export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload<P
   rinaCaseId: string
 ): ThunkResult<ActionWithPayload<Participants>> => {
   return call({
-    url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: rinaCaseId }),
+    url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId }),
     expectedPayload: /* istanbul ignore next */ mockParticipants(rinaCaseId),
     context: {
-      rinaCaseId: rinaCaseId
+      rinaCaseId
     },
     type: {
       request: types.BUC_GET_PARTICIPANTS_REQUEST,
@@ -153,7 +153,7 @@ export const fetchBucsList: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> 
   aktoerId: string, sakId: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: aktoerId, sakId: sakId }),
+    url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId, sakId }),
     cascadeFailureError: true,
     expectedPayload: mockBucs(aktoerId, sakId),
     type: {
@@ -168,7 +168,7 @@ export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload<BucsInfo
   userId: string, namespace: string, file: string
 ): ThunkResult<ActionWithPayload<BucsInfoRawList>> => {
   return call({
-    url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId, namespace, file }),
     expectedPayload: mockBucsInfo,
     type: {
       request: types.BUC_GET_BUCSINFO_REQUEST,
@@ -196,7 +196,7 @@ export const fetchBucsListWithAvdodFnr: ActionCreator<ThunkResult<ActionWithPayl
   aktoerId: string, sakId: string, avdodFnr: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId: aktoerId, sakId: sakId, avdodFnr: avdodFnr }),
+    url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId, sakId, avdodFnr }),
     cascadeFailureError: true,
     expectedPayload: mockBucs(aktoerId, sakId),
     type: {
@@ -211,7 +211,7 @@ export const fetchBucsListWithVedtakId: ActionCreator<ThunkResult<ActionWithPayl
   aktoerId: string, sakId: string, vedtakId: string
 ): ThunkResult<ActionWithPayload<Bucs>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId: aktoerId, sakId: sakId, vedtakId: vedtakId }),
+    url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId, sakId, vedtakId }),
     cascadeFailureError: true,
     expectedPayload: mockBucs(aktoerId, sakId),
     type: {
@@ -228,7 +228,7 @@ export const fetchKravDato: ActionCreator<ThunkResult<ActionWithPayload<any>>> =
   kravId
 }): ThunkResult<ActionWithPayload<any>> => {
   return call({
-    url: sprintf(urls.BUC_GET_KRAVDATO_URL, { sakId: sakId, kravId: kravId, aktoerId: aktoerId }),
+    url: sprintf(urls.BUC_GET_KRAVDATO_URL, { sakId, kravId, aktoerId }),
     expectedPayload: mockKravDato,
     type: {
       request: types.BUC_GET_KRAVDATO_REQUEST,
@@ -246,7 +246,7 @@ export const fetchBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> =
     : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId, aktoerId, sakId, kilde })
 
   return call({
-    url: url,
+    url,
     expectedPayload: mockBuc(rinaCaseId),
     context: {
       rinaCaseId,
@@ -266,12 +266,12 @@ export const getBucOptions: ActionCreator<ThunkResult<ActionWithPayload<BUCOptio
   sakId: string, featureToggles: FeatureToggles, pesysContext: PesysContext, sakType: SakTypeValue
 ): ThunkResult<ActionWithPayload<BUCOptions>> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId: sakId }),
+    url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId }),
     expectedPayload: mockBucOptions,
     context: {
-      featureToggles: featureToggles,
-      pesysContext: pesysContext,
-      sakType: sakType
+      featureToggles,
+      pesysContext,
+      sakType
     },
     type: {
       request: types.BUC_GET_BUC_OPTIONS_REQUEST,
@@ -285,7 +285,7 @@ export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload<Country
   bucType: string
 ): ThunkResult<ActionWithPayload<CountryRawList>> => {
   return call({
-    url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: bucType }),
+    url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType }),
     context: {
       buc: bucType
     },
@@ -310,7 +310,7 @@ export const getInstitutionsListForBucAndCountry: ActionCreator<ThunkResult<Acti
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: bucType, country: _country }),
     context: {
       buc: bucType,
-      country: country
+      country
     },
     expectedPayload: mockInstitutions,
     type: {
@@ -325,7 +325,7 @@ export const getSedP6000: ActionCreator<ThunkResult<Action>> = (
   rinaCaseId: string
 ): ThunkResult<Action> => {
   return call({
-    url: sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId: rinaCaseId }),
+    url: sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId }),
     cascadeFailureError: true,
     expectedPayload: mockP6000,
     type: {
@@ -340,7 +340,7 @@ export const getSedP6000PDF: ActionCreator<ThunkResult<Action>> = (
   rinaCaseId: string, documentId: string
 ): ThunkResult<Action> => {
   return call({
-    url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId: rinaCaseId, documentId: documentId }),
+    url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId, documentId }),
     cascadeFailureError: true,
     expectedPayload: mockP6000pdf,
     type: {
@@ -373,7 +373,7 @@ export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (
   sakId: string, aktoerId: string
 ): ThunkResult<ActionWithPayload> => {
   return call({
-    url: sprintf(urls.BUC_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
+    url: sprintf(urls.BUC_GET_SAKTYPE_URL, { sakId, aktoerId }),
     expectedPayload: mockSakType,
     cascadeFailureError: true,
     type: {
@@ -389,7 +389,7 @@ export const getSedList: ActionCreator<ThunkResult<ActionWithPayload<SEDRawList>
 ): ThunkResult<ActionWithPayload<SEDRawList>> => {
   const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return call({
-    url: url,
+    url,
     expectedPayload: mockSedList,
     type: {
       request: types.BUC_GET_SED_LIST_REQUEST,
@@ -480,8 +480,8 @@ export const setCurrentSed: ActionCreator<ActionWithPayload<{[k in string] : Sed
 ) : ActionWithPayload<{[k in string] : Sed | undefined}> => ({
   type: types.BUC_CURRENTSED_SET,
   payload: {
-    sed: sed,
-    replySed: replySed
+    sed,
+    replySed
   }
 })
 
@@ -494,8 +494,8 @@ export const sendAttachmentToSed: ActionCreator<ThunkResult<Action>> = (
     cascadeFailureError: true,
     expectedPayload: joarkBrowserItem,
     context: {
-      params: params,
-      joarkBrowserItem: joarkBrowserItem
+      params,
+      joarkBrowserItem
     },
     type: {
       request: types.BUC_SEND_ATTACHMENT_REQUEST,

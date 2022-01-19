@@ -55,7 +55,8 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
   }
 
   return (
-    <Panel border style={{ padding: '0px' }}
+    <Panel
+      border style={{ padding: '0px' }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

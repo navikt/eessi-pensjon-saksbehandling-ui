@@ -53,7 +53,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
 
     return {
       ...state,
-      serverErrorMessage: serverErrorMessage,
+      serverErrorMessage,
       error: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.error : undefined,
       uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
@@ -147,8 +147,8 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     return {
       ...state,
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
-      clientErrorMessage: clientErrorMessage,
-      clientErrorParam: clientErrorParam,
+      clientErrorMessage,
+      clientErrorParam,
       error: (action as ActionWithPayload).payload?.error,
       uuid: (action as ActionWithPayload).payload?.uuid
     }
@@ -201,8 +201,8 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   return {
     ...state,
     clientErrorStatus: 'info',
-    clientErrorMessage: clientErrorMessage,
-    clientErrorParam: clientErrorParam,
+    clientErrorMessage,
+    clientErrorParam,
     uuid: undefined,
     error: undefined
   }

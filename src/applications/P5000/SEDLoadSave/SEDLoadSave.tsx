@@ -47,7 +47,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   const onRemove = (caseId: string, sedId: string) => {
     dispatch(removeEntry('P5000', {
       sedId,
-      caseId: buc.caseId!,
+      caseId: buc.caseId!
     } as LocalStorageEntry<P5000SED>))
   }
 

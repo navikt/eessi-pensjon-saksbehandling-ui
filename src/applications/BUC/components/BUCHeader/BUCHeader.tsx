@@ -163,8 +163,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           data-test-id='a-buc-c-bucheader__title-id'
         >
           {buc.type + ' - ' + getBucTypeLabel({
-            t: t,
-            locale: locale,
+            t,
+            locale,
             type: buc.type!
           })}
         </Heading>

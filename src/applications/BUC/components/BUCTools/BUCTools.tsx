@@ -135,7 +135,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       setTags(tagsList as Tags)
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
-        aktoerId: aktoerId,
+        aktoerId,
         tags: (tagsList as Tags)?.map((tag: Tag) => tag.value) ?? [],
         comment: _originalComments,
         buc: buc as ValidBuc
@@ -161,7 +161,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
     dispatch(saveBucsInfo({
       bucsInfo: bucsInfo!,
-      aktoerId: aktoerId,
+      aktoerId,
       tags: _tags ? _tags.map(tag => tag.value) : [],
       comment: newOriginalComments,
       buc: buc as ValidBuc
@@ -175,7 +175,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       setOriginalComments(newOriginalComments)
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
-        aktoerId: aktoerId,
+        aktoerId,
         tags: _tags ? _tags.map(tag => tag.value) : [],
         comment: newOriginalComments,
         buc: buc as ValidBuc

@@ -138,7 +138,7 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         loggedIn: true,
         loggedTime: now,
-        expirationTime: expirationTime
+        expirationTime
       }
     }
 

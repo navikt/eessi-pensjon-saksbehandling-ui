@@ -31,8 +31,8 @@ const buc = bucs[currentBuc]
 
 const defaultSelector = {
   aktoerId: '123',
-  bucs: bucs,
-  currentBuc: currentBuc,
+  bucs,
+  currentBuc,
   bucsInfo: {} as BucsInfo,
   highContrast: false,
   locale: 'nb',

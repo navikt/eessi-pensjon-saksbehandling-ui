@@ -171,7 +171,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         currentBuc: newBuc.caseId,
         sed: undefined,
         countryList: undefined,
-        bucs: bucs,
+        bucs,
         kravDato: undefined,
         newlyCreatedBuc: newBuc,
         savingAttachmentsJob: undefined,
@@ -231,7 +231,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         newlyCreatedSed: newSed,
         newlyCreatedSedTime: Date.now(),
         sed: newSed,
-        bucs: bucs
+        bucs
       }
     }
 
@@ -285,7 +285,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
         return {
           ...state,
-          bucs: bucs
+          bucs
         }
       } else {
         const institutionNames = _.cloneDeep(state.institutionNames)
@@ -332,9 +332,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
         return {
           ...state,
-          bucs: bucs,
-          institutionNames: institutionNames,
-          sedsWithAttachments: sedsWithAttachments
+          bucs,
+          institutionNames,
+          sedsWithAttachments
         }
       }
     }
@@ -468,8 +468,8 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       })
       return {
         ...state,
-        institutionList: institutionList,
-        institutionNames: institutionNames
+        institutionList,
+        institutionNames
       }
     }
 
@@ -490,7 +490,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
 
       return {
         ...state,
-        bucs: bucs
+        bucs
       }
     }
 
@@ -646,7 +646,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           const date: number = Date.now()
           const newSedAttachment: SEDAttachment = {
             id: md5('id' + date),
-            name: name,
+            name,
             fileName: name,
             mimeType: 'application/pdf',
             documentId: md5('documentId' + date),

@@ -280,7 +280,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           selectable={false}
           sortable
           onColumnSort={(sort: any) => {
-            standardLogger('buc.edit.tools.P5000.overview.sort', { sort: sort })
+            standardLogger('buc.edit.tools.P5000.overview.sort', { sort })
             _setTableSort(sort)
           }}
           itemsPerPage={_itemsPerPage}

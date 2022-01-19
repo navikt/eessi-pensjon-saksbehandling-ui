@@ -243,7 +243,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         }
       }
       if (options.context.forsikringEllerBosetningsperioder === '0') {
-       return {
+        return {
           dag: 0,
           aar: 0,
           mnd: 0
@@ -267,7 +267,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         onChanged={(newStartdato: string) => {
           const otherDate: string | undefined = dateTransform(options.values.sluttdato)
           const extra = maybeDoSomePrefill(newStartdato, otherDate, options)
-          options.setValues({...extra, startdato: newStartdato })
+          options.setValues({ ...extra, startdato: newStartdato })
         }}
         onEnterPress={(e: string) => {
           options.onEnter({ startdato: e })
@@ -479,7 +479,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onColumnSort = (sort: Sort) => {
-    standardLogger('buc.edit.tools.P5000.edit.sort', { sort: sort })
+    standardLogger('buc.edit.tools.P5000.edit.sort', { sort })
     _setTableSort(sort)
     onSaveSort(sort)
   }
@@ -635,17 +635,21 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const onRowsChanged = (items: P5000ListRows) => {
     _resetValidation('P5000Edit-tabell')
     onSave({
-      items: items
+      items
     })
   }
 
   const handleOverforTilRina = () => {
+    let p5000template: P5000SED | undefined = p5000FromStorage?.content
+    if (_.isUndefined(p5000template)) {
+      p5000template = p5000FromRinaMap[seds[0].id]
+    }
     const valid: boolean = _performValidation({
-      p5000sed: p5000FromStorage?.content!
+      p5000sed: p5000template
     })
-    console.log(_validation)
+
     if (valid) {
-      const payload: P5000SED = _.cloneDeep(p5000FromStorage!.content)
+      const payload: P5000SED = _.cloneDeep(p5000template) as P5000SED
       payload.pensjon.medlemskapTotal?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
@@ -831,7 +835,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {!_.isNil(sentP5000info) && (
                 <PileCenterDiv>
                   <Alert variant='info'>
-                    {t('message:warning-okP5000Sending', { caseId: caseId })}
+                    {t('message:warning-okP5000Sending', { caseId })}
                   </Alert>
                   <VerticalSeparatorDiv />
                   <FlexCenterSpacedDiv>
@@ -980,22 +984,22 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <Column>
             <FlexBaseDiv>
               <Button
-              variant='secondary'
-              disabled={(pesysContext !== constants.VEDTAKSKONTEKST) || gettingUFT}
-              size='small'
-              onClick={hentUFT}
+                variant='secondary'
+                disabled={(pesysContext !== constants.VEDTAKSKONTEKST) || gettingUFT}
+                size='small'
+                onClick={hentUFT}
               >
 
-              {gettingUFT && <Loader/>}
-              {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
-            </Button>
-            {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
-            {uft && (
-              <>
-                 <HorizontalSeparatorDiv/>
-                 <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
-              </>
-            )}
+                {gettingUFT && <Loader />}
+                {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
+              </Button>
+              {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
+              {uft && (
+                <>
+                  <HorizontalSeparatorDiv />
+                  <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
+                </>
+              )}
             </FlexBaseDiv>
           </Column>
           <Column flex='2'>
@@ -1024,7 +1028,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           loading={!!sentP5000info}
           labels={{
             selectAll: t('buc:P5000-sum-only-5.1'),
-            flagged: t('buc:P5000-nft-flagged'),
+            flagged: t('buc:P5000-nft-flagged')
           }}
           context={{
             items: _items,

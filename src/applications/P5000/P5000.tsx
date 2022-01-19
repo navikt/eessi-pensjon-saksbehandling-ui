@@ -66,29 +66,33 @@ const P5000: React.FC<P5000Props> = ({
     if (!mainSed) return null
     const sender: SedSender | undefined = getSedSender(mainSed)
 
-    return <FlexCenterDiv>
-      <Heading size='small' style={{display: 'flex'}}>
-        {t('buc:p5000-edit-title')}
-      </Heading>
-      <HorizontalSeparatorDiv/>
-      -
-      <HorizontalSeparatorDiv/>
-      {getLabel(mainSed, sender)}
-    </FlexCenterDiv>
+    return (
+      <FlexCenterDiv>
+        <Heading size='small' style={{ display: 'flex' }}>
+          {t('buc:p5000-edit-title')}
+        </Heading>
+        <HorizontalSeparatorDiv />
+        -
+        <HorizontalSeparatorDiv />
+        {getLabel(mainSed, sender)}
+      </FlexCenterDiv>
+    )
   }
 
   const renderP5000EditContent = (activeSeds: Seds, p5000FromStorage: LocalStorageEntry<P5000SED> | undefined) => {
     if (!mainSed) return null
-    return <P5000Edit
-      caseId={buc.caseId!}
-      onBackClick={onBackClick}
-      key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
-      p5000FromRinaMap={p5000FromRinaMap}
-      p5000FromStorage={p5000FromStorage}
-      saveP5000ToStorage={saveP5000ToStorage}
-      removeP5000FromStorage={removeP5000FromStorage}
-      seds={[mainSed]}
-    />
+    return (
+      <P5000Edit
+        caseId={buc.caseId!}
+        onBackClick={onBackClick}
+        key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
+        p5000FromRinaMap={p5000FromRinaMap}
+        p5000FromStorage={p5000FromStorage}
+        saveP5000ToStorage={saveP5000ToStorage}
+        removeP5000FromStorage={removeP5000FromStorage}
+        seds={[mainSed]}
+      />
+    )
   }
 
   const renderP5000SumHeader = () => (
@@ -161,7 +165,7 @@ const P5000: React.FC<P5000Props> = ({
 
   const updateTables = (activeSeds: Seds) => {
     // use local storage stuff only in edit context, no need for overview context
-    const p5000EntryFromStorage: LocalStorageEntry | undefined = _.find(p5000Storage, (e => e.sedId === mainSed?.id && e.caseId === buc.caseId ))
+    const p5000EntryFromStorage: LocalStorageEntry | undefined = _.find(p5000Storage, e => e.sedId === mainSed?.id && e.caseId === buc.caseId)
 
     let newTables = _.cloneDeep(_tables)
     newTables = newTables.map(t => ({
@@ -310,7 +314,7 @@ const P5000: React.FC<P5000Props> = ({
   const removeP5000FromStorage = (sedId: string): void => {
     dispatch(removeEntry('P5000', {
       sedId,
-      caseId: buc.caseId!,
+      caseId: buc.caseId!
     } as LocalStorageEntry<P5000SED>))
   }
 
@@ -352,40 +356,40 @@ const P5000: React.FC<P5000Props> = ({
       return (
         <>
           <Draggable key={table.id} draggableId={table.id} index={index}>
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              style={{
-                ...getItemStyle(
-                  snapshot.isDragging,
-                  provided.draggableProps.style
-                ),
-                padding: '0px'
-              }}
-            >
-              <Panel border style={{ padding: '0px' }}>
-                <Accordion style={{ borderRadius: '4px' }} id={'a-buc-c-' + table.id}>
-                  <Accordion.Item defaultOpen renderContentWhenClosed>
-                    <FlexDiv>
-                      <div style={{padding: '1.5rem 1rem'}} {...provided.dragHandleProps}>
-                        <System/>
-                      </div>
-                      <Accordion.Header>
-                      {table.header}
-                    </Accordion.Header>
-                    </FlexDiv>
-                    <Accordion.Content>
-                      {table.content}
-                    </Accordion.Content>
-                  </Accordion.Item>
-                </Accordion>
-              </Panel>
-            </div>
-          )}
-        </Draggable>
-          <VerticalSeparatorDiv size='2'/>
-          </>
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                style={{
+                  ...getItemStyle(
+                    snapshot.isDragging,
+                    provided.draggableProps.style
+                  ),
+                  padding: '0px'
+                }}
+              >
+                <Panel border style={{ padding: '0px' }}>
+                  <Accordion style={{ borderRadius: '4px' }} id={'a-buc-c-' + table.id}>
+                    <Accordion.Item defaultOpen renderContentWhenClosed>
+                      <FlexDiv>
+                        <div style={{ padding: '1.5rem 1rem' }} {...provided.dragHandleProps}>
+                          <System />
+                        </div>
+                        <Accordion.Header>
+                          {table.header}
+                        </Accordion.Header>
+                      </FlexDiv>
+                      <Accordion.Content>
+                        {table.content}
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  </Accordion>
+                </Panel>
+              </div>
+            )}
+          </Draggable>
+          <VerticalSeparatorDiv size='2' />
+        </>
       )
     } else {
       return <div />

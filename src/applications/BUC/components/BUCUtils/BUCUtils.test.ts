@@ -103,19 +103,19 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     expect(BUCUtils.getBucTypeLabel({
       type: 'P2000',
       locale: 'nb',
-      t: t
+      t
     })).toEqual('Krav om uføretrygd')
 
     expect(BUCUtils.getBucTypeLabel({
       type: 'P3000_NO',
       locale: 'nb',
-      t: t
+      t
     })).toEqual('Landspesifikk informasjon til Norge')
 
     expect(BUCUtils.getBucTypeLabel({
       type: 'P3000_YY',
       locale: 'nb',
-      t: t
+      t
     })).toEqual('Landspesifikk informasjon til ukjent land')
   })
 

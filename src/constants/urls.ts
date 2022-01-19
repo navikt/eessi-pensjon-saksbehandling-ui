@@ -78,5 +78,3 @@ export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOT
 
 // Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'
-
-

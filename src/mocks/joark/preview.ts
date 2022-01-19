@@ -20,7 +20,7 @@ export default () => {
     const randomFile = Math.floor(Math.random() * 3)
     const fileName = randomFiles[randomFile]
     return {
-      fileName: fileName,
+      fileName,
       contentType: 'application/pdf',
       filInnhold: files[fileName]
     }

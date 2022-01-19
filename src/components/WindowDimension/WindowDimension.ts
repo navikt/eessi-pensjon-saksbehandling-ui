@@ -19,8 +19,8 @@ const useWindowDimensions = () => {
   }, [])
 
   return {
-    width: width,
-    height: height
+    width,
+    height
   }
 }
 

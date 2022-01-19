@@ -263,9 +263,9 @@ const BUCList: React.FC<BUCListProps> = ({
             if (_.isArray(sed.participants)) {
               sed.participants.forEach((participant: Participant) => {
                 const country = participant.organisation.countryCode
-                if (!_.find(listOfCountries, { country: country })) {
+                if (!_.find(listOfCountries, { country })) {
                   listOfCountries.push({
-                    country: country,
+                    country,
                     buc: buc.type!
                   })
                 }

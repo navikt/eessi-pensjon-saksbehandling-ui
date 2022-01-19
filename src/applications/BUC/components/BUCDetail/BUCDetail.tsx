@@ -88,8 +88,8 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
             <Heading size='medium'>
               {buc.type + ' - ' + getBucTypeLabel({
                 type: buc.type!,
-                locale: locale,
-                t: t
+                locale,
+                t
               })}
             </Heading>
           </Accordion.Header>

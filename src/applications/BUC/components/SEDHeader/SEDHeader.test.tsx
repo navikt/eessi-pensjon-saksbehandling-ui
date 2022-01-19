@@ -30,7 +30,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   const sed: Sed | undefined = _.find(buc.seds, sed => sed.parentDocumentId !== undefined)
   sed!.status = 'received'
   const initialMockProps: SEDHeaderProps = {
-    buc: buc,
+    buc,
     onSEDNew: jest.fn(),
     sed: mockCurrentSed!,
     setMode: jest.fn()

@@ -69,9 +69,10 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
   }
 
   return (
-    <Panel border style={{ padding: '0px' }}
-       onMouseEnter={onMouseEnter}
-       onMouseLeave={onMouseLeave}
+    <Panel
+      border style={{ padding: '0px' }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <Accordion id='w-journalføring-id'>
         <Accordion.Item open={!widget.options.collapsed}>

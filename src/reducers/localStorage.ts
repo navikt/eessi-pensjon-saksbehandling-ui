@@ -55,7 +55,7 @@ const localStorageReducer = (
           ...state,
           [namespace]: {
             currentEntry: state[namespace].currentEntry,
-            entries: entries
+            entries
           }
         }
       }
@@ -105,7 +105,6 @@ const localStorageReducer = (
 
         const existsIndex: number = _.findIndex(newEntries, _e => _e.caseId === newEntry.caseId && _e.sedId === newEntry.sedId)
         if (existsIndex >= 0) {
-
           // Sum table triggers a saved storage, will not send sort, so let's use the one already saved
           if (_.isNil(sort)) {
             newEntry.sort = newEntries[existsIndex].sort

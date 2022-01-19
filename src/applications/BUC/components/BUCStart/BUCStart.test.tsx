@@ -33,7 +33,7 @@ const mockPersonAvdod = mockPersonAvdods(1)
 const defaultSelector = {
   bucOptions: mockBucOptions,
   bucParam: undefined,
-  bucs: bucs,
+  bucs,
   bucsInfo: {},
   currentBuc: undefined,
   featureToggles: mockFeatureToggles,
@@ -141,8 +141,8 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     (saveBucsInfo as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       bucsInfo: mockBucsInfo as BucsInfo,
-      bucs: bucs,
-      currentBuc: currentBuc,
+      bucs,
+      currentBuc,
       newlyCreatedBuc: bucs[currentBuc]
     })
     wrapper = mount(<BUCStart {...initialMockProps} initialIsCreatingBuc />)

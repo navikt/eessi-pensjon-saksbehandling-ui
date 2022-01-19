@@ -12,7 +12,7 @@ export const listJoarkItems: ActionCreator<ThunkResult<ActionWithPayload<JoarkLi
   userId: string
 ): ThunkResult<ActionWithPayload<JoarkList>> => {
   return call({
-    url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
+    url: sprintf(urls.API_JOARK_LIST_URL, { userId }),
     expectedPayload: mockJoark,
     type: {
       request: types.JOARK_LIST_REQUEST,

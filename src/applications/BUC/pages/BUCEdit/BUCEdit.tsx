@@ -178,8 +178,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     if (match && _search) {
       const search: string = _search.toLowerCase()
       const bucType: string = getBucTypeLabel({
-        t: t,
-        locale: locale,
+        t,
+        locale,
         type: sed.type
       })
       match = !!sed.type.toLowerCase().match(search) ||
@@ -285,31 +285,30 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             ? renderSeds.map((sed, index) => {
                 return (
                   <div key={sed.id}>
-                    <VerticalSeparatorDiv size='0.5'/>
+                    <VerticalSeparatorDiv size='0.5' />
                     {index === 0 && sed.status === 'new' && (
                       <>
-                        <VerticalSeparatorDiv size='1.5'/>
-                      <Label>
-                        {t('buc:form-utkast-seds')}
-                      </Label>
-                      <VerticalSeparatorDiv/>
+                        <VerticalSeparatorDiv size='1.5' />
+                        <Label>
+                          {t('buc:form-utkast-seds')}
+                        </Label>
+                        <VerticalSeparatorDiv />
                       </>
                     )}
                     {index > 0 &&
                     renderSeds?.[index - 1]?.status === 'new' &&
                       sed.status !== 'new' && (
                         <>
-                          <VerticalSeparatorDiv size='2'/>
+                          <VerticalSeparatorDiv size='2' />
                           <Label>
                             {t('buc:form-andre-seder')}
                           </Label>
-                        <VerticalSeparatorDiv/>
+                          <VerticalSeparatorDiv />
                         </>
-                        )
-                    }
+                    )}
                     <SEDPanel
                       aktoerId={aktoerId!}
-                      style={{animationDelay: (0.1 * index) + 's'}}
+                      style={{ animationDelay: (0.1 * index) + 's' }}
                       buc={buc!}
                       sed={sed}
                       newSed={(

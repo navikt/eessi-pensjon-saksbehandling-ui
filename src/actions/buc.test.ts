@@ -247,7 +247,7 @@ describe('actions/buc', () => {
         success: types.BUC_GET_BUC_OPTIONS_SUCCESS,
         failure: types.BUC_GET_BUC_OPTIONS_FAILURE
       },
-      url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId: sakId })
+      url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId })
     }))
   })
 

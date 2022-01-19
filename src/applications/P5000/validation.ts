@@ -4,7 +4,7 @@ import { TFunction } from 'react-i18next'
 import _ from 'lodash'
 
 export interface P5000EditValidationProps {
-  p5000sed: P5000SED
+  p5000sed: P5000SED | undefined
 }
 
 export const P5000EditValidate = (

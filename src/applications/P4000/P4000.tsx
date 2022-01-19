@@ -15,12 +15,10 @@ export interface P4000Props {
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
-
 const P4000: React.FC<P5000Props> = ({
-   setMode
- }: P4000Props): JSX.Element => {
-
-  const {t} = useTranslation()
+  setMode
+}: P4000Props): JSX.Element => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   const onBackClick = () => {
@@ -29,25 +27,25 @@ const P4000: React.FC<P5000Props> = ({
   }
 
   const renderBackLink = () => (
-    <div style={{display: 'inline-block'}}>
+    <div style={{ display: 'inline-block' }}>
       <Button
         variant='secondary'
         onClick={onBackClick}
       >
-        <BackFilled/>
-        <HorizontalSeparatorDiv size='0.25'/>
+        <BackFilled />
+        <HorizontalSeparatorDiv size='0.25' />
         <span>
-            {t('ui:back')}
-          </span>
+          {t('ui:back')}
+        </span>
       </Button>
     </div>
   )
 
   return (
     <div>
-      <VerticalSeparatorDiv size='3'/>
+      <VerticalSeparatorDiv size='3' />
       {renderBackLink()}
-      <VerticalSeparatorDiv size='2'/>
+      <VerticalSeparatorDiv size='2' />
       P4000
     </div>
   )

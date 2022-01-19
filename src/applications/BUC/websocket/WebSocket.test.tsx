@@ -26,7 +26,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
 
   mockServer.on('connection', socket => {
     socket.on('message', data => {
-      socket.send(JSON.stringify({ data: data, subscriptions: true }))
+      socket.send(JSON.stringify({ data, subscriptions: true }))
     })
     // @ts-ignore
     mockSocket = socket

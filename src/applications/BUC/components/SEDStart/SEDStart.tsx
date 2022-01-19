@@ -219,8 +219,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const getOptionLabel = (value: string): string => {
     let label: string = value
     const description: string = getBucTypeLabel({
-      t: t,
-      locale: locale,
+      t,
+      locale,
       type: value
     })
     if (description !== 'buc-' + value) {
@@ -242,7 +242,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           }
           return {
             label: getOptionLabel(label!),
-            value: value
+            value
           } as Option
         })
       : []
@@ -604,9 +604,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setKravDato('')
       if (kravId) {
         dispatch(fetchKravDato({
-          sakId: sakId,
-          aktoerId: aktoerId,
-          kravId: kravId
+          sakId,
+          aktoerId,
+          kravId
         }))
       }
     }
@@ -746,7 +746,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         sakId: sakId!,
         buc: _type!,
         sed: _sed!,
-        institutions: institutions,
+        institutions,
         aktoerId: aktoerId!,
         euxCaseId: _buc.caseId!
       }
@@ -1159,9 +1159,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   institutions={_institutions.map(institution => {
                     const [country, acronym] = institution.split(':')
                     return {
-                      country: country,
-                      acronym: acronym,
-                      institution: institution,
+                      country,
+                      acronym,
+                      institution,
                       name: institutionNames ? institutionNames[institution].name : institution
                     }
                   })}
@@ -1244,7 +1244,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   <SEDAttachmentSender
                     attachmentsError={attachmentsError}
                     payload={{
-                      aktoerId: aktoerId,
+                      aktoerId,
                       rinaId: _buc.caseId,
                       rinaDokumentId: sed!.id
                     } as SEDAttachmentPayload}
@@ -1265,7 +1265,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
-              <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={_validation}/>
+              <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={_validation} />
             </Column>
             <Column />
           </Row>

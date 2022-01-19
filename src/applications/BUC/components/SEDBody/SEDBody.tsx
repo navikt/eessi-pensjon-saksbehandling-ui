@@ -219,7 +219,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
                   attachmentsError={attachmentsError}
                   sendAttachmentToSed={_sendAttachmentToSed}
                   payload={{
-                    aktoerId: aktoerId,
+                    aktoerId,
                     rinaId: buc.caseId,
                     rinaDokumentId: sed.id
                   } as SEDAttachmentPayload}

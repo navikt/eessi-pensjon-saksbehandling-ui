@@ -125,8 +125,8 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
       >
         <>
           {_status === 'inprogress' && t('message:loading-sendingXofY', {
-            current: current,
-            total: total
+            current,
+            total
           })}
           {_status === 'done' && t('buc:form-attachmentsSent')}
           {_status === 'error' && t('message:error-sendingAttachments')}

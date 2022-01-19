@@ -51,7 +51,7 @@ const MultipleSelect = <T extends Option = Option> ({
   const inputId = id || guid()
 
   const customProps: any = {
-    id: id
+    id
   }
 
   return (

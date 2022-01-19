@@ -327,9 +327,9 @@ const BUCStart: React.FC<BUCStartProps> = ({
       if (bucNeedsKravDatoAndCanFetchIt(thisBuc)) {
         setKravDato('')
         dispatch(fetchKravDato({
-          sakId: sakId,
-          aktoerId: aktoerId,
-          kravId: kravId
+          sakId,
+          aktoerId,
+          kravId
         }))
       }
       if (onBucChanged) {
@@ -352,8 +352,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const getOptionLabel = (value: string): string => {
     let label: string = value
     const description: string = getBucTypeLabel({
-      t: t,
-      locale: locale,
+      t,
+      locale,
       type: value
     })
     if (description !== 'buc-' + value) {
@@ -375,7 +375,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           }
           return {
             label: getOptionLabel(label),
-            value: value
+            value
           }
         }).sort(sort)
       : []
@@ -456,10 +456,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
     if (_isCreatingBuc && newlyCreatedBuc && !_isCreatingBucInfo) {
       const buc: Buc = bucs![currentBuc!]
       const payload: SaveBucsInfoProps = {
-        aktoerId: aktoerId,
-        bucsInfo: bucsInfo,
+        aktoerId,
+        bucsInfo,
         tags: _tags.map((t: Tag) => t.value),
-        buc: buc
+        buc
       } as SaveBucsInfoProps
       if (bucNeedsAvdod() && _avdod) {
         payload.avdod = _avdod.fnr
@@ -668,7 +668,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <Row>
             <Column>
-              <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation}/>
+              <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
             </Column>
             <Column />
           </Row>

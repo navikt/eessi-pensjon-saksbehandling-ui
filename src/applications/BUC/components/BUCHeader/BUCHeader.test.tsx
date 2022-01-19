@@ -20,7 +20,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   const buc: Buc = mockBucs()[0]
   buc.deltakere = buc.institusjon
   const initialMockProps: BUCHeaderProps = {
-    buc: buc,
+    buc,
     bucInfo: (mockBucsInfo as BucsInfo).bucs['' + buc.caseId],
     newBuc: true
   } as BUCHeaderProps

@@ -39,8 +39,8 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   const initialMockProps: BUCToolsProps = {
     aktoerId: '123',
-    buc: buc,
-    bucInfo: bucInfo,
+    buc,
+    bucInfo,
     initialTab: 0,
     onTagChange: jest.fn(),
     setMode: jest.fn()

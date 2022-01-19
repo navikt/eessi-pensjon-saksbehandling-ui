@@ -20,7 +20,7 @@ export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload<Per
   nrAvdod: number | undefined
 ): ThunkResult<ActionWithPayload<PersonAvdods>> => {
   return call({
-    url: sprintf(urls.PERSON_PDL_AVDOD_URL, { aktoerId: aktoerId, vedtakId: vedtakId }),
+    url: sprintf(urls.PERSON_PDL_AVDOD_URL, { aktoerId, vedtakId }),
     expectedPayload: /* istanbul ignore next */ mockPersonAvdod(nrAvdod),
     type: {
       request: types.APP_PERSONINFO_AVDOD_REQUEST,
@@ -34,7 +34,7 @@ export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonPD
   aktoerId: string
 ): ThunkResult<ActionWithPayload<PersonPDL>> => {
   return call({
-    url: sprintf(urls.PERSON_PDL_URL, { aktoerId: aktoerId }),
+    url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
     expectedPayload: mockPerson,
     type: {
       request: types.APP_PERSONINFO_REQUEST,
@@ -81,8 +81,8 @@ export const setStatusParam: ActionCreator<ActionWithPayload<ParamPayload>> = (
 ): ActionWithPayload<ParamPayload> => ({
   type: types.APP_PARAM_SET,
   payload: {
-    key: key,
-    value: value
+    key,
+    value
   } as ParamPayload
 })
 
@@ -91,6 +91,6 @@ export const unsetStatusParam: ActionCreator<ActionWithPayload<ParamPayload>> = 
 ): ActionWithPayload<ParamPayload> => ({
   type: types.APP_PARAM_UNSET,
   payload: {
-    key: key
+    key
   } as ParamPayload
 })

@@ -43,7 +43,7 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
 
   useEffect(() => {
     if (!mounted) {
-      standardLogger('errorPage.entrance', { type: type })
+      standardLogger('errorPage.entrance', { type })
       setMounted(true)
     }
     return () => {

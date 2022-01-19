@@ -39,7 +39,7 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
       <>
         <HorizontalSeparatorDiv />
         <BodyLong
-          className={classNames({ oneLine: oneLine })}
+          className={classNames({ oneLine })}
           data-test-id='c-waitingpanel__text-id'
         >
           {message}
