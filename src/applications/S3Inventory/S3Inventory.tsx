@@ -74,9 +74,13 @@ const S3Inventory = () => {
         </>
       )}
       <VerticalSeparatorDiv />
-      <BodyLong>Total files: {getS3FilesJob?.total.length}</BodyLong>
-      <BodyLong>Total loaded: {getS3FilesJob?.loaded.length}</BodyLong>
-      <BodyLong>Total not loaded: {getS3FilesJob?.notloaded.length}</BodyLong>
+      {!_.isNil(s3list) && (
+        <>
+        <BodyLong>Total files: {getS3FilesJob?.total.length}</BodyLong>
+        <BodyLong>Total loaded: {getS3FilesJob?.loaded.length}</BodyLong>
+        <BodyLong>Total not loaded: {getS3FilesJob?.notloaded.length}</BodyLong>
+        </>
+      )}
       {s3stats.type && (
         <>
           <VerticalSeparatorDiv size='0.5' />
