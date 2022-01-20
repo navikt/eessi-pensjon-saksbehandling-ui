@@ -25,7 +25,7 @@ export const getS3file: ActionCreator<ActionWithPayload<undefined>> = (
   filename: string
 ): ActionWithPayload<undefined> => {
   return call({
-    url: sprintf(urls.S3INVENTORY_FILE_URL, {filename}),
+    url: sprintf(urls.S3INVENTORY_FILE_URL, { filename }),
     expectedPayload: mockS3file(filename),
     method: 'GET',
     context: {

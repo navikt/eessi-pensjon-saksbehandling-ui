@@ -1,4 +1,5 @@
 import * as types from 'constants/actionTypes'
+import { BucInfo } from 'declarations/buc'
 import { GetS3FilesJob } from 'declarations/components'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
@@ -6,14 +7,18 @@ import { Action } from 'redux'
 
 export interface S3InventoryState {
   s3list: Array<any> | null | undefined
-  s3files: {[k in string]: any}
   getS3FilesJob: GetS3FilesJob | undefined
+  s3stats: {
+    type?: {[k in string]: number}
+    comments?: {[k in string]: number}
+    tags?: {[k in string]: number}
+  }
 }
 
 export const initialS3InventoryState: S3InventoryState = {
   s3list: undefined,
-  s3files: {},
-  getS3FilesJob: undefined
+  getS3FilesJob: undefined,
+  s3stats: {}
 }
 
 const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, action: Action | ActionWithPayload = { type: '' }) => {
@@ -48,7 +53,7 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
     }
 
     case types.S3INVENTORY_FILE_FAILURE: {
-      let newS3files = _.cloneDeep(state.s3files)
+      const newS3files = _.cloneDeep(state.s3files)
       newS3files[(action as ActionWithPayload).context.filename] = null
       return {
         ...state,
@@ -57,16 +62,52 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
     }
 
     case types.S3INVENTORY_FILE_SUCCESS: {
-      let newS3files = _.cloneDeep(state.s3files)
       const filename = (action as ActionWithPayload).context.filename
-      newS3files[filename] = (action as ActionWithPayload).payload
+      const payload = (action as ActionWithPayload).payload
 
       const newRemaining = _.reject(state.getS3FilesJob!.remaining, (item: string) => item === filename)
       const newLoaded = state.getS3FilesJob?.loaded.concat(filename)
 
+      const newS3stats = _.cloneDeep(state.s3stats)
+      const match = filename.match(/^([^_]+)___([^_]+)(.+)?$/)
+      if (!_.isEmpty(match)) {
+        const type: string = match[2]
+        if (!newS3stats.type) {
+          newS3stats.type = {}
+        }
+        newS3stats.type[type] = !newS3stats.type[type] ? 1 : newS3stats.type[type]++
+
+        if (type === 'BUC') {
+          if (payload.bucs) {
+            Object.values(payload.bucs as Array<BucInfo>).forEach((buc: BucInfo) => {
+              if (!_.isEmpty(buc.comment)) {
+                if (!newS3stats.comments) {
+                  newS3stats.comments = {}
+                }
+                if (_.isString(buc.comment)) {
+                  newS3stats.comments[buc.comment!] = !newS3stats.comments[buc.comment] ? 1 : newS3stats.comments[buc.comment]++
+                }
+                if (_.isArray(buc.comment)) {
+                  buc.comment.forEach((c) => {
+                    if (c.value) {
+                      newS3stats.comments![c.value!] = !(newS3stats.comments?.[c.value]) ? 1 : newS3stats.comments![c.value!]++
+                    }
+                  })
+                }
+                if (_.isArray(buc.tags)) {
+                  buc.tags.forEach((t) => {
+                      newS3stats.tags![t] = !(newS3stats.tags![t]) ? 1 : newS3stats.tags![t]++
+                  })
+                }
+              }
+            })
+          }
+        }
+      }
+
       return {
         ...state,
-        s3files: newS3files,
+        s3stats: newS3stats,
         getS3FilesJob: {
           ...state.getS3FilesJob,
           loading: undefined,

@@ -1,5 +1,3 @@
-import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-
 export type AlertVariant = 'error' | 'warning' | 'info' | 'success'
 
 export interface AlertError {

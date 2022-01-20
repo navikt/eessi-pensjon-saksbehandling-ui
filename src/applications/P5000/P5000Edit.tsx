@@ -992,7 +992,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 {gettingUFT && <Loader />}
                 {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
               </Button>
-              <HorizontalSeparatorDiv size='0.5'/>
+              <HorizontalSeparatorDiv size='0.5' />
               {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
               {(sakType !== SakTypeMap.UFOREP) && <BodyLong>{t('message:warning-noUforetrygd')}</BodyLong>}
               {uft && (
@@ -1001,10 +1001,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
                 </>
               )}
-              <HorizontalSeparatorDiv/>
+              <HorizontalSeparatorDiv />
               <HelpText placement='right'>
                 <div style={{ maxWidth: '600px' }}>
-                {t('message:help-p5000-uft')}
+                  {t('message:help-p5000-uft')}
                 </div>
               </HelpText>
             </FlexBaseDiv>

@@ -1,4 +1,4 @@
-import { Button, Loader, Panel } from '@navikt/ds-react'
+import { BodyLong, Button, Loader, Panel } from '@navikt/ds-react'
 import { getS3list, resetS3FilesJob, setS3FilesJob } from 'actions/s3inventory'
 import { GetS3FilesJob } from 'declarations/components'
 import { State } from 'declarations/reducers'
@@ -11,13 +11,13 @@ import S3InventoryProgressBar from './S3InventoryProgressBar'
 
 export interface S3InventorySelector {
   s3list: Array<any> | null | undefined
-  s3files: {[k in string]: any}
+  s3stats: any
   getS3FilesJob: GetS3FilesJob | undefined
 }
 
 const mapState = (state: State): S3InventorySelector => ({
   s3list: state.s3inventory.s3list,
-  s3files: state.s3inventory.s3files,
+  s3stats: state.s3inventory.s3stats,
   getS3FilesJob: state.s3inventory.getS3FilesJob
 })
 
@@ -26,7 +26,7 @@ const S3Inventory = () => {
   const dispatch = useDispatch()
   const [requestList, setRequestList] = useState<boolean>(false)
   const [requestFiles, setRequestFiles] = useState<boolean>(false)
-  const { s3list, s3files, getS3FilesJob }: S3InventorySelector = useSelector<State, S3InventorySelector>(mapState)
+  const { s3list, s3stats, getS3FilesJob }: S3InventorySelector = useSelector<State, S3InventorySelector>(mapState)
 
   const requestS3List = () => {
     setRequestList(true)
@@ -57,13 +57,15 @@ const S3Inventory = () => {
         onClick={requestS3List}
       >
         {(requestList || requestFiles) && <Loader />}
-        {requestList ? t('ui:s3inventory-getting-list') :
-          requestFiles ? t('ui:s3inventory-getting-file', {fil: getS3FilesJob?.loading}) :
-            t('ui:s3inventory-get-list')}
+        {requestList
+          ? t('ui:s3inventory-getting-list')
+          : requestFiles
+            ? t('ui:s3inventory-getting-file', { fil: getS3FilesJob?.loading })
+            : t('ui:s3inventory-get-list')}
       </Button>
       {requestFiles && (
         <>
-          <VerticalSeparatorDiv/>
+          <VerticalSeparatorDiv />
           <S3InventoryProgressBar
             getS3FilesJob={getS3FilesJob}
             onCancel={onCancel}
@@ -71,12 +73,58 @@ const S3Inventory = () => {
           />
         </>
       )}
-      <VerticalSeparatorDiv/>
-      <Row>
-        <Column>
-          {Object.values(s3files).length}
-        </Column>
-      </Row>
+      <VerticalSeparatorDiv />
+      <BodyLong>Total files: {getS3FilesJob?.total.length}</BodyLong>
+      <BodyLong>Total loaded: {getS3FilesJob?.loaded.length}</BodyLong>
+      <BodyLong>Total not loaded: {getS3FilesJob?.notloaded.length}</BodyLong>
+      {s3stats.type && (
+        <>
+          <VerticalSeparatorDiv size='0.5' />
+          <BodyLong>Types:</BodyLong>
+          {Object.keys(s3stats.type)
+            .sort((a, b) =>
+              s3stats.type[b] - s3stats.type[a]
+            ).map(k => (
+              <Row key={'type-' + k}>
+                <Column>
+                  {k}: {s3stats.type[k]}
+                </Column>
+              </Row>
+            ))}
+        </>
+      )}
+      {s3stats.tags && (
+        <>
+          <VerticalSeparatorDiv size='0.5' />
+          <BodyLong>Comments:</BodyLong>
+          {Object.keys(s3stats.tags)
+            .sort((a, b) =>
+              s3stats.tags[b] - s3stats.tags[a]
+            ).map(k => (
+              <Row key={'tags-' + k}>
+                <Column>
+                  {k}: {s3stats.tags[k]}
+                </Column>
+              </Row>
+            ))}
+        </>
+      )}
+      {s3stats.comments && (
+        <>
+          <VerticalSeparatorDiv size='0.5' />
+          <BodyLong>Comments:</BodyLong>
+          {Object.keys(s3stats.comments)
+            .sort((a, b) =>
+              s3stats.comments[b] - s3stats.comments[a]
+            ).map(k => (
+              <Row key={'comments-' + k}>
+                <Column>
+                  {k}: {s3stats.comments[k]}
+                </Column>
+              </Row>
+            ))}
+        </>
+      )}
     </Panel>
   )
 }
