@@ -1027,7 +1027,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
           labels={{
-            selectAll: t('buc:P5000-sum-only-5.1'),
+            selectAllTitle: t('buc:P5000-sum-only-5.1-title'),
+            selectAll: t('buc:P5000-sum-only-5.1-description'),
             flagged: t('buc:P5000-nft-flagged')
           }}
           context={{

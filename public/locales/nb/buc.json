@@ -161,7 +161,7 @@
   "p4000-updating"                : "Oppdater P4000",
   "p4000-registrert"              : "Registrer P4000",
 
-  "p5000-checkbox-text"           : "Kryss av i boksen foran perioden der det skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt/ måned for dødsfall)",
+  "p5000-checkbox-text"           : "Kryss av for å summere bare på punkt 5.1",
   "p5000-active-seds"             : "Synlige SED-er",
   "p5000-overview-title"          : "P5000-perioder (kapittel 4) for involverte land",
   "p5000-summary-title"           : "Summering av perioder for P5000 - kapittel 5",
@@ -182,9 +182,10 @@
   "p5000-saved-working-copy"      : "Registrerte perioder lagres umiddelbart i Eessi-pensjon.",
   "p5000-merge-periods"           : "Slå sammen perioder",
   "p5000-updating"                : "Oppdater P5000",
-  "P5000-filter-label" : "Filtrering (f.eks. skriv kode 30 i boksen som kommer opp under \"Type\")",
-  "P5000-sum-only-5.1" : "summèr-tegn kun 5.1",
-  "P5000-nft-flagged": "Summeres bare på punkt 5.1 pga startdato > nft dato",
+  "P5000-filter-label"            : "Filtrering (f.eks. skriv kode 30 i boksen som kommer opp under \"Type\")",
+  "P5000-sum-only-5.1-title"      : "Kun 5.1",
+  "P5000-sum-only-5.1-description": "Kryss av i boksen foran perioden der det skal summeres bare på punkt 5.1 (perioder etter uføretidspunkt/måned for dødsfall)",
+  "P5000-nft-flagged"             : "Summeres bare på punkt 5.1 pga startdato > nft dato",
 
   "p5000-help-modal-1": "For å redigere en P5000 klikker du på ",
   "p5000-help-modal-2": ". Dersom det allerede er overført perioder til RINA, vil du få opp en liste over disse.",
