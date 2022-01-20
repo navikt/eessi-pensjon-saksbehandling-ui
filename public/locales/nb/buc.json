@@ -112,7 +112,7 @@
   "form-fnr"                          : "Fødselsnummer",
   "form-fnrdnr"                       : "f.nr./d.nr.",
   "form-get-p6000"                    : "Hent P6000",
-  "form-hent-uft"                     : "Hent UFT",
+  "form-hent-uft"                     : "Hent trygdetid etter uføretidspunkt",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
   "form-kravDato"                     : "Kravdato",
   "form-kravDatoPlaceholder"          : "DD-MM-ÅÅÅÅ",

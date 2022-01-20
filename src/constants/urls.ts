@@ -78,7 +78,7 @@ export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 
 // s3 inventory
-export const S3INVENTORY_LIST_URL = STG_URL + '/list/'
+export const S3INVENTORY_LIST_URL = STG_URL + '/list'
 export const S3INVENTORY_FILE_URL = STG_URL + '/get/%(filename)s'
 
 // Websocket

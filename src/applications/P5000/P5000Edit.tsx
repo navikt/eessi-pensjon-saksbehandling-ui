@@ -24,7 +24,7 @@ import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
 import { LocalStorageEntry, Option } from 'declarations/app.d'
-import { P5000FromRinaMap, Seds } from 'declarations/buc'
+import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { SedsPropType } from 'declarations/buc.pt'
 import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -76,7 +76,8 @@ const mapState = (state: State): any => ({
   sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info,
   gettingUFT: state.loading.gettingUFT,
-  uft: state.p5000.uft
+  uft: state.p5000.uft,
+  sakType: state.app.params.sakType as SakTypeValue
 })
 
 export interface P5000EditProps {
@@ -100,7 +101,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { gettingUFT, pesysContext, sentP5000info, sendingP5000info, uft, vedtakId }: any = useSelector<State, any>(mapState)
+  const { gettingUFT, pesysContext, sentP5000info, sendingP5000info, uft, sakType, vedtakId }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
@@ -985,14 +986,15 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <FlexBaseDiv>
               <Button
                 variant='secondary'
-                disabled={(pesysContext !== constants.VEDTAKSKONTEKST) || gettingUFT}
+                disabled={(pesysContext !== constants.VEDTAKSKONTEKST || sakType !== SakTypeMap.UFOREP) || gettingUFT}
                 onClick={hentUFT}
               >
-
                 {gettingUFT && <Loader />}
                 {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
               </Button>
+              <HorizontalSeparatorDiv size='0.5'/>
               {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
+              {(sakType !== SakTypeMap.UFOREP) && <BodyLong>{t('message:warning-noUforetrygd')}</BodyLong>}
               {uft && (
                 <>
                   <HorizontalSeparatorDiv />
@@ -1001,7 +1003,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               )}
               <HorizontalSeparatorDiv/>
               <HelpText placement='right'>
+                <div style={{ maxWidth: '600px' }}>
                 {t('message:help-p5000-uft')}
+                </div>
               </HelpText>
             </FlexBaseDiv>
           </Column>
