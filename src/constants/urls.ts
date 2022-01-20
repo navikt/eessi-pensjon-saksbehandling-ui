@@ -13,7 +13,7 @@ const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 const JOU_URL = FAGMODUL_API_URL + '/journalforing'
-const STG_URL = FRONTEND_API_URL + '/storage'
+const STG_URL = FRONTEND_API_URL + '/api/storage'
 
 // EuxController
 export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
