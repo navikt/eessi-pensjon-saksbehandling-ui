@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { BucInfo } from 'declarations/buc'
+import { BucInfo, Comment } from 'declarations/buc'
 import { GetS3FilesJob } from 'declarations/components'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
@@ -69,7 +69,9 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
         if (!newS3stats.type) {
           newS3stats.type = {}
         }
-        newS3stats.type[type] = !newS3stats.type[type] ? 1 : newS3stats.type[type]++
+        newS3stats.type[type] = !Object.prototype.hasOwnProperty.call(newS3stats.type, type)
+          ? 1
+          : newS3stats.type[type]++
 
         if (type === 'BUC') {
           if (payload.bucs) {
@@ -79,18 +81,24 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
                   newS3stats.comments = {}
                 }
                 if (_.isString(buc.comment)) {
-                  newS3stats.comments[buc.comment!] = !newS3stats.comments[buc.comment] ? 1 : newS3stats.comments[buc.comment]++
+                  newS3stats.comments[buc.comment!] = !Object.prototype.hasOwnProperty.call(newS3stats.comments, buc.comment)
+                    ? 1
+                    : newS3stats.comments[buc.comment]++
                 }
                 if (_.isArray(buc.comment)) {
-                  buc.comment.forEach((c) => {
+                  buc.comment.forEach((c: Comment) => {
                     if (c.value) {
-                      newS3stats.comments![c.value!] = !(newS3stats.comments?.[c.value]) ? 1 : newS3stats.comments![c.value!]++
+                      newS3stats.comments![c.value] = !Object.prototype.hasOwnProperty.call(newS3stats.comments, c.value)
+                        ? 1
+                        : newS3stats.comments![c.value]++
                     }
                   })
                 }
                 if (_.isArray(buc.tags)) {
                   buc.tags.forEach((t) => {
-                      newS3stats.tags![t] = !(newS3stats.tags![t]) ? 1 : newS3stats.tags![t]++
+                    newS3stats.tags![t] = !Object.prototype.hasOwnProperty.call(newS3stats.tags, t)
+                     ? 1
+                     : newS3stats.tags![t]++
                   })
                 }
               }
