@@ -501,11 +501,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return undefined
   }
 
-  const validateP6000s = (buc: Buc, p6000s: Array<P6000>): ErrorElement | undefined => {
-    if (_.isEmpty(p6000s) && bucRequiresP6000s(buc)) {
-      return {
-        feilmelding: t('message:validation-chooseP6000')
-      } as ErrorElement
+  const validateP6000s = (buc: Buc, availableP6000s: Array<P6000> | null | undefined, selectedP6000s: Array<P6000>): ErrorElement | undefined => {
+    if (_.isEmpty(selectedP6000s) && bucRequiresP6000s(buc)) {
+      if (_.isEmpty(availableP6000s)) {
+        return {
+          feilmelding: t('message:validation-chooseP6000_1')
+        } as ErrorElement
+      } else {
+        return {
+          feilmelding: t('message:validation-chooseP6000_2')
+        } as ErrorElement
+      }
     }
     return undefined
   }
@@ -731,7 +737,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       validation.kravOm = validateKravOm(_kravOm)
     }
     if (_sed === 'P7000') {
-      validation.p6000 = validateP6000s(_buc, _p6000s)
+      validation.p6000 = validateP6000s(_buc, p6000s, _p6000s)
     }
 
     setValidation(validation)
@@ -919,6 +925,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const _getP6000 = () => {
+    setValidation({
+      ..._validation,
+      p6000: undefined
+    })
     dispatch(getSedP6000(_buc.caseId))
   }
 

@@ -986,7 +986,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               <Button
                 variant='secondary'
                 disabled={(pesysContext !== constants.VEDTAKSKONTEKST) || gettingUFT}
-                size='small'
                 onClick={hentUFT}
               >
 
@@ -1000,6 +999,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
                 </>
               )}
+              <HorizontalSeparatorDiv/>
+              <HelpText placement='right'>
+                {t('message:help-p5000-uft')}
+              </HelpText>
             </FlexBaseDiv>
           </Column>
           <Column flex='2'>

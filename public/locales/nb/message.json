@@ -54,6 +54,7 @@
   "help-p5000-2"  : "Når du klikker på \"Overfør til Rina\" vil nødvendige felt i kapittel 4/5 i P5000 bli pre-utfylt.",
   "help-p5000-merge-1" : "Noen land stykker opp trygdetid i små perioder selv om det ikke er mellomrom mellom periodene.",
   "help-p5000-merge-2" : "Trykk på for å slå sammen sammenhengende perioder av samme type.",
+  "help-p5000-uft" : "For Uføretrygd: Klikk her for å få med bosettingsperiode fra og med uføretidspunktet og frem til i dag",
 
   "loading-buc"                   : "Laster BUC...",
   "loading-bucOptions"            : "Laster BUC-er...",
@@ -86,7 +87,8 @@
   "validation-chooseInstitution"    : "Velg en mottager",
   "validation-chooseKravDato"       : "Velg kravdato",
   "validation-chooseKravOm"         : "Velg krav om",
-  "validation-chooseP6000"          : "Klikke på knappen \"Hent P6000\" og velg aktuelle P6000",
+  "validation-chooseP6000_1"        : "Klikke på knappen \"Hent P6000\" og velg aktuelle P6000",
+  "validation-chooseP6000_2"        : "Velg aktuelle P6000 som skal informeres om i P7000",
   "validation-chooseSed"            : "Velg en SED",
   "validation-chooseSubjectArea"    : "Velg et fagområde",
   "validation-chooseType"           : "Velg en type",
