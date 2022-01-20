@@ -36,9 +36,29 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
       }
 
     case types.S3INVENTORY_LIST_SUCCESS:
+      const s3list = (action as ActionWithPayload).payload
+      const newS3list: Array<string> = []
+      const newS3stats = _.cloneDeep(state.s3stats)
+      s3list.forEach((filename: string) => {
+        const match = filename.match(/^([^_]+)___([^_]+)(.+)?$/)
+        if (!_.isEmpty(match)) {
+          const type: string = match![2]
+          if (!Object.prototype.hasOwnProperty.call(newS3stats, 'type')) {
+            newS3stats.type = {}
+          }
+          newS3stats.type![type] = Object.prototype.hasOwnProperty.call(newS3stats.type, type)
+            ? ++newS3stats.type![type]
+            : 1
+
+          if (type === 'BUC') {
+            newS3list.push(filename)
+          }
+        }
+      })
       return {
         ...state,
-        s3list: (action as ActionWithPayload).payload
+        s3list: newS3list,
+        s3stats: newS3stats
       }
 
     case types.S3INVENTORY_FILE_REQUEST: {
@@ -66,43 +86,38 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
       const match = filename.match(/^([^_]+)___([^_]+)(.+)?$/)
       if (!_.isEmpty(match)) {
         const type: string = match[2]
-        if (!Object.prototype.hasOwnProperty.call(newS3stats, 'type')) {
-          newS3stats.type = {}
-        }
-        newS3stats.type![type] = !Object.prototype.hasOwnProperty.call(newS3stats.type, type)
-          ? 1
-          : ++newS3stats.type![type]
-
         if (type === 'BUC') {
           if (payload.bucs) {
             Object.values(payload.bucs as Array<BucInfo>).forEach((buc: BucInfo) => {
               if (!_.isEmpty(buc.comment)) {
-                if (Object.prototype.hasOwnProperty.call(newS3stats, 'comments')) {
+                if (!Object.prototype.hasOwnProperty.call(newS3stats, 'comments')) {
                   newS3stats.comments = {}
                 }
-                if (_.isString(buc.comment)) {
-                  newS3stats.comments![buc.comment!] = !Object.prototype.hasOwnProperty.call(newS3stats.comments, buc.comment)
-                    ? 1
-                    : ++newS3stats.comments![buc.comment]
+                if (_.isString(buc.comment) && !_.isNil(newS3stats.comments)) {
+                  newS3stats.comments[buc.comment] = Object.prototype.hasOwnProperty.call(newS3stats.comments, buc.comment)
+                    ? ++(newS3stats.comments[buc.comment])
+                    : 1
                 }
                 if (_.isArray(buc.comment)) {
                   buc.comment.forEach((c: Comment) => {
-                    if (c.value) {
-                      newS3stats.comments![c.value] = !Object.prototype.hasOwnProperty.call(newS3stats.comments, c.value)
-                        ? 1
-                        : ++newS3stats.comments![c.value]
+                    if (c.value && !_.isNil(newS3stats.comments)) {
+                      newS3stats.comments[c.value] = Object.prototype.hasOwnProperty.call(newS3stats.comments, c.value)
+                        ? ++newS3stats.comments[c.value]
+                        : 1
                     }
                   })
                 }
               }
               if (_.isArray(buc.tags)) {
                 buc.tags.forEach((t) => {
-                  if (Object.prototype.hasOwnProperty.call(newS3stats, 'tags')) {
+                  if (!Object.prototype.hasOwnProperty.call(newS3stats, 'tags')) {
                     newS3stats.tags = {}
                   }
-                  newS3stats.tags![t] = !Object.prototype.hasOwnProperty.call(newS3stats.tags, t)
-                   ? 1
-                   : ++newS3stats.tags![t]
+                  if (!_.isNil(newS3stats.tags)) {
+                    newS3stats.tags![t] = Object.prototype.hasOwnProperty.call(newS3stats.tags, t)
+                      ? ++newS3stats.tags![t]
+                      : 1
+                  }
                 })
               }
             })
