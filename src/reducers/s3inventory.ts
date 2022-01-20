@@ -52,14 +52,8 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
       }
     }
 
-    case types.S3INVENTORY_FILE_FAILURE: {
-      const newS3files = _.cloneDeep(state.s3files)
-      newS3files[(action as ActionWithPayload).context.filename] = null
-      return {
-        ...state,
-        s3files: newS3files
-      }
-    }
+    case types.S3INVENTORY_FILE_FAILURE:
+      return state
 
     case types.S3INVENTORY_FILE_SUCCESS: {
       const filename = (action as ActionWithPayload).context.filename
