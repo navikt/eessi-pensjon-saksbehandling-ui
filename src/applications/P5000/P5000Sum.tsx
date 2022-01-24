@@ -2,7 +2,7 @@ import { Alert, BodyLong, Button, HelpText, Loader, Tag } from '@navikt/ds-react
 import { typePeriode } from 'applications/P5000/P5000.labels'
 import Select from 'components/Select/Select'
 import { Labels, LocalStorageEntry, Option } from 'declarations/app'
-import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
+import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Sed, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -32,6 +32,7 @@ export interface P5000SumProps {
   p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
   saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
   seds: Seds
+  mainSed: Sed | undefined
 }
 
 const mapState = (state: State): any => ({
@@ -39,7 +40,7 @@ const mapState = (state: State): any => ({
 })
 
 const P5000Sum: React.FC<P5000SumProps> = ({
-  context, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds
+  context, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds, mainSed
 }: P5000SumProps) => {
   const { t } = useTranslation()
   const { sakType } = useSelector<State, any>(mapState)
@@ -157,11 +158,11 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const onRowsChanged = (items: P5000SumRows) => {
     let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
     if (_.isNil(templateForP5000)) {
-      templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
+      templateForP5000 = _.cloneDeep(p5000FromRinaMap[mainSed!.id])
     }
     if (templateForP5000) {
       const newP5000FromStorage: P5000SED = convertFromP5000SumRowsIntoP5000SED(items, templateForP5000)
-      saveP5000ToStorage!(newP5000FromStorage, seds[0].id)
+      saveP5000ToStorage!(newP5000FromStorage, mainSed!.id)
     }
   }
 

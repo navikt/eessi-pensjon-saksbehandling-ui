@@ -111,6 +111,7 @@ const P5000: React.FC<P5000Props> = ({
         p5000FromStorage={p5000FromStorage}
         saveP5000ToStorage={saveP5000ToStorage}
         seds={onlyNorwegianActiveSeds}
+        mainSed={mainSed}
       />
     )
   }

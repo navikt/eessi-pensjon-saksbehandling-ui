@@ -523,18 +523,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     </div>
   )
 
-  const renderStatus = (item: any, value: any) => {
-    if (value === 'rina') {
-      return <Tag size='small' variant='info'>RINA</Tag>
-    }
-    if (value === 'new') {
-      return <Tag size='small' variant='success'>Ny</Tag>
-    }
-    if (value === 'edited') {
-      return <Tag size='small' variant='warning'>Endret</Tag>
-    }
-    return <div />
-  }
+  const renderStatus = (item: any, value: any) => (
+    <div>
+      {(value === 'rina') &&  <Tag size='small' variant='info'>RINA</Tag>}
+      {(value === 'new') && <Tag size='small' variant='success'>Ny</Tag>}
+      {(value === 'edited') && <Tag size='small' variant='warning'>Endret</Tag>}
+    </div>
+  )
 
   const renderBeregning = (item: any, value: any) => {
     return (
