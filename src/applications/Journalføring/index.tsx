@@ -1,5 +1,5 @@
 import Journalføring from './Journalføring'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { WidgetPropType } from 'declarations/dashboard.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'

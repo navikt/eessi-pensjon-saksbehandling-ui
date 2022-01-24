@@ -1,5 +1,5 @@
 import PageNotification from './PageNotification'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { WidgetPropType } from 'declarations/dashboard.pt'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'

@@ -4,10 +4,9 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import P4000 from 'applications/P4000/P4000'
 import P5000 from 'applications/P5000/P5000'
 import SEDLoadSave from 'applications/P5000/SEDLoadSave/SEDLoadSave'
-import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
+import { AllowedLocaleString, Entries, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
-import { P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger } from 'metrics/loggers'
@@ -93,13 +92,13 @@ export interface SEDHeaderProps {
 export interface SEDListSelector {
   locale: AllowedLocaleString
   featureToggles: FeatureToggles
-  p5000Storage: Array<LocalStorageEntry<P5000SED>> | null | undefined
+  storageEntries: Entries
 }
 
 const mapState = (state: State): SEDListSelector => ({
   locale: state.ui.locale,
   featureToggles: state.app.featureToggles,
-  p5000Storage: state.localStorage.P5000.entries
+  storageEntries: state.localStorage.entries
 })
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
@@ -110,7 +109,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   sed,
   style
 }: SEDHeaderProps): JSX.Element => {
-  const { featureToggles, locale, p5000Storage }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { featureToggles, locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSed: Sed | undefined =
     buc.seds!.find(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent' &&
@@ -151,8 +150,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 
   const P5000Draft: LocalStorageEntry | undefined = (
     sed.type === 'P5000' &&
-    !_.isNil(p5000Storage)
-      ? _.find(p5000Storage, { sedId: sed.id, caseId: buc.caseId }) as LocalStorageEntry | undefined
+    !_.isNil(storageEntries)
+      ? _.find(storageEntries[buc.caseId!], { sedId: sed.id }) as LocalStorageEntry | undefined
       : undefined
   )
 

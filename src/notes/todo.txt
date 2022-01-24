@@ -1,1 +1,10 @@
 
+Poland joins 10 and 41
+
+button -> change description to 'Slå sammen like perioder'
+
+button -> Slå sammen ulike perioder
+
+and a modal to check for the types of periods you want to merge will appear.
+
+The periods shall be combined for each COUNTRY involved.

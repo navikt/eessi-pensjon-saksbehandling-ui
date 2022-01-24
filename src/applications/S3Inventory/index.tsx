@@ -1,5 +1,5 @@
 import S3Inventory from './S3Inventory'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { WidgetPropType } from 'declarations/dashboard.pt'
 import _ from 'lodash'
 import { standardLogger, timeDiffLogger } from 'metrics/loggers'
 import { Widget } from 'nav-dashboard'

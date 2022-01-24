@@ -6,7 +6,7 @@ import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { AllowedLocaleString, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app'
+import { AllowedLocaleString, BUCMode, Entries, FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { Buc, P5000FromRinaMap, Sed, Seds } from 'declarations/buc'
 import { EmptyPeriodsReport, P5000Context, P5000SED, SedSender } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -34,14 +34,14 @@ export interface P5000Selector {
   featureToggles: FeatureToggles
   locale: AllowedLocaleString
   p5000FromRinaMap: P5000FromRinaMap
-  p5000Storage: Array<LocalStorageEntry<P5000SED>> | null | undefined
+  storageEntries: Entries
 }
 
 const mapState = (state: State): P5000Selector => ({
   featureToggles: state.app.featureToggles,
   locale: state.ui.locale,
   p5000FromRinaMap: state.p5000.p5000FromRinaMap,
-  p5000Storage: state.localStorage.P5000.entries
+  storageEntries: state.localStorage.entries
 })
 
 const P5000: React.FC<P5000Props> = ({
@@ -53,7 +53,7 @@ const P5000: React.FC<P5000Props> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const {
-    featureToggles, p5000FromRinaMap, p5000Storage
+    featureToggles, p5000FromRinaMap, storageEntries
   }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
   const [placeholderProps, setPlaceholderProps] = useState<any>({})
@@ -161,11 +161,11 @@ const P5000: React.FC<P5000Props> = ({
 
   useEffect(() => {
     updateTables(_activeSeds)
-  }, [p5000Storage])
+  }, [storageEntries])
 
   const updateTables = (activeSeds: Seds) => {
     // use local storage stuff only in edit context, no need for overview context
-    const p5000EntryFromStorage: LocalStorageEntry | undefined = _.find(p5000Storage, e => e.sedId === mainSed?.id && e.caseId === buc.caseId)
+    const p5000EntryFromStorage: LocalStorageEntry | undefined = _.find(storageEntries?.[buc.caseId!], e => e.sedId === mainSed?.id)
 
     let newTables = _.cloneDeep(_tables)
     newTables = newTables.map(t => ({
@@ -301,9 +301,9 @@ const P5000: React.FC<P5000Props> = ({
 
   const saveP5000ToStorage = (newSed: P5000SED | undefined, sedId: string, sort?: Sort): void => {
     if (newSed) {
-      dispatch(saveEntry('P5000', {
+      dispatch(saveEntry(buc.caseId!, {
         sedId,
-        caseId: buc.caseId!,
+        sedType: 'P5000',
         sort,
         date: new Date().getTime(),
         content: newSed
@@ -312,9 +312,9 @@ const P5000: React.FC<P5000Props> = ({
   }
 
   const removeP5000FromStorage = (sedId: string): void => {
-    dispatch(removeEntry('P5000', {
+    dispatch(removeEntry(buc.caseId!, {
       sedId,
-      caseId: buc.caseId!
+      sedType: 'P5000'
     } as LocalStorageEntry<P5000SED>))
   }
 
@@ -546,7 +546,6 @@ const P5000: React.FC<P5000Props> = ({
               )
             })}
           </PileDiv>
-
         </Column>
         <Column>
           {warning && (

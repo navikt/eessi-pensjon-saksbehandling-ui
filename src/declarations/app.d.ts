@@ -1,9 +1,19 @@
 import * as constants from 'constants/constants'
+import { P4000SED } from 'declarations/p4000'
+import { P5000SED } from 'declarations/p5000'
 import { Sort } from 'tabell'
 
 export type AllowedLocaleString = 'en' | 'nb'
 
 export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000'
+
+export type SedType = 'P4000' | 'P5000'
+
+export type PSED = P4000SED | P5000SED
+
+export type Entry = Array<LocalStorageEntry<PSED>> | null | undefined
+
+export type Entries = { [caseId in string]: Entry } | null | undefined
 
 export type Feature =
   'P4000_VISIBLE'
@@ -51,8 +61,8 @@ export type Validation = {[key: string]: ErrorElement | undefined}
 export type WidthSize = 'sm' | 'md' | 'lg'
 
 export interface LocalStorageEntry<CustomLocalStorageContent extends any = any> {
-  caseId: string
   sedId: string
+  sedType: SedType
   date: number
   sort?: Sort
   content: CustomLocalStorageContent

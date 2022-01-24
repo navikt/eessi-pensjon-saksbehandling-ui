@@ -334,8 +334,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (!_mounted) {
-      dispatch(loadEntries('P4000'))
-      dispatch(loadEntries('P5000'))
+      dispatch(loadEntries())
       if (!rinaUrl) {
         dispatch(getRinaUrl())
       }

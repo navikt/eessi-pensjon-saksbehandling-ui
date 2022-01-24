@@ -1,7 +1,7 @@
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
-import { WidgetPropType } from 'declarations/Dashboard.pt'
+import { WidgetPropType } from 'declarations/dashboard.pt'
 import { PersonPDL } from 'declarations/person'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'

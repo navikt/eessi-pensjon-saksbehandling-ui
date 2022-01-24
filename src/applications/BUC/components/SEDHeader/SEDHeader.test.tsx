@@ -17,7 +17,7 @@ jest.mock('rc-tooltip', () => ({ children }: any) => (
 const defaultSelector: SEDListSelector = {
   locale: 'nb',
   featureToggles: mockFeatureToggles,
-  p5000Storage: undefined
+  storageEntries: undefined
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
