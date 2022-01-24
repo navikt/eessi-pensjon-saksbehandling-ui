@@ -255,51 +255,47 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <div style={{ marginTop: '0.5rem' }}>
-      <Input
-        size='small'
-        namespace='c-table__edit'
-        id='startdato-input-id'
-        className='c-table__edit-input'
-        label='startdato'
-        hideLabel
-        error={options.error}
-        placeholder={t('buc:placeholder-date2')}
-        onChanged={(newStartdato: string) => {
-          const otherDate: string | undefined = dateTransform(options.values.sluttdato)
-          const extra = maybeDoSomePrefill(newStartdato, otherDate, options)
-          options.setValues({ ...extra, startdato: newStartdato })
-        }}
-        onEnterPress={(e: string) => {
-          options.onEnter({ startdato: e })
-        }}
-        value={dateTransform(options.value) ?? ''}
-      />
-    </div>
+    <Input
+      size='small'
+      namespace='c-table__edit'
+      id='startdato-input-id'
+      className='c-table__edit-input'
+      label='startdato'
+      hideLabel
+      error={options.error}
+      placeholder={t('buc:placeholder-date2')}
+      onChanged={(newStartdato: string) => {
+        const otherDate: string | undefined = dateTransform(options.values.sluttdato)
+        const extra = maybeDoSomePrefill(newStartdato, otherDate, options)
+        options.setValues({ ...extra, startdato: newStartdato })
+      }}
+      onEnterPress={(e: string) => {
+        options.onEnter({ startdato: e })
+      }}
+      value={dateTransform(options.value) ?? ''}
+    />
   )
 
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
-    <div style={{ marginTop: '0.5rem' }}>
-      <Input
-        size='small'
-        namespace='c-table__edit'
-        id='sluttdato-input-id'
-        className='c-table__edit-input'
-        label='sluttdato'
-        hideLabel
-        error={options.error}
-        placeholder={t('buc:placeholder-date2')}
-        onChanged={(newSluttdato: string) => {
-          const otherDate: string | undefined = dateTransform(options.values.startdato)
-          const extra = maybeDoSomePrefill(otherDate, newSluttdato, options)
-          options.setValues({ ...extra, sluttdato: newSluttdato })
-        }}
-        onEnterPress={(e: string) => {
-          options.onEnter({ sluttdato: e })
-        }}
-        value={dateTransform(options.value) ?? ''}
-      />
-    </div>
+    <Input
+      size='small'
+      namespace='c-table__edit'
+      id='sluttdato-input-id'
+      className='c-table__edit-input'
+      label='sluttdato'
+      hideLabel
+      error={options.error}
+      placeholder={t('buc:placeholder-date2')}
+      onChanged={(newSluttdato: string) => {
+        const otherDate: string | undefined = dateTransform(options.values.startdato)
+        const extra = maybeDoSomePrefill(otherDate, newSluttdato, options)
+        options.setValues({ ...extra, sluttdato: newSluttdato })
+      }}
+      onEnterPress={(e: string) => {
+        options.onEnter({ sluttdato: e })
+      }}
+      value={dateTransform(options.value) ?? ''}
+    />
   )
 
   const renderDager = (item: any) => {
@@ -350,6 +346,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
       <Input
+        style={{marginTop: '0px'}}
         size='small'
         aria-invalid={!!options.error}
         aria-label='dag'
@@ -376,6 +373,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
       <Input
+        style={{marginTop: '0px'}}
         size='small'
         aria-invalid={!!options.error}
         aria-label='mnd'
@@ -402,6 +400,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
       <Input
+        style={{marginTop: '0px'}}
         size='small'
         aria-invalid={!!options.error}
         aria-label='aar'
@@ -426,21 +425,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderYtelse = (item: any, value: any) => {
     return (
-      <div style={{ marginTop: '0.5rem' }}>
-        <Tooltip
-          overlay={(
-            <div style={{ maxWidth: '300px' }}>
-              {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
-            </div>
-          )}
-          placement='top'
-          trigger={['hover']}
-        >
-          <BodyLong>
-            {value}
-          </BodyLong>
-        </Tooltip>
-      </div>
+      <Tooltip
+        overlay={(
+          <div style={{ maxWidth: '300px' }}>
+            {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
+          </div>
+        )}
+        placement='top'
+        trigger={['hover']}
+      >
+        <BodyLong>
+          {value}
+        </BodyLong>
+      </Tooltip>
     )
   }
 
@@ -461,21 +458,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
     }
     return (
-      <div style={{ marginTop: '0.5rem' }}>
-        <Tooltip
-          overlay={(
-            <div style={{ maxWidth: '300px' }}>
-              {_.get(relevantForYtelse, valueToShow.startsWith('0') ? valueToShow : parseInt(valueToShow))}
-            </div>
-          )}
-          placement='top'
-          trigger={['hover']}
-        >
-          <BodyLong>
-            {valueToShow}
-          </BodyLong>
-        </Tooltip>
-      </div>
+      <Tooltip
+        overlay={(
+          <div style={{ maxWidth: '300px' }}>
+            {_.get(relevantForYtelse, valueToShow.startsWith('0') ? valueToShow : parseInt(valueToShow))}
+          </div>
+        )}
+        placement='top'
+        trigger={['hover']}
+      >
+        <BodyLong>
+          {valueToShow}
+        </BodyLong>
+      </Tooltip>
     )
   }
 
@@ -487,40 +482,36 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderOrdning = (item: any, value: any) => {
     return (
-      <div style={{ marginTop: '0.5rem' }}>
-        <Tooltip
-          overlay={(
-            <div style={{ maxWidth: '300px' }}>
-              {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
-            </div>
-          )}
-          placement='top'
-          trigger={['hover']}
-        >
-          <BodyLong>
-            {value}
-          </BodyLong>
-        </Tooltip>
-      </div>
-    )
-  }
-
-  const renderOrdningEdit = (options: RenderEditableOptions) => (
-    <div style={{ marginTop: '0.5rem' }}>
       <Tooltip
         overlay={(
           <div style={{ maxWidth: '300px' }}>
-            {_.get(ordning, options.value.startsWith('0') ? options.value : parseInt(options.value))}
+            {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
           </div>
         )}
         placement='top'
         trigger={['hover']}
       >
         <BodyLong>
-          {options.value}
+          {value}
         </BodyLong>
       </Tooltip>
-    </div>
+    )
+  }
+
+  const renderOrdningEdit = (options: RenderEditableOptions) => (
+    <Tooltip
+      overlay={(
+        <div style={{ maxWidth: '300px' }}>
+          {_.get(ordning, options.value.startsWith('0') ? options.value : parseInt(options.value))}
+        </div>
+      )}
+      placement='top'
+      trigger={['hover']}
+    >
+      <BodyLong>
+        {options.value}
+      </BodyLong>
+    </Tooltip>
   )
 
   const renderStatus = (item: any, value: any) => (
@@ -533,27 +524,26 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderBeregning = (item: any, value: any) => {
     return (
-      <div style={{ marginTop: '0.5rem' }}>
-        <Tooltip
-          overlay={(
-            <div style={{ maxWidth: '300px' }}>
-              {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
-            </div>
-          )}
-          placement='top'
-          trigger={['hover']}
-        >
-          <BodyLong>
-            {value}
-          </BodyLong>
-        </Tooltip>
-      </div>
+      <Tooltip
+        overlay={(
+          <div style={{ maxWidth: '300px' }}>
+            {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
+          </div>
+        )}
+        placement='top'
+        trigger={['hover']}
+      >
+        <BodyLong>
+          {value}
+        </BodyLong>
+      </Tooltip>
     )
   }
 
   const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
       <Input
+        style={{marginTop: '0px'}}
         size='small'
         namespace='c-table__edit'
         id='beregning-input-id'
@@ -863,6 +853,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <Column>
             <FullWidthDiv>
               <Select
+                noMarginTop
                 key={'ytelse' + _ytelseOption}
                 className='P5000Edit-ytelse-select'
                 error={_validation['P5000Edit-ytelse-select']?.feilmelding}
