@@ -131,6 +131,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
 
+  const beregningOptions: Array<Option> = [
+    {label: '000', value: '000'}, {label: '001', value: '001'},
+    {label: '010', value: '010'}, {label: '011', value: '011'},
+    {label: '100', value: '100'}, {label: '101', value: '101'},
+    {label: '110', value: '110'}, {label: '111', value: '111'}
+  ]
+
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
   }
@@ -164,6 +171,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return (
       <Select
         size='small'
+        noMarginTop
         key='c-table__edit-type-select-key-'
         id='c-table__edit-type-select-id'
         className='P5000Edit-type-select input-focus'
@@ -542,17 +550,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderBeregningEdit = (options: RenderEditableOptions) => {
     return (
-      <Input
-        style={{marginTop: '0px'}}
+      <Select
+        noMarginTop
         size='small'
-        namespace='c-table__edit'
-        id='beregning-input-id'
-        className='c-table__edit-input'
-        label=''
-        error={options.error}
-        onChanged={(e: string) => options.setValues({ beregning: e })}
-        onEnterPress={(e: string) => { options.onEnter({ beregning: e }) }}
-        value={options.value}
+        key='c-table__edit-beregning-select-key'
+        id='c-table__edit-beregning-select-id'
+        options={beregningOptions}
+        menuPortalTarget={document.body}
+        onChange={(e: unknown) => options.setValues({ beregning: (e as Option).value })}
+        defaultValue={_.find(beregningOptions, o => o.value === options.value)}
+        value={_.find(beregningOptions, o => o.value === options.value)}
       />
     )
   }
