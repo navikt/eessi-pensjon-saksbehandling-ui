@@ -60,7 +60,7 @@ export const generateKeyForListRow = (id: string, m: P5000Period): string => {
   return md5(key)
 }
 
-// Converts P5000 SED from Rina/storage into table rows for view/list
+// Converts P5000 SED from Rina/storage into P5000 Overview / P5000 Edit table rows
 export const convertP5000SEDToP5000ListRows = (
   seds: Seds,
   context: P5000Context,
@@ -68,20 +68,18 @@ export const convertP5000SEDToP5000ListRows = (
   p5000FromStorage: LocalStorageEntry<P5000SED> | undefined,
   mergePeriods: boolean
 ): [P5000ListRows, P5000SourceStatus] => {
-  let res: P5000ListRows = []
+  let rows: P5000ListRows = []
   let sourceStatus: P5000SourceStatus = 'rina'
 
   seds.forEach(sed => {
     const sender: SedSender | undefined = getSedSender(sed)
-    if (context === 'overview' || (context === 'edit' && (
-      p5000FromStorage === undefined || p5000FromStorage.sedId !== sed.id
-    ))) {
+    if (context === 'overview' || (context === 'edit' && (p5000FromStorage === undefined || p5000FromStorage.sedId !== sed.id))) {
       sourceStatus = 'rina'
     } else {
       sourceStatus = 'storage'
     }
 
-    const checkStatus: boolean = sourceStatus === 'storage'
+    const mustCheckStatus: boolean = sourceStatus === 'storage'
     const rinaPeriods: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapboarbeid?.medlemskap
     const storagePeriods: Array<P5000Period> | undefined = p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.medlemskap
     const periods: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods : storagePeriods
@@ -89,7 +87,7 @@ export const convertP5000SEDToP5000ListRows = (
     periods?.forEach((period: P5000Period) => {
       if (!_.isNil(period)) {
         let status: P5000PeriodStatus = 'rina'
-        if (checkStatus) {
+        if (mustCheckStatus) {
           const matchPeriodToRina: P5000Period | undefined = period.key ? _.find(rinaPeriods, { key: period.key }) : undefined
           if (matchPeriodToRina === undefined) {
             status = 'new'
@@ -111,7 +109,7 @@ export const convertP5000SEDToP5000ListRows = (
           years: period.sum?.aar
         }, true)
 
-        res.push({
+        rows.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
           flag: period.flag,
@@ -136,42 +134,110 @@ export const convertP5000SEDToP5000ListRows = (
   })
 
   if (mergePeriods) {
-    const auxRes: any = {}
-    // 1. group periods by `$acronym-$type`
-    res.forEach(r => {
+    const rowMap: any = {}
+    // 1. group periods on an auxiliary map with `$acronym-$type-$ytelse-$ordning-$beregning` keys
+    rows.forEach(r => {
       const key = r.acronym + '_' + r.type + '_' + r.ytelse + '_' + r.ordning + '_' + r.beregning
-      if (!auxRes[key]) {
-        auxRes[key] = [r]
+      if (!rowMap[key]) {
+        rowMap[key] = [r]
       } else {
-        auxRes[key].push(r)
+        rowMap[key].push(r)
         // 2. sort grouped periods by start date
-        auxRes[key] = auxRes[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
+        rowMap[key] = rowMap[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
       }
     })
-    res = []
+
+    let rowMap2: any = {}
+
+    /** for period table:
+     *     key    type      startdato  sluttdato
+     *      01     01        1970        1971
+     *      02     01        1971        1972
+     *      03     01        1980        1981
+     *      04     01        1981        1982
+     *      05     01        1990        1991
+     *
+     *   rowMap2 will be: {
+     *     '01' : {
+     *       '01': {
+     *         parent: {first row merged with second},
+     *         sub: [{first row}, {second row}]
+     *       },
+     *       '03' : {
+     *         parent: {third row merged with fourth},
+     *         sub: [{third row}, {fourth row}]
+     *       },
+     *       '05': {
+     *         parent: {fifth row},
+     *         sub: [{fifth row}]
+     *       }
+     *     }
+     *   }
+     **/
+
     // 3. array-walk periods, merge if they are consecutive
-    Object.keys(auxRes).forEach(key => {
-      const newRes: Array<P5000ListRow> = []
-      auxRes[key].forEach((r: P5000ListRow) => {
-        const targetedSluttDato: Date = moment(r.startdato).subtract(1, 'day').toDate()
-        const index = _.findIndex(newRes, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
-        if (index >= 0) {
-          newRes[index].sluttdato = r.sluttdato
+    Object.keys(rowMap).forEach(key => {
+      rowMap2[key] = {}
+
+      const subRows: Array<P5000ListRow> = _.cloneDeep(rowMap[key])
+      subRows.forEach((subRow: P5000ListRow) => {
+
+        const parentRows: Array<P5000ListRow> = Object.values(rowMap2[key]).map((v: any) => v.parent)
+        const _subRow = _.cloneDeep(subRow)
+        const targetedSluttDato: Date = moment(_subRow.startdato).subtract(1, 'day').toDate()
+        const parentRow = _.find(parentRows, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
+        if (!_.isNil(parentRow)) {
+
+          parentRow.sluttdato = subRow.sluttdato
           const total: FormattedDateDiff = sumDates(
-            { days: r.dag, months: r.mnd, years: r.aar },
-            { days: newRes[index].dag, months: newRes[index].mnd, years: newRes[index].aar }
+            {days: subRow.dag, months: subRow.mnd, years: subRow.aar},
+            {days: parentRow.dag, months: parentRow.mnd, years: parentRow.aar}
             , true)
-          newRes[index].dag = total.days as string
-          newRes[index].mnd = total.months as string
-          newRes[index].aar = total.years as string
+          parentRow.dag = total.days as string
+          parentRow.mnd = total.months as string
+          parentRow.aar = total.years as string
+
+          rowMap2[key][parentRow.key]['parent'] = parentRow
+          rowMap2[key][parentRow.key]['sub'] = rowMap2[key][parentRow.key]['sub'].concat(subRow)
         } else {
-          newRes.push(r)
+          // new
+          rowMap2[key][subRow.key] = {
+            parent: _.cloneDeep(subRow), //these will be changed to reflect merge - make sure they are not connected by cloning it
+            sub: [subRow]
+          }
         }
       })
-      newRes.forEach(r => res.push(r))
+
+
+      // reset rows. Refill from rowMap2
+      rows = []
+
+      Object.keys(rowMap2).forEach(key => {
+        Object.keys(rowMap2[key]).forEach(key2 => {
+          if (rowMap2[key][key2].sub.length === 1) {
+            // period without merges - just add parent as a normal row
+            rows.push({
+             ...rowMap2[key][key2].parent,
+             hasSubrows: false
+            })
+          } else {
+          // period with merges
+            rows.push({
+              ...rowMap2[key][key2].parent,
+              hasSubrows: true,
+              key: 'merge-' + rowMap2[key][key2].parent.key
+            })
+            rowMap2[key][key2].sub.forEach((v: P5000ListRow) => {
+              let _v = _.cloneDeep(v)
+              _v.parentKey = 'merge-' + rowMap2[key][key2].parent.key
+              rows.push(_v)
+            })
+          }
+        })
+      })
     })
   }
-  return [res, sourceStatus]
+  return [rows, sourceStatus]
 }
 
 // Converts P5000 SED from Rina/storage, using the total fields, into table rows for sum

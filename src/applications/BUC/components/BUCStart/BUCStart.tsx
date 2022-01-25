@@ -130,7 +130,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
   const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
-  const [_showWarningBuc, setShowWarningBuc] = useState<boolean>(false)
+  const [_showWarningBuc01, setShowWarningBuc01] = useState<boolean>(false)
+  const [_showWarningBucDeceased, setShowWarningBucDeceased] = useState<boolean>(false)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
   const [_validation, setValidation] = useState<Validation>({})
@@ -271,12 +272,12 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }
 
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    setShowWarningBucDeceased(false)
     dispatch(cleanNewlyCreatedBuc())
     if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
-      setShowWarningBuc(true)
+      setShowWarningBucDeceased(true)
       return
     }
-    setShowWarningBuc(false)
     const valid: boolean = performValidation()
     if (valid) {
       buttonLogger(e, {
@@ -332,9 +333,15 @@ const BUCStart: React.FC<BUCStartProps> = ({
           kravId
         }))
       }
+      if (thisBuc === 'P_BUC_01' && sakType === SakTypeMap.UFOREP) {
+        setShowWarningBuc01(true)
+      } else {
+        setShowWarningBuc01(false)
+      }
       if (onBucChanged) {
         onBucChanged(option as Option)
       }
+
     }
   }
 
@@ -618,7 +625,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
           />
         </Column>
       </Row>
-      {_showWarningBuc && (
+      {_showWarningBucDeceased && (
         <>
           <VerticalSeparatorDiv size='2' />
           <Row>
@@ -637,13 +644,32 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </Row>
         </>
       )}
+      {_showWarningBuc01 && (
+        <>
+          <VerticalSeparatorDiv size='2' />
+          <Row>
+            <Column>
+              <Alert
+                variant='warning'
+                data-test-id='a-buc-c-bucstart__warning-id'
+              >
+                <BodyLong>
+                  {t('message:warning-P_BUC_01-uføretrygd')}
+                </BodyLong>
+              </Alert>
+            </Column>
+            <HorizontalSeparatorDiv size='2' />
+            <Column />
+          </Row>
+        </>
+      )}
       <VerticalSeparatorDiv size='2' />
       <div data-test-id='a-buc-c-bucstart__buttons-id'>
         <Button
           variant='primary'
           data-amplitude='buc.new.create'
           data-test-id='a-buc-c-bucstart__forward-button-id'
-          disabled={_isCreatingBuc}
+          disabled={_isCreatingBuc || _showWarningBuc01}
           onClick={onForwardButtonClick}
         >
           {_isCreatingBuc && <Loader />}

@@ -8,7 +8,7 @@ import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { BodyLong, Tag, HelpText, Loader, Select, Checkbox, Button } from '@navikt/ds-react'
+import { BodyLong, Tag, HelpText, Loader, Select,  Button, Switch } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
@@ -208,7 +208,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <PileCenterDiv>
         <AlignEndRow style={{ width: '100%' }}>
           <Column>
-            <Checkbox
+            <Switch
               checked={_mergePeriods}
               id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
               data-test-id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
@@ -226,7 +226,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                   </div>
                 </HelpText>
               </FlexCenterDiv>
-            </Checkbox>
+            </Switch>
           </Column>
           <Column>
             <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
@@ -279,6 +279,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           searchable
           selectable={false}
           sortable
+          subrowsIcon='merge'
           onColumnSort={(sort: any) => {
             standardLogger('buc.edit.tools.P5000.overview.sort', { sort })
             _setTableSort(sort)
