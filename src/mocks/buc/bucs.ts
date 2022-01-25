@@ -674,10 +674,10 @@ const mockBuc = [
           {
             role: 'Sender',
             organisation: {
-              acronym: 'FIDEMO01',
-              countryCode: 'FI',
-              name: 'Finnish demo 01',
-              id: 'NO:FIDEMO01'
+              acronym: 'DEDEMO01',
+              countryCode: 'DE',
+              name: 'German demo 01',
+              id: 'NO:DEDEMO01'
             },
             selected: false
           }

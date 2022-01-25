@@ -248,7 +248,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '11',
-        beregning: '011',
+        beregning: '010',
         informasjonskalkulering: null,
         periode: {
           fom: '1908-01-01',
@@ -272,7 +272,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '11',
-        beregning: '011',
+        beregning: '010',
         informasjonskalkulering: null,
         periode: {
           fom: '1909-01-01',
@@ -296,7 +296,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '13',
-        beregning: '101',
+        beregning: '010',
         informasjonskalkulering: null,
         periode: {
           fom: '1910-01-01',

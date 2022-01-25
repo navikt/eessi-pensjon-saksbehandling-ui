@@ -1,14 +1,16 @@
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { OneLineSpan } from 'components/StyledComponents'
-import { LocalStorageEntry } from 'declarations/app'
+import { LocalStorageEntry, Option } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
+import featureToggles from 'mocks/app/featureToggles'
 import moment from 'moment'
-import { BodyLong, Tag, HelpText, Loader, Select,  Button, Switch } from '@navikt/ds-react'
+import { BodyLong, Tag, HelpText, Loader, Select, Button, Switch, Alert } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
@@ -53,9 +55,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
   const [_mergePeriods, _setMergePeriods] = useState<boolean>(false)
+  const [_mergePeriodTypes, _setMergePeriodTypes] = useState<Array<string> |undefined>(undefined)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, _mergePeriods)
+  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, _mergePeriods, _mergePeriodTypes)
   const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
+
+  const mergeTypeOptions: Array<Option> = _.uniq(items.map(i => i.type))
+    .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({label: i, value: i}))
 
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
@@ -168,6 +174,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return <div>{countryInstance.findByValue(value)?.label}</div>
   }
 
+  const onMergeTypesChange = (types: unknown): void => {
+    _setMergePeriodTypes((types as Array<Option>).map(o => o.value).sort((a, b) => parseInt(a) - parseInt(b)))
+  }
+
   const columns = [
     { id: 'status', label: t('ui:status'), type: 'string', renderCell: renderStatus },
     { id: 'land', label: t('ui:country'), type: 'string', renderCell: renderLand },
@@ -207,7 +217,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <VerticalSeparatorDiv />
       <PileCenterDiv>
         <AlignEndRow style={{ width: '100%' }}>
-          <Column>
+          <Column flex='2'>
+            <FlexEndDiv>
             <Switch
               checked={_mergePeriods}
               id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
@@ -218,7 +229,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 <OneLineSpan>
                   {t('buc:p5000-merge-periods')}
                 </OneLineSpan>
-                <HorizontalSeparatorDiv />
+                <HorizontalSeparatorDiv size='0.5'/>
                 <HelpText>
                   <div style={{ maxWidth: '300px' }}>
                     <BodyLong>{t('message:help-p5000-merge-1')}</BodyLong>
@@ -227,6 +238,46 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 </HelpText>
               </FlexCenterDiv>
             </Switch>
+              {featureToggles.P5000_UPDATES_VISIBLE && _mergePeriods && (
+                <>
+                <HorizontalSeparatorDiv size='2'/>
+                <MultipleSelect<Option>
+                  ariaLabel={t('buc:p5000-merge-period-type')}
+                  aria-describedby='help-tags'
+                  data-test-id='a-buc-c-p5000overview__types-select-id'
+                  hideSelectedOptions={false}
+                  onSelect={onMergeTypesChange}
+                  options={mergeTypeOptions}
+                  label={(
+                    <FlexEndDiv>
+                      {t('buc:p5000-merge-period-type')}
+                      <HorizontalSeparatorDiv size='0.5'/>
+                      <HelpText>
+                        {t('message:help-p5000-merge-period-type')}
+                      </HelpText>
+                    </FlexEndDiv>
+                  )}
+                  values={_.filter(mergeTypeOptions, (m: unknown) => _mergePeriodTypes ? _mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
+                />
+                  {_.find(items, ((it: P5000ListRow) => it.hasSubrows && it.land === 'DE')) !== undefined && (
+                    <>
+                      <HorizontalSeparatorDiv/>
+                      <Alert variant='info'>
+                        <FlexEndDiv>
+                          {t('message:warning-german-alert')}
+                        <HorizontalSeparatorDiv size='0.5'/>
+                        <HelpText>
+                          <div style={{maxWidth: '500px' }}>
+                            {t('message:help-p5000-german-alert')}
+                          </div>
+                        </HelpText>
+                        </FlexEndDiv>
+                      </Alert>
+                    </>
+                  )}
+                </>
+              )}
+            </FlexEndDiv>
           </Column>
           <Column>
             <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
@@ -268,7 +319,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <hr style={{ width: '100%' }} />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
-          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods}
+          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods + '_mergetype' + (_mergePeriodTypes?.join(':')) ?? ''}
           animatable={false}
           highContrast={highContrast}
           items={items}

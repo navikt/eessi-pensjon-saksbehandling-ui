@@ -286,8 +286,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <VerticalSeparatorDiv />
             </>
           )}
-            {sed.type === 'P4000' &&
-          featureToggles.P4000_VISIBLE && (
+          {sed.type === 'P4000' && featureToggles.P4000_VISIBLE && (
             <>
               <Button
                 variant='secondary'

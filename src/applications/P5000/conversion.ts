@@ -66,7 +66,8 @@ export const convertP5000SEDToP5000ListRows = (
   context: P5000Context,
   p5000FromRinaMap: P5000FromRinaMap,
   p5000FromStorage: LocalStorageEntry<P5000SED> | undefined,
-  mergePeriods: boolean
+  mergePeriods: boolean,
+  mergePeriodTypes ?: Array<string>
 ): [P5000ListRows, P5000SourceStatus] => {
   let rows: P5000ListRows = []
   let sourceStatus: P5000SourceStatus = 'rina'
@@ -134,20 +135,30 @@ export const convertP5000SEDToP5000ListRows = (
   })
 
   if (mergePeriods) {
-    const rowMap: any = {}
+    const mergingMap: any = {}
+    let groupedPeriods: any = {}
+
     // 1. group periods on an auxiliary map with `$acronym-$type-$ytelse-$ordning-$beregning` keys
     rows.forEach(r => {
-      const key = r.acronym + '_' + r.type + '_' + r.ytelse + '_' + r.ordning + '_' + r.beregning
-      if (!rowMap[key]) {
-        rowMap[key] = [r]
+
+      // for types that should be grouped as similar, use the same type key
+      let typeNeedle = r.type
+      if (!_.isEmpty(mergePeriodTypes) && mergePeriodTypes!.indexOf(r.type) >= 0) {
+        typeNeedle = mergePeriodTypes!.join(':')
+      }
+
+      const key = r.acronym + '_' + typeNeedle + '_' + r.ytelse + '_' + r.ordning + '_' + r.beregning
+      if (!mergingMap[key]) {
+        mergingMap[key] = [r]
       } else {
-        rowMap[key].push(r)
-        // 2. sort grouped periods by start date
-        rowMap[key] = rowMap[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
+        mergingMap[key].push(r)
+        // sort grouped periods by start date, for easy merging
+        mergingMap[key] = mergingMap[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
       }
     })
 
-    let rowMap2: any = {}
+    // reset rows. They will be Refill on #3
+    rows = []
 
     /** for period table:
      *     key    type      startdato  sluttdato
@@ -157,7 +168,7 @@ export const convertP5000SEDToP5000ListRows = (
      *      04     01        1981        1982
      *      05     01        1990        1991
      *
-     *   rowMap2 will be: {
+     *   groupedPeriods will be like this: {
      *     '01' : {
      *       '01': {
      *         parent: {first row merged with second},
@@ -175,17 +186,28 @@ export const convertP5000SEDToP5000ListRows = (
      *   }
      **/
 
-    // 3. array-walk periods, merge if they are consecutive
-    Object.keys(rowMap).forEach(key => {
-      rowMap2[key] = {}
+    // 3. array-walk periods, build the groupedPeriods map with merged periods
+    Object.keys(mergingMap).forEach(key => {
+      groupedPeriods[key] = {}
 
-      const subRows: Array<P5000ListRow> = _.cloneDeep(rowMap[key])
+      const subRows: Array<P5000ListRow> = _.cloneDeep(mergingMap[key])
       subRows.forEach((subRow: P5000ListRow) => {
 
-        const parentRows: Array<P5000ListRow> = Object.values(rowMap2[key]).map((v: any) => v.parent)
+        const parentRows: Array<P5000ListRow> = Object.values(groupedPeriods[key]).map((v: any) => v.parent)
         const _subRow = _.cloneDeep(subRow)
+
+        let parentRow
         const targetedSluttDato: Date = moment(_subRow.startdato).subtract(1, 'day').toDate()
-        const parentRow = _.find(parentRows, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
+        if (_subRow.land !== 'DE') {
+          parentRow = _.find(parentRows, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
+        } else {
+          // for germans, merge if they have same month / year, connecting f.ex 20-07-1986 with 01-08-1986
+          parentRow = _.find(parentRows, (_r) =>
+            moment(_r.sluttdato).isSame(moment(targetedSluttDato), 'month') &&
+            moment(_r.sluttdato).isSame(moment(targetedSluttDato), 'year')
+          )
+        }
+
         if (!_.isNil(parentRow)) {
 
           parentRow.sluttdato = subRow.sluttdato
@@ -197,43 +219,40 @@ export const convertP5000SEDToP5000ListRows = (
           parentRow.mnd = total.months as string
           parentRow.aar = total.years as string
 
-          rowMap2[key][parentRow.key]['parent'] = parentRow
-          rowMap2[key][parentRow.key]['sub'] = rowMap2[key][parentRow.key]['sub'].concat(subRow)
+          groupedPeriods[key][parentRow.key]['parent'] = parentRow
+          groupedPeriods[key][parentRow.key]['sub'] = groupedPeriods[key][parentRow.key]['sub'].concat(subRow)
         } else {
           // new
-          rowMap2[key][subRow.key] = {
+          groupedPeriods[key][subRow.key] = {
             parent: _.cloneDeep(subRow), //these will be changed to reflect merge - make sure they are not connected by cloning it
             sub: [subRow]
           }
         }
       })
+    })
 
-
-      // reset rows. Refill from rowMap2
-      rows = []
-
-      Object.keys(rowMap2).forEach(key => {
-        Object.keys(rowMap2[key]).forEach(key2 => {
-          if (rowMap2[key][key2].sub.length === 1) {
-            // period without merges - just add parent as a normal row
-            rows.push({
-             ...rowMap2[key][key2].parent,
-             hasSubrows: false
-            })
-          } else {
-          // period with merges
-            rows.push({
-              ...rowMap2[key][key2].parent,
-              hasSubrows: true,
-              key: 'merge-' + rowMap2[key][key2].parent.key
-            })
-            rowMap2[key][key2].sub.forEach((v: P5000ListRow) => {
-              let _v = _.cloneDeep(v)
-              _v.parentKey = 'merge-' + rowMap2[key][key2].parent.key
-              rows.push(_v)
-            })
-          }
-        })
+    // #4 use groupPeriods to create a row list
+    Object.keys(groupedPeriods).forEach(key => {
+      Object.keys(groupedPeriods[key]).forEach(key2 => {
+        if (groupedPeriods[key][key2].sub.length === 1) {
+          // period without merges - just add parent as a normal row
+          rows.push({
+           ...groupedPeriods[key][key2].parent,
+           hasSubrows: false
+          })
+        } else {
+        // period with merges
+          rows.push({
+            ...groupedPeriods[key][key2].parent,
+            hasSubrows: true,
+            key: 'merge-' + groupedPeriods[key][key2].parent.key
+          })
+          groupedPeriods[key][key2].sub.forEach((v: P5000ListRow) => {
+            let _v = _.cloneDeep(v)
+            _v.parentKey = 'merge-' + groupedPeriods[key][key2].parent.key
+            rows.push(_v)
+          })
+        }
       })
     })
   }

@@ -7,7 +7,7 @@ export default {
       institusjonsid: 'NO:889640782',
       institusjonsnavn: 'The Norwegian Labour and Welfare Administration',
       saksnummer: '25183754',
-      land: 'FI'
+      land: 'NO'
     }],
     bruker: {
       mor: null,
@@ -18,15 +18,15 @@ export default {
           institusjonsid: null,
           sektor: null,
           identifikator: '12345678901',
-          land: 'FI',
+          land: 'DE',
           institusjon: null
         }],
         pinland: null,
         statsborgerskap: [{
-          land: 'FI'
+          land: 'DE'
         }],
-        etternavn: 'MCFINNISH',
-        fornavn: 'FINNISH',
+        etternavn: 'MCDEUTSCH',
+        fornavn: 'DEUTSCH',
         kjoenn: 'M',
         foedested: null,
         foedselsdato: '1948-01-01',
@@ -50,7 +50,7 @@ export default {
     trygdetid: [{
       relevans: null,
       ordning: null,
-      land: 'FI',
+      land: 'DE',
       sum: {
         kvartal: null,
         aar: '20',
@@ -72,7 +72,7 @@ export default {
     medlemskapAnnen: [{
       relevans: '010',
       ordning: '01',
-      land: 'FI',
+      land: 'DE',
       sum: {
         kvartal: null,
         aar: '11',
@@ -83,7 +83,7 @@ export default {
         },
         maaneder: '00'
       },
-      yrke: '0000',
+      yrke: '000',
       gyldigperiode: null,
       type: '20',
       beregning: '001',
@@ -94,7 +94,7 @@ export default {
     medlemskapTotal: [{
       relevans: '010',
       ordning: null,
-      land: 'FI',
+      land: 'DE',
       sum: {
         kvartal: null,
         aar: '02',
@@ -126,13 +126,12 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '02',
-          uker: '02',
+          aar: '00',
           dager: {
-            nr: '2',
+            nr: '6',
             type: '7'
           },
-          maaneder: '02'
+          maaneder: '07'
         },
         yrke: '20',
         gyldigperiode: null,
@@ -147,16 +146,16 @@ export default {
       }, {
         relevans: '20',
         ordning: '20',
-        land: 'FI',
+        land: 'DE',
         sum: {
           kvartal: null,
-          aar: '02',
+          aar: '00',
           uker: '00',
           dager: {
-            nr: '2',
+            nr: '20',
             type: '7'
           },
-          maaneder: '02'
+          maaneder: '01'
         },
         yrke: '20',
         gyldigperiode: null,
@@ -164,8 +163,32 @@ export default {
         beregning: '001',
         informasjonskalkulering: null,
         periode: {
-          fom: '1987-01-01',
-          tom: '1987-12-31'
+          fom: '1986-08-01',
+          tom: '1986-09-20'
+        },
+        enkeltkrav: null
+      }, {
+        relevans: '20',
+        ordning: '20',
+        land: 'DE',
+        sum: {
+          kvartal: null,
+          aar: '00',
+          uker: '00',
+          dager: {
+            nr: '20',
+            type: '7'
+          },
+          maaneder: '01'
+        },
+        yrke: '20',
+        gyldigperiode: null,
+        type: '20',
+        beregning: '001',
+        informasjonskalkulering: null,
+        periode: {
+          fom: '1986-10-01',
+          tom: '1986-11-20'
         },
         enkeltkrav: null
       }]

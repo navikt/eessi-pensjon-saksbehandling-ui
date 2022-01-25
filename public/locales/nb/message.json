@@ -55,6 +55,8 @@
   "help-p5000-merge-1" : "Noen land stykker opp trygdetid i små perioder selv om det ikke er mellomrom mellom periodene.",
   "help-p5000-merge-2" : "Trykk på for å slå sammen sammenhengende perioder av samme type.",
   "help-p5000-uft" : "For Uføretrygd: Klikk her for å få med trygdetid fra og med uføretidspunktet og frem til i dag",
+  "help-p5000-merge-period-type" : "Slå sammen perioder med ulike periode typer",
+  "help-p5000-german-alert": "Noen land (Tyskland) avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen. Hak av her hvis det er slike perioder i saken.",
 
   "loading-buc"                   : "Laster BUC...",
   "loading-bucOptions"            : "Laster BUC-er...",
@@ -105,6 +107,7 @@
   "warning-noBucs"                           : "Ingen BUCer funnet",
   "warning-filteredBucs"                     : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-failedP5000Sending"               : "Feil med overføring P5000 data til Rina",
+  "warning-german-alert"                     : "Tysklands sammenhengende med avrunding",
   "warning-noVedtakskontekst"                : "Du trenger å være i vedtakskontekst",
   "warning-noUforetrygd"                     : "Du kan bruke det med uføretrygd sakstype",
   "warning-okP5000Sending"                   : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet.",

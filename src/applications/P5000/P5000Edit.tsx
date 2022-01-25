@@ -31,6 +31,7 @@ import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
+import featureToggles from 'mocks/app/featureToggles'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
 import {
@@ -61,10 +62,6 @@ import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
 const moment = extendMoment(Moment)
 
-const Radio42 = styled(Radio)`
-  margin-bottom: 0.3rem !important;
-  margin-top: 0.3rem;
-`
 export const AlertstripeDiv = styled.div`
   margin: 0.5rem;
   min-width: 50%;
@@ -855,12 +852,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         open={_showHelpModal}
         onClose={() => _setShowHelpModal(false)}
       />
-      <PileCenterDiv className='foo'>
+      <PileCenterDiv>
         <AlignEndRow style={{ width: '100%' }}>
           <Column>
             <FullWidthDiv>
               <Select
-                noMarginTop
                 key={'ytelse' + _ytelseOption}
                 className='P5000Edit-ytelse-select'
                 error={_validation['P5000Edit-ytelse-select']?.feilmelding}
@@ -874,7 +870,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               />
             </FullWidthDiv>
           </Column>
-          <Column>
+          <Column style={{justifyContent: 'center'}}>
             <FlexCenterDiv>
               <RadioGroup
                 value={_forsikringEllerBosetningsperioder}
@@ -897,23 +893,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               )}
               >
                 <FlexEndDiv>
-                  <Radio42 value='1'>
+                  <Radio value='1'>
                     {t('ui:yes')}
-                  </Radio42>
-                  <HorizontalSeparatorDiv />
-                  <Radio42
-                    style={{ marginBottom: '0.3rem', marginTop: '0.3rem' }}
-                    value='0'
-                  >
+                  </Radio>
+                  <HorizontalSeparatorDiv size='3'/>
+                  <Radio value='0'>
                     {t('ui:no')}
-                  </Radio42>
+                  </Radio>
                 </FlexEndDiv>
               </RadioGroup>
             </FlexCenterDiv>
           </Column>
-          <HorizontalSeparatorDiv />
           <Column>
-            <FlexEndDiv>
+            <FlexEndDiv style={{justifyContent: 'flex-end'}}>
               <NavSelect
                 id='itemsPerPage'
                 label={t('ui:itemsPerPage')}
@@ -959,7 +951,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <VerticalSeparatorDiv />
         <AlignEndRow style={{ width: '100%' }}>
           <Column />
-          <Column>
+          <Column style={{textAlign: 'end'}}>
             {sourceStatus !== 'rina' && (
               <div style={{ whiteSpace: 'nowrap' }}>
                 <span>
@@ -976,31 +968,33 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <VerticalSeparatorDiv />
         <AlignEndRow style={{ width: '100%' }}>
           <Column>
-            <FlexBaseDiv>
-              <Button
-                variant='secondary'
-                disabled={(pesysContext !== constants.VEDTAKSKONTEKST || sakType !== SakTypeMap.UFOREP) || gettingUFT}
-                onClick={hentUFT}
-              >
-                {gettingUFT && <Loader />}
-                {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
-              </Button>
-              <HorizontalSeparatorDiv size='0.5' />
-              {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
-              {(sakType !== SakTypeMap.UFOREP) && <BodyLong>{t('message:warning-noUforetrygd')}</BodyLong>}
-              {uft && (
-                <>
-                  <HorizontalSeparatorDiv />
-                  <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
-                </>
-              )}
-              <HorizontalSeparatorDiv />
-              <HelpText placement='right'>
-                <div style={{ maxWidth: '600px' }}>
-                  {t('message:help-p5000-uft')}
-                </div>
-              </HelpText>
-            </FlexBaseDiv>
+            {featureToggles.P5000_UPDATES_VISIBLE && (
+              <FlexBaseDiv>
+                <Button
+                  variant='secondary'
+                  disabled={(pesysContext !== constants.VEDTAKSKONTEKST || sakType !== SakTypeMap.UFOREP) || gettingUFT}
+                  onClick={hentUFT}
+                >
+                  {gettingUFT && <Loader />}
+                  {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
+                </Button>
+                <HorizontalSeparatorDiv size='0.5' />
+                {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
+                {(sakType !== SakTypeMap.UFOREP) && <BodyLong>{t('message:warning-noUforetrygd')}</BodyLong>}
+                {uft && (
+                  <>
+                    <HorizontalSeparatorDiv />
+                    <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
+                  </>
+                )}
+                <HorizontalSeparatorDiv />
+                <HelpText placement='right'>
+                  <div style={{ maxWidth: '600px' }}>
+                    {t('message:help-p5000-uft')}
+                  </div>
+                </HelpText>
+              </FlexBaseDiv>
+            )}
           </Column>
           <Column flex='2'>
             <Alert variant='warning'>
@@ -1029,7 +1023,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           labels={{
             selectAllTitle: t('buc:P5000-sum-only-5.1-title'),
             selectAll: t('buc:P5000-sum-only-5.1-description'),
-            flagged: t('buc:P5000-nft-flagged')
+            flagged: t('buc:P5000-uft-flagged')
           }}
           context={{
             items: _items,
