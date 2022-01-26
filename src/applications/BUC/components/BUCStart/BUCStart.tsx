@@ -341,7 +341,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
       if (onBucChanged) {
         onBucChanged(option as Option)
       }
-
     }
   }
 

@@ -128,12 +128,13 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
       const expirationTime = action.payload.expirationTime
         ? new Date(action.payload.expirationTime)
         : new Date(new Date().setMinutes(now.getMinutes() + 60))
+
+      const newFeatureToggles = _.cloneDeep(state.featureToggles)
+      action.payload?.features?.forEach((k: Feature) => { newFeatureToggles[k] = action.payload?.features[k] })
+      console.log('feature toggles', newFeatureToggles)
       return {
         ...state,
-        featureToggles: {
-          ...state.featureToggles,
-          ...(action.payload.features || {}) // not a typo, it is features, not featureToggles
-        },
+        featureToggles: newFeatureToggles,
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         loggedIn: true,
