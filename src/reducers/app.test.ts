@@ -148,6 +148,40 @@ describe('reducers/app', () => {
     })
   })
 
+  it('APP_USERINFO_SUCCESS: feature toggle ', () => {
+    expect(
+      appReducer({
+        ...initialAppState,
+        featureToggles: {
+          P4000_VISIBLE: false,
+          P5000_SUMMER_VISIBLE: false
+        }
+      }, {
+        type: types.APP_USERINFO_SUCCESS,
+        payload: {
+          subject: 'mockSubject',
+          role: 'mockRole',
+          features: {
+            P4000_VISIBLE: true,
+            P5000_UPDATES_VISIBLE: true
+          }
+        }
+      })
+    ).toEqual({
+      ...initialAppState,
+      username: 'mockSubject',
+      userRole: 'mockRole',
+      loggedIn: true,
+      loggedTime: expect.any(Date),
+      expirationTime: expect.any(Date),
+      featureToggles: {
+        P4000_VISIBLE: true,
+        P5000_UPDATES_VISIBLE: true,
+        P5000_SUMMER_VISIBLE: false
+      }
+    })
+  })
+
   it('UNKNOWN_ACTION', () => {
     expect(
       appReducer(initialAppState, {

@@ -130,7 +130,11 @@ const appReducer = (state: AppState = initialAppState, action: ActionWithPayload
         : new Date(new Date().setMinutes(now.getMinutes() + 60))
 
       const newFeatureToggles = _.cloneDeep(state.featureToggles)
-      action.payload?.features?.forEach((k: Feature) => { newFeatureToggles[k] = action.payload?.features[k] })
+      if (!_.isEmpty(action.payload?.features)) {
+        Object.keys(action.payload?.features).forEach((k: string) => {
+          newFeatureToggles[k as Feature] = action.payload?.features[k]
+        })
+      }
       console.log('feature toggles', newFeatureToggles)
       return {
         ...state,
