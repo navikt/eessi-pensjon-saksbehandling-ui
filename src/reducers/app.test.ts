@@ -153,6 +153,7 @@ describe('reducers/app', () => {
       appReducer({
         ...initialAppState,
         featureToggles: {
+          ...initialAppState.featureToggles,
           P4000_VISIBLE: false,
           P5000_SUMMER_VISIBLE: false
         }
@@ -174,11 +175,11 @@ describe('reducers/app', () => {
       loggedIn: true,
       loggedTime: expect.any(Date),
       expirationTime: expect.any(Date),
-      featureToggles: {
+      featureToggles: expect.objectContaining({
         P4000_VISIBLE: true,
         P5000_UPDATES_VISIBLE: true,
         P5000_SUMMER_VISIBLE: false
-      }
+      })
     })
   })
 
