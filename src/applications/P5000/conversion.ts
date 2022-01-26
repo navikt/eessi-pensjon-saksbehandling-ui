@@ -136,11 +136,10 @@ export const convertP5000SEDToP5000ListRows = (
 
   if (mergePeriods) {
     const mergingMap: any = {}
-    let groupedPeriods: any = {}
+    const groupedPeriods: any = {}
 
     // 1. group periods on an auxiliary map with `$acronym-$type-$ytelse-$ordning-$beregning` keys
     rows.forEach(r => {
-
       // for types that should be grouped as similar, use the same type key
       let typeNeedle = r.type
       if (!_.isEmpty(mergePeriodTypes) && mergePeriodTypes!.indexOf(r.type) >= 0) {
@@ -192,7 +191,6 @@ export const convertP5000SEDToP5000ListRows = (
 
       const subRows: Array<P5000ListRow> = _.cloneDeep(mergingMap[key])
       subRows.forEach((subRow: P5000ListRow) => {
-
         const parentRows: Array<P5000ListRow> = Object.values(groupedPeriods[key]).map((v: any) => v.parent)
         const _subRow = _.cloneDeep(subRow)
 
@@ -209,22 +207,21 @@ export const convertP5000SEDToP5000ListRows = (
         }
 
         if (!_.isNil(parentRow)) {
-
           parentRow.sluttdato = subRow.sluttdato
           const total: FormattedDateDiff = sumDates(
-            {days: subRow.dag, months: subRow.mnd, years: subRow.aar},
-            {days: parentRow.dag, months: parentRow.mnd, years: parentRow.aar}
+            { days: subRow.dag, months: subRow.mnd, years: subRow.aar },
+            { days: parentRow.dag, months: parentRow.mnd, years: parentRow.aar }
             , true)
           parentRow.dag = total.days as string
           parentRow.mnd = total.months as string
           parentRow.aar = total.years as string
 
-          groupedPeriods[key][parentRow.key]['parent'] = parentRow
-          groupedPeriods[key][parentRow.key]['sub'] = groupedPeriods[key][parentRow.key]['sub'].concat(subRow)
+          groupedPeriods[key][parentRow.key].parent = parentRow
+          groupedPeriods[key][parentRow.key].sub = groupedPeriods[key][parentRow.key].sub.concat(subRow)
         } else {
           // new
           groupedPeriods[key][subRow.key] = {
-            parent: _.cloneDeep(subRow), //these will be changed to reflect merge - make sure they are not connected by cloning it
+            parent: _.cloneDeep(subRow), // these will be changed to reflect merge - make sure they are not connected by cloning it
             sub: [subRow]
           }
         }
@@ -237,8 +234,8 @@ export const convertP5000SEDToP5000ListRows = (
         if (groupedPeriods[key][key2].sub.length === 1) {
           // period without merges - just add parent as a normal row
           rows.push({
-           ...groupedPeriods[key][key2].parent,
-           hasSubrows: false
+            ...groupedPeriods[key][key2].parent,
+            hasSubrows: false
           })
         } else {
         // period with merges
@@ -248,7 +245,7 @@ export const convertP5000SEDToP5000ListRows = (
             key: 'merge-' + groupedPeriods[key][key2].parent.key
           })
           groupedPeriods[key][key2].sub.forEach((v: P5000ListRow) => {
-            let _v = _.cloneDeep(v)
+            const _v = _.cloneDeep(v)
             _v.parentKey = 'merge-' + groupedPeriods[key][key2].parent.key
             rows.push(_v)
           })

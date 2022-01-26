@@ -286,41 +286,41 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <VerticalSeparatorDiv />
             </>
           )}
-          {sed.type === 'P4000' && featureToggles.P4000_VISIBLE && (
-            <>
-              <Button
-                variant='secondary'
-                data-amplitude='buc.edit.p4000'
-                data-test-id='a-buc-c-sedheader__p4000-button-id'
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  setMode('p4000', 'forward', undefined, (
-                    <P4000
-                      key={sed.id}
-                      buc={buc}
-                      context='edit'
-                      setMode={setMode}
-                      mainSed={sed}
-                    />
-                  ))
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                  })
-                }}
-              >
-                {P5000Draft
-                  ? t('buc:p4000-rediger')
-                  : sed.status === 'sent'
-                    ? t('buc:p4000-updating')
-                    : t('buc:p4000-registrert')}
-                <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
-              </Button>
-              <VerticalSeparatorDiv />
-            </>
+            {sed.type === 'P4000' && featureToggles.P4000_VISIBLE && (
+              <>
+                <Button
+                  variant='secondary'
+                  data-amplitude='buc.edit.p4000'
+                  data-test-id='a-buc-c-sedheader__p4000-button-id'
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setMode('p4000', 'forward', undefined, (
+                      <P4000
+                        key={sed.id}
+                        buc={buc}
+                        context='edit'
+                        setMode={setMode}
+                        mainSed={sed}
+                      />
+                    ))
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: 'smooth'
+                    })
+                  }}
+                >
+                  {P5000Draft
+                    ? t('buc:p4000-rediger')
+                    : sed.status === 'sent'
+                      ? t('buc:p4000-updating')
+                      : t('buc:p4000-registrert')}
+                  <HorizontalSeparatorDiv size='0.3' />
+                  <NextFilled />
+                </Button>
+                <VerticalSeparatorDiv />
+              </>
             )}
           </PileDiv>
         </SEDListActionsDiv>
