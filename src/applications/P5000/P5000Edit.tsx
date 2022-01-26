@@ -31,7 +31,6 @@ import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import featureToggles from 'mocks/app/featureToggles'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
 import {
@@ -74,7 +73,8 @@ const mapState = (state: State): any => ({
   sendingP5000info: state.loading.sendingP5000info,
   gettingUFT: state.loading.gettingUFT,
   uft: state.p5000.uft,
-  sakType: state.app.params.sakType as SakTypeValue
+  sakType: state.app.params.sakType as SakTypeValue,
+  featureToggles: state.app.featureToggles
 })
 
 export interface P5000EditProps {
@@ -98,7 +98,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { gettingUFT, pesysContext, sentP5000info, sendingP5000info, uft, sakType, vedtakId }: any = useSelector<State, any>(mapState)
+  const { gettingUFT, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, sakType, vedtakId }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)

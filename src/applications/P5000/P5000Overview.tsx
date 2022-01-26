@@ -1,14 +1,13 @@
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { OneLineSpan } from 'components/StyledComponents'
-import { LocalStorageEntry, Option } from 'declarations/app'
+import { FeatureToggles, LocalStorageEntry, Option } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import CountryData from 'land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
-import featureToggles from 'mocks/app/featureToggles'
 import moment from 'moment'
 import { BodyLong, Tag, HelpText, Loader, Select, Button, Switch, Alert } from '@navikt/ds-react'
 import {
@@ -32,6 +31,7 @@ import { convertP5000SEDToP5000ListRows } from './conversion'
 
 export interface P5000OverviewSelector {
   highContrast: boolean
+  featureToggles: FeatureToggles
 }
 
 export interface P5000OverviewProps {
@@ -42,7 +42,8 @@ export interface P5000OverviewProps {
 }
 
 const mapState = (state: State): P5000OverviewSelector => ({
-  highContrast: state.ui.highContrast
+  highContrast: state.ui.highContrast,
+  featureToggles: state.app.featureToggles
 })
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
@@ -58,7 +59,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_mergePeriodTypes, _setMergePeriodTypes] = useState<Array<string> |undefined>(undefined)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
   const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, _mergePeriods, _mergePeriodTypes)
-  const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
+  const { highContrast, featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
   const mergeTypeOptions: Array<Option> = _.uniq(items.map(i => i.type))
     .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({ label: i, value: i }))
