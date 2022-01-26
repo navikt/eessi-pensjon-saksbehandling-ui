@@ -61,7 +61,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const { highContrast }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
   const mergeTypeOptions: Array<Option> = _.uniq(items.map(i => i.type))
-    .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({ label: i, value: i }))
+    .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({label: i, value: i}))
 
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
@@ -219,58 +219,58 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <AlignEndRow style={{ width: '100%' }}>
           <Column flex='2'>
             <FlexEndDiv>
-              <Switch
-                checked={_mergePeriods}
-                id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
-                data-test-id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
-                onChange={() => _setMergePeriods(!_mergePeriods)}
-              >
-                <FlexCenterDiv>
-                  <OneLineSpan>
-                    {t('buc:p5000-merge-periods')}
-                  </OneLineSpan>
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <HelpText>
-                    <div style={{ maxWidth: '300px' }}>
-                      <BodyLong>{t('message:help-p5000-merge-1')}</BodyLong>
-                      <BodyLong>{t('message:help-p5000-merge-2')}</BodyLong>
-                    </div>
-                  </HelpText>
-                </FlexCenterDiv>
-              </Switch>
+            <Switch
+              checked={_mergePeriods}
+              id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
+              data-test-id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
+              onChange={() => _setMergePeriods(!_mergePeriods)}
+            >
+              <FlexCenterDiv>
+                <OneLineSpan>
+                  {t('buc:p5000-merge-periods')}
+                </OneLineSpan>
+                <HorizontalSeparatorDiv size='0.5'/>
+                <HelpText>
+                  <div style={{ maxWidth: '300px' }}>
+                    <BodyLong>{t('message:help-p5000-merge-1')}</BodyLong>
+                    <BodyLong>{t('message:help-p5000-merge-2')}</BodyLong>
+                  </div>
+                </HelpText>
+              </FlexCenterDiv>
+            </Switch>
               {featureToggles.P5000_UPDATES_VISIBLE && _mergePeriods && (
                 <>
-                  <HorizontalSeparatorDiv size='2' />
-                  <MultipleSelect<Option>
-                    ariaLabel={t('buc:p5000-merge-period-type')}
-                    aria-describedby='help-tags'
-                    data-test-id='a-buc-c-p5000overview__types-select-id'
-                    hideSelectedOptions={false}
-                    onSelect={onMergeTypesChange}
-                    options={mergeTypeOptions}
-                    label={(
-                      <FlexEndDiv>
-                        {t('buc:p5000-merge-period-type')}
-                        <HorizontalSeparatorDiv size='0.5' />
-                        <HelpText>
-                          {t('message:help-p5000-merge-period-type')}
-                        </HelpText>
-                      </FlexEndDiv>
+                <HorizontalSeparatorDiv size='2'/>
+                <MultipleSelect<Option>
+                  ariaLabel={t('buc:p5000-merge-period-type')}
+                  aria-describedby='help-tags'
+                  data-test-id='a-buc-c-p5000overview__types-select-id'
+                  hideSelectedOptions={false}
+                  onSelect={onMergeTypesChange}
+                  options={mergeTypeOptions}
+                  label={(
+                    <FlexEndDiv>
+                      {t('buc:p5000-merge-period-type')}
+                      <HorizontalSeparatorDiv size='0.5'/>
+                      <HelpText>
+                        {t('message:help-p5000-merge-period-type')}
+                      </HelpText>
+                    </FlexEndDiv>
                   )}
-                    values={_.filter(mergeTypeOptions, (m: unknown) => _mergePeriodTypes ? _mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
-                  />
-                  {_.find(items, (it: P5000ListRow) => it.hasSubrows && it.land === 'DE') !== undefined && (
+                  values={_.filter(mergeTypeOptions, (m: unknown) => _mergePeriodTypes ? _mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
+                />
+                  {_.find(items, ((it: P5000ListRow) => it.hasSubrows && it.land === 'DE')) !== undefined && (
                     <>
-                      <HorizontalSeparatorDiv />
+                      <HorizontalSeparatorDiv/>
                       <Alert variant='info'>
                         <FlexEndDiv>
                           {t('message:warning-german-alert')}
-                          <HorizontalSeparatorDiv size='0.5' />
-                          <HelpText>
-                            <div style={{ maxWidth: '500px' }}>
-                              {t('message:help-p5000-german-alert')}
-                            </div>
-                          </HelpText>
+                        <HorizontalSeparatorDiv size='0.5'/>
+                        <HelpText>
+                          <div style={{maxWidth: '500px' }}>
+                            {t('message:help-p5000-german-alert')}
+                          </div>
+                        </HelpText>
                         </FlexEndDiv>
                       </Alert>
                     </>

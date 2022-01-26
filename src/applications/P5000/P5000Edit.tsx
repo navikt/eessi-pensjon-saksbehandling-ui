@@ -129,10 +129,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
 
   const beregningOptions: Array<Option> = [
-    { label: '000', value: '000' }, { label: '001', value: '001' },
-    { label: '010', value: '010' }, { label: '011', value: '011' },
-    { label: '100', value: '100' }, { label: '101', value: '101' },
-    { label: '110', value: '110' }, { label: '111', value: '111' }
+    {label: '000', value: '000'}, {label: '001', value: '001'},
+    {label: '010', value: '010'}, {label: '011', value: '011'},
+    {label: '100', value: '100'}, {label: '101', value: '101'},
+    {label: '110', value: '110'}, {label: '111', value: '111'}
   ]
 
   const beforePrintOut = (): void => {
@@ -351,7 +351,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
       <Input
-        style={{ marginTop: '0px' }}
+        style={{marginTop: '0px'}}
         size='small'
         aria-invalid={!!options.error}
         aria-label='dag'
@@ -378,7 +378,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
       <Input
-        style={{ marginTop: '0px' }}
+        style={{marginTop: '0px'}}
         size='small'
         aria-invalid={!!options.error}
         aria-label='mnd'
@@ -405,7 +405,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
       <Input
-        style={{ marginTop: '0px' }}
+        style={{marginTop: '0px'}}
         size='small'
         aria-invalid={!!options.error}
         aria-label='aar'
@@ -521,7 +521,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderStatus = (item: any, value: any) => (
     <div>
-      {(value === 'rina') && <Tag size='small' variant='info'>RINA</Tag>}
+      {(value === 'rina') &&  <Tag size='small' variant='info'>RINA</Tag>}
       {(value === 'new') && <Tag size='small' variant='success'>Ny</Tag>}
       {(value === 'edited') && <Tag size='small' variant='warning'>Endret</Tag>}
     </div>
@@ -870,7 +870,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               />
             </FullWidthDiv>
           </Column>
-          <Column style={{ justifyContent: 'center' }}>
+          <Column style={{justifyContent: 'center'}}>
             <FlexCenterDiv>
               <RadioGroup
                 value={_forsikringEllerBosetningsperioder}
@@ -896,7 +896,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   <Radio value='1'>
                     {t('ui:yes')}
                   </Radio>
-                  <HorizontalSeparatorDiv size='3' />
+                  <HorizontalSeparatorDiv size='3'/>
                   <Radio value='0'>
                     {t('ui:no')}
                   </Radio>
@@ -905,7 +905,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             </FlexCenterDiv>
           </Column>
           <Column>
-            <FlexEndDiv style={{ justifyContent: 'flex-end' }}>
+            <FlexEndDiv style={{justifyContent: 'flex-end'}}>
               <NavSelect
                 id='itemsPerPage'
                 label={t('ui:itemsPerPage')}
@@ -951,7 +951,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <VerticalSeparatorDiv />
         <AlignEndRow style={{ width: '100%' }}>
           <Column />
-          <Column style={{ textAlign: 'end' }}>
+          <Column style={{textAlign: 'end'}}>
             {sourceStatus !== 'rina' && (
               <div style={{ whiteSpace: 'nowrap' }}>
                 <span>
