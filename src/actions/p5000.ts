@@ -50,6 +50,7 @@ export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
     method: 'PUT',
     body: payload,
     cascadeFailureError: true,
+    expectedErrorRate: { 500: 1 },
     expectedPayload: { success: true },
     context: {
       caseId,

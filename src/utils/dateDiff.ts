@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import moment from 'moment'
 
 export interface DateDiff {
@@ -18,10 +19,10 @@ export interface FormattedDateDiff {
  * Don't think too much -- this is how they calculate dates, it's weird,
  * just look at the test file to understand the rules
  */
-const dateDiff = (startdato: string, sluttdato: string): FormattedDateDiff => {
-  const Fomdato = moment(startdato, 'DD.MM.YYYY')
+const dateDiff = (startdato: Date | string, sluttdato: Date | string): FormattedDateDiff => {
+  const Fomdato = _.isString(startdato) ? moment(startdato, 'DD.MM.YYYY') : moment(startdato)
   // Add a day to end date
-  const Tomdato = moment(sluttdato, 'DD.MM.YYYY').add(1, 'days')
+  const Tomdato = _.isString(sluttdato) ? moment(sluttdato, 'DD.MM.YYYY').add(1, 'days') : moment(sluttdato).add(1, 'days')
 
   // estimate years based on number of days
   let numberOfDays = Tomdato!.diff(Fomdato, 'days')

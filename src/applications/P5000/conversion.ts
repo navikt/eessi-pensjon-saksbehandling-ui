@@ -113,9 +113,10 @@ export const convertP5000SEDToP5000ListRows = (
         rows.push({
           key: period.key ?? generateKeyForListRow(sed.id, period),
           selected: period.selected,
+          flagIkon: period.flagIkon,
           flag: period.flag,
           selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
-          selectLabel: i18n.t('buc:p5000-checkbox-text'),
+          selectLabel: period.flagIkon ? 'UFT periode' : i18n.t('buc:p5000-checkbox-text'),
           status,
           land: getNewLand(period, sender),
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
@@ -414,6 +415,7 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
     key: item?.key,
     selected: item.selected,
     flag: item.flag,
+    flagIkon: item.flagIkon,
     relevans: item.ytelse,
     land: item.land ?? 'NO',
     sum: {
@@ -436,7 +438,7 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
       tom: convertDate(item.sluttdato)
     }
   }
-  if (!period.key) {
+  if (_.isEmpty(period.key)) {
     period.key = generateKeyForListRow(sedid, period)
   }
   return period

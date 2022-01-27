@@ -28,7 +28,8 @@ import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/b
 import { SedsPropType } from 'declarations/buc.pt'
 import {
   P5000ListRow,
-  P5000ListRows, P5000Period,
+  P5000ListRows,
+  P5000Period,
   P5000SED,
   P5000TableContext,
   P5000UpdatePayload
@@ -58,23 +59,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import styled from 'styled-components'
 import Table, { Column as TableColumn, RenderEditableOptions, Sort } from 'tabell'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
-import {
-  convertFromP5000ListRowsIntoP5000SED,
-  convertP5000SEDToP5000ListRows,
-  listItemtoPeriod
-} from './conversion'
+import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, listItemtoPeriod } from './conversion'
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
 const moment = extendMoment(Moment)
-
-export const AlertstripeDiv = styled.div`
-  margin: 0.5rem;
-  min-width: 50%;
-`
 
 const mapState = (state: State): any => ({
   vedtakId: state.app.params.vedtakId,
@@ -653,17 +644,25 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       payload.pensjon.medlemskapTotal?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
+        delete period.selected
+        delete period.flag
+        delete period.flagIkon
         payload.pensjon.medlemskapTotal[i] = period
       })
       payload.pensjon.trygdetid?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
+        delete period.selected
+        delete period.flag
+        delete period.flagIkon
         payload.pensjon.trygdetid[i] = period
       })
       payload.pensjon.medlemskapboarbeid.medlemskap?.forEach((p, i) => {
         const period = _.cloneDeep(p)
         delete period.key
         delete period.selected
+        delete period.flag
+        delete period.flagIkon
         payload.pensjon.medlemskapboarbeid.medlemskap[i] = period
       })
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
@@ -773,23 +772,20 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       let newItems: P5000ListRows = _.cloneDeep(_items)
       newItems = newItems.map(item => {
         const newItem = _.cloneDeep(item)
-        newItem.selected = moment(item.startdato).isAfter(uft)
-        newItem.flag = moment(item.startdato).isAfter(uft)
+        newItem.selected = moment(item.startdato).isSameOrAfter(uft)
+        newItem.flag = moment(item.startdato).isSameOrAfter(uft)
         return newItem
       })
 
-      const startdato: string = moment(uft).format('DD.MM.YYYY')
-      const sluttdato: string = moment(new Date()).format('DD.MM.YYYY')
-
       // check if we do not have such period
       const foundUFTPeriod = _.find(newItems, item => {
-        return item.startdato === startdato &&
-          item.sluttdato === sluttdato &&
+        return moment(item.startdato).isSame(uft) &&
+          moment(item.sluttdato).isSame(new Date(), 'day') && // compare sluttdato with today, but just year/month/day
           item.type === '30'
       })
 
       if (!foundUFTPeriod) {
-        const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
+        const diff: FormattedDateDiff = dateDiff(uft, new Date())
         // I will use a random period as a template, to fill out stuff like land
         const newItemTemplate = _.sample(newItems) as P5000ListRow
         const newItem: P5000ListRow = {
@@ -799,14 +795,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           ytelse: newItemTemplate.ytelse,
           acronym: newItemTemplate.acronym,
           type: '30',
-          startdato,
-          sluttdato,
+          startdato: uft,
+          sluttdato: new Date(),
           status: 'new',
           aar: '' + diff.years,
           mnd: '' + diff.months,
           dag: '' + diff.days,
           selected: true,
-          flag: true
+          flag: true,
+          flagIkon: 'UFT',
+          key: '' // will be generated later
         } as P5000ListRow
 
         // converting new item to period, so I can get the generated key
@@ -849,11 +847,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <div>
               {_.isNull(sentP5000info) && (
                 <PileCenterDiv>
-                  <AlertstripeDiv>
-                    <Alert variant='warning'>
-                      {t('message:warning-failedP5000Sending')}
-                    </Alert>
-                  </AlertstripeDiv>
+                  <Alert variant='warning'>
+                    {t('message:warning-failedP5000Sending')}
+                  </Alert>
                   <VerticalSeparatorDiv />
                   <FlexCenterSpacedDiv>
                     <div />
@@ -1025,13 +1021,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   {gettingUFT && <Loader />}
                   {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
                 </Button>
-                <HorizontalSeparatorDiv size='0.5' />
-                {(pesysContext !== constants.VEDTAKSKONTEKST) && <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>}
-                {(sakType !== SakTypeMap.UFOREP) && <BodyLong>{t('message:warning-noUforetrygd')}</BodyLong>}
-                {uft && (
+                {(pesysContext !== constants.VEDTAKSKONTEKST) && (
                   <>
-                    <HorizontalSeparatorDiv />
-                    <BodyLong>{moment(uft).format('DD.MM.YYYY')}</BodyLong>
+                    <HorizontalSeparatorDiv size='0.5' />
+                    <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>
+                  </>
+                )}
+                {(sakType !== SakTypeMap.UFOREP) && (
+                  <>
+                    <HorizontalSeparatorDiv size='0.5' />
+                    <BodyLong>{t('message:warning-noUforetrygd')}</BodyLong>
                   </>
                 )}
                 <HorizontalSeparatorDiv />
@@ -1082,7 +1081,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           selectable
           showSelectAll={false}
           coloredSelectedRow={false}
-          flaggable={_.isDate(uft)}
+          flaggable={_.find(_items, 'flagIkon') !== undefined}
           onRowSelectChange={onRowSelectChange}
           sortable
           onColumnSort={onColumnSort}

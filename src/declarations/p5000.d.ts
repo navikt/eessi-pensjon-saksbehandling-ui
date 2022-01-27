@@ -25,6 +25,7 @@ export interface P5000Period {
   key ?: string
   selected ?: boolean
   flag ?: boolean
+  flagIkon ?: any
   relevans : string | null
   ordning? : string | null
   land : string | null
@@ -132,8 +133,8 @@ export interface P5000ListRow extends Item {
   land: string
   acronym: string
   type: string
-  startdato: string
-  sluttdato: string
+  startdato: Date
+  sluttdato: Date
   aar: string
   mnd: string
   dag: string
