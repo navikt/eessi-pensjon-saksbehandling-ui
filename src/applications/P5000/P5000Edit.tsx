@@ -26,7 +26,13 @@ import * as constants from 'constants/constants'
 import { LocalStorageEntry, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { SedsPropType } from 'declarations/buc.pt'
-import { P5000ListRow, P5000ListRows, P5000SED, P5000TableContext, P5000UpdatePayload } from 'declarations/p5000'
+import {
+  P5000ListRow,
+  P5000ListRows, P5000Period,
+  P5000SED,
+  P5000TableContext,
+  P5000UpdatePayload
+} from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
@@ -54,8 +60,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import styled from 'styled-components'
 import Table, { Column as TableColumn, RenderEditableOptions, Sort } from 'tabell'
-import dateDiff, { DateDiff } from 'utils/dateDiff'
-import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
+import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
+import {
+  convertFromP5000ListRowsIntoP5000SED,
+  convertP5000SEDToP5000ListRows,
+  listItemtoPeriod
+} from './conversion'
 import P5000HelpModal from './P5000HelpModal'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
@@ -767,6 +777,43 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         newItem.flag = moment(item.startdato).isAfter(uft)
         return newItem
       })
+
+      const startdato: string = moment(uft).format('DD.MM.YYYY')
+      const sluttdato: string = moment(new Date()).format('DD.MM.YYYY')
+
+      // check if we do not have such period
+      const foundUFTPeriod = _.find(newItems, item => {
+        return item.startdato === startdato &&
+          item.sluttdato === sluttdato &&
+          item.type === '30'
+      })
+
+      if (!foundUFTPeriod) {
+        const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
+        // I will use a random period as a template, to fill out stuff like land
+        const newItemTemplate = _.sample(newItems) as P5000ListRow
+        const newItem: P5000ListRow = {
+          land: newItemTemplate.land,
+          beregning: newItemTemplate.beregning,
+          ordning: newItemTemplate.ordning,
+          ytelse: newItemTemplate.ytelse,
+          acronym: newItemTemplate.acronym,
+          type: '30',
+          startdato,
+          sluttdato,
+          status: 'new',
+          aar: '' + diff.years,
+          mnd: '' + diff.months,
+          dag: '' + diff.days,
+          selected: true,
+          flag: true
+        } as P5000ListRow
+
+        // converting new item to period, so I can get the generated key
+        const p5000Period: P5000Period = listItemtoPeriod(newItem, seds[0].id)
+        newItem.key = p5000Period.key!
+        newItems = newItems.concat(newItem)
+      }
       onSave({
         items: newItems
       })

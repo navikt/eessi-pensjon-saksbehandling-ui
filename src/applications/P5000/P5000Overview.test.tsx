@@ -2,6 +2,7 @@ import { Sed, Seds } from 'declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
+import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockP50001 from 'mocks/buc/sed_P5000_small1'
 import mockP50002 from 'mocks/buc/sed_P5000_small2'
 import { stageSelector } from 'setupTests'
@@ -9,8 +10,10 @@ import Table from 'tabell'
 import P5000Overview, { P5000OverviewProps, P5000OverviewSelector } from './P5000Overview'
 
 const defaultSelector: P5000OverviewSelector = {
-  highContrast: false
+  highContrast: false,
+  featureToggles: mockFeatureToggles
 }
+
 jest.mock('md5', () => (value: any) => value)
 describe('applications/BUC/components/P5000/P5000', () => {
   let wrapper: ReactWrapper
