@@ -145,10 +145,10 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     border: false
   }, {
     colSpan: 3,
-    label: t('buc:p5000-5-1-title')
+    label: t('p5000:5-1-title')
   }, {
     colSpan: 3,
-    label: t('buc:p5000-5-2-title')
+    label: t('p5000:5-2-title')
   }]
 
   if (context === 'edit') {
@@ -209,7 +209,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             {sakType === SakTypeMap.GJENLEV && (
               <>
                 <Alert variant='warning'>
-                  {t('message:warning-P5000SumGjenlevende')}
+                  {t('p5000:warning-P5000SumGjenlevende')}
                 </Alert>
                 <VerticalSeparatorDiv />
               </>
@@ -217,17 +217,17 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             {!!sakType && (
               <Alert variant='warning'>
                 <FlexDiv>
-                  {t('message:warning-P5000Sum-instructions-title')}
+                  {t('p5000:warning-P5000Sum-instructions-title')}
                   <HorizontalSeparatorDiv size='0.5' />
                   <HelpText>
                     <div style={{ maxWidth: '600px' }}>
-                      <BodyLong>{t('message:warning-P5000Sum-instructions-title-help')}</BodyLong>
+                      <BodyLong>{t('p5000:warning-P5000Sum-instructions-title-help')}</BodyLong>
                     </div>
                   </HelpText>
                 </FlexDiv>
                 <BodyLong>
                   <strong>
-                    {t('message:warning-P5000Sum-instructions-title-obs')}
+                    {t('p5000:warning-P5000Sum-instructions-title-obs')}
                   </strong>
                 </BodyLong>
                 {hasMoreWarnings && (
@@ -235,26 +235,26 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                     <VerticalSeparatorDiv />
                     <hr />
                     <VerticalSeparatorDiv size='0.7' />
-                    {t('message:warning-P5000Sum-instructions-header')}
+                    {t('p5000:warning-P5000Sum-instructions-header')}
                     <VerticalSeparatorDiv />
                   </div>
                 )}
                 <ul>
                   {has5152diffs && (
                     <li>
-                      {t('message:warning-P5000Sum-instructions-5152')}
+                      {t('p5000:warning-P5000Sum-instructions-5152')}
                       <VerticalSeparatorDiv size='0.5' />
                     </li>
                   )}
                   {has40aar && (
                     <li>
-                      {t('message:warning-P5000Sum-instructions-40')}
+                      {t('p5000:warning-P5000Sum-instructions-40')}
                       <VerticalSeparatorDiv size='0.5' />
                     </li>
                   )}
                   {has45 && (
                     <li>
-                      {t('message:warning-P5000Sum-instructions-45')}
+                      {t('p5000:warning-P5000Sum-instructions-45')}
                       <VerticalSeparatorDiv size='0.5' />
                     </li>
                   )}

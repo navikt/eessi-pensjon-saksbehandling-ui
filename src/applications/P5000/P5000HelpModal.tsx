@@ -14,30 +14,30 @@ const P5000HelpModal = ({
       open={open}
       modal={{
         closeButton: true,
-        modalTitle: t('buc:p5000-saved-working-copy') + ' ' + t('ui:hva-betyr-det'),
+        modalTitle: t('p5000:saved-working-copy') + ' ' + t('ui:hva-betyr-det'),
         modalContent: (
           <div style={{ maxWidth: '800px' }}>
             <VerticalSeparatorDiv size='2' />
             <BodyLong>
-              {t('buc:p5000-help-modal-1')}
+              {t('p5000:help-modal-1')}
               <Button
                 size='small'
                 variant='tertiary'
                 onClick={() => {}}
               >
-                {t('buc:p5000-registrert')}
+                {t('p5000:registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
                 <NextFilled />
               </Button>
-              {t('buc:p5000-help-modal-2')}
+              {t('p5000:help-modal-2')}
             </BodyLong>
             <VerticalSeparatorDiv />
             <BodyLong>
-              {t('buc:p5000-help-modal-3')}
+              {t('p5000:help-modal-3')}
             </BodyLong>
             <VerticalSeparatorDiv />
             <BodyLong>
-              {t('buc:p5000-help-modal-4')}
+              {t('p5000:help-modal-4')}
             </BodyLong>
             <VerticalSeparatorDiv />
             <div style={{ textAlign: 'center' }}>
@@ -45,17 +45,17 @@ const P5000HelpModal = ({
             </div>
             <VerticalSeparatorDiv />
             <BodyLong>
-              {t('buc:p5000-help-modal-5')}
+              {t('p5000:help-modal-5')}
               <Button
                 size='small'
                 variant='tertiary'
                 onClick={() => {}}
               >
-                {t('buc:p5000-rediger')}
+                {t('p5000:rediger')}
                 <HorizontalSeparatorDiv size='0.3' />
                 <NextFilled />
               </Button>
-              {t('buc:p5000-help-modal-6')}
+              {t('p5000:help-modal-6')}
               <Button
                 size='small'
                 variant='tertiary'
@@ -69,7 +69,7 @@ const P5000HelpModal = ({
             </BodyLong>
             <VerticalSeparatorDiv />
             <BodyLong>
-              {t('buc:p5000-help-modal-7')}
+              {t('p5000:help-modal-7')}
             </BodyLong>
             <VerticalSeparatorDiv size='2' />
           </div>

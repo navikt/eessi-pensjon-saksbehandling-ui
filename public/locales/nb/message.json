@@ -21,7 +21,7 @@
   "alert-readOnlyBuc"             : "Det er kun lesetilgang til denne BUC-en, det kan ikke bestilles SED-er.",
   "alert-saveBucsInfoFailure"     : "Feil ved lagring av BUC informasjon",
   "alert-updatedPageNotification" : "EP side melding oppdatert",
-  "alert-X100"                   : "Saken er videresendt korrekt institusjon. Det er ikke nødvendig å opprette X005 for å videresende saken til den nye tyske institusjonen",
+  "alert-X100"                    : "Saken er videresendt korrekt institusjon. Det er ikke nødvendig å opprette X005 for å videresende saken til den nye tyske institusjonen",
 
   "error-noBuc"              : "Feil å hente BUC",
   "error-noBucs"             : "Feil å hente BUC-er",
@@ -50,13 +50,6 @@
   "error-validationbox-bucstart" : "Før du kan bestille BUC må du:",
 
   "help-avdodFnr" : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
-  "help-p5000-1"  : "Dersom ingen forsikringsperiode i Norge, fyll inn ytelsestype (4.1), velg \"Nei\" her (4.2).",
-  "help-p5000-2"  : "Når du klikker på \"Overfør til Rina\" vil nødvendige felt i kapittel 4/5 i P5000 bli pre-utfylt.",
-  "help-p5000-merge-1" : "Noen land stykker opp trygdetid i små perioder selv om det ikke er mellomrom mellom periodene.",
-  "help-p5000-merge-2" : "Trykk på for å slå sammen sammenhengende perioder av samme type.",
-  "help-p5000-uft" : "For Uføretrygd: Klikk her for å få med trygdetid fra og med uføretidspunktet og frem til i dag",
-  "help-p5000-merge-period-type" : "Slå sammen perioder med ulike periode typer",
-  "help-p5000-german-alert": "Noen land (Tyskland) avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen. Hak av her hvis det er slike perioder i saken.",
 
   "loading-buc"                   : "Laster BUC...",
   "loading-bucOptions"            : "Laster BUC-er...",
@@ -106,21 +99,9 @@
 
   "warning-noBucs"                           : "Ingen BUCer funnet",
   "warning-filteredBucs"                     : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
-  "warning-failedP5000Sending"               : "Feil med overføring P5000 data til Rina",
   "warning-german-alert"                     : "Tysklands sammenhengende med avrunding",
   "warning-noVedtakskontekst"                : "Du trenger å være i vedtakskontekst",
   "warning-noUforetrygd"                     : "Du kan bruke det med uføretrygd sakstype",
-  "warning-okP5000Sending"                   : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet.",
-  "warning-P5000SumGjenlevende"              : "Ved pensjonspoeng i flytteår må du legge til den resterende perioden for gjeldende år i beregningen (pkt. 5.2). OBS! Dersom du endrer på registrerte perioder, må du også legge til ekstraperiodene i summeringen igjen",
-  "warning-P5000Edit-instructions-li1"       : "Periodesum må overskrives ved bruk av gjennomsnittsberegning av inntekt",
-  "warning-P5000Edit-instructions-li1-help"  : "Ved bruk av gjennomsnittsberegning av inntekt (inntektsmetoden) må overskytende periode for året, som er registrert i start- og sluttdato, trekkes fra i periodesummen. F.eks: Du skriver inn 01.01.2005 - 31.12.2005 i start/slutt-dato. I periodesum kommer det opp 1 år, 0 måneder og 0 dager. Du har beregnet en inntektsperiode på 3 måneder og 15 dager for 2005. Du må da overskrive periodesum med 0 år, 3 måneder og 15 dager.",
-  "warning-P5000Sum-instructions-title"      : "Husk å endre summering i punkt 5.2 ved poeng i inn- og ut-år (gjelder i hovedsak gjenlevendepensjon)",
-  "warning-P5000Sum-instructions-title-help" : "Ved pensjonspoeng i flytteår må du i punkt 5.2 legge til den resterende perioden for gjeldende år i beregningen. F.eks. hvis forsikrede utvandret 30.06.2000, må du legge til 6 måneder på forsikringsperiode.",
-  "warning-P5000Sum-instructions-title-obs"  : "OBS! Hvis man endrer på registrerte perioder, må man endre periodene i summeringen igjen.",
-  "warning-P5000Sum-instructions-header"     : "Andre forskjeller i summeringen skyldes:",
-  "warning-P5000Sum-instructions-45"         : "Kode 45 summeres bare i punkt 5.2",
-  "warning-P5000Sum-instructions-40"         : "trygdetid > 40 år avrundes automatisk til 40 år i punkt 5.2",
-  "warning-P5000Sum-instructions-40-help"    : "I Norge beregnes pensjon etter en maksgrense på 40 år. Hvis faktisk periode på en kode er mer enn dette, blir perioden automatisk avrundet til 40 år i punkt 5.2.",
-  "warning-P5000Sum-instructions-5152"       : "Det er krysset for at kode 11/12/13/30/41 skal summeres bare på punkt 5.1",
   "warning-P_BUC_01-uføretrygd"              : "Du kan ikke opprette alderspensjonskrav i en uføretrygdsak."
+
 }

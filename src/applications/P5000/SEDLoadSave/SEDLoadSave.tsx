@@ -62,11 +62,11 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
             <FlexBaseDiv style={{ alignItems: 'center' }}>
               <PileDiv>
                 <BodyLong>
-                  {t('buc:p5000-saved-entries')}
+                  {t('p5000:saved-entries')}
                 </BodyLong>
                 <FlexBaseDiv>
                   <BodyLong size='small'>
-                    {t('buc:p5000-4-1-title') + ': '}
+                    {t('p5000:4-1-title') + ': '}
                   </BodyLong>
                   <HorizontalSeparatorDiv size='0.5' />
                   <BodyLong>
@@ -77,7 +77,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                 </FlexBaseDiv>
                 <FlexBaseDiv>
                   <BodyLong size='small'>
-                    {t('buc:p5000-4-2-title') + ': '}
+                    {t('p5000:4-2-title') + ': '}
                   </BodyLong>
                   <HorizontalSeparatorDiv size='0.5' />
                   <BodyLong>

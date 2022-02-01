@@ -69,7 +69,7 @@ const P5000: React.FC<P5000Props> = ({
     return (
       <FlexCenterDiv>
         <Heading size='small' style={{ display: 'flex' }}>
-          {t('buc:p5000-edit-title')}
+          {t('p5000:edit-title')}
         </Heading>
         <HorizontalSeparatorDiv />
         -
@@ -97,7 +97,7 @@ const P5000: React.FC<P5000Props> = ({
 
   const renderP5000SumHeader = () => (
     <Heading size='small'>
-      {t('buc:p5000-summary-title')}
+      {t('p5000:summary-title')}
     </Heading>
   )
 
@@ -118,7 +118,7 @@ const P5000: React.FC<P5000Props> = ({
 
   const renderP5000OverviewHeader = () => (
     <Heading size='small'>
-      {t('buc:p5000-overview-title')}
+      {t('p5000:overview-title')}
     </Heading>
   )
 
@@ -523,7 +523,7 @@ const P5000: React.FC<P5000Props> = ({
         <Column>
           <PileDiv>
             <BodyLong>
-              {t('buc:p5000-active-seds')}:
+              {t('p5000:active-seds')}:
             </BodyLong>
             <VerticalSeparatorDiv size='0.5' />
             {_seds?.map(sed => {

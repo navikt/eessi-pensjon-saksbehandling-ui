@@ -848,7 +848,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {_.isNull(sentP5000info) && (
                 <PileCenterDiv>
                   <Alert variant='warning'>
-                    {t('message:warning-failedP5000Sending')}
+                    {t('p5000:warning-failedP5000Sending')}
                   </Alert>
                   <VerticalSeparatorDiv />
                   <FlexCenterSpacedDiv>
@@ -868,7 +868,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               {!_.isNil(sentP5000info) && (
                 <PileCenterDiv>
                   <Alert variant='info'>
-                    {t('message:warning-okP5000Sending', { caseId })}
+                    {t('p5000:warning-okP5000Sending', { caseId })}
                   </Alert>
                   <VerticalSeparatorDiv />
                   <FlexCenterSpacedDiv>
@@ -904,7 +904,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 className='P5000Edit-ytelse-select'
                 error={_validation['P5000Edit-ytelse-select']?.feilmelding}
                 id='P5000Edit-ytelse-select'
-                label={t('buc:p5000-4-1-title')}
+                label={t('p5000:4-1-title')}
                 menuPortalTarget={document.body}
                 options={ytelseOptions}
                 onChange={setYtelseOption}
@@ -923,13 +923,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 legend={(
                   <FlexCenterDiv>
                     <OneLineSpan>
-                      {t('buc:p5000-4-2-title')}
+                      {t('p5000:4-2-title')}
                     </OneLineSpan>
                     <HorizontalSeparatorDiv />
                     <HelpText>
                       <div style={{ maxWidth: '600px' }}>
-                        <BodyLong>{t('message:help-p5000-1')}</BodyLong>
-                        <BodyLong>{t('message:help-p5000-2')}</BodyLong>
+                        <BodyLong>{t('p5000:help-1')}</BodyLong>
+                        <BodyLong>{t('p5000:help-2')}</BodyLong>
                       </div>
                     </HelpText>
                   </FlexCenterDiv>
@@ -998,7 +998,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             {sourceStatus !== 'rina' && (
               <div style={{ whiteSpace: 'nowrap' }}>
                 <span>
-                  {t('buc:p5000-saved-working-copy')}
+                  {t('p5000:saved-working-copy')}
                 </span>
                 <HorizontalSeparatorDiv size='0.5' />
                 <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
@@ -1011,11 +1011,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <VerticalSeparatorDiv />
         <AlignEndRow style={{ width: '100%' }}>
           <Column>
-            {featureToggles.P5000_UPDATES_VISIBLE && (
+            {featureToggles.P5000_UPDATES_VISIBLE && sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
               <FlexBaseDiv>
                 <Button
                   variant='secondary'
-                  disabled={(pesysContext !== constants.VEDTAKSKONTEKST || sakType !== SakTypeMap.UFOREP) || gettingUFT}
+                  disabled={gettingUFT}
                   onClick={hentUFT}
                 >
                   {gettingUFT && <Loader />}
@@ -1036,7 +1036,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 <HorizontalSeparatorDiv />
                 <HelpText placement='right'>
                   <div style={{ maxWidth: '600px' }}>
-                    {t('message:help-p5000-uft')}
+                    {t('p5000:help-uft')}
                   </div>
                 </HelpText>
               </FlexBaseDiv>
@@ -1045,11 +1045,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <Column flex='2'>
             <Alert variant='warning'>
               <FlexCenterDiv>
-                {t('message:warning-P5000Edit-instructions-li1')}
+                {t('p5000:warning-P5000Edit-instructions-li1')}
                 <HorizontalSeparatorDiv size='0.5' />
                 <HelpText>
                   <div style={{ maxWidth: '600px' }}>
-                    <BodyLong>{t('message:warning-P5000Edit-instructions-li1-help')}</BodyLong>
+                    <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
                   </div>
                 </HelpText>
               </FlexCenterDiv>
@@ -1067,9 +1067,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
           labels={{
-            selectAllTitle: t('buc:P5000-sum-only-5.1-title'),
-            selectAll: t('buc:P5000-sum-only-5.1-description'),
-            flagged: t('buc:P5000-uft-flagged')
+            selectAllTitle: t('p5000:sum-only-5.1-title'),
+            selectAll: t('p5000:sum-only-5.1-description'),
+            flagged: t('p5000:uft-flagged')
           }}
           context={{
             items: _items,
@@ -1115,7 +1115,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             },
             {
               id: 'type',
-              label: t('buc:p5000-type-43113'),
+              label: t('p5000:type-43113'),
               type: 'string',
               edit: {
                 render: renderTypeEdit,
@@ -1201,7 +1201,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             },
             {
               id: 'ytelse',
-              label: t('buc:p5000-ytelse'),
+              label: t('p5000:ytelse'),
               renderCell: renderYtelse,
               type: 'string',
               edit: {
@@ -1267,13 +1267,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 }]}
                 columns={[
                   { id: 'status', label: t('ui:status'), type: 'string' },
-                  { id: 'type', label: t('buc:p5000-type-43113'), type: 'string', renderCell: renderType },
+                  { id: 'type', label: t('p5000:type-43113'), type: 'string', renderCell: renderType },
                   { id: 'startdato', label: t('ui:startDate'), type: 'string', renderCell: renderDateCell },
                   { id: 'sluttdato', label: t('ui:endDate'), type: 'string', renderCell: renderDateCell },
                   { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
                   { id: 'mnd', label: t('ui:month'), type: 'number' },
                   { id: 'aar', label: t('ui:year'), type: 'number' },
-                  { id: 'ytelse', label: t('buc:p5000-ytelse'), type: 'string' },
+                  { id: 'ytelse', label: t('p5000:ytelse'), type: 'string' },
                   { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
                   { id: 'ordning', label: t('ui:scheme'), type: 'string' }
                 ]}

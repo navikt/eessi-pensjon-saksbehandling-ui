@@ -276,10 +276,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 }}
               >
                 {P5000Draft
-                  ? t('buc:p5000-rediger')
+                  ? t('p5000:rediger')
                   : sed.status === 'sent'
-                    ? t('buc:p5000-updating')
-                    : t('buc:p5000-registrert')}
+                    ? t('p5000:updating')
+                    : t('p5000:registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
                 <NextFilled />
               </Button>

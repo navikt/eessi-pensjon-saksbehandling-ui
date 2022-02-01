@@ -116,7 +116,7 @@ export const convertP5000SEDToP5000ListRows = (
           flagIkon: period.flagIkon,
           flag: period.flag,
           selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
-          selectLabel: period.flagIkon ? 'UFT periode' : i18n.t('buc:p5000-checkbox-text'),
+          selectLabel: period.flagIkon ? 'UFT periode' : i18n.t('p5000:checkbox-text'),
           status,
           land: getNewLand(period, sender),
           acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,

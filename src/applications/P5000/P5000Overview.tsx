@@ -228,13 +228,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               >
                 <FlexCenterDiv>
                   <OneLineSpan>
-                    {t('buc:p5000-merge-periods')}
+                    {t('p5000:merge-periods')}
                   </OneLineSpan>
                   <HorizontalSeparatorDiv size='0.5' />
                   <HelpText>
                     <div style={{ maxWidth: '300px' }}>
-                      <BodyLong>{t('message:help-p5000-merge-1')}</BodyLong>
-                      <BodyLong>{t('message:help-p5000-merge-2')}</BodyLong>
+                      <BodyLong>{t('p5000:help-merge-1')}</BodyLong>
+                      <BodyLong>{t('p5000:help-merge-2')}</BodyLong>
                     </div>
                   </HelpText>
                 </FlexCenterDiv>
@@ -243,7 +243,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 <>
                   <HorizontalSeparatorDiv size='2' />
                   <MultipleSelect<Option>
-                    ariaLabel={t('buc:p5000-merge-period-type')}
+                    ariaLabel={t('p5000:merge-period-type')}
                     aria-describedby='help-tags'
                     data-test-id='a-buc-c-p5000overview__types-select-id'
                     hideSelectedOptions={false}
@@ -251,10 +251,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                     options={mergeTypeOptions}
                     label={(
                       <FlexEndDiv>
-                        {t('buc:p5000-merge-period-type')}
+                        {t('p5000:merge-period-type')}
                         <HorizontalSeparatorDiv size='0.5' />
                         <HelpText>
-                          {t('message:help-p5000-merge-period-type')}
+                          {t('p5000:help-merge-period-type')}
                         </HelpText>
                       </FlexEndDiv>
                   )}
@@ -269,7 +269,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                           <HorizontalSeparatorDiv size='0.5' />
                           <HelpText>
                             <div style={{ maxWidth: '500px' }}>
-                              {t('message:help-p5000-german-alert')}
+                              {t('p5000:help-german-alert')}
                             </div>
                           </HelpText>
                         </FlexEndDiv>
@@ -326,7 +326,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           items={items}
           id='P5000Overview'
           labels={{
-            filter: t('buc:P5000-filter-label')
+            filter: t('p5000:filter-label')
           }}
           searchable
           selectable={false}
