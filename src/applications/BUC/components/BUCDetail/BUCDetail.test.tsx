@@ -1,7 +1,7 @@
 import { Buc } from 'declarations/buc'
 import { PersonAvdods } from 'declarations/person.d'
 import { mount, ReactWrapper } from 'enzyme'
-import personAvdod from 'mocks/app/personAvdod'
+import personAvdod from 'mocks/person/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
 import moment from 'moment'
 import { stageSelector } from 'setupTests'

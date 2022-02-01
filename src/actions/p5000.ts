@@ -11,13 +11,13 @@ const sprintf = require('sprintf-js').sprintf
 
 export const getUFT = (vedtakId: string) => {
   return call({
-    url: sprintf(urls.PERSON_GET_UFT_URL, { vedtakId }),
+    url: sprintf(urls.PERSON_UFT_URL, { vedtakId }),
     cascadeFailureError: true,
     expectedPayload: mockUFT,
     type: {
-      request: types.PERSON_GET_UFT_REQUEST,
-      success: types.PERSON_GET_UFT_SUCCESS,
-      failure: types.PERSON_GET_UFT_FAILURE
+      request: types.PERSON_UFT_REQUEST,
+      success: types.PERSON_UFT_SUCCESS,
+      failure: types.PERSON_UFT_FAILURE
     }
   })
 }

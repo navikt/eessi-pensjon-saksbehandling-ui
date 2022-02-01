@@ -53,14 +53,14 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
         p5000FromRinaMap: {}
       }
 
-    case types.PERSON_GET_UFT_REQUEST:
+    case types.PERSON_UFT_REQUEST:
 
       return {
         ...state,
         uft: undefined
       }
 
-    case types.PERSON_GET_UFT_SUCCESS: {
+    case types.PERSON_UFT_SUCCESS: {
       let uft
       try {
         uft = moment((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
@@ -73,7 +73,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       }
     }
 
-    case types.PERSON_GET_UFT_FAILURE:
+    case types.PERSON_UFT_FAILURE:
       return {
         ...state,
         uft: null

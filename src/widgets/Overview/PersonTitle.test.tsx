@@ -1,6 +1,6 @@
 import PersonTitle, { PersonTitleProps, Title } from './PersonTitle'
 import { mount, ReactWrapper } from 'enzyme'
-import mockPerson from 'mocks/app/person'
+import mockPerson from 'mocks/person/personPdl'
 
 describe('widgets/Overview/PersonTitle', () => {
   let wrapper: ReactWrapper

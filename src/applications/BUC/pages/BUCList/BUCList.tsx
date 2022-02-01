@@ -142,7 +142,7 @@ const mapState = (state: State): BUCListSelector => ({
   gettingBucsList: state.loading.gettingBucsList,
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
-  personAvdods: state.app.personAvdods,
+  personAvdods: state.person.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue

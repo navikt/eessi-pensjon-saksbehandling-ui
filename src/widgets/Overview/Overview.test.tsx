@@ -1,8 +1,8 @@
-import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
+import { getPersonAvdodInfo, getPersonInfo } from 'actions/person'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
-import personAvdod from 'mocks/app/personAvdod'
+import personAvdod from 'mocks/person/personAvdod'
 import { stageSelector } from 'setupTests'
 import { Overview, OverviewProps, OverviewSelector } from './Overview'
 
@@ -22,7 +22,7 @@ describe('widgets/Overview/Overview', () => {
     },
     gettingPersonInfo: false,
     locale: 'nb',
-    person: undefined,
+    personPdl: undefined,
     personAvdods: personAvdod(1),
     pesysContext: VEDTAKSKONTEKST,
     vedtakId: '345'

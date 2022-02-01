@@ -1,4 +1,4 @@
-import { getPersonAvdodInfo, getPersonInfo } from 'actions/app'
+import { getPersonAvdodInfo, getPersonInfo } from 'actions/person'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
 import { WidgetPropType } from 'declarations/dashboard.pt'
@@ -26,7 +26,7 @@ export interface OverviewSelector {
   featureToggles: FeatureToggles
   gettingPersonInfo: boolean
   locale: AllowedLocaleString
-  person?: PersonPDL,
+  personPdl?: PersonPDL,
   personAvdods: PersonAvdods | undefined,
   pesysContext: PesysContext | undefined,
   vedtakId: string | null | undefined
@@ -38,8 +38,8 @@ const mapState = (state: State): OverviewSelector => ({
   featureToggles: state.app.featureToggles,
   gettingPersonInfo: state.loading.gettingPersonInfo,
   locale: state.ui.locale,
-  person: state.app.person,
-  personAvdods: state.app.personAvdods,
+  personPdl: state.person.personPdl,
+  personAvdods: state.person.personAvdods,
   pesysContext: state.app.pesysContext,
   vedtakId: state.app.params.vedtakId
 })
@@ -56,7 +56,7 @@ export const Overview: React.FC<OverviewProps> = ({
   widget
 }: OverviewProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(skipMount)
-  const { aktoerId, featureToggles, gettingPersonInfo, locale, person, personAvdods, pesysContext, vedtakId }: OverviewSelector =
+  const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: OverviewSelector =
     useSelector<State, OverviewSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
@@ -89,7 +89,7 @@ export const Overview: React.FC<OverviewProps> = ({
 
   useEffect(() => {
     if (!mounted && aktoerId && pesysContext) {
-      if (!person) {
+      if (!personPdl) {
         dispatch(getPersonInfo(aktoerId))
         if (pesysContext === constants.VEDTAKSKONTEKST) {
           dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD))
@@ -97,7 +97,7 @@ export const Overview: React.FC<OverviewProps> = ({
       }
       setMounted(true)
     }
-  }, [featureToggles, mounted, dispatch, aktoerId, person, pesysContext, vedtakId])
+  }, [featureToggles, mounted, dispatch, aktoerId, personPdl, pesysContext, vedtakId])
 
   if (!aktoerId) {
     return (
@@ -122,13 +122,13 @@ export const Overview: React.FC<OverviewProps> = ({
           <Accordion.Header onClick={onClick}>
             <PersonTitle
               gettingPersonInfo={gettingPersonInfo}
-              person={person}
+              person={personPdl}
             />
           </Accordion.Header>
           <Accordion.Content>
             <PersonPanel
               locale={locale}
-              person={person}
+              person={personPdl}
               personAvdods={personAvdods}
             />
           </Accordion.Content>

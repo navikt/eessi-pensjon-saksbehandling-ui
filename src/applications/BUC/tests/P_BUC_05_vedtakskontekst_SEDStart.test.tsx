@@ -3,8 +3,8 @@ import { VEDTAKSKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
-import mockPersonAvdods from 'mocks/app/personAvdod'
-import mockPerson from 'mocks/app/person'
+import mockPersonAvdods from 'mocks/person/personAvdod'
+import mockPerson from 'mocks/person/personPdl'
 import { stageSelector } from 'setupTests'
 
 jest.mock('actions/buc', () => ({

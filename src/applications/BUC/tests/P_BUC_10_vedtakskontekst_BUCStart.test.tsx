@@ -8,7 +8,7 @@ import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
 import { stageSelector } from 'setupTests'
-import mockPersonAvdods from 'mocks/app/personAvdod'
+import mockPersonAvdods from 'mocks/person/personAvdod'
 
 jest.mock('actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),
@@ -28,7 +28,7 @@ const defaultSelector: BUCStartSelector = {
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   newlyCreatedBuc: undefined,
-  person: undefined,
+  personPdl: undefined,
   personAvdods: [],
   pesysContext: constants.VEDTAKSKONTEKST,
   sakId: '123',

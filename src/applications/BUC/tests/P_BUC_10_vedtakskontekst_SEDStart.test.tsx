@@ -4,7 +4,7 @@ import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import { stageSelector } from 'setupTests'
-import mockPersonAvdods from 'mocks/app/personAvdod'
+import mockPersonAvdods from 'mocks/person/personAvdod'
 
 jest.mock('actions/buc', () => ({
   createReplySed: jest.fn(),

@@ -100,7 +100,7 @@ const mapState = (state: State): BUCEditSelector => ({
   locale: state.ui.locale,
   newlyCreatedSed: state.buc.newlyCreatedSed,
   newlyCreatedSedTime: state.buc.newlyCreatedSedTime,
-  personAvdods: state.app.personAvdods,
+  personAvdods: state.person.personAvdods,
   replySed: state.buc.replySed
 })
 

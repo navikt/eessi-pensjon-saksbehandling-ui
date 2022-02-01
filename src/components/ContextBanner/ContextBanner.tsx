@@ -49,14 +49,14 @@ export interface ContextBannerProps {
 
 export interface ContextBannerSelector {
   gettingSakType: boolean
-  person: PersonPDL | undefined
+  personPdl: PersonPDL | undefined
   pesysContext?: PesysContext
   sakType?: SakTypeValue | undefined | null
 }
 
 const mapState = (state: State): ContextBannerSelector => ({
   gettingSakType: state.loading.gettingSakType,
-  person: state.app.person,
+  personPdl: state.person.personPdl,
   pesysContext: state.app.pesysContext,
   sakType: state.app.params.sakType as SakTypeValue | undefined | null
 })
@@ -65,7 +65,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   mode
 }: ContextBannerProps): JSX.Element => {
   const { t } = useTranslation()
-  const { gettingSakType, person, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
+  const { gettingSakType, personPdl, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
   const [_mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
     <Content>
       <Context>
         <BUCWebSocket
-          fnr={getFnr(person)}
+          fnr={getFnr(personPdl)}
           avdodFnr=''
         />
         <NextFilled />

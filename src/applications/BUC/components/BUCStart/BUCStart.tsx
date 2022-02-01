@@ -78,7 +78,7 @@ export interface BUCStartSelector {
   loading: Loading
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
-  person: PersonPDL | undefined
+  personPdl: PersonPDL | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakId: string | null | undefined
@@ -99,8 +99,8 @@ const mapState = (state: State): BUCStartSelector => ({
   loading: state.loading,
   locale: state.ui.locale,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
-  person: state.app.person,
-  personAvdods: state.app.personAvdods,
+  personPdl: state.person.personPdl,
+  personAvdods: state.person.personAvdods,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue | undefined,
@@ -118,7 +118,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 }: BUCStartProps): JSX.Element | null => {
   const {
     bucOptions, bucParam, bucs, bucsInfo, currentBuc, featureToggles,
-    kravDato, kravId, loading, locale, newlyCreatedBuc, person, personAvdods,
+    kravDato, kravId, loading, locale, newlyCreatedBuc, personPdl, personAvdods,
     pesysContext, sakId, sakType, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapState)
 
@@ -287,7 +287,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
       setIsCreatingBuc(true)
       const payload: NewBucPayload = {
         buc: _buc!,
-        person: person!
+        person: personPdl!
       }
       if (bucNeedsAvdod()) {
         payload.avdod = _avdod

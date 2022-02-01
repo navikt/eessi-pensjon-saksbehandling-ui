@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme'
-import personAvdod from 'mocks/app/personAvdod'
-import mockPerson from 'mocks/app/person'
+import personAvdod from 'mocks/person/personAvdod'
+import mockPerson from 'mocks/person/personPdl'
 import PersonPanel, { PersonPanelDiv, PersonPanelProps } from './PersonPanel'
 
 describe('widgets/Overview/PersonPanel', () => {

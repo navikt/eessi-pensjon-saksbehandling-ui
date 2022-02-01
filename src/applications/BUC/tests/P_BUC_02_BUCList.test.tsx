@@ -6,7 +6,7 @@ import BUCList, {
 } from 'applications/BUC/pages/BUCList/BUCList'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { mount, ReactWrapper } from 'enzyme'
-import personAvdod from 'mocks/app/personAvdod'
+import personAvdod from 'mocks/person/personAvdod'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 

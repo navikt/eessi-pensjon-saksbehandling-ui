@@ -53,34 +53,6 @@ describe('reducers/app', () => {
     })
   })
 
-  it('APP_PERSONINFO_SUCCESS', () => {
-    expect(
-      appReducer(initialAppState, {
-        type: types.APP_PERSONINFO_SUCCESS,
-        payload: {
-          foo: 'mockPayload'
-        }
-      })
-    ).toEqual({
-      ...initialAppState,
-      person: {
-        foo: 'mockPayload'
-      }
-    })
-  })
-
-  it('APP_PERSONINFO_AVDOD_SUCCESS', () => {
-    expect(
-      appReducer(initialAppState, {
-        type: types.APP_PERSONINFO_AVDOD_SUCCESS,
-        payload: 'mockPayload'
-      })
-    ).toEqual({
-      ...initialAppState,
-      personAvdods: 'mockPayload'
-    })
-  })
-
   it('APP_USERINFO_FAILURE', () => {
     expect(
       appReducer(initialAppState, {

@@ -1,48 +1,13 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { ParamPayload, UserInfoPayload } from 'declarations/app.d'
-import { PersonPDL, PersonAvdods } from 'declarations/person.d'
 import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
-import mockPerson from 'mocks/app/person'
-import mockPersonAvdod from 'mocks/app/personAvdod'
 import mockUser from 'mocks/app/user'
 import { Action, ActionCreator } from 'redux'
-
-const sprintf = require('sprintf-js').sprintf
 
 export const clearData: ActionCreator<Action> = (): Action => ({
   type: types.APP_CLEAR_DATA
 })
-
-export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonAvdods>>> = (
-  aktoerId: string,
-  vedtakId: string,
-  nrAvdod: number | undefined
-): ThunkResult<ActionWithPayload<PersonAvdods>> => {
-  return call({
-    url: sprintf(urls.PERSON_PDL_AVDOD_URL, { aktoerId, vedtakId }),
-    expectedPayload: /* istanbul ignore next */ mockPersonAvdod(nrAvdod),
-    type: {
-      request: types.APP_PERSONINFO_AVDOD_REQUEST,
-      success: types.APP_PERSONINFO_AVDOD_SUCCESS,
-      failure: types.APP_PERSONINFO_AVDOD_FAILURE
-    }
-  })
-}
-
-export const getPersonInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonPDL>>> = (
-  aktoerId: string
-): ThunkResult<ActionWithPayload<PersonPDL>> => {
-  return call({
-    url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
-    expectedPayload: mockPerson,
-    type: {
-      request: types.APP_PERSONINFO_REQUEST,
-      success: types.APP_PERSONINFO_SUCCESS,
-      failure: types.APP_PERSONINFO_FAILURE
-    }
-  })
-}
 
 export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload<UserInfoPayload>>> = (
 ): ThunkResult<ActionWithPayload<UserInfoPayload>> => {

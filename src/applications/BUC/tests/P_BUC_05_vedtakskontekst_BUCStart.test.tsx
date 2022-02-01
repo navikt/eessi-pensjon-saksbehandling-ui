@@ -5,7 +5,7 @@ import { AllowedLocaleString } from 'declarations/app'
 import { SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
-import mockPersonAvdods from 'mocks/app/personAvdod'
+import mockPersonAvdods from 'mocks/person/personAvdod'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
 import { stageSelector } from 'setupTests'
@@ -27,7 +27,7 @@ const defaultSelector: BUCStartSelector = {
   kravDato: undefined,
   kravId: undefined,
   newlyCreatedBuc: undefined,
-  person: undefined,
+  personPdl: undefined,
   personAvdods: [],
   pesysContext: constants.VEDTAKSKONTEKST,
   sakId: '123',

@@ -64,30 +64,30 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         isLoggingOut: true
       }
 
-    case types.APP_PERSONINFO_SUCCESS:
-    case types.APP_PERSONINFO_FAILURE:
+    case types.PERSON_PDL_SUCCESS:
+    case types.PERSON_PDL_FAILURE:
 
       return {
         ...state,
         gettingPersonInfo: false
       }
 
-    case types.APP_PERSONINFO_REQUEST:
+    case types.PERSON_PDL_REQUEST:
 
       return {
         ...state,
         gettingPersonInfo: true
       }
 
-    case types.APP_PERSONINFO_AVDOD_REQUEST:
+    case types.PERSON_AVDOD_REQUEST:
 
       return {
         ...state,
         gettingPersonAvdodInfo: true
       }
 
-    case types.APP_PERSONINFO_AVDOD_SUCCESS:
-    case types.APP_PERSONINFO_AVDOD_FAILURE:
+    case types.PERSON_AVDOD_SUCCESS:
+    case types.PERSON_AVDOD_FAILURE:
 
       return {
         ...state,
@@ -450,15 +450,15 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         sendingPageNotification: false
       }
 
-    case types.PERSON_GET_UFT_REQUEST:
+    case types.PERSON_UFT_REQUEST:
 
       return {
         ...state,
         gettingUFT: true
       }
 
-    case types.PERSON_GET_UFT_SUCCESS:
-    case types.PERSON_GET_UFT_FAILURE:
+    case types.PERSON_UFT_SUCCESS:
+    case types.PERSON_UFT_FAILURE:
 
       return {
         ...state,

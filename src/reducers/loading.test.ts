@@ -52,28 +52,28 @@ describe('reducers/loading', () => {
     simulateFailure(types.APP_LOGOUT_FAILURE, 'isLoggingOut')
   })
 
-  it('APP_PERSONINFO_REQUEST', () => {
-    simulateRequest(types.APP_PERSONINFO_REQUEST, 'gettingPersonInfo')
+  it('PERSON_PDL_REQUEST', () => {
+    simulateRequest(types.PERSON_PDL_REQUEST, 'gettingPersonInfo')
   })
 
-  it('APP_PERSONINFO_SUCCESS', () => {
-    simulateSuccess(types.APP_PERSONINFO_SUCCESS, 'gettingPersonInfo')
+  it('PERSON_PDL_SUCCESS', () => {
+    simulateSuccess(types.PERSON_PDL_SUCCESS, 'gettingPersonInfo')
   })
 
-  it('APP_PERSONINFO_FAILURE', () => {
-    simulateFailure(types.APP_PERSONINFO_FAILURE, 'gettingPersonInfo')
+  it('PERSON_PDL_FAILURE', () => {
+    simulateFailure(types.PERSON_PDL_FAILURE, 'gettingPersonInfo')
   })
 
-  it('APP_PERSONINFO_AVDOD_REQUEST', () => {
-    simulateRequest(types.APP_PERSONINFO_AVDOD_REQUEST, 'gettingPersonAvdodInfo')
+  it('PERSON_AVDOD_REQUEST', () => {
+    simulateRequest(types.PERSON_AVDOD_REQUEST, 'gettingPersonAvdodInfo')
   })
 
-  it('APP_PERSONINFO_AVDOD_SUCCESS', () => {
-    simulateSuccess(types.APP_PERSONINFO_AVDOD_SUCCESS, 'gettingPersonAvdodInfo')
+  it('PERSON_AVDOD_SUCCESS', () => {
+    simulateSuccess(types.PERSON_AVDOD_SUCCESS, 'gettingPersonAvdodInfo')
   })
 
-  it('APP_PERSONINFO_AVDOD_FAILURE', () => {
-    simulateFailure(types.APP_PERSONINFO_AVDOD_FAILURE, 'gettingPersonAvdodInfo')
+  it('PERSON_AVDOD_FAILURE', () => {
+    simulateFailure(types.PERSON_AVDOD_FAILURE, 'gettingPersonAvdodInfo')
   })
 
   it('APP_USERINFO_REQUEST', () => {

@@ -26,7 +26,7 @@ const defaultSelector: BUCStartSelector = {
   kravDato: undefined,
   kravId: undefined,
   newlyCreatedBuc: undefined,
-  person: undefined,
+  personPdl: undefined,
   personAvdods: [],
   pesysContext: constants.VEDTAKSKONTEKST,
   sakId: '123',

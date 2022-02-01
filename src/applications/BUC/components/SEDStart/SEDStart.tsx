@@ -160,7 +160,7 @@ const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => 
   kravId: state.app.params.kravId,
   loading: state.loading,
   locale: state.ui.locale,
-  personAvdods: state.app.personAvdods,
+  personAvdods: state.person.personAvdods,
   pesysContext: state.app.pesysContext,
   p6000s: state.buc.p6000s,
   sakId: state.app.params.sakId,

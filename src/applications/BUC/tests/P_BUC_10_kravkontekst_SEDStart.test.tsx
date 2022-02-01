@@ -3,7 +3,7 @@ import { BRUKERKONTEKST, KRAVKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
-import personAvdod from 'mocks/app/personAvdod'
+import personAvdod from 'mocks/person/personAvdod'
 import { stageSelector } from 'setupTests'
 
 jest.mock('actions/buc', () => ({

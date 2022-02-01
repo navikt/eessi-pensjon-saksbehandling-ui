@@ -9,7 +9,6 @@ jest.mock('js-fetch-api', () => ({
   call: jest.fn()
 }))
 const call: jest.Mock = originalCall as jest.Mock<typeof originalCall>
-const sprintf = require('sprintf-js').sprintf
 
 describe('actions/app', () => {
   afterEach(() => {
@@ -25,33 +24,6 @@ describe('actions/app', () => {
     expect(generatedResult).toMatchObject({
       type: types.APP_CLEAR_DATA
     })
-  })
-
-  it('getPersonAvdodInfo()', () => {
-    const mockAktoerId: string = '123'
-    const mockVedtakId: string = '456'
-    appActions.getPersonAvdodInfo(mockAktoerId, mockVedtakId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.APP_PERSONINFO_AVDOD_REQUEST,
-        success: types.APP_PERSONINFO_AVDOD_SUCCESS,
-        failure: types.APP_PERSONINFO_AVDOD_FAILURE
-      },
-      url: sprintf(urls.PERSON_PDL_AVDOD_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
-    }))
-  })
-
-  it('getPersonInfo()', () => {
-    const mockAktoerId: string = '123'
-    appActions.getPersonInfo(mockAktoerId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.APP_PERSONINFO_REQUEST,
-        success: types.APP_PERSONINFO_SUCCESS,
-        failure: types.APP_PERSONINFO_FAILURE
-      },
-      url: sprintf(urls.PERSON_PDL_URL, { aktoerId: mockAktoerId })
-    }))
   })
 
   it('getUserInfo()', () => {

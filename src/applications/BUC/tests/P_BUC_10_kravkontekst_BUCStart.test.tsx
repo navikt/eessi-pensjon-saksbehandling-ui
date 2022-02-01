@@ -26,7 +26,7 @@ const defaultSelector: BUCStartSelector = {
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   newlyCreatedBuc: undefined,
-  person: undefined,
+  personPdl: undefined,
   personAvdods: [],
   pesysContext: constants.VEDTAKSKONTEKST,
   sakId: '123',

@@ -2,7 +2,7 @@ import BucWebSocket from 'applications/BUC/websocket/WebSocket'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { mount, ReactWrapper } from 'enzyme'
 import { stageSelector } from 'setupTests'
-import mockPerson from 'mocks/app/person'
+import mockPerson from 'mocks/person/personPdl'
 import ContextBanner, { Context, ContextBannerProps, ContextBannerSelector, DivWithLinks, Tag } from './ContextBanner'
 
 jest.mock('applications/BUC/websocket/WebSocket', () => ({ title, children }: any) => (
@@ -14,7 +14,7 @@ const mockSakType = 'Generell'
 
 const defaultSelector: ContextBannerSelector = {
   gettingSakType: false,
-  person: mockPerson,
+  personPdl: mockPerson,
   pesysContext: mockPesysContext,
   sakType: mockSakType
 }
