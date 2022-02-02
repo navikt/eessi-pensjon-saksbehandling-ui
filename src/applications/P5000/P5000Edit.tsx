@@ -35,6 +35,7 @@ import {
   P5000TableContext,
   P5000UpdatePayload
 } from 'declarations/p5000'
+import { PersonAvdods } from 'declarations/person'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
@@ -77,6 +78,7 @@ export interface P5000EditSelector {
   gettingGjpBp: boolean
   uft: Date | null | undefined
   gjpbp: Date | null | undefined
+  personAvdods: PersonAvdods | null | undefined
   sakType: SakTypeValue
   featureToggles: FeatureToggles
 }
@@ -100,6 +102,7 @@ const mapState = (state: State): any => ({
   gettingGjpBp: state.loading.gettingGjpBp,
   uft: state.person.uft,
   gjpbp: state.person.gjpbp,
+  personAvdods: state.person.personAvdods,
   sakType: state.app.params.sakType as SakTypeValue,
   featureToggles: state.app.featureToggles
 })
@@ -115,7 +118,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { gettingUft, gettingGjpBp, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, sakType, vedtakId }: any = useSelector<State, any>(mapState)
+  const { gettingUft, gettingGjpBp, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, personAvdods, sakType, vedtakId }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
@@ -790,8 +793,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       let newItems: P5000ListRows = _.cloneDeep(_items)
 
       // we are adding a period for the remaining days of the month of that person's death
-      let sluttdato = moment(gjpbp).toDate()
-      let startdato = moment(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
+      const sluttdato = moment(gjpbp).toDate()
+      const startdato = moment(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
 
       const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
 
@@ -808,7 +811,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       })
 
       if (!foundPeriod) {
-
         // I will use a random period as a template, to fill out stuff like land
         const newItemTemplate = _.sample(newItems) as P5000ListRow
         const newItem: P5000ListRow = {
@@ -818,8 +820,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           ytelse: newItemTemplate?.ytelse ?? null,
           acronym: newItemTemplate?.acronym ?? null,
           type: '30',
-          startdato: startdato,
-          sluttdato: sluttdato,
+          startdato,
+          sluttdato,
           status: 'new',
           aar: '' + diff.years,
           mnd: '' + diff.months,
@@ -906,10 +908,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const hentGjpBp = () => {
-    if (vedtakId) {
+    if (vedtakId && personAvdods?.length === 1) {
       setGjpBpWarning(undefined)
       setRequestingGjpBp(true)
-      dispatch(getGjpBp(vedtakId))
+      dispatch(getGjpBp(personAvdods[0].fnr))
     }
   }
 
@@ -931,7 +933,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <div>
               {_.isNull(sentP5000info) && (
                 <PileCenterDiv>
-                  <VerticalSeparatorDiv size='3'/>
+                  <VerticalSeparatorDiv size='3' />
                   <Alert variant='warning'>
                     {t('p5000:warning-failedP5000Sending')}
                   </Alert>
@@ -1119,25 +1121,25 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             pesysContext === constants.VEDTAKSKONTEKST && (
               <PileCenterDiv>
                 <FlexBaseDiv>
-                <Button
-                  variant='secondary'
-                  disabled={gettingGjpBp}
-                  onClick={hentGjpBp}
-                >
-                  {gettingGjpBp && <Loader />}
-                  {gettingGjpBp ? t('message:loading-gjpbp') : t('buc:form-hent-gjpbp')}
-                </Button>
-                <HorizontalSeparatorDiv />
-                <HelpText placement='right'>
-                  <div style={{ maxWidth: '600px' }}>
-                    {t('p5000:help-gjpbp')}
-                  </div>
-                </HelpText>
-              </FlexBaseDiv>
+                  <Button
+                    variant='secondary'
+                    disabled={gettingGjpBp}
+                    onClick={hentGjpBp}
+                  >
+                    {gettingGjpBp && <Loader />}
+                    {gettingGjpBp ? t('message:loading-gjpbp') : t('buc:form-hent-gjpbp')}
+                  </Button>
+                  <HorizontalSeparatorDiv />
+                  <HelpText placement='right'>
+                    <div style={{ maxWidth: '600px' }}>
+                      {t('p5000:help-gjpbp')}
+                    </div>
+                  </HelpText>
+                </FlexBaseDiv>
                 {gjpBpWarning && (
                   <>
-                  <VerticalSeparatorDiv/>
-                  <Alert variant='warning'>{gjpBpWarning}</Alert>
+                    <VerticalSeparatorDiv />
+                    <Alert variant='warning'>{gjpBpWarning}</Alert>
                   </>
                 )}
               </PileCenterDiv>

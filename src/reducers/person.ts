@@ -84,8 +84,7 @@ const personReducer = (state: PageNotificationState = initialPageNotificationSta
         personAvdodPdl: null
       }
 
-    case types.PERSON_GJP_BP_SUCCESS:
-
+    case types.PERSON_GJP_BP_SUCCESS: {
       let gjpbp
       try {
         gjpbp = moment(_.get((action as ActionWithPayload).payload, 'doedsfall.doedsdato'), 'YYYY-MM-DD').toDate()
@@ -94,9 +93,10 @@ const personReducer = (state: PageNotificationState = initialPageNotificationSta
 
       return {
         ...state,
-        gjpbp: gjpbp,
+        gjpbp,
         personAvdodPdl: action.payload
       }
+    }
 
     case types.PERSON_UFT_REQUEST:
 

@@ -31,7 +31,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   let stripeStatus: string
   let bannerStatus: string
 
-  if (action.type === types.ALERT_CLEAR  ||
+  if (action.type === types.ALERT_CLEAR ||
     action.type === types.APP_CLEAR_DATA) {
     return initialAlertState
   }
@@ -88,12 +88,12 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
 
     return {
       type: action.type,
-      bannerMessage: bannerMessage,
-      bannerStatus: bannerStatus,
+      bannerMessage,
+      bannerStatus,
       error: (action as ActionWithPayload).payload
         ? _.isString((action as ActionWithPayload).payload.error)
-          ? (action as ActionWithPayload).payload.error
-          : (action as ActionWithPayload).payload.error?.message
+            ? (action as ActionWithPayload).payload.error
+            : (action as ActionWithPayload).payload.error?.message
         : undefined,
       uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
@@ -173,12 +173,12 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     return {
       ...state,
       type: action.type,
-      stripeStatus: stripeStatus,
-      stripeMessage: stripeMessage,
+      stripeStatus,
+      stripeMessage,
       error: (action as ActionWithPayload).payload
         ? _.isString((action as ActionWithPayload).payload.error)
-          ? (action as ActionWithPayload).payload.error
-          : (action as ActionWithPayload).payload.error?.message
+            ? (action as ActionWithPayload).payload.error
+            : (action as ActionWithPayload).payload.error?.message
         : undefined,
       uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
@@ -192,12 +192,12 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   switch (action.type) {
     case types.BUC_CREATE_BUC_SUCCESS:
 
-      bannerMessage = i18n.t('message:alert-createdBuc', {type: (action as ActionWithPayload).payload.type})
+      bannerMessage = i18n.t('message:alert-createdBuc', { type: (action as ActionWithPayload).payload.type })
       dealWithBanner = true
       break
 
     case types.PAGE_NOTIFICATION_SET_SUCCESS:
-      bannerMessage = i18n.t('message:alert-updatedPageNotification', {type: (action as ActionWithPayload).payload.type})
+      bannerMessage = i18n.t('message:alert-updatedPageNotification', { type: (action as ActionWithPayload).payload.type })
       dealWithBanner = true
       break
 
@@ -219,7 +219,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
       ...state,
       type: action.type,
       bannerStatus: 'success',
-      bannerMessage: bannerMessage,
+      bannerMessage,
       uuid: undefined,
       error: undefined
     }
@@ -238,8 +238,8 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   return {
     ...state,
     type: action.type,
-    stripeStatus: stripeStatus,
-    stripeMessage: stripeMessage,
+    stripeStatus,
+    stripeMessage,
     uuid: undefined,
     error: undefined
   }

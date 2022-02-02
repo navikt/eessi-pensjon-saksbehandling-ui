@@ -481,8 +481,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
         gettingGjpBp: false
       }
 
-
-
     default:
 
       return state

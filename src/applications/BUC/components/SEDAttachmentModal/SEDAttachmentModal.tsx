@@ -37,7 +37,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   onFinishedSelection, open, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps): JSX.Element => {
   const { t } = useTranslation()
-  const { alertVariant, alertMessage} = useSelector<State, SEDAttachmentModalSelector>(mapState)
+  const { alertVariant, alertMessage } = useSelector<State, SEDAttachmentModalSelector>(mapState)
   const [_items, setItems] = useState<JoarkBrowserItems>(sedAttachments)
 
   const onRowSelectChange = (items: JoarkBrowserItems): void => {
