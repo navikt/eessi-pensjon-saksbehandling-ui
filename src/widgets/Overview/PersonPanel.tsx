@@ -11,14 +11,11 @@ import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { HorizontalLineSeparator } from 'components/StyledComponents'
 
 const Element = styled.div`
   display: flex;
   align-items: baseline;
-`
-const Hr = styled.hr`
-  margin: 1.5rem;
-  border-color: var(--navds-semantic-color-border) !important;
 `
 const MarginRow = styled(Row)`
   margin: 1.5rem;
@@ -196,7 +193,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
           {renderEntity('ui:nationality', nationality)}
         </MarginColumn>
       </MarginRow>
-      <Hr />
+      <HorizontalLineSeparator />
       <MarginRow>
         <MarginColumn>
           <Globe />
@@ -212,7 +209,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       </MarginRow>
       {((personAvdods && personAvdods.length > 0) || deathDateString) && (
         <>
-          <Hr />
+          <HorizontalLineSeparator />
           <MarginRow>
 
             <MarginColumn>

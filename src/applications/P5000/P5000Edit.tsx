@@ -10,7 +10,8 @@ import {
   Select as NavSelect,
   Tag
 } from '@navikt/ds-react'
-import { getUFT, resetSentP5000info, sendP5000toRina } from 'actions/p5000'
+import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
+import { getGjpBp, getUFT } from 'actions/person'
 import {
   informasjonOmBeregning,
   ordning,
@@ -21,9 +22,9 @@ import {
 import Input from 'components/Forms/Input'
 import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
-import { OneLineSpan } from 'components/StyledComponents'
+import { HorizontalLineSeparator, OneLineSpan } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
-import { LocalStorageEntry, Option } from 'declarations/app.d'
+import { FeatureToggles, LocalStorageEntry, Option } from 'declarations/app.d'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
 import { SedsPropType } from 'declarations/buc.pt'
 import {
@@ -67,16 +68,18 @@ import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
 const moment = extendMoment(Moment)
 
-const mapState = (state: State): any => ({
-  vedtakId: state.app.params.vedtakId,
-  pesysContext: state.app.pesysContext,
-  sentP5000info: state.p5000.sentP5000info,
-  sendingP5000info: state.loading.sendingP5000info,
-  gettingUFT: state.loading.gettingUFT,
-  uft: state.p5000.uft,
-  sakType: state.app.params.sakType as SakTypeValue,
-  featureToggles: state.app.featureToggles
-})
+export interface P5000EditSelector {
+  vedtakId: string | undefined
+  pesysContext: string
+  sentP5000info: any
+  sendingP5000info: boolean
+  gettingUft: boolean
+  gettingGjpBp: boolean
+  uft: Date | null | undefined
+  gjpbp: Date | null | undefined
+  sakType: SakTypeValue
+  featureToggles: FeatureToggles
+}
 
 export interface P5000EditProps {
   caseId: string
@@ -87,6 +90,19 @@ export interface P5000EditProps {
   saveP5000ToStorage: ((newSed: P5000SED | undefined, sedId: string, sort?: Sort) => void) | undefined
   removeP5000FromStorage: ((sedId: string) => void) | undefined
 }
+
+const mapState = (state: State): any => ({
+  vedtakId: state.app.params.vedtakId,
+  pesysContext: state.app.pesysContext,
+  sentP5000info: state.p5000.sentP5000info,
+  sendingP5000info: state.loading.sendingP5000info,
+  gettingUft: state.loading.gettingUft,
+  gettingGjpBp: state.loading.gettingGjpBp,
+  uft: state.person.uft,
+  gjpbp: state.person.gjpbp,
+  sakType: state.app.params.sakType as SakTypeValue,
+  featureToggles: state.app.featureToggles
+})
 
 const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
@@ -99,7 +115,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { gettingUFT, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, sakType, vedtakId }: any = useSelector<State, any>(mapState)
+  const { gettingUft, gettingGjpBp, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, sakType, vedtakId }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
@@ -108,6 +124,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [requestingUFT, setRequestingUFT] = useState<boolean>(false)
+  const [requestingGjpBp, setRequestingGjpBp] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(() =>
     !_.isNil(p5000FromStorage)
@@ -128,6 +145,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [ytelseOptions] = useState<Array<Option>>(() => Object.keys(ytelseType)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
+  const [gjpBpWarning, setGjpBpWarning] = useState<string | undefined>(undefined)
 
   const beregningOptions: Array<Option> = [
     { label: '000', value: '000' }, { label: '001', value: '001' },
@@ -767,6 +785,64 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
 
   useEffect(() => {
+    if (_.isDate(gjpbp) && requestingGjpBp) {
+      setRequestingGjpBp(false)
+      let newItems: P5000ListRows = _.cloneDeep(_items)
+
+      // we are adding a period for the remaining days of the month of that person's death
+      let sluttdato = moment(gjpbp).toDate()
+      let startdato = moment(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
+
+      const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
+
+      if (diff.days <= 1) {
+        setGjpBpWarning(t('message:warning-nododsfallPeriod'))
+        return
+      }
+
+      // check if we do not have such period
+      const foundPeriod = _.find(newItems, item => {
+        return moment(item.startdato).isSame(startdato, 'day') &&
+          moment(item.sluttdato).isSame(sluttdato, 'day') &&
+          item.type === '30'
+      })
+
+      if (!foundPeriod) {
+
+        // I will use a random period as a template, to fill out stuff like land
+        const newItemTemplate = _.sample(newItems) as P5000ListRow
+        const newItem: P5000ListRow = {
+          land: newItemTemplate.land,
+          beregning: newItemTemplate.beregning,
+          ordning: newItemTemplate.ordning,
+          ytelse: newItemTemplate.ytelse,
+          acronym: newItemTemplate.acronym,
+          type: '30',
+          startdato: startdato,
+          sluttdato: sluttdato,
+          status: 'new',
+          aar: '' + diff.years,
+          mnd: '' + diff.months,
+          dag: '' + diff.days,
+          selected: true,
+          flag: true,
+          flagIkon: 'GJP/BP',
+          key: '' // will be generated later
+        } as P5000ListRow
+
+        // converting new item to period, so I can get the generated key
+        const p5000Period: P5000Period = listItemtoPeriod(newItem, seds[0].id)
+        newItem.key = p5000Period.key!
+        newItems = newItems.concat(newItem)
+
+        onSave({
+          items: newItems
+        })
+      }
+    }
+  }, [gjpbp, requestingGjpBp])
+
+  useEffect(() => {
     if (_.isDate(uft) && requestingUFT) {
       setRequestingUFT(false)
       let newItems: P5000ListRows = _.cloneDeep(_items)
@@ -826,6 +902,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (vedtakId) {
       setRequestingUFT(true)
       dispatch(getUFT(vedtakId))
+    }
+  }
+
+  const hentGjpBp = () => {
+    if (vedtakId) {
+      setGjpBpWarning(undefined)
+      setRequestingGjpBp(true)
+      dispatch(getGjpBp(vedtakId))
     }
   }
 
@@ -1015,24 +1099,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               <FlexBaseDiv>
                 <Button
                   variant='secondary'
-                  disabled={gettingUFT}
+                  disabled={gettingUft}
                   onClick={hentUFT}
                 >
-                  {gettingUFT && <Loader />}
-                  {gettingUFT ? t('message:loading-uft') : t('buc:form-hent-uft')}
+                  {gettingUft && <Loader />}
+                  {gettingUft ? t('message:loading-uft') : t('buc:form-hent-uft')}
                 </Button>
-                {(pesysContext !== constants.VEDTAKSKONTEKST) && (
-                  <>
-                    <HorizontalSeparatorDiv size='0.5' />
-                    <BodyLong>{t('message:warning-noVedtakskontekst')}</BodyLong>
-                  </>
-                )}
-                {(sakType !== SakTypeMap.UFOREP) && (
-                  <>
-                    <HorizontalSeparatorDiv size='0.5' />
-                    <BodyLong>{t('message:warning-noUforetrygd')}</BodyLong>
-                  </>
-                )}
                 <HorizontalSeparatorDiv />
                 <HelpText placement='right'>
                   <div style={{ maxWidth: '600px' }}>
@@ -1040,6 +1112,34 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   </div>
                 </HelpText>
               </FlexBaseDiv>
+            )}
+            {featureToggles.P5000_UPDATES_VISIBLE &&
+            (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
+            pesysContext === constants.VEDTAKSKONTEKST && (
+              <PileCenterDiv>
+                <FlexBaseDiv>
+                <Button
+                  variant='secondary'
+                  disabled={gettingGjpBp}
+                  onClick={hentGjpBp}
+                >
+                  {gettingGjpBp && <Loader />}
+                  {gettingGjpBp ? t('message:loading-gjpbp') : t('buc:form-hent-gjpbp')}
+                </Button>
+                <HorizontalSeparatorDiv />
+                <HelpText placement='right'>
+                  <div style={{ maxWidth: '600px' }}>
+                    {t('p5000:help-gjpbp')}
+                  </div>
+                </HelpText>
+              </FlexBaseDiv>
+                {gjpBpWarning && (
+                  <>
+                  <VerticalSeparatorDiv/>
+                  <Alert variant='warning'>{gjpBpWarning}</Alert>
+                  </>
+                )}
+              </PileCenterDiv>
             )}
           </Column>
           <Column flex='2'>
@@ -1058,7 +1158,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           <Column />
         </AlignEndRow>
         <VerticalSeparatorDiv />
-        <hr style={{ width: '100%' }} />
+        <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow, P5000TableContext>
           key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '-storage-' + !_.isEmpty(p5000FromStorage)}

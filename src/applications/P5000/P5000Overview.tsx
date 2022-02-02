@@ -1,6 +1,6 @@
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { OneLineSpan } from 'components/StyledComponents'
+import { HorizontalLineSeparator, OneLineSpan } from 'components/StyledComponents'
 import { FeatureToggles, LocalStorageEntry, Option } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
@@ -317,7 +317,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           </Column>
         </AlignEndRow>
         <VerticalSeparatorDiv />
-        <hr style={{ width: '100%' }} />
+        <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
           key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods + '_mergetype' + (_mergePeriodTypes?.join(':')) ?? ''}

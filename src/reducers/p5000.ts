@@ -4,19 +4,16 @@ import { P5000FromRinaMap } from 'declarations/buc'
 import { P5000Period } from 'declarations/p5000'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
-import moment from 'moment'
 import { Action } from 'redux'
 
 export interface P5000State {
   p5000FromRinaMap: P5000FromRinaMap
   sentP5000info: any
-  uft: Date | null | undefined
 }
 
 export const initialP5000State: P5000State = {
   p5000FromRinaMap: {},
-  sentP5000info: undefined,
-  uft: undefined
+  sentP5000info: undefined
 }
 
 const fillWithKeys = (payload: any, sedid: string) => {
@@ -51,32 +48,6 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       return {
         ...state,
         p5000FromRinaMap: {}
-      }
-
-    case types.PERSON_UFT_REQUEST:
-
-      return {
-        ...state,
-        uft: undefined
-      }
-
-    case types.PERSON_UFT_SUCCESS: {
-      let uft
-      try {
-        uft = moment((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
-      } catch (e) {
-      }
-
-      return {
-        ...state,
-        uft
-      }
-    }
-
-    case types.PERSON_UFT_FAILURE:
-      return {
-        ...state,
-        uft: null
       }
 
     case types.P5000_SEND_RESET:

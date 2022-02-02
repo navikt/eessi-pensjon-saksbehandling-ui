@@ -135,7 +135,7 @@ export default {
   }
 },
   "doedsfall": {
-    "doedsdato": "2021-01-12",
+    "doedsdato": "2021-01-01",
     "folkeregistermetadata": null,
     "metadata": {
     "endringer": [

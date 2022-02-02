@@ -13,6 +13,13 @@ export const alertFailure = (message: JSX.Element | string): ActionWithPayload<a
   }
 })
 
+export const alertWarning = (message: JSX.Element | string): ActionWithPayload<any> => ({
+  type: types.ALERT_WARNING,
+  payload: {
+    message
+  }
+})
+
 export const alertSuccess = (message: JSX.Element | string): ActionWithPayload<any> => ({
   type: types.ALERT_SUCCESS,
   payload: {

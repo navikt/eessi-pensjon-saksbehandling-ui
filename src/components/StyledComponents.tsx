@@ -13,3 +13,15 @@ export const SpinnerDiv = styled.div`
   left: 0;
   right: 0;
 `
+export const HorizontalLineSeparator = styled.div`
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--navds-semantic-color-canvas-background) 0%,
+    var(--navds-semantic-color-border) 5%,
+    var(--navds-semantic-color-border) 95%,
+    var(--navds-semantic-color-canvas-background) 100%
+  );
+  width: -webkit-fill-available;
+  margin-left: 2rem;
+  margin-right: 2rem;
+`

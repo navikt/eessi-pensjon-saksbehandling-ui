@@ -20,18 +20,16 @@ export interface SEDAttachmentModalProps {
 }
 
 export interface SEDAttachmentModalSelector {
-  clientErrorParam: any | undefined
-  clientErrorStatus: AlertVariant | undefined
-  clientErrorMessage: string | undefined
-  serverErrorMessage: string | undefined
+  alertType: string | undefined
+  alertMessage: JSX.Element | string | undefined
+  alertVariant: AlertVariant | undefined
   error: any | undefined
 }
 
 const mapState = (state: State): SEDAttachmentModalSelector => ({
-  clientErrorParam: state.alert.clientErrorParam,
-  clientErrorStatus: state.alert.clientErrorStatus,
-  clientErrorMessage: state.alert.clientErrorMessage,
-  serverErrorMessage: state.alert.serverErrorMessage,
+  alertVariant: state.alert.stripeStatus as AlertVariant,
+  alertMessage: state.alert.stripeMessage,
+  alertType: state.alert.type,
   error: state.alert.error
 })
 
@@ -39,7 +37,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   onFinishedSelection, open, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps): JSX.Element => {
   const { t } = useTranslation()
-  const { clientErrorParam, clientErrorMessage, clientErrorStatus } = useSelector<State, SEDAttachmentModalSelector>(mapState)
+  const { alertVariant, alertMessage} = useSelector<State, SEDAttachmentModalSelector>(mapState)
   const [_items, setItems] = useState<JoarkBrowserItems>(sedAttachments)
 
   const onRowSelectChange = (items: JoarkBrowserItems): void => {
@@ -63,9 +61,9 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
         closeButton: true,
         modalContent: (
           <>
-            {clientErrorMessage && clientErrorStatus === 'error' && (
+            {alertMessage && alertVariant === 'error' && (
               <Alert variant='error'>
-                {t(clientErrorMessage, clientErrorParam)}
+                {alertMessage}
               </Alert>
             )}
             <JoarkBrowser

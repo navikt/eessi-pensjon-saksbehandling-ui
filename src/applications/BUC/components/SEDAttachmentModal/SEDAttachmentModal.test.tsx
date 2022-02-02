@@ -11,10 +11,9 @@ jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
 jest.mock('components/Alert/Alert', () => () => <div data-test-id='mock-c-alert' />)
 
 const defaultSelector = {
-  clientErrorParam: undefined,
-  clientErrorStatus: undefined,
-  clientErrorMessage: undefined,
-  serverErrorMessage: undefined,
+  alertType: undefined,
+  alertMessage: undefined,
+  alertVariant: undefined,
   error: undefined
 }
 

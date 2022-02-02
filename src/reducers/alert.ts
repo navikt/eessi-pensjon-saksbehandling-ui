@@ -1,208 +1,245 @@
 import * as types from 'constants/actionTypes'
 import { Sed } from 'declarations/buc'
-import { AlertVariant } from 'declarations/components'
+import i18n from 'i18n'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
 
 export interface AlertState {
-  clientErrorMessage: string | undefined
-  clientErrorParam: any | undefined
-  clientErrorStatus: AlertVariant | undefined
+  stripeStatus: string | undefined
+  stripeMessage: JSX.Element | string | undefined
+  bannerStatus: string | undefined
+  bannerMessage: string | undefined
   error: any |undefined
-  serverErrorMessage: string | undefined
+  type: string | undefined
   uuid: string | undefined
 }
 
 export const initialAlertState: AlertState = {
-  clientErrorMessage: undefined,
-  clientErrorParam: {},
-  clientErrorStatus: undefined,
+  stripeStatus: undefined,
+  stripeMessage: undefined,
+  bannerStatus: undefined,
+  bannerMessage: undefined,
+  uuid: undefined,
   error: undefined,
-  serverErrorMessage: undefined,
-  uuid: undefined
+  type: undefined
 }
 
 const alertReducer = (state: AlertState = initialAlertState, action: Action | ActionWithPayload = { type: '' }) => {
-  let clientErrorMessage: string | undefined
-  let serverErrorMessage: string
-  let clientErrorStatus: string
-  let clientErrorParam = {}
+  let stripeMessage: JSX.Element | string | undefined
+  let bannerMessage: string | undefined
+  let stripeStatus: string
+  let bannerStatus: string
 
-  if (action.type === types.ALERT_CLEAR) {
+  if (action.type === types.ALERT_CLEAR  ||
+    action.type === types.APP_CLEAR_DATA) {
     return initialAlertState
   }
 
+  if (action.type === types.ALERT_SUCCESS) {
+    return {
+      ...state,
+      type: action.type,
+      bannerMessage: (action as ActionWithPayload).payload.message,
+      bannerStatus: 'success'
+    }
+  }
+
+  if (action.type === types.ALERT_WARNING) {
+    return {
+      ...state,
+      type: action.type,
+      bannerMessage: (action as ActionWithPayload).payload.message,
+      bannerStatus: 'warning'
+    }
+  }
+
+  if (action.type === types.ALERT_FAILURE) {
+    return {
+      ...state,
+      type: action.type,
+      bannerMessage: (action as ActionWithPayload).payload.error,
+      bannerStatus: 'error',
+      error: (action as ActionWithPayload).payload.error
+    }
+  }
+
+  /**
+   * All ERROR MESSAGES go here, to banner alert
+   */
   if (_.endsWith(action.type, '/ERROR')) {
+    bannerStatus = 'error'
     switch (action.type) {
       case types.SERVER_INTERNAL_ERROR:
-        serverErrorMessage = 'ui:serverInternalError'
+        bannerMessage = i18n.t('ui:serverInternalError')
         if ((action as ActionWithPayload)?.payload?.error?.status === 504) {
-          serverErrorMessage = 'ui:gatewayTimeout'
+          bannerMessage = i18n.t('ui:gatewayTimeout')
         }
         break
 
       case types.SERVER_UNAUTHORIZED_ERROR:
-        serverErrorMessage = 'ui:serverAuthenticationError'
+        bannerMessage = i18n.t('ui:serverAuthenticationError')
         break
 
       default:
-        serverErrorMessage = (action as ActionWithPayload).payload.message || 'ui:serverInternalError'
+        bannerMessage = (action as ActionWithPayload).payload.message || i18n.t('ui:serverInternalError')
         break
     }
 
     return {
-      ...state,
-      serverErrorMessage,
-      error: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.error : undefined,
+      type: action.type,
+      bannerMessage: bannerMessage,
+      bannerStatus: bannerStatus,
+      error: (action as ActionWithPayload).payload
+        ? _.isString((action as ActionWithPayload).payload.error)
+          ? (action as ActionWithPayload).payload.error
+          : (action as ActionWithPayload).payload.error?.message
+        : undefined,
       uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
   }
 
+  /**
+   * All FAILURE MESSAGES go here, to stripe alert
+   */
   if (_.endsWith(action.type, '/FAILURE')) {
-    clientErrorStatus = 'error'
-
+    stripeStatus = 'error'
     switch (action.type) {
       case types.BUC_CREATE_BUC_FAILURE:
-
-        clientErrorMessage = 'message:alert-createBucFailure'
+        stripeMessage = i18n.t('message:alert-createBucFailure')
         break
 
       case types.BUC_CREATE_SED_FAILURE:
-
-        clientErrorMessage = 'message:alert-createSedFailure'
+        stripeMessage = i18n.t('message:alert-createSedFailure')
         break
 
       case types.BUC_GET_BUC_OPTIONS_FAILURE:
-
-        clientErrorMessage = 'message:alert-noBucOptions'
+        stripeMessage = i18n.t('message:alert-noBucOptions')
         break
 
       case types.BUC_GET_BUCSLIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-noBucs'
+        stripeMessage = i18n.t('message:alert-noBucs')
         break
 
       case types.BUC_GET_BUCSINFO_FAILURE:
-
-        clientErrorMessage = 'message:alert-noBucsInfo'
+        stripeMessage = i18n.t('message:alert-noBucsInfo')
         break
 
       case types.BUC_GET_BUCSINFO_LIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-noBucsListInfo'
+        stripeMessage = i18n.t('message:alert-noBucsListInfo')
         break
 
       case types.BUC_GET_COUNTRY_LIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-noCountryList'
+        stripeMessage = i18n.t('message:alert-noCountryList')
         break
 
       case types.BUC_GET_INSTITUTION_LIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-noInstitutionList'
+        stripeMessage = i18n.t('message:alert-noInstitutionList')
         break
 
       case types.BUC_GET_SED_LIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-noSedList'
+        stripeMessage = i18n.t('message:alert-noSedList')
         break
 
       case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-noSubjectAreaList'
+        stripeMessage = i18n.t('message:alert-noSubjectAreaList')
         break
 
       case types.BUC_GET_TAG_LIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-noTagList'
+        stripeMessage = i18n.t('message:alert-noTagList')
         break
 
       case types.BUC_SAVE_BUCSINFO_FAILURE:
-
-        clientErrorMessage = 'message:alert-saveBucsInfoFailure'
+        stripeMessage = i18n.t('message:alert-saveBucsInfoFailure')
         break
 
       case types.BUC_SEND_ATTACHMENT_FAILURE:
-
-        clientErrorMessage = 'message:alert-createAttachmentFailure'
+        stripeMessage = i18n.t('message:alert-createAttachmentFailure')
         break
 
       case types.JOARK_LIST_FAILURE:
-
-        clientErrorMessage = 'message:alert-joarkListFailure'
+        stripeMessage = i18n.t('message:alert-joarkListFailure')
         break
 
       case types.JOARK_PREVIEW_FAILURE:
-
-        clientErrorMessage = 'message:alert-joarkPreviewFailure'
+        stripeMessage = i18n.t('message:alert-joarkPreviewFailure')
         break
 
       default:
-
-        clientErrorMessage = (action as ActionWithPayload).payload?.message ?? 'ui:error'
+        stripeMessage = i18n.t((action as ActionWithPayload).payload?.message ?? 'ui:error')
         break
     }
 
     return {
       ...state,
-      clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
-      clientErrorMessage,
-      clientErrorParam,
-      error: (action as ActionWithPayload).payload?.error,
-      uuid: (action as ActionWithPayload).payload?.uuid
+      type: action.type,
+      stripeStatus: stripeStatus,
+      stripeMessage: stripeMessage,
+      error: (action as ActionWithPayload).payload
+        ? _.isString((action as ActionWithPayload).payload.error)
+          ? (action as ActionWithPayload).payload.error
+          : (action as ActionWithPayload).payload.error?.message
+        : undefined,
+      uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
   }
+
+  /**
+   * All OK MESSAGES for banner go here
+   */
+  let dealWithBanner = false
 
   switch (action.type) {
     case types.BUC_CREATE_BUC_SUCCESS:
 
-      clientErrorMessage = 'message:alert-createdBuc'
-      clientErrorParam = {
-        type: (action as ActionWithPayload).payload.type
-      }
+      bannerMessage = i18n.t('message:alert-createdBuc', {type: (action as ActionWithPayload).payload.type})
+      dealWithBanner = true
       break
 
     case types.PAGE_NOTIFICATION_SET_SUCCESS:
-
-      clientErrorMessage = 'message:alert-updatedPageNotification'
-      clientErrorParam = {
-        type: (action as ActionWithPayload).payload.type
-      }
+      bannerMessage = i18n.t('message:alert-updatedPageNotification', {type: (action as ActionWithPayload).payload.type})
+      dealWithBanner = true
       break
 
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS: {
       const message = ((action as ActionWithPayload).payload as Sed).message
-      clientErrorMessage = 'message:alert-createdSed'
-      clientErrorParam = {
+      bannerMessage = i18n.t('message:alert-createdSed', {
         sed: (((action as ActionWithPayload).payload as Sed).type),
         message: message ? ' - ' + message : ''
-      }
+      })
       break
     }
-
-    case types.ALERT_SUCCESS: {
-      clientErrorMessage = (action as ActionWithPayload).payload.message
-      clientErrorParam = {
-        type: (action as ActionWithPayload).payload.type
-      }
-      break
-    }
-
     default:
       break
   }
 
-  if (!clientErrorMessage) {
+  if (dealWithBanner) {
+    return {
+      ...state,
+      type: action.type,
+      bannerStatus: 'success',
+      bannerMessage: bannerMessage,
+      uuid: undefined,
+      error: undefined
+    }
+  }
+
+  /**
+   * All OK MESSAGES for stripe go here
+   */
+
+  stripeStatus = 'success'
+
+  if (!stripeMessage) {
     return state
   }
 
   return {
     ...state,
-    clientErrorStatus: 'info',
-    clientErrorMessage,
-    clientErrorParam,
+    type: action.type,
+    stripeStatus: stripeStatus,
+    stripeMessage: stripeMessage,
     uuid: undefined,
     error: undefined
   }

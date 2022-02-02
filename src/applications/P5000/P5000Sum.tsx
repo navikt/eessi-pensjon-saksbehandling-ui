@@ -1,6 +1,7 @@
 import { Alert, BodyLong, Button, HelpText, Loader, Tag } from '@navikt/ds-react'
 import { typePeriode } from 'applications/P5000/P5000.labels'
 import Select from 'components/Select/Select'
+import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { Labels, LocalStorageEntry, Option } from 'declarations/app'
 import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Sed, Seds } from 'declarations/buc.d'
 import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
@@ -233,7 +234,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                 {hasMoreWarnings && (
                   <div>
                     <VerticalSeparatorDiv />
-                    <hr />
+                    <HorizontalLineSeparator />
                     <VerticalSeparatorDiv size='0.7' />
                     {t('p5000:warning-P5000Sum-instructions-header')}
                     <VerticalSeparatorDiv />
@@ -265,7 +266,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           <Column />
         </AlignEndRow>
         <VerticalSeparatorDiv />
-        <hr style={{ width: '100%' }} />
+        <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000SumRow>
           animatable={false}

@@ -8,7 +8,7 @@ import { Alert } from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components'
 
-export const AlertDiv = styled(Alert)`
+export const BannerAlertDiv = styled(Alert)`
   opacity: 0;
   animation: ${fadeIn} 1s forwards;
   position: sticky;
@@ -30,7 +30,7 @@ export const CloseIcon = styled(ErrorFilled)`
   cursor: pointer;
 `
 
-export interface AlertProps {
+export interface BannerAlertProps {
   className ?: string
   error?: AlertError | string
   message?: JSX.Element | string
@@ -39,9 +39,9 @@ export interface AlertProps {
   style ?: any
 }
 
-export const AlertFC: React.FC<AlertProps> = ({
+export const BannerAlert: React.FC<BannerAlertProps> = ({
   className, error, message, onClose, variant, style = {}
-}: AlertProps): JSX.Element | null => {
+}: BannerAlertProps): JSX.Element | null => {
   let _message: JSX.Element | string | undefined = message
 
   const onCloseIconClicked = (): void => {
@@ -76,11 +76,8 @@ export const AlertFC: React.FC<AlertProps> = ({
   }
 
   return (
-    <AlertDiv
-      className={classNames(
-        'status-' + variant,
-        className
-      )}
+    <BannerAlertDiv
+      className={classNames('status-' + variant, className)}
       style={style}
       role='alert'
       variant={variant}
@@ -92,11 +89,11 @@ export const AlertFC: React.FC<AlertProps> = ({
           onClick={onCloseIconClicked}
         />
       )}
-    </AlertDiv>
+    </BannerAlertDiv>
   )
 }
 
-AlertFC.propTypes = {
+BannerAlert.propTypes = {
   className: PT.string,
   error: PT.oneOfType([AlertErrorPropType, PT.string]),
   message: PT.oneOfType([PT.string, PT.element]),
@@ -104,4 +101,4 @@ AlertFC.propTypes = {
   variant: PT.oneOf(['info', 'success', 'error', 'warning'])
 }
 
-export default AlertFC
+export default BannerAlert

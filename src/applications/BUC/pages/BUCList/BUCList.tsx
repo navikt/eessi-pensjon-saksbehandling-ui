@@ -11,6 +11,7 @@ import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { Search } from '@navikt/ds-icons'
 import classNames from 'classnames'
+import { HorizontalLineSeparator } from 'components/StyledComponents'
 import ProgressBar from 'fremdriftslinje'
 import {
   animationClose, animationOpen, slideInFromLeft,
@@ -321,7 +322,7 @@ const BUCList: React.FC<BUCListProps> = ({
           <Heading size='medium'>
             {t('buc:step-startBUCTitle')}
           </Heading>
-          <hr />
+          <HorizontalLineSeparator />
           <BUCStart
             aktoerId={aktoerId}
             onBucCreated={() => {

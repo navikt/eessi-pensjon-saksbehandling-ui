@@ -28,7 +28,8 @@ export const initialLoadingState: LoadingState = {
   gettingSubjectAreaList: false,
   gettingTagList: false,
   gettingUserInfo: false,
-  gettingUFT: false,
+  gettingUft: false,
+  gettingGjpBp: false,
   isLoggingIn: false,
   isLoggingOut: false,
   loadingJoarkList: false,
@@ -454,7 +455,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
 
       return {
         ...state,
-        gettingUFT: true
+        gettingUft: true
       }
 
     case types.PERSON_UFT_SUCCESS:
@@ -462,8 +463,25 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
 
       return {
         ...state,
-        gettingUFT: false
+        gettingUft: false
       }
+
+    case types.PERSON_GJP_BP_REQUEST:
+
+      return {
+        ...state,
+        gettingGjpBp: true
+      }
+
+    case types.PERSON_GJP_BP_SUCCESS:
+    case types.PERSON_GJP_BP_FAILURE:
+
+      return {
+        ...state,
+        gettingGjpBp: false
+      }
+
+
 
     default:
 

@@ -1,6 +1,6 @@
 import { alertClear, alertFailure } from 'actions/alert'
 import { closeModal, setWidthSize } from 'actions/ui'
-import Alert from 'components/Alert/Alert'
+import BannerAlert from 'components/BannerAlert/BannerAlert'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import Modal from 'components/Modal/Modal'
@@ -11,7 +11,6 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import Error from 'pages/Error/Error'
 import PT from 'prop-types'
-import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
 import NavHighContrast from 'nav-hoykontrast'
@@ -40,9 +39,8 @@ export interface TopContainerProps {
 }
 
 export interface TopContainerSelector {
-  clientErrorParam: any | undefined
-  clientErrorStatus: AlertVariant | undefined
-  clientErrorMessage: string | undefined
+  bannerStatus: string | undefined
+  bannerMessage: string | JSX.Element | undefined
   error: any | undefined
   expirationTime: Date | undefined
   footerOpen: boolean
@@ -51,16 +49,13 @@ export interface TopContainerSelector {
   isLoggingOut: boolean
   modal: ModalContent | undefined
   params: Params
-  serverErrorMessage: string | undefined
   size: WidthSize | undefined
   username: string | undefined
 }
 
 const mapState = (state: State): TopContainerSelector => ({
-  clientErrorParam: state.alert.clientErrorParam,
-  clientErrorStatus: state.alert.clientErrorStatus,
-  clientErrorMessage: state.alert.clientErrorMessage,
-  serverErrorMessage: state.alert.serverErrorMessage,
+  bannerStatus: state.alert.bannerStatus,
+  bannerMessage: state.alert.bannerMessage,
   error: state.alert.error,
 
   expirationTime: state.app.expirationTime,
@@ -80,11 +75,10 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   className, children
 }: TopContainerProps): JSX.Element => {
   const {
-    clientErrorParam, clientErrorMessage, clientErrorStatus, error, expirationTime, footerOpen,
-    gettingUserInfo, highContrast, isLoggingOut, modal, params, serverErrorMessage, size, username
+    bannerStatus, bannerMessage, error, expirationTime, footerOpen,
+    gettingUserInfo, highContrast, isLoggingOut, modal, params, size, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
-  const { t } = useTranslation()
 
   const handleModalClose = (): void => {
     dispatch(closeModal())
@@ -92,16 +86,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   const onClear = (): void => {
     dispatch(alertClear())
-  }
-
-  const getErrorMessage = (): string | undefined => {
-    if (serverErrorMessage) {
-      return t(serverErrorMessage)
-    }
-    if (clientErrorMessage) {
-      return t(clientErrorMessage, clientErrorParam)
-    }
-    return undefined
   }
 
   const onResize = (width: any): void => {
@@ -148,9 +132,9 @@ export const TopContainer: React.FC<TopContainerProps> = ({
               gettingUserInfo={gettingUserInfo}
               isLoggingOut={isLoggingOut}
             />
-            <Alert
-              message={getErrorMessage()}
-              variant={clientErrorStatus}
+            <BannerAlert
+              message={bannerMessage}
+              variant={bannerStatus as AlertVariant}
               error={error}
               onClose={onClear}
             />

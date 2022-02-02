@@ -30,6 +30,7 @@ import SEDP6000 from 'applications/BUC/components/SEDP6000/SEDP6000'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
+import { HorizontalLineSeparator } from 'components/StyledComponents'
 import ValidationBox from 'components/ValidationBox/ValidationBox'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
@@ -973,7 +974,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             sed: currentSed!.type
           })}
       </Heading>
-      <hr />
+      <HorizontalLineSeparator />
       {!vedtakId && _sed === 'P6000' && (
         <FullWidthDiv>
           <AlertDiv>

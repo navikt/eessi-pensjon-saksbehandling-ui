@@ -69,6 +69,7 @@
   "loading-subjectAreaList"       : "Laster fagområde...",
   "loading-tagList"               : "Laster merknader...",
   "loading-uft"                   : "Laster UFT...",
+  "loading-gjpbp"                 : "Laster GJP/BP...",
 
   "validation-addPositiveNumber"    : "Skriv et positivt tall",
   "validation-addBeregning"         : "Legg til beregningen",
@@ -101,7 +102,6 @@
   "warning-filteredBucs"                     : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
   "warning-german-alert"                     : "Tysklands sammenhengende med avrunding",
   "warning-noVedtakskontekst"                : "Du trenger å være i vedtakskontekst",
-  "warning-noUforetrygd"                     : "Du kan bruke det med uføretrygd sakstype",
-  "warning-P_BUC_01-uføretrygd"              : "Du kan ikke opprette alderspensjonskrav i en uføretrygdsak."
-
+  "warning-P_BUC_01-uføretrygd"              : "Du kan ikke opprette alderspensjonskrav i en uføretrygdsak.",
+  "warning-nododsfallPeriod"                 : "Dødsdato er den 1. Ingen periode blir lagt til"
 }

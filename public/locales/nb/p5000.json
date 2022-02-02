@@ -31,6 +31,8 @@
   "help-merge-1" : "Noen land stykker opp trygdetid i små perioder selv om det ikke er mellomrom mellom periodene.",
   "help-merge-2" : "Trykk på for å slå sammen sammenhengende perioder av samme type.",
   "help-uft" : "Klikk her for å få med trygdetid fra og med uføretidspunktet og frem til i dag. Ved flere uføretidspunkter må du velge korrekt vedtak i vedtakshistorikken",
+  "help-gjpbp" : "Klikk her for å få med trygdetid fra og med dødsfallsmåneden og frem til i dag",
+
   "help-merge-period-type" : "Slå sammen perioder med ulike periode typer",
   "help-german-alert": "Noen land (Tyskland) avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen. Hak av her hvis det er slike perioder i saken.",
   "help-modal-1": "For å redigere en P5000 klikker du på ",
