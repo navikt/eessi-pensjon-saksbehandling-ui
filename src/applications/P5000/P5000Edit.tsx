@@ -812,11 +812,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         // I will use a random period as a template, to fill out stuff like land
         const newItemTemplate = _.sample(newItems) as P5000ListRow
         const newItem: P5000ListRow = {
-          land: newItemTemplate.land,
-          beregning: newItemTemplate.beregning,
-          ordning: newItemTemplate.ordning,
-          ytelse: newItemTemplate.ytelse,
-          acronym: newItemTemplate.acronym,
+          land: newItemTemplate?.land ?? null,
+          beregning: newItemTemplate?.beregning ?? null,
+          ordning: newItemTemplate?.ordning ?? null,
+          ytelse: newItemTemplate?.ytelse ?? null,
+          acronym: newItemTemplate?.acronym ?? null,
           type: '30',
           startdato: startdato,
           sluttdato: sluttdato,
@@ -865,11 +865,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         // I will use a random period as a template, to fill out stuff like land
         const newItemTemplate = _.sample(newItems) as P5000ListRow
         const newItem: P5000ListRow = {
-          land: newItemTemplate.land,
-          beregning: newItemTemplate.beregning,
-          ordning: newItemTemplate.ordning,
-          ytelse: newItemTemplate.ytelse,
-          acronym: newItemTemplate.acronym,
+          land: newItemTemplate?.land ?? null,
+          beregning: newItemTemplate?.beregning ?? null,
+          ordning: newItemTemplate?.ordning ?? null,
+          ytelse: newItemTemplate?.ytelse ?? null,
+          acronym: newItemTemplate?.acronym ?? null,
           type: '30',
           startdato: uft,
           sluttdato: new Date(),
@@ -931,6 +931,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             <div>
               {_.isNull(sentP5000info) && (
                 <PileCenterDiv>
+                  <VerticalSeparatorDiv size='3'/>
                   <Alert variant='warning'>
                     {t('p5000:warning-failedP5000Sending')}
                   </Alert>
