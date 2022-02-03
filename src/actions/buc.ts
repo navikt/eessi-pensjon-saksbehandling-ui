@@ -24,7 +24,7 @@ import {
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
+import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
 import { CountryFilter } from '@navikt/land-verktoy'
 import _ from 'lodash'
 import { mockBuc, mockParticipants } from 'mocks/buc/buc'

@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
+import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
 import mockPageNotificationRead from 'mocks/pagenotification/read'
 import mockPageNotificationSet from 'mocks/pagenotification/set'
 import { ActionCreator } from 'redux'

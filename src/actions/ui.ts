@@ -2,7 +2,7 @@ import { AllowedLocaleString, WidthSize } from 'declarations/app.d'
 import { ModalContent } from 'declarations/components.d'
 import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import { Action, ActionCreator } from 'redux'
 
 export const changeLanguage: ActionCreator<ActionWithPayload<AllowedLocaleString>> = (

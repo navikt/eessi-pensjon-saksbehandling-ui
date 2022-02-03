@@ -1,12 +1,12 @@
 import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { call as originalCall } from 'js-fetch-api'
+import { call as originalCall } from '@navikt/fetch'
 import mockPreview from 'mocks/joark/preview'
 import mockItems from 'mocks/joark/items'
 
 const sprintf = require('sprintf-js').sprintf
-jest.mock('js-fetch-api', () => ({
+jest.mock('@navikt/fetch', () => ({
   call: jest.fn()
 }))
 const call = originalCall as jest.Mock<typeof originalCall>

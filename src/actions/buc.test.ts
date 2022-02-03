@@ -7,10 +7,10 @@ import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
 import { Buc, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
 import { JoarkBrowserItem } from 'declarations/joark'
-import { call as originalCall } from 'js-fetch-api'
+import { call as originalCall } from '@navikt/fetch'
 import mockItems from 'mocks/joark/items'
 
-jest.mock('js-fetch-api', () => ({
+jest.mock('@navikt/fetch', () => ({
   call: jest.fn()
 }))
 const call = originalCall as jest.Mock<typeof originalCall>

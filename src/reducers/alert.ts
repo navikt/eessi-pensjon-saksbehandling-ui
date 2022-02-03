@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import { Sed } from 'declarations/buc'
 import i18n from 'i18n'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { Action } from 'redux'
 

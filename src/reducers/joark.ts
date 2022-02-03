@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { JoarkBrowserItemWithContent, JoarkPoster } from 'declarations/joark'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 
 export interface JoarkState {
   list: Array<JoarkPoster> | undefined

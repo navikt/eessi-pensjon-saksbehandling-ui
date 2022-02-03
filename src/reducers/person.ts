@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { PersonAvdods, PersonPDL } from 'declarations/person'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import moment from 'moment'
 import { initialPageNotificationState, PageNotificationState } from 'reducers/pagenotification'

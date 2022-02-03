@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { Entries, Entry, LocalStorageEntry, PSED } from 'declarations/app.d'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { Action } from 'redux'
 import { Sort } from '@navikt/tabell'

@@ -2,7 +2,7 @@ import { generateKeyForListRow } from 'applications/P5000/conversion'
 import * as types from 'constants/actionTypes'
 import { P5000FromRinaMap } from 'declarations/buc'
 import { P5000Period } from 'declarations/p5000'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { Action } from 'redux'
 

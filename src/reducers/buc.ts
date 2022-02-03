@@ -25,7 +25,7 @@ import {
   BucListItem
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkPreview } from 'declarations/joark'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'

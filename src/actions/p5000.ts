@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { Sed } from 'declarations/buc'
 import { P5000SED } from 'declarations/p5000'
-import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
+import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
 import mockSed from 'mocks/buc/sed'
 import { Action, ActionCreator } from 'redux'
 

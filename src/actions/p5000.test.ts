@@ -3,11 +3,11 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { Sed } from 'declarations/buc'
 import { P5000SED } from 'declarations/p5000'
-import { call as originalCall } from 'js-fetch-api'
+import { call as originalCall } from '@navikt/fetch'
 import mockSedP5000 from 'mocks/buc/sed_P5000_small1'
 
 const sprintf = require('sprintf-js').sprintf
-jest.mock('js-fetch-api', () => ({
+jest.mock('@navikt/fetch', () => ({
   call: jest.fn()
 }))
 const call = originalCall as jest.Mock<typeof originalCall>

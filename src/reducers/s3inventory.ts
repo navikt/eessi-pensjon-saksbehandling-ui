@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import { BucInfo, Comment } from 'declarations/buc'
 import { GetS3FilesJob } from 'declarations/components'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { Action } from 'redux'
 

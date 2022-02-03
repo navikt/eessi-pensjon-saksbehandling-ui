@@ -2,10 +2,10 @@ import * as appActions from 'actions/app'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { ParamPayload } from 'declarations/app'
-import { ActionWithPayload, call as originalCall } from 'js-fetch-api'
+import { ActionWithPayload, call as originalCall } from '@navikt/fetch'
 import { Action } from 'redux'
 
-jest.mock('js-fetch-api', () => ({
+jest.mock('@navikt/fetch', () => ({
   call: jest.fn()
 }))
 const call: jest.Mock = originalCall as jest.Mock<typeof originalCall>

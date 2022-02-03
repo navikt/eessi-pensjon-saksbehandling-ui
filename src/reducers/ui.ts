@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import { WidthSize } from 'declarations/app'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { ModalContent } from 'declarations/components'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import { Action } from 'redux'
 import i18n from '../i18n'
 

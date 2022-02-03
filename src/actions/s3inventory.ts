@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { ActionWithPayload, call } from 'js-fetch-api'
+import { ActionWithPayload, call } from '@navikt/fetch'
 import mockS3file from 'mocks/s3/file'
 import mockS3list from 'mocks/s3/list'
 import { ActionCreator } from 'redux'

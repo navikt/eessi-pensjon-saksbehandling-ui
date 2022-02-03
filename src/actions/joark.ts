@@ -1,7 +1,7 @@
 import { JoarkBrowserItem, JoarkBrowserItemWithContent, JoarkList, JoarkPreview } from 'declarations/joark.d'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { call, ActionWithPayload, ThunkResult } from 'js-fetch-api'
+import { call, ActionWithPayload, ThunkResult } from '@navikt/fetch'
 import mockJoark from 'mocks/joark/joark'
 import mockPreview from 'mocks/joark/preview'
 import { ActionCreator } from 'redux'

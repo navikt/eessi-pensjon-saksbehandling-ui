@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { Sed } from 'declarations/buc'
-import { ActionWithPayload } from 'js-fetch-api'
+import { ActionWithPayload } from '@navikt/fetch'
 import { Action } from 'redux'
 
 export interface JournalføringState {

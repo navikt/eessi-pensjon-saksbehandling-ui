@@ -1145,7 +1145,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               </PileCenterDiv>
             )}
           </Column>
-          <Column flex='2'>
+          <Column>
             <Alert variant='warning'>
               <FlexCenterDiv>
                 {t('p5000:warning-P5000Edit-instructions-li1')}
@@ -1158,7 +1158,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               </FlexCenterDiv>
             </Alert>
           </Column>
-          <Column />
         </AlignEndRow>
         <VerticalSeparatorDiv />
         <HorizontalLineSeparator />

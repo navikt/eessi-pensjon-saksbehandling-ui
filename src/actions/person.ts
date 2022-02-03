@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { PersonAvdods, PersonPDL } from 'declarations/person'
-import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
+import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
 import mockPerson from 'mocks/person/personPdl'
 import mockPersonAvdod from 'mocks/person/personAvdod'
 import { ActionCreator } from 'redux'

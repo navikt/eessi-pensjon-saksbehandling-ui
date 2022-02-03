@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { ActionWithPayload, call, ThunkResult } from 'js-fetch-api'
+import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
 import { ActionCreator } from 'redux'
 import mockJournalføringSed from 'mocks/journalføring/sed'
 import mockJournalføringSend from 'mocks/journalføring/send'
