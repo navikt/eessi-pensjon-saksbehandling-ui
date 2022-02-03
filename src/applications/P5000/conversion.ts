@@ -10,7 +10,7 @@ import {
   SedSender
 } from 'declarations/p5000'
 import { P5000FromRinaMap, Participant, Sed, Seds } from 'declarations/buc'
-import CountryData from 'land-verktoy'
+import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
 import md5 from 'md5'

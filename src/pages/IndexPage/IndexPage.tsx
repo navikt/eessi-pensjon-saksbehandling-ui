@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import * as extraWidgets from 'widgets'
-import { VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 
 const CustomDashboard = styled(Dashboard)`
    flex: 1 1 auto;

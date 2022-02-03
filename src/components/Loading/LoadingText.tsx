@@ -1,4 +1,4 @@
-import { progressBarAnimation } from 'nav-hoykontrast'
+import { progressBarAnimation } from '@navikt/hoykontrast'
 import styled from 'styled-components'
 
 export const TextDiv = styled.div`

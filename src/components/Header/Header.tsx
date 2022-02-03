@@ -1,6 +1,6 @@
 import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
-import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import * as routes from 'constants/routes'
 import PT from 'prop-types'
 import { Warning, EmployerFilled } from '@navikt/ds-icons'

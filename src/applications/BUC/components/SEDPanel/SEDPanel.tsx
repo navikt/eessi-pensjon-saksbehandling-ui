@@ -1,7 +1,7 @@
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
 import { BUCMode } from 'declarations/app'
-import { slideInFromLeft } from 'nav-hoykontrast'
+import { slideInFromLeft } from '@navikt/hoykontrast'
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
 import styled from 'styled-components'

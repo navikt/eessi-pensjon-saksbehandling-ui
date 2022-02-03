@@ -3,7 +3,7 @@ import { Entries, Entry, LocalStorageEntry, PSED } from 'declarations/app.d'
 import { ActionWithPayload } from 'js-fetch-api'
 import _ from 'lodash'
 import { Action } from 'redux'
-import { Sort } from 'tabell'
+import { Sort } from '@navikt/tabell'
 
 // these are used for: 1) reducer namespace, and 2) local storage key
 

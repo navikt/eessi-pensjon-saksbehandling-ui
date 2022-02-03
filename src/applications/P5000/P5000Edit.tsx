@@ -54,14 +54,14 @@ import {
   HorizontalSeparatorDiv,
   PileCenterDiv,
   VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import Table, { Column as TableColumn, RenderEditableOptions, Sort } from 'tabell'
+import Table, { Column as TableColumn, RenderEditableOptions, Sort } from '@navikt/tabell'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, listItemtoPeriod } from './conversion'
 import P5000HelpModal from './P5000HelpModal'

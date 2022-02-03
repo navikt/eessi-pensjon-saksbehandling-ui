@@ -6,7 +6,7 @@ import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockP50001 from 'mocks/buc/sed_P5000_small1'
 import mockP50002 from 'mocks/buc/sed_P5000_small2'
 import { stageSelector } from 'setupTests'
-import Table from 'tabell'
+import Table from '@navikt/tabell'
 import P5000Overview, { P5000OverviewProps, P5000OverviewSelector } from './P5000Overview'
 
 const defaultSelector: P5000OverviewSelector = {

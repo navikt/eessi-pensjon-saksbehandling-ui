@@ -2,7 +2,7 @@ import EESSIPensjonVeileder from 'components/EESSIPensjonVeileder/EESSIPensjonVe
 import TopContainer from 'components/TopContainer/TopContainer'
 import { standardLogger, timeLogger } from 'metrics/loggers'
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
-import { VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

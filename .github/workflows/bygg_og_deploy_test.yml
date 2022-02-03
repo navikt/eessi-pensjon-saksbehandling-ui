@@ -39,6 +39,8 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       # BYGGER DOCKER CONTAINER
       - name: 'Build and publish Docker image'

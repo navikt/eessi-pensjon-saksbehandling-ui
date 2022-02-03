@@ -1,6 +1,6 @@
 import LoadingImage from 'components/Loading/LoadingImage'
 import LoadingText from 'components/Loading/LoadingText'
-import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import styled from 'styled-components'
 
 const Title = styled.div`

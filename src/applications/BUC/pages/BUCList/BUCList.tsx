@@ -12,14 +12,14 @@ import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/
 import { Search } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
-import ProgressBar from 'fremdriftslinje'
+import ProgressBar from '@navikt/fremdriftslinje'
 import {
   animationClose, animationOpen, slideInFromLeft,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv,
   Column,
   Row
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 
 import { BRUKERKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'

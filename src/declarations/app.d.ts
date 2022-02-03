@@ -1,7 +1,7 @@
 import * as constants from 'constants/constants'
 import { P4000SED } from 'declarations/p4000'
 import { P5000SED } from 'declarations/p5000'
-import { Sort } from 'tabell'
+import { Sort } from '@navikt/tabell'
 
 export type AllowedLocaleString = 'en' | 'nb'
 

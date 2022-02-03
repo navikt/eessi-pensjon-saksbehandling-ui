@@ -14,7 +14,7 @@ import { AllowedLocaleString, BUCMode } from 'declarations/app.d'
 import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
-import CountryData from 'land-verktoy'
+import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -25,7 +25,7 @@ import {
   HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'

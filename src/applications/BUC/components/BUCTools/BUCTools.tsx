@@ -26,7 +26,7 @@ import {
   slideInFromRight,
   VerticalSeparatorDiv,
   HighContrastTabs
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'

@@ -1,7 +1,7 @@
 import { Delete, Add } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import { BodyLong, Button } from '@navikt/ds-react'
-import { FlexCenterDiv, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { FlexCenterDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 

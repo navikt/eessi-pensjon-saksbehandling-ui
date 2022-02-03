@@ -5,7 +5,7 @@ import { FeatureToggles, LocalStorageEntry, Option } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
 import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
-import CountryData from 'land-verktoy'
+import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
@@ -19,14 +19,14 @@ import {
   HorizontalSeparatorDiv,
   PileCenterDiv,
   VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import Table, { Sort } from 'tabell'
+import Table, { Sort } from '@navikt/tabell'
 import { convertP5000SEDToP5000ListRows } from './conversion'
 
 export interface P5000OverviewSelector {

@@ -1,7 +1,7 @@
 import Modal from 'components/Modal/Modal'
 import { NextFilled, Delete } from '@navikt/ds-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
-import { VerticalSeparatorDiv, HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { VerticalSeparatorDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import { useTranslation } from 'react-i18next'
 import P5000HelpPNG from 'assets/images/p5000help.png'
 

@@ -7,7 +7,7 @@ import MapPNG from 'assets/images/artwork/saksstatus.png'
 import {
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 import { State } from 'declarations/reducers'
 import { RinaUrl } from 'declarations/app.d'
 import { standardLogger } from 'metrics/loggers'

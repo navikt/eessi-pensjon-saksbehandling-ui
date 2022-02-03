@@ -18,7 +18,7 @@ import {
   PileDiv,
   slideInFromLeft,
   VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'

@@ -5,9 +5,9 @@ import { AllowedLocaleString, ErrorElement } from 'declarations/app'
 import { P6000 } from 'declarations/buc'
 import { JoarkPreview } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import Flag from 'flagg-ikoner'
-import File from 'forhandsvisningsfil'
-import CountryData, { Country } from 'land-verktoy'
+import Flag from '@navikt/flagg-ikoner'
+import File from '@navikt/forhandsvisningsfil'
+import CountryData, { Country } from '@navikt/land-verktoy'
 import _ from 'lodash'
 import { Checkbox, Button, Loader, Panel } from '@navikt/ds-react'
 import {
@@ -16,7 +16,7 @@ import {
   HorizontalSeparatorDiv,
   PileDiv,
   VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'

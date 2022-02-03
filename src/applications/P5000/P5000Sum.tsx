@@ -18,13 +18,13 @@ import {
   HorizontalSeparatorDiv,
   PileCenterDiv,
   VerticalSeparatorDiv
-} from 'nav-hoykontrast'
+} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import Table, { RenderEditableOptions, Sort } from 'tabell'
+import Table, { RenderEditableOptions, Sort } from '@navikt/tabell'
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from './conversion'
 
 export interface P5000SumProps {

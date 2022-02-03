@@ -1,6 +1,6 @@
 import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
-import { HorizontalSeparatorDiv } from 'nav-hoykontrast'
+import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, PesysContext } from 'declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'

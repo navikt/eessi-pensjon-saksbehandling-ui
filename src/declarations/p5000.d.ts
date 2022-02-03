@@ -1,4 +1,4 @@
-import { Item, Sort } from 'tabell'
+import { Item, Sort } from '@navikt/tabell'
 
 export type P5000Context = 'edit' | 'overview'
 

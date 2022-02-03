@@ -3,7 +3,7 @@ import { pageNotificationValidate, PageNotificationValidationProps } from 'appli
 import Input from 'components/Forms/Input'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
-import { VerticalSeparatorDiv } from 'nav-hoykontrast'
+import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { Loader, Button, Panel, RadioGroup, Radio } from '@navikt/ds-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
