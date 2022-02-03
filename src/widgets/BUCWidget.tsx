@@ -1,5 +1,5 @@
 import Buc from 'applications/BUC/'
-import { WidgetFC, WidgetProps } from 'nav-dashboard'
+import { WidgetFC, WidgetProps } from '@navikt/dashboard'
 import _ from 'lodash'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'

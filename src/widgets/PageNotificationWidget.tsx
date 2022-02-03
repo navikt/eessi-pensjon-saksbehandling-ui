@@ -1,5 +1,5 @@
 import PageNotification from 'applications/PageNotification'
-import { WidgetFC, WidgetProps } from 'nav-dashboard'
+import { WidgetFC, WidgetProps } from '@navikt/dashboard'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import ReactResizeDetector from 'react-resize-detector'

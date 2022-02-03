@@ -33,7 +33,7 @@
     "@navikt/hoykontrast": "^3.0.0",
     "@navikt/paginering": "^3.0.0",
     "@navikt/tabell": "^3.0.0",
-    "nav-dashboard": "^3.0.0",
+    "@navikt/dashboard": "^3.0.1",
     "@sentry/browser": "^6.17.4",
     "amplitude-js": "^8.16.1",
     "classnames": "^2.3.1",

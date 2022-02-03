@@ -1,6 +1,6 @@
 import TopContainer from 'components/TopContainer/TopContainer'
 import { timeLogger } from 'metrics/loggers'
-import Dashboard, { LayoutTabs, Widgets } from 'nav-dashboard'
+import Dashboard, { LayoutTabs, Widgets } from '@navikt/dashboard'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'

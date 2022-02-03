@@ -28,7 +28,7 @@ jest.mock('components/ContextBanner/ContextBanner', () => {
   )
 })
 
-jest.mock('nav-dashboard', () => (props: any) => (
+jest.mock('@navikt/dashboard', () => (props: any) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
   <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
 ))
