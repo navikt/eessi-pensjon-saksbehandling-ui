@@ -35,12 +35,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       # BYGGER APP
-      - name: 'Bygg'
-        run: |
-          npm install
-          npm run build
+      - name: 'Install'
+        run: npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: 'Bygg'
+        run: npm run build
 
       # BYGGER DOCKER CONTAINER
       - name: 'Build and publish Docker image'
