@@ -1119,7 +1119,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             {featureToggles.P5000_UPDATES_VISIBLE &&
             (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
             pesysContext === constants.VEDTAKSKONTEKST && (
-              <PileCenterDiv>
+              <>
                 <FlexBaseDiv>
                   <Button
                     variant='secondary'
@@ -1142,7 +1142,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     <Alert variant='warning'>{gjpBpWarning}</Alert>
                   </>
                 )}
-              </PileCenterDiv>
+              </>
             )}
           </Column>
           <Column>
