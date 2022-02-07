@@ -30,6 +30,7 @@ Object.defineProperty(global.self, 'crypto', {
     getRandomValues: (arr: any) => crypto.randomBytes(arr.length)
   }
 })
+
 Object.defineProperty(window, 'getComputedStyle', {
   value: () => ({
     getPropertyValue: () => ('')
