@@ -8,6 +8,11 @@ import { Action, ActionCreator } from 'redux'
 
 const sprintf = require('sprintf-js').sprintf
 
+export const setGjpBpWarning = (payload: any) => ({
+  type: types.P5000_GJPBPWARNING_SET,
+  payload
+})
+
 export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
   caseId: string, sed: Sed
 ): ThunkResult<ActionWithPayload<P5000SED>> => {

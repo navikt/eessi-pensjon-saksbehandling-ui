@@ -28,6 +28,7 @@ export interface OverviewSelector {
   locale: AllowedLocaleString
   personPdl?: PersonPDL,
   personAvdods: PersonAvdods | undefined,
+  personAvdodPdl: {[k in string]: PersonPDL | null | undefined},
   pesysContext: PesysContext | undefined,
   vedtakId: string | null | undefined
 }
@@ -40,6 +41,7 @@ const mapState = (state: State): OverviewSelector => ({
   locale: state.ui.locale,
   personPdl: state.person.personPdl,
   personAvdods: state.person.personAvdods,
+  personAvdodPdl: state.person.personAvdodPdl,
   pesysContext: state.app.pesysContext,
   vedtakId: state.app.params.vedtakId
 })
@@ -56,7 +58,7 @@ export const Overview: React.FC<OverviewProps> = ({
   widget
 }: OverviewProps): JSX.Element => {
   const [mounted, setMounted] = useState<boolean>(skipMount)
-  const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: OverviewSelector =
+  const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, personAvdodPdl, pesysContext, vedtakId }: OverviewSelector =
     useSelector<State, OverviewSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
@@ -130,6 +132,7 @@ export const Overview: React.FC<OverviewProps> = ({
               locale={locale}
               person={personPdl}
               personAvdods={personAvdods}
+              personAvdodPdl={personAvdodPdl}
             />
           </Accordion.Content>
         </Accordion.Item>

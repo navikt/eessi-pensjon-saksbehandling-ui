@@ -57,7 +57,10 @@ export const getGjpBp = (fnr: string) => {
     // accepts fnr as param
     url: sprintf(urls.PERSON_PDL_URL, { aktoerId: fnr }),
     cascadeFailureError: true,
-    expectedPayload: mockGJPBP,
+    expectedPayload: mockGJPBP(fnr),
+    context: {
+      fnr
+    },
     type: {
       request: types.PERSON_GJP_BP_REQUEST,
       success: types.PERSON_GJP_BP_SUCCESS,

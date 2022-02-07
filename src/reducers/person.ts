@@ -3,25 +3,24 @@ import { PersonAvdods, PersonPDL } from 'declarations/person'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import moment from 'moment'
-import { initialPageNotificationState, PageNotificationState } from 'reducers/pagenotification'
 
 export interface PersonState {
   personPdl: PersonPDL | undefined
   personAvdods: PersonAvdods | undefined
-  personAvdodPdl: PersonPDL | undefined
-  gjpbp: Date | null | undefined
+  personAvdodPdl: {[k in string]: PersonPDL | null | undefined}
+  gjpbp: {[k in string]: Date | null | undefined}
   uft: Date | null | undefined
 }
 
 export const initialPersonState: PersonState = {
   personPdl: undefined,
   personAvdods: undefined,
-  personAvdodPdl: undefined,
-  gjpbp: undefined,
+  personAvdodPdl: {},
+  gjpbp: {},
   uft: undefined
 }
 
-const personReducer = (state: PageNotificationState = initialPageNotificationState, action: ActionWithPayload) => {
+const personReducer = (state: PersonState = initialPersonState, action: ActionWithPayload) => {
   switch (action.type) {
     case types.APP_CLEAR_DATA:
       return initialPersonState
@@ -72,16 +71,28 @@ const personReducer = (state: PageNotificationState = initialPageNotificationSta
 
       return {
         ...state,
-        gjpbp: undefined,
-        personAvdodPdl: undefined
+        gjpbp: {
+          ...state.gjpbp,
+          [(action as ActionWithPayload).context.fnr]: undefined
+        },
+        personAvdodPdl: {
+          ...state.personAvdodPdl,
+          [(action as ActionWithPayload).context.fnr]: undefined
+        }
       }
 
     case types.PERSON_GJP_BP_FAILURE:
 
       return {
         ...state,
-        gjpbp: null,
-        personAvdodPdl: null
+        gjpbp: {
+          ...state.gjpbp,
+          [(action as ActionWithPayload).context.fnr]: null
+        },
+        personAvdodPdl: {
+          ...state.personAvdodPdl,
+          [(action as ActionWithPayload).context.fnr]: null
+        }
       }
 
     case types.PERSON_GJP_BP_SUCCESS: {
@@ -93,8 +104,14 @@ const personReducer = (state: PageNotificationState = initialPageNotificationSta
 
       return {
         ...state,
-        gjpbp,
-        personAvdodPdl: action.payload
+        gjpbp: {
+          ...state.gjpbp,
+          [(action as ActionWithPayload).context.fnr]: gjpbp
+        },
+        personAvdodPdl: {
+          ...state.personAvdodPdl,
+          [(action as ActionWithPayload).context.fnr]: action.payload
+        }
       }
     }
 

@@ -51,6 +51,8 @@
 
   "help-avdodFnr" : "Feltet vises i alle saker, det skal bare fylles ut dersom det er avdøde i saken.",
 
+  "info-2-avdods_gjpbp": "To avdods; bruker {{fnr}} til GJP/BP perioder fordi {{date1}} er tidligere enn {{date2}}",
+
   "loading-buc"                   : "Laster BUC...",
   "loading-bucOptions"            : "Laster BUC-er...",
   "loading-bucsX"                 : "Laster BUC-er... {{x}} %",

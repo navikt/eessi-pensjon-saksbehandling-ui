@@ -8,7 +8,8 @@ describe('widgets/Overview/PersonPanel', () => {
   const initialMockProps: PersonPanelProps = {
     locale: 'nb',
     person: mockPerson,
-    personAvdods: personAvdod(1)
+    personAvdods: personAvdod(1),
+    personAvdodPdl: {}
   }
 
   beforeEach(() => {

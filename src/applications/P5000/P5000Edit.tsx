@@ -10,7 +10,7 @@ import {
   Select as NavSelect,
   Tag
 } from '@navikt/ds-react'
-import { resetSentP5000info, sendP5000toRina } from 'actions/p5000'
+import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'actions/p5000'
 import { getGjpBp, getUFT } from 'actions/person'
 import {
   informasjonOmBeregning,
@@ -35,7 +35,7 @@ import {
   P5000TableContext,
   P5000UpdatePayload
 } from 'declarations/p5000'
-import { PersonAvdods } from 'declarations/person'
+import { PersonAvdod, PersonAvdods } from 'declarations/person'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
@@ -75,9 +75,8 @@ export interface P5000EditSelector {
   sentP5000info: any
   sendingP5000info: boolean
   gettingUft: boolean
-  gettingGjpBp: boolean
   uft: Date | null | undefined
-  gjpbp: Date | null | undefined
+  gjpbp: {[k in string]: Date | null | undefined}
   personAvdods: PersonAvdods | null | undefined
   sakType: SakTypeValue
   featureToggles: FeatureToggles
@@ -99,9 +98,9 @@ const mapState = (state: State): any => ({
   sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info,
   gettingUft: state.loading.gettingUft,
-  gettingGjpBp: state.loading.gettingGjpBp,
   uft: state.person.uft,
   gjpbp: state.person.gjpbp,
+  gjpbpwarning: state.p5000.gjpbpwarning,
   personAvdods: state.person.personAvdods,
   sakType: state.app.params.sakType as SakTypeValue,
   featureToggles: state.app.featureToggles
@@ -118,7 +117,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { gettingUft, gettingGjpBp, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, personAvdods, sakType, vedtakId }: any = useSelector<State, any>(mapState)
+  const { gettingUft, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, gjpbpwarning, personAvdods, sakType, vedtakId }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
@@ -148,7 +147,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [ytelseOptions] = useState<Array<Option>>(() => Object.keys(ytelseType)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
-  const [gjpBpWarning, setGjpBpWarning] = useState<string | undefined>(undefined)
 
   const beregningOptions: Array<Option> = [
     { label: '000', value: '000' }, { label: '001', value: '001' },
@@ -788,18 +786,54 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
 
   useEffect(() => {
-    if (_.isDate(gjpbp) && requestingGjpBp) {
+    // if we got all 1 or 2 avdøds
+    const loadedGjpbps = Object.values(gjpbp).filter(s => _.isDate(s)).length
+    if (requestingGjpBp && loadedGjpbps > 0 && personAvdods?.length === loadedGjpbps) {
       setRequestingGjpBp(false)
       let newItems: P5000ListRows = _.cloneDeep(_items)
 
+      let _gjpbp
+      if (Object.keys(gjpbp).length === 2) {
+        const keys = Object.keys(gjpbp)
+
+        if (moment(gjpbp[keys[0]]).isBefore(gjpbp[keys[1]])) {
+          dispatch(setGjpBpWarning({
+            type: 'info',
+            message: t('message:info-2-avdods_gjpbp', {
+              fnr: keys[0],
+              date1: moment(gjpbp[keys[0]]).format('DD.MM.YYYY'),
+              date2: moment(gjpbp[keys[1]]).format('DD.MM.YYYY')
+            })
+          }))
+          _gjpbp = _.cloneDeep(gjpbp[keys[0]])
+        } else {
+          dispatch(setGjpBpWarning({
+            type: 'info',
+            message: t('message:info-2-avdods_gjpbp', {
+              fnr: keys[1],
+              date1: moment(gjpbp[keys[1]]).format('DD.MM.YYYY'),
+              date2: moment(gjpbp[keys[2]]).format('DD.MM.YYYY')
+            })
+          }))
+          _gjpbp = _.cloneDeep(gjpbp[keys[1]])
+        }
+      }
+
+      if (Object.keys(gjpbp).length === 1) {
+        _gjpbp = Object.values(gjpbp)[0]
+      }
+
       // we are adding a period for the remaining days of the month of that person's death
-      const sluttdato = moment(gjpbp).toDate()
-      const startdato = moment(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
+      const sluttdato = moment(_gjpbp).toDate()
+      const startdato = moment(_gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
 
       const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
 
-      if (diff.days <= 1) {
-        setGjpBpWarning(t('message:warning-nododsfallPeriod'))
+      if (diff.days <= 1 && diff.months === 0) {
+        dispatch(setGjpBpWarning({
+          type: 'warning',
+          message: t('message:warning-nododsfallPeriod')
+        }))
         return
       }
 
@@ -836,7 +870,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         const p5000Period: P5000Period = listItemtoPeriod(newItem, seds[0].id)
         newItem.key = p5000Period.key!
         newItems = newItems.concat(newItem)
-
         onSave({
           items: newItems
         })
@@ -908,10 +941,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const hentGjpBp = () => {
-    if (vedtakId && personAvdods?.length === 1) {
+    if (vedtakId && personAvdods?.length > 0) {
       setGjpBpWarning(undefined)
       setRequestingGjpBp(true)
-      dispatch(getGjpBp(personAvdods[0].fnr))
+      personAvdods.forEach((person: PersonAvdod) => dispatch(getGjpBp(person.fnr)))
     }
   }
 
@@ -1106,7 +1139,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   onClick={hentUFT}
                 >
                   {gettingUft && <Loader />}
-                  {gettingUft ? t('message:loading-uft') : t('buc:form-hent-uft')}
+                  {gettingUft ? t('message:loading-uft') : t('p5000:hent-uft')}
                 </Button>
                 <HorizontalSeparatorDiv />
                 <HelpText placement='right'>
@@ -1123,11 +1156,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 <FlexBaseDiv>
                   <Button
                     variant='secondary'
-                    disabled={gettingGjpBp}
+                    disabled={requestingGjpBp}
                     onClick={hentGjpBp}
                   >
-                    {gettingGjpBp && <Loader />}
-                    {gettingGjpBp ? t('message:loading-gjpbp') : t('buc:form-hent-gjpbp')}
+                    {requestingGjpBp && <Loader />}
+                    {requestingGjpBp ? t('message:loading-gjpbp') : t('p5000:hent-gjpbp')}
                   </Button>
                   <HorizontalSeparatorDiv />
                   <HelpText placement='right'>
@@ -1136,10 +1169,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     </div>
                   </HelpText>
                 </FlexBaseDiv>
-                {gjpBpWarning && (
+                {!_.isNil(gjpbpwarning) && (
                   <>
                     <VerticalSeparatorDiv />
-                    <Alert variant='warning'>{gjpBpWarning}</Alert>
+                    <Alert variant={gjpbpwarning.type}>{gjpbpwarning.message}</Alert>
                   </>
                 )}
               </>

@@ -1,7 +1,7 @@
 import { People, Home, Calender, Globe, Profile, Heart } from '@navikt/ds-icons'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { PersonAvdod, PersonAvdods, PersonPDL } from 'declarations/person.d'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
@@ -32,12 +32,14 @@ export interface PersonPanelProps {
   locale: string
   person: any
   personAvdods: PersonAvdods | undefined
+  personAvdodPdl: {[k in string]: PersonPDL | null | undefined}
 }
 
 const PersonPanel: React.FC<PersonPanelProps> = ({
   locale,
   person,
-  personAvdods
+  personAvdods,
+  personAvdodPdl
 }: PersonPanelProps): JSX.Element | null => {
   const { t } = useTranslation()
 
@@ -220,20 +222,27 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
               </Detail>
               <div>
                 {personAvdods && personAvdods.length > 0
-                  ? personAvdods.map((avdod: PersonAvdod) => (
-                    <Element
-                      key={avdod.fnr}
-                      id='w-overview-personPanel__element-deceased'
-                    >
-                      <HorizontalSeparatorDiv />
-                      <BodyLong>
-                        {avdod?.fornavn +
-                      (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                      (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                      ' - ' + avdod.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
-                      </BodyLong>
-                    </Element>
-                    ))
+                  ? personAvdods.map((avdod: PersonAvdod) => {
+                      const moreInfoOnAvdod: boolean = Object.prototype.hasOwnProperty.call(personAvdodPdl, avdod.fnr)
+
+                      return (
+                        <Element
+                          key={avdod.fnr}
+                          id='w-overview-personPanel__element-deceased'
+                        >
+                          <HorizontalSeparatorDiv />
+                          <BodyLong>
+                            {avdod?.fornavn +
+                          (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                          (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                          ' - ' + avdod.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')' +
+                          (moreInfoOnAvdod
+                            ? ' - ' + t('ui:deathdate') + ': ' + moment(_.get(personAvdodPdl[avdod.fnr], 'doedsfall.doedsdato')).format('DD.MM.YYYY')
+                            : '')}
+                          </BodyLong>
+                        </Element>
+                      )
+                    })
                   : (
                     <Element
                       key='noAvdod'
@@ -247,7 +256,6 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                     )}
               </div>
             </MarginColumn>
-
             {deathDateString
               ? (
                 <MarginColumn>
@@ -259,7 +267,6 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
               : (
                 <MarginColumn />
                 )}
-            <MarginColumn />
           </MarginRow>
         </>
       )}

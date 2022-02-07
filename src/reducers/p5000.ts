@@ -9,11 +9,13 @@ import { Action } from 'redux'
 export interface P5000State {
   p5000FromRinaMap: P5000FromRinaMap
   sentP5000info: any
+  gjpbpwarning: any | undefined
 }
 
 export const initialP5000State: P5000State = {
   p5000FromRinaMap: {},
-  sentP5000info: undefined
+  sentP5000info: undefined,
+  gjpbpwarning: undefined
 }
 
 const fillWithKeys = (payload: any, sedid: string) => {
@@ -77,6 +79,12 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       return {
         ...state,
         sentP5000info: null
+      }
+
+    case types.P5000_GJPBPWARNING_SET:
+      return {
+        ...state,
+        gjpbpwarning: (action as ActionWithPayload).payload
       }
 
     case types.P5000_GET_SUCCESS: {
