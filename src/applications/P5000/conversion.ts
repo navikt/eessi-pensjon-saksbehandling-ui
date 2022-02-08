@@ -152,7 +152,7 @@ export const convertP5000SEDToP5000ListRows = (
         typeNeedle = mergePeriodTypes!.join(', ')
       }
 
-      const key = r.acronym + '§' + typeNeedle + '§' + r.ytelse + '§' + r.ordning + '§' + r.beregning
+      const key = r.land + '§' + typeNeedle + '§' + r.ytelse + '§' + r.ordning + '§' + r.beregning
       if (!mergingMap[key]) {
         mergingMap[key] = [r]
       } else {

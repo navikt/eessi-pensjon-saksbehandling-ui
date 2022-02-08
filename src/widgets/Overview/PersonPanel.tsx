@@ -168,8 +168,8 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
       if (s.gyldigTilOgMed) {
         dateString += ' - ' + moment(s.gyldigTilOgMed).format('DD.MM.YYYY')
       }
-      const label = t('ui:widget-overview-maritalstatus-' + type) +
-        (type !== 'Null' && type !== 'Ugif' && dateString
+      const label = t(type) +
+        (type !== 'Null' && type !== 'Ugift' && dateString
           ? ' (' + dateString + ')'
           : '')
       return label
