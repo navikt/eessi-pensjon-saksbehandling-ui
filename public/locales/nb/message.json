@@ -102,7 +102,7 @@
 
   "warning-noBucs"                           : "Ingen BUCer funnet",
   "warning-filteredBucs"                     : "For å vise BUC-er for etterlatteytelser må du gå til EESSI-Pensjon fra vedtakshistorikk.",
-  "warning-german-alert"                     : "Tysklands sammenhengende med avrunding",
+  "warning-german-alert"                     : "Tyske perioder slått sammen som følge av avrunding",
   "warning-noVedtakskontekst"                : "Du trenger å være i vedtakskontekst",
   "warning-P_BUC_01-uføretrygd"              : "Du kan ikke opprette alderspensjonskrav i en uføretrygdsak.",
   "warning-nododsfallPeriod"                 : "Dødsdato er den 1. Ingen periode blir lagt til"

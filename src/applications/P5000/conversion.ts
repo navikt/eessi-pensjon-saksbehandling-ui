@@ -67,7 +67,8 @@ export const convertP5000SEDToP5000ListRows = (
   p5000FromRinaMap: P5000FromRinaMap,
   p5000FromStorage: LocalStorageEntry<P5000SED> | undefined,
   mergePeriods: boolean,
-  mergePeriodTypes ?: Array<string>
+  mergePeriodTypes ?: Array<string>,
+  useGermanRules ?: boolean
 ): [P5000ListRows, P5000SourceStatus] => {
   let rows: P5000ListRows = []
   let sourceStatus: P5000SourceStatus = 'rina'
@@ -148,10 +149,10 @@ export const convertP5000SEDToP5000ListRows = (
       // for types that should be grouped as similar, use the same type key
       let typeNeedle = r.type
       if (!_.isEmpty(mergePeriodTypes) && mergePeriodTypes!.indexOf(r.type) >= 0) {
-        typeNeedle = mergePeriodTypes!.join(':')
+        typeNeedle = mergePeriodTypes!.join(', ')
       }
 
-      const key = r.acronym + '_' + typeNeedle + '_' + r.ytelse + '_' + r.ordning + '_' + r.beregning
+      const key = r.acronym + '§' + typeNeedle + '§' + r.ytelse + '§' + r.ordning + '§' + r.beregning
       if (!mergingMap[key]) {
         mergingMap[key] = [r]
       } else {
@@ -201,7 +202,7 @@ export const convertP5000SEDToP5000ListRows = (
 
         let parentRow
         const targetedSluttDato: Date = moment(_subRow.startdato).subtract(1, 'day').toDate()
-        if (_subRow.land !== 'DE') {
+        if (!useGermanRules || _subRow.land !== 'DE') {
           parentRow = _.find(parentRows, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
         } else {
           // for germans, merge if they have same month / year, connecting f.ex 20-07-1986 with 01-08-1986
@@ -210,7 +211,6 @@ export const convertP5000SEDToP5000ListRows = (
             moment(_r.sluttdato).isSame(moment(targetedSluttDato), 'year')
           )
         }
-
         if (!_.isNil(parentRow)) {
           parentRow.sluttdato = subRow.sluttdato
           const total: FormattedDateDiff = sumDates(
@@ -235,6 +235,9 @@ export const convertP5000SEDToP5000ListRows = (
 
     // #4 use groupPeriods to create a row list
     Object.keys(groupedPeriods).forEach(key => {
+      // let's just extract the grouped types, so we can show it in the table
+      const groupedType = key.split('§')[1]
+
       Object.keys(groupedPeriods[key]).forEach(key2 => {
         if (groupedPeriods[key][key2].sub.length === 1) {
           // period without merges - just add parent as a normal row
@@ -247,6 +250,7 @@ export const convertP5000SEDToP5000ListRows = (
           rows.push({
             ...groupedPeriods[key][key2].parent,
             hasSubrows: true,
+            type: groupedType,
             key: 'merge-' + groupedPeriods[key][key2].parent.key
           })
           groupedPeriods[key][key2].sub.forEach((v: P5000ListRow) => {

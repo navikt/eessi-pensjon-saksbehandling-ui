@@ -18,8 +18,8 @@
   "source-status-rina"      : "Viste perioder er fra RINA",
   "source-status-storage"   : "Viste perioder er fra arbeidskopi",
   "saved-working-copy"      : "Registrerte perioder lagres umiddelbart i Eessi-pensjon.",
-  "merge-periods"           : "Slå sammen perioder",
-  "merge-period-type"       : "Slå sammen ulike typer",
+  "merge-periods"           : "Slå sammen like perioder",
+  "merge-period-type"       : "Slå sammen ulike perioder",
   "updating"                : "Oppdater P5000",
   "filter-label"            : "Filtrering (f.eks. skriv kode 30 i boksen som kommer opp under \"Type\")",
   "sum-only-5.1-title"      : "Kun 5.1",
@@ -36,7 +36,8 @@
   "help-gjpbp" : "Klikk her for å få med trygdetid fra den 1. i dødsfallsmåneden og frem til dagen før dødsfallet",
 
   "help-merge-period-type" : "Slå sammen perioder med ulike periode typer",
-  "help-german-alert": "Noen land (Tyskland) avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen. Hak av her hvis det er slike perioder i saken.",
+  "help-german-alert": "Noen land (Tyskland) avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen",
+  
   "help-modal-1": "For å redigere en P5000 klikker du på ",
   "help-modal-2": ". Dersom det allerede er overført perioder til RINA, vil du få opp en liste over disse.",
   "help-modal-3": "Når, du legger til en ny periode, eller endrer på eksisterende periode(r), vil dette umiddelbart lagres på utkast av P5000 i Eessi-pensjon. Dette sikrer at du ikke mister noen registreringer, og du kan når som helst gjenoppta arbeidet.",

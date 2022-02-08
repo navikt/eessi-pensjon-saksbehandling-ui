@@ -823,13 +823,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         _gjpbp = Object.values(gjpbp)[0]
       }
 
-      // we are adding a period for the remaining days of the month of that person's death
       const sluttdato = moment(_gjpbp).toDate()
       const startdato = moment(_gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
 
       const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
 
-      if (diff.days <= 1 && diff.months === 0) {
+      if (diff.days <= 1 && diff.months === 0 && diff.years === 0) {
         dispatch(setGjpBpWarning({
           type: 'warning',
           message: t('message:warning-nododsfallPeriod')
@@ -837,10 +836,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         return
       }
 
+      // we are adding a period from the 1st day of the month of that person's death, to the day before death
+      // as in dødsfallet = 08.08.1978 => periode 01.08.1978 - 07.08.1978
+      const fixedSluttdato = moment(_gjpbp).subtract(1, 'd').toDate()
+
       // check if we do not have such period
       const foundPeriod = _.find(newItems, item => {
         return moment(item.startdato).isSame(startdato, 'day') &&
-          moment(item.sluttdato).isSame(sluttdato, 'day') &&
+          moment(item.sluttdato).isSame(fixedSluttdato, 'day') &&
           item.type === '30'
       })
 
@@ -855,7 +858,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           acronym: newItemTemplate?.acronym ?? null,
           type: '30',
           startdato,
-          sluttdato,
+          sluttdato: fixedSluttdato,
           status: 'new',
           aar: '' + diff.years,
           mnd: '' + diff.months,

@@ -9,7 +9,7 @@ import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { BodyLong, Tag, HelpText, Loader, Select, Button, Switch, Alert } from '@navikt/ds-react'
+import { BodyLong, Tag, HelpText, Loader, Select, Button, Switch } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
@@ -58,7 +58,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_mergePeriods, _setMergePeriods] = useState<boolean>(false)
   const [_mergePeriodTypes, _setMergePeriodTypes] = useState<Array<string> |undefined>(undefined)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, _mergePeriods, _mergePeriodTypes)
+  const [_useGermanRules, _setUseGermanRules] = useState<boolean>(true)
+  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, _mergePeriods, _mergePeriodTypes, _useGermanRules)
+  const hasGermanRows = _.find(items, (it: P5000ListRow) => it.land === 'DE') !== undefined
+
   const { highContrast, featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
   const mergeTypeOptions: Array<Option> = _.uniq(items.map(i => i.type))
@@ -260,22 +263,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                   )}
                     values={_.filter(mergeTypeOptions, (m: unknown) => _mergePeriodTypes ? _mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
                   />
-                  {_.find(items, (it: P5000ListRow) => it.hasSubrows && it.land === 'DE') !== undefined && (
-                    <>
-                      <HorizontalSeparatorDiv />
-                      <Alert variant='info'>
-                        <FlexEndDiv>
-                          {t('message:warning-german-alert')}
-                          <HorizontalSeparatorDiv size='0.5' />
-                          <HelpText>
-                            <div style={{ maxWidth: '500px' }}>
-                              {t('p5000:help-german-alert')}
-                            </div>
-                          </HelpText>
-                        </FlexEndDiv>
-                      </Alert>
-                    </>
-                  )}
                 </>
               )}
             </FlexEndDiv>
@@ -317,10 +304,36 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           </Column>
         </AlignEndRow>
         <VerticalSeparatorDiv />
+        {hasGermanRows && _mergePeriods && (
+          <>
+            <AlignEndRow style={{ width: '100%' }}>
+              <Column>
+                <FlexCenterDiv>
+
+                  <Switch
+                    checked={_useGermanRules}
+                    id='a-buc-c-sedstart__p5000-overview-usegerman-switch'
+                    data-test-id='a-buc-c-sedstart__p5000-overview-usegerman-switch'
+                    onChange={() => _setUseGermanRules(!_useGermanRules)}
+                  >
+                    {t('message:warning-german-alert')}
+                  </Switch>
+                  <HorizontalSeparatorDiv size='0.5' />
+                  <HelpText>
+                    <div style={{ maxWidth: '500px' }}>
+                      {t('p5000:help-german-alert')}
+                    </div>
+                  </HelpText>
+                </FlexCenterDiv>
+              </Column>
+            </AlignEndRow>
+            <VerticalSeparatorDiv />
+          </>
+        )}
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
-          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods + '_mergetype' + (_mergePeriodTypes?.join(':')) ?? ''}
+          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + _mergePeriods + '_mergetype' + (_mergePeriodTypes?.join(':') ?? '') + '_useGerman' + _useGermanRules}
           animatable={false}
           highContrast={highContrast}
           items={items}
