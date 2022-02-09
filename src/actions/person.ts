@@ -6,7 +6,7 @@ import mockPerson from 'mocks/person/personPdl'
 import mockPersonAvdod from 'mocks/person/personAvdod'
 import { ActionCreator } from 'redux'
 import mockUFT from 'mocks/person/uft'
-import mockGJPBP from 'mocks/person/personAvdodPdl'
+import mockGJPBP from 'mocks/person/gjpbp'
 const sprintf = require('sprintf-js').sprintf
 
 export const getPersonAvdodInfo: ActionCreator<ThunkResult<ActionWithPayload<PersonAvdods>>> = (
@@ -52,15 +52,11 @@ export const getUFT = (vedtakId: string) => {
   })
 }
 
-export const getGjpBp = (fnr: string) => {
+export const getGjpBp = (vedtakId: string) => {
   return call({
-    // accepts fnr as param
-    url: sprintf(urls.PERSON_PDL_URL, { aktoerId: fnr }),
+    url: sprintf(urls.PERSON_GJP_BP_URL, { vedtakId }),
     cascadeFailureError: true,
-    expectedPayload: mockGJPBP(fnr),
-    context: {
-      fnr
-    },
+    expectedPayload: mockGJPBP,
     type: {
       request: types.PERSON_GJP_BP_REQUEST,
       success: types.PERSON_GJP_BP_SUCCESS,

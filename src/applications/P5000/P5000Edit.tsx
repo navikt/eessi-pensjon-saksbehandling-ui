@@ -35,7 +35,7 @@ import {
   P5000TableContext,
   P5000UpdatePayload
 } from 'declarations/p5000'
-import { PersonAvdod, PersonAvdods } from 'declarations/person'
+import { PersonAvdods } from 'declarations/person'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
@@ -117,7 +117,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { gettingUft, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, gjpbpwarning, personAvdods, sakType, vedtakId }: any = useSelector<State, any>(mapState)
+  const { gettingUft, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, gjpbpwarning, sakType, vedtakId }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
@@ -787,44 +787,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   useEffect(() => {
     // if we got all 1 or 2 avdøds
-    const loadedGjpbps = Object.values(gjpbp).filter(s => _.isDate(s)).length
-    if (requestingGjpBp && loadedGjpbps > 0 && personAvdods?.length === loadedGjpbps) {
+    if (_.isDate(gjpbp) && requestingGjpBp) {
       setRequestingGjpBp(false)
       let newItems: P5000ListRows = _.cloneDeep(_items)
 
-      let _gjpbp
-      if (Object.keys(gjpbp).length === 2) {
-        const keys = Object.keys(gjpbp)
-
-        if (moment(gjpbp[keys[0]]).isBefore(gjpbp[keys[1]])) {
-          dispatch(setGjpBpWarning({
-            type: 'info',
-            message: t('message:info-2-avdods_gjpbp', {
-              fnr: keys[0],
-              date1: moment(gjpbp[keys[0]]).format('DD.MM.YYYY'),
-              date2: moment(gjpbp[keys[1]]).format('DD.MM.YYYY')
-            })
-          }))
-          _gjpbp = _.cloneDeep(gjpbp[keys[0]])
-        } else {
-          dispatch(setGjpBpWarning({
-            type: 'info',
-            message: t('message:info-2-avdods_gjpbp', {
-              fnr: keys[1],
-              date1: moment(gjpbp[keys[1]]).format('DD.MM.YYYY'),
-              date2: moment(gjpbp[keys[2]]).format('DD.MM.YYYY')
-            })
-          }))
-          _gjpbp = _.cloneDeep(gjpbp[keys[1]])
-        }
-      }
-
-      if (Object.keys(gjpbp).length === 1) {
-        _gjpbp = Object.values(gjpbp)[0]
-      }
-
-      const sluttdato = moment(_gjpbp).toDate()
-      const startdato = moment(_gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
+      const sluttdato = moment(gjpbp).toDate()
+      const startdato = moment(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
 
       const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
 
@@ -838,7 +806,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
       // we are adding a period from the 1st day of the month of that person's death, to the day before death
       // as in dødsfallet = 08.08.1978 => periode 01.08.1978 - 07.08.1978
-      const fixedSluttdato = moment(_gjpbp).subtract(1, 'd').toDate()
+      const fixedSluttdato = moment(gjpbp).subtract(1, 'd').toDate()
 
       // check if we do not have such period
       const foundPeriod = _.find(newItems, item => {
@@ -944,10 +912,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const hentGjpBp = () => {
-    if (vedtakId && personAvdods?.length > 0) {
+    if (vedtakId) {
       setGjpBpWarning(undefined)
       setRequestingGjpBp(true)
-      personAvdods.forEach((person: PersonAvdod) => dispatch(getGjpBp(person.fnr)))
+      dispatch(getGjpBp(vedtakId))
     }
   }
 
