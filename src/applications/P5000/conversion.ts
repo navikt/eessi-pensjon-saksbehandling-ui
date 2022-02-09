@@ -16,7 +16,7 @@ import moment from 'moment'
 import md5 from 'md5'
 import i18n from 'i18n'
 import dateDecimal, { sumDates, writeFloat } from 'utils/dateDecimal'
-import { FormattedDateDiff } from 'utils/dateDiff'
+import dateDiff, { FormattedDateDiff } from 'utils/dateDiff'
 
 const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | undefined => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
@@ -201,25 +201,25 @@ export const convertP5000SEDToP5000ListRows = (
         const _subRow = _.cloneDeep(subRow)
 
         let parentRow
-        const targetedSluttDato: Date = moment(_subRow.startdato).subtract(1, 'day').toDate()
         if (!useGermanRules || _subRow.land !== 'DE') {
-          parentRow = _.find(parentRows, (_r) => moment(_r.sluttdato).isSame(moment(targetedSluttDato)))
+          // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge
+          parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
         } else {
-          // for germans, merge if they have same month / year, connecting f.ex 20-07-1986 with 01-08-1986
-          parentRow = _.find(parentRows, (_r) =>
-            moment(_r.sluttdato).isSame(moment(targetedSluttDato), 'month') &&
-            moment(_r.sluttdato).isSame(moment(targetedSluttDato), 'year')
-          )
+          // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
+          // I can't use same as above because moment(new Date(2020, 07, 02)).diff(new Date(2020, 09, 01), 'months') = 1
+          // I have to set days to 01, so that 01.12.2020 to 01.01.2021 is still merged
+          parentRow = _.find(parentRows, (_r) => {
+            const targetSluttdato = moment(new Date(_r.sluttdato.getTime())).set('date', 1)
+            const targetStartdato = moment(new Date(_subRow.startdato.getTime())).set('date', 1)
+            return Math.abs(moment(targetStartdato).diff(targetSluttdato, 'months')) <= 1
+          })
         }
         if (!_.isNil(parentRow)) {
           parentRow.sluttdato = subRow.sluttdato
-          const total: FormattedDateDiff = sumDates(
-            { days: subRow.dag, months: subRow.mnd, years: subRow.aar },
-            { days: parentRow.dag, months: parentRow.mnd, years: parentRow.aar }
-            , true)
-          parentRow.dag = total.days as string
-          parentRow.mnd = total.months as string
-          parentRow.aar = total.years as string
+          const total: FormattedDateDiff = dateDiff(parentRow.startdato, parentRow.sluttdato)
+          parentRow.dag = total.days === 0 ? '' : total.days as string
+          parentRow.mnd = total.months === 0 ? '' : total.months as string
+          parentRow.aar = total.years === 0 ? '' : total.years as string
 
           groupedPeriods[key][parentRow.key].parent = parentRow
           groupedPeriods[key][parentRow.key].sub = groupedPeriods[key][parentRow.key].sub.concat(subRow)

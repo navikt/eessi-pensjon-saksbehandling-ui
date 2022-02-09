@@ -36,7 +36,7 @@
   "help-gjpbp" : "Klikk her for å få med trygdetid fra den 1. i dødsfallsmåneden og frem til dagen før dødsfallet",
 
   "help-merge-period-type" : "Slå sammen perioder med ulike periode typer",
-  "help-german-alert": "Noen land (Tyskland) avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen",
+  "help-german-alert": "Tyskland avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen",
 
   "help-modal-1": "For å redigere en P5000 klikker du på ",
   "help-modal-2": ". Dersom det allerede er overført perioder til RINA, vil du få opp en liste over disse.",

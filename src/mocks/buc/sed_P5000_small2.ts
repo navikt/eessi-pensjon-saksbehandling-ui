@@ -123,7 +123,7 @@ export default {
       medlemskap: [{
         relevans: '20',
         ordning: '20',
-        land: null,
+        land: 'DE',
         sum: {
           kvartal: null,
           aar: '00',
@@ -163,7 +163,7 @@ export default {
         beregning: '001',
         informasjonskalkulering: null,
         periode: {
-          fom: '1986-08-01',
+          fom: '1986-08-02',
           tom: '1986-09-20'
         },
         enkeltkrav: null
@@ -187,7 +187,7 @@ export default {
         beregning: '001',
         informasjonskalkulering: null,
         periode: {
-          fom: '1986-10-01',
+          fom: '1986-09-21',
           tom: '1986-11-20'
         },
         enkeltkrav: null
