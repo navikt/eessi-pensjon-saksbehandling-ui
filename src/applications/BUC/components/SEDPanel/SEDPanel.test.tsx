@@ -22,7 +22,7 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
     aktoerId: '123',
     buc,
     newSed: false,
-    onSEDNew: jest.fn(),
+    onFollowUpSed: jest.fn(),
     setMode: jest.fn(),
     sed,
     style: {}

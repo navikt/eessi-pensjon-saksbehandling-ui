@@ -24,14 +24,14 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   const bucs: Bucs = _.keyBy(mockBucs(), 'caseId')
   const currentBuc: string = '195440'
   const buc: Buc = bucs[currentBuc]
-  const mockReplySed: Sed | undefined = _.find(bucs[currentBuc].seds, sed => sed.parentDocumentId !== undefined)
-  const mockCurrentSed: Sed | undefined = _.find(bucs[currentBuc].seds, sed => sed.id === mockReplySed!.parentDocumentId)
+  const mockFollowUpSeds: Array<Sed> = _.filter(bucs[currentBuc].seds, sed => sed.parentDocumentId !== undefined)
+  const mockCurrentSed: Sed | undefined = _.find(bucs[currentBuc].seds, sed => sed.id === mockFollowUpSeds[0]!.parentDocumentId)
 
   const sed: Sed | undefined = _.find(buc.seds, sed => sed.parentDocumentId !== undefined)
   sed!.status = 'received'
   const initialMockProps: SEDHeaderProps = {
     buc,
-    onSEDNew: jest.fn(),
+    onFollowUpSed: jest.fn(),
     sed: mockCurrentSed!,
     setMode: jest.fn()
   }
@@ -67,9 +67,9 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   })
 
   it('Handling: handling answer button click', () => {
-    (initialMockProps.onSEDNew as jest.Mock).mockReset()
+    (initialMockProps.onFollowUpSed as jest.Mock).mockReset()
     const replySedButton = wrapper.find('[data-test-id=\'a-buc-c-sedheader__answer-button-id\']').hostNodes().first()
     replySedButton.simulate('click')
-    expect(initialMockProps.onSEDNew).toBeCalledWith(buc, mockCurrentSed, mockReplySed)
+    expect(initialMockProps.onFollowUpSed).toBeCalledWith(buc, mockCurrentSed, mockFollowUpSeds)
   })
 })

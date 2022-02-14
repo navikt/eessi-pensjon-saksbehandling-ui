@@ -475,19 +475,21 @@ describe('actions/buc', () => {
     })
   })
 
-  it('setCurrentSed()', () => {
+  it('setFollowUpSeds()', () => {
     const mockedSed = {
       id: 'sed'
     } as Sed
-    const mockedReplySed = {
-      id: 'replySed'
-    } as Sed
-    const generatedResult = bucActions.setCurrentSed(mockedSed, mockedReplySed)
+    const mockedFollowUpSeds = [{
+      id: 'followUpSed1'
+    }, {
+      id: 'followUpSed2'
+    }] as Array<Sed>
+    const generatedResult = bucActions.setFollowUpSeds(mockedSed, mockedFollowUpSeds)
     expect(generatedResult).toMatchObject({
-      type: types.BUC_CURRENTSED_SET,
+      type: types.BUC_FOLLOWUPSEDS_SET,
       payload: {
         sed: mockedSed,
-        replySed: mockedReplySed
+        followUpSeds: mockedFollowUpSeds
       }
     })
   })

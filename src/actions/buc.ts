@@ -475,13 +475,13 @@ export const setCurrentBuc: ActionCreator<ActionWithPayload<string | undefined>>
   payload: bucCaseId
 })
 
-export const setCurrentSed: ActionCreator<ActionWithPayload<{[k in string] : Sed | undefined}>> = (
-  sed: Sed | undefined, replySed: Sed | undefined
-) : ActionWithPayload<{[k in string] : Sed | undefined}> => ({
-  type: types.BUC_CURRENTSED_SET,
+export const setFollowUpSeds: ActionCreator<ActionWithPayload<{[k in string] : Sed | Array<Sed> | undefined}>> = (
+  sed: Sed | undefined, followUpSeds: Array<Sed> | undefined
+) : ActionWithPayload<{[k in string] : Sed | Array<Sed> | undefined}> => ({
+  type: types.BUC_FOLLOWUPSEDS_SET,
   payload: {
     sed,
-    replySed
+    followUpSeds
   }
 })
 

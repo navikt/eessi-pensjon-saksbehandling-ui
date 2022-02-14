@@ -1,4 +1,4 @@
-import { setCurrentSed } from 'actions/buc'
+import { setFollowUpSeds } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -16,7 +16,7 @@ import BUCEdit, { BUCEditDiv, BUCEditProps } from './BUCEdit'
 jest.mock('actions/buc', () => ({
   resetNewSed: jest.fn(),
   setCurrentBuc: jest.fn(),
-  setCurrentSed: jest.fn()
+  setFollowUpSeds: jest.fn()
 }))
 jest.mock('applications/BUC/components/SEDStart/SEDStart', () => {
   return () => <div className='mock-sedstart' />
@@ -84,10 +84,10 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Handling: moves to mode newsed when button pressed', () => {
-    (setCurrentSed as jest.Mock).mockReset()
+    (setFollowUpSeds as jest.Mock).mockReset()
     wrapper = mount(<BUCEdit {...initialMockProps} />)
     wrapper.find('[data-test-id=\'a-buc-p-bucedit__new-sed-button-id\']').hostNodes().simulate('click')
-    expect(setCurrentSed).toBeCalled()
+    expect(setFollowUpSeds).toBeCalled()
   })
 
   it('Handling: SEDSearch status start triggers the filter functions', () => {

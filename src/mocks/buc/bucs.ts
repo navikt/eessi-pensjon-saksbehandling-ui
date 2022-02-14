@@ -164,7 +164,7 @@ const mockBuc = [
       },
       {
         id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
-        parentDocumentId: null,
+        parentDocumentId: '5d549c96e0ce40788a2eea2992c1f65f',
         type: 'X007',
         status: 'empty',
         direction: 'IN' as Direction,
@@ -526,7 +526,7 @@ const mockBuc = [
         id: '5d549c96e0ce40788a2eea2992c1f65f',
         parentDocumentId: null,
         type: 'P2000',
-        status: 'sent',
+        status: 'received',
         direction: 'IN' as Direction,
         creationDate: 1571818170586,
         lastUpdate: 1571818170586,

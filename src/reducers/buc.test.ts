@@ -23,9 +23,9 @@ describe('reducers/buc', () => {
         currentSed: {
           id: '1'
         } as Sed,
-        replySed: {
+        followUpSeds: [{
           id: '1'
-        } as Sed,
+        }] as Array<Sed>,
         sed: {
           id: '1'
         } as Sed,
@@ -254,19 +254,19 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_CURRENTSED_SET', () => {
+  it('BUC_FOLLOWUPSEDS_SET', () => {
     expect(
       bucReducer(initialBucState, {
-        type: types.BUC_CURRENTSED_SET,
+        type: types.BUC_FOLLOWUPSEDS_SET,
         payload: {
           sed: 'mockSed',
-          replySed: 'mockReplySed'
+          followUpSeds: [{id: 'mockReplySed'}]
         }
       })
     ).toEqual({
       ...initialBucState,
       currentSed: 'mockSed',
-      replySed: 'mockReplySed'
+      followUpSeds: [{id: 'mockReplySed'}]
     })
   })
 

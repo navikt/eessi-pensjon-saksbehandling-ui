@@ -109,7 +109,7 @@ describe('P_BUC_10 for SEDStart, kravkontekst,', () => {
     onSedCreated: jest.fn(),
     onSedCancelled: jest.fn(),
     currentSed: undefined,
-    replySed: undefined
+    followUpSeds: undefined
   }
 
   /*

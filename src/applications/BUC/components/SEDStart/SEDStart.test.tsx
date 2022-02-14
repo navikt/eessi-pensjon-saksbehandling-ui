@@ -57,8 +57,8 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   let wrapper: ReactWrapper
   const _mockBucs: Bucs = _.keyBy(mockBucs(), 'caseId')
   const mockCurrentBuc: string = '195440'
-  const mockReplySed: Sed | undefined = _.find(_mockBucs[mockCurrentBuc].seds, sed => sed.parentDocumentId !== undefined)
-  const mockCurrentSed: Sed | undefined = _.find(_mockBucs[mockCurrentBuc].seds, sed => sed.id === mockReplySed!.parentDocumentId)
+  const mockFollowUpSeds: Array<Sed> | undefined = _.filter(_mockBucs[mockCurrentBuc].seds, sed => sed.parentDocumentId !== undefined)
+  const mockCurrentSed: Sed | undefined = _.find(_mockBucs[mockCurrentBuc].seds, sed => sed.id === mockFollowUpSeds![0].parentDocumentId)
   const initialMockProps: SEDStartProps = {
     aktoerId: '123',
     bucs: _mockBucs,
@@ -68,7 +68,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     onSedCreated: jest.fn(),
     onSedCancelled: jest.fn(),
     currentSed: undefined,
-    replySed: undefined
+    followUpSeds: undefined
   }
 
   beforeEach(() => {
@@ -104,7 +104,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
 
   it('UseEffect: getSedList with valid replySed ', () => {
     (setSedList as jest.Mock).mockReset()
-    wrapper = mount(<SEDStart {...initialMockProps} replySed={mockReplySed} currentSed={mockCurrentSed} />)
+    wrapper = mount(<SEDStart {...initialMockProps} followUpSeds={mockFollowUpSeds} currentSed={mockCurrentSed} />)
     expect(setSedList).toHaveBeenCalledWith(['P6000'])
   })
 

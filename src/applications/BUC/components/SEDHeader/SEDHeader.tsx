@@ -83,7 +83,7 @@ const SEDVersion = styled.div`
 export interface SEDHeaderProps {
   buc: Buc
   className ?: string
-  onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
+  onFollowUpSed: (buc: Buc, sed: Sed, followUpSeds: Array<Sed> | undefined) => void
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   sed: Sed
   style?: React.CSSProperties
@@ -104,15 +104,15 @@ const mapState = (state: State): SEDListSelector => ({
 const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc,
   className,
-  onSEDNew,
+  onFollowUpSed,
   setMode,
   sed,
   style
 }: SEDHeaderProps): JSX.Element => {
   const { featureToggles, locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
-  const followUpSed: Sed | undefined =
-    buc.seds!.find(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent' &&
+  const followUpSeds: Array<Sed> =
+    buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent' &&
       (sed.type === 'X009' ? featureToggles.X010_X009_VISIBLE : true))
 
   const institutionSenderList: Institutions = sed.participants
@@ -143,9 +143,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     locale
   })
 
-  const onReplySed = (e: React.MouseEvent) => {
+  const onFollowUpSedClicked = (e: React.MouseEvent) => {
     buttonLogger(e)
-    onSEDNew(buc, sed, followUpSed)
+    onFollowUpSed(buc, sed, followUpSeds)
   }
 
   const P5000Draft: LocalStorageEntry | undefined = (
@@ -237,13 +237,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </SEDListAttachmentsDiv>
             </Tooltip>
           )}
-          {(followUpSed && sed.status === 'received') && (
+          {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
             <Button
               variant='secondary'
               disabled={buc.readOnly === true}
               data-amplitude='buc.edit.besvarSed'
               data-test-id='a-buc-c-sedheader__answer-button-id'
-              onClick={onReplySed}
+              onClick={onFollowUpSedClicked}
             >
               {t('buc:form-answerSED')}
             </Button>
@@ -350,7 +350,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 SEDHeader.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
-  onSEDNew: PT.func.isRequired,
+  onFollowUpSed: PT.func.isRequired,
   sed: SedPropType.isRequired,
   style: PT.object
 }

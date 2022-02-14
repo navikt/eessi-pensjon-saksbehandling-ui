@@ -41,6 +41,7 @@ export interface BucState {
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
+  followUpSeds: Array<Sed> | undefined
   kravDato: string | null | undefined
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames
@@ -48,7 +49,6 @@ export interface BucState {
   newlyCreatedBuc: Buc | undefined
   newlyCreatedSed: Sed | undefined
   newlyCreatedSedTime: number | undefined
-  replySed: Sed | undefined
   rinaId: string | undefined
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
@@ -72,6 +72,7 @@ export const initialBucState: BucState = {
   countryList: undefined,
   currentBuc: undefined,
   currentSed: undefined,
+  followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
   kravDato: undefined,
@@ -79,7 +80,6 @@ export const initialBucState: BucState = {
   newlyCreatedBuc: undefined,
   newlyCreatedSed: undefined,
   newlyCreatedSedTime: undefined,
-  replySed: undefined,
   rinaId: undefined,
   rinaUrl: undefined,
   savingAttachmentsJob: undefined,
@@ -104,7 +104,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         currentBuc: undefined,
         currentSed: undefined,
-        replySed: undefined,
+        followUpSeds: undefined,
         sed: undefined,
         savingAttachmentsJob: undefined,
         p6000s: undefined,
@@ -247,12 +247,12 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       }
     }
 
-    case types.BUC_CURRENTSED_SET:
+    case types.BUC_FOLLOWUPSEDS_SET:
 
       return {
         ...state,
         currentSed: (action as ActionWithPayload).payload.sed,
-        replySed: (action as ActionWithPayload).payload.replySed
+        followUpSeds: (action as ActionWithPayload).payload.followUpSeds
       }
 
     case types.BUC_GET_BUCSLIST_REQUEST:
@@ -606,9 +606,9 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         sed: undefined,
-        replySed: undefined,
         currentSed: undefined,
         countryList: undefined,
+        followUpSeds: undefined,
         institutionList: undefined,
         p5000FromRinaMap: {}
       }

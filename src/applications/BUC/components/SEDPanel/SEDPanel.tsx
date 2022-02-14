@@ -37,7 +37,7 @@ export interface SEDPanelProps {
   buc: Buc
   className ?: string
   newSed: boolean
-  onSEDNew: (buc: Buc, sed: Sed, replySed: Sed | undefined) => void
+  onFollowUpSed: (buc: Buc, sed: Sed, followUpSeds: Array<Sed> | undefined) => void
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   sed: Sed
   style: React.CSSProperties
@@ -48,7 +48,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   buc,
   className,
   newSed,
-  onSEDNew,
+  onFollowUpSed,
   setMode,
   sed,
   style
@@ -64,7 +64,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           <SEDPanelDiv className={classNames(className, { new: newSed })}>
             <SEDHeader
               buc={buc}
-              onSEDNew={onSEDNew}
+              onFollowUpSed={onFollowUpSed}
               setMode={setMode}
               sed={sed}
               style={style}
@@ -80,7 +80,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
               <Accordion.Header>
                 <SEDHeader
                   buc={buc}
-                  onSEDNew={onSEDNew}
+                  onFollowUpSed={onFollowUpSed}
                   setMode={setMode}
                   sed={sed}
                 />

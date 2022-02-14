@@ -1,14 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/MultipleSelect/MultipleValueLabel Render: match snapshot 1`] = `
-.c3 {
-  padding: 0px;
-}
-
-ui-fss.g1[id="c2"] {
-  content: "c3,";
-}
-
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -20,7 +12,7 @@ ui-fss.g1[id="c2"] {
   align-items: center;
 }
 
-ui-fss.g2[id="c0"] {
+ui-fss.g1[id="c0"] {
   content: "c1,";
 }
 
@@ -44,15 +36,13 @@ ui-fss.g2[id="c0"] {
         <div
           className="c0 c1"
         >
-          <styled.div>
-            <div
-              className="c2 c3"
+          <ForwardRef>
+            <p
+              className="navds-body-long"
             >
-                  
               mockLabel
-                  
-            </div>
-          </styled.div>
+            </p>
+          </ForwardRef>
         </div>
       </styled.div>
     </div>

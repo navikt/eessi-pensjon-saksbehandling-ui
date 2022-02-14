@@ -124,7 +124,7 @@ export interface SEDStartProps {
   onSedChanged?: (newSed: string | null | undefined) => void
   onSedCreated: () => void
   onSedCancelled: () => void
-  replySed: Sed | undefined
+  followUpSeds: Array<Sed> | undefined
 }
 
 export interface SEDStartSelector {
@@ -185,13 +185,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   bucs,
   currentBuc,
   currentSed,
+  followUpSeds,
   initialAttachments = [],
   initialSed = undefined,
   initialSendingAttachments = false,
   onSedChanged,
   onSedCreated,
-  onSedCancelled,
-  replySed
+  onSedCancelled
 } : SEDStartProps): JSX.Element => {
   const {
     attachmentsError, countryList, featureToggles, gettingP6000, institutionList, institutionNames, kravId, kravDato,
@@ -827,9 +827,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   useEffect(() => {
     if (!_mounted) {
-      dispatch(!replySed ? getSedList(_buc as ValidBuc) : setSedList([replySed.type]))
-      if (replySed) {
-        handleSedChange(replySed.type)
+      dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
+      if (!_.isEmpty(followUpSeds) && followUpSeds!.length === 1) {
+        handleSedChange(followUpSeds![0].type)
       }
       if (_buc && _buc.type !== null && !_.isEmpty(_countries)) {
         _countries.forEach(country => {
@@ -840,14 +840,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       setMounted(true)
     }
-  }, [_buc, bucs, _countries, dispatch, institutionList, _mounted, replySed])
+  }, [_buc, bucs, _countries, dispatch, institutionList, _mounted, followUpSeds])
 
   useEffect(() => {
-    dispatch(!replySed ? getSedList(_buc as ValidBuc) : setSedList([replySed.type]))
-    if (replySed) {
-      handleSedChange(replySed.type)
+    dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
+    if (!_.isEmpty(followUpSeds) && followUpSeds!.length === 1) {
+      handleSedChange(followUpSeds![0].type)
     }
-  }, [replySed])
+  }, [followUpSeds])
 
   useEffect(() => {
     if (sed && !_sedSent) {
@@ -964,13 +964,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   return (
     <SEDStartDiv>
       <Heading size='medium'>
-        {!currentSed && !replySed
+        {!currentSed && _.isEmpty(followUpSeds)
           ? t('buc:step-startSEDTitle', {
               buc: t(`buc:buc-${_buc?.type}`),
               sed: _sed || t('buc:form-newSed')
             })
           : t('buc:step-replySEDTitle', {
-            replySed: replySed!.type,
+            replySed: followUpSeds?.map(s => s.type).join(', '),
             sed: currentSed!.type
           })}
       </Heading>
@@ -1296,7 +1296,7 @@ SEDStart.propTypes = {
   initialSendingAttachments: PT.bool,
   onSedCreated: PT.func.isRequired,
   onSedCancelled: PT.func.isRequired,
-  replySed: SedPropType
+  followUpSeds: PT.arrayOf(SedPropType.isRequired)
 }
 
 export default SEDStart

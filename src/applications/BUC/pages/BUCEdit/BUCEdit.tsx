@@ -1,7 +1,7 @@
 import { BackFilled } from '@navikt/ds-icons'
 import { BodyLong, Button, Label, Panel } from '@navikt/ds-react'
 import { alertFailure } from 'actions/alert'
-import { resetNewSed, setCurrentBuc, setCurrentSed } from 'actions/buc'
+import { resetNewSed, setCurrentBuc, setFollowUpSeds } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -88,7 +88,7 @@ export interface BUCEditSelector {
   newlyCreatedSed: Sed | undefined,
   newlyCreatedSedTime: number | undefined
   personAvdods: PersonAvdods | undefined
-  replySed: Sed | undefined
+  followUpSeds: Array<Sed> | undefined
 }
 
 const mapState = (state: State): BUCEditSelector => ({
@@ -96,12 +96,12 @@ const mapState = (state: State): BUCEditSelector => ({
   bucs: state.buc.bucs,
   currentBuc: state.buc.currentBuc,
   currentSed: state.buc.currentSed,
+  followUpSeds: state.buc.followUpSeds,
   bucsInfo: state.buc.bucsInfo,
   locale: state.ui.locale,
   newlyCreatedSed: state.buc.newlyCreatedSed,
   newlyCreatedSedTime: state.buc.newlyCreatedSedTime,
-  personAvdods: state.person.personAvdods,
-  replySed: state.buc.replySed
+  personAvdods: state.person.personAvdods
 })
 
 const BUCEdit: React.FC<BUCEditProps> = ({
@@ -109,7 +109,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 }: BUCEditProps): JSX.Element => {
   const {
     aktoerId, bucs, currentBuc, currentSed, bucsInfo, locale,
-    newlyCreatedSed, newlyCreatedSedTime, personAvdods, replySed
+    newlyCreatedSed, newlyCreatedSedTime, personAvdods, followUpSeds
   }: BUCEditSelector = useSelector<State, BUCEditSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -147,7 +147,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     }
   }
 
-  const onSEDNew = (buc: Buc, sed: Sed | undefined, replySed: Sed | undefined): void => {
+  const onFollowUpSed = (buc: Buc, sed: Sed | undefined, followUpSeds: Array<Sed> | undefined): void => {
     const uniqueSed: Sed | undefined = _.find(buc.seds, (s: Sed) =>
       (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') &&
       (s.status !== 'empty')
@@ -155,7 +155,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     if (buc.type === 'P_BUC_06' && uniqueSed) {
       dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
     } else {
-      dispatch(setCurrentSed(sed, replySed))
+      dispatch(setFollowUpSeds(sed, followUpSeds))
       setStartSed('open')
       if (componentRef && componentRef!.current) {
         if ((componentRef.current as any).scrollIntoView) {
@@ -205,7 +205,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   const onNewSedButtonClick = (e: React.MouseEvent) => {
     buttonLogger(e)
-    onSEDNew(buc!, undefined, undefined)
+    onFollowUpSed(buc!, undefined, undefined)
   }
 
   const onBackLinkClick = (e: any) => {
@@ -266,7 +266,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             bucs={bucs!}
             currentBuc={currentBuc}
             currentSed={currentSed}
-            replySed={replySed}
+            followUpSeds={followUpSeds}
             onSedCreated={() => setStartSed('close')}
             onSedCancelled={() => setStartSed('close')}
           />
@@ -317,7 +317,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                         ((Date.now() - newlyCreatedSedTime) < 5 * 60 * 1000)
                       ) || false}
                       setMode={setMode}
-                      onSEDNew={onSEDNew}
+                      onFollowUpSed={onFollowUpSed}
                     />
                   </div>
                 )
