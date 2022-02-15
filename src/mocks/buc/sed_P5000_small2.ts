@@ -139,7 +139,7 @@ export default {
         beregning: '001',
         informasjonskalkulering: null,
         periode: {
-          fom: '1986-01-01',
+          fom: '1986-01-04',
           tom: '1986-07-06'
         },
         enkeltkrav: null
@@ -188,7 +188,7 @@ export default {
         informasjonskalkulering: null,
         periode: {
           fom: '1986-09-21',
-          tom: '1986-11-20'
+          tom: '1986-12-20'
         },
         enkeltkrav: null
       }]

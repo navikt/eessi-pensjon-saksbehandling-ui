@@ -200,7 +200,7 @@ export const convertP5000SEDToP5000ListRows = (
         const parentRows: Array<P5000ListRow> = Object.values(groupedPeriods[key]).map((v: any) => v.parent)
         const _subRow = _.cloneDeep(subRow)
 
-        let parentRow
+        let parentRow: P5000ListRow | undefined
         if (!useGermanRules || _subRow.land !== 'DE') {
           // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge
           parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
@@ -216,7 +216,15 @@ export const convertP5000SEDToP5000ListRows = (
         }
         if (!_.isNil(parentRow)) {
           parentRow.sluttdato = subRow.sluttdato
-          const total: FormattedDateDiff = dateDiff(parentRow.startdato, parentRow.sluttdato)
+          let total: FormattedDateDiff
+          if (!useGermanRules || _subRow.land !== 'DE') {
+            total = dateDiff(parentRow.startdato, parentRow.sluttdato)
+          } else {
+            // for germans, consider whole months for sum
+            total = dateDiff(
+              moment(_.cloneDeep(parentRow.startdato)).startOf('month').toDate(),
+              moment(_.cloneDeep(parentRow.sluttdato)).endOf('month').toDate())
+          }
           parentRow.dag = total.days === 0 ? '' : total.days as string
           parentRow.mnd = total.months === 0 ? '' : total.months as string
           parentRow.aar = total.years === 0 ? '' : total.years as string
