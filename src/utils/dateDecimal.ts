@@ -5,6 +5,11 @@ export const isFloat = (value: string | number) => _.isNumber(value) ? !!(value 
 
 export const writeFloat = (value: string | number) => _.isNumber(value) ? String(value.toFixed(2)) : String(parseFloat(value).toFixed(2))
 
+export const writeDateDiff = (dateDiff: DateDiff) =>
+  ((_.isNumber(dateDiff.years) ? String(dateDiff.years) : !_.isEmpty(dateDiff.years) ? dateDiff.years : '0') + '/' +
+    (_.isNumber(dateDiff.months) ? String(dateDiff.months) : !_.isEmpty(dateDiff.months) ? dateDiff.months : '0') + '/' +
+    (_.isNumber(dateDiff.days) ? String(dateDiff.days) : !_.isEmpty(dateDiff.days) ? dateDiff.days : '0'))
+
 export const getFloatValues = (value: string | number): [number, number] => {
   const v = _.isNumber(value) ? value : parseFloat(value)
   const leftPart = Math.floor(v)

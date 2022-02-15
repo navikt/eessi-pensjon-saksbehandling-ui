@@ -339,8 +339,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           items={items}
           id='P5000Overview'
           labels={{
-            filter: t('p5000:filter-label')
+            filter: t('p5000:filter-label'),
+            flagged: 'validation fail'
           }}
+          flaggable={_.find(items, 'flag') !== undefined}
           searchable
           selectable={false}
           sortable
