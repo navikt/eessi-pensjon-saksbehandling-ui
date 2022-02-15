@@ -266,7 +266,7 @@ export const convertP5000SEDToP5000ListRows = (
         } else {
         // merged periods - add the parent row + sub rows
 
-          // check if merged period sum matches the subrow's sum. If not , flagg it.
+          // check if merged period sum matches the subrow's sum. If not, flagg it, and use the original sumds.
           let sumDateDiff: DateDiff = {days: 0, months: 0, years: 0}
           groupedPeriods[key][key2].sub.forEach((sub: P5000ListRow) => {
             sumDateDiff = sumDates({
@@ -286,9 +286,15 @@ export const convertP5000SEDToP5000ListRows = (
           const samePeriodSum: boolean = sumDateDiffString === parentDateDiffString
           let flagLabel: string | undefined = undefined
           if (!samePeriodSum) {
-            flagLabel = 'subrow sum ' + sumDateDiffString + ' beregning ' + parentDateDiffString
+            flagLabel = 'will use the sum of given periods ' + sumDateDiffString + ' instead of calculated merged sum ' + parentDateDiffString
           }
 
+          if (!samePeriodSum) {
+            groupedPeriods[key][key2].parent.dag = '' + sumDateDiff.days
+            groupedPeriods[key][key2].parent.mnd = '' + sumDateDiff.months
+            groupedPeriods[key][key2].parent.aar = '' + sumDateDiff.years
+          }
+          
           rows.push({
             ...groupedPeriods[key][key2].parent,
             hasSubrows: true,
