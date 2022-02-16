@@ -147,7 +147,6 @@ export const convertP5000SEDToP5000ListRows = (
 
     // 1. group periods within `$land-$type-$ytelse-$ordning-$beregning` keys on an auxiliary map
     rows.forEach(r => {
-
       // check if type is within types that should be grouped together
       let typeNeedle = r.type
       if (!_.isEmpty(mergePeriodTypes) && mergePeriodTypes!.indexOf(r.type) >= 0) {
@@ -198,7 +197,6 @@ export const convertP5000SEDToP5000ListRows = (
 
     // 3. build the groupedPeriods map by going through the mergingMap periods
     Object.keys(mergingMap).forEach(key => {
-
       groupedPeriods[key] = {}
 
       const subRows: Array<P5000ListRow> = _.cloneDeep(mergingMap[key])
@@ -267,7 +265,7 @@ export const convertP5000SEDToP5000ListRows = (
         // merged periods - add the parent row + sub rows
 
           // check if merged period sum matches the subrow's sum. If not, flagg it, and use the original sumds.
-          let sumDateDiff: DateDiff = {days: 0, months: 0, years: 0}
+          let sumDateDiff: DateDiff = { days: 0, months: 0, years: 0 }
           groupedPeriods[key][key2].sub.forEach((sub: P5000ListRow) => {
             sumDateDiff = sumDates({
               days: sub.dag,
@@ -284,9 +282,14 @@ export const convertP5000SEDToP5000ListRows = (
           })
 
           const samePeriodSum: boolean = sumDateDiffString === parentDateDiffString
-          let flagLabel: string | undefined = undefined
+          let flagLabel: string | undefined
           if (!samePeriodSum) {
-            flagLabel = 'will use the sum of given periods ' + sumDateDiffString + ' instead of calculated merged sum ' + parentDateDiffString
+            flagLabel = i18n.t('message:warning-periodsDoNotMatch', {
+              dates: moment(groupedPeriods[key][key2].parent.startdato).format('DD.MM.YYYY') + '-' +
+                moment(groupedPeriods[key][key2].parent.sluttdato).format('DD.MM.YYYY'),
+              sumDateDiff: sumDateDiffString,
+              parentDateDiff: parentDateDiffString
+            })
           }
 
           if (!samePeriodSum) {
@@ -294,14 +297,14 @@ export const convertP5000SEDToP5000ListRows = (
             groupedPeriods[key][key2].parent.mnd = '' + sumDateDiff.months
             groupedPeriods[key][key2].parent.aar = '' + sumDateDiff.years
           }
-          
+
           rows.push({
             ...groupedPeriods[key][key2].parent,
             hasSubrows: true,
             type: groupedType,
             key: 'merge-' + groupedPeriods[key][key2].parent.key,
             flag: !samePeriodSum,
-            flagLabel: flagLabel
+            flagLabel
           })
           groupedPeriods[key][key2].sub.forEach((v: P5000ListRow) => {
             const _v = _.cloneDeep(v)

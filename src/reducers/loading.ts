@@ -142,7 +142,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
       }
 
     case types.BUC_CREATE_SED_REQUEST:
-
+    case types.BUC_CREATE_REPLY_SED_REQUEST:
       return {
         ...state,
         creatingSed: true
@@ -150,6 +150,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: Actio
 
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_SED_FAILURE:
+    case types.BUC_CREATE_REPLY_SED_SUCCESS:
+    case types.BUC_CREATE_REPLY_SED_FAILURE:
 
       return {
         ...state,

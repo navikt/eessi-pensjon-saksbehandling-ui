@@ -260,13 +260,13 @@ describe('reducers/buc', () => {
         type: types.BUC_FOLLOWUPSEDS_SET,
         payload: {
           sed: 'mockSed',
-          followUpSeds: [{id: 'mockReplySed'}]
+          followUpSeds: [{ id: 'mockReplySed' }]
         }
       })
     ).toEqual({
       ...initialBucState,
       currentSed: 'mockSed',
-      followUpSeds: [{id: 'mockReplySed'}]
+      followUpSeds: [{ id: 'mockReplySed' }]
     })
   })
 

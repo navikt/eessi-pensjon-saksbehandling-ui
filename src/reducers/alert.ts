@@ -110,6 +110,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
         break
 
       case types.BUC_CREATE_SED_FAILURE:
+      case types.BUC_CREATE_REPLY_SED_FAILURE:
         stripeMessage = i18n.t('message:alert-createSedFailure')
         break
 
