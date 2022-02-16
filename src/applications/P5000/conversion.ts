@@ -282,15 +282,6 @@ export const convertP5000SEDToP5000ListRows = (
           })
 
           const samePeriodSum: boolean = sumDateDiffString === parentDateDiffString
-          let flagLabel: string | undefined
-          if (!samePeriodSum) {
-            flagLabel = i18n.t('message:warning-periodsDoNotMatch', {
-              dates: moment(groupedPeriods[key][key2].parent.startdato).format('DD.MM.YYYY') + '-' +
-                moment(groupedPeriods[key][key2].parent.sluttdato).format('DD.MM.YYYY'),
-              sumDateDiff: sumDateDiffString,
-              parentDateDiff: parentDateDiffString
-            })
-          }
 
           if (!samePeriodSum) {
             groupedPeriods[key][key2].parent.dag = '' + sumDateDiff.days
@@ -304,7 +295,7 @@ export const convertP5000SEDToP5000ListRows = (
             type: groupedType,
             key: 'merge-' + groupedPeriods[key][key2].parent.key,
             flag: !samePeriodSum,
-            flagLabel
+            flagLabel: i18n.t('message:warning-periodDoNotMatch')
           })
           groupedPeriods[key][key2].sub.forEach((v: P5000ListRow) => {
             const _v = _.cloneDeep(v)

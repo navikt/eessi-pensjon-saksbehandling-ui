@@ -340,8 +340,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           id='P5000Overview'
           labels={{
             filter: t('p5000:filter-label'),
-            flagged: 'validation fail',
-            flagAll: 'OBS! Periodesum er mindre enn registrert periode'
+            flagged: '',
+            flagAll: t('message:warning-periodsDoNotMatch')
           }}
           flaggable={_.find(items, 'flag') !== undefined}
           searchable
