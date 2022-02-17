@@ -52,9 +52,9 @@ export const getUFT = (vedtakId: string) => {
   })
 }
 
-export const getGjpBp = (vedtakId: string) => {
+export const getGjpBp = (vedtakId: string, sakId: string) => {
   return call({
-    url: sprintf(urls.PERSON_GJP_BP_URL, { vedtakId }),
+    url: sprintf(urls.PERSON_GJP_BP_URL, { vedtakId, sakId }),
     cascadeFailureError: true,
     expectedPayload: mockGJPBP,
     type: {

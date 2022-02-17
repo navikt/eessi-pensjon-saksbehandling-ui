@@ -6,7 +6,6 @@ import {
 } from 'actions/buc'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
-import BUCLoading from 'applications/BUC/components/BUCLoading/BUCLoading'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { Search } from '@navikt/ds-icons'
@@ -16,9 +15,7 @@ import ProgressBar from '@navikt/fremdriftslinje'
 import {
   animationClose, animationOpen, slideInFromLeft,
   HorizontalSeparatorDiv,
-  VerticalSeparatorDiv,
-  Column,
-  Row
+  VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 
 import { BRUKERKONTEKST } from 'constants/constants'
@@ -73,7 +70,7 @@ export const BucLenkePanel = styled(LinkPanel)`
     background: var(--navds-global-color-limegreen-100) !important;
   }
   &:hover {
-    background: var(--navds-semantic-color-interaction-primary-subtle);
+    background: var(--navds-semantic-color-interaction-primary-hover-subtle);
   }
 `
 const BUCNewDiv = styled(Panel)`
@@ -297,6 +294,17 @@ const BUCList: React.FC<BUCListProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
+      <div style={{ width: '50%', margin: 'auto',  height: '40px' }}>
+        {(gettingBucsList || gettingBucs) && (<ProgressBar
+            status={status}
+            now={now}
+          >
+            <BodyLong>
+              {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
+            </BodyLong>
+          </ProgressBar>
+        )}
+      </div>
       <BUCListHeader>
         <Heading size='small'>
           {t('buc:form-buclist')}
@@ -339,27 +347,7 @@ const BUCList: React.FC<BUCListProps> = ({
         </BUCNewDiv>
         <VerticalSeparatorDiv />
       </BUCStartDiv>
-      {(gettingBucsList || gettingBucs) && (
-        <>
-          <Row style={{ width: '100%', height: '40px' }}>
-            <Column>
-              <ProgressBar
-                status={status}
-                now={now}
-              >
-                <BodyLong>
-                  {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
-                </BodyLong>
-              </ProgressBar>
-            </Column>
-          </Row>
-          <BUCLoadingDiv>
-            <BUCLoading />
-            <BUCLoading />
-            <BUCLoading />
-          </BUCLoadingDiv>
-        </>
-      )}
+      <VerticalSeparatorDiv/>
       {!gettingBucs && _.isEmpty(bucsList) && (
         <>
           <VerticalSeparatorDiv size='2' />
@@ -368,7 +356,7 @@ const BUCList: React.FC<BUCListProps> = ({
           </BodyLong>
         </>
       )}
-      {!gettingBucs && !_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
+      {!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
         <>
           <VerticalSeparatorDiv />
           <BadBucDiv>
@@ -379,7 +367,7 @@ const BUCList: React.FC<BUCListProps> = ({
           <VerticalSeparatorDiv />
         </>
       )}
-      {!gettingBucs && !_.isNil(_sortedBucs) && !_.isEmpty(_sortedBucs) &&
+      {!_.isNil(_sortedBucs) && !_.isEmpty(_sortedBucs) &&
           _sortedBucs.map((buc: Buc, index: number) => {
             if (buc?.error) {
               return null
@@ -407,7 +395,7 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
-      {!gettingBucs && !_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST &&
+      {!_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
               <VerticalSeparatorDiv size='2' />

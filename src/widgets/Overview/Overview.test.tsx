@@ -25,8 +25,7 @@ describe('widgets/Overview/Overview', () => {
     personPdl: undefined,
     personAvdods: personAvdod(1),
     pesysContext: VEDTAKSKONTEKST,
-    vedtakId: '345',
-    personAvdodPdl: {}
+    vedtakId: '345'
   }
 
   const initialMockProps: OverviewProps = {

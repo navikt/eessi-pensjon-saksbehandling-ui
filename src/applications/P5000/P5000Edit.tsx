@@ -912,10 +912,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const hentGjpBp = () => {
-    if (vedtakId) {
+    if (vedtakId && caseId) {
       setGjpBpWarning(undefined)
       setRequestingGjpBp(true)
-      dispatch(getGjpBp(vedtakId))
+      dispatch(getGjpBp(vedtakId, caseId))
     }
   }
 

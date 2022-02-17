@@ -140,7 +140,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
-  // show avdod select for P_BUC_02, P_BUC_05, P_BUC_10 and when there are avdods
+  // show avdod select for P_BUC_02, P_BUC_05, P_BUC_06, P_BUC_10 and when there are avdods
   const bucNeedsAvdod = (): boolean => {
     return (
       bucsThatSupportAvdod(_buc) && avdodExists() &&

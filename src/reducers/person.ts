@@ -7,7 +7,6 @@ import moment from 'moment'
 export interface PersonState {
   personPdl: PersonPDL | undefined
   personAvdods: PersonAvdods | undefined
-  personAvdodPdl: {[k in string]: PersonPDL | null | undefined}
   gjpbp: {[k in string]: Date | null | undefined}
   uft: Date | null | undefined
 }
@@ -15,7 +14,6 @@ export interface PersonState {
 export const initialPersonState: PersonState = {
   personPdl: undefined,
   personAvdods: undefined,
-  personAvdodPdl: {},
   gjpbp: {},
   uft: undefined
 }
@@ -74,10 +72,6 @@ const personReducer = (state: PersonState = initialPersonState, action: ActionWi
         gjpbp: {
           ...state.gjpbp,
           [(action as ActionWithPayload).context.fnr]: undefined
-        },
-        personAvdodPdl: {
-          ...state.personAvdodPdl,
-          [(action as ActionWithPayload).context.fnr]: undefined
         }
       }
 
@@ -88,17 +82,13 @@ const personReducer = (state: PersonState = initialPersonState, action: ActionWi
         gjpbp: {
           ...state.gjpbp,
           [(action as ActionWithPayload).context.fnr]: null
-        },
-        personAvdodPdl: {
-          ...state.personAvdodPdl,
-          [(action as ActionWithPayload).context.fnr]: null
         }
       }
 
     case types.PERSON_GJP_BP_SUCCESS: {
       let gjpbp
       try {
-        gjpbp = moment(_.get((action as ActionWithPayload).payload, 'doedsfall.doedsdato'), 'YYYY-MM-DD').toDate()
+        gjpbp = moment(_.get((action as ActionWithPayload).payload, 'doedsdato'), 'YYYY-MM-DD').toDate()
       } catch (e) {
       }
 
@@ -107,10 +97,6 @@ const personReducer = (state: PersonState = initialPersonState, action: ActionWi
         gjpbp: {
           ...state.gjpbp,
           [(action as ActionWithPayload).context.fnr]: gjpbp
-        },
-        personAvdodPdl: {
-          ...state.personAvdodPdl,
-          [(action as ActionWithPayload).context.fnr]: action.payload
         }
       }
     }

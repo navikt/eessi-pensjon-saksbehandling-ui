@@ -1,3 +1,5 @@
 export default {
-  uforetidspunkt: '1908-02-29'
+  "doedsdato" : "2014-12-28",
+  "sammensattNavn" : "KORRUPT HØYSTAKK",
+  "ident" : "13127425838"
 }

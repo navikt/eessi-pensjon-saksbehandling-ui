@@ -69,7 +69,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
               : isSelected
                 ? 'var(--navds-semantic-color-interaction-primary-selected)'
                 : isDisabled
-                  ? 'var(--navds-color-disabled)'
+                  ? 'var(--navds-text-field-color-background)'
                   : 'var(--navds-semantic-color-component-background-alternate)'
           }),
           singleValue: (styles: any) => ({
