@@ -230,7 +230,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                         {avdod?.fornavn +
                       (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
                       (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                      ' - ' + avdod.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')' }
+                      ' - ' + avdod.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
                       </BodyLong>
                     </Element>
                     ))

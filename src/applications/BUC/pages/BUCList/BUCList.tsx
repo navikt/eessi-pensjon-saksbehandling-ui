@@ -294,8 +294,9 @@ const BUCList: React.FC<BUCListProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div style={{ width: '50%', margin: 'auto',  height: '40px' }}>
-        {(gettingBucsList || gettingBucs) && (<ProgressBar
+      <div style={{ width: '50%', margin: 'auto', height: '40px' }}>
+        {(gettingBucsList || gettingBucs) && (
+          <ProgressBar
             status={status}
             now={now}
           >
@@ -347,7 +348,7 @@ const BUCList: React.FC<BUCListProps> = ({
         </BUCNewDiv>
         <VerticalSeparatorDiv />
       </BUCStartDiv>
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       {!gettingBucs && _.isEmpty(bucsList) && (
         <>
           <VerticalSeparatorDiv size='2' />

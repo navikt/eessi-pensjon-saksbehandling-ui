@@ -39,6 +39,7 @@ export const API_JOARK_ATTACHMENT_URL = SAF_URL + '/vedlegg/%(aktoerId)s/%(rinaI
 // PersonController
 export const PERSON_PDL_URL = PER_URL + '/pdl/%(aktoerId)s'
 export const PERSON_AVDOD_URL = PER_URL + '/pdl/%(aktoerId)s/avdode/vedtak/%(vedtakId)s'
+export const PERSON_GJP_BP_URL = PER_URL + '/vedtak/%(vedtakId)s/buc/%(sakId)s/avdodsdato'
 
 // BucController
 export const BUC_GET_BUCSLIST_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s'
@@ -55,7 +56,6 @@ export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'
 export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 export const PERSON_UFT_URL = PEN_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
-export const PERSON_GJP_BP_URL = PEN_URL + '/vedtak/%(vedtakId)s/buc/%(sakId)s/avdodsdato'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
