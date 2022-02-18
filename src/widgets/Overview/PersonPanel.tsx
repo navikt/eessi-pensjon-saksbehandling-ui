@@ -1,5 +1,5 @@
 import { People, Home, Calender, Globe, Profile, Heart } from '@navikt/ds-icons'
-import Tooltip from 'components/Tooltip/Tooltip'
+import Tooltip from '@navikt/tooltip'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
 import { PersonAvdod, PersonAvdods } from 'declarations/person.d'

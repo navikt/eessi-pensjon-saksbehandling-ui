@@ -1,3 +1,4 @@
+// @ts-nocheck
 import classNames from 'classnames'
 import { Button, Modal, Heading } from '@navikt/ds-react'
 import { ModalContent } from 'declarations/components'

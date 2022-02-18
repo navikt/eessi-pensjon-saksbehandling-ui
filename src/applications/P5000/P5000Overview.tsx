@@ -21,7 +21,7 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'components/Tooltip/Tooltip'
+import Tooltip from '@navikt/tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -301,7 +301,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             <AlignEndRow style={{ width: '100%' }}>
               <Column>
                 <FlexCenterDiv>
-
                   <Switch
                     checked={_useGermanRules}
                     id='a-buc-c-sedstart__p5000-overview-usegerman-switch'
@@ -333,7 +332,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           labels={{
             filter: t('p5000:filter-label'),
             flagged: '',
-            flagAll: t('message:warning-periodsDoNotMatch')
+            flagAll: t('message:warning-periodsDoNotMatch'),
+            merged: t('p5000:merged-periods')
+
           }}
           flaggable={_.find(items, 'flag') !== undefined}
           searchable
