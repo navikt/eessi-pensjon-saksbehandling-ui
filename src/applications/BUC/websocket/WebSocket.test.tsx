@@ -11,8 +11,9 @@ jest.mock('constants/urls', () => ({
 jest.mock('actions/buc', () => ({
   fetchBuc: jest.fn()
 }))
-jest.mock('rc-tooltip', () => ({ overlay }: any) => (
-  <div data-test-id='mock-tooltip'>{overlay}</div>
+
+jest.mock('components/Tooltip/Tooltip', () => ({ children }: any) => (
+  <div data-test-id='mock-tooltip'>{children}</div>
 ))
 
 describe('applications/BUC/websocket/WebSocket', () => {

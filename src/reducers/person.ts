@@ -7,14 +7,14 @@ import moment from 'moment'
 export interface PersonState {
   personPdl: PersonPDL | undefined
   personAvdods: PersonAvdods | undefined
-  gjpbp: {[k in string]: Date | null | undefined}
+  gjpbp: Date | null | undefined
   uft: Date | null | undefined
 }
 
 export const initialPersonState: PersonState = {
   personPdl: undefined,
   personAvdods: undefined,
-  gjpbp: {},
+  gjpbp: undefined,
   uft: undefined
 }
 
@@ -69,35 +69,29 @@ const personReducer = (state: PersonState = initialPersonState, action: ActionWi
 
       return {
         ...state,
-        gjpbp: {
-          ...state.gjpbp,
-          [(action as ActionWithPayload).context.fnr]: undefined
-        }
+        gjpbp: undefined
+
       }
 
     case types.PERSON_GJP_BP_FAILURE:
 
       return {
         ...state,
-        gjpbp: {
-          ...state.gjpbp,
-          [(action as ActionWithPayload).context.fnr]: null
-        }
+        gjpbp: null
       }
 
     case types.PERSON_GJP_BP_SUCCESS: {
-      let gjpbp
-      try {
-        gjpbp = moment(_.get((action as ActionWithPayload).payload, 'doedsdato'), 'YYYY-MM-DD').toDate()
-      } catch (e) {
+      let gjpbp: Date | null |undefined = undefined
+      if (!_.isEmpty((action as ActionWithPayload).payload)) {
+        try {
+          gjpbp = moment(_.get((action as ActionWithPayload).payload, 'doedsdato'), 'YYYY-MM-DD').toDate()
+        } catch (e) {
+        }
       }
 
       return {
         ...state,
-        gjpbp: {
-          ...state.gjpbp,
-          [(action as ActionWithPayload).context.fnr]: gjpbp
-        }
+        gjpbp: gjpbp
       }
     }
 

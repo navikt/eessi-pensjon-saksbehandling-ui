@@ -21,7 +21,7 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'rc-tooltip'
+import Tooltip from 'components/Tooltip/Tooltip'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -92,13 +92,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const renderType = (item: any, value: any) => (
     <Tooltip
-      overlay={(
+      label={(
         <div style={{ maxWidth: '300px' }}>
           {_.get(typePeriode, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
-      placement='top'
-      trigger={['hover']}
     >
       <BodyLong>
         {value}
@@ -108,13 +106,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const renderYtelse = (item: any, value: any) => (
     <Tooltip
-      overlay={(
+      label={(
         <div style={{ maxWidth: '300px' }}>
           {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
-      placement='top'
-      trigger={['hover']}
     >
       <BodyLong>
         {value}
@@ -124,13 +120,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const renderBeregning = (item: any, value: any) => (
     <Tooltip
-      overlay={(
+      label={(
         <div style={{ maxWidth: '300px' }}>
           {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
-      placement='top'
-      trigger={['hover']}
     >
       <BodyLong>
         {value}
@@ -140,13 +134,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const renderOrdning = (item: any, value: any) => (
     <Tooltip
-      overlay={(
+      label={(
         <div style={{ maxWidth: '300px' }}>
           {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
         </div>
       )}
-      placement='top'
-      trigger={['hover']}
     >
       <BodyLong>
         {value}

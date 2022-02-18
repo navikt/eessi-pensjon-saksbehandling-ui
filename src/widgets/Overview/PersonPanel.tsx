@@ -1,4 +1,5 @@
 import { People, Home, Calender, Globe, Profile, Heart } from '@navikt/ds-icons'
+import Tooltip from 'components/Tooltip/Tooltip'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
 import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
@@ -8,7 +9,6 @@ import moment from 'moment'
 import { BodyLong, Detail } from '@navikt/ds-react'
 import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from '@navikt/hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'rc-tooltip'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
@@ -76,7 +76,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
   ): Array<JSX.Element | string> => {
     if (value) {
       address.push((
-        <Tooltip key={label + value} placement='top' trigger={['hover']} overlay={<span>{label}</span>}>
+        <Tooltip label={<span>{label}</span>}>
           <span key={value}>{value}</span>
         </Tooltip>
       ))

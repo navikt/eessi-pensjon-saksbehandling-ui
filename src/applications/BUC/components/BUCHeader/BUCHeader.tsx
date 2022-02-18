@@ -17,7 +17,7 @@ import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { LinkPanel, BodyLong, Link, Heading } from '@navikt/ds-react'
 import { Column, Row } from '@navikt/hoykontrast'
-import Tooltip from 'rc-tooltip'
+import Tooltip from 'components/Tooltip/Tooltip'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -239,11 +239,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             )}
             {numberOfSeds && (
               <Tooltip
-                overlay={(
+                label={(
                   <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
                 )}
-                placement='top'
-                trigger={['hover']}
               >
                 <NumberOfSedsDiv
                   data-test-id='a-buc-c-bucheader__icon-numberofseds-id'
@@ -255,11 +253,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             )}
             {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 && (
               <Tooltip
-                overlay={(
+                label={(
                   <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
                 )}
-                placement='top'
-                trigger={['hover']}
               >
                 <TagsDiv data-test-id='a-buc-c-bucheader__icon-tags-id'>
                   <Warning

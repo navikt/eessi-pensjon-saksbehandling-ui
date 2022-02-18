@@ -20,7 +20,7 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'rc-tooltip'
+import Tooltip from 'components/Tooltip/Tooltip'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -169,7 +169,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </Detail>
           <SEDListStatusItemDiv>
             <Tooltip
-              placement='top' trigger={[sed.version !== '1' ? 'hover' : 'none']} overlay={(
+              label={(
                 <BodyLong>
                   {t('ui:firstVersion')}
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
@@ -223,7 +223,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         >
           {!_.isEmpty(sed.attachments) && (
             <Tooltip
-              placement='top' trigger={['hover']} overlay={(
+              label={(
                 <span>
                   {t('buc:form-youHaveXAttachmentsInSed',
                     { attachments: sed.attachments.length })}

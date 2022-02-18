@@ -56,7 +56,7 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import PT from 'prop-types'
-import Tooltip from 'rc-tooltip'
+import Tooltip from 'components/Tooltip/Tooltip'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -451,13 +451,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderYtelse = (item: any, value: any) => {
     return (
       <Tooltip
-        overlay={(
+        label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
           </div>
         )}
-        placement='top'
-        trigger={['hover']}
       >
         <BodyLong>
           {value}
@@ -484,13 +482,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
     return (
       <Tooltip
-        overlay={(
+        label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(relevantForYtelse, valueToShow.startsWith('0') ? valueToShow : parseInt(valueToShow))}
           </div>
         )}
-        placement='top'
-        trigger={['hover']}
       >
         <BodyLong>
           {valueToShow}
@@ -508,13 +504,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderOrdning = (item: any, value: any) => {
     return (
       <Tooltip
-        overlay={(
+        label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
           </div>
         )}
-        placement='top'
-        trigger={['hover']}
       >
         <BodyLong>
           {value}
@@ -525,13 +519,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderOrdningEdit = (options: RenderEditableOptions) => (
     <Tooltip
-      overlay={(
+      label={(
         <div style={{ maxWidth: '300px' }}>
           {_.get(ordning, options.value.startsWith('0') ? options.value : parseInt(options.value))}
         </div>
       )}
-      placement='top'
-      trigger={['hover']}
     >
       <BodyLong>
         {options.value}
@@ -550,13 +542,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderBeregning = (item: any, value: any) => {
     return (
       <Tooltip
-        overlay={(
+        label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
           </div>
         )}
-        placement='top'
-        trigger={['hover']}
       >
         <BodyLong>
           {value}

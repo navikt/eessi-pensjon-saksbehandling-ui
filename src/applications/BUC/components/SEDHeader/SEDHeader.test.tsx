@@ -10,7 +10,7 @@ import _ from 'lodash'
 import { stageSelector } from 'setupTests'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 
-jest.mock('rc-tooltip', () => ({ children }: any) => (
+jest.mock('components/Tooltip/Tooltip', () => ({ children }: any) => (
   <div data-test-id='mock-tooltip'>{children}</div>
 ))
 
