@@ -82,9 +82,9 @@ const personReducer = (state: PersonState = initialPersonState, action: ActionWi
 
     case types.PERSON_GJP_BP_SUCCESS: {
       let gjpbp: Date | null |undefined
-      if (!_.isEmpty((action as ActionWithPayload).payload)) {
+      if (_.isArray((action as ActionWithPayload).payload) && !_.isEmpty((action as ActionWithPayload).payload)) {
         try {
-          gjpbp = moment(_.get((action as ActionWithPayload).payload, 'doedsdato'), 'YYYY-MM-DD').toDate()
+          gjpbp = moment(_.get((action as ActionWithPayload).payload[0], 'doedsdato'), 'YYYY-MM-DD').toDate()
         } catch (e) {
         }
       }
