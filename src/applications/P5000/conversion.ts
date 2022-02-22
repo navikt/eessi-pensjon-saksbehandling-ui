@@ -208,8 +208,25 @@ export const convertP5000SEDToP5000ListRows = (
         // let's find a parent row that is a suitable candidate to merge this period. If not found, then it will be an unmerged period so far
         let parentRow: P5000ListRow | undefined
         if (!useGermanRules || _subRow.land !== 'DE') {
-          // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge
+          // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge...
           parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
+          //  ...unless we are talking about a period that periodesum doesn't match the calculated sum
+          const thisSubRowPeriodeSum: string = writeDateDiff({
+            days: subRow.dag,
+            months: subRow.mnd,
+            years: subRow.aar
+          })
+          const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
+          const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
+
+          if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
+            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' +  moment(subRow.sluttdato).format('DD.MM.YYYY') +
+              ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
+            parentRow = undefined
+          } else {
+            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' +  moment(subRow.sluttdato).format('DD.MM.YYYY') +
+            ' has same periode sum, ' + thisSubRowPeriodeSum + ' === ' + thisSubCalculatedSum)
+          }
         } else {
           // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
           // I can't use same as above because moment(new Date(2020, 07, 02)).diff(new Date(2020, 09, 01), 'months') = 1

@@ -261,13 +261,13 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '1',
+          aar: '0',
           uker: null,
           dager: {
             nr: '00',
             type: '7'
           },
-          maaneder: '00'
+          maaneder: '05'
         },
         yrke: null,
         gyldigperiode: null,
@@ -285,13 +285,13 @@ export default {
         land: null,
         sum: {
           kvartal: null,
-          aar: '1',
+          aar: '0',
           uker: null,
           dager: {
             nr: '00',
             type: '7'
           },
-          maaneder: '00'
+          maaneder: '05'
         },
         yrke: null,
         gyldigperiode: null,
