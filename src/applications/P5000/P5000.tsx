@@ -218,9 +218,7 @@ const P5000: React.FC<P5000Props> = ({
           return total + curr.clientHeight + marginBottom
         }, 0)
 
-    const { content } = _tables.find(
-      (element) => element.id === event.draggableId
-    )
+    const { content } = _tables.find((element) => element.id === event.draggableId)
 
     setPlaceholderProps({
       clientContent: content,
@@ -265,9 +263,7 @@ const P5000: React.FC<P5000Props> = ({
         return total + curr.clientHeight + marginBottom
       }, 0)
 
-    const { content } = _tables.find(
-      (element) => element.id === event.draggableId
-    )
+    const { content } = _tables.find((element) => element.id === event.draggableId)
 
     setPlaceholderProps({
       clientContent: content,
