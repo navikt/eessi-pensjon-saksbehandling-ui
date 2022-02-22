@@ -22,9 +22,9 @@
   "private": true,
   "dependencies": {
     "@navikt/dashboard": "^3.0.1",
-    "@navikt/ds-css": "^0.15.5",
+    "@navikt/ds-css": "^0.15.7",
     "@navikt/ds-icons": "^0.x",
-    "@navikt/ds-react": "^0.16.9",
+    "@navikt/ds-react": "^0.16.12",
     "@navikt/fetch": "^2.0.2",
     "@navikt/flagg-ikoner": "^3.1.0",
     "@navikt/forhandsvisningsfil": "^3.0.1",

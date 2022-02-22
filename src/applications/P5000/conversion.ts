@@ -223,6 +223,8 @@ export const convertP5000SEDToP5000ListRows = (
             console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' +  moment(subRow.sluttdato).format('DD.MM.YYYY') +
               ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
             parentRow = undefined
+            subRow.flag = true
+            subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
           } else {
             console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' +  moment(subRow.sluttdato).format('DD.MM.YYYY') +
             ' has same periode sum, ' + thisSubRowPeriodeSum + ' === ' + thisSubCalculatedSum)
