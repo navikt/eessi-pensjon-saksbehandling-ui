@@ -46,37 +46,15 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const { t } = useTranslation()
   const componentRef = useRef(null)
   const countryInstance = CountryData.getCountryInstance('nb')
-  const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
-  const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
-  const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(30)
+  const [renderPrintTable, setRenderPrintTable] = useState<boolean>(false)
   const [mergePeriods, setMergePeriods] = useState<boolean>(false)
   const [mergePeriodTypes, setMergePeriodTypes] = useState<Array<string> |undefined>(undefined)
+  const [useGermanRules, setUseGermanRules] = useState<boolean>(true)
+  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, mergePeriods, mergePeriodTypes, useGermanRules)
+
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const [_useGermanRules, _setUseGermanRules] = useState<boolean>(true)
-  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, mergePeriods, mergePeriodTypes, _useGermanRules)
-  const hasGermanRows = _.find(items, (it: P5000ListRow) => it.land === 'DE') !== undefined
-
   const { highContrast, featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
-
-
-  const beforePrintOut = (): void => {
-    _setPrintDialogOpen(true)
-  }
-
-  const prepareContent = (): void => {
-    _setRenderPrintTable(true)
-    standardLogger('buc.edit.tools.P5000.overview.print.button')
-  }
-
-  const afterPrintOut = (): void => {
-    _setPrintDialogOpen(false)
-    _setRenderPrintTable(false)
-  }
-
-  const itemsPerPageChanged = (e: any): void => {
-    standardLogger('buc.edit.tools.P5000.overview.itemsPerPage.select', { value: e.target.value })
-    _setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
-  }
 
   const renderDateCell = (item: P5000ListRow, value: any) => (
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
@@ -196,21 +174,31 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     columns.splice(0, 1) // remove status column
   }
 
+  const tableKey: string = 'P5000Overview-table-' + itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + mergePeriods +
+    '_mergetype' + (mergePeriodTypes?.join(':') ?? '') + '_useGerman' + useGermanRules
+
   return (
     <>
       <VerticalSeparatorDiv />
       <PileCenterDiv>
         <P5000OverviewControls
+          componentRef={componentRef}
           featureToggles={featureToggles}
           mergePeriods={mergePeriods}
           setMergePeriods={setMergePeriods}
           mergePeriodTypes={mergePeriodTypes}
           setMergePeriodTypes={setMergePeriodTypes}
+          setRenderPrintTable={setRenderPrintTable}
+          useGermanRules={useGermanRules}
+          setUseGermanRules={setUseGermanRules}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+          items={items}
         />
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow>
-          key={'P5000Overview-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + mergePeriods + '_mergetype' + (mergePeriodTypes?.join(':') ?? '') + '_useGerman' + _useGermanRules}
+          key={tableKey}
           animatable={false}
           highContrast={highContrast}
           items={items}
@@ -231,7 +219,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             standardLogger('buc.edit.tools.P5000.overview.sort', { sort })
             _setTableSort(sort)
           }}
-          itemsPerPage={_itemsPerPage}
+          itemsPerPage={itemsPerPage}
           columns={columns}
         />
         <VerticalSeparatorDiv />

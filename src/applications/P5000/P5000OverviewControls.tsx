@@ -10,37 +10,72 @@ import {
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { OneLineSpan } from 'components/StyledComponents'
 import { FeatureToggles, Option } from 'declarations/app'
-import { P5000ListRows } from 'declarations/p5000'
+import { P5000ListRow, P5000ListRows } from 'declarations/p5000'
 import _ from 'lodash'
-import React from 'react'
+import { standardLogger } from 'metrics/loggers'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
 
 export interface P5000OverviewControlsProps {
+  componentRef: any,
   featureToggles: FeatureToggles
   mergePeriods: boolean
   setMergePeriods: (b: boolean) => void
-  mergePeriodTypes: Array<string> |undefined
-  setMergePeriodTypes: (Array<string> |undefined) => void
+  setRenderPrintTable: (b: boolean) => void
+  mergePeriodTypes: Array<string> | undefined
+  setMergePeriodTypes: (a: Array<string> | undefined) => void
+  useGermanRules: boolean
+  setUseGermanRules: (b: boolean) => void
+  itemsPerPage: number
+  setItemsPerPage: (b: number) => void
   items: P5000ListRows
 }
 
 const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
+  componentRef,
   featureToggles,
   mergePeriods,
   setMergePeriods,
   mergePeriodTypes,
   setMergePeriodTypes,
+  setRenderPrintTable,
+  useGermanRules,
+  setUseGermanRules,
+  itemsPerPage,
+  setItemsPerPage,
   items
 }: P5000OverviewControlsProps) => {
 
   const { t } = useTranslation()
+  const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+
+  const hasGermanRows = _.find(items, (it: P5000ListRow) => it.land === 'DE') !== undefined
 
   const mergeTypeOptions: Array<Option> = _.uniq(items.map(i => i.type))
     .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({ label: i, value: i }))
 
   const onMergeTypesChange = (types: unknown): void => {
     setMergePeriodTypes((types as Array<Option>).map(o => o.value).sort((a, b) => parseInt(a) - parseInt(b)))
+  }
+
+  const itemsPerPageChanged = (e: any): void => {
+    standardLogger('buc.edit.tools.P5000.overview.itemsPerPage.select', { value: e.target.value })
+    setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
+  }
+
+  const beforePrintOut = (): void => {
+    _setPrintDialogOpen(true)
+  }
+
+  const prepareContent = (): void => {
+    setRenderPrintTable(true)
+    standardLogger('buc.edit.tools.P5000.overview.print.button')
+  }
+
+  const afterPrintOut = (): void => {
+    _setPrintDialogOpen(false)
+    setRenderPrintTable(false)
   }
 
   return (
@@ -86,7 +121,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                       </HelpText>
                     </FlexEndDiv>
                   )}
-                  values={_.filter(mergeTypeOptions, (m: unknown) => _mergePeriodTypes ? _mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
+                  values={_.filter(mergeTypeOptions, (m: unknown) => mergePeriodTypes ? mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
                 />
               </>
             )}
@@ -115,7 +150,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               id='itemsPerPage'
               label={t('ui:itemsPerPage')}
               onChange={itemsPerPageChanged}
-              value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
+              value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
             >
               <option value='10'>10</option>
               <option value='15'>15</option>
@@ -135,10 +170,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
             <Column>
               <FlexCenterDiv>
                 <Switch
-                  checked={_useGermanRules}
+                  checked={useGermanRules}
                   id='a-buc-c-sedstart__p5000-overview-usegerman-switch'
                   data-test-id='a-buc-c-sedstart__p5000-overview-usegerman-switch'
-                  onChange={() => _setUseGermanRules(!_useGermanRules)}
+                  onChange={() => setUseGermanRules(!useGermanRules)}
                 >
                   {t('message:warning-german-alert')}
                 </Switch>
