@@ -562,7 +562,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     updateValidation('country', validateCountries(newCountries))
   }, [_buc, _countries, dispatch, _institutions, setCountries, setInstitutions, updateValidation, validateCountries])
 
-  const onAvdodOrSokerChange = (e: string): void => {
+  const onAvdodOrSokerChange = (e: string | number | boolean): void => {
     const avdodorsoker: AvdodOrSokerValue = e as AvdodOrSokerValue
     setAvdodOrSoker(avdodorsoker)
     updateValidation('avdodorsoker', validateAvdodOrSoker(avdodorsoker))
@@ -631,7 +631,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     }
   }
 
-  const onKravOmChange = (e: string): void => {
+  const onKravOmChange = (e: string | number | boolean): void => {
     const newKravOm: KravOmValue = e as KravOmValue
     setKravOm(newKravOm)
   }

@@ -34,7 +34,7 @@ const PageNotification = () => {
   const [_byline, _setByline] = useState<string | null | undefined>(byline)
   const [validation, resetValidation, performValidation] = useValidation<PageNotificationValidationProps>({}, pageNotificationValidate)
 
-  const setShow = (newShow: string) => {
+  const setShow = (newShow: string | number | boolean) => {
     _setShow(newShow === 'true')
     resetValidation('w-pagenotification-show')
   }

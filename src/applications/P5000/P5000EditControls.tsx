@@ -153,11 +153,11 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
     })
   }
 
-  const __setForsikringEllerBosetningsperioder = (value: string) => {
+  const __setForsikringEllerBosetningsperioder = (value: string | number | boolean) => {
     resetValidation('P5000Edit-forsikringEllerBosetningsperioder')
-    setForsikringEllerBosetningsperioder(value)
+    setForsikringEllerBosetningsperioder('' + value)
     onSave({
-      forsikringEllerBosetningsperioder: value
+      forsikringEllerBosetningsperioder: '' + value
     })
   }
 

@@ -211,11 +211,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           setItemsPerPage={setItemsPerPage}
           items={items}
         />
-        <P5000Tabs
-          tabs={tabs}
-          onChange={(e: any, i: number) => setActiveTab(i)}
-          defaultAktiv={_activeTab}
-        />
+        {featureToggles.P5000_UPDATES_VISIBLE && (
+          <P5000Tabs
+            tabs={tabs}
+            onChange={(e: any, i: number) => setActiveTab(i)}
+            defaultAktiv={_activeTab}
+          />
+        )}
         {tabs[_activeTab].key === 'oversikt' && (
           <>
             <VerticalSeparatorDiv />
