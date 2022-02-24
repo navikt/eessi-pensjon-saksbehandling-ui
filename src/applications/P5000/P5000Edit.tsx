@@ -1,41 +1,27 @@
 import {
-  Alert,
   BodyLong,
-  Button,
-  HelpText,
-  Link,
-  Loader,
-  Radio,
-  RadioGroup,
-  Select as NavSelect,
   Tag
 } from '@navikt/ds-react'
-import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'actions/p5000'
-import { getGjpBp, getUFT } from 'actions/person'
 import {
   informasjonOmBeregning,
   ordning,
   relevantForYtelse,
-  typePeriode,
-  ytelseType
+  typePeriode
 } from 'applications/P5000/P5000.labels'
+import P5000EditControls from 'applications/P5000/P5000EditControls'
 import Input from 'components/Forms/Input'
-import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
-import { HorizontalLineSeparator, OneLineSpan } from 'components/StyledComponents'
-import * as constants from 'constants/constants'
-import { FeatureToggles, LocalStorageEntry, Option } from 'declarations/app.d'
-import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Seds } from 'declarations/buc.d'
+import { HorizontalLineSeparator } from 'components/StyledComponents'
+import { LocalStorageEntry, Option } from 'declarations/app.d'
+import { P5000FromRinaMap, Seds } from 'declarations/buc.d'
 import { SedsPropType } from 'declarations/buc.pt'
 import {
   P5000ListRow,
   P5000ListRows,
-  P5000Period,
   P5000SED,
   P5000TableContext,
   P5000UpdatePayload
 } from 'declarations/p5000'
-import { PersonAvdods } from 'declarations/person'
 import { State } from 'declarations/reducers'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
@@ -43,15 +29,7 @@ import { standardLogger } from 'metrics/loggers'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
 import {
-  AlignEndRow,
-  Column,
-  FlexBaseDiv,
-  FlexCenterDiv,
-  FlexCenterSpacedDiv,
-  FlexEndDiv,
-  FullWidthDiv,
   HiddenDiv,
-  HorizontalSeparatorDiv,
   PileCenterDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -59,27 +37,17 @@ import PT from 'prop-types'
 import Tooltip from '@navikt/tooltip'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import ReactToPrint from 'react-to-print'
+import { useSelector } from 'react-redux'
 import Table, { Column as TableColumn, RenderEditableOptions, Sort } from '@navikt/tabell'
-import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
-import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, listItemtoPeriod } from './conversion'
-import P5000HelpModal from './P5000HelpModal'
+import dateDiff, { DateDiff } from 'utils/dateDiff'
+import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
 const moment = extendMoment(Moment)
 
 export interface P5000EditSelector {
   vedtakId: string | undefined
-  pesysContext: string
   sentP5000info: any
-  sendingP5000info: boolean
-  gettingUft: boolean
-  uft: Date | null | undefined
-  gjpbp: {[k in string]: Date | null | undefined}
-  personAvdods: PersonAvdods | null | undefined
-  sakType: SakTypeValue
-  featureToggles: FeatureToggles
 }
 
 export interface P5000EditProps {
@@ -94,16 +62,7 @@ export interface P5000EditProps {
 
 const mapState = (state: State): any => ({
   vedtakId: state.app.params.vedtakId,
-  pesysContext: state.app.pesysContext,
-  sentP5000info: state.p5000.sentP5000info,
-  sendingP5000info: state.loading.sendingP5000info,
-  gettingUft: state.loading.gettingUft,
-  uft: state.person.uft,
-  gjpbp: state.person.gjpbp,
-  gjpbpwarning: state.p5000.gjpbpwarning,
-  personAvdods: state.person.personAvdods,
-  sakType: state.app.params.sakType as SakTypeValue,
-  featureToggles: state.app.featureToggles
+  sentP5000info: state.p5000.sentP5000info
 })
 
 const P5000Edit: React.FC<P5000EditProps> = ({
@@ -116,24 +75,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   saveP5000ToStorage
 }: P5000EditProps) => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const { gettingUft, pesysContext, featureToggles, sentP5000info, sendingP5000info, uft, gjpbp, gjpbpwarning, sakType, vedtakId }: any = useSelector<State, any>(mapState)
+  const { sentP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
-  const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
-  const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
-  const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
-  const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
-  const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
-  const [requestingUFT, setRequestingUFT] = useState<boolean>(false)
-  const [requestingGjpBp, setRequestingGjpBp] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
+  const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
+  const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
+  const [renderPrintTable, setRenderPrintTable] = useState<boolean>(false)
+
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(() =>
     !_.isNil(p5000FromStorage)
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
       : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
-  const [_showModal, _setShowModal] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>(() => (!_.isNil(p5000FromStorage) && _.isEmpty(p5000FromStorage?.sort) ? p5000FromStorage?.sort! : { column: '', order: 'none' }))
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
     !_.isNil(p5000FromStorage)
@@ -144,9 +98,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
-  const [ytelseOptions] = useState<Array<Option>>(() => Object.keys(ytelseType)
-    .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
-    .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
 
   const beregningOptions: Array<Option> = [
     { label: '000', value: '000' }, { label: '001', value: '001' },
@@ -155,33 +106,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     { label: '110', value: '110' }, { label: '111', value: '111' }
   ]
 
-  const beforePrintOut = (): void => {
-    _setPrintDialogOpen(true)
-  }
-
-  const prepareContent = (): void => {
-    _setRenderPrintTable(true)
-    standardLogger('buc.edit.tools.P5000.edit.print.button')
-  }
-
-  const afterPrintOut = (): void => {
-    _setPrintDialogOpen(false)
-    _setRenderPrintTable(false)
-  }
-
   const onSaveSort = (sort: Sort) => {
     saveP5000ToStorage!(undefined, seds[0].id, sort)
-  }
-
-  const onSave = (payload: P5000UpdatePayload) => {
-    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
-    if (_.isNil(templateForP5000)) {
-      templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
-    }
-    if (templateForP5000) {
-      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, seds[0].id, templateForP5000)
-      saveP5000ToStorage!(newP5000FromStorage, seds[0].id, _tableSort)
-    }
   }
 
   const renderTypeEdit = (options: RenderEditableOptions) => {
@@ -571,22 +497,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const setYtelseOption = (o: unknown) => {
-    _resetValidation('P5000Edit-ytelse-select')
-    _setYtelseOption((o as Option)?.value)
-    onSave({
-      ytelseOption: (o as Option)?.value
-    })
-  }
-
-  const setForsikringEllerBosetningsperioder = (value: string) => {
-    _resetValidation('P5000Edit-forsikringEllerBosetningsperioder')
-    _setForsikringEllerBosetningsperioder(value)
-    onSave({
-      forsikringEllerBosetningsperioder: value
-    })
-  }
-
   const testDate = (value: undefined | null | string | Date): boolean => {
     if (_.isNil(value)) {
       return false
@@ -615,9 +525,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }
 
-  const itemsPerPageChanged = (e: any): void => {
-    _setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
-  }
 
   const onRowSelectChange = (items: P5000ListRows) => {
     let newItems: P5000ListRows = _.cloneDeep(_items)
@@ -639,54 +546,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     })
   }
 
-  const handleOverforTilRina = () => {
-    let p5000template: P5000SED | undefined = p5000FromStorage?.content
-    if (_.isUndefined(p5000template)) {
-      p5000template = p5000FromRinaMap[seds[0].id]
-    }
-    const valid: boolean = _performValidation({
-      p5000sed: p5000template
-    })
-
-    if (valid) {
-      const payload: P5000SED = _.cloneDeep(p5000template) as P5000SED
-      payload.pensjon.medlemskapTotal?.forEach((p, i) => {
-        const period = _.cloneDeep(p)
-        delete period.key
-        delete period.selected
-        delete period.flag
-        delete period.flagIkon
-        payload.pensjon.medlemskapTotal[i] = period
-      })
-      payload.pensjon.trygdetid?.forEach((p, i) => {
-        const period = _.cloneDeep(p)
-        delete period.key
-        delete period.selected
-        delete period.flag
-        delete period.flagIkon
-        payload.pensjon.trygdetid[i] = period
-      })
-      payload.pensjon.medlemskapboarbeid.medlemskap?.forEach((p, i) => {
-        const period = _.cloneDeep(p)
-        delete period.key
-        delete period.selected
-        delete period.flag
-        delete period.flagIkon
-        payload.pensjon.medlemskapboarbeid.medlemskap[i] = period
-      })
-      if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-        dispatch(sendP5000toRina(caseId, seds[0].id, payload))
-      }
-    }
-  }
-
   const renderDateCell = (item: P5000ListRow, value: any) => (
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
-  const resetP5000 = () => {
-    dispatch(resetSentP5000info())
-  }
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext) => {
     const startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')
@@ -761,11 +624,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return true
   }
 
-  useEffect(() => {
-    if (!_.isUndefined(sentP5000info) && !_showModal) {
-      _setShowModal(true)
+  const onSave = (payload: P5000UpdatePayload) => {
+    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
+    if (_.isNil(templateForP5000)) {
+      templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
     }
-  }, [sentP5000info, _showModal])
+    if (templateForP5000) {
+      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, seds[0].id, templateForP5000)
+      saveP5000ToStorage!(newP5000FromStorage, seds[0].id, _tableSort)
+    }
+  }
+
 
   useEffect(() => {
     if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
@@ -775,385 +644,36 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
 
-  useEffect(() => {
-    // if we got all 1 or 2 avdøds
-    if (_.isDate(gjpbp) && requestingGjpBp) {
-      setRequestingGjpBp(false)
-      let newItems: P5000ListRows = _.cloneDeep(_items)
-
-      const sluttdato = moment(gjpbp).toDate()
-      const startdato = moment(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
-
-      const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
-
-      if (diff.days <= 1 && diff.months === 0 && diff.years === 0) {
-        dispatch(setGjpBpWarning({
-          type: 'warning',
-          message: t('message:warning-nododsfallPeriod')
-        }))
-        return
-      }
-
-      // we are adding a period from the 1st day of the month of that person's death, to the day before death
-      // as in dødsfallet = 08.08.1978 => periode 01.08.1978 - 07.08.1978
-      const fixedSluttdato = moment(gjpbp).subtract(1, 'd').toDate()
-
-      // check if we do not have such period
-      const foundPeriod = _.find(newItems, item => {
-        return moment(item.startdato).isSame(startdato, 'day') &&
-          moment(item.sluttdato).isSame(fixedSluttdato, 'day') &&
-          item.type === '30'
-      })
-
-      if (!foundPeriod) {
-        // I will use a random period as a template, to fill out stuff like land
-        const newItemTemplate = _.sample(newItems) as P5000ListRow
-        const newItem: P5000ListRow = {
-          land: newItemTemplate?.land ?? null,
-          beregning: newItemTemplate?.beregning ?? null,
-          ordning: newItemTemplate?.ordning ?? null,
-          ytelse: newItemTemplate?.ytelse ?? null,
-          acronym: newItemTemplate?.acronym ?? null,
-          type: '30',
-          startdato,
-          sluttdato: fixedSluttdato,
-          status: 'new',
-          aar: '' + diff.years,
-          mnd: '' + diff.months,
-          dag: '' + diff.days,
-          selected: true,
-          flag: true,
-          flagIkon: 'GJP/BP',
-          key: '' // will be generated later
-        } as P5000ListRow
-
-        // converting new item to period, so I can get the generated key
-        const p5000Period: P5000Period = listItemtoPeriod(newItem, seds[0].id)
-        newItem.key = p5000Period.key!
-        newItems = newItems.concat(newItem)
-        onSave({
-          items: newItems
-        })
-      }
-    }
-  }, [gjpbp, requestingGjpBp])
-
-  useEffect(() => {
-    if (_.isDate(uft) && requestingUFT) {
-      setRequestingUFT(false)
-      let newItems: P5000ListRows = _.cloneDeep(_items)
-      newItems = newItems.map(item => {
-        const newItem = _.cloneDeep(item)
-        newItem.selected = moment(item.startdato).isSameOrAfter(uft)
-        newItem.flag = moment(item.startdato).isSameOrAfter(uft)
-        return newItem
-      })
-
-      // check if we do not have such period
-      const foundUFTPeriod = _.find(newItems, item => {
-        return moment(item.startdato).isSame(uft) &&
-          moment(item.sluttdato).isSame(new Date(), 'day') && // compare sluttdato with today, but just year/month/day
-          item.type === '30'
-      })
-
-      if (!foundUFTPeriod) {
-        const diff: FormattedDateDiff = dateDiff(uft, new Date())
-        // I will use a random period as a template, to fill out stuff like land
-        const newItemTemplate = _.sample(newItems) as P5000ListRow
-        const newItem: P5000ListRow = {
-          land: newItemTemplate?.land ?? null,
-          beregning: newItemTemplate?.beregning ?? null,
-          ordning: newItemTemplate?.ordning ?? null,
-          ytelse: newItemTemplate?.ytelse ?? null,
-          acronym: newItemTemplate?.acronym ?? null,
-          type: '30',
-          startdato: uft,
-          sluttdato: new Date(),
-          status: 'new',
-          aar: '' + diff.years,
-          mnd: '' + diff.months,
-          dag: '' + diff.days,
-          selected: true,
-          flag: true,
-          flagIkon: 'UFT',
-          key: '' // will be generated later
-        } as P5000ListRow
-
-        // converting new item to period, so I can get the generated key
-        const p5000Period: P5000Period = listItemtoPeriod(newItem, seds[0].id)
-        newItem.key = p5000Period.key!
-        newItems = newItems.concat(newItem)
-      }
-      onSave({
-        items: newItems
-      })
-    }
-  }, [uft, requestingUFT])
-
   if (_items === undefined) {
     return <div />
   }
 
-  const hentUFT = () => {
-    if (vedtakId) {
-      setRequestingUFT(true)
-      dispatch(getUFT(vedtakId))
-    }
-  }
-
-  const hentGjpBp = () => {
-    if (vedtakId && caseId) {
-      setGjpBpWarning(undefined)
-      setRequestingGjpBp(true)
-      dispatch(getGjpBp(vedtakId, caseId))
-    }
-  }
-
-  const modalClose = () => {
-    _setShowModal(false)
-    // modal leaves this class on body, stops scrolling. Hack to resume scrolling
-    document.getElementById('root')?.classList.remove('ReactModal__Body--open')
-  }
 
   return (
     <>
-      <Modal
-        open={_showModal}
-        appElementId='p5000Edit'
-        onModalClose={modalClose}
-        modal={{
-          closeButton: false,
-          modalContent: (
-            <div>
-              {_.isNull(sentP5000info) && (
-                <PileCenterDiv>
-                  <VerticalSeparatorDiv size='3' />
-                  <Alert variant='warning'>
-                    {t('p5000:warning-failedP5000Sending')}
-                  </Alert>
-                  <VerticalSeparatorDiv />
-                  <FlexCenterSpacedDiv>
-                    <div />
-                    <Button
-                      variant='primary'
-                      onClick={() => {
-                        resetP5000()
-                        modalClose()
-                      }}
-                    >OK
-                    </Button>
-                    <div />
-                  </FlexCenterSpacedDiv>
-                </PileCenterDiv>
-              )}
-              {!_.isNil(sentP5000info) && (
-                <PileCenterDiv>
-                  <Alert variant='info'>
-                    {t('p5000:warning-okP5000Sending', { caseId })}
-                  </Alert>
-                  <VerticalSeparatorDiv />
-                  <FlexCenterSpacedDiv>
-                    <div />
-                    <Button
-                      variant='primary'
-                      onClick={() => {
-                        resetP5000()
-                        modalClose()
-                        setTimeout(onBackClick, 200)
-                      }}
-                    >OK
-                    </Button>
-                    <div />
-                  </FlexCenterSpacedDiv>
-                </PileCenterDiv>
-              )}
-
-            </div>
-          )
-        }}
-      />
-      <P5000HelpModal
-        open={_showHelpModal}
-        onClose={() => _setShowHelpModal(false)}
-      />
       <PileCenterDiv>
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column>
-            <FullWidthDiv>
-              <Select
-                key={'ytelse' + _ytelseOption}
-                className='P5000Edit-ytelse-select'
-                error={_validation['P5000Edit-ytelse-select']?.feilmelding}
-                id='P5000Edit-ytelse-select'
-                label={t('p5000:4-1-title')}
-                menuPortalTarget={document.body}
-                options={ytelseOptions}
-                onChange={setYtelseOption}
-                defaultValue={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
-                value={_.find(ytelseOptions, y => y.value === _ytelseOption) ?? null}
-              />
-            </FullWidthDiv>
-          </Column>
-          <Column style={{ justifyContent: 'center' }}>
-            <FlexCenterDiv>
-              <RadioGroup
-                value={_forsikringEllerBosetningsperioder}
-                error={_validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
-                id='P5000Edit-forsikringEllerBosetningsperioder'
-                onChange={setForsikringEllerBosetningsperioder}
-                legend={(
-                  <FlexCenterDiv>
-                    <OneLineSpan>
-                      {t('p5000:4-2-title')}
-                    </OneLineSpan>
-                    <HorizontalSeparatorDiv />
-                    <HelpText>
-                      <div style={{ maxWidth: '600px' }}>
-                        <BodyLong>{t('p5000:help-1')}</BodyLong>
-                        <BodyLong>{t('p5000:help-2')}</BodyLong>
-                      </div>
-                    </HelpText>
-                  </FlexCenterDiv>
-              )}
-              >
-                <FlexEndDiv>
-                  <Radio value='1'>
-                    {t('ui:yes')}
-                  </Radio>
-                  <HorizontalSeparatorDiv size='3' />
-                  <Radio value='0'>
-                    {t('ui:no')}
-                  </Radio>
-                </FlexEndDiv>
-              </RadioGroup>
-            </FlexCenterDiv>
-          </Column>
-          <Column>
-            <FlexEndDiv style={{ justifyContent: 'flex-end' }}>
-              <NavSelect
-                id='itemsPerPage'
-                label={t('ui:itemsPerPage')}
-                onChange={itemsPerPageChanged}
-                value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
-              >
-                <option value='10'>10</option>
-                <option value='15'>15</option>
-                <option value='20'>20</option>
-                <option value='30'>30</option>
-                <option value='50'>50</option>
-                <option value='all'>{t('ui:all')}</option>
-              </NavSelect>
-              <HorizontalSeparatorDiv />
-              <Button
-                variant='primary'
-                disabled={sendingP5000info}
-                onClick={handleOverforTilRina}
-              >
-                {sendingP5000info && <Loader />}
-                {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-              </Button>
-              <HorizontalSeparatorDiv />
-              <ReactToPrint
-                documentTitle='P5000Sum'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                onBeforeGetContent={prepareContent}
-                trigger={() => (
-                  <Button
-                    variant='secondary'
-                    disabled={_printDialogOpen}
-                  >
-                    {_printDialogOpen && <Loader />}
-                    {t('ui:print')}
-                  </Button>
-                )}
-                content={() => componentRef.current}
-              />
-            </FlexEndDiv>
-          </Column>
-        </AlignEndRow>
-        <VerticalSeparatorDiv />
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column />
-          <Column style={{ textAlign: 'end' }}>
-            {sourceStatus !== 'rina' && (
-              <div style={{ whiteSpace: 'nowrap' }}>
-                <span>
-                  {t('p5000:saved-working-copy')}
-                </span>
-                <HorizontalSeparatorDiv size='0.5' />
-                <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
-                  {t('ui:hva-betyr-det')}
-                </Link>
-              </div>
-            )}
-          </Column>
-        </AlignEndRow>
-        <VerticalSeparatorDiv />
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column>
-            {featureToggles.P5000_UPDATES_VISIBLE && sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
-              <FlexBaseDiv>
-                <Button
-                  variant='secondary'
-                  disabled={gettingUft}
-                  onClick={hentUFT}
-                >
-                  {gettingUft && <Loader />}
-                  {gettingUft ? t('message:loading-uft') : t('p5000:hent-uft')}
-                </Button>
-                <HorizontalSeparatorDiv />
-                <HelpText placement='right'>
-                  <div style={{ maxWidth: '600px' }}>
-                    {t('p5000:help-uft')}
-                  </div>
-                </HelpText>
-              </FlexBaseDiv>
-            )}
-            {featureToggles.P5000_UPDATES_VISIBLE &&
-            (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
-            pesysContext === constants.VEDTAKSKONTEKST && (
-              <>
-                <FlexBaseDiv>
-                  <Button
-                    variant='secondary'
-                    disabled={requestingGjpBp}
-                    onClick={hentGjpBp}
-                  >
-                    {requestingGjpBp && <Loader />}
-                    {requestingGjpBp ? t('message:loading-gjpbp') : t('p5000:hent-gjpbp')}
-                  </Button>
-                  <HorizontalSeparatorDiv />
-                  <HelpText placement='right'>
-                    <div style={{ maxWidth: '600px' }}>
-                      {t('p5000:help-gjpbp')}
-                    </div>
-                  </HelpText>
-                </FlexBaseDiv>
-                {!_.isNil(gjpbpwarning) && (
-                  <>
-                    <VerticalSeparatorDiv />
-                    <Alert variant={gjpbpwarning.type}>{gjpbpwarning.message}</Alert>
-                  </>
-                )}
-              </>
-            )}
-          </Column>
-          <Column>
-            <Alert variant='warning'>
-              <FlexCenterDiv>
-                {t('p5000:warning-P5000Edit-instructions-li1')}
-                <HorizontalSeparatorDiv size='0.5' />
-                <HelpText>
-                  <div style={{ maxWidth: '600px' }}>
-                    <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
-                  </div>
-                </HelpText>
-              </FlexCenterDiv>
-            </Alert>
-          </Column>
-        </AlignEndRow>
-        <VerticalSeparatorDiv />
+        <P5000EditControls
+          items={_items}
+          caseId={caseId}
+          componentRef={componentRef}
+          ytelseOption={_ytelseOption}
+          setYtelseOption={_setYtelseOption}
+          forsikringEllerBosetningsperioder={_forsikringEllerBosetningsperioder}
+          setForsikringEllerBosetningsperioder={_setForsikringEllerBosetningsperioder}
+          itemsPerPage={_itemsPerPage}
+          onBackClick={onBackClick}
+          onSave={onSave}
+          performValidation={_performValidation}
+          p5000FromStorage={p5000FromStorage}
+          p5000FromRinaMap={p5000FromRinaMap}
+          p5000changed={sourceStatus !== 'rina'}
+          resetValidation={_resetValidation}
+          setItemsPerPage={_setItemsPerPage}
+          setRenderPrintTable={setRenderPrintTable}
+          validation={_validation}
+          sedId={seds[0].id}
+        />
+
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow, P5000TableContext>
