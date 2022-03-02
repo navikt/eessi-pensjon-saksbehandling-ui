@@ -60,16 +60,28 @@ export const generateKeyForListRow = (id: string, m: P5000Period): string => {
   return md5(key)
 }
 
-// Converts P5000 SED from Rina/storage into P5000 Overview / P5000 Edit table rows
-export const convertP5000SEDToP5000ListRows = (
-  seds: Seds,
-  context: P5000Context,
-  p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined,
-  mergePeriods: boolean,
-  mergePeriodTypes ?: Array<string>,
+export interface ConvertP5000SEDToP5000ListRowsProps {
+  seds: Seds
+  context: P5000Context
+  p5000FromRinaMap: P5000FromRinaMap
+  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
+  mergePeriods?: boolean
+  mergePeriodTypes ?: Array<string>
   useGermanRules ?: boolean
-): [P5000ListRows, P5000SourceStatus] => {
+  selectRowsContext: 'forCertainTypesOnly' | 'forAll'
+}
+
+// Converts P5000 SED from Rina/storage into P5000 Overview / P5000 Edit table rows
+export const convertP5000SEDToP5000ListRows = ({
+   seds,
+   context,
+   p5000FromRinaMap,
+   p5000FromStorage,
+   mergePeriods = false,
+   mergePeriodTypes,
+   useGermanRules = false,
+   selectRowsContext
+}: ConvertP5000SEDToP5000ListRowsProps): [P5000ListRows, P5000SourceStatus] => {
   let rows: P5000ListRows = []
   let sourceStatus: P5000SourceStatus = 'rina'
 
@@ -116,9 +128,13 @@ export const convertP5000SEDToP5000ListRows = (
           selected: period.selected,
           flagIkon: period.flagIkon,
           flag: period.flag,
-          selectDisabled: !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0,
+          selectDisabled: selectRowsContext === 'forCertainTypesOnly'
+             ? !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0
+             : false,
           selectLabel: !period.flagIkon
-            ? i18n.t('p5000:checkbox-text')
+            ? selectRowsContext === 'forCertainTypesOnly'
+              ? i18n.t('p5000:checkbox-text-for-edit')
+              : i18n.t('p5000:checkbox-text-for-pesys')
             : period.flagIkon === 'UFT'
               ? 'Uføretrygd periode'
               : 'Gjenlevendeytelse / Barnepensjon periode',
@@ -348,7 +364,8 @@ export const convertP5000SEDToP5000SumRows = (
     } else {
       sourceStatus = 'storage'
     }
-    const [res] = convertP5000SEDToP5000ListRows([sed], context, p5000FromRinaMap, p5000FromStorage, false)
+    const [res] = convertP5000SEDToP5000ListRows({
+      seds: [sed], context, p5000FromRinaMap, p5000FromStorage, selectRowsContext: 'forCertainTypesOnly'})
     const rinaPeriods1: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapTotal
     const rinaPeriods2: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.trygdetid
     const storagePeriods1: Array<P5000Period> | undefined = p5000FromStorage?.content.pensjon?.medlemskapTotal

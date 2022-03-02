@@ -19,7 +19,7 @@ export interface AppState {
 const initialFeatureToggles: FeatureToggles = {
   P4000_VISIBLE: false,
   P5000_SUMMER_VISIBLE: true,
-  P5000_UPDATES_VISIBLE: false,
+  P5000_UPDATES_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0,
   X010_X009_VISIBLE: true,

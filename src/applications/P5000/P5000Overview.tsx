@@ -20,7 +20,6 @@ import { convertP5000SEDToP5000ListRows } from './conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 
 export interface P5000OverviewSelector {
-  highContrast: boolean
   featureToggles: FeatureToggles
 }
 
@@ -32,7 +31,6 @@ export interface P5000OverviewProps {
 }
 
 const mapState = (state: State): P5000OverviewSelector => ({
-  highContrast: state.ui.highContrast,
   featureToggles: state.app.featureToggles
 })
 
@@ -51,11 +49,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [mergePeriods, setMergePeriods] = useState<boolean>(false)
   const [mergePeriodTypes, setMergePeriodTypes] = useState<Array<string> |undefined>(undefined)
   const [useGermanRules, setUseGermanRules] = useState<boolean>(true)
-  const [items] = convertP5000SEDToP5000ListRows(seds, context, p5000FromRinaMap, p5000FromStorage, mergePeriods, mergePeriodTypes, useGermanRules)
+  const [items] = convertP5000SEDToP5000ListRows({
+    seds, context, p5000FromRinaMap, p5000FromStorage, mergePeriods, mergePeriodTypes, useGermanRules, selectRowsContext: 'forAll'
+  })
 
   const [_activeTab, setActiveTab] = useState<number>(0)
   const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
-  const { highContrast, featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
+  const { featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
   const tabs = [{
     key: 'oversikt',
@@ -190,7 +190,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     })
   }
 
-  const tableKey: string = 'table-' + itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '_merge' + mergePeriods +
+  const tableKey: string = 'table-' + itemsPerPage + '_merge' + mergePeriods +
     '_mergetype' + (mergePeriodTypes?.join(':') ?? '') + '_useGerman' + useGermanRules
 
   return (
@@ -224,7 +224,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             <Table<P5000ListRow>
               key={'P5000Overview-' + tableKey}
               animatable={false}
-              highContrast={highContrast}
               items={items}
               id='P5000Overview'
               labels={{
@@ -255,7 +254,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             <Table<P5000ListRow>
               key={'P5000Pesys-' + tableKey}
               animatable={false}
-              highContrast={highContrast}
               items={items}
               id='P5000Pesys'
               labels={{

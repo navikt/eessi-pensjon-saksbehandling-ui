@@ -6,7 +6,7 @@ import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { AllowedLocaleString, BUCMode, Entries, FeatureToggles, LocalStorageEntry } from 'declarations/app'
+import { BUCMode, Entries, FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { Buc, P5000FromRinaMap, Sed, Seds } from 'declarations/buc'
 import { EmptyPeriodsReport, P5000Context, P5000SED, SedSender } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -32,14 +32,12 @@ export interface P5000Props {
 
 export interface P5000Selector {
   featureToggles: FeatureToggles
-  locale: AllowedLocaleString
   p5000FromRinaMap: P5000FromRinaMap
   storageEntries: Entries
 }
 
 const mapState = (state: State): P5000Selector => ({
   featureToggles: state.app.featureToggles,
-  locale: state.ui.locale,
   p5000FromRinaMap: state.p5000.p5000FromRinaMap,
   storageEntries: state.localStorage.entries
 })
@@ -50,31 +48,74 @@ const P5000: React.FC<P5000Props> = ({
   mainSed = undefined,
   setMode
 }: P5000Props): JSX.Element => {
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const {
     featureToggles, p5000FromRinaMap, storageEntries
   }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
+  /* for drag & drop placeholder */
   const [placeholderProps, setPlaceholderProps] = useState<any>({})
+  /* which seds should be visible */
   const [_activeSeds, _setActiveSeds] = useState<Seds>([])
+  /* are we fetching P5000s from RINA */
   const [_fetchingP5000, _setFetchingP5000] = useState<Seds | undefined>(undefined)
+  /* are we ready to shoew the page */
   const [_ready, _setReady] = useState<boolean>(false)
+  /* SEDs that will be used for the P5000 page */
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
+
+  const getLabel = (sed: Sed) => {
+    const sender: SedSender | undefined = getSedSender(sed)
+    return (
+      <FlexCenterDiv style={{flexWrap: 'wrap'}}>
+      <span>
+        {t('buc:form-dateP5000', {date: sender?.date})}
+      </span>
+        <SeparatorSpan>-</SeparatorSpan>
+        {sender
+          ? (
+            <FlexCenterDiv>
+              <Flag
+                animate
+                country={sender?.country}
+                label={sender?.countryLabel}
+                size='XS'
+                type='circle'
+                wave={false}
+              />
+              <HorizontalSeparatorDiv size='0.2'/>
+              <span>{sender?.countryLabel}</span>
+              <SeparatorSpan>-</SeparatorSpan>
+              <span>{sender?.institution}</span>
+              <SeparatorSpan>-</SeparatorSpan>
+              <SEDStatus
+                status={sed.status}
+              />
+            </FlexCenterDiv>
+          )
+          : sed.id}
+        {emptyPeriodReport[sed.id] && (
+          <>
+            <HorizontalSeparatorDiv size='0.5'/>
+            <Warning/>
+          </>
+        )}
+      </FlexCenterDiv>
+    )
+  }
 
   const renderP5000EditHeader = () => {
     if (!mainSed) return null
-    const sender: SedSender | undefined = getSedSender(mainSed)
-
     return (
       <FlexCenterDiv>
-        <Heading size='small' style={{ display: 'flex' }}>
+        <Heading size='small' style={{display: 'flex'}}>
           {t('p5000:edit-title')}
         </Heading>
-        <HorizontalSeparatorDiv />
+        <HorizontalSeparatorDiv/>
         -
-        <HorizontalSeparatorDiv />
-        {getLabel(mainSed, sender)}
+        <HorizontalSeparatorDiv/>
+        {getLabel(mainSed)}
       </FlexCenterDiv>
     )
   }
@@ -85,7 +126,7 @@ const P5000: React.FC<P5000Props> = ({
       <P5000Edit
         caseId={buc.caseId!}
         onBackClick={onBackClick}
-        key={'P5000Edit-' + mainSed.id + '-context-' + context + '-version-' + p5000FromStorage?.date}
+        key={'P5000-Edit-' + mainSed.id + '-Context-' + context + '-Version-' + p5000FromStorage?.date}
         p5000FromRinaMap={p5000FromRinaMap}
         p5000FromStorage={p5000FromStorage}
         saveP5000ToStorage={saveP5000ToStorage}
@@ -155,9 +196,9 @@ const P5000: React.FC<P5000Props> = ({
 
   const [_tables, _setTables] = useState<Array<any>>(
     [
-      { id: 'P5000Edit', content: <div> </div>, header: <div> </div> },
-      { id: 'P5000Sum', content: <div> </div>, header: <div> </div> },
-      { id: 'P5000Overview', content: <div> </div>, header: <div> </div> }
+      {id: 'P5000Edit', content: <div></div>, header: <div></div>},
+      {id: 'P5000Sum', content: <div></div>, header: <div></div>},
+      {id: 'P5000Overview', content: <div></div>, header: <div></div>}
     ])
 
   useEffect(() => {
@@ -205,11 +246,11 @@ const P5000: React.FC<P5000Props> = ({
       return
     }
 
-    const { clientHeight, clientWidth } = draggedDOM
+    const {clientHeight, clientWidth} = draggedDOM
     const sourceIndex = event.source.index
     // @ts-ignore
     const clientY = parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
-    // @ts-ignore
+      // @ts-ignore
       [...draggedDOM.parentNode.children]
         .slice(0, sourceIndex)
         .reduce((total, curr) => {
@@ -218,7 +259,7 @@ const P5000: React.FC<P5000Props> = ({
           return total + curr.clientHeight + marginBottom
         }, 0)
 
-    const { content } = _tables.find((element) => element.id === event.draggableId)
+    const {content} = _tables.find((element) => element.id === event.draggableId)
 
     setPlaceholderProps({
       clientContent: content,
@@ -240,7 +281,7 @@ const P5000: React.FC<P5000Props> = ({
     if (!draggedDOM) {
       return
     }
-    const { clientHeight, clientWidth } = draggedDOM
+    const {clientHeight, clientWidth} = draggedDOM
     const destinationIndex = event.destination.index
     const sourceIndex = event.source.index
 
@@ -263,7 +304,7 @@ const P5000: React.FC<P5000Props> = ({
         return total + curr.clientHeight + marginBottom
       }, 0)
 
-    const { content } = _tables.find((element) => element.id === event.draggableId)
+    const {content} = _tables.find((element) => element.id === event.draggableId)
 
     setPlaceholderProps({
       clientContent: content,
@@ -331,13 +372,13 @@ const P5000: React.FC<P5000Props> = ({
   }
 
   const renderBackLink = () => (
-    <div style={{ display: 'inline-block' }}>
+    <div style={{display: 'inline-block'}}>
       <Button
         variant='secondary'
         onClick={onBackClick}
       >
-        <BackFilled />
-        <HorizontalSeparatorDiv size='0.25' />
+        <BackFilled/>
+        <HorizontalSeparatorDiv size='0.25'/>
         <span>
           {t('ui:back')}
         </span>
@@ -365,12 +406,12 @@ const P5000: React.FC<P5000Props> = ({
                   padding: '0px'
                 }}
               >
-                <Panel border style={{ padding: '0px' }}>
-                  <Accordion style={{ borderRadius: '4px' }} id={'a-buc-c-' + table.id}>
+                <Panel border style={{padding: '0px'}}>
+                  <Accordion style={{borderRadius: '4px'}} id={'a-buc-c-' + table.id}>
                     <Accordion.Item defaultOpen renderContentWhenClosed>
                       <FlexDiv>
-                        <div style={{ padding: '1.5rem 1rem' }} {...provided.dragHandleProps}>
-                          <System />
+                        <div style={{padding: '1.5rem 1rem'}} {...provided.dragHandleProps}>
+                          <System/>
                         </div>
                         <Accordion.Header>
                           {table.header}
@@ -385,11 +426,11 @@ const P5000: React.FC<P5000Props> = ({
               </div>
             )}
           </Draggable>
-          <VerticalSeparatorDiv size='2' />
+          <VerticalSeparatorDiv size='2'/>
         </>
       )
     } else {
-      return <div />
+      return <div/>
     }
   }
 
@@ -419,44 +460,6 @@ const P5000: React.FC<P5000Props> = ({
   const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
   const warning = hasEmptyPeriods(emptyPeriodReport)
 
-  const getLabel = (sed: Sed, sender: SedSender | undefined) => (
-    (
-      <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
-        <span>
-          {t('buc:form-dateP5000', { date: sender?.date })}
-        </span>
-        <SeparatorSpan>-</SeparatorSpan>
-        {sender
-          ? (
-            <FlexCenterDiv>
-              <Flag
-                animate
-                country={sender?.country}
-                label={sender?.countryLabel}
-                size='XS'
-                type='circle'
-                wave={false}
-              />
-              <HorizontalSeparatorDiv size='0.2' />
-              <span>{sender?.countryLabel}</span>
-              <SeparatorSpan>-</SeparatorSpan>
-              <span>{sender?.institution}</span>
-              <SeparatorSpan>-</SeparatorSpan>
-              <SEDStatus
-                status={sed.status}
-              />
-            </FlexCenterDiv>
-            )
-          : sed.id}
-        {emptyPeriodReport[sed.id] && (
-          <>
-            <HorizontalSeparatorDiv size='0.5' />
-            <Warning />
-          </>
-        )}
-      </FlexCenterDiv>
-    )
-  )
 
   // this effect checks if we need to load seds, when buc/sed/context changes
   useEffect(() => {
@@ -468,9 +471,7 @@ const P5000: React.FC<P5000Props> = ({
     if (!_.isEmpty(notloadedSeds)) {
       _setReady(false)
       _setFetchingP5000(notloadedSeds)
-      notloadedSeds.forEach(sed => {
-        dispatch(getSed(buc.caseId!, sed))
-      })
+      notloadedSeds.forEach(sed => dispatch(getSed(buc.caseId!, sed)))
     } else {
       if (seds) {
         updateActiveSeds(seds)
@@ -522,26 +523,17 @@ const P5000: React.FC<P5000Props> = ({
               {t('p5000:active-seds')}:
             </BodyLong>
             <VerticalSeparatorDiv size='0.5' />
-            {_seds?.map(sed => {
-              const sender: SedSender | undefined = getSedSender(sed)
-              const label: JSX.Element = getLabel(sed, sender)
-              return (
-                <div key={sed.id}>
-                  <Checkbox
-                    size='small'
-                    data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                    checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
-                    key={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                    id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSed(sed, e.target.checked)}
-
-                  >
-                    {label}
-                  </Checkbox>
-                  <VerticalSeparatorDiv size='0.5' />
-                </div>
-              )
-            })}
+            {_seds?.map(sed => (
+              <Checkbox
+                data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
+                key={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSed(sed, e.target.checked)}
+              >
+                {getLabel(sed)}
+              </Checkbox>
+            ))}
           </PileDiv>
         </Column>
         <Column>

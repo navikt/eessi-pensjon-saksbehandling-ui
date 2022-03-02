@@ -80,7 +80,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
-  const [_items, sourceStatus] = convertP5000SEDToP5000ListRows(seds, 'edit', p5000FromRinaMap, p5000FromStorage, false)
+  const [_items, sourceStatus] = convertP5000SEDToP5000ListRows({
+    seds,
+    context: 'edit',
+    p5000FromRinaMap,
+    p5000FromStorage,
+    selectRowsContext: 'forCertainTypesOnly'
+  })
   const [renderPrintTable, setRenderPrintTable] = useState<boolean>(false)
 
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(() =>
@@ -549,7 +555,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderDateCell = (item: P5000ListRow, value: any) => (
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
-
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext) => {
     const startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')

@@ -10,7 +10,6 @@ import Table from '@navikt/tabell'
 import P5000Overview, { P5000OverviewProps, P5000OverviewSelector } from './P5000Overview'
 
 const defaultSelector: P5000OverviewSelector = {
-  highContrast: false,
   featureToggles: mockFeatureToggles
 }
 
