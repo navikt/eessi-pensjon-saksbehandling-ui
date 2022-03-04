@@ -92,7 +92,8 @@ export default {
       enkeltkrav: null
     }],
     medlemskapAnnen: null,
-    medlemskapTotal: [{
+    medlemskapTotal: [
+      {
       relevans: '010',
       ordning: null,
       land: null,
@@ -113,7 +114,8 @@ export default {
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
-    }, {
+    },
+      {
       relevans: '010',
       ordning: null,
       land: null,
@@ -134,7 +136,8 @@ export default {
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
-    }, {
+    },
+      {
       relevans: '010',
       ordning: null,
       land: null,
@@ -155,7 +158,8 @@ export default {
       informasjonskalkulering: null,
       periode: null,
       enkeltkrav: null
-    }, {
+    },
+      {
       relevans: '010',
       ordning: null,
       land: null,
@@ -183,9 +187,10 @@ export default {
         datoFrist: null,
         krav: '20'
       },
-      medlemskap: [{
+      medlemskap: [
+        {
         relevans: null,
-        ordning: null,
+        ordning: '00',
         land: null,
         sum: {
           kvartal: null,
@@ -197,19 +202,20 @@ export default {
           },
           maaneder: '00'
         },
-        yrke: null,
+        yrke: '0000',
         gyldigperiode: null,
         type: '10',
-        beregning: '010',
+        beregning: '000',
         informasjonskalkulering: null,
         periode: {
           fom: '1906-01-01',
           tom: '1906-12-31'
         },
         enkeltkrav: null
-      }, {
-        relevans: null,
-        ordning: null,
+      },
+      {
+        relevans: '001',
+        ordning: '01',
         land: null,
         sum: {
           kvartal: null,
@@ -221,19 +227,20 @@ export default {
           },
           maaneder: '00'
         },
-        yrke: null,
+        yrke: '0001',
         gyldigperiode: null,
         type: '10',
-        beregning: '010',
+        beregning: '001',
         informasjonskalkulering: null,
         periode: {
           fom: '1907-01-01',
           tom: '1907-12-31'
         },
         enkeltkrav: null
-      }, {
-        relevans: null,
-        ordning: null,
+      },
+      {
+        relevans: '010',
+        ordning: '02',
         land: null,
         sum: {
           kvartal: null,
@@ -245,7 +252,7 @@ export default {
           },
           maaneder: '00'
         },
-        yrke: null,
+        yrke: '0002',
         gyldigperiode: null,
         type: '11',
         beregning: '010',
@@ -255,9 +262,10 @@ export default {
           tom: '1908-12-31'
         },
         enkeltkrav: null
-      }, {
-        relevans: null,
-        ordning: null,
+      },
+      {
+        relevans: '011',
+        ordning: '03',
         land: null,
         sum: {
           kvartal: null,
@@ -267,21 +275,22 @@ export default {
             nr: '00',
             type: '7'
           },
-          maaneder: '05'
+          maaneder: '06'
         },
-        yrke: null,
+        yrke: '0003',
         gyldigperiode: null,
         type: '11',
-        beregning: '010',
+        beregning: '011',
         informasjonskalkulering: null,
         periode: {
           fom: '1909-01-01',
           tom: '1909-12-31'
         },
         enkeltkrav: null
-      }, {
-        relevans: null,
-        ordning: null,
+      },
+      {
+        relevans: '100',
+        ordning: '04',
         land: null,
         sum: {
           kvartal: null,
@@ -296,7 +305,7 @@ export default {
         yrke: null,
         gyldigperiode: null,
         type: '13',
-        beregning: '010',
+        beregning: '100',
         informasjonskalkulering: null,
         periode: {
           fom: '1910-01-01',

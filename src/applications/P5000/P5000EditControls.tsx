@@ -176,6 +176,14 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
     }
   }
 
+  const cleanPeriod = (period: P5000Period) => {
+    delete period.key
+    delete period.selected
+    delete period.flag
+    delete period.flagIkon
+    delete period.sedId
+  }
+
   const handleOverforTilRina = () => {
     let p5000template: P5000SED | undefined = p5000FromStorage?.content
     if (_.isUndefined(p5000template)) {
@@ -189,26 +197,17 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       const payload: P5000SED = _.cloneDeep(p5000template) as P5000SED
       payload.pensjon.medlemskapTotal?.forEach((p, i) => {
         const period = _.cloneDeep(p)
-        delete period.key
-        delete period.selected
-        delete period.flag
-        delete period.flagIkon
+        cleanPeriod(period)
         payload.pensjon.medlemskapTotal[i] = period
       })
       payload.pensjon.trygdetid?.forEach((p, i) => {
         const period = _.cloneDeep(p)
-        delete period.key
-        delete period.selected
-        delete period.flag
-        delete period.flagIkon
+        cleanPeriod(period)
         payload.pensjon.trygdetid[i] = period
       })
       payload.pensjon.medlemskapboarbeid.medlemskap?.forEach((p, i) => {
         const period = _.cloneDeep(p)
-        delete period.key
-        delete period.selected
-        delete period.flag
-        delete period.flagIkon
+        cleanPeriod(period)
         payload.pensjon.medlemskapboarbeid.medlemskap[i] = period
       })
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
@@ -398,6 +397,24 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         open={_showHelpModal}
         onClose={() => _setShowHelpModal(false)}
       />
+      <AlignEndRow style={{width: '100%'}}>
+        <Column/>
+        <Column flex='2'>
+          <Alert variant='warning'>
+          <FlexCenterDiv>
+            {t('p5000:warning-P5000Edit-instructions-li1')}
+            <HorizontalSeparatorDiv size='0.5' />
+            <HelpText>
+              <div style={{ maxWidth: '600px' }}>
+                <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
+              </div>
+            </HelpText>
+          </FlexCenterDiv>
+        </Alert>
+        </Column>
+        <Column/>
+      </AlignEndRow>
+      <VerticalSeparatorDiv/>
       <AlignEndRow style={{ width: '100%' }}>
         <Column>
           <FullWidthDiv>
@@ -560,22 +577,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             </>
           )}
         </Column>
-        <Column>
-          <Alert variant='warning'>
-            <FlexCenterDiv>
-              {t('p5000:warning-P5000Edit-instructions-li1')}
-              <HorizontalSeparatorDiv size='0.5' />
-              <HelpText>
-                <div style={{ maxWidth: '600px' }}>
-                  <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
-                </div>
-              </HelpText>
-            </FlexCenterDiv>
-          </Alert>
-        </Column>
+        <Column/>
       </AlignEndRow>
-      <VerticalSeparatorDiv />
-      </>
+    </>
   )
 }
 

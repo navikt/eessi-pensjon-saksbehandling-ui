@@ -22,7 +22,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import Table from '@navikt/tabell'
+import Table, { RenderOptions } from '@navikt/tabell'
 import md5 from 'md5'
 import { Delete, SightFilled } from '@navikt/ds-icons'
 
@@ -125,7 +125,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const renderButtonsCell = (item: JoarkBrowserItem, value: any, context: JoarkBrowserContext | undefined): JSX.Element => {
+  const renderButtonsCell = ({item, context}: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, any>): JSX.Element => {
     if (item.hasSubrows) {
       return <div />
     }
@@ -372,7 +372,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             id: 'tema',
             label: t('ui:tema'),
             type: 'string',
-            renderCell: (item: any, value: any) => <Label>{value}</Label>
+            render: ({value} :RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
           }, {
             id: 'title',
             label: t('ui:title'),
@@ -386,7 +386,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             id: 'buttons',
             label: '',
             type: 'object',
-            renderCell: renderButtonsCell
+            render: renderButtonsCell
           }
         ]}
         onRowSelectChange={onRowSelectChange}

@@ -24,7 +24,7 @@ import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import Table, { RenderEditableOptions, Sort } from '@navikt/tabell'
+import Table, { RenderEditableOptions, Column as TableColumn, RenderOptions, Sort } from '@navikt/tabell'
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from './conversion'
 
 export interface P5000SumProps {
@@ -72,13 +72,13 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     _setRenderPrintTable(false)
   }
 
-  const renderType = (item: any, value: any) => (
+  const renderType = ({value} :RenderOptions<P5000SumRow>) => (
     <BodyLong>
       {(typePeriode as Labels)[value] + ' [' + value + ']'}
     </BodyLong>
   )
 
-  const renderTypeEdit = (options: RenderEditableOptions) => (
+  const renderTypeEdit = (options: RenderEditableOptions<P5000SumRow>) => (
     <div style={{ minWidth: '200px' }}>
       <Select
         key={'c-table__edit-type-select-key-' + options.value}
@@ -94,7 +94,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     </div>
   )
 
-  const renderStatus = (item: any, value: any) => {
+  const renderStatus = ({value} :RenderOptions<P5000SumRow> | RenderEditableOptions<P5000SumRow>) => {
     if (value === 'rina') {
       return <Tag size='small' variant='info'>RINA</Tag>
     }
@@ -107,22 +107,22 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     return <div />
   }
 
-  let columns = [
+  let columns: Array<TableColumn<P5000SumRow>> = [
     {
       id: 'status',
       label: t('ui:status'),
       type: 'string',
-      renderCell: renderStatus,
+      render: renderStatus,
       edit: {
         defaultValue: 'new',
-        render: () => <div />
+        render: renderStatus
       }
     },
     {
       id: 'type',
       label: t('ui:type'),
       type: 'string',
-      renderCell: renderType,
+      render: renderType,
       edit: {
         render: renderTypeEdit,
         validation: [{
@@ -181,31 +181,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     <>
       <PileCenterDiv>
         <AlignEndRow style={{ width: '100%' }}>
-          <Column />
-          <Column>
-            <FlexEndSpacedDiv style={{ flexDirection: 'row-reverse' }}>
-              <ReactToPrint
-                documentTitle='P5000Sum'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                onBeforeGetContent={prepareContent}
-                trigger={() =>
-                  <Button
-                    variant='secondary'
-                    disabled={_printDialogOpen}
-                  >
-                    {_printDialogOpen && <Loader />}
-                    {t('ui:print')}
-                  </Button>}
-                content={() => {
-                  return componentRef.current
-                }}
-              />
-            </FlexEndSpacedDiv>
-          </Column>
-        </AlignEndRow>
-        <VerticalSeparatorDiv />
-        <AlignEndRow style={{ width: '100%' }}>
+          <Column/>
           <Column flex='2'>
             {sakType === SakTypeMap.GJENLEV && (
               <>
@@ -264,6 +240,31 @@ const P5000Sum: React.FC<P5000SumProps> = ({
             )}
           </Column>
           <Column />
+        </AlignEndRow>
+        <VerticalSeparatorDiv/>
+        <AlignEndRow style={{ width: '100%' }}>
+          <Column />
+          <Column>
+            <FlexEndSpacedDiv style={{ flexDirection: 'row-reverse' }}>
+              <ReactToPrint
+                documentTitle='P5000Sum'
+                onAfterPrint={afterPrintOut}
+                onBeforePrint={beforePrintOut}
+                onBeforeGetContent={prepareContent}
+                trigger={() =>
+                  <Button
+                    variant='secondary'
+                    disabled={_printDialogOpen}
+                  >
+                    {_printDialogOpen && <Loader />}
+                    {t('ui:print')}
+                  </Button>}
+                content={() => {
+                  return componentRef.current
+                }}
+              />
+            </FlexEndSpacedDiv>
+          </Column>
         </AlignEndRow>
         <VerticalSeparatorDiv />
         <HorizontalLineSeparator />

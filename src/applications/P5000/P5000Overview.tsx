@@ -1,12 +1,13 @@
 import { BodyLong, Tag } from '@navikt/ds-react'
 import { HiddenDiv, HighContrastTabs, PileCenterDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import CountryData from '@navikt/land-verktoy'
-import Table, { Sort } from '@navikt/tabell'
+import Table, { Column, ColumnAlign, RenderEditableOptions, RenderOptions, Sort } from '@navikt/tabell'
 import Tooltip from '@navikt/tooltip'
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
+import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { P5000FromRinaMap, Seds } from 'declarations/buc'
-import { P5000Context, P5000ListRow, P5000SED } from 'declarations/p5000'
+import { P5000Context, P5000ListRow, P5000SED, P5000SourceStatus } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
@@ -44,17 +45,23 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const { t } = useTranslation()
   const componentRef = useRef(null)
   const countryInstance = CountryData.getCountryInstance('nb')
+
   const [itemsPerPage, setItemsPerPage] = useState<number>(30)
   const [renderPrintTable, setRenderPrintTable] = useState<boolean>(false)
   const [mergePeriods, setMergePeriods] = useState<boolean>(false)
-  const [mergePeriodTypes, setMergePeriodTypes] = useState<Array<string> |undefined>(undefined)
+  const [mergePeriodTypes, setMergePeriodTypes] = useState<Array<string> | undefined>(undefined)
+  const [mergePeriodBeregnings, setMergePeriodBeregnings] = useState<Array<string> | undefined>(undefined)
   const [useGermanRules, setUseGermanRules] = useState<boolean>(true)
-  const [items] = convertP5000SEDToP5000ListRows({
-    seds, context, p5000FromRinaMap, p5000FromStorage, mergePeriods, mergePeriodTypes, useGermanRules, selectRowsContext: 'forAll'
-  })
-
   const [_activeTab, setActiveTab] = useState<number>(0)
-  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
+  const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
+  const [items]: [Array<P5000ListRow>, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
+    seds, context, p5000FromRinaMap, p5000FromStorage, mergePeriods,
+    mergePeriodTypes, mergePeriodBeregnings, useGermanRules, selectRowsContext: 'forAll'
+  })
+  const itemsForPesys = _.reject(items, (it: P5000ListRow) => it.beregning === '000')
+  const [pesysWarning, ] = useState<string | undefined>(() =>
+    (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', {x: (items.length - itemsForPesys.length)}) : undefined))
+
   const { featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
   const tabs = [{
@@ -65,15 +72,15 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     label: 'Eksporter til Pesys'
   }]
 
-  const renderDateCell = (item: P5000ListRow, value: any) => (
+  const renderDate = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
-  const renderType = (item: any, value: any) => (
+  const renderType = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
-          {_.get(typePeriode, value.startsWith('0') ? value : parseInt(value))}
+          {value ? _.get(typePeriode, value) : ''}
         </div>
       )}
     >
@@ -83,11 +90,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderYtelse = (item: any, value: any) => (
+  const renderYtelse =  ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
-          {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
+          {value ? _.get(relevantForYtelse, value) : ''}
         </div>
       )}
     >
@@ -97,11 +104,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderBeregning = (item: any, value: any) => (
+  const renderBeregning = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
-          {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
+          {value ? _.get(informasjonOmBeregning, value) : ''}
         </div>
       )}
     >
@@ -111,11 +118,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderOrdning = (item: any, value: any) => (
+  const renderOrdning = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
-        <div style={{ maxWidth: '300px' }}>
-          {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
+        <div style={{maxWidth: '300px'}}>
+          {value ? _.get(ordning, value) : ''}
         </div>
       )}
     >
@@ -125,11 +132,15 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderDagCell = (item: P5000ListRow) => (
-    <BodyLong>{(item.dag === '' || item.dag === '0') ? '' : item.dag + '/' + item.dagtype}</BodyLong>
+  const renderCell = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string>) => (
+    <BodyLong>{value}</BodyLong>
   )
 
-  const renderStatus = (item: any, value: any) => {
+  const renderDag = ({item}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
+    <BodyLong>{(item?.dag === '' || item?.dag === '0') ? '' : item?.dag + '/' + item?.dagtype}</BodyLong>
+  )
+
+  const renderStatus = ({value}: RenderOptions<P5000ListRow, P5000Context, string>) => {
     if (value === 'rina') {
       return <Tag size='small' variant='info'>RINA</Tag>
     }
@@ -142,46 +153,49 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return <div />
   }
 
-  const renderLand = (item: any, value: any) => {
+  const renderLand = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => {
     if (_.isEmpty(value)) {
       return <div>-</div>
     }
     return <div>{countryInstance.findByValue(value)?.label}</div>
   }
 
-  let columns = [
-    { id: 'status', label: t('ui:status'), type: 'string', renderCell: renderStatus },
-    { id: 'land', label: t('ui:country'), type: 'string', renderCell: renderLand },
+  let columns: Array<Column<P5000ListRow, P5000Context>> = [
+    { id: 'status', label: t('ui:status'), type: 'string', render: renderStatus },
+    { id: 'land', label: t('ui:country'), type: 'string', render: renderLand, edit: {render: renderLand} },
     { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-    { id: 'type', label: t('ui:type'), type: 'string', renderCell: renderType },
+    { id: 'type', label: t('ui:type'), type: 'string', align: 'center' as ColumnAlign, render: renderType, edit: {render: renderType} },
     {
       id: 'startdato',
       label: t('ui:startDate'),
       type: 'date',
-      renderCell: renderDateCell
+      render: renderDate
     },
     {
       id: 'sluttdato',
       label: t('ui:endDate'),
       type: 'date',
-      renderCell: renderDateCell
+      render: renderDate
     },
-    { id: 'aar', label: t('ui:year'), type: 'string' },
-    { id: 'mnd', label: t('ui:month'), type: 'string' },
+    { id: 'aar', label: t('ui:year'), type: 'string', align: 'center' as ColumnAlign, edit: {render: renderCell}},
+    { id: 'mnd', label: t('ui:month'), type: 'string', align: 'center' as ColumnAlign, edit: {render: renderCell}},
     {
       id: 'dag',
       label: t('ui:days') + '/' + t('ui:unit'),
+      align: 'center',
       type: 'string',
-      renderCell: renderDagCell
+      render: renderDag,
+      edit: {render: renderDag}
     },
-    { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string', renderCell: renderYtelse },
-    { id: 'ordning', label: t('ui:scheme'), type: 'string', renderCell: renderOrdning },
-    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', renderCell: renderBeregning }
+    { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string', align: 'center' as ColumnAlign, render: renderYtelse, edit: {render: renderYtelse} },
+    { id: 'ordning', label: t('ui:scheme'), type: 'string', align: 'center' as ColumnAlign, render: renderOrdning, edit: {render: renderOrdning} },
+    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' as ColumnAlign, render: renderBeregning, edit: {render: renderBeregning} }
   ]
 
   if (context === 'overview' || tabs[_activeTab].key === 'pesys') {
     columns.splice(0, 1) // remove status column for 'see P5000' button press, or for Pesys export view
   }
+
   if (tabs[_activeTab].key === 'pesys') {
     columns = columns.concat({
       id: 'buttons',
@@ -191,7 +205,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   }
 
   const tableKey: string = 'table-' + itemsPerPage + '_merge' + mergePeriods +
-    '_mergetype' + (mergePeriodTypes?.join(':') ?? '') + '_useGerman' + useGermanRules
+    '_mergetype' + (mergePeriodTypes?.join(':') ?? '') +
+    '_mergeberegning' + (mergePeriodBeregnings?.join(':') ?? '') +
+    '_useGerman' + useGermanRules
 
   return (
     <>
@@ -204,13 +220,19 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           setMergePeriods={setMergePeriods}
           mergePeriodTypes={mergePeriodTypes}
           setMergePeriodTypes={setMergePeriodTypes}
+          mergePeriodBeregnings={mergePeriodBeregnings}
+          setMergePeriodBeregnings={setMergePeriodBeregnings}
           setRenderPrintTable={setRenderPrintTable}
           useGermanRules={useGermanRules}
           setUseGermanRules={setUseGermanRules}
           itemsPerPage={itemsPerPage}
           setItemsPerPage={setItemsPerPage}
           items={items}
+          pesysWarning={pesysWarning}
+          currentTabKey={tabs[_activeTab].key}
         />
+        <HorizontalLineSeparator />
+        <VerticalSeparatorDiv />
         {featureToggles.P5000_UPDATES_VISIBLE && (
           <P5000Tabs
             tabs={tabs}
@@ -221,7 +243,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         {tabs[_activeTab].key === 'oversikt' && (
           <>
             <VerticalSeparatorDiv />
-            <Table<P5000ListRow>
+            <Table<P5000ListRow, P5000Context>
               key={'P5000Overview-' + tableKey}
               animatable={false}
               items={items}
@@ -251,10 +273,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         {tabs[_activeTab].key === 'pesys' && (
           <>
             <VerticalSeparatorDiv />
-            <Table<P5000ListRow>
+            <Table<P5000ListRow, P5000Context>
               key={'P5000Pesys-' + tableKey}
               animatable={false}
-              items={items}
+              items={itemsForPesys}
               id='P5000Pesys'
               labels={{
                 selectAllTitle: 'Til Pesys',
@@ -281,11 +303,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             <VerticalSeparatorDiv />
           </>
         )}
-
         {renderPrintTable && (
           <HiddenDiv>
             <div ref={componentRef} id='printJS-form'>
-              <Table<P5000ListRow>
+              <Table<P5000ListRow, P5000Context>
                 // important to it re-renders when sorting changes
                 key={JSON.stringify(_tableSort)}
                 className='print-version'

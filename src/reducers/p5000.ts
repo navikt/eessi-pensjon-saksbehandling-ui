@@ -18,23 +18,26 @@ export const initialP5000State: P5000State = {
   gjpbpwarning: undefined
 }
 
-const fillWithKeys = (payload: any, sedid: string) => {
+const fillWithKeys = (payload: any, sedId: string) => {
   payload?.pensjon?.medlemskapboarbeid?.medlemskap?.forEach((p: P5000Period, index: number) => {
     payload.pensjon.medlemskapboarbeid.medlemskap[index] = {
       ...p,
-      key: generateKeyForListRow(sedid, p)
+      key: generateKeyForListRow(sedId, p),
+      sedId
     }
   })
   payload?.pensjon?.trygdetid?.forEach((p: P5000Period, index: number) => {
     payload.pensjon.trygdetid[index] = {
       ...p,
-      key: generateKeyForListRow(sedid, p)
+      key: generateKeyForListRow(sedId, p),
+      sedId
     }
   })
   payload?.pensjon?.medlemskapTotal?.forEach((p: P5000Period, index: number) => {
     payload.pensjon.medlemskapTotal[index] = {
       ...p,
-      key: generateKeyForListRow(sedid, p)
+      key: generateKeyForListRow(sedId, p),
+      sedId
     }
   })
 }

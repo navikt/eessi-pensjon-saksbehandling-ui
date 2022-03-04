@@ -22,10 +22,13 @@ export interface P5000PeriodInterval {
 }
 
 export interface P5000Period {
+  /** added */
   key ?: string
   selected ?: boolean
   flag ?: boolean
   flagIkon ?: any
+  sedId ?: string
+  /** end added */
   relevans : string | null
   ordning? : string | null
   land : string | null

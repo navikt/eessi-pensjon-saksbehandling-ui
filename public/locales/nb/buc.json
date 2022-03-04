@@ -65,11 +65,6 @@
 
   "buc-M040" : "Krav om førtidspensjon",
 
-  "buccrumb-home"   : "Hjem",
-  "buccrumb-newbuc" : "Start ny BUC",
-  "buccrumb-newsed" : "Bestill ny SED",
-
-
   "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-andre-seder"                  : "Andre SED-er",
   "form-avdod"                        : "Avdød",
@@ -142,6 +137,7 @@
   "form-selectAgainAttachments"       : "Velg igjen vedlegg",
   "form-sender"                       : "Avsender",
   "form-send-to-RINA"                 : "Overfør til RINA",
+  "form-send-to-PESYS"                : "Overfør til PESYS",
   "form-senderreceiver"               : "Mottaker/avsender",
   "form-søker"                        : "Bruker",
   "form-status"                       : "Status",

@@ -1,20 +1,24 @@
-import { BodyLong, Button, HelpText, Loader, Select, Switch } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, HelpText, Loader, Select, Switch } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
   FlexCenterDiv,
   FlexEndDiv,
   HorizontalSeparatorDiv,
+  Row,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
+import { informasjonOmBeregningLabels, typePeriode } from 'applications/P5000/P5000.labels'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { OneLineSpan } from 'components/StyledComponents'
 import { FeatureToggles, Option } from 'declarations/app'
 import { P5000ListRow, P5000ListRows } from 'declarations/p5000'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 
 export interface P5000OverviewControlsProps {
@@ -25,12 +29,24 @@ export interface P5000OverviewControlsProps {
   setRenderPrintTable: (b: boolean) => void
   mergePeriodTypes: Array<string> | undefined
   setMergePeriodTypes: (a: Array<string> | undefined) => void
+  mergePeriodBeregnings: Array<string> | undefined
+  setMergePeriodBeregnings: (a: Array<string> | undefined) => void
   useGermanRules: boolean
   setUseGermanRules: (b: boolean) => void
   itemsPerPage: number
+  currentTabKey: string
+  pesysWarning: string | undefined
   setItemsPerPage: (b: number) => void
   items: P5000ListRows
 }
+
+export interface P5000OverviewControlsSelector {
+  sendingToPesys: boolean
+}
+
+const mapState = (state: State): P5000OverviewControlsSelector => ({
+  sendingToPesys: state.loading.sendingToPesys
+})
 
 const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   componentRef,
@@ -39,24 +55,36 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   setMergePeriods,
   mergePeriodTypes,
   setMergePeriodTypes,
+  mergePeriodBeregnings,
+  setMergePeriodBeregnings,
   setRenderPrintTable,
   useGermanRules,
   setUseGermanRules,
   itemsPerPage,
   setItemsPerPage,
-  items
+  items,
+  pesysWarning,
+  currentTabKey
 }: P5000OverviewControlsProps) => {
 
   const { t } = useTranslation()
+  const { sendingToPesys } : P5000OverviewControlsSelector = useSelector<State, P5000OverviewControlsSelector>(mapState)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
 
   const hasGermanRows = _.find(items, (it: P5000ListRow) => it.land === 'DE') !== undefined
 
-  const mergeTypeOptions: Array<Option> = _.uniq(items.map(i => i.type))
-    .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({ label: i, value: i }))
+  const mergeTypeOptions: Array<Option> = _.uniq(_.flatten(items.map(i => i.type.split(', '))))
+    .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({ label: i + ' - ' + _.get(typePeriode, parseInt(i)), value: i }))
+
+  const mergeBeregningOptions: Array<Option> = _.uniq(_.flatten(items.map(i => i.beregning.split(', '))))
+    .sort((a, b) => parseInt(a) - parseInt(b)).map(i => ({ label: i + ' - ' + _.get(informasjonOmBeregningLabels, i), value: i }))
 
   const onMergeTypesChange = (types: unknown): void => {
     setMergePeriodTypes((types as Array<Option>).map(o => o.value).sort((a, b) => parseInt(a) - parseInt(b)))
+  }
+
+  const onMergeBeregningsChange = (beregnings: unknown): void => {
+    setMergePeriodBeregnings((beregnings as Array<Option>).map(o => o.value).sort((a, b) => parseInt(a) - parseInt(b)))
   }
 
   const itemsPerPageChanged = (e: any): void => {
@@ -78,8 +106,28 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
     setRenderPrintTable(false)
   }
 
+  const handleOverforTilPesys = () => {
+
+  }
+
   return (
     <>
+      {pesysWarning && currentTabKey === 'pesys' && (
+        <>
+          <Row style={{width: '100%'}}>
+          <Column/>
+          <Column flex='2'>
+            <Alert
+              variant='warning'
+            >
+              {pesysWarning}
+            </Alert>
+          </Column>
+          <Column/>
+        </Row>
+          <VerticalSeparatorDiv/>
+          </>
+      )}
       <AlignEndRow style={{ width: '100%' }}>
         <Column flex='2'>
           <FlexEndDiv>
@@ -125,6 +173,29 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 />
               </>
             )}
+            {featureToggles.P5000_UPDATES_VISIBLE && mergePeriods && (
+              <>
+                <HorizontalSeparatorDiv size='2' />
+                <MultipleSelect<Option>
+                  ariaLabel={t('p5000:merge-period-beregning')}
+                  aria-describedby='help-tags'
+                  data-test-id='a-buc-c-p5000overview__beregnings-select-id'
+                  hideSelectedOptions={false}
+                  onSelect={onMergeBeregningsChange}
+                  options={mergeBeregningOptions}
+                  label={(
+                    <FlexEndDiv>
+                      {t('p5000:merge-period-beregning')}
+                      <HorizontalSeparatorDiv size='0.5' />
+                      <HelpText>
+                        {t('p5000:help-merge-period-beregning')}
+                      </HelpText>
+                    </FlexEndDiv>
+                  )}
+                  values={_.filter(mergeBeregningOptions, (m: unknown) => mergePeriodBeregnings ? mergePeriodBeregnings.indexOf((m as Option).value) >= 0 : false)}
+                />
+              </>
+            )}
           </FlexEndDiv>
         </Column>
         <Column>
@@ -136,6 +207,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               onBeforeGetContent={prepareContent}
               trigger={() =>
                 <Button
+                  variant='secondary'
                   disabled={_printDialogOpen}
                 >
                   {_printDialogOpen && <Loader />}
@@ -145,6 +217,15 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 return componentRef.current
               }}
             />
+            <HorizontalSeparatorDiv />
+            <Button
+              variant='primary'
+              disabled={sendingToPesys || currentTabKey !== 'pesys'}
+              onClick={handleOverforTilPesys}
+            >
+              {sendingToPesys && <Loader />}
+              {sendingToPesys ? t('ui:sending') : t('buc:form-send-to-PESYS')}
+            </Button>
             <HorizontalSeparatorDiv />
             <Select
               id='itemsPerPage'

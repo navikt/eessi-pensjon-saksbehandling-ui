@@ -4,6 +4,7 @@ import {
 } from '@navikt/ds-react'
 import {
   informasjonOmBeregning,
+  informasjonOmBeregningLabels,
   ordning,
   relevantForYtelse,
   typePeriode
@@ -13,8 +14,8 @@ import Input from 'components/Forms/Input'
 import Select from 'components/Select/Select'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { LocalStorageEntry, Option } from 'declarations/app.d'
-import { P5000FromRinaMap, Seds } from 'declarations/buc.d'
-import { SedsPropType } from 'declarations/buc.pt'
+import { P5000FromRinaMap, Sed } from 'declarations/buc.d'
+import { SedPropType } from 'declarations/buc.pt'
 import {
   P5000ListRow,
   P5000ListRows,
@@ -38,7 +39,7 @@ import Tooltip from '@navikt/tooltip'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import Table, { Column as TableColumn, RenderEditableOptions, Sort } from '@navikt/tabell'
+import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors, Sort } from '@navikt/tabell'
 import dateDiff, { DateDiff } from 'utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
@@ -46,13 +47,12 @@ import { P5000EditValidate, P5000EditValidationProps } from './validation'
 const moment = extendMoment(Moment)
 
 export interface P5000EditSelector {
-  vedtakId: string | undefined
   sentP5000info: any
 }
 
 export interface P5000EditProps {
   caseId: string
-  seds: Seds
+  mainSed: Sed
   onBackClick: () => void
   p5000FromRinaMap: P5000FromRinaMap
   p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
@@ -61,7 +61,6 @@ export interface P5000EditProps {
 }
 
 const mapState = (state: State): any => ({
-  vedtakId: state.app.params.vedtakId,
   sentP5000info: state.p5000.sentP5000info
 })
 
@@ -69,7 +68,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
   p5000FromRinaMap,
   p5000FromStorage,
-  seds, // always array with 1 element
+  mainSed,
   onBackClick,
   removeP5000FromStorage,
   saveP5000ToStorage
@@ -81,7 +80,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows({
-    seds,
+    seds: [mainSed],
     context: 'edit',
     p5000FromRinaMap,
     p5000FromStorage,
@@ -92,13 +91,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(() =>
     !_.isNil(p5000FromStorage)
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
-      : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+      : p5000FromRinaMap[mainSed.id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   )
-  const [_tableSort, _setTableSort] = useState<Sort>(() => (!_.isNil(p5000FromStorage) && _.isEmpty(p5000FromStorage?.sort) ? p5000FromStorage?.sort! : { column: '', order: 'none' }))
-  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(
+  const [_tableSort, _setTableSort] = useState<Sort>(() =>
+    !_.isNil(p5000FromStorage) && _.isEmpty(p5000FromStorage?.sort)
+      ? p5000FromStorage?.sort!
+      : { column: '', order: 'none' }
+  )
+  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(() =>
     !_.isNil(p5000FromStorage)
       ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode
-      : p5000FromRinaMap[seds[0].id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
+      : p5000FromRinaMap[mainSed.id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
   )
   const [typeOptions] = useState<Array<Option>>(() => Object.keys(typePeriode)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
@@ -106,17 +109,21 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
 
   const beregningOptions: Array<Option> = [
-    { label: '000', value: '000' }, { label: '001', value: '001' },
-    { label: '010', value: '010' }, { label: '011', value: '011' },
-    { label: '100', value: '100' }, { label: '101', value: '101' },
-    { label: '110', value: '110' }, { label: '111', value: '111' }
+    { label: '000 - ' + informasjonOmBeregningLabels['000'], value: '000' },
+    { label: '001 - ' + informasjonOmBeregningLabels['001'], value: '001' },
+    { label: '010 - ' + informasjonOmBeregningLabels['010'], value: '010' },
+    { label: '011 - ' + informasjonOmBeregningLabels['011'], value: '011' },
+    { label: '100 - ' + informasjonOmBeregningLabels['100'], value: '100' },
+    { label: '101 - ' + informasjonOmBeregningLabels['101'], value: '101' },
+    { label: '110 - ' + informasjonOmBeregningLabels['110'], value: '110' },
+    { label: '111 - ' + informasjonOmBeregningLabels['111'], value: '111' }
   ]
 
   const onSaveSort = (sort: Sort) => {
-    saveP5000ToStorage!(undefined, seds[0].id, sort)
+    saveP5000ToStorage!(undefined, mainSed.id, sort)
   }
 
-  const renderTypeEdit = (options: RenderEditableOptions) => {
+  const renderTypeEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Select
         size='small'
@@ -134,7 +141,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderType = (item: any, value: any) => {
+  const renderType = ({value}: RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <BodyLong>
         {_.find(typeOptions, t => t.value === value)?.label || t('buc:status-unknown')}
@@ -190,7 +197,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return dateDiff(validStartDato, validSluttDato)
   }
 
-  const maybeDoSomePrefill = (startdato: string | undefined, sluttdato: string | undefined, options: RenderEditableOptions<P5000TableContext>) => {
+  const maybeDoSomePrefill = (
+    startdato: string | undefined,
+    sluttdato: string | undefined,
+    options: RenderEditableOptions<P5000ListRow,P5000TableContext, any>
+  ) => {
     const dates: DateDiff | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
       if (options.context.forsikringEllerBosetningsperioder === '1') {
@@ -211,7 +222,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return {}
   }
 
-  const renderStartDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
+  const renderStartDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input
       size='small'
       namespace='c-table__edit'
@@ -233,7 +244,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     />
   )
 
-  const renderSluttDatoEdit = (options: RenderEditableOptions<P5000TableContext>) => (
+  const renderSluttDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input
       size='small'
       namespace='c-table__edit'
@@ -263,7 +274,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const checkForBosetningsperioder = (options: RenderEditableOptions<P5000TableContext>, what: string, others: Array<string>) => {
+  const checkForBosetningsperioder = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, any>, what: string, others: Array<string>) => {
     let _value: string | number
     /*
       if forsikringEllerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
@@ -299,7 +310,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return _value
   }
 
-  const renderDagerEdit = (options: RenderEditableOptions<P5000TableContext>) => {
+  const renderDagerEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
       <Input
@@ -326,7 +337,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderManedEdit = (options: RenderEditableOptions<P5000TableContext>) => {
+  const renderManedEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
       <Input
@@ -353,7 +364,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderAarEdit = (options: RenderEditableOptions<P5000TableContext>) => {
+  const renderAarEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
       <Input
@@ -380,12 +391,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderYtelse = (item: any, value: any) => {
+  const renderYtelse = ({value} : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Tooltip
         label={(
           <div style={{ maxWidth: '300px' }}>
-            {_.get(relevantForYtelse, value.startsWith('0') ? value : parseInt(value))}
+            {_.get(relevantForYtelse, value)}
           </div>
         )}
       >
@@ -396,7 +407,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderYtelseEdit = (options: RenderEditableOptions) => {
+  const renderYtelseEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     let valueToShow = options.value
     if (options.values && !_.isNil(options.values.type)) {
       if ((options.values.type === '43' || options.values.type === '45') && options.value !== '') {
@@ -416,7 +427,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       <Tooltip
         label={(
           <div style={{ maxWidth: '300px' }}>
-            {_.get(relevantForYtelse, valueToShow.startsWith('0') ? valueToShow : parseInt(valueToShow))}
+            {_.get(relevantForYtelse, valueToShow!)}
           </div>
         )}
       >
@@ -433,12 +444,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     onSaveSort(sort)
   }
 
-  const renderOrdning = (item: any, value: any) => {
+  const renderOrdning = ({value} : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Tooltip
         label={(
           <div style={{ maxWidth: '300px' }}>
-            {_.get(ordning, value.startsWith('0') ? value : parseInt(value))}
+            {_.get(ordning, value)}
           </div>
         )}
       >
@@ -449,21 +460,21 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderOrdningEdit = (options: RenderEditableOptions) => (
+  const renderOrdningEdit = ({value}: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
-          {_.get(ordning, options.value.startsWith('0') ? options.value : parseInt(options.value))}
+          {value ? _.get(ordning, value) : ''}
         </div>
       )}
     >
       <BodyLong>
-        {options.value}
+        {value}
       </BodyLong>
     </Tooltip>
   )
 
-  const renderStatus = (item: any, value: any) => (
+  const renderStatus = ({value}: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <div>
       {(value === 'rina') && <Tag size='small' variant='info'>RINA</Tag>}
       {(value === 'new') && <Tag size='small' variant='success'>Ny</Tag>}
@@ -471,12 +482,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     </div>
   )
 
-  const renderBeregning = (item: any, value: any) => {
+  const renderBeregning =({value} : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Tooltip
         label={(
           <div style={{ maxWidth: '300px' }}>
-            {_.get(informasjonOmBeregning, value.startsWith('0') ? value : parseInt(value))}
+            {_.get(informasjonOmBeregning, value)}
           </div>
         )}
       >
@@ -487,7 +498,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderBeregningEdit = (options: RenderEditableOptions) => {
+  const renderBeregningEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Select
         noMarginTop
@@ -531,7 +542,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     }
   }
 
-
   const onRowSelectChange = (items: P5000ListRows) => {
     let newItems: P5000ListRows = _.cloneDeep(_items)
     newItems = newItems.map(item => {
@@ -552,27 +562,20 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     })
   }
 
-  const renderDateCell = (item: P5000ListRow, value: any) => (
+  const renderDateCell = ({value}: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
-  const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext) => {
+  const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext): ItemErrors | undefined => {
+    const errors: ItemErrors = {}
     const startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')
     const sluttdato = moment(dateTransform(item.sluttdato), 'DD.MM.YYYY')
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
-        if (!item.error) {
-          item.error = {}
-        }
-        item.error = {
-          ...item.error,
-          startdato: t('message:validation-endDateBeforeStartDate')
-        }
-        return false
+        errors.startdato = t('message:validation-endDateBeforeStartDate')
       }
       const range = moment.range(startdato, sluttdato)
-      let overlapError: boolean = false
 
       for (let i = 0; i < context.items.length; i++) {
         const otherItem: P5000ListRow = context.items[i]
@@ -581,62 +584,53 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         }
         const thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
         if (item.type === otherItem.type && range.overlaps(thisRange)) {
-          item.error = {
-            ...item.error,
-            startdato: t('message:validation-overlapDate', {
-              perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
-            })
-          }
-          overlapError = true
+          errors.startdato = t('message:validation-overlapDate', {
+            perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
+          })
           break
         }
       }
-      return !overlapError
     }
-    return true
+    return !_.isEmpty(errors) ? errors : undefined
   }
 
-  const beforeRowAdded = (columns: Array<TableColumn<P5000ListRow, P5000TableContext>>, context: P5000TableContext) => {
-    const typeValue = _.find(columns, { id: 'type' })?.edit?.value
-    const startdatovalue: string | undefined = _.find(columns, { id: 'startdato' })?.edit?.value
-    const startdatoindex: number = _.findIndex(columns, { id: 'sluttdato' })
-    const sluttdatovalue: string | undefined = _.find(columns, { id: 'sluttdato' })?.edit?.value
-    const sluttdatoindex: number = _.findIndex(columns, { id: 'sluttdato' })
+  const beforeRowAdded = (newRowValues: NewRowValues, context: P5000TableContext): ItemErrors | undefined => {
+    const errors: ItemErrors = {}
+    const typeValue = newRowValues['type']?.value
+    const startdatovalue: string | undefined = newRowValues['startdato']?.value
+    const sluttdatovalue: string | undefined = newRowValues['sluttdato']?.value
+
     const startdato = moment(dateTransform(startdatovalue), 'DD.MM.YYYY')
     const sluttdato = moment(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
-        columns[sluttdatoindex].error = t('message:validation-endDateBeforeStartDate')
-        return false
+        errors.sluttdato = t('message:validation-endDateBeforeStartDate')
       }
       const range = moment.range(startdato, sluttdato)
-      let overlapError: boolean = false
 
       for (let i = 0; i < context.items.length; i++) {
         const item: P5000ListRow = context.items[i]
         const thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
         if (item.type === typeValue && range.overlaps(thisRange)) {
-          columns[startdatoindex].error = t('message:validation-overlapDate', {
+          errors.startdato = t('message:validation-overlapDate', {
             perioder: moment(item.startdato).format('DD.MM.YYYY') + '/' + moment(item.sluttdato).format('DD.MM.YYYY')
           })
-          overlapError = true
           break
         }
       }
-      return !overlapError
     }
-    return true
+    return !_.isEmpty(errors) ? errors : undefined
   }
 
   const onSave = (payload: P5000UpdatePayload) => {
     let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
     if (_.isNil(templateForP5000)) {
-      templateForP5000 = _.cloneDeep(p5000FromRinaMap[seds[0].id])
+      templateForP5000 = _.cloneDeep(p5000FromRinaMap[mainSed.id])
     }
     if (templateForP5000) {
-      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, seds[0].id, templateForP5000)
-      saveP5000ToStorage!(newP5000FromStorage, seds[0].id, _tableSort)
+      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, mainSed.id, templateForP5000)
+      saveP5000ToStorage!(newP5000FromStorage,mainSed.id, _tableSort)
     }
   }
 
@@ -644,15 +638,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   useEffect(() => {
     if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
       if (removeP5000FromStorage) {
-        removeP5000FromStorage(seds[0].id)
+        removeP5000FromStorage(mainSed.id)
       }
     }
-  }, [sentP5000info, removeP5000FromStorage, p5000FromStorage, seds])
+  }, [sentP5000info, removeP5000FromStorage, p5000FromStorage])
 
   if (_items === undefined) {
     return <div />
   }
-
 
   return (
     <>
@@ -676,14 +669,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           setItemsPerPage={_setItemsPerPage}
           setRenderPrintTable={setRenderPrintTable}
           validation={_validation}
-          sedId={seds[0].id}
+          sedId={mainSed.id}
         />
-
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow, P5000TableContext>
           key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '-storage-' + !_.isEmpty(p5000FromStorage)}
-          animatable={false}
+          animatable={true}
           items={_items}
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
@@ -697,6 +689,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
           }}
           editable
+          fullWidth
           allowNewRows={_forsikringEllerBosetningsperioder === '1'}
           searchable={false}
           selectable
@@ -728,8 +721,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               id: 'status',
               label: t('ui:status'),
               type: 'string',
-              renderCell: renderStatus,
+              render: renderStatus,
               edit: {
+                render: () => <div />
+              },
+              add: {
                 defaultValue: 'new',
                 render: () => <div />
               }
@@ -738,6 +734,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               id: 'type',
               label: t('p5000:type-43113'),
               type: 'string',
+              add: {
+                render: renderTypeEdit,
+                validation: [{
+                  mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
+                  test: '^.+$',
+                  message: t('message:validation-chooseType')
+                }]
+              },
               edit: {
                 render: renderTypeEdit,
                 validation: [{
@@ -746,13 +750,23 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   message: t('message:validation-chooseType')
                 }]
               },
-              renderCell: renderType
+              render: renderType
             },
             {
               id: 'startdato',
               label: t('ui:startDate'),
               type: 'date',
-              renderCell: renderDateCell,
+              render: renderDateCell,
+              add: {
+                render: renderStartDatoEdit,
+                validation: [{
+                  mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
+                  test: testDate,
+                  message: t('message:validation-invalidDate')
+                }],
+                placeholder: t('buc:placeholder-date2'),
+                transform: dateTransform
+              },
               edit: {
                 render: renderStartDatoEdit,
                 validation: [{
@@ -768,7 +782,17 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               id: 'sluttdato',
               label: t('ui:endDate'),
               type: 'date',
-              renderCell: renderDateCell,
+              render: renderDateCell,
+              add: {
+                render: renderSluttDatoEdit,
+                validation: [{
+                  mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
+                  test: testDate,
+                  message: t('message:validation-invalidDate')
+                }],
+                placeholder: t('buc:placeholder-date2'),
+                transform: dateTransform
+              },
               edit: {
                 render: renderSluttDatoEdit,
                 validation: [{
@@ -784,8 +808,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               id: 'aar',
               label: t('ui:year'),
               type: 'string',
-              edit: {
+              align: 'center',
+              add: {
                 defaultValue: 0,
+                validation: [{
+                  test: testFloat,
+                  message: t('message:validation-addPositiveNumber')
+                }],
+                render: renderAarEdit
+              },
+              edit: {
                 validation: [{
                   test: testFloat,
                   message: t('message:validation-addPositiveNumber')
@@ -797,8 +829,16 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               id: 'mnd',
               label: t('ui:month'),
               type: 'string',
-              edit: {
+              align: 'center',
+              add: {
                 defaultValue: 0,
+                validation: [{
+                  test: testFloat,
+                  message: t('message:validation-addPositiveNumber')
+                }],
+                render: renderManedEdit
+              },
+              edit: {
                 validation: [{
                   test: testFloat,
                   message: t('message:validation-addPositiveNumber')
@@ -809,10 +849,18 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             {
               id: 'dag',
               label: t('ui:day'),
+              align: 'center',
               type: 'string',
-              renderCell: renderDager,
-              edit: {
+              render: renderDager,
+              add: {
                 defaultValue: 0,
+                render: renderDagerEdit,
+                validation: [{
+                  test: testFloat,
+                  message: t('message:validation-addPositiveNumber')
+                }]
+              },
+              edit: {
                 render: renderDagerEdit,
                 validation: [{
                   test: testFloat,
@@ -823,20 +871,32 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             {
               id: 'ytelse',
               label: t('p5000:ytelse'),
-              renderCell: renderYtelse,
+              align: 'center',
+              render: renderYtelse,
               type: 'string',
-              edit: {
+              add: {
                 defaultValue: '111',
+                render: renderYtelseEdit
+              },
+              edit: {
                 render: renderYtelseEdit
               }
             },
             {
               id: 'beregning',
               label: t('ui:calculationInformation'),
-              renderCell: renderBeregning,
+              align: 'center',
+              render: renderBeregning,
               type: 'string',
-              edit: {
+              add: {
                 defaultValue: '111',
+                validation: [{
+                  test: '^.+$',
+                  message: t('message:validation-addBeregning')
+                }],
+                render: renderBeregningEdit
+              },
+              edit: {
                 validation: [{
                   test: '^.+$',
                   message: t('message:validation-addBeregning')
@@ -847,10 +907,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             {
               id: 'ordning',
               label: t('ui:scheme'),
-              renderCell: renderOrdning,
+              align: 'center',
+              render: renderOrdning,
               type: 'string',
-              edit: {
+              add: {
                 defaultValue: '00',
+                render: renderOrdningEdit
+              },
+              edit: {
                 render: renderOrdningEdit
               }
             },
@@ -868,6 +932,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               <Table
               // important to it re-renders when sorting changes
                 className='print-version'
+                fullWidth
                 items={_items}
                 editable={false}
                 animatable={false}
@@ -888,15 +953,15 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 }]}
                 columns={[
                   { id: 'status', label: t('ui:status'), type: 'string' },
-                  { id: 'type', label: t('p5000:type-43113'), type: 'string', renderCell: renderType },
-                  { id: 'startdato', label: t('ui:startDate'), type: 'string', renderCell: renderDateCell },
-                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string', renderCell: renderDateCell },
-                  { id: 'dag', label: t('ui:day'), type: 'number', renderCell: renderDager },
-                  { id: 'mnd', label: t('ui:month'), type: 'number' },
-                  { id: 'aar', label: t('ui:year'), type: 'number' },
-                  { id: 'ytelse', label: t('p5000:ytelse'), type: 'string' },
-                  { id: 'beregning', label: t('ui:calculationInformation'), type: 'string' },
-                  { id: 'ordning', label: t('ui:scheme'), type: 'string' }
+                  { id: 'type', label: t('p5000:type-43113'), type: 'string', render: renderType },
+                  { id: 'startdato', label: t('ui:startDate'), type: 'string', render: renderDateCell },
+                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string', render: renderDateCell },
+                  { id: 'dag', label: t('ui:day'), type: 'number', align: 'center', render: renderDager },
+                  { id: 'mnd', label: t('ui:month'), type: 'number', align: 'center' },
+                  { id: 'aar', label: t('ui:year'), type: 'number', align: 'center' },
+                  { id: 'ytelse', label: t('p5000:ytelse'), type: 'string', align: 'center' },
+                  { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' },
+                  { id: 'ordning', label: t('ui:scheme'), type: 'string', align: 'center' }
                 ]}
               />
             </div>
@@ -909,7 +974,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 }
 
 P5000Edit.propTypes = {
-  seds: SedsPropType.isRequired,
+  mainSed: SedPropType.isRequired,
   p5000FromRinaMap: PT.any.isRequired
 }
 

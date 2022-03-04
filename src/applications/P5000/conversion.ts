@@ -67,6 +67,7 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
   p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
   mergePeriods?: boolean
   mergePeriodTypes ?: Array<string>
+  mergePeriodBeregnings ?: Array<string>
   useGermanRules ?: boolean
   selectRowsContext: 'forCertainTypesOnly' | 'forAll'
 }
@@ -79,6 +80,7 @@ export const convertP5000SEDToP5000ListRows = ({
    p5000FromStorage,
    mergePeriods = false,
    mergePeriodTypes,
+   mergePeriodBeregnings,
    useGermanRules = false,
    selectRowsContext
 }: ConvertP5000SEDToP5000ListRowsProps): [P5000ListRows, P5000SourceStatus] => {
@@ -165,11 +167,15 @@ export const convertP5000SEDToP5000ListRows = ({
     rows.forEach(r => {
       // check if type is within types that should be grouped together
       let typeNeedle = r.type
+      let beregningNeedle = r.beregning
       if (!_.isEmpty(mergePeriodTypes) && mergePeriodTypes!.indexOf(r.type) >= 0) {
         typeNeedle = mergePeriodTypes!.join(', ')
       }
+      if (!_.isEmpty(mergePeriodBeregnings) && mergePeriodBeregnings!.indexOf(r.beregning) >= 0) {
+        beregningNeedle = mergePeriodBeregnings!.join(', ')
+      }
 
-      const key = r.land + '§' + typeNeedle + '§' + r.ytelse + '§' + r.ordning + '§' + r.beregning
+      const key = r.land + '§' + typeNeedle + '§' + r.ytelse + '§' + r.ordning + '§' + beregningNeedle
       if (!mergingMap[key]) {
         mergingMap[key] = [r]
       } else {
@@ -288,6 +294,7 @@ export const convertP5000SEDToP5000ListRows = ({
     Object.keys(groupedPeriods).forEach(key => {
       // let's just extract the grouped types, so we can show it in the table
       const groupedType = key.split('§')[1]
+      const groupedBeregning = key.split('§')[4]
 
       Object.keys(groupedPeriods[key]).forEach(key2 => {
         if (groupedPeriods[key][key2].sub.length === 1) {
@@ -328,6 +335,7 @@ export const convertP5000SEDToP5000ListRows = ({
             ...groupedPeriods[key][key2].parent,
             hasSubrows: true,
             type: groupedType,
+            beregning: groupedBeregning,
             key: 'merge-' + groupedPeriods[key][key2].parent.key,
             flag: !samePeriodSum,
             flagLabel: i18n.t('message:warning-periodDoNotMatch')

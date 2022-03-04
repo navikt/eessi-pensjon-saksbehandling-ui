@@ -22,6 +22,7 @@
   "saved-working-copy"      : "Registrerte perioder lagres umiddelbart i Eessi-pensjon.",
   "merge-periods"           : "Slå sammen like type perioder",
   "merge-period-type"       : "Slå sammen ulike type perioder",
+  "merge-period-beregning"  : "Slå sammen ulike beregninger",
   "updating"                : "Oppdater P5000",
   "filter-label"            : "Filtrering (f.eks. skriv kode 30 i boksen som kommer opp under \"Type\")",
   "sum-only-5.1-title"      : "Kun 5.1",
@@ -38,6 +39,7 @@
   "help-gjpbp" : "Klikk her for å få med trygdetid fra den 1. i dødsfallsmåneden og frem til dagen før dødsfallet",
 
   "help-merge-period-type" : "Slå sammen perioder med ulike periode typer",
+  "help-merge-period-beregning" : "Slå sammen perioder med ulike periode beregninger",
   "help-german-alert": "Tyskland avrunder periodesum til måneder. Dette gjør at forsikrede får forsikringstid utover periodene som er oppgitt, og kan gi flere sammenhengende perioder. F.eks. 16.08.2000-20.09.2000 = 2 måneder og 05.10.2000-20.12.2000 = 3 måneder. Forsikrede får da forsikringstid fra 01.08.2000-31.12.2000, og periodene kan derfor slås sammen",
 
   "help-modal-1": "For å redigere en P5000 klikker du på ",
@@ -48,6 +50,7 @@
   "help-modal-6": ", eller slette arbeidskopien og starte på nytt (eventuelt fra den siste RINA-versjonen) ved å klikke på ",
   "help-modal-7": "Når du overfører arbeidet til Rina, blir \"Under arbeid\"-boksen automatisk slettet. Du kan likevel gå inn og redigere på P5000, som beskrevet fra start her.",
 
+  "warning-beregning-000"                    : "Vi filtrert {{x}} periode(r) med beregning 000 for 'exporter til Pesys' oversikten",
   "warning-failedP5000Sending"               : "Feil med overføring P5000 data til Rina",
   "warning-okP5000Sending"                   : "Overføring P5000 data til Rina var vellykket. Lagret under-arbeid med denne SED-en ble slettet.",
   "warning-P5000SumGjenlevende"              : "Ved pensjonspoeng i flytteår må du legge til den resterende perioden for gjeldende år i beregningen (pkt. 5.2). OBS! Dersom du endrer på registrerte perioder, må du også legge til ekstraperiodene i summeringen igjen",
