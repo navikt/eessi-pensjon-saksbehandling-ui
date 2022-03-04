@@ -1,29 +1,27 @@
-import { BackFilled, Warning } from '@navikt/ds-icons'
-import { Alert, Checkbox, BodyLong, Heading, Button } from '@navikt/ds-react'
+import { Heading } from '@navikt/ds-react'
+import { FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import { Sort } from '@navikt/tabell'
 import { removeEntry, saveEntry } from 'actions/localStorage'
 import { getSed, resetSentP5000info } from 'actions/p5000'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
+import P5000Controls from 'applications/P5000/P5000Controls'
 import P5000DragAndDropContext from 'applications/P5000/P5000DragAndDropContext'
-import { SeparatorSpan, SpinnerDiv } from 'components/StyledComponents'
+import { SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, Entries, FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { Buc, P5000FromRinaMap, Sed, Seds } from 'declarations/buc'
-import { EmptyPeriodsReport, P5000Context, P5000SED, SedSender } from 'declarations/p5000'
+import { EmptyPeriodsReport, P5000Context, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
-import Flag from '@navikt/flagg-ikoner'
 import _ from 'lodash'
-import { Column, FlexCenterDiv, HorizontalSeparatorDiv, PileDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Sort } from '@navikt/tabell'
-import { getSedSender } from './conversion'
-import P5000Edit from './P5000Edit'
-import P5000Overview from './P5000Overview'
-import P5000Sum from './P5000Sum'
 import P5000Draggable from './P5000Draggable'
 import P5000Droppable from './P5000Droppable'
+import P5000Edit from './P5000Edit'
+import P5000Overview from './P5000Overview'
+import P5000SedLabel from './P5000SedLabel'
+import P5000Sum from './P5000Sum'
 
 export interface P5000Props {
   buc: Buc
@@ -66,45 +64,22 @@ const P5000: React.FC<P5000Props> = ({
   const [_ready, _setReady] = useState<boolean>(false)
   /* SEDs that will be used for the P5000 page */
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
+  /* Generate a report on SEDs with empty membership, should be a warning */
+  const [emptyPeriodReport, setEmptyPeriodReport] = useState<EmptyPeriodsReport>({})
 
-  const getLabel = (sed: Sed) => {
-    const sender: SedSender | undefined = getSedSender(sed)
-    return (
-      <FlexCenterDiv style={{flexWrap: 'wrap'}}>
-      <span>
-        {t('buc:form-dateP5000', {date: sender?.date})}
-      </span>
-        <SeparatorSpan>-</SeparatorSpan>
-        {sender
-          ? (
-            <FlexCenterDiv>
-              <Flag
-                animate
-                country={sender?.country}
-                label={sender?.countryLabel}
-                size='XS'
-                type='circle'
-                wave={false}
-              />
-              <HorizontalSeparatorDiv size='0.2'/>
-              <span>{sender?.countryLabel}</span>
-              <SeparatorSpan>-</SeparatorSpan>
-              <span>{sender?.institution}</span>
-              <SeparatorSpan>-</SeparatorSpan>
-              <SEDStatus
-                status={sed.status}
-              />
-            </FlexCenterDiv>
-          )
-          : sed.id}
-        {emptyPeriodReport[sed.id] && (
-          <>
-            <HorizontalSeparatorDiv size='0.5'/>
-            <Warning/>
-          </>
-        )}
-      </FlexCenterDiv>
-    )
+  const [_tables, _setTables] = useState<Array<any>>(() => (
+    [
+      {id: 'P5000Edit', content: <div></div>, header: <div></div>},
+      {id: 'P5000Sum', content: <div></div>, header: <div></div>},
+      {id: 'P5000Overview', content: <div></div>, header: <div></div>}
+  ]))
+
+  const updateEmptyPeriodsReport = (activeSeds: Seds) => {
+    const res: EmptyPeriodsReport = {}
+    activeSeds.forEach((sed: Sed) => {
+      res[sed.id] = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapAnnen?.length > 0
+    })
+    setEmptyPeriodReport(res)
   }
 
   const renderP5000EditHeader = () => {
@@ -117,7 +92,7 @@ const P5000: React.FC<P5000Props> = ({
         <HorizontalSeparatorDiv/>
         -
         <HorizontalSeparatorDiv/>
-        {getLabel(mainSed)}
+        <P5000SedLabel sed={mainSed}/>
       </FlexCenterDiv>
     )
   }
@@ -179,6 +154,7 @@ const P5000: React.FC<P5000Props> = ({
 
   const updateActiveSeds = (seds: any) => {
     _setActiveSeds(seds)
+    updateEmptyPeriodsReport(seds)
     updateTables(seds)
   }
 
@@ -195,17 +171,6 @@ const P5000: React.FC<P5000Props> = ({
     if (id === 'P5000Overview') return renderP5000OverviewHeader()
     return null
   }
-
-  const [_tables, _setTables] = useState<Array<any>>(
-    [
-      {id: 'P5000Edit', content: <div></div>, header: <div></div>},
-      {id: 'P5000Sum', content: <div></div>, header: <div></div>},
-      {id: 'P5000Overview', content: <div></div>, header: <div></div>}
-    ])
-
-  useEffect(() => {
-    updateTables(_activeSeds)
-  }, [storageEntries])
 
   const updateTables = (activeSeds: Seds) => {
     // use local storage stuff only in edit context, no need for overview context
@@ -254,22 +219,7 @@ const P5000: React.FC<P5000Props> = ({
     setMode('bucedit', 'back')
   }
 
-  const renderBackLink = () => (
-    <div style={{display: 'inline-block'}}>
-      <Button
-        variant='secondary'
-        onClick={onBackClick}
-      >
-        <BackFilled/>
-        <HorizontalSeparatorDiv size='0.25'/>
-        <span>
-          {t('ui:back')}
-        </span>
-      </Button>
-    </div>
-  )
-
-  const changeActiveSed = (sed: Sed, checked: boolean): void => {
+  const changeActiveSeds = (sed: Sed, checked: boolean): void => {
     let newActiveSeds: Seds = _.cloneDeep(_activeSeds)
     if (checked) {
       newActiveSeds = newActiveSeds.concat(sed)
@@ -278,23 +228,6 @@ const P5000: React.FC<P5000Props> = ({
     }
     updateActiveSeds(newActiveSeds)
   }
-
-  const getEmptyPeriodsReport = (): EmptyPeriodsReport => {
-    const res: EmptyPeriodsReport = {}
-    _activeSeds.forEach((sed: Sed) => {
-      res[sed.id] = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapAnnen?.length > 0
-    })
-    return res
-  }
-
-  const hasEmptyPeriods = (emptyPeriodsReport: EmptyPeriodsReport): boolean => {
-    return Object.values(emptyPeriodsReport).indexOf(true) >= 0
-  }
-
-  // const sedSender: SedSender | undefined = mainSed ? getSedSender(mainSed) as SedSender : undefined
-  const emptyPeriodReport: EmptyPeriodsReport = getEmptyPeriodsReport()
-  const warning = hasEmptyPeriods(emptyPeriodReport)
-
 
   // this effect checks if we need to load seds, when buc/sed/context changes
   useEffect(() => {
@@ -341,6 +274,10 @@ const P5000: React.FC<P5000Props> = ({
     }
   }, [_fetchingP5000, p5000FromRinaMap])
 
+  useEffect(() => {
+    updateTables(_activeSeds)
+  }, [storageEntries])
+
   if (!_ready) {
     return (
       <SpinnerDiv>
@@ -351,36 +288,13 @@ const P5000: React.FC<P5000Props> = ({
 
   return (
     <div key={_seds?.map(s => s.id).join(',')}>
-      <Row>
-        <Column>
-          <PileDiv>
-            <BodyLong>
-              {t('p5000:active-seds')}:
-            </BodyLong>
-            <VerticalSeparatorDiv size='0.5' />
-            {_seds?.map(sed => (
-              <Checkbox
-                data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                checked={_.find(_activeSeds, s => s.id === sed.id) !== undefined}
-                key={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                id={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSed(sed, e.target.checked)}
-              >
-                {getLabel(sed)}
-              </Checkbox>
-            ))}
-          </PileDiv>
-        </Column>
-        <Column>
-          {warning && (
-            <Alert variant='warning'>
-              {t('buc:form-P5000-warning')}
-            </Alert>
-          )}
-        </Column>
-      </Row>
-      <VerticalSeparatorDiv size='3' />
-      {renderBackLink()}
+      <P5000Controls
+        emptyPeriodReport={emptyPeriodReport}
+        seds={_seds}
+        activeSeds={_activeSeds}
+        changeActiveSeds={changeActiveSeds}
+        onBackClick={onBackClick}
+      />
       <VerticalSeparatorDiv size='2' />
       <P5000DragAndDropContext
         tables={_tables}
