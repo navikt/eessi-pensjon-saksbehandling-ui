@@ -125,7 +125,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const renderButtonsCell = ({item, context}: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, any>): JSX.Element => {
+  const renderButtonsCell = ({ item, context }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext>): JSX.Element => {
     if (item.hasSubrows) {
       return <div />
     }
@@ -372,7 +372,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             id: 'tema',
             label: t('ui:tema'),
             type: 'string',
-            render: ({value} :RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
+            render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
           }, {
             id: 'title',
             label: t('ui:title'),

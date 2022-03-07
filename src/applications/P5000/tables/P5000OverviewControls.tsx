@@ -66,7 +66,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   pesysWarning,
   currentTabKey
 }: P5000OverviewControlsProps) => {
-
   const { t } = useTranslation()
   const { sendingToPesys } : P5000OverviewControlsSelector = useSelector<State, P5000OverviewControlsSelector>(mapState)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
@@ -114,19 +113,19 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
     <>
       {pesysWarning && currentTabKey === 'pesys' && (
         <>
-          <Row style={{width: '100%'}}>
-          <Column/>
-          <Column flex='2'>
-            <Alert
-              variant='warning'
-            >
-              {pesysWarning}
-            </Alert>
-          </Column>
-          <Column/>
-        </Row>
-          <VerticalSeparatorDiv/>
-          </>
+          <Row style={{ width: '100%' }}>
+            <Column />
+            <Column flex='2'>
+              <Alert
+                variant='warning'
+              >
+                {pesysWarning}
+              </Alert>
+            </Column>
+            <Column />
+          </Row>
+          <VerticalSeparatorDiv />
+        </>
       )}
       <AlignEndRow style={{ width: '100%' }}>
         <Column flex='2'>
@@ -270,9 +269,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
           <VerticalSeparatorDiv />
         </>
       )}
-      </>
+    </>
   )
-
 }
 
 export default P5000OverviewControls

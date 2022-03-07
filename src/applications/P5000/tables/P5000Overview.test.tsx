@@ -1,4 +1,5 @@
 import { Sed, Seds } from 'declarations/buc'
+import { P5000sFromRinaMap } from 'declarations/p5000'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
@@ -20,11 +21,11 @@ describe('applications/BUC/components/P5000/P5000', () => {
   const initialMockProps: P5000OverviewProps = {
     context: 'overview',
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
-    p5000FromRinaMap: {
+    p5000sFromRinaMap: {
       '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,
       '50578cf8bf9f45a7819a39987c6c8fd4': mockP50002
-    },
-    p5000FromStorage: undefined
+    } as P5000sFromRinaMap,
+    p5000WorkingCopies: undefined
   }
 
   beforeEach(() => {

@@ -6,7 +6,7 @@ import { EmptyPeriodsReport } from 'declarations/p5000'
 import _ from 'lodash'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import P5000SedLabel from './P5000SedLabel'
+import P5000SedLabel from 'applications/P5000/components/P5000SedLabel'
 
 const P5000Controls = ({
   onBackClick,
@@ -15,7 +15,7 @@ const P5000Controls = ({
   changeActiveSeds,
   emptyPeriodReport
 }: any) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const hasEmptyPeriods = (emptyPeriodsReport: EmptyPeriodsReport): boolean => {
     return Object.values(emptyPeriodsReport).indexOf(true) >= 0
@@ -40,7 +40,7 @@ const P5000Controls = ({
                 id={'a-buc-c-P5000overview__checkbox-' + sed.id}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSeds(sed, e.target.checked)}
               >
-                <P5000SedLabel sed={sed} warning={emptyPeriodReport[sed.id]}/>
+                <P5000SedLabel sed={sed} warning={emptyPeriodReport[sed.id]} />
               </Checkbox>
             ))}
           </PileDiv>
@@ -54,19 +54,19 @@ const P5000Controls = ({
         </Column>
       </Row>
       <VerticalSeparatorDiv size='3' />
-      <div style={{display: 'inline-block'}}>
+      <div style={{ display: 'inline-block' }}>
         <Button
           variant='secondary'
           onClick={onBackClick}
         >
-          <BackFilled/>
-          <HorizontalSeparatorDiv size='0.25'/>
+          <BackFilled />
+          <HorizontalSeparatorDiv size='0.25' />
           <span>
-          {t('ui:back')}
-        </span>
+            {t('ui:back')}
+          </span>
         </Button>
       </div>
-      </>
+    </>
   )
 }
 

@@ -252,10 +252,6 @@ export type SedsWithAttachmentsMap = {[k: string]: boolean}
 
 export type Seds = Array<Sed>
 
-export type p5000FromRinaMap = any
-
-export type P5000FromRinaMap = {[k: string]: p5000FromRinaMap}
-
 export type Tag = Option
 
 export interface ValidBuc {

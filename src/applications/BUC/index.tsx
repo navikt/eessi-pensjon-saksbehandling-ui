@@ -10,7 +10,7 @@ import {
   setMode,
   startBucsFetch
 } from 'actions/buc'
-import { loadEntries } from 'actions/localStorage'
+import { loadAllEntries } from 'actions/localStorage'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
@@ -334,7 +334,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (!_mounted) {
-      dispatch(loadEntries())
+      dispatch(loadAllEntries())
       if (!rinaUrl) {
         dispatch(getRinaUrl())
       }

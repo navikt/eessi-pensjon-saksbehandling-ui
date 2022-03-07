@@ -1,27 +1,26 @@
-import { Heading } from '@navikt/ds-react'
+import { Accordion, Heading } from '@navikt/ds-react'
 import { FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import { Sort } from '@navikt/tabell'
-import { removeEntry, saveEntry } from 'actions/localStorage'
+import { saveEntries } from 'actions/localStorage'
 import { getSed, resetSentP5000info } from 'actions/p5000'
-import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { getWorkingCopy, updateP5000WorkingCopies } from 'applications/P5000/utils/entriesUtils'
 import P5000Controls from 'applications/P5000/P5000Controls'
-import P5000DragAndDropContext from 'applications/P5000/P5000DragAndDropContext'
+import P5000DragAndDropContext from 'applications/P5000/components/P5000DragAndDropContext'
 import { SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { BUCMode, Entries, FeatureToggles, LocalStorageEntry } from 'declarations/app'
-import { Buc, P5000FromRinaMap, Sed, Seds } from 'declarations/buc'
-import { EmptyPeriodsReport, P5000Context, P5000SED } from 'declarations/p5000'
+import { BUCMode, LocalStorageEntriesMap, FeatureToggles, LocalStorageEntry } from 'declarations/app'
+import { Buc, Sed, Seds } from 'declarations/buc'
+import { EmptyPeriodsReport, P5000sFromRinaMap, P5000Context, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import P5000Draggable from './P5000Draggable'
-import P5000Droppable from './P5000Droppable'
-import P5000Edit from './P5000Edit'
-import P5000Overview from './P5000Overview'
-import P5000SedLabel from './P5000SedLabel'
-import P5000Sum from './P5000Sum'
+import P5000Draggable from 'applications/P5000/components/P5000Draggable'
+import P5000Droppable from 'applications/P5000/components/P5000Droppable'
+import P5000Edit from 'applications/P5000/tables/P5000Edit'
+import P5000Overview from 'applications/P5000/tables/P5000Overview'
+import P5000SedLabel from 'applications/P5000/components/P5000SedLabel'
+import P5000Sum from 'applications/P5000/tables/P5000Sum'
 
 export interface P5000Props {
   buc: Buc
@@ -32,15 +31,21 @@ export interface P5000Props {
 
 export interface P5000Selector {
   featureToggles: FeatureToggles
-  p5000FromRinaMap: P5000FromRinaMap
-  storageEntries: Entries
+  p5000sFromRinaMap: P5000sFromRinaMap
+  storageEntries: LocalStorageEntriesMap<P5000SED>
 }
 
 const mapState = (state: State): P5000Selector => ({
   featureToggles: state.app.featureToggles,
-  p5000FromRinaMap: state.p5000.p5000FromRinaMap,
-  storageEntries: state.localStorage.entries
+  p5000sFromRinaMap: state.p5000.p5000sFromRinaMap,
+  storageEntries: state.localStorage.entries as LocalStorageEntriesMap<P5000SED>
 })
+
+interface TableData {
+  id: string
+  activeSeds: Seds
+  p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>
+}
 
 const P5000: React.FC<P5000Props> = ({
   buc,
@@ -48,11 +53,9 @@ const P5000: React.FC<P5000Props> = ({
   mainSed = undefined,
   setMode
 }: P5000Props): JSX.Element => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useDispatch()
-  const {
-    featureToggles, p5000FromRinaMap, storageEntries
-  }: P5000Selector = useSelector<State, P5000Selector>(mapState)
+  const { featureToggles, p5000sFromRinaMap, storageEntries }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
   /* for drag & drop placeholder */
   const [placeholderProps, setPlaceholderProps] = useState<any>({})
@@ -65,49 +68,54 @@ const P5000: React.FC<P5000Props> = ({
   /* SEDs that will be used for the P5000 page */
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
   /* Generate a report on SEDs with empty membership, should be a warning */
-  const [emptyPeriodReport, setEmptyPeriodReport] = useState<EmptyPeriodsReport>({})
-
-  const [_tables, _setTables] = useState<Array<any>>(() => (
-    [
-      {id: 'P5000Edit', content: <div></div>, header: <div></div>},
-      {id: 'P5000Sum', content: <div></div>, header: <div></div>},
-      {id: 'P5000Overview', content: <div></div>, header: <div></div>}
-  ]))
+  const [_emptyPeriodReport, _setEmptyPeriodReport] = useState<EmptyPeriodsReport>({})
+  /* cached renders of tables - order may change with the drag&drop */
+  const [_tables, _setTables] = useState<Array<TableData>>(() => ([{
+    id: 'P5000Edit', activeSeds: [], p5000WorkingCopies: []
+  }, {
+    id: 'P5000Sum', activeSeds: [], p5000WorkingCopies: []
+  }, {
+    id: 'P5000Overview', activeSeds: [], p5000WorkingCopies: []
+  }]))
+  /* working copies from all P5000s for this BUC
+   * fill it initially with the info from local storage, then let's update the state to keep latest
+   * working copy fresh when tables change, and use local storage for initial load / backup when token expires
+   **/
+  const [_p5000WorkingCopies, _setP5000WorkingCopies] = useState<Array<LocalStorageEntry<P5000SED>>>(() => storageEntries?.[buc.caseId!] ?? [])
 
   const updateEmptyPeriodsReport = (activeSeds: Seds) => {
     const res: EmptyPeriodsReport = {}
-    activeSeds.forEach((sed: Sed) => {
-      res[sed.id] = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapAnnen?.length > 0
-    })
-    setEmptyPeriodReport(res)
+    // @ts-ignore
+    activeSeds.forEach((sed: Sed) => res[sed.id] = p5000sFromRinaMap[sed.id]?.pensjon?.medlemskapAnnen?.length > 0)
+    _setEmptyPeriodReport(res)
   }
 
   const renderP5000EditHeader = () => {
     if (!mainSed) return null
     return (
       <FlexCenterDiv>
-        <Heading size='small' style={{display: 'flex'}}>
+        <Heading size='small' style={{ display: 'flex' }}>
           {t('p5000:edit-title')}
         </Heading>
-        <HorizontalSeparatorDiv/>
+        <HorizontalSeparatorDiv />
         -
-        <HorizontalSeparatorDiv/>
-        <P5000SedLabel sed={mainSed}/>
+        <HorizontalSeparatorDiv />
+        <P5000SedLabel sed={mainSed} />
       </FlexCenterDiv>
     )
   }
 
-  const renderP5000EditContent = (activeSeds: Seds, p5000FromStorage: LocalStorageEntry<P5000SED> | undefined) => {
+  const renderP5000EditContent = (p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
     if (!mainSed) return null
+    const p5000WorkingCopyEntry: LocalStorageEntry<P5000SED> | undefined = getWorkingCopy(p5000WorkingCopies, mainSed.id)
+    //        key={'P5000-Edit-' + mainSed.id + '-Context-' + context + '-Version-' + (p5000WorkingCopyEntry?.date ?? '')}
     return (
       <P5000Edit
         caseId={buc.caseId!}
         onBackClick={onBackClick}
-        key={'P5000-Edit-' + mainSed.id + '-Context-' + context + '-Version-' + p5000FromStorage?.date}
-        p5000FromRinaMap={p5000FromRinaMap}
-        p5000FromStorage={p5000FromStorage}
-        saveP5000ToStorage={saveP5000ToStorage}
-        removeP5000FromStorage={removeP5000FromStorage}
+        p5000sFromRinaMap={p5000sFromRinaMap}
+        p5000WorkingCopy={p5000WorkingCopyEntry}
+        updateWorkingCopy={updateWorkingCopy}
         mainSed={mainSed}
       />
     )
@@ -119,15 +127,21 @@ const P5000: React.FC<P5000Props> = ({
     </Heading>
   )
 
-  const renderP5000SumContent = (activeSeds: Seds, p5000FromStorage: LocalStorageEntry<P5000SED> | undefined) => {
+  const renderP5000SumContent = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
     const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
+    // const sedIDs = onlyNorwegianActiveSeds!.map(s => s.id).sort().join(',')
+    let p5000WorkingCopyEntry: LocalStorageEntry<P5000SED> | undefined
+    if (mainSed) {
+      p5000WorkingCopyEntry = getWorkingCopy(p5000WorkingCopies, mainSed?.id)
+    }
+    // key={'P5000-Sum-' + sedIDs + '-Context-' + context + '-Version-' + (p5000WorkingCopyEntry?.date ?? '')}
+    //
     return (
       <P5000Sum
         context={context}
-        key={'P5000Sum' + onlyNorwegianActiveSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-        p5000FromRinaMap={p5000FromRinaMap}
-        p5000FromStorage={p5000FromStorage}
-        saveP5000ToStorage={saveP5000ToStorage}
+        p5000sFromRinaMap={p5000sFromRinaMap}
+        p5000WorkingCopy={p5000WorkingCopyEntry}
+        updateWorkingCopy={updateWorkingCopy}
         seds={onlyNorwegianActiveSeds}
         mainSed={mainSed}
       />
@@ -140,13 +154,15 @@ const P5000: React.FC<P5000Props> = ({
     </Heading>
   )
 
-  const renderP5000OverviewContent = (activeSeds: Seds, p5000FromStorage: LocalStorageEntry<P5000SED> | undefined) => {
+  const renderP5000OverviewContent = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
+    // const activeSedIDs = activeSeds!.map(s => s.id).sort().join(',')
+    // const workingCopyIDs = p5000WorkingCopies?.map(s => s.date).sort().join(',') ?? ''
+    //  key={'P5000-Overview-' + activeSedIDs + '-Context-' + context + '-Version-' + workingCopyIDs}
     return (
       <P5000Overview
         context={context}
-        key={'P5000Overview-' + activeSeds!.map(s => s.id).join(',') + '-context-' + context + '-version-' + p5000FromStorage?.date}
-        p5000FromRinaMap={p5000FromRinaMap}
-        p5000FromStorage={p5000FromStorage}
+        p5000sFromRinaMap={p5000sFromRinaMap}
+        p5000WorkingCopies={p5000WorkingCopies}
         seds={activeSeds}
       />
     )
@@ -155,13 +171,14 @@ const P5000: React.FC<P5000Props> = ({
   const updateActiveSeds = (seds: any) => {
     _setActiveSeds(seds)
     updateEmptyPeriodsReport(seds)
-    updateTables(seds)
+    // only 'P5000Sum' and 'P5000Overview' are affected by changes in activeSeds
+    updateTables(seds, _p5000WorkingCopies)
   }
 
-  const renderTableContent = (id: string, activeSeds: Seds, p5000FromStorage: LocalStorageEntry<P5000SED> | undefined) => {
-    if (id === 'P5000Edit') return renderP5000EditContent(activeSeds, p5000FromStorage)
-    if (id === 'P5000Sum') return renderP5000SumContent(activeSeds, p5000FromStorage)
-    if (id === 'P5000Overview') return renderP5000OverviewContent(activeSeds, p5000FromStorage)
+  const renderTableContent = ({ id, activeSeds, p5000WorkingCopies }: TableData) => {
+    if (id === 'P5000Edit') return renderP5000EditContent(p5000WorkingCopies)
+    if (id === 'P5000Sum') return renderP5000SumContent(activeSeds, p5000WorkingCopies)
+    if (id === 'P5000Overview') return renderP5000OverviewContent(activeSeds, p5000WorkingCopies)
     return null
   }
 
@@ -172,46 +189,25 @@ const P5000: React.FC<P5000Props> = ({
     return null
   }
 
-  const updateTables = (activeSeds: Seds) => {
-    // use local storage stuff only in edit context, no need for overview context
-    const p5000EntryFromStorage: LocalStorageEntry | undefined = _.find(storageEntries?.[buc.caseId!], e => e.sedId === mainSed?.id)
-
-    let newTables = _.cloneDeep(_tables)
-    newTables = newTables.map(t => ({
-      id: t.id,
-      content: renderTableContent(t.id, activeSeds, p5000EntryFromStorage),
-      header: renderTableHeader(t.id)
-    }))
+  const updateTables = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry>) => {
+    const newTables = _tables.map(t => {
+      return ({
+        id: t.id,
+        activeSeds,
+        p5000WorkingCopies
+      })
+    })
     _setTables(newTables)
   }
 
-  const saveP5000ToStorage = (newSed: P5000SED | undefined, sedId: string, sort?: Sort): void => {
-    if (newSed) {
-      dispatch(saveEntry(buc.caseId!, {
-        sedId,
-        sedType: 'P5000',
-        sort,
-        date: new Date().getTime(),
-        content: newSed
-      }))
-    }
-  }
-
-  const removeP5000FromStorage = (sedId: string): void => {
-    dispatch(removeEntry(buc.caseId!, {
-      sedId,
-      sedType: 'P5000'
-    } as LocalStorageEntry<P5000SED>))
-  }
-
-  // select which P5000 SEDs we want to see
-  const getP5000 = (buc: Buc): Seds | undefined => {
-    if (!buc.seds) {
-      return undefined
-    }
-    return buc.seds
-      .filter(sedFilter)
-      .filter((sed: Sed) => sed.type === 'P5000' && sed.status !== 'cancelled')
+  const updateWorkingCopy = (newSed: P5000SED | undefined, sedId: string): void => {
+    const newP5000WorkingCopies: Array<LocalStorageEntry<P5000SED>> = updateP5000WorkingCopies(_p5000WorkingCopies, newSed, sedId)
+    // Set the local working copies
+    _setP5000WorkingCopies(newP5000WorkingCopies)
+    // render tables with new changes
+    updateTables(_activeSeds, newP5000WorkingCopies)
+    // make a local storage backup of the updated working copies
+    dispatch(saveEntries(buc.caseId!, newP5000WorkingCopies))
   }
 
   const onBackClick = () => {
@@ -221,39 +217,36 @@ const P5000: React.FC<P5000Props> = ({
 
   const changeActiveSeds = (sed: Sed, checked: boolean): void => {
     let newActiveSeds: Seds = _.cloneDeep(_activeSeds)
-    if (checked) {
-      newActiveSeds = newActiveSeds.concat(sed)
-    } else {
-      newActiveSeds = _.filter(newActiveSeds, s => s.id !== sed.id)
-    }
+    newActiveSeds = checked ? newActiveSeds.concat(sed) : _.reject(newActiveSeds, s => s.id === sed.id)
     updateActiveSeds(newActiveSeds)
   }
 
-  // this effect checks if we need to load seds, when buc/sed/context changes
+  /** check if we need to load SEDs from RINA, when buc changes; send the dispatches */
   useEffect(() => {
-    const seds = getP5000(buc)
+    // select which P5000 SEDs we want to see
+    const seds = buc.seds?.filter((sed: Sed) => sed.type === 'P5000' && sed.status !== 'cancelled' && sed.status !== 'empty')
     _setSeds(seds)
     // which Seds we do NOT have on cache? Load them.
-    const cachedSedIds: Array<string> = Object.keys(p5000FromRinaMap)
+    const cachedSedIds: Array<string> = Object.keys(p5000sFromRinaMap)
     const notloadedSeds: Seds = _.filter(seds, sed => cachedSedIds.indexOf(sed.id) < 0)
     if (!_.isEmpty(notloadedSeds)) {
       _setReady(false)
       _setFetchingP5000(notloadedSeds)
       notloadedSeds.forEach(sed => dispatch(getSed(buc.caseId!, sed)))
     } else {
-      if (seds) {
-        updateActiveSeds(seds)
-      }
+      updateActiveSeds(seds)
+
       _setFetchingP5000(undefined)
       _setReady(true)
     }
-  }, [buc, context])
+  }, [buc])
 
+  /** check if we are ready, as in, we loaded all necessary SEDs from RINA */
   useEffect(() => {
     if (!_ready && _.isArray(_fetchingP5000)) {
       if (!_.isEmpty(_fetchingP5000)) {
-        // update _fetchingP5000 with new cached info from p5000FromRinaMap
-        const cachedSedIds = Object.keys(p5000FromRinaMap)
+        // update _fetchingP5000 with new cached info from p5000sFromRinaMap
+        const cachedSedIds = Object.keys(p5000sFromRinaMap)
         const notloadedSeds: Seds = _.filter(_seds, sed => cachedSedIds.indexOf(sed.id) < 0)
         if (!_.isEmpty(notloadedSeds)) {
           _setFetchingP5000(notloadedSeds)
@@ -272,16 +265,14 @@ const P5000: React.FC<P5000Props> = ({
         _setReady(true)
       }
     }
-  }, [_fetchingP5000, p5000FromRinaMap])
-
-  useEffect(() => {
-    updateTables(_activeSeds)
-  }, [storageEntries])
+  }, [_fetchingP5000, p5000sFromRinaMap])
 
   if (!_ready) {
+    const cachedSedIds = Object.keys(p5000sFromRinaMap)
+    const loadedSeds: number = _.filter(_seds, sed => cachedSedIds.indexOf(sed.id) >= 0)?.length ?? 0
     return (
       <SpinnerDiv>
-        <WaitingPanel />
+        <WaitingPanel message={t('p5000:loading-sed-X-of-Y', { x: loadedSeds, y: _seds?.length ?? 0 })} />
       </SpinnerDiv>
     )
   }
@@ -289,7 +280,7 @@ const P5000: React.FC<P5000Props> = ({
   return (
     <div key={_seds?.map(s => s.id).join(',')}>
       <P5000Controls
-        emptyPeriodReport={emptyPeriodReport}
+        emptyPeriodReport={_emptyPeriodReport}
         seds={_seds}
         activeSeds={_activeSeds}
         changeActiveSeds={changeActiveSeds}
@@ -308,13 +299,22 @@ const P5000: React.FC<P5000Props> = ({
               (table.id === 'P5000Overview')
             ) {
               return (
-                <>
-                  <P5000Draggable table={table} index={index}/>
-                  <VerticalSeparatorDiv size='2'/>
-                </>
+                <div key={table.id}>
+                  <P5000Draggable
+                    tableId={table.id}
+                    index={index}
+                    header={(renderTableHeader(table.id))}
+                    body={(
+                      <Accordion.Content>
+                        {renderTableContent(table)}
+                      </Accordion.Content>
+                    )}
+                  />
+                  <VerticalSeparatorDiv size='2' />
+                </div>
               )
             } else {
-              return <div/>
+              return <div />
             }
           })}
         </P5000Droppable>

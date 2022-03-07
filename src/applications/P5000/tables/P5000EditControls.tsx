@@ -10,15 +10,16 @@ import {
 } from '@navikt/hoykontrast'
 import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'actions/p5000'
 import { getGjpBp, getUFT } from 'actions/person'
-import { listItemtoPeriod } from 'applications/P5000/conversion'
+import { listItemtoPeriod } from 'applications/P5000/utils/conversionUtils'
 import { ytelseType } from 'applications/P5000/P5000.labels'
-import P5000HelpModal from 'applications/P5000/P5000HelpModal'
+import P5000HelpModal from 'applications/P5000/components/P5000HelpModal'
 import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
 import { FeatureToggles, LocalStorageEntry, Option, Validation } from 'declarations/app'
-import { P5000FromRinaMap, SakTypeMap, SakTypeValue } from 'declarations/buc.d'
+import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
+import { P5000sFromRinaMap } from 'declarations/p5000.d'
 import { P5000ListRow, P5000ListRows, P5000Period, P5000SED, P5000UpdatePayload } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -49,17 +50,17 @@ export interface P5000EditControlsProps {
   caseId: string
   onBackClick: () => void
   onSave: (payload: P5000UpdatePayload) => void
-  ytelseOption: string | undefined
+  ytelseOption: string | null
   setYtelseOption: (a: string) => void
-  forsikringEllerBosetningsperioder: string | undefined
+  forsikringEllerBosetningsperioder: string | null | undefined
   setForsikringEllerBosetningsperioder: (a: string) => void
   itemsPerPage: number
   setItemsPerPage: (n: number) => void
   setRenderPrintTable: (b: boolean) => void
   resetValidation: (s ?: string) => void
   performValidation: (a: any) => boolean
-  p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
+  p5000sFromRinaMap: P5000sFromRinaMap
+  p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
   p5000changed: boolean
   validation: Validation
   items: P5000ListRows
@@ -77,7 +78,7 @@ const mapState = (state: State): P5000EditControlsSelector => ({
   sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info,
   uft: state.person.uft,
-  vedtakId: state.app.params.vedtakId,
+  vedtakId: state.app.params.vedtakId
 })
 
 const P5000EditControls: React.FC<P5000EditControlsProps> = ({
@@ -93,15 +94,14 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
   setRenderPrintTable,
   resetValidation,
   performValidation,
-  p5000FromRinaMap,
-  p5000FromStorage,
+  p5000sFromRinaMap,
+  p5000WorkingCopy,
   p5000changed,
   items,
   validation,
   componentRef,
   sedId
- }: P5000EditControlsProps): JSX.Element => {
-
+}: P5000EditControlsProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { featureToggles, sentP5000info, sendingP5000info, gettingUft, uft, gjpbp, gjpbpwarning, pesysContext, vedtakId, sakType }:P5000EditControlsSelector =
@@ -185,9 +185,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
   }
 
   const handleOverforTilRina = () => {
-    let p5000template: P5000SED | undefined = p5000FromStorage?.content
+    let p5000template: P5000SED | undefined = p5000WorkingCopy?.content
     if (_.isUndefined(p5000template)) {
-      p5000template = p5000FromRinaMap[sedId]
+      p5000template = p5000sFromRinaMap[sedId]
     }
     const valid: boolean = performValidation({
       p5000sed: p5000template
@@ -397,24 +397,24 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         open={_showHelpModal}
         onClose={() => _setShowHelpModal(false)}
       />
-      <AlignEndRow style={{width: '100%'}}>
-        <Column/>
+      <AlignEndRow style={{ width: '100%' }}>
+        <Column />
         <Column flex='2'>
           <Alert variant='warning'>
-          <FlexCenterDiv>
-            {t('p5000:warning-P5000Edit-instructions-li1')}
-            <HorizontalSeparatorDiv size='0.5' />
-            <HelpText>
-              <div style={{ maxWidth: '600px' }}>
-                <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
-              </div>
-            </HelpText>
-          </FlexCenterDiv>
-        </Alert>
+            <FlexCenterDiv>
+              {t('p5000:warning-P5000Edit-instructions-li1')}
+              <HorizontalSeparatorDiv size='0.5' />
+              <HelpText>
+                <div style={{ maxWidth: '600px' }}>
+                  <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
+                </div>
+              </HelpText>
+            </FlexCenterDiv>
+          </Alert>
         </Column>
-        <Column/>
+        <Column />
       </AlignEndRow>
-      <VerticalSeparatorDiv/>
+      <VerticalSeparatorDiv />
       <AlignEndRow style={{ width: '100%' }}>
         <Column>
           <FullWidthDiv>
@@ -516,9 +516,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         <Column style={{ textAlign: 'end' }}>
           {p5000changed && (
             <div style={{ whiteSpace: 'nowrap' }}>
-                <span>
-                  {t('p5000:saved-working-copy')}
-                </span>
+              <span>
+                {t('p5000:saved-working-copy')}
+              </span>
               <HorizontalSeparatorDiv size='0.5' />
               <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
                 {t('ui:hva-betyr-det')}
@@ -577,7 +577,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             </>
           )}
         </Column>
-        <Column/>
+        <Column />
       </AlignEndRow>
     </>
   )

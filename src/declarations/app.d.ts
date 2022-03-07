@@ -11,9 +11,7 @@ export type SedType = 'P4000' | 'P5000'
 
 export type PSED = P4000SED | P5000SED
 
-export type Entry = Array<LocalStorageEntry<PSED>> | null | undefined
-
-export type Entries = { [caseId in string]: Entry } | null | undefined
+export type LocalStorageEntriesMap<T extends PSED = PSED> = { [caseId in string]: Array<LocalStorageEntry<T>> } | null | undefined
 
 export type Feature =
   'P4000_VISIBLE'

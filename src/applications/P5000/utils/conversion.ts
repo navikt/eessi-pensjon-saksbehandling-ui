@@ -3,68 +3,28 @@ import {
   P5000Context,
   P5000ListRow,
   P5000ListRows,
-  P5000Period, P5000PeriodStatus,
-  P5000SED, P5000SourceStatus,
-  P5000SumRow,
-  P5000SumRows, P5000UpdatePayload,
+  P5000Period,
+  P5000PeriodStatus,
+  P5000SED,
+  P5000SourceStatus,
+  P5000SumRows,
+  P5000UpdatePayload,
   SedSender
+  , P5000sFromRinaMap
 } from 'declarations/p5000'
-import { P5000FromRinaMap, Participant, Sed, Seds } from 'declarations/buc'
-import CountryData from '@navikt/land-verktoy'
+import { Seds } from 'declarations/buc'
 import _ from 'lodash'
 import moment from 'moment'
-import md5 from 'md5'
 import i18n from 'i18n'
-import dateDecimal, { sumDates, writeDateDiff, writeFloat } from 'utils/dateDecimal'
+import dateDecimal, { sumDates, writeDateDiff } from 'utils/dateDecimal'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
-
-const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | undefined => {
-  if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
-    return period.land
-  }
-  return senderIsNorway(sender!) ? 'NO' : sender?.country
-}
-
-export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
-  if (sed === undefined) {
-    return undefined
-  }
-  const sender: Participant | undefined = sed.participants?.find((participant: Participant) => participant.role === 'Sender')
-  if (!sender) {
-    return undefined
-  }
-  return {
-    date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
-    countryLabel: CountryData.getCountryInstance('nb').findByValue(sender.organisation.countryCode).label,
-    country: sender.organisation.countryCode,
-    institution: sender.organisation.name,
-    acronym: sender.organisation.acronym || '-'
-  }
-}
-
-export const senderIsNorway = (sender: SedSender): boolean => sender?.country === 'NO' &&
-  (sender?.institution !== 'NO:NAVAT06' && sender?.institution !== 'NO:NAVAT08')
-
-export const generateKeyForListRow = (id: string, m: P5000Period): string => {
-  const key = 'sedid' + id +
-  '_type' + (!_.isEmpty(m.type) ? m.type : '-') +
-  '_fom' + (!_.isEmpty(m.periode?.fom) ? m.periode?.fom : '-') +
-  '_tom' + (!_.isEmpty(m.periode?.tom) ? m.periode?.tom : '-') +
-  '_aar' + (!_.isEmpty(m.sum?.aar) ? writeFloat(m.sum.aar!) : '-') +
-  '_mnd' + (!_.isEmpty(m.sum?.maaneder) ? writeFloat(m.sum.maaneder!) : '-') +
-  '_dag' + (!_.isEmpty(m.sum?.dager?.nr) ? writeFloat(m.sum.dager.nr!) : '-') +
-  '_yt' + (!_.isEmpty(m.relevans) ? m.relevans : '-') +
-  '_ord' + (!_.isEmpty(m.ordning) ? m.ordning : '-') +
-  '_ber' + (!_.isEmpty(m.beregning) ? m.beregning : '-')
-  // console.log(key)
-  return md5(key)
-}
+import { generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod, sumItemtoPeriod } from './conversionUtils'
 
 export interface ConvertP5000SEDToP5000ListRowsProps {
   seds: Seds
   context: P5000Context
-  p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
+  p5000sFromRinaMap: P5000sFromRinaMap
+  p5000WorkingCopy: Array<LocalStorageEntry<P5000SED>> | LocalStorageEntry<P5000SED> | undefined
   mergePeriods?: boolean
   mergePeriodTypes ?: Array<string>
   mergePeriodBeregnings ?: Array<string>
@@ -74,30 +34,36 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
 
 // Converts P5000 SED from Rina/storage into P5000 Overview / P5000 Edit table rows
 export const convertP5000SEDToP5000ListRows = ({
-   seds,
-   context,
-   p5000FromRinaMap,
-   p5000FromStorage,
-   mergePeriods = false,
-   mergePeriodTypes,
-   mergePeriodBeregnings,
-   useGermanRules = false,
-   selectRowsContext
+  seds,
+  context,
+  p5000sFromRinaMap,
+  p5000WorkingCopy,
+  mergePeriods = false,
+  mergePeriodTypes,
+  mergePeriodBeregnings,
+  useGermanRules = false,
+  selectRowsContext
 }: ConvertP5000SEDToP5000ListRowsProps): [P5000ListRows, P5000SourceStatus] => {
   let rows: P5000ListRows = []
   let sourceStatus: P5000SourceStatus = 'rina'
 
   seds.forEach(sed => {
     const sender: SedSender | undefined = getSedSender(sed)
-    if (context === 'overview' || (context === 'edit' && (p5000FromStorage === undefined || p5000FromStorage.sedId !== sed.id))) {
+    const workingCopy: LocalStorageEntry<P5000SED> | undefined = _.isNil(p5000WorkingCopy)
+      ? undefined
+      : !_.isArray(p5000WorkingCopy)
+          ? p5000WorkingCopy
+          : _.find(p5000WorkingCopy as Array<LocalStorageEntry<P5000SED>>, p => p.sedId === sed.id)
+
+    if (context === 'overview' || (context === 'edit' && (p5000WorkingCopy === undefined || workingCopy?.sedId !== sed.id))) {
       sourceStatus = 'rina'
     } else {
       sourceStatus = 'storage'
     }
 
     const mustCheckStatus: boolean = sourceStatus === 'storage'
-    const rinaPeriods: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapboarbeid?.medlemskap
-    const storagePeriods: Array<P5000Period> | undefined = p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.medlemskap
+    const rinaPeriods: Array<P5000Period> | undefined = p5000sFromRinaMap[sed.id]?.pensjon?.medlemskapboarbeid?.medlemskap
+    const storagePeriods: Array<P5000Period> | undefined = workingCopy?.content?.pensjon?.medlemskapboarbeid?.medlemskap
     const periods: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods : storagePeriods
 
     periods?.forEach((period: P5000Period) => {
@@ -131,12 +97,12 @@ export const convertP5000SEDToP5000ListRows = ({
           flagIkon: period.flagIkon,
           flag: period.flag,
           selectDisabled: selectRowsContext === 'forCertainTypesOnly'
-             ? !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0
-             : false,
+            ? !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0
+            : false,
           selectLabel: !period.flagIkon
             ? selectRowsContext === 'forCertainTypesOnly'
-              ? i18n.t('p5000:checkbox-text-for-edit')
-              : i18n.t('p5000:checkbox-text-for-pesys')
+                ? i18n.t('p5000:checkbox-text-for-edit')
+                : i18n.t('p5000:checkbox-text-for-pesys')
             : period.flagIkon === 'UFT'
               ? 'Uføretrygd periode'
               : 'Gjenlevendeytelse / Barnepensjon periode',
@@ -242,13 +208,13 @@ export const convertP5000SEDToP5000ListRows = ({
           const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
 
           if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
-            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' +  moment(subRow.sluttdato).format('DD.MM.YYYY') +
+            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
               ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
             parentRow = undefined
             subRow.flag = true
             subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
           } else {
-            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' +  moment(subRow.sluttdato).format('DD.MM.YYYY') +
+            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
             ' has same periode sum, ' + thisSubRowPeriodeSum + ' === ' + thisSubCalculatedSum)
           }
         } else {
@@ -356,8 +322,8 @@ export const convertP5000SEDToP5000ListRows = ({
 export const convertP5000SEDToP5000SumRows = (
   seds: Seds,
   context: P5000Context,
-  p5000FromRinaMap: P5000FromRinaMap,
-  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
+  p5000sFromRinaMap: P5000sFromRinaMap,
+  p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
 ): P5000SumRows => {
   const res: P5000SumRows = []
   const data: any = {}
@@ -366,18 +332,17 @@ export const convertP5000SEDToP5000SumRows = (
     let sourceStatus: P5000SourceStatus
     const sender = getSedSender(sed)
     if (context === 'overview' || (context === 'edit' && (
-      p5000FromStorage === undefined || p5000FromStorage.sedId !== sed.id
+      p5000WorkingCopy === undefined || p5000WorkingCopy.sedId !== sed.id
     ))) {
       sourceStatus = 'rina'
     } else {
       sourceStatus = 'storage'
     }
-    const [res] = convertP5000SEDToP5000ListRows({
-      seds: [sed], context, p5000FromRinaMap, p5000FromStorage, selectRowsContext: 'forCertainTypesOnly'})
-    const rinaPeriods1: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.medlemskapTotal
-    const rinaPeriods2: Array<P5000Period> | undefined = p5000FromRinaMap[sed.id]?.pensjon?.trygdetid
-    const storagePeriods1: Array<P5000Period> | undefined = p5000FromStorage?.content.pensjon?.medlemskapTotal
-    const storagePeriods2: Array<P5000Period> | undefined = p5000FromStorage?.content.pensjon?.trygdetid
+    const [res] = convertP5000SEDToP5000ListRows({ seds: [sed], context, p5000sFromRinaMap, p5000WorkingCopy, selectRowsContext: 'forCertainTypesOnly' })
+    const rinaPeriods1: Array<P5000Period> | undefined = p5000sFromRinaMap[sed.id]?.pensjon?.medlemskapTotal
+    const rinaPeriods2: Array<P5000Period> | undefined = p5000sFromRinaMap[sed.id]?.pensjon?.trygdetid
+    const storagePeriods1: Array<P5000Period> | undefined = p5000WorkingCopy?.content.pensjon?.medlemskapTotal
+    const storagePeriods2: Array<P5000Period> | undefined = p5000WorkingCopy?.content.pensjon?.trygdetid
     const periods1: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods1 : storagePeriods1
     const periods2: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods2 : storagePeriods2
     periods1?.forEach((periode: P5000Period) => {
@@ -492,157 +457,6 @@ export const convertP5000SEDToP5000SumRows = (
     (a, b) => (parseInt(a, 10) - parseInt(b, 10))
   )?.forEach((type: string) => res.push(data[type]))
   return res
-}
-
-export const convertDate = (date: string | Date | null | undefined): string | null => {
-  if (_.isNil(date)) {
-    return null
-  }
-  if (_.isDate(date)) {
-    return moment(date).format('YYYY-MM-DD')
-  }
-  return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD')
-}
-
-export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = false): P5000Period => {
-  const over40: boolean = max40 && parseFloat(item.aar) >= 40
-
-  const period: P5000Period = {
-    key: item?.key,
-    selected: item.selected,
-    flag: item.flag,
-    flagIkon: item.flagIkon,
-    relevans: item.ytelse,
-    land: item.land ?? 'NO',
-    sum: {
-      kvartal: null,
-      aar: over40 ? '40' : String(item.aar).padStart(2, '0'),
-      uker: null,
-      dager: {
-        nr: over40 ? '00' : '' + String(item.dag).padStart(2, '0'),
-        type: '7'
-      },
-      maaneder: over40 ? '00' : '' + String(item.mnd).padStart(2, '0')
-    },
-    yrke: null,
-    gyldigperiode: null,
-    type: item.type,
-    beregning: item.beregning,
-    ordning: item.ordning,
-    periode: {
-      fom: convertDate(item.startdato),
-      tom: convertDate(item.sluttdato)
-    }
-  }
-  if (_.isEmpty(period.key)) {
-    period.key = generateKeyForListRow(sedid, period)
-  }
-  return period
-}
-
-export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] => {
-  const medlemskapTotalperiod: P5000Period = {
-    key: item?.key,
-    relevans: null,
-    ordning: null,
-    land: item.land ?? 'NO',
-    sum: {
-      kvartal: null,
-      aar: String(item.sec51aar).padStart(2, '0'),
-      uker: null,
-      dager: {
-        nr: '' + String(item.sec51dag).padStart(2, '0'),
-        type: '7'
-      },
-      maaneder: '' + String(item.sec51mnd).padStart(2, '0')
-    },
-    yrke: null,
-    gyldigperiode: null,
-    type: item.type,
-    beregning: item.beregning,
-    periode: {
-      fom: convertDate(item.startdato),
-      tom: convertDate(item.sluttdato)
-    }
-  }
-  medlemskapTotalperiod.key = generateKeyForListRow('sum', medlemskapTotalperiod)
-
-  const medlemskapTrygdetid: P5000Period = {
-    key: item?.key,
-    relevans: null,
-    ordning: null,
-    land: item.land ?? 'NO',
-    sum: {
-      kvartal: null,
-      aar: String(item.sec52aar).padStart(2, '0'),
-      uker: null,
-      dager: {
-        nr: '' + String(item.sec52dag).padStart(2, '0'),
-        type: '7'
-      },
-      maaneder: '' + String(item.sec52mnd).padStart(2, '0')
-    },
-    yrke: null,
-    gyldigperiode: null,
-    type: item.type,
-    beregning: item.beregning,
-    periode: {
-      fom: convertDate(item.startdato),
-      tom: convertDate(item.sluttdato)
-    }
-  }
-  medlemskapTrygdetid.key = generateKeyForListRow('sum', medlemskapTrygdetid)
-
-  return [medlemskapTotalperiod, medlemskapTrygdetid]
-}
-
-export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
-  const existingDates = dateDecimal({
-    years: arr[index].sum?.aar,
-    trimesters: arr[index].sum?.kvartal,
-    months: arr[index].sum?.maaneder,
-    weeks: arr[index].sum?.uker,
-    days: arr[index].sum?.dager?.nr
-  })
-
-  let newDates = sumDates({
-    years: item.aar,
-    months: item.mnd,
-    days: item.dag
-  }, existingDates)
-
-  if (max40 && newDates.years! >= 40) {
-    newDates = {
-      years: 40,
-      months: 0,
-      days: 0
-    }
-  }
-
-  arr[index].sum.aar = String(newDates.years).padStart(2, '0')
-  arr[index].sum.kvartal = null
-  arr[index].sum.maaneder = String(newDates.months).padStart(2, '0')
-  arr[index].sum.uker = null
-  arr[index].sum.dager.nr = String(newDates.days).padStart(2, '0')
-
-  if (!arr[index].periode) {
-    arr[index].periode = {
-      fom: null, tom: null
-    }
-  }
-  arr[index].periode!.fom =
-    moment(item.startdato).isSameOrBefore(moment(arr[index].periode?.fom, 'YYYY-MM-DD'))
-      ? moment(item.startdato).format('YYYY-MM-DD')
-      : arr[index].periode!.fom
-
-  arr[index].periode!.tom =
-    moment(item.sluttdato).isSameOrAfter(moment(arr[index].periode?.tom, 'YYYY-MM-DD'))
-      ? moment(item.sluttdato).format('YYYY-MM-DD')
-      : arr[index].periode!.tom
-
-  if (_.isNil(arr[index].beregning) && !_.isNil(item.beregning)) {
-    arr[index].beregning = item.beregning
-  }
 }
 
 // Converts table rows for view/list, into P5000 SED for storage

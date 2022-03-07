@@ -5,8 +5,6 @@ const P5000Droppable = ({
   children,
   placeholderProps
 }: any) => {
-
-
   const getItemStyle = (isDragging: any, draggableStyle: any) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',

@@ -18,7 +18,6 @@ import {
   SavingAttachmentsJob,
   Sed,
   SEDAttachment,
-  P5000FromRinaMap,
   SedsWithAttachmentsMap,
   ValidBuc,
   P6000,
@@ -30,6 +29,7 @@ import _ from 'lodash'
 import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { Action } from 'redux'
+import { P5000sFromRinaMap } from 'declarations/p5000'
 
 export interface BucState {
   attachmentsError: boolean
@@ -53,7 +53,7 @@ export interface BucState {
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
-  p5000FromRinaMap: P5000FromRinaMap
+  p5000sFromRinaMap: P5000sFromRinaMap
   p6000s: Array<P6000> | null | undefined
   p6000PDF: JoarkPreview | null | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
@@ -84,7 +84,7 @@ export const initialBucState: BucState = {
   rinaUrl: undefined,
   savingAttachmentsJob: undefined,
   sed: undefined,
-  p5000FromRinaMap: {},
+  p5000sFromRinaMap: {},
   p6000s: undefined,
   p6000PDF: undefined,
   sedList: undefined,
@@ -109,7 +109,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         savingAttachmentsJob: undefined,
         p6000s: undefined,
         p6000PDF: undefined,
-        p5000FromRinaMap: {}
+        p5000sFromRinaMap: {}
       }
 
     case types.BUC_CREATE_BUC_REQUEST:
@@ -610,7 +610,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         countryList: undefined,
         followUpSeds: undefined,
         institutionList: undefined,
-        p5000FromRinaMap: {}
+        p5000sFromRinaMap: {}
       }
 
     case types.BUC_SED_ATTACHMENTS_RESET: {

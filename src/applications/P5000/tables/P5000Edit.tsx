@@ -9,12 +9,13 @@ import {
   relevantForYtelse,
   typePeriode
 } from 'applications/P5000/P5000.labels'
-import P5000EditControls from 'applications/P5000/P5000EditControls'
+import P5000EditControls from 'applications/P5000/tables/P5000EditControls'
 import Input from 'components/Forms/Input'
 import Select from 'components/Select/Select'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { LocalStorageEntry, Option } from 'declarations/app.d'
-import { P5000FromRinaMap, Sed } from 'declarations/buc.d'
+import { Sed } from 'declarations/buc.d'
+import { P5000sFromRinaMap } from 'declarations/p5000.d'
 import { SedPropType } from 'declarations/buc.pt'
 import {
   P5000ListRow,
@@ -41,7 +42,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors, Sort } from '@navikt/tabell'
 import dateDiff, { DateDiff } from 'utils/dateDiff'
-import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from './conversion'
+import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from 'applications/P5000/utils/conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
 const moment = extendMoment(Moment)
@@ -54,10 +55,9 @@ export interface P5000EditProps {
   caseId: string
   mainSed: Sed
   onBackClick: () => void
-  p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
-  saveP5000ToStorage: ((newSed: P5000SED | undefined, sedId: string, sort?: Sort) => void) | undefined
-  removeP5000FromStorage: ((sedId: string) => void) | undefined
+  p5000sFromRinaMap: P5000sFromRinaMap
+  p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
+  updateWorkingCopy: (newSed: P5000SED | undefined, sedId: string) => void
 }
 
 const mapState = (state: State): any => ({
@@ -66,12 +66,11 @@ const mapState = (state: State): any => ({
 
 const P5000Edit: React.FC<P5000EditProps> = ({
   caseId,
-  p5000FromRinaMap,
-  p5000FromStorage,
+  p5000sFromRinaMap,
+  p5000WorkingCopy,
   mainSed,
   onBackClick,
-  removeP5000FromStorage,
-  saveP5000ToStorage
+  updateWorkingCopy
 }: P5000EditProps) => {
   const { t } = useTranslation()
   const { sentP5000info }: any = useSelector<State, any>(mapState)
@@ -82,31 +81,27 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows({
     seds: [mainSed],
     context: 'edit',
-    p5000FromRinaMap,
-    p5000FromStorage,
+    p5000sFromRinaMap,
+    p5000WorkingCopy,
     selectRowsContext: 'forCertainTypesOnly'
   })
   const [renderPrintTable, setRenderPrintTable] = useState<boolean>(false)
 
-  const [_ytelseOption, _setYtelseOption] = useState<string | undefined>(() =>
-    !_.isNil(p5000FromStorage)
-      ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
-      : p5000FromRinaMap[mainSed.id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
-  )
-  const [_tableSort, _setTableSort] = useState<Sort>(() =>
-    !_.isNil(p5000FromStorage) && _.isEmpty(p5000FromStorage?.sort)
-      ? p5000FromStorage?.sort!
-      : { column: '', order: 'none' }
-  )
-  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | undefined>(() =>
-    !_.isNil(p5000FromStorage)
-      ? p5000FromStorage?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode
-      : p5000FromRinaMap[mainSed.id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
+  const [_ytelseOption, _setYtelseOption] = useState<string | null>(() => (
+    !_.isNil(p5000WorkingCopy)
+      ? p5000WorkingCopy?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+      : p5000sFromRinaMap?.[mainSed.id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+  ))
+  const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
+
+  const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | null | undefined>(() =>
+    !_.isNil(p5000WorkingCopy)
+      ? p5000WorkingCopy?.content?.pensjon?.medlemskapboarbeid?.gyldigperiode
+      : p5000sFromRinaMap[mainSed.id]?.pensjon?.medlemskapboarbeid?.gyldigperiode
   )
   const [typeOptions] = useState<Array<Option>>(() => Object.keys(typePeriode)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
-
 
   const beregningOptions: Array<Option> = [
     { label: '000 - ' + informasjonOmBeregningLabels['000'], value: '000' },
@@ -118,10 +113,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     { label: '110 - ' + informasjonOmBeregningLabels['110'], value: '110' },
     { label: '111 - ' + informasjonOmBeregningLabels['111'], value: '111' }
   ]
-
-  const onSaveSort = (sort: Sort) => {
-    saveP5000ToStorage!(undefined, mainSed.id, sort)
-  }
 
   const renderTypeEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
@@ -141,7 +132,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderType = ({value}: RenderOptions<P5000ListRow, P5000TableContext, string>) => {
+  const renderType = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <BodyLong>
         {_.find(typeOptions, t => t.value === value)?.label || t('buc:status-unknown')}
@@ -200,7 +191,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const maybeDoSomePrefill = (
     startdato: string | undefined,
     sluttdato: string | undefined,
-    options: RenderEditableOptions<P5000ListRow,P5000TableContext, any>
+    options: RenderEditableOptions<P5000ListRow, P5000TableContext, any>
   ) => {
     const dates: DateDiff | null = calculateDateDiff(startdato, sluttdato)
     if (dates) {
@@ -266,10 +257,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     />
   )
 
-  const renderDager = (item: any) => {
+  const renderDager = (options: RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <BodyLong>
-        {item.dag}
+        {options.value}
       </BodyLong>
     )
   }
@@ -391,7 +382,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderYtelse = ({value} : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
+  const renderYtelse = ({ value } : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Tooltip
         label={(
@@ -441,10 +432,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const onColumnSort = (sort: Sort) => {
     standardLogger('buc.edit.tools.P5000.edit.sort', { sort })
     _setTableSort(sort)
-    onSaveSort(sort)
   }
 
-  const renderOrdning = ({value} : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
+  const renderOrdning = ({ value } : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Tooltip
         label={(
@@ -460,7 +450,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const renderOrdningEdit = ({value}: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
+  const renderOrdningEdit = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
@@ -474,7 +464,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     </Tooltip>
   )
 
-  const renderStatus = ({value}: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
+  const renderStatus = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <div>
       {(value === 'rina') && <Tag size='small' variant='info'>RINA</Tag>}
       {(value === 'new') && <Tag size='small' variant='success'>Ny</Tag>}
@@ -482,7 +472,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     </div>
   )
 
-  const renderBeregning =({value} : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
+  const renderBeregning = ({ value } : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Tooltip
         label={(
@@ -562,7 +552,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     })
   }
 
-  const renderDateCell = ({value}: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
+  const renderDateCell = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
@@ -596,9 +586,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const beforeRowAdded = (newRowValues: NewRowValues, context: P5000TableContext): ItemErrors | undefined => {
     const errors: ItemErrors = {}
-    const typeValue = newRowValues['type']?.value
-    const startdatovalue: string | undefined = newRowValues['startdato']?.value
-    const sluttdatovalue: string | undefined = newRowValues['sluttdato']?.value
+    const typeValue = newRowValues.type?.value
+    const startdatovalue: string | undefined = newRowValues.startdato?.value
+    const sluttdatovalue: string | undefined = newRowValues.sluttdato?.value
 
     const startdato = moment(dateTransform(startdatovalue), 'DD.MM.YYYY')
     const sluttdato = moment(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
@@ -624,28 +614,27 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onSave = (payload: P5000UpdatePayload) => {
-    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
+    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000WorkingCopy?.content)
     if (_.isNil(templateForP5000)) {
-      templateForP5000 = _.cloneDeep(p5000FromRinaMap[mainSed.id])
+      templateForP5000 = _.cloneDeep(p5000sFromRinaMap[mainSed.id])
     }
     if (templateForP5000) {
       const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, mainSed.id, templateForP5000)
-      saveP5000ToStorage!(newP5000FromStorage,mainSed.id, _tableSort)
+      updateWorkingCopy(newP5000FromStorage, mainSed.id)
     }
   }
 
-
   useEffect(() => {
-    if (!_.isNil(sentP5000info) && !_.isNil(p5000FromStorage)) {
-      if (removeP5000FromStorage) {
-        removeP5000FromStorage(mainSed.id)
-      }
+    if (!_.isNil(sentP5000info) && !_.isNil(p5000WorkingCopy)) {
+      updateWorkingCopy(undefined, mainSed.id)
     }
-  }, [sentP5000info, removeP5000FromStorage, p5000FromStorage])
+  }, [sentP5000info, p5000WorkingCopy])
 
   if (_items === undefined) {
     return <div />
   }
+
+  const tableId = 'P5000Edit-table'
 
   return (
     <>
@@ -662,8 +651,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           onBackClick={onBackClick}
           onSave={onSave}
           performValidation={_performValidation}
-          p5000FromStorage={p5000FromStorage}
-          p5000FromRinaMap={p5000FromRinaMap}
+          p5000WorkingCopy={p5000WorkingCopy}
+          p5000sFromRinaMap={p5000sFromRinaMap}
           p5000changed={sourceStatus !== 'rina'}
           resetValidation={_resetValidation}
           setItemsPerPage={_setItemsPerPage}
@@ -674,8 +663,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         <Table<P5000ListRow, P5000TableContext>
-          key={'P5000Edit-table-' + _itemsPerPage + '-sort-' + JSON.stringify(_tableSort) + '-storage-' + !_.isEmpty(p5000FromStorage)}
-          animatable={true}
+          id={tableId}
+          animatable
           items={_items}
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
@@ -975,7 +964,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
 P5000Edit.propTypes = {
   mainSed: SedPropType.isRequired,
-  p5000FromRinaMap: PT.any.isRequired
+  p5000sFromRinaMap: PT.any.isRequired
 }
 
 export default P5000Edit

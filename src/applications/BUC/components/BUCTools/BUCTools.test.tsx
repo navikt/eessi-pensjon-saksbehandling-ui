@@ -1,5 +1,5 @@
 import { getTagList, saveBucsInfo } from 'actions/buc'
-import { Buc, BucInfo, BucsInfo, Comment, Comments, P5000FromRinaMap, TagRawList } from 'declarations/buc.d'
+import { Buc, BucInfo, BucsInfo, Comment, Comments, TagRawList } from 'declarations/buc.d'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { mount, ReactWrapper } from 'enzyme'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -11,6 +11,7 @@ import mockP50002 from 'mocks/buc/sed_P5000_small2'
 import { stageSelector } from 'setupTests'
 import BUCTools, { BUCToolsProps, TextArea } from './BUCTools'
 import allTags from 'constants/tagsList'
+import { P5000sFromRinaMap } from 'declarations/p5000'
 
 jest.mock('actions/buc', () => ({
   getSed: jest.fn(),
@@ -24,10 +25,10 @@ const defaultSelector = {
   highContrast: false,
   loading: {},
   locale: 'nb' as AllowedLocaleString,
-  p5000FromRinaMap: {
+  p5000sFromRinaMap: {
     '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,
     '50578cf8bf9f45a7819a39987c6c8fd4': mockP50002
-  } as P5000FromRinaMap,
+  } as P5000sFromRinaMap,
   tagList: mockTagList as TagRawList
 }
 

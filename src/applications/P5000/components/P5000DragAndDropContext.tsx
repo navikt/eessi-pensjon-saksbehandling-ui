@@ -5,15 +5,13 @@ const P5000DragAndDropContext = ({
   tables,
   setTables,
   setPlaceholderProps
- }: any) => {
-
+}: any) => {
   const getDraggedDom = (draggableId: any): Element => {
     const queryAttr = 'data-rbd-drag-handle-draggable-id'
     const domQuery = `[${queryAttr}='${draggableId}']`
     const draggedDOM = document.querySelector(domQuery)
     return draggedDOM!
   }
-
 
   const reorder = (slots: Array<string>, startIndex: number, endIndex: number) => {
     const result = Array.from(slots)
@@ -28,7 +26,7 @@ const P5000DragAndDropContext = ({
       return
     }
 
-    const {clientHeight, clientWidth} = draggedDOM
+    const { clientHeight, clientWidth } = draggedDOM
     const sourceIndex = event.source.index
     // @ts-ignore
     const clientY = parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
@@ -41,7 +39,7 @@ const P5000DragAndDropContext = ({
           return total + curr.clientHeight + marginBottom
         }, 0)
 
-    const {content} = tables.find((element: any) => element.id === event.draggableId)
+    const { content } = tables.find((element: any) => element.id === event.draggableId)
 
     setPlaceholderProps({
       clientContent: content,
@@ -63,7 +61,7 @@ const P5000DragAndDropContext = ({
     if (!draggedDOM) {
       return
     }
-    const {clientHeight, clientWidth} = draggedDOM
+    const { clientHeight, clientWidth } = draggedDOM
     const destinationIndex = event.destination.index
     const sourceIndex = event.source.index
 
@@ -86,7 +84,7 @@ const P5000DragAndDropContext = ({
         return total + curr.clientHeight + marginBottom
       }, 0)
 
-    const {content} = tables.find((element: any) => element.id === event.draggableId)
+    const { content } = tables.find((element: any) => element.id === event.draggableId)
 
     setPlaceholderProps({
       clientContent: content,

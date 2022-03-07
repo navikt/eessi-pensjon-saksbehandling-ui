@@ -5,9 +5,10 @@ import { Draggable } from 'react-beautiful-dnd'
 
 const P5000Draggable = ({
   index,
-  table
+  tableId,
+  header,
+  body
 }: any) => {
-
   const getItemStyle = (isDragging: any, draggableStyle: any) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
@@ -19,7 +20,7 @@ const P5000Draggable = ({
   })
 
   return (
-    <Draggable key={table.id} draggableId={table.id} index={index}>
+    <Draggable draggableId={tableId} index={index}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
@@ -32,20 +33,18 @@ const P5000Draggable = ({
             padding: '0px'
           }}
         >
-          <Panel border style={{padding: '0px'}}>
-            <Accordion style={{borderRadius: '4px'}} id={'a-buc-c-' + table.id}>
+          <Panel border style={{ padding: '0px' }}>
+            <Accordion style={{ borderRadius: '4px' }} id={'a-buc-c-' + tableId}>
               <Accordion.Item defaultOpen renderContentWhenClosed>
                 <FlexDiv>
-                  <div style={{padding: '1.5rem 1rem'}} {...provided.dragHandleProps}>
-                    <System/>
+                  <div style={{ padding: '1.5rem 1rem' }} {...provided.dragHandleProps}>
+                    <System />
                   </div>
                   <Accordion.Header>
-                    {table.header}
+                    {header}
                   </Accordion.Header>
                 </FlexDiv>
-                <Accordion.Content>
-                  {table.content}
-                </Accordion.Content>
+                {body}
               </Accordion.Item>
             </Accordion>
           </Panel>

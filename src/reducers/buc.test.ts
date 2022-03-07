@@ -35,7 +35,7 @@ describe('reducers/buc', () => {
           saved: [],
           saving: undefined
         },
-        p5000FromRinaMap: {}
+        p5000sFromRinaMap: {}
       }, {
         type: types.BUC_BUC_RESET,
         payload: 'mockPayload'

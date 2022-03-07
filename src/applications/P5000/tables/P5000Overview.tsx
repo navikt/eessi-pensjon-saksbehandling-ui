@@ -6,8 +6,8 @@ import Tooltip from '@navikt/tooltip'
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { FeatureToggles, LocalStorageEntry } from 'declarations/app'
-import { P5000FromRinaMap, Seds } from 'declarations/buc'
-import { P5000Context, P5000ListRow, P5000SED, P5000SourceStatus } from 'declarations/p5000'
+import { Seds } from 'declarations/buc'
+import { P5000sFromRinaMap, P5000Context, P5000ListRow, P5000SED, P5000SourceStatus } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
@@ -17,7 +17,7 @@ import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { convertP5000SEDToP5000ListRows } from './conversion'
+import { convertP5000SEDToP5000ListRows } from 'applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 
 export interface P5000OverviewSelector {
@@ -26,8 +26,8 @@ export interface P5000OverviewSelector {
 
 export interface P5000OverviewProps {
   context: P5000Context
-  p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
+  p5000sFromRinaMap: P5000sFromRinaMap
+  p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>> | undefined
   seds: Seds
 }
 
@@ -40,7 +40,7 @@ export const P5000Tabs = styled(HighContrastTabs)`
 `
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
-  context, p5000FromRinaMap, p5000FromStorage, seds
+  context, p5000sFromRinaMap, p5000WorkingCopies, seds
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -55,12 +55,19 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_activeTab, setActiveTab] = useState<number>(0)
   const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
   const [items]: [Array<P5000ListRow>, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
-    seds, context, p5000FromRinaMap, p5000FromStorage, mergePeriods,
-    mergePeriodTypes, mergePeriodBeregnings, useGermanRules, selectRowsContext: 'forAll'
+    seds,
+    context,
+    p5000sFromRinaMap,
+    p5000WorkingCopy: p5000WorkingCopies,
+    mergePeriods,
+    mergePeriodTypes,
+    mergePeriodBeregnings,
+    useGermanRules,
+    selectRowsContext: 'forAll'
   })
   const itemsForPesys = _.reject(items, (it: P5000ListRow) => it.beregning === '000')
-  const [pesysWarning, ] = useState<string | undefined>(() =>
-    (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', {x: (items.length - itemsForPesys.length)}) : undefined))
+  const [pesysWarning] = useState<string | undefined>(() =>
+    (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
 
   const { featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
@@ -72,11 +79,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     label: 'Eksporter til Pesys'
   }]
 
-  const renderDate = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
+  const renderDate = ({ value }: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
-  const renderType = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
+  const renderType = ({ value }: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
@@ -90,7 +97,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderYtelse =  ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
+  const renderYtelse = ({ value }: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
@@ -104,7 +111,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderBeregning = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
+  const renderBeregning = ({ value }: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
         <div style={{ maxWidth: '300px' }}>
@@ -118,10 +125,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderOrdning = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
+  const renderOrdning = ({ value }: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <Tooltip
       label={(
-        <div style={{maxWidth: '300px'}}>
+        <div style={{ maxWidth: '300px' }}>
           {value ? _.get(ordning, value) : ''}
         </div>
       )}
@@ -132,15 +139,15 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     </Tooltip>
   )
 
-  const renderCell = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string>) => (
+  const renderCell = ({ value }: RenderEditableOptions<P5000ListRow, P5000Context, string>) => (
     <BodyLong>{value}</BodyLong>
   )
 
-  const renderDag = ({item}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
+  const renderDag = ({ item }: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => (
     <BodyLong>{(item?.dag === '' || item?.dag === '0') ? '' : item?.dag + '/' + item?.dagtype}</BodyLong>
   )
 
-  const renderStatus = ({value}: RenderOptions<P5000ListRow, P5000Context, string>) => {
+  const renderStatus = ({ value }: RenderOptions<P5000ListRow, P5000Context, string>) => {
     if (value === 'rina') {
       return <Tag size='small' variant='info'>RINA</Tag>
     }
@@ -153,7 +160,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return <div />
   }
 
-  const renderLand = ({value}: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => {
+  const renderLand = ({ value }: RenderEditableOptions<P5000ListRow, P5000Context, string> | RenderOptions<P5000ListRow, P5000Context, string>) => {
     if (_.isEmpty(value)) {
       return <div>-</div>
     }
@@ -162,9 +169,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   let columns: Array<Column<P5000ListRow, P5000Context>> = [
     { id: 'status', label: t('ui:status'), type: 'string', render: renderStatus },
-    { id: 'land', label: t('ui:country'), type: 'string', render: renderLand, edit: {render: renderLand} },
+    { id: 'land', label: t('ui:country'), type: 'string', render: renderLand, edit: { render: renderLand } },
     { id: 'acronym', label: t('ui:_institution'), type: 'string' },
-    { id: 'type', label: t('ui:type'), type: 'string', align: 'center' as ColumnAlign, render: renderType, edit: {render: renderType} },
+    { id: 'type', label: t('ui:type'), type: 'string', align: 'center' as ColumnAlign, render: renderType, edit: { render: renderType } },
     {
       id: 'startdato',
       label: t('ui:startDate'),
@@ -177,19 +184,19 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       type: 'date',
       render: renderDate
     },
-    { id: 'aar', label: t('ui:year'), type: 'string', align: 'center' as ColumnAlign, edit: {render: renderCell}},
-    { id: 'mnd', label: t('ui:month'), type: 'string', align: 'center' as ColumnAlign, edit: {render: renderCell}},
+    { id: 'aar', label: t('ui:year'), type: 'string', align: 'center' as ColumnAlign, edit: { render: renderCell } },
+    { id: 'mnd', label: t('ui:month'), type: 'string', align: 'center' as ColumnAlign, edit: { render: renderCell } },
     {
       id: 'dag',
       label: t('ui:days') + '/' + t('ui:unit'),
       align: 'center',
       type: 'string',
       render: renderDag,
-      edit: {render: renderDag}
+      edit: { render: renderDag }
     },
-    { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string', align: 'center' as ColumnAlign, render: renderYtelse, edit: {render: renderYtelse} },
-    { id: 'ordning', label: t('ui:scheme'), type: 'string', align: 'center' as ColumnAlign, render: renderOrdning, edit: {render: renderOrdning} },
-    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' as ColumnAlign, render: renderBeregning, edit: {render: renderBeregning} }
+    { id: 'ytelse', label: t('ui:relevantForPerformance'), type: 'string', align: 'center' as ColumnAlign, render: renderYtelse, edit: { render: renderYtelse } },
+    { id: 'ordning', label: t('ui:scheme'), type: 'string', align: 'center' as ColumnAlign, render: renderOrdning, edit: { render: renderOrdning } },
+    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' as ColumnAlign, render: renderBeregning, edit: { render: renderBeregning } }
   ]
 
   if (context === 'overview' || tabs[_activeTab].key === 'pesys') {
@@ -203,11 +210,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       type: 'buttons'
     })
   }
-
-  const tableKey: string = 'table-' + itemsPerPage + '_merge' + mergePeriods +
-    '_mergetype' + (mergePeriodTypes?.join(':') ?? '') +
-    '_mergeberegning' + (mergePeriodBeregnings?.join(':') ?? '') +
-    '_useGerman' + useGermanRules
 
   return (
     <>
@@ -244,7 +246,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           <>
             <VerticalSeparatorDiv />
             <Table<P5000ListRow, P5000Context>
-              key={'P5000Overview-' + tableKey}
               animatable={false}
               items={items}
               id='P5000Overview'
@@ -274,7 +275,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           <>
             <VerticalSeparatorDiv />
             <Table<P5000ListRow, P5000Context>
-              key={'P5000Pesys-' + tableKey}
               animatable={false}
               items={itemsForPesys}
               id='P5000Pesys'
@@ -288,7 +288,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               }}
               flaggable={_.find(items, 'flag') !== undefined}
               searchable
-              selectable={true}
+              selectable
               showSelectAll={false}
               sortable
               editable
@@ -330,7 +330,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 }
 
 P5000Overview.propTypes = {
-  p5000FromRinaMap: PT.any.isRequired
+  p5000sFromRinaMap: PT.any.isRequired
 }
 
 export default P5000Overview

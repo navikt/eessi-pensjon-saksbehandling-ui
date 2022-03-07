@@ -1,8 +1,9 @@
 import { BodyLong, Panel } from '@navikt/ds-react'
-import { removeEntry } from 'actions/localStorage'
+import { saveEntries } from 'actions/localStorage'
+import { updateP5000WorkingCopies } from 'applications/P5000/utils/entriesUtils'
 import { ytelseType } from 'applications/P5000/P5000.labels'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
-import { LocalStorageEntry, Entries, Option } from 'declarations/app'
+import { LocalStorageEntry, LocalStorageEntriesMap, Option } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import { P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
@@ -23,7 +24,7 @@ interface SEDLoadSaveProps {
 }
 
 interface SEDLoadSaveSelector {
-  storageEntries: Entries
+  storageEntries: LocalStorageEntriesMap
 }
 
 const mapState = (state: State): SEDLoadSaveSelector => ({
@@ -48,10 +49,8 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
     storageEntries?.[buc.caseId!]?.filter(entry => entry.sedId === sedId && entry.sedType === 'P5000') as Array<LocalStorageEntry<P5000SED>> | undefined
 
   const onRemove = (caseId: string, sedId: string) => {
-    dispatch(removeEntry(caseId, {
-      sedId,
-      sedType: 'P5000'
-    } as LocalStorageEntry<P5000SED>))
+    const newEntries: Array<LocalStorageEntry<P5000SED>> = updateP5000WorkingCopies(entries!, undefined, sedId)
+    dispatch(saveEntries(caseId, newEntries))
   }
 
   return (

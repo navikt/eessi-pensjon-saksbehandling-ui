@@ -3,8 +3,8 @@ import { typePeriode } from 'applications/P5000/P5000.labels'
 import Select from 'components/Select/Select'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { Labels, LocalStorageEntry, Option } from 'declarations/app'
-import { P5000FromRinaMap, SakTypeMap, SakTypeValue, Sed, Seds } from 'declarations/buc.d'
-import { P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
+import { SakTypeMap, SakTypeValue, Sed, Seds } from 'declarations/buc.d'
+import { P5000sFromRinaMap, P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
@@ -25,13 +25,13 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import Table, { RenderEditableOptions, Column as TableColumn, RenderOptions, Sort } from '@navikt/tabell'
-import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from './conversion'
+import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from 'applications/P5000/utils/conversion'
 
 export interface P5000SumProps {
   context: P5000Context
-  p5000FromRinaMap: P5000FromRinaMap
-  p5000FromStorage: LocalStorageEntry<P5000SED> | undefined
-  saveP5000ToStorage: ((newSed: P5000SED, sedId: string) => void) | undefined
+  p5000sFromRinaMap: P5000sFromRinaMap
+  p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
+  updateWorkingCopy: (newSed: P5000SED, sedId: string) => void
   seds: Seds
   mainSed: Sed | undefined
 }
@@ -41,7 +41,7 @@ const mapState = (state: State): any => ({
 })
 
 const P5000Sum: React.FC<P5000SumProps> = ({
-  context, p5000FromRinaMap, p5000FromStorage, saveP5000ToStorage, seds, mainSed
+  context, p5000sFromRinaMap, p5000WorkingCopy, updateWorkingCopy, seds, mainSed
 }: P5000SumProps) => {
   const { t } = useTranslation()
   const { sakType } = useSelector<State, any>(mapState)
@@ -56,7 +56,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
-  const items = convertP5000SEDToP5000SumRows(seds, context, p5000FromRinaMap, p5000FromStorage)
+  const items = convertP5000SEDToP5000SumRows(seds, context, p5000sFromRinaMap, p5000WorkingCopy)
 
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
@@ -72,7 +72,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     _setRenderPrintTable(false)
   }
 
-  const renderType = ({value} :RenderOptions<P5000SumRow>) => (
+  const renderType = ({ value } :RenderOptions<P5000SumRow>) => (
     <BodyLong>
       {(typePeriode as Labels)[value] + ' [' + value + ']'}
     </BodyLong>
@@ -94,7 +94,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     </div>
   )
 
-  const renderStatus = ({value} :RenderOptions<P5000SumRow> | RenderEditableOptions<P5000SumRow>) => {
+  const renderStatus = ({ value } :RenderOptions<P5000SumRow> | RenderEditableOptions<P5000SumRow>) => {
     if (value === 'rina') {
       return <Tag size='small' variant='info'>RINA</Tag>
     }
@@ -157,13 +157,13 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   }
 
   const onRowsChanged = (items: P5000SumRows) => {
-    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000FromStorage?.content)
+    let templateForP5000: P5000SED | undefined = _.cloneDeep(p5000WorkingCopy?.content)
     if (_.isNil(templateForP5000)) {
-      templateForP5000 = _.cloneDeep(p5000FromRinaMap[mainSed!.id])
+      templateForP5000 = _.cloneDeep(p5000sFromRinaMap[mainSed!.id])
     }
     if (templateForP5000) {
       const newP5000FromStorage: P5000SED = convertFromP5000SumRowsIntoP5000SED(items, templateForP5000)
-      saveP5000ToStorage!(newP5000FromStorage, mainSed!.id)
+      updateWorkingCopy(newP5000FromStorage, mainSed!.id)
     }
   }
 
@@ -181,7 +181,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     <>
       <PileCenterDiv>
         <AlignEndRow style={{ width: '100%' }}>
-          <Column/>
+          <Column />
           <Column flex='2'>
             {sakType === SakTypeMap.GJENLEV && (
               <>
@@ -241,7 +241,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           </Column>
           <Column />
         </AlignEndRow>
-        <VerticalSeparatorDiv/>
+        <VerticalSeparatorDiv />
         <AlignEndRow style={{ width: '100%' }}>
           <Column />
           <Column>
@@ -317,7 +317,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 }
 
 P5000Sum.propTypes = {
-  p5000FromRinaMap: PT.any.isRequired
+  p5000sFromRinaMap: PT.any.isRequired
 }
 
 export default P5000Sum

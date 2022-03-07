@@ -1,19 +1,18 @@
-import { generateKeyForListRow } from 'applications/P5000/conversion'
+import { generateKeyForListRow } from 'applications/P5000/utils/conversionUtils'
 import * as types from 'constants/actionTypes'
-import { P5000FromRinaMap } from 'declarations/buc'
-import { P5000Period } from 'declarations/p5000'
+import { P5000sFromRinaMap, P5000Period } from 'declarations/p5000'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { Action } from 'redux'
 
 export interface P5000State {
-  p5000FromRinaMap: P5000FromRinaMap
+  p5000sFromRinaMap: P5000sFromRinaMap
   sentP5000info: any
   gjpbpwarning: any | undefined
 }
 
 export const initialP5000State: P5000State = {
-  p5000FromRinaMap: {},
+  p5000sFromRinaMap: {},
   sentP5000info: undefined,
   gjpbpwarning: undefined
 }
@@ -52,7 +51,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
     case types.BUC_SED_RESET:
       return {
         ...state,
-        p5000FromRinaMap: {}
+        p5000sFromRinaMap: {}
       }
 
     case types.P5000_SEND_RESET:
@@ -65,7 +64,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
     case types.P5000_SEND_SUCCESS: {
       const sedId = (action as ActionWithPayload).context.sedId
       const p5000saved = (action as ActionWithPayload).context.payload
-      const newP5000FromRinaMap = _.cloneDeep(state.p5000FromRinaMap)
+      const newP5000FromRinaMap = _.cloneDeep(state.p5000sFromRinaMap)
 
       if (Object.prototype.hasOwnProperty.call(newP5000FromRinaMap, sedId)) {
         fillWithKeys(p5000saved, sedId)
@@ -73,7 +72,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       }
       return {
         ...state,
-        p5000FromRinaMap: newP5000FromRinaMap,
+        p5000sFromRinaMap: newP5000FromRinaMap,
         sentP5000info: (action as ActionWithPayload).payload
       }
     }
@@ -91,14 +90,14 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: Action | Ac
       }
 
     case types.P5000_GET_SUCCESS: {
-      const newp5000FromRina = _.cloneDeep(state.p5000FromRinaMap)
+      const newp5000FromRina = _.cloneDeep(state.p5000sFromRinaMap)
       const payload = (action as ActionWithPayload).payload
       const sedId = (action as ActionWithPayload).context.id
       fillWithKeys(payload, sedId)
       newp5000FromRina[sedId] = payload
       return {
         ...state,
-        p5000FromRinaMap: newp5000FromRina
+        p5000sFromRinaMap: newp5000FromRina
       }
     }
 

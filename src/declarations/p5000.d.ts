@@ -1,10 +1,14 @@
-import { Item, Sort } from '@navikt/tabell'
+import { Item } from '@navikt/tabell'
 
 export type P5000Context = 'edit' | 'overview'
 
 export type P5000PeriodStatus = 'rina' | 'edited' | 'new'
 
 export type P5000SourceStatus = 'rina' | 'storage'
+
+export type P5000FromRina = P5000SED
+
+export type P5000sFromRinaMap = {[sedId: string]: P5000FromRina}
 
 export interface SedSender {
   date: string
@@ -43,7 +47,7 @@ export interface P5000Period {
     maaneder : string | null
   },
   yrke : string | null
-  gyldigperiode : string | null
+  gyldigperiode ?: string | null
   type : string | null
   beregning : string | null
   informasjonskalkulering? : string | null
@@ -85,7 +89,7 @@ export interface P5000SED {
           by : string | null
           land : string | null
           region : string | null
-        },
+        } | null,
         foedselsdato : string
         sivilstand : string | null,
         relasjontilavdod : string | null,
@@ -102,7 +106,7 @@ export interface P5000SED {
         datoforadresseendring : string | null,
         postadresse : string | null,
         startdato : string | null
-      },
+      } | null,
       arbeidsforhold : string | null,
       bank : string | null
     },
@@ -116,7 +120,7 @@ export interface P5000SED {
   },
   pensjon : {
     trygdetid : Array<P5000Period>
-    medlemskapAnnen : null
+    medlemskapAnnen : Array<any> | null
     medlemskapTotal : Array<P5000Period>
     medlemskap : null
     medlemskapboarbeid : {
@@ -124,7 +128,7 @@ export interface P5000SED {
         datoFrist? : string | null
         krav : string | null
       }
-      gyldigperiode : string
+      gyldigperiode ?: string | null
       medlemskap : Array<P5000Period>
     }
   }
@@ -166,8 +170,7 @@ export interface P5000SumRow extends Item {
 export interface P5000UpdatePayload {
   items?: P5000ListRows
   ytelseOption?: string
-  sort?: Sort
-  forsikringEllerBosetningsperioder?: string
+  forsikringEllerBosetningsperioder?: string | null | undefined
   uft?: Date | null | undefined
 }
 
@@ -175,5 +178,5 @@ export type P5000SumRows = Array<P5000SumRow>
 
 export interface P5000TableContext {
   items: P5000ListRows
-  forsikringEllerBosetningsperioder: string | undefined
+  forsikringEllerBosetningsperioder: string | null | undefined
 }

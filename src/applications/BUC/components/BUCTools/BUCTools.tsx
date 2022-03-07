@@ -10,7 +10,6 @@ import {
   BucsInfo,
   Comment,
   Comments,
-  P5000FromRinaMap,
   Tag,
   TagRawList,
   Tags,
@@ -33,6 +32,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { P5000sFromRinaMap } from 'declarations/p5000'
 
 const BUCToolsPanel = styled(Panel)`
   opacity: 0;
@@ -85,7 +85,7 @@ export interface BUCToolsSelector {
   featureToggles: FeatureToggles
   loading: Loading
   locale: AllowedLocaleString
-  p5000FromRinaMap: P5000FromRinaMap
+  p5000sFromRinaMap: P5000sFromRinaMap
   tagList?: TagRawList | undefined
 }
 
@@ -94,7 +94,7 @@ const mapState = (state: State): BUCToolsSelector => ({
   featureToggles: state.app.featureToggles,
   loading: state.loading,
   locale: state.ui.locale,
-  p5000FromRinaMap: state.buc.p5000FromRinaMap,
+  p5000sFromRinaMap: state.buc.p5000sFromRinaMap,
   tagList: state.buc.tagList
 })
 

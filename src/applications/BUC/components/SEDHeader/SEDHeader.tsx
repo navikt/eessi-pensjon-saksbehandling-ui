@@ -3,8 +3,8 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import P4000 from 'applications/P4000/P4000'
 import P5000 from 'applications/P5000/P5000'
-import SEDLoadSave from 'applications/P5000/SEDLoadSave/SEDLoadSave'
-import { AllowedLocaleString, Entries, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
+import SEDLoadSave from 'applications/P5000/components/SEDLoadSave/SEDLoadSave'
+import { AllowedLocaleString, LocalStorageEntriesMap, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
@@ -92,7 +92,7 @@ export interface SEDHeaderProps {
 export interface SEDListSelector {
   locale: AllowedLocaleString
   featureToggles: FeatureToggles
-  storageEntries: Entries
+  storageEntries: LocalStorageEntriesMap
 }
 
 const mapState = (state: State): SEDListSelector => ({
@@ -261,7 +261,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 onClick={() => {
                   setMode('p5000', 'forward', undefined, (
                     <P5000
-                      key={sed.id}
                       buc={buc}
                       context='edit'
                       setMode={setMode}
@@ -297,7 +296,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                     e.stopPropagation()
                     setMode('p4000', 'forward', undefined, (
                       <P4000
-                        key={sed.id}
                         buc={buc}
                         context='edit'
                         setMode={setMode}
@@ -328,7 +326,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
       {(featureToggles.P5000_SUMMER_VISIBLE && P5000Draft !== undefined)
         ? (
           <SEDLoadSave
-            key={P5000Draft.date}
             buc={buc}
             sedId={sed.id}
           />
