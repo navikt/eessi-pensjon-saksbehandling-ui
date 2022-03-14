@@ -66,6 +66,9 @@ export const BucLenkePanel = styled(LinkPanel)`
   animation: ${slideInFromLeft} 0.2s forwards;
   background: var(--navds-semantic-color-component-background-light);
   margin-bottom: 1rem;
+  .navds-link-panel__content {
+    width: 100%;
+  }
   &.new {
     background: var(--navds-global-color-limegreen-100) !important;
   }

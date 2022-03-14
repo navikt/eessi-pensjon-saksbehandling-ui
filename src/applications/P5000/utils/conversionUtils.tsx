@@ -1,6 +1,7 @@
 import CountryData from '@navikt/land-verktoy'
 import { Participant, Sed } from 'declarations/buc'
-import { P5000ListRow, P5000Period, P5000SumRow, SedSender } from 'declarations/p5000'
+import { P5000ListRow, P5000Period, P5000PeriodStatus, P5000SumRow, SedSender } from 'declarations/p5000'
+import i18n from 'i18n'
 import _ from 'lodash'
 import md5 from 'md5'
 import moment from 'moment'
@@ -58,14 +59,76 @@ export const convertDate = (date: string | Date | null | undefined): string | nu
   return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD')
 }
 
-export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = false): P5000Period => {
+export const periodToListItem = (
+  period: P5000Period, sed: Sed, sender: SedSender | undefined, mustCheckStatus: boolean,
+  rinaPeriods: Array<P5000Period> | undefined, selectRowsContext: any
+): P5000ListRow => {
+
+  let status: P5000PeriodStatus = 'rina'
+  if (mustCheckStatus) {
+    const matchPeriodToRina: P5000Period | undefined = _.has(period, 'options.key') ? _.find(rinaPeriods, p => p.options?.key === period.options!.key ) : undefined
+    if (matchPeriodToRina === undefined) {
+      status = 'new'
+    } else {
+      const periodKey = generateKeyForListRow(sed.id, period)
+      if (periodKey !== matchPeriodToRina.options?.key) {
+        status = 'edited'
+      } else {
+        status = 'rina'
+      }
+    }
+  }
+
+  const convertedDate = dateDecimal({
+    days: period.sum?.dager?.nr,
+    trimesters: period.sum?.kvartal,
+    months: period.sum?.maaneder,
+    weeks: period.sum?.uker,
+    years: period.sum?.aar
+  }, true)
+
+  return {
+    key: period.options?.key ?? generateKeyForListRow(sed.id, period),
+    selected: period.options?.selected,
+    flagIkon: period.options?.flagIkon,
+    flag: period.options?.flag,
+    selectDisabled: selectRowsContext === 'forCertainTypesOnly'
+      ? !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0
+      : false,
+    selectLabel: !period.options?.flagIkon
+      ? selectRowsContext === 'forCertainTypesOnly'
+        ? i18n.t('p5000:checkbox-text-for-edit')
+        : i18n.t('p5000:checkbox-text-for-pesys')
+      : period.options?.flagIkon === 'UFT'
+        ? 'Uføretrygd periode'
+        : 'Gjenlevendeytelse / Barnepensjon periode',
+    status,
+    land: getNewLand(period, sender),
+    acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
+    type: period.type ?? '',
+    startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
+    sluttdato: period.periode?.tom ? moment(period.periode?.tom, 'YYYY-MM-DD').toDate() : '',
+    aar: convertedDate.years,
+    mnd: convertedDate.months,
+    dag: convertedDate.days,
+    dagtype: period.sum?.dager?.type ?? '7',
+    ytelse: period.relevans ?? '',
+    ordning: period.ordning ?? '',
+    beregning: period.beregning ?? ''
+  } as P5000ListRow
+}
+
+export const listItemtoPeriod = (item: P5000ListRow, max40 = false): P5000Period => {
   const over40: boolean = max40 && parseFloat(item.aar) >= 40
 
   const period: P5000Period = {
-    key: item?.key,
-    selected: item.selected,
-    flag: item.flag,
-    flagIkon: item.flagIkon,
+    options: {
+      key: item?.key,
+      selected: item.selected,
+      flag: item.flag,
+      flagIkon: item.flagIkon,
+      sedId: item.sedId
+    },
     relevans: item.ytelse,
     land: item.land ?? 'NO',
     sum: {
@@ -88,15 +151,17 @@ export const listItemtoPeriod = (item: P5000ListRow, sedid: string, max40 = fals
       tom: convertDate(item.sluttdato)
     }
   }
-  if (_.isEmpty(period.key)) {
-    period.key = generateKeyForListRow(sedid, period)
+  if (_.isEmpty(period.options!.key)) {
+    period.options!.key = generateKeyForListRow(item.sedId, period)
   }
   return period
 }
 
 export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] => {
   const medlemskapTotalperiod: P5000Period = {
-    key: item?.key,
+    options: {
+      key: item?.key
+    },
     relevans: null,
     ordning: null,
     land: item.land ?? 'NO',
@@ -119,10 +184,12 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
       tom: convertDate(item.sluttdato)
     }
   }
-  medlemskapTotalperiod.key = generateKeyForListRow('sum', medlemskapTotalperiod)
+  medlemskapTotalperiod.options!.key = generateKeyForListRow('sum', medlemskapTotalperiod)
 
   const medlemskapTrygdetid: P5000Period = {
-    key: item?.key,
+    options: {
+      key: item?.key
+    },
     relevans: null,
     ordning: null,
     land: item.land ?? 'NO',
@@ -145,7 +212,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
       tom: convertDate(item.sluttdato)
     }
   }
-  medlemskapTrygdetid.key = generateKeyForListRow('sum', medlemskapTrygdetid)
+  medlemskapTrygdetid.options!.key = generateKeyForListRow('sum', medlemskapTrygdetid)
 
   return [medlemskapTotalperiod, medlemskapTrygdetid]
 }

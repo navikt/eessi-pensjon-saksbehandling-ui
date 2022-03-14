@@ -21,23 +21,29 @@ const fillWithKeys = (payload: any, sedId: string) => {
   payload?.pensjon?.medlemskapboarbeid?.medlemskap?.forEach((p: P5000Period, index: number) => {
     payload.pensjon.medlemskapboarbeid.medlemskap[index] = {
       ...p,
-      key: generateKeyForListRow(sedId, p),
-      sedId
-    }
+      options: {
+        key: generateKeyForListRow(sedId, p),
+        sedId
+      }
+    } as P5000Period
   })
   payload?.pensjon?.trygdetid?.forEach((p: P5000Period, index: number) => {
     payload.pensjon.trygdetid[index] = {
       ...p,
-      key: generateKeyForListRow(sedId, p),
-      sedId
-    }
+      options: {
+        key: generateKeyForListRow(sedId, p),
+        sedId
+      }
+    } as P5000Period
   })
   payload?.pensjon?.medlemskapTotal?.forEach((p: P5000Period, index: number) => {
     payload.pensjon.medlemskapTotal[index] = {
       ...p,
-      key: generateKeyForListRow(sedId, p),
-      sedId
-    }
+      options: {
+        key: generateKeyForListRow(sedId, p),
+        sedId
+      }
+    } as P5000Period
   })
 }
 

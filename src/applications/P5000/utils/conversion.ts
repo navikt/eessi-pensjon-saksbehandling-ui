@@ -4,7 +4,6 @@ import {
   P5000ListRow,
   P5000ListRows,
   P5000Period,
-  P5000PeriodStatus,
   P5000SED,
   P5000SourceStatus,
   P5000SumRows,
@@ -16,9 +15,10 @@ import { Seds } from 'declarations/buc'
 import _ from 'lodash'
 import moment from 'moment'
 import i18n from 'i18n'
-import dateDecimal, { sumDates, writeDateDiff } from 'utils/dateDecimal'
+import { sumDates, writeDateDiff } from 'utils/dateDecimal'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
-import { generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod, sumItemtoPeriod } from './conversionUtils'
+import { generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod,
+  periodToListItem, sumItemtoPeriod } from './conversionUtils'
 
 export interface ConvertP5000SEDToP5000ListRowsProps {
   seds: Seds
@@ -66,62 +66,9 @@ export const convertP5000SEDToP5000ListRows = ({
     const storagePeriods: Array<P5000Period> | undefined = workingCopy?.content?.pensjon?.medlemskapboarbeid?.medlemskap
     const periods: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods : storagePeriods
 
-    periods?.forEach((period: P5000Period) => {
-      if (!_.isNil(period)) {
-        let status: P5000PeriodStatus = 'rina'
-        if (mustCheckStatus) {
-          const matchPeriodToRina: P5000Period | undefined = period.key ? _.find(rinaPeriods, { key: period.key }) : undefined
-          if (matchPeriodToRina === undefined) {
-            status = 'new'
-          } else {
-            const periodKey = generateKeyForListRow(sed.id, period)
-            if (periodKey !== matchPeriodToRina.key) {
-              status = 'edited'
-            } else {
-              status = 'rina'
-            }
-          }
-        }
-
-        const convertedDate = dateDecimal({
-          days: period.sum?.dager?.nr,
-          trimesters: period.sum?.kvartal,
-          months: period.sum?.maaneder,
-          weeks: period.sum?.uker,
-          years: period.sum?.aar
-        }, true)
-
-        rows.push({
-          key: period.key ?? generateKeyForListRow(sed.id, period),
-          selected: period.selected,
-          flagIkon: period.flagIkon,
-          flag: period.flag,
-          selectDisabled: selectRowsContext === 'forCertainTypesOnly'
-            ? !_.isNil(period.type) && ['11', '12', '13', '30', '41', '45', '52'].indexOf(period.type) < 0
-            : false,
-          selectLabel: !period.flagIkon
-            ? selectRowsContext === 'forCertainTypesOnly'
-                ? i18n.t('p5000:checkbox-text-for-edit')
-                : i18n.t('p5000:checkbox-text-for-pesys')
-            : period.flagIkon === 'UFT'
-              ? 'Uføretrygd periode'
-              : 'Gjenlevendeytelse / Barnepensjon periode',
-          status,
-          land: getNewLand(period, sender),
-          acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
-          type: period.type ?? '',
-          startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
-          sluttdato: period.periode?.tom ? moment(period.periode?.tom, 'YYYY-MM-DD').toDate() : '',
-          aar: convertedDate.years,
-          mnd: convertedDate.months,
-          dag: convertedDate.days,
-          dagtype: period.sum?.dager?.type ?? '7',
-          ytelse: period.relevans ?? '',
-          ordning: period.ordning ?? '',
-          beregning: period.beregning ?? ''
-        } as P5000ListRow)
-      }
-    })
+    rows = rows.concat(
+      periods?.map((p) => periodToListItem(p, sed, sender, mustCheckStatus, rinaPeriods, selectRowsContext)) ?? []
+    )
   })
 
   // this is for periode merging, for table overview only.
@@ -349,7 +296,7 @@ export const convertP5000SEDToP5000SumRows = (
       if (!_.isNil(periode) && periode.type) {
         if (_.isNil(data[periode.type])) {
           data[periode.type] = {
-            key: periode.key ?? generateKeyForListRow(sed.id, periode),
+            key: periode.options?.key ?? generateKeyForListRow(sed.id, periode),
             type: periode.type,
             land: '',
             sec51aar: 0,
@@ -389,7 +336,7 @@ export const convertP5000SEDToP5000SumRows = (
       if (!_.isNil(periode) && periode.type) {
         if (!Object.prototype.hasOwnProperty.call(data, periode.type)) {
           data[periode.type] = {
-            key: periode.key ?? generateKeyForListRow(sed.id, periode),
+            key: periode.options?.key ?? generateKeyForListRow(sed.id, periode),
             status: 'rina',
             type: periode.type,
             land: '',
@@ -523,7 +470,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     const gyldigperiode: Array<P5000Period> = []
 
     payload.items!.forEach((item) => {
-      const periode: P5000Period = listItemtoPeriod(item, sedid, false)
+      const periode: P5000Period = listItemtoPeriod(item, false)
       medlemskapPeriods.push(periode)
 
       if (!_.isNil(item.type)) {
@@ -532,7 +479,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
 
         if (allowedFor51(item)) {
           if (foundInMedemskapTotalIndex === -1) {
-            medemskapTotalPeriods.push(listItemtoPeriod(item, sedid, false))
+            medemskapTotalPeriods.push(listItemtoPeriod(item, false))
           } else {
             mergeToExistingPeriod(medemskapTotalPeriods, foundInMedemskapTotalIndex, item, false)
           }
@@ -540,7 +487,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
 
         if (allowedFor52(item)) {
           if (foundInGyldigperiodeIndex === -1) {
-            gyldigperiode.push(listItemtoPeriod(item, sedid, true))
+            gyldigperiode.push(listItemtoPeriod(item, true))
           } else {
             mergeToExistingPeriod(gyldigperiode, foundInGyldigperiodeIndex, item, true)
           }

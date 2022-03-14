@@ -26,13 +26,14 @@ export interface P5000PeriodInterval {
 }
 
 export interface P5000Period {
-  /** added */
-  key ?: string
-  selected ?: boolean
-  flag ?: boolean
-  flagIkon ?: any
-  sedId ?: string
-  /** end added */
+  /** added data that should be removed before sending to API */
+  options?: {
+    key ?: string
+    selected ?: boolean
+    flag ?: boolean
+    flagIkon ?: any
+    sedId ?: string
+  }
   relevans : string | null
   ordning? : string | null
   land : string | null

@@ -177,11 +177,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
   }
 
   const cleanPeriod = (period: P5000Period) => {
-    delete period.key
-    delete period.selected
-    delete period.flag
-    delete period.flagIkon
-    delete period.sedId
+    delete period.options
   }
 
   const handleOverforTilRina = () => {
@@ -269,8 +265,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         } as P5000ListRow
 
         // converting new item to period, so I can get the generated key
-        const p5000Period: P5000Period = listItemtoPeriod(newItem, sedId)
-        newItem.key = p5000Period.key!
+        const p5000Period: P5000Period = listItemtoPeriod(newItem)
+        newItem.key = p5000Period.options?.key!
         newItems = newItems.concat(newItem)
         onSave({
           items: newItems
@@ -321,8 +317,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         } as P5000ListRow
 
         // converting new item to period, so I can get the generated key
-        const p5000Period: P5000Period = listItemtoPeriod(newItem, sedId)
-        newItem.key = p5000Period.key!
+        const p5000Period: P5000Period = listItemtoPeriod(newItem)
+        newItem.key = p5000Period.options?.key!
         newItems = newItems.concat(newItem)
       }
       onSave({

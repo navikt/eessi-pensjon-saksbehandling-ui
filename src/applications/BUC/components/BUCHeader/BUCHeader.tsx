@@ -4,21 +4,21 @@ import {
   sedFilter
 } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { Warning } from '@navikt/ds-icons'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
+import { HorizontalSeparatorDiv, PileDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
+import { Buc, BucInfo, Comment, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { LinkPanel, BodyLong, Link, Heading } from '@navikt/ds-react'
+import { LinkPanel, BodyLong, Link, Heading, Tag, Detail } from '@navikt/ds-react'
 import { Column, Row } from '@navikt/hoykontrast'
 import Tooltip from '@navikt/tooltip'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -37,7 +37,7 @@ export const IconsDiv = styled(Column)`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex: 2;
+  flex: 1;
 `
 const LabelsDiv = styled(Column)`
   flex: 1;
@@ -60,7 +60,6 @@ const NumberOfSedsDiv = styled.div`
 const PropertyDiv = styled.div`
   display: flex;
   align-items: center;
-  margin: 0.2rem 0rem;
 `
 const RinaLink = styled(Link)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
@@ -72,6 +71,7 @@ const RowText = styled(BodyLong)`
   padding-right: 0.5rem;
 `
 const TagsDiv = styled.div`
+  margin-left: 3rem;
   display: flex;
   justify-content:flex-start;
   align-items: center;
@@ -251,21 +251,35 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 </NumberOfSedsDiv>
               </Tooltip>
             )}
-            {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 && (
-              <Tooltip
-                label={(
-                  <span>{bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}</span>
-                )}
-              >
-                <TagsDiv data-test-id='a-buc-c-bucheader__icon-tags-id'>
-                  <Warning
-                    width={_flagSize === 'XL' ? 50 : 32}
-                    height={_flagSize === 'XL' ? 50 : 32}
-                  />
-                </TagsDiv>
-              </Tooltip>
-            )}
           </IconsDiv>
+          <LabelsDiv>
+            <TagsDiv>
+            {bucInfo?.tags?.map((tag: string) => (
+              <>
+              <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
+              <HorizontalSeparatorDiv size='0.5'/>
+              </>
+            ))}
+            </TagsDiv>
+          </LabelsDiv>
+          <LabelsDiv>
+            <PileDiv>
+              {bucInfo?.comment && (
+                <>
+                  <Detail>
+                    {t('ui:comment')}
+                  </Detail>
+                  <VerticalSeparatorDiv size='0.5'/>
+                </>
+              )}
+              {(bucInfo?.comment as Array<Comment>)?.map((c: Comment) => (
+                <>
+                  <span>{c.value}</span>
+                  <HorizontalSeparatorDiv size='0.5'/>
+                </>
+              ))}
+            </PileDiv>
+          </LabelsDiv>
         </FlexRow>
       </LinkPanel.Description>
     </>
