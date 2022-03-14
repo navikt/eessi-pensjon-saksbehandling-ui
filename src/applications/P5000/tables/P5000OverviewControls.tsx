@@ -38,6 +38,7 @@ export interface P5000OverviewControlsProps {
   pesysWarning: string | undefined
   setItemsPerPage: (b: number) => void
   items: P5000ListRows
+  itemsForPesys: P5000ListRows
 }
 
 export interface P5000OverviewControlsSelector {
@@ -63,6 +64,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   itemsPerPage,
   setItemsPerPage,
   items,
+  itemsForPesys,
   pesysWarning,
   currentTabKey
 }: P5000OverviewControlsProps) => {
@@ -106,7 +108,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   }
 
   const handleOverforTilPesys = () => {
+    console.log(itemsForPesys)
+    if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
 
+    }
   }
 
   return (

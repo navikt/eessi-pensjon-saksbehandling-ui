@@ -33,6 +33,8 @@ export interface P5000Period {
     flag ?: boolean
     flagIkon ?: any
     sedId ?: string
+    startdatoModified ?: boolean
+    sluttdatoModified ?: boolean
   }
   relevans : string | null
   ordning? : string | null

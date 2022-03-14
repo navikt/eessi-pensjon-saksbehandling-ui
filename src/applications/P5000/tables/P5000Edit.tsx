@@ -556,7 +556,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
-  const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext): ItemErrors | undefined => {
+  const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext | undefined): ItemErrors | undefined => {
     const errors: ItemErrors = {}
     const startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')
     const sluttdato = moment(dateTransform(item.sluttdato), 'DD.MM.YYYY')
@@ -567,17 +567,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
       const range = moment.range(startdato, sluttdato)
 
-      for (let i = 0; i < context.items.length; i++) {
-        const otherItem: P5000ListRow = context.items[i]
-        if (item.key === otherItem.key) {
-          continue
-        }
-        const thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
-        if (item.type === otherItem.type && range.overlaps(thisRange)) {
-          errors.startdato = t('message:validation-overlapDate', {
-            perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
-          })
-          break
+      if (!!context?.items) {
+        for (let i = 0; i < context.items.length; i++) {
+          const otherItem: P5000ListRow = context.items[i]
+          if (item.key === otherItem.key) {
+            continue
+          }
+          const thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
+          if (item.type === otherItem.type && range.overlaps(thisRange)) {
+            errors.startdato = t('message:validation-overlapDate', {
+              perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
+            })
+            break
+          }
         }
       }
     }
@@ -619,7 +621,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       templateForP5000 = _.cloneDeep(p5000sFromRinaMap[mainSed.id])
     }
     if (templateForP5000) {
-      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, mainSed.id, templateForP5000)
+      const newP5000FromStorage: P5000SED = convertFromP5000ListRowsIntoP5000SED(payload, templateForP5000)
       updateWorkingCopy(newP5000FromStorage, mainSed.id)
     }
   }

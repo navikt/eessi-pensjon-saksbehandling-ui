@@ -409,7 +409,6 @@ export const convertP5000SEDToP5000SumRows = (
 // Converts table rows for view/list, into P5000 SED for storage
 export const convertFromP5000ListRowsIntoP5000SED = (
   payload: P5000UpdatePayload,
-  sedid: string,
   oldP5000Sed: P5000SED
 ): P5000SED => {
   const newP5000Sed = _.cloneDeep(oldP5000Sed)
