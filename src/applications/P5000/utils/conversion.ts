@@ -17,8 +17,10 @@ import moment from 'moment'
 import i18n from 'i18n'
 import { sumDates, writeDateDiff } from 'utils/dateDecimal'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
-import { generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod,
-  periodToListItem, sumItemtoPeriod } from './conversionUtils'
+import {
+  generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod,
+  periodToListItem, sumItemtoPeriod
+} from './conversionUtils'
 
 export interface ConvertP5000SEDToP5000ListRowsProps {
   seds: Seds
@@ -30,6 +32,201 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
   mergePeriodBeregnings ?: Array<string>
   useGermanRules ?: boolean
   selectRowsContext: 'forCertainTypesOnly' | 'forAll'
+}
+
+export const mergeP5000ListRows = (
+  { rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules }:
+  { rows: P5000ListRows, mergePeriodTypes: Array<string> | undefined, mergePeriodBeregnings: Array<string> | undefined, useGermanRules: boolean}
+) => {
+  const mergingMap: any = {}
+  const groupedPeriods: any = {}
+
+  // 1. group periods within `$land-$type-$ytelse-$ordning-$beregning` keys on an auxiliary map
+  rows.forEach(r => {
+    // check if type is within types that should be grouped together
+    let typeNeedle = r.type
+    let beregningNeedle = r.beregning
+    if (!_.isEmpty(mergePeriodTypes) && mergePeriodTypes!.indexOf(r.type) >= 0) {
+      typeNeedle = mergePeriodTypes!.join(', ')
+    }
+    if (!_.isEmpty(mergePeriodBeregnings) && mergePeriodBeregnings!.indexOf(r.beregning) >= 0) {
+      beregningNeedle = mergePeriodBeregnings!.join(', ')
+    }
+
+    const key = r.land + '§' + typeNeedle + '§' + r.ytelse + '§' + r.ordning + '§' + beregningNeedle
+    if (!mergingMap[key]) {
+      mergingMap[key] = [r]
+    } else {
+      mergingMap[key].push(r)
+      // sort grouped periods by start date, for easy merging (periods will not overlap)
+      mergingMap[key] = mergingMap[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
+    }
+  })
+
+  // 2. reset rows. We will refill them later on #3
+  rows = []
+
+  /** groupedPeriods structore:
+   *
+   *  For a period table like this:
+   *
+   *     key    type      startdato  sluttdato
+   *      01     01        1970        1971
+   *      02     01        1971        1972
+   *      03     01        1980        1981
+   *      04     01        1981        1982
+   *      05     01        1990        1991
+   *
+   *   groupedPeriods will be like this: {
+   *     '01' : {
+   *       '01': {
+   *         parent: {first row merged with second},
+   *         sub: [{first row}, {second row}]  <-- merged periods
+   *       },
+   *       '03' : {
+   *         parent: {third row merged with fourth},
+   *         sub: [{third row}, {fourth row}]  <-- merged periods
+   *       },
+   *       '05': {
+   *         parent: {fifth row},
+   *         sub: [{fifth row}]  <-- unmerged period
+   *       }
+   *     }
+   *   }
+   **/
+
+  // 3. build the groupedPeriods map by going through the mergingMap periods
+  Object.keys(mergingMap).forEach(key => {
+    groupedPeriods[key] = {}
+
+    const subRows: Array<P5000ListRow> = _.cloneDeep(mergingMap[key])
+    subRows.forEach((subRow: P5000ListRow) => {
+      // get a list of parents (or rows that will portray grouped periods / single periods)
+      const parentRows: Array<P5000ListRow> = Object.values(groupedPeriods[key]).map((v: any) => v.parent)
+      const _subRow = _.cloneDeep(subRow)
+
+      // let's find a parent row that is a suitable candidate to merge this period. If not found, then it will be an unmerged period so far
+      let parentRow: P5000ListRow | undefined
+      if (!useGermanRules || _subRow.land !== 'DE') {
+        // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge...
+        parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
+        //  ...unless we are talking about a period that periodesum doesn't match the calculated sum
+        const thisSubRowPeriodeSum: string = writeDateDiff({
+          days: subRow.dag,
+          months: subRow.mnd,
+          years: subRow.aar
+        })
+        const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
+        const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
+
+        if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
+          console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
+            ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
+          parentRow = undefined
+          subRow.flag = true
+          subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
+        } else {
+          console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
+            ' has same periode sum, ' + thisSubRowPeriodeSum + ' === ' + thisSubCalculatedSum)
+        }
+      } else {
+        // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
+        // I can't use same as above because moment(new Date(2020, 07, 02)).diff(new Date(2020, 09, 01), 'months') = 1
+        // I have to set days to 01, so that 01.12.2020 to 01.01.2021 is still merged
+        parentRow = _.find(parentRows, (_r) => {
+          const targetSluttdato = moment(new Date(_r.sluttdato.getTime())).set('date', 1)
+          const targetStartdato = moment(new Date(_subRow.startdato.getTime())).set('date', 1)
+          return Math.abs(moment(targetStartdato).diff(targetSluttdato, 'months')) <= 1
+        })
+      }
+
+      if (!_.isNil(parentRow)) {
+        // found a suitable parent to be merged, therefore increase the parent's period span and recalculate the period range
+        parentRow.sluttdato = subRow.sluttdato
+        let total: FormattedDateDiff
+        if (!useGermanRules || _subRow.land !== 'DE') {
+          total = dateDiff(parentRow.startdato, parentRow.sluttdato)
+        } else {
+          // for germans, consider whole months for sum
+          total = dateDiff(
+            moment(_.cloneDeep(parentRow.startdato)).startOf('month').toDate(),
+            moment(_.cloneDeep(parentRow.sluttdato)).endOf('month').toDate())
+        }
+        parentRow.dag = total.days === 0 ? '' : total.days as string
+        parentRow.mnd = total.months === 0 ? '' : total.months as string
+        parentRow.aar = total.years === 0 ? '' : total.years as string
+
+        groupedPeriods[key][parentRow.key].parent = parentRow
+        groupedPeriods[key][parentRow.key].sub = groupedPeriods[key][parentRow.key].sub.concat(subRow)
+      } else {
+        // unmerged period will me single for now
+        groupedPeriods[key][subRow.key] = {
+          parent: _.cloneDeep(subRow), // these will be changed to reflect merge - make sure they are not connected by cloning it
+          sub: [subRow]
+        }
+      }
+    })
+  })
+
+  // #4 use groupPeriods to create a row list
+  Object.keys(groupedPeriods).forEach(key => {
+    // let's just extract the grouped types, so we can show it in the table
+    const groupedType = key.split('§')[1]
+    const groupedBeregning = key.split('§')[4]
+
+    Object.keys(groupedPeriods[key]).forEach(key2 => {
+      if (groupedPeriods[key][key2].sub.length === 1) {
+        // unmerged / single periods - just add the parent as a normal row
+        rows.push({
+          ...groupedPeriods[key][key2].parent,
+          hasSubrows: false
+        })
+      } else {
+        // merged periods - add the parent row + sub rows
+
+        // check if merged period sum matches the subrow's sum. If not, flagg it, and use the original sumds.
+        let sumDateDiff: DateDiff = { days: 0, months: 0, years: 0 }
+        groupedPeriods[key][key2].sub.forEach((sub: P5000ListRow) => {
+          sumDateDiff = sumDates({
+            days: sub.dag,
+            months: sub.mnd,
+            years: sub.aar
+          }, sumDateDiff)
+        }, true)
+
+        const sumDateDiffString: string = writeDateDiff(sumDateDiff)
+        const parentDateDiffString: string = writeDateDiff({
+          days: groupedPeriods[key][key2].parent.dag,
+          months: groupedPeriods[key][key2].parent.mnd,
+          years: groupedPeriods[key][key2].parent.aar
+        })
+
+        const samePeriodSum: boolean = sumDateDiffString === parentDateDiffString
+
+        if (!samePeriodSum) {
+          groupedPeriods[key][key2].parent.dag = '' + sumDateDiff.days
+          groupedPeriods[key][key2].parent.mnd = '' + sumDateDiff.months
+          groupedPeriods[key][key2].parent.aar = '' + sumDateDiff.years
+        }
+
+        rows.push({
+          ...groupedPeriods[key][key2].parent,
+          hasSubrows: true,
+          type: groupedType,
+          beregning: groupedBeregning,
+          key: 'merge-' + groupedPeriods[key][key2].parent.key,
+          flag: !samePeriodSum,
+          flagLabel: i18n.t('message:warning-periodDoNotMatch')
+        })
+        groupedPeriods[key][key2].sub.forEach((v: P5000ListRow) => {
+          const _v = _.cloneDeep(v)
+          _v.parentKey = 'merge-' + groupedPeriods[key][key2].parent.key
+          rows.push(_v)
+        })
+      }
+    })
+  })
+  return rows
 }
 
 // Converts P5000 SED from Rina/storage into P5000 Overview / P5000 Edit table rows
@@ -73,194 +270,7 @@ export const convertP5000SEDToP5000ListRows = ({
 
   // this is for periode merging, for table overview only.
   if (mergePeriods) {
-    const mergingMap: any = {}
-    const groupedPeriods: any = {}
-
-    // 1. group periods within `$land-$type-$ytelse-$ordning-$beregning` keys on an auxiliary map
-    rows.forEach(r => {
-      // check if type is within types that should be grouped together
-      let typeNeedle = r.type
-      let beregningNeedle = r.beregning
-      if (!_.isEmpty(mergePeriodTypes) && mergePeriodTypes!.indexOf(r.type) >= 0) {
-        typeNeedle = mergePeriodTypes!.join(', ')
-      }
-      if (!_.isEmpty(mergePeriodBeregnings) && mergePeriodBeregnings!.indexOf(r.beregning) >= 0) {
-        beregningNeedle = mergePeriodBeregnings!.join(', ')
-      }
-
-      const key = r.land + '§' + typeNeedle + '§' + r.ytelse + '§' + r.ordning + '§' + beregningNeedle
-      if (!mergingMap[key]) {
-        mergingMap[key] = [r]
-      } else {
-        mergingMap[key].push(r)
-        // sort grouped periods by start date, for easy merging (periods will not overlap)
-        mergingMap[key] = mergingMap[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
-      }
-    })
-
-    // 2. reset rows. We will refill them later on #3
-    rows = []
-
-    /** groupedPeriods structore:
-     *
-     *  For a period table like this:
-     *
-     *     key    type      startdato  sluttdato
-     *      01     01        1970        1971
-     *      02     01        1971        1972
-     *      03     01        1980        1981
-     *      04     01        1981        1982
-     *      05     01        1990        1991
-     *
-     *   groupedPeriods will be like this: {
-     *     '01' : {
-     *       '01': {
-     *         parent: {first row merged with second},
-     *         sub: [{first row}, {second row}]  <-- merged periods
-     *       },
-     *       '03' : {
-     *         parent: {third row merged with fourth},
-     *         sub: [{third row}, {fourth row}]  <-- merged periods
-     *       },
-     *       '05': {
-     *         parent: {fifth row},
-     *         sub: [{fifth row}]  <-- unmerged period
-     *       }
-     *     }
-     *   }
-     **/
-
-    // 3. build the groupedPeriods map by going through the mergingMap periods
-    Object.keys(mergingMap).forEach(key => {
-      groupedPeriods[key] = {}
-
-      const subRows: Array<P5000ListRow> = _.cloneDeep(mergingMap[key])
-      subRows.forEach((subRow: P5000ListRow) => {
-        // get a list of parents (or rows that will portray grouped periods / single periods)
-        const parentRows: Array<P5000ListRow> = Object.values(groupedPeriods[key]).map((v: any) => v.parent)
-        const _subRow = _.cloneDeep(subRow)
-
-        // let's find a parent row that is a suitable candidate to merge this period. If not found, then it will be an unmerged period so far
-        let parentRow: P5000ListRow | undefined
-        if (!useGermanRules || _subRow.land !== 'DE') {
-          // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge...
-          parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
-          //  ...unless we are talking about a period that periodesum doesn't match the calculated sum
-          const thisSubRowPeriodeSum: string = writeDateDiff({
-            days: subRow.dag,
-            months: subRow.mnd,
-            years: subRow.aar
-          })
-          const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
-          const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
-
-          if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
-            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-              ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
-            parentRow = undefined
-            subRow.flag = true
-            subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
-          } else {
-            console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' has same periode sum, ' + thisSubRowPeriodeSum + ' === ' + thisSubCalculatedSum)
-          }
-        } else {
-          // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
-          // I can't use same as above because moment(new Date(2020, 07, 02)).diff(new Date(2020, 09, 01), 'months') = 1
-          // I have to set days to 01, so that 01.12.2020 to 01.01.2021 is still merged
-          parentRow = _.find(parentRows, (_r) => {
-            const targetSluttdato = moment(new Date(_r.sluttdato.getTime())).set('date', 1)
-            const targetStartdato = moment(new Date(_subRow.startdato.getTime())).set('date', 1)
-            return Math.abs(moment(targetStartdato).diff(targetSluttdato, 'months')) <= 1
-          })
-        }
-
-        if (!_.isNil(parentRow)) {
-          // found a suitable parent to be merged, therefore increase the parent's period span and recalculate the period range
-          parentRow.sluttdato = subRow.sluttdato
-          let total: FormattedDateDiff
-          if (!useGermanRules || _subRow.land !== 'DE') {
-            total = dateDiff(parentRow.startdato, parentRow.sluttdato)
-          } else {
-            // for germans, consider whole months for sum
-            total = dateDiff(
-              moment(_.cloneDeep(parentRow.startdato)).startOf('month').toDate(),
-              moment(_.cloneDeep(parentRow.sluttdato)).endOf('month').toDate())
-          }
-          parentRow.dag = total.days === 0 ? '' : total.days as string
-          parentRow.mnd = total.months === 0 ? '' : total.months as string
-          parentRow.aar = total.years === 0 ? '' : total.years as string
-
-          groupedPeriods[key][parentRow.key].parent = parentRow
-          groupedPeriods[key][parentRow.key].sub = groupedPeriods[key][parentRow.key].sub.concat(subRow)
-        } else {
-          // unmerged period will me single for now
-          groupedPeriods[key][subRow.key] = {
-            parent: _.cloneDeep(subRow), // these will be changed to reflect merge - make sure they are not connected by cloning it
-            sub: [subRow]
-          }
-        }
-      })
-    })
-
-    // #4 use groupPeriods to create a row list
-    Object.keys(groupedPeriods).forEach(key => {
-      // let's just extract the grouped types, so we can show it in the table
-      const groupedType = key.split('§')[1]
-      const groupedBeregning = key.split('§')[4]
-
-      Object.keys(groupedPeriods[key]).forEach(key2 => {
-        if (groupedPeriods[key][key2].sub.length === 1) {
-          // unmerged / single periods - just add the parent as a normal row
-          rows.push({
-            ...groupedPeriods[key][key2].parent,
-            hasSubrows: false
-          })
-        } else {
-        // merged periods - add the parent row + sub rows
-
-          // check if merged period sum matches the subrow's sum. If not, flagg it, and use the original sumds.
-          let sumDateDiff: DateDiff = { days: 0, months: 0, years: 0 }
-          groupedPeriods[key][key2].sub.forEach((sub: P5000ListRow) => {
-            sumDateDiff = sumDates({
-              days: sub.dag,
-              months: sub.mnd,
-              years: sub.aar
-            }, sumDateDiff)
-          }, true)
-
-          const sumDateDiffString: string = writeDateDiff(sumDateDiff)
-          const parentDateDiffString: string = writeDateDiff({
-            days: groupedPeriods[key][key2].parent.dag,
-            months: groupedPeriods[key][key2].parent.mnd,
-            years: groupedPeriods[key][key2].parent.aar
-          })
-
-          const samePeriodSum: boolean = sumDateDiffString === parentDateDiffString
-
-          if (!samePeriodSum) {
-            groupedPeriods[key][key2].parent.dag = '' + sumDateDiff.days
-            groupedPeriods[key][key2].parent.mnd = '' + sumDateDiff.months
-            groupedPeriods[key][key2].parent.aar = '' + sumDateDiff.years
-          }
-
-          rows.push({
-            ...groupedPeriods[key][key2].parent,
-            hasSubrows: true,
-            type: groupedType,
-            beregning: groupedBeregning,
-            key: 'merge-' + groupedPeriods[key][key2].parent.key,
-            flag: !samePeriodSum,
-            flagLabel: i18n.t('message:warning-periodDoNotMatch')
-          })
-          groupedPeriods[key][key2].sub.forEach((v: P5000ListRow) => {
-            const _v = _.cloneDeep(v)
-            _v.parentKey = 'merge-' + groupedPeriods[key][key2].parent.key
-            rows.push(_v)
-          })
-        }
-      })
-    })
+    rows = mergeP5000ListRows({ rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules })
   }
   return [rows, sourceStatus]
 }

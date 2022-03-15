@@ -567,7 +567,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
       const range = moment.range(startdato, sluttdato)
 
-      if (!!context?.items) {
+      if (context?.items) {
         for (let i = 0; i < context.items.length; i++) {
           const otherItem: P5000ListRow = context.items[i]
           if (item.key === otherItem.key) {

@@ -30,11 +30,11 @@ import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { convertP5000SEDToP5000ListRows } from 'applications/P5000/utils/conversion'
+import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 
 export interface P5000OverviewSelector {
@@ -71,7 +71,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [useGermanRules, setUseGermanRules] = useState<boolean>(true)
   const [_activeTab, setActiveTab] = useState<number>(0)
   const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
-  const [items]: [Array<P5000ListRow>, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
+  const [items]: [P5000ListRows, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
     seds,
     context,
     p5000sFromRinaMap,
@@ -83,7 +83,38 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     selectRowsContext: 'forAll'
   })
 
-  const [itemsForPesys, setItemsForPesys] = useState<P5000ListRows>(() => _.reject(items, (it: P5000ListRow) => it.beregning === '000'))
+  // initial items for pesys: all items minus the 000 beregning
+  // this will be updated with changes made to the startdato/sluttdato
+  const [itemsForPesys, _setItemsForPesys] = useState<P5000ListRows>(() =>
+    _.reject(items, (it: P5000ListRow) => it.beregning === '000')
+  )
+
+  // same, but for view - as the merging periods process "destroys" the original rows
+  // plus, it should use changed startdato/sluttdato periods
+  const [viewItemsForPesys, _setViewItemsForPesys] = useState<P5000ListRows>(() => itemsForPesys)
+
+  // all subsequent updates on items for pesys should update viewing-only rows with merging modification
+  const setItemsForPesys = (newItemsForPesys: P5000ListRows) => {
+    let newViewItemsForPesys = _.cloneDeep(newItemsForPesys)
+    if (mergePeriods) {
+      newViewItemsForPesys = mergeP5000ListRows({
+        rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
+      })
+    }
+    _setItemsForPesys(newItemsForPesys)
+    _setViewItemsForPesys(newViewItemsForPesys)
+  }
+
+  // any change in merging options should refresh viewItemsForPesys based on itemsForPesys
+  useEffect(() => {
+    let newViewItemsForPesys = _.cloneDeep(itemsForPesys)
+    if (mergePeriods) {
+      newViewItemsForPesys = mergeP5000ListRows({
+        rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
+      })
+    }
+    _setViewItemsForPesys(newViewItemsForPesys)
+  }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
   const [pesysWarning] = useState<string | undefined>(() =>
     (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
@@ -101,16 +132,16 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const renderStartdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <FlexCenterDiv>
       <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
-      <HorizontalSeparatorDiv size='0.3'/>
-      {item?.options?.startdatoModified && (<Star color='red'/>)}
+      <HorizontalSeparatorDiv size='0.3' />
+      {item?.options?.startdatoModified && (<Star color='red' />)}
     </FlexCenterDiv>
   )
 
   const renderSluttdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <FlexCenterDiv>
       <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
-      <HorizontalSeparatorDiv size='0.3'/>
-      {item?.options?.sluttdatoModified && (<Star color='red'/>)}
+      <HorizontalSeparatorDiv size='0.3' />
+      {item?.options?.sluttdatoModified && (<Star color='red' />)}
     </FlexCenterDiv>
   )
 
@@ -242,19 +273,19 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     })
   }
 
-  const onRowSelectChange = (items: P5000ListRows) => {
-    let newItems: P5000ListRows = _.cloneDeep(itemsForPesys)
-    newItems = newItems.map(item => {
+  const onRowSelectChange = (selectedItems: P5000ListRows) => {
+    let newItemsForPesys: P5000ListRows = _.cloneDeep(itemsForPesys)
+    newItemsForPesys = newItemsForPesys.map(item => {
       const newItem = _.cloneDeep(item)
-      const found: boolean = _.find(items, (it: P5000ListRow) => it.key === newItem.key) !== undefined
+      const found: boolean = _.find(selectedItems, (it: P5000ListRow) => it.key === newItem.key) !== undefined
       newItem.selected = found
       return newItem
     })
-    setItemsForPesys(newItems)
+    setItemsForPesys(newItemsForPesys)
   }
 
-  const onRowsChanged = (items: P5000ListRows) => {
-    setItemsForPesys(items)
+  const onRowsChanged = (itemsForPesys: P5000ListRows) => {
+    setItemsForPesys(itemsForPesys)
   }
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext | undefined, changedRowValues: ChangedRowValues | undefined): ItemErrors | undefined => {
@@ -333,7 +364,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             <VerticalSeparatorDiv />
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
-              items={itemsForPesys}
+              items={viewItemsForPesys}
               onRowSelectChange={onRowSelectChange}
               onRowsChanged={onRowsChanged}
               beforeRowEdited={beforeRowEdited}

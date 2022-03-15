@@ -63,10 +63,9 @@ export const periodToListItem = (
   period: P5000Period, sed: Sed, sender: SedSender | undefined, mustCheckStatus: boolean,
   rinaPeriods: Array<P5000Period> | undefined, selectRowsContext: any
 ): P5000ListRow => {
-
   let status: P5000PeriodStatus = 'rina'
   if (mustCheckStatus) {
-    const matchPeriodToRina: P5000Period | undefined = _.has(period, 'options.key') ? _.find(rinaPeriods, p => p.options?.key === period.options!.key ) : undefined
+    const matchPeriodToRina: P5000Period | undefined = _.has(period, 'options.key') ? _.find(rinaPeriods, p => p.options?.key === period.options!.key) : undefined
     if (matchPeriodToRina === undefined) {
       status = 'new'
     } else {
@@ -97,8 +96,8 @@ export const periodToListItem = (
       : false,
     selectLabel: !period.options?.flagIkon
       ? selectRowsContext === 'forCertainTypesOnly'
-        ? i18n.t('p5000:checkbox-text-for-edit')
-        : i18n.t('p5000:checkbox-text-for-pesys')
+          ? i18n.t('p5000:checkbox-text-for-edit')
+          : i18n.t('p5000:checkbox-text-for-pesys')
       : period.options?.flagIkon === 'UFT'
         ? 'Uføretrygd periode'
         : 'Gjenlevendeytelse / Barnepensjon periode',

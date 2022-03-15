@@ -48,9 +48,11 @@ const AnimatableDiv = styled.div`
   }
   &.middle {
     transform: translateX(20%);
+    height: 1vh;
   }
   &.right {
     transform: translateX(40%);
+    height: 1vh;
   }
 
   &.A_going_to_right {
@@ -65,12 +67,14 @@ const AnimatableDiv = styled.div`
 
   &.alt_left {
     transform: translateX(-120%);
+    height: 1vh;
   }
   &.alt_middle {
     transform: translateX(-100%);
   }
   &.alt_right {
     transform: translateX(-80%);
+    height: 1vh;
   }
 
   &.A_going_to_middle {
@@ -85,9 +89,11 @@ const AnimatableDiv = styled.div`
 
   &.super_alt_left {
     transform: translateX(-240%);
+    height: 1vh;
   }
   &.super_alt_middle {
     transform: translateX(-220%);
+    height: 1vh;
   }
   &.super_alt_right {
     transform: translateX(-200%);
@@ -102,7 +108,6 @@ const AnimatableDiv = styled.div`
   &.C_going_to_left {
     transform: translateX(-200%);
   }
-
 `
 export const ContainerDiv = styled.div`
   width: 100%;

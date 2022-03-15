@@ -6,7 +6,7 @@ import {
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
-import { HorizontalSeparatorDiv, PileDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import { HorizontalSeparatorDiv, PileDiv, VerticalSeparatorDiv, Column, Row } from '@navikt/hoykontrast'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
 import { Buc, BucInfo, Comment, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
@@ -16,7 +16,6 @@ import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { LinkPanel, BodyLong, Link, Heading, Tag, Detail } from '@navikt/ds-react'
-import { Column, Row } from '@navikt/hoykontrast'
 import Tooltip from '@navikt/tooltip'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -254,12 +253,12 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           </IconsDiv>
           <LabelsDiv>
             <TagsDiv>
-            {bucInfo?.tags?.map((tag: string) => (
-              <>
-              <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
-              <HorizontalSeparatorDiv size='0.5'/>
-              </>
-            ))}
+              {bucInfo?.tags?.map((tag: string) => (
+                <div key={tag}>
+                  <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
+                  <HorizontalSeparatorDiv size='0.5' />
+                </div>
+              ))}
             </TagsDiv>
           </LabelsDiv>
           <LabelsDiv>
@@ -269,14 +268,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   <Detail>
                     {t('ui:comment')}
                   </Detail>
-                  <VerticalSeparatorDiv size='0.5'/>
+                  <VerticalSeparatorDiv size='0.5' />
                 </>
               )}
-              {(bucInfo?.comment as Array<Comment>)?.map((c: Comment) => (
-                <>
+              {(bucInfo?.comment as Array<Comment>)?.map((c: Comment, i: number) => (
+                <div key={i + '-' + c}>
                   <span>{c.value}</span>
-                  <HorizontalSeparatorDiv size='0.5'/>
-                </>
+                  <HorizontalSeparatorDiv size='0.5' />
+                </div>
               ))}
             </PileDiv>
           </LabelsDiv>

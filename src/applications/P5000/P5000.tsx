@@ -86,7 +86,7 @@ const P5000: React.FC<P5000Props> = ({
   const updateEmptyPeriodsReport = (activeSeds: Seds) => {
     const res: EmptyPeriodsReport = {}
     // @ts-ignore
-    activeSeds.forEach((sed: Sed) => res[sed.id] = p5000sFromRinaMap[sed.id]?.pensjon?.medlemskapAnnen?.length > 0)
+    activeSeds.forEach((sed: Sed) => (res[sed.id] = p5000sFromRinaMap[sed.id]?.pensjon?.medlemskapAnnen?.length > 0))
     _setEmptyPeriodReport(res)
   }
 

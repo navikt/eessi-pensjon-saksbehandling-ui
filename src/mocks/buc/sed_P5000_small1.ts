@@ -94,7 +94,7 @@ export default {
     medlemskapAnnen: null,
     medlemskapTotal: [
       {
-        relevans: '010',
+        relevans: null,
         ordning: null,
         land: null,
         sum: {
@@ -116,7 +116,7 @@ export default {
         enkeltkrav: null
       },
       {
-        relevans: '010',
+        relevans: null,
         ordning: null,
         land: null,
         sum: {
@@ -138,7 +138,7 @@ export default {
         enkeltkrav: null
       },
       {
-        relevans: '010',
+        relevans: null,
         ordning: null,
         land: null,
         sum: {
@@ -160,7 +160,7 @@ export default {
         enkeltkrav: null
       },
       {
-        relevans: '010',
+        relevans: null,
         ordning: null,
         land: null,
         sum: {
@@ -214,8 +214,8 @@ export default {
           enkeltkrav: null
         },
         {
-          relevans: '001',
-          ordning: '01',
+          relevans: null,
+          ordning: '00',
           land: null,
           sum: {
             kvartal: null,
@@ -239,8 +239,8 @@ export default {
           enkeltkrav: null
         },
         {
-          relevans: '010',
-          ordning: '02',
+          relevans: null,
+          ordning: '00',
           land: null,
           sum: {
             kvartal: null,
@@ -264,8 +264,8 @@ export default {
           enkeltkrav: null
         },
         {
-          relevans: '011',
-          ordning: '03',
+          relevans: null,
+          ordning: '00',
           land: null,
           sum: {
             kvartal: null,
@@ -289,8 +289,8 @@ export default {
           enkeltkrav: null
         },
         {
-          relevans: '100',
-          ordning: '04',
+          relevans: null,
+          ordning: '00',
           land: null,
           sum: {
             kvartal: null,
