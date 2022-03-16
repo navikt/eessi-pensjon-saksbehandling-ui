@@ -8,7 +8,7 @@ import ReactModal from 'react-modal'
 import PT from 'prop-types'
 import React from 'react'
 
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const ModalText = styled.div`
   margin: 1.5rem;

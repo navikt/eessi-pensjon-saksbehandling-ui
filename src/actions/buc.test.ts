@@ -5,9 +5,10 @@ import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { Buc, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
+import { Buc, NewSedPayload, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { call as originalCall } from '@navikt/fetch'
+import _ from 'lodash'
 import mockItems from 'mocks/joark/items'
 
 jest.mock('@navikt/fetch', () => ({
@@ -34,7 +35,11 @@ describe('actions/buc', () => {
 
   it('createBuc()', () => {
     const mockBuc = {
-      buc: 'P_BUC_01'
+      buc: 'P_BUC_01',
+      avdod: '123',
+      avdodfnr: '456',
+      person: 'abc',
+      kravDato: '1970-01-01'
     }
     bucActions.createBuc(mockBuc)
     expect(call).toBeCalledWith(expect.objectContaining({
@@ -44,6 +49,7 @@ describe('actions/buc', () => {
         failure: types.BUC_CREATE_BUC_FAILURE
       },
       method: 'POST',
+      context: _.omit(mockBuc, 'buc'),
       url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc.buc })
     }))
   })
@@ -56,7 +62,7 @@ describe('actions/buc', () => {
       institutions: [],
       aktoerId: '123',
       euxCaseId: '456'
-    }
+    } as NewSedPayload
     const mockBuc = { type: 'mockBucType', caseId: '456' } as Buc
     const mockParentId = '123'
     bucActions.createReplySed(mockBuc, mockedPayload, mockParentId)
@@ -68,6 +74,10 @@ describe('actions/buc', () => {
       },
       method: 'POST',
       payload: mockedPayload,
+      context: {
+        buc: mockBuc,
+        sed: mockedPayload
+      },
       url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: mockParentId })
     }))
   })
@@ -81,7 +91,7 @@ describe('actions/buc', () => {
       institutions: [],
       aktoerId: '123',
       euxCaseId: '456'
-    }
+    } as NewSedPayload
     bucActions.createSed(mockBuc, mockedPayload)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -91,6 +101,10 @@ describe('actions/buc', () => {
       },
       method: 'POST',
       payload: mockedPayload,
+      context: {
+        buc: mockBuc,
+        sed: mockedPayload
+      },
       url: urls.BUC_CREATE_SED_URL
     }))
   })

@@ -26,7 +26,7 @@ import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const transition = 500
 const timeout = 501

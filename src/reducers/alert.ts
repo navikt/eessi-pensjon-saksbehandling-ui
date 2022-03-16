@@ -32,7 +32,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
   let bannerStatus: string
 
   if (action.type === types.ALERT_CLEAR ||
-    action.type === types.APP_CLEAR_DATA) {
+    action.type === types.APP_DATA_CLEAR) {
     return initialAlertState
   }
 

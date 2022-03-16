@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
 import { Link, Loader, Heading } from '@navikt/ds-react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export interface HeaderProps {
   className ?: string

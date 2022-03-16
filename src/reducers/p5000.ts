@@ -49,7 +49,7 @@ const fillWithKeys = (payload: any, sedId: string) => {
 
 const p5000Reducer = (state: P5000State = initialP5000State, action: Action | ActionWithPayload = { type: '' }): P5000State => {
   switch (action.type) {
-    case types.APP_CLEAR_DATA: {
+    case types.APP_DATA_CLEAR: {
       return initialP5000State
     }
 

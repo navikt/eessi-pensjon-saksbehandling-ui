@@ -6,7 +6,7 @@ import { guid } from 'nav-frontend-js-utils'
 import PT from 'prop-types'
 import Select, { OptionsOrGroups, GroupBase, OnChangeValue, PropsValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import MultipleOption from './MultipleOption'
 import { Option } from 'declarations/app'
 

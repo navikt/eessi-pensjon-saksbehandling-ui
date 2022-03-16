@@ -28,7 +28,7 @@ import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export const SEDAttachmentSenderDiv = styled.div`
    margin-top: 1rem;

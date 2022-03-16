@@ -17,7 +17,7 @@ import { Alert, Panel, Accordion, Link, Label, BodyLong, Heading } from '@navikt
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { useState } from 'react'
 
 const Dd = styled.dd`

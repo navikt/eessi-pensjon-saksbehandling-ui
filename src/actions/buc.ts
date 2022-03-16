@@ -1,3 +1,5 @@
+import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
+import { CountryFilter } from '@navikt/land-verktoy'
 import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
@@ -24,24 +26,22 @@ import {
   ValidBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
-import { CountryFilter } from '@navikt/land-verktoy'
 import _ from 'lodash'
 import { mockBuc, mockParticipants } from 'mocks/buc/buc'
 import mockBucOptions from 'mocks/buc/bucOptions'
-import mockBucs from 'mocks/buc/bucsList'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
+import mockBucs from 'mocks/buc/bucsList'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
 import mockInstitutions from 'mocks/buc/institutions'
 import mockKravDato from 'mocks/buc/kravDato'
+import mockP6000 from 'mocks/buc/p6000'
+import mockP6000pdf from 'mocks/buc/p6000pdf'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
 import mockSedList from 'mocks/buc/sedList'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
-import mockP6000 from 'mocks/buc/p6000'
-import mockP6000pdf from 'mocks/buc/p6000pdf'
 import { Action, ActionCreator } from 'redux'
 
 const sprintf = require('sprintf-js').sprintf
@@ -56,7 +56,6 @@ export const createBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> 
   return call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
-
     //  these are params collected on create BUC and have to be passed later so that
     // create SED either just displays them, or decides if should ask for them again
     context: {

@@ -4,7 +4,7 @@ import { BUCMode } from 'declarations/app'
 import { slideInFromLeft } from '@navikt/hoykontrast'
 import { Buc, Sed } from 'declarations/buc'
 import _ from 'lodash'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import SEDBody from '../SEDBody/SEDBody'
 import { Accordion, Panel } from '@navikt/ds-react'
 

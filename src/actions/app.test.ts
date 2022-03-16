@@ -22,7 +22,7 @@ describe('actions/app', () => {
   it('clearData()', () => {
     const generatedResult: Action = appActions.clearData()
     expect(generatedResult).toMatchObject({
-      type: types.APP_CLEAR_DATA
+      type: types.APP_DATA_CLEAR
     })
   })
 

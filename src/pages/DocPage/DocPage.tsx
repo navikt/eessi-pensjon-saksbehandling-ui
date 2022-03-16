@@ -2,7 +2,7 @@ import TopContainer from 'components/TopContainer/TopContainer'
 import { timeLogger } from 'metrics/loggers'
 import Dashboard, { LayoutTabs, Widgets } from '@navikt/dashboard'
 import { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import * as extraWidgets from 'widgets'
 
 const CustomDashboard = styled(Dashboard)`

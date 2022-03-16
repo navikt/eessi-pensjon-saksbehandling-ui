@@ -5,7 +5,7 @@ import { standardLogger } from 'metrics/loggers'
 import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const SEDSearchPanel = styled(Panel)`
   display: flex !important;

@@ -6,7 +6,7 @@ import mockUser from 'mocks/app/user'
 import { Action, ActionCreator } from 'redux'
 
 export const clearData: ActionCreator<Action> = (): Action => ({
-  type: types.APP_CLEAR_DATA
+  type: types.APP_DATA_CLEAR
 })
 
 export const getUserInfo: ActionCreator<ThunkResult<ActionWithPayload<UserInfoPayload>>> = (

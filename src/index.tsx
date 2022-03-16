@@ -18,7 +18,7 @@ import { applyMiddleware, combineReducers, compose, createStore, Store } from 'r
 import thunk from 'redux-thunk'
 import 'regenerator-runtime/runtime'
 import { unregister } from 'registerServiceWorker'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components/macro'
 import i18n from './i18n'
 import * as reducers from './reducers'
 import 'nav-frontend-tabs-style/dist/main.css'

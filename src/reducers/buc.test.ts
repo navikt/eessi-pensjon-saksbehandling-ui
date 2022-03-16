@@ -7,10 +7,10 @@ import bucReducer, { initialBucState } from './buc'
 const mockBuc: Buc = mockBucs()[0] as Buc
 
 describe('reducers/buc', () => {
-  it('APP_CLEAR_DATA', () => {
+  it('APP_DATA_CLEAR', () => {
     expect(
       bucReducer(initialBucState, {
-        type: types.APP_CLEAR_DATA
+        type: types.APP_DATA_CLEAR
       })
     ).toEqual(initialBucState)
   })

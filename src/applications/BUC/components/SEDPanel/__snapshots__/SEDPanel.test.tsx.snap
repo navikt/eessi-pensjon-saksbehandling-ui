@@ -1,15 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/SEDPanel/SEDPanel Render: match snapshot 1`] = `
-.c2 {
-  border-style: solid;
-}
-
-ui-fss.g11[id="c0"] {
-  content: "c2,";
-}
-
-.c3 {
+.c1 {
   -webkit-transform: translateX(-20px);
   -ms-transform: translateX(-20px);
   transform: translateX(-20px);
@@ -20,31 +12,22 @@ ui-fss.g11[id="c0"] {
   margin-bottom: 1rem;
 }
 
-.c3 span,
-.c3 p {
-  font-size: inherit;
-  line-height: inherit;
+ui-fss.g38[id="c0"] {
+  content: "c1,";
 }
 
-.c3.new .ekspanderbartPanel__hode,
-.c3.new .ekspanderbartPanel__hode div:not(.etikett) {
-  background: !important;
-}
-
-.c3.new .ekspanderbartPanel__hode:hover div:not(.etikett) {
-  background: !important;
-}
-
-ui-fss.g49[id="c1"] {
-  content: "c3,";
-}
-
-.c5 {
+.c3 {
   padding: 1rem;
+  border-radius: 4px;
+  background: var(--navds-semantic-color-component-background-light);
 }
 
-ui-fss.g50[id="c4"] {
-  content: "c5,";
+.c3.new {
+  background: var(--navds-global-color-limegreen-100) !important;
+}
+
+ui-fss.g39[id="c2"] {
+  content: "c3,";
 }
 
 <SEDPanel
@@ -103,6 +86,7 @@ ui-fss.g50[id="c4"] {
             },
           ],
           "creationDate": 1571818175000,
+          "direction": "IN",
           "displayName": "Invalidate Sed",
           "firstVersion": Object {
             "date": 1571818175000,
@@ -145,6 +129,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818194896,
+          "direction": "IN",
           "displayName": "Pension decision",
           "firstVersion": Object {
             "date": 1571818194896,
@@ -209,6 +194,7 @@ ui-fss.g50[id="c4"] {
               "selected": false,
             },
           ],
+          "receiveDate": -3600000,
           "status": "active",
           "type": "P6000",
           "version": "3",
@@ -217,6 +203,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
+          "direction": "IN",
           "displayName": "Forward Case",
           "firstVersion": Object {
             "date": 1571818175000,
@@ -228,7 +215,7 @@ ui-fss.g50[id="c4"] {
             "date": 1571818175000,
             "id": "1",
           },
-          "parentDocumentId": null,
+          "parentDocumentId": "5d549c96e0ce40788a2eea2992c1f65f",
           "participants": Array [
             Object {
               "organisation": Object {
@@ -259,6 +246,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818201591,
+          "direction": "IN",
           "displayName": "Transfer of additional information",
           "firstVersion": Object {
             "date": 1571818201591,
@@ -301,6 +289,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
+          "direction": "IN",
           "displayName": "Country specific information",
           "firstVersion": Object {
             "date": 1571818175000,
@@ -343,6 +332,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818176000,
+          "direction": "IN",
           "displayName": "Request for Medical Information",
           "firstVersion": Object {
             "date": 1571818176000,
@@ -404,6 +394,7 @@ ui-fss.g50[id="c4"] {
             },
           ],
           "creationDate": 1571818181793,
+          "direction": "IN",
           "displayName": "Report on insurance history",
           "firstVersion": Object {
             "date": 1571818181793,
@@ -446,6 +437,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818176000,
+          "direction": "IN",
           "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
           "firstVersion": Object {
             "date": 1571818176000,
@@ -488,6 +480,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
+          "direction": "IN",
           "displayName": "Notification of death",
           "firstVersion": Object {
             "date": 1571818175000,
@@ -530,6 +523,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818216066,
+          "direction": "IN",
           "displayName": "Notification of Summary note",
           "firstVersion": Object {
             "date": 1571818216066,
@@ -572,6 +566,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818170586,
+          "direction": "IN",
           "displayName": "Old age pension claim",
           "firstVersion": Object {
             "date": 1571818170586,
@@ -606,7 +601,7 @@ ui-fss.g50[id="c4"] {
               "selected": false,
             },
           ],
-          "status": "sent",
+          "status": "received",
           "type": "P2000",
           "version": "1",
         },
@@ -614,6 +609,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818175000,
+          "direction": "IN",
           "displayName": "Add New Participant",
           "firstVersion": Object {
             "date": 1571818175000,
@@ -656,6 +652,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": false,
           "attachments": Array [],
           "creationDate": 1571818188033,
+          "direction": "IN",
           "displayName": "Insurance/residence periods",
           "firstVersion": Object {
             "date": 1571818188033,
@@ -698,6 +695,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": false,
           "attachments": Array [],
           "creationDate": 1571234189234,
+          "direction": "IN",
           "displayName": "Insurance/residence periods",
           "firstVersion": Object {
             "date": 1571547188033,
@@ -723,10 +721,10 @@ ui-fss.g50[id="c4"] {
             },
             Object {
               "organisation": Object {
-                "acronym": "NAVAT08",
-                "countryCode": "NO",
-                "id": "NO:NAVAT08",
-                "name": "NAV ACCEPTANCE TEST 08",
+                "acronym": "DEDEMO01",
+                "countryCode": "DE",
+                "id": "NO:DEDEMO01",
+                "name": "German demo 01",
               },
               "role": "Sender",
               "selected": false,
@@ -740,6 +738,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": false,
           "attachments": Array [],
           "creationDate": 1571234189234,
+          "direction": "IN",
           "displayName": "Insurance/residence periods",
           "firstVersion": Object {
             "date": 1571547188033,
@@ -774,7 +773,7 @@ ui-fss.g50[id="c4"] {
               "selected": false,
             },
           ],
-          "status": "open",
+          "status": "sent",
           "type": "P5000",
           "version": "1",
         },
@@ -782,6 +781,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818208620,
+          "direction": "IN",
           "displayName": "Request for additional information",
           "firstVersion": Object {
             "date": 1571818208620,
@@ -824,6 +824,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818208620,
+          "direction": "IN",
           "displayName": "P9000",
           "firstVersion": Object {
             "date": 1571818208620,
@@ -866,6 +867,7 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818174000,
+          "direction": "IN",
           "displayName": "Reminder",
           "firstVersion": Object {
             "date": 1571818174000,
@@ -900,7 +902,7 @@ ui-fss.g50[id="c4"] {
               "selected": false,
             },
           ],
-          "status": "empty",
+          "status": "received",
           "type": "X009",
           "version": "1",
         },
@@ -908,6 +910,29 @@ ui-fss.g50[id="c4"] {
           "allowsAttachments": true,
           "attachments": Array [],
           "creationDate": 1571818174000,
+          "direction": "IN",
+          "displayName": "Reminder",
+          "firstVersion": Object {
+            "date": 1571818174000,
+            "id": "1",
+          },
+          "id": "fd55d46e6ab741838d3a8e1735d33f1c",
+          "lastUpdate": 1571818174000,
+          "lastVersion": Object {
+            "date": 1571818174000,
+            "id": "1",
+          },
+          "parentDocumentId": "fd55d46e6ab741838d3a8e1735d33f1b",
+          "participants": Array [],
+          "status": "empty",
+          "type": "X010",
+          "version": "1",
+        },
+        Object {
+          "allowsAttachments": true,
+          "attachments": Array [],
+          "creationDate": 1571818174000,
+          "direction": "IN",
           "displayName": "Reminder",
           "firstVersion": Object {
             "date": 1571818174000,
@@ -952,83 +977,8 @@ ui-fss.g50[id="c4"] {
       "type": "P_BUC_01",
     }
   }
-  followUpSed={
-    Object {
-      "allowsAttachments": true,
-      "attachments": Array [],
-      "creationDate": 1571818194896,
-      "displayName": "Pension decision",
-      "firstVersion": Object {
-        "date": 1571818194896,
-        "id": "1",
-      },
-      "id": "10678159cd4142f890d56264bfdefd13",
-      "lastUpdate": 1571818294896,
-      "lastVersion": Object {
-        "date": 1571818294896,
-        "id": "3",
-      },
-      "parentDocumentId": null,
-      "participants": Array [
-        Object {
-          "organisation": Object {
-            "acronym": "NAVAT07",
-            "countryCode": "NO",
-            "id": "NO:NAVAT07",
-            "name": "NAV ACCEPTANCE TEST 07",
-          },
-          "role": "Sender",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "acronym": "NAVAT08",
-            "countryCode": "NO",
-            "id": "NO:NAVAT08",
-            "name": "NAV ACCEPTANCE TEST 08",
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "acronym": "DEMOIT01",
-            "countryCode": "IT",
-            "id": "IT:DEMOIT01",
-            "name": "Italian institution 001",
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "acronym": "DEMOES01",
-            "countryCode": "ES",
-            "id": "ES:DEMOES01",
-            "name": "Spanish institution 01",
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-        Object {
-          "organisation": Object {
-            "acronym": "DEMOFR01",
-            "countryCode": "FR",
-            "id": "FR:DEMOFR01",
-            "name": "French insstitution 01",
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-      ],
-      "status": "active",
-      "type": "P6000",
-      "version": "3",
-    }
-  }
-  highContrast={false}
   newSed={false}
-  onSEDNew={[MockFunction]}
+  onFollowUpSed={[MockFunction]}
   sed={
     Object {
       "allowsAttachments": true,
@@ -1044,6 +994,7 @@ ui-fss.g50[id="c4"] {
         },
       ],
       "creationDate": 1571818175000,
+      "direction": "IN",
       "displayName": "Invalidate Sed",
       "firstVersion": Object {
         "date": 1571818175000,
@@ -1083,22 +1034,24 @@ ui-fss.g50[id="c4"] {
       "version": "1",
     }
   }
+  setMode={[MockFunction]}
   style={Object {}}
 >
-  <Styled(Styled(f))
+  <Styled(Component)
     border={true}
-    className=""
   >
-    <f
+    <ForwardRef
       border={true}
-      className="c0 c1 c2 c3"
+      className="c0 c1"
     >
       <div
-        className="panel c0 c1 c2 c3 panel--border"
+        className="navds-panel c0 c1 navds-panel--border"
       >
-        <styled.div>
+        <styled.div
+          className=""
+        >
           <div
-            className="c4 c5"
+            className="c2 c3"
           >
             <Component
               buc={
@@ -1155,6 +1108,7 @@ ui-fss.g50[id="c4"] {
                         },
                       ],
                       "creationDate": 1571818175000,
+                      "direction": "IN",
                       "displayName": "Invalidate Sed",
                       "firstVersion": Object {
                         "date": 1571818175000,
@@ -1197,6 +1151,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818194896,
+                      "direction": "IN",
                       "displayName": "Pension decision",
                       "firstVersion": Object {
                         "date": 1571818194896,
@@ -1261,6 +1216,7 @@ ui-fss.g50[id="c4"] {
                           "selected": false,
                         },
                       ],
+                      "receiveDate": -3600000,
                       "status": "active",
                       "type": "P6000",
                       "version": "3",
@@ -1269,6 +1225,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818175000,
+                      "direction": "IN",
                       "displayName": "Forward Case",
                       "firstVersion": Object {
                         "date": 1571818175000,
@@ -1280,7 +1237,7 @@ ui-fss.g50[id="c4"] {
                         "date": 1571818175000,
                         "id": "1",
                       },
-                      "parentDocumentId": null,
+                      "parentDocumentId": "5d549c96e0ce40788a2eea2992c1f65f",
                       "participants": Array [
                         Object {
                           "organisation": Object {
@@ -1311,6 +1268,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818201591,
+                      "direction": "IN",
                       "displayName": "Transfer of additional information",
                       "firstVersion": Object {
                         "date": 1571818201591,
@@ -1353,6 +1311,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818175000,
+                      "direction": "IN",
                       "displayName": "Country specific information",
                       "firstVersion": Object {
                         "date": 1571818175000,
@@ -1395,6 +1354,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818176000,
+                      "direction": "IN",
                       "displayName": "Request for Medical Information",
                       "firstVersion": Object {
                         "date": 1571818176000,
@@ -1456,6 +1416,7 @@ ui-fss.g50[id="c4"] {
                         },
                       ],
                       "creationDate": 1571818181793,
+                      "direction": "IN",
                       "displayName": "Report on insurance history",
                       "firstVersion": Object {
                         "date": 1571818181793,
@@ -1498,6 +1459,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818176000,
+                      "direction": "IN",
                       "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
                       "firstVersion": Object {
                         "date": 1571818176000,
@@ -1540,6 +1502,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818175000,
+                      "direction": "IN",
                       "displayName": "Notification of death",
                       "firstVersion": Object {
                         "date": 1571818175000,
@@ -1582,6 +1545,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818216066,
+                      "direction": "IN",
                       "displayName": "Notification of Summary note",
                       "firstVersion": Object {
                         "date": 1571818216066,
@@ -1624,6 +1588,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818170586,
+                      "direction": "IN",
                       "displayName": "Old age pension claim",
                       "firstVersion": Object {
                         "date": 1571818170586,
@@ -1658,7 +1623,7 @@ ui-fss.g50[id="c4"] {
                           "selected": false,
                         },
                       ],
-                      "status": "sent",
+                      "status": "received",
                       "type": "P2000",
                       "version": "1",
                     },
@@ -1666,6 +1631,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818175000,
+                      "direction": "IN",
                       "displayName": "Add New Participant",
                       "firstVersion": Object {
                         "date": 1571818175000,
@@ -1708,6 +1674,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": false,
                       "attachments": Array [],
                       "creationDate": 1571818188033,
+                      "direction": "IN",
                       "displayName": "Insurance/residence periods",
                       "firstVersion": Object {
                         "date": 1571818188033,
@@ -1750,6 +1717,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": false,
                       "attachments": Array [],
                       "creationDate": 1571234189234,
+                      "direction": "IN",
                       "displayName": "Insurance/residence periods",
                       "firstVersion": Object {
                         "date": 1571547188033,
@@ -1775,10 +1743,10 @@ ui-fss.g50[id="c4"] {
                         },
                         Object {
                           "organisation": Object {
-                            "acronym": "NAVAT08",
-                            "countryCode": "NO",
-                            "id": "NO:NAVAT08",
-                            "name": "NAV ACCEPTANCE TEST 08",
+                            "acronym": "DEDEMO01",
+                            "countryCode": "DE",
+                            "id": "NO:DEDEMO01",
+                            "name": "German demo 01",
                           },
                           "role": "Sender",
                           "selected": false,
@@ -1792,6 +1760,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": false,
                       "attachments": Array [],
                       "creationDate": 1571234189234,
+                      "direction": "IN",
                       "displayName": "Insurance/residence periods",
                       "firstVersion": Object {
                         "date": 1571547188033,
@@ -1826,7 +1795,7 @@ ui-fss.g50[id="c4"] {
                           "selected": false,
                         },
                       ],
-                      "status": "open",
+                      "status": "sent",
                       "type": "P5000",
                       "version": "1",
                     },
@@ -1834,6 +1803,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818208620,
+                      "direction": "IN",
                       "displayName": "Request for additional information",
                       "firstVersion": Object {
                         "date": 1571818208620,
@@ -1876,6 +1846,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818208620,
+                      "direction": "IN",
                       "displayName": "P9000",
                       "firstVersion": Object {
                         "date": 1571818208620,
@@ -1918,6 +1889,7 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818174000,
+                      "direction": "IN",
                       "displayName": "Reminder",
                       "firstVersion": Object {
                         "date": 1571818174000,
@@ -1952,7 +1924,7 @@ ui-fss.g50[id="c4"] {
                           "selected": false,
                         },
                       ],
-                      "status": "empty",
+                      "status": "received",
                       "type": "X009",
                       "version": "1",
                     },
@@ -1960,6 +1932,29 @@ ui-fss.g50[id="c4"] {
                       "allowsAttachments": true,
                       "attachments": Array [],
                       "creationDate": 1571818174000,
+                      "direction": "IN",
+                      "displayName": "Reminder",
+                      "firstVersion": Object {
+                        "date": 1571818174000,
+                        "id": "1",
+                      },
+                      "id": "fd55d46e6ab741838d3a8e1735d33f1c",
+                      "lastUpdate": 1571818174000,
+                      "lastVersion": Object {
+                        "date": 1571818174000,
+                        "id": "1",
+                      },
+                      "parentDocumentId": "fd55d46e6ab741838d3a8e1735d33f1b",
+                      "participants": Array [],
+                      "status": "empty",
+                      "type": "X010",
+                      "version": "1",
+                    },
+                    Object {
+                      "allowsAttachments": true,
+                      "attachments": Array [],
+                      "creationDate": 1571818174000,
+                      "direction": "IN",
                       "displayName": "Reminder",
                       "firstVersion": Object {
                         "date": 1571818174000,
@@ -2004,7 +1999,7 @@ ui-fss.g50[id="c4"] {
                   "type": "P_BUC_01",
                 }
               }
-              onSEDNew={[MockFunction]}
+              onFollowUpSed={[MockFunction]}
               sed={
                 Object {
                   "allowsAttachments": true,
@@ -2020,6 +2015,7 @@ ui-fss.g50[id="c4"] {
                     },
                   ],
                   "creationDate": 1571818175000,
+                  "direction": "IN",
                   "displayName": "Invalidate Sed",
                   "firstVersion": Object {
                     "date": 1571818175000,
@@ -2059,6 +2055,7 @@ ui-fss.g50[id="c4"] {
                   "version": "1",
                 }
               }
+              setMode={[MockFunction]}
               style={Object {}}
             >
               <div
@@ -2068,7 +2065,7 @@ ui-fss.g50[id="c4"] {
           </div>
         </styled.div>
       </div>
-    </f>
-  </Styled(Styled(f))>
+    </ForwardRef>
+  </Styled(Component)>
 </SEDPanel>
 `;

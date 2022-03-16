@@ -6,7 +6,7 @@ import PT from 'prop-types'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { AddCircle, ErrorFilled } from '@navikt/ds-icons'
 
 export const FooterDiv = styled.footer`

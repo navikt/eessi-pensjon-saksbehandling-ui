@@ -23,7 +23,7 @@ import PT from 'prop-types'
 import Tooltip from '@navikt/tooltip'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const SEDListActionsDiv = styled.div`
   flex: 2;

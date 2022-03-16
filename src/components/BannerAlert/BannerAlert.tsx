@@ -6,7 +6,7 @@ import { AlertErrorPropType } from 'declarations/components.pt'
 import _ from 'lodash'
 import { Alert } from '@navikt/ds-react'
 import PT from 'prop-types'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export const BannerAlertDiv = styled(Alert)`
   opacity: 0;

@@ -20,7 +20,7 @@ export const initialPersonState: PersonState = {
 
 const personReducer = (state: PersonState = initialPersonState, action: ActionWithPayload) => {
   switch (action.type) {
-    case types.APP_CLEAR_DATA:
+    case types.APP_DATA_CLEAR:
       return initialPersonState
 
     case types.PERSON_PDL_REQUEST:

@@ -1,5 +1,5 @@
 import { ErrorFilled } from '@navikt/ds-icons'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const FlexDiv = styled.div`
   display: flex;

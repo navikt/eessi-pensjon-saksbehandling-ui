@@ -2,7 +2,7 @@ import { IconsDiv } from 'applications/BUC/components/BUCHeader/BUCHeader'
 import LoadingImage from 'components/Loading/LoadingImage'
 import LoadingText from 'components/Loading/LoadingText'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { Panel } from '@navikt/ds-react'
 
 const BucPanel = styled(Panel)`

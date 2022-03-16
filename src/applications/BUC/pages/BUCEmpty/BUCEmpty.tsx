@@ -15,7 +15,7 @@ import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { Button, TextField } from '@navikt/ds-react'
 
 export const BUCEmptyDiv = styled.div`

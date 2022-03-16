@@ -32,7 +32,7 @@ import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 
@@ -226,10 +226,14 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return <div>{countryInstance.findByValue(value)?.label}</div>
   }
 
+  const renderAcronym = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
+    <BodyLong>{value}</BodyLong>
+  )
+
   let columns: Array<Column<P5000ListRow, P5000TableContext>> = [
     { id: 'status', label: t('ui:status'), type: 'string', render: renderStatus },
     { id: 'land', label: t('ui:country'), type: 'string', render: renderLand, edit: { render: renderLand } },
-    { id: 'acronym', label: t('ui:_institution'), type: 'string' },
+    { id: 'acronym', label: t('ui:_institution'), type: 'string', render: renderAcronym, edit: { render: renderAcronym } },
     { id: 'type', label: t('ui:type'), type: 'string', align: 'center' as ColumnAlign, render: renderType, edit: { render: renderType } },
     {
       id: 'startdato',

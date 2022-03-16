@@ -86,7 +86,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const AlertDiv = styled.div`
   display: flex;

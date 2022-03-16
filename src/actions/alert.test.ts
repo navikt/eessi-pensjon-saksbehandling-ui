@@ -3,18 +3,38 @@ import * as types from 'constants/actionTypes'
 
 describe('actions/alert', () => {
   it('alertClear()', () => {
-    const generatedResult = alertActions.alertClear()
-    expect(generatedResult).toMatchObject({
+    expect(alertActions.alertClear()).toMatchObject({
       type: types.ALERT_CLEAR
     })
   })
 
   it('alertFailure()', () => {
-    const mockPayload: string = 'mockError'
-    const generatedResult = alertActions.alertFailure(mockPayload)
-    expect(generatedResult).toMatchObject({
+    const payload = 'payload'
+    expect(alertActions.alertFailure(payload)).toMatchObject({
       type: types.ALERT_FAILURE,
-      payload: mockPayload
+      payload: {
+        message: payload
+      }
+    })
+  })
+
+  it('alertWarning()', () => {
+    const payload = 'payload'
+    expect(alertActions.alertWarning(payload)).toMatchObject({
+      type: types.ALERT_WARNING,
+      payload: {
+        message: payload
+      }
+    })
+  })
+
+  it('alertSuccess()', () => {
+    const payload = 'payload'
+    expect(alertActions.alertSuccess(payload)).toMatchObject({
+      type: types.ALERT_SUCCESS,
+      payload: {
+        message: payload
+      }
     })
   })
 })

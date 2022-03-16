@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import { BodyLong, Loader } from '@navikt/ds-react'
 import PT from 'prop-types'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export const WaitingPanelDiv = styled.div`
   display: flex;

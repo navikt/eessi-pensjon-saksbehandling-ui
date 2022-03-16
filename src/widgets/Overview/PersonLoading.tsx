@@ -1,7 +1,7 @@
 import LoadingImage from 'components/Loading/LoadingImage'
 import LoadingText from 'components/Loading/LoadingText'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const Title = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import PT from 'prop-types'
 import { Checkbox } from '@navikt/ds-react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { components, OptionProps } from 'react-select'
 import { Option } from 'declarations/app.d'
 

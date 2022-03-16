@@ -14,7 +14,7 @@ import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { State } from 'declarations/reducers'
 import { BucListItem } from 'declarations/buc'
 

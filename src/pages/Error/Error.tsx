@@ -6,7 +6,7 @@ import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const Description = styled.div`
   width: 80%;

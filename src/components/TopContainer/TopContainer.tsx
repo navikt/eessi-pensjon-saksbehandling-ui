@@ -14,7 +14,7 @@ import PT from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
 import NavHighContrast from '@navikt/hoykontrast'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { ErrorBoundary } from 'react-error-boundary'
 import { IS_PRODUCTION } from 'constants/environment'
 

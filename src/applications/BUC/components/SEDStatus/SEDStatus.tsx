@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { Labels } from 'declarations/app.d'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { Tag } from '@navikt/ds-react'
 
 export interface SEDStatusProps {

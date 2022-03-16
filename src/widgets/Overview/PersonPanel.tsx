@@ -10,7 +10,7 @@ import { BodyLong, Detail } from '@navikt/ds-react'
 import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 
 const Element = styled.div`
