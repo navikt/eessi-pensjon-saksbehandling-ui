@@ -4,7 +4,7 @@ import Select from 'components/Select/Select'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { Labels, LocalStorageEntry, Option } from 'declarations/app'
 import { SakTypeMap, SakTypeValue, Sed, Seds } from 'declarations/buc.d'
-import { P5000sFromRinaMap, P5000Context, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
+import { P5000sFromRinaMap, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'metrics/loggers'
@@ -28,7 +28,6 @@ import Table, { RenderEditableOptions, Column as TableColumn, RenderOptions, Sor
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from 'applications/P5000/utils/conversion'
 
 export interface P5000SumProps {
-  context: P5000Context
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
   updateWorkingCopy: (newSed: P5000SED, sedId: string) => void
@@ -41,7 +40,7 @@ const mapState = (state: State): any => ({
 })
 
 const P5000Sum: React.FC<P5000SumProps> = ({
-  context, p5000sFromRinaMap, p5000WorkingCopy, updateWorkingCopy, seds, mainSed
+  p5000sFromRinaMap, p5000WorkingCopy, updateWorkingCopy, seds, mainSed
 }: P5000SumProps) => {
   const { t } = useTranslation()
   const { sakType } = useSelector<State, any>(mapState)
@@ -56,7 +55,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
-  const items = convertP5000SEDToP5000SumRows(seds, context, p5000sFromRinaMap, p5000WorkingCopy)
+  const items = convertP5000SEDToP5000SumRows(seds, p5000sFromRinaMap, p5000WorkingCopy)
 
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
@@ -152,7 +151,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     label: t('p5000:5-2-title')
   }]
 
-  if (context === 'edit') {
+  if (!_.isNil(mainSed)) { // we can edit, there is a mainSed
     columns = columns.concat({ id: 'buttons', type: 'buttons', label: '' })
   }
 
@@ -274,7 +273,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           items={items}
           searchable={false}
           selectable={false}
-          editable={context === 'edit'}
+          editable={!_.isNil(mainSed)}
           allowNewRows={false}
           sortable={false}
           onColumnSort={(sort: any) => {

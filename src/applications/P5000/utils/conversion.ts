@@ -1,6 +1,5 @@
 import { LocalStorageEntry } from 'declarations/app'
 import {
-  P5000Context,
   P5000ListRow,
   P5000ListRows,
   P5000Period,
@@ -24,7 +23,6 @@ import {
 
 export interface ConvertP5000SEDToP5000ListRowsProps {
   seds: Seds
-  context: P5000Context
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000WorkingCopy: Array<LocalStorageEntry<P5000SED>> | LocalStorageEntry<P5000SED> | undefined
   mergePeriods?: boolean
@@ -232,7 +230,6 @@ export const mergeP5000ListRows = (
 // Converts P5000 SED from Rina/storage into P5000 Overview / P5000 Edit table rows
 export const convertP5000SEDToP5000ListRows = ({
   seds,
-  context,
   p5000sFromRinaMap,
   p5000WorkingCopy,
   mergePeriods = false,
@@ -252,7 +249,7 @@ export const convertP5000SEDToP5000ListRows = ({
           ? p5000WorkingCopy
           : _.find(p5000WorkingCopy as Array<LocalStorageEntry<P5000SED>>, p => p.sedId === sed.id)
 
-    if (context === 'overview' || (context === 'edit' && (p5000WorkingCopy === undefined || workingCopy?.sedId !== sed.id))) {
+    if (p5000WorkingCopy === undefined || workingCopy?.sedId !== sed.id) {
       sourceStatus = 'rina'
     } else {
       sourceStatus = 'storage'
@@ -278,7 +275,6 @@ export const convertP5000SEDToP5000ListRows = ({
 // Converts P5000 SED from Rina/storage, using the total fields, into table rows for sum
 export const convertP5000SEDToP5000SumRows = (
   seds: Seds,
-  context: P5000Context,
   p5000sFromRinaMap: P5000sFromRinaMap,
   p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
 ): P5000SumRows => {
@@ -288,14 +284,12 @@ export const convertP5000SEDToP5000SumRows = (
   seds?.forEach(sed => {
     let sourceStatus: P5000SourceStatus
     const sender = getSedSender(sed)
-    if (context === 'overview' || (context === 'edit' && (
-      p5000WorkingCopy === undefined || p5000WorkingCopy.sedId !== sed.id
-    ))) {
+    if (p5000WorkingCopy === undefined || p5000WorkingCopy.sedId !== sed.id) {
       sourceStatus = 'rina'
     } else {
       sourceStatus = 'storage'
     }
-    const [res] = convertP5000SEDToP5000ListRows({ seds: [sed], context, p5000sFromRinaMap, p5000WorkingCopy, selectRowsContext: 'forCertainTypesOnly' })
+    const [res] = convertP5000SEDToP5000ListRows({ seds: [sed], p5000sFromRinaMap, p5000WorkingCopy, selectRowsContext: 'forCertainTypesOnly' })
     const rinaPeriods1: Array<P5000Period> | undefined = p5000sFromRinaMap[sed.id]?.pensjon?.medlemskapTotal
     const rinaPeriods2: Array<P5000Period> | undefined = p5000sFromRinaMap[sed.id]?.pensjon?.trygdetid
     const storagePeriods1: Array<P5000Period> | undefined = p5000WorkingCopy?.content.pensjon?.medlemskapTotal

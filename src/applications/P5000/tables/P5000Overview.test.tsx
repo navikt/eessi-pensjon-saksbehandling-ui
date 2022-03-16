@@ -19,7 +19,6 @@ describe('applications/BUC/components/P5000/P5000', () => {
   let wrapper: ReactWrapper
 
   const initialMockProps: P5000OverviewProps = {
-    context: 'overview',
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
     p5000sFromRinaMap: {
       '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,

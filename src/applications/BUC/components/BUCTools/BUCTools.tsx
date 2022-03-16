@@ -189,7 +189,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       <P5000
         buc={buc}
         setMode={setMode}
-        context='overview'
       />
     ))
     window.scrollTo({

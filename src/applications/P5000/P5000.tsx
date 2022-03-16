@@ -9,7 +9,7 @@ import { SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, LocalStorageEntriesMap, FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { Buc, Sed, Seds } from 'declarations/buc'
-import { EmptyPeriodsReport, P5000sFromRinaMap, P5000Context, P5000SED } from 'declarations/p5000'
+import { EmptyPeriodsReport, P5000sFromRinaMap, P5000SED } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
@@ -24,7 +24,6 @@ import P5000Sum from 'applications/P5000/tables/P5000Sum'
 
 export interface P5000Props {
   buc: Buc
-  context: P5000Context
   mainSed?: Sed,
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
@@ -49,7 +48,6 @@ interface TableData {
 
 const P5000: React.FC<P5000Props> = ({
   buc,
-  context,
   mainSed = undefined,
   setMode
 }: P5000Props): JSX.Element => {
@@ -108,7 +106,6 @@ const P5000: React.FC<P5000Props> = ({
   const renderP5000EditContent = (p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
     if (!mainSed) return null
     const p5000WorkingCopyEntry: LocalStorageEntry<P5000SED> | undefined = getWorkingCopy(p5000WorkingCopies, mainSed.id)
-    //        key={'P5000-Edit-' + mainSed.id + '-Context-' + context + '-Version-' + (p5000WorkingCopyEntry?.date ?? '')}
     return (
       <P5000Edit
         caseId={buc.caseId!}
@@ -129,16 +126,12 @@ const P5000: React.FC<P5000Props> = ({
 
   const renderP5000SumContent = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
     const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
-    // const sedIDs = onlyNorwegianActiveSeds!.map(s => s.id).sort().join(',')
     let p5000WorkingCopyEntry: LocalStorageEntry<P5000SED> | undefined
     if (mainSed) {
       p5000WorkingCopyEntry = getWorkingCopy(p5000WorkingCopies, mainSed?.id)
     }
-    // key={'P5000-Sum-' + sedIDs + '-Context-' + context + '-Version-' + (p5000WorkingCopyEntry?.date ?? '')}
-    //
     return (
       <P5000Sum
-        context={context}
         p5000sFromRinaMap={p5000sFromRinaMap}
         p5000WorkingCopy={p5000WorkingCopyEntry}
         updateWorkingCopy={updateWorkingCopy}
@@ -155,12 +148,8 @@ const P5000: React.FC<P5000Props> = ({
   )
 
   const renderP5000OverviewContent = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
-    // const activeSedIDs = activeSeds!.map(s => s.id).sort().join(',')
-    // const workingCopyIDs = p5000WorkingCopies?.map(s => s.date).sort().join(',') ?? ''
-    //  key={'P5000-Overview-' + activeSedIDs + '-Context-' + context + '-Version-' + workingCopyIDs}
     return (
       <P5000Overview
-        context={context}
         p5000sFromRinaMap={p5000sFromRinaMap}
         p5000WorkingCopies={p5000WorkingCopies}
         seds={activeSeds}
@@ -294,7 +283,7 @@ const P5000: React.FC<P5000Props> = ({
       >
         <P5000Droppable placeholderProps={placeholderProps}>
           {_tables.map((table: any, index: number): JSX.Element => {
-            if ((table.id === 'P5000Edit' && context !== 'overview' && featureToggles.P5000_SUMMER_VISIBLE) ||
+            if ((table.id === 'P5000Edit' && !_.isNil(mainSed) && featureToggles.P5000_SUMMER_VISIBLE) ||
               (table.id === 'P5000Sum' && featureToggles.P5000_SUMMER_VISIBLE) ||
               (table.id === 'P5000Overview')
             ) {

@@ -18,7 +18,6 @@ import { FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { Seds } from 'declarations/buc'
 import {
   P5000sFromRinaMap,
-  P5000Context,
   P5000ListRow,
   P5000SED,
   P5000SourceStatus,
@@ -42,7 +41,6 @@ export interface P5000OverviewSelector {
 }
 
 export interface P5000OverviewProps {
-  context: P5000Context
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>> | undefined
   seds: Seds
@@ -57,7 +55,7 @@ export const P5000Tabs = styled(HighContrastTabs)`
 `
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
-  context, p5000sFromRinaMap, p5000WorkingCopies, seds
+  p5000sFromRinaMap, p5000WorkingCopies, seds
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -73,7 +71,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
   const [items]: [P5000ListRows, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
     seds,
-    context,
     p5000sFromRinaMap,
     p5000WorkingCopy: p5000WorkingCopies,
     mergePeriods,
@@ -261,7 +258,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' as ColumnAlign, render: renderBeregning, edit: { render: renderBeregning } }
   ]
 
-  if (context === 'overview' || tabs[_activeTab].key === 'pesys') {
+  if (tabs[_activeTab].key === 'pesys') {
     columns.splice(0, 1) // remove status column for 'see P5000' button press, or for Pesys export view
   }
 

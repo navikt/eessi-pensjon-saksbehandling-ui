@@ -1,7 +1,5 @@
 import { Item } from '@navikt/tabell'
 
-export type P5000Context = 'edit' | 'overview'
-
 export type P5000PeriodStatus = 'rina' | 'edited' | 'new'
 
 export type P5000SourceStatus = 'rina' | 'storage'

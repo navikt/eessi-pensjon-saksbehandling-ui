@@ -262,7 +262,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   setMode('p5000', 'forward', undefined, (
                     <P5000
                       buc={buc}
-                      context='edit'
                       setMode={setMode}
                       mainSed={sed}
                     />
@@ -297,7 +296,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                     setMode('p4000', 'forward', undefined, (
                       <P4000
                         buc={buc}
-                        context='edit'
                         setMode={setMode}
                         mainSed={sed}
                       />

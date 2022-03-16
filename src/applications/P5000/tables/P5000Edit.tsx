@@ -80,7 +80,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows({
     seds: [mainSed],
-    context: 'edit',
     p5000sFromRinaMap,
     p5000WorkingCopy,
     selectRowsContext: 'forCertainTypesOnly'
