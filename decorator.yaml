@@ -12,9 +12,3 @@ proxy:
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /actuator/health
     validateOidcToken: false
-
-  - contextPath: /prefill
-    baseUrl: {{EESSI_PENSJON_PREFILL_URL}}
-    requestRewrite: REMOVE_CONTEXT_PATH
-    pingRequestPath: /actuator/health
-    validateOidcToken: false
