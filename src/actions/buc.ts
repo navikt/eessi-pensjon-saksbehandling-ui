@@ -50,9 +50,9 @@ export const cleanNewlyCreatedBuc: ActionCreator<Action> = (): Action => ({
   type: types.BUC_NEWLYCREATEDBUC_RESET
 })
 
-export const createBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> = (
+export const createBuc = (
   params: NewBucPayload
-): ThunkResult<ActionWithPayload<ValidBuc>> => {
+): Promise<Action> => {
   return call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',

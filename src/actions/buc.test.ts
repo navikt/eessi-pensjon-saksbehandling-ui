@@ -5,7 +5,7 @@ import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { Buc, NewSedPayload, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
+import { Buc, NewBucPayload, NewSedPayload, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { call as originalCall } from '@navikt/fetch'
 import _ from 'lodash'
@@ -36,11 +36,19 @@ describe('actions/buc', () => {
   it('createBuc()', () => {
     const mockBuc = {
       buc: 'P_BUC_01',
-      avdod: '123',
+      avdod: {
+        aktoerId: '123',
+        etternavn: 'Nordmann',
+        fnr: '12345687901',
+        fornavn: 'Olav',
+        fulltNavn: 'Olav Nordmann',
+        mellomnavn: null,
+        relasjon: ''
+      },
       avdodfnr: '456',
       person: 'abc',
       kravDato: '1970-01-01'
-    }
+    } as NewBucPayload
     bucActions.createBuc(mockBuc)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
