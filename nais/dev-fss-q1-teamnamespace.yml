@@ -19,6 +19,8 @@ spec:
       value: {{eessi_pensjon_frontend_api_fss_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL
       value: {{eessi_pensjon_fagmodul_url}}
+    - name: EESSI_PENSJON_FAGMODUL_DECORATOR_URL
+      value: {{eessi_pensjon_fagmodul_decorator_url}}
   image: {{ image }}
   ingresses:
     - https://eessi-pensjon-frontend-ui-fss-q1.nais.preprod.local
