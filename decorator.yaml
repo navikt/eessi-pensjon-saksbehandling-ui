@@ -8,7 +8,7 @@ proxy:
     validateOidcToken: false
 
   - contextPath: /fagmodul
-    baseUrl: {{EESSI_PENSJON_FAGMODUL_URL}}
+    baseUrl: {{EESSI_PENSJON_FAGMODUL_DECORATOR_URL}}
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /actuator/health
     validateOidcToken: false
