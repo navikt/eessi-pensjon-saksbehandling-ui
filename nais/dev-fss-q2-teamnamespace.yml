@@ -17,6 +17,8 @@ spec:
       value: https://eessi-pensjon-frontend-api-fss-q2.nais.preprod.local/
     - name: EESSI_PENSJON_FRONTEND_API_FSS_URL
       value: {{eessi_pensjon_frontend_api_fss_url}}
+    - name: EESSI_PENSJON_FRONTEND_API_FSS_DECORATOR_URL
+      value: {{eessi_pensjon_frontend_api_fss_decorator_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL
       value: {{eessi_pensjon_fagmodul_url}}
     - name: EESSI_PENSJON_FAGMODUL_DECORATOR_URL
