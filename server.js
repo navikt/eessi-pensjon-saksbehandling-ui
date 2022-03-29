@@ -2,8 +2,8 @@ const express = require("express");
 const path = require("path");
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-var frontendProxy = createProxyMiddleware('/frontend', {target: process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL});
-var fagmodulProxy = createProxyMiddleware('/fagmodul', {target: process.env.EESSI_PENSJON_FAGMODUL_URL});
+var frontendProxy = createProxyMiddleware('/frontend', {target: process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL, changeOrigin: true});
+var fagmodulProxy = createProxyMiddleware('/fagmodul', {target: process.env.EESSI_PENSJON_FAGMODUL_URL, changeOrigin: true});
 
 const app = express();
 app.disable("x-powered-by");
