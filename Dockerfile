@@ -10,3 +10,5 @@ COPY server.js server.js
 COPY build build/
 
 CMD ["node", "./server.js"]
+
+EXPOSE 8080
