@@ -12,7 +12,8 @@ app.get('/test', (req, res) => res.send('hello world'));
 app.get('/internal/isAlive|isReady', (req, res) => res.sendStatus(200));
 app.use(frontendProxy)
 app.use(fagmodulProxy)
-app.use('/*', express.static(path.join(__dirname, "build")));
+app.use('/', express.static(path.join(__dirname, "build")));
+app.use('/?*', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
 app.listen(8080, () => {
