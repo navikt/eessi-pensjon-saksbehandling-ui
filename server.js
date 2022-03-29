@@ -8,7 +8,13 @@ const buildPath = path.resolve(__dirname, "build");
 
 const basePath = "/";
 
-app.use(basePath, express.static(buildPath, {index: false}));
+/*app.get(basePath, (req, res) => {
+  res.render('index.html');
+});
+*/
+app.get('/test', (req, res) => {
+  res.send('hello world')
+});
 
 app.get(`${basePath}/internal/isAlive|isReady`, (req, res) => res.sendStatus(200));
 
@@ -23,6 +29,8 @@ app.get('${basePath}/fagmodul', function(req,res) {
   var newurl = 'http://eessi-pensjon-fagmodul-q2.dev.intern.nav.no';
   request(newurl).pipe(res);
 });
+
+app.use('*', express.static(buildPath, {index: false}));
 
 // start express server on port 8080
 app.listen(8080, () => {
