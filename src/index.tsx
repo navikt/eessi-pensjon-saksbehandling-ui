@@ -38,8 +38,7 @@ root.render(
         <Suspense fallback={<span>...</span>}>
           <BrowserRouter>
             <Routes>
-              <Route path='/' 
-                element={
+              <Route path='/' element={
                   <RequireAuth>
                     <Pages.IndexPage />
                   </RequireAuth>
