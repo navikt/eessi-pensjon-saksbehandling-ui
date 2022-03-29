@@ -8,20 +8,11 @@ var fagmodulProxy = proxy('/fagmodul', {target: 'http://eessi-pensjon-fagmodul-q
 const app = express();
 app.disable("x-powered-by");
 
-/*app.get(basePath, (req, res) => {
-  res.render('index.html');
-});
-*/
-app.get('/test', (req, res) => {
-  res.send('hello world')
-});
-
+app.get('/test', (req, res) => res.send('hello world'));
 app.get('/internal/isAlive|isReady', (req, res) => res.sendStatus(200));
-
 app.use(frontendProxy)
 app.use(fagmodulProxy)
-
-app.get('/', express.static(path.join(__dirname, "build")));
+app.use('/', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
 app.listen(8080, () => {
