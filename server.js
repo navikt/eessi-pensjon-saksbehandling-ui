@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express(); // create express app
-
+const request = require('request');
 app.disable("x-powered-by");
 
 const buildPath = path.resolve(__dirname, "build");
@@ -18,10 +18,26 @@ app.get('/test', (req, res) => {
 
 app.get('/internal/isAlive|isReady', (req, res) => res.sendStatus(200));
 
-app.use('/frontend', function(req,res) {
-  //modify the url in any way you want
-  var newurl = 'http://eessi-pensjon-frontend-api-fss-q2.dev.intern.nav.no';
-  request(newurl).pipe(res);
+app.use('/frontend/', function(req,res) {
+  const {
+    method,
+    headers
+  } = req;
+  var newurl = 'http://eessi-pensjon-frontend-api-fss-q2.dev.intern.nav.no/' + req.path // req.path is all it comes after /frontend/
+
+  req.pipe(
+    request({
+      method,
+      headers,
+      uri: newurl
+    }).on('response', response => {
+      // unmodified http.IncomingMessage object
+      res.writeHead(response.statusCode, response.headers);
+      response.pipe(res);
+    }).on('error', function(err) {
+      console.error(err)
+    })
+  );
 });
 
 app.use('/fagmodul', function(req,res) {
