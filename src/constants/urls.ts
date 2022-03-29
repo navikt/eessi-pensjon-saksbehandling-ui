@@ -71,7 +71,7 @@ export const JOURNALFØRING_SED_GET_URL = JOU_URL + '/get/%(sakId)s/%(aktoerId)s
 export const JOURNALFØRING_SED_SEND_URL = JOU_URL + '/send/%(sakId)s/%(aktoerId)s/%(sedId)s'
 
 // Login
-export const LOGIN_URL = FRONTEND_API_URL + '/login'
+export const LOGIN_URL = FRONTEND_API_URL + '/oauth2/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 
 // Page Notification
