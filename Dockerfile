@@ -6,9 +6,9 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 COPY node_modules/ node_modules/
-COPY server server/
+COPY server.js server.js
 COPY build build/
 
-CMD ["node", "./server/server.js"]
+CMD ["node", "./server.js"]
 
 EXPOSE 8080
