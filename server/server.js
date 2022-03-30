@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const {validerToken} = require('./azuread');
 
 const enforceAzureADMiddleware = async function(req, res, next) {
   const loginPath = `/oauth2/login?redirect=${req.originalUrl}/`;
@@ -23,8 +22,7 @@ const enforceAzureADMiddleware = async function(req, res, next) {
 const validateAuthorization = async (authorization) => {
   try {
     const token = authorization.split(" ")[1];
-    const JWTVerifyResult = await validerToken(token);
-    return !!JWTVerifyResult?.payload;
+    return !!token
   } catch (e) {
     LogError('azure ad error', e);
     return false;
