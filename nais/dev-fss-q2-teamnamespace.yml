@@ -21,6 +21,7 @@ spec:
       value: {{eessi_pensjon_fagmodul_url}}
   image: {{ image }}
   ingresses:
+    - https://pensjon-utland-q2.dev.intern.nav.no
     - https://eessi-pensjon-frontend-ui-fss.nais.preprod.local
     - https://pensjon-utland-q2.nais.preprod.local
   liveness:
