@@ -3,7 +3,7 @@ const path = require("path");
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const enforceAzureADMiddleware = async function(req, res, next) {
-  const loginPath = `/oauth2/login?redirect=${req.originalUrl}/`;
+  const loginPath = process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + `/oauth2/login?redirect=${req.originalUrl}/`;
   const {authorization} = req.headers;
 
   // Not logged in - log in with wonderwall
