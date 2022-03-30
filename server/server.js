@@ -45,7 +45,6 @@ app.use('/static', express.static(path.join(__dirname, "build", "static")));
 app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
-
 app.use('*', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
