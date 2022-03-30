@@ -1,20 +1,23 @@
-const express = require("express");
-const path = require("path");
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
-var frontendProxy = createProxyMiddleware('/frontend', {target: process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL, changeOrigin: true});
-var fagmodulProxy = createProxyMiddleware('/fagmodul', {target: process.env.EESSI_PENSJON_FAGMODUL_URL, changeOrigin: true});
+const express = require('express')
+const path = require('path')
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const app = express();
 app.disable("x-powered-by");
 
 app.get('/test', (req, res) => res.send('hello world'));
-app.get('/internal/isAlive|isReady', (req, res) => res.sendStatus(200));
-app.use(frontendProxy)
-app.use(fagmodulProxy)
+app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
+
 app.use('/static', express.static(path.join(__dirname, "build", "static")));
 app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
+
+app.use('/frontend', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL, logLevel: 'debug', changeOrigin: true, onProxyReq(proxyReq, req, res) {
+    // add custom header to request
+    console.log('on frontend proxy')
+    // or log the req
+  }}))
+app.use('/fagmodul', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FAGMODUL_URL, logLevel: 'debug',  changeOrigin: true}))
 app.use('*', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
