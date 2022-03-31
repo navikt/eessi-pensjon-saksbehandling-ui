@@ -21,7 +21,7 @@ jobs:
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-fss
-          RESOURCE: nais/dev-fss-q1-teamnamespace.yml
+          CLUSTER: dev-gcp
+          RESOURCE: nais/dev-gcp-q1-teamnamespace.yml
           IMAGE: ${{ github.event.client_payload.image }}
-          VARS: nais/dev-fss-q1-nais-vars.yml
+          VARS: nais/dev-gcp-q1-nais-vars.yml
