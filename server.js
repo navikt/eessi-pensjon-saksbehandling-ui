@@ -1,7 +1,7 @@
-const express = require("express");
-const path = require("path");
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const cookieParser = require("cookie-parser");
+const express = require('express')
+const path = require('path')
+const { createProxyMiddleware } = require('http-proxy-middleware')
+const cookieParser = require('cookie-parser')
 
 const enforceAzureADMiddleware = async function(req, res, next) {
 
@@ -18,17 +18,10 @@ const enforceAzureADMiddleware = async function(req, res, next) {
 
 // Not logged in - log in with wonderwall
   if (!req.cookies['io.nais.wonderwall.session']) {
-
     console.log("no authorization - login to " + loginUrl);
     res.redirect(loginUrl);
   } else {
-    // Validate token and continue to app
-    if(await validateAuthorization(authorization)) {
-      next();
-    } else {
-      console.log("no authorization - login to " + loginUrl);
-      res.redirect(loginPath);
-    }
+    next();
   }
 }
 
