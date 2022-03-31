@@ -14,8 +14,9 @@ const onProxyReq = function (proxyReq, req, res) {
 const enforceAzureADMiddleware = async function(req, res, next) {
 
   const callbackUrl = 'https://' + req.host + req.originalUrl
-  const loginUrl = process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/oauth2/login?redirect=' +
-    process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/logincallback?redirect=' + encodeURI(callbackUrl)
+  const loginUrl = '/oauth2/login?redirect=' + encodeURI(callbackUrl)
+
+  console.log(req.headers)
 
 // Not logged in - log in with wonderwall
   if (!req.headers.authorization) {
@@ -40,6 +41,7 @@ app.use('/fagmodul', createProxyMiddleware( {target: process.env.EESSI_PENSJON_F
 app.use('/static', express.static(path.join(__dirname, "build", "static")));
 app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
+app.use('*', enforceAzureADMiddleware);
 app.use('*', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
