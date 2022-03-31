@@ -6,6 +6,15 @@ metadata:
   labels:
     team: eessipensjon
 spec:
+  azure:
+    application:
+      enabled: true
+      claims:
+        extra:
+          - NAVident
+    sidecar:
+      enabled: true
+      autoLogin: false
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
