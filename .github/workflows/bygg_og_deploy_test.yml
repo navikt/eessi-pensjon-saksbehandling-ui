@@ -64,10 +64,10 @@ jobs:
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-fss
-          RESOURCE: nais/dev-fss-q2-teamnamespace.yml
+          CLUSTER: dev-gcp
+          RESOURCE: nais/dev-gcp-q2-teamnamespace.yml
           IMAGE: ${{ env.IMAGE }}
-          VARS: nais/dev-fss-q2-nais-vars.yml
+          VARS: nais/dev-gcp-q2-nais-vars.yml
 
       # OPPRETTER GIT TAG
       - name: 'Opprett git tag'
