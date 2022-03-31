@@ -4,6 +4,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 const cookieParser = require('cookie-parser')
 
 const onProxyReq = function (proxyReq, req, res) {
+  console.log("adding a auth header to proky request");
   proxyReq.setHeader(
     "Authorization",
     "yup-you-are-logged-in"
