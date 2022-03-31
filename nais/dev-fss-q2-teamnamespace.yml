@@ -14,7 +14,7 @@ spec:
           - NAVident
     sidecar:
       enabled: true
-      autoLogin: false
+      autoLogin: true
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
