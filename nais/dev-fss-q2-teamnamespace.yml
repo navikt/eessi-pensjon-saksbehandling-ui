@@ -7,14 +7,15 @@ metadata:
     team: eessipensjon
 spec:
   azure:
+    sidecar:
+      enabled: true
+      autoLogin: true
+      errorPath: "/errorlogon"
     application:
       enabled: true
       claims:
         extra:
           - NAVident
-    sidecar:
-      enabled: true
-      autoLogin: true
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
