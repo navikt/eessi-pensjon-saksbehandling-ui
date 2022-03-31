@@ -15,7 +15,7 @@ const enforceAzureADMiddleware = async function(req, res, next) {
 
   const callbackUrl = 'https://' + req.host + req.originalUrl
   const loginUrl = '/oauth2/login?redirect=/logincallback?r=' + encodeURI(callbackUrl)
-  
+
 // Not logged in - log in with wonderwall
   if (!req.headers.authorization) {
     console.log("no authorization - login to " + loginUrl);
@@ -42,11 +42,7 @@ app.use('/static', express.static(path.join(__dirname, "build", "static")));
 app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
-app.get(["/oauth2/login"], async (req, res) => {
-  res.status(502).send({
-    message: "Wonderwall must handle /oauth2/login",
-  });
-});
+app.get(["/oauth2/login"], async (req, res) => next());
 
 app.use('/frontend', enforceAzureADMiddleware);
 app.use('/fagmodul', enforceAzureADMiddleware);
