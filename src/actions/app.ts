@@ -23,22 +23,6 @@ export const getUserInfo = (): Promise<Action> => {
   })
 }
 
-export const login = (): Action => {
-  const redirect = window.location.origin // http://hostname
-  const context = encodeURIComponent(window.location.pathname + window.location.search)
-  window.location.href = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
-  return {
-    type: types.APP_LOGIN_REQUEST
-  } as Action
-}
-
-export const logout: ActionCreator<Action> = (): Action => {
-  window.location.href = urls.LOGOUT_URL
-  return {
-    type: types.APP_LOGOUT_REQUEST
-  } as Action
-}
-
 export const setStatusParam = (
   key: string,
   value: any

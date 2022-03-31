@@ -81,10 +81,7 @@ const RequireAuth: React.FC<any> = (props) => {
         dispatch(getUserInfo())
       }
 
-      if (loggedIn === false && !isLoggingIn) {
-        dispatch(login())
-      }
-      if (loggedIn === true) {
+      if (!_.isUndefined(loggedIn)  {
         setMounted(true)
       }
     }
@@ -98,7 +95,7 @@ const RequireAuth: React.FC<any> = (props) => {
     )
   }
 
-  if (userRole !== constants.SAKSBEHANDLER) {
+  if (userRole !== constants.SAKSBEHANDLER || loggedIn === false) {
     return (
       <Navigate to={routes.FORBIDDEN} />
     )
