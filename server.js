@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { createProxyMiddleware } = require('http-proxy-middleware');
-
+const cookieParser = require("cookie-parser");
 
 const enforceAzureADMiddleware = async function(req, res, next) {
 
@@ -9,10 +9,16 @@ const enforceAzureADMiddleware = async function(req, res, next) {
   const loginUrl = process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/oauth2/login?redirect=' +
     process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/logincallback?redirect=' + encodeURI(callbackUrl)
 
-  const {authorization} = req.headers;
+  console.log('req.session')
+  console.log(req.session)
+  console.log('req.cookies')
+  console.log(req.cookies)
+  console.log('req.cookies[\'io.nais.wonderwall.session\']')
+  console.log(req.cookies['io.nais.wonderwall.session'])
 
 // Not logged in - log in with wonderwall
-  if (!authorization) {
+  if (!req.cookies['io.nais.wonderwall.session']) {
+
     console.log("no authorization - login to " + loginUrl);
     res.redirect(loginUrl);
   } else {
@@ -38,9 +44,10 @@ const validateAuthorization = async (authorization) => {
 
 const app = express();
 app.disable("x-powered-by");
+app.use(cookieParser());
 
 app.get('/test', (req, res) => res.send('hello world'));
-app.get('/internal/isAlive|isReady', (req, res) => res.sendStatus(200));
+app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
 // Enforce Azure AD authentication
 app.use('/frontend', enforceAzureADMiddleware);
 app.use('/fagmodul', enforceAzureADMiddleware);
