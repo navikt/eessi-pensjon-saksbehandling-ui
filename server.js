@@ -2,11 +2,11 @@ const express = require("express");
 const path = require("path");
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-//var callbackUrl = req.originalUrl
-const loginUrl = process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/oauth2/login?redirect=' +
-  process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/localcallback'
 
 const enforceAzureADMiddleware = async function(req, res, next) {
+
+  const loginUrl = process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/oauth2/login?redirect=' +
+    process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/logincallback?redirect=' + encodeURI(req.originalUrl)
 
   const {authorization} = req.headers;
 
