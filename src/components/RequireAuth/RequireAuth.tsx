@@ -1,4 +1,4 @@
-import { getUserInfo, login, setStatusParam } from 'actions/app'
+import { getUserInfo, setStatusParam } from 'actions/app'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'

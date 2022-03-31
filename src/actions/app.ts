@@ -3,7 +3,7 @@ import * as urls from 'constants/urls'
 import { ParamPayload } from 'declarations/app.d'
 import { ActionWithPayload, call } from '@navikt/fetch'
 import mockUser from 'mocks/app/user'
-import { Action, ActionCreator } from 'redux'
+import { Action } from 'redux'
 
 export const clearData = (): Action => ({
   type: types.APP_DATA_CLEAR
