@@ -17,21 +17,28 @@ app.use('/frontend', createProxyMiddleware( {
   logLevel: 'debug',
   changeOrigin: true,
   pathRewrite:  { '^/frontend' : '/' },
-  onProxyReq(proxyReq, req, res) {
-    // add custom header to request
-    console.log('on frontend proxy')
-    // or log the req
-  }}))
+  onProxyReq: function onProxyReq(proxyReq, req, res) {
+    console.log('proxy frontend: adding header auth ' + res.locals.on_behalf_of_authorization)
+    proxyReq.setHeader(
+      "Authorization",
+      res.locals.on_behalf_of_authorization
+    )
+  }
+}))
+
 app.use('/fagmodul', createProxyMiddleware( {
   target: process.env.EESSI_PENSJON_FAGMODUL_URL,
   logLevel: 'debug',
   changeOrigin: true,
   pathRewrite:  { '^/fagmodul' : '/' },
-  onProxyReq(proxyReq, req, res) {
-    // add custom header to request
-    console.log('on fagmodul proxy')
-    // or log the req
-  }}))
+  onProxyReq: function onProxyReq(proxyReq, req, res) {
+    console.log('proxy fagmodul: adding header auth ' + res.locals.on_behalf_of_authorization)
+    proxyReq.setHeader(
+      "Authorization",
+      res.locals.on_behalf_of_authorization
+    )
+  }
+}))
 app.use('*', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
