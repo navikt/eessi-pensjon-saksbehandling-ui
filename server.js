@@ -34,13 +34,20 @@ app.use(cookieParser());
 app.get('/test', (req, res) => res.send('hello world'));
 app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
 // Enforce Azure AD authentication
+app.use('/static', express.static(path.join(__dirname, "build", "static")));
+app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
+app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
+
+app.get(["/oauth2/login"], async (req, res) => {
+  res.status(502).send({
+    message: "Wonderwall must handle /oauth2/login",
+  });
+});
+
 app.use('/frontend', enforceAzureADMiddleware);
 app.use('/fagmodul', enforceAzureADMiddleware);
 app.use('/frontend', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL, changeOrigin: true, onProxyReq: onProxyReq}))
 app.use('/fagmodul', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FAGMODUL_URL, changeOrigin: true, onProxyReq: onProxyReq}))
-app.use('/static', express.static(path.join(__dirname, "build", "static")));
-app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
-app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 app.use('*', enforceAzureADMiddleware);
 app.use('*', express.static(path.join(__dirname, "build")));
 
