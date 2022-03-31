@@ -12,8 +12,12 @@ app.use('/static', express.static(path.join(__dirname, "build", "static")));
 app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
-app.use('/frontend', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL, changeOrigin: true}))
-app.use('/fagmodul', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FAGMODUL_URL, changeOrigin: true}))
+app.use('/frontend', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL, logLevel: 'debug', changeOrigin: true, onProxyReq(proxyReq, req, res) {
+    // add custom header to request
+    console.log('on frontend proxy')
+    // or log the req
+  }}))
+app.use('/fagmodul', createProxyMiddleware( {target: process.env.EESSI_PENSJON_FAGMODUL_URL, logLevel: 'debug',  changeOrigin: true}))
 app.use('*', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
