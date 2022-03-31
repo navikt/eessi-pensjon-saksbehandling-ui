@@ -88,7 +88,7 @@ const RequireAuth: React.FC<any> = (props) => {
     )
   }
 
-  if (userRole !== constants.SAKSBEHANDLER) {
+  if (userRole !== constants.SAKSBEHANDLER || loggedIn === false) {
     return (
       <Navigate to={routes.FORBIDDEN} />
     )

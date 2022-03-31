@@ -40,39 +40,6 @@ describe('actions/app', () => {
     }))
   })
 
-  it('login()', () => {
-    Object.defineProperty(window, 'location', {
-      writable: true,
-      value: {
-        origin: 'http://fake-url.nav.no/',
-        pathname: '/path',
-        search: '?var=param',
-        href: 'http://fake-url.nav.no/path?var=param'
-      }
-    })
-    const generatedResult: Action = appActions.login()
-    expect(window.location.href).toEqual(
-      'http://localhost/frontend/login?' +
-      'redirect=http://fake-url.nav.no/&' +
-      'context=%2Fpath%3Fvar%3Dparam'
-    )
-    expect(generatedResult).toMatchObject({
-      type: types.APP_LOGIN_REQUEST
-    })
-  })
-
-  it('logout()', () => {
-    Object.defineProperty(window, 'location', {
-      writable: true,
-      value: {}
-    })
-    const generatedResult: Action = appActions.logout()
-    expect(window.location.href).toEqual(urls.LOGOUT_URL)
-    expect(generatedResult).toMatchObject({
-      type: types.APP_LOGOUT_REQUEST
-    })
-  })
-
   it('setStatusParam()', () => {
     const mockKey: string = 'mockKey'
     const mockValue: string = 'mockValue'
