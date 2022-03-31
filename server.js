@@ -2,18 +2,24 @@ const express = require("express");
 const path = require("path");
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
+//var callbackUrl = req.originalUrl
+const loginUrl = process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/oauth2/login?redirect=' +
+  process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + '/localcallback'
+
 const enforceAzureADMiddleware = async function(req, res, next) {
-  const loginPath = process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL + `/oauth2/login?redirect=${req.originalUrl}/`;
+
   const {authorization} = req.headers;
 
-  // Not logged in - log in with wonderwall
+// Not logged in - log in with wonderwall
   if (!authorization) {
-    res.redirect(loginPath);
+    console.log("no authorization - login to " + loginUrl);
+    res.redirect(loginUrl);
   } else {
     // Validate token and continue to app
     if(await validateAuthorization(authorization)) {
       next();
     } else {
+      console.log("no authorization - login to " + loginUrl);
       res.redirect(loginPath);
     }
   }
@@ -42,7 +48,7 @@ app.use('/fagmodul', createProxyMiddleware( {target: process.env.EESSI_PENSJON_F
 app.use('/static', express.static(path.join(__dirname, "build", "static")));
 app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
-
+app.use('*', enforceAzureADMiddleware);
 app.use('*', express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
