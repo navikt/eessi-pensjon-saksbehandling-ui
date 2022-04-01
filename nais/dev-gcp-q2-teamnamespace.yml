@@ -29,6 +29,8 @@ spec:
       value: {{eessi_pensjon_frontend_api_fss_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL
       value: {{eessi_pensjon_fagmodul_url}}
+    - name: TP_BACKEND_SCOPE
+      value: "api://dev-gcp.eessipensjon.eessi-pensjon-frontend-api-fss-q2/.default"
   image: {{ image }}
   ingresses:
     - https://pensjon-utland-q2.dev.intern.nav.no
