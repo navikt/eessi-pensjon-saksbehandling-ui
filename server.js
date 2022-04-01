@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const winston = require("winston");
-const fetch = require("node-fetch");
+const fetch = require("cross-fetch");
 const { URLSearchParams } = require("url");
 
 const app = express();
