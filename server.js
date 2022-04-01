@@ -27,10 +27,15 @@ const onBehalfOf = function(scope, assertion) {
   params.append("grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer");
   params.append("client_id", azureAdConfig.clientId);
   params.append("client_secret", azureAdConfig.clientSecret);
-  params.append("scope", scope);
+  params.append("", scope);
   params.append("assertion", assertion);
   params.append("requested_token_use", "on_behalf_of");
-  logger.info('fetching ' + azureAdConfig.tokenEndpoint)
+  logger.info('fetching : ' + azureAdConfig.tokenEndpoint)
+  logger.info('client_id : ' + azureAdConfig.clientId)
+  logger.info('client_secret : ' + azureAdConfig.clientSecret)
+  logger.info('scope : ' + scope)
+  logger.info('assertion : ' + assertion)
+  logger.info('requested_token_use : on_behalf_of')
   return fetch(azureAdConfig.tokenEndpoint, {
     body: params,
     method: "POST"
