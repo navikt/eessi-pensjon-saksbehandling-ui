@@ -30,10 +30,10 @@ const onBehalfOf = function(scope, assertion) {
   params.append("scope", scope);
   params.append("assertion", assertion);
   params.append("requested_token_use", "on_behalf_of");
-
+  logger.info('fetching ' + azureAdConfig.tokenEndpoint)
   return fetch(azureAdConfig.tokenEndpoint, {
     body: params,
-    method: "POST",
+    method: "POST"
   });
 }
 
@@ -117,12 +117,12 @@ const apiProxy = function (target, pathRewrite) {
 
 app.use('/frontend',
   apiAuth(process.env.EESSI_PENSJON_FRONTEND_API_FSS_TOKEN_SCOPE),
-  apiProxy(process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL,{ '^/frontend' : '/' })
+  apiProxy(process.env.EESSI_PENSJON_FRONTEND_API_FSS_URL,{ '^/frontend/' : '/' })
 )
 
 app.use('/fagmodul',
   apiAuth(process.env.EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
-  apiProxy(process.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul' : '/' })
+  apiProxy(process.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
 
 app.use('*', express.static(path.join(__dirname, "build")));
