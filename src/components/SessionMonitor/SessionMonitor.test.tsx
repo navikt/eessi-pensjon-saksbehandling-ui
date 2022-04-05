@@ -17,6 +17,7 @@ Object.defineProperty(window, 'location', {
 })
 
 describe('components/SessionMonitor', () => {
+
   beforeEach(() => {
     stageSelector({}, {})
   })
