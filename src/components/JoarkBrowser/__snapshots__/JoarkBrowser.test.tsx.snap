@@ -212,7 +212,7 @@ ui-fss.g172[id="c6"] {
   tableId="test-table-id"
 >
   <div
-    data-test-id="c-joarkBrowser"
+    data-testid="c-joarkBrowser"
   >
     <Modal
       highContrast={false}

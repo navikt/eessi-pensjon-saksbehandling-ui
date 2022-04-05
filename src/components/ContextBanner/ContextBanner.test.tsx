@@ -1,6 +1,6 @@
 import BucWebSocket from 'applications/BUC/websocket/WebSocket'
 import { VEDTAKSKONTEKST } from 'constants/constants'
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 import { stageSelector } from 'setupTests'
 import mockPerson from 'mocks/person/personPdl'
 import ContextBanner, { Context, ContextBannerProps, ContextBannerSelector, DivWithLinks, Tag } from './ContextBanner'
@@ -20,19 +20,20 @@ const defaultSelector: ContextBannerSelector = {
 }
 
 describe('components/ContextBanner/ContextBanner', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: ContextBannerProps = {
     mode: 'buclist'
   }
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<ContextBanner {...initialMockProps} />)
+    wrapper = render(<ContextBanner {...initialMockProps} />)
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<ContextBanner {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {

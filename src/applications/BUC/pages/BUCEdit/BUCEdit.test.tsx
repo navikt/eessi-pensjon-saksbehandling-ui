@@ -6,7 +6,7 @@ import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import { BucsInfo, Tags } from 'declarations/buc'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
 import personAvdod from 'mocks/person/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
@@ -43,40 +43,38 @@ const defaultSelector = {
 }
 
 describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: BUCEditProps = {
     setMode: jest.fn()
   }
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<BUCEdit {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
+    render(<BUCEdit {...initialMockProps} />)
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
+    const { container } = render(<BUCEdit {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: get nothing without bucs', () => {
     stageSelector(defaultSelector, { bucs: {} })
-    wrapper = mount(<BUCEdit {...initialMockProps} />)
+    wrapper = render(<BUCEdit {...initialMockProps} />)
     expect(wrapper.render().html()).toEqual('')
   })
 
   it('Render: get nothing without currentBuc', () => {
     stageSelector(defaultSelector, { currentBuc: undefined })
-    wrapper = mount(<BUCEdit {...initialMockProps} />)
+    wrapper = render(<BUCEdit {...initialMockProps} />)
     expect(wrapper.render().html()).toEqual('')
   })
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(BUCEditDiv)).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucedit__back-link-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucedit__new-sed-button-id\']')).toBeTruthy()
+    expect(screen.getByTestId('a-buc-p-bucedit--back-link-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a-buc-p-bucedit--new-sed-button-id')).toBeInTheDocument()
     expect(wrapper.exists(SEDSearch)).toBeTruthy()
     expect(wrapper.exists(SEDPanelHeader)).toBeTruthy()
     expect(wrapper.exists(BUCDetail)).toBeTruthy()
@@ -85,15 +83,15 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
 
   it('Handling: moves to mode newsed when button pressed', () => {
     (setFollowUpSeds as jest.Mock).mockReset()
-    wrapper = mount(<BUCEdit {...initialMockProps} />)
-    wrapper.find('[data-test-id=\'a-buc-p-bucedit__new-sed-button-id\']').hostNodes().simulate('click')
+    wrapper = render(<BUCEdit {...initialMockProps} />)
+    wrapper.find('[data-testid=\'a-buc-p-bucedit--new-sed-button-id').hostNodes().simulate('click')
     expect(setFollowUpSeds).toBeCalled()
   })
 
   it('Handling: SEDSearch status start triggers the filter functions', () => {
     expect(wrapper.find(SEDPanel).length).toEqual(_.filter(buc.seds, sedFilter).length)
 
-    const statusSelect = wrapper.find('[data-test-id=\'a-buc-c-sedsearch__status-select-id\'] input')
+    const statusSelect = wrapper.find('[data-testid=\'a_buc_c_sedsearch--status-select-id\'] input')
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(wrapper.find(SEDPanel).length).toEqual(0)
@@ -101,27 +99,27 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
 
   it('Handling: SEDSearch query search triggers the filter functions', () => {
     expect(wrapper.find(SEDPanel).length).toEqual(_.filter(buc.seds, sedFilter).length)
-    wrapper.find('[data-test-id=\'a-buc-c-sedsearch__query-input-id\']').hostNodes().simulate('change', { target: { value: 'XXX' } })
+    wrapper.find('[data-testid=\'a_buc_c_sedsearch--query-input-id').hostNodes().simulate('change', { target: { value: 'XXX' } })
     expect(wrapper.find(SEDPanel).length).toEqual(0)
   })
 
   it('Handling: performs a query search that will not find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='XXX' />)
+    wrapper = render(<BUCEdit {...initialMockProps} initialSearch='XXX' />)
     expect(wrapper.find(SEDPanel).length).toEqual(0)
   })
 
   it('Handling: performs a query search that will find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='P2000' />)
+    wrapper = render(<BUCEdit {...initialMockProps} initialSearch='P2000' />)
     expect(wrapper.find(SEDPanel).length).toEqual(1)
   })
 
   it('Handling: performs a status search that will not find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch={[{ value: 'XXX' }] as Tags} />)
+    wrapper = render(<BUCEdit {...initialMockProps} initialStatusSearch={[{ value: 'XXX' }] as Tags} />)
     expect(wrapper.find(SEDPanel).length).toEqual(0)
   })
 
   it('Handling: performs a status search that will find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch={[{ label: 'ui:received', value: 'received' }]} />)
+    wrapper = render(<BUCEdit {...initialMockProps} initialStatusSearch={[{ label: 'ui:received', value: 'received' }]} />)
     expect(wrapper.find(SEDPanel).length).toEqual(1)
   })
 })

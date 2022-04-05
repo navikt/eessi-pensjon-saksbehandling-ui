@@ -72,19 +72,19 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
       <ErrorPageDiv>
         <Veilder
           mood='trist'
-          data-test-id='p-error__veileder-id'
+          data-testid='p-error--veileder-id'
         />
         <VerticalSeparatorDiv size='2' />
-        <Heading size='small' data-test-id='p-error__title-id'>
+        <Heading size='small' data-testid='p-error--title-id'>
           {title}
         </Heading>
         <Description
-          data-test-id='p-error__description-id'
+          data-testid='p-error--description-id'
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {error && (
 
-          <Accordion data-test-id='p-error__content-error-id'>
+          <Accordion data-testid='p-error--content-error-id'>
             <Accordion.Item>
               <Accordion.Header onClick={() => standardLogger('errorPage.expandingPanel.open')}>
                 {t('message:error-header')}
@@ -99,7 +99,7 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
           </Accordion>
         )}
         {footer && (
-          <div data-test-id='p-error__footer-id'>
+          <div data-testid='p-error--footer-id'>
             <Line />
             <VerticalSeparatorDiv />
             <BodyLong>

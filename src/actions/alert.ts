@@ -32,5 +32,3 @@ export const alertWarning: ActionCreator<ActionWithPayload<{message: JSX.Element
     message
   }
 })
-
-

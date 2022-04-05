@@ -263,11 +263,11 @@ ui-fss.g56[id="c8"] {
       className="c0 c1"
     >
       <styled.div
-        data-test-id="a-buc-c-institutionlist__div-id"
+        data-testid="a-buc-c-institutionlist__div-id"
       >
         <div
           className="c2 c3"
-          data-test-id="a-buc-c-institutionlist__div-id"
+          data-testid="a-buc-c-institutionlist__div-id"
         >
           <Yh
             animate={true}

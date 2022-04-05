@@ -1,7 +1,7 @@
 import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import * as routes from 'constants/routes'
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 import { stageSelector } from 'setupTests'
 import Header, { HeaderProps } from './Header'
 
@@ -26,16 +26,15 @@ jest.mock('react-router-dom', () => {
 })
 
 describe('components/Header/Header', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: HeaderProps = {
     username: 'testUser'
   }
 
   beforeEach(() => {
     stageSelector({}, {})
-    wrapper = mount(
-      <Header {...initialMockProps} />
-    )
+    wrapper = render(<Header {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -43,14 +42,14 @@ describe('components/Header/Header', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<Header {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Handling: clicking logo is handled', () => {
     (clearData as jest.Mock).mockReset();
     (mockHistoryPush as jest.Mock).mockReset()
-    wrapper.find('[data-test-id=\'c-header__logo-link\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'c-header--logo-link\']').hostNodes().simulate('click')
     expect(clearData).toHaveBeenCalled()
     expect(mockHistoryPush).toHaveBeenCalledWith({
       pathname: routes.ROOT,
@@ -60,7 +59,7 @@ describe('components/Header/Header', () => {
 
   it('Handling: Clicking highConstrast handled', () => {
     (toggleHighContrast as jest.Mock).mockReset()
-    wrapper.find('[data-test-id=\'c-header__highcontrast-link-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'c-header--highcontrast-link-id').hostNodes().simulate('click')
     expect(toggleHighContrast).toHaveBeenCalled()
   })
 })

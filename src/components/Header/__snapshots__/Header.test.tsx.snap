@@ -160,7 +160,7 @@ ui-fss.g57[id="c18"] {
           className="c2 c3"
         >
           <a
-            data-test-id="c-header__logo-link"
+            data-testid="c-header__logo-link"
             href="#index"
             onClick={[Function]}
           >
@@ -261,19 +261,19 @@ ui-fss.g57[id="c18"] {
         </div>
       </styled.div>
       <Styled(Lenke)
-        data-test-id="c-header__highcontrast-link-id"
+        data-testid="c-header__highcontrast-link-id"
         href="#highContrast"
         onClick={[Function]}
       >
         <Lenke
           className="c8 c9"
-          data-test-id="c-header__highcontrast-link-id"
+          data-testid="c-header__highcontrast-link-id"
           href="#highContrast"
           onClick={[Function]}
         >
           <a
             className="lenke c8 c9"
-            data-test-id="c-header__highcontrast-link-id"
+            data-testid="c-header__highcontrast-link-id"
             href="#highContrast"
             onClick={[Function]}
           >

@@ -120,7 +120,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
   const modalClose = () => {
     _setShowModal(false)
     // modal leaves this class on body, stops scrolling. Hack to resume scrolling
-    document.getElementById('root')?.classList.remove('ReactModal__Body--open')
+    document.getElementById('root')?.classList.remove('ReactModal__Body__open')
   }
 
   const resetP5000 = () => {
@@ -145,7 +145,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
-  const __setYtelseOption = (o: unknown) => {
+  const _setYtelseOption = (o: unknown) => {
     resetValidation('P5000Edit-ytelse-select')
     setYtelseOption((o as Option)?.value)
     onSave({
@@ -153,7 +153,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
     })
   }
 
-  const __setForsikringEllerBosetningsperioder = (value: string | number | boolean) => {
+  const _setForsikringEllerBosetningsperioder = (value: string | number | boolean) => {
     resetValidation('P5000Edit-forsikringEllerBosetningsperioder')
     setForsikringEllerBosetningsperioder('' + value)
     onSave({
@@ -422,7 +422,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               label={t('p5000:4-1-title')}
               menuPortalTarget={document.body}
               options={ytelseOptions}
-              onChange={__setYtelseOption}
+              onChange={_setYtelseOption}
               defaultValue={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
               value={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
             />
@@ -434,7 +434,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               value={forsikringEllerBosetningsperioder}
               error={validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
               id='P5000Edit-forsikringEllerBosetningsperioder'
-              onChange={__setForsikringEllerBosetningsperioder}
+              onChange={_setForsikringEllerBosetningsperioder}
               legend={(
                 <FlexCenterDiv>
                   <OneLineSpan>

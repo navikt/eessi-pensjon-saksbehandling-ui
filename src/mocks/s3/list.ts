@@ -1,3 +1,3 @@
 export default [
-  '123___BUCINFO___1', '123___BUCINFO___2', '123___BUCINFO___3'
+  '123--_BUCINFO--_1', '123--_BUCINFO--_2', '123--_BUCINFO--_3'
 ]

@@ -103,7 +103,7 @@ export const Overview: React.FC<OverviewProps> = ({
     return (
       <Alert
         variant='warning'
-        data-test-id='w-overview__alert'
+        data-testid='w-overview--alert'
       >
         {t('message:validation-noAktoerId')}
       </Alert>
@@ -117,7 +117,7 @@ export const Overview: React.FC<OverviewProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Accordion style={{ borderRadius: '4px' }} data-test-id='w-overview-id'>
+      <Accordion style={{ borderRadius: '4px' }} data-testid='w-overview-id'>
         <Accordion.Item open={!widget.options.collapsed}>
           <Accordion.Header onClick={onClick}>
             <PersonTitle

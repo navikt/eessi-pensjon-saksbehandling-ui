@@ -1,10 +1,12 @@
-import { mount, ReactWrapper } from 'enzyme'
+
+import { render } from '@testing-library/react'
 import personAvdod from 'mocks/person/personAvdod'
 import mockPerson from 'mocks/person/personPdl'
 import PersonPanel, { PersonPanelDiv, PersonPanelProps } from './PersonPanel'
 
 describe('widgets/Overview/PersonPanel', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: PersonPanelProps = {
     locale: 'nb',
     person: mockPerson,
@@ -12,7 +14,7 @@ describe('widgets/Overview/PersonPanel', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<PersonPanel {...initialMockProps} />)
+    wrapper = render(<PersonPanel {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -20,27 +22,27 @@ describe('widgets/Overview/PersonPanel', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<PersonPanel {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: returns empty with no person', () => {
-    wrapper.setProps({ person: undefined })
-    expect(wrapper.isEmptyRender()).toBeTruthy()
+    const { container } = render(<PersonPanel {...initialMockProps} person={undefined} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('#w-overview-personPanel--element-bostedsadresse').hostNodes().render().text()).toEqual(
       'ui:bostedsadresse:' + '01.01.2020 - 01.01.2021' + 'Adressenavn' + '00' + 'A' + '0768' + 'OSLO')
 
     expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-birthdate').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('#w-overview-personPanel--element-birthdate').hostNodes().render().text()).toEqual(
       'ui:birthdate:' + '09.02.1980')
 
     expect(wrapper.find('svg[kind="nav-work"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-nationality').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('#w-overview-personPanel--element-nationality').hostNodes().render().text()).toEqual(
       'ui:nationality:' + 'Norge (09.02.1980)')
   })
 
@@ -54,14 +56,14 @@ describe('widgets/Overview/PersonPanel', () => {
     })
     expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('#w-overview-personPanel--element-bostedsadresse').hostNodes().render().text()).toEqual(
       'ui:bostedsadresse:' + 'ui:notRegistered')
-    expect(wrapper.find('#w-overview-personPanel__element-birthdate').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('#w-overview-personPanel--element-birthdate').hostNodes().render().text()).toEqual(
       'ui:birthdate:' + 'ui:notRegistered')
   })
 
   it('Render: gets dates converted properly', () => {
-    expect(wrapper.find('#w-overview-personPanel__element-marital-status').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('#w-overview-personPanel--element-marital-status').hostNodes().render().text()).toEqual(
       'ui:marital-status:ui:widget-overview-maritalstatus-Gift (10.10.2007)')
   })
 })

@@ -34,10 +34,10 @@ const P5000Controls = ({
             <VerticalSeparatorDiv size='0.5' />
             {seds?.map((sed: Sed) => (
               <Checkbox
-                data-test-id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                data-testid={'a_buc_c_P5000overview--checkbox-' + sed.id}
                 checked={_.find(activeSeds, s => s.id === sed.id) !== undefined}
-                key={'a-buc-c-P5000overview__checkbox-' + sed.id}
-                id={'a-buc-c-P5000overview__checkbox-' + sed.id}
+                key={'a_buc_c_P5000overview--checkbox-' + sed.id}
+                id={'a_buc_c_P5000overview--checkbox-' + sed.id}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSeds(sed, e.target.checked)}
               >
                 <P5000SedLabel sed={sed} warning={emptyPeriodReport[sed.id]} />

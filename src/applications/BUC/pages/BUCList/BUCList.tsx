@@ -56,7 +56,7 @@ export const BadBucDiv = styled.div`
   width: 100%;
   padding: 0rem;
   margin-bottom: 1rem;
-  .alertstripe__tekst {
+  .alertstripe--tekst {
     max-width: 100% !important;
   }
 `
@@ -66,7 +66,7 @@ export const BucLenkePanel = styled(LinkPanel)`
   animation: ${slideInFromLeft} 0.2s forwards;
   background: var(--navds-semantic-color-component-background-light);
   margin-bottom: 1rem;
-  .navds-link-panel__content {
+  .navds-link-panel--content {
     width: 100%;
   }
   &.new {
@@ -238,7 +238,7 @@ const BUCList: React.FC<BUCListProps> = ({
 
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !gettingBucsInfo &&
-      bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
+      bucsInfoList!.indexOf(aktoerId + '--_' + storage.NAMESPACE_BUC + '--_' + storage.FILE_BUCINFO) >= 0) {
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
     }
   }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
@@ -317,7 +317,7 @@ const BUCList: React.FC<BUCListProps> = ({
           <Button
             variant='secondary'
             data-amplitude='buc.list.newbuc'
-            data-test-id='a-buc-p-buclist__newbuc-button-id'
+            data-testid='a-buc-p-buclist--newbuc-button-id'
             onClick={onBUCNew}
           >
             {t('buc:form-createNewCase')}
@@ -382,7 +382,7 @@ const BUCList: React.FC<BUCListProps> = ({
               <BucLenkePanel
                 href='#'
                 border
-                data-test-id={'a-buc-p-buclist__buc-' + bucId}
+                data-testid={'a-buc-p-buclist--buc-' + bucId}
                 key={index}
                 className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
                 style={{ animationDelay: (0.1 * index) + 's' }}
@@ -405,7 +405,7 @@ const BUCList: React.FC<BUCListProps> = ({
               <VerticalSeparatorDiv size='2' />
               <BadBucDiv>
                 <>
-                  <Accordion id='a-buc-c-buclist__no-buc-id'>
+                  <Accordion id='a_buc_c_buclist--no-buc-id'>
                     <Accordion.Item>
                       <Accordion.Header>
                         <FlexDiv>
@@ -420,9 +420,9 @@ const BUCList: React.FC<BUCListProps> = ({
                         <FlexDiv className={classNames({ error: _validation || false })}>
                           <TextField
                             style={{ width: '200px' }}
-                            data-test-id='a-buc-p-buclist__avdod-input-id'
+                            data-testid='a-buc-p-buclist--avdod-input-id'
                             error={_validation || false}
-                            id='a-buc-p-buclist__avdod-input-id'
+                            id='a-buc-p-buclist--avdod-input-id'
                             label={(
                               <HiddenDiv>
                                 {t('buc:form-avdodFnr')}

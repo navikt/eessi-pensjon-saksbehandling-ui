@@ -50,7 +50,7 @@ ui-fss.g1[id="c0"] {
           Object {
             "children": <Styled(Component)
               checked={false}
-              data-test-id="c-multipleoption__checkbox--mockValue"
+              data-testid="c-multipleoption__checkbox--mockValue"
               id="c-multipleoption__checkbox--mockValue"
               onChange={[Function]}
             >
@@ -176,7 +176,7 @@ ui-fss.g1[id="c0"] {
             Object {
               "children": <Styled(Component)
                 checked={false}
-                data-test-id="c-multipleoption__checkbox--mockValue"
+                data-testid="c-multipleoption__checkbox--mockValue"
                 id="c-multipleoption__checkbox--mockValue"
                 onChange={[Function]}
               >
@@ -278,14 +278,14 @@ ui-fss.g1[id="c0"] {
       >
         <Styled(Component)
           checked={false}
-          data-test-id="c-multipleoption__checkbox--mockValue"
+          data-testid="c-multipleoption__checkbox--mockValue"
           id="c-multipleoption__checkbox--mockValue"
           onChange={[Function]}
         >
           <ForwardRef
             checked={false}
             className="c0 c1"
-            data-test-id="c-multipleoption__checkbox--mockValue"
+            data-testid="c-multipleoption__checkbox--mockValue"
             id="c-multipleoption__checkbox--mockValue"
             onChange={[Function]}
           >
@@ -297,7 +297,7 @@ ui-fss.g1[id="c0"] {
                 aria-invalid={false}
                 checked={false}
                 className="navds-checkbox__input"
-                data-test-id="c-multipleoption__checkbox--mockValue"
+                data-testid="c-multipleoption__checkbox--mockValue"
                 id="c-multipleoption__checkbox--mockValue"
                 onChange={[Function]}
                 type="checkbox"

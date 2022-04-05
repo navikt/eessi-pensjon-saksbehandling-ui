@@ -62,12 +62,15 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
         modalContent: (
           <>
             {alertMessage && alertVariant === 'error' && (
-              <Alert variant='error'>
+              <Alert
+                data-testid='a_buc_c_sedattachmentmodal--alert_id'
+                variant='error'
+              >
                 {alertMessage}
               </Alert>
             )}
             <JoarkBrowser
-              data-test-id='a-buc-c-sedattachmentmodal__joarkbrowser-id'
+              data-testid='a_buc_c_sedattachmentmodal--joarkbrowser-id'
               existingItems={sedAttachments}
               mode='select'
               onRowSelectChange={onRowSelectChange}

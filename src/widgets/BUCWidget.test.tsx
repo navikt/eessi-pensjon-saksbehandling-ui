@@ -1,11 +1,12 @@
 import { WidgetProps } from '@navikt/dashboard'
+import { render } from '@testing-library/react'
 import BUCWidget from './BUCWidget'
-import { mount, ReactWrapper } from 'enzyme'
 
 jest.mock('applications/BUC/', () => () => (<div className='mock-a-buc' />))
 
 describe('widgets/BUCWidget', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: WidgetProps = {
     labels: {},
     onDelete: jest.fn(),
@@ -26,7 +27,7 @@ describe('widgets/BUCWidget', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<BUCWidget {...initialMockProps} />)
+    wrapper = render(<BUCWidget {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -34,8 +35,8 @@ describe('widgets/BUCWidget', () => {
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BUCWidget {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('UseEffect: it tries to resize', () => {

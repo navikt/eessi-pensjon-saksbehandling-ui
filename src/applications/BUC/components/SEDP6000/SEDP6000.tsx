@@ -67,7 +67,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
   }
 
   return (
-    <div id='a-buc-c-sedstart__p6000s-id'>
+    <div id='a_buc_c_sedstart--p6000s-id'>
       <Modal
         open={!_.isNil(P6000PDF)}
         onModalClose={handleResetP6000}
@@ -97,8 +97,8 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
       {p6000s.map(p6000 => {
         const country: Country = countryData.findByValue(p6000.fraLand)
         return (
-          <div className='a-buc-c-sedstart__p6000' key={p6000.documentID}>
-            <Panel border className={classNames({ 'skjemaelement__input--harFeil': !!feil })}>
+          <div className='a_buc_c_sedstart--p6000' key={p6000.documentID}>
+            <Panel border className={classNames({ 'skjemaelement--input--harFeil': !!feil })}>
               <FlexCenterSpacedDiv>
                 <FlexCenterDiv>
                   <Flag animate={false} wave={false} type='circle' country={p6000.fraLand} label={country.label ?? p6000.fraLand} />
@@ -111,7 +111,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                 <FlexCenterDiv>
                   <Button
                     variant='tertiary'
-                    data-test-id={'a-buc-c-sedstart__p6000-preview-' + p6000.documentID}
+                    data-testid={'a_buc_c_sedstart--p6000-preview-' + p6000.documentID}
                     onClick={() => handlePreview(p6000.bucid, p6000.documentID)}
                     disabled={gettingP6000PDF}
                   >
@@ -126,8 +126,8 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                   <Checkbox
                     checked={_.find(chosenP6000s, _p6000 => _p6000.documentID === p6000.documentID) !== undefined}
                     key={p6000.documentID}
-                    id={'a-buc-c-sedstart__p6000-checkbox-' + p6000.documentID}
-                    data-test-id={'a-buc-c-sedstart__p6000-checkbox-' + p6000.documentID}
+                    id={'a_buc_c_sedstart--p6000-checkbox-' + p6000.documentID}
+                    data-testid={'a_buc_c_sedstart--p6000-checkbox-' + p6000.documentID}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeChosenP6000(p6000, e.target.checked)}
 
                   >{t('ui:choose')}

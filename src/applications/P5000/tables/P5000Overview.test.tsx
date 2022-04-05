@@ -1,6 +1,7 @@
+
 import { Sed, Seds } from 'declarations/buc'
 import { P5000sFromRinaMap } from 'declarations/p5000'
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -16,7 +17,7 @@ const defaultSelector: P5000OverviewSelector = {
 
 jest.mock('md5', () => (value: any) => value)
 describe('applications/BUC/components/P5000/P5000', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
 
   const initialMockProps: P5000OverviewProps = {
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
@@ -29,7 +30,7 @@ describe('applications/BUC/components/P5000/P5000', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<P5000Overview {...initialMockProps} />)
+    wrapper = render(<P5000Overview {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -37,15 +38,15 @@ describe('applications/BUC/components/P5000/P5000', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<P5000Overview {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: Has proper HTML structure', () => {
-    // expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
-    // expect(wrapper.exists('[data-test-id=\'a-buc-c-P5000__checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
+    // expect(screen.getByTestId('a_buc_c_P5000--checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
+    // expect(screen.getByTestId('a_buc_c_P5000--checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
     expect(wrapper.exists(Table)).toBeTruthy()
-    expect(wrapper.find('.tabell:not(.print-version) th').hostNodes().map(it => it.render().text())).toEqual([
+    expect(wrapper.find('.tabell:not(.print-version) th').hostNodes().map((it: any) => it.render().text())).toEqual([
       '', 'ui:country', 'ui:_institution', 'ui:type', 'ui:startDate', 'ui:endDate', 'ui:year', 'ui:quarter', 'ui:month',
       'ui:week', 'ui:days/ui:unit', 'ui:relevantForPerformance', 'ui:scheme', 'ui:calculationInformation'
     ])

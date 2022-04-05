@@ -28,11 +28,13 @@ export interface WaitingPanelProps {
 }
 
 const WaitingPanel: React.FC<WaitingPanelProps> = ({
-  className, size = 'medium', style = {}, message = 'Vennligst vent...', oneLine = false
+  className, size = 'medium', style = {}, message = 'Vennligst vent...', oneLine = false, ...props
 }: WaitingPanelProps): JSX.Element | null => (
   <WaitingPanelDiv
     style={style}
     className={classNames(className, { rowDirection: oneLine })}
+    data-testid='c-WaitingPanel'
+    {...props}
   >
     <Loader type={size} />
     {message && (
@@ -40,7 +42,7 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
         <HorizontalSeparatorDiv />
         <BodyLong
           className={classNames({ oneLine })}
-          data-test-id='c-waitingpanel__text-id'
+          data-testid='c-waitingpanel--text-id'
         >
           {message}
         </BodyLong>

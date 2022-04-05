@@ -1,9 +1,10 @@
+import { within } from '@testing-library/dom'
 import { createBuc } from 'actions/buc'
 import BUCStart, { BUCStartProps, BUCStartSelector } from 'applications/BUC/components/BUCStart/BUCStart'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString } from 'declarations/app'
 import { SakTypeMap } from 'declarations/buc.d'
-import { mount, ReactWrapper } from 'enzyme'
+import { fireEvent, render, screen } from '@testing-library/react'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
@@ -36,7 +37,7 @@ const defaultSelector: BUCStartSelector = {
 }
 
 describe('P_BUC_05 for BUCStart, kravkontekst', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
 
   const initialMockProps: BUCStartProps = {
     aktoerId: '456',
@@ -68,32 +69,32 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
       sakType: SakTypeMap.ALDER
     })
 
-    wrapper = mount(<BUCStart {...initialMockProps} />)
+    wrapper = render(<BUCStart {...initialMockProps} />)
 
     // initial form inputs
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--buc-select-id\'] input')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--kravDato-input-id')).not.toBeInTheDocument()
 
     // select P_BUC_02
-    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'Enter' })
-    wrapper.update()
+    const select = within(screen.getByTestId('a_buc_c_BUCStart--buc-select-id')).getByRole('input')
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'Enter' })
+
     expect(initialMockProps.onBucChanged).toHaveBeenCalledWith({
       label: 'P_BUC_05 - buc:buc-P_BUC_05',
       value: 'P_BUC_05'
     })
 
     // show avdod fnr select
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
     // keep kravDato input hidden
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--kravDato-input-id')).not.toBeInTheDocument()
     // click forward button
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_BUCStart--forward-button-id').hostNodes().simulate('click')
     // no validation errors
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--feiloppsummering-id')).not.toBeInTheDocument()
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
       buc: 'P_BUC_05',
@@ -127,15 +128,15 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
       sakType: SakTypeMap.GJENLEV
     })
 
-    wrapper = mount(<BUCStart {...initialMockProps} />)
+    wrapper = render(<BUCStart {...initialMockProps} />)
 
     // initial form inputs
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--buc-select-id\'] input')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--kravDato-input-id')).not.toBeInTheDocument()
 
     // select P_BUC_02
-    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-testid=\'a_buc_c_BUCStart--buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -146,13 +147,13 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     })
 
     // show avdod fnr select
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
     // keep kravDato input hidden
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--kravDato-input-id')).not.toBeInTheDocument()
     // click forward button
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_BUCStart--forward-button-id').hostNodes().simulate('click')
     // no validation errors
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--feiloppsummering-id')).not.toBeInTheDocument()
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
       buc: 'P_BUC_05',
@@ -186,15 +187,15 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
       sakType: SakTypeMap.BARNEP
     })
 
-    wrapper = mount(<BUCStart {...initialMockProps} />)
+    wrapper = render(<BUCStart {...initialMockProps} />)
 
     // initial form inputs
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--buc-select-id\'] input')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--kravDato-input-id')).not.toBeInTheDocument()
 
     // select P_BUC_02
-    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-testid=\'a_buc_c_BUCStart--buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
@@ -205,13 +206,13 @@ describe('P_BUC_05 for BUCStart, kravkontekst', () => {
     })
 
     // show avdod fnr select
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
     // keep kravDato input hidden
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--kravDato-input-id')).not.toBeInTheDocument()
     // click forward button
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_BUCStart--forward-button-id').hostNodes().simulate('click')
     // no validation errors
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__feiloppsummering-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCStart--feiloppsummering-id')).not.toBeInTheDocument()
     // submit payload and create BUC
     expect(createBuc).toHaveBeenCalledWith({
       buc: 'P_BUC_05',

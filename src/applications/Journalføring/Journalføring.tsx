@@ -57,7 +57,7 @@ const Journalføring = () => {
 
   const setSed = (newSed: string) => {
     _setSed(newSed)
-    _resetValidation('w-journalføring__sed-select-id')
+    _resetValidation('w-journalføring--sed-select-id')
   }
 
   useEffect(() => {
@@ -84,9 +84,9 @@ const Journalføring = () => {
   return (
     <Panel>
       <Select
-        key='w-journalføring__sed-select-key'
-        id='w-journalføring__sed-select-id'
-        error={_validation['w-journalføring__sed-select-id']?.feilmelding}
+        key='w-journalføring--sed-select-key'
+        id='w-journalføring--sed-select-id'
+        error={_validation['w-journalføring--sed-select-id']?.feilmelding}
         options={sedOptions}
         label={t('jou:sed')}
         menuPortalTarget={document.body}
@@ -96,8 +96,8 @@ const Journalføring = () => {
       />
       <VerticalSeparatorDiv />
       <TextArea
-        data-test-id='w-journalføring__sed-comment-id'
-        className='skjemaelement__input'
+        data-testid='w-journalføring--sed-comment-id'
+        className='skjemaelement--input'
         label={t('ui:comment')}
         value={_sedComment || ''}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => _setSedComment(e.target.value)}

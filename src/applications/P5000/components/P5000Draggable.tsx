@@ -34,7 +34,7 @@ const P5000Draggable = ({
           }}
         >
           <Panel border style={{ padding: '0px' }}>
-            <Accordion style={{ borderRadius: '4px' }} id={'a-buc-c-' + tableId}>
+            <Accordion style={{ borderRadius: '4px' }} id={'a_buc_c_' + tableId}>
               <Accordion.Item defaultOpen renderContentWhenClosed>
                 <FlexDiv>
                   <div style={{ padding: '1.5rem 1rem' }} {...provided.dragHandleProps}>

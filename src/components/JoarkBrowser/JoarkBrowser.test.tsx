@@ -1,6 +1,6 @@
 import { getJoarkItemPreview, listJoarkItems } from 'actions/joark'
 import { JoarkPoster } from 'declarations/joark'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import mockJoark from 'mocks/joark/joark'
 import mockJoarkProcessed from 'mocks/joark/joarkAsItems'
 import { stageSelector } from 'setupTests'
@@ -25,7 +25,7 @@ const defaultSelector: JoarkBrowserSelector = {
 }
 
 describe('components/JoarkBrowser/JoarkBrowser', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
 
   const initialMockProps: JoarkBrowserProps = {
     existingItems: [],
@@ -38,7 +38,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<JoarkBrowser {...initialMockProps} />)
+    wrapper = render(<JoarkBrowser {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -46,24 +46,24 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<JoarkBrowser {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: loading', () => {
     stageSelector(defaultSelector, { loadingJoarkList: true })
-    wrapper = mount(<JoarkBrowser {...initialMockProps} />)
+    wrapper = render(<JoarkBrowser {...initialMockProps} />)
     expect(wrapper.find('WaitingPanel')).toBeTruthy()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists('[data-test-id=\'c-joarkBrowser\']')).toBeTruthy()
+    expect(screen.getByTestId('c-joarkBrowser\']')).toBeTruthy()
     expect(wrapper.exists(TableSorter)).toBeTruthy()
   })
 
   it('UseEffect: list Joark files', () => {
     stageSelector(defaultSelector, { list: undefined })
-    wrapper = mount(<JoarkBrowser {...initialMockProps} />)
+    wrapper = render(<JoarkBrowser {...initialMockProps} />)
     expect(listJoarkItems).toHaveBeenCalledWith(defaultSelector.aktoerId)
   })
 
@@ -78,22 +78,22 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
       }
     }
     stageSelector(defaultSelector, { previewFile: mockFile })
-    wrapper = mount(<JoarkBrowser {...initialMockProps} />)
+    wrapper = render(<JoarkBrowser {...initialMockProps} />)
     expect(initialMockProps.onPreviewFile).toHaveBeenCalledWith(mockFile)
     stageSelector(defaultSelector, {})
   })
 
   it('Handling: calls onRowSelectChange when selecting a row', () => {
     (initialMockProps.onRowSelectChange as jest.Mock).mockReset()
-    wrapper = mount(<JoarkBrowser {...initialMockProps} mode='select' />)
-    wrapper.find('#tabell-joarkbrowser-test-table-id__row-select-checkbox-joark-group-1').hostNodes().simulate('change', { target: { checked: true } })
+    wrapper = render(<JoarkBrowser {...initialMockProps} mode='select' />)
+    wrapper.find('#tabell-joarkbrowser-test-table-id--row-select-checkbox-joark-group-1').hostNodes().simulate('change', { target: { checked: true } })
     expect(initialMockProps.onRowSelectChange).toHaveBeenCalledWith(mockJoarkProcessed)
   })
 
   it('Handling: calls onPreviewItem', () => {
     (getJoarkItemPreview as jest.Mock).mockReset()
-    wrapper = mount(<JoarkBrowser {...initialMockProps} mode='select' />)
-    wrapper.find('#c-tablesorter__preview-button-2-3').hostNodes().simulate('click')
+    wrapper = render(<JoarkBrowser {...initialMockProps} mode='select' />)
+    wrapper.find('#c-tablesorter--preview-button-2-3').hostNodes().simulate('click')
     expect(getJoarkItemPreview).toHaveBeenCalledWith(expect.objectContaining({
       date: new Date('2010-11-01T11:26:55.000Z'),
       disabled: true,

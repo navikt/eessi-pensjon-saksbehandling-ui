@@ -345,7 +345,7 @@ ui-fss.g53[id="c6"] {
         >
           <Styled(b)
             bredde="fullbredde"
-            data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+            data-testid="a-buc-p-bucempty__aktoerid-input-id"
             feil={false}
             id="a-buc-p-bucempty__aktoerid-input-id"
             label="ui:aktoerId"
@@ -355,7 +355,7 @@ ui-fss.g53[id="c6"] {
             <b
               bredde="fullbredde"
               className="c8 c9"
-              data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+              data-testid="a-buc-p-bucempty__aktoerid-input-id"
               feil={false}
               id="a-buc-p-bucempty__aktoerid-input-id"
               label="ui:aktoerId"
@@ -378,7 +378,7 @@ ui-fss.g53[id="c6"] {
                 <input
                   aria-invalid={false}
                   className="skjemaelement__input input--fullbredde"
-                  data-test-id="a-buc-p-bucempty__aktoerid-input-id"
+                  data-testid="a-buc-p-bucempty__aktoerid-input-id"
                   id="a-buc-p-bucempty__aktoerid-input-id"
                   onChange={[Function]}
                   type="text"
@@ -393,18 +393,18 @@ ui-fss.g53[id="c6"] {
             />
           </styled.div>
           <Styled(u)
-            data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+            data-testid="a-buc-p-bucempty__aktoerid-button-id"
             onClick={[Function]}
           >
             <u
               className="c12 c13"
-              data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+              data-testid="a-buc-p-bucempty__aktoerid-button-id"
               onClick={[Function]}
             >
               <p
                 autoDisableVedSpinner={false}
                 className="c12 c13"
-                data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+                data-testid="a-buc-p-bucempty__aktoerid-button-id"
                 disabled={false}
                 htmlType="submit"
                 inaktivKlasseVedDisabled={false}
@@ -416,7 +416,7 @@ ui-fss.g53[id="c6"] {
               >
                 <button
                   className="knapp c12 c13 knapp--hoved"
-                  data-test-id="a-buc-p-bucempty__aktoerid-button-id"
+                  data-testid="a-buc-p-bucempty__aktoerid-button-id"
                   disabled={false}
                   onClick={[Function]}
                   type="submit"
@@ -434,7 +434,7 @@ ui-fss.g53[id="c6"] {
         >
           <Styled(b)
             bredde="fullbredde"
-            data-test-id="a-buc-p-bucempty__sakid-input-id"
+            data-testid="a-buc-p-bucempty__sakid-input-id"
             feil={false}
             id="a-buc-p-bucempty__sakid-input-id"
             label="buc:form-caseId"
@@ -444,7 +444,7 @@ ui-fss.g53[id="c6"] {
             <b
               bredde="fullbredde"
               className="c8 c9"
-              data-test-id="a-buc-p-bucempty__sakid-input-id"
+              data-testid="a-buc-p-bucempty__sakid-input-id"
               feil={false}
               id="a-buc-p-bucempty__sakid-input-id"
               label="buc:form-caseId"
@@ -467,7 +467,7 @@ ui-fss.g53[id="c6"] {
                 <input
                   aria-invalid={false}
                   className="skjemaelement__input input--fullbredde"
-                  data-test-id="a-buc-p-bucempty__sakid-input-id"
+                  data-testid="a-buc-p-bucempty__sakid-input-id"
                   id="a-buc-p-bucempty__sakid-input-id"
                   onChange={[Function]}
                   type="text"
@@ -482,18 +482,18 @@ ui-fss.g53[id="c6"] {
             />
           </styled.div>
           <Styled(u)
-            data-test-id="a-buc-p-bucempty__sakid-button-id"
+            data-testid="a-buc-p-bucempty__sakid-button-id"
             onClick={[Function]}
           >
             <u
               className="c14 c15"
-              data-test-id="a-buc-p-bucempty__sakid-button-id"
+              data-testid="a-buc-p-bucempty__sakid-button-id"
               onClick={[Function]}
             >
               <p
                 autoDisableVedSpinner={false}
                 className="c14 c15"
-                data-test-id="a-buc-p-bucempty__sakid-button-id"
+                data-testid="a-buc-p-bucempty__sakid-button-id"
                 disabled={false}
                 htmlType="submit"
                 inaktivKlasseVedDisabled={false}
@@ -505,7 +505,7 @@ ui-fss.g53[id="c6"] {
               >
                 <button
                   className="knapp c14 c15 knapp--standard"
-                  data-test-id="a-buc-p-bucempty__sakid-button-id"
+                  data-testid="a-buc-p-bucempty__sakid-button-id"
                   disabled={false}
                   onClick={[Function]}
                   type="submit"
@@ -526,7 +526,7 @@ ui-fss.g53[id="c6"] {
       >
         <Styled(f)
           data-amplitude="buc.list.rinaurl"
-          data-test-id="a-buc-c-bucfooter__gotorina-link"
+          data-testid="a-buc-c-bucfooter__gotorina-link"
           href="http://mock.url"
           onClick={[Function]}
           target="rinaWindow"
@@ -534,7 +534,7 @@ ui-fss.g53[id="c6"] {
           <f
             className="c18 c19"
             data-amplitude="buc.list.rinaurl"
-            data-test-id="a-buc-c-bucfooter__gotorina-link"
+            data-testid="a-buc-c-bucfooter__gotorina-link"
             href="http://mock.url"
             onClick={[Function]}
             target="rinaWindow"
@@ -542,7 +542,7 @@ ui-fss.g53[id="c6"] {
             <a
               className="lenke c18 c19"
               data-amplitude="buc.list.rinaurl"
-              data-test-id="a-buc-c-bucfooter__gotorina-link"
+              data-testid="a-buc-c-bucfooter__gotorina-link"
               href="http://mock.url"
               onClick={[Function]}
               rel="noopener"

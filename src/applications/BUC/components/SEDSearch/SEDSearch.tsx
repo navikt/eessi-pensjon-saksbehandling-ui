@@ -11,7 +11,7 @@ const SEDSearchPanel = styled(Panel)`
   display: flex !important;
   align-items: flex-start;
   padding: 0.5rem;
-  .ekspanderbartPanel__hode {
+  .ekspanderbartPanel--hode {
     padding: 0.25rem;
   }
 `
@@ -24,7 +24,7 @@ const SearchInput = styled(TextField)`
   margin-right: 0.5rem;
   margin-bottom: 0.25rem !important;
   margin-left: 0.25rem;
-  .navds-text-field__label navds-label {
+  .navds-text-field--label navds-label {
     display: none;
   }
 `
@@ -84,13 +84,13 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
 
     <SEDSearchPanel
       border
-      data-test-id='a-buc-c-sedsearch__panel-id'
+      data-testid='a_buc_c_sedsearch--panel-id'
       className={className}
     >
       <PaddedDiv>
         <SearchInput
-          data-test-id='a-buc-c-sedsearch__query-input-id'
-          id='a-buc-c-sedsearch__query-input-id'
+          data-testid='a_buc_c_sedsearch--query-input-id'
+          id='a_buc_c_sedsearch--query-input-id'
           onChange={onQueryChange}
           label={t('buc:form-filterSED')}
           value={_query || ''}
@@ -99,9 +99,9 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
       <PaddedDiv>
         <MultipleSelect<Option>
           ariaLabel={t('buc:form-searchForStatus')}
-          className='a-buc-c-sedsearch'
-          data-test-id='a-buc-c-sedsearch__status-select-id'
-          id='a-buc-c-sedsearch__status-select-id'
+          className='a_buc_c_sedsearch'
+          data-testid='a_buc_c_sedsearch--status-select-id'
+          id='a_buc_c_sedsearch--status-select-id'
           hideSelectedOptions={false}
           onSelect={onStatusChange}
           options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}

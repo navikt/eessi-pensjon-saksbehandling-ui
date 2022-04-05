@@ -243,14 +243,14 @@ ui-fss.g99[id="c0"] {
 >
   <styled.div
     className="mock-sedAttachmentSender"
-    data-test-id="a-buc-c-sedAttachmentSender__div-id"
+    data-testid="a-buc-c-sedAttachmentSender__div-id"
   >
     <div
       className="c0 c1 mock-sedAttachmentSender"
-      data-test-id="a-buc-c-sedAttachmentSender__div-id"
+      data-testid="a-buc-c-sedAttachmentSender__div-id"
     >
       <_
-        data-test-id="a-buc-c-sedAttachmentSender__progress-bar-id"
+        data-testid="a-buc-c-sedAttachmentSender__progress-bar-id"
         now={0}
         status="inprogress"
       >
@@ -451,14 +451,14 @@ ui-fss.g99[id="c0"] {
         />
       </styled.div>
       <Styled(u)
-        data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
+        data-testid="a-buc-c-sedAttachmentSender__cancel-button-id"
         kompakt={true}
         mini={true}
         onClick={[Function]}
       >
         <u
           className="c8 c9"
-          data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
+          data-testid="a-buc-c-sedAttachmentSender__cancel-button-id"
           kompakt={true}
           mini={true}
           onClick={[Function]}
@@ -466,7 +466,7 @@ ui-fss.g99[id="c0"] {
           <p
             autoDisableVedSpinner={false}
             className="c8 c9"
-            data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
+            data-testid="a-buc-c-sedAttachmentSender__cancel-button-id"
             disabled={false}
             htmlType="submit"
             inaktivKlasseVedDisabled={false}
@@ -478,7 +478,7 @@ ui-fss.g99[id="c0"] {
           >
             <button
               className="knapp c8 c9 knapp--standard knapp--mini knapp--kompakt"
-              data-test-id="a-buc-c-sedAttachmentSender__cancel-button-id"
+              data-testid="a-buc-c-sedAttachmentSender__cancel-button-id"
               disabled={false}
               onClick={[Function]}
               type="submit"

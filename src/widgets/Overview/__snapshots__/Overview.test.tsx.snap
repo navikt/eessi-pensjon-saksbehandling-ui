@@ -140,7 +140,7 @@ ui-fss.g57[id="c8"] {
           "id": "w-overview-id",
         }
       }
-      data-test-id="w-overview-id"
+      data-testid="w-overview-id"
       heading={
         <PersonTitle
           gettingPersonInfo={false}
@@ -162,7 +162,7 @@ ui-fss.g57[id="c8"] {
             aria-controls="w-overview-id"
             aria-expanded={true}
             className="ekspanderbartPanel__hode"
-            data-test-id="c-expandingpanel__head-id"
+            data-testid="c-expandingpanel__head-id"
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -170,7 +170,7 @@ ui-fss.g57[id="c8"] {
           >
             <div
               className="ekspanderbartPanel__flex-wrapper"
-              data-test-id="c-expandingpanel__body-id"
+              data-testid="c-expandingpanel__body-id"
             >
               <PersonTitle
                 gettingPersonInfo={false}
@@ -213,7 +213,7 @@ ui-fss.g57[id="c8"] {
                 aria-expanded={true}
                 aria-label="ui:open"
                 className="ekspanderbartPanel__knapp"
-                data-test-id="c-expandingpanel__button-id"
+                data-testid="c-expandingpanel__button-id"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 type="button"
@@ -263,7 +263,7 @@ ui-fss.g57[id="c8"] {
                 >
                   <article
                     className="ekspanderbartPanel__innhold"
-                    data-test-id="c-expandingpanel__content-id"
+                    data-testid="c-expandingpanel__content-id"
                   >
                     <PersonPanel
                       locale="nb"

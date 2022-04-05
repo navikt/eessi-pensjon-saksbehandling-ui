@@ -40,7 +40,7 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
       const newS3list: Array<string> = []
       const newS3stats = _.cloneDeep(state.s3stats)
       s3list.forEach((filename: string) => {
-        const match = filename.match(/^([^_]+)___([^_]+)(.+)?$/)
+        const match = filename.match(/^([^_]+)--_([^_]+)(.+)?$/)
         if (!_.isEmpty(match)) {
           const type: string = match![2]
           if (!Object.prototype.hasOwnProperty.call(newS3stats, 'type')) {
@@ -84,7 +84,7 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
       const newLoaded = state.getS3FilesJob?.loaded.concat(filename)
 
       const newS3stats = _.cloneDeep(state.s3stats)
-      const match = filename.match(/^([^_]+)___([^_]+)(.+)?$/)
+      const match = filename.match(/^([^_]+)--_([^_]+)(.+)?$/)
       if (!_.isEmpty(match)) {
         const type: string = match[2]
         if (type === 'BUC') {

@@ -118,8 +118,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       <Select
         size='small'
         noMarginTop
-        key='c-table__edit-type-select-key-'
-        id='c-table__edit-type-select-id'
+        key='c-table--edit-type-select-key-'
+        id='c-table--edit-type-select-id'
         className='P5000Edit-type-select input-focus'
         error={options.error}
         options={typeOptions}
@@ -215,9 +215,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input
       size='small'
-      namespace='c-table__edit'
+      namespace='c-table--edit'
       id='startdato-input-id'
-      className='c-table__edit-input'
+      className='c-table--edit-input'
       label='startdato'
       hideLabel
       error={options.error}
@@ -237,9 +237,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input
       size='small'
-      namespace='c-table__edit'
+      namespace='c-table--edit'
       id='sluttdato-input-id'
-      className='c-table__edit-input'
+      className='c-table--edit-input'
       label='sluttdato'
       hideLabel
       error={options.error}
@@ -308,9 +308,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         size='small'
         aria-invalid={!!options.error}
         aria-label='dag'
-        data-test-id='c-table__edit-dag-input-id'
+        data-testid='c-table--edit-dag-input-id'
         error={options.error}
-        namespace='c-table__edit'
+        namespace='c-table--edit'
         id='dag-input-id'
         label=''
         onChanged={(e: string) => {
@@ -335,8 +335,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         size='small'
         aria-invalid={!!options.error}
         aria-label='mnd'
-        namespace='c-table__edit'
-        data-test-id='mnd-input-id'
+        namespace='c-table--edit'
+        data-testid='mnd-input-id'
         error={options.error}
         id='mnd-input-id'
         label=''
@@ -362,10 +362,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         size='small'
         aria-invalid={!!options.error}
         aria-label='aar'
-        data-test-id='c-table__edit-aar-input-id'
+        data-testid='c-table--edit-aar-input-id'
         error={options.error}
         id='aar-input-id'
-        namespace='c-table__edit'
+        namespace='c-table--edit'
         label=''
         onChanged={(e: string) => {
           options.setValues({
@@ -492,8 +492,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       <Select
         noMarginTop
         size='small'
-        key='c-table__edit-beregning-select-key'
-        id='c-table__edit-beregning-select-id'
+        key='c-table--edit-beregning-select-key'
+        id='c-table--edit-beregning-select-id'
         options={beregningOptions}
         menuPortalTarget={document.body}
         onChange={(e: unknown) => options.setValues({ beregning: (e as Option).value })}

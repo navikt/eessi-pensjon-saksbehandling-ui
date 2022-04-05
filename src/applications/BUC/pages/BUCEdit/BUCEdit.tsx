@@ -225,14 +225,14 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   return (
     <BUCEditDiv
-      data-test-id='a-buc-p-bucedit'
+      data-testid='a-buc-p-bucedit'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       <BUCEditHeader>
         <Button
           variant='secondary'
-          data-test-id='a-buc-p-bucedit__back-button-id'
+          data-testid='a-buc-p-bucedit--back-button-id'
           onClick={onBackLinkClick}
         >
           <BackFilled />
@@ -246,7 +246,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             variant='secondary'
             disabled={buc!.readOnly === true}
             data-amplitude='buc.edit.newsed'
-            data-test-id='a-buc-p-bucedit__new-sed-button-id'
+            data-testid='a-buc-p-bucedit--new-sed-button-id'
             onClick={onNewSedButtonClick}
           >{t('buc:form-orderNewSED')}
           </Button>

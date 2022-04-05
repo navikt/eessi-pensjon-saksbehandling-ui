@@ -1,7 +1,7 @@
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { mount, ReactWrapper } from 'enzyme'
+
 import { stageSelector } from 'setupTests'
-import BUCFooter, { BUCFooterDiv, BUCFooterProps, BUCFooterSelector } from './BUCFooter'
+import BUCFooter, { BUCFooterProps, BUCFooterSelector } from './BUCFooter'
+import { render, screen } from '@testing-library/react'
 
 const defaultSelector: BUCFooterSelector = {
   highContrast: false,
@@ -9,30 +9,25 @@ const defaultSelector: BUCFooterSelector = {
 }
 
 describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
-  let wrapper: ReactWrapper
   const initialMockProps: BUCFooterProps = {}
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<BUCFooter {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BUCFooter {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(BUCFooterDiv)).toBeTruthy()
+    render(<BUCFooter {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCFooter')).toBeInTheDocument()
   })
 
   it('Render: WaitingPanel shows if no RinaUrl given', () => {
     stageSelector(defaultSelector, { rinaUrl: undefined })
-    wrapper = mount(<BUCFooter {...initialMockProps} />)
-    expect(wrapper.exists(WaitingPanel)).toBeTruthy()
+    render(<BUCFooter {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCFooter--waiting-panel')).toBeInTheDocument()
   })
 })

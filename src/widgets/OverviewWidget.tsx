@@ -17,7 +17,7 @@ const OverviewWidget: WidgetFC<WidgetProps> = ({
   }, [mounted, onResize])
 
   return (
-    <div data-test-id='w-OverviewWidget'>
+    <div data-testid='w-OverviewWidget'>
       <ReactResizeDetector
         handleWidth
         handleHeight

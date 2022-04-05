@@ -27,8 +27,8 @@ const MultipleOption = <T extends Option = Option>(props: MultipleOptionProps<T>
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
     <components.Option {...props}>
       <OptionCheckbox
-        data-test-id={'c-multipleoption__checkbox-' + _id}
-        id={'c-multipleoption__checkbox-' + _id}
+        data-testid={'c-multipleoption--checkbox-' + _id}
+        id={'c-multipleoption--checkbox-' + _id}
         onChange={(e) => {
           e.preventDefault()
           e.stopPropagation()

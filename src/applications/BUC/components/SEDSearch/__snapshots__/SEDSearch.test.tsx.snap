@@ -80,16 +80,16 @@ ui-fss.g56[id="c7"] {
 >
   <Styled(Styled(f))
     border={true}
-    data-test-id="a-buc-c-sedsearch__panel-id"
+    data-testid="a-buc-c-sedsearch__panel-id"
   >
     <f
       border={true}
       className="c0 c1 c2 c3"
-      data-test-id="a-buc-c-sedsearch__panel-id"
+      data-testid="a-buc-c-sedsearch__panel-id"
     >
       <div
         className="panel c0 c1 c2 c3 panel--border"
-        data-test-id="a-buc-c-sedsearch__panel-id"
+        data-testid="a-buc-c-sedsearch__panel-id"
       >
         <styled.div>
           <div
@@ -97,7 +97,7 @@ ui-fss.g56[id="c7"] {
           >
             <Styled(Styled(b))
               bredde="fullbredde"
-              data-test-id="a-buc-c-sedsearch__query-input-id"
+              data-testid="a-buc-c-sedsearch__query-input-id"
               id="a-buc-c-sedsearch__query-input-id"
               label=""
               onChange={[Function]}
@@ -107,7 +107,7 @@ ui-fss.g56[id="c7"] {
               <b
                 bredde="fullbredde"
                 className="c6 c7 c8 c9"
-                data-test-id="a-buc-c-sedsearch__query-input-id"
+                data-testid="a-buc-c-sedsearch__query-input-id"
                 id="a-buc-c-sedsearch__query-input-id"
                 label=""
                 onChange={[Function]}
@@ -120,7 +120,7 @@ ui-fss.g56[id="c7"] {
                   <input
                     aria-invalid={false}
                     className="skjemaelement__input input--fullbredde"
-                    data-test-id="a-buc-c-sedsearch__query-input-id"
+                    data-testid="a-buc-c-sedsearch__query-input-id"
                     id="a-buc-c-sedsearch__query-input-id"
                     onChange={[Function]}
                     placeholder="buc:form-filterSED"
@@ -139,7 +139,7 @@ ui-fss.g56[id="c7"] {
             <MultipleSelect
               ariaLabel="buc:form-searchForStatus"
               className="a-buc-c-sedsearch"
-              data-test-id="a-buc-c-sedsearch__status-select-id"
+              data-testid="a-buc-c-sedsearch__status-select-id"
               hideSelectedOptions={false}
               highContrast={false}
               id="a-buc-c-sedsearch__status-select-id"

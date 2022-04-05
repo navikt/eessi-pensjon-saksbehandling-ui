@@ -504,7 +504,7 @@ ui-fss.g56[id="c2"] {
                 >
                   <button
                     class="lukknapp c4 c5"
-                    data-test-id="c-modal__close-button-id"
+                    data-testid="c-modal__close-button-id"
                   >
                     <span
                       class="text-hide"
@@ -512,13 +512,13 @@ ui-fss.g56[id="c2"] {
                   </button>
                   <h2
                     class="typo-undertittel c6 c7"
-                    data-test-id="c-modal__title-id"
+                    data-testid="c-modal__title-id"
                   >
                     mockModalTitle
                   </h2>
                   <div
                     class="c8 c9"
-                    data-test-id="c-modal__text-id"
+                    data-testid="c-modal__text-id"
                   >
                     mockModalText
                   </div>
@@ -531,7 +531,7 @@ ui-fss.g56[id="c2"] {
                   >
                     <button
                       class="knapp c14 c15 knapp--hoved"
-                      data-test-id="c-modal__button-id-0"
+                      data-testid="c-modal__button-id-0"
                       id="c-modal__button-id-0"
                       type="submit"
                     >
@@ -543,7 +543,7 @@ ui-fss.g56[id="c2"] {
                   >
                     <button
                       class="knapp c16 c17 knapp--standard"
-                      data-test-id="c-modal__button-id-1"
+                      data-testid="c-modal__button-id-1"
                       id="c-modal__button-id-1"
                       type="submit"
                     >
@@ -631,20 +631,20 @@ ui-fss.g56[id="c2"] {
                   className="c2 c3"
                 >
                   <Styled(Lukknapp)
-                    data-test-id="c-modal__close-button-id"
+                    data-testid="c-modal__close-button-id"
                     onClick={[Function]}
                   >
                     <Lukknapp
                       bla={false}
                       className="c4 c5"
-                      data-test-id="c-modal__close-button-id"
+                      data-testid="c-modal__close-button-id"
                       hvit={false}
                       onClick={[Function]}
                       overstHjorne={false}
                     >
                       <button
                         className="lukknapp c4 c5"
-                        data-test-id="c-modal__close-button-id"
+                        data-testid="c-modal__close-button-id"
                         onClick={[Function]}
                       >
                         <span
@@ -654,20 +654,20 @@ ui-fss.g56[id="c2"] {
                     </Lukknapp>
                   </Styled(Lukknapp)>
                   <Styled(Undertittel)
-                    data-test-id="c-modal__title-id"
+                    data-testid="c-modal__title-id"
                   >
                     <Undertittel
                       className="c6 c7"
-                      data-test-id="c-modal__title-id"
+                      data-testid="c-modal__title-id"
                     >
                       <TypografiBase
                         className="c6 c7"
-                        data-test-id="c-modal__title-id"
+                        data-testid="c-modal__title-id"
                         type="undertittel"
                       >
                         <h2
                           className="typo-undertittel c6 c7"
-                          data-test-id="c-modal__title-id"
+                          data-testid="c-modal__title-id"
                         >
                           mockModalTitle
                         </h2>
@@ -675,11 +675,11 @@ ui-fss.g56[id="c2"] {
                     </Undertittel>
                   </Styled(Undertittel)>
                   <styled.div
-                    data-test-id="c-modal__text-id"
+                    data-testid="c-modal__text-id"
                   >
                     <div
                       className="c8 c9"
-                      data-test-id="c-modal__text-id"
+                      data-testid="c-modal__text-id"
                     >
                       mockModalText
                     </div>
@@ -699,7 +699,7 @@ ui-fss.g56[id="c2"] {
                       className="c12 c13"
                     >
                       <Styled(u)
-                        data-test-id="c-modal__button-id-0"
+                        data-testid="c-modal__button-id-0"
                         disabled={false}
                         id="c-modal__button-id-0"
                         key="modalMainButtonText"
@@ -707,7 +707,7 @@ ui-fss.g56[id="c2"] {
                       >
                         <u
                           className="c14 c15"
-                          data-test-id="c-modal__button-id-0"
+                          data-testid="c-modal__button-id-0"
                           disabled={false}
                           id="c-modal__button-id-0"
                           onClick={[Function]}
@@ -715,7 +715,7 @@ ui-fss.g56[id="c2"] {
                           <p
                             autoDisableVedSpinner={false}
                             className="c14 c15"
-                            data-test-id="c-modal__button-id-0"
+                            data-testid="c-modal__button-id-0"
                             disabled={false}
                             htmlType="submit"
                             id="c-modal__button-id-0"
@@ -728,7 +728,7 @@ ui-fss.g56[id="c2"] {
                           >
                             <button
                               className="knapp c14 c15 knapp--hoved"
-                              data-test-id="c-modal__button-id-0"
+                              data-testid="c-modal__button-id-0"
                               disabled={false}
                               id="c-modal__button-id-0"
                               onClick={[Function]}
@@ -748,7 +748,7 @@ ui-fss.g56[id="c2"] {
                       className="c12 c13"
                     >
                       <Styled(u)
-                        data-test-id="c-modal__button-id-1"
+                        data-testid="c-modal__button-id-1"
                         disabled={false}
                         id="c-modal__button-id-1"
                         key="modalOtherButtonText"
@@ -756,7 +756,7 @@ ui-fss.g56[id="c2"] {
                       >
                         <u
                           className="c16 c17"
-                          data-test-id="c-modal__button-id-1"
+                          data-testid="c-modal__button-id-1"
                           disabled={false}
                           id="c-modal__button-id-1"
                           onClick={[Function]}
@@ -764,7 +764,7 @@ ui-fss.g56[id="c2"] {
                           <p
                             autoDisableVedSpinner={false}
                             className="c16 c17"
-                            data-test-id="c-modal__button-id-1"
+                            data-testid="c-modal__button-id-1"
                             disabled={false}
                             htmlType="submit"
                             id="c-modal__button-id-1"
@@ -777,7 +777,7 @@ ui-fss.g56[id="c2"] {
                           >
                             <button
                               className="knapp c16 c17 knapp--standard"
-                              data-test-id="c-modal__button-id-1"
+                              data-testid="c-modal__button-id-1"
                               disabled={false}
                               id="c-modal__button-id-1"
                               onClick={[Function]}

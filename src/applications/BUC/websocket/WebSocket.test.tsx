@@ -1,9 +1,8 @@
 import { fetchBuc } from 'actions/buc'
-import { mount, ReactWrapper } from 'enzyme'
-import _ from 'lodash'
+import { render, screen } from '@testing-library/react'
 import { Server, WebSocket } from 'mock-socket'
 import { act } from 'react-dom/test-utils'
-import BucWebSocket, { BUCWebsocketDiv, BucWebSocketProps } from './WebSocket'
+import BucWebSocket, { BucWebSocketProps } from './WebSocket'
 
 jest.mock('constants/urls', () => ({
   WEBSOCKET_LOCALHOST_URL: 'ws://localhost:8888'
@@ -13,11 +12,10 @@ jest.mock('actions/buc', () => ({
 }))
 
 jest.mock('components/Tooltip/Tooltip', () => ({ children }: any) => (
-  <div data-test-id='mock-tooltip'>{children}</div>
+  <div data-testid='mock-tooltip'>{children}</div>
 ))
 
 describe('applications/BUC/websocket/WebSocket', () => {
-  let wrapper: ReactWrapper
   const initialMockProps: BucWebSocketProps = {
     fnr: '123',
     avdodFnr: '456'
@@ -33,34 +31,28 @@ describe('applications/BUC/websocket/WebSocket', () => {
     mockSocket = socket
   })
 
-  beforeAll(() => {
-    wrapper = mount(<BucWebSocket {...initialMockProps} />)
-  })
-
-  afterAll(() => {
-    wrapper.unmount()
-  })
-
-  it('Render: not empty', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
+  it('Render: match snapshot', () => {
+    const { container } = render(<BucWebSocket {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(BUCWebsocketDiv)).toBeTruthy()
+    render(<BucWebSocket {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_websocket')).toBeInTheDocument()
   })
 
   it('Handling: Connects in a while', async () => {
+    const { container } = render(<BucWebSocket {...initialMockProps} />)
     await act(async () => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          wrapper.update()
-          const logs = wrapper.find('div.logs span.log')
-          expect(logs.length).toBe(5)
-          expect(_(logs.at(0).render().html()).endsWith('Got fnr 123 avdodFnr 456, starting websocket connection')).toBeTruthy()
-          expect(_(logs.at(1).render().html()).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
-          expect(_(logs.at(2).render().html()).endsWith('Connected')).toBeTruthy()
-          expect(_(logs.at(3).render().html()).endsWith('Request subscribing to fnr 123 and avdodFnr 456')).toBeTruthy()
-          expect(_(logs.at(4).render().html()).endsWith('Subscription status is true')).toBeTruthy()
+          const logs = container.querySelectorAll('div.logs span.log')
+          expect(logs?.length).toBe(5)
+          expect(logs[0]).toHaveTextContent('Got fnr 123 avdodFnr 456, starting websocket connection')
+          expect(logs[1]).toHaveTextContent('Connecting to ws://localhost:8888...')
+          expect(logs[2]).toHaveTextContent('Connected')
+          expect(logs[3]).toHaveTextContent('Request subscribing to fnr 123 and avdodFnr 456')
+          expect(logs[4]).toHaveTextContent('Subscription status is true')
           resolve()
         }, 200)
       })
@@ -68,15 +60,15 @@ describe('applications/BUC/websocket/WebSocket', () => {
   })
 
   it('Handling: replies to messages', async () => {
+    const { container } = render(<BucWebSocket {...initialMockProps} />)
     await act(async () => {
       return new Promise((resolve) => {
         setTimeout(() => {
           mockSocket.send(JSON.stringify({ bucUpdated: { caseId: '123' } }))
           setTimeout(() => {
-            wrapper.update()
-            const logs = wrapper.find('div.logs span.log')
+            const logs = container.querySelectorAll('div.logs span.log')
             expect(logs.length).toBe(6)
-            expect(_(logs.at(5).render().html()).endsWith('Updating buc 123')).toBeTruthy()
+            expect(logs[5]).toHaveTextContent('Updating buc 123')
             expect(fetchBuc).toHaveBeenCalledWith('123')
             resolve()
           }, 300)
@@ -86,15 +78,14 @@ describe('applications/BUC/websocket/WebSocket', () => {
   })
 
   it('Handling: error connection', async () => {
-    expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: CONNECTED')
+    expect(screen.getByTestId('a_buc_websocket')).toHaveAttribute('title', 'websocket: CONNECTED')
     act(() => {
       mockServer.simulate('error')
     })
     await act(async () => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          wrapper.update()
-          expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: ERROR')
+          expect(screen.getByTestId('a_buc_websocket')).toHaveAttribute('title', 'websocket: ERROR')
           resolve()
         }, 500)
       })
@@ -102,15 +93,14 @@ describe('applications/BUC/websocket/WebSocket', () => {
   })
 
   it('Handling: close connection', async () => {
-    expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: ERROR')
+    expect(screen.getByTestId('a_buc_websocket')).toHaveAttribute('title', 'websocket: ERROR')
     act(() => {
       mockSocket.close()
     })
     await act(async () => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          wrapper.update()
-          expect(wrapper.find(BUCWebsocketDiv).props().title).toEqual('websocket: NOTCONNECTED')
+          expect(screen.getByTestId('a_buc_websocket')).toHaveAttribute('title', 'websocket: NOTCONNECTED')
           resolve()
         }, 500)
       })

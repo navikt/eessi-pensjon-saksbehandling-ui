@@ -80,8 +80,8 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const renderTypeEdit = (options: RenderEditableOptions<P5000SumRow>) => (
     <div style={{ minWidth: '200px' }}>
       <Select
-        key={'c-table__edit-type-select-key-' + options.value}
-        id='c-table__edit-type-select-id'
+        key={'c-table--edit-type-select-key-' + options.value}
+        id='c-table--edit-type-select-id'
         className='P5000Edit-type-select'
         error={options.error}
         options={typeOptions}

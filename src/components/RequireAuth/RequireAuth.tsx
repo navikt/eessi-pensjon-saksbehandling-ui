@@ -81,7 +81,7 @@ const RequireAuth: React.FC<any> = (props) => {
         dispatch(getUserInfo())
       }
 
-      if (!_.isUndefined(loggedIn))  {
+      if (!_.isUndefined(loggedIn)) {
         setMounted(true)
       }
     }

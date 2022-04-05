@@ -1,23 +1,19 @@
 import useWindowDimensions from 'components/WindowDimension/WindowDimension'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, cleanup, screen } from '@testing-library/react'
 
 describe('components/WindowDimension/WindowDimension', () => {
   const MockElement: React.FC<any> = () => {
     const { height } = useWindowDimensions()
-    return (<div data-test-id='mockelement' id={'' + height} />)
+    return (<div data-testid='mockelement' id={'' + height} />)
   }
 
-  let wrapper: ReactWrapper
-
   beforeEach(() => {
-    wrapper = mount(<MockElement />)
+    render(<MockElement />)
   })
 
-  afterEach(() => {
-    wrapper.unmount()
-  })
+  afterEach(cleanup)
 
-  it('', () => {
-    expect(wrapper.find('[data-test-id=\'mockelement\']').props().id).toEqual('768')
+  it('exists', () => {
+    expect(screen.findByTestId('mockelement')).toHaveAttribute('id', '768')
   })
 })

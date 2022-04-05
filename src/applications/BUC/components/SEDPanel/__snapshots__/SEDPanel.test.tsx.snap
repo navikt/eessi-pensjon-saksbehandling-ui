@@ -2059,7 +2059,7 @@ ui-fss.g39[id="c2"] {
               style={Object {}}
             >
               <div
-                data-test-id="mock-SEDHeader"
+                data-testid="mock-SEDHeader"
               />
             </Component>
           </div>

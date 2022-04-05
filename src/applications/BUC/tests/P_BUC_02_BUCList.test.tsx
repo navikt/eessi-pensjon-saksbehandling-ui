@@ -5,7 +5,7 @@ import BUCList, {
   BUCListSelector
 } from 'applications/BUC/pages/BUCList/BUCList'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import personAvdod from 'mocks/person/personAvdod'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
@@ -120,8 +120,7 @@ const defaultSelector: BUCListSelector = {
 }
 
 describe('P_BUC_02 for BUCStart', () => {
-  let wrapper: ReactWrapper
-
+  let wrapper: any
   const initialMockProps: BUCListProps = {
     setMode: jest.fn()
   }
@@ -142,11 +141,11 @@ describe('P_BUC_02 for BUCStart', () => {
     stageSelector(defaultSelector, {
       pesysContext: BRUKERKONTEKST
     })
-    wrapper = mount(<BUCList {...initialMockProps} />)
+    render(<BUCList {...initialMockProps} />)
 
     expect(wrapper.exists(BUCListDiv)).toBeTruthy()
     expect(wrapper.find(BucLenkePanel).length).toEqual(1)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__P_BUC_02-NorwayIsCaseOwner\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_BUCHeader--P_BUC_02-NorwayIsCaseOwner')).not.toBeInTheDocument()
   })
 
   /*
@@ -166,10 +165,10 @@ describe('P_BUC_02 for BUCStart', () => {
     stageSelector(defaultSelector, {
       pesysContext: BRUKERKONTEKST
     })
-    wrapper = mount(<BUCList {...initialMockProps} />)
+    wrapper = render(<BUCList {...initialMockProps} />)
 
     expect(wrapper.exists(BUCListDiv)).toBeTruthy()
     expect(wrapper.find(BucLenkePanel).length).toEqual(1)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucheader__P_BUC_02-NorwayIsNOTCaseOwner\']')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_BUCHeader--P_BUC_02-NorwayIsNOTCaseOwner\']')).toBeInTheDocument()
   })
 })

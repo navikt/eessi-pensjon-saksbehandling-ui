@@ -1,9 +1,10 @@
-import { mount, ReactWrapper } from 'enzyme'
 import { Option } from 'declarations/app.d'
 import MultipleSelect, { MultipleSelectProps } from './MultipleSelect'
+import { render } from '@testing-library/react'
 
 describe('components/MultipleSelect/MultipleSelect', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const options = [
     { label: 'mockLabel01', value: 'mockValue01' },
     { label: 'mockLabel02', value: 'mockValue02' }
@@ -24,7 +25,7 @@ describe('components/MultipleSelect/MultipleSelect', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<MultipleSelect {...initialMockProps} />)
+    wrapper = render(<MultipleSelect {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -32,8 +33,8 @@ describe('components/MultipleSelect/MultipleSelect', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<MultipleSelect {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {

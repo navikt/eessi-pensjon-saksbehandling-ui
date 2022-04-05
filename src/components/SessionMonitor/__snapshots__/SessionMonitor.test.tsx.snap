@@ -9,7 +9,7 @@ exports[`components/SessionMonitor Render: match snapshot 1`] = `
   sessionExpiredReload={1000}
 >
   <div
-    data-test-id="c-sessionMonitor"
+    data-testid="c-sessionMonitor"
     role="application"
   />
 </SessionMonitor>

@@ -233,7 +233,7 @@ ui-fss.g55[id="c14"] {
               className="c4 c5"
             >
               <Styled(Select)
-                data-test-id="c-footer__select-id"
+                data-testid="c-footer__select-id"
                 id="c-footer__select-id"
                 label=""
                 onChange={[Function]}
@@ -241,7 +241,7 @@ ui-fss.g55[id="c14"] {
                 <Select
                   bredde="fullbredde"
                   className="c6 c7"
-                  data-test-id="c-footer__select-id"
+                  data-testid="c-footer__select-id"
                   disabled={false}
                   id="c-footer__select-id"
                   label=""
@@ -256,7 +256,7 @@ ui-fss.g55[id="c14"] {
                       <select
                         aria-invalid={false}
                         className="skjemaelement__input"
-                        data-test-id="c-footer__select-id"
+                        data-testid="c-footer__select-id"
                         disabled={false}
                         id="c-footer__select-id"
                         onChange={[Function]}
@@ -326,7 +326,7 @@ ui-fss.g55[id="c14"] {
                 </Select>
               </Styled(Select)>
               <Styled(Input)
-                data-test-id="c-footer__input-id"
+                data-testid="c-footer__input-id"
                 id="c-footer__input-id"
                 label=""
                 onChange={[Function]}
@@ -335,7 +335,7 @@ ui-fss.g55[id="c14"] {
                 <Input
                   bredde="fullbredde"
                   className="c8 c9"
-                  data-test-id="c-footer__input-id"
+                  data-testid="c-footer__input-id"
                   id="c-footer__input-id"
                   label=""
                   onChange={[Function]}
@@ -347,7 +347,7 @@ ui-fss.g55[id="c14"] {
                     <input
                       aria-invalid={false}
                       className="skjemaelement__input input--fullbredde"
-                      data-test-id="c-footer__input-id"
+                      data-testid="c-footer__input-id"
                       id="c-footer__input-id"
                       onChange={[Function]}
                       type="text"
@@ -357,13 +357,13 @@ ui-fss.g55[id="c14"] {
                 </Input>
               </Styled(Input)>
               <Styled(KnappBase)
-                data-test-id="c-footer__add-button-id"
+                data-testid="c-footer__add-button-id"
                 onClick={[Function]}
               >
                 <KnappBase
                   autoDisableVedSpinner={false}
                   className="c10 c11"
-                  data-test-id="c-footer__add-button-id"
+                  data-testid="c-footer__add-button-id"
                   disabled={false}
                   htmlType="submit"
                   inaktivKlasseVedDisabled={false}
@@ -375,7 +375,7 @@ ui-fss.g55[id="c14"] {
                 >
                   <button
                     className="knapp c10 c11 knapp--standard"
-                    data-test-id="c-footer__add-button-id"
+                    data-testid="c-footer__add-button-id"
                     disabled={false}
                     onClick={[Function]}
                     type="submit"

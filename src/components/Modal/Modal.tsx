@@ -74,12 +74,12 @@ const ModalFC: React.FC<ModalProps> = ({
         )}
         <ContentDiv className={classNames({ icon: !!icon })}>
           {modal?.modalTitle && (
-            <Heading size='medium' data-test-id='modal__title-id'>
+            <Heading size='medium' data-testid='modal--title-id'>
               {modal?.modalTitle}
             </Heading>
           )}
           {modal?.modalContent || (
-            <ModalText data-test-id='modal__text-id'>
+            <ModalText data-testid='modal--text-id'>
               {modal?.modalText}
             </ModalText>
           )}
@@ -105,9 +105,9 @@ const ModalFC: React.FC<ModalProps> = ({
                 <ButtonMargin key={i}>
                   <Button
                     variant={variant}
-                    data-test-id={'modal__button-id-' + i}
+                    data-testid={'modal--button-id-' + i}
                     disabled={button.disabled || false}
-                    id={'modal__button-id-' + i}
+                    id={'modal--button-id-' + i}
                     onClick={handleClick}
                   >
                     {button.text}

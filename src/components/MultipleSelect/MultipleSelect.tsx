@@ -11,8 +11,8 @@ import MultipleOption from './MultipleOption'
 import { Option } from 'declarations/app'
 
 const MultipleSelectDiv = styled.div`
-  .skjemaelement__feilmelding {
-    .multipleSelect__control {
+  .skjemaelement--feilmelding {
+    .multipleSelect--control {
       border: 1px solid ${({ theme }) => theme.redError};
     }
   }
@@ -36,17 +36,11 @@ export interface MultipleSelectProps<T>{
   values?: PropsValue<T>
 }
 
-const MultipleSelect = <T extends Option = Option> ({
+const MultipleSelect = <T extends Option> ({
   ariaLabel, className, creatable = false, error, hideSelectedOptions = false, id,
   isDisabled = false, isLoading = false, isSearchable = true, label, menuPortalTarget, onSelect,
   options = [], size = 'medium', values = []
 }: MultipleSelectProps<T>): JSX.Element => {
-  const onSelectChange = (e: OnChangeValue<T, true>) => {
-    if (_.isFunction(onSelect)) {
-      onSelect(e as Array<T>)
-    }
-  }
-
   const Component = creatable ? CreatableSelect : Select
   const inputId = id || guid()
 
@@ -54,11 +48,17 @@ const MultipleSelect = <T extends Option = Option> ({
     id
   }
 
+  const onSelectChange = (e: OnChangeValue<T, true>) => {
+    if (_.isFunction(onSelect)) {
+      onSelect(e as Array<T>)
+    }
+  }
+
   return (
     <MultipleSelectDiv
       className={classNames(className, { skjemaelement__feilmelding: error })}
     >
-      {label && (<label className='navds-text-field__label navds-label' htmlFor={inputId}>{label}</label>)}
+      {label && (<label className='navds-text-field--label navds-label' htmlFor={inputId}>{label}</label>)}
       <Component
         inputId={id || undefined}
         className='multipleSelect'

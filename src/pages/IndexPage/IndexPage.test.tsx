@@ -1,6 +1,7 @@
+import { render } from '@testing-library/react'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { BUCMode, FeatureToggles } from 'declarations/app.d'
-import { mount, ReactWrapper } from 'enzyme'
+
 import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
@@ -34,12 +35,13 @@ jest.mock('@navikt/dashboard', () => (props: any) => (
 ))
 
 describe('pages/IndexPage', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: IndexPageProps = {}
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<IndexPage {...initialMockProps} />)
+    wrapper = render(<IndexPage {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -47,8 +49,8 @@ describe('pages/IndexPage', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<IndexPage {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {

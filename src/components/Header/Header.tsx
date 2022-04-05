@@ -95,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({
       <BrandDiv>
         <a
           href='#index'
-          data-test-id='c-header__logo-link'
+          data-testid='c-header--logo-link'
           onClick={onLogoClick}
         >
           <NavLogoTransparent width='100' height='45' color='white' />
@@ -106,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({
         </Title>
       </BrandDiv>
       <Link
-        data-test-id='c-header__highcontrast-link-id'
+        data-testid='c-header--highcontrast-link-id'
         href='#highContrast'
         onClick={onHighContrastClick}
       >

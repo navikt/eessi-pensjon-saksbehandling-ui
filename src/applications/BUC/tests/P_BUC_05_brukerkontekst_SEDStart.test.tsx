@@ -1,7 +1,8 @@
+import { within } from '@testing-library/dom'
 import { SEDStart, SEDStartProps, SEDStartSelector } from 'applications/BUC/components/SEDStart/SEDStart'
 import { BRUKERKONTEKST } from 'constants/constants'
 import { Bucs, SakTypeMap } from 'declarations/buc.d'
-import { mount, ReactWrapper } from 'enzyme'
+import { fireEvent, render, screen } from '@testing-library/react'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import personAvdod from 'mocks/person/personAvdod'
 import { stageSelector } from 'setupTests'
@@ -44,7 +45,8 @@ const defaultSelector: SEDStartSelector = {
 }
 
 describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const mockBucList: Bucs = {
     NorwayIsCaseOwner: {
       type: 'P_BUC_05',
@@ -130,34 +132,34 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
       personAvdods: []
     })
 
-    wrapper = mount(<SEDStart {...initialMockProps} />)
+    wrapper = render(<SEDStart {...initialMockProps} />)
 
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--sed-select-id\'] input')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-input-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-div-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravDato-input-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravOm-radiogroup-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdodorsoker-radiogroup-id')).toBeFalsy()
 
-    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-testid=\'a_buc_c_sedstart--sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
     wrapper.update()
     expect(initialMockProps.onSedChanged).toHaveBeenCalledWith('P8000')
     // does not show avdodFnr
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-input-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-div-id')).toBeFalsy()
     // does not show kravDato
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravDato-input-id')).toBeFalsy()
     // does not show kravOm
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravOm-radiogroup-id')).toBeFalsy()
     // does not show avdodOrSoker
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdodorsoker-radiogroup-id')).toBeFalsy()
 
-    wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_sedstart--forward-button-id').hostNodes().simulate('click')
     // needs instituion and country
-    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('[data-testid=\'a_buc_c_sedstart--feiloppsummering-id').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry'
     )
   })
@@ -184,34 +186,34 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
       personAvdods: []
     })
 
-    wrapper = mount(<SEDStart {...initialMockProps} />)
+    wrapper = render(<SEDStart {...initialMockProps} />)
 
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--sed-select-id\'] input')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-input-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-div-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravDato-input-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravOm-radiogroup-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdodorsoker-radiogroup-id')).toBeFalsy()
 
-    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-testid=\'a_buc_c_sedstart--sed-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
     wrapper.update()
     expect(initialMockProps.onSedChanged).toHaveBeenCalledWith('P8000')
     // does show avdodFnr
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-input-id')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-div-id')).toBeFalsy()
     // does not show kravDato
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravDato-input-id')).toBeFalsy()
     // does not show kravOm
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravOm-radiogroup-id')).toBeFalsy()
     // does show avdodOrSoker
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdodorsoker-radiogroup-id')).toBeTruthy()
 
-    wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_sedstart--forward-button-id').hostNodes().simulate('click')
     // needs instituion and country
-    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('[data-testid=\'a_buc_c_sedstart--feiloppsummering-id').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry' +
       'message:validation-chooseAvdodOrSoker'
     )
@@ -239,34 +241,34 @@ describe('P_BUC_05 for SEDStart, brukerkontekst,', () => {
       personAvdods: []
     })
 
-    wrapper = mount(<SEDStart {...initialMockProps} />)
+    wrapper = render(<SEDStart {...initialMockProps} />)
 
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--sed-select-id\'] input')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-input-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-div-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravDato-input-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravOm-radiogroup-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdodorsoker-radiogroup-id')).toBeFalsy()
 
-    const select = wrapper.find('[data-test-id=\'a-buc-c-sedstart__sed-select-id\'] input').hostNodes()
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'Enter' })
-    wrapper.update()
+    const select = within(screen.getByTestId('a_buc_c_sedstart--buc-select-id')).getByRole('input')
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'Enter' })
+
     expect(initialMockProps.onSedChanged).toHaveBeenCalledWith('P8000')
     // does show avdodFnr
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-input-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdod-div-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-input-id')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdod-div-id')).toBeFalsy()
     // does not show kravDato
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravDato-input-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravDato-input-id')).toBeFalsy()
     // does not show kravOm
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__kravOm-radiogroup-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_sedstart--kravOm-radiogroup-id')).toBeFalsy()
     // does show avdodOrSoker
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedstart__avdodorsoker-radiogroup-id\']')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedstart--avdodorsoker-radiogroup-id')).toBeTruthy()
 
-    wrapper.find('[data-test-id=\'a-buc-c-sedstart__forward-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_sedstart--forward-button-id').hostNodes().simulate('click')
     // needs instituion and country
-    expect(wrapper.find('[data-test-id=\'a-buc-c-sedstart__feiloppsummering-id\']').hostNodes().render().text()).toEqual(
+    expect(wrapper.find('[data-testid=\'a_buc_c_sedstart--feiloppsummering-id').hostNodes().render().text()).toEqual(
       'buc:form-feiloppsummering' + 'message:validation-chooseInstitution' + 'message:validation-chooseCountry' +
        'message:validation-chooseAvdodOrSoker'
     )

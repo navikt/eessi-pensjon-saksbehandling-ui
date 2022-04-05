@@ -1,16 +1,18 @@
+import { render } from '@testing-library/react'
 import PersonTitle, { PersonTitleProps, Title } from './PersonTitle'
-import { mount, ReactWrapper } from 'enzyme'
+
 import mockPerson from 'mocks/person/personPdl'
 
 describe('widgets/Overview/PersonTitle', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: PersonTitleProps = {
     gettingPersonInfo: false,
     person: mockPerson
   }
 
   beforeEach(() => {
-    wrapper = mount(<PersonTitle {...initialMockProps} />)
+    wrapper = render(<PersonTitle {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -18,12 +20,12 @@ describe('widgets/Overview/PersonTitle', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<PersonTitle {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: waiting spinner if no person is given', () => {
-    wrapper = mount(<PersonTitle {...initialMockProps} person={undefined} />)
+    wrapper = render(<PersonTitle {...initialMockProps} person={undefined} />)
     expect(wrapper.exists('PersonLoading')).toBeTruthy()
   })
 
@@ -36,14 +38,14 @@ describe('widgets/Overview/PersonTitle', () => {
   it('Render: different person icons', () => {
     mockPerson.kjoenn.kjoenn = 'MANN'
     wrapper.setProps({ person: mockPerson })
-    expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-man-icon')
+    expect(wrapper.find('[data-testid=\'w-persontitle--img\']').props().alt).toEqual('nav-man-icon')
 
     mockPerson.kjoenn.kjoenn = 'UKJENT'
     wrapper.setProps({ person: mockPerson })
-    expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-unknown-icon')
+    expect(wrapper.find('[data-testid=\'w-persontitle--img\']').props().alt).toEqual('nav-unknown-icon')
 
     mockPerson.kjoenn.kjoenn = 'KVINNE'
     wrapper.setProps({ person: mockPerson })
-    expect(wrapper.find('[data-test-id=\'w-persontitle__img\']').props().alt).toEqual('nav-woman-icon')
+    expect(wrapper.find('[data-testid=\'w-persontitle--img\']').props().alt).toEqual('nav-woman-icon')
   })
 })

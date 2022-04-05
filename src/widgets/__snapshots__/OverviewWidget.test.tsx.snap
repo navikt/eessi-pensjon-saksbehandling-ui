@@ -36,7 +36,7 @@ exports[`widgets/OverviewWidget Render: match snapshot 1`] = `
   }
 >
   <div
-    data-test-id="w-OverviewWidget"
+    data-testid="w-OverviewWidget"
   >
     <ResizeDetector
       handleHeight={true}

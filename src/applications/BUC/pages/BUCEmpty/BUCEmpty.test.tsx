@@ -1,5 +1,5 @@
 import { setStatusParam } from 'actions/app'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import { stageSelector } from 'setupTests'
 import BUCEmpty, { BUCEmptyArtwork, BUCEmptyDiv, BUCEmptyProps } from './BUCEmpty'
 
@@ -12,7 +12,8 @@ jest.mock('actions/app', () => ({
 }))
 
 describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: BUCEmptyProps = {
     aktoerId: undefined,
     sakId: undefined
@@ -20,7 +21,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<BUCEmpty {...initialMockProps} />)
+    wrapper = render(<BUCEmpty {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -28,17 +29,17 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BUCEmpty {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure with forms when no aktoerId and sakId', () => {
     expect(wrapper.exists(BUCEmptyDiv)).toBeTruthy()
     expect(wrapper.exists(BUCEmptyArtwork)).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__aktoerid-button-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__sakid-button-id\']')).toBeTruthy()
+    expect(screen.getByTestId('a-buc-p-bucempty--aktoerid-input-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a-buc-p-bucempty--aktoerid-button-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a-buc-p-bucempty--sakid-input-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a-buc-p-bucempty--sakid-button-id')).toBeTruthy()
   })
 
   it('Render: has proper HTML structure without forms when aktoerId and sakId', () => {
@@ -47,31 +48,31 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
       aktoerId: '123',
       sakId: '456'
     }
-    wrapper = mount(<BUCEmpty {...mockProps} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__aktoerid-button-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-bucempty__sakid-button-id\']')).toBeFalsy()
+    wrapper = render(<BUCEmpty {...mockProps} />)
+    expect(screen.getByTestId('a-buc-p-bucempty--aktoerid-input-id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a-buc-p-bucempty--aktoerid-button-id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a-buc-p-bucempty--sakid-input-id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a-buc-p-bucempty--sakid-button-id')).not.toBeInTheDocument()
   })
 
   it('Handling: adding aktoerId and sakId', () => {
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\']').hostNodes().simulate('change', { target: { value: 'notvalid' } })
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--aktoerid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\'] .skjemaelement__feilmelding').render().text()).toEqual('message:validation-noAktoerId')
+    expect(wrapper.find('[data-testid=\'a-buc-p-bucempty--aktoerid-input-id\'] .skjemaelement--feilmelding').render().text()).toEqual('message:validation-noAktoerId')
 
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-input-id\']').hostNodes().simulate('change', { target: { value: '123' } })
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__aktoerid-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
     expect(setStatusParam).toBeCalledWith('aktoerId', '123')
 
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\']').hostNodes().simulate('change', { target: { value: 'notvalid' } })
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\'] .skjemaelement__feilmelding').render().text()).toEqual('message:validation-noSakId')
+    expect(wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-input-id\'] .skjemaelement--feilmelding').render().text()).toEqual('message:validation-noSakId')
 
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-input-id\']').hostNodes().simulate('change', { target: { value: '123' } })
-    wrapper.find('[data-test-id=\'a-buc-p-bucempty__sakid-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
+    wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-button-id').hostNodes().simulate('click')
     wrapper.update()
     expect(setStatusParam).toBeCalledWith('sakId', '123')
   })

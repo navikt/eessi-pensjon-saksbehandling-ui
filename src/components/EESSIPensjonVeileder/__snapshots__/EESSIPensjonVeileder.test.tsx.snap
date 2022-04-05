@@ -3,7 +3,7 @@
 exports['components/EESSIPensjonVeileder/EESSIPensjonVeileder Render: match snapshot 1'] = `
 <EESSIPensjonVeileder>
   <div
-    data-test-id="c-eessipensjonveileder"
+    data-testid="c-eessipensjonveileder"
   >
     <img
       alt="nav-smilende-veileder"

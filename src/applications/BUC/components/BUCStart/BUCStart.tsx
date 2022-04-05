@@ -201,7 +201,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const validateAvdod = (avdod: PersonAvdod | undefined): ErrorElement | undefined => {
     if (!avdod) {
       return {
-        skjemaelementId: 'a-buc-c-bucstart__avdod-select-id',
+        skjemaelementId: 'a_buc_c_BUCStart--avdod-select-id',
         feilmelding: t('message:validation-chooseAvdod')
       } as ErrorElement
     }
@@ -211,7 +211,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const validateAvdodFnr = (avdodFnr: string | undefined): ErrorElement | undefined => {
     if (avdodFnr && !(avdodFnr.length === 11 && avdodFnr.match(/\d{11}/))) {
       return {
-        skjemaelementId: 'a-buc-c-bucstart__avdod-input-id',
+        skjemaelementId: 'a_buc_c_BUCStart--avdod-input-id',
         feilmelding: t('message:validation-badAvdodFnr')
       } as ErrorElement
     }
@@ -221,7 +221,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const validateBuc = (buc: string | null | undefined): ErrorElement | undefined => {
     if (!buc) {
       return {
-        skjemaelementId: 'a-buc-c-bucstart__buc-select-id',
+        skjemaelementId: 'a_buc_c_BUCStart--buc-select-id',
         feilmelding: t('message:validation-chooseBuc')
       } as ErrorElement
     }
@@ -231,7 +231,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const validateSubjectArea = (subjectArea: string): ErrorElement | undefined => {
     if (!subjectArea) {
       return {
-        skjemaelementId: 'a-buc-c-bucstart__subjectarea-select-id',
+        skjemaelementId: 'a_buc_c_BUCStart--subjectarea-select-id',
         feilmelding: t('message:validation-chooseSubjectArea')
       } as ErrorElement
     }
@@ -241,14 +241,14 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const validateKravDato = (kravDato: string | undefined): ErrorElement | undefined => {
     if (kravDato && !kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
-        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
+        skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id',
         feilmelding: t('message:validation-badKravDato')
       } as ErrorElement
     }
     if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
       return {
         feilmelding: t('message:validation-invalidKravDato'),
-        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
+        skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id'
       } as ErrorElement
     }
     return undefined
@@ -496,19 +496,19 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [kravDato])
 
   return (
-    <div data-test-id='a-buc-c-bucstart'>
+    <div data-testid='a_buc_c_BUCStart'>
       <Row>
         <Column>
           <VerticalSeparatorDiv size='2' />
           <>
-            <label className='navds-text-field__label navds-label'>
+            <label className='navds-text-field--label navds-label'>
               {t(loading.gettingSubjectAreaList ? 'message:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
             </label>
             <Select
-              data-test-id='a-buc-c-bucstart__subjectarea-select-id'
+              data-testid='a_buc_c_BUCStart--subjectarea-select-id'
               defaultValue={{ label: _subjectArea, value: _subjectArea } as Option}
               error={_validation?.subjectArea?.feilmelding}
-              id='a-buc-c-bucstart__subjectarea-select-id'
+              id='a_buc_c_BUCStart--subjectarea-select-id'
               isLoading={loading.gettingSubjectAreaList}
               isSearchable
               menuPortalTarget={document.getElementById('main')}
@@ -518,13 +518,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
           </>
           <VerticalSeparatorDiv />
           <>
-            <label className='navds-text-field__label navds-label'>
+            <label className='navds-text-field--label navds-label'>
               {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
             </label>
             <Select
-              data-test-id='a-buc-c-bucstart__buc-select-id'
+              data-testid='a_buc_c_BUCStart--buc-select-id'
               error={_validation?.buc?.feilmelding}
-              id='a-buc-c-bucstart__buc-select-id'
+              id='a_buc_c_BUCStart--buc-select-id'
               isLoading={loading.gettingBucOptions}
               isSearchable
               menuPortalTarget={document.getElementById('main')}
@@ -536,13 +536,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
           {bucNeedsAvdod() && (
             <>
               <VerticalSeparatorDiv />
-              <label className='navds-text-field__label navds-label'>
+              <label className='navds-text-field--label navds-label'>
                 {t('buc:form-chooseAvdod')}
               </label>
               <Select
-                data-test-id='a-buc-c-bucstart__avdod-select-id'
+                data-testid='a_buc_c_BUCStart--avdod-select-id'
                 error={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
-                id='a-buc-c-bucstart__avdod-select-id'
+                id='a_buc_c_BUCStart--avdod-select-id'
                 isSearchable
                 menuPortalTarget={document.getElementById('main')}
                 onChange={onAvdodChange}
@@ -557,8 +557,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <FlexDiv>
                 <TextField
                   className='flex-2'
-                  data-test-id='a-buc-c-bucstart__avdod-input-id'
-                  id='a-buc-c-bucstart__avdod-input-id'
+                  data-testid='a_buc_c_BUCStart--avdod-input-id'
+                  id='a_buc_c_BUCStart--avdod-input-id'
                   label={t('buc:form-avdod')}
                   value={_avdodFnr}
                   onChange={onAvdodFnrChange}
@@ -577,8 +577,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
               <VerticalSeparatorDiv />
               <FlexDiv>
                 <TextField
-                  data-test-id='a-buc-c-bucstart__kravDato-input-id'
-                  id='a-buc-c-bucstart__kravDato-input-id'
+                  data-testid='a_buc_c_BUCStart--kravDato-input-id'
+                  id='a_buc_c_BUCStart--kravDato-input-id'
                   label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
                   value={_kravDato}
                   onChange={onKravDatoChange}
@@ -602,13 +602,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <MultipleSelect<Option>
             ariaLabel={t('buc:form-tagsForBUC')}
             aria-describedby='help-tags'
-            data-test-id='a-buc-c-bucstart__tags-select-id'
+            data-testid='a_buc_c_BUCStart--tags-select-id'
             hideSelectedOptions={false}
-            id='a-buc-c-bucstart__tags-select-id'
+            id='a_buc_c_BUCStart--tags-select-id'
             isLoading={loading.gettingTagList}
             label={(
               <>
-                <label className='navds-text-field__label navds-label'>
+                <label className='navds-text-field--label navds-label'>
                   {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
                 </label>
                 <VerticalSeparatorDiv />
@@ -631,7 +631,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             <Column>
               <Alert
                 variant='warning'
-                data-test-id='a-buc-c-bucstart__warning-id'
+                data-testid='a_buc_c_BUCStart--warning-id'
               >
                 <BodyLong>
                   {t('message:alert-noDeceased')}
@@ -650,7 +650,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
             <Column>
               <Alert
                 variant='warning'
-                data-test-id='a-buc-c-bucstart__warning-id'
+                data-testid='a_buc_c_BUCStart--warning-id'
               >
                 <BodyLong>
                   {t('message:warning-P_BUC_01-uføretrygd')}
@@ -663,11 +663,11 @@ const BUCStart: React.FC<BUCStartProps> = ({
         </>
       )}
       <VerticalSeparatorDiv size='2' />
-      <div data-test-id='a-buc-c-bucstart__buttons-id'>
+      <div data-testid='a_buc_c_BUCStart--buttons-id'>
         <Button
           variant='primary'
           data-amplitude='buc.new.create'
-          data-test-id='a-buc-c-bucstart__forward-button-id'
+          data-testid='a_buc_c_BUCStart--forward-button-id'
           disabled={_isCreatingBuc || _showWarningBuc01}
           onClick={onForwardButtonClick}
         >
@@ -682,7 +682,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
         <Button
           variant='tertiary'
           data-amplitude='buc.new.cancel'
-          data-test-id='a-buc-c-bucstart__cancel-button-id'
+          data-testid='a_buc_c_BUCStart--cancel-button-id'
           onClick={onCancelButtonClick}
         >{t('ui:cancel')}
         </Button>

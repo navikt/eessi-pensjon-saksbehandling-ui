@@ -15,7 +15,7 @@ const EESSIPensjonVeileder: React.FC<EESSIPensjonVeilederProps> = ({
 }: EESSIPensjonVeilederProps): JSX.Element => (
   <div
     id={id}
-    data-test-id='c-eessipensjonveileder'
+    data-testid='c-eessipensjonveileder'
     className={className}
   >
     <img

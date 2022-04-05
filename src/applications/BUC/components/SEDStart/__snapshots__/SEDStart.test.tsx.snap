@@ -2940,7 +2940,7 @@ ui-fss.g256[id="c0"] {
                 buc:form-sed
               </label>
               <Select
-                data-test-id="a-buc-c-sedstart__sed-select-id"
+                data-testid="a-buc-c-sedstart__sed-select-id"
                 highContrast={false}
                 id="a-buc-c-sedstart__sed-select-id"
                 isSearchable={true}
@@ -2951,11 +2951,11 @@ ui-fss.g256[id="c0"] {
                 value={null}
               >
                 <div
-                  data-test-id="a-buc-c-sedstart__sed-select-id"
+                  data-testid="a-buc-c-sedstart__sed-select-id"
                 >
                   <StateManager
                     className=""
-                    data-test-id="a-buc-c-sedstart__sed-select-id"
+                    data-testid="a-buc-c-sedstart__sed-select-id"
                     defaultInputValue=""
                     defaultMenuIsOpen={false}
                     defaultValue={null}
@@ -2991,7 +2991,7 @@ ui-fss.g256[id="c0"] {
                       closeMenuOnSelect={true}
                       components={Object {}}
                       controlShouldRenderValue={true}
-                      data-test-id="a-buc-c-sedstart__sed-select-id"
+                      data-testid="a-buc-c-sedstart__sed-select-id"
                       escapeClearsValue={false}
                       filterOption={[Function]}
                       formatGroupLabel={[Function]}
@@ -3072,7 +3072,7 @@ ui-fss.g256[id="c0"] {
                             "closeMenuOnSelect": true,
                             "components": Object {},
                             "controlShouldRenderValue": true,
-                            "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                            "data-testid": "a-buc-c-sedstart__sed-select-id",
                             "disabled": undefined,
                             "escapeClearsValue": false,
                             "feil": undefined,
@@ -3201,7 +3201,7 @@ ui-fss.g256[id="c0"] {
                                   "closeMenuOnSelect": true,
                                   "components": Object {},
                                   "controlShouldRenderValue": true,
-                                  "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                  "data-testid": "a-buc-c-sedstart__sed-select-id",
                                   "disabled": undefined,
                                   "escapeClearsValue": false,
                                   "feil": undefined,
@@ -3345,7 +3345,7 @@ ui-fss.g256[id="c0"] {
                                   "closeMenuOnSelect": true,
                                   "components": Object {},
                                   "controlShouldRenderValue": true,
-                                  "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                  "data-testid": "a-buc-c-sedstart__sed-select-id",
                                   "disabled": undefined,
                                   "escapeClearsValue": false,
                                   "feil": undefined,
@@ -3487,7 +3487,7 @@ ui-fss.g256[id="c0"] {
                                         "closeMenuOnSelect": true,
                                         "components": Object {},
                                         "controlShouldRenderValue": true,
-                                        "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                        "data-testid": "a-buc-c-sedstart__sed-select-id",
                                         "disabled": undefined,
                                         "escapeClearsValue": false,
                                         "feil": undefined,
@@ -3615,7 +3615,7 @@ ui-fss.g256[id="c0"] {
                                               "closeMenuOnSelect": true,
                                               "components": Object {},
                                               "controlShouldRenderValue": true,
-                                              "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                              "data-testid": "a-buc-c-sedstart__sed-select-id",
                                               "disabled": undefined,
                                               "escapeClearsValue": false,
                                               "feil": undefined,
@@ -3754,7 +3754,7 @@ ui-fss.g256[id="c0"] {
                                               "closeMenuOnSelect": true,
                                               "components": Object {},
                                               "controlShouldRenderValue": true,
-                                              "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                              "data-testid": "a-buc-c-sedstart__sed-select-id",
                                               "disabled": undefined,
                                               "escapeClearsValue": false,
                                               "feil": undefined,
@@ -3969,7 +3969,7 @@ ui-fss.g256[id="c0"] {
                                         "closeMenuOnSelect": true,
                                         "components": Object {},
                                         "controlShouldRenderValue": true,
-                                        "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                        "data-testid": "a-buc-c-sedstart__sed-select-id",
                                         "disabled": undefined,
                                         "escapeClearsValue": false,
                                         "feil": undefined,
@@ -4092,7 +4092,7 @@ ui-fss.g256[id="c0"] {
                                               "closeMenuOnSelect": true,
                                               "components": Object {},
                                               "controlShouldRenderValue": true,
-                                              "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                              "data-testid": "a-buc-c-sedstart__sed-select-id",
                                               "disabled": undefined,
                                               "escapeClearsValue": false,
                                               "feil": undefined,
@@ -4226,7 +4226,7 @@ ui-fss.g256[id="c0"] {
                                               "closeMenuOnSelect": true,
                                               "components": Object {},
                                               "controlShouldRenderValue": true,
-                                              "data-test-id": "a-buc-c-sedstart__sed-select-id",
+                                              "data-testid": "a-buc-c-sedstart__sed-select-id",
                                               "disabled": undefined,
                                               "escapeClearsValue": false,
                                               "feil": undefined,
@@ -4394,11 +4394,11 @@ ui-fss.g256[id="c0"] {
                 />
               </styled.div>
               <styled.div
-                data-test-id="a-buc-c-sedstart__avdod-div-id"
+                data-testid="a-buc-c-sedstart__avdod-div-id"
               >
                 <div
                   className="c9 c10"
-                  data-test-id="a-buc-c-sedstart__avdod-div-id"
+                  data-testid="a-buc-c-sedstart__avdod-div-id"
                 >
                   <LineVersionPersonIcon
                     color="black"
@@ -4457,7 +4457,7 @@ ui-fss.g256[id="c0"] {
                 aria-describedby="help-country"
                 ariaLabel="ui:country"
                 closeMenuOnSelect={false}
-                data-test-id="a-buc-c-sedstart__country-select-id"
+                data-testid="a-buc-c-sedstart__country-select-id"
                 error={null}
                 flagType="circle"
                 hideSelectedOptions={false}
@@ -6243,7 +6243,7 @@ ui-fss.g256[id="c0"] {
               <MultipleSelect
                 aria-describedby="help-institution"
                 ariaLabel="ui:institution"
-                data-test-id="a-buc-c-sedstart__institution-select-id"
+                data-testid="a-buc-c-sedstart__institution-select-id"
                 hideSelectedOptions={false}
                 highContrast={false}
                 id="a-buc-c-sedstart__institution-select-id"
@@ -11201,7 +11201,7 @@ ui-fss.g256[id="c0"] {
                   </styled.div>
                   <Styled(u)
                     data-amplitude="sed.new.create"
-                    data-test-id="a-buc-c-sedstart__forward-button-id"
+                    data-testid="a-buc-c-sedstart__forward-button-id"
                     disabled={false}
                     onClick={[Function]}
                     spinner={false}
@@ -11209,7 +11209,7 @@ ui-fss.g256[id="c0"] {
                     <u
                       className="c18 c19"
                       data-amplitude="sed.new.create"
-                      data-test-id="a-buc-c-sedstart__forward-button-id"
+                      data-testid="a-buc-c-sedstart__forward-button-id"
                       disabled={false}
                       onClick={[Function]}
                       spinner={false}
@@ -11218,7 +11218,7 @@ ui-fss.g256[id="c0"] {
                         autoDisableVedSpinner={false}
                         className="c18 c19"
                         data-amplitude="sed.new.create"
-                        data-test-id="a-buc-c-sedstart__forward-button-id"
+                        data-testid="a-buc-c-sedstart__forward-button-id"
                         disabled={false}
                         htmlType="submit"
                         inaktivKlasseVedDisabled={false}
@@ -11231,7 +11231,7 @@ ui-fss.g256[id="c0"] {
                         <button
                           className="knapp c18 c19 knapp--hoved"
                           data-amplitude="sed.new.create"
-                          data-test-id="a-buc-c-sedstart__forward-button-id"
+                          data-testid="a-buc-c-sedstart__forward-button-id"
                           disabled={false}
                           onClick={[Function]}
                           type="submit"
@@ -11248,20 +11248,20 @@ ui-fss.g256[id="c0"] {
                   </styled.div>
                   <Styled(u)
                     data-amplitude="sed.new.cancel"
-                    data-test-id="a-buc-c-sedstart__cancel-button-id"
+                    data-testid="a-buc-c-sedstart__cancel-button-id"
                     onClick={[Function]}
                   >
                     <u
                       className="c20 c21"
                       data-amplitude="sed.new.cancel"
-                      data-test-id="a-buc-c-sedstart__cancel-button-id"
+                      data-testid="a-buc-c-sedstart__cancel-button-id"
                       onClick={[Function]}
                     >
                       <p
                         autoDisableVedSpinner={false}
                         className="c20 c21"
                         data-amplitude="sed.new.cancel"
-                        data-test-id="a-buc-c-sedstart__cancel-button-id"
+                        data-testid="a-buc-c-sedstart__cancel-button-id"
                         disabled={false}
                         htmlType="submit"
                         inaktivKlasseVedDisabled={false}
@@ -11274,7 +11274,7 @@ ui-fss.g256[id="c0"] {
                         <button
                           className="knapp c20 c21 knapp--flat"
                           data-amplitude="sed.new.cancel"
-                          data-test-id="a-buc-c-sedstart__cancel-button-id"
+                          data-testid="a-buc-c-sedstart__cancel-button-id"
                           disabled={false}
                           onClick={[Function]}
                           type="submit"

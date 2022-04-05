@@ -1,8 +1,9 @@
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import SEDSearch, { SEDSearchProps } from './SEDSearch'
 
 describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: SEDSearchProps = {
     onSearch: jest.fn(),
     onStatusSearch: jest.fn(),
@@ -10,29 +11,29 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<SEDSearch {...initialMockProps} />)
+    wrapper = render(<SEDSearch {...initialMockProps} />)
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<SEDSearch {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedsearch__panel-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedsearch__query-input-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedsearch__status-select-id\']')).toBeTruthy()
+    expect(screen.getByTestId('a_buc_c_sedsearch--panel-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_sedsearch--query-input-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_sedsearch--status-select-id')).toBeInTheDocument()
   })
 
   it('Handling: query change', () => {
     (initialMockProps.onSearch as jest.Mock).mockReset()
-    wrapper.find('[data-test-id=\'a-buc-c-sedsearch__query-input-id\']').hostNodes().simulate('change', { target: { value: 'mockSearch' } })
+    wrapper.find('[data-testid=\'a_buc_c_sedsearch--query-input-id').hostNodes().simulate('change', { target: { value: 'mockSearch' } })
     expect(initialMockProps.onSearch).toBeCalledWith('mockSearch')
   })
 
   it('Handling: status change', () => {
     (initialMockProps.onStatusSearch as jest.Mock).mockReset()
-    const statusSelect = wrapper.find('[data-test-id=\'a-buc-c-sedsearch__status-select-id\'] input').hostNodes()
+    const statusSelect = wrapper.find('[data-testid=\'a_buc_c_sedsearch--status-select-id\'] input').hostNodes()
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(initialMockProps.onStatusSearch).toBeCalledWith([{ label: 'ui:cancelled', value: 'cancelled' }])

@@ -1,12 +1,13 @@
+import { render } from '@testing-library/react'
 import { alertClear } from 'actions/alert'
 import { closeModal } from 'actions/ui'
 import { ModalContent } from 'declarations/components'
-import { mount, ReactWrapper } from 'enzyme'
+
 import { TopContainer, TopContainerProps, TopContainerSelector } from './TopContainer'
 import { stageSelector } from 'setupTests'
 
 /* jest.mock('use-error-boundary', () => ({
-  __esModule: true, // this property makes it work
+  --esModule: true, // this property makes it work
   default: () => ({
     ErrorBoundary: ({ children }: any) => <div className='mock-error-boundary'>{children}</div>
   })
@@ -48,14 +49,15 @@ jest.mock('actions/ui', () => ({
 }))
 
 describe('components/TopContainer', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: TopContainerProps = {
     header: 'mockHeader'
   }
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(
+    wrapper = render(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
       </TopContainer>
@@ -63,8 +65,12 @@ describe('components/TopContainer', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(
+      <TopContainer {...initialMockProps}>
+        <div id='TEST_CHILD' />
+      </TopContainer>
+    )
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
@@ -78,14 +84,14 @@ describe('components/TopContainer', () => {
   it('Render: client error message', () => {
     (alertClear as jest.Mock).mockReset()
     stageSelector(defaultSelector, { clientErrorMessage: 'mockMessage|mockParams' })
-    wrapper = mount(
+    wrapper = render(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
       </TopContainer>
     )
 
-    expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockMessage|mockParams')
-    wrapper.find('[data-test-id=\'c-alert__close-icon\']').hostNodes().simulate('click')
+    expect(wrapper.find('.alertstripe--tekst').hostNodes().render().text()).toEqual('mockMessage|mockParams')
+    wrapper.find('[data-testid=\'c-alert--close-icon\']').hostNodes().simulate('click')
     expect(alertClear).toHaveBeenCalled()
   })
 
@@ -99,7 +105,7 @@ describe('components/TopContainer', () => {
       }]
     }
     stageSelector(defaultSelector, { modal: mockModal })
-    wrapper = mount(
+    wrapper = render(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
       </TopContainer>

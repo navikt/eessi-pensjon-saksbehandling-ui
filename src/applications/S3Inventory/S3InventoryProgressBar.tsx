@@ -79,10 +79,10 @@ const S3InventoryProgressBar: React.FC<S3InventoryProgressBarProps> = ({
 
   return (
     <FlexDiv
-      data-test-id='w-s3inventory-progress-bar__div-id'
+      data-testid='w-s3inventory-progress-bar--div-id'
     >
       <ProgressBar
-        data-test-id='w-s3inventory-progress-bar__progress-bar-id'
+        data-testid='w-s3inventory-progress-bar--progress-bar-id'
         now={percentage}
         status={_status}
       >
@@ -101,7 +101,7 @@ const S3InventoryProgressBar: React.FC<S3InventoryProgressBarProps> = ({
           <Button
             size='small'
             variant='secondary'
-            data-test-id='w-s3inventory-progress-bar__cancel-button-id'
+            data-testid='w-s3inventory-progress-bar--cancel-button-id'
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault()
               e.stopPropagation()

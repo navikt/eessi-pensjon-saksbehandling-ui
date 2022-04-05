@@ -16,7 +16,7 @@ const MultipleValueRemove = (props: any) => {
     <FlexDiv
       {...innerProps}
       style={{}}
-      data-test-id='c-multipleselect-multiplevalueremove'
+      data-testid='c-multipleselect-multiplevalueremove'
     >
       <ErrorFilled style={{ visibility }} />
     </FlexDiv>

@@ -68,7 +68,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
       <img
         alt={kind}
         className={classNames({ dead: !_.isNil(deathDate) })}
-        data-test-id='w-persontitle__img'
+        data-testid='w-persontitle--img'
         src={src}
         width={40}
       />

@@ -2,49 +2,12 @@
 
 exports[`applications/BUC/components/BUCFooter/BUCFooter Render: match snapshot 1`] = `
 .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: inherit;
-  line-height: inherit;
-  color: !important;
-}
-
-.c3:focus {
-  background-color: !important;
-  color: !important;
-}
-
-.c3 svg {
-  fill: !important;
-  stroke: !important;
-}
-
-.c3 svg path {
-  stroke: !important;
-}
-
-.c3 svg:focus {
-  fill: !important;
-  stroke: !important;
-}
-
-ui-fss.g10[id="c2"] {
-  content: "c3,";
-}
-
-.c5 {
   display: inline-block;
   margin-left: 0.5rem;
 }
 
-ui-fss.g31[id="c4"] {
-  content: "c5,";
+ui-fss.g18[id="c2"] {
+  content: "c3,";
 }
 
 .c1 {
@@ -60,83 +23,41 @@ ui-fss.g31[id="c4"] {
   margin-bottom: 0.5rem;
 }
 
-ui-fss.g50[id="c0"] {
+ui-fss.g39[id="c0"] {
   content: "c1,";
 }
 
-<BUCFooter>
-  <styled.div>
+<div
+  class="c0 c1"
+  data-testid="a_buc_c_BUCFooter"
+>
+  <a
+    class="navds-link"
+    data-amplitude="buc.list.rinaurl"
+    data-testid="a_buc_c_BUCFooter--gotorina_link"
+    href="http://mockurl/rinaUrl"
+    target="rinaWindow"
+  >
+    ui:goToRina
     <div
-      className="c0 c1"
+      class="c2 c3"
+    />
+    <svg
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <Styled(f)
-        data-amplitude="buc.list.rinaurl"
-        data-test-id="a-buc-c-bucfooter__gotorina-link"
-        href="http://mockurl/rinaUrl"
-        onClick={[Function]}
-        target="rinaWindow"
-      >
-        <f
-          className="c2 c3"
-          data-amplitude="buc.list.rinaurl"
-          data-test-id="a-buc-c-bucfooter__gotorina-link"
-          href="http://mockurl/rinaUrl"
-          onClick={[Function]}
-          target="rinaWindow"
-        >
-          <a
-            className="lenke c2 c3"
-            data-amplitude="buc.list.rinaurl"
-            data-test-id="a-buc-c-bucfooter__gotorina-link"
-            href="http://mockurl/rinaUrl"
-            onClick={[Function]}
-            rel="noopener"
-            target="rinaWindow"
-          >
-            ui:goToRina
-            <styled.div
-              size="0.5"
-            >
-              <div
-                className="c4 c5"
-                size="0.5"
-              />
-            </styled.div>
-            <LogoutIcon
-              color="#0067c5"
-            >
-              <svg
-                color="#0067c5"
-                contentScriptType="text/ecmascript"
-                contentStyleType="text/css"
-                enableBackground="new 0 0 24 24"
-                height="24px"
-                id="Outline_Version"
-                preserveAspectRatio="xMidYMid meet"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24px"
-                x="0px"
-                xmlns="http://www.w3.org/2000/svg"
-                y="0px"
-                zoomAndPan="magnify"
-              >
-                <g
-                  fill="#0067c5"
-                >
-                  <path
-                    d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
-                  />
-                  <path
-                    d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
-                  />
-                </g>
-              </svg>
-            </LogoutIcon>
-          </a>
-        </f>
-      </Styled(f)>
-    </div>
-  </styled.div>
-</BUCFooter>
+      <path
+        clip-rule="evenodd"
+        d="M20.586 2H14V0h10v10h-2V3.414L10.707 14.707l-1.414-1.414L20.586 2zM0 5a2 2 0 012-2h8.5v2H2v17h17v-8.5h2V22a2 2 0 01-2 2H2a2 2 0 01-2-2V5z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </a>
+</div>
 `;

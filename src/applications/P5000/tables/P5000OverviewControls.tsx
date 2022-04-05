@@ -137,8 +137,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
           <FlexEndDiv>
             <Switch
               checked={mergePeriods}
-              id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
-              data-test-id='a-buc-c-sedstart__p5000-overview-merge-checkbox'
+              id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
+              data-testid='a_buc_c_sedstart--p5000-overview-merge-checkbox'
               onChange={() => setMergePeriods(!mergePeriods)}
             >
               <FlexCenterDiv>
@@ -160,7 +160,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 <MultipleSelect<Option>
                   ariaLabel={t('p5000:merge-period-type')}
                   aria-describedby='help-tags'
-                  data-test-id='a-buc-c-p5000overview__types-select-id'
+                  data-testid='a_buc_c_p5000overview--types-select-id'
                   hideSelectedOptions={false}
                   onSelect={onMergeTypesChange}
                   options={mergeTypeOptions}
@@ -183,7 +183,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 <MultipleSelect<Option>
                   ariaLabel={t('p5000:merge-period-beregning')}
                   aria-describedby='help-tags'
-                  data-test-id='a-buc-c-p5000overview__beregnings-select-id'
+                  data-testid='a_buc_c_p5000overview--beregnings-select-id'
                   hideSelectedOptions={false}
                   onSelect={onMergeBeregningsChange}
                   options={mergeBeregningOptions}
@@ -256,8 +256,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               <FlexCenterDiv>
                 <Switch
                   checked={useGermanRules}
-                  id='a-buc-c-sedstart__p5000-overview-usegerman-switch'
-                  data-test-id='a-buc-c-sedstart__p5000-overview-usegerman-switch'
+                  id='a_buc_c_sedstart--p5000-overview-usegerman-switch'
+                  data-testid='a_buc_c_sedstart--p5000-overview-usegerman-switch'
                   onChange={() => setUseGermanRules(!useGermanRules)}
                 >
                   {t('message:warning-german-alert')}
